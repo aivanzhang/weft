@@ -230,6 +230,9 @@ normal_continuity optionally repairs authored surface shading/fur directions usi
 Use up to4 records {name,materials,reference_materials,max_distance_m,min_vertices,max_vertices}; exact observed names,
 disjoint target/reference ownership, distance0–.03m and at most10000 total target vertices. It transfers nearby normals,
 not geometry or textures. Use only for a verified seam/cap with a justified reference surface, never arbitrary whole-model smoothing.
+Each transferred corner must face outward relative to its own polygon; inward/tangent transfers and degenerate target
+faces reject before normal mutation. A cap material can include original repainted faces. Do not flip normals or broaden
+selectors to evade rejection; fix the diagnosed surface/reference or report unsupported. Rejection witnesses are retained.
 
 MOTIONS: authored_actions is one object per planned state, in the same order: {id,keys}, optionally interpolation:LINEAR.
 For each structured state include action_bindings:[{state_id,roles:[{id,root_bone,bones}]}] in state/role order.

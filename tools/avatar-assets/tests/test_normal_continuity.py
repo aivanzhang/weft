@@ -9,7 +9,7 @@ from unittest.mock import patch
 import numpy as np
 
 from avatar_assets.normal_continuity import (
-    FACE_ATTRIBUTE, POINT_ATTRIBUTE, plan_normal_continuity, validate_normal_continuity,
+    FACE_ATTRIBUTE, POINT_ATTRIBUTE, NormalContinuityError, plan_normal_continuity, validate_normal_continuity,
 )
 from scripts.blender_normal_continuity import apply_normal_continuity
 
@@ -143,6 +143,73 @@ class NormalContinuityTests(unittest.TestCase):
         np.testing.assert_array_equal(result['corner_normals'][:3], normals[:3])
         np.testing.assert_array_equal(result['corner_normals'][3:], [[0, 0, 1]]*3)
         self.assertEqual(result['report']['point_normal_cancellation_fallbacks'], 1)
+
+    def test_each_transferred_corner_must_face_outward_even_if_mean_is_positive(self):
+        for bad_normal in ([0, 0, -1], [1, 0, 0]):
+            values = list(geometry())
+            values[-1][0] = bad_normal
+            original = deepcopy(values)
+            with self.subTest(normal=bad_normal), self.assertRaises(NormalContinuityError) as error:
+                plan_normal_continuity(*values, [config()])
+            report = error.exception.report
+            self.assertEqual(report['outside_hemisphere_corners'], 1)
+            self.assertEqual(report['degenerate_faces'], 0)
+            self.assertEqual(report['witnesses'][0]['corner'], 3)
+            self.assertEqual(report['witnesses'][0]['face'], 1)
+            json.dumps(report, allow_nan=False)
+            for actual, before in zip(values, original):
+                np.testing.assert_array_equal(actual, before)
+
+    def test_polygon_area_handles_collinear_first_three_corners_and_scale(self):
+        polygon = np.array([[0., 0, 0], [.5, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]])
+        for scale in (1e-6, 1, 1e5):
+            points = np.concatenate((polygon, polygon))*scale
+            result = plan_normal_continuity(points, [list(range(5)), list(range(5, 10))],
+                [0, 1], ['surface', 'cap'], [[0, 0, 1]]*10,
+                [config(max_distance_m=0, min_vertices=5, max_vertices=5)])
+            self.assertEqual(result['report']['corrections'][0]['hemisphere_check']['minimum_face_dot'], 1)
+
+    def test_degenerate_or_cancelling_changed_polygons_fail_without_guessing(self):
+        for polygon in ([[0, 0, 0], [1, 0, 0], [2, 0, 0]],
+                        [[0, 0, 0], [1, 1, 0], [1, 0, 0], [0, 1, 0]]):
+            count = len(polygon)
+            with self.subTest(polygon=polygon), self.assertRaises(NormalContinuityError) as error:
+                plan_normal_continuity(polygon+polygon,
+                    [list(range(count)), list(range(count, count*2))], [0, 1], ['surface', 'cap'],
+                    [[0, 0, 1]]*(count*2),
+                    [config(max_distance_m=0, min_vertices=count, max_vertices=count)])
+            report = error.exception.report
+            self.assertEqual(report['degenerate_faces'], 1)
+            self.assertIsNone(report['minimum_face_dot'])
+            json.dumps(report, allow_nan=False)
+
+    def test_rejection_witnesses_are_bounded_and_disabled_transfer_is_unchanged(self):
+        points, faces, slots, names, normals = geometry()
+        normals[:3] = [0, 0, -1]
+        copies = 12
+        points = np.tile(points, (copies, 1))
+        faces = np.concatenate([faces+i*9 for i in range(copies)])
+        slots, normals = slots*copies, np.tile(normals, (copies, 1))
+        with self.assertRaises(NormalContinuityError) as error:
+            plan_normal_continuity(points, faces, slots, names, normals,
+                [config(min_vertices=copies*3, max_vertices=copies*3)])
+        self.assertEqual(error.exception.report['outside_hemisphere_corners'], 36)
+        self.assertEqual(len(error.exception.report['witnesses']), 32)
+        disabled = plan_normal_continuity(points, faces, slots, names, normals, [])
+        np.testing.assert_array_equal(disabled['corner_normals'], normals)
+
+    def test_hemisphere_rejection_precedes_all_native_mutations(self):
+        value = obj()
+        value.data.corner_normals[0].vector = (0, 0, -1)
+        original = deepcopy(value.data)
+        with self.assertRaises(NormalContinuityError):
+            apply_normal_continuity(value, [config()])
+        self.assertEqual((value.data.normal_writes, value.data.updates), (0, 0))
+        self.assertFalse(value.data.attributes)
+        self.assertEqual(value.data.vertices, original.vertices)
+        self.assertEqual(value.data.corner_normals, original.corner_normals)
+        self.assertFalse(any(face.use_smooth for face in value.data.polygons))
+        np.testing.assert_array_equal(value.data.uv_layers[0].data.values, original.uv_layers[0].data.values)
 
     def test_invalid_geometry_bounds_and_ambiguous_materials_fail(self):
         values = geometry()

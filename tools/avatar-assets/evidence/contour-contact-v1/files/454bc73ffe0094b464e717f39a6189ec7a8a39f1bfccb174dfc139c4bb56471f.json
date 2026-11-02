@@ -1,0 +1,221 @@
+{
+  "actual_witness_coverage": {
+    "covered": 17,
+    "includes_actual_closure_hits": 2,
+    "total": 17
+  },
+  "additional_exact_source_faces": [
+    [
+      0,
+      1579
+    ],
+    [
+      0,
+      2384
+    ],
+    [
+      0,
+      2395
+    ],
+    [
+      0,
+      2571
+    ],
+    [
+      0,
+      3128
+    ],
+    [
+      0,
+      3336
+    ],
+    [
+      0,
+      3411
+    ]
+  ],
+  "additional_measured_subpixel_faces": 7,
+  "candidate_faces": 1487,
+  "current_model_sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2",
+  "current_normal_routes": [
+    {
+      "normal_texture": {
+        "index": 9
+      },
+      "primitive": 5,
+      "uv0_uv1_equal": true
+    },
+    {
+      "normal_texture": {
+        "index": 11,
+        "texCoord": 1
+      },
+      "primitive": 6,
+      "uv0_uv1_equal": false
+    }
+  ],
+  "elapsed_seconds": 1.7580212918110192,
+  "explicit_light_witness_overrides": [
+    [
+      0,
+      5189
+    ]
+  ],
+  "frozen_grid_face_coverage": {
+    "268,365": {
+      "misses": 7,
+      "rays": 49,
+      "selected": 42
+    },
+    "271,361": {
+      "rays": 49,
+      "selected": 49
+    },
+    "287,403": {
+      "rays": 49,
+      "selected": 49
+    },
+    "301,340": {
+      "protected_white": 4,
+      "rays": 49,
+      "selected": 45
+    }
+  },
+  "frozen_grid_scope": "Coverage of recorded first-visible triangle IDs only, not a prediction of EEVEE TAA or repaired output pixels.",
+  "future_mutation_contract": {
+    "allowed": [
+      "selected face UV0",
+      "duplicate identical source corner rows for explicit seams",
+      "selected textured material clones",
+      "copied original UV0 as UV1 on clones",
+      "selected-clone non-basecolor texCoord1"
+    ],
+    "new_textured_materials": [
+      "body_surface__contact_uv_dark_v1",
+      "body_cap__contact_uv_dark_v1"
+    ],
+    "preserve": [
+      "all geometric triangle positions",
+      "NORMAL",
+      "TANGENT",
+      "skin",
+      "animations",
+      "original materials",
+      "original image bytes",
+      "all unselected UV0",
+      "existing UV1 if present"
+    ],
+    "requires": [
+      "Rebuild native/portable fur colors from repaired source UV0",
+      "Keep selected material undercoat handling explicit; overlapping UV0 must use authored UV1 or fail",
+      "Independent source normal/geometry fixes composed using exact face mapping",
+      "Native basecolor/appearance review before acceptance"
+    ]
+  },
+  "geometry_healthy_reference_faces": 132,
+  "geometry_healthy_reference_intersection": [],
+  "geometry_repair_intersection": [],
+  "geometry_repair_target_faces": 125,
+  "image_edited": false,
+  "limitations": [
+    "Dense 91-point color sampling is a discovery aid, not complete texture integration; exact actual witnesses override it.",
+    "The observed light defect is an explicit authored dark-surface exception, not inferred anatomy.",
+    "This selected set covers all17 confirmed pixels and recorded dark closure loops, not all future views or unseen contact paint.",
+    "No geometry/topology/normal defect is repaired by a UV edit."
+  ],
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 512,
+    "output_mb": 64,
+    "seconds": 30,
+    "texture_decodes": 0
+  },
+  "model_edited": false,
+  "outside_region_selected": 0,
+  "palette": {
+    "all_pixels_checked": 16384,
+    "core_pixel_rect": [
+      1660,
+      380,
+      1668,
+      388
+    ],
+    "filter_scope": "Every source texel in padded rectangle meets gates; positive bilinear/BOX-mip combinations inside it stay within extrema. Trilinear support bound is conservative. GPU anisotropy, cross-face antialiasing and larger LOD are not certified.",
+    "max_per_pixel_green_excess": 0.00784313678741455,
+    "max_per_pixel_srgb_chroma": 0.02352941408753395,
+    "max_rgb8": [
+      16,
+      16,
+      19
+    ],
+    "maximum_certified_trilinear_lod": 4,
+    "mean_srgb": [
+      0.05511195585131645,
+      0.05788116529583931,
+      0.06535239517688751
+    ],
+    "min_rgb8": [
+      9,
+      10,
+      10
+    ],
+    "padding_texels": 60,
+    "score": 0.000747084418223534,
+    "source_pixel_rect": [
+      1600,
+      320,
+      1728,
+      448
+    ],
+    "uv_triangle_blender_v_up": [
+      [
+        0.4053955078125,
+        0.9071044921875
+      ],
+      [
+        0.4071044921875,
+        0.9071044921875
+      ],
+      [
+        0.4053955078125,
+        0.9053955078125
+      ]
+    ],
+    "uv_triangle_gltf_v_down": [
+      [
+        0.4053955078125,
+        0.0928955078125
+      ],
+      [
+        0.4071044921875,
+        0.0928955078125
+      ],
+      [
+        0.4053955078125,
+        0.0946044921875
+      ]
+    ],
+    "variance_srgb": [
+      6.949359885766171e-06,
+      4.278780124877812e-06,
+      1.0963192835333757e-05
+    ]
+  },
+  "parent_summary_sha256": "6f65277e7d5df06e843529a5714827ad2d7f3a5a5ecbaf1b13d5ce33296fa928",
+  "prior_palette_reused_sha256": "6f65277e7d5df06e843529a5714827ad2d7f3a5a5ecbaf1b13d5ce33296fa928",
+  "protected_white_candidate_faces": 244,
+  "protected_white_intersection": 0,
+  "quality_approved": false,
+  "region_expanded": false,
+  "schema_version": 1,
+  "selected_area_m2": 0.03270396556353232,
+  "selected_companion_faces": 0,
+  "selected_faces": 249,
+  "self_peak_rss_bytes": 419774464,
+  "source_correspondence": "Unique oriented face positions + UV corners <=2e-7; no normal/color/desired-weight tie breaking",
+  "source_model_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "prepared_v2_explicit_source_uv_repair",
+  "texture_decode_calls": 0,
+  "texture_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+  "thresholds_changed": false
+}

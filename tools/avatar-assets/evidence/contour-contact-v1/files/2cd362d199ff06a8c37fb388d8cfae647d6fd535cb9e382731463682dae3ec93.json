@@ -1,0 +1,264 @@
+{
+  "byte_audit_conclusion": "Only mapped tip POSITION rows and their six min/max components changed. Roots, body, normals, UVs, joint/weight data, skin, animations, materials and textures are exact. Existing root-motion equivalence follows byte identity; no new pose audit performed.",
+  "cheek_normal_control": {
+    "attribution": "Normals contribute to the shading defect, but source-normal restoration alone does not produce a smooth-looking cheek. Remaining geometry/custom-normal interaction is not separated into a unique cause by this pair.",
+    "bound_native_evidence": "594 selected corners on198faces exactly match source-v7 normals; nonselected normals exact; geometry/UV unchanged. Root report says baseline pixels exactly match prior gray control; this review did not repeat that unchanged check.",
+    "decision": "not_repaired",
+    "limited_to": "Plain gray material control; not a final textured model or geometry repair",
+    "observation": "Source normals reduce black/pitted contrast in the viewer-left cheek cluster; the raised angular/scalloped patch remains plainly visible."
+  },
+  "comparison_limit": "The renderer refits its camera to changed bounds, so prior/candidate images are not a pixel-registered A/B. No pixel-difference quality threshold is invented.",
+  "independent_byte_audit": {
+    "bytes": 2010,
+    "path": "outputs/panda-regional-fringe-independent-review-v2/audit-result.json",
+    "sha256": "e26c4b17736cb1b939ef8d79a64bcc63c9f951fc3af3f9536f07dfd2ce73993a"
+  },
+  "measured_resources": {
+    "aggregate_cpu_screen_wall_seconds": 0.526,
+    "cpu_measurement_platform": "macOS getrusage ru_maxrss in bytes",
+    "cpu_self_reported_high_water_rss_bytes": 111460352,
+    "independent_cpu_check_wall_seconds": 0.262,
+    "native_scope": "All native executions owned by root; no native call made by this reviewer",
+    "parent_cheek_native_wall_seconds": 2.079,
+    "parent_cheek_sampled_peak_rss_bytes": 846905344,
+    "parent_regional_native_wall_seconds": 3.376,
+    "parent_regional_sampled_peak_rss_bytes": 1029079040,
+    "preserved_launcher_failure_wall_seconds": 0.264,
+    "sampled_cpu_rss_bytes": null,
+    "sampling_note": "Process ended before the first0.25sRSS sample."
+  },
+  "method": "Direct original-resolution inspection of two720px gray controls, all four720px regional rest views and four actual exported poses, plus prior front/three-quarter/back and1.36s pose. No generated or edited images in this review.",
+  "next_action_scope": "Retain regional contour as an experimental candidate. Contact-surface/color defects still require a separately tested correction; no broader renderer/quality acceptance follows.",
+  "regional_fur": {
+    "not_claimed": [
+      "Muse parity",
+      "dense native-hair parity",
+      "full video or all-frame motion acceptance",
+      "seamless loop",
+      "collision correctness",
+      "new source anatomy",
+      "browser/GPU equivalence"
+    ],
+    "observation": "Shorter, regionally directed tips remove most of the comb-like stubble around ears, cheek rim, belly, limbs and tail. The silhouette is cleaner and rounder than the previous tips.",
+    "rest_views": {
+      "back": "Cleaner edges but broad smooth coat surfaces; existing long tail stem/ball shape and tiny green remnant near its base remain.",
+      "front": "Recognizable panda/dragon, cleaner belly and ear edges; the companion occludes much of the damaged contact area.",
+      "side": "Smooth short-pile contour; no newly visible detached fur. This view does not expose the damaged cheek contact.",
+      "three-quarter": "Cleaner round head/ear and tail contour. Existing long protruding tail shape is unchanged."
+    },
+    "sampled_identity_preserved": true,
+    "sampled_poses": [
+      {
+        "decision": "no new gross coat defect observed; existing cheek patch and green/light shoulder marks visible",
+        "second": 0.36
+      },
+      {
+        "decision": "dragon visibly separated; cheek patch and exposed shoulder marks remain conspicuous",
+        "second": 1.36
+      },
+      {
+        "decision": "dragon farther from shoulder; same contact defects remain, no new gross detached tufts/spikes observed",
+        "second": 2.36
+      },
+      {
+        "decision": "dragon approaches shoulder; remaining visible contact marks unchanged in kind",
+        "second": 3.36
+      }
+    ],
+    "tradeoff": "Reads as smooth short plush, not increased density or resolved individual hair. Less long fringe also reduces the fuzzy edge impression.",
+    "visible_contour_improvement": true,
+    "whole_avatar_accepted": false
+  },
+  "reviewed_at": "2026-11-01T23:21:13.849214-08:00",
+  "reviewer": "Independent visual and byte-custody review; no authoring or render execution",
+  "schema_version": 1,
+  "source_evidence": [
+    {
+      "bytes": 37104,
+      "path": "outputs/panda-cheek-normal-ablation-v1/normal-ablation.json",
+      "sha256": "21a2f90f1245affb2afe5720aa4340948c7fb82ed8c627de9c0dfb6dc4ac4458"
+    },
+    {
+      "bytes": 1370,
+      "path": "outputs/panda-cheek-normal-ablation-v1/native-monitor.json",
+      "sha256": "9667c42dd0a7f22a222d69b5ff241cb82abc3ce94b646af9f2e58dbba9ed8a55"
+    },
+    {
+      "bytes": 1534,
+      "path": "outputs/panda-regional-fringe-preview-v1/native-monitor.json",
+      "sha256": "5082ce0723d95201c6bf650f9ba9ec2bf5380aad8898b5043209b1e7eb288ba9"
+    },
+    {
+      "bytes": 10607,
+      "path": "outputs/panda-regional-fringe-preview-v1/native-inspection.json",
+      "sha256": "74894cfa20411879af040ded2da6ccc1aa6d5d234967954b1e00b1584a7b113e"
+    },
+    {
+      "bytes": 2603,
+      "path": "outputs/panda-regional-fringe-candidate-v1/byte-audit.json",
+      "sha256": "b5f3f59dcb3783e1f4c49825fcd490e21c1273fea5cd6a19728dd59ee05fa42c"
+    },
+    {
+      "bytes": 1201,
+      "path": "outputs/panda-contact-ablation-independent-review-v1/manifest-v2.json",
+      "sha256": "e6044f901614220e10d531a95efb6c6f999ef727d64ca3087ed085481e4e0d6f"
+    }
+  ],
+  "status": "contour_improvement_only_contact_defects_unresolved",
+  "viewed_images": [
+    {
+      "bytes": 355285,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-cheek-normal-ablation-v1/baseline_gray.png",
+      "review_role": "cheek controlled normal ablation",
+      "sha256": "b81c706a77bb96fc896fef83fecc4d17fe454c542992209d2f1a4adee7d80139"
+    },
+    {
+      "bytes": 354547,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-cheek-normal-ablation-v1/source_normals_gray.png",
+      "review_role": "cheek controlled normal ablation",
+      "sha256": "48199d38bf24d66a3b556f30c95832ead87c32c1d5a7e290448f20a52b2321de"
+    },
+    {
+      "bytes": 452522,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-regional-fringe-preview-v1/front.png",
+      "review_role": "regional candidate",
+      "sha256": "00a3fa750b0405fae3ac0ad8e2adce68ce1ea60bac84090db40dec82abcb2574"
+    },
+    {
+      "bytes": 438182,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-regional-fringe-preview-v1/three-quarter.png",
+      "review_role": "regional candidate",
+      "sha256": "334c3ec6a3939ef32e3080abeb689d9015db459e44ff61d8024390a1c78278a1"
+    },
+    {
+      "bytes": 420329,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-regional-fringe-preview-v1/back.png",
+      "review_role": "regional candidate",
+      "sha256": "db6c79479b6b34a0c25720e6236724f011d33e66fbba2469365685e896df0800"
+    },
+    {
+      "bytes": 398842,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-regional-fringe-preview-v1/side.png",
+      "review_role": "regional candidate",
+      "sha256": "d1330be323ffa0e9b3e704387cb1729103605f2123abfba37e8e363939b14857"
+    },
+    {
+      "bytes": 379204,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-regional-fringe-preview-v1/renders/dance_flight/0000.png",
+      "review_role": "regional candidate",
+      "sha256": "c97d0eed94d19cfe6f5f4722b939ec989f7580428af20a0f02e72eb5ffc6bed3"
+    },
+    {
+      "bytes": 387098,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-regional-fringe-preview-v1/renders/dance_flight/0001.png",
+      "review_role": "regional candidate",
+      "sha256": "f6615d74ad538d9e892aee28684fca81859d7265c453ded17c22683467ca7b62"
+    },
+    {
+      "bytes": 381000,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-regional-fringe-preview-v1/renders/dance_flight/0002.png",
+      "review_role": "regional candidate",
+      "sha256": "2e72b30a4ce7edb87db100277776f6b627003c1cb41f84d952ee1549f2472825"
+    },
+    {
+      "bytes": 380999,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-regional-fringe-preview-v1/renders/dance_flight/0003.png",
+      "review_role": "regional candidate",
+      "sha256": "2fe68576bbf5c5ca109e88f9673b4ccd93f90c774ad5de7b544dc0a9dfd68cbb"
+    },
+    {
+      "bytes": 457439,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-staged-portable-preview-v1/front.png",
+      "review_role": "prior contour comparison",
+      "sha256": "ad9bcd4e5c07268850c88473e4c04e0fda2d23d1525af61a6770489dc5b39864"
+    },
+    {
+      "bytes": 442194,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-staged-portable-preview-v1/three-quarter.png",
+      "review_role": "prior contour comparison",
+      "sha256": "ba49c67edcb50c8839c935a5bd933bbed0f1bba25225115dac7254b1224f4280"
+    },
+    {
+      "bytes": 426281,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-staged-portable-preview-v1/back.png",
+      "review_role": "prior contour comparison",
+      "sha256": "9b0af16b06fac503f7ceced68292ff4b1951161d6df4741b30817614fb381cdf"
+    },
+    {
+      "bytes": 389677,
+      "dimensions": [
+        720,
+        720
+      ],
+      "mode": "RGB",
+      "path": "outputs/panda-staged-portable-preview-v1/renders/dance_flight/0001.png",
+      "review_role": "prior contour comparison",
+      "sha256": "be10e95ef674eabe1c7c1a627092a23747fd96a242d0ea8bcc5201d61efe75de"
+    }
+  ]
+}

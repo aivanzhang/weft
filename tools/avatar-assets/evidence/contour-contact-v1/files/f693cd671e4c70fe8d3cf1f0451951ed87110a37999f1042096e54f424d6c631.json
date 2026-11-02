@@ -1,0 +1,71 @@
+{
+  "addition_pool_source_faces": [
+    [
+      0,
+      4953
+    ],
+    [
+      0,
+      5006
+    ],
+    [
+      0,
+      5699
+    ],
+    [
+      0,
+      6015
+    ]
+  ],
+  "invariant": "No tested face includes any of the three original bad vertices; all remaining seed faces stay required",
+  "limitation": "Moving the patch boundary off inherited bad junctions does not repair those junctions in the untouched original body",
+  "mandatory_remove_source_faces": [
+    [
+      2,
+      85
+    ],
+    [
+      2,
+      87
+    ],
+    [
+      2,
+      102
+    ],
+    [
+      2,
+      293
+    ],
+    [
+      2,
+      294
+    ],
+    [
+      2,
+      295
+    ],
+    [
+      2,
+      296
+    ],
+    [
+      2,
+      297
+    ],
+    [
+      2,
+      298
+    ]
+  ],
+  "max_added_faces": 2,
+  "max_candidate_faces": 1000,
+  "max_candidate_tests": 1024,
+  "minimality_scope": "Mandatory removals are necessary under the stated healthy-global-vertex and no-interior-external-attachment constraints; optional additions tested in cardinality order",
+  "protected_primitives": [
+    1,
+    3
+  ],
+  "seed_component": 0,
+  "seed_faces": 124,
+  "selection_scope": "Remove only seed faces incident on the three known bad junctions, then consider at most two healthy faces adjacent to those exact fans"
+}

@@ -1,0 +1,104 @@
+{
+  "added_source_faces": [
+    [
+      0,
+      1579
+    ],
+    [
+      0,
+      2384
+    ],
+    [
+      0,
+      2395
+    ],
+    [
+      0,
+      2571
+    ],
+    [
+      0,
+      3128
+    ],
+    [
+      0,
+      3336
+    ],
+    [
+      0,
+      3411
+    ]
+  ],
+  "expected_selected_faces": 249,
+  "expected_vertices": 51376,
+  "inputs": [
+    {
+      "bytes": 26414540,
+      "path": "outputs/companion-separation-v7/diagnostic-model.glb",
+      "role": "source",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    {
+      "bytes": 28080560,
+      "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "role": "candidate",
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e"
+    },
+    {
+      "bytes": 382527,
+      "path": "outputs/panda-shoulder-uv-repair-preparation-v2/face-selector.json",
+      "role": "selector",
+      "sha256": "7050fe9016018a5e8abe0796a4d2e4e892af7f0dbf115990dcbe696eddd17b55"
+    },
+    {
+      "bytes": 5666,
+      "path": "outputs/panda-shoulder-uv-repair-preparation-v2/summary.json",
+      "role": "plan",
+      "sha256": "454bc73ffe0094b464e717f39a6189ec7a8a39f1bfccb174dfc139c4bb56471f"
+    },
+    {
+      "bytes": 1051386,
+      "path": "outputs/panda-shoulder-uv-repair-plan-v1/candidate-census.json",
+      "role": "census",
+      "sha256": "009cb3a23f1678ca2a5ffa08cc0d33e451c84a200b1da2d26f69295fe4912017"
+    },
+    {
+      "bytes": 298853,
+      "path": "outputs/panda-shoulder-uv-repair-v2/correspondence.npz",
+      "role": "correspondence",
+      "sha256": "f17f64f2fff0f42648e6cead3dc9f8ec1d53f306c54b7a8f9948f1cab5c982c7"
+    },
+    {
+      "bytes": 1094,
+      "path": "outputs/panda-shoulder-uv-repair-v2/manifest.json",
+      "role": "candidate_manifest",
+      "sha256": "d44feb85a28a505f4b00c3ffd781e0cc9232cbe6776834656618f9651227cc29"
+    },
+    {
+      "bytes": 456124,
+      "path": "outputs/panda-shoulder-uv-repair-v2/native-color-payload-v2.json",
+      "role": "native_payload",
+      "sha256": "3b3cbd08529830fb0836d63a562a9465aa7dee76f1a7baff42a68ff531940768"
+    },
+    {
+      "bytes": 368751,
+      "path": "outputs/panda-shoulder-uv-repair-plan-v1/face-selector.json",
+      "role": "original_selector",
+      "sha256": "c0be51e358a1909c9a451cee6d76d951678ed32f8cfa15c42c910359e0fb0e67"
+    },
+    {
+      "bytes": 4612,
+      "path": "outputs/panda-shoulder-uv-repair-plan-v1/summary.json",
+      "role": "original_plan",
+      "sha256": "6f65277e7d5df06e843529a5714827ad2d7f3a5a5ecbaf1b13d5ce33296fa928"
+    },
+    {
+      "bytes": 36072824,
+      "path": "outputs/panda-staged-portable-model-v1/model.glb",
+      "role": "current",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    }
+  ],
+  "safe_loader_sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc",
+  "schema_version": 1
+}

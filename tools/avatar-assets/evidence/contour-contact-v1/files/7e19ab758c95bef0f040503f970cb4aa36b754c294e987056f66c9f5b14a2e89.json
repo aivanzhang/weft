@@ -1,0 +1,93 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-preparation-v2/produce.py"
+  ],
+  "inputs": {
+    "geometry_selector": {
+      "bytes": 160051,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-cheek-targeted-selection-v2/candidate.json",
+      "sha256": "02affbfc837e3dc94dfed1a8ad37187e4f6062cb5a16ec65c596364f55f74ff8"
+    },
+    "parent_v1_manifest": {
+      "bytes": 1256,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v1/manifest.json",
+      "sha256": "90fc26fe1f539367762de0d1339c701c8155df732512f145fb1ea2e1baa42400"
+    },
+    "parent_v1_model": {
+      "bytes": 28079528,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v1/model.glb",
+      "sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528"
+    },
+    "plan_manifest": {
+      "bytes": 2352,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-plan-v1/manifest.json",
+      "sha256": "d7064ce97e5861aef65c461fc9f536d43e42d36d66b7a042e700d2b5bcd300bc"
+    },
+    "residual_review": {
+      "bytes": 21926,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-residual-face-review-v1/review.json",
+      "sha256": "5a7f82b31eefe11937bd31f75dc07e3770c177999d81793da714c176c0f9986d"
+    },
+    "selection_delta": {
+      "bytes": 13580,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-preparation-v2/selection-delta.json",
+      "sha256": "294ad0c2a9978009fbe817584327a46db51bab7d1101220995389fad0a25744d"
+    },
+    "selector": {
+      "bytes": 382527,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-preparation-v2/face-selector.json",
+      "sha256": "7050fe9016018a5e8abe0796a4d2e4e892af7f0dbf115990dcbe696eddd17b55"
+    },
+    "source": {
+      "bytes": 26414540,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/diagnostic-model.glb",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    "summary": {
+      "bytes": 5666,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-preparation-v2/summary.json",
+      "sha256": "454bc73ffe0094b464e717f39a6189ec7a8a39f1bfccb174dfc139c4bb56471f"
+    },
+    "trace": {
+      "bytes": 478156,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-subpixel-attribution-v1/subpixel-attribution.json",
+      "sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0"
+    }
+  },
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 512,
+    "output_mb": 64,
+    "seconds": 30,
+    "texture_decodes": 0
+  },
+  "output": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v2",
+  "parent_worker_sha256": "a9444ae3c4163341944bf638d29aadf0092dcb299f7e73c775b878e9277899bc",
+  "prepared_at": "2026-11-02T00:21:42.324733-08:00",
+  "schema_version": 1,
+  "scope": "One v2 candidate: immutable v7 plus original242 UV faces and7 explicitly authorized measured dark contributors. Same palette/material/UV1 policy; protected-white face5167 and all244 protection decisions unchanged.",
+  "sources": [
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    }
+  ],
+  "worker_sha256": "36a7779e127d82ffa2bacc1f023ed20e4ff4a0ef328c6fa716ee8d439585613d"
+}

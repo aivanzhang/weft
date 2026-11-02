@@ -1,0 +1,422 @@
+{
+  "adapter_mutation_attempts": [],
+  "asset_quality_accepted": false,
+  "config": [
+    {
+      "materials": [
+        "body_cap"
+      ],
+      "max_distance_m": 0.015,
+      "max_vertices": 3000,
+      "min_vertices": 800,
+      "name": "vacated-shoulder-continuity",
+      "reference_materials": [
+        "body_surface"
+      ]
+    }
+  ],
+  "elapsed_seconds": 0.5615840409882367,
+  "guard_report_sha256": "83970b7a87e4ec943170c90d5d168ec3fa61feee11086d4432b68dd5cc1cbb7d",
+  "independent_counts": {
+    "checked_corners": 1095,
+    "checked_faces": 369,
+    "degenerate_faces": 0,
+    "legacy_plan_status": "planned",
+    "method": "Independent triangle cross-product; transferred values from immutable pre-guard planner",
+    "minimum_face_dot": -0.9998156743452801,
+    "outside_hemisphere_corners": 172,
+    "source_primitive_ranges": [
+      {
+        "face_start": 0,
+        "faces": 34694,
+        "material": 0,
+        "primitive": 0,
+        "vertex_start": 0,
+        "vertices": 24306
+      },
+      {
+        "face_start": 34694,
+        "faces": 27205,
+        "material": 1,
+        "primitive": 1,
+        "vertex_start": 24306,
+        "vertices": 24703
+      },
+      {
+        "face_start": 61899,
+        "faces": 369,
+        "material": 2,
+        "primitive": 2,
+        "vertex_start": 49009,
+        "vertices": 1107
+      },
+      {
+        "face_start": 62268,
+        "faces": 313,
+        "material": 3,
+        "primitive": 3,
+        "vertex_start": 50116,
+        "vertices": 939
+      }
+    ]
+  },
+  "independently_checked_witnesses": [
+    {
+      "corner": 185782,
+      "dot": -0.745601419141362,
+      "face": 61927,
+      "independent_dot": -0.745601419141362,
+      "primitive_triangle": 28,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49336
+    },
+    {
+      "corner": 185794,
+      "dot": -0.4794057155260276,
+      "face": 61931,
+      "independent_dot": -0.4794057155260276,
+      "primitive_triangle": 32,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49400
+    },
+    {
+      "corner": 185795,
+      "dot": -0.5778809156089338,
+      "face": 61931,
+      "independent_dot": -0.5778809156089338,
+      "primitive_triangle": 32,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49335
+    },
+    {
+      "corner": 185812,
+      "dot": -0.23520980983955622,
+      "face": 61937,
+      "independent_dot": -0.23520980983955622,
+      "primitive_triangle": 38,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49383
+    },
+    {
+      "corner": 185819,
+      "dot": -0.5356451356515987,
+      "face": 61939,
+      "independent_dot": -0.5356451356515987,
+      "primitive_triangle": 40,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49397
+    },
+    {
+      "corner": 185826,
+      "dot": -0.4956653999426854,
+      "face": 61942,
+      "independent_dot": -0.4956653999426854,
+      "primitive_triangle": 43,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49399
+    },
+    {
+      "corner": 185829,
+      "dot": -0.69149122972672,
+      "face": 61943,
+      "independent_dot": -0.69149122972672,
+      "primitive_triangle": 44,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49398
+    },
+    {
+      "corner": 185902,
+      "dot": -0.250596853662409,
+      "face": 61967,
+      "independent_dot": -0.250596853662409,
+      "primitive_triangle": 68,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49624
+    },
+    {
+      "corner": 185903,
+      "dot": -0.7724844859340565,
+      "face": 61967,
+      "independent_dot": -0.7724844859340565,
+      "primitive_triangle": 68,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49625
+    },
+    {
+      "corner": 185913,
+      "dot": -0.1876738939954951,
+      "face": 61971,
+      "independent_dot": -0.1876738939954951,
+      "primitive_triangle": 72,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49623
+    },
+    {
+      "corner": 185915,
+      "dot": -0.7668237206964186,
+      "face": 61971,
+      "independent_dot": -0.7668237206964186,
+      "primitive_triangle": 72,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49650
+    },
+    {
+      "corner": 185942,
+      "dot": -0.21125112651636027,
+      "face": 61980,
+      "independent_dot": -0.21125112651636027,
+      "primitive_triangle": 81,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49686
+    },
+    {
+      "corner": 185943,
+      "dot": -0.38265357767580294,
+      "face": 61981,
+      "independent_dot": -0.38265357767580294,
+      "primitive_triangle": 82,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49712
+    },
+    {
+      "corner": 185944,
+      "dot": -0.73325289631285,
+      "face": 61981,
+      "independent_dot": -0.73325289631285,
+      "primitive_triangle": 82,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49626
+    },
+    {
+      "corner": 185945,
+      "dot": -0.19129678932133382,
+      "face": 61981,
+      "independent_dot": -0.19129678932133382,
+      "primitive_triangle": 82,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49622
+    },
+    {
+      "corner": 185946,
+      "dot": -0.18042260889048528,
+      "face": 61982,
+      "independent_dot": -0.18042260889048528,
+      "primitive_triangle": 83,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49621
+    },
+    {
+      "corner": 185947,
+      "dot": -0.7559482998727186,
+      "face": 61982,
+      "independent_dot": -0.7559482998727186,
+      "primitive_triangle": 83,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49649
+    },
+    {
+      "corner": 185953,
+      "dot": -0.6695862367198491,
+      "face": 61984,
+      "independent_dot": -0.6695862367198491,
+      "primitive_triangle": 85,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49733
+    },
+    {
+      "corner": 185958,
+      "dot": -0.06911249272249326,
+      "face": 61986,
+      "independent_dot": -0.06911249272249326,
+      "primitive_triangle": 87,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49749
+    },
+    {
+      "corner": 185959,
+      "dot": -0.6904460878127745,
+      "face": 61986,
+      "independent_dot": -0.6904460878127745,
+      "primitive_triangle": 87,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49734
+    },
+    {
+      "corner": 186005,
+      "dot": -0.17501308201562227,
+      "face": 62001,
+      "independent_dot": -0.17501308201562227,
+      "primitive_triangle": 102,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49914
+    },
+    {
+      "corner": 186151,
+      "dot": -0.13870089555758225,
+      "face": 62050,
+      "independent_dot": -0.13870089555758225,
+      "primitive_triangle": 151,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49173
+    },
+    {
+      "corner": 186153,
+      "dot": -0.7418543757997558,
+      "face": 62051,
+      "independent_dot": -0.7418543757997558,
+      "primitive_triangle": 152,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49171
+    },
+    {
+      "corner": 186154,
+      "dot": -0.6102923857104482,
+      "face": 62051,
+      "independent_dot": -0.6102923857104482,
+      "primitive_triangle": 152,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49122
+    },
+    {
+      "corner": 186155,
+      "dot": -0.6102923857104482,
+      "face": 62051,
+      "independent_dot": -0.6102923857104482,
+      "primitive_triangle": 152,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49115
+    },
+    {
+      "corner": 186156,
+      "dot": -0.9711005201040253,
+      "face": 62052,
+      "independent_dot": -0.9711005201040253,
+      "primitive_triangle": 153,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49172
+    },
+    {
+      "corner": 186157,
+      "dot": -0.921180723546049,
+      "face": 62052,
+      "independent_dot": -0.921180723546049,
+      "primitive_triangle": 153,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49161
+    },
+    {
+      "corner": 186158,
+      "dot": -0.8088098444988682,
+      "face": 62052,
+      "independent_dot": -0.8088098444988682,
+      "primitive_triangle": 153,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49123
+    },
+    {
+      "corner": 186396,
+      "dot": -0.1979322652202043,
+      "face": 62132,
+      "independent_dot": -0.1979322652202043,
+      "primitive_triangle": 233,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49302
+    },
+    {
+      "corner": 186401,
+      "dot": -0.22033724327111848,
+      "face": 62133,
+      "independent_dot": -0.22033724327111848,
+      "primitive_triangle": 234,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49299
+    },
+    {
+      "corner": 186404,
+      "dot": -0.045042141457143026,
+      "face": 62134,
+      "independent_dot": -0.045042141457143026,
+      "primitive_triangle": 235,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49298
+    },
+    {
+      "corner": 186407,
+      "dot": -0.02127553472194832,
+      "face": 62135,
+      "independent_dot": -0.02127553472194832,
+      "primitive_triangle": 236,
+      "reason": "outside_face_hemisphere",
+      "source_primitive": 2,
+      "vertex": 49297
+    }
+  ],
+  "limits": [
+    "No Blender/native call; import custom-normal encoding was not re-executed.",
+    "No new rigging, texture decoding, image generation, or repaired avatar.",
+    "This proves preventive rejection, not smooth geometry or accepted appearance."
+  ],
+  "original_data_after": {
+    "corner_normals": "cd523e7abc55d627f14799a89b887ee774f1570ce9d0735871b6aa704b2da367",
+    "face_materials": "e7b22bb4feed937ecffa556f73a22aec5c4917411e98c1f017eafd5c34fa6156",
+    "faces": "692cb98fb2b2523c6673784d8272a7859c93ada9d2247a0c5441ef209d0708bc",
+    "points": "fb0fa2cf176c698526125c4a67b31c0a29a2dfc4129b92deeceb8b6680ed8731"
+  },
+  "original_data_before": {
+    "corner_normals": "cd523e7abc55d627f14799a89b887ee774f1570ce9d0735871b6aa704b2da367",
+    "face_materials": "e7b22bb4feed937ecffa556f73a22aec5c4917411e98c1f017eafd5c34fa6156",
+    "faces": "692cb98fb2b2523c6673784d8272a7859c93ada9d2247a0c5441ef209d0708bc",
+    "points": "fb0fa2cf176c698526125c4a67b31c0a29a2dfc4129b92deeceb8b6680ed8731"
+  },
+  "original_file_bytes_unchanged": true,
+  "process_high_water_rss_bytes": 265093120,
+  "proof_scope": "Actual original GLB arrays and saved config through the production Python adapter with read-only mesh facade; not an analytic character fixture.",
+  "schema_version": 1,
+  "source_config_sha256": "72f112ab66406b52a6ef8d39f2b625e7d20f1a52de3effb71d09b94da3de8da7",
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "actual_source_rejected_before_mutation",
+  "transform": {
+    "blender_axes": "[gltf.x,-gltf.z,gltf.y]",
+    "height_meters": 1.2,
+    "position_storage": "float32, then float64 CPU view",
+    "translation_before_scale": [
+      -0.0,
+      -0.0,
+      -0.0
+    ],
+    "uniform_scale": 0.9999999602635717
+  },
+  "triangles": 62581,
+  "vertices": 51055
+}

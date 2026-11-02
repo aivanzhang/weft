@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-independent-review-v1/check.py", line 183, in <module>
+    result = main()
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-independent-review-v1/check.py", line 88, in main
+    protected = {(r['source_primitive'], r['source_triangle']) for r in census['rows'] if r['protected_white']}
+                  ~^^^^^^^^^^^^^^^^^^^^
+KeyError: 'source_primitive'

@@ -1,0 +1,24 @@
+{
+  "cost": {
+    "ai_role_calls": 0,
+    "provider_calls": 0
+  },
+  "domain_sha256": "02affbfc837e3dc94dfed1a8ad37187e4f6062cb5a16ec65c596364f55f74ff8",
+  "hermite_normal_weight": 0.05,
+  "max_condition_number": 100000,
+  "max_displacement_m": 0.015,
+  "max_fit_max_m": 0.008,
+  "max_fit_normal_p95_degrees": 45,
+  "max_fit_rms_m": 0.003,
+  "max_intersection_pairs": 50000,
+  "max_triangles": 512,
+  "min_double_area_m2": 1e-10,
+  "minimum_reference_normal_cosine": 0.3,
+  "minimum_reference_samples": 64,
+  "minimum_support_fraction": 0.6,
+  "point_huber_m": 0.003,
+  "schema_version": 1,
+  "scope": "One explicitly authored unseen-cheek candidate; no general quality promotion or recovered surface claim",
+  "slope_huber": 0.25,
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+}

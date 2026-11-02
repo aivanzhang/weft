@@ -1,0 +1,15 @@
+test_author_contract_preserves_valid_transfer_and_rejects_expanded_distance (tests.test_normal_rejection_pipeline.NormalFinishingIntegrationTests.test_author_contract_preserves_valid_transfer_and_rejects_expanded_distance) ... ok
+test_native_reuse_rejects_pre_guard_helper_even_with_bound_old_manifest (tests.test_normal_rejection_pipeline.NormalFinishingIntegrationTests.test_native_reuse_rejects_pre_guard_helper_even_with_bound_old_manifest) ... ok
+test_repair_prompt_keeps_measured_rejection_separate_from_success (tests.test_normal_rejection_pipeline.NormalFinishingIntegrationTests.test_repair_prompt_keeps_measured_rejection_separate_from_success) ... ok
+test_changed_missing_oversized_unbound_or_duplicate_receipt_never_retries (tests.test_normal_rejection_pipeline.NormalRejectionProgressTests.test_changed_missing_oversized_unbound_or_duplicate_receipt_never_retries) ... ok
+test_malformed_measurements_never_reach_another_agent (tests.test_normal_rejection_pipeline.NormalRejectionProgressTests.test_malformed_measurements_never_reach_another_agent) ... ok
+test_reaped_failure_passes_exact_witnesses_to_only_one_allowed_repair (tests.test_normal_rejection_pipeline.NormalRejectionProgressTests.test_reaped_failure_passes_exact_witnesses_to_only_one_allowed_repair) ... ok
+test_unresolved_native_exit_never_retries (tests.test_normal_rejection_pipeline.NormalRejectionProgressTests.test_unresolved_native_exit_never_retries) ... ok
+test_both_sources_are_prepared_and_live_changes_halt_before_agent (tests.test_normal_rejection_pipeline.NormalSourcePinTests.test_both_sources_are_prepared_and_live_changes_halt_before_agent) ... ok
+test_historic_sealed_delivery_without_guard_pins_is_read_only (tests.test_normal_rejection_pipeline.NormalSourcePinTests.test_historic_sealed_delivery_without_guard_pins_is_read_only) ... ok
+test_unfinished_job_cannot_omit_either_guard_pin (tests.test_normal_rejection_pipeline.NormalSourcePinTests.test_unfinished_job_cannot_omit_either_guard_pin) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.284s
+
+OK

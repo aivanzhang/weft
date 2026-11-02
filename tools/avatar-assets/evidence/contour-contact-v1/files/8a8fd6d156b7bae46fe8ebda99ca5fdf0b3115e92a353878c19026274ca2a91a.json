@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "status": "sealed_read_only_diagnosis",
+  "artifacts": [
+    {
+      "path": "diagnose-handle.json",
+      "bytes": 247,
+      "sha256": "c7c900eb09e46069b22f754d584d3111c7c8012dcf8db6951d57c88b2c73ebb5"
+    },
+    {
+      "path": "diagnose-monitor.json",
+      "bytes": 1032,
+      "sha256": "9865efad3ac6d8cfdda9b92ac432b7552778050c5d29e86e64172b4a66ed0745"
+    },
+    {
+      "path": "diagnose.log",
+      "bytes": 626,
+      "sha256": "8652f504789fdeb15036ecd5e368d23d1e43b9d32260d51f19a470d1d35941d0"
+    },
+    {
+      "path": "diagnose.py",
+      "bytes": 13960,
+      "sha256": "5082da441e3528d09a61cf8cc92829966f97cc745b2446e5dfec78cae910d699"
+    },
+    {
+      "path": "diagnosis.json",
+      "bytes": 122712,
+      "sha256": "10180db25e5201068b52587c0065a2b096dcad263c5df41497e7e527216a7c46"
+    },
+    {
+      "path": "findings.md",
+      "bytes": 5557,
+      "sha256": "d8906e52c8846bb4c6c6b693418ce43ca3fac2c5098e369f182b8dd8b7409c2f"
+    },
+    {
+      "path": "job.json",
+      "bytes": 1122,
+      "sha256": "9e11d99f8effe1177e915ab12c09b0abd8a5f03da299d52f290b97684da9117f"
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 5322,
+      "sha256": "7be7cf893cb7b5ee05a24ffd6d8426957e560a5c92ac2316669b094534f5b6fb"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 1675,
+      "sha256": "8f070a2363f00bdd673b68f7157ea2bbe32ad2292cbf337e2cc33b1217283429"
+    },
+    {
+      "path": "source/avatar_assets/__init__.py",
+      "bytes": 96,
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "path": "source/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "source/avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "source/blender_edge_fringe.py",
+      "bytes": 20746,
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "path": "source/edge_fringe.py",
+      "bytes": 17397,
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "path": "source/fringe_color_atlas.py",
+      "bytes": 16114,
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "path": "source/groom_flow.py",
+      "bytes": 7179,
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    }
+  ],
+  "artifact_count": 16,
+  "artifact_bytes": 228965
+}

@@ -1,0 +1,64 @@
+{
+  "aggregate_planning_and_derivative_wall_seconds": 2.609,
+  "at": "2026-11-01T23:51:24.006700-08:00",
+  "current_owned_jobs": [],
+  "input_hashes_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-preparation-v1/produce.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.522,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 28830443,
+    "last_rss_sample_elapsed_seconds": 0.261,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 64,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "produce-monitor.json",
+    "monitor_errors": [],
+    "pid": 53165,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 28830443,
+    "sampled_peak_rss_bytes": 200671232,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "model": {
+    "bytes": 28079528,
+    "path": "outputs/panda-shoulder-uv-repair-v1/model.glb",
+    "sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528"
+  },
+  "model_quality_approved": false,
+  "monitor_sha256": "c8af0a8f78f409d1f314543da117468896f18f97434569dff0cbaf2950d37bb2",
+  "native_jobs": 0,
+  "native_payload": {
+    "path": "native-color-payload-v2.json",
+    "rows": 242,
+    "sha256": "94474e3017f7cc66df6e431074ea07e5ac9adbd1887bcc1c82dcc357610a2dc9"
+  },
+  "next_safe_action": "Parent alone runs matched existing-pose unlit color control using native-color-payload-v2.json; independent byte/geometry correspondence check before composing with disjoint cheek geometry. New material clones need explicit finisher ownership/undercoat support; no public promotion.",
+  "planning_wall_seconds": 2.087,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_preparation_sha256": "d02022d7c53971eea2664f0108eede7d0c1696314bd7bef513fc605d903ed79e",
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "experimental_uv_candidate_ready_for_parent_preview",
+  "texture_decodes_total": 1,
+  "worker_sha256": "a9444ae3c4163341944bf638d29aadf0092dcb299f7e73c775b878e9277899bc"
+}

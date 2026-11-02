@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "finished",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-cheek-targeted-selection-v1/screen.py"
+  ],
+  "pid": 51043,
+  "exit_code": 0,
+  "elapsed_seconds": 0.522,
+  "sampled_peak_rss_bytes": 116539392,
+  "rss_samples": 1,
+  "sampling_interval_seconds": 0.25,
+  "failure": null,
+  "failure_reasons": [],
+  "monitor_errors": [],
+  "cleanup_events": [],
+  "cleanup_status": "not_required",
+  "manual_stop_required": false,
+  "final_output_bytes": 47591,
+  "sampled_max_output_bytes": 47591,
+  "monitor_checkpoint": "cpu-monitor.json",
+  "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+  "descendant_exit_verified": false,
+  "limits": {
+    "wall_seconds": 30,
+    "rss_mb": 256,
+    "output_mb": 16,
+    "log_bytes": 16777216,
+    "cleanup_grace_seconds": 7,
+    "output_inventory_entries": 100000
+  },
+  "last_rss_sample_elapsed_seconds": 0.261,
+  "rss_exit_race_observed": true,
+  "process_exit_verified": true
+}

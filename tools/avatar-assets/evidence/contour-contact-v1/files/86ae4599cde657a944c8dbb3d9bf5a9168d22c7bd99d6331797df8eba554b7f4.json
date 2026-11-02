@@ -1,0 +1,109 @@
+{
+  "all_oriented_triangle_positions_normals_tangents_exact": true,
+  "bytes": 28079528,
+  "elapsed_seconds": 0.32687637489289045,
+  "face_map_columns": [
+    "source_primitive",
+    "source_triangle",
+    "output_primitive",
+    "output_triangle"
+  ],
+  "geometry_healthy_reference_intersection": [],
+  "geometry_repair_selector_intersection": [],
+  "limitations": [
+    "Appearance requires new native preview; no defect-free or Muse-quality claim.",
+    "Finisher must explicitly include new material clones in body ownership/groom and distinguish closure provenance.",
+    "Current adaptive undercoat requires one original UV layer; these deliberate UV0 overlaps plus preserved normal UV1 need an admitted route or must fail explicitly.",
+    "Native/portable fur colors and undercoat must be regenerated; existing finished asset colors are not changed.",
+    "Source contact geometry/nonmanifold limits persist; this is color repair only."
+  ],
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 512,
+    "output_mb": 64,
+    "seconds": 30,
+    "texture_decodes": 0
+  },
+  "materials": [
+    {
+      "faces": 139,
+      "new_material": 4,
+      "new_name": "body_surface__contact_uv_dark_v1",
+      "new_primitive": 4,
+      "normal_tangents": "Exact original corner TANGENT values preserved; UV1 is exact original UV0.",
+      "ownership": "Same explicit body part as source primitive; no companion material selected.",
+      "route_inventory": [
+        {
+          "new_texcoord": 0,
+          "original_texcoord": 0,
+          "slot": "pbrMetallicRoughness.baseColorTexture",
+          "texture": 1
+        },
+        {
+          "new_texcoord": 1,
+          "original_texcoord": 0,
+          "slot": "pbrMetallicRoughness.metallicRoughnessTexture",
+          "texture": 2
+        },
+        {
+          "new_texcoord": 1,
+          "original_texcoord": 0,
+          "slot": "normalTexture",
+          "texture": 0
+        }
+      ],
+      "source_material": 0,
+      "source_name": "body_surface",
+      "source_primitive": 0
+    },
+    {
+      "faces": 103,
+      "new_material": 5,
+      "new_name": "body_cap__contact_uv_dark_v1",
+      "new_primitive": 5,
+      "normal_tangents": "Exact original corner TANGENT values preserved; UV1 is exact original UV0.",
+      "ownership": "Same explicit body part as source primitive; no companion material selected.",
+      "route_inventory": [
+        {
+          "new_texcoord": 0,
+          "original_texcoord": 0,
+          "slot": "pbrMetallicRoughness.baseColorTexture",
+          "texture": 6
+        }
+      ],
+      "source_material": 2,
+      "source_name": "body_cap",
+      "source_primitive": 2
+    }
+  ],
+  "model_sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528",
+  "no_loose_vertices": true,
+  "original_bin_prefix_bytes": 26409416,
+  "original_bin_prefix_exact": true,
+  "original_json_changed_only": [
+    "buffer byteLength",
+    "primitive0/2 attributes+indices with exact retained corner payload",
+    "appended accessors/bufferViews/materials/primitives"
+  ],
+  "original_materials_images_textures_nodes_skins_animations_exact": true,
+  "protected_uv0_exact": true,
+  "quality_approved": false,
+  "schema_version": 1,
+  "selected_faces": 242,
+  "selected_uv1_equals_original_uv0": true,
+  "selector_sha256": "c0be51e358a1909c9a451cee6d76d951678ed32f8cfa15c42c910359e0fb0e67",
+  "self_peak_rss_bytes": 281001984,
+  "source_files_unchanged": true,
+  "source_rig": "Unrigged v7 authored source; no animation or skin completion claim.",
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "experimental_source_uv_derivative",
+  "texture_decode_calls": 0,
+  "triangles": 62581,
+  "vertex_map_columns": [
+    "output_primitive",
+    "output_vertex",
+    "source_primitive",
+    "source_vertex"
+  ],
+  "vertices": 51358
+}

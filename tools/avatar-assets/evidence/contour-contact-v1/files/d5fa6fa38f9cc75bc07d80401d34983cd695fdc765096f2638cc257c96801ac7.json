@@ -1,0 +1,57 @@
+{
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "cost": {
+    "local_energy": "unpriced",
+    "new_paid_generation_calls": 0
+  },
+  "inputs": [
+    {
+      "path": "outputs/panda-shoulder-uv-repair-v1/native-color-payload-v2.json",
+      "sha256": "94474e3017f7cc66df6e431074ea07e5ac9adbd1887bcc1c82dcc357610a2dc9"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-repair-v1/model.glb",
+      "sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-repair-v1/manifest.json",
+      "sha256": "90fc26fe1f539367762de0d1339c701c8155df732512f145fb1ea2e1baa42400"
+    },
+    {
+      "path": "outputs/panda-staged-portable-preview-v1/source.blend",
+      "sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mib": 32,
+    "rss_mib": 1536,
+    "seconds": 60,
+    "threads": 4
+  },
+  "output": "outputs/panda-shoulder-uv-ablation-v1",
+  "schema_version": 1,
+  "scope": "Two matched unlit color-control images; not a full avatar or fur repair",
+  "snapshots": [
+    {
+      "path": "config.json",
+      "sha256": "36494f5943c2bfc0d3f493ba9b3a9b8f7b5378a1b011f70c03e6ffae8ab8f584"
+    },
+    {
+      "path": "execute.py",
+      "sha256": "834575fd2e6d1b49ff0de1a9e93ada7a90852a9712e50654eb589b6847b87d16"
+    },
+    {
+      "path": "render.py",
+      "sha256": "4b5ab92057c576c443392ba498d46256cd087ce7670f14dd43ea5bf601033c93"
+    },
+    {
+      "path": "scene-config.json",
+      "sha256": "f298ec54afcce387876cabdf8287405f5be3d6c12425ddd4e266d07f4351277c"
+    },
+    {
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ]
+}

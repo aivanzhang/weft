@@ -1,0 +1,16 @@
+--- v1/replay.py
++++ v2/replay.py
+@@ -133,11 +133,11 @@
+     write('independent-legacy-diagnosis.json', independent)
+     mutations = []
+     mesh = SimpleNamespace(
+-        vertices=LazyRows(points, lambda i, row: SimpleNamespace(co=tuple(row), groups=[])),
++        vertices=LazyRows(points, lambda i, row: SimpleNamespace(co=tuple(map(float, row)), groups=[])),
+         polygons=LazyRows(faces, lambda i, row: SimpleNamespace(vertices=tuple(map(int, row)),
+                                                             material_index=int(slots[i]), use_smooth=False)),
+         loops=LazyRows(flat, lambda i, value: SimpleNamespace(vertex_index=int(value))),
+-        corner_normals=LazyRows(normals, lambda i, row: SimpleNamespace(vector=tuple(row))),
++        corner_normals=LazyRows(normals, lambda i, row: SimpleNamespace(vector=tuple(map(float, row)))),
+         materials=[SimpleNamespace(name=name) for name in names],
+         uv_layers=[], attributes=MutationTrap(mutations))
+     def forbidden(*args, **kwargs):

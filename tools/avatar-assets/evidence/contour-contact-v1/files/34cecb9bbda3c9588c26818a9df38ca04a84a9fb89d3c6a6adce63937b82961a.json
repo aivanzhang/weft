@@ -1,0 +1,98 @@
+{
+  "additional_dark_candidate_requiring_explicit_local_decision": {
+    "frontmost_grid_hits": 1,
+    "grid_samples": 49,
+    "native_triangle": 33185,
+    "reason": "The conservative worker required adjacency to an already selected face. This face instead shares an exact edge with newly attributed dark face2571. Saved colors support dark-contact interpretation, but it remains unedited and is not silently added by widening a threshold.",
+    "samples": 91,
+    "saved_sparse_srgb_mean": [
+      0.05430844245279154,
+      0.052942340318201844,
+      0.05855144500414582
+    ],
+    "shared_exact_source_edge_with": [
+      0,
+      2571
+    ],
+    "shared_source_positions_blender_m": [
+      [
+        -0.2984844148159027,
+        -0.05972244590520859,
+        0.6045181751251221
+      ],
+      [
+        -0.2863062918186188,
+        -0.05604939162731171,
+        0.6250852346420288
+      ]
+    ],
+    "v7_face": [
+      0,
+      2395
+    ],
+    "white_samples": 0
+  },
+  "at": "2026-11-02T00:18:05.743028-08:00",
+  "deciding_limits": [
+    "Regular305-ray evidence is not exact16-sample EEVEE TAA/filter coverage.",
+    "No absence-of-texture-contamination claim follows from0 sparse/dense green samples.",
+    "No new selector, texture, model, material, region or threshold change has been applied."
+  ],
+  "directly_supported_exact_dark_face_candidates": [
+    [
+      0,
+      1579
+    ],
+    [
+      0,
+      2384
+    ],
+    [
+      0,
+      2571
+    ],
+    [
+      0,
+      3128
+    ],
+    [
+      0,
+      3336
+    ],
+    [
+      0,
+      3411
+    ]
+  ],
+  "keep_protected_white": [
+    {
+      "native_triangle": 35446,
+      "reason": "Existing white-protection rule still applies. A residual bright pixel is not authorization to recolor its neighboring white surface.",
+      "samples": 91,
+      "v7_face": [
+        0,
+        5167
+      ],
+      "white_fraction": 0.31868131868131866,
+      "white_samples": 29
+    }
+  ],
+  "next_safe_action": "Parent decides a new append-only exact dark-face UV candidate from the listed6+1 local faces. Keep5167 protected; do not expand the general shoulder box or color threshold. Any candidate needs a fresh matched pixel review before acceptance.",
+  "owned_live_jobs": [],
+  "resource_receipt": {
+    "native_jobs": 0,
+    "pid": 55182,
+    "process_exit_verified": true,
+    "provider_calls": 0,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null,
+    "self_reported_peak_rss_bytes": 118538240,
+    "texture_decodes": 0,
+    "wall_seconds": 0.252
+  },
+  "review_sha256": "5a7f82b31eefe11937bd31f75dc07e3770c177999d81793da714c176c0f9986d",
+  "schema_version": 1,
+  "source_v7_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "source_mapping_complete_no_mutation",
+  "trace_sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0"
+}

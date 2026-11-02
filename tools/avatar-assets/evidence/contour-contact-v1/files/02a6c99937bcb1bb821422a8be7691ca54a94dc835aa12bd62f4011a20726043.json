@@ -1,0 +1,56 @@
+{
+  "artifacts": [
+    {
+      "bytes": 7600,
+      "path": "review.json",
+      "sha256": "dd0a51d3f626c37c873a49bf7e804bf18f9a63d731601ffab148f46574c23389"
+    }
+  ],
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "reviewed_source_refs": [
+    {
+      "bytes": 160051,
+      "path": "outputs/panda-cheek-targeted-selection-v2/candidate.json",
+      "sha256": "02affbfc837e3dc94dfed1a8ad37187e4f6062cb5a16ec65c596364f55f74ff8"
+    },
+    {
+      "bytes": 1390,
+      "path": "outputs/panda-cheek-targeted-selection-v2/fit-proposal.json",
+      "sha256": "efd2d99dbaef771cae2a5e1d1663da716512fad6fcb07c33c6154708b5cf42db"
+    },
+    {
+      "bytes": 912,
+      "path": "outputs/panda-cheek-targeted-selection-v2/report.json",
+      "sha256": "d47ab71bc5c477b3280e5cdcdc25a757c1c03aa1bae3579f0d124c0b4bcdcdc6"
+    },
+    {
+      "bytes": 4612,
+      "path": "outputs/panda-shoulder-uv-repair-plan-v1/summary.json",
+      "sha256": "6f65277e7d5df06e843529a5714827ad2d7f3a5a5ecbaf1b13d5ce33296fa928"
+    },
+    {
+      "bytes": 368751,
+      "path": "outputs/panda-shoulder-uv-repair-plan-v1/face-selector.json",
+      "sha256": "c0be51e358a1909c9a451cee6d76d951678ed32f8cfa15c42c910359e0fb0e67"
+    },
+    {
+      "bytes": 2352,
+      "path": "outputs/panda-shoulder-uv-repair-plan-v1/manifest.json",
+      "sha256": "d7064ce97e5861aef65c461fc9f536d43e42d36d66b7a042e700d2b5bcd300bc"
+    },
+    {
+      "bytes": 5161,
+      "path": "outputs/normal-continuity-source-replay-v2/manifest.json",
+      "sha256": "52cd9a7957a5958d62ac64d63100047d0dc7d8a6c984824a38d51d07c6908bf7"
+    },
+    {
+      "bytes": 2794,
+      "path": "outputs/normal-rejection-pipeline-tests-v1/manifest.json",
+      "sha256": "ccbd27e45da593642081205ff4dd1eeb17c41097446fd482b4ccf22f9e3c0578"
+    }
+  ],
+  "schema_version": 1,
+  "status": "review_checklist_only_no_candidate_acceptance"
+}

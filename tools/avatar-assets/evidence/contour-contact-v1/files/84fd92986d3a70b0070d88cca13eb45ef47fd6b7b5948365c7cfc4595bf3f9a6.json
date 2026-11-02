@@ -1,0 +1,17 @@
+{
+  "bounds": "Existing face API allows3\u201364corners. Use a consistent polygon-area/Newell normal and reject degenerate/ambiguous changed faces; do not use only the first triangle. Keep a bounded count/min-dot and face/corner/vertex witness list.",
+  "compatibility": "Current valid fixtures transfer+Z onto+Z-wound target faces even when original target normals were-Z. Empty config remains disabled; valid transfers need no fallback.",
+  "files_reviewed": [
+    "avatar_assets/normal_continuity.py",
+    "scripts/blender_normal_continuity.py",
+    "tests/test_normal_continuity.py"
+  ],
+  "kind": "read-only design advice, not implementation verification",
+  "limits": [
+    "No automatic flip/clamp/fallback",
+    "No claim of geometry repair or visual acceptance",
+    "No tests or source changes performed by reviewer"
+  ],
+  "recommendation": "Reject a transferred base-body corner normal outside its own geometric face hemisphere in plan_normal_continuity, before adapter mutation. Keep unchanged input corners and intentionally authored fin normals out of this policy.",
+  "schema_version": 1
+}

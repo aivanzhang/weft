@@ -1,0 +1,521 @@
+{
+  "added_rows": [
+    {
+      "actual_trace_sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0",
+      "area_m2": 7.927656125159e-05,
+      "authored_color_decision": "Explicit local dark contact palette exception; no inferred anatomy or general region/threshold expansion.",
+      "center_blender_m": [
+        -0.32280781865119934,
+        -0.24750617643197378,
+        0.5158515572547913
+      ],
+      "current_primitive": 5,
+      "current_triangle": 1579,
+      "dense_green_samples": 0,
+      "dense_white_fraction": 0.0,
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 21,
+          "pixel": [
+            287,
+            403
+          ]
+        }
+      ],
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_triangle_evidence": 32439,
+      "protected_white": false,
+      "provenance": {
+        "expected_face_id": 15437,
+        "kind": "original",
+        "source_face_id": 15437
+      },
+      "reasons": [
+        "explicit_actual_culling_aware_subpixel_contributor"
+      ],
+      "selected": true,
+      "source_primitive": 0,
+      "source_triangle": 1579,
+      "source_triangle_blender_m": [
+        [
+          -0.31832846999168396,
+          -0.2502543330192566,
+          0.5191856026649475
+        ],
+        [
+          -0.3213706612586975,
+          -0.2421240359544754,
+          0.5226637125015259
+        ],
+        [
+          -0.32872432470321655,
+          -0.25014016032218933,
+          0.5057053565979004
+        ]
+      ],
+      "source_uv0": [
+        [
+          0.9646999835968018,
+          0.9545819759368896
+        ],
+        [
+          0.9729549884796143,
+          0.9574249982833862
+        ],
+        [
+          0.9676240086555481,
+          0.9384210109710693
+        ]
+      ],
+      "source_vertex_rows": [
+        1007,
+        888,
+        855
+      ]
+    },
+    {
+      "actual_trace_sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0",
+      "area_m2": 0.0002143000114212007,
+      "authored_color_decision": "Explicit local dark contact palette exception; no inferred anatomy or general region/threshold expansion.",
+      "center_blender_m": [
+        -0.2895141839981079,
+        -0.0470486655831337,
+        0.614295502503713
+      ],
+      "current_primitive": 5,
+      "current_triangle": 2315,
+      "dense_green_samples": 0,
+      "dense_white_fraction": 0.0,
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 8,
+          "pixel": [
+            271,
+            361
+          ]
+        }
+      ],
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_triangle_evidence": 33175,
+      "protected_white": false,
+      "provenance": {
+        "expected_face_id": 21108,
+        "kind": "original",
+        "source_face_id": 21108
+      },
+      "reasons": [
+        "explicit_actual_culling_aware_subpixel_contributor"
+      ],
+      "selected": true,
+      "source_primitive": 0,
+      "source_triangle": 2384,
+      "source_triangle_blender_m": [
+        [
+          -0.2841246724128723,
+          -0.04598035290837288,
+          0.6248480081558228
+        ],
+        [
+          -0.2859334647655487,
+          -0.035443197935819626,
+          0.6135203242301941
+        ],
+        [
+          -0.2984844148159027,
+          -0.05972244590520859,
+          0.6045181751251221
+        ]
+      ],
+      "source_uv0": [
+        [
+          0.7324519753456116,
+          0.8104029893875122
+        ],
+        [
+          0.7265070080757141,
+          0.8155869841575623
+        ],
+        [
+          0.7381550073623657,
+          0.8198630213737488
+        ]
+      ],
+      "source_vertex_rows": [
+        1595,
+        1212,
+        1133
+      ]
+    },
+    {
+      "actual_trace_sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0",
+      "area_m2": 6.687559299246923e-05,
+      "authored_color_decision": "Explicit local dark contact palette exception; no inferred anatomy or general region/threshold expansion.",
+      "center_blender_m": [
+        -0.29357627034187317,
+        -0.05998931328455607,
+        0.6134650508562723
+      ],
+      "current_primitive": 5,
+      "current_triangle": 2325,
+      "dense_green_samples": 0,
+      "dense_white_fraction": 0.0,
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 1,
+          "pixel": [
+            271,
+            361
+          ]
+        }
+      ],
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_triangle_evidence": 33185,
+      "protected_white": false,
+      "provenance": {
+        "expected_face_id": 21167,
+        "kind": "original",
+        "source_face_id": 21167
+      },
+      "reasons": [
+        "explicit_actual_culling_aware_subpixel_contributor",
+        "explicit_authorized_two_edge_neighborhood_via_2571"
+      ],
+      "selected": true,
+      "source_primitive": 0,
+      "source_triangle": 2395,
+      "source_triangle_blender_m": [
+        [
+          -0.2863062918186188,
+          -0.05604939162731171,
+          0.6250852346420288
+        ],
+        [
+          -0.2984844148159027,
+          -0.05972244590520859,
+          0.6045181751251221
+        ],
+        [
+          -0.295938104391098,
+          -0.06419610232114792,
+          0.6107917428016663
+        ]
+      ],
+      "source_uv0": [
+        [
+          0.7365610003471375,
+          0.8103860020637512
+        ],
+        [
+          0.7381550073623657,
+          0.8198630213737488
+        ],
+        [
+          0.7406030297279358,
+          0.8152459859848022
+        ]
+      ],
+      "source_vertex_rows": [
+        1603,
+        1133,
+        1514
+      ]
+    },
+    {
+      "actual_trace_sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0",
+      "area_m2": 0.00012110344973658506,
+      "authored_color_decision": "Explicit local dark contact palette exception; no inferred anatomy or general region/threshold expansion.",
+      "center_blender_m": [
+        -0.2896384596824646,
+        -0.05391739681363106,
+        0.6181504726409912
+      ],
+      "current_primitive": 5,
+      "current_triangle": 2473,
+      "dense_green_samples": 0,
+      "dense_white_fraction": 0.0,
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 13,
+          "pixel": [
+            271,
+            361
+          ]
+        }
+      ],
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_triangle_evidence": 33333,
+      "protected_white": false,
+      "provenance": {
+        "expected_face_id": 22133,
+        "kind": "original",
+        "source_face_id": 22133
+      },
+      "reasons": [
+        "explicit_actual_culling_aware_subpixel_contributor"
+      ],
+      "selected": true,
+      "source_primitive": 0,
+      "source_triangle": 2571,
+      "source_triangle_blender_m": [
+        [
+          -0.2863062918186188,
+          -0.05604939162731171,
+          0.6250852346420288
+        ],
+        [
+          -0.2841246724128723,
+          -0.04598035290837288,
+          0.6248480081558228
+        ],
+        [
+          -0.2984844148159027,
+          -0.05972244590520859,
+          0.6045181751251221
+        ]
+      ],
+      "source_uv0": [
+        [
+          0.7365610003471375,
+          0.8103860020637512
+        ],
+        [
+          0.7324519753456116,
+          0.8104029893875122
+        ],
+        [
+          0.7381550073623657,
+          0.8198630213737488
+        ]
+      ],
+      "source_vertex_rows": [
+        1603,
+        1595,
+        1133
+      ]
+    },
+    {
+      "actual_trace_sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0",
+      "area_m2": 0.0009532852139534064,
+      "authored_color_decision": "Explicit local dark contact palette exception; no inferred anatomy or general region/threshold expansion.",
+      "center_blender_m": [
+        -0.26764704783757526,
+        0.04187828612824281,
+        0.5829487840334574
+      ],
+      "current_primitive": 5,
+      "current_triangle": 2910,
+      "dense_green_samples": 0,
+      "dense_white_fraction": 0.0,
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 2,
+          "pixel": [
+            268,
+            365
+          ]
+        }
+      ],
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_triangle_evidence": 33770,
+      "protected_white": false,
+      "provenance": {},
+      "reasons": [
+        "explicit_actual_culling_aware_subpixel_contributor"
+      ],
+      "selected": true,
+      "source_primitive": 0,
+      "source_triangle": 3128,
+      "source_triangle_blender_m": [
+        [
+          -0.2711787819862366,
+          0.026472536846995354,
+          0.6044127941131592
+        ],
+        [
+          -0.2609141767024994,
+          0.05810609087347984,
+          0.5993283987045288
+        ],
+        [
+          -0.27084818482398987,
+          0.041056230664253235,
+          0.5451051592826843
+        ]
+      ],
+      "source_uv0": [
+        [
+          0.3202050030231476,
+          0.7332940101623535
+        ],
+        [
+          0.31867900490760803,
+          0.7464280128479004
+        ],
+        [
+          0.3430120050907135,
+          0.7398439645767212
+        ]
+      ],
+      "source_vertex_rows": [
+        2128,
+        2130,
+        2132
+      ]
+    },
+    {
+      "actual_trace_sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0",
+      "area_m2": 0.000860076696908694,
+      "authored_color_decision": "Explicit local dark contact palette exception; no inferred anatomy or general region/threshold expansion.",
+      "center_blender_m": [
+        -0.2757518986860911,
+        0.013695081695914268,
+        0.588503380616506
+      ],
+      "current_primitive": 5,
+      "current_triangle": 3054,
+      "dense_green_samples": 0,
+      "dense_white_fraction": 0.0,
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 3,
+          "pixel": [
+            268,
+            365
+          ]
+        }
+      ],
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_triangle_evidence": 33914,
+      "protected_white": false,
+      "provenance": {},
+      "reasons": [
+        "explicit_actual_culling_aware_subpixel_contributor"
+      ],
+      "selected": true,
+      "source_primitive": 0,
+      "source_triangle": 3336,
+      "source_triangle_blender_m": [
+        [
+          -0.2711787819862366,
+          0.026472536846995354,
+          0.6044127941131592
+        ],
+        [
+          -0.27219828963279724,
+          0.0299582127481699,
+          0.5657353401184082
+        ],
+        [
+          -0.2838786244392395,
+          -0.015345504507422447,
+          0.5953620076179504
+        ]
+      ],
+      "source_uv0": [
+        [
+          0.3202050030231476,
+          0.7332940101623535
+        ],
+        [
+          0.33601298928260803,
+          0.7350580096244812
+        ],
+        [
+          0.326664000749588,
+          0.7140439748764038
+        ]
+      ],
+      "source_vertex_rows": [
+        2128,
+        2173,
+        1706
+      ]
+    },
+    {
+      "actual_trace_sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0",
+      "area_m2": 0.00037068414455395727,
+      "authored_color_decision": "Explicit local dark contact palette exception; no inferred anatomy or general region/threshold expansion.",
+      "center_blender_m": [
+        -0.2650307317574819,
+        0.04295185518761476,
+        0.6091169118881226
+      ],
+      "current_primitive": 5,
+      "current_triangle": 3115,
+      "dense_green_samples": 0,
+      "dense_white_fraction": 0.0,
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 12,
+          "pixel": [
+            268,
+            365
+          ]
+        }
+      ],
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_triangle_evidence": 33975,
+      "protected_white": false,
+      "provenance": {},
+      "reasons": [
+        "explicit_actual_culling_aware_subpixel_contributor"
+      ],
+      "selected": true,
+      "source_primitive": 0,
+      "source_triangle": 3411,
+      "source_triangle_blender_m": [
+        [
+          -0.2629992365837097,
+          0.04427693784236908,
+          0.6236095428466797
+        ],
+        [
+          -0.2609141767024994,
+          0.05810609087347984,
+          0.5993283987045288
+        ],
+        [
+          -0.2711787819862366,
+          0.026472536846995354,
+          0.6044127941131592
+        ]
+      ],
+      "source_uv0": [
+        [
+          0.3097580075263977,
+          0.7396689653396606
+        ],
+        [
+          0.31867900490760803,
+          0.7464280128479004
+        ],
+        [
+          0.3202050030231476,
+          0.7332940101623535
+        ]
+      ],
+      "source_vertex_rows": [
+        2302,
+        2130,
+        2128
+      ]
+    }
+  ],
+  "explicit_decision_2395": "Include the measured dark contributor in the bounded two-edge neighborhood via2571, as expressly authorized.",
+  "geometry_reference_intersection": [],
+  "geometry_repair_intersection": [],
+  "new_selector_sha256": "7050fe9016018a5e8abe0796a4d2e4e892af7f0dbf115990dcbe696eddd17b55",
+  "parent_selector_sha256": "c0be51e358a1909c9a451cee6d76d951678ed32f8cfa15c42c910359e0fb0e67",
+  "protected_intersection": 0,
+  "protected_source_face": [
+    0,
+    5167
+  ],
+  "protected_white_faces": 244,
+  "region_expanded": false,
+  "schema_version": 1,
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "texture_decode_calls": 0,
+  "thresholds_changed": false,
+  "unchanged_original_rows": true
+}

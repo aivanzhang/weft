@@ -1,0 +1,50 @@
+{
+  "actual_source": "outputs/companion-separation-v7/diagnostic-model.glb",
+  "adapter_mutation_attempts": [],
+  "aggregate_replay_wall_seconds": 1.305,
+  "all_owned_processes_exited": true,
+  "checker_change": "Only two NumPy-scalar to Python-float facade conversions; values/gates/helpers/config unchanged",
+  "independently_reproduced_witnesses": 32,
+  "legacy_diagnosis_identical_before_after_facade_fix": true,
+  "limits": [
+    "CPU replay through a read-only Blender API facade, not a new Blender import/encoding proof",
+    "No geometry repair, texture change, native job, paid call or avatar-quality acceptance",
+    "Actual rejection proof and analytic pipeline fixtures are separate"
+  ],
+  "measured_rejection": {
+    "checked_corners": 1095,
+    "checked_faces": 369,
+    "degenerate_faces": 0,
+    "minimum_face_dot": -0.9998156743452801,
+    "outside_hemisphere_corners": 172
+  },
+  "new_sampled_peak_rss_bytes": 221675520,
+  "new_self_high_water_rss_bytes": 265093120,
+  "original_data_preserved": true,
+  "policy_review": "Newell computation is bounded and translation-relative. Only transferred target corners are checked. The guard rejects before adapter attributes, smoothing flags or custom normals are written, with no flip/fallback. No remaining concrete correctness blocker found in the inspected policy.",
+  "prior_failure": {
+    "reason": "Read-only test facade emitted NumPy scalar coordinates; existing strict vector type validation rejected them before the new guard",
+    "receipt_path": "outputs/normal-continuity-source-replay-v1/receipt.json",
+    "receipt_sha256": "a66ef36601f76d615ef0d9ec7576af4731b11d6b6dbb0d2c66c25367e52d1f4b"
+  },
+  "reviewed_at": "2026-11-01T23:41:18.579163-08:00",
+  "saved_config": [
+    {
+      "materials": [
+        "body_cap"
+      ],
+      "max_distance_m": 0.015,
+      "max_vertices": 3000,
+      "min_vertices": 800,
+      "name": "vacated-shoulder-continuity",
+      "reference_materials": [
+        "body_surface"
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "source_triangles": 62581,
+  "source_vertices": 51055,
+  "status": "guard_regression_proved_actual_input_remains_unsupported"
+}

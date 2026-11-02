@@ -1,0 +1,128 @@
+{
+  "fixture": "Analytic4800 selected four-vertex fins; no actual avatar or renderer",
+  "report": {
+    "schema_version": 1,
+    "policy": "shared-regional-fin-response-v2",
+    "fins": 4800,
+    "vertices": 19200,
+    "triangles": 19200,
+    "base_length_m": 0.0045,
+    "length_m": {
+      "min": 0.0045,
+      "median": 0.0045,
+      "max": 0.0045
+    },
+    "regional_comb": {
+      "min": 0.6,
+      "median": 0.6,
+      "max": 0.6
+    },
+    "regional_length_scale": {
+      "min": 1.0,
+      "median": 1.0,
+      "max": 1.0
+    },
+    "outward_angle_degrees": {
+      "min": 56.309932474020194,
+      "median": 56.309932474020215,
+      "max": 56.30993247402023
+    },
+    "prepared_field_sha256": "45b4924e11de90a67c4cac5c1c91ef6d8650070db7f03cd4ca8c84281b4c8a58",
+    "root_midpoints_sha256": "ff2808df74b30c4e2210872e9c5ced762b0f21e900366f777e3aadb14b57c22d",
+    "input_arrays": {
+      "positions": {
+        "sha256": "f53259e709d5bdb1055da1d0538c39e714db07188bf0aef2c4a8636397152f6f",
+        "dtype": "<f4",
+        "shape": [
+          19200,
+          3
+        ]
+      },
+      "normals": {
+        "sha256": "10494ed46b08931920b3941b8ef7ebeccd86b7345a3384f4d55f9b72fa97e28d",
+        "dtype": "<f4",
+        "shape": [
+          19200,
+          3
+        ]
+      },
+      "uv": {
+        "sha256": "26fd5a6f0db8f60a821c96394392f374d03db7d5a2f320e3e8ab0478a5289092",
+        "dtype": "<f4",
+        "shape": [
+          19200,
+          2
+        ]
+      },
+      "triangles": {
+        "sha256": "3ac742327e278defb89aa44f5adb5e1af69599b4d5ae4af130a731f53b3fca2c",
+        "dtype": "<i4",
+        "shape": [
+          19200,
+          3
+        ]
+      },
+      "joints": {
+        "sha256": "a6c70d58281de38f182dfe956efb8ac3ee363ec620506bb814d3555a44e2c0d3",
+        "dtype": "<u2",
+        "shape": [
+          19200,
+          4
+        ]
+      },
+      "weights": {
+        "sha256": "b5e391ab1b97eae71340d7c017ba46209a03ebb6dd9782fe7a91c88d1034e97c",
+        "dtype": "<f4",
+        "shape": [
+          19200,
+          4
+        ]
+      }
+    },
+    "output_positions_sha256": "3cac274eb358423708dc2bde6d382502341da79a59fbf539e3ac3fb3394d5a0b",
+    "root_positions_byte_exact": true,
+    "unchanged_arrays": [
+      "joints",
+      "normals",
+      "triangles",
+      "uv",
+      "weights"
+    ],
+    "selection_changed": false,
+    "parallel_field_roots": 0,
+    "maximum_stored_length_error_m": 3.6949100544816926e-08,
+    "minimum_endpoint_outward_displacement_m": 0.0024961106094760765,
+    "export_budget": {
+      "source_export_vertices": 20000,
+      "source_export_triangles": 60000,
+      "max_fins": 4800,
+      "worst_exported_fin_corners": 57600,
+      "reserve_vertices": 4096,
+      "projected_vertices": 81696,
+      "projected_triangles": 79200,
+      "vertex_limit": 100000,
+      "triangle_limit": 100000
+    },
+    "elapsed_seconds": 0.012440124992281199,
+    "limits": {
+      "fins": 4800,
+      "seconds": 10,
+      "export_vertices": 100000,
+      "export_triangles": 100000,
+      "regional_length_m": [
+        0.001,
+        0.04
+      ]
+    },
+    "quality_approved": false,
+    "motion_verified": false,
+    "input_modified": false,
+    "limitations": [
+      "Authored fixed-root tip reshaping, not denser fur or recovered/simulated hair.",
+      "Positive displacement against endpoint normals does not prove clearance from curved or other surfaces.",
+      "Caller preserves root metadata and independently verifies the actual exported roots, skin, motions and appearance.",
+      "This helper does not change v1 selection, public schemas, defaults, materials, atlas alpha or source geometry."
+    ]
+  },
+  "rss_bytes": 53493760
+}

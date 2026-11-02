@@ -1,0 +1,108 @@
+{
+  "dragon_materials_unchanged": [
+    "companion_surface",
+    "companion_cap"
+  ],
+  "exact_body_materials": [
+    "body_surface",
+    "body_cap",
+    "body_surface__color_rear-tail-base",
+    "body_surface__short_pile_adaptive_v1",
+    "body_cap__short_pile_adaptive_v1"
+  ],
+  "fixed": {
+    "action": "dance_flight",
+    "engine": "BLENDER_EEVEE_NEXT",
+    "frame_at_24fps": 32.64,
+    "other": "Same camera matrix/ortho scale/clips, world/lights, exposure/color transform, current normals/weights/geometry and animation. No auto-refit after hiding coat.",
+    "resolution": [
+      720,
+      720
+    ],
+    "samples": 16,
+    "scene": "Hash-bound prior exported-preview source.blend; load with use_scripts=False",
+    "second": 1.36,
+    "source_glb_sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+  },
+  "modes": [
+    {
+      "changes": "None",
+      "id": "full",
+      "purpose": "Reproduction control. Compare to saved exported pose0001 and report actual pixel differences; no invented acceptance tolerance."
+    },
+    {
+      "changes": "Only hide exact PortableEdgeFringe object after proving every polygon uses sole material SourceColoredFringe. Do not zero alpha or delete faces.",
+      "id": "coat_hidden",
+      "purpose": "Contribution of fringe including occlusion and shadows, not only its texture."
+    },
+    {
+      "changes": "Coat remains hidden. Replace only five body materials with one explicit opaque constant linear-gray diffuse/matte material; remove normal/roughness/metal textures but retain authored custom normals. Dragon materials unchanged.",
+      "id": "gray_body",
+      "purpose": "Remove body texture/normal-map material signals; not a geometry-only pass."
+    },
+    {
+      "changes": "Coat remains hidden. Connect each original body Principled Base Color graph to emission strength1; preserve original UV0, factor, sampler and sRGB handling. Use original constant color when unlinked. Dragon materials unchanged.",
+      "id": "basecolor_unlit",
+      "purpose": "Find artifacts carried by baked/basecolor appearance without light/normal-map response. Does not prove geometric integrity."
+    }
+  ],
+  "native_calls": 0,
+  "no_jobs_executed": true,
+  "paid_calls": 0,
+  "pitfalls": [
+    "Restore pristine material slots and hide flags before each mode; avoid accumulating mutations across controls.",
+    "Do not change AgX/exposure or compare emission pixel RGB directly to source PNG bytes as if color transforms were absent.",
+    "Gray residuals can be authored-normal lighting, shadows or overlapping geometry. Unlit disappearance alone cannot prove the mesh is sound.",
+    "Optional normal emission must use evaluated geometric face normals, not interpolated/custom shading normals; first use the separately owned CPU contour/contact evidence.",
+    "Record exact loaded scene/model hashes, mode material names, rig/bone pose proof and camera/light settings; keep all output in new diagnostic folders.",
+    "No second camera is needed unless the fixed view demonstrably hides the cheek/shoulder target; no geometry, skin, UV or source texture changes are authorized by this diagnostic."
+  ],
+  "production_edits": 0,
+  "quality_approved": false,
+  "recommendation": "Four modes in one fixed existing three-quarter camera at dance_flight1.36s are sufficient for the first attribution screen; do not add a full view sweep.",
+  "reviewed_at": "2026-11-01T22:43:09.416012-08:00",
+  "schema_version": 1,
+  "source_contract": {
+    "body": "All five listed body materials are opaque and double-sided; basecolor textures use UV0, tail-base is a constant factor.",
+    "fringe": "Separate PortableEdgeFringe mesh, sole material SourceColoredFringe, single-sided MASK .18.",
+    "normal_maps": "Adaptive body-cap normal texture uses UV1; unlit must use basecolor UV0 instead. Gray removes maps but does not replace custom normals."
+  },
+  "source_refs": [
+    {
+      "bytes": 36072824,
+      "path": "outputs/panda-staged-portable-model-v1/model.glb",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    },
+    {
+      "bytes": 2006,
+      "path": "outputs/panda-staged-portable-preview-preparation-v1/prepared.json",
+      "sha256": "0c233aa0bff81f193a948f5348cf4ec8db77983a8b7fbf9f41b686f618af1f7b"
+    },
+    {
+      "bytes": 44399160,
+      "path": "outputs/panda-staged-portable-preview-v1/source.blend",
+      "sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727"
+    },
+    {
+      "bytes": 10606,
+      "path": "outputs/panda-staged-portable-preview-v1/native-inspection.json",
+      "sha256": "b009f063396a7a6d0554a108fdc9c7069823d0707c759e89076f5faa4359f99b"
+    },
+    {
+      "bytes": 389677,
+      "path": "outputs/panda-staged-portable-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "be10e95ef674eabe1c7c1a627092a23747fd96a242d0ea8bcc5201d61efe75de"
+    },
+    {
+      "bytes": 13587,
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ],
+  "status": "read_only_design_review_no_render_or_quality_acceptance"
+}

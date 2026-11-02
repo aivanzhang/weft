@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "finished",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-contact-defects-diagnosis-v1/analyze.py"
+  ],
+  "pid": 46325,
+  "exit_code": -15,
+  "elapsed_seconds": 5.73,
+  "sampled_peak_rss_bytes": 591101952,
+  "rss_samples": 22,
+  "sampling_interval_seconds": 0.25,
+  "failure": "resident-memory budget exceeded",
+  "failure_reasons": [
+    "resident-memory budget exceeded"
+  ],
+  "monitor_errors": [],
+  "cleanup_events": [
+    {
+      "scope": "owned_process_group",
+      "signal": 15,
+      "result": "sent"
+    }
+  ],
+  "cleanup_status": "child_exit_verified",
+  "manual_stop_required": false,
+  "final_output_bytes": 1896883,
+  "sampled_max_output_bytes": 1896883,
+  "monitor_checkpoint": "cpu-monitor.json",
+  "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+  "descendant_exit_verified": false,
+  "limits": {
+    "wall_seconds": 60,
+    "rss_mb": 512,
+    "output_mb": 16,
+    "log_bytes": 16777216,
+    "cleanup_grace_seconds": 7,
+    "output_inventory_entries": 100000
+  },
+  "last_rss_sample_elapsed_seconds": 5.724,
+  "process_exit_verified": true
+}

@@ -1,0 +1,79 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-residual-face-review-v1/review.py"
+  ],
+  "inputs": {
+    "census": {
+      "bytes": 1051386,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-plan-v1/candidate-census.json",
+      "sha256": "009cb3a23f1678ca2a5ffa08cc0d33e451c84a200b1da2d26f69295fe4912017"
+    },
+    "current": {
+      "bytes": 36072824,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-model-v1/model.glb",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    },
+    "derivative": {
+      "bytes": 28079528,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v1/model.glb",
+      "sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528"
+    },
+    "old_selectors": {
+      "bytes": 1876367,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-contact-defects-diagnosis-v1/contact-selectors.json",
+      "sha256": "b59cf6ba898b40614d60508db2e2984a80a84dcd27159a060b83f79d45a57e31"
+    },
+    "selection": {
+      "bytes": 368751,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-plan-v1/face-selector.json",
+      "sha256": "c0be51e358a1909c9a451cee6d76d951678ed32f8cfa15c42c910359e0fb0e67"
+    },
+    "source": {
+      "bytes": 26414540,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/diagnostic-model.glb",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    "trace": {
+      "bytes": 478156,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-subpixel-attribution-v1/subpixel-attribution.json",
+      "sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0"
+    }
+  },
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 256,
+    "native_calls": 0,
+    "output_mb": 2,
+    "seconds": 10,
+    "texture_decodes": 0
+  },
+  "native_triangles": [
+    33175,
+    33333,
+    33185,
+    33975,
+    33914,
+    33770,
+    32439,
+    35446
+  ],
+  "prepared_at": "2026-11-02T00:15:50.309682-08:00",
+  "schema_version": 1,
+  "scope": "One small JSON/source position+UV correspondence review only. Frozen thresholds and UV candidates stay unchanged.",
+  "sources": [
+    {
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "worker_sha256": "63e60d90fdf0263ec71c18ed868afdb4cc016c33d2851b7e20fc038e7f2c136e"
+}

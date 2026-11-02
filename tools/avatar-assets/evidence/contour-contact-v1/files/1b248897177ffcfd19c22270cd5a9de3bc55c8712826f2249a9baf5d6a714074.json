@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "ray_count": 305,
+  "groups": {
+    "311,385": {
+      "rays": 49,
+      "selected": 49,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "283,388": {
+      "rays": 49,
+      "selected": 49,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "307,379": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "283,334": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "325,383": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "296,337": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "287,368": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "313,381": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "306,387": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "271,361": {
+      "rays": 49,
+      "selected": 27,
+      "misses": 0,
+      "unselected_front_faces": {
+        "33175": 8,
+        "33333": 13,
+        "33185": 1
+      },
+      "near_depth_overlaps": 0
+    },
+    "268,365": {
+      "rays": 49,
+      "selected": 25,
+      "misses": 7,
+      "unselected_front_faces": {
+        "33975": 12,
+        "33914": 3,
+        "33770": 2
+      },
+      "near_depth_overlaps": 0
+    },
+    "288,346": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "271,404": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "287,403": {
+      "rays": 49,
+      "selected": 28,
+      "misses": 0,
+      "unselected_front_faces": {
+        "32439": 21
+      },
+      "near_depth_overlaps": 0
+    },
+    "283,351": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "290,383": {
+      "rays": 1,
+      "selected": 1,
+      "misses": 0,
+      "unselected_front_faces": {},
+      "near_depth_overlaps": 0
+    },
+    "301,340": {
+      "rays": 49,
+      "selected": 45,
+      "misses": 0,
+      "unselected_front_faces": {
+        "35446": 4
+      },
+      "near_depth_overlaps": 0
+    }
+  },
+  "interpretation": "Neighboring unselected triangles contribute geometric coverage at residual pixels. No sampled near-depth overlap. Not exact TAA/filter coverage.",
+  "protected_white_face_not_repainted": "v7 primitive 0 / triangle 5167",
+  "quality_approved": false,
+  "new_paid_generation_calls": 0
+}

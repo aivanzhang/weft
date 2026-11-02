@@ -1,0 +1,83 @@
+{
+  "artifact_bytes": 75321,
+  "artifact_count": 14,
+  "artifacts": [
+    {
+      "bytes": 820,
+      "path": "config.json",
+      "sha256": "ccd2a088e16b08b789433e4c2367d9889bff2f1b34440f760d70773dbb019f5c"
+    },
+    {
+      "bytes": 238,
+      "path": "cpu-handle.json",
+      "sha256": "a46470f34f8dcf7525faec7fca044605a56c71b7ef2dd4a496a69e0c3572423e"
+    },
+    {
+      "bytes": 1067,
+      "path": "cpu-job.json",
+      "sha256": "eb667e311e6893b8ae64b6ec50749db863e0b90ae8969c5c21b5202e803787bb"
+    },
+    {
+      "bytes": 975,
+      "path": "cpu-monitor.json",
+      "sha256": "11e0551bdd3c78a241f8ff53bfc1ea39e84ce3d2afa3eaa7d0855efa89a85865"
+    },
+    {
+      "bytes": 218,
+      "path": "cpu.log",
+      "sha256": "c497ff4c61a7425b1362169d6743e1fda63fcba7b2fcaf547dad53f60799b9a8"
+    },
+    {
+      "bytes": 742,
+      "path": "execution.json",
+      "sha256": "4347925623961334abfa3a0aff29431640b6c80a80dae56b04bfe6d137e1a2dc"
+    },
+    {
+      "bytes": 234,
+      "path": "failure.json",
+      "sha256": "58fdef5b18e0db072f4377874f0f17849879464ee35d02e312252f7cbd0a8929"
+    },
+    {
+      "bytes": 3346,
+      "path": "findings.md",
+      "sha256": "386ea970c5de600acd669f14b6f8591c17f4dcf522d629205e6e07187610a101"
+    },
+    {
+      "bytes": 2468,
+      "path": "fit-report.json",
+      "sha256": "e04b925a93a2ce6d1d9e8413f673e3731044b61d3c81935bea5881fbb5026ba2"
+    },
+    {
+      "bytes": 20578,
+      "path": "fit.py",
+      "sha256": "b8edbd0a47cf38418a0559b5e9a5962625667b92e47db110e922c702f4498a46"
+    },
+    {
+      "bytes": 1265,
+      "path": "inputs.json",
+      "sha256": "a72820aff00d5c8ae6ced3be32e9708d1a088cd0dda492cc62f7ba53f001abee"
+    },
+    {
+      "bytes": 42454,
+      "path": "partition_geometry.py",
+      "sha256": "14c74ea88ebeacccd6ce96ec281d03d6bbe12cd5a4113479955ec3bde255d241"
+    },
+    {
+      "bytes": 234,
+      "path": "result.json",
+      "sha256": "58fdef5b18e0db072f4377874f0f17849879464ee35d02e312252f7cbd0a8929"
+    },
+    {
+      "bytes": 682,
+      "path": "retired-source-spur.npz",
+      "sha256": "d48f63a4a59a0a5c8f849c68c30c843547360130f3e92fcfe8baa45e510e431d"
+    }
+  ],
+  "model_exported": false,
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "sources_unchanged": true,
+  "status": "sealed_unsupported_reference_normal_fit"
+}

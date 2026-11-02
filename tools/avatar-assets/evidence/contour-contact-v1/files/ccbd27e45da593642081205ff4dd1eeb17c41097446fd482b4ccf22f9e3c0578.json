@@ -1,0 +1,87 @@
+{
+  "avatar_quality_approved": false,
+  "files": [
+    {
+      "bytes": 2484,
+      "path": "prepared.json",
+      "sha256": "e658621cde1a709a6cd1bb73cf7c61b8eb6feb6b1a09b3ee6b8c9cc1acd000ab"
+    },
+    {
+      "bytes": 1123,
+      "path": "receipt.json",
+      "sha256": "34feaec2752d60791c8505dde470714165b32066d5153c005f9f1445353156f2"
+    },
+    {
+      "bytes": 29740,
+      "path": "sources/avatar_assets/finish_generated.py",
+      "sha256": "3096efccec4dec69f466c1ad3f5e7a3b4dba9c9e4ca892672107b23ec7ad032f"
+    },
+    {
+      "bytes": 17295,
+      "path": "sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 55099,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "f6dbe5230b21d1ee6bbfb0caf10751a50bbea96ae72f4bd253db31d3c76c273f"
+    },
+    {
+      "bytes": 47586,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "deb76b2f0ec33145fb4fe54b1940e12d3367b935056d567d707d7baca0f868bd"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 52685,
+      "path": "sources/scripts/blender_finish_generated.py",
+      "sha256": "fe23b87cf3cba87716ef291d7e6a5c6ed30bbc499061290d3a6cf1e04a391a13"
+    },
+    {
+      "bytes": 6885,
+      "path": "sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 14069,
+      "path": "sources/tests/test_normal_rejection_pipeline.py",
+      "sha256": "fb01324fe6e568c12b55e7d6930e5702517490f84ea55efbebae6e58cd37c58e"
+    },
+    {
+      "bytes": 21591,
+      "path": "sources/tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545"
+    },
+    {
+      "bytes": 202,
+      "path": "tests-handle.json",
+      "sha256": "0d4a4acaa0d44d165ef9dec135fb2b2a76adfc860be3b6ae13744438e45e5795"
+    },
+    {
+      "bytes": 986,
+      "path": "tests-monitor.json",
+      "sha256": "b23790e40c49bce1f3809dba312c8391cdf685147cc99292724947bfae3f7237"
+    },
+    {
+      "bytes": 2096,
+      "path": "tests.log",
+      "sha256": "74469bfb06eec3cfa24e28ebe370faedf75f059ff4a8b59cfbb6d9daff86f42e"
+    }
+  ],
+  "files_count": 15,
+  "no_native_or_paid_calls": true,
+  "originals_unchanged": true,
+  "schema_version": 1,
+  "sealed_at": "2026-11-01T23:41:18.582601-08:00",
+  "status": "ten_focused_analytic_integration_tests_passed",
+  "total_bytes": 267021
+}

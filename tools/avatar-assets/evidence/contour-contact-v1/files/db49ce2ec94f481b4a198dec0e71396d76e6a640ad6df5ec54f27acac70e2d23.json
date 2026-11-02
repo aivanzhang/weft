@@ -1,0 +1,68 @@
+{
+  "expected_changes": [
+    "Exact source-ID-mapped tip POSITION rows",
+    "Accessor65 minimum and maximum"
+  ],
+  "inputs": [
+    {
+      "bytes": 36073016,
+      "path": "outputs/panda-staged-fringe-v1/model.glb",
+      "role": "raw_ids",
+      "sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9"
+    },
+    {
+      "bytes": 36072824,
+      "path": "outputs/panda-staged-portable-model-v1/model.glb",
+      "role": "source",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    },
+    {
+      "bytes": 36072824,
+      "path": "outputs/panda-regional-fringe-candidate-v1/model.glb",
+      "role": "candidate",
+      "sha256": "257ff11efdf31eaa3a7ab77b527b7b45a48f97bcf45c498985e9936b1069c5dd"
+    },
+    {
+      "bytes": 3599,
+      "path": "outputs/panda-staged-fringe-v1/source-skin.json",
+      "role": "source_skin_report",
+      "sha256": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d"
+    },
+    {
+      "bytes": 567833,
+      "path": "outputs/panda-staged-fringe-v1/fringe-correspondence.npz",
+      "role": "helper_correspondence",
+      "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+    }
+  ],
+  "limits": {
+    "memory_mb": 384,
+    "output_mb": 8,
+    "wall_seconds": 10
+  },
+  "prepared_at": "2026-11-01T23:18:11.492121-08:00",
+  "schema_version": 1,
+  "scope": "Independent tip-only custody audit; no new motion, visual, native, provider or AI execution",
+  "sources": [
+    {
+      "bytes": 10190,
+      "path": "audit.py",
+      "sha256": "2a618e3e137efb58e76b7444b5623638902b174ef76505f0affe5fa6abfa0177"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ]
+}

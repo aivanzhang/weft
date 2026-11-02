@@ -1,0 +1,243 @@
+{
+  "checked_corners": 1095,
+  "checked_faces": 369,
+  "degenerate_faces": 0,
+  "face_corner_indices_sha256": "692cb98fb2b2523c6673784d8272a7859c93ada9d2247a0c5441ef209d0708bc",
+  "minimum_face_dot": -0.9998156743452801,
+  "name": "vacated-shoulder-continuity",
+  "outside_hemisphere_corners": 172,
+  "policy": "Transferred base-body corners require positive dot with their own Newell face normal; no flips or fallback.",
+  "position_sha256": "fb0fa2cf176c698526125c4a67b31c0a29a2dfc4129b92deeceb8b6680ed8731",
+  "schema_version": 1,
+  "scope": "Pre-mutation shading rejection, not a topology repair or appearance acceptance.",
+  "status": "rejected",
+  "tested_corner_ids_sha256": "e113040df22a905920f11a21f8f01d01130d3f08f1e90a5ebf572e1174cd4b43",
+  "tested_normals_sha256": "cdf30b6402d54d4ff4ff46be7c07e5953b0a2f32704b3eae9cf4931a9fa0b07d",
+  "witness_limit": 32,
+  "witnesses": [
+    {
+      "corner": 185782,
+      "dot": -0.745601419141362,
+      "face": 61927,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49336
+    },
+    {
+      "corner": 185794,
+      "dot": -0.4794057155260276,
+      "face": 61931,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49400
+    },
+    {
+      "corner": 185795,
+      "dot": -0.5778809156089338,
+      "face": 61931,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49335
+    },
+    {
+      "corner": 185812,
+      "dot": -0.23520980983955622,
+      "face": 61937,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49383
+    },
+    {
+      "corner": 185819,
+      "dot": -0.5356451356515987,
+      "face": 61939,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49397
+    },
+    {
+      "corner": 185826,
+      "dot": -0.4956653999426854,
+      "face": 61942,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49399
+    },
+    {
+      "corner": 185829,
+      "dot": -0.69149122972672,
+      "face": 61943,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49398
+    },
+    {
+      "corner": 185902,
+      "dot": -0.250596853662409,
+      "face": 61967,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49624
+    },
+    {
+      "corner": 185903,
+      "dot": -0.7724844859340565,
+      "face": 61967,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49625
+    },
+    {
+      "corner": 185913,
+      "dot": -0.1876738939954951,
+      "face": 61971,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49623
+    },
+    {
+      "corner": 185915,
+      "dot": -0.7668237206964186,
+      "face": 61971,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49650
+    },
+    {
+      "corner": 185942,
+      "dot": -0.21125112651636027,
+      "face": 61980,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49686
+    },
+    {
+      "corner": 185943,
+      "dot": -0.38265357767580294,
+      "face": 61981,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49712
+    },
+    {
+      "corner": 185944,
+      "dot": -0.73325289631285,
+      "face": 61981,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49626
+    },
+    {
+      "corner": 185945,
+      "dot": -0.19129678932133382,
+      "face": 61981,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49622
+    },
+    {
+      "corner": 185946,
+      "dot": -0.18042260889048528,
+      "face": 61982,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49621
+    },
+    {
+      "corner": 185947,
+      "dot": -0.7559482998727186,
+      "face": 61982,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49649
+    },
+    {
+      "corner": 185953,
+      "dot": -0.6695862367198491,
+      "face": 61984,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49733
+    },
+    {
+      "corner": 185958,
+      "dot": -0.06911249272249326,
+      "face": 61986,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49749
+    },
+    {
+      "corner": 185959,
+      "dot": -0.6904460878127745,
+      "face": 61986,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49734
+    },
+    {
+      "corner": 186005,
+      "dot": -0.17501308201562227,
+      "face": 62001,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49914
+    },
+    {
+      "corner": 186151,
+      "dot": -0.13870089555758225,
+      "face": 62050,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49173
+    },
+    {
+      "corner": 186153,
+      "dot": -0.7418543757997558,
+      "face": 62051,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49171
+    },
+    {
+      "corner": 186154,
+      "dot": -0.6102923857104482,
+      "face": 62051,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49122
+    },
+    {
+      "corner": 186155,
+      "dot": -0.6102923857104482,
+      "face": 62051,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49115
+    },
+    {
+      "corner": 186156,
+      "dot": -0.9711005201040253,
+      "face": 62052,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49172
+    },
+    {
+      "corner": 186157,
+      "dot": -0.921180723546049,
+      "face": 62052,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49161
+    },
+    {
+      "corner": 186158,
+      "dot": -0.8088098444988682,
+      "face": 62052,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49123
+    },
+    {
+      "corner": 186396,
+      "dot": -0.1979322652202043,
+      "face": 62132,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49302
+    },
+    {
+      "corner": 186401,
+      "dot": -0.22033724327111848,
+      "face": 62133,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49299
+    },
+    {
+      "corner": 186404,
+      "dot": -0.045042141457143026,
+      "face": 62134,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49298
+    },
+    {
+      "corner": 186407,
+      "dot": -0.02127553472194832,
+      "face": 62135,
+      "reason": "outside_face_hemisphere",
+      "vertex": 49297
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-continuity-source-replay-v1/replay.py", line 197, in <module>
+    result = main()
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-continuity-source-replay-v1/replay.py", line 150, in main
+    apply_normal_continuity(obj, config)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-continuity-source-replay-v1/sources/blender_normal_continuity.py", line 85, in apply_normal_continuity
+    plan = plan_normal_continuity(
+        [tuple(vertex.co) for vertex in mesh.vertices], faces,
+        [face.material_index for face in mesh.polygons], [material.name for material in mesh.materials],
+        [tuple(normal.vector) for normal in mesh.corner_normals], configs)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-continuity-source-replay-v1/sources/normal_continuity.py", line 207, in plan_normal_continuity
+    points = _vectors(points, MAX_VERTICES, 'points')
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-continuity-source-replay-v1/sources/normal_continuity.py", line 76, in _vectors
+    raise ValueError('Invalid normal continuity '+name)
+ValueError: Invalid normal continuity points

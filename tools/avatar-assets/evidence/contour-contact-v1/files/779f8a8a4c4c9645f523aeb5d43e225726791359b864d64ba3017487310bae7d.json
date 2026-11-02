@@ -1,0 +1,101 @@
+{
+  "attribution": {
+    "cheek": {
+      "best_supported_hypothesis": "Authored/custom-normal behavior at the repaired contact band is a leading cause: cap/repainted-original face means strongly diverge from geometric normals while untouched originals do not.",
+      "confirmed": "Visible cluster survives coat removal and constant-gray material but is essentially absent under basecolor emission. It is not caused solely by fringe, basecolor or normal-map textures.",
+      "remaining_ambiguity": "Geometry folds/overlap and winding can also create or interact with these mismatches. Gray retains custom normals and shadows; normal angles alone do not prove correct geometry or which specific visible pixel is affected."
+    },
+    "fringe": {
+      "confirmed": "Adds fine silhouette texture but neither contact defect disappears when it is hidden.",
+      "decision": "Do not select fur-density changes as the repair for these defects."
+    },
+    "shoulder": {
+      "best_supported_hypothesis": "The existing body source-color/UV route contributes. All42 sparse green-sampling candidate faces are unchanged original primitive5, so the green is not confined to authored cap UV repainting.",
+      "confirmed": "Green and pale flecks persist with coat hidden and in basecolor emission.",
+      "remaining_ambiguity": "Seven samples per candidate face do not identify the exact displayed fleck. The preserved companion materials remain lit; actual visible face/material hits are needed before a color/UV correction."
+    }
+  },
+  "cpu_checkpoint_refs": [
+    {
+      "bytes": 1876367,
+      "path": "outputs/panda-contact-defects-diagnosis-v1/contact-selectors.json",
+      "sha256": "b59cf6ba898b40614d60508db2e2984a80a84dcd27159a060b83f79d45a57e31"
+    },
+    {
+      "bytes": 2151,
+      "path": "outputs/panda-contact-defects-diagnosis-v1/provenance.json",
+      "sha256": "b96e148c75530ed1a1063991521bc4c35694dd090d539c4d4a3aafaf7fc682f8"
+    },
+    {
+      "bytes": 1267,
+      "path": "outputs/panda-contact-defects-diagnosis-v1/cpu-job.json",
+      "sha256": "2f269d5bd1e000c7678bb0f3da575abb8462eb410aef5ef23a7504cff35984b1"
+    },
+    {
+      "bytes": 14198,
+      "path": "outputs/panda-contact-defects-diagnosis-v1/analyze.py",
+      "sha256": "88f9b90024c35d23517bd6e1aabde416f3898cbd7867414c0b5d642901462a04"
+    }
+  ],
+  "cpu_job_limit": {
+    "elapsed_seconds": 5.73,
+    "limit_mib": 512,
+    "process_exit_verified": true,
+    "reason": "resident-memory budget exceeded",
+    "sampled_peak_rss_bytes": 591101952,
+    "scope": "Numeric values above come from complete saved checkpoint JSON only. The whole CPU study did not finish and has no implicit pass.",
+    "status": "failed_preserved"
+  },
+  "independently_reaggregated_checkpoint_values": {
+    "cheek_rest_roi": {
+      "authored_closure": {
+        "faces": 129,
+        "median_face_mean_custom_vs_geometric_angle_degrees": 50.71339584845235,
+        "opposed_mean_normal_faces": 44
+      },
+      "original": {
+        "faces": 411,
+        "median_face_mean_custom_vs_geometric_angle_degrees": 2.154132217989101,
+        "opposed_mean_normal_faces": 0
+      },
+      "repainted_original": {
+        "faces": 69,
+        "median_face_mean_custom_vs_geometric_angle_degrees": 39.13413539937038,
+        "opposed_mean_normal_faces": 8
+      }
+    },
+    "shoulder_green_origin_primitive": [
+      {
+        "faces": 42,
+        "origin": "original",
+        "primitive": 5
+      }
+    ],
+    "shoulder_green_sample_faces": 42
+  },
+  "limits": [
+    "One720px view at dance_flight1.36s; no other-view/continuous-motion/physical accuracy claim.",
+    "No exact-pixel material or topology attribution was completed by this reviewer.",
+    "Conspicuous cheek and shoulder defects remain; Muse parity and finished avatar acceptance are not established."
+  ],
+  "minimum_next_diagnostic": {
+    "conditional_repair_direction": "Only after those hits agree, restrict normal-continuity correction to proven affected provenance classes and retain original normals on unaffected/repainted original surfaces where valid. Do not globally flatten normals or repaint the panda from these screenshots.",
+    "measure": [
+      "For a few visible cheek-defect pixels and adjacent controls, record exact face/origin, geometric and interpolated custom normals, facing and closest depth layers.",
+      "For visible shoulder green/pale pixels, record exact face/material and UV0 color sample; distinguish unchanged original, repainted original, closure and companion surfaces."
+    ],
+    "required_for_exact_repair_selection": true,
+    "scope": "Reuse parent-owned sparse CPU pixel-hit attribution, not a new full render study."
+  },
+  "native_calls_by_reviewer": 0,
+  "production_edits": 0,
+  "provider_or_ai_calls_by_reviewer": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "qualified_independent_attribution_complete_not_repair_acceptance",
+  "visual_observations": {
+    "bytes": 3911,
+    "path": "outputs/panda-contact-ablation-independent-review-v1/visual-observations.json",
+    "sha256": "3829be9d98565b4f90a75317f49cb4f736d8b7fd3253bc91e7e5e8a75351e98e"
+  }
+}

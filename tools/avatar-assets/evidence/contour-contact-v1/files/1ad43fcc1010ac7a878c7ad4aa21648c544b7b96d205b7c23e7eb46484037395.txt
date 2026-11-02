@@ -1,0 +1,92 @@
+spur=lookup[(0,4961)]
+spur_tri=wf[spur]
+spur_edges=[tuple(sorted((int(a),int(b))))for a,b in zip(spur_tri,np.roll(spur_tri,-1))]
+spur_counts=[len(edge_faces[e])for e in spur_edges]
+spur_points=points[faces[spur]].astype(float)
+spur_area=float(np.linalg.norm(np.cross(spur_points[1]-spur_points[0],spur_points[2]-spur_points[0]))*.5)
+edge_lengths=np.linalg.norm(spur_points-np.roll(spur_points,-1,axis=0),axis=1)
+spur_info={'source_face':[0,4961],'body_welded_vertices':spur_tri.tolist(),
+    'positions_blender_m':blender(spur_points).tolist(),'area_m2':spur_area,
+    'edge_lengths_m':edge_lengths.tolist(),'edge_total_body_incidence':spur_counts,
+    'incident_source_faces_by_edge':[[list(source_ids[f])for f in edge_faces[e]]for e in spur_edges],
+    'vertex_total_body_incidence':[len(vertex_faces[int(v)])for v in spur_tri],
+    'one_triangle_attached_along_only_one_edge':sorted(spur_counts)==[1,1,3],
+    'claim':'Actual source triangle, not a zero-area or duplicate-face assumption'}
+write('spur.json',spur_info)
+
+fan_neighbors=set(vertex_faces[2573])-seed-{spur}
+assert len(fan_neighbors)<=8
+config={'source_model_sha256':digest(SOURCE),'seed_faces':124,'seed_source_faces':[list(source_ids[f])for f in sorted(seed)],
+    'explicit_original_spur_face':[0,4961],
+    'optional_incident_original_faces':[list(source_ids[f])for f in sorted(fan_neighbors)],
+    'protected_primitives':[1,3],'max_added_original_faces':8,'max_target_faces':1000,
+    'post_removal_gate':'Selected disk with simple oriented boundary; every boundary edge has exactly one retained body face; remaining-body vertex links healthy. Original cap diagonals are removed and need not remain manifold before removal.',
+    'two_scopes':'First test a single connected replacement selection including the spur. If unsupported, separately screen explicit leaf-face retirement plus the unchanged disk. These are not silently equivalent.'}
+write('config.json',config)
+trials=[];integrated=None
+for count in range(len(fan_neighbors)+1):
+    for added in itertools.combinations(sorted(fan_neighbors),count):
+        candidate=seed|{spur}|set(added)
+        outcome,boundary=screen(candidate)
+        trials.append({'variant':'single_replacement_selection_including_spur',
+            'added_source_faces':[[0,4961]]+[list(source_ids[f])for f in added], 'screen':outcome})
+        if outcome['passes']:integrated=(candidate,boundary);break
+    if integrated:break
+
+isolated_result,isolated_boundary=screen(seed,{spur})
+trials.append({'variant':'separate_leaf_retirement_plus_original_124_face_disk','screen':isolated_result,
+    'retired_source_faces':[[0,4961]],'leaf_gate':spur_info['one_triangle_attached_along_only_one_edge']})
+write('trials.json',trials)
+winner=integrated
+mode='single_replacement_selection'if integrated else 'separate_leaf_retirement_plus_disk'
+if winner is None and isolated_result['passes']and spur_info['one_triangle_attached_along_only_one_edge']:
+    winner=(seed,isolated_boundary)
+result={'schema_version':1,'source_model_sha256':digest(SOURCE),'config_sha256':digest(OUT/'config.json'),
+    'status':'unsupported'if winner is None else 'bounded_composite_candidate_not_implemented',
+    'tests':len(trials),'single_selection_with_spur_passed':integrated is not None,
+    'separate_leaf_retirement_disk_screen_passed':isolated_result['passes'],
+    'spur_leaf_gate':spur_info['one_triangle_attached_along_only_one_edge'],
+    'native_jobs':0,'provider_calls':0,'textures_decoded':0,'model_modified':False,'quality_approved':False}
+if winner is not None:
+    selected,boundary=winner;deleted=set()if integrated else {spur};edges=set(boundary);directed={}
+    for fid in selected:
+        for a,b in zip(wf[fid],np.roll(wf[fid],-1)):
+            a,b=int(a),int(b)
+            if tuple(sorted((a,b)))in edges:
+                assert a not in directed;directed[a]=b
+    first=min(directed);cycle=[first];current=directed[first]
+    while current!=first:
+        assert current not in cycle;cycle.append(current);current=directed[current]
+    assert len(cycle)==len(boundary)
+    references={f for v in cycle for f in vertex_faces[v]if f not in selected and f not in deleted and source_ids[f][0]==0}
+    forbidden_diagonals=[]
+    for edge,incident in edge_faces.items():
+        if set(edge)<=set(cycle)and edge not in edges and any(f in selected for f in incident)and any(f not in selected and f not in deleted for f in incident):
+            forbidden_diagonals.append({'body_welded_vertices':list(edge),
+                'retained_source_faces':[list(source_ids[f])for f in incident if f not in selected and f not in deleted],
+                'removed_source_faces':[list(source_ids[f])for f in incident if f in selected]})
+    refs=[]
+    for fid in sorted(references):
+        tri=faces[fid]
+        refs.append({'source_face':list(source_ids[fid]),'rest_positions_blender_m':blender(points[tri]).tolist(),
+            'corner_normals_blender':blender(normals[tri]).tolist(),'uv0_gltf_v_down':uvs[tri].tolist()})
+    candidate={'source_model_sha256':digest(SOURCE),'mode':mode,'source_mesh':0,
+        'replacement_source_faces':[list(source_ids[f])for f in sorted(selected)],
+        'retired_without_replacement_source_faces':[list(source_ids[f])for f in sorted(deleted)],
+        'source_files_mutated':False,'oriented_boundary_body_welded_ids':cycle,
+        'oriented_boundary_blender_m':blender(unique[cycle]).tolist(),
+        'boundary_winding':'Same directed order as selected source triangles; preserve orientation in any new patch',
+        'healthy_remaining_original_body_reference_triangles':refs,
+        'forbidden_existing_body_diagonals':forbidden_diagonals,
+        'scope':'Hypothetical local composite repair data only. Retirement deletes an explicit tiny source flap in a future derivative; it is not a source-preserving no-op.',
+        'screen':screen(selected,deleted)[0]}
+    write('candidate.json',candidate)
+    result.update(candidate_sha256=digest(OUT/'candidate.json'),mode=mode,replacement_faces=len(selected),
+        retired_without_replacement_faces=len(deleted),oriented_boundary_vertices=len(cycle),
+        reference_faces=len(refs),forbidden_shared_body_diagonals=len(forbidden_diagonals))
+else:
+    result['next_dependency']='Explicit local face-fan reconstruction is still required; this envelope did not establish a healthy replacement disk.'
+result.update(elapsed_seconds=time.monotonic()-START,
+    sources_unchanged=all(digest(ROOT/p['path'])==p['sha256']for p in json.loads((OUT/'inputs.json').read_text())))
+write('report.json',result)
+print(json.dumps(result,sort_keys=True))

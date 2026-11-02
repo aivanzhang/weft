@@ -1,0 +1,137 @@
+{
+  "avatar_quality_approved": false,
+  "files": [
+    {
+      "bytes": 36870,
+      "path": "config.json",
+      "sha256": "72f112ab66406b52a6ef8d39f2b625e7d20f1a52de3effb71d09b94da3de8da7"
+    },
+    {
+      "bytes": 767,
+      "path": "execution-prepared.json",
+      "sha256": "7909033ce7753f0c06b28c9bde73a26b39d507e7791fbd17d7f1cc58602ed5fd"
+    },
+    {
+      "bytes": 137,
+      "path": "failure.json",
+      "sha256": "cbfd9a9acc230dbce038143d9eae2f23376f33dc81dc43ca30d8b4a644ba3a55"
+    },
+    {
+      "bytes": 949,
+      "path": "independent-legacy-diagnosis.json",
+      "sha256": "9f98fc9867b4fd4c2857f42312edab812b2c18e92f2cb3e40900f00599c6ce4f"
+    },
+    {
+      "bytes": 1761,
+      "path": "input-pins.json",
+      "sha256": "1a2bc5c990e4336809f4ab2ca77513a050232be61cb6984e6faf8d70a3a5aa10"
+    },
+    {
+      "bytes": 1116,
+      "path": "receipt.json",
+      "sha256": "a66ef36601f76d615ef0d9ec7576af4731b11d6b6dbb0d2c66c25367e52d1f4b"
+    },
+    {
+      "bytes": 241,
+      "path": "replay-handle.json",
+      "sha256": "97028a36de83a77c8eb7fadec78e47861c05bdf7e40e9f9c172afc1e3e0a872e"
+    },
+    {
+      "bytes": 1026,
+      "path": "replay-monitor.json",
+      "sha256": "3309b93115c67e47e8d481f34e3c03ce76b0b3719eb000515a9a0af44823469f"
+    },
+    {
+      "bytes": 1313,
+      "path": "replay.log",
+      "sha256": "1840d00e3c4cb0dba5020648e944149aa51000fb2e83dd6d75a5989ce93de6aa"
+    },
+    {
+      "bytes": 11450,
+      "path": "replay.py",
+      "sha256": "67fd5aaf12dca7ef7f4041a88e3d35e80c0c4708ca3e694893d2ee0ee7a0f923"
+    },
+    {
+      "bytes": 96,
+      "path": "runner-sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 338,
+      "path": "runner-sources/avatar_assets/__pycache__/__init__.cpython-314.pyc",
+      "sha256": "6f7a0e49b7719216398988ad3129949daa27f6c00b934fd09453fc421409c14c"
+    },
+    {
+      "bytes": 16414,
+      "path": "runner-sources/avatar_assets/__pycache__/runner.cpython-314.pyc",
+      "sha256": "ee5cb921cef953e45805435057f90486a36237e778c9cc77450157f5a9d669c9"
+    },
+    {
+      "bytes": 7837,
+      "path": "runner-sources/avatar_assets/__pycache__/safety.cpython-314.pyc",
+      "sha256": "094dfbb906df18f4a6a2a31e7126bad04e4fc99b37dd5f19fa03477872dcfd45"
+    },
+    {
+      "bytes": 11421,
+      "path": "runner-sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "runner-sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 12262,
+      "path": "sources/__pycache__/blender_normal_continuity.cpython-314.pyc",
+      "sha256": "600e1fa29ac73a6a46b9821fb487c01b79bb21525dc747aa8048492ba818f042"
+    },
+    {
+      "bytes": 24157,
+      "path": "sources/__pycache__/legacy_normal_continuity.cpython-314.pyc",
+      "sha256": "d16c848adb7933d2b2103afbef18cae50d3b250c8c59b833bb2f5da51a60c4e5"
+    },
+    {
+      "bytes": 29489,
+      "path": "sources/__pycache__/normal_continuity.cpython-314.pyc",
+      "sha256": "7b677386f1b14181de69bdf7df2dcd4e0948ee5403601e86a9b6658bf0fa8fe1"
+    },
+    {
+      "bytes": 67957,
+      "path": "sources/__pycache__/three_d.cpython-314.pyc",
+      "sha256": "a057e1c23210220ec4e62f950c7c4ef46af2027ba684e8cec46b4cdca07e8f07"
+    },
+    {
+      "bytes": 2710,
+      "path": "sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 6885,
+      "path": "sources/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 13937,
+      "path": "sources/legacy_normal_continuity.py",
+      "sha256": "6719fb8c7cfb47b240d34848b91838021b678abc806e32f0286d1b1115813d2a"
+    },
+    {
+      "bytes": 17295,
+      "path": "sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    }
+  ],
+  "files_count": 25,
+  "no_native_or_paid_calls": true,
+  "originals_unchanged": true,
+  "schema_version": 1,
+  "sealed_at": "2026-11-01T23:41:18.580518-08:00",
+  "status": "preserved_facade_type_failure",
+  "total_bytes": 305293
+}

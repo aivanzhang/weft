@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "prepared_at": "2026-11-01T23:04:31.516220-08:00",
+  "inputs": {
+    "model": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-model-v1/model.glb",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2",
+      "bytes": 36072824
+    },
+    "raw": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/model.glb",
+      "sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9",
+      "bytes": 36073016
+    },
+    "skin": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/source-skin.npz",
+      "sha256": "4f6b3f8dc216189ebd6da586d91fbcea9167806b6679b0d4bcc5eb4b19fc57f3",
+      "bytes": 1498381
+    },
+    "skin_report": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/source-skin.json",
+      "sha256": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d",
+      "bytes": 3599
+    },
+    "correspondence": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/fringe-correspondence.npz",
+      "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa",
+      "bytes": 567833
+    },
+    "fringe_report": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/fringe-report.json",
+      "sha256": "6f0007c703f77ebad5bce3d282a1722d64272daffcab9efb017be81c7901d5c5",
+      "bytes": 13623
+    },
+    "design": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-preparation-v1/finish-config.json",
+      "sha256": "4ab29ccce8b00b74d9e3fadc75c247ad22aa7877e2a8eb65aecb006a8caafc7d",
+      "bytes": 37425
+    }
+  },
+  "sources": [
+    {
+      "path": "scripts/fringe_flow.py",
+      "snapshot": "sources/fringe_flow.py",
+      "sha256": "b7d60d5e9f152edf063ed9ce140b187dafe018e82470c66eb695aaccf8940ed9",
+      "bytes": 9233
+    },
+    {
+      "path": "scripts/edge_fringe.py",
+      "snapshot": "sources/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "bytes": 17397
+    },
+    {
+      "path": "scripts/groom_flow.py",
+      "snapshot": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "bytes": 7179
+    },
+    {
+      "path": "avatar_assets/__init__.py",
+      "snapshot": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "bytes": 96
+    },
+    {
+      "path": "avatar_assets/fringe_export.py",
+      "snapshot": "sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "bytes": 13676
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "snapshot": "sources/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc",
+      "bytes": 35106
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "snapshot": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "bytes": 3759
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "snapshot": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "bytes": 11421
+    }
+  ],
+  "worker_sha256": "64bc66e99cfbb6a79a86cf19b153882c23272c21f02ec48b840bc75951873617",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-regional-fringe-preparation-v1/produce.py"
+  ],
+  "output": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-regional-fringe-candidate-v1",
+  "limits": {
+    "seconds": 30,
+    "memory_mb": 512,
+    "output_mb": 64
+  },
+  "scope": "One exact-ID-bound experimental regional4.5mm fin-tip POSITION derivative plus matching accessor min/max; no normal/skin/body/atlas/action edits",
+  "attempts": 1,
+  "public_guard_enabled": false
+}

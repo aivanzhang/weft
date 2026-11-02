@@ -1,0 +1,552 @@
+[
+  {
+    "screen": {
+      "boundary_components": [
+        78
+      ],
+      "boundary_degree_histogram": {
+        "2": 78
+      },
+      "boundary_edges": 78,
+      "edge_valence_histogram": {
+        "1": 78,
+        "2": 147
+      },
+      "euler_characteristic": 1,
+      "face_components": [
+        124
+      ],
+      "faces": 124,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        3009,
+        3091,
+        2573
+      ],
+      "invalid_selected_vertex_links": [],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "original_seed"
+  },
+  {
+    "added_source_faces": [],
+    "screen": {
+      "boundary_components": [
+        74,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 75,
+        "4": 2
+      },
+      "boundary_edges": 79,
+      "edge_valence_histogram": {
+        "1": 79,
+        "2": 133
+      },
+      "euler_characteristic": 2,
+      "face_components": [
+        77,
+        27,
+        10,
+        1
+      ],
+      "faces": 115,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        4953
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        75,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 76,
+        "4": 2
+      },
+      "boundary_edges": 80,
+      "edge_valence_histogram": {
+        "1": 80,
+        "2": 134
+      },
+      "euler_characteristic": 2,
+      "face_components": [
+        78,
+        27,
+        10,
+        1
+      ],
+      "faces": 116,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        5006
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        76,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 76,
+        "4": 3
+      },
+      "boundary_edges": 82,
+      "edge_valence_histogram": {
+        "1": 82,
+        "2": 133
+      },
+      "euler_characteristic": 2,
+      "face_components": [
+        77,
+        27,
+        10,
+        1,
+        1
+      ],
+      "faces": 116,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        2624,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        2624,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        5699
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        75,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 76,
+        "4": 2
+      },
+      "boundary_edges": 80,
+      "edge_valence_histogram": {
+        "1": 80,
+        "2": 134
+      },
+      "euler_characteristic": 2,
+      "face_components": [
+        78,
+        27,
+        10,
+        1
+      ],
+      "faces": 116,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        6015
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        76,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 76,
+        "4": 3
+      },
+      "boundary_edges": 82,
+      "edge_valence_histogram": {
+        "1": 82,
+        "2": 133
+      },
+      "euler_characteristic": 2,
+      "face_components": [
+        77,
+        27,
+        10,
+        1,
+        1
+      ],
+      "faces": 116,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        3167,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        3167,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        4953
+      ],
+      [
+        0,
+        5006
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        76,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 75,
+        "4": 4
+      },
+      "boundary_edges": 83,
+      "edge_valence_histogram": {
+        "1": 83,
+        "2": 134
+      },
+      "euler_characteristic": 1,
+      "face_components": [
+        78,
+        27,
+        10,
+        1,
+        1
+      ],
+      "faces": 117,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        2624,
+        2592,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        2624,
+        2592,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        4953
+      ],
+      [
+        0,
+        5699
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        76,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 77,
+        "4": 2
+      },
+      "boundary_edges": 81,
+      "edge_valence_histogram": {
+        "1": 81,
+        "2": 135
+      },
+      "euler_characteristic": 2,
+      "face_components": [
+        79,
+        27,
+        10,
+        1
+      ],
+      "faces": 117,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        4953
+      ],
+      [
+        0,
+        6015
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        77,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 77,
+        "4": 3
+      },
+      "boundary_edges": 83,
+      "edge_valence_histogram": {
+        "1": 83,
+        "2": 134
+      },
+      "euler_characteristic": 2,
+      "face_components": [
+        78,
+        27,
+        10,
+        1,
+        1
+      ],
+      "faces": 117,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        3167,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        3167,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        5006
+      ],
+      [
+        0,
+        5699
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        77,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 77,
+        "4": 3
+      },
+      "boundary_edges": 83,
+      "edge_valence_histogram": {
+        "1": 83,
+        "2": 134
+      },
+      "euler_characteristic": 2,
+      "face_components": [
+        78,
+        27,
+        10,
+        1,
+        1
+      ],
+      "faces": 117,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        2624,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        2624,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        5006
+      ],
+      [
+        0,
+        6015
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        78,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 77,
+        "4": 4
+      },
+      "boundary_edges": 85,
+      "edge_valence_histogram": {
+        "1": 85,
+        "2": 133
+      },
+      "euler_characteristic": 2,
+      "face_components": [
+        77,
+        27,
+        10,
+        1,
+        1,
+        1
+      ],
+      "faces": 117,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        2624,
+        3167,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        2624,
+        3167,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  },
+  {
+    "added_source_faces": [
+      [
+        0,
+        5699
+      ],
+      [
+        0,
+        6015
+      ]
+    ],
+    "screen": {
+      "boundary_components": [
+        76,
+        3
+      ],
+      "boundary_degree_histogram": {
+        "2": 75,
+        "4": 4
+      },
+      "boundary_edges": 83,
+      "edge_valence_histogram": {
+        "1": 83,
+        "2": 134
+      },
+      "euler_characteristic": 1,
+      "face_components": [
+        78,
+        27,
+        10,
+        1,
+        1
+      ],
+      "faces": 117,
+      "interior_vertices_with_unselected_body_faces": [],
+      "invalid_outer_attachment_vertices": [
+        2767,
+        3122,
+        3167,
+        3150
+      ],
+      "invalid_selected_vertex_links": [
+        2767,
+        3122,
+        3167,
+        3150
+      ],
+      "orientation_conflict_edges": [],
+      "passes": false
+    },
+    "variant": "targeted_fan_avoidance"
+  }
+]

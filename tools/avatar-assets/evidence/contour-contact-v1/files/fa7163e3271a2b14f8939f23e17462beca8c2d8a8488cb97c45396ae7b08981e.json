@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-v2-independent-review-v1/run_checks.py"
+  ],
+  "input_sha256": "0447261abff099ec10efeff7d2524d5beac7f0c90c054bbd0dd79a8453dd008e",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "wall_seconds": 30
+  },
+  "previous_sealed_review": {
+    "path": "outputs/panda-shoulder-uv-independent-review-v2/manifest.json",
+    "sha256": "2e69bb54f7f48a4545b2bbff8a928756f275f288e6c11c381070dc818b845a11"
+  },
+  "schema_version": 1,
+  "scope": "Same exact custody and2e-7 identity gates; declared249-face/51376-vertex inputs plus exact seven-face selection delta",
+  "source_hashes": {
+    "check.py": "2b6f059c96376e8869e2781fee74c69b2fa4f1ee53390dbc376eef096745ab65",
+    "check_identity.py": "52f8141ce83cd99cda9de8046c9052fc60bb9df7c1bf6d7d66aebe4f52d663d0",
+    "identity-prepared.json": "e533ad0b251588cc85b4541893ca86da875e5a97ae0f118ac2fa4f610a4cabbf",
+    "run_checks.py": "ebf3d1f55f3a3f73cbf8735ad5bb251ab84ec2e6273096dd6ae21255a8dd9716",
+    "runner-sources/avatar_assets/__init__.py": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+    "runner-sources/avatar_assets/runner.py": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+    "runner-sources/avatar_assets/safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "sources/three_d.py": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+  }
+}

@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 22:30 PST. Checkpoint `a460faf` is privately pushed; current export-fidelity/staged-rendering work is ready for its scoped checkpoint. Actual panda normal/weight/memory components pass; overall appearance remains rejected and public fringe finishing remains disabled. All owned workers exited; no new paid allowance/calls. Shared main may advance from other Weft owners; stage only this package.
+- Recorded: 2026-11-02 00:31 PST. Normal-transfer guard and contact-color checkpoint is verified and ready for its avatar-only save; the post-push result belongs in `.local/avatar-quality-publication-v10/receipt.json` and `outputs/contour-contact-checkpoint-v1/publication.json`. Previous avatar checkpoint `f05dc2f` is privately pushed. All owned workers exited. Public fringe remains disabled; no new paid allowance/calls. Preserve unrelated Weft edits.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -19,6 +19,103 @@ tracks real work through finished output. A form, a passing fixture or another
 hand-authored panda recipe does not complete this goal. Preserve the approved
 fur panda, standalone dragon, completed dance/flight preview and all failures.
 [Acceptance criteria and integration record](docs/hands-off-studio.md).
+
+### Completed local diagnosis — contour component improves, quality still rejected
+
+- Status for the user's text-to-3D question: the core prompt/generation/authoring/
+  export workflow and saved panda/dragon examples work. The newer hands-off
+  Studio has no accepted real end-to-end delivery; arbitrary custom actions and
+  consistent Muse-level appearance are not established. Do not mark the active
+  quality/Studio goal complete.
+- [Latest diagnostic handoff](docs/contour-contact-diagnosis.md) records immutable
+  paths, results, resource failures and next dependencies. No approved model,
+  gallery entry, default or Weft consumer changed.
+- Matched four-mode native ablation separates shoulder color/UV flecks from
+  cheek geometry/normal artifacts. All 17 actual pixel witnesses hit panda body
+  materials, not the companion. Restoring 198 faces' source normals reduces dark
+  contrast but leaves the raised angular patch; it is not a repair.
+- New experimental `scripts/fringe_flow.py` and its 10 passing tests are saved
+  locally. Actual shorter, regionally combed fringe improves sampled outlines.
+  Independent audit proves only 21,600 tip rows / 183,918 binary bytes and six
+  position bounds change; body, roots, textures, skin and actions are exact.
+  It reads as short plush, not denser hair. No new motion-quality audit or public
+  integration is claimed; `portable_fringe` remains disabled.
+- The 0–3-ring cheek topology screen finds no healthy connected replacement.
+  Two smaller patches have sound boundaries; the largest has three bad body-side
+  junctions. Resolve those exact local attachments before a curved replacement;
+  do not repeat projected caps or whole-mesh remeshing.
+- All native/CPU jobs and agent-owned diagnostics are finished. Preserve the
+  failed 512 MiB census and initial bare-interpreter audit failure. Pending
+  provider/AI allowance is unchanged; no new paid generation or pipeline-role
+  calls. The next safe work is a bounded local repair/quality guard, followed by
+  scoped source/evidence checkpointing. Fresh Studio acceptance remains separate.
+
+### Current checkpoint: guard verified; contact color improves, cheek unresolved
+
+- [Normal-transfer guard](docs/normal-transfer-guard.md) implemented in the pure
+  planner, native receipt writer and pipeline. Prepared jobs pin both helpers;
+  malformed/changed/unbound rejection evidence cannot trigger another agent call.
+  Thirteen planner/mutation tests and ten focused integration tests pass.
+- Actual-source CPU replay rejects 172/1,095 transferred corners on 369 faces,
+  zero mutation attempts. `outputs/normal-continuity-source-replay-v2`; preserve
+  v1's facade-type failure. Actual native proof `outputs/normal-guard-native-v1`
+  agrees and writes the exact report before downstream finishing: 1.823 s,
+  429,211,648 B sampled RSS, PID 52893 exited. No image or model was produced.
+- `outputs/panda-cheek-targeted-selection-v2/candidate.json` resolves the local
+  topology dependency: retire original body 0/4961, a 0.205 mm² dangling flap, and
+  replace the 124-face loop-27 patch while fixing 78 boundary points. Earlier whole-
+  body link rejection at two other junctions was too strict because those old
+  cap faces are being replaced. The remaining-body attachment now passes. This
+  is an authored repair domain, not yet a good surface. The subsequent curved fit
+  is unsupported: reference normal p95 63.67° exceeds the unchanged 45° gate.
+  `outputs/panda-cheek-curved-candidate-v1` retains the failed fit; no GLB exists.
+  PID 53380 exited in 0.262 s, sampled RSS unknown. Diagnose the reference band
+  before another fit; do not broaden the region or relax the gate blindly.
+- UV-only source derivative `outputs/panda-shoulder-uv-repair-v1/model.glb`, SHA
+  `53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528`,
+  preserves original geometry/N/T/images and non-color lookups via copied UV1.
+  Its 242 selected faces include all 17 center-ray hits; 244 white candidates and companion
+  faces remain protected. It is unrigged source work, not an updated animated
+  avatar. Producer CPU 2.609 s aggregate, maximum 419,774,464 B sampled RSS.
+- Matched unlit comparison `outputs/panda-shoulder-uv-ablation-v1` completed in
+  2.588 s / 878,428,160 B, PID 53316 exited. Baseline pixels match the old control
+  exactly. Thirteen of sixteen green witnesses become dark; three are nearly
+  unchanged, and the bright witness remains partly visible. This is partial
+  color improvement, not full pixel coverage or an accepted repair.
+- The follow-up 305-ray visibility check finds neighboring unselected faces,
+  not sampled near-depth overlap. Exact joins preserve the white neighbor
+  v7 [0,5167]. `outputs/panda-shoulder-residual-face-review-v1` binds seven dark
+  contributors; [0,2395] is explicitly admitted as an edge-connected second
+  neighbor with no white samples, not a larger region or relaxed threshold.
+- `outputs/panda-shoulder-uv-repair-v2/model.glb`, SHA
+  `736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e`,
+  contains the original 242 selected faces plus those seven. Independent review
+  `outputs/panda-shoulder-uv-v2-independent-review-v1` verifies all 62,581
+  oriented triangles/P/N/T, 62,332 unchanged color-UV faces and original image
+  routes. All 493 selected/protected current faces resolve uniquely to v7;
+  all 244 protected white faces stay unchanged. Review manifest:
+  `f824be233c6bda5720499f8b44bbb35e41c87ad8739c9ee34fdecaedd5483903`.
+- One new matched unlit image (`outputs/panda-shoulder-uv-ablation-v2`) removes
+  pronounced green tint at all 16 fixed green witnesses: 15 are dark, one grazing
+  pixel is neutral gray [66,68,67]. The bright witness remains [117,113,112].
+  Only 60 pixels change from v1. Baseline is reused byte-for-byte only after
+  exact protected-state comparison. Native 2.598 s / 866,467,840 B, PID 55871
+  exited. This is not full appearance, fur, rig or motion acceptance.
+- Geometry/UV outputs must compose by retained-face correspondence,
+  not old ordinals after replacement; disjoint faces alone do not prove disjoint
+  attribute storage. Do not promote either into the automatic finisher yet.
+- Compact evidence: `evidence/contour-contact-v1`, 647 original artifact records,
+  491 exact snapshots / 17,181,529 B. Manifest SHA
+  `0039e838229601975246c06c0f48423eb5c5d0f47ff7c05fc6a1521c70ea6445`.
+  Large GLB/Blend files remain local with hashes; this is not their remote backup.
+  Packaging passed in 0.529 s / 23,003,136 B sampled RSS. Preserve initial audit
+  schema failures and the rejected curved fit. All owned workers are finished.
+- No new Meshy credits or pipeline-role calls, no server/browser/deployment.
+  Next safe work: resolve the cheek reference-normal disagreement, admit the UV
+  material clones explicitly in native/portable finishing, regenerate fur, and
+  review full appearance/motion. Do not skip existing normal/skin/quality gates.
+  Fresh Studio acceptance still needs its pending allowance; current evidence
+  does not complete the hands-off goal. Preserve unrelated Weft edits.
 
 ### Current local continuation — technical fixes pass, appearance still rejected
 

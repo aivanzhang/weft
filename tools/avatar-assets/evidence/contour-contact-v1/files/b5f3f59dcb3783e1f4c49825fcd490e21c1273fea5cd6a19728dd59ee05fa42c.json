@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "produced_tip_only_candidate",
+  "source_sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2",
+  "raw_id_source_sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9",
+  "model_sha256": "257ff11efdf31eaa3a7ab77b527b7b45a48f97bcf45c498985e9936b1069c5dd",
+  "source_vertices": 94255,
+  "exported_vertices": 94567,
+  "triangles": 76981,
+  "base_exported_vertices": 51367,
+  "fins": 3600,
+  "owner": {
+    "ignored_non_skin_groups": [],
+    "index": 1,
+    "materials": [
+      "SourceColoredFringe"
+    ],
+    "mesh_name": "PortableEdgeFringe",
+    "name": "PortableEdgeFringe",
+    "triangle_count": 14400,
+    "triangle_start": 62581,
+    "vertex_count": 43200,
+    "vertex_start": 51055
+  },
+  "position_accessor": 65,
+  "position_buffer_view": 70,
+  "position_range_bytes": [
+    31331328,
+    31849728
+  ],
+  "tip_rows": 21600,
+  "root_rows": 21600,
+  "changed_position_rows": 21600,
+  "changed_position_bytes": 183918,
+  "old_positions_sha256": "6c0ecdbf03dfc097eb4eb616420709c8f640f040fae569c215afa645688bb607",
+  "new_positions_sha256": "fc415c833e2214d2779921a045ef225f0a0bd96adfca297139ac01948416c1ee",
+  "source_global_ids_sha256": "19fe99cac19a9289f621474b5c7eb67f2ff48be0226e89181acc57f7a313c55b",
+  "native_to_helper_ids_sha256": "c540af37c78adf300fc239f3cc13e448cef5a9fef8df6ae619d37965ee6f84b5",
+  "raw_final_positions_and_indices_exact_before_change": true,
+  "native_ids_complete_unique_and_position_bound": true,
+  "oriented_native_id_triangles_exact": true,
+  "all_original_roots_byte_exact": true,
+  "all_non_tip_binary_bytes_including_padding_exact": true,
+  "json_changes": [
+    "/accessors/65/min",
+    "/accessors/65/max"
+  ],
+  "unchanged": [
+    "body geometry",
+    "root positions",
+    "normals",
+    "tangents",
+    "UVs",
+    "weights",
+    "joints",
+    "images",
+    "materials",
+    "nodes",
+    "skins",
+    "animations"
+  ],
+  "full_native_emitter_bounds": {
+    "low": [
+      -0.45410776138305664,
+      -0.38847070932388306,
+      0.0
+    ],
+    "span": [
+      0.9082155227661133,
+      0.7769414186477661,
+      1.2000000476837158
+    ]
+  },
+  "experimental": true,
+  "quality_approved": false,
+  "motion_verified": false,
+  "provider_calls": 0,
+  "native_calls": 0,
+  "limitation": "Root positions/skin/animations remain exact, but changed fin tips still need independent motion/appearance review; no geometry-contact repair or density acceptance.",
+  "render_attributes_status": "validated_render_attributes",
+  "inputs_unchanged": true,
+  "elapsed_seconds": 0.2847876246087253
+}

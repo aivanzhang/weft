@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-01T22:49:07.475140-08:00",
+  "status": "diagnosed_candidate_not_built",
+  "job": {
+    "schema_version": 1,
+    "status": "finished",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-fringe-profile-diagnosis-v1/diagnose.py"
+    ],
+    "pid": 46192,
+    "exit_code": 0,
+    "elapsed_seconds": 0.522,
+    "sampled_peak_rss_bytes": 199114752,
+    "rss_samples": 1,
+    "sampling_interval_seconds": 0.25,
+    "failure": null,
+    "failure_reasons": [],
+    "monitor_errors": [],
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "manual_stop_required": false,
+    "final_output_bytes": 220496,
+    "sampled_max_output_bytes": 220496,
+    "monitor_checkpoint": "diagnose-monitor.json",
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "descendant_exit_verified": false,
+    "limits": {
+      "wall_seconds": 30,
+      "rss_mb": 512,
+      "output_mb": 16,
+      "log_bytes": 16777216,
+      "cleanup_grace_seconds": 7,
+      "output_inventory_entries": 100000
+    },
+    "last_rss_sample_elapsed_seconds": 0.261,
+    "rss_exit_race_observed": true,
+    "process_exit_verified": true
+  },
+  "inputs_unchanged": true,
+  "quality_approved": false,
+  "candidate_is_density_improvement": false,
+  "next_safe_action": "Implement isolated opt-in fixed-root shared-regional-flow tip reshaping and analytic invariants; parent controls actual derivative/native preview.",
+  "provider_calls": 0,
+  "native_calls": 0,
+  "owned_jobs_running": false
+}

@@ -1,0 +1,44 @@
+{
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "cost": {
+    "local_energy": "unpriced",
+    "provider_calls": 0
+  },
+  "inputs": [
+    {
+      "path": "outputs/panda-staged-portable-preview-v1/source.blend",
+      "sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727"
+    },
+    {
+      "path": "outputs/panda-cheek-source-normal-payload-v1/payload.json",
+      "sha256": "d273e9df3e0db08ef0fb8d706245ffb31e0024039e0e9dd59ede6e12e6e633f0"
+    }
+  ],
+  "limits": {
+    "concurrency": 1,
+    "output_mib": 32,
+    "sampled_child_rss_mib": 1536,
+    "seconds": 60
+  },
+  "output": "outputs/panda-cheek-normal-ablation-v1",
+  "schema_version": 1,
+  "scope": "Two matchedgrayrenders, originalv7normaltransferonly on198provenance-boundcheekfaces, no sourceoverwrite or acceptance.",
+  "snapshots": [
+    {
+      "path": "render.py",
+      "sha256": "17a686c70734268f0ed5055474564912b06f298609820670a08673693f523ab1"
+    },
+    {
+      "path": "execute.py",
+      "sha256": "cdca1cc28f01c5329a68addc015d9f5ea13a34d09738ceb677ebb222c8bf40f7"
+    },
+    {
+      "path": "config.json",
+      "sha256": "4378cd4f65941d8fab54ca9179127427547f4234c83a550a530a8dc1f54724b8"
+    },
+    {
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ]
+}

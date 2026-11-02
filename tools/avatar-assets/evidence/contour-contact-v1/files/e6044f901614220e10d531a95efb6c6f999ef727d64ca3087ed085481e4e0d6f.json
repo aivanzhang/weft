@@ -1,0 +1,32 @@
+{
+  "files": [
+    {
+      "bytes": 5155,
+      "path": "outputs/panda-contact-ablation-independent-review-v1/cpu-assisted-attribution.json",
+      "sha256": "779f8a8a4c4c9645f523aeb5d43e225726791359b864d64ba3017487310bae7d"
+    },
+    {
+      "bytes": 623,
+      "path": "outputs/panda-contact-ablation-independent-review-v1/manifest.json",
+      "sha256": "99fb4f78be3e200fdf35ced3fcf4c756875948f11008bd2da49a6563fb9bcae5"
+    },
+    {
+      "bytes": 3088,
+      "path": "outputs/panda-contact-ablation-independent-review-v1/pixel-evidence-addendum.json",
+      "sha256": "7764b1ae79c8888fe4a64fd14ea9ef039984a31d857884b2275c74ef43c8ba90"
+    },
+    {
+      "bytes": 3911,
+      "path": "outputs/panda-contact-ablation-independent-review-v1/visual-observations.json",
+      "sha256": "3829be9d98565b4f90a75317f49cb4f736d8b7fd3253bc91e7e5e8a75351e98e"
+    }
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "sealed_independent_visual_review_with_pixel_attribution",
+  "supersedes_manifest": {
+    "bytes": 623,
+    "path": "outputs/panda-contact-ablation-independent-review-v1/manifest.json",
+    "sha256": "99fb4f78be3e200fdf35ced3fcf4c756875948f11008bd2da49a6563fb9bcae5"
+  }
+}

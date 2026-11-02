@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-independent-review-v1/check.py"
+  ],
+  "input_pins_sha256": "4c58fc304dbe7493b181cc16b948a00f183275afeeb5d907f0953be61591a5a7",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "wall_seconds": 30
+  },
+  "schema_version": 1,
+  "scope": "One independent actual-source CPU custody audit; no native/provider/image decode",
+  "script_sha256": "ef1d197c3b3126fc0c0f9fb62060fc91d50c311794baf3932265e12d9bdc4c2a",
+  "sources": {
+    "runner-sources/avatar_assets/__init__.py": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+    "runner-sources/avatar_assets/runner.py": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+    "runner-sources/avatar_assets/safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "sources/three_d.py": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+  }
+}

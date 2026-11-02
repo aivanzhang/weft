@@ -1,0 +1,105 @@
+{
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/shoulder-subpixel-attribution-preparation-v1/probe.py",
+    "--",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/shoulder-subpixel-attribution-preparation-v1/config.json",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-subpixel-attribution-v1"
+  ],
+  "inputs": [
+    {
+      "bytes": 44399160,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-preview-v1/source.blend",
+      "sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727"
+    },
+    {
+      "bytes": 36072824,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-model-v1/model.glb",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    },
+    {
+      "bytes": 28079528,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v1/model.glb",
+      "sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528"
+    },
+    {
+      "bytes": 243083,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v1/native-color-payload-v2.json",
+      "sha256": "94474e3017f7cc66df6e431074ea07e5ac9adbd1887bcc1c82dcc357610a2dc9"
+    },
+    {
+      "bytes": 53979,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-ablation-v1/color-ablation.json",
+      "sha256": "b0cf437b54cf09c7241d6787b0b9405fce067c5999b854f9ea61b292fcd06ac2"
+    },
+    {
+      "bytes": 4312,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-ablation-v1/pixel-comparison.json",
+      "sha256": "a8588f463e57cb469409e7783670258387a1c1492206fa23093e8a1c471f51a5"
+    },
+    {
+      "bytes": 40645,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-contact-pixel-attribution-v1/attribution.json",
+      "sha256": "4201e0ee1a64796810aaf3f24b70684abf2d24dc9e9a56d51113b9a04a01f03a"
+    },
+    {
+      "bytes": 1051386,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-plan-v1/candidate-census.json",
+      "sha256": "009cb3a23f1678ca2a5ffa08cc0d33e451c84a200b1da2d26f69295fe4912017"
+    },
+    {
+      "bytes": 194884,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/shoulder-subpixel-attribution-preparation-v1/protected-faces.json",
+      "sha256": "2d446d826e668e312564c34dfcf31fe3f9b2c9f480998287fb22c6e005fe33ea"
+    }
+  ],
+  "limitations": [
+    "The regular7x7 grid is not exact EEVEE TAA jitter.",
+    "Actual culling flags are recorded during pending native trace.",
+    "Other objects, shader opacity and filtered texture coverage are not reproduced."
+  ],
+  "limits": {
+    "memory_mb": 1024,
+    "native_jobs": 1,
+    "output_mb": 8,
+    "rays": 305,
+    "renders": 0,
+    "texture_decodes": 0,
+    "threads": 4,
+    "wall_seconds": 30
+  },
+  "output": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-subpixel-attribution-v1",
+  "prepared_at": "2026-11-02T00:06:51.740334-08:00",
+  "schema_version": 1,
+  "scope": "Root-owned single culling-aware subpixel trace only; no automatic execution. No geometry, UV, material, image or threshold changes. Pure intersection functions are syntax-checked only; native proof pending.",
+  "sources": [
+    {
+      "bytes": 12121,
+      "path": "probe.py",
+      "sha256": "a7685f3b1f6cc8a115deeb11165695d7b3f2a85bd57bcc454ab9167c87994198"
+    },
+    {
+      "bytes": 68604,
+      "path": "config.json",
+      "sha256": "c2bdd3038e27ab08c1efac0d3f0bca96068440f6dc305ec2f480ffb6078dc11a"
+    },
+    {
+      "bytes": 194884,
+      "path": "protected-faces.json",
+      "sha256": "2d446d826e668e312564c34dfcf31fe3f9b2c9f480998287fb22c6e005fe33ea"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ],
+  "status": "prepared_not_executed"
+}

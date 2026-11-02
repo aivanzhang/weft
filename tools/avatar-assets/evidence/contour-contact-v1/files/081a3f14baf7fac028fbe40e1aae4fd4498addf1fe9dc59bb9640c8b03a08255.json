@@ -1,0 +1,66 @@
+{
+  "artifact_bytes": 48823,
+  "artifact_count": 11,
+  "artifacts": [
+    {
+      "bytes": 1285,
+      "path": "config.json",
+      "sha256": "f693cd671e4c70fe8d3cf1f0451951ed87110a37999f1042096e54f424d6c631"
+    },
+    {
+      "bytes": 243,
+      "path": "cpu-handle.json",
+      "sha256": "cd93beb1cae3cb7db07f852a936c9a6cfb8c2559b2972cbf44e5c53e2817c88a"
+    },
+    {
+      "bytes": 1119,
+      "path": "cpu-job.json",
+      "sha256": "09fa71de97cf9517e23c3bcdd24168c9386e84a77a2aa78fbf0ed19d2e7f8b68"
+    },
+    {
+      "bytes": 1026,
+      "path": "cpu-monitor.json",
+      "sha256": "2be65bffb2957175883c38bf03662b939909a3043c88804f5b1687231eb27612"
+    },
+    {
+      "bytes": 814,
+      "path": "cpu.log",
+      "sha256": "8f09e0f283ba4d63aeae3d599f245f1a94894f99bbb6a031d612f01812666792"
+    },
+    {
+      "bytes": 447,
+      "path": "execution.json",
+      "sha256": "5296a270d42f4f5d5478a723a4a4122a5d7c851aee0dbc4ff8f5efc814b4c3ec"
+    },
+    {
+      "bytes": 907,
+      "path": "inputs.json",
+      "sha256": "d8f2d0f93d711aa7a4f07db7a3dff9b2c5ca0ac664f36261c4c828a79fdf24d5"
+    },
+    {
+      "bytes": 19536,
+      "path": "junction-fans.json",
+      "sha256": "3a990266edb58d79d1049fa2cf1e36a314c0b88ea39d30d0e4209e1684e90163"
+    },
+    {
+      "bytes": 850,
+      "path": "report.json",
+      "sha256": "3a7bc1c7a5d956a96f14de22ab751c54424ee850717ea8b3b8e643e55836e4d0"
+    },
+    {
+      "bytes": 12529,
+      "path": "screen.py",
+      "sha256": "340c79bb489f03c81901935cfb3cc139df3200db5876c6a2d51f0a2d09162570"
+    },
+    {
+      "bytes": 10067,
+      "path": "trials.json",
+      "sha256": "ce2eb55a65af3b58e46b9e686ba68efb4706e27ffe908f240d3a6500244eed29"
+    }
+  ],
+  "known_gate_limitation": "Whole-body-link health is stricter than needed when replacing authored cap faces. Changed-hypothesis v2 will use post-removal remaining-body attachment.",
+  "model_modified": false,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "sealed_failed_targeted_avoidance_screen"
+}

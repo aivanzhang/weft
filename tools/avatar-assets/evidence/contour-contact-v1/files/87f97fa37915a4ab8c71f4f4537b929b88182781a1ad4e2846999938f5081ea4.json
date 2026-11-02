@@ -1,0 +1,601 @@
+{
+  "all17_center_hit_native_faces_were_edited": true,
+  "all17_saved_geometric_normals_front_facing": true,
+  "baseline_pixels_match_prior": true,
+  "conclusion": "No missing center-face edit or center-backface evidence. Nearby pixel coverage/overlap remains unmeasured;17 center-ray selections did not establish17 repaired pixels.",
+  "derivative_model_sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528",
+  "fixed_green_pixels": 13,
+  "input_pins": [
+    {
+      "bytes": 44399160,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-preview-v1/source.blend",
+      "sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727"
+    },
+    {
+      "bytes": 36072824,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-model-v1/model.glb",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    },
+    {
+      "bytes": 28079528,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v1/model.glb",
+      "sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528"
+    },
+    {
+      "bytes": 243083,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v1/native-color-payload-v2.json",
+      "sha256": "94474e3017f7cc66df6e431074ea07e5ac9adbd1887bcc1c82dcc357610a2dc9"
+    },
+    {
+      "bytes": 53979,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-ablation-v1/color-ablation.json",
+      "sha256": "b0cf437b54cf09c7241d6787b0b9405fce067c5999b854f9ea61b292fcd06ac2"
+    },
+    {
+      "bytes": 4312,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-ablation-v1/pixel-comparison.json",
+      "sha256": "a8588f463e57cb469409e7783670258387a1c1492206fa23093e8a1c471f51a5"
+    },
+    {
+      "bytes": 40645,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-contact-pixel-attribution-v1/attribution.json",
+      "sha256": "4201e0ee1a64796810aaf3f24b70684abf2d24dc9e9a56d51113b9a04a01f03a"
+    },
+    {
+      "bytes": 1051386,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-plan-v1/candidate-census.json",
+      "sha256": "009cb3a23f1678ca2a5ffa08cc0d33e451c84a200b1da2d26f69295fe4912017"
+    },
+    {
+      "bytes": 194884,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/shoulder-subpixel-attribution-preparation-v1/protected-faces.json",
+      "sha256": "2d446d826e668e312564c34dfcf31fe3f9b2c9f480998287fb22c6e005fe33ea"
+    }
+  ],
+  "light_pixel_partially_improved": true,
+  "next_test": "305 fixed subpixel/center rays in unchanged scene, ordered intersections with actual per-material culling; classify selected faces and244 frozen protected white faces.",
+  "no_new_native_or_cpu_analysis_job": true,
+  "quality_approved": false,
+  "remaining_green_pixels": 3,
+  "rows": [
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 34334,
+      "after": [
+        8,
+        9,
+        10
+      ],
+      "before": [
+        35,
+        56,
+        40
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.18058689327978072,
+      "normal_dot_forward": -0.8836931527432578,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 34334,
+      "pixel": [
+        311,
+        385
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness",
+        "dense_green_contact_candidate"
+      ],
+      "source_face": [
+        0,
+        3861
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 62345,
+      "after": [
+        8,
+        9,
+        10
+      ],
+      "before": [
+        16,
+        37,
+        24
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.0032979662577081515,
+      "normal_dot_forward": -0.7222930120174074,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 62345,
+      "pixel": [
+        283,
+        388
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness",
+        "same_dark_closure_loop_as_actual_witness"
+      ],
+      "source_face": [
+        2,
+        132
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 34101,
+      "after": [
+        8,
+        9,
+        11
+      ],
+      "before": [
+        16,
+        34,
+        23
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.039541323355855,
+      "normal_dot_forward": -0.8367616938210007,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 34101,
+      "pixel": [
+        307,
+        379
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness",
+        "dense_green_contact_candidate"
+      ],
+      "source_face": [
+        0,
+        3568
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 34616,
+      "after": [
+        8,
+        9,
+        10
+      ],
+      "before": [
+        67,
+        77,
+        59
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.07409821101890085,
+      "normal_dot_forward": -0.22139407995449356,
+      "old_dense_white_fraction": 0.10989010989010989,
+      "original_ray_native_polygon": 34616,
+      "pixel": [
+        283,
+        334
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness",
+        "dense_green_contact_candidate"
+      ],
+      "source_face": [
+        0,
+        4203
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 36391,
+      "after": [
+        7,
+        8,
+        10
+      ],
+      "before": [
+        13,
+        27,
+        18
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.1026225542614329,
+      "normal_dot_forward": -0.863751868510267,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 36391,
+      "pixel": [
+        325,
+        383
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness"
+      ],
+      "source_face": [
+        0,
+        6251
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 35154,
+      "after": [
+        8,
+        9,
+        11
+      ],
+      "before": [
+        14,
+        30,
+        21
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.10024339061964563,
+      "normal_dot_forward": -0.7511783585775053,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 35154,
+      "pixel": [
+        296,
+        337
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness"
+      ],
+      "source_face": [
+        0,
+        4842
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 33028,
+      "after": [
+        8,
+        9,
+        10
+      ],
+      "before": [
+        49,
+        57,
+        46
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.054040355049346046,
+      "normal_dot_forward": -0.5045469907370861,
+      "old_dense_white_fraction": 0.01098901098901099,
+      "original_ray_native_polygon": 33028,
+      "pixel": [
+        287,
+        368
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness",
+        "dense_green_contact_candidate"
+      ],
+      "source_face": [
+        0,
+        2204
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 35117,
+      "after": [
+        8,
+        10,
+        11
+      ],
+      "before": [
+        13,
+        26,
+        18
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.15951003354555335,
+      "normal_dot_forward": -0.8650875816438209,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 35117,
+      "pixel": [
+        313,
+        381
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness"
+      ],
+      "source_face": [
+        0,
+        4794
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 34086,
+      "after": [
+        7,
+        9,
+        10
+      ],
+      "before": [
+        46,
+        53,
+        41
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.16014568921780364,
+      "normal_dot_forward": -0.8641858631082722,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 34086,
+      "pixel": [
+        306,
+        387
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness",
+        "dense_green_contact_candidate"
+      ],
+      "source_face": [
+        0,
+        3546
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 33429,
+      "after": [
+        21,
+        28,
+        20
+      ],
+      "before": [
+        21,
+        28,
+        20
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.05401288557558087,
+      "normal_dot_forward": -0.1118468061267619,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 33429,
+      "pixel": [
+        271,
+        361
+      ],
+      "residual": true,
+      "selected_reasons": [
+        "actual_pixel_witness"
+      ],
+      "source_face": [
+        0,
+        2693
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 33777,
+      "after": [
+        68,
+        77,
+        71
+      ],
+      "before": [
+        68,
+        77,
+        70
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.001398266043461276,
+      "normal_dot_forward": -0.08044689456310779,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 33777,
+      "pixel": [
+        268,
+        365
+      ],
+      "residual": true,
+      "selected_reasons": [
+        "actual_pixel_witness"
+      ],
+      "source_face": [
+        0,
+        3136
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 34543,
+      "after": [
+        7,
+        9,
+        10
+      ],
+      "before": [
+        13,
+        22,
+        15
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.048454565932678724,
+      "normal_dot_forward": -0.769067270046689,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 34543,
+      "pixel": [
+        288,
+        346
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness",
+        "dense_green_contact_candidate"
+      ],
+      "source_face": [
+        0,
+        4114
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 31910,
+      "after": [
+        8,
+        9,
+        10
+      ],
+      "before": [
+        35,
+        42,
+        31
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.03081373702403197,
+      "normal_dot_forward": -0.5860832185960098,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 31910,
+      "pixel": [
+        271,
+        404
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness"
+      ],
+      "source_face": [
+        0,
+        1050
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 32550,
+      "after": [
+        14,
+        25,
+        19
+      ],
+      "before": [
+        15,
+        26,
+        19
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.01682235275368717,
+      "normal_dot_forward": -0.7378007316613447,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 32550,
+      "pixel": [
+        287,
+        403
+      ],
+      "residual": true,
+      "selected_reasons": [
+        "actual_pixel_witness"
+      ],
+      "source_face": [
+        0,
+        1690
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 62390,
+      "after": [
+        8,
+        9,
+        10
+      ],
+      "before": [
+        12,
+        22,
+        16
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.011817934829416732,
+      "normal_dot_forward": -0.5365460159647015,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 62390,
+      "pixel": [
+        283,
+        351
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness",
+        "same_dark_closure_loop_as_actual_witness"
+      ],
+      "source_face": [
+        2,
+        177
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 33256,
+      "after": [
+        8,
+        8,
+        10
+      ],
+      "before": [
+        17,
+        24,
+        18
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.0021235069544428007,
+      "normal_dot_forward": -0.7560682537270245,
+      "old_dense_white_fraction": 0.0,
+      "original_ray_native_polygon": 33256,
+      "pixel": [
+        290,
+        383
+      ],
+      "residual": false,
+      "selected_reasons": [
+        "actual_pixel_witness",
+        "dense_green_contact_candidate"
+      ],
+      "source_face": [
+        0,
+        2479
+      ]
+    },
+    {
+      "GLB_material_doubleSided": true,
+      "actually_edited_native_polygon": 35467,
+      "after": [
+        117,
+        113,
+        112
+      ],
+      "before": [
+        194,
+        191,
+        190
+      ],
+      "face_edit_identity_matches": true,
+      "minimum_barycentric": 0.11061032846458588,
+      "normal_dot_forward": -0.7654698137941895,
+      "old_dense_white_fraction": 0.6043956043956044,
+      "original_ray_native_polygon": 35467,
+      "pixel": [
+        301,
+        340
+      ],
+      "residual": true,
+      "selected_reasons": [
+        "actual_pixel_witness"
+      ],
+      "source_face": [
+        0,
+        5189
+      ]
+    }
+  ],
+  "same_pose_camera_verified": true,
+  "schema_version": 1,
+  "source_model_sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+}

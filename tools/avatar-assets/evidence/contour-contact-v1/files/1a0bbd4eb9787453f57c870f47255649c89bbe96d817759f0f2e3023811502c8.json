@@ -1,0 +1,51 @@
+{
+  "artifact_bytes": 346960,
+  "artifact_count": 8,
+  "artifacts": [
+    {
+      "bytes": 247,
+      "path": "cpu-handle.json",
+      "sha256": "9c796d685528f2fe53941a91c6ac7e9b07ebf9a09389c8946127853a342ab7f5"
+    },
+    {
+      "bytes": 1076,
+      "path": "cpu-job.json",
+      "sha256": "306b9dde1886055f443ee3cea33f3f10ed6f6cd64085f9d41be6974fb1d3fba5"
+    },
+    {
+      "bytes": 985,
+      "path": "cpu-monitor.json",
+      "sha256": "1588d1e327cc290bc67488bc6f75fe0ade9e4d6c10f4273dede3a04ca509f0ae"
+    },
+    {
+      "bytes": 381,
+      "path": "cpu.log",
+      "sha256": "9e0a24207cb13dc053afcc9e682572c410e2bb2bb449d14c2c6aaef59779982c"
+    },
+    {
+      "bytes": 381,
+      "path": "execution.json",
+      "sha256": "90cf3c7b1330e4c53a07485dfd8628a4ee5bbe96f818780528857075c3c7cf7b"
+    },
+    {
+      "bytes": 337685,
+      "path": "payload.json",
+      "sha256": "d273e9df3e0db08ef0fb8d706245ffb31e0024039e0e9dd59ede6e12e6e633f0"
+    },
+    {
+      "bytes": 5800,
+      "path": "prepare.py",
+      "sha256": "45f99d829b795b3a6d8b3f2a0019e6e44edb02499e9188416f0d670df7529d71"
+    },
+    {
+      "bytes": 405,
+      "path": "report.json",
+      "sha256": "a7d3bc42857cd9f2d65f1370c65eb615cbb62aaba7d29f237a3bbe6e44c14964"
+    }
+  ],
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "sealed_prepared_control_not_visual_acceptance"
+}

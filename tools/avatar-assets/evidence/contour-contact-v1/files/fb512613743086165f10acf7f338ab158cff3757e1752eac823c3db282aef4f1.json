@@ -1,0 +1,52 @@
+{
+  "blender": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "cost": {
+    "generation_calls": 0,
+    "local_energy": "unpriced",
+    "recurring_services": 0
+  },
+  "inputs": [
+    {
+      "path": "outputs/panda-regional-fringe-candidate-v1/model.glb",
+      "sha256": "257ff11efdf31eaa3a7ab77b527b7b45a48f97bcf45c498985e9936b1069c5dd"
+    },
+    {
+      "path": "outputs/panda-regional-fringe-candidate-v1/byte-audit.json",
+      "sha256": "b5f3f59dcb3783e1f4c49825fcd490e21c1273fea5cd6a19728dd59ee05fa42c"
+    },
+    {
+      "path": "outputs/panda-regional-fringe-candidate-v1/manifest.json",
+      "sha256": "5989c1d6e254d06def2de573e8d9300511e5f3192ad6067e6c5f698ac3fefac3"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mib": 128,
+    "sampled_child_rss_mib": 2048,
+    "seconds": 120,
+    "threads": 4
+  },
+  "model": "outputs/panda-regional-fringe-candidate-v1/model.glb",
+  "output": "outputs/panda-regional-fringe-preview-v1",
+  "schema_version": 1,
+  "scope": "Actual720pxEEVEE4views+4poses. Sameboundedrenderer/settings; camerafitusescandidatebounds, so not pixel-identicalcamera A/B. Regionaltipgeometrychangesonly; no density/quality acceptance.",
+  "snapshots": [
+    {
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "path": "execute.py",
+      "sha256": "90ee4ffc1e45e9ea8613b70a76b0b5ffe3b100f58fdc1c829526a659cd331da3"
+    },
+    {
+      "path": "motion.json",
+      "sha256": "9cea25b6520e9bebdc4cd9961920d1216c515887badcaa1e10b1caa90ffeed85"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "artifacts": [
+    {
+      "bytes": 12224,
+      "path": "check.py",
+      "sha256": "2b6f059c96376e8869e2781fee74c69b2fa4f1ee53390dbc376eef096745ab65"
+    },
+    {
+      "bytes": 5398,
+      "path": "check_identity.py",
+      "sha256": "52f8141ce83cd99cda9de8046c9052fc60bb9df7c1bf6d7d66aebe4f52d663d0"
+    },
+    {
+      "bytes": 253,
+      "path": "checks-handle.json",
+      "sha256": "68a19a5fc566d301f665850f17a59366575d16748224516638937fbf93f0a5f8"
+    },
+    {
+      "bytes": 1038,
+      "path": "checks-monitor.json",
+      "sha256": "7e0f8a55f2ed6f810dd9ed12fed2d0ca36f34e573641cddda26525975e9b01aa"
+    },
+    {
+      "bytes": 2739,
+      "path": "checks.log",
+      "sha256": "01fd21d76750a5fe39db998cb0bfc81895733a4c3d2ca2fc702c5f659b4b3f2c"
+    },
+    {
+      "bytes": 2140,
+      "path": "custody-parameterization.diff",
+      "sha256": "c4079b01efb09a9a9b86569efb6479563b0210f6ec168fe3fa154f97332c9e07"
+    },
+    {
+      "bytes": 2344,
+      "path": "identity-parameterization.diff",
+      "sha256": "5e379004ec239c8c07ca031afae5d43f2e21c53c93442ef3dbb85baef9dd596b"
+    },
+    {
+      "bytes": 1294,
+      "path": "identity-prepared.json",
+      "sha256": "e533ad0b251588cc85b4541893ca86da875e5a97ae0f118ac2fa4f610a4cabbf"
+    },
+    {
+      "bytes": 126857,
+      "path": "identity-result.json",
+      "sha256": "348006dec69e143dcd411a2b8dd94d2d31a146abbee9beba1a37f50ea3296994"
+    },
+    {
+      "bytes": 2895,
+      "path": "inputs.json",
+      "sha256": "0447261abff099ec10efeff7d2524d5beac7f0c90c054bbd0dd79a8453dd008e"
+    },
+    {
+      "bytes": 1556,
+      "path": "prepared.json",
+      "sha256": "fa7163e3271a2b14f8939f23e17462beca8c2d8a8488cb97c45396ae7b08981e"
+    },
+    {
+      "bytes": 1128,
+      "path": "receipt.json",
+      "sha256": "78aaad94c3901b54b8d16ea64061453b49344a7fc887507f7ac72954dcc71677"
+    },
+    {
+      "bytes": 2311,
+      "path": "result.json",
+      "sha256": "a052d4a6edc33edbcadba0bbd291b927508ed1850f7748b2657fd8014888de33"
+    },
+    {
+      "bytes": 6289,
+      "path": "review.json",
+      "sha256": "785b90360695c0ef623b0260d66fccc1891e49b8f3a68783b0320f21329ab409"
+    },
+    {
+      "bytes": 198,
+      "path": "run_checks.py",
+      "sha256": "ebf3d1f55f3a3f73cbf8735ad5bb251ab84ec2e6273096dd6ae21255a8dd9716"
+    },
+    {
+      "bytes": 96,
+      "path": "runner-sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 346,
+      "path": "runner-sources/avatar_assets/__pycache__/__init__.cpython-314.pyc",
+      "sha256": "f05023e63548f1fa3125c22e6d03c9e4ed50fc8f89337898f3584880bd0c898c"
+    },
+    {
+      "bytes": 16422,
+      "path": "runner-sources/avatar_assets/__pycache__/runner.cpython-314.pyc",
+      "sha256": "08ed1dfec7a876da5b9e736753b8a6b3339e5b089e2c51652141db38dcda6278"
+    },
+    {
+      "bytes": 7845,
+      "path": "runner-sources/avatar_assets/__pycache__/safety.cpython-314.pyc",
+      "sha256": "252da108fe62a5f81aa6baef4e5b133644c08b99590418595e5a5f1d4d2108d9"
+    },
+    {
+      "bytes": 11421,
+      "path": "runner-sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "runner-sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 67965,
+      "path": "sources/__pycache__/three_d.cpython-314.pyc",
+      "sha256": "73325bec73e6bdf5741fca00b93af2dfe7e7d65d869848f3a54100d927b465a6"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    }
+  ],
+  "bytes": 311624,
+  "native_calls": 0,
+  "previous_review": {
+    "bytes": 4425,
+    "path": "outputs/panda-shoulder-uv-independent-review-v2/manifest.json",
+    "sha256": "2e69bb54f7f48a4545b2bbff8a928756f275f288e6c11c381070dc818b845a11"
+  },
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "exact_uv_custody_passed_further_partial_color_improvement_not_accepted"
+}

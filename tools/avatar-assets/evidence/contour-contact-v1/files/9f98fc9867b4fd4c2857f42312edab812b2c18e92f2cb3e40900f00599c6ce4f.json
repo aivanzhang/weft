@@ -1,0 +1,43 @@
+{
+  "checked_corners": 1095,
+  "checked_faces": 369,
+  "degenerate_faces": 0,
+  "legacy_plan_status": "planned",
+  "method": "Independent triangle cross-product; transferred values from immutable pre-guard planner",
+  "minimum_face_dot": -0.9998156743452801,
+  "outside_hemisphere_corners": 172,
+  "source_primitive_ranges": [
+    {
+      "face_start": 0,
+      "faces": 34694,
+      "material": 0,
+      "primitive": 0,
+      "vertex_start": 0,
+      "vertices": 24306
+    },
+    {
+      "face_start": 34694,
+      "faces": 27205,
+      "material": 1,
+      "primitive": 1,
+      "vertex_start": 24306,
+      "vertices": 24703
+    },
+    {
+      "face_start": 61899,
+      "faces": 369,
+      "material": 2,
+      "primitive": 2,
+      "vertex_start": 49009,
+      "vertices": 1107
+    },
+    {
+      "face_start": 62268,
+      "faces": 313,
+      "material": 3,
+      "primitive": 3,
+      "vertex_start": 50116,
+      "vertices": 939
+    }
+  ]
+}

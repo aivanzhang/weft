@@ -1,0 +1,26 @@
+--- v1-candidate/check.py
++++ v2-candidate/check.py
+@@ -83,8 +83,13 @@
+     plan = json.loads(paths['plan'].read_text())
+     census = json.loads(paths['census'].read_text())
+     selected = {(r['source_primitive'], r['source_triangle']) for r in selector['rows']}
+-    require(len(selected) == len(selector['rows']) == 242 and all(r['selected'] for r in selector['rows']), 'Unique selected face set')
++    require(len(selected) == len(selector['rows']) == pins['expected_selected_faces'] and all(r['selected'] for r in selector['rows']), 'Unique selected face set')
+     require(all(pi in (0, 2) for pi, _ in selected), 'Companion selected')
++    prior_selector = json.loads(paths['original_selector'].read_text())
++    prior_selected = {(r['source_primitive'], r['source_triangle']) for r in prior_selector['rows']}
++    require(prior_selected <= selected and selected-prior_selected == {tuple(r) for r in pins['added_source_faces']}, 'Unexpected selection expansion')
++    require((0, 5167) not in selected, 'Protected white neighbor selected')
++    require(plan['palette'] == json.loads(paths['original_plan'].read_text())['palette'], 'Palette policy changed')
+     protected = {(r['current_primitive'], r['current_triangle']) for r in census['rows'] if r['protected_white']}
+     selected_current = {(r['current_primitive'], r['current_triangle']) for r in selector['rows']}
+     require(len(protected) == 244 and not protected.intersection(selected_current), 'Protected white selection')
+@@ -94,7 +99,7 @@
+     with np.load(paths['correspondence'], allow_pickle=False) as values:
+         require(set(values.files) == {'face_map', 'vertex_map'}, 'Mapping schema')
+         fmap, vmap = values['face_map'], values['vertex_map']
+-    require(fmap.shape == (62581, 4) and vmap.shape == (51358, 4) and
++    require(fmap.shape == (62581, 4) and vmap.shape == (pins['expected_vertices'], 4) and
+             fmap.dtype == vmap.dtype == np.uint32, 'Mapping shape/type')
+     require(len({tuple(map(int, r[:2])) for r in fmap}) == len(fmap) and
+             len({tuple(map(int, r[2:])) for r in fmap}) == len(fmap), 'Duplicate face mapping')

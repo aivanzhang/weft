@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-continuity-source-replay-v1/replay.py"
+  ],
+  "input_pins_sha256": "1a2bc5c990e4336809f4ab2ca77513a050232be61cb6984e6faf8d70a3a5aa10",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "wall_seconds": 30
+  },
+  "runner_sources": {
+    "__init__.py": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+    "runner.py": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+    "safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+  },
+  "schema_version": 1,
+  "script_sha256": "67fd5aaf12dca7ef7f4041a88e3d35e80c0c4708ca3e694893d2ee0ee7a0f923"
+}

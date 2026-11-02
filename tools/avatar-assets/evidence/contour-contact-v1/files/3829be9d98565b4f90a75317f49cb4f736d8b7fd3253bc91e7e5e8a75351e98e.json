@@ -1,0 +1,87 @@
+{
+  "control": {
+    "diagnostics_geometry_edited": false,
+    "diagnostics_source_unchanged": true,
+    "engine": "BLENDER_EEVEE_NEXT",
+    "independently_repeated_pixel_comparison": false,
+    "pixels": [
+      720,
+      720
+    ],
+    "pose": "dance_flight1.36s",
+    "root_reported_full_control_pixel_identical": true,
+    "samples": 16
+  },
+  "diagnostics": {
+    "bytes": 10432,
+    "path": "outputs/panda-contact-ablation-v1/diagnostics.json",
+    "sha256": "d421dcec19367d0b500e02293b48cfe36b206a54cb8c316452a488587e72b940"
+  },
+  "native_calls_by_reviewer": 0,
+  "observations": [
+    {
+      "coat_hidden": "Cluster persists.",
+      "constant_gray": "Cluster persists strongly without basecolor or normal-map textures.",
+      "full": "Conspicuous small raised/pitted cluster with light rims and dark centers.",
+      "not_proven": "Actual geometric bumps/overlap versus authored custom-normal shading is not isolated by the gray mode.",
+      "region": "viewer-left cheek at the former companion contact",
+      "supported_attribution": "Lighting-dependent base surface/custom-normal/shadow behavior; neither the portable fringe nor basecolor alone is sufficient.",
+      "unlit_basecolor": "Conspicuous cluster essentially disappears in this720px view."
+    },
+    {
+      "coat_hidden": "Green/pale flecks persist.",
+      "constant_gray": "Colored flecks removed with body color; some shoulder transition/shading remains.",
+      "full": "Green and pale flecks plus a larger shoulder transition remain visible.",
+      "not_proven": "Baked source pigment versus UV repair/filtering versus a retained companion-material surface. Companion materials remained lit, so pixel face/material identity must be checked before a texture edit.",
+      "region": "viewer-left upper shoulder and upper arm",
+      "supported_attribution": "Fringe and body-lighting/normal-map response cannot be the sole causes; body color/UV/material visibility is implicated.",
+      "unlit_basecolor": "Fine green marks and a small pale spot remain on the black shoulder."
+    },
+    {
+      "full_vs_hidden": "Fringe contributes fine silhouette texture around ears, head, belly and limbs, but it does not remove either contact artifact.",
+      "region": "overall coat",
+      "supported_next_scope": "Do not change fur density or hide defects with more coat as this repair."
+    }
+  ],
+  "paid_calls_by_reviewer": 0,
+  "pending": "Read existing CPU face/contact evidence before choosing a repair or requesting another diagnostic.",
+  "production_edits": 0,
+  "quality_approved": false,
+  "render_recipe": {
+    "bytes": 5451,
+    "path": "outputs/contact-ablation-preparation-v1/render.py",
+    "sha256": "3380154343c95db005013bce646bbeba3735010869755e35e778eedc0bf92baf"
+  },
+  "schema_version": 1,
+  "status": "visual_observations_complete_cpu_attribution_pending",
+  "viewed_images": [
+    {
+      "bytes": 389766,
+      "mode": "full",
+      "path": "outputs/panda-contact-ablation-v1/full.png",
+      "sha256": "69c2338fc7faf89fd323156e4bd0e2b9544b754a43d6506316380266ee94315e",
+      "viewed_original_resolution": true
+    },
+    {
+      "bytes": 385455,
+      "mode": "coat_hidden",
+      "path": "outputs/panda-contact-ablation-v1/coat_hidden.png",
+      "sha256": "08382c53ebf148810cf7a282510c33c422cf560f63786b318a8c43ef600ed4ad",
+      "viewed_original_resolution": true
+    },
+    {
+      "bytes": 355285,
+      "mode": "constant_gray",
+      "path": "outputs/panda-contact-ablation-v1/constant_gray.png",
+      "sha256": "8e2fdc6a0a68b0d6a514f2bb112eef94f481ae859194fd878fdc63700cd0bde8",
+      "viewed_original_resolution": true
+    },
+    {
+      "bytes": 363906,
+      "mode": "unlit_basecolor",
+      "path": "outputs/panda-contact-ablation-v1/unlit_basecolor.png",
+      "sha256": "0b84ca2e582eabad395e53f69148e202022745f08a411eccccff0f55be2ebf3c",
+      "viewed_original_resolution": true
+    }
+  ]
+}

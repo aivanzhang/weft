@@ -1,0 +1,23 @@
+{
+  "action": "dance_flight",
+  "body_materials": [
+    "body_surface",
+    "body_cap",
+    "body_surface__color_rear-tail-base",
+    "body_surface__short_pile_adaptive_v1",
+    "body_cap__short_pile_adaptive_v1"
+  ],
+  "body_object": "PartitionedBodyAndPart",
+  "coat_material": "SourceColoredFringe",
+  "coat_object": "PortableEdgeFringe",
+  "payload": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-cheek-source-normal-payload-v1/payload.json",
+  "payload_sha256": "d273e9df3e0db08ef0fb8d706245ffb31e0024039e0e9dd59ede6e12e6e633f0",
+  "preserved_materials": [
+    "companion_surface",
+    "companion_cap"
+  ],
+  "scene": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-preview-v1/source.blend",
+  "scene_sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727",
+  "second": 1.36,
+  "target_material": "body_cap__short_pile_adaptive_v1"
+}

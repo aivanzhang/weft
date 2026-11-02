@@ -1,0 +1,190 @@
+{
+  "bound_pixel_evidence": {
+    "baseline_reused_byte_exact": true,
+    "changed_pixels_from_previous_repair": 60,
+    "green_witnesses": 16,
+    "interpretation": "All16 fixed green witnesses lose their visible green tint;15 are dark, one grazing point is neutral gray[66,68,67], not black. The light witness stays[117,113,112]. No complete image/filter coverage claim.",
+    "light_witness": [
+      {
+        "before": [
+          194,
+          191,
+          190
+        ],
+        "observed_kind": "light",
+        "pixel": [
+          301,
+          340
+        ],
+        "v1": [
+          117,
+          113,
+          112
+        ],
+        "v2": [
+          117,
+          113,
+          112
+        ]
+      }
+    ],
+    "now_dark_rgb_max_11": 15,
+    "remaining_nondark_green_witnesses": [
+      {
+        "before": [
+          68,
+          77,
+          70
+        ],
+        "observed_kind": "green",
+        "pixel": [
+          268,
+          365
+        ],
+        "v1": [
+          68,
+          77,
+          71
+        ],
+        "v2": [
+          66,
+          68,
+          67
+        ]
+      }
+    ]
+  },
+  "candidate_sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+  "control_limit": "Transient posed-scene UV0-only control with coat hidden and unlit basecolor; baseline was reused only after exact protected-state comparison. It is not a new complete rig/coat or a full-material candidate reload.",
+  "parameterization": "Only input paths and declared249/51376 counts changed; exact seven-face delta and preserved white5167 checks were added. All source preservation, finite bounds and2e-7 correspondence gates unchanged.",
+  "previous_model_review": {
+    "bytes": 4425,
+    "path": "outputs/panda-shoulder-uv-independent-review-v2/manifest.json",
+    "sha256": "2e69bb54f7f48a4545b2bbff8a928756f275f288e6c11c381070dc818b845a11"
+  },
+  "quality_approved": false,
+  "remaining_limits": [
+    "Residual bright/fleck appearance and source cheek geometry are not repaired by this UV change.",
+    "v7 component is unrigged: no completed skin/motion result.",
+    "New material clones/UV1 routing still require explicit finisher/undercoat/groom admission; no automatic profile promotion.",
+    "No further jobs, production edits or shared-document edits in this review."
+  ],
+  "resources": {
+    "bounds": {
+      "memory_mib": 512,
+      "output_mib": 16,
+      "wall_seconds": 30
+    },
+    "cpu_process_exit_verified": true,
+    "cpu_sampled_peak_rss_bytes": 331415552,
+    "cpu_wall_seconds": 1.279,
+    "independent_native_calls": 0,
+    "parent_owned_native_sampled_peak_rss_bytes": 866467840,
+    "parent_owned_native_wall_seconds": 2.598,
+    "provider_calls": 0
+  },
+  "review_controls": [
+    {
+      "bytes": 55305,
+      "path": "outputs/panda-shoulder-uv-ablation-v2/color-ablation.json",
+      "sha256": "4bdf9fa6aa49fca7c2167c95987045271a86232e68bdc2523364ab714f35f215"
+    },
+    {
+      "bytes": 4876,
+      "path": "outputs/panda-shoulder-uv-ablation-v2/pixel-comparison.json",
+      "sha256": "4518a809ec79eb05302503fce71d2e8e44d348c06c9c7ccfa61f0879ced94ffa"
+    },
+    {
+      "bytes": 1262,
+      "path": "outputs/panda-shoulder-uv-ablation-v2/native-monitor.json",
+      "sha256": "47829fbbd2b9381ee76d0b2c75807067b96b8e475f9faf665fbf7bfbfbaf78e2"
+    },
+    {
+      "bytes": 456124,
+      "path": "outputs/panda-shoulder-uv-repair-v2/native-color-payload-v2.json",
+      "sha256": "3b3cbd08529830fb0836d63a562a9465aa7dee76f1a7baff42a68ff531940768"
+    }
+  ],
+  "reviewed_at": "2026-11-02T00:30:05.617652-08:00",
+  "schema_version": 1,
+  "status": "exact_uv_custody_passed_further_partial_color_improvement_not_accepted",
+  "structural_evidence": {
+    "all244_white_faces_protected": true,
+    "all493_current_to_source_correspondences_unique": true,
+    "custody": {
+      "bytes": 2311,
+      "path": "outputs/panda-shoulder-uv-v2-independent-review-v1/result.json",
+      "sha256": "a052d4a6edc33edbcadba0bbd291b927508ed1850f7748b2657fd8014888de33"
+    },
+    "explicit_protected_source_face": [
+      0,
+      5167
+    ],
+    "identity": {
+      "bytes": 126857,
+      "path": "outputs/panda-shoulder-uv-v2-independent-review-v1/identity-result.json",
+      "sha256": "348006dec69e143dcd411a2b8dd94d2d31a146abbee9beba1a37f50ea3296994"
+    },
+    "matching_tolerance_unchanged": 2e-07,
+    "maximum_position_error_m": 2.9802322387695312e-08,
+    "maximum_uv_error": 0.0,
+    "only_added_source_faces": [
+      [
+        0,
+        1579
+      ],
+      [
+        0,
+        2384
+      ],
+      [
+        0,
+        2395
+      ],
+      [
+        0,
+        2571
+      ],
+      [
+        0,
+        3128
+      ],
+      [
+        0,
+        3336
+      ],
+      [
+        0,
+        3411
+      ]
+    ],
+    "original242_retained": true,
+    "original_material_image_bytes_and_bindings_exact": true,
+    "original_normal_mr_samples_preserved_through_uv1": true,
+    "positions_normals_tangents_exact": true,
+    "protected_companion_triangles": 27518,
+    "referenced_vertices": 51376,
+    "selected_faces": 249,
+    "selected_uv1_old_uv0_exact": true,
+    "triangles": 62581,
+    "unselected_faces_uv0_exact": 62332
+  },
+  "subpixel_limit": "Existing regular-grid subpixel evidence identifies neighboring unselected coverage, not exact EEVEE TAA/filtering. The protected white contribution remains protected.",
+  "viewed_images": [
+    {
+      "bytes": 362521,
+      "path": "outputs/panda-shoulder-uv-ablation-v1/repaired_unlit.png",
+      "sha256": "08a05ed55211bbdbf1a6d08cb3fb91fe5c149ebce4139e6cd036e8b50ce57672"
+    },
+    {
+      "bytes": 362588,
+      "path": "outputs/panda-shoulder-uv-ablation-v2/repaired_unlit.png",
+      "sha256": "9315055ee75a4ed19e3e76f81b29834168f6c835849c1713d37896d1c2f4959c"
+    }
+  ],
+  "visual_observations": [
+    "The already improved black shoulder has a small further reduction in green specks. At720px the difference from the previous control is subtle, not a whole-surface transformation.",
+    "The pale mark below the cheek and scattered neutral/light flecks remain visible.",
+    "Panda/dragon identity, pose, framing and the protected white region look consistent in the paired unlit controls. No repaired cheek geometry or final full-material coat is shown."
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "ambiguous_correspondences": 0,
+  "closure_material_warning": "cap materials mix authored closures and UV-repainted original faces",
+  "color_attribution_limit": "Sparse body-face UV samples, not visible pixel hits; companion overlap requires separate ray attribution",
+  "current_base_faces_matched": 62581,
+  "current_model_sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2",
+  "elapsed_seconds": 0.0953220003284514,
+  "native_jobs": 0,
+  "original_cpu_failure": {
+    "cleanup_events": [
+      {
+        "result": "sent",
+        "scope": "owned_process_group",
+        "signal": 15
+      }
+    ],
+    "cleanup_status": "child_exit_verified",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-contact-defects-diagnosis-v1/analyze.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 5.73,
+    "exit_code": -15,
+    "failure": "resident-memory budget exceeded",
+    "failure_reasons": [
+      "resident-memory budget exceeded"
+    ],
+    "final_output_bytes": 1896883,
+    "last_rss_sample_elapsed_seconds": 5.724,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 46325,
+    "process_exit_verified": true,
+    "rss_samples": 22,
+    "sampled_max_output_bytes": 1896883,
+    "sampled_peak_rss_bytes": 591101952,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "position_error_m": {
+    "count": 55081,
+    "max": 5.960464477539063e-08,
+    "median": 0.0,
+    "min": 0.0
+  },
+  "provider_calls": 0,
+  "quality_approved": false,
+  "recovery_scope": "Complete JSON checkpoints reused; no second texture decode or full census; added bounded cap-normal-only comparison",
+  "regions": {
+    "cheek": {
+      "authored_closure": {
+        "current_normal_vs_geometric_degrees": {
+          "count": 129,
+          "max": 174.35864389640548,
+          "median": 50.71339584845235,
+          "min": 0.566482342620437,
+          "p90": 144.02029585468293
+        },
+        "current_opposite_hemisphere_faces": 44,
+        "faces": 129,
+        "green_sample_faces": 0,
+        "light_sample_faces": 129,
+        "v7_opposite_hemisphere_faces": 0,
+        "v7_to_current_normal_corner_delta_degrees": {
+          "count": 387,
+          "max": 178.89889526367188,
+          "median": 51.956695556640625,
+          "min": 0.0,
+          "p90": 147.4817657470703
+        }
+      },
+      "original": {
+        "current_normal_vs_geometric_degrees": {
+          "count": 411,
+          "max": 20.726452091180317,
+          "median": 2.154132217989101,
+          "min": 0.0,
+          "p90": 8.627575908093657
+        },
+        "current_opposite_hemisphere_faces": 0,
+        "faces": 411,
+        "green_sample_faces": 8,
+        "light_sample_faces": 411,
+        "v7_opposite_hemisphere_faces": null,
+        "v7_to_current_normal_corner_delta_degrees": {
+          "count": 0,
+          "max": null,
+          "median": null,
+          "min": null,
+          "p90": null
+        }
+      },
+      "repainted_original": {
+        "current_normal_vs_geometric_degrees": {
+          "count": 69,
+          "max": 128.3558069965052,
+          "median": 39.13413539937038,
+          "min": 1.8148832900732583,
+          "p90": 92.35574115368122
+        },
+        "current_opposite_hemisphere_faces": 8,
+        "faces": 69,
+        "green_sample_faces": 0,
+        "light_sample_faces": 69,
+        "v7_opposite_hemisphere_faces": 0,
+        "v7_to_current_normal_corner_delta_degrees": {
+          "count": 207,
+          "max": 140.12564086914062,
+          "median": 39.37913131713867,
+          "min": 0.0,
+          "p90": 89.0978515625
+        }
+      }
+    },
+    "shoulder": {
+      "authored_closure": {
+        "current_normal_vs_geometric_degrees": {
+          "count": 108,
+          "max": 156.34580217765603,
+          "median": 6.176249837695661,
+          "min": 0.37167709362424034,
+          "p90": 23.617921821468173
+        },
+        "current_opposite_hemisphere_faces": 2,
+        "faces": 108,
+        "green_sample_faces": 0,
+        "light_sample_faces": 0,
+        "v7_opposite_hemisphere_faces": 0,
+        "v7_to_current_normal_corner_delta_degrees": {
+          "count": 324,
+          "max": 166.19769287109375,
+          "median": 9.734416007995605,
+          "min": 0.0,
+          "p90": 31.857859992980956
+        }
+      },
+      "original": {
+        "current_normal_vs_geometric_degrees": {
+          "count": 1155,
+          "max": 179.97202354488172,
+          "median": 1.941384694962176,
+          "min": 0.0,
+          "p90": 7.353463143660165
+        },
+        "current_opposite_hemisphere_faces": 1,
+        "faces": 1155,
+        "green_sample_faces": 42,
+        "light_sample_faces": 256,
+        "v7_opposite_hemisphere_faces": null,
+        "v7_to_current_normal_corner_delta_degrees": {
+          "count": 0,
+          "max": null,
+          "median": null,
+          "min": null,
+          "p90": null
+        }
+      },
+      "repainted_original": {
+        "current_normal_vs_geometric_degrees": {
+          "count": 51,
+          "max": 59.67353829842752,
+          "median": 4.267785735953807,
+          "min": 0.4809198440509574,
+          "p90": 12.897890402387914
+        },
+        "current_opposite_hemisphere_faces": 0,
+        "faces": 51,
+        "green_sample_faces": 0,
+        "light_sample_faces": 0,
+        "v7_opposite_hemisphere_faces": 0,
+        "v7_to_current_normal_corner_delta_degrees": {
+          "count": 153,
+          "max": 62.06973648071289,
+          "median": 3.7343382835388184,
+          "min": 0.0,
+          "p90": 23.912284088134797
+        }
+      }
+    }
+  },
+  "sources_unchanged": true,
+  "status": "read_only_diagnosis_not_acceptance"
+}

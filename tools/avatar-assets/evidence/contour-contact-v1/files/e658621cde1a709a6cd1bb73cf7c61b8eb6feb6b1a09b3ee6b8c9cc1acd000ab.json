@@ -1,0 +1,69 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_normal_rejection_pipeline"
+  ],
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "wall_seconds": 30
+  },
+  "prepared_at": "2026-11-01T23:40:18.054208-08:00",
+  "provenance": "analytic_fixture_tests_no_native_or_provider_calls",
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "tests/test_normal_rejection_pipeline.py",
+      "sha256": "fb01324fe6e568c12b55e7d6930e5702517490f84ea55efbebae6e58cd37c58e",
+      "snapshot": "sources/tests/test_normal_rejection_pipeline.py"
+    },
+    {
+      "path": "tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545",
+      "snapshot": "sources/tests/test_pipeline_prompts.py"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "f6dbe5230b21d1ee6bbfb0caf10751a50bbea96ae72f4bd253db31d3c76c273f",
+      "snapshot": "sources/avatar_assets/pipeline.py"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "deb76b2f0ec33145fb4fe54b1940e12d3367b935056d567d707d7baca0f868bd",
+      "snapshot": "sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "path": "avatar_assets/finish_generated.py",
+      "sha256": "3096efccec4dec69f466c1ad3f5e7a3b4dba9c9e4ca892672107b23ec7ad032f",
+      "snapshot": "sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "path": "avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "path": "scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "fe23b87cf3cba87716ef291d7e6a5c6ed30bbc499061290d3a6cf1e04a391a13",
+      "snapshot": "sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/avatar_assets/runner.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/avatar_assets/safety.py"
+    }
+  ]
+}

@@ -8,12 +8,12 @@ import numpy as np
 
 try:
     from normal_continuity import (FACE_ATTRIBUTE, MAX_CORNERS, MAX_FACES, MAX_VERTICES,
-        POINT_ATTRIBUTE, array_hash, plan_normal_continuity, validate_normal_continuity)
+        POINT_ATTRIBUTE, NormalContinuityError, array_hash, plan_normal_continuity, validate_normal_continuity)
 except ModuleNotFoundError as error:
     if error.name != 'normal_continuity':
         raise
     from avatar_assets.normal_continuity import (FACE_ATTRIBUTE, MAX_CORNERS, MAX_FACES, MAX_VERTICES,
-        POINT_ATTRIBUTE, array_hash, plan_normal_continuity, validate_normal_continuity)
+        POINT_ATTRIBUTE, NormalContinuityError, array_hash, plan_normal_continuity, validate_normal_continuity)
 
 
 MAX_WEIGHT_ENTRIES = 400000

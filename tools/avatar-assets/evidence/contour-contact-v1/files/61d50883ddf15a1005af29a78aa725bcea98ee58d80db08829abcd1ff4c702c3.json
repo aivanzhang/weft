@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "sealed_analytic_tests",
+  "artifacts": [
+    {
+      "path": "job.json",
+      "bytes": 1024,
+      "sha256": "979d6b655dd8a11573140a1734ecf9f3efefd462cbc3424a5ae2bfcfcaec2f9a"
+    },
+    {
+      "path": "maximum-fixture.json",
+      "bytes": 3689,
+      "sha256": "b03c02f341e2145bf485a4901b67409a148cab9154f8976affe36a06144fffaa"
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 1460,
+      "sha256": "14d96b690a0b00d2dfcad54db8f9e6537b0c110a939b17608b90ba5b26e07766"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 3305,
+      "sha256": "575e97bdb009b4150023cdb8a4054289bf33d378f8677be0cfde81831ab4b184"
+    },
+    {
+      "path": "source/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "source/avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "source/scripts/edge_fringe.py",
+      "bytes": 17397,
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "path": "source/scripts/fringe_flow.py",
+      "bytes": 9233,
+      "sha256": "b7d60d5e9f152edf063ed9ce140b187dafe018e82470c66eb695aaccf8940ed9"
+    },
+    {
+      "path": "source/scripts/groom_flow.py",
+      "bytes": 7179,
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "path": "source/tests/test_fringe_flow.py",
+      "bytes": 10025,
+      "sha256": "5e5cc333ccd9018ef1a864020bc483843f08888a3e3b8ea90c63ccd20df1b41a"
+    },
+    {
+      "path": "source-preservation.json",
+      "bytes": 47,
+      "sha256": "99de4097cd238150852721fb6e6dcd7b0470217567c80f68fd298691c366f1f6"
+    },
+    {
+      "path": "tests-handle.json",
+      "bytes": 188,
+      "sha256": "8ad91319f974bfe0f8fb434f68d504921b612490b732b480fc8254114fe56900"
+    },
+    {
+      "path": "tests-monitor.json",
+      "bytes": 924,
+      "sha256": "96022c82cb535c0c2b9d59ee6f41eea309d4b33bd8dac8d8cc4a0c9f2794b894"
+    },
+    {
+      "path": "tests.log",
+      "bytes": 1743,
+      "sha256": "e9346cf67b8314698ef2c557b50b61ede88b24c054509a04b9d07d2a12fc8ecf"
+    }
+  ],
+  "artifact_count": 14,
+  "artifact_bytes": 71394
+}

@@ -1,0 +1,43 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_normal_continuity",
+    "-v"
+  ],
+  "limits": {
+    "memory_mib": 512,
+    "output_mib": 16,
+    "seconds": 30
+  },
+  "pins": [
+    {
+      "bytes": 17295,
+      "path": "avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 6839,
+      "path": "scripts/blender_normal_continuity.py",
+      "sha256": "1640b08c1adc1b9c5d0b5994dd5623982ec816dfa02f6bd30bb43bf64a55e9be"
+    },
+    {
+      "bytes": 15936,
+      "path": "tests/test_normal_continuity.py",
+      "sha256": "4f98899e140ab28b3b391dd9cff79c2f11368959ffc6ea050130a55bd181a0e3"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "scope": "analytic normal-transfer and mutation boundaries, not actual appearance"
+}

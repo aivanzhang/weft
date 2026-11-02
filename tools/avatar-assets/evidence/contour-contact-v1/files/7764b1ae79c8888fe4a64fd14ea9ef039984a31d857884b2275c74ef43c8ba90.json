@@ -1,0 +1,61 @@
+{
+  "cheek_conclusion": "Custom-normal treatment remains the leading bounded hypothesis, supported by gray/unlit ablation and the recorded large normal/geometric deviations in the repaired contact band. These17shoulder pixel hits do not settle cheek geometry/winding versus normals.",
+  "conspicuous_contact_defects_resolved": false,
+  "native_calls_by_reviewer": 0,
+  "next_safe_action": "Parent-selected matched constant-gray baseline versus provenance-bound source-restored normals on198contact faces, with unchanged geometry/skin/UV/color/camera/lighting. Treat it as a diagnostic control; inspect actual images before choosing a normal repair. No extra view sweep or fur-density experiment is needed.",
+  "no_additional_diagnostic_requested_by_reviewer": true,
+  "observed_hit_counts": [
+    {
+      "count": 2,
+      "material": "body_cap__short_pile_adaptive_v1",
+      "pixel_kind": "green"
+    },
+    {
+      "count": 14,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "pixel_kind": "green"
+    },
+    {
+      "count": 1,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "pixel_kind": "light"
+    }
+  ],
+  "paid_calls_by_reviewer": 0,
+  "pixel_evidence": [
+    {
+      "bytes": 40645,
+      "path": "outputs/panda-contact-pixel-attribution-v1/attribution.json",
+      "sha256": "4201e0ee1a64796810aaf3f24b70684abf2d24dc9e9a56d51113b9a04a01f03a"
+    },
+    {
+      "bytes": 1378,
+      "path": "outputs/panda-contact-pixel-attribution-v1/native-monitor.json",
+      "sha256": "675085c742a393f6249a7e3e83a55b2d97de152cb64bb71f6085ab54fa3d31da"
+    }
+  ],
+  "production_edits_by_reviewer": 0,
+  "quality_approved": false,
+  "referenced_pixel_job": {
+    "elapsed_seconds": 1.036,
+    "process_exit_verified": true,
+    "rendered_images": 0,
+    "sampled_peak_rss_bytes": 285835264
+  },
+  "schema_version": 1,
+  "shoulder_conclusion": "All16green and1pale selected visible pixel centers hit panda body materials, not companion geometry. Together with persistence under unlit body basecolor, this confirms a body color/UV appearance contribution for these selected flecks; fur and body-normal lighting are not their sufficient cause.",
+  "shoulder_limit": "Fourteen green pixels hit body_surface__short_pile_adaptive_v1 and two hit body_cap__short_pile_adaptive_v1; the pale pixel hits body_surface. The earlier42 sparse green-face candidates were not exhaustive. Pixel-center rays do not reproduce antialiasing or mipmap coverage; do not claim all flecks or source texture pixels have been diagnosed.",
+  "status": "final_qualified_attribution_with_visible_pixel_hits",
+  "supersedes_pending_pixel_attribution_in": [
+    {
+      "bytes": 3911,
+      "path": "outputs/panda-contact-ablation-independent-review-v1/visual-observations.json",
+      "sha256": "3829be9d98565b4f90a75317f49cb4f736d8b7fd3253bc91e7e5e8a75351e98e"
+    },
+    {
+      "bytes": 5155,
+      "path": "outputs/panda-contact-ablation-independent-review-v1/cpu-assisted-attribution.json",
+      "sha256": "779f8a8a4c4c9645f523aeb5d43e225726791359b864d64ba3017487310bae7d"
+    }
+  ]
+}

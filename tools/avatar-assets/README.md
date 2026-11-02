@@ -103,6 +103,25 @@ contour spikes and cheek/shoulder defects, so this experimental route remains
 disabled and no approved asset is replaced. These repairs are not a fresh
 hands-off text-prompt acceptance.
 
+The latest [contour/contact diagnosis](docs/contour-contact-diagnosis.md) finds
+that shorter regional fur improves outlines without changing the body, textures,
+skin or actions. It remains short plush, not dense hair; cheek/shoulder defects
+still prevent quality acceptance. The tested helper and diagnostic evidence are
+preserved with compact evidence; the public fringe route and approved assets remain unchanged.
+
+A [normal-transfer quality guard](docs/normal-transfer-guard.md) now rejects
+inward-facing transfers before shading changes. The actual panda and Blender
+checks reproduce 172 rejected corners; 23 focused software tests cover the guard
+and its pinned, bounded repair diagnostics. This prevents a known defect but is
+not a completed cheek repair or a new accepted Studio delivery.
+
+A source UV repair now removes the pronounced green tint at all 16 fixed
+shoulder witnesses in one matched color-only preview while preserving protected
+white regions. The bright mark and cheek defect remain; the source derivative
+is unrigged and still needs explicit finishing integration. All failures and
+actual/analytic checks are preserved in `evidence/contour-contact-v1`. This is
+local quality progress, not Muse parity or an accepted hands-off Studio run.
+
 The studio is a local single-user workflow, not a hosted service. No server,
 browser or generation job starts merely by reading this repository. The
 existing read-only gallery remains separate on port 8765.

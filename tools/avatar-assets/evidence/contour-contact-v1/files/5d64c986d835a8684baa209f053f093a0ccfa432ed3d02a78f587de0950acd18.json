@@ -1,0 +1,879 @@
+{
+  "ambiguous": 0,
+  "checkpoint_sha256": "b59cf6ba898b40614d60508db2e2984a80a84dcd27159a060b83f79d45a57e31",
+  "matches": [
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 34334,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        35,
+        56,
+        40
+      ],
+      "pixel": [
+        311,
+        385
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 9.993141429731622e-05,
+        "centroid_blender_m": [
+          -0.25281015038490295,
+          -0.2555405795574188,
+          0.5541769862174988
+        ],
+        "expected_face_id": 27542,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9983906149864197,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.05882352941176471,
+          0.06274509803921569,
+          0.0784313725490196
+        ],
+        "sample_mean_rgb": [
+          0.049815726500237786,
+          0.05200203288277253,
+          0.06135143655188004
+        ],
+        "source_face_id": 27542,
+        "triangle": 3474,
+        "uv_centroid": [
+          0.49212196469306946,
+          0.062419336289167404
+        ],
+        "vertex_ids": [
+          2167,
+          2489,
+          2270
+        ]
+      },
+      "triangle": 3474
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_cap__short_pile_adaptive_v1",
+      "native_polygon_index": 62345,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        16,
+        37,
+        24
+      ],
+      "pixel": [
+        283,
+        388
+      ],
+      "primitive": 6,
+      "provenance": {
+        "area_m2": 9.935937123373151e-05,
+        "centroid_blender_m": [
+          -0.3251972198486328,
+          -0.20915968716144562,
+          0.5469129085540771
+        ],
+        "closure_loop": 1,
+        "closure_triangle": 9,
+        "expected_face_id": 62126,
+        "green_samples": 0,
+        "kind": "authored_closure",
+        "light_samples": 0,
+        "material": "body_cap__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.996821403503418,
+        "position_accessor": 55,
+        "primitive": 6,
+        "sample_max_rgb": [
+          0.04705882352941176,
+          0.06472836165270743,
+          0.07067391005327314
+        ],
+        "sample_mean_rgb": [
+          0.04458049730085871,
+          0.06192899077197023,
+          0.06572383677472979
+        ],
+        "triangle": 132,
+        "uv_centroid": [
+          0.8389648795127869,
+          0.5516601204872131
+        ],
+        "vertex_ids": [
+          139,
+          133,
+          22
+        ]
+      },
+      "triangle": 132
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 34101,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        16,
+        34,
+        23
+      ],
+      "pixel": [
+        307,
+        379
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 0.00011810912110377103,
+        "centroid_blender_m": [
+          -0.26434430480003357,
+          -0.24410773813724518,
+          0.5677714347839355
+        ],
+        "expected_face_id": 26516,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9993999004364014,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.06931051843685582,
+          0.06247016932008111,
+          0.07074440166438231
+        ],
+        "sample_mean_rgb": [
+          0.054954909954400034,
+          0.05340154515388511,
+          0.06357833678128463
+        ],
+        "source_face_id": 26516,
+        "triangle": 3241,
+        "uv_centroid": [
+          0.4659603536128998,
+          0.05040432885289192
+        ],
+        "vertex_ids": [
+          1932,
+          2288,
+          1891
+        ]
+      },
+      "triangle": 3241
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 34616,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        67,
+        77,
+        59
+      ],
+      "pixel": [
+        283,
+        334
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 7.694987289141864e-05,
+        "centroid_blender_m": [
+          -0.25183165073394775,
+          -0.0613732673227787,
+          0.6926035284996033
+        ],
+        "expected_face_id": 28584,
+        "green_samples": 3,
+        "kind": "original",
+        "light_samples": 1,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.999704897403717,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.6222905687533449,
+          0.7281625492618838,
+          0.5640489807373882
+        ],
+        "sample_mean_rgb": [
+          0.12738964219514554,
+          0.16636093702694538,
+          0.13479157307557407
+        ],
+        "source_face_id": 28584,
+        "triangle": 3756,
+        "uv_centroid": [
+          0.4693416655063629,
+          0.775501012802124
+        ],
+        "vertex_ids": [
+          2539,
+          2314,
+          2673
+        ]
+      },
+      "triangle": 3756
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 36391,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        13,
+        27,
+        18
+      ],
+      "pixel": [
+        325,
+        383
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 0.00010283813026035205,
+        "centroid_blender_m": [
+          -0.21518456935882568,
+          -0.253477543592453,
+          0.5548961758613586
+        ],
+        "expected_face_id": 32891,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 1.0,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.061332838333272875,
+          0.06230847906260973,
+          0.06916289167368866
+        ],
+        "sample_mean_rgb": [
+          0.051560605872084976,
+          0.05768376123817664,
+          0.0630185075596791
+        ],
+        "source_face_id": 32891,
+        "triangle": 5531,
+        "uv_centroid": [
+          0.4373970031738281,
+          0.008653323166072369
+        ],
+        "vertex_ids": [
+          4149,
+          3344,
+          3740
+        ]
+      },
+      "triangle": 5531
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 35154,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        14,
+        30,
+        21
+      ],
+      "pixel": [
+        296,
+        337
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 3.961674519814551e-05,
+        "centroid_blender_m": [
+          -0.2387273758649826,
+          -0.11268496513366699,
+          0.6808802485466003
+        ],
+        "expected_face_id": 30260,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9991936087608337,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.057067659044310805,
+          0.057067659044310805,
+          0.06274509803921569
+        ],
+        "sample_mean_rgb": [
+          0.05540331292135631,
+          0.05502563356629101,
+          0.060285573221951876
+        ],
+        "source_face_id": 30260,
+        "triangle": 4294,
+        "uv_centroid": [
+          0.9564680457115173,
+          0.4739750325679779
+        ],
+        "vertex_ids": [
+          3061,
+          3194,
+          2856
+        ]
+      },
+      "triangle": 4294
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 33028,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        49,
+        57,
+        46
+      ],
+      "pixel": [
+        287,
+        368
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 0.0001119699445553124,
+        "centroid_blender_m": [
+          -0.29783207178115845,
+          -0.1834878772497177,
+          0.5942221879959106
+        ],
+        "expected_face_id": 19837,
+        "green_samples": 1,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9994767308235168,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.3467135124957642,
+          0.38797810442877223,
+          0.3295110830634822
+        ],
+        "sample_mean_rgb": [
+          0.09559051348413186,
+          0.10807245034839455,
+          0.0990686439648948
+        ],
+        "source_face_id": 19837,
+        "triangle": 2168,
+        "uv_centroid": [
+          0.36250266432762146,
+          0.14034731686115265
+        ],
+        "vertex_ids": [
+          1385,
+          975,
+          1397
+        ]
+      },
+      "triangle": 2168
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 35117,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        13,
+        26,
+        18
+      ],
+      "pixel": [
+        313,
+        381
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 6.257540371734649e-05,
+        "centroid_blender_m": [
+          -0.24293415248394012,
+          -0.2494514137506485,
+          0.5675081610679626
+        ],
+        "expected_face_id": 30148,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9996874332427979,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.05213055143704661,
+          0.057921551744218515,
+          0.06654739529207085
+        ],
+        "sample_mean_rgb": [
+          0.049089898611198945,
+          0.051644755402010155,
+          0.06214765734819129
+        ],
+        "source_face_id": 30148,
+        "triangle": 4257,
+        "uv_centroid": [
+          0.11520799994468689,
+          0.606839656829834
+        ],
+        "vertex_ids": [
+          2269,
+          2916,
+          2672
+        ]
+      },
+      "triangle": 4257
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 34086,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        46,
+        53,
+        41
+      ],
+      "pixel": [
+        306,
+        387
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 0.00014165679749567062,
+        "centroid_blender_m": [
+          -0.26464125514030457,
+          -0.25343087315559387,
+          0.5540074706077576
+        ],
+        "expected_face_id": 26462,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 1,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9999122619628906,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.43307897488946107,
+          0.5203075178213119,
+          0.43968740056590433
+        ],
+        "sample_mean_rgb": [
+          0.1591101970975375,
+          0.18407144543665402,
+          0.16130960836147906
+        ],
+        "source_face_id": 26462,
+        "triangle": 3226,
+        "uv_centroid": [
+          0.4777419865131378,
+          0.06873297691345215
+        ],
+        "vertex_ids": [
+          1920,
+          2270,
+          1932
+        ]
+      },
+      "triangle": 3226
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": false,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 33429,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        21,
+        28,
+        20
+      ],
+      "pixel": [
+        271,
+        361
+      ],
+      "primitive": 5,
+      "provenance": null,
+      "triangle": 2569
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": false,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 33777,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        68,
+        77,
+        70
+      ],
+      "pixel": [
+        268,
+        365
+      ],
+      "primitive": 5,
+      "provenance": null,
+      "triangle": 2917
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 34543,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        13,
+        22,
+        15
+      ],
+      "pixel": [
+        288,
+        346
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 0.00015584398352075368,
+        "centroid_blender_m": [
+          -0.25520941615104675,
+          -0.10383061319589615,
+          0.6612769961357117
+        ],
+        "expected_face_id": 28351,
+        "green_samples": 1,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9999328851699829,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.06052204326035667,
+          0.054898808751340615,
+          0.06444042107098644
+        ],
+        "sample_mean_rgb": [
+          0.05145916000265416,
+          0.05017282530959495,
+          0.0526212291414198
+        ],
+        "source_face_id": 28351,
+        "triangle": 3683,
+        "uv_centroid": [
+          0.9196810126304626,
+          0.6332829594612122
+        ],
+        "vertex_ids": [
+          2329,
+          2466,
+          2193
+        ]
+      },
+      "triangle": 3683
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 31910,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        35,
+        42,
+        31
+      ],
+      "pixel": [
+        271,
+        404
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 8.942434942582622e-05,
+        "centroid_blender_m": [
+          -0.3491303026676178,
+          -0.19947193562984467,
+          0.513449490070343
+        ],
+        "expected_face_id": 9735,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9999845027923584,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.05815848704606862,
+          0.060078915056238975,
+          0.0679207603231555
+        ],
+        "sample_mean_rgb": [
+          0.05333043890426565,
+          0.05846714588153699,
+          0.0657494901116571
+        ],
+        "source_face_id": 9735,
+        "triangle": 1050,
+        "uv_centroid": [
+          0.974478006362915,
+          0.5690333247184753
+        ],
+        "vertex_ids": [
+          578,
+          642,
+          646
+        ]
+      },
+      "triangle": 1050
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 32550,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        15,
+        26,
+        19
+      ],
+      "pixel": [
+        287,
+        403
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 0.00013427391240838915,
+        "centroid_blender_m": [
+          -0.3219258189201355,
+          -0.2547056972980499,
+          0.5101051926612854
+        ],
+        "expected_face_id": 16449,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9997621774673462,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.060015888211050576,
+          0.060015888211050576,
+          0.06763425305683896
+        ],
+        "sample_mean_rgb": [
+          0.05534402499931448,
+          0.055574225159981436,
+          0.06207942603824399
+        ],
+        "source_face_id": 16449,
+        "triangle": 1690,
+        "uv_centroid": [
+          0.14289800822734833,
+          0.13384966552257538
+        ],
+        "vertex_ids": [
+          1006,
+          854,
+          1009
+        ]
+      },
+      "triangle": 1690
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_cap__short_pile_adaptive_v1",
+      "native_polygon_index": 62390,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        12,
+        22,
+        16
+      ],
+      "pixel": [
+        283,
+        351
+      ],
+      "primitive": 6,
+      "provenance": {
+        "area_m2": 0.0003501563041936606,
+        "centroid_blender_m": [
+          -0.27477529644966125,
+          -0.11499340087175369,
+          0.6294572949409485
+        ],
+        "closure_loop": 4,
+        "closure_triangle": 89,
+        "expected_face_id": 62206,
+        "green_samples": 0,
+        "kind": "authored_closure",
+        "light_samples": 0,
+        "material": "body_cap__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.999592125415802,
+        "position_accessor": 55,
+        "primitive": 6,
+        "sample_max_rgb": [
+          0.04705882352941176,
+          0.06472836165270743,
+          0.07067391005327314
+        ],
+        "sample_mean_rgb": [
+          0.04458049730085871,
+          0.06192899077197023,
+          0.06572383677472979
+        ],
+        "triangle": 177,
+        "uv_centroid": [
+          0.8389648795127869,
+          0.5516601204872131
+        ],
+        "vertex_ids": [
+          229,
+          314,
+          278
+        ]
+      },
+      "triangle": 177
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 33256,
+      "observed_kind": "green",
+      "observed_rgb8": [
+        17,
+        24,
+        18
+      ],
+      "pixel": [
+        290,
+        383
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 0.00013537550694309175,
+        "centroid_blender_m": [
+          -0.2914935052394867,
+          -0.21985836327075958,
+          0.5746967792510986
+        ],
+        "expected_face_id": 21650,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 0,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.999945878982544,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.06102628443454108,
+          0.06465658190114926,
+          0.06666666666666668
+        ],
+        "sample_mean_rgb": [
+          0.05520275802341266,
+          0.05394609262229167,
+          0.06315211995665009
+        ],
+        "source_face_id": 21650,
+        "triangle": 2396,
+        "uv_centroid": [
+          0.3939739763736725,
+          0.05945134162902832
+        ],
+        "vertex_ids": [
+          1319,
+          1438,
+          1350
+        ]
+      },
+      "triangle": 2396
+    },
+    {
+      "cyclic_shift": 0,
+      "inside_saved_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon_index": 35467,
+      "observed_kind": "light",
+      "observed_rgb8": [
+        194,
+        191,
+        190
+      ],
+      "pixel": [
+        301,
+        340
+      ],
+      "primitive": 5,
+      "provenance": {
+        "area_m2": 8.93217948032543e-05,
+        "centroid_blender_m": [
+          -0.23131752014160156,
+          -0.1305810660123825,
+          0.6735133528709412
+        ],
+        "expected_face_id": 31016,
+        "green_samples": 0,
+        "kind": "original",
+        "light_samples": 4,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_geo_dot": 0.9974368810653687,
+        "position_accessor": 46,
+        "primitive": 5,
+        "sample_max_rgb": [
+          0.9831284585784498,
+          0.9652467082475439,
+          0.9538551414293536
+        ],
+        "sample_mean_rgb": [
+          0.6346111170845036,
+          0.6186043227833596,
+          0.6168598836982699
+        ],
+        "source_face_id": 31016,
+        "triangle": 4607,
+        "uv_centroid": [
+          0.8952023386955261,
+          0.6167760491371155
+        ],
+        "vertex_ids": [
+          3084,
+          3409,
+          3193
+        ]
+      },
+      "triangle": 4607
+    }
+  ],
+  "quality_approved": false,
+  "ray_attribution_path": "outputs/panda-contact-pixel-attribution-v1/attribution.json",
+  "ray_attribution_sha256": "4201e0ee1a64796810aaf3f24b70684abf2d24dc9e9a56d51113b9a04a01f03a",
+  "ray_hits_body": 17,
+  "sampling_limit": "Sparse LOD0 UV colors do not predict native mipmapped/antialiased pixel footprints",
+  "schema_version": 1,
+  "scope": "Exact unique material+rest-position+UV join; pixels come from parent actual native raycast, not this CPU calculation",
+  "source_model_sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+}

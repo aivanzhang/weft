@@ -1,0 +1,114 @@
+{
+  "artifact_bytes": 190020,
+  "artifact_count": 20,
+  "artifacts": [
+    {
+      "bytes": 45794,
+      "path": "boundary-attachment.json",
+      "sha256": "f630ea645a9d4cf129bc7c98fe09b2eb764b985e112fbc2b9094a5258e067766"
+    },
+    {
+      "bytes": 476,
+      "path": "boundary-execution.json",
+      "sha256": "e335a76347abb8230f19efd2cad52d6ddc1fdf18c09df9e04ff4962d59dcd02b"
+    },
+    {
+      "bytes": 252,
+      "path": "boundary-handle.json",
+      "sha256": "8d1e4145b94c1149089de068fde4bf253333d6a1c4a7b6de41ee3bcf59ab32e4"
+    },
+    {
+      "bytes": 1081,
+      "path": "boundary-job.json",
+      "sha256": "4b06b26a0250da84a63e34daf98616d6b3b3f7a4e3ee9c6bcb8cbd24c3fb04ab"
+    },
+    {
+      "bytes": 990,
+      "path": "boundary-monitor.json",
+      "sha256": "ae3a59123bd3124320b432d6eda8663741c58e20bbe711e797bbc1dfc1c2a7d4"
+    },
+    {
+      "bytes": 236,
+      "path": "boundary.log",
+      "sha256": "d6e5a986c273356b57caf0e7e7eff59a42c7eb47a4c7323fb57bfb2afbfaa451"
+    },
+    {
+      "bytes": 5915,
+      "path": "boundary_links.py",
+      "sha256": "4383c4350164d0d31b74160c0fc9a4495c4f84a9224a11e9fe09e18a202d7f4a"
+    },
+    {
+      "bytes": 239,
+      "path": "cpu-handle.json",
+      "sha256": "2c073898ad709c6da1db814ef67d42680331140cd62dcf39d92eb2ff96221ef5"
+    },
+    {
+      "bytes": 1116,
+      "path": "cpu-job.json",
+      "sha256": "23d9a70886ae44fb4dc598d9612d53f9244646bd5ef2102361589ceedd206108"
+    },
+    {
+      "bytes": 1023,
+      "path": "cpu-monitor.json",
+      "sha256": "3f68aeeaedba5a520da533f2e6c0f08e7a20fdf16714215b70f29fb428f81bb3"
+    },
+    {
+      "bytes": 2033,
+      "path": "cpu.log",
+      "sha256": "f111a6d9551372948859a48da579e1d54aba5e087a00d5368cbe5bed87b79bcd"
+    },
+    {
+      "bytes": 490,
+      "path": "execution.json",
+      "sha256": "d42123d0620689488cb44c3d8a57836a2d418ce5be704c39fbf89beaab9624d3"
+    },
+    {
+      "bytes": 5312,
+      "path": "findings.md",
+      "sha256": "b3be55175f53c5110989896e618c3f819f9dc9ed07297f294f8f39303ad05650"
+    },
+    {
+      "bytes": 734,
+      "path": "inputs.json",
+      "sha256": "4d99746579fd7796d4c2f845ea0a8a5c3801913be21501bb61c604865db90acb"
+    },
+    {
+      "bytes": 2657,
+      "path": "report.json",
+      "sha256": "d4fb44f9e2cc571726bdd534d33ce3673f09ab348754f3add474177ef6438850"
+    },
+    {
+      "bytes": 19891,
+      "path": "ring-0.json",
+      "sha256": "80177c770d40dbc69ccc8fe507f44eb2c964641efd6719e367a34301f7d9d90b"
+    },
+    {
+      "bytes": 28837,
+      "path": "ring-1.json",
+      "sha256": "2983b05c432e92328203c25547961b88bfa1aec9ab1731b70f28a5de0d9de731"
+    },
+    {
+      "bytes": 29698,
+      "path": "ring-2.json",
+      "sha256": "8e29ab70ff8ec9d3d6a79e15482b8d327611bfb79736d70bad734c788bacfb9c"
+    },
+    {
+      "bytes": 33621,
+      "path": "ring-3.json",
+      "sha256": "d6f3138273546ce77830ee6323433799d217d1697b28f8d4208a6353ba129041"
+    },
+    {
+      "bytes": 9625,
+      "path": "screen.py",
+      "sha256": "7b375c4fb3793ba119177185e3d8eef9b0a82d8bf5ea9ad0477a16500b247fd0"
+    }
+  ],
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "repair_implemented": false,
+  "schema_version": 1,
+  "sources_unchanged": true,
+  "status": "sealed_unsupported_single_patch_rings_0_to_3",
+  "textures_decoded": 0
+}

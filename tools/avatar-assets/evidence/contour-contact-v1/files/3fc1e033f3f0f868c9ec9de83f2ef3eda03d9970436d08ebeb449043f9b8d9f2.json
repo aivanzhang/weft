@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-11-02T00:29:25.534622-08:00",
+  "decision": "fixed_green_witnesses_improved_not_full_surface_acceptance",
+  "images_reviewed": [
+    "repaired_unlit.png"
+  ],
+  "baseline_reused": true,
+  "new_rendered_images": 1,
+  "observations": [
+    "All 16 fixed green witnesses lose their pronounced green tint; 15 become dark neutral pixels.",
+    "Grazing witness [268,365] becomes [66,68,67], neutral gray rather than black.",
+    "Bright witness [301,340] stays [117,113,112]; the contributing protected white face is unchanged.",
+    "Only 60 pixels differ from v1. Remaining shoulder flecks and a pale mark are visible."
+  ],
+  "controls": {
+    "baseline_bytes_unchanged": true,
+    "protected_state_equal_to_prior": true,
+    "selected_source_faces": 249,
+    "protected_white_faces": 244,
+    "no_geometry_normals_skin_or_pose_changes_in_transient_scene": true
+  },
+  "limitations": [
+    "One matched unlit pose is not full material, fur, animation or overall quality acceptance.",
+    "Subpixel ray counts are not exact EEVEE antialiasing weights; gray-background contribution remains an inference.",
+    "The actual source derivative is unrigged and still needs explicit finishing integration."
+  ],
+  "quality_approved": false,
+  "new_paid_generation_calls": 0,
+  "inputs": [
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v2/repaired_unlit.png",
+      "sha256": "9315055ee75a4ed19e3e76f81b29834168f6c835849c1713d37896d1c2f4959c"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v2/baseline_unlit.png",
+      "sha256": "cfe77f2ac4928a0c30ae903e5f5e8caeee182149a7f7d3dae0a7b22af30fdd7b"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v2/pixel-comparison.json",
+      "sha256": "4518a809ec79eb05302503fce71d2e8e44d348c06c9c7ccfa61f0879ced94ffa"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v2/color-ablation.json",
+      "sha256": "4bdf9fa6aa49fca7c2167c95987045271a86232e68bdc2523364ab714f35f215"
+    }
+  ]
+}

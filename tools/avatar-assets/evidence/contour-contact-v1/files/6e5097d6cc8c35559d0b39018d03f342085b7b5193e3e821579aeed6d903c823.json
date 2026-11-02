@@ -1,0 +1,103 @@
+{
+  "added_exact_source_faces": [
+    [
+      0,
+      1579
+    ],
+    [
+      0,
+      2384
+    ],
+    [
+      0,
+      2395
+    ],
+    [
+      0,
+      2571
+    ],
+    [
+      0,
+      3128
+    ],
+    [
+      0,
+      3336
+    ],
+    [
+      0,
+      3411
+    ]
+  ],
+  "at": "2026-11-02T00:23:27.165877-08:00",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-preparation-v2/produce.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.522,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 28842667,
+    "last_rss_sample_elapsed_seconds": 0.261,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 64,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "produce-monitor.json",
+    "monitor_errors": [],
+    "pid": 55689,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 28842667,
+    "sampled_peak_rss_bytes": 200376320,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "model": {
+    "bytes": 28080560,
+    "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+    "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e"
+  },
+  "model_quality_approved": false,
+  "native_jobs": 0,
+  "native_payload": {
+    "path": "native-color-payload-v2.json",
+    "rows": 249,
+    "sha256": "3b3cbd08529830fb0836d63a562a9465aa7dee76f1a7baff42a68ff531940768"
+  },
+  "next_safe_action": "Root runs one matched unlit color control using the249-face payload. Keep all244 protected white faces unchanged. Compare actual pixel evidence before any promotion or finishing integration; geometric subpixel coverage is not TAA coverage.",
+  "original242_rows_unchanged": true,
+  "owned_live_jobs": [],
+  "parent_v1_model_sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528",
+  "prepared_sha256": "7e19ab758c95bef0f040503f970cb4aa36b754c294e987056f66c9f5b14a2e89",
+  "protected_source_face": [
+    0,
+    5167
+  ],
+  "protected_white_faces_unchanged": 244,
+  "provider_calls": 0,
+  "region_expanded": false,
+  "schema_version": 1,
+  "selection_delta_sha256": "294ad0c2a9978009fbe817584327a46db51bab7d1101220995389fad0a25744d",
+  "selector_sha256": "7050fe9016018a5e8abe0796a4d2e4e892af7f0dbf115990dcbe696eddd17b55",
+  "self_peak_rss_bytes": 280739840,
+  "source_files_unchanged": true,
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "experimental_v2_uv_candidate_ready_for_parent_color_check",
+  "texture_decode_calls": 0,
+  "thresholds_changed": false,
+  "worker_sha256": "36a7779e127d82ffa2bacc1f023ed20e4ff4a0ef328c6fa716ee8d439585613d"
+}

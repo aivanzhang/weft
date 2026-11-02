@@ -1,0 +1,48 @@
+{
+  "config": {
+    "path": "examples/meshy/panda-portable-fringe-v1.json",
+    "sha256": "72f112ab66406b52a6ef8d39f2b625e7d20f1a52de3effb71d09b94da3de8da7",
+    "snapshot": "config.json"
+  },
+  "kind": "Actual source CPU transfer rejection with read-only mesh facade; not Blender execution or avatar acceptance",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "wall_seconds": 30
+  },
+  "prepared_at": "2026-11-01T23:33:08.488711-08:00",
+  "schema_version": 1,
+  "source": {
+    "bytes": 26414540,
+    "path": "outputs/companion-separation-v7/diagnostic-model.glb",
+    "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+  },
+  "sources": [
+    {
+      "path": "avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "sources/normal_continuity.py"
+    },
+    {
+      "path": "scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "sources/blender_normal_continuity.py"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc",
+      "snapshot": "sources/three_d.py"
+    },
+    {
+      "path": "outputs/panda-staged-fringe-preparation-v1/sources/avatar_assets/normal_continuity.py",
+      "sha256": "6719fb8c7cfb47b240d34848b91838021b678abc806e32f0286d1b1115813d2a",
+      "snapshot": "sources/legacy_normal_continuity.py"
+    },
+    {
+      "path": "scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "sources/blender_creature_rig.py"
+    }
+  ],
+  "status": "prepared_not_executed"
+}

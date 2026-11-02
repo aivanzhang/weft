@@ -1,0 +1,48 @@
+{
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "cost": {
+    "local_energy": "unpriced",
+    "provider_calls": 0
+  },
+  "inputs": [
+    {
+      "path": "outputs/panda-staged-portable-preview-v1/source.blend",
+      "sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727"
+    },
+    {
+      "path": "outputs/panda-contact-ablation-v1/unlit_basecolor.png",
+      "sha256": "0b84ca2e582eabad395e53f69148e202022745f08a411eccccff0f55be2ebf3c"
+    }
+  ],
+  "limits": {
+    "concurrency": 1,
+    "output_mib": 8,
+    "sampled_child_rss_mib": 1024,
+    "seconds": 30
+  },
+  "output": "outputs/panda-contact-pixel-attribution-v1",
+  "schema_version": 1,
+  "scope": "One actualraycast-onlyattribution, no render or model edits.",
+  "snapshots": [
+    {
+      "path": "probe.py",
+      "sha256": "b5cd456a820558091c13c296688afe7d18acf23bfa738c3944e689ee7d8ceaaf"
+    },
+    {
+      "path": "execute.py",
+      "sha256": "54ad4b5154accaaace1a3ddecfc02c1daf46944140b89525eaa1c0e40d54cbbd"
+    },
+    {
+      "path": "config.json",
+      "sha256": "70cdf98432cb92da17c8b662cdf35a2aff816561ea3a0e525590c040eea0c256"
+    },
+    {
+      "path": "pixels.json",
+      "sha256": "085ce34f80c5b03279d5ea26d324d16e9de22f0a4a4d3f85703055e589e2245d"
+    },
+    {
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ]
+}

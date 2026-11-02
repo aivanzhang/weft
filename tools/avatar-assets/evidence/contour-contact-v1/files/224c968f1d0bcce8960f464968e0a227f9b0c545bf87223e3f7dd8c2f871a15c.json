@@ -1,0 +1,142 @@
+{
+  "bound_pixel_evidence": {
+    "baseline_exact_prior_pixels": true,
+    "changed_by_at_most_one_rgb_level": 3,
+    "changed_pixels": 2748,
+    "darkened_to_rgb_max_11": 13,
+    "green_witnesses": 16,
+    "light_witnesses": [
+      {
+        "after": [
+          117,
+          113,
+          112
+        ],
+        "before": [
+          194,
+          191,
+          190
+        ],
+        "observed_kind": "light",
+        "pixel": [
+          301,
+          340
+        ]
+      }
+    ],
+    "source": "Existing pixel-comparison receipt read; unchanged passing decoded-control check not repeated"
+  },
+  "candidate_sha256": "53aff0bba281367f4a7a81f2038adb2484409bc3440eb172e0884ef7a0ba4528",
+  "control_refs": [
+    {
+      "bytes": 53979,
+      "path": "outputs/panda-shoulder-uv-ablation-v1/color-ablation.json",
+      "sha256": "b0cf437b54cf09c7241d6787b0b9405fce067c5999b854f9ea61b292fcd06ac2"
+    },
+    {
+      "bytes": 4312,
+      "path": "outputs/panda-shoulder-uv-ablation-v1/pixel-comparison.json",
+      "sha256": "a8588f463e57cb469409e7783670258387a1c1492206fa23093e8a1c471f51a5"
+    },
+    {
+      "bytes": 243083,
+      "path": "outputs/panda-shoulder-uv-repair-v1/native-color-payload-v2.json",
+      "sha256": "94474e3017f7cc66df6e431074ea07e5ac9adbd1887bcc1c82dcc357610a2dc9"
+    }
+  ],
+  "control_scope": "Parent rendered a transient UV0-only payload on the unchanged existing posed scene, coat hidden and basecolor unlit; no model export from this control. It is not a direct full-material render of the unrigged candidate.",
+  "custody": {
+    "all_original_bindings_and_image_bytes_exact": true,
+    "companion_triangles_preserved": 27518,
+    "identity_result": {
+      "bytes": 125051,
+      "path": "outputs/panda-shoulder-uv-independent-review-v2/identity-result.json",
+      "sha256": "b26d8eabb3334c5cc7b8bf74dc7efb4ce4f6a6ffcf4b333216c371eecf602a06"
+    },
+    "identity_rule": "486 selected/protected current faces uniquely matched against all original oriented position+UV triangles using the frozen2e-7 bound; no normal/color tie breaking.",
+    "normal_mr_routes_use_original_uv1": true,
+    "positions_normals_tangents_exact": true,
+    "protected_white_faces": 244,
+    "referenced_vertices": 51358,
+    "result": {
+      "bytes": 2311,
+      "path": "outputs/panda-shoulder-uv-independent-review-v2/result.json",
+      "sha256": "13a6c66075fb56bdcb4e983541d830ab46ad1c0f9724d6460e8d29c58a246036"
+    },
+    "selected_faces": 242,
+    "selected_uv1_original_uv0_exact": true,
+    "source_current_identity_max_position_error_m": 2.9802322387695312e-08,
+    "source_current_identity_max_uv_error": 0.0,
+    "source_rig": "Unrigged; no skin/motion completion claim.",
+    "triangles": 62581,
+    "unselected_source_uv0_exact_faces": 62339
+  },
+  "independent_native_guard_proof": {
+    "status": "Actual native writer rejected172corners and reached no downstream sentinel or render; separate preventive safety proof, not a UV or geometry repair.",
+    "verification": {
+      "bytes": 525,
+      "path": "outputs/normal-guard-native-v1/verification.json",
+      "sha256": "936c921a3fc88bda5b6de17aa9a8dc988e122de05045d2d8683eace902bb7a6b"
+    }
+  },
+  "no_native_or_provider_calls_by_reviewer": true,
+  "no_production_or_shared_doc_edits": true,
+  "preserved_checker_failure": {
+    "cause": "Protected-white census rows use current-model IDs, not nonexistent source IDs. V2 corrects that namespace and supplemental independent matching proves all selected/protected v7 identities.",
+    "data_or_gate_relaxation": false,
+    "folder": "outputs/panda-shoulder-uv-independent-review-v1"
+  },
+  "quality_approved": false,
+  "remaining_blockers": [
+    "Visible residual shoulder marks and existing cheek geometry defect remain.",
+    "New material clones and intentional UV1 routes still need explicit finisher/undercoat/groom admission; no profile promotion.",
+    "A separately prepared249-face candidate is outside this242-face review."
+  ],
+  "resources": {
+    "aggregate_cpu_seconds": 1.829,
+    "corrected_custody_seconds": 0.522,
+    "first_failed_checker_seconds": 0.524,
+    "identity_supplement_seconds": 0.783,
+    "limits": {
+      "aggregate_cpu_seconds": 30,
+      "memory_mib": 512,
+      "output_mib": 16
+    },
+    "maximum_monitor_sampled_rss_bytes": 267337728,
+    "maximum_self_reported_rss_bytes": 304267264,
+    "process_exits_verified": true
+  },
+  "reviewed_at": "2026-11-02T00:26:04.304816-08:00",
+  "schema_version": 1,
+  "status": "exact_uv_component_custody_passed_partial_visible_improvement_not_accepted",
+  "subpixel_qualifier": {
+    "finding": "Regular subpixel rays identify neighboring unselected dark and protected-white contributions. They are not the actual EEVEE16-sample TAA pattern and do not prove exact final pixel filtering.",
+    "review": {
+      "bytes": 21926,
+      "path": "outputs/panda-shoulder-residual-face-review-v1/review.json",
+      "sha256": "5a7f82b31eefe11937bd31f75dc07e3770c177999d81793da714c176c0f9986d"
+    },
+    "trace": {
+      "bytes": 478156,
+      "path": "outputs/panda-shoulder-subpixel-attribution-v1/subpixel-attribution.json",
+      "sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0"
+    }
+  },
+  "viewed_images": [
+    {
+      "bytes": 363906,
+      "path": "outputs/panda-shoulder-uv-ablation-v1/baseline_unlit.png",
+      "sha256": "cfe77f2ac4928a0c30ae903e5f5e8caeee182149a7f7d3dae0a7b22af30fdd7b"
+    },
+    {
+      "bytes": 362521,
+      "path": "outputs/panda-shoulder-uv-ablation-v1/repaired_unlit.png",
+      "sha256": "08a05ed55211bbdbf1a6d08cb3fb91fe5c149ebce4139e6cd036e8b50ce57672"
+    }
+  ],
+  "visual_observations": [
+    "Green contamination on the exposed viewer-left shoulder/upper arm is visibly reduced.",
+    "A pale mark immediately below the cheek and scattered green/light flecks remain; the repair is incomplete.",
+    "Panda/dragon colors, pose and framing appear consistent in this unlit control. This does not establish normal-map, fur, geometry, whole-animation or full-appearance acceptance."
+  ]
+}

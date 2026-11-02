@@ -1,0 +1,38 @@
+{
+  "expected_selected_faces": 249,
+  "inputs": [
+    {
+      "bytes": 26414540,
+      "path": "outputs/companion-separation-v7/diagnostic-model.glb",
+      "role": "source",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    {
+      "bytes": 382527,
+      "path": "outputs/panda-shoulder-uv-repair-preparation-v2/face-selector.json",
+      "role": "selector",
+      "sha256": "7050fe9016018a5e8abe0796a4d2e4e892af7f0dbf115990dcbe696eddd17b55"
+    },
+    {
+      "bytes": 5666,
+      "path": "outputs/panda-shoulder-uv-repair-preparation-v2/summary.json",
+      "role": "plan",
+      "sha256": "454bc73ffe0094b464e717f39a6189ec7a8a39f1bfccb174dfc139c4bb56471f"
+    },
+    {
+      "bytes": 1051386,
+      "path": "outputs/panda-shoulder-uv-repair-plan-v1/candidate-census.json",
+      "role": "census",
+      "sha256": "009cb3a23f1678ca2a5ffa08cc0d33e451c84a200b1da2d26f69295fe4912017"
+    },
+    {
+      "bytes": 36072824,
+      "path": "outputs/panda-staged-portable-model-v1/model.glb",
+      "role": "current",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    }
+  ],
+  "schema_version": 1,
+  "script_sha256": "52f8141ce83cd99cda9de8046c9052fc60bb9df7c1bf6d7d66aebe4f52d663d0",
+  "tolerance_unchanged": 2e-07
+}

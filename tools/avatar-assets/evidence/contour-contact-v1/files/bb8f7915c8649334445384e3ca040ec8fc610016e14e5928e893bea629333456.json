@@ -1,0 +1,143 @@
+{
+  "artifact_bytes": 2112692,
+  "artifact_count": 26,
+  "artifacts": [
+    {
+      "bytes": 14198,
+      "path": "analyze.py",
+      "sha256": "88f9b90024c35d23517bd6e1aabde416f3898cbd7867414c0b5d642901462a04"
+    },
+    {
+      "bytes": 1876367,
+      "path": "contact-selectors.json",
+      "sha256": "b59cf6ba898b40614d60508db2e2984a80a84dcd27159a060b83f79d45a57e31"
+    },
+    {
+      "bytes": 245,
+      "path": "cpu-handle.json",
+      "sha256": "cd23a1332c6b9a4e79a73cade198e4044be2ab406a79e8b0a0ffd74a60ff8908"
+    },
+    {
+      "bytes": 1267,
+      "path": "cpu-job.json",
+      "sha256": "2f269d5bd1e000c7678bb0f3da575abb8462eb410aef5ef23a7504cff35984b1"
+    },
+    {
+      "bytes": 1135,
+      "path": "cpu-monitor.json",
+      "sha256": "dfd4bd5903f743f72085369ba3ccfcc67438c7e035a3a65af980387fff80559f"
+    },
+    {
+      "bytes": 0,
+      "path": "cpu.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 476,
+      "path": "execution.json",
+      "sha256": "9a5f241ddf7f7d114a4b82cba4e9c777f1616e976179ba75fb81be4e5a770392"
+    },
+    {
+      "bytes": 511,
+      "path": "finalize-execution.json",
+      "sha256": "24632b73c6e31b26464c110fcef48be9f31f61ec6ff22129bc86d69e45338aba"
+    },
+    {
+      "bytes": 251,
+      "path": "finalize-handle.json",
+      "sha256": "4db0f0111c470394987b19e9dc86976f680c7f464629ff359a56343cdbfafc4d"
+    },
+    {
+      "bytes": 1082,
+      "path": "finalize-job.json",
+      "sha256": "51d723b2a33f5b335ca7e2ff85b2287c02d68bc2cf2882d373d0f89f14440f4a"
+    },
+    {
+      "bytes": 991,
+      "path": "finalize-monitor.json",
+      "sha256": "569fc656b8749eecdeef3204a4aa68c9e32074c3becbf0ade7823558dde2eb17"
+    },
+    {
+      "bytes": 2831,
+      "path": "finalize.log",
+      "sha256": "25a669b06990c3562440c556d5d4396378b2360e6d520e999d13adec70a27f45"
+    },
+    {
+      "bytes": 6597,
+      "path": "finalize.py",
+      "sha256": "2efcf07dc2fe4476d39b5a593ee9674b55d442b28ce41119ff0f2ff6df060cbb"
+    },
+    {
+      "bytes": 7433,
+      "path": "findings.md",
+      "sha256": "444e48994cc92e13649de65314793430065b2572158c51581d54a35380d3c080"
+    },
+    {
+      "bytes": 2340,
+      "path": "inputs.json",
+      "sha256": "f1c92f271c6fdf546dcdef81f0bbfcdaf7a89f9f95bbb40b75de5ea4dccb7b86"
+    },
+    {
+      "bytes": 3415,
+      "path": "join_rays.py",
+      "sha256": "787187687da10cb90a940ff153434eaa2c67ff11638dd5fcecaec8fc36500024"
+    },
+    {
+      "bytes": 158476,
+      "path": "normal-comparison.json",
+      "sha256": "7f4c4be997b354140bee8b36ac871082fdd86a61ca3e0dc63cf5f3eb62895f4e"
+    },
+    {
+      "bytes": 21829,
+      "path": "pixel-provenance.json",
+      "sha256": "5d64c986d835a8684baa209f053f093a0ccfa432ed3d02a78f587de0950acd18"
+    },
+    {
+      "bytes": 2151,
+      "path": "provenance.json",
+      "sha256": "b96e148c75530ed1a1063991521bc4c35694dd090d539c4d4a3aafaf7fc682f8"
+    },
+    {
+      "bytes": 381,
+      "path": "ray-join-execution.json",
+      "sha256": "7ce59c2fc74ede504cc7808cfa1bd3430d40876b2631ccefb7c3d19bec0ddecf"
+    },
+    {
+      "bytes": 252,
+      "path": "ray-join-handle.json",
+      "sha256": "09fde8438569df73d041c8b918287c45e7ec8a95ca0588dffa6ea4a0b3066595"
+    },
+    {
+      "bytes": 1083,
+      "path": "ray-join-job.json",
+      "sha256": "3e0756392dde5c8a28404ecf7bf11db7a2b4dd86a745360c7b1ea17989edae86"
+    },
+    {
+      "bytes": 992,
+      "path": "ray-join-monitor.json",
+      "sha256": "70246a21bb160f7ae0528f9c21139352a4c20f2ac8d236d1073e58491224cc8f"
+    },
+    {
+      "bytes": 55,
+      "path": "ray-join.log",
+      "sha256": "c106ab632c9b06ea8642497465760cffb2786ac338dc841b53636e370d865b13"
+    },
+    {
+      "bytes": 6209,
+      "path": "summary.json",
+      "sha256": "341b2d8df0360073086f7f009029f3fa956e1be820495c6ad2186f0b8f957399"
+    },
+    {
+      "bytes": 2125,
+      "path": "supporting-inputs.json",
+      "sha256": "600843d09647eedb2146966731300c9c11c011acf62f59d3d51fa1b31e1bc1b4"
+    }
+  ],
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "repair_implemented": false,
+  "schema_version": 1,
+  "scope": "Complete checkpoints plus small independent cap-normal comparison and native ray witness join; original failed run preserved",
+  "status": "sealed_read_only_diagnosis_with_failed_initial_resource_run"
+}

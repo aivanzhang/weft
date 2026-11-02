@@ -1,0 +1,90 @@
+{
+  "artifacts": [
+    {
+      "bytes": 244,
+      "path": "check-handle.json",
+      "sha256": "390b245bf7630be92d5b41fa5256ba905cbe49617daf9abd8f25947408f3f114"
+    },
+    {
+      "bytes": 1029,
+      "path": "check-monitor.json",
+      "sha256": "48971fa14f609579ea81e6fc2d7dcf2461f2ec9ad353d87a666d1e1737c5039b"
+    },
+    {
+      "bytes": 501,
+      "path": "check.log",
+      "sha256": "0393418dea7ff301e42b2b59e0b55e81990e3673e70abf4afa85d8f73133e8c2"
+    },
+    {
+      "bytes": 11528,
+      "path": "check.py",
+      "sha256": "ef1d197c3b3126fc0c0f9fb62060fc91d50c311794baf3932265e12d9bdc4c2a"
+    },
+    {
+      "bytes": 122,
+      "path": "failure.json",
+      "sha256": "cc35a76913fcc6b6edbb1ab348ed6fc3f54326a6d59e9540812fa469aee26b81"
+    },
+    {
+      "bytes": 1894,
+      "path": "inputs.json",
+      "sha256": "4c58fc304dbe7493b181cc16b948a00f183275afeeb5d907f0953be61591a5a7"
+    },
+    {
+      "bytes": 1040,
+      "path": "prepared.json",
+      "sha256": "9443ca6567e067469e753966e9595836a7dc472a1d18171b3c67dc74dd072129"
+    },
+    {
+      "bytes": 1119,
+      "path": "receipt.json",
+      "sha256": "d507288590eb1c2c1e4b46ce53e2b4e063cfe60f42a5cc07a198ecf9637459cf"
+    },
+    {
+      "bytes": 96,
+      "path": "runner-sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 343,
+      "path": "runner-sources/avatar_assets/__pycache__/__init__.cpython-314.pyc",
+      "sha256": "e1d316dd27970e585cd6438cb695dcfeade429f00427688fff7256de6cfc117b"
+    },
+    {
+      "bytes": 16419,
+      "path": "runner-sources/avatar_assets/__pycache__/runner.cpython-314.pyc",
+      "sha256": "40546274be082935b6dac8e72ea30638d515843f067e205d77f29d00112858e0"
+    },
+    {
+      "bytes": 7842,
+      "path": "runner-sources/avatar_assets/__pycache__/safety.cpython-314.pyc",
+      "sha256": "119cd0271a79cf4fb4bc438802e43e7f6ed8fa853b4a6edeb9d15efc1a4c912b"
+    },
+    {
+      "bytes": 11421,
+      "path": "runner-sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "runner-sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 67962,
+      "path": "sources/__pycache__/three_d.cpython-314.pyc",
+      "sha256": "0aa5cd05c732e4fcb6039d12de04b11b5be22198989c30ab2cb7c916d5510430"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    }
+  ],
+  "bytes": 160425,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "preserved_checker_census_namespace_failure"
+}

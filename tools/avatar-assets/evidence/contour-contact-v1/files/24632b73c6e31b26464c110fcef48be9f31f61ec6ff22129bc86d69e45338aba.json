@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-contact-defects-diagnosis-v1/finalize.py"
+  ],
+  "script_sha256": "2efcf07dc2fe4476d39b5a593ee9674b55d442b28ce41119ff0f2ff6df060cbb",
+  "bounds": {
+    "wall_seconds": 30,
+    "rss_mib": 512,
+    "output_mib": 16
+  },
+  "changed_strategy": "Reuse complete small JSON checkpoints; no second texture decode, and retain only bounded body-cap normals"
+}

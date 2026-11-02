@@ -1,0 +1,35 @@
+--- v1-candidate/check_identity.py
++++ v2-candidate/check_identity.py
+@@ -45,17 +45,18 @@
+     pins = json.loads((OUT/'identity-prepared.json').read_text())
+     for row in pins['inputs']:
+         require(sha(ROOT/row['path']) == row['sha256'], 'Identity input pin')
+-    source = _GLB(ROOT/'outputs/companion-separation-v7/diagnostic-model.glb')
+-    current = _GLB(ROOT/'outputs/panda-staged-portable-model-v1/model.glb')
++    paths = {r['role']: ROOT/r['path'] for r in pins['inputs']}
++    source = _GLB(paths['source'])
++    current = _GLB(paths['current'])
+     original, now = faces(source, 0), faces(current, 0)
+     original_p = np.concatenate([v[0] for v in original])
+     original_uv = np.concatenate([v[1] for v in original])
+     offsets = np.cumsum([0]+[len(v[0]) for v in original])
+     centers = original_p.mean(axis=1)
+-    selector = json.loads((ROOT/'outputs/panda-shoulder-uv-repair-plan-v1/face-selector.json').read_text())
+-    census = json.loads((ROOT/'outputs/panda-shoulder-uv-repair-plan-v1/candidate-census.json').read_text())
++    selector = json.loads(paths['selector'].read_text())
++    census = json.loads(paths['census'].read_text())
+     records = [(True, r) for r in selector['rows']] + [(False, r) for r in census['rows'] if r['protected_white']]
+-    require(len(records) == 486, 'Expected 242 selected plus 244 protected white rows')
++    require(len(records) == pins['expected_selected_faces']+244, 'Expected selected and protected white rows')
+     resolved, selected, protected = [], set(), set()
+     for is_selected, row in records:
+         cp, ct = row['current_primitive'], row['current_triangle']
+@@ -78,7 +79,7 @@
+             protected.add((sp,st))
+         resolved.append({'selected': is_selected, 'current': [cp,ct], 'source': [sp,st],
+                          'source_to_current_rotation': rotation, 'position_max_error_m': pe, 'uv_max_error': ue})
+-    require(len(selected) == 242 and len(protected) == 244 and not selected.intersection(protected),
++    require(len(selected) == pins['expected_selected_faces'] and len(protected) == 244 and not selected.intersection(protected) and (0, 5167) in protected,
+             'Selected/protected source face alias or overlap')
+     for row in pins['inputs']:
+         require(sha(ROOT/row['path']) == row['sha256'], 'Identity input changed')

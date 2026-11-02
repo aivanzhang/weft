@@ -1,0 +1,19 @@
+{
+  "change": "Only Python-float conversion at read-only Blender facade boundary; numerical arrays, source/config, helpers, oracles and guards unchanged",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-continuity-source-replay-v2/replay.py"
+  ],
+  "input_pins_sha256": "1a2bc5c990e4336809f4ab2ca77513a050232be61cb6984e6faf8d70a3a5aa10",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "wall_seconds": 29.478
+  },
+  "prior_failure": {
+    "path": "outputs/normal-continuity-source-replay-v1/receipt.json",
+    "sha256": "a66ef36601f76d615ef0d9ec7576af4731b11d6b6dbb0d2c66c25367e52d1f4b"
+  },
+  "schema_version": 1,
+  "script_sha256": "02e2319ad8818cbbdeefa9ca90146ee8ec8b325df244469949b6424a18c0231c"
+}

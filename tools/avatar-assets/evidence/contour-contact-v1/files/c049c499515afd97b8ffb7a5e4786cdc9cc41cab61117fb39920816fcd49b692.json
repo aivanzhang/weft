@@ -1,0 +1,234 @@
+{
+  "levels": [
+    {
+      "best": {
+        "all_pixels_checked": 16384,
+        "core_pixel_rect": [
+          1660,
+          380,
+          1668,
+          388
+        ],
+        "filter_scope": "Every source texel in padded rectangle meets gates; positive bilinear/BOX-mip combinations inside it stay within extrema. Trilinear support bound is conservative. GPU anisotropy, cross-face antialiasing and larger LOD are not certified.",
+        "max_per_pixel_green_excess": 0.00784313678741455,
+        "max_per_pixel_srgb_chroma": 0.02352941408753395,
+        "max_rgb8": [
+          16,
+          16,
+          19
+        ],
+        "maximum_certified_trilinear_lod": 4,
+        "mean_srgb": [
+          0.05511195585131645,
+          0.05788116529583931,
+          0.06535239517688751
+        ],
+        "min_rgb8": [
+          9,
+          10,
+          10
+        ],
+        "padding_texels": 60,
+        "score": 0.000747084418223534,
+        "source_pixel_rect": [
+          1600,
+          320,
+          1728,
+          448
+        ],
+        "uv_triangle_blender_v_up": [
+          [
+            0.4053955078125,
+            0.9071044921875
+          ],
+          [
+            0.4071044921875,
+            0.9071044921875
+          ],
+          [
+            0.4053955078125,
+            0.9053955078125
+          ]
+        ],
+        "uv_triangle_gltf_v_down": [
+          [
+            0.4053955078125,
+            0.0928955078125
+          ],
+          [
+            0.4071044921875,
+            0.0928955078125
+          ],
+          [
+            0.4053955078125,
+            0.0946044921875
+          ]
+        ],
+        "variance_srgb": [
+          6.949359885766171e-06,
+          4.278780124877812e-06,
+          1.0963192835333757e-05
+        ]
+      },
+      "passing_tiles": 129,
+      "tile_size": 128
+    },
+    {
+      "best": {
+        "all_pixels_checked": 9216,
+        "core_pixel_rect": [
+          1772,
+          300,
+          1780,
+          308
+        ],
+        "max_per_pixel_green_excess": 0.003921572118997574,
+        "max_per_pixel_srgb_chroma": 0.019607845693826675,
+        "max_rgb8": [
+          16,
+          16,
+          19
+        ],
+        "maximum_certified_trilinear_lod": 4,
+        "mean_srgb": [
+          0.056126371026039124,
+          0.05856158211827278,
+          0.06633540987968445
+        ],
+        "min_rgb8": [
+          11,
+          13,
+          14
+        ],
+        "padding_texels": 44,
+        "score": 0.000334821161594123,
+        "source_pixel_rect": [
+          1728,
+          256,
+          1824,
+          352
+        ],
+        "variance_srgb": [
+          5.365205652196892e-06,
+          1.7085312720155343e-06,
+          1.6990808262562496e-06
+        ]
+      },
+      "passing_tiles": 230,
+      "tile_size": 96
+    },
+    {
+      "best": {
+        "all_pixels_checked": 4096,
+        "core_pixel_rect": [
+          1820,
+          284,
+          1828,
+          292
+        ],
+        "max_per_pixel_green_excess": -0.003921568393707275,
+        "max_per_pixel_srgb_chroma": 0.019607845693826675,
+        "max_rgb8": [
+          16,
+          16,
+          18
+        ],
+        "maximum_certified_trilinear_lod": 3,
+        "mean_srgb": [
+          0.05612283572554588,
+          0.058561332523822784,
+          0.06640340387821198
+        ],
+        "min_rgb8": [
+          11,
+          13,
+          15
+        ],
+        "padding_texels": 28,
+        "score": 0.0002942600794124937,
+        "source_pixel_rect": [
+          1792,
+          256,
+          1856,
+          320
+        ],
+        "variance_srgb": [
+          4.867636107519502e-06,
+          1.4223652442524326e-06,
+          1.1885191497640335e-06
+        ]
+      },
+      "passing_tiles": 363,
+      "tile_size": 64
+    }
+  ],
+  "selected": {
+    "all_pixels_checked": 16384,
+    "core_pixel_rect": [
+      1660,
+      380,
+      1668,
+      388
+    ],
+    "filter_scope": "Every source texel in padded rectangle meets gates; positive bilinear/BOX-mip combinations inside it stay within extrema. Trilinear support bound is conservative. GPU anisotropy, cross-face antialiasing and larger LOD are not certified.",
+    "max_per_pixel_green_excess": 0.00784313678741455,
+    "max_per_pixel_srgb_chroma": 0.02352941408753395,
+    "max_rgb8": [
+      16,
+      16,
+      19
+    ],
+    "maximum_certified_trilinear_lod": 4,
+    "mean_srgb": [
+      0.05511195585131645,
+      0.05788116529583931,
+      0.06535239517688751
+    ],
+    "min_rgb8": [
+      9,
+      10,
+      10
+    ],
+    "padding_texels": 60,
+    "score": 0.000747084418223534,
+    "source_pixel_rect": [
+      1600,
+      320,
+      1728,
+      448
+    ],
+    "uv_triangle_blender_v_up": [
+      [
+        0.4053955078125,
+        0.9071044921875
+      ],
+      [
+        0.4071044921875,
+        0.9071044921875
+      ],
+      [
+        0.4053955078125,
+        0.9053955078125
+      ]
+    ],
+    "uv_triangle_gltf_v_down": [
+      [
+        0.4053955078125,
+        0.0928955078125
+      ],
+      [
+        0.4071044921875,
+        0.0928955078125
+      ],
+      [
+        0.4053955078125,
+        0.0946044921875
+      ]
+    ],
+    "variance_srgb": [
+      6.949359885766171e-06,
+      4.278780124877812e-06,
+      1.0963192835333757e-05
+    ]
+  }
+}

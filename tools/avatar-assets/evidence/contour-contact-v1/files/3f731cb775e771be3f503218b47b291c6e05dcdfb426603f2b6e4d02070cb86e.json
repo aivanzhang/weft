@@ -1,0 +1,48 @@
+{
+  "files": [
+    {
+      "bytes": 5327,
+      "path": "outputs/panda-ab-render-design-review-v1/review.json",
+      "sha256": "499d070a024557a27fd3831be90b336621bacf74a816998a9470468118f3c4aa"
+    }
+  ],
+  "schema_version": 1,
+  "source_refs": [
+    {
+      "bytes": 36072824,
+      "path": "outputs/panda-staged-portable-model-v1/model.glb",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    },
+    {
+      "bytes": 2006,
+      "path": "outputs/panda-staged-portable-preview-preparation-v1/prepared.json",
+      "sha256": "0c233aa0bff81f193a948f5348cf4ec8db77983a8b7fbf9f41b686f618af1f7b"
+    },
+    {
+      "bytes": 44399160,
+      "path": "outputs/panda-staged-portable-preview-v1/source.blend",
+      "sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727"
+    },
+    {
+      "bytes": 10606,
+      "path": "outputs/panda-staged-portable-preview-v1/native-inspection.json",
+      "sha256": "b009f063396a7a6d0554a108fdc9c7069823d0707c759e89076f5faa4359f99b"
+    },
+    {
+      "bytes": 389677,
+      "path": "outputs/panda-staged-portable-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "be10e95ef674eabe1c7c1a627092a23747fd96a242d0ea8bcc5201d61efe75de"
+    },
+    {
+      "bytes": 13587,
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ],
+  "status": "sealed"
+}

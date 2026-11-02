@@ -1,0 +1,26 @@
+{
+  "candidate_sha256": "02affbfc837e3dc94dfed1a8ad37187e4f6062cb5a16ec65c596364f55f74ff8",
+  "fit": "Bounded local quadratic Hermite fit from132healthy retained original-body reference triangles; fixed78-point boundary; only interior vertices move; split forbidden shared diagonal with a fresh interior vertex",
+  "gates": [
+    "source/model and exact face provenance",
+    "post-removal attachment topology",
+    "source boundary exact",
+    "reference support/residual/normal fit",
+    "no forbidden shared body diagonal",
+    "no new patch intersections with retained body or itself except shared boundary contact",
+    "no zero-area or inverted patch faces",
+    "geometry/material/image preservation outside exact selectors"
+  ],
+  "limits": {
+    "cpu_seconds": 45,
+    "interior_displacement_m": 0.015,
+    "output_mib": 128,
+    "replacement_triangles": 512,
+    "rss_mib": 512
+  },
+  "quality_approved": false,
+  "scope": "Explicit tiny original flap retirement plus curved replacement of124body-cap faces; all remaining body/companion faces protected",
+  "skin_scope": "Source v7 has no rig. Later finishing must use pinned rig/action recipe and independent source-skin/motion verification; no weights or motions are recovered by this CPU step.",
+  "source_model_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "prepared_not_executed"
+}

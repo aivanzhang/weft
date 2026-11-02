@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "policy": "shared-regional-fin-response-v2",
+  "fins": 3600,
+  "vertices": 14400,
+  "triangles": 14400,
+  "base_length_m": 0.0045,
+  "length_m": {
+    "min": 0.0013499999999999999,
+    "median": 0.0045,
+    "max": 0.006299999999999999
+  },
+  "regional_comb": {
+    "min": 0.25,
+    "median": 0.5939778192835384,
+    "max": 0.65
+  },
+  "regional_length_scale": {
+    "min": 0.3,
+    "median": 1.0,
+    "max": 1.4
+  },
+  "outward_angle_degrees": {
+    "min": 18.434948822921974,
+    "median": 55.644872701293124,
+    "max": 61.69924423399365
+  },
+  "prepared_field_sha256": "81deb0d99e416d74110daeaf7b2afdd17c348189dfa6b9e8a84feea628189932",
+  "root_midpoints_sha256": "dfa0de998b18476ca5388f0be92008cdc56d0e09bc38aa50ea84e4a69d19f644",
+  "input_arrays": {
+    "positions": {
+      "sha256": "2bb412925ed06812cae9221eb475ea7758cf4facd50fad6d3c9aade1b94c9bcf",
+      "dtype": "<f4",
+      "shape": [
+        14400,
+        3
+      ]
+    },
+    "normals": {
+      "sha256": "a32e390301f86d1fdc0d9eaa83ef8732fd6b8e5a9b110f0bd69159c672da732a",
+      "dtype": "<f4",
+      "shape": [
+        14400,
+        3
+      ]
+    },
+    "uv": {
+      "sha256": "d34e4c7a2875402009cb0fe9b23ba86bb0b82d3df1a877d1aefdaeb41ddb45c1",
+      "dtype": "<f4",
+      "shape": [
+        14400,
+        2
+      ]
+    },
+    "triangles": {
+      "sha256": "c540af37c78adf300fc239f3cc13e448cef5a9fef8df6ae619d37965ee6f84b5",
+      "dtype": "<i4",
+      "shape": [
+        14400,
+        3
+      ]
+    },
+    "joints": {
+      "sha256": "5ca18c5a98256e34c4b6c2709dd5d4de5a7cb6780b8ed4dabb02f3e2c90b29b8",
+      "dtype": "<u2",
+      "shape": [
+        14400,
+        4
+      ]
+    },
+    "weights": {
+      "sha256": "84bb218c0f9d430dff9d14823348de3c321ad1e537cbd7150e5d770663a3a497",
+      "dtype": "<f4",
+      "shape": [
+        14400,
+        4
+      ]
+    }
+  },
+  "output_positions_sha256": "049704b6e9282afe4de93d5b729d01c9e0487378db7f347ab0bb54ace72c363e",
+  "root_positions_byte_exact": true,
+  "unchanged_arrays": [
+    "joints",
+    "normals",
+    "triangles",
+    "uv",
+    "weights"
+  ],
+  "selection_changed": false,
+  "parallel_field_roots": 0,
+  "maximum_stored_length_error_m": 5.7671175397733254e-08,
+  "minimum_endpoint_outward_displacement_m": 0.0009650512929071375,
+  "export_budget": {
+    "source_export_vertices": 51367,
+    "source_export_triangles": 62581,
+    "max_fins": 3600,
+    "worst_exported_fin_corners": 43200,
+    "reserve_vertices": 4096,
+    "projected_vertices": 98663,
+    "projected_triangles": 76981,
+    "vertex_limit": 100000,
+    "triangle_limit": 100000
+  },
+  "elapsed_seconds": 0.023272208403795958,
+  "limits": {
+    "fins": 4800,
+    "seconds": 10,
+    "export_vertices": 100000,
+    "export_triangles": 100000,
+    "regional_length_m": [
+      0.001,
+      0.04
+    ]
+  },
+  "quality_approved": false,
+  "motion_verified": false,
+  "input_modified": false,
+  "limitations": [
+    "Authored fixed-root tip reshaping, not denser fur or recovered/simulated hair.",
+    "Positive displacement against endpoint normals does not prove clearance from curved or other surfaces.",
+    "Caller preserves root metadata and independently verifies the actual exported roots, skin, motions and appearance.",
+    "This helper does not change v1 selection, public schemas, defaults, materials, atlas alpha or source geometry."
+  ]
+}

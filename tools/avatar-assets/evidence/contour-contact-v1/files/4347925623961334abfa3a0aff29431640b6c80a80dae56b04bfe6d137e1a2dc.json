@@ -1,0 +1,28 @@
+{
+  "bounds": {
+    "output_mib": 128,
+    "rss_mib": 512,
+    "wall_seconds": 45
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-cheek-curved-candidate-v1/fit.py"
+  ],
+  "native_execution": false,
+  "provider_calls": 0,
+  "source_pins": [
+    {
+      "path": "fit.py",
+      "sha256": "b8edbd0a47cf38418a0559b5e9a5962625667b92e47db110e922c702f4498a46"
+    },
+    {
+      "path": "config.json",
+      "sha256": "ccd2a088e16b08b789433e4c2367d9889bff2f1b34440f760d70773dbb019f5c"
+    },
+    {
+      "path": "partition_geometry.py",
+      "sha256": "14c74ea88ebeacccd6ce96ec281d03d6bbe12cd5a4113479955ec3bde255d241"
+    }
+  ]
+}

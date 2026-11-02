@@ -500,8 +500,12 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
         part_rigs = apply_part_rigs(obj, rig, points, low, high, cfg['part_rigs'], cfg['authored_rig'])
     normal_continuity = None
     if cfg.get('normal_continuity'):
-        from blender_normal_continuity import apply_normal_continuity
-        normal_continuity = apply_normal_continuity(obj, cfg['normal_continuity'])
+        from blender_normal_continuity import NormalContinuityError, apply_normal_continuity
+        try:
+            normal_continuity = apply_normal_continuity(obj, cfg['normal_continuity'])
+        except NormalContinuityError as error:
+            write_json(out/'normal-continuity-rejection.json', error.report)
+            raise
     base = obj.data.materials[0]
     color_node = shared_color_texture(obj.data.materials)
     if cfg.get('portable_fur', {}).get('settings', {}).get('sample_root_color'):

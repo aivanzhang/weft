@@ -1,0 +1,73 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-preparation-v1/produce.py"
+  ],
+  "cumulative_authorized_wall_envelope_seconds": 45,
+  "inputs": {
+    "geometry_selector": {
+      "bytes": 160051,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-cheek-targeted-selection-v2/candidate.json",
+      "sha256": "02affbfc837e3dc94dfed1a8ad37187e4f6062cb5a16ec65c596364f55f74ff8"
+    },
+    "plan_manifest": {
+      "bytes": 2352,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-plan-v1/manifest.json",
+      "sha256": "d7064ce97e5861aef65c461fc9f536d43e42d36d66b7a042e700d2b5bcd300bc"
+    },
+    "selector": {
+      "bytes": 368751,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-plan-v1/face-selector.json",
+      "sha256": "c0be51e358a1909c9a451cee6d76d951678ed32f8cfa15c42c910359e0fb0e67"
+    },
+    "source": {
+      "bytes": 26414540,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/diagnostic-model.glb",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    "summary": {
+      "bytes": 4612,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-plan-v1/summary.json",
+      "sha256": "6f65277e7d5df06e843529a5714827ad2d7f3a5a5ecbaf1b13d5ce33296fa928"
+    }
+  },
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 512,
+    "output_mb": 64,
+    "seconds": 30,
+    "texture_decodes": 0
+  },
+  "new_material_names": [
+    "body_surface__contact_uv_dark_v1",
+    "body_cap__contact_uv_dark_v1"
+  ],
+  "output": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v1",
+  "prepared_at": "2026-11-01T23:50:18.010325-08:00",
+  "prior_planning_wall_seconds": 2.087,
+  "schema_version": 1,
+  "scope": "One upstream explicit-face UV-only derivative; no normal/geometry edits, source images byte-exact. This follows sealed planning checks; no retry, no native or provider calls.",
+  "sources": [
+    {
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "sources/avatar_assets/__init__.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/avatar_assets/runner.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/avatar_assets/safety.py"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc",
+      "snapshot": "sources/avatar_assets/three_d.py"
+    }
+  ],
+  "worker_sha256": "a9444ae3c4163341944bf638d29aadf0092dcb299f7e73c775b878e9277899bc"
+}

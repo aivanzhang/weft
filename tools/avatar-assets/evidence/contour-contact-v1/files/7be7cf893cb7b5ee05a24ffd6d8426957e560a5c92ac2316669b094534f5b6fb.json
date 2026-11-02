@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "prepared_at": "2026-11-01T22:46:49.018403-08:00",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-fringe-profile-diagnosis-v1/diagnose.py"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "worker_sha256": "5082da441e3528d09a61cf8cc92829966f97cc745b2446e5dfec78cae910d699",
+  "inputs": {
+    "source_model": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/model.glb",
+      "sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9",
+      "bytes": 36073016
+    },
+    "preview_model": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-model-v1/model.glb",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2",
+      "bytes": 36072824
+    },
+    "fringe_npz": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/fringe-correspondence.npz",
+      "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa",
+      "bytes": 567833
+    },
+    "fringe_report": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/fringe-report.json",
+      "sha256": "6f0007c703f77ebad5bce3d282a1722d64272daffcab9efb017be81c7901d5c5",
+      "bytes": 13623
+    },
+    "skin_npz": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/source-skin.npz",
+      "sha256": "4f6b3f8dc216189ebd6da586d91fbcea9167806b6679b0d4bcc5eb4b19fc57f3",
+      "bytes": 1498381
+    },
+    "skin_report": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/source-skin.json",
+      "sha256": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d",
+      "bytes": 3599
+    },
+    "atlas": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/textures/portable-fringe-color-atlas.png",
+      "sha256": "c8ae03507b2d96f101986b25108412e56e5f0fadbb13918b3afd61add3e1fcda",
+      "bytes": 1669859
+    },
+    "native_inspection": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-preview-v1/native-inspection.json",
+      "sha256": "b009f063396a7a6d0554a108fdc9c7069823d0707c759e89076f5faa4359f99b",
+      "bytes": 10606
+    },
+    "front": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-preview-v1/front.png",
+      "sha256": "ad9bcd4e5c07268850c88473e4c04e0fda2d23d1525af61a6770489dc5b39864",
+      "bytes": 457439
+    },
+    "three_quarter": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-preview-v1/three-quarter.png",
+      "sha256": "ba49c67edcb50c8839c935a5bd933bbed0f1bba25225115dac7254b1224f4280",
+      "bytes": 442194
+    },
+    "finish_config": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-preparation-v1/finish-config.json",
+      "sha256": "4ab29ccce8b00b74d9e3fadc75c247ad22aa7877e2a8eb65aecb006a8caafc7d",
+      "bytes": 37425
+    },
+    "preview_recipe": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-preview-preparation-v1/sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "bytes": 13587
+    }
+  },
+  "source_pins": [
+    {
+      "path": "scripts/edge_fringe.py",
+      "snapshot": "source/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "bytes": 17397
+    },
+    {
+      "path": "scripts/fringe_color_atlas.py",
+      "snapshot": "source/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "bytes": 16114
+    },
+    {
+      "path": "scripts/blender_edge_fringe.py",
+      "snapshot": "source/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "bytes": 20746
+    },
+    {
+      "path": "scripts/groom_flow.py",
+      "snapshot": "source/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "bytes": 7179
+    },
+    {
+      "path": "avatar_assets/__init__.py",
+      "snapshot": "source/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "bytes": 96
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "snapshot": "source/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "bytes": 11421
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "snapshot": "source/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "bytes": 3759
+    }
+  ],
+  "limits": {
+    "seconds": 30,
+    "memory_mb": 512,
+    "output_mb": 16
+  },
+  "scope": "Read-only actual fin alpha/spacing/projection and fixed-root regional-response proposal; no geometry/native/provider/model mutations",
+  "attempts": 1,
+  "camera_sizes": [
+    720,
+    256
+  ],
+  "cameras": [
+    "front",
+    "three-quarter"
+  ]
+}

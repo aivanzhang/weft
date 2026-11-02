@@ -1,0 +1,66 @@
+{
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "cost": {
+    "local_energy": "unpriced",
+    "new_paid_generation_calls": 0
+  },
+  "inputs": [
+    {
+      "path": "outputs/panda-shoulder-uv-repair-v2/native-color-payload-v2.json",
+      "sha256": "3b3cbd08529830fb0836d63a562a9465aa7dee76f1a7baff42a68ff531940768"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-repair-v2/manifest.json",
+      "sha256": "d44feb85a28a505f4b00c3ffd781e0cc9232cbe6776834656618f9651227cc29"
+    },
+    {
+      "path": "outputs/panda-staged-portable-preview-v1/source.blend",
+      "sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v1/baseline_unlit.png",
+      "sha256": "cfe77f2ac4928a0c30ae903e5f5e8caeee182149a7f7d3dae0a7b22af30fdd7b"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v1/color-ablation.json",
+      "sha256": "b0cf437b54cf09c7241d6787b0b9405fce067c5999b854f9ea61b292fcd06ac2"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mib": 32,
+    "renders": 1,
+    "rss_mib": 1536,
+    "seconds": 60,
+    "threads": 4
+  },
+  "output": "outputs/panda-shoulder-uv-ablation-v2",
+  "schema_version": 1,
+  "scope": "One new color-only render; baseline copied from verified identical source and protected state. Not full fur/geometry/appearance acceptance.",
+  "snapshots": [
+    {
+      "path": "config.json",
+      "sha256": "f9ce0f2fc8dbc2e64e8bb00a113dd8908a105cdf81b10aa42e5232213bf008be"
+    },
+    {
+      "path": "execute.py",
+      "sha256": "834575fd2e6d1b49ff0de1a9e93ada7a90852a9712e50654eb589b6847b87d16"
+    },
+    {
+      "path": "render.py",
+      "sha256": "04170055f2653523337b3cca9796072c80d6794a0a9dace60ecd2526f57397f1"
+    },
+    {
+      "path": "scene-config.json",
+      "sha256": "f298ec54afcce387876cabdf8287405f5be3d6c12425ddd4e266d07f4351277c"
+    },
+    {
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ]
+}

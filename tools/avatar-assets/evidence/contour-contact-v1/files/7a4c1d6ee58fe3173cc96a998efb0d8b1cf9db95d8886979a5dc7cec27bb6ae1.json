@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "status": "validated_render_attributes",
+  "sha256": "257ff11efdf31eaa3a7ab77b527b7b45a48f97bcf45c498985e9936b1069c5dd",
+  "vertices": 94567,
+  "primitives": [
+    {
+      "vertices": 2148,
+      "material": "body_surface",
+      "normal_mapped": true,
+      "normal_map_uv_set": 0,
+      "verified_uv_sets": [
+        0,
+        1
+      ],
+      "normal_squared_length_error": 2.0627039631904154e-07,
+      "tangent_squared_length_error": 0.00013732912134045705,
+      "normal_tangent_dot_error": 0.00012101013872722888
+    },
+    {
+      "vertices": 24705,
+      "material": "companion_surface",
+      "normal_mapped": true,
+      "normal_map_uv_set": 0,
+      "verified_uv_sets": [
+        0,
+        1
+      ],
+      "normal_squared_length_error": 2.2183109771312104e-07,
+      "tangent_squared_length_error": 0.00015928628158690117,
+      "normal_tangent_dot_error": 0.00013510384221770977
+    },
+    {
+      "vertices": 3,
+      "material": "body_cap",
+      "normal_mapped": false,
+      "normal_map_uv_set": null,
+      "verified_uv_sets": [
+        0,
+        1
+      ],
+      "normal_squared_length_error": 3.371596779544461e-08,
+      "tangent_squared_length_error": 5.998722272182455e-05,
+      "normal_tangent_dot_error": 4.379996589864987e-05
+    },
+    {
+      "vertices": 939,
+      "material": "companion_cap",
+      "normal_mapped": false,
+      "normal_map_uv_set": null,
+      "verified_uv_sets": [
+        0,
+        1
+      ],
+      "normal_squared_length_error": 1.965423912508868e-07,
+      "tangent_squared_length_error": 0.00013208752602533735,
+      "normal_tangent_dot_error": 0.00011146574489717676
+    },
+    {
+      "vertices": 549,
+      "material": "body_surface__color_rear-tail-base",
+      "normal_mapped": true,
+      "normal_map_uv_set": 0,
+      "verified_uv_sets": [
+        0,
+        1
+      ],
+      "normal_squared_length_error": 1.922357317774015e-07,
+      "tangent_squared_length_error": 0.00011879120604429971,
+      "normal_tangent_dot_error": 0.00010245570096112377
+    },
+    {
+      "vertices": 21919,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "normal_mapped": true,
+      "normal_map_uv_set": 0,
+      "verified_uv_sets": [
+        0,
+        1
+      ],
+      "normal_squared_length_error": 2.2581024738954625e-07,
+      "tangent_squared_length_error": 0.00015531912774946477,
+      "normal_tangent_dot_error": 0.00012935462455843094
+    },
+    {
+      "vertices": 1104,
+      "material": "body_cap__short_pile_adaptive_v1",
+      "normal_mapped": true,
+      "normal_map_uv_set": 1,
+      "verified_uv_sets": [
+        0,
+        1
+      ],
+      "normal_squared_length_error": 1.7774149907445747e-07,
+      "tangent_squared_length_error": 8.01780073445002e-08,
+      "normal_tangent_dot_error": 3.7723842674641794e-08
+    },
+    {
+      "vertices": 43200,
+      "material": "SourceColoredFringe",
+      "normal_mapped": false,
+      "normal_map_uv_set": null,
+      "verified_uv_sets": [
+        0
+      ],
+      "normal_squared_length_error": 2.143887081196283e-07,
+      "tangent_squared_length_error": 0.0,
+      "normal_tangent_dot_error": 0.0
+    }
+  ],
+  "decoded_scalar_values": 781037,
+  "checks": [
+    "finite normals/UV0/UV1/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "selected normal-map UV0/UV1 binding"
+  ],
+  "tangent_uv_derivation_verified": false,
+  "weft_runtime_verified": false,
+  "limitations": [
+    "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+    "This HD check does not change Weft's diffuse UV0-only contract; normal-map/UV1 assets remain unsupported there."
+  ],
+  "limits": {
+    "vertices": 100000,
+    "file_bytes": 67108864,
+    "decoded_surface_values": 1100000,
+    "decoded_global_values": 2000000,
+    "normal_map_uv_indices": [
+      0,
+      1
+    ],
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002
+  }
+}

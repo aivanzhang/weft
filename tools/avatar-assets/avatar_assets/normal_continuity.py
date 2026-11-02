@@ -13,9 +13,20 @@ MAX_FACES = 100000
 MAX_CORNERS = 300000
 MAX_TARGET_VERTICES = 10000
 MAX_PAIRS = 2000000
+MAX_WITNESSES = 32
 POINT_ATTRIBUTE = 'AuthoredSurfaceNormal'
 FACE_ATTRIBUTE = 'AuthoredNormalRepair'
 FIELDS = {'name', 'materials', 'reference_materials', 'max_distance_m', 'min_vertices', 'max_vertices'}
+
+
+class NormalContinuityError(ValueError):
+    """A rejected plan with bounded, JSON-safe geometric witnesses."""
+
+    def __init__(self, report):
+        self.report = deepcopy(report)
+        super().__init__(f"Normal continuity {report['name']} rejected before mutation: "
+            f"{report['degenerate_faces']} degenerate/cancelling target faces, "
+            f"{report['outside_hemisphere_corners']} transferred corners outside their face hemisphere")
 
 
 def _material_names(value):
@@ -144,6 +155,52 @@ def _nearest(points, references, distance, budget):
     return result, distances
 
 
+def _face_directions(points, flat, sizes):
+    starts = np.r_[0, np.cumsum(sizes)[:-1]]
+    following = np.arange(len(flat))+1
+    following[starts+sizes-1] = starts
+    # Translation-relative Newell area handles polygons with collinear first corners.
+    relative = points[flat]-np.repeat(points[flat[starts]], sizes, axis=0)
+    area = np.add.reduceat(np.cross(relative, relative[following]), starts, axis=0)
+    length = np.linalg.norm(area, axis=1)
+    extent_squared = np.maximum.reduceat(np.sum(relative*relative, axis=1), starts)
+    invalid = (extent_squared == 0) | (length <= 1e-12*extent_squared)
+    direction = np.zeros_like(area)
+    direction[~invalid] = area[~invalid]/length[~invalid, None]
+    return direction, invalid
+
+
+def _check_hemispheres(points, flat, loop_faces, output, selected_corners, face_geometry, name):
+    direction, invalid = face_geometry
+    corners = np.flatnonzero(selected_corners)
+    faces = loop_faces[corners]
+    invalid_corners = invalid[faces]
+    dots = np.sum(output[corners]*direction[faces], axis=1)
+    outside = (~invalid_corners) & (dots <= 0)
+    bad = invalid_corners | outside
+    witnesses = []
+    for index in np.flatnonzero(bad)[:MAX_WITNESSES]:
+        corner, face = int(corners[index]), int(faces[index])
+        witnesses.append({'face': face, 'corner': corner, 'vertex': int(flat[corner]),
+            'reason': 'degenerate_or_cancelling_face' if invalid_corners[index] else 'outside_face_hemisphere',
+            'dot': None if invalid_corners[index] else float(dots[index])})
+    report = {'schema_version': 1, 'status': 'rejected' if bad.any() else 'passed', 'name': name,
+        'checked_faces': int(len(np.unique(faces))), 'checked_corners': int(len(corners)),
+        'degenerate_faces': int(len(np.unique(faces[invalid_corners]))),
+        'outside_hemisphere_corners': int(outside.sum()),
+        'minimum_face_dot': float(dots[~invalid_corners].min()) if (~invalid_corners).any() else None,
+        'witnesses': witnesses, 'witness_limit': MAX_WITNESSES,
+        'position_sha256': array_hash(points, '<f8'),
+        'face_corner_indices_sha256': array_hash(flat, '<i8'),
+        'tested_corner_ids_sha256': array_hash(corners, '<i8'),
+        'tested_normals_sha256': array_hash(output[corners], '<f8'),
+        'policy': 'Transferred base-body corners require positive dot with their own Newell face normal; no flips or fallback.',
+        'scope': 'Pre-mutation shading rejection, not a topology repair or appearance acceptance.'}
+    if bad.any():
+        raise NormalContinuityError(report)
+    return report
+
+
 def plan_normal_continuity(points, faces, face_materials, material_names, corner_normals, configs):
     """Return detached arrays and a JSON receipt; average original corners at exact positions."""
     configs = validate_normal_continuity(configs)
@@ -181,6 +238,7 @@ def plan_normal_continuity(points, faces, face_materials, material_names, corner
     loop_faces = np.repeat(np.arange(len(sizes)), sizes)
     targets_seen, target_total, budget, reports = set(), 0, [0], []
     name_to_slot = {name: i for i, name in enumerate(material_names)}
+    face_geometry = _face_directions(points, flat, sizes) if configs else None
     for config in configs:
         names = config['materials']+config['reference_materials']
         if any(name not in name_to_slot for name in names):
@@ -208,6 +266,8 @@ def plan_normal_continuity(points, faces, face_materials, material_names, corner
         repaired_vertices[selected] = True
         changed_corners = target_corners & np.isin(flat, selected)
         output[changed_corners] = vertex_normals[flat[changed_corners]]
+        hemisphere = _check_hemispheres(points, flat, loop_faces, output, changed_corners,
+                                       face_geometry, config['name'])
         changed_faces = np.unique(loop_faces[changed_corners])
         repaired_faces[changed_faces] = True
         angles = np.degrees(np.arccos(np.clip(np.sum(unit[changed_corners]*output[changed_corners], axis=1), -1, 1)))
@@ -217,6 +277,7 @@ def plan_normal_continuity(points, faces, face_materials, material_names, corner
             'reference_unique_positions': len(reference_points), 'reference_corners': int(reference_corners.sum()),
             'repaired_faces': len(changed_faces), 'transferred_corners': int(changed_corners.sum()),
             'maximum_distance_m': float(distances[matched].max()),
+            'hemisphere_check': hemisphere,
             'angle_degrees': {'min': float(angles.min()), 'median': float(np.median(angles)), 'max': float(angles.max())},
             'matched_vertex_ids_sha256': array_hash(selected, '<i8'),
             'reference_position_sha256': array_hash(reference_points, '<f8'),

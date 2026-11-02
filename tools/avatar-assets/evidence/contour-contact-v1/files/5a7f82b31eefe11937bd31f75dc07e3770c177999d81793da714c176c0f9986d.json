@@ -1,0 +1,872 @@
+{
+  "counts": {
+    "eligible_exact_observed_dark_contact_exception": 6,
+    "insufficient_evidence_keep_unchanged": 1,
+    "keep_protected_white": 1
+  },
+  "current_model_sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2",
+  "elapsed_seconds": 0.1722597498446703,
+  "grid_summary": [
+    {
+      "misses": 0,
+      "pixel": [
+        271,
+        361
+      ],
+      "rays": 49,
+      "selected_frontmost": 27,
+      "unselected_frontmost": {
+        "33175": 8,
+        "33185": 1,
+        "33333": 13
+      }
+    },
+    {
+      "misses": 7,
+      "pixel": [
+        268,
+        365
+      ],
+      "rays": 49,
+      "selected_frontmost": 25,
+      "unselected_frontmost": {
+        "33770": 2,
+        "33914": 3,
+        "33975": 12
+      }
+    },
+    {
+      "misses": 0,
+      "pixel": [
+        287,
+        403
+      ],
+      "rays": 49,
+      "selected_frontmost": 28,
+      "unselected_frontmost": {
+        "32439": 21
+      }
+    },
+    {
+      "misses": 0,
+      "pixel": [
+        301,
+        340
+      ],
+      "rays": 49,
+      "selected_frontmost": 45,
+      "unselected_frontmost": {
+        "35446": 4
+      }
+    },
+    {
+      "misses": 0,
+      "pixel": [
+        311,
+        385
+      ],
+      "rays": 49,
+      "selected_frontmost": 49,
+      "unselected_frontmost": {}
+    },
+    {
+      "misses": 0,
+      "pixel": [
+        283,
+        388
+      ],
+      "rays": 49,
+      "selected_frontmost": 49,
+      "unselected_frontmost": {}
+    }
+  ],
+  "limitations": [
+    "These regular subpixel grids are not the exact EEVEE16-sample TAA/filter footprint.",
+    "No new texture pixels were decoded or inspected; the color decisions are the immutable earlier census.",
+    "Eligibility is an authored local contact-color decision, not recovered anatomy or automatic material classification.",
+    "Missing rays at the silhouette and remaining bright surface contributions are not solved by face selection."
+  ],
+  "model_mutated": false,
+  "native_jobs": 0,
+  "next_safe_action": "Parent review of eligible exact face exceptions listed above; keep every protected white face unchanged. Any new UV candidate must be append-only with independent color/white-protection review. No automatic mutation follows this report.",
+  "quality_approved": false,
+  "region_expanded": false,
+  "rows": [
+    {
+      "current_face": [
+        5,
+        1579
+      ],
+      "existing_selected_neighbors": [
+        {
+          "shared_exact_positions": 1,
+          "v7_face": [
+            0,
+            1682
+          ]
+        },
+        {
+          "shared_exact_positions": 2,
+          "v7_face": [
+            0,
+            1690
+          ]
+        },
+        {
+          "shared_exact_positions": 1,
+          "v7_face": [
+            0,
+            1723
+          ]
+        },
+        {
+          "shared_exact_positions": 1,
+          "v7_face": [
+            0,
+            1805
+          ]
+        }
+      ],
+      "frontmost_geometric_normal_dot_range": [
+        -0.7177199299342818,
+        -0.7177199299342818
+      ],
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 21,
+          "pixel": [
+            287,
+            403
+          ]
+        }
+      ],
+      "frozen_dense_samples": 91,
+      "frozen_green_samples": 0,
+      "frozen_white_fraction": 0.0,
+      "inside_unchanged_centroid_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon": 32439,
+      "native_triangle": 32439,
+      "old_uv0_gltf_v_down": [
+        [
+          0.9646999835968018,
+          0.9545819759368896
+        ],
+        [
+          0.9729549884796143,
+          0.9574249982833862
+        ],
+        [
+          0.9676240086555481,
+          0.9384210109710693
+        ]
+      ],
+      "original_selection_reasons": [],
+      "protected_white": false,
+      "provenance": {
+        "expected_face_id": 15437,
+        "kind": "original",
+        "source_face_id": 15437
+      },
+      "reason": "Actual frontmost residual-pixel contribution on original body material, no saved white samples, and exact adjacency to an already selected contact face. Eligible only as an explicit face-bound authored exception, not a broader green threshold or proof of dark anatomy.",
+      "recommendation": "eligible_exact_observed_dark_contact_exception",
+      "rest_positions_blender_xyz_m": [
+        [
+          -0.31832846999168396,
+          -0.2502543330192566,
+          0.5191856026649475
+        ],
+        [
+          -0.3213706612586975,
+          -0.2421240359544754,
+          0.5226637125015259
+        ],
+        [
+          -0.32872432470321655,
+          -0.25014016032218933,
+          0.5057053565979004
+        ]
+      ],
+      "saved_sparse_color": {
+        "green_samples": 0,
+        "light_samples": 0,
+        "sample_max_rgb": [
+          0.06288265181746253,
+          0.06109558349609064,
+          0.07752931432562069
+        ],
+        "sample_mean_rgb": [
+          0.05080621345111922,
+          0.051800251040099124,
+          0.06129601198010406
+        ]
+      },
+      "source_corner_to_native_rotation": 0,
+      "source_vertex_rows": [
+        1007,
+        888,
+        855
+      ],
+      "v7_face": [
+        0,
+        1579
+      ]
+    },
+    {
+      "current_face": [
+        5,
+        2315
+      ],
+      "existing_selected_neighbors": [
+        {
+          "shared_exact_positions": 2,
+          "v7_face": [
+            0,
+            2693
+          ]
+        }
+      ],
+      "frontmost_geometric_normal_dot_range": [
+        -0.03686192597591945,
+        -0.03686192597591945
+      ],
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 8,
+          "pixel": [
+            271,
+            361
+          ]
+        }
+      ],
+      "frozen_dense_samples": 91,
+      "frozen_green_samples": 0,
+      "frozen_white_fraction": 0.0,
+      "inside_unchanged_centroid_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon": 33175,
+      "native_triangle": 33175,
+      "old_uv0_gltf_v_down": [
+        [
+          0.7324519753456116,
+          0.8104029893875122
+        ],
+        [
+          0.7265070080757141,
+          0.8155869841575623
+        ],
+        [
+          0.7381550073623657,
+          0.8198630213737488
+        ]
+      ],
+      "original_selection_reasons": [],
+      "protected_white": false,
+      "provenance": {
+        "expected_face_id": 21108,
+        "kind": "original",
+        "source_face_id": 21108
+      },
+      "reason": "Actual frontmost residual-pixel contribution on original body material, no saved white samples, and exact adjacency to an already selected contact face. Eligible only as an explicit face-bound authored exception, not a broader green threshold or proof of dark anatomy.",
+      "recommendation": "eligible_exact_observed_dark_contact_exception",
+      "rest_positions_blender_xyz_m": [
+        [
+          -0.2841246724128723,
+          -0.04598035290837288,
+          0.6248480081558228
+        ],
+        [
+          -0.2859334647655487,
+          -0.035443197935819626,
+          0.6135203242301941
+        ],
+        [
+          -0.2984844148159027,
+          -0.05972244590520859,
+          0.6045181751251221
+        ]
+      ],
+      "saved_sparse_color": {
+        "green_samples": 0,
+        "light_samples": 0,
+        "sample_max_rgb": [
+          0.05618195785164056,
+          0.06192279421706188,
+          0.06588918718310868
+        ],
+        "sample_mean_rgb": [
+          0.05170490503811694,
+          0.054329935379032,
+          0.059002644037118177
+        ]
+      },
+      "source_corner_to_native_rotation": 0,
+      "source_vertex_rows": [
+        1595,
+        1212,
+        1133
+      ],
+      "v7_face": [
+        0,
+        2384
+      ]
+    },
+    {
+      "current_face": [
+        5,
+        2325
+      ],
+      "existing_selected_neighbors": [],
+      "frontmost_geometric_normal_dot_range": [
+        -0.14608628477491614,
+        -0.14608628477491614
+      ],
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 1,
+          "pixel": [
+            271,
+            361
+          ]
+        }
+      ],
+      "frozen_dense_samples": 91,
+      "frozen_green_samples": 0,
+      "frozen_white_fraction": 0.0,
+      "inside_unchanged_centroid_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon": 33185,
+      "native_triangle": 33185,
+      "old_uv0_gltf_v_down": [
+        [
+          0.7365610003471375,
+          0.8103860020637512
+        ],
+        [
+          0.7381550073623657,
+          0.8198630213737488
+        ],
+        [
+          0.7406030297279358,
+          0.8152459859848022
+        ]
+      ],
+      "original_selection_reasons": [],
+      "protected_white": false,
+      "provenance": {
+        "expected_face_id": 21167,
+        "kind": "original",
+        "source_face_id": 21167
+      },
+      "reason": "Frozen evidence does not justify an additional color edit.",
+      "recommendation": "insufficient_evidence_keep_unchanged",
+      "rest_positions_blender_xyz_m": [
+        [
+          -0.2863062918186188,
+          -0.05604939162731171,
+          0.6250852346420288
+        ],
+        [
+          -0.2984844148159027,
+          -0.05972244590520859,
+          0.6045181751251221
+        ],
+        [
+          -0.295938104391098,
+          -0.06419610232114792,
+          0.6107917428016663
+        ]
+      ],
+      "saved_sparse_color": {
+        "green_samples": 0,
+        "light_samples": 0,
+        "sample_max_rgb": [
+          0.05979114981779798,
+          0.05882352941176471,
+          0.06370978826079049
+        ],
+        "sample_mean_rgb": [
+          0.05430844245279154,
+          0.052942340318201844,
+          0.05855144500414582
+        ]
+      },
+      "source_corner_to_native_rotation": 0,
+      "source_vertex_rows": [
+        1603,
+        1133,
+        1514
+      ],
+      "v7_face": [
+        0,
+        2395
+      ]
+    },
+    {
+      "current_face": [
+        5,
+        2473
+      ],
+      "existing_selected_neighbors": [
+        {
+          "shared_exact_positions": 1,
+          "v7_face": [
+            0,
+            2693
+          ]
+        }
+      ],
+      "frontmost_geometric_normal_dot_range": [
+        -0.1289089441737468,
+        -0.1289089441737468
+      ],
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 13,
+          "pixel": [
+            271,
+            361
+          ]
+        }
+      ],
+      "frozen_dense_samples": 91,
+      "frozen_green_samples": 0,
+      "frozen_white_fraction": 0.0,
+      "inside_unchanged_centroid_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon": 33333,
+      "native_triangle": 33333,
+      "old_uv0_gltf_v_down": [
+        [
+          0.7365610003471375,
+          0.8103860020637512
+        ],
+        [
+          0.7324519753456116,
+          0.8104029893875122
+        ],
+        [
+          0.7381550073623657,
+          0.8198630213737488
+        ]
+      ],
+      "original_selection_reasons": [],
+      "protected_white": false,
+      "provenance": {
+        "expected_face_id": 22133,
+        "kind": "original",
+        "source_face_id": 22133
+      },
+      "reason": "Actual frontmost residual-pixel contribution on original body material, no saved white samples, and exact adjacency to an already selected contact face. Eligible only as an explicit face-bound authored exception, not a broader green threshold or proof of dark anatomy.",
+      "recommendation": "eligible_exact_observed_dark_contact_exception",
+      "rest_positions_blender_xyz_m": [
+        [
+          -0.2863062918186188,
+          -0.05604939162731171,
+          0.6250852346420288
+        ],
+        [
+          -0.2841246724128723,
+          -0.04598035290837288,
+          0.6248480081558228
+        ],
+        [
+          -0.2984844148159027,
+          -0.05972244590520859,
+          0.6045181751251221
+        ]
+      ],
+      "saved_sparse_color": {
+        "green_samples": 0,
+        "light_samples": 0,
+        "sample_max_rgb": [
+          0.055264563290311784,
+          0.06269658228084607,
+          0.06399397416785693
+        ],
+        "sample_mean_rgb": [
+          0.05232612066544674,
+          0.05561225273958026,
+          0.05727204472318814
+        ]
+      },
+      "source_corner_to_native_rotation": 0,
+      "source_vertex_rows": [
+        1603,
+        1595,
+        1133
+      ],
+      "v7_face": [
+        0,
+        2571
+      ]
+    },
+    {
+      "current_face": [
+        5,
+        2910
+      ],
+      "existing_selected_neighbors": [
+        {
+          "shared_exact_positions": 1,
+          "v7_face": [
+            0,
+            3136
+          ]
+        }
+      ],
+      "frontmost_geometric_normal_dot_range": [
+        -0.026020441008039942,
+        -0.026020441008039942
+      ],
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 2,
+          "pixel": [
+            268,
+            365
+          ]
+        }
+      ],
+      "frozen_dense_samples": 91,
+      "frozen_green_samples": 0,
+      "frozen_white_fraction": 0.0,
+      "inside_unchanged_centroid_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon": 33770,
+      "native_triangle": 33770,
+      "old_uv0_gltf_v_down": [
+        [
+          0.3202050030231476,
+          0.7332940101623535
+        ],
+        [
+          0.31867900490760803,
+          0.7464280128479004
+        ],
+        [
+          0.3430120050907135,
+          0.7398439645767212
+        ]
+      ],
+      "original_selection_reasons": [],
+      "protected_white": false,
+      "provenance": {},
+      "reason": "Actual frontmost residual-pixel contribution on original body material, no saved white samples, and exact adjacency to an already selected contact face. Eligible only as an explicit face-bound authored exception, not a broader green threshold or proof of dark anatomy.",
+      "recommendation": "eligible_exact_observed_dark_contact_exception",
+      "rest_positions_blender_xyz_m": [
+        [
+          -0.2711787819862366,
+          0.026472536846995354,
+          0.6044127941131592
+        ],
+        [
+          -0.2609141767024994,
+          0.05810609087347984,
+          0.5993283987045288
+        ],
+        [
+          -0.27084818482398987,
+          0.041056230664253235,
+          0.5451051592826843
+        ]
+      ],
+      "saved_sparse_color": null,
+      "source_corner_to_native_rotation": 0,
+      "source_vertex_rows": [
+        2128,
+        2130,
+        2132
+      ],
+      "v7_face": [
+        0,
+        3128
+      ]
+    },
+    {
+      "current_face": [
+        5,
+        3054
+      ],
+      "existing_selected_neighbors": [
+        {
+          "shared_exact_positions": 2,
+          "v7_face": [
+            0,
+            3136
+          ]
+        }
+      ],
+      "frontmost_geometric_normal_dot_range": [
+        -0.06547382772085637,
+        -0.06547382772085637
+      ],
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 3,
+          "pixel": [
+            268,
+            365
+          ]
+        }
+      ],
+      "frozen_dense_samples": 91,
+      "frozen_green_samples": 0,
+      "frozen_white_fraction": 0.0,
+      "inside_unchanged_centroid_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon": 33914,
+      "native_triangle": 33914,
+      "old_uv0_gltf_v_down": [
+        [
+          0.3202050030231476,
+          0.7332940101623535
+        ],
+        [
+          0.33601298928260803,
+          0.7350580096244812
+        ],
+        [
+          0.326664000749588,
+          0.7140439748764038
+        ]
+      ],
+      "original_selection_reasons": [],
+      "protected_white": false,
+      "provenance": {},
+      "reason": "Actual frontmost residual-pixel contribution on original body material, no saved white samples, and exact adjacency to an already selected contact face. Eligible only as an explicit face-bound authored exception, not a broader green threshold or proof of dark anatomy.",
+      "recommendation": "eligible_exact_observed_dark_contact_exception",
+      "rest_positions_blender_xyz_m": [
+        [
+          -0.2711787819862366,
+          0.026472536846995354,
+          0.6044127941131592
+        ],
+        [
+          -0.27219828963279724,
+          0.0299582127481699,
+          0.5657353401184082
+        ],
+        [
+          -0.2838786244392395,
+          -0.015345504507422447,
+          0.5953620076179504
+        ]
+      ],
+      "saved_sparse_color": null,
+      "source_corner_to_native_rotation": 0,
+      "source_vertex_rows": [
+        2128,
+        2173,
+        1706
+      ],
+      "v7_face": [
+        0,
+        3336
+      ]
+    },
+    {
+      "current_face": [
+        5,
+        3115
+      ],
+      "existing_selected_neighbors": [
+        {
+          "shared_exact_positions": 1,
+          "v7_face": [
+            0,
+            3136
+          ]
+        }
+      ],
+      "frontmost_geometric_normal_dot_range": [
+        -0.022792479719660468,
+        -0.022792479719660468
+      ],
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 12,
+          "pixel": [
+            268,
+            365
+          ]
+        }
+      ],
+      "frozen_dense_samples": 91,
+      "frozen_green_samples": 0,
+      "frozen_white_fraction": 0.0,
+      "inside_unchanged_centroid_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon": 33975,
+      "native_triangle": 33975,
+      "old_uv0_gltf_v_down": [
+        [
+          0.3097580075263977,
+          0.7396689653396606
+        ],
+        [
+          0.31867900490760803,
+          0.7464280128479004
+        ],
+        [
+          0.3202050030231476,
+          0.7332940101623535
+        ]
+      ],
+      "original_selection_reasons": [],
+      "protected_white": false,
+      "provenance": {},
+      "reason": "Actual frontmost residual-pixel contribution on original body material, no saved white samples, and exact adjacency to an already selected contact face. Eligible only as an explicit face-bound authored exception, not a broader green threshold or proof of dark anatomy.",
+      "recommendation": "eligible_exact_observed_dark_contact_exception",
+      "rest_positions_blender_xyz_m": [
+        [
+          -0.2629992365837097,
+          0.04427693784236908,
+          0.6236095428466797
+        ],
+        [
+          -0.2609141767024994,
+          0.05810609087347984,
+          0.5993283987045288
+        ],
+        [
+          -0.2711787819862366,
+          0.026472536846995354,
+          0.6044127941131592
+        ]
+      ],
+      "saved_sparse_color": null,
+      "source_corner_to_native_rotation": 0,
+      "source_vertex_rows": [
+        2302,
+        2130,
+        2128
+      ],
+      "v7_face": [
+        0,
+        3411
+      ]
+    },
+    {
+      "current_face": [
+        5,
+        4586
+      ],
+      "existing_selected_neighbors": [
+        {
+          "shared_exact_positions": 1,
+          "v7_face": [
+            0,
+            4879
+          ]
+        },
+        {
+          "shared_exact_positions": 1,
+          "v7_face": [
+            0,
+            4952
+          ]
+        },
+        {
+          "shared_exact_positions": 2,
+          "v7_face": [
+            0,
+            5189
+          ]
+        }
+      ],
+      "frontmost_geometric_normal_dot_range": [
+        -0.7049923912502706,
+        -0.7049923912502706
+      ],
+      "frontmost_grid_hits_by_pixel": [
+        {
+          "count": 4,
+          "pixel": [
+            301,
+            340
+          ]
+        }
+      ],
+      "frozen_dense_samples": 91,
+      "frozen_green_samples": 0,
+      "frozen_white_fraction": 0.31868131868131866,
+      "inside_unchanged_centroid_region": true,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "native_polygon": 35446,
+      "native_triangle": 35446,
+      "old_uv0_gltf_v_down": [
+        [
+          0.8908680081367493,
+          0.6101459860801697
+        ],
+        [
+          0.9013609886169434,
+          0.6179640293121338
+        ],
+        [
+          0.9043809771537781,
+          0.6103019714355469
+        ]
+      ],
+      "original_selection_reasons": [],
+      "protected_white": true,
+      "provenance": {
+        "expected_face_id": 30968,
+        "kind": "original",
+        "source_face_id": 30968
+      },
+      "reason": "Existing protected-white rule applies; subpixel contribution does not authorize recoloring white surface.",
+      "recommendation": "keep_protected_white",
+      "rest_positions_blender_xyz_m": [
+        [
+          -0.22664473950862885,
+          -0.13906531035900116,
+          0.6713548302650452
+        ],
+        [
+          -0.23623491823673248,
+          -0.12612003087997437,
+          0.6691750884056091
+        ],
+        [
+          -0.23813456296920776,
+          -0.1318516880273819,
+          0.6609463691711426
+        ]
+      ],
+      "saved_sparse_color": {
+        "green_samples": 0,
+        "light_samples": 2,
+        "sample_max_rgb": [
+          0.9985154489253186,
+          0.9568627450980393,
+          0.9538551414293536
+        ],
+        "sample_mean_rgb": [
+          0.3215418252576437,
+          0.30817459639432404,
+          0.3135773164931362
+        ]
+      },
+      "source_corner_to_native_rotation": 0,
+      "source_vertex_rows": [
+        3804,
+        3452,
+        3661
+      ],
+      "v7_face": [
+        0,
+        5167
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "self_peak_rss_bytes": 118538240,
+  "source_files_unchanged": true,
+  "source_v7_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "residual_face_review_complete",
+  "texture_decodes": 0,
+  "thresholds_changed": false,
+  "trace_sha256": "8c6144cfc2256f0a7089c496b63d10860a32a548aba98bcb58689c4f5ec994e0"
+}

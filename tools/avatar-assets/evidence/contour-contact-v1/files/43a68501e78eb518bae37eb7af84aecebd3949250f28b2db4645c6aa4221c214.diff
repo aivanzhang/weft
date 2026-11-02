@@ -1,0 +1,23 @@
+--- v1/check.py
++++ v2/check.py
+@@ -85,8 +85,9 @@
+     selected = {(r['source_primitive'], r['source_triangle']) for r in selector['rows']}
+     require(len(selected) == len(selector['rows']) == 242 and all(r['selected'] for r in selector['rows']), 'Unique selected face set')
+     require(all(pi in (0, 2) for pi, _ in selected), 'Companion selected')
+-    protected = {(r['source_primitive'], r['source_triangle']) for r in census['rows'] if r['protected_white']}
+-    require(len(protected) == 244 and not protected.intersection(selected), 'Protected white selection')
++    protected = {(r['current_primitive'], r['current_triangle']) for r in census['rows'] if r['protected_white']}
++    selected_current = {(r['current_primitive'], r['current_triangle']) for r in selector['rows']}
++    require(len(protected) == 244 and not protected.intersection(selected_current), 'Protected white selection')
+     require(selector['source_sha256'] == old.hash and plan['source_model_sha256'] == old.hash, 'Plan bound to another source')
+     with zipfile.ZipFile(paths['correspondence']) as z:
+         require(sum(r.file_size for r in z.infolist()) <= 4*1024**2 and len(z.infolist()) == 2, 'Mapping archive bounds')
+@@ -163,7 +164,7 @@
+     return {'schema_version': 1, 'status': 'passed_exact_uv_component_custody',
+             'source_sha256': old.hash, 'candidate_sha256': new.hash,
+             'triangles': len(fmap), 'referenced_vertices': len(vmap), 'selected_faces': len(selected),
+-            'protected_white_faces': len(protected), 'protected_companion_triangles': len(oldarrays[1][1])+len(oldarrays[3][1]),
++            'protected_white_candidates_current_id_space': len(protected), 'protected_companion_triangles': len(oldarrays[1][1])+len(oldarrays[3][1]),
+             'unselected_faces_uv0_exact': len(fmap)-len(selected), 'oriented_triangle_coverage_exact': True,
+             'cyclically_reordered_triangles': rotated, 'positions_normals_tangents_exact': True,
+             'all_original_material_image_texture_sampler_node_skin_animation_bindings_exact': True,

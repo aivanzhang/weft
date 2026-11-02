@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-11-02T00:04:17.869210-08:00",
+  "images_reviewed": [
+    "baseline_unlit.png",
+    "repaired_unlit.png"
+  ],
+  "decision": "partial_color_improvement_not_complete_repair",
+  "observations": [
+    "Green shoulder contamination is visibly reduced in this matched pose.",
+    "13 of the16 fixed green witnesses become dark neutral pixels;3remain nearlyunchanged.",
+    "The bright witness changes from[194,191,190]to[117,113,112]but remainsbright.",
+    "Small shoulder/arm flecks remain visible."
+  ],
+  "controls": {
+    "baseline_exact_prior_pixels": true,
+    "matched_pose_camera": true,
+    "coat_hidden": true,
+    "body_shader": "original basecolor route to emission; normal maps/lighting excluded",
+    "protected_geometry_normals_uv1_skin_pose": true
+  },
+  "limits": [
+    "This tests color only, not normal mapping, native fur regeneration, full appearance, animation, or a new exported model.",
+    "Selected pixel-center ray faces do not establish all antialias/filter coverage.",
+    "The upstream derivative is unrigged; the transient posed-scene control does not give that derivative a verified rig."
+  ],
+  "quality_approved": false,
+  "new_paid_generation_calls": 0,
+  "inputs": [
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v1/baseline_unlit.png",
+      "sha256": "cfe77f2ac4928a0c30ae903e5f5e8caeee182149a7f7d3dae0a7b22af30fdd7b"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v1/repaired_unlit.png",
+      "sha256": "08a05ed55211bbdbf1a6d08cb3fb91fe5c149ebce4139e6cd036e8b50ce57672"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v1/pixel-comparison.json",
+      "sha256": "a8588f463e57cb469409e7783670258387a1c1492206fa23093e8a1c471f51a5"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-ablation-v1/color-ablation.json",
+      "sha256": "b0cf437b54cf09c7241d6787b0b9405fce067c5999b854f9ea61b292fcd06ac2"
+    }
+  ]
+}

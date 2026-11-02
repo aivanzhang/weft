@@ -1,0 +1,68 @@
+{
+  "all_original_files_unchanged": true,
+  "all_original_material_image_texture_sampler_node_skin_animation_bindings_exact": true,
+  "candidate_sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+  "clone_routes": [
+    {
+      "primitive": 4,
+      "routes": [
+        {
+          "slot": "normalTexture",
+          "texCoord": 1,
+          "texture": 0
+        },
+        {
+          "slot": "pbrMetallicRoughness.baseColorTexture",
+          "texCoord": 0,
+          "texture": 1
+        },
+        {
+          "slot": "pbrMetallicRoughness.metallicRoughnessTexture",
+          "texCoord": 1,
+          "texture": 2
+        }
+      ],
+      "source_primitive": 0,
+      "tangent_basis": "Exact original N/T including handedness; UV1 exactly original UV0"
+    },
+    {
+      "primitive": 5,
+      "routes": [
+        {
+          "slot": "pbrMetallicRoughness.baseColorTexture",
+          "texCoord": 0,
+          "texture": 6
+        }
+      ],
+      "source_primitive": 2,
+      "tangent_basis": "Exact original N/T including handedness; UV1 exactly original UV0"
+    }
+  ],
+  "cyclically_reordered_triangles": 0,
+  "elapsed_seconds": 0.40541412495076656,
+  "limitations": [
+    "Unrigged v7 component: no completed skin or animation claim.",
+    "Exact source tangent preservation is not a new derivation/normal-map visual validation.",
+    "Palette/filter claims are reused from the frozen plan; no image redecoding or GPU sampling test.",
+    "No acceptance of residual source geometry, finished coat or complete appearance."
+  ],
+  "native_calls": 0,
+  "no_loose_vertices": true,
+  "oriented_triangle_coverage_exact": true,
+  "original_accessor_buffer_view_prefix_exact": true,
+  "original_binary_prefix_bytes": 26409416,
+  "original_binary_prefix_exact": true,
+  "positions_normals_tangents_exact": true,
+  "process_high_water_rss_bytes": 304054272,
+  "protected_companion_triangles": 27518,
+  "protected_white_candidates_current_id_space": 244,
+  "quality_approved": false,
+  "referenced_vertices": 51376,
+  "schema_version": 1,
+  "selected_faces": 249,
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "passed_exact_uv_component_custody",
+  "texture_decodes": 0,
+  "triangles": 62581,
+  "unselected_faces_uv0_exact": 62332
+}

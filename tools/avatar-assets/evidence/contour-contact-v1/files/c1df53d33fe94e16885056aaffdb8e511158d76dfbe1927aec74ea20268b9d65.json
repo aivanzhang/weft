@@ -1,0 +1,42 @@
+{
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "cost": {
+    "local_energy": "unpriced",
+    "provider_calls": 0
+  },
+  "hypothesis": "Attribute visible contact artifacts using matched pose/camera/render controls and explicit material role masks, not assume all marks are fur or geometry.",
+  "inputs": [
+    {
+      "path": "outputs/panda-staged-portable-preview-v1/source.blend",
+      "sha256": "b1fb54f16b4e5fdf915b6271bef085ac887f5488572f6c6106b0007d1232c727"
+    }
+  ],
+  "limits": {
+    "concurrency": 1,
+    "output_mib": 32,
+    "sampled_child_rss_mib": 1536,
+    "seconds": 60,
+    "threads": 4
+  },
+  "output": "outputs/panda-contact-ablation-v1",
+  "schema_version": 1,
+  "snapshots": [
+    {
+      "path": "render.py",
+      "sha256": "3380154343c95db005013bce646bbeba3735010869755e35e778eedc0bf92baf"
+    },
+    {
+      "path": "execute.py",
+      "sha256": "cdca1cc28f01c5329a68addc015d9f5ea13a34d09738ceb677ebb222c8bf40f7"
+    },
+    {
+      "path": "config.json",
+      "sha256": "f298ec54afcce387876cabdf8287405f5be3d6c12425ddd4e266d07f4351277c"
+    },
+    {
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ],
+  "status": "released_single_diagnostic"
+}

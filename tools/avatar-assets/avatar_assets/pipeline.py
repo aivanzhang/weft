@@ -4,6 +4,7 @@ from contextlib import contextmanager
 from datetime import datetime
 import fcntl
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -27,10 +28,11 @@ MAX_STAGE_START_SECONDS = 3600
 PIPELINE_SOURCES = ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
-                    'portable_fringe.py', 'fringe_export.py')
+                    'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py')
 PIPELINE_SCRIPT_SOURCES = ('motion_samples.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py',
                           'edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py',
-                          'fur_root_sampling.py', 'blender_finish_generated.py', 'native_render_tasks.py')
+                          'fur_root_sampling.py', 'blender_finish_generated.py', 'native_render_tasks.py',
+                          'blender_normal_continuity.py')
 
 
 class InterruptedStage(ValueError):
@@ -372,6 +374,55 @@ class Pipeline:
 
     def _diagnostics(self, pack):
         result = {}
+        rejection = pack/'normal-continuity-rejection.json'
+        manifest_path = pack/'manifest.json'
+        try:
+            manifest = read_json(manifest_path) if manifest_path.exists() else {}
+            records = [row for row in manifest.get('artifacts', []) if row.get('path') == rejection.name]
+            if records or rejection.exists() or rejection.is_symlink():
+                local_file(rejection, 32*1024)
+                require(manifest.get('status') == 'failed' and len(records) == 1,
+                        'Normal rejection lacks a failed-stage artifact binding')
+                require(records[0] == {'path': rejection.name, 'bytes': rejection.stat().st_size,
+                                      'sha256': sha256(rejection)}, 'Normal rejection evidence changed')
+                report = read_json(rejection)
+                require(report.get('schema_version') == 1 and report.get('status') == 'rejected',
+                        'Invalid normal rejection status')
+                for key, limit in (('checked_faces', 100000), ('checked_corners', 300000),
+                                   ('degenerate_faces', 100000), ('outside_hemisphere_corners', 300000)):
+                    require(type(report.get(key)) is int and 0 <= report[key] <= limit,
+                            'Invalid normal rejection count')
+                require(report['degenerate_faces']+report['outside_hemisphere_corners'] > 0
+                        and isinstance(report.get('witnesses'), list) and 1 <= len(report['witnesses']) <= 32,
+                        'Normal rejection lacks bounded failure witnesses')
+                require(1 <= report['checked_faces'] <= report['checked_corners']
+                        and report['degenerate_faces'] <= report['checked_faces']
+                        and report['degenerate_faces']+report['outside_hemisphere_corners'] <= report['checked_corners'],
+                        'Normal rejection has inconsistent counts')
+                witnessed = set()
+                for witness in report['witnesses']:
+                    require(isinstance(witness, dict), 'Invalid normal rejection witness')
+                    for key, limit in (('face', 100000), ('corner', 300000), ('vertex', 100000)):
+                        require(type(witness.get(key)) is int and 0 <= witness[key] < limit,
+                                'Invalid normal rejection witness index')
+                    require(witness['corner'] not in witnessed, 'Repeated normal rejection witness')
+                    witnessed.add(witness['corner'])
+                    reason, dot = witness.get('reason'), witness.get('dot')
+                    require((reason == 'degenerate_or_cancelling_face' and dot is None and report['degenerate_faces'] > 0)
+                            or (reason == 'outside_face_hemisphere' and type(dot) in (int, float)
+                                and math.isfinite(dot) and -1.000001 <= dot <= 0
+                                and report['outside_hemisphere_corners'] > 0),
+                            'Invalid normal rejection witness reason/dot')
+                minimum = report.get('minimum_face_dot')
+                require((minimum is None and report['degenerate_faces'] > 0
+                         and report['outside_hemisphere_corners'] == 0)
+                        or (type(minimum) in (int, float) and math.isfinite(minimum)
+                            and -1.000001 <= minimum <= 1.000001
+                            and (not report['outside_hemisphere_corners'] or minimum <= 0)),
+                        'Invalid normal rejection minimum dot')
+                result['normal_continuity_rejection'] = report
+        except (ValueError, OSError, KeyError, TypeError, AttributeError) as error:
+            raise EvidenceCustodyError('Normal rejection evidence requires inspection: '+str(error)) from error
         if (pack/'surface-integrity.json').exists():
             result['surface_integrity'] = read_json(pack/'surface-integrity.json')
         if (pack/'rig-verification.json').exists():

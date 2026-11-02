@@ -1,0 +1,113 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-plan-v1/plan.py"
+  ],
+  "inputs": {
+    "current": {
+      "bytes": 36072824,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-portable-model-v1/model.glb",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    },
+    "geometry_selector": {
+      "bytes": 160051,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-cheek-targeted-selection-v2/candidate.json",
+      "sha256": "02affbfc837e3dc94dfed1a8ad37187e4f6062cb5a16ec65c596364f55f74ff8"
+    },
+    "pixel_join": {
+      "bytes": 21829,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-contact-defects-diagnosis-v1/pixel-provenance.json",
+      "sha256": "5d64c986d835a8684baa209f053f093a0ccfa432ed3d02a78f587de0950acd18"
+    },
+    "rays": {
+      "bytes": 40645,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-contact-pixel-attribution-v1/attribution.json",
+      "sha256": "4201e0ee1a64796810aaf3f24b70684abf2d24dc9e9a56d51113b9a04a01f03a"
+    },
+    "selectors": {
+      "bytes": 1876367,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-contact-defects-diagnosis-v1/contact-selectors.json",
+      "sha256": "b59cf6ba898b40614d60508db2e2984a80a84dcd27159a060b83f79d45a57e31"
+    },
+    "v7": {
+      "bytes": 26414540,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/diagnostic-model.glb",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    "v7_arrays": {
+      "bytes": 2532482,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/partition-arrays.npz",
+      "sha256": "881f6df9a65277b92d962564bebba33bc0dd3f520d5c621ed291c35a6b07fc98"
+    },
+    "v7_config": {
+      "bytes": 2955,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/config.json",
+      "sha256": "22a55a85c6276c9b5ee3aaa31d77a2293a7cdaad5eb986911dbd494f30a00119"
+    },
+    "v7_plan": {
+      "bytes": 178373,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/partition-plan.json",
+      "sha256": "70db132977e6e365994414dacfca7f7734a79f59b77e5b6d4f77934d366abcbd"
+    }
+  },
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 45,
+    "texture_decodes": 1
+  },
+  "prepared_at": "2026-11-01T23:43:18.972305-08:00",
+  "schema_version": 1,
+  "scope": "Prepared source UV repair selector and filtered palette only. No GLB/image/native/provider mutation.",
+  "settings": {
+    "exact_witness_faces_override": true,
+    "green_additive": 0.006,
+    "green_ratio": 1.06,
+    "palette_blocks": [
+      128,
+      96,
+      64
+    ],
+    "palette_core_texels": 8,
+    "palette_grid_step": 64,
+    "recorded_dark_closure_loops": [
+      1,
+      4
+    ],
+    "region_blender_m": {
+      "max": [
+        -0.1,
+        0.05,
+        0.725
+      ],
+      "min": [
+        -0.39,
+        -0.3,
+        0.48
+      ]
+    },
+    "samples_per_face": 91,
+    "white_chroma_max": 0.18,
+    "white_protection_fraction": 0.25,
+    "white_srgb_mean_min": 0.5
+  },
+  "sources": [
+    {
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "sources/avatar_assets/__init__.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/avatar_assets/runner.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/avatar_assets/safety.py"
+    }
+  ],
+  "worker_sha256": "40e5b64dbbcb582b190b0da884946bdb6eec1f2b69b8ec121d232b870f4bdf7d"
+}
