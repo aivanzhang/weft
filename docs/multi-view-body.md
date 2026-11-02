@@ -4,7 +4,9 @@ Optional [fixed-length fitting](#optional-fixed-length-angle-fit),
 [partial directions](#optional-partial-limb-directions) and
 [distal image constraints](#optional-distal-image-constraints), with
 [retained depth alternatives](#optional-depth-alternatives), provide separate
-saved comparisons. None passes every floor check or replaces the default.
+saved comparisons. The newer [joint-image trajectory](#fit-knees-and-ankles-together)
+passes the current sampled-floor tolerance. It does not validate physical
+accuracy or replace the default.
 
 Weft can now use **two or more supporting cameras per joint** from three or four
 supplied views. This is an optional manual sandbox, not automatic camera recovery
@@ -12,7 +14,7 @@ from one video. Camera calibration, synchronized clocks, shared coordinates and
 ground must be provided explicitly. Muscles remain illustrative; no learned
 controller or physical-accuracy claim is added.
 
-## Try the saved exercise candidate
+## Try the three-view baseline
 
 ```sh
 .venv-lab/bin/python -m weft lab-console \
@@ -348,3 +350,63 @@ on controlled two-, three- and four-camera geometry. Actual 39-action/one-reset
 recording replays all 41 states and video frames exactly. Construction took
 1.688 s /151.5 MB peak RSS; interaction/export/replay 1.047 s /162.1 MB. These
 verify the manual workflow, not source accuracy or browser responsiveness.
+
+## Fit knees and ankles together
+
+The earlier distal fits kept the knee/elbow position fixed. This optional fit
+adjusts knee/elbow and ankle/wrist images together, linking nearby corrections
+by their actual source times. It still keeps the root, torso, body lengths,
+ground and forces fixed. Missing observations remain missing; depth is inferred.
+
+Start the latest saved manual candidate:
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/aspset-joint-pixel-body-lab-01
+```
+
+Use `controls`, `action`, `step`, `record start`, `record stop`, and `files`.
+For the visual interface, start `lab --resume` instead of `lab-console --resume`
+yourself. This candidate has no learned policy.
+
+| Check | Previous v2 candidate | Joint-image trajectory |
+| --- | ---: | ---: |
+| Failing source floor poses | 1/47 | 0/47 |
+| Failing interpolated floor poses | 2/111 | 0/111 |
+| Maximum penetration, model units | 0.049340 | 0.015498 |
+| Mean left-camera image error, px | 10.4368 | 10.3406 |
+| Mean middle-camera image error, px | 6.6740 | 6.3458 |
+| Mean right-camera image error, px | 6.3521 | 6.2739 |
+
+The unchanged floor limit is 0.025 model units. Two smaller intersections
+remain, so **passing these samples does not mean collision-free motion**.
+All 6,768 image slots remain saved, including 397 individual regressions versus
+v2. Of 188 limb poses, 134 have a weakly image-constrained angle direction;
+both arm fits reach their iteration cap. This is one exposed development clip,
+not independent physical validation or proof that unfamiliar videos will work.
+Against the earlier partial-direction baseline, the right-camera mean gets
+worse (6.1971→6.2739 pixels); that comparison is also retained in the audit.
+
+To construct a separate candidate, add
+`--fit-joint-pixels examples/joint-pixel-uncertainty.json` to the camera-body
+command with `--fit-limbs --partial-segments --body-view both`. It cannot stack
+with `--fit-partial-pixels` or `--partial-depth-branches`.
+The [settings](../examples/joint-pixel-uncertainty.json) explicitly assume image
+error of 0.25% of the larger image dimension, an angle scale of 0.30 radians,
+and correction-speed scale of 4.5 radians/second. That speed describes changes
+in corrections, **not measured body motion**. Each angle correction is capped
+at 0.30 radians; no floor or contact score enters this fit.
+
+- [Manual replay](../artifacts/aspset-joint-pixel-body-lab-01/sessions/session-512ff00a4618/replay.html)
+  and [video](../artifacts/aspset-joint-pixel-body-lab-01/sessions/session-512ff00a4618/video.mp4).
+- [Independent audit](../artifacts/aspset-joint-pixel-audit-01/report.json),
+  [all image comparisons](../artifacts/aspset-joint-pixel-audit-01/source-images.json),
+  and [all original fits and new proposals](../artifacts/aspset-joint-pixel-body-lab-01/run/two-view-body.json).
+- [Exact inputs, bounds, checks and remaining work](handoffs/joint-pixel-trajectory.md).
+
+269 focused Python cases and 75 mocked UI checks pass. Actual interaction
+records 39 actions/one reset and exactly replays 41 states and video frames;
+the completed run and lifecycle stay unchanged after close. Construction took
+2.458 s /159.9 MB peak RSS; interaction/export/replay 1.092 s /164.2 MB.
+These are local pipeline measurements, not browser responsiveness. No new
+source-video decode, inference or paid call was used.

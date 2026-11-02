@@ -48,7 +48,7 @@ def _root_view_inputs(config_path, out, *, additional=False):
 
 def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, root_view_path=None, body_view=None,
                             partial_segments=False, additional_view_paths=(), limb_fit=False, partial_pixel_fit=False,
-                            pixel_uncertainty_path=None, partial_depth_branches=False):
+                            pixel_uncertainty_path=None, partial_depth_branches=False, joint_pixel_uncertainty_path=None):
     started = time.monotonic()
     source_run, camera_path, out = (Path(value).resolve() for value in (source_run, camera_path, out))
     if (not isinstance(additional_view_paths, (list, tuple)) or len(additional_view_paths) > 2
@@ -66,22 +66,31 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         raise ValueError('Explicit image uncertainty requires --fit-partial-pixels')
     if type(partial_depth_branches) is not bool or partial_depth_branches and not (partial_pixel_fit and pixel_uncertainty_path is not None):
         raise ValueError('Depth branches require --fit-partial-pixels and --partial-pixel-uncertainty')
+    if joint_pixel_uncertainty_path is not None and (not limb_fit or not partial_segments or partial_pixel_fit
+                                                   or pixel_uncertainty_path is not None or partial_depth_branches):
+        raise ValueError('Joint images require --fit-limbs/--partial-segments and cannot stack with distal pixels or depth branches')
     if out.exists() or out.is_relative_to(source_run):
         raise ValueError('Choose a new camera-body lab outside the immutable source run')
     if (camera_path.parent/'manifest.json').exists() and out.is_relative_to(camera_path.parent):
         raise ValueError('Keep the new lab outside the sealed camera-input bundle')
-    uncertainty = uncertainty_bytes = None
+    def read_uncertainty(path, validator):
+        path = Path(path).resolve()
+        if (path.parent/'manifest.json').exists() and out.is_relative_to(path.parent):
+            raise ValueError('Keep the new lab outside sealed uncertainty inputs')
+        if path.stat().st_size > 64*1024:
+            raise ValueError('Uncertainty JSON exceeds the 64-KiB input bound')
+        payload = path.read_bytes()
+        if len(payload) > 64*1024:
+            raise ValueError('Uncertainty JSON changed beyond its byte bound')
+        return validator(json.loads(payload)), payload
+
+    uncertainty = uncertainty_bytes = joint_uncertainty = joint_uncertainty_bytes = None
     if pixel_uncertainty_path is not None:
         from weft.distal_pixel_fit import validate_uncertainty
-        pixel_uncertainty_path = Path(pixel_uncertainty_path).resolve()
-        if (pixel_uncertainty_path.parent/'manifest.json').exists() and out.is_relative_to(pixel_uncertainty_path.parent):
-            raise ValueError('Keep the new lab outside sealed uncertainty inputs')
-        if pixel_uncertainty_path.stat().st_size > 64*1024:
-            raise ValueError('Uncertainty JSON exceeds the 64-KiB input bound')
-        uncertainty_bytes = pixel_uncertainty_path.read_bytes()
-        if len(uncertainty_bytes) > 64*1024:
-            raise ValueError('Uncertainty JSON changed beyond its byte bound')
-        uncertainty = validate_uncertainty(json.loads(uncertainty_bytes))
+        uncertainty, uncertainty_bytes = read_uncertainty(pixel_uncertainty_path, validate_uncertainty)
+    if joint_pixel_uncertainty_path is not None:
+        from weft.joint_pixel_trajectory import validate_uncertainty
+        joint_uncertainty, joint_uncertainty_bytes = read_uncertainty(joint_pixel_uncertainty_path, validate_uncertainty)
     verified = verify_artifacts(source_run)
     manifest_bytes = (source_run/'manifest.json').read_bytes()
     if sha256(manifest_bytes).hexdigest() != verified['manifest_sha256']:
@@ -162,8 +171,8 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         from weft.multiview_body import make_two_view_body
         spec, body_report = make_two_view_body(spec, triangulation, evidence, second['evidence'],
             mode=body_view, partial_segments=partial_segments, additional_evidence=[view['evidence'] for view in additional_views], limb_fit=limb_fit,
-            partial_pixel_fit=partial_pixel_fit, pixel_cameras=[camera, second['camera'], *[v['camera'] for v in additional_views]] if partial_pixel_fit else (),
-            pixel_uncertainty=uncertainty, partial_depth_branches=partial_depth_branches)
+            partial_pixel_fit=partial_pixel_fit, pixel_cameras=[camera, second['camera'], *[v['camera'] for v in additional_views]] if partial_pixel_fit or joint_uncertainty is not None else (),
+            pixel_uncertainty=uncertainty, partial_depth_branches=partial_depth_branches, joint_pixel_uncertainty=joint_uncertainty)
     if ground_bytes is not None:
         ground_audit = audit_ground_clearance(spec)
     feasibility = audit_reference_feasibility(spec)
@@ -192,6 +201,8 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
     (run/'camera.json').write_bytes(camera_bytes)
     if uncertainty_bytes is not None:
         (run/'partial-pixel-uncertainty.json').write_bytes(uncertainty_bytes)
+    if joint_uncertainty_bytes is not None:
+        (run/'joint-pixel-uncertainty.json').write_bytes(joint_uncertainty_bytes)
     if ground_bytes is not None:
         (run/'ground.json').write_bytes(ground_bytes)
         write_json(run/'ground-clearance.json', ground_audit)
@@ -227,6 +238,8 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         provenance['ground_file_sha256'] = sha256(ground_bytes).hexdigest()
     if uncertainty_bytes is not None:
         provenance['partial_pixel_uncertainty_file_sha256'] = sha256(uncertainty_bytes).hexdigest()
+    if joint_uncertainty_bytes is not None:
+        provenance['joint_pixel_uncertainty_file_sha256'] = sha256(joint_uncertainty_bytes).hexdigest()
     if root_inputs:
         provenance['two_view_inputs'] = {name: {'path': str(path), 'sha256': sha256(payload).hexdigest()}
                                         for name, (path, payload) in root_inputs.items()}
@@ -265,6 +278,9 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         if partial_depth_branches:
             report['scope'] = 'Manual temporal depth-hypothesis candidate; alternative depths remain inferred, not physical validation'
             report['depth_branches'] = body_report['depth_branches']
+        if joint_uncertainty is not None:
+            report['scope'] = 'Manual joint-image trajectory candidate; noisy knee/elbow positions and depth remain inferred'
+            report['joint_pixels'] = body_report['joint_pixels']
     write_json(run/'report.json', report)
     write_json(run/'manifest.json', {'schema': 1, 'created_at': local_time(),
                'files': {str(path.relative_to(run)): digest(path) for path in sorted(run.rglob('*')) if path.is_file()}})
@@ -274,6 +290,8 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         raise RuntimeError('Ground input changed during preparation; no ready lab published')
     if uncertainty_bytes is not None and digest(pixel_uncertainty_path) != sha256(uncertainty_bytes).hexdigest():
         raise RuntimeError('Uncertainty input changed during preparation; no ready lab published')
+    if joint_uncertainty_bytes is not None and digest(joint_pixel_uncertainty_path) != sha256(joint_uncertainty_bytes).hexdigest():
+        raise RuntimeError('Joint-image uncertainty input changed during preparation; no ready lab published')
     if any(digest(path) != sha256(payload).hexdigest() for path, payload in root_inputs.values()):
         raise RuntimeError('Second-view input changed during preparation; no ready lab published')
     write_json(out/'lab-config.json', {'profile': 'exercise', 'control_profile': 'camera_body',

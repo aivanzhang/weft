@@ -1,5 +1,36 @@
 # Combined Weft implementation handoff
 
+## Joint-image trajectory — November 2, 2026, 2:59 AM PST
+
+`camera-body --fit-joint-pixels SETTINGS.json --fit-limbs --partial-segments`
+fits knee/elbow and ankle/wrist original images together across source time,
+keeping root/torso/shape/ground/forces fixed. It is a separate opt-in stage,
+not relaxed distal/branch thresholds. **269 focused Python cases /75 mocked
+UI checks pass**, including native two-to-four-view geometry, source tampering
+and actual CLI recording. Full-size 900-frame/four-view pure fitting takes
+2.485 s /51.3 MB for one limb. No dense sequence matrix or new dependency.
+
+The one frozen source candidate now passes all **47 source +111 grid floor
+checks** under the unchanged .025 limit; worst penetration .0154983705 and
+two smaller intersections remain. Mean image agreement improves in all three
+views relative to v2, but 397 individual point regressions and 134 weakly
+constrained limb poses remain. Both arm trajectories reach their iteration
+cap. No physical-accuracy, policy, fresh-holdout or default promotion follows.
+
+Independent audit verifies 1,144 sealed baseline/v2/candidate members,
+45 identical source files, 163 retained original complete fits, 49 new trial
+losses and all 6,768 image slots. Actual 39-action/one-reset/41-state recording,
+export and exact replay pass; 385 immutable run members and lifecycle remain
+unchanged after close. All root processes are terminal/reaped. No acquisition,
+original-video decode, inference, API/key/ledger access, browser/server or deployment.
+
+[Detailed handoff](joint-pixel-trajectory.md) records inputs, bounds, seals,
+performance, commands and limits. Publication receipt:
+`.local/aspset-joint-pixel-publication-01.json` after push. Preserve all separate
+avatar renderer/tests and `tools/avatar-assets/` edits. The full goal remains
+active: qualify unfamiliar inputs and source-admitted coupled control/learning,
+with root/shape/calibration and physical-contact accuracy still unresolved.
+
 ## Retained depth alternatives — November 2, 2026, 2:25 AM PST
 
 `camera-body --partial-depth-branches` adds a separate, explicit geometric

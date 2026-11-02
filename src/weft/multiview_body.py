@@ -20,6 +20,8 @@ from weft.multiview_distal_pixels import (UNCERTAINTY_METHOD as PARTIAL_UNCERTAI
     UNCERTAINTY_CONTRACT as PARTIAL_UNCERTAINTY_CONTRACT, validate_uncertainty)
 from weft.multiview_depth_branches import (METHOD as DEPTH_BRANCH_METHOD, CONTRACT as DEPTH_BRANCH_CONTRACT,
     apply_depth_branches, validate_depth_binding)
+from weft.multiview_joint_pixels import (METHOD as JOINT_PIXEL_METHOD, refine_joint_pixels, restore_joint_pixel_input,
+    validate_uncertainty as validate_joint_uncertainty)
 from weft.spatial_pose import LIMB_ENDPOINTS, SPATIAL_JOINT_NAMES, _limb_rotation, rotation_to_zyx, rotation_zyx
 
 
@@ -28,7 +30,7 @@ MULTI_METHOD = 'multi-view-body-v1'
 LIMB_FIT_METHOD = 'camera-body-length-fit-v1'
 LIMB_FIT_SEGMENT_METHOD = 'camera-body-length-fit-v2'
 METHODS = (METHOD, SEGMENT_METHOD, MULTI_METHOD, LIMB_FIT_METHOD, MULTI_SEGMENT_METHOD, LIMB_FIT_SEGMENT_METHOD,
-           PARTIAL_PIXEL_METHOD, PARTIAL_UNCERTAINTY_METHOD, DEPTH_BRANCH_METHOD)
+           PARTIAL_PIXEL_METHOD, PARTIAL_UNCERTAINTY_METHOD, DEPTH_BRANCH_METHOD, JOINT_PIXEL_METHOD)
 SCALE_ASSUMPTION = 'supplied_camera_scale_with_explicit_monocular_body_priors'
 CONTRACT = MappingProxyType({'method': METHOD, 'minimum_dimension_frames': 5,
     'maximum_reference_poses': 900, 'dimensions': 'Median available segment lengths; shared left/right lengths remain an authored symmetry assumption',
@@ -55,6 +57,9 @@ def _fixed_hash(spec):
 def validate_body_binding(spec):
     from weft.human import validate_human
 
+    if spec['camera_reference']['method'] == JOINT_PIXEL_METHOD:
+        validate_body_binding(restore_joint_pixel_input(spec))
+        return
     value = spec['camera_reference'].get('body_refinement')
     fields = {'schema_version', 'mode', 'input_body', 'input_body_sha256', 'triangulation_sha256',
               'output_lengths_sha256', 'output_evidence_sha256', 'audit_sha256'}
@@ -218,7 +223,7 @@ def _torso_rotation(points):
 
 def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mode='both', partial_segments=False,
                       additional_evidence=(), limb_fit=False, partial_pixel_fit=False, pixel_cameras=(), pixel_uncertainty=None,
-                      partial_depth_branches=False):
+                      partial_depth_branches=False, joint_pixel_uncertainty=None):
     from weft.human import LENGTH_BOUNDS, validate_human
 
     original = validate_human(spec)
@@ -235,8 +240,11 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
         raise ValueError('Partial segments require an explicit boolean and direction-enabled mode')
     if type(limb_fit) is not bool or limb_fit and mode not in ('directions', 'both'):
         raise ValueError('Fixed-length limb fitting requires directions/both')
+    joint_settings = validate_joint_uncertainty(joint_pixel_uncertainty) if joint_pixel_uncertainty is not None else None
+    if joint_settings is not None and (not limb_fit or not partial_segments or partial_pixel_fit or pixel_uncertainty is not None or partial_depth_branches):
+        raise ValueError('Joint images require fixed-length/partial directions and cannot stack with distal pixels or depth branches')
     if (type(partial_pixel_fit) is not bool or partial_pixel_fit and not (limb_fit and partial_segments)
-            or not partial_pixel_fit and (pixel_cameras or pixel_uncertainty is not None)):
+            or not partial_pixel_fit and joint_settings is None and (pixel_cameras or pixel_uncertainty is not None)):
         raise ValueError('Partial pixel fitting requires explicit length fitting, partial segments and original cameras')
     uncertainty = validate_uncertainty(pixel_uncertainty) if pixel_uncertainty is not None else None
     if type(partial_depth_branches) is not bool or partial_depth_branches and not (partial_pixel_fit and uncertainty is not None):
@@ -251,7 +259,7 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
     evidence_streams = [first_evidence, second_evidence, *additional_evidence]
     if [canonical_hash(v) for v in evidence_streams] != [v['evidence_sha256'] for v in views]:
         raise ValueError('Two-view body image inputs differ from the pinned reconstruction')
-    pixel_views = prepare_pixel_views(pixel_cameras, evidence_streams, predictions) if partial_pixel_fit else None
+    pixel_views = prepare_pixel_views(pixel_cameras, evidence_streams, predictions) if partial_pixel_fit or joint_settings is not None else None
     sources = [{row['frame']: row for row in evidence['frames']} for evidence in evidence_streams]
     indices = [int(row['evidence_id'].rsplit(':', 1)[1]) for row in original['reference_evidence']]
     if not 2 <= len(indices) <= CONTRACT['maximum_reference_poses']:
@@ -441,4 +449,6 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
         candidate['reconstruction_coverage']['two_view_body']['partial_pixels'] = deepcopy(pixel_report)
     if depth_report is not None:
         candidate['reconstruction_coverage']['two_view_body']['depth_branches'] = deepcopy(depth_report)
+    if joint_settings is not None:
+        candidate, audit = refine_joint_pixels(validate_human(candidate), audit, predictions, sources, pixel_views, joint_settings)
     return validate_human(candidate), audit

@@ -430,6 +430,8 @@ class HumanEnv(gym.Env):
                         self.scene['human']['partial_pixels'] = deepcopy(spec['reconstruction_coverage']['two_view_body']['partial_pixels'])
                     if 'depth_branches' in spec['reconstruction_coverage']['two_view_body']:
                         self.scene['human']['depth_branches'] = deepcopy(spec['reconstruction_coverage']['two_view_body']['depth_branches'])
+                    if 'joint_pixels' in spec['reconstruction_coverage']['two_view_body']:
+                        self.scene['human']['joint_pixels'] = deepcopy(spec['reconstruction_coverage']['two_view_body']['joint_pixels'])
                 if 'ground' in spec['camera_reference']:
                     ground = spec['camera_reference']['ground']
                     self.scene['human']['mobility'].update(

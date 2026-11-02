@@ -1711,11 +1711,11 @@
             const pixels = (values.multi_view_proximal_image_constrained_distal || 0) + (values.two_view_proximal_image_constrained_distal || 0);
             return partialSegments ? `${label} ${complete} complete + ${upper} upper-only${scene.human.partial_pixels ? ` + ${pixels} image-constrained` : ""} / ${total}` : `${label} ${complete}/${total}`;
           });
-          const sourceDescription = partialSegments ? "Upper-only limbs use the supported shoulder-to-elbow or hip-to-knee direction; the missing endpoint, bend and twist around the bone remain single-view estimates." : "Missing limb directions retain single-view estimates.";
+          const sourceDescription = scene.human.joint_pixels ? "Original limb estimates seed a joint-image trajectory fit; unavailable depth remains inferred." : partialSegments ? "Upper-only limbs use the supported shoulder-to-elbow or hip-to-knee direction; the missing endpoint, bend and twist around the bone remain single-view estimates." : "Missing limb directions retain single-view estimates.";
           text($("world-description"), `${cameraViews > 2 ? cameraViews : "Two"} views set position and ${modes[scene.human.geometry_mode]}. ${sourceDescription} Left/right lengths share a symmetry assumption. Ground and contact are not fitted. Available ${partialSegments ? "limb" : "complete limb"} estimates: ${counts.join("; ")}.`);
           text($("training-caption"), `Not trained · two-view-body.json shows which geometry uses ${cameraViews > 2 ? "multiple" : "two"} views and which retains single-view estimates. Muscles remain illustrative.`);
           if (scene.human?.limb_position_fit) {
-            text($("world-description"), $("world-description").textContent + " For complete limbs, a bounded angle fit reconciles supported joint positions with fixed limb lengths. Body position and ground stay unchanged; this does not establish contact.");
+            text($("world-description"), $("world-description").textContent + (scene.human.joint_pixels ? " As a starting point, complete limbs use a bounded position fit with fixed lengths. The later image fit can change those angles; both stages remain saved." : " For complete limbs, a bounded angle fit reconciles supported joint positions with fixed limb lengths. Body position and ground stay unchanged; this does not establish contact."));
             text($("training-caption"), "Not trained · two-view-body.json retains original directions, proposed angle corrections and remaining position errors. Source observations are unchanged; muscles remain illustrative.");
           }
           if (scene.human?.partial_pixels) {
@@ -1727,6 +1727,10 @@
             if (scene.human.depth_branches) {
               text($("world-description"), $("world-description").textContent + ` ${scene.human.depth_branches.selected_group_poses} depth hypotheses selected using an assumed smooth path between supported poses. Alternative depths and rejected branches are retained; selected depth is still inferred. These geometric proposals are separate from the small local angle fit.`);
             }
+          }
+          if (scene.human?.joint_pixels) {
+            text($("world-description"), $("world-description").textContent + ` Knee/elbow and ankle/wrist images jointly adjust ${scene.human.joint_pixels.changed_group_poses} limb poses. Nearby corrections are linked by source time, using explicit uncalibrated noise assumptions. Body position, lengths and ground stay fixed; depth and contact are not measured.`);
+            text($("training-caption"), "Not trained · two-view-body.json keeps every original view, missing observation, prior fit, correction and image regression. Muscles remain illustrative.");
           }
         }
       }
