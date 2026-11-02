@@ -1,5 +1,38 @@
 # Combined Weft implementation handoff
 
+## Recovered body with equipment — November 1, 2026, 8:46 PM PST
+
+The [new coupled build, saved contact comparison and full recorded episode](mode-recovered-equipment.md)
+are verified. Source-mode recovery now survives equipment construction, ordinary
+lab admission, manual/coast/authored controls, reset, export, exact replay of all
+263 actions /265 events, and reopening. Fresh transforms preserve the original
+source clocks, 127 body references, complete equipment slots and unchanged gates.
+
+Equipment remains the failure: 64/127 saved poses overlap its proxy; on the 120
+shared source frames, overlaps increase 52→57. The full 254-control episode has
+valid state throughout and passes body/floor terms, but still fails all four
+`sam-2` stability limits. Displacement improves 0.491753→0.160358 model units,
+still above 0.03. Both body and equipment geometry changed; no isolated causal,
+learned-control, physical-accuracy or generalization claim follows.
+
+Construction: 6.648099 s /370,524,160 B; inspector: 0.274894 s /77,185,024 B;
+console/export/replay/resume: 9.248195 s /405,241,856 B. Saved audits independently
+verify 589 construction, 29 report and 428 recording-package members, 44 report
+links, matched source-frame contact counts, recording identities and all 13 task
+gate comparisons. No redundant native replay. Full hashes, exact commands,
+resource limits, audit corrections and local replay path are in the handoff.
+
+All root-owned children are reaped; no paid call, source inference, source-media
+decode, installation, server, deployment or default change. Runtime came from
+committed `dc9c6c8`, excluding dirty avatar work. This checkpoint owns only three
+documentation files; preserve the active avatar session. Publication receipt:
+`.local/mode-equipment-publication-01.json`. Stashes were empty before publication.
+
+Full goal remains active. Next work must address source-qualified body direction
+and equipment geometry/contact with a changed hypothesis. Do not repeat unchanged
+controller or shape sweeps or loosen evaluation. The old playable example stays
+available; the new candidate is an explicitly unpromoted, recorded comparison.
+
 ## Saved-mode recovery verified — November 1, 2026, 8:17 PM PST
 
 The [source-only mode selector, public CLI and strict body/seed integration](pose-mode-recovery.md)
