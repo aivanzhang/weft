@@ -1,0 +1,260 @@
+{
+  "bounds": {
+    "controller_output_mb": 64,
+    "controller_rss_mb": 512,
+    "controller_seconds": 90,
+    "inner_audit_output_mb": 16,
+    "inner_audit_rss_mb": 512,
+    "inner_audit_seconds": 60
+  },
+  "config": "outputs/automatic-fur-fox-preparation-v1/finish-config.json",
+  "driver_sha256": "791bf5b8f3fa7a6848a863d9e9a5e571ce003b49039f811386556e557e952d2a",
+  "inputs": [
+    {
+      "bytes": 75760,
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "009225b66737619e8b8c95fb247b5192db3fa0f545a3a284369d2f531df3e179"
+    },
+    {
+      "bytes": 51765,
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "a60542edf838ec06c93b3675136c7c3520e84e2b8f3ebe80fbfa7965d667dab0"
+    },
+    {
+      "bytes": 25864,
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1"
+    },
+    {
+      "bytes": 14601,
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65"
+    },
+    {
+      "bytes": 13491,
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393"
+    },
+    {
+      "bytes": 9788,
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    },
+    {
+      "bytes": 34271,
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a"
+    },
+    {
+      "bytes": 16614,
+      "path": "avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 38146,
+      "path": "avatar_assets/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 16931,
+      "path": "avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 1326,
+      "path": "avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 13676,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 17295,
+      "path": "avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 19539,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 40332,
+      "path": "avatar_assets/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 5273,
+      "path": "scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 40912,
+      "path": "scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5"
+    },
+    {
+      "bytes": 14944,
+      "path": "scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 17397,
+      "path": "scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 20746,
+      "path": "scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "bytes": 4687,
+      "path": "scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 58228,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "fb4ccc68da44786052049297ab4fef07bb33f8d5aeda889a7cf21c484922130d"
+    },
+    {
+      "bytes": 6129,
+      "path": "scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 6885,
+      "path": "scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 9560,
+      "path": "scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 10304,
+      "path": "scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 9487,
+      "path": "scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 8894,
+      "path": "scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 5450,
+      "path": "scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 31282,
+      "path": "scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 6002,
+      "path": "scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 8834,
+      "path": "scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 26295,
+      "path": "scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 6657,
+      "path": "scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "bytes": 3389,
+      "path": "outputs/automatic-fur-fox-preparation-v1/finish-config.json",
+      "sha256": "ca3560836adc9fb4c4f2febc65f030769abb426bd22ac8c812dd325b56d54ad5"
+    },
+    {
+      "bytes": 27708644,
+      "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+      "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+    },
+    {
+      "bytes": 3449,
+      "path": "outputs/automatic-fur-fox-audit-preparation-v1/check-stage.py",
+      "sha256": "791bf5b8f3fa7a6848a863d9e9a5e571ce003b49039f811386556e557e952d2a"
+    },
+    {
+      "bytes": 558224,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/finish-report.json",
+      "sha256": "6be245c1d62245229d09b9efd6507953eeb9ddb8beb23d174eededcca6f2b674"
+    },
+    {
+      "bytes": 27780020,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/model.glb",
+      "sha256": "d863546e70aa921ac381bf5a1199ffddfb64d12904b29e765e60d0f84794a129"
+    },
+    {
+      "bytes": 34782,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/portable-root-bindings/PortableCoat_0.001.npz",
+      "sha256": "2b7b39be98bfc3336138f414e4eb14688d5bb640fdaeebb4e060660bddfeadc4"
+    },
+    {
+      "bytes": 30238,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/portable-root-bindings/PortableCoat_0.002.npz",
+      "sha256": "2889232fc92f3eb7fd8c8a0228976bce2e1ba3b80f1bf4e1fc9f6f14c005e5c5"
+    },
+    {
+      "bytes": 130142,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "740f991d1c016449c099ae164714f24d4b9f7b6603e4c82522e5d47accd60286"
+    },
+    {
+      "bytes": 3389,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/sources/finish-design.json",
+      "sha256": "ca3560836adc9fb4c4f2febc65f030769abb426bd22ac8c812dd325b56d54ad5"
+    },
+    {
+      "bytes": 627543,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/manifest.json",
+      "sha256": "a460c38fe267f560f5cda46d615e25b1a8e20e91eef7370ab50e230bdbcd2636"
+    },
+    {
+      "bytes": 931,
+      "path": "outputs/fox-automatic-fur-stage-v1/request.json",
+      "sha256": "e86057afc3c6e1a07ee819661ffb1d7b5c0ed8171ebaff688aff51a9f24c5b3e"
+    },
+    {
+      "bytes": 5852,
+      "path": "outputs/fox-automatic-fur-stage-v1/input-receipt.json",
+      "sha256": "17951e3591d93b67741f6399a01d51c531d8554ea69595f9fda68a8fe7da9456"
+    }
+  ],
+  "job": "outputs/fox-automatic-fur-stage-v1",
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "pack": "outputs/fox-automatic-fur-attachment-finish-v1",
+  "schema_version": 1,
+  "scope": "Isolated attachment stage with real Pipeline prepare, source pins, lock, guard, child, receipts, events and cache validation; explicit NoCalls agent prevents AI role work. Do not invoke full run or claim a Studio delivery."
+}

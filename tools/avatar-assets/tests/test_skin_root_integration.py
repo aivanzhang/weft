@@ -211,7 +211,7 @@ class SkinRootNativeReuseIntegrationTests(unittest.TestCase):
     assert_rejected = reuse_fixture.MaterialNativeReuseTests.assert_rejected
 
     def setUp(self):
-        reuse_fixture.MaterialNativeReuseTests.setUp(self)
+        reuse_fixture.MaterialNativeReuseTests.setUp(self, portable_bindings=False)
         for name in ('fur_vertex_roots.py', 'fur_skin_roots.py'):
             shutil.copyfile(finish_generated.ROOT/'scripts'/name, self.source/'sources'/name)
         shutil.copyfile(finish_generated.ROOT/'avatar_assets/fur_bindings.py', self.source/'sources/fur_bindings.py')

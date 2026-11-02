@@ -1,0 +1,252 @@
+{
+  "at": "2026-11-02T09:51:52.035860-08:00",
+  "command": [
+    "/usr/bin/env",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "TMPDIR=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-attachment-pipeline-tests-v2/tmp",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-attachment-pipeline-tests-v2/run_tests.py"
+  ],
+  "equivalent_test_command": "Five explicitly named progression methods in run_tests.py; 13 unchanged passing methods were not rerun.",
+  "inputs": [
+    {
+      "bytes": 96,
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 34271,
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a"
+    },
+    {
+      "bytes": 14601,
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65"
+    },
+    {
+      "bytes": 25864,
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1"
+    },
+    {
+      "bytes": 11789,
+      "path": "avatar_assets/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37"
+    },
+    {
+      "bytes": 16614,
+      "path": "avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 38146,
+      "path": "avatar_assets/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 13676,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 36485,
+      "path": "avatar_assets/fur_attachment.py",
+      "sha256": "3f8dc0faebd9fb65554fa7a9c9b34d102607e43d3fba35090c3a4de7903e716c"
+    },
+    {
+      "bytes": 19539,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 27764,
+      "path": "avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d"
+    },
+    {
+      "bytes": 16931,
+      "path": "avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 17295,
+      "path": "avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 75760,
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "009225b66737619e8b8c95fb247b5192db3fa0f545a3a284369d2f531df3e179"
+    },
+    {
+      "bytes": 9788,
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    },
+    {
+      "bytes": 51124,
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "93fd5659bca107ca11d5d2e34f66efd87ce473039d204c12cfc597232d4fa205"
+    },
+    {
+      "bytes": 1326,
+      "path": "avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 13491,
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 43771,
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "a42c1f68138ed13a07efd558cce16c57a8fb56c8cfdf56b5c3a520b4d3f75799"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 20746,
+      "path": "scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "bytes": 58228,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "fb4ccc68da44786052049297ab4fef07bb33f8d5aeda889a7cf21c484922130d"
+    },
+    {
+      "bytes": 26295,
+      "path": "scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 6657,
+      "path": "scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "bytes": 40912,
+      "path": "scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5"
+    },
+    {
+      "bytes": 5450,
+      "path": "scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 8894,
+      "path": "scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 31282,
+      "path": "scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 6885,
+      "path": "scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 10304,
+      "path": "scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 17397,
+      "path": "scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 4687,
+      "path": "scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 8834,
+      "path": "scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 6002,
+      "path": "scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 9487,
+      "path": "scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 5273,
+      "path": "scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 6129,
+      "path": "scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 9560,
+      "path": "scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 14944,
+      "path": "scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 20672,
+      "path": "tests/test_portable_attachment_pipeline.py",
+      "sha256": "e713ce4c01ca693c145ea08e372c72cabe9b925d5200e726bfbd4e8ff08da9da"
+    }
+  ],
+  "limits": {
+    "agent_calls": 0,
+    "memory_mb": 512,
+    "native_jobs": 0,
+    "output_mb": 16,
+    "provider_calls": 0,
+    "seconds": 30
+  },
+  "prior_result": {
+    "changed_hypothesis": "Bind analytic inspection to its source and supply the attribute receipt required by the full-flow fixture. Production code unchanged.",
+    "fixture_errors": 5,
+    "manifest_sha256": "0839ee86fcd5ff47d2e96ac96c059e482240cb451791dbdd673752a8c0ea2a36",
+    "passed": 13,
+    "path": "outputs/portable-attachment-pipeline-tests-v1"
+  },
+  "schema_version": 1,
+  "scope": "Control-flow and hash-custody fixtures. Numeric validator/worker seam is explicitly analytic; independent real auditor tests remain separate.",
+  "scripts": {
+    "execute.py": "7d12ec8b245e5487a6f6aa76b03696bad4c0eaeb8201a51f60b687f584304d90",
+    "run_tests.py": "4e483d61642ce95d32adb532b893b1451ed16b6d448b01cd34f0c380ab2e62d4"
+  }
+}

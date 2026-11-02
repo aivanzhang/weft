@@ -1,0 +1,123 @@
+{
+  "elapsed_seconds": 0.008017665706574917,
+  "error_encoding": "little-endian float64 max-absolute-component error per root; part order, state/time then part order",
+  "error_hashes": {
+    "animated_attachment": "0ee771ff746e1abe26748786753b376c98b786e0f59fc9568780fba2a0da3384",
+    "named_weight": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+    "rest_midpoint": "a0ae7d5484c18aea842d3551765a1c46715eba9fd04057da4095b95d1f9545c3"
+  },
+  "expected_state_ids": [
+    "flex_probe"
+  ],
+  "gates": {
+    "animated_attachment_m": 1e-05,
+    "authored_inset_m": 0.0005,
+    "named_weight": 1e-06,
+    "rest_midpoint_m": 1e-06
+  },
+  "implementations": {
+    "fur_attachment.py": "3f8dc0faebd9fb65554fa7a9c9b34d102607e43d3fba35090c3a4de7903e716c",
+    "fur_bindings.py": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+    "safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "three_d.py": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+  },
+  "inputs": [
+    {
+      "bytes": 16688,
+      "path": "manifest.json",
+      "sha256": "a1c186917cb993f20462fbc9537fca3c5a84963d2951f2b448a58c2ea71bffaf"
+    },
+    {
+      "bytes": 14473,
+      "path": "finish-report.json",
+      "sha256": "30fe828de54577c002eb8c9c9bb6db087f0d41d9510ea7a690916c6bcee73c6e"
+    },
+    {
+      "bytes": 948,
+      "path": "sources/finish-design.json",
+      "sha256": "0e5518e26674d15c16cb9c0d2c856aa8c95f2c22f4839b969ccfd35da6871ab7"
+    },
+    {
+      "bytes": 217468,
+      "path": "model.glb",
+      "sha256": "535cbd61ab1a98c054b5c11579b5effd6a9f6e239532664b59cd14f9cb0c9a4c"
+    },
+    {
+      "bytes": 1182,
+      "path": "portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "70547ed15343735ea79bc0cadd5356a54aa183993dae75a09098dd0f6766bb39"
+    },
+    {
+      "bytes": 1182,
+      "path": "portable-root-bindings/PortableCoat_1.npz",
+      "sha256": "bd23469f2137f7eeb24e3237a7f03b60d33e59adf8a71de7ad9d550ded5e27e2"
+    }
+  ],
+  "intent": {
+    "design_sha256": "0e5518e26674d15c16cb9c0d2c856aa8c95f2c22f4839b969ccfd35da6871ab7",
+    "model_sha256": "535cbd61ab1a98c054b5c11579b5effd6a9f6e239532664b59cd14f9cb0c9a4c",
+    "schema_version": 1,
+    "source_sha256": "0ff9801b15d783b5ec87d023117f5ecf048b73139878d5e6a603aec420f379d3",
+    "state_ids": [
+      "flex_probe"
+    ]
+  },
+  "limitations": [
+    "Attachment to the final exported body, not native-source skin fidelity.",
+    "Discrete 24 fps samples only; no continuous-motion, loop, physics or appearance approval."
+  ],
+  "metrics": {
+    "attachment_failures": 0,
+    "body_vertices": 6,
+    "coat_vertices": 24,
+    "exported_vertices": 47,
+    "max_attachment_error_m": 9.107366111260617e-09,
+    "max_inset_m": 0.0003585860077981987,
+    "max_named_weight_error": 0.0,
+    "max_rest_midpoint_error_m": 9.107366111260617e-09,
+    "named_weight_failures": 0,
+    "rest_midpoint_failures": 0,
+    "root_pose_checks": 100,
+    "triangles": 18,
+    "unique_attachment_failed_roots": 0
+  },
+  "passed": true,
+  "policy": "portable-fur-attachment-v1",
+  "reason": "Attachment measured against the final exported body",
+  "roots": 4,
+  "schema_version": 1,
+  "states": [
+    {
+      "id": "flex_probe",
+      "times": [
+        0.0,
+        0.041666666666666664,
+        0.08333333333333333,
+        0.125,
+        0.16666666666666666,
+        0.20833333333333334,
+        0.25,
+        0.2916666666666667,
+        0.3333333333333333,
+        0.375,
+        0.4166666666666667,
+        0.4583333333333333,
+        0.5,
+        0.5416666666666666,
+        0.5833333333333334,
+        0.625,
+        0.6666666666666666,
+        0.7083333333333334,
+        0.75,
+        0.7916666666666666,
+        0.8333333333333334,
+        0.875,
+        0.9166666666666666,
+        0.9583333333333334,
+        1.0
+      ]
+    }
+  ],
+  "status": "measured",
+  "witnesses": []
+}

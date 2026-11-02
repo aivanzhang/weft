@@ -1,0 +1,210 @@
+{
+  "analytic_fixture_not_avatar": true,
+  "artifacts": [
+    {
+      "bytes": 4973,
+      "path": "finish-report.json",
+      "sha256": "edf560be1719d951ca4af3ec17d0fa46667d36bf197e95fb47fc07ee5877d1be"
+    },
+    {
+      "bytes": 537532,
+      "path": "model.glb",
+      "sha256": "dd5c36d3c0ae80eec35161821d18f52e9857d3c366958b131156bf41c131eab2"
+    },
+    {
+      "bytes": 1182,
+      "path": "portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "fc9c012141ccaa901992503a1ebb666bd1838b5901eaf9d55a6817a1d846d4fa"
+    },
+    {
+      "bytes": 1182,
+      "path": "portable-root-bindings/PortableCoat_1.npz",
+      "sha256": "0a6627448ec3fe52b1ed152fcae0118592101701a3827507409714100de5f423"
+    },
+    {
+      "bytes": 822,
+      "path": "source-fixture.json",
+      "sha256": "3c16c14774de63a9692e833f3c95d11d529ddaaa8ae9185a5250726fec246a5d"
+    },
+    {
+      "bytes": 906,
+      "path": "sources/finish-design.json",
+      "sha256": "6993cf1916caecffa14d5760445bce6829da2a7badf7a27c7a668891a3c4bf4b"
+    }
+  ],
+  "finish": {
+    "analytic_fixture_not_public_finish": true,
+    "independent_fixture_body_check": {
+      "body_named_weights_exact": true,
+      "body_oriented_id_triangles_exact": true,
+      "body_points_exact_float32_basis": true,
+      "body_vertex_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "portable_fur": [
+      {
+        "cards": 2,
+        "config": {
+          "brightness": [
+            0,
+            0.5
+          ],
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "count": 2
+        },
+        "geometry_profile": "combed-v1",
+        "material": {
+          "alpha_cutoff": 0.18,
+          "alpha_mode": "MASK",
+          "double_sided": false,
+          "kind": "fur_atlas",
+          "material": "PortableCoat_0_cutout_fur",
+          "path": "textures/PortableCoat_0-fur-atlas.png",
+          "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+          "profile": "distance-v1",
+          "resolution": 1024,
+          "root_color": "Barycentric source sRGB converted to linear vertex color; constant per ribbon",
+          "seed": 193,
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        },
+        "root_summary": {
+          "binding_archive": {
+            "bytes": 1182,
+            "export_correspondence": {
+              "attribute": "_AVATAR_FUR_VERTEX_ID",
+              "coat_node": "PortableCoat_0",
+              "coat_vertex_count": 12,
+              "policy": "portable-fur-source-ids-v1",
+              "source_node": "analytic_surface_combed_v1",
+              "source_triangle_count": 2,
+              "source_vertex_count": 6
+            },
+            "path": "portable-root-bindings/PortableCoat_0.npz",
+            "root_inset_convention": "surface_root_minus_bottom_edge_midpoint",
+            "roots": 2,
+            "schema_version": 2,
+            "sha256": "fc9c012141ccaa901992503a1ebb666bd1838b5901eaf9d55a6817a1d846d4fa",
+            "space": "blender_local_z_up_meters"
+          },
+          "recorded_roots": 2,
+          "root_placement": "area-random-v1"
+        },
+        "sample_root_color": true,
+        "vertices": 12
+      },
+      {
+        "cards": 2,
+        "config": {
+          "brightness": [
+            0.5,
+            1.01
+          ],
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "count": 2
+        },
+        "geometry_profile": "combed-v1",
+        "material": {
+          "alpha_cutoff": 0.18,
+          "alpha_mode": "MASK",
+          "double_sided": false,
+          "kind": "fur_atlas",
+          "material": "PortableCoat_1_cutout_fur",
+          "path": "textures/PortableCoat_1-fur-atlas.png",
+          "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+          "profile": "distance-v1",
+          "resolution": 1024,
+          "root_color": "Barycentric source sRGB converted to linear vertex color; constant per ribbon",
+          "seed": 193,
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        },
+        "root_summary": {
+          "binding_archive": {
+            "bytes": 1182,
+            "export_correspondence": {
+              "attribute": "_AVATAR_FUR_VERTEX_ID",
+              "coat_node": "PortableCoat_1",
+              "coat_vertex_count": 12,
+              "policy": "portable-fur-source-ids-v1",
+              "source_node": "analytic_surface_combed_v1",
+              "source_triangle_count": 2,
+              "source_vertex_count": 6
+            },
+            "path": "portable-root-bindings/PortableCoat_1.npz",
+            "root_inset_convention": "surface_root_minus_bottom_edge_midpoint",
+            "roots": 2,
+            "schema_version": 2,
+            "sha256": "0a6627448ec3fe52b1ed152fcae0118592101701a3827507409714100de5f423",
+            "space": "blender_local_z_up_meters"
+          },
+          "recorded_roots": 2,
+          "root_placement": "area-random-v1"
+        },
+        "sample_root_color": true,
+        "vertices": 12
+      }
+    ],
+    "portable_fur_identity": {
+      "attachment_verified": false,
+      "attribute": "_AVATAR_FUR_VERTEX_ID",
+      "coats": [
+        {
+          "node": "PortableCoat_0",
+          "roots": 2,
+          "vertices": 12
+        },
+        {
+          "node": "PortableCoat_1",
+          "roots": 2,
+          "vertices": 12
+        }
+      ],
+      "export_attribute_type": "SCALAR",
+      "export_attributes": true,
+      "export_component_type": 5126,
+      "identity_scope": "IDs are local to each named mesh; bottom card endpoints are 6*r and 6*r+1",
+      "native_attribute_domain": "POINT",
+      "native_attribute_type": "INT",
+      "policy": "portable-fur-source-ids-v1",
+      "recorded_roots": 4,
+      "schema_version": 1,
+      "source_node": "analytic_surface_combed_v1",
+      "source_skin_restoration_performed": false,
+      "source_triangle_count": 2,
+      "source_vertex_count": 6,
+      "space": "applied_rest_Blender_XYZ_meters"
+    },
+    "schema_version": 1,
+    "source_sha256": "3c16c14774de63a9692e833f3c95d11d529ddaaa8ae9185a5250726fec246a5d",
+    "source_unchanged": true,
+    "states": [
+      {
+        "id": "flex_probe"
+      }
+    ]
+  },
+  "id": "analytic-native-combed-v1",
+  "schema_version": 1,
+  "source_sha256": "3c16c14774de63a9692e833f3c95d11d529ddaaa8ae9185a5250726fec246a5d",
+  "states": [
+    {
+      "id": "flex_probe"
+    }
+  ],
+  "status": "needs_visual_review"
+}

@@ -28,14 +28,15 @@ MAX_STAGE_START_SECONDS = 3600
 PIPELINE_SOURCES = ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
-                    'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py')
+                    'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
+                    'fur_attachment.py')
 PIPELINE_SCRIPT_SOURCES = ('motion_samples.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py',
                           'edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py',
                           'fur_root_sampling.py', 'blender_finish_generated.py', 'native_render_tasks.py',
                           'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py',
                           'material_fur.py', 'blender_material_colors.py', 'blender_material_coat.py',
                           'blender_material_groom.py', 'fur_vertex_roots.py', 'fur_skin_roots.py',
-                          'blender_fur_cards.py')
+                          'blender_fur_cards.py', 'blender_fur_identity.py')
 
 
 class InterruptedStage(ValueError):
@@ -716,6 +717,101 @@ class Pipeline:
         require(report['passed'], 'Severe sampled skin deformation: '+json.dumps(report['states']))
         return report
 
+    def _portable_attachment(self, attempt, pack, plan, source, config_path):
+        from avatar_assets.fur_attachment import validate_report
+        from avatar_assets.runner import run_bounded
+        from avatar_assets.safety import preserve_failure
+        folder = self.root/f'portable-root-audit-{attempt}'
+        receipt_path = self.root/f'portable-root-audit-{attempt}.json'
+        created = False
+        try:
+            intent = {'schema_version': 1, 'source_sha256': source['sha256'],
+                      'design_sha256': sha256(config_path), 'model_sha256': sha256(pack/'model.glb'),
+                      'state_ids': [state['id'] for state in plan['states']]}
+            model_manifest = sha256(pack/'manifest.json')
+            implementation = sha256(ROOT/'avatar_assets/fur_attachment.py')
+            command = ['/usr/bin/env', '-i', 'PATH=/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE=1',
+                       'OPENBLAS_NUM_THREADS=1', 'OMP_NUM_THREADS=1', 'VECLIB_MAXIMUM_THREADS=1',
+                       'PYTHONPATH='+str(ROOT), sys.executable, '-B', '-m', 'avatar_assets.fur_attachment',
+                       str(pack), str(folder/'intent.json'), str(folder/'report.json')]
+            if not folder.exists():
+                require(not receipt_path.exists(), 'Audit receipt exists without its pack')
+                events = sorted((self.root/'events').glob('*.json'))
+                require(len(events) <= 128, 'Pipeline event inventory exceeds its bound')
+                history = [read_json(path) for path in events]
+                if history and history[-1].get('stage') == 'portable_attachment' \
+                        and history[-1].get('attempt') == attempt and history[-1].get('status') == 'running':
+                    history = history[:-1]
+                require(not any(row.get('stage') == 'portable_attachment' and row.get('attempt') == attempt
+                                for row in history), 'Previously started attachment audit has no saved pack')
+
+            def create():
+                nonlocal created
+                new_directory(folder)
+                created = True
+                try:
+                    write_json(folder/'intent.json', intent)
+                    job = run_bounded(command, folder/'audit.log', folder, timeout=60, memory_mb=512, output_mb=16)
+                    write_json(folder/'job.json', job)
+                    require(type(job.get('exit_code')) is int and job['exit_code'] == 0
+                            and job.get('failure') is None and job.get('process_exit_verified') is True
+                            and job.get('manual_stop_required') is False,
+                            'Attachment audit worker failed or has uncertain exit')
+                    report = read_json(local_file(folder/'report.json', 1024**2))
+                    require(isinstance(report, dict) and report.get('status') in
+                            ('measured', 'not_applicable', 'unsupported'), 'Invalid attachment report status')
+                    write_json(folder/'manifest.json', {'schema_version': 1, 'kind': 'portable_root_attachment_audit',
+                        'status': report['status'], 'model_manifest_sha256': model_manifest,
+                        'model_sha256': intent['model_sha256'], 'intent_sha256': sha256(folder/'intent.json'),
+                        'implementation_sha256': implementation, 'artifacts': artifacts(folder)})
+                except Exception as error:
+                    preserve_failure(folder, error)
+                    raise
+
+            proof = self._pack(folder, create)
+            require(proof.get('kind') == 'portable_root_attachment_audit'
+                    and proof.get('model_manifest_sha256') == model_manifest
+                    and proof.get('model_sha256') == intent['model_sha256']
+                    and proof.get('intent_sha256') == sha256(folder/'intent.json')
+                    and proof.get('implementation_sha256') == implementation,
+                    'Attachment audit model, intent or implementation changed')
+            require(read_json(local_file(folder/'intent.json', 1024**2)) == intent, 'Attachment intent changed')
+            job = read_json(local_file(folder/'job.json', 1024**2))
+            require(type(job.get('exit_code')) is int and job['exit_code'] == 0 and job.get('failure') is None
+                    and job.get('process_exit_verified') is True and job.get('manual_stop_required') is False
+                    and job.get('command') == command and isinstance(job.get('limits'), dict)
+                    and all(job['limits'].get(key) == value for key, value in
+                            (('wall_seconds', 60), ('rss_mb', 512), ('output_mb', 16))),
+                    'Attachment worker receipt is invalid')
+            report = validate_report(pack, intent, read_json(local_file(folder/'report.json', 1024**2)))
+            require(proof['status'] == report['status'], 'Attachment report status differs from its manifest')
+            receipt = {'schema_version': 1, 'manifest_sha256': sha256(folder/'manifest.json'),
+                       'report_sha256': sha256(folder/'report.json'), 'job_sha256': sha256(folder/'job.json'),
+                       'intent_sha256': sha256(folder/'intent.json'), 'model_manifest_sha256': model_manifest}
+            if created:
+                require(not receipt_path.exists(), 'Attachment controller receipt already exists')
+                write_json(receipt_path, receipt)
+            require(read_json(local_file(receipt_path, 4096)) == receipt, 'Attachment audit custody receipt changed')
+            return report
+        except (ValueError, OSError, KeyError, TypeError, AttributeError, RecursionError) as error:
+            raise EvidenceCustodyError('Portable attachment evidence requires inspection; no automatic repair: '+str(error)) from error
+
+    def _attachment_summary(self, attempt, report):
+        try:
+            folder = self.root/f'portable-root-audit-{attempt}'
+            summary = {key: report[key] for key in ('schema_version', 'policy', 'status', 'passed',
+                                                    'reason', 'roots', 'gates', 'metrics')}
+            summary.update(states=[{'id': state['id'], 'sample_count': len(state['times'])} for state in report['states']],
+                           witnesses=report['witnesses'][:4], retained_witnesses=len(report['witnesses']),
+                           evidence={'report': str((folder/'report.json').relative_to(self.root)),
+                                     'sha256': sha256(folder/'report.json'),
+                                     'manifest_sha256': sha256(folder/'manifest.json')},
+                           scope='Portable root attachment only; not body-skin fidelity, density, appearance or physics.')
+            require(len(json.dumps(summary, allow_nan=False).encode()) <= 16*1024, 'Attachment summary exceeds its bound')
+            return summary
+        except (ValueError, OSError, KeyError, TypeError) as error:
+            raise EvidenceCustodyError('Portable attachment summary requires inspection: '+str(error)) from error
+
     @staticmethod
     def _bind_review(review, evidence, action_audit=None):
         if review['verdict'] != 'accept':
@@ -792,6 +888,7 @@ class Pipeline:
             config_path = self.root/f'finish-{attempt}.json'
             pack, reload = self.root/f'model-{attempt}', self.root/f'reload-{attempt}'
             exported = self.root/f'exported-preview-{attempt}'
+            attachment_proof = None
             try:
                 config = prompts.finish_config(answer, self.request, plan, source, attempt,
                                                quality_policy=quality, bone_parents=source_parents)
@@ -812,6 +909,18 @@ class Pipeline:
                 deformation = self._deformation(attempt, pack, plan, source, config_path)
                 self.event('deformation_gate', 'complete', attempt=attempt,
                            reason='No reported gross skin spike; this is not visual acceptance.')
+                self.event('portable_attachment', 'running', attempt=attempt)
+                attachment = self._portable_attachment(attempt, pack, plan, source, config_path)
+                attachment_proof = self._attachment_summary(attempt, attachment)
+                if attachment['status'] == 'unsupported':
+                    return self.unsupported('portable_attachment', attachment['reason'], attempt=attempt,
+                                            attachment=attachment_proof)
+                require(attachment['passed'] is True,
+                        'Portable root attachment rejected: '+json.dumps(attachment_proof, allow_nan=False))
+                self.event('portable_attachment', 'complete', attempt=attempt,
+                           audit_manifest_sha256=attachment_proof['evidence']['manifest_sha256'],
+                           reason=('No portable roots require attachment checks.' if attachment['status'] == 'not_applicable'
+                                   else 'Portable roots passed sampled attachment checks; appearance remains unreviewed.'))
                 self.event('native_reload', 'running', attempt=attempt)
                 loaded = self._pack(reload, lambda: reload_3d(pack, reload))
                 require(loaded['status'] == 'passed'
@@ -839,6 +948,7 @@ class Pipeline:
                 proofs = {'rig': built['rig_verification'], 'native_reload': loaded['status'],
                           'attributes': read_json(pack/'render-attributes.json'), 'action_audit': action_audit,
                           'deformation_gate': deformation,
+                          'portable_attachment': attachment_proof,
                           'quality_policy': quality, 'quality_coverage': quality_coverage,
                           'delivered_media': read_json(portable/'manifest.json')['clips']}
                 self.event('review_evidence', 'complete', attempt=attempt,
@@ -848,12 +958,15 @@ class Pipeline:
                     raise
                 self._fail_active_stage(error)
                 for candidate in (pack, reload, exported, self.root/f'media-{attempt}',
-                                  self.root/f'media-continuation-{attempt}', self.root/f'action-audit-{attempt}'):
+                                  self.root/f'media-continuation-{attempt}', self.root/f'action-audit-{attempt}',
+                                  self.root/f'portable-root-audit-{attempt}'):
                     if (candidate/'job.json').exists():
                         job = read_json(candidate/'job.json')
                         require(not job.get('manual_stop_required') and job.get('process_exit_verified'),
                                 'Owned native process exit is unresolved; no automatic repair')
                 previous, findings = answer, {'validation_failure': str(error), 'measurements': self._diagnostics(pack)}
+                if attachment_proof is not None:
+                    findings['measurements']['portable_attachment'] = attachment_proof
                 if (pack/'finish-report.json').exists() and read_json(pack/'finish-report.json').get('states'):
                     _, repair_images = self._contacts(attempt, pack)
                     findings['repair_images'] = [str(p) for p in repair_images[:5]]
@@ -875,23 +988,25 @@ class Pipeline:
                                         attempt=attempt, failure_kind='review_contract')
             review_path = self.root/f'review-{attempt}.json'
             review_receipt = {'review': review, 'evidence': evidence,
-                              'model_manifest_sha256': sha256(pack/'manifest.json'), 'human_approval': False}
+                              'model_manifest_sha256': sha256(pack/'manifest.json'), 'human_approval': False,
+                              'portable_attachment_manifest_sha256': attachment_proof['evidence']['manifest_sha256']}
             if not review_path.exists():
                 write_json(review_path, review_receipt)
             require(read_json(review_path) == review_receipt, 'Cached review receipt changed')
             self.event('reviewer', review['verdict'], attempt=attempt)
             if review['verdict'] == 'accept':
-                selected = (attempt, pack, reload, review, media, portable)
+                selected = (attempt, pack, reload, review, media, portable, attachment_proof)
                 break
             if review['verdict'] == 'unsupported':
                 return self.unsupported('reviewer', review['summary'], attempt=attempt, review=review)
             _, repair_images = self._contacts(attempt, pack)
             previous, findings = config, {'review': review, 'measurements': self._diagnostics(pack),
                                          'repair_images': [str(p) for p in repair_images[:5]]}
+            findings['measurements']['portable_attachment'] = attachment_proof
         if selected is None:
             return self.unsupported('repair_budget', 'No accepted model within the bounded local repair attempts', findings=findings)
-        attempt, pack, reload, review, media, portable = selected
-        return self._deliver(plan, attempt, pack, reload, review, media, portable)
+        attempt, pack, reload, review, media, portable, attachment_proof = selected
+        return self._deliver(plan, attempt, pack, reload, review, media, portable, attachment_proof)
 
     def _media(self, attempt, pack):
         from avatar_assets.export2d import export_2d
@@ -915,11 +1030,17 @@ class Pipeline:
                    reason='Portrait, video and static files encoded; independent quality review is pending.')
         return media, portable
 
-    def _deliver(self, plan, attempt, pack, reload, review, media, portable):
+    def _deliver(self, plan, attempt, pack, reload, review, media, portable, attachment):
         from avatar_assets.cli import verify_pack
         from avatar_assets.gallery import _Catalog
         self.guard()
         self.event('delivery', 'running', attempt=attempt)
+        audit = self.root/f'portable-root-audit-{attempt}'
+        custody = read_json(local_file(self.root/f'portable-root-audit-{attempt}.json', 4096))
+        require(attachment['passed'] is True and attachment['status'] in ('measured', 'not_applicable')
+                and attachment['evidence']['manifest_sha256'] == custody['manifest_sha256'] == sha256(audit/'manifest.json')
+                and attachment['evidence']['sha256'] == custody['report_sha256'] == sha256(audit/'report.json'),
+                'Delivery attachment proof changed or did not pass')
         catalog = {'schema_version': 1, 'assets': [{
             'id': self.request['id'], 'title': plan['subject'] if len(plan['subject']) <= 160 else plan['subject'][:159]+'…',
             'kind': 'generated_3d',
@@ -931,11 +1052,12 @@ class Pipeline:
             write_json(catalog_path, catalog)
         _Catalog(ROOT, str(catalog_path.relative_to(ROOT)))
         packs = [pack, reload, media, portable, self.root/f'exported-preview-{attempt}',
-                 self.root/f'action-audit-{attempt}', self.root/f'final-evidence-{attempt}']
+                 self.root/f'action-audit-{attempt}', self.root/f'final-evidence-{attempt}',
+                 self.root/f'portable-root-audit-{attempt}']
         for p in packs:
             verify_pack(p)
         result = {'schema_version': 1, 'status': 'complete', 'out': str(self.root),
-                  'scope': 'Generated/reused geometry, agent-authored design, weighted action audit, independent native motion proof and final-media HD review; not universal quality or human approval.',
+                  'scope': 'Generated/reused geometry, agent-authored design, weighted action and portable attachment audits, independent native motion proof and final-media HD review; not universal quality or human approval.',
                   'request_sha256': sha256(self.root/'request.json'), 'plan_sha256': sha256(self.root/'plan.json'),
                   'selected_attempt': attempt, 'model': str(pack.relative_to(self.root)/'model.glb'),
                   'editable_source': str(pack.relative_to(self.root)/'source.blend'),
@@ -944,13 +1066,14 @@ class Pipeline:
                   'new_meshy_credits': 0 if self.request['reuse_model'] else read_json(self.root/'generation-cost.json')['provider_reported_credits'],
                   'generation_cost': {'reserved_credits': 0, 'paid_submissions': 0} if self.request['reuse_model'] else read_json(self.root/'generation-cost.json'),
                   'quality_equivalence_verified': False, 'weft_runtime_verified': False, 'human_approval': False,
-                  'loop_verified': False, 'review': review,
+                  'loop_verified': False, 'review': review, 'portable_attachment': attachment,
                   'packs': [{'path': str(p.relative_to(self.root)), 'manifest_sha256': sha256(p/'manifest.json')} for p in packs],
                   'limitations': plan['limitations']+review['limitations'], 'recorded': now()}
         write_json(self.root/'delivery.json', result)
         write_json(self.root/'delivery-receipt.json', {
             name: sha256(self.root/name) for name in ('delivery.json', 'plan.json', 'gallery.json', 'quality-policy.json',
-                                                   f'review-{attempt}.json', f'deformation-gate-{attempt}.json')})
+                                                   f'review-{attempt}.json', f'deformation-gate-{attempt}.json',
+                                                   f'portable-root-audit-{attempt}.json')})
         self.event('delivery', 'complete', attempt=attempt, model=result['model'])
         return result
 

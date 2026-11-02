@@ -1,0 +1,133 @@
+{
+  "artifact_bytes": 752168,
+  "artifact_count": 24,
+  "artifacts": [
+    {
+      "bytes": 4052,
+      "path": "binding-comparison.json",
+      "sha256": "dc2100431b1fc906c87036fc11dd34ff395ed448b4297c6abfb816c037f1abbe"
+    },
+    {
+      "bytes": 17700,
+      "path": "compare.py",
+      "sha256": "fa86c2060d04c7862a93ce2f231020bbd0952da5e7056509f6ba4dc78efe0a43"
+    },
+    {
+      "bytes": 250,
+      "path": "comparison-handle.json",
+      "sha256": "6e8c7bb147a5f0031342c54e66af65eddf8f98e31765e4732671185c6c85d477"
+    },
+    {
+      "bytes": 1035,
+      "path": "comparison-monitor.json",
+      "sha256": "aa35846193fbd2f2a99c58a4b16405feb0f3cc587b0ed374e1eafb85b5bd41e3"
+    },
+    {
+      "bytes": 1819,
+      "path": "comparison.log",
+      "sha256": "e08964624eee7db564f6bf7f91b20b31009ea559a6f66c379a8f3e20852a5f0e"
+    },
+    {
+      "bytes": 854,
+      "path": "execute.py",
+      "sha256": "b52138c465d4f27732c44f0f7db9c9488e1d71e14c829b06fbfe9d31f6b9fbe0"
+    },
+    {
+      "bytes": 18947,
+      "path": "integration-inventory.json",
+      "sha256": "50d8e021413ce7f75790a9a7ae786593036f215a22fe16c672220f837df864d5"
+    },
+    {
+      "bytes": 1129,
+      "path": "job.json",
+      "sha256": "2bc6058bfb8b989b5d0229d53905e014981b1ec8f6e0fe2a5c26931aef286cff"
+    },
+    {
+      "bytes": 6791,
+      "path": "model-comparison.json",
+      "sha256": "97deb6a628e7a815324b2a9919063cdc07fcf77440dbc5b244f193bf7a559a3f"
+    },
+    {
+      "bytes": 277972,
+      "path": "model-semantics-new.json",
+      "sha256": "9b3338f6eceec50abf14dddd13762814ac3a11a7a3c89d6c508a7e06c07018d5"
+    },
+    {
+      "bytes": 277972,
+      "path": "model-semantics-old.json",
+      "sha256": "9b3338f6eceec50abf14dddd13762814ac3a11a7a3c89d6c508a7e06c07018d5"
+    },
+    {
+      "bytes": 13942,
+      "path": "pixel-comparison.json",
+      "sha256": "950489104789c90a581d7552265abdd7c247c9df2875c48842389d98374c6569"
+    },
+    {
+      "bytes": 16831,
+      "path": "prepared.json",
+      "sha256": "20a60aa00b3ae0783fa855629050e96db90263ce6105573915e6c40408abeef2"
+    },
+    {
+      "bytes": 7523,
+      "path": "public-verify-pack.json",
+      "sha256": "2dd077ae6ccae1ccfb502550f4a3f053411774436eebdf811b044cfe3658942d"
+    },
+    {
+      "bytes": 3031,
+      "path": "release.json",
+      "sha256": "6b6520e0bacb6d9184e6df7a38d753b1f320dd2df37b45ed7fb6b50e033b6344"
+    },
+    {
+      "bytes": 1967,
+      "path": "result.json",
+      "sha256": "ffa1d886dbbce3515471df8f7fdc74593953e7e5b0565c79b412c20e7cc828bf"
+    },
+    {
+      "bytes": 546,
+      "path": "seal-attempt-v1.json",
+      "sha256": "36471da4f6d95e42e02f18bec4716f39b3c2b8b5e6ae9c6ef462c17148910e47"
+    },
+    {
+      "bytes": 11789,
+      "path": "sources/avatar_assets/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37"
+    },
+    {
+      "bytes": 19539,
+      "path": "sources/avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 17700,
+      "path": "sources/outputs/automatic-fur-fox-preservation-v1/compare.py",
+      "sha256": "fa86c2060d04c7862a93ce2f231020bbd0952da5e7056509f6ba4dc78efe0a43"
+    },
+    {
+      "bytes": 276,
+      "path": "sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    }
+  ],
+  "kind": "actual_saved_model_preservation_comparison",
+  "passed": true,
+  "quality_verified": false,
+  "schema_version": 1,
+  "self_excluded": true,
+  "source_outputs_modified": false,
+  "status": "exact_semantics_preserved"
+}

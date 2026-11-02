@@ -1,0 +1,39 @@
+{
+  "audit_manifest_sha256": "f0d28abbeba03e69e78c7db58163f18d2991e9f8ae5f7692873e73f0011c59bf",
+  "cached_pack_bytes_unchanged": true,
+  "cached_report_equal": true,
+  "cached_validation_seconds": 0.030395500361919403,
+  "controller_receipt_sha256": "88d5071884f2c512a4fbace86117065a7734be0f6d36d71053cd1879ca251f10",
+  "metrics": {
+    "attachment_failures": 0,
+    "body_vertices": 30418,
+    "coat_vertices": 18000,
+    "exported_vertices": 62609,
+    "max_attachment_error_m": 1.151202928539874e-07,
+    "max_inset_m": 0.0005000000000000001,
+    "max_named_weight_error": 2.220446049250313e-16,
+    "max_rest_midpoint_error_m": 1.1512028619264925e-07,
+    "named_weight_failures": 0,
+    "rest_midpoint_failures": 0,
+    "root_pose_checks": 1164000,
+    "triangles": 59776,
+    "unique_attachment_failed_roots": 0
+  },
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "passed": true,
+  "quality_approved": false,
+  "report_sha256": "21bd42aced27c13dcef1781e5d7885882dd7ed0b22793b861c259dffdd564734",
+  "roots": 3000,
+  "schema_version": 1,
+  "scope": "Actual saved-fox final GLB and real locked pipeline attachment stage; not complete Studio or fresh generation",
+  "source_pins_unchanged": true,
+  "state_sample_counts": {
+    "idle": 97,
+    "making_something": 97,
+    "milestone_level_up": 97,
+    "working": 97
+  },
+  "status": "measured",
+  "total_stage_seconds": 1.4377274168655276
+}

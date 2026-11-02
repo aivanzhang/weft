@@ -1,0 +1,94 @@
+{
+  "cleanup_events": [],
+  "combined_output_bytes": 107610111,
+  "cpu_exit_code": 0,
+  "cpu_exit_verified": true,
+  "cpu_phases": {
+    "postprocess": {
+      "elapsed_seconds": 0.48931841691955924,
+      "limit_mib": 512,
+      "limit_seconds": 30,
+      "rss_samples": 6,
+      "sampled_peak_rss_bytes": 205799424
+    },
+    "preflight": {
+      "elapsed_seconds": 0.12451712507754564,
+      "limit_mib": 512,
+      "limit_seconds": 30,
+      "rss_samples": 2,
+      "sampled_peak_rss_bytes": 123961344
+    }
+  },
+  "cpu_pid": 4478,
+  "elapsed_seconds": 27.671059584245086,
+  "failure": null,
+  "frozen_inputs_unchanged": true,
+  "manifest_sha256": "a460c38fe267f560f5cda46d615e25b1a8e20e91eef7370ab50e230bdbcd2636",
+  "measurement_scope": "Per-phase sampled CPU-child RSS; separate native direct-child receipt; not whole-tree RSS",
+  "model_sha256": "d863546e70aa921ac381bf5a1199ffddfb64d12904b29e765e60d0f84794a129",
+  "native_calls": 1,
+  "native_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-automatic-fur-attachment-finish-v1/sources/blender_finish_generated.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-automatic-fur-attachment-finish-v1/finish-config.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-automatic-fur-attachment-finish-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 26.714,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 79169407,
+    "last_rss_sample_elapsed_seconds": 26.455,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "finish-monitor.json",
+    "monitor_errors": [],
+    "pid": 4480,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 104,
+    "sampled_max_output_bytes": 79169407,
+    "sampled_peak_rss_bytes": 1558937600,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "output": "outputs/fox-automatic-fur-attachment-finish-v1",
+  "prepared_sha256": "f1b72d98ea47bc55e890ee1527f4f9dc92e6365c445547f3266dd89ffd83f607",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "finished_needs_independent_audit",
+  "worker_result": {
+    "kind": "complete",
+    "result": {
+      "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-automatic-fur-attachment-finish-v1",
+      "states": 4,
+      "status": "needs_visual_review",
+      "vertices": 62609
+    }
+  }
+}

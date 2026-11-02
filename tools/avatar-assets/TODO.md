@@ -4,12 +4,24 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-02 09:18:53 PST. Attachment component and custody fix complete; avatar-only checkpoint is being saved. Actual fox model `e08bd6e...` passes all 3,000 roots at 36 sampled poses, maximum 0.000374 mm. Body/color/public verify pass. Eight inspected images still show short plush and source/boundary defects; no accepted avatar or Studio delivery. Final missing card-helper pin is fixed; one changed regression passes without repeating the prior 47 checks. Evidence bundle: 521 origin records /345 exact snapshots /20,275,657B, manifest `3a1ca77b...`. Root owns docs/save; all agents released and all owned jobs exited. No provider/role calls, browser/server, default/gallery/Weft edits or allowance change. Next: generalize attachment/coverage acceptance, then distinct measured visible-quality work; do not repeat unchanged renders or call the overall goal complete.
+- Recorded: 2026-11-02 10:14:19 PST. Previous checkpoint `62b6d80` is privately pushed (v16 receipt unchanged). Current automatic attachment increment is implemented and verified on analytic fixtures plus the actual saved fox: 1,164,000 root-pose checks pass,1.151203e-7m maximum per-coordinate separation. Native4480/CPU4478 and audit4940/controller4939 exited. No browser/server or provider/AI-role job was started. Current gate evidence is sealed; its preservation comparison passed. Root owns avatar-only save; contracts prepares one concrete Studio run and runner verifies current official Meshy pricing, both read-only with no paid calls. No new paid work; read-only ledger remains202/210credits (16successful submissions),13prior AI study calls consumed. Next safe action: save the verified gate checkpoint, finish the single-run Studio request/estimate, and obtain any required finite spending allowance before executing that real run. The user now accepts the prior appearance: stop appearance-upgrade experiments; focus fully hands-off completion. Do not repeat unchanged builds or claim the component is a Studio delivery.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
 - Current Meshy work: **16 completed submissions / 202 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used 0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
 - Resume guard: preserve original ZIP and every prior output. Job `8a7e0d76b8b8427f93f52157` is **failed/released**; jobs `c9ac0f48bd8044458a8390d4` and `b184afa00c2f4c2d853de705` are **unsupported**, with verifiers **12931 and 88829 ended**. Their terminal receipt shows no active lease/queued work, and the owned browser/server exited. Do not send another Start, restart old jobs, directly edit SQLite or reset costs. `outputs/rigged-robot-weight-repair-probe-v1` is sealed/rejected; AI **35178** and native **69825** ended. All 13 study calls are consumed. The pure hard-surface correction is rejected after native **50143** ended. The severe-witness retention fix passes 646 software tests and actual numeric-only replay **6026**, also ended. No native or Studio job is active; do not restart terminal jobs.
+
+## Current user steering — appearance accepted; finish Studio
+
+The latest user instruction is: “i think the quality appearance we had before is
+good. lets focus on thef ullyy hands-off sutdio run”. Treat the previously approved
+appearance as sufficient; stop new density/shading/Muse-parity investigations.
+The remaining priority is an actual prompt → tracked Studio job → finished
+model/motions/media/downloads, without manual per-example rig/recipe replacement.
+Keep real rig/action/attachment gates and truthful failures. Prior approved models
+are not a substitute for a fresh automatic result. The pending105-credit/15-role
+three-job request is not granted; prepare a smaller concrete first run rather
+than spending against that pending proposal.
 
 ## Active: hands-off quality and local creation studio — incomplete
 
@@ -19,6 +31,71 @@ tracks real work through finished output. A form, a passing fixture or another
 hand-authored panda recipe does not complete this goal. Preserve the approved
 fur panda, standalone dragon, completed dance/flight preview and all failures.
 [Acceptance criteria and integration record](docs/hands-off-studio.md).
+
+### Current automatic attachment gate — real stage passed, quality incomplete
+
+- [Contract, commands, artifacts and results](docs/portable-fur-attachment.md).
+  New public finishes record v2 all-root archives plus exact named-body/card vertex
+  IDs for legacy/combed/tuft profiles. Recording preserves geometry/RNG; the default
+  placement is not changed. Historical missing correspondence is unsupported.
+- Pipeline/Studio adds **Check portable fur attachment** after deformation and
+  before reload/media. Exact source/design/model/state binding, safe archive decode,
+  metadata-only aggregate admission,24fps actual skinned root checks, measured
+  failure witnesses, cache/controller receipts and delivery bindings are implemented.
+  Malformed or missing evidence stops; only authenticated numeric failures can
+  enter already-bounded author repair. No fur/action/threshold weakening.
+- Focused evidence:34recording/card checks,32archive checks,37distinct auditor
+  methods,18orchestration methods and54legacy integration cases. The initial five
+  orchestration-fixture failures and test-controller PYTHONPATH bootstrap failure
+  are retained, not hidden. The changed preallocation scorer admission has10focused
+  passing checks; unchanged numeric logic was not rerun unnecessarily.
+- Real Blender analytic controls:2bands/4roots per profile. Legacy/combed retain
+  correct declared weights but detach17.005mm; skin-consistent tuft passes at
+  9.107e-9m. These tiny meshes are analytic diagnostics, not generated characters.
+  Native494 and CPU2235 exited; original numerical evidence predates the later
+  metadata-admission fix and stays pinned to that exact implementation.
+- Actual new full fox: `outputs/fox-automatic-fur-attachment-finish-v1/model.glb`,
+  SHA `d863546e70aa921ac381bf5a1199ffddfb64d12904b29e765e60d0f84794a129`.
+  Existing authored source, textures,5000native parents,3000tufts and four4sactions.
+  Native4480:26.714s/1,558,937,600B RSS;CPU4478 exited;controller27.671s and
+  107,610,111B combined output. Limits120s/2GiB/128MiB,CPU30s/512MiB; no retry.
+- Real isolated pipeline gate: `outputs/fox-automatic-fur-stage-v1`.
+  All3000roots ×97times ×4clips =1,164,000checks; zero attachment/rest/weight
+  failures. Maximum per-coordinate error1.151203e-7m below1e-5m unchanged gate.
+  Real prepare/pins/lock/guard/events/audit child/custody/cache; NoCalls agent blocks
+  AI roles. No full pipeline run, deformation/action gate or Studio delivery claim.
+  Audit4940:1.303s/198,410,240B sampled RSS;controller4939:1.554s/43,745,280B;
+  both exited. Cache validation0.0304s, pack/controller bytes unchanged.
+- Full finish validates62,609exported vertices/59,776triangles/20joints. Native
+  portrait directly reviewed:short plush, hard transitions and tail border persist.
+  No visual upgrade, source-stretch repair, native-strand/continuous/loop/physics
+  proof or Weft20k-profile approval.20state PNGs are256pxdevelopment poses.
+  No approved asset or gallery default replaced. Keep failed prior coats.
+- Exact commands already finished:
+  `.venv/bin/python -B outputs/automatic-fur-fox-preparation-v1/execute.py --execute`
+  and `.venv/bin/python -B outputs/automatic-fur-fox-audit-preparation-v1/execute.py --execute`.
+  Never rerun sealed paths. Before-launch SIGTERM cleanup revision retains its
+  original preparation/driver; the actual numeric stage ran once.
+- Independent old/new comparison passes exact geometry/weights/skin/material/
+  images/actions and all9shared root arrays;24PNGs have identical pixels. Only
+  3atlasfiles are also byte-identical;21native PNG byte streams differ. The initial
+  sealing summary overclaim was caught/preserved and corrected without a rerun.
+  Public verify checks102artifacts plus local rig/motion. CPU5614 exited0 in0.768s
+  at162,955,264B sampled RSS under30s/384MiB/16MiB. Exact rig/rest/node inventory
+  is in `outputs/automatic-fur-fox-preservation-v1`; this preserves the prior
+  appearance and defects, not an improvement or original-source fidelity proof.
+- Original ZIP/approved dance model hashes and read-only ledger facts are retained
+  at `outputs/automatic-fur-fox-preservation-checkpoint-v1`. No new provider or
+  generation-pipeline role calls. The fresh105credits/max15-role proposal remains
+  pending; elapsed time and goal continuation are not spending authorization.
+
+- Compact evidence for the current attachment increment:
+  `evidence/automatic-fur-attachment-v1`,751origin records/358exact snapshots/
+  11,013,685B; manifest `83c560d25d82535142ada2355506dc3a0334b83d83074f7f5fde9aa654416cde`.
+  Includes analytic GLB/Blend controls, all numeric root archives and exact
+  source/test/failure receipts. Large actual GLB/Blend remain local by hash; this
+  compact checkpoint is not their remote backup. Packaging CPU6493 exited0 in
+  0.260s; RSS unsampled/null. Publication will use v17 exact-path receipt.
 
 ### Latest skin-consistent fur increment — attachment passes, quality incomplete
 

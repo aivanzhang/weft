@@ -1,5 +1,6 @@
 """Bounded, append-only root archives; standalone imports also work in Blender."""
 
+import ast
 import hashlib
 import io
 import math
@@ -7,6 +8,9 @@ import os
 from pathlib import Path
 import re
 import stat
+import struct
+import unicodedata
+import zipfile
 
 
 FOLDER = 'portable-root-bindings'
@@ -17,6 +21,10 @@ MAX_FILES = 128
 SPACE = 'blender_local_z_up_meters'
 INSET_CONVENTION = 'surface_root_minus_bottom_edge_midpoint'
 RECEIPT_FIELDS = {'schema_version', 'path', 'sha256', 'bytes', 'roots', 'space', 'root_inset_convention'}
+EXPORT_POLICY = 'portable-fur-source-ids-v1'
+EXPORT_ATTRIBUTE = '_AVATAR_FUR_VERTEX_ID'
+MAX_NPY_HEADER_BYTES = 1024
+MAX_DECODED_BYTES = MAX_ROOTS*64
 
 
 def _require(value, message):
@@ -133,11 +141,53 @@ def _array(value, rows, width, integer, label, np):
     return result
 
 
-def write_bindings(output_root: Path, name: str, bindings: dict, expected_roots: int) -> dict:
+def _node_name(value):
+    _require(type(value) is str and value and not any(unicodedata.category(c) == 'Cc' for c in value),
+             'Require a nonempty node name without control characters')
+    try:
+        size = len(value.encode('utf-8'))
+    except UnicodeEncodeError:
+        raise ValueError('Node name must be valid UTF-8') from None
+    _require(size <= 255, 'Node name exceeds255UTF-8bytes')
+    return value
+
+
+def _export_correspondence(value, roots, name):
+    fields = {'policy', 'attribute', 'source_node', 'coat_node', 'source_vertex_count',
+              'source_triangle_count', 'coat_vertex_count'}
+    _require(type(value) is dict and set(value) == fields, 'Invalid export correspondence fields')
+    _require(value['policy'] == EXPORT_POLICY and value['attribute'] == EXPORT_ATTRIBUTE,
+             'Unsupported export correspondence policy or attribute')
+    _node_name(value['source_node']); _node_name(value['coat_node'])
+    _require(value['coat_node'] == name, 'Coat node must equal the binding archive name')
+    for key in ('source_vertex_count', 'source_triangle_count'):
+        _require(type(value[key]) is int and 1 <= value[key] <= 100000, 'Invalid bounded '+key)
+    _require(type(value['coat_vertex_count']) is int and value['coat_vertex_count'] == 6*roots,
+             'Coat vertex count must equal six times the root count')
+    return dict(value)
+
+
+def _source_ids(value, triangle, roots, correspondence, np):
+    ids = _array(value, roots, 3, True, 'source_vertex_ids', np)
+    _require(np.all(ids < correspondence['source_vertex_count']), 'Source vertex ID exceeds declared source count')
+    _require(np.all(ids[:, 0] != ids[:, 1]) and np.all(ids[:, 0] != ids[:, 2])
+             and np.all(ids[:, 1] != ids[:, 2]), 'Source triangle repeats a corner vertex ID')
+    _require(np.all(triangle < correspondence['source_triangle_count']),
+             'Per-band triangle ordinal exceeds declared source triangle count')
+    return ids
+
+
+def write_bindings(output_root: Path, name: str, bindings: dict, expected_roots: int, *, correspondence=None) -> dict:
     """Store numeric roots only; caller retains responsibility for source-face identity."""
     roots, name = _count(expected_roots), _name(name)
     _require(type(bindings) is dict and set(bindings) == {'triangle_index', 'barycentric', 'root_inset'},
              'Binding arrays must have exactly triangle_index, barycentric and root_inset')
+    exported = None
+    if correspondence is not None:
+        fields = {'source_node', 'coat_node', 'source_vertex_count', 'source_triangle_count', 'source_vertex_ids'}
+        _require(type(correspondence) is dict and set(correspondence) == fields, 'Invalid source correspondence fields')
+        exported = _export_correspondence({key: value for key, value in correspondence.items() if key != 'source_vertex_ids'}
+                  | {'policy': EXPORT_POLICY, 'attribute': EXPORT_ATTRIBUTE, 'coat_vertex_count': 6*roots}, roots, name)
     import numpy as np
     triangle = _array(bindings['triangle_index'], roots, 1, True, 'triangle_index', np)
     barycentric = _array(bindings['barycentric'], roots, 3, False, 'barycentric', np)
@@ -148,7 +198,11 @@ def write_bindings(output_root: Path, name: str, bindings: dict, expected_roots:
     _require(np.all(abs(inset) <= .0005+1e-12)
              and np.all(np.linalg.norm(inset, axis=1) <= .0005+1e-12), 'Root inset exceeds 0.5 mm')
     stream = io.BytesIO()
-    np.savez(stream, triangle_index=triangle, barycentric=barycentric, root_inset=inset)
+    if exported is None:
+        np.savez(stream, triangle_index=triangle, barycentric=barycentric, root_inset=inset)
+    else:
+        ids = _source_ids(correspondence['source_vertex_ids'], triangle, roots, exported, np)
+        np.savez(stream, triangle_index=triangle, barycentric=barycentric, root_inset=inset, source_vertex_ids=ids)
     data = stream.getvalue()
     _require(len(data) <= MAX_ARCHIVE_BYTES, 'Binding archive exceeds 512 KiB')
     root = _root(output_root)
@@ -160,15 +214,19 @@ def write_bindings(output_root: Path, name: str, bindings: dict, expected_roots:
     if not folder.exists():
         folder.mkdir(mode=0o700)
     _write(folder, filename, data)
-    return {'schema_version': 1, 'path': FOLDER+'/'+filename, 'sha256': hashlib.sha256(data).hexdigest(),
-            'bytes': len(data), 'roots': roots, 'space': SPACE, 'root_inset_convention': INSET_CONVENTION}
+    return {'schema_version': 1 if exported is None else 2, 'path': FOLDER+'/'+filename,
+            'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data), 'roots': roots,
+            'space': SPACE, 'root_inset_convention': INSET_CONVENTION,
+            **({'export_correspondence': exported} if exported is not None else {})}
 
 
 def _receipt(value, roots):
-    _require(type(value) is dict and set(value) == RECEIPT_FIELDS,
+    _require(type(value) is dict, 'Binding receipt has missing or unexpected fields')
+    version = value.get('schema_version')
+    _require(type(version) is int and version in (1, 2), 'Unsupported binding receipt schema or coordinate convention')
+    _require(set(value) == RECEIPT_FIELDS | ({'export_correspondence'} if version == 2 else set()),
              'Binding receipt has missing or unexpected fields')
-    _require(type(value['schema_version']) is int and value['schema_version'] == 1
-             and value['space'] == SPACE and value['root_inset_convention'] == INSET_CONVENTION,
+    _require(value['space'] == SPACE and value['root_inset_convention'] == INSET_CONVENTION,
              'Unsupported binding receipt schema or coordinate convention')
     _require(type(value['roots']) is int and value['roots'] == roots
              and type(value['bytes']) is int and 0 < value['bytes'] <= MAX_ARCHIVE_BYTES,
@@ -181,7 +239,89 @@ def _receipt(value, roots):
     _require(path == FOLDER+'/'+name+'.npz', 'Noncanonical binding archive path')
     _require(type(value['sha256']) is str and re.fullmatch('[0-9a-f]{64}', value['sha256']),
              'Invalid binding archive hash')
+    if version == 2:
+        _export_correspondence(value['export_correspondence'], roots, name)
     return name+'.npz'
+
+
+def _npy_header(stream, size, shape, dtype):
+    prefix = stream.read(8)
+    _require(len(prefix) == 8 and prefix[:6] == b'\x93NUMPY' and prefix[6:] in (b'\x01\x00', b'\x02\x00'),
+             'Unsupported NPY magic or version')
+    width = 2 if prefix[6] == 1 else 4
+    raw_length = stream.read(width)
+    _require(len(raw_length) == width, 'Truncated NPY header length')
+    length = int.from_bytes(raw_length, 'little')
+    _require(0 < length <= MAX_NPY_HEADER_BYTES and 8+width+length <= size, 'NPY header size exceeds bounds')
+    raw = stream.read(length)
+    _require(len(raw) == length and raw.endswith(b'\n'), 'Truncated or malformed NPY header')
+    try:
+        expression = ast.parse(raw.decode('latin1').strip(), mode='eval').body
+        _require(isinstance(expression, ast.Dict) and len(expression.keys) == 3
+                 and all(isinstance(key, ast.Constant) and type(key.value) is str for key in expression.keys)
+                 and {key.value for key in expression.keys} == {'descr', 'fortran_order', 'shape'},
+                 'NPY header fields are not exact')
+        header = ast.literal_eval(expression)
+    except (SyntaxError, ValueError, TypeError, RecursionError, UnicodeError) as error:
+        raise ValueError('Invalid NPY header: '+str(error)) from None
+    _require(type(header['descr']) is str and header['descr'] == dtype, 'Unsupported NPY dtype')
+    _require(type(header['fortran_order']) is bool, 'Invalid NPY layout')
+    _require(type(header['shape']) is tuple and all(type(value) is int for value in header['shape'])
+             and header['shape'] == shape, 'NPY shape differs from bounded receipt')
+    decoded = math.prod(shape)*(4 if dtype == '<i4' else 8)
+    offset = 8+width+length
+    _require(offset % 16 == 0, 'NPY payload is not aligned to its format boundary')
+    _require(offset+decoded == size, 'NPY payload length differs from its declared shape')
+    return offset, decoded, 'F' if header['fortran_order'] else 'C'
+
+
+def load_bindings(pack: Path, receipt: dict) -> dict:
+    """Validate every stored NPY header before allocating any numeric array."""
+    _require(type(receipt) is dict, 'Binding receipt has missing or unexpected fields')
+    roots = _count(receipt.get('roots'))
+    name = _receipt(receipt, roots)
+    folder, files = _inventory(_root(pack))
+    _require(name in files and files[name].st_size == receipt['bytes'], 'Binding archive is missing or its byte size changed')
+    data = _read(folder, name, files[name])
+    _require(hashlib.sha256(data).hexdigest() == receipt['sha256'], 'Binding archive hash changed')
+    expected = {'triangle_index': ((roots,), '<i4'), 'barycentric': ((roots, 3), '<f8'),
+                'root_inset': ((roots, 3), '<f8')}
+    if receipt['schema_version'] == 2:
+        expected['source_vertex_ids'] = ((roots, 3), '<i4')
+    try:
+        with zipfile.ZipFile(io.BytesIO(data), 'r') as archive:
+            entries = archive.infolist()
+            _require(len(entries) == len(expected) and {entry.filename for entry in entries} ==
+                     {key+'.npy' for key in expected}, 'ZIP entries differ from the exact binding arrays')
+            for entry in entries:
+                _require(entry.compress_type == zipfile.ZIP_STORED and not entry.flag_bits & 1
+                         and entry.compress_size == entry.file_size
+                         and 0 < entry.file_size <= MAX_DECODED_BYTES+MAX_NPY_HEADER_BYTES+12
+                         and not stat.S_ISLNK(entry.external_attr >> 16), 'Unsupported ZIP entry encoding or size')
+            layouts, total = {}, 0
+            for key, (shape, dtype) in expected.items():
+                entry = archive.getinfo(key+'.npy')
+                with archive.open(entry) as stream:
+                    layouts[key] = _npy_header(stream, entry.file_size, shape, dtype)
+                total += layouts[key][1]
+            _require(total <= MAX_DECODED_BYTES, 'Binding decoded arrays exceed their aggregate bound')
+            import numpy as np
+            result = {}
+            for key, (shape, dtype) in expected.items():
+                raw = archive.read(key+'.npy')
+                offset, _, order = layouts[key]
+                result[key] = np.frombuffer(raw, dtype=dtype, offset=offset).reshape(shape, order=order).copy()
+    except (zipfile.BadZipFile, NotImplementedError, RuntimeError, EOFError, struct.error) as error:
+        raise ValueError('Invalid binding archive: '+str(error)) from None
+    triangle, bary, inset = result['triangle_index'], result['barycentric'], result['root_inset']
+    _require(np.all(triangle >= 0) and np.all(triangle <= 99999), 'Triangle index outside0..99999')
+    _require(np.isfinite(bary).all() and np.all(bary >= 0) and np.all(bary <= 1+1e-6)
+             and np.all(abs(bary.sum(axis=1)-1) <= 1e-6), 'Invalid barycentric values')
+    _require(np.isfinite(inset).all() and np.all(abs(inset) <= .0005+1e-12)
+             and np.all(np.linalg.norm(inset, axis=1) <= .0005+1e-12), 'Root inset exceeds0.5mm or is nonfinite')
+    if receipt['schema_version'] == 2:
+        _source_ids(result['source_vertex_ids'], triangle, roots, receipt['export_correspondence'], np)
+    return result
 
 
 def copy_bindings(source_root: Path, dest_root: Path, parts: list, expected_roots: int) -> list[dict]:
@@ -198,10 +338,17 @@ def copy_bindings(source_root: Path, dest_root: Path, parts: list, expected_root
         _require(type(part) is dict, 'Invalid portable part')
         roots = _count(part.get('cards'))
         summary = part.get('root_summary')
-        _require(type(summary) is dict and summary.get('root_placement') == 'skin-consistent-v1',
-                 'Binding copy requires skin-consistent-v1 root placement')
+        _require(type(summary) is dict, 'Binding copy requires a root summary')
         receipt = summary.get('binding_archive')
-        names.append(_receipt(receipt, roots)); receipts.append(dict(receipt)); count += roots
+        names.append(_receipt(receipt, roots))
+        if receipt['schema_version'] == 1:
+            _require(summary.get('root_placement') == 'skin-consistent-v1',
+                     'Binding copy requires skin-consistent-v1 root placement')
+        else:
+            _require(part.get('geometry_profile') in ('legacy', 'combed-v1', 'tuft-v1'), 'Unsupported portable card geometry profile')
+        receipts.append(dict(receipt) | ({'export_correspondence': dict(receipt['export_correspondence'])}
+                                       if receipt['schema_version'] == 2 else {}))
+        count += roots
         _require(count <= MAX_ROOTS, 'Aggregate root count exceeds 5000')
     _require(count == total and len(set(names)) == len(names), 'Root count mismatch or duplicate binding archive')
     _require(set(files) == set(names), 'Missing or extra binding files')

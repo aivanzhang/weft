@@ -1,0 +1,17 @@
+{
+  "changed_hypothesis": "Explicit minimal PYTHONPATH for output-local controller imports; controller clears its environment again before worker execution. No source/test changes or repeated tests.",
+  "command": [
+    "/usr/bin/env",
+    "-i",
+    "PATH=/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONPATH=/Users/ivan/kintsugi/weft/tools/avatar-assets",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-attachment-legacy-integration-tests-v1/execute.py"
+  ],
+  "original_prepared_sha256": "a98ba27610153cb05ebe663028f596b001974b895718f89636c55c380c7052b4",
+  "schema_version": 1,
+  "script_sha256": "f9765a4a2315e4a1eab93aae84681b3f289283aaaa39844dd8ddd877a62a85a6",
+  "status": "prepared"
+}

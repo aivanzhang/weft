@@ -1,0 +1,32 @@
+test_actual_clip_names_and_four_second_bound (tests.test_fur_attachment.FurAttachmentTests.test_actual_clip_names_and_four_second_bound) ... ok
+test_binding_path_symlink_is_rejected (tests.test_fur_attachment.FurAttachmentTests.test_binding_path_symlink_is_rejected) ... ok
+test_bound_but_corrupt_archive_rejects_before_numeric_audit (tests.test_fur_attachment.FurAttachmentTests.test_bound_but_corrupt_archive_rejects_before_numeric_audit) ... ok
+test_cached_numeric_failure_cannot_be_relabelled_pass (tests.test_fur_attachment.FurAttachmentTests.test_cached_numeric_failure_cannot_be_relabelled_pass) ... ok
+test_cached_report_rebinds_archives_without_rerunning_poses (tests.test_fur_attachment.FurAttachmentTests.test_cached_report_rebinds_archives_without_rerunning_poses) ... ok
+test_conflicting_seam_named_weights_reject (tests.test_fur_attachment.FurAttachmentTests.test_conflicting_seam_named_weights_reject) ... ok
+test_conflicting_seam_positions_reject_before_measurement (tests.test_fur_attachment.FurAttachmentTests.test_conflicting_seam_positions_reject_before_measurement) ... ok
+test_correct_interpolated_weights_do_not_hide_midpoint_detachment (tests.test_fur_attachment.FurAttachmentTests.test_correct_interpolated_weights_do_not_hide_midpoint_detachment) ... ok
+test_detached_rest_midpoint_fails_fixed_gate (tests.test_fur_attachment.FurAttachmentTests.test_detached_rest_midpoint_fails_fixed_gate) ... ok
+test_full_inherited_weights_are_not_truncated_to_producer_top_four (tests.test_fur_attachment.FurAttachmentTests.test_full_inherited_weights_are_not_truncated_to_producer_top_four) ... ok
+test_hash_changed_archive_rejects (tests.test_fur_attachment.FurAttachmentTests.test_hash_changed_archive_rejects) ... ok
+test_hash_changed_model_rejects (tests.test_fur_attachment.FurAttachmentTests.test_hash_changed_model_rejects) ... ok
+test_historical_bindings_are_unsupported_not_reconstructed (tests.test_fur_attachment.FurAttachmentTests.test_historical_bindings_are_unsupported_not_reconstructed) ... ok
+test_influence_mismatch_is_measured_not_malformed (tests.test_fur_attachment.FurAttachmentTests.test_influence_mismatch_is_measured_not_malformed) ... ok
+test_inverse_bind_difference_is_not_hidden_by_matching_bone_names (tests.test_fur_attachment.FurAttachmentTests.test_inverse_bind_difference_is_not_hidden_by_matching_bone_names) ... ok
+test_missing_export_identity_rejects_without_position_guessing (tests.test_fur_attachment.FurAttachmentTests.test_missing_export_identity_rejects_without_position_guessing) ... ok
+test_missing_requested_parts_is_not_an_opt_out (tests.test_fur_attachment.FurAttachmentTests.test_missing_requested_parts_is_not_an_opt_out) ... ok
+test_missing_source_id_rejects (tests.test_fur_attachment.FurAttachmentTests.test_missing_source_id_rejects) ... ok
+test_no_requested_portable_fur_is_not_applicable (tests.test_fur_attachment.FurAttachmentTests.test_no_requested_portable_fur_is_not_applicable) ... ok
+test_nonidentity_mesh_is_explicitly_unsupported (tests.test_fur_attachment.FurAttachmentTests.test_nonidentity_mesh_is_explicitly_unsupported) ... ok
+test_noninteger_or_out_of_range_export_ids_reject (tests.test_fur_attachment.FurAttachmentTests.test_noninteger_or_out_of_range_export_ids_reject) ... ok
+test_oversized_counts_reject_before_model_decode (tests.test_fur_attachment.FurAttachmentTests.test_oversized_counts_reject_before_model_decode) ... ok
+test_oversized_json_rejects_before_loading (tests.test_fur_attachment.FurAttachmentTests.test_oversized_json_rejects_before_loading) ... ok
+test_seams_reordered_rows_and_multiple_bands_use_ids (tests.test_fur_attachment.FurAttachmentTests.test_seams_reordered_rows_and_multiple_bands_use_ids) ... ok
+test_unrecorded_mesh_owner_rejects (tests.test_fur_attachment.FurAttachmentTests.test_unrecorded_mesh_owner_rejects) ... ok
+test_valid_animated_actual_skin_with_inset_and_reordered_palette (tests.test_fur_attachment.FurAttachmentTests.test_valid_animated_actual_skin_with_inset_and_reordered_palette) ... ok
+test_wrong_source_triangle_winding_rejects (tests.test_fur_attachment.FurAttachmentTests.test_wrong_source_triangle_winding_rejects) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.246s
+
+OK

@@ -1,0 +1,77 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2137,
+      "path": "job.json",
+      "sha256": "db4a43fae9d02f2b92e7c6c405af3e08a46b82eb92d46c8fc736b17720b6e70b"
+    },
+    {
+      "bytes": 5404,
+      "path": "metadata-only.diff",
+      "sha256": "28e41dd565eb09929bff381c56157c915eae0607a0fd95c2980b71433ee8a053"
+    },
+    {
+      "bytes": 2980,
+      "path": "prepared.json",
+      "sha256": "640984f69ea4e3b647e58605dbe45e547924dd12fcbb4aa38d8effa32acffe2a"
+    },
+    {
+      "bytes": 2119,
+      "path": "review.json",
+      "sha256": "d1d8293403f29ea5a2f99b78a29e8304bf02970c35e099b0ff51b200f1f71ccc"
+    },
+    {
+      "bytes": 40332,
+      "path": "sources/avatar_assets/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 19539,
+      "path": "sources/avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 25391,
+      "path": "sources/tests/test_fur_attachment.py",
+      "sha256": "0458b50b8d1c1eaf3bd065756efaa9c020c7a3844d9cc0a3a1ec5a55d89ed629"
+    },
+    {
+      "bytes": 9803,
+      "path": "sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 1259,
+      "path": "tests-handle.json",
+      "sha256": "c60e583d91a690713f3aa3d88b1b23ccb7be7d754eccd6220d6e0b2687508d07"
+    },
+    {
+      "bytes": 1997,
+      "path": "tests-monitor.json",
+      "sha256": "ab50e2cf41535804da9bccedf662d5e79f9808bf476600e9a9070544aa256dd5"
+    },
+    {
+      "bytes": 1863,
+      "path": "tests.log",
+      "sha256": "81d2a4c71092928e901e7ad82355bbdeb5f40d5d02697dee143180dde0cd7c32"
+    }
+  ],
+  "immutable": true,
+  "kind": "attachment_metadata_admission_tests",
+  "schema_version": 1
+}

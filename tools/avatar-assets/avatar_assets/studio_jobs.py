@@ -104,7 +104,8 @@ def _stage_progress(folder, job_status):
         attempt=event.get('attempt')
         _require(attempt is None or type(attempt) is int and 0<=attempt<=2, 'Invalid stage attempt')
         key=(stage,attempt);last_key=key
-        label={'deformation_gate':'Check skin stretching'}.get(stage,stage.replace('_',' ').title())
+        label={'deformation_gate':'Check skin stretching',
+               'portable_attachment':'Check portable fur attachment'}.get(stage,stage.replace('_',' ').title())
         item={'id':stage if attempt is None else f'{stage}:{attempt}', 'stage':stage,
               'label':label if attempt is None else f'{label} · attempt {attempt+1}',
               'status':_safe_text(event.get('status'),80),

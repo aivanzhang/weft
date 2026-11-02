@@ -1,0 +1,142 @@
+{
+  "appearance_accepted": false,
+  "artifacts": [
+    {
+      "bytes": 1132,
+      "path": "job.json",
+      "sha256": "4cc2aca527d1699e41aee47615155c223f90a6931a1d9000c25c23c6f87403c0"
+    },
+    {
+      "bytes": 3374,
+      "path": "prepared.json",
+      "sha256": "ac199380b422ab6b8b658ee7a9f42eba830b396df5b3fdca0029eb0ad4767a41"
+    },
+    {
+      "bytes": 130,
+      "path": "result.json",
+      "sha256": "1c8aa783d7e146282317199c7f7ec8c21d94ce9d324c9d66470d125db444a8d9"
+    },
+    {
+      "bytes": 993,
+      "path": "run-tests.py",
+      "sha256": "c130d70b7c242fd911340d58b95b70c24ae0ca7654a7f1612f1dbc50f87e4139"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 17157,
+      "path": "sources/avatar_assets/scene.py",
+      "sha256": "7a1e624a88d2575fce28908001822bfad438f55b916167d1a3af2b050e2909b2"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 276,
+      "path": "sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 26295,
+      "path": "sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 6657,
+      "path": "sources/scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "bytes": 21139,
+      "path": "sources/scripts/blender_geometry.py",
+      "sha256": "43c747739c43800fdebb664bde61168f2ec4199f076fbf0b2606d47de2b5e562"
+    },
+    {
+      "bytes": 4687,
+      "path": "sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 8834,
+      "path": "sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 6002,
+      "path": "sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 9349,
+      "path": "sources/tests/test_combed_fur_cards.py",
+      "sha256": "1d9bda516e18453245f269b0124acfc19527375c46a8997d6568229460ffcf36"
+    },
+    {
+      "bytes": 6190,
+      "path": "sources/tests/test_fur_cards.py",
+      "sha256": "d199b3bb194c6968e78e19d1ba15dab3b9ab6402abe500898cbbb0cde5ef5de4"
+    },
+    {
+      "bytes": 8452,
+      "path": "sources/tests/test_fur_recording.py",
+      "sha256": "c9e0ecd46f1153b6a1a7f106432fcfbf3a351849d224f872149f3cc01969eb8c"
+    },
+    {
+      "bytes": 8731,
+      "path": "sources/tests/test_scene.py",
+      "sha256": "370f6121d9e8967ea663478c535ea9bb871029c87d281587ec19fe4177fc8ee2"
+    },
+    {
+      "bytes": 18400,
+      "path": "sources/tests/test_scene_quality.py",
+      "sha256": "f296d2e6f6377c3561db8463db1af5d8624981203f6c9ab8a931ce9475a8163c"
+    },
+    {
+      "bytes": 9803,
+      "path": "sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 13123,
+      "path": "sources/tests/test_tuft_fur_cards.py",
+      "sha256": "434efb17539e6059da1d5350903e705ca9fdd5bb61e8defc183dcaba6f869446"
+    },
+    {
+      "bytes": 253,
+      "path": "tests-handle.json",
+      "sha256": "cbd096f1961e67e7a881adbd7534d4bf04c2fa4ff9c06d015ec5f82c18c05e03"
+    },
+    {
+      "bytes": 1038,
+      "path": "tests-monitor.json",
+      "sha256": "3f06b0219206cc9ced1f072e13206934b16a3b3e9603ea222fbc829b4c9f592a"
+    },
+    {
+      "bytes": 5650,
+      "path": "tests.log",
+      "sha256": "687025426ec3adccd03e15ade100a1dbc02c0f04c94d698f165c2aa776956e5d"
+    }
+  ],
+  "native_calls": 0,
+  "pipeline_role_calls": 0,
+  "provider_calls": 0,
+  "recorded": "2026-11-02 09:41:25 PST",
+  "schema_version": 1,
+  "status": "passed_analytic_only",
+  "tests": 34
+}

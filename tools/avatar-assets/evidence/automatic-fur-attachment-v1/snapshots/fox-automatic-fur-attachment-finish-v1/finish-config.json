@@ -1,0 +1,119 @@
+{
+  "export_model": true,
+  "fur_clump": 0.06,
+  "fur_max_chroma": 1,
+  "groom": {
+    "children": 30,
+    "comb": 0.18,
+    "direction": [
+      0,
+      0,
+      -1
+    ],
+    "length": 0.0192,
+    "parents": 5000,
+    "radius": 0.000375,
+    "roughness": 0.0015,
+    "seed": 10091
+  },
+  "groom_exclusions": [],
+  "groom_flow": {
+    "regions": [
+      {
+        "center": [
+          0.5,
+          0.5,
+          0.75
+        ],
+        "comb": 0.18,
+        "direction": [
+          0,
+          0.15,
+          -1
+        ],
+        "feather": 0.5,
+        "length_scale": 1,
+        "name": "upper-rest-flow",
+        "radius": [
+          0.5,
+          0.5,
+          0.3
+        ]
+      }
+    ]
+  },
+  "groom_shader": {
+    "radial_roughness": 0.45,
+    "roughness": 0.38
+  },
+  "id": "fox-automatic-fur-attachment-v1",
+  "material_fur": {
+    "materials": [
+      "coat",
+      "cream",
+      "dark"
+    ],
+    "version": 1
+  },
+  "normal_strength": "preserve",
+  "portable_fur": {
+    "bands": [
+      {
+        "brightness": [
+          0,
+          1.01
+        ],
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 3000
+      }
+    ],
+    "settings": {
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "length": 0.0192,
+      "profile": "tuft-v1",
+      "root_placement": "skin-consistent-v1",
+      "sample_root_color": true,
+      "seed": 901,
+      "width": 0.004
+    }
+  },
+  "portrait_denoise": true,
+  "pose_resolution": 256,
+  "prompt": "Local automatic fur-attachment integration on the existing authored fox. Preserve the previous skin-consistent root selection, all 3000 portable tufts, native groom, body, materials, textures, rig and four motions. Record exact per-band source triangles and export per-mesh vertex IDs for an independent final-GLB audit. No new provider generation, appearance upgrade, source-motion repair or quality acceptance is claimed.",
+  "resolution": 720,
+  "rights": "Existing locally authored fox geometry, rig and procedural textures; exact saved sources retained. No new provider content or independent third-party rights verification.",
+  "sample_states": true,
+  "samples": 8,
+  "schema_version": 1,
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "Quiet attentive breathing, alternating ear twitches and a slow tail sway."
+    },
+    {
+      "id": "making_something",
+      "meaning": "Looks down at the sketchbook and draws a craft pattern with several short pencil strokes."
+    },
+    {
+      "id": "milestone_level_up",
+      "meaning": "Raises both paws clearly above shoulder level, displaying the sketchbook and pencil during one delighted hop, then returns to rest."
+    },
+    {
+      "id": "working",
+      "meaning": "Raises the sketchbook toward its face and reads it with a pronounced downward gaze and slow page scan; pencil hand stays resting."
+    }
+  ],
+  "style": "Detailed warm storybook fox: soft short fur, expressive eyes, tailored teal scarf and crafted props; native-HD procedural surface and grounded-studio edition; denser plush-fur revision",
+  "subject": "A small red fox craftsperson with a sea-green scarf, a blue sketchbook and a golden pencil."
+}

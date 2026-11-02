@@ -1,0 +1,55 @@
+{
+  "analytic_fixture_not_public_finish": true,
+  "id": "analytic-native-tuft-v1",
+  "portable_fur": {
+    "bands": [
+      {
+        "brightness": [
+          0,
+          0.5
+        ],
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 2
+      },
+      {
+        "brightness": [
+          0.5,
+          1.01
+        ],
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 2
+      }
+    ],
+    "settings": {
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "length": 0.012,
+      "profile": "tuft-v1",
+      "root_placement": "skin-consistent-v1",
+      "sample_root_color": true,
+      "seed": 211,
+      "width": 0.003
+    }
+  },
+  "schema_version": 1,
+  "source": "source-fixture.json",
+  "source_sha256": "0ff9801b15d783b5ec87d023117f5ecf048b73139878d5e6a603aec420f379d3",
+  "states": [
+    {
+      "id": "flex_probe"
+    }
+  ]
+}

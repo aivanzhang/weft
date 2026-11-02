@@ -1,0 +1,54 @@
+{
+  "analytic_fixture_not_public_finish": true,
+  "id": "analytic-native-legacy",
+  "portable_fur": {
+    "bands": [
+      {
+        "brightness": [
+          0,
+          0.5
+        ],
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 2
+      },
+      {
+        "brightness": [
+          0.5,
+          1.01
+        ],
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 2
+      }
+    ],
+    "settings": {
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "length": 0.012,
+      "profile": "legacy",
+      "sample_root_color": true,
+      "seed": 211,
+      "width": 0.003
+    }
+  },
+  "schema_version": 1,
+  "source": "source-fixture.json",
+  "source_sha256": "e464603a9adcd88d5c0833b219ce2cfb0bddaa3b409074f46bc1983635663e5a",
+  "states": [
+    {
+      "id": "flex_probe"
+    }
+  ]
+}

@@ -1,0 +1,507 @@
+{
+  "actual_avatar_attachment_verified": false,
+  "artifact_bytes": 1396037,
+  "artifact_count": 98,
+  "artifacts": [
+    {
+      "bytes": 10720,
+      "path": "before/test_pipeline_progress.py",
+      "sha256": "2c0c5224cd4f8b470e41c2f1d803ae2a93879ba2462227b39c6ecfba608c20cb"
+    },
+    {
+      "bytes": 587,
+      "path": "bootstrap-failure.json",
+      "sha256": "8e420d10d1ff66a978b5db9d99d45bcfcf8f933711ea6d5d629bff3d5bbadcd8"
+    },
+    {
+      "bytes": 806,
+      "path": "bootstrap-preparation-v2.json",
+      "sha256": "1c8b57d4266712279e7ee2027468f56e656078f6555164b8732988711fc5402a"
+    },
+    {
+      "bytes": 847,
+      "path": "execute.py",
+      "sha256": "f9765a4a2315e4a1eab93aae84681b3f289283aaaa39844dd8ddd877a62a85a6"
+    },
+    {
+      "bytes": 1141,
+      "path": "job.json",
+      "sha256": "bd0c6a4d63afa12291047b463e2b989c0026fe260a71e4093761cbddf74935e4"
+    },
+    {
+      "bytes": 15613,
+      "path": "prepared.json",
+      "sha256": "a98ba27610153cb05ebe663028f596b001974b895718f89636c55c380c7052b4"
+    },
+    {
+      "bytes": 1953,
+      "path": "release.json",
+      "sha256": "d25d232ba0c463594616be29e317ca586e777b19ec4a9f1bd62226738443d6a8"
+    },
+    {
+      "bytes": 304,
+      "path": "result.json",
+      "sha256": "63d30b18cd85acea0455afdb52a6347f69343b9d0ea4a26a7f7e02cc78e6a293"
+    },
+    {
+      "bytes": 930,
+      "path": "run-tests.py",
+      "sha256": "906ddaa43e8aed8bbd7c17db5a7eead6617e6e575b4fd4ee5933c2e8c0c4e465"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 34271,
+      "path": "sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a"
+    },
+    {
+      "bytes": 14601,
+      "path": "sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65"
+    },
+    {
+      "bytes": 25864,
+      "path": "sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1"
+    },
+    {
+      "bytes": 4525,
+      "path": "sources/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b"
+    },
+    {
+      "bytes": 6862,
+      "path": "sources/avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a"
+    },
+    {
+      "bytes": 7879,
+      "path": "sources/avatar_assets/build3d.py",
+      "sha256": "fc914b616570a998d212ddfc4d12434074fb954f17ac26c0e474b0f567b7e31c"
+    },
+    {
+      "bytes": 11789,
+      "path": "sources/avatar_assets/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37"
+    },
+    {
+      "bytes": 8351,
+      "path": "sources/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2"
+    },
+    {
+      "bytes": 42821,
+      "path": "sources/avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6"
+    },
+    {
+      "bytes": 16614,
+      "path": "sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 11162,
+      "path": "sources/avatar_assets/export2d.py",
+      "sha256": "b59c1ebcbab7c1b146229be47fa5e4f06ad900fea026282701978ed959e03baa"
+    },
+    {
+      "bytes": 38146,
+      "path": "sources/avatar_assets/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 13676,
+      "path": "sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 40332,
+      "path": "sources/avatar_assets/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 19539,
+      "path": "sources/avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 27764,
+      "path": "sources/avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d"
+    },
+    {
+      "bytes": 16931,
+      "path": "sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 8912,
+      "path": "sources/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52"
+    },
+    {
+      "bytes": 22815,
+      "path": "sources/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    },
+    {
+      "bytes": 15225,
+      "path": "sources/avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+    },
+    {
+      "bytes": 17295,
+      "path": "sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 9246,
+      "path": "sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "bytes": 6665,
+      "path": "sources/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 75760,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "009225b66737619e8b8c95fb247b5192db3fa0f545a3a284369d2f531df3e179"
+    },
+    {
+      "bytes": 9788,
+      "path": "sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    },
+    {
+      "bytes": 51765,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "a60542edf838ec06c93b3675136c7c3520e84e2b8f3ebe80fbfa7965d667dab0"
+    },
+    {
+      "bytes": 1326,
+      "path": "sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 13491,
+      "path": "sources/avatar_assets/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393"
+    },
+    {
+      "bytes": 2955,
+      "path": "sources/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 17157,
+      "path": "sources/avatar_assets/scene.py",
+      "sha256": "7a1e624a88d2575fce28908001822bfad438f55b916167d1a3af2b050e2909b2"
+    },
+    {
+      "bytes": 18169,
+      "path": "sources/avatar_assets/studio.py",
+      "sha256": "ca7fb3ab29e42186b79b77e3b7a1f7b23de0443e7b755ad99da8c12e92131405"
+    },
+    {
+      "bytes": 9367,
+      "path": "sources/avatar_assets/studio_inspection.py",
+      "sha256": "925daa069c0878696101598938089d43c9cccc3da1d800ac12e224204b67e71d"
+    },
+    {
+      "bytes": 43771,
+      "path": "sources/avatar_assets/studio_jobs.py",
+      "sha256": "a42c1f68138ed13a07efd558cce16c57a8fb56c8cfdf56b5c3a520b4d3f75799"
+    },
+    {
+      "bytes": 2675,
+      "path": "sources/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 1792,
+      "path": "sources/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 14456,
+      "path": "sources/avatar_assets/weft_metadata.py",
+      "sha256": "d3b548fe918fc61f3877c7862c427e14d8f38e611682a9531bba51bd514bab43"
+    },
+    {
+      "bytes": 23637,
+      "path": "sources/evidence/material-owned-fur-v1/snapshots/material-pipeline-tests-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 12713,
+      "path": "sources/examples/meshy/muse-panda-finish-v1.json",
+      "sha256": "028145446c663dd0a1cd6d537e4199337d03e04aedb6227e0e63936fe2b3a4f0"
+    },
+    {
+      "bytes": 8455,
+      "path": "sources/examples/meshy/workshop-robot-finish-v1.json",
+      "sha256": "7f52f5c9ca446242a77d90c0e708afbb69d2d0740fa99a87308db8dfb2817ca0"
+    },
+    {
+      "bytes": 276,
+      "path": "sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 6582,
+      "path": "sources/scripts/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4"
+    },
+    {
+      "bytes": 23994,
+      "path": "sources/scripts/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd"
+    },
+    {
+      "bytes": 2710,
+      "path": "sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 20746,
+      "path": "sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "bytes": 58228,
+      "path": "sources/scripts/blender_finish_generated.py",
+      "sha256": "fb4ccc68da44786052049297ab4fef07bb33f8d5aeda889a7cf21c484922130d"
+    },
+    {
+      "bytes": 26295,
+      "path": "sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 6657,
+      "path": "sources/scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "bytes": 40912,
+      "path": "sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5"
+    },
+    {
+      "bytes": 5450,
+      "path": "sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 8894,
+      "path": "sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 31282,
+      "path": "sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 6885,
+      "path": "sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 10304,
+      "path": "sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 5789,
+      "path": "sources/scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e"
+    },
+    {
+      "bytes": 12009,
+      "path": "sources/scripts/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 5399,
+      "path": "sources/scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 6870,
+      "path": "sources/scripts/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7"
+    },
+    {
+      "bytes": 17213,
+      "path": "sources/scripts/denoise_portrait.py",
+      "sha256": "b722ed597d60d5d20cd4e14fb10235d62c8caf2cb220e68aca92a80ea54fe4a7"
+    },
+    {
+      "bytes": 17397,
+      "path": "sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "path": "sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 4687,
+      "path": "sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 8834,
+      "path": "sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 6002,
+      "path": "sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 9487,
+      "path": "sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 6129,
+      "path": "sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 9560,
+      "path": "sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 13920,
+      "path": "sources/scripts/package_portable_media.py",
+      "sha256": "2de17898a1f28e5a63573dd7283d55d3ce2de59ef93aedbab180d444847e2d5f"
+    },
+    {
+      "bytes": 14055,
+      "path": "sources/scripts/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897"
+    },
+    {
+      "bytes": 6843,
+      "path": "sources/scripts/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0"
+    },
+    {
+      "bytes": 7538,
+      "path": "sources/scripts/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a"
+    },
+    {
+      "bytes": 14944,
+      "path": "sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 11033,
+      "path": "sources/tests/test_generated_workflow.py",
+      "sha256": "3189cfd82e998261c646a0379add419dbc5820be20d2ba932feda28434c36d4d"
+    },
+    {
+      "bytes": 13941,
+      "path": "sources/tests/test_material_native_reuse.py",
+      "sha256": "a0069a3a674b258a51c17c497e59f462b8889274dd5a241825c49f790ec844bf"
+    },
+    {
+      "bytes": 14389,
+      "path": "sources/tests/test_material_pipeline.py",
+      "sha256": "01f0e6c87c85b515dfac32325ccd1008ba93c589863cde0d0b30b7a0d1bf1f0b"
+    },
+    {
+      "bytes": 11411,
+      "path": "sources/tests/test_pipeline_progress.py",
+      "sha256": "e4b61ff867bf60527f9d669d53e1f281fcf6f95956a2139e10631b9dce4a411d"
+    },
+    {
+      "bytes": 16984,
+      "path": "sources/tests/test_skin_root_integration.py",
+      "sha256": "7197775b8e75fd637e08c417de09a60dc9b9cd51682424b876bb4f7a50df8d06"
+    },
+    {
+      "bytes": 9803,
+      "path": "sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 261,
+      "path": "tests-handle.json",
+      "sha256": "b9a9a4026816a7fc632f46248772eb7980d9b5ba471464ed2fed337ac71026db"
+    },
+    {
+      "bytes": 1047,
+      "path": "tests-monitor.json",
+      "sha256": "91b2acc17d086a1b9dd9f5a4b5352791a352a51313b8be1b2881b2ef32c2b54b"
+    },
+    {
+      "bytes": 9679,
+      "path": "tests.log",
+      "sha256": "c6fff61eed715f4cab6593d95745596fdc83813e78872d4d22a1dce2f3d64d2b"
+    }
+  ],
+  "kind": "analytic_software_tests",
+  "native_calls": 0,
+  "preserved_bootstrap_failure": true,
+  "provider_calls": 0,
+  "quality_verified": false,
+  "role_calls": 0,
+  "schema_version": 1,
+  "self_excluded": true,
+  "status": "passed",
+  "tests_run": 54
+}

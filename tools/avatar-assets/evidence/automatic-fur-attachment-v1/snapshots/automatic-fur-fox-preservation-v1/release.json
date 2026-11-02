@@ -1,0 +1,83 @@
+{
+  "attachment_audit_rerun": false,
+  "comparison_failures": [],
+  "jobs": {
+    "elapsed_seconds": 0.768,
+    "exit_code": 0,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 384,
+      "wall_seconds": 30
+    },
+    "pid": 5614,
+    "process_exit_verified": true,
+    "rss_samples": 2,
+    "sampled_peak_rss_bytes": 162955264
+  },
+  "kind": "actual_saved_model_preservation_comparison",
+  "limitations": [
+    "Preserved appearance is not improved appearance or Muse-quality acceptance.",
+    "Source motion and known source deformation are preserved, not repaired.",
+    "Units are declared glTF meters; no physical scale or recovered anatomy is established.",
+    "No Weft runtime, continuous-motion, seamless-loop or final hands-off acceptance is claimed.",
+    "PNG encoded-byte differences were recorded separately from exact decoded pixels; their encoding/metadata cause is not analyzed here."
+  ],
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_role_calls": 0,
+  "old_and_new_model_refs": [
+    {
+      "bytes": 27526456,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/model.glb",
+      "sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80"
+    },
+    {
+      "bytes": 27780020,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/model.glb",
+      "sha256": "d863546e70aa921ac381bf5a1199ffddfb64d12904b29e765e60d0f84794a129"
+    }
+  ],
+  "ownership_released": [
+    "outputs/automatic-fur-fox-preservation-v1"
+  ],
+  "preserved_sealing_failure": "seal-attempt-v1.json",
+  "public_verification": {
+    "artifact_hashes_verified": 102,
+    "calls": 1,
+    "clarification": "The authorized public verify_pack call includes its existing bounded CPU skin-motion probes. result.json animations_rerun=false means no native animation generation/render or full attachment-audit rerun, not absence of these public validator probes.",
+    "result": "public-verify-pack.json"
+  },
+  "recorded_local": "2026-11-02T10:16:32.959323-08:00",
+  "runtime": {
+    "numpy": "2.5.4",
+    "pillow": "13.0.0",
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  },
+  "schema_version": 1,
+  "source_outputs_modified": false,
+  "status": "released",
+  "summary": {
+    "atlas_pngs_exact_bytes_and_pixels": 3,
+    "common_binding_arrays": 9,
+    "common_binding_roots": 3000,
+    "config_differences": [
+      "id",
+      "prompt"
+    ],
+    "native_portrait_and_draft_pose_encoded_files_differ": 21,
+    "native_portrait_and_draft_pose_pixels_exact": 21,
+    "new_exported_vertices": 62609,
+    "new_triangles": 59776,
+    "nodes_skins_materials_images_actions": "exact resolved semantics",
+    "non_identity_primitive_attributes_and_indices": "exact typed bytes in original row/index order",
+    "png_images_pixels_exact": 24
+  },
+  "worker_pre_and_post_input_hash_checks": {
+    "all_passed": true,
+    "inputs": 64,
+    "sources": 7
+  }
+}

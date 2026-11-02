@@ -1,0 +1,423 @@
+{
+  "attachment_audit_rerun": false,
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/automatic-fur-fox-preservation-v1/compare.py"
+  ],
+  "execution_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/automatic-fur-fox-preservation-v1/execute.py"
+  ],
+  "executor_sha256": "b52138c465d4f27732c44f0f7db9c9488e1d71e14c829b06fbfe9d31f6b9fbe0",
+  "inputs": [
+    {
+      "bytes": 624898,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/manifest.json",
+      "sha256": "be6ee85e53a06f28531bec2b4a94d31ca5078b38efeeeceded7d1a0c793f23de"
+    },
+    {
+      "bytes": 556080,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/finish-report.json",
+      "sha256": "37ca35dd051ac610a7cf081ce39895a473b6c2292832945982f40a2220e4b4d0"
+    },
+    {
+      "bytes": 3389,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/sources/finish-design.json",
+      "sha256": "50248d8a2f1d3d0abe77e224423deee548cdcf3031bfb907f910ea2040e57480"
+    },
+    {
+      "bytes": 27526456,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/model.glb",
+      "sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80"
+    },
+    {
+      "bytes": 27526456,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/model-native-export.glb",
+      "sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80"
+    },
+    {
+      "bytes": 469180,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/portrait.png",
+      "sha256": "ebfddc0494859c5975f332dfe7c40860b48b2e1eb5757302da8fdf42599afa0a"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0000.png",
+      "sha256": "6c909c555fa688ed690236e5840660c845e6a9e8250e8f98ba4bb677e7599aa1"
+    },
+    {
+      "bytes": 69191,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0001.png",
+      "sha256": "78c9e9a834250c41156f037e9a95c0ea9c4d9770e83a5b211e01caf915f68768"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0002.png",
+      "sha256": "87fa4bd88c94fda1e6f4a8ca0d1e5c73591b68c939faa78f01d1eaad81d71ab1"
+    },
+    {
+      "bytes": 69588,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0003.png",
+      "sha256": "a08780f6ca08899414902d7c50464d0cce54beaddbddb3f72e2f14cd0c35b424"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0004.png",
+      "sha256": "e0f0064f432ead4ded571db52a69f2fbe552be49f8504b3f78aebcf99ef747a9"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0000.png",
+      "sha256": "395d0b2af88d52a7c7520ea43cc0b8a1f90f9de9942ec78e5095f1017df92bb3"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0001.png",
+      "sha256": "24f544167992d4a66baf7e9f9b8ab0301dd3f7609e7b9294255a953187539586"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0002.png",
+      "sha256": "5bb4030122aa0eb0e2366003def2546916f526107e72b1195aab57958fe88aa3"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0003.png",
+      "sha256": "6aaa30152e055013260be6e7ef55a4a7ea75d105b69657618073f19d794a142c"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0004.png",
+      "sha256": "0850e1655c6cb7a7a38e28029284c87c8b41aa6aee17801b1ec036cfd13d2cfa"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0000.png",
+      "sha256": "2b83d869ab8f0c27b1c6140807a4777d7408f89d9721337d64d16cc6f71284e4"
+    },
+    {
+      "bytes": 72577,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0001.png",
+      "sha256": "ecfaf99ce8429092c3a583a66a8860c1c0b7a35a42377e0baddd2a3af8fd9f7a"
+    },
+    {
+      "bytes": 71748,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0002.png",
+      "sha256": "148459e234036317abb70187c1a655e9cae1a9f5c4718d9ac76adf0d283421f8"
+    },
+    {
+      "bytes": 72351,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0003.png",
+      "sha256": "cb6f710950e525eb74823beaa03fa7c945dab67419147fddb0b6eeb8ddd5bac7"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0004.png",
+      "sha256": "aa3046cb8b9144a4c8aea36663bb27e41a04bffccb20b9c53fd1159d64dd9cb6"
+    },
+    {
+      "bytes": 69282,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0000.png",
+      "sha256": "d6daf0b60df8bad8d39f5f645acd97dca6aa0b46282aa06d5410429247a5c746"
+    },
+    {
+      "bytes": 68998,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0001.png",
+      "sha256": "7bf5491ceef350df2d5a985ed778b815a4a75cee5d7eab5f99a7b25f8f4233ee"
+    },
+    {
+      "bytes": 69386,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0002.png",
+      "sha256": "ffd903c9394b2bde13bf1eaa509b7f70c3a4853b1b9330b83e68809abf99d6c2"
+    },
+    {
+      "bytes": 68998,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0003.png",
+      "sha256": "3ef8773ebf3e078bcf1dc6d095e1d38066661d782396dfdeddff6a05da896944"
+    },
+    {
+      "bytes": 69282,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0004.png",
+      "sha256": "c4ac3d748ea4ca66e2dde0221e0ccceda9de6d20f51e2dce4ffd5d7c0c62d7b9"
+    },
+    {
+      "bytes": 102653,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/textures/PortableCoat_0-fur-atlas.png",
+      "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3"
+    },
+    {
+      "bytes": 102653,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/textures/PortableCoat_0.001-fur-atlas.png",
+      "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3"
+    },
+    {
+      "bytes": 102653,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/textures/PortableCoat_0.002-fur-atlas.png",
+      "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3"
+    },
+    {
+      "bytes": 28192,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.001.npz",
+      "sha256": "153651a586f1d539f1249ff29a322dec3637b7a51ba100df4dada18a6c68c0ad"
+    },
+    {
+      "bytes": 24500,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.002.npz",
+      "sha256": "b3753962342ef24f1b66ebe48ef056ed981bb530b8b597c87a467e1e1d8e36a0"
+    },
+    {
+      "bytes": 105672,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "ff0bed207782a7434bc4164164f25647ce2b9c5194d69b64b22e3794b7de3664"
+    },
+    {
+      "bytes": 627543,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/manifest.json",
+      "sha256": "a460c38fe267f560f5cda46d615e25b1a8e20e91eef7370ab50e230bdbcd2636"
+    },
+    {
+      "bytes": 558224,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/finish-report.json",
+      "sha256": "6be245c1d62245229d09b9efd6507953eeb9ddb8beb23d174eededcca6f2b674"
+    },
+    {
+      "bytes": 3389,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/sources/finish-design.json",
+      "sha256": "ca3560836adc9fb4c4f2febc65f030769abb426bd22ac8c812dd325b56d54ad5"
+    },
+    {
+      "bytes": 27780020,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/model.glb",
+      "sha256": "d863546e70aa921ac381bf5a1199ffddfb64d12904b29e765e60d0f84794a129"
+    },
+    {
+      "bytes": 27780020,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/model-native-export.glb",
+      "sha256": "d863546e70aa921ac381bf5a1199ffddfb64d12904b29e765e60d0f84794a129"
+    },
+    {
+      "bytes": 469180,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/portrait.png",
+      "sha256": "60e9ddae8f3f4863e9b4f47bf0296ec0e81b4cfef95c59b99e0865eb8dc92b62"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/idle/0000.png",
+      "sha256": "3cced5c87c13283be677fda944e0985295e23cc9c74fdb1e372b215db492f859"
+    },
+    {
+      "bytes": 69191,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/idle/0001.png",
+      "sha256": "f51be6b85415577afa2af0c2a9e1201d38b07a854ed97dfe5658bcf95f60908a"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/idle/0002.png",
+      "sha256": "e68c4f145ecf3873512e77b166ec967e12a33330cae34cdafc514f8fa59f7d38"
+    },
+    {
+      "bytes": 69588,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/idle/0003.png",
+      "sha256": "646b7836f4e7f9fe3c7e7214e00a72a04e99be3de16fbb081d2f8fedda6116ea"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/idle/0004.png",
+      "sha256": "453d4e352ddcee1c1f06ad605f7e87050588c16b48d87dfeac6ade5c63390392"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/making_something/0000.png",
+      "sha256": "4886a9af2775382c182036d31bc4aed97d38e328d611cef2a9603b9790a0f688"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/making_something/0001.png",
+      "sha256": "664c6d41d9e067a1f831624fb62de8c06443f235aadbb75b26f0d3ecefadf09b"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/making_something/0002.png",
+      "sha256": "f48aafd281823cfe20c6b510fc58563f9ca5180d60bcbe6cd8b637569001a02d"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/making_something/0003.png",
+      "sha256": "c7ba59f23b9bd8d32661e66b8be8a3129b3436651b89a1c7a35915dd8f1dc625"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/making_something/0004.png",
+      "sha256": "dfa19a52a71db11aa5ef88b73793b2ae41436b968083084485771f1b721a9570"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/milestone_level_up/0000.png",
+      "sha256": "9ae53c8abc515bb39ed9ba53159bfb1f8ead069eff994e3c2766bb2d78e72aa3"
+    },
+    {
+      "bytes": 72577,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/milestone_level_up/0001.png",
+      "sha256": "b0e349f1f212c57966963ff939a9abfd622537cecbe93bcb3d772e26f8326033"
+    },
+    {
+      "bytes": 71748,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/milestone_level_up/0002.png",
+      "sha256": "a8d74b5eeec30823669b4bd00aefacdff0b6de5327b70682e390a1a60bf3c505"
+    },
+    {
+      "bytes": 72351,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/milestone_level_up/0003.png",
+      "sha256": "274bc48b39fa0aa03a852cacebcaec0f2600079f7931b4a695ec31b1c0e7658c"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/milestone_level_up/0004.png",
+      "sha256": "38435ae66034289fd58f3aad676290636e0cba4d0a7292ecfa05d5df63011afb"
+    },
+    {
+      "bytes": 69282,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/working/0000.png",
+      "sha256": "c40387d64b3f94bb4042946d9c8d0ceb207173bf042f2dfdfc90618a85d58b28"
+    },
+    {
+      "bytes": 68998,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/working/0001.png",
+      "sha256": "3caa7ff39454c3eeebdade17f29ea09c8dc953ed4962ede320756a1ad730e050"
+    },
+    {
+      "bytes": 69386,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/working/0002.png",
+      "sha256": "6595911ecccfef47098c1e19cb33f0877c76db3bd44aea4d914b8ccd7699bae9"
+    },
+    {
+      "bytes": 68998,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/working/0003.png",
+      "sha256": "aa83289eb05248474da7c1a69e524dce5005315abe28dbecb24a198f62421fa1"
+    },
+    {
+      "bytes": 69282,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/renders/working/0004.png",
+      "sha256": "83853b241aec5cff59f36183540dee75704eebfbd7612b1a12d030b6901f3eb6"
+    },
+    {
+      "bytes": 102653,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/textures/PortableCoat_0-fur-atlas.png",
+      "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3"
+    },
+    {
+      "bytes": 102653,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/textures/PortableCoat_0.001-fur-atlas.png",
+      "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3"
+    },
+    {
+      "bytes": 102653,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/textures/PortableCoat_0.002-fur-atlas.png",
+      "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3"
+    },
+    {
+      "bytes": 34782,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/portable-root-bindings/PortableCoat_0.001.npz",
+      "sha256": "2b7b39be98bfc3336138f414e4eb14688d5bb640fdaeebb4e060660bddfeadc4"
+    },
+    {
+      "bytes": 30238,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/portable-root-bindings/PortableCoat_0.002.npz",
+      "sha256": "2889232fc92f3eb7fd8c8a0228976bce2e1ba3b80f1bf4e1fc9f6f14c005e5c5"
+    },
+    {
+      "bytes": 130142,
+      "path": "outputs/fox-automatic-fur-attachment-finish-v1/portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "740f991d1c016449c099ae164714f24d4b9f7b6603e4c82522e5d47accd60286"
+    }
+  ],
+  "kind": "actual_saved_model_preservation_comparison",
+  "limits": {
+    "decoded_scalar_values_per_model": 3000000,
+    "file_mib": 64,
+    "image_pixels": 16777216,
+    "output_mib": 16,
+    "png_comparisons": 32,
+    "rss_mib": 384,
+    "wall_seconds": 30
+  },
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_role_calls": 0,
+  "packs": [
+    "outputs/fox-skin-consistent-fur-finish-v1",
+    "outputs/fox-automatic-fur-attachment-finish-v1"
+  ],
+  "png_paths": [
+    "portrait.png",
+    "renders/idle/0000.png",
+    "renders/idle/0001.png",
+    "renders/idle/0002.png",
+    "renders/idle/0003.png",
+    "renders/idle/0004.png",
+    "renders/making_something/0000.png",
+    "renders/making_something/0001.png",
+    "renders/making_something/0002.png",
+    "renders/making_something/0003.png",
+    "renders/making_something/0004.png",
+    "renders/milestone_level_up/0000.png",
+    "renders/milestone_level_up/0001.png",
+    "renders/milestone_level_up/0002.png",
+    "renders/milestone_level_up/0003.png",
+    "renders/milestone_level_up/0004.png",
+    "renders/working/0000.png",
+    "renders/working/0001.png",
+    "renders/working/0002.png",
+    "renders/working/0003.png",
+    "renders/working/0004.png",
+    "textures/PortableCoat_0-fur-atlas.png",
+    "textures/PortableCoat_0.001-fur-atlas.png",
+    "textures/PortableCoat_0.002-fur-atlas.png"
+  ],
+  "public_verify_pack_calls": 1,
+  "recorded_local": "2026-11-02T10:13:33.924322-08:00",
+  "runtime": {
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  },
+  "schema_version": 1,
+  "scope": "Byte-exact semantic and saved-pixel preservation; does not promote appearance or recover anatomy.",
+  "sources": [
+    {
+      "bytes": 19539,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 11789,
+      "path": "avatar_assets/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37"
+    },
+    {
+      "bytes": 276,
+      "path": "requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 17700,
+      "path": "outputs/automatic-fur-fox-preservation-v1/compare.py",
+      "sha256": "fa86c2060d04c7862a93ce2f231020bbd0952da5e7056509f6ba4dc78efe0a43"
+    }
+  ]
+}

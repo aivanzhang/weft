@@ -1,0 +1,137 @@
+{
+  "coats": [
+    {
+      "arrays": {
+        "barycentric": {
+          "dtype": "<f8",
+          "exact": true,
+          "new_sha256": "434b18a9fd92617133c4f481d836de00795f70e2c3d418a701ac129068235fe5",
+          "old_sha256": "434b18a9fd92617133c4f481d836de00795f70e2c3d418a701ac129068235fe5",
+          "shape": [
+            2017,
+            3
+          ]
+        },
+        "root_inset": {
+          "dtype": "<f8",
+          "exact": true,
+          "new_sha256": "502285d844d2b7a3956ee63c2ea0279d0cb33fa47ee63aab0845658d15324891",
+          "old_sha256": "502285d844d2b7a3956ee63c2ea0279d0cb33fa47ee63aab0845658d15324891",
+          "shape": [
+            2017,
+            3
+          ]
+        },
+        "triangle_index": {
+          "dtype": "<i4",
+          "exact": true,
+          "new_sha256": "111b36c08cc65e089db1a98c374e77e8a560ff15bd49938bebbef91fa1f314bd",
+          "old_sha256": "111b36c08cc65e089db1a98c374e77e8a560ff15bd49938bebbef91fa1f314bd",
+          "shape": [
+            2017
+          ]
+        }
+      },
+      "new_schema": 2,
+      "new_source_ids": {
+        "sha256": "3123c59c279144562a2a9489494753a18aa36fe4a0eac90619267294fdc2fcb3",
+        "shape": [
+          2017,
+          3
+        ]
+      },
+      "old_schema": 1,
+      "path": "portable-root-bindings/PortableCoat_0.npz",
+      "roots": 2017
+    },
+    {
+      "arrays": {
+        "barycentric": {
+          "dtype": "<f8",
+          "exact": true,
+          "new_sha256": "61daa72264f3115e38b74e97f1d1707f7161bb30bcf5b539e8bcd9db6933aa05",
+          "old_sha256": "61daa72264f3115e38b74e97f1d1707f7161bb30bcf5b539e8bcd9db6933aa05",
+          "shape": [
+            527,
+            3
+          ]
+        },
+        "root_inset": {
+          "dtype": "<f8",
+          "exact": true,
+          "new_sha256": "4e26e89c5ff9e113ff04f38a7563ffef4b567cc80da34c1bf9aaa167826c99f4",
+          "old_sha256": "4e26e89c5ff9e113ff04f38a7563ffef4b567cc80da34c1bf9aaa167826c99f4",
+          "shape": [
+            527,
+            3
+          ]
+        },
+        "triangle_index": {
+          "dtype": "<i4",
+          "exact": true,
+          "new_sha256": "62c3485578d4deb066fc9280e8837b718ab564f00b020734c821567f240fce50",
+          "old_sha256": "62c3485578d4deb066fc9280e8837b718ab564f00b020734c821567f240fce50",
+          "shape": [
+            527
+          ]
+        }
+      },
+      "new_schema": 2,
+      "new_source_ids": {
+        "sha256": "197c480e52a6006d7fbae08e8b580b8cd565823d94e379cca4c29d5a05d35e45",
+        "shape": [
+          527,
+          3
+        ]
+      },
+      "old_schema": 1,
+      "path": "portable-root-bindings/PortableCoat_0.001.npz",
+      "roots": 527
+    },
+    {
+      "arrays": {
+        "barycentric": {
+          "dtype": "<f8",
+          "exact": true,
+          "new_sha256": "82b69e59c5a85e165dc145c59bb4f5b5670d0d68dc4692d8abcaaed2701c3e98",
+          "old_sha256": "82b69e59c5a85e165dc145c59bb4f5b5670d0d68dc4692d8abcaaed2701c3e98",
+          "shape": [
+            456,
+            3
+          ]
+        },
+        "root_inset": {
+          "dtype": "<f8",
+          "exact": true,
+          "new_sha256": "e904f2d76ea528d64758e68e6767b25c15d77b3ada84f1f2c78475473e25df7b",
+          "old_sha256": "e904f2d76ea528d64758e68e6767b25c15d77b3ada84f1f2c78475473e25df7b",
+          "shape": [
+            456,
+            3
+          ]
+        },
+        "triangle_index": {
+          "dtype": "<i4",
+          "exact": true,
+          "new_sha256": "0916ec0208fdca685f991a8f09ed93f134804737045893c471ca351520d6056c",
+          "old_sha256": "0916ec0208fdca685f991a8f09ed93f134804737045893c471ca351520d6056c",
+          "shape": [
+            456
+          ]
+        }
+      },
+      "new_schema": 2,
+      "new_source_ids": {
+        "sha256": "f205bc6213ee93e893a751b23167725530282c972c87f2ba43a36ea4920846f5",
+        "shape": [
+          456,
+          3
+        ]
+      },
+      "old_schema": 1,
+      "path": "portable-root-bindings/PortableCoat_0.002.npz",
+      "roots": 456
+    }
+  ],
+  "total_roots": 3000
+}

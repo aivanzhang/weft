@@ -1,0 +1,9 @@
+{
+  "comparison_job_passed": true,
+  "corrected_claim": "All24 PNG pixel arrays match exactly;3 atlas encoded files match,21 native portrait/pose encoded files differ. Encoding/metadata cause is not investigated here.",
+  "error": "The first sealing assertion incorrectly required all PNG encoded bytes to match; the worker correctly recorded21 encoded differences and24 identical decoded pixel arrays.",
+  "mutated_prior_results": false,
+  "new_comparison_or_native_run": false,
+  "schema_version": 1,
+  "status": "rejected_sealing_assertion"
+}

@@ -1,0 +1,65 @@
+{
+  "changed_files": [
+    {
+      "bytes": 11411,
+      "path": "tests/test_pipeline_progress.py",
+      "sha256": "e4b61ff867bf60527f9d669d53e1f281fcf6f95956a2139e10631b9dce4a411d"
+    }
+  ],
+  "job_metrics": {
+    "elapsed_seconds": 1.023,
+    "exit_code": 0,
+    "failure": null,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "pid": 3655,
+    "process_exit_verified": true,
+    "rss_samples": 3,
+    "sampled_peak_rss_bytes": 74727424
+  },
+  "kind": "analytic_software_tests",
+  "live_source_and_snapshot_checks": {
+    "all_match": true,
+    "count": 86
+  },
+  "modules": [
+    "test_material_native_reuse",
+    "test_skin_root_integration",
+    "test_generated_workflow",
+    "test_pipeline_progress"
+  ],
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_role_calls": 0,
+  "numeric_avatar_attachment_verified": false,
+  "ownership_released": [
+    "tests/test_pipeline_progress.py"
+  ],
+  "preserved_failure": "bootstrap-failure.json: output-local executor import failed before worker/tests; minimal PYTHONPATH launch fixed the bootstrap only.",
+  "quality_verified": false,
+  "recorded_local": "2026-11-02T10:01:40.272951-08:00",
+  "schema_version": 1,
+  "status": "frozen_released",
+  "test_only_change": "Add an explicit mocked no-portable-fur attachment result to nonrenderable stage-progression fixtures and verify both attempt stages/calls. Existing numeric/custody production suites are not weakened.",
+  "tests": {
+    "actual_avatar_attachment_verified": false,
+    "elapsed_seconds": 0.8625265839509666,
+    "errors": 0,
+    "failures": 0,
+    "kind": "analytic_software_tests",
+    "native_calls": 0,
+    "passed": true,
+    "provider_calls": 0,
+    "quality_verified": false,
+    "role_calls": 0,
+    "skipped": 0,
+    "tests_run": 54
+  },
+  "unittest_seconds": 0.604
+}

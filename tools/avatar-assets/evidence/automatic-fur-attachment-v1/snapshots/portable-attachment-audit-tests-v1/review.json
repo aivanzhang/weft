@@ -1,0 +1,37 @@
+{
+  "active_jobs": [],
+  "limitations": [
+    "No native/exported fixture or actual character was audited in this task.",
+    "The gate measures final-body attachment, not original source skin, fur appearance, loops or physics.",
+    "Metrics use max absolute component errors; all samples run at24fps with exactclipendpoints."
+  ],
+  "native_calls": 0,
+  "paid_calls": 0,
+  "provenance": "analytic_fixtures_not_generated_assets",
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/fur_attachment.py": "3f8dc0faebd9fb65554fa7a9c9b34d102607e43d3fba35090c3a4de7903e716c",
+    "avatar_assets/fur_bindings.py": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+    "avatar_assets/safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "avatar_assets/three_d.py": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+    "tests/test_fur_attachment.py": "95d3046f94efe110464bc9d57cc1f36d44cdefa6b47ab9eea6a7b2c6f07577fc"
+  },
+  "status": "focused_analytic_checks_passed",
+  "tests": {
+    "changed_behavior": {
+      "job_seconds": 0.523,
+      "passed": 11,
+      "pid": 1409,
+      "process_exit_verified": true
+    },
+    "distinct_methods": 30,
+    "initial": {
+      "job_seconds": 0.522,
+      "passed": 27,
+      "pid": 633,
+      "process_exit_verified": true,
+      "unittest_seconds": 0.246
+    },
+    "unchanged_passing_cases_not_repeated": true
+  }
+}

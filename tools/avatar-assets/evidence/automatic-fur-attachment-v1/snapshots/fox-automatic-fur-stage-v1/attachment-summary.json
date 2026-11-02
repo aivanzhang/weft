@@ -1,0 +1,55 @@
+{
+  "evidence": {
+    "manifest_sha256": "f0d28abbeba03e69e78c7db58163f18d2991e9f8ae5f7692873e73f0011c59bf",
+    "report": "portable-root-audit-0/report.json",
+    "sha256": "21bd42aced27c13dcef1781e5d7885882dd7ed0b22793b861c259dffdd564734"
+  },
+  "gates": {
+    "animated_attachment_m": 1e-05,
+    "authored_inset_m": 0.0005,
+    "named_weight": 1e-06,
+    "rest_midpoint_m": 1e-06
+  },
+  "metrics": {
+    "attachment_failures": 0,
+    "body_vertices": 30418,
+    "coat_vertices": 18000,
+    "exported_vertices": 62609,
+    "max_attachment_error_m": 1.151202928539874e-07,
+    "max_inset_m": 0.0005000000000000001,
+    "max_named_weight_error": 2.220446049250313e-16,
+    "max_rest_midpoint_error_m": 1.1512028619264925e-07,
+    "named_weight_failures": 0,
+    "rest_midpoint_failures": 0,
+    "root_pose_checks": 1164000,
+    "triangles": 59776,
+    "unique_attachment_failed_roots": 0
+  },
+  "passed": true,
+  "policy": "portable-fur-attachment-v1",
+  "reason": "Attachment measured against the final exported body",
+  "retained_witnesses": 0,
+  "roots": 3000,
+  "schema_version": 1,
+  "scope": "Portable root attachment only; not body-skin fidelity, density, appearance or physics.",
+  "states": [
+    {
+      "id": "idle",
+      "sample_count": 97
+    },
+    {
+      "id": "making_something",
+      "sample_count": 97
+    },
+    {
+      "id": "milestone_level_up",
+      "sample_count": 97
+    },
+    {
+      "id": "working",
+      "sample_count": 97
+    }
+  ],
+  "status": "measured",
+  "witnesses": []
+}

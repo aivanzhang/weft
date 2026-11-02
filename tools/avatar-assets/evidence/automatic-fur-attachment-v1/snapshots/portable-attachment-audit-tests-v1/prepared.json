@@ -1,0 +1,56 @@
+{
+  "bounds": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 60
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_fur_attachment",
+    "-v"
+  ],
+  "native_calls": 0,
+  "paid_calls": 0,
+  "provenance": "analytic_fixture_tests_not_avatars",
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 35641,
+      "path": "avatar_assets/fur_attachment.py",
+      "sha256": "1cd1742f2ef77382b928a2138e78f2bbebc61e5e06a9736744bd5f551fad3569"
+    },
+    {
+      "bytes": 19539,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 20920,
+      "path": "tests/test_fur_attachment.py",
+      "sha256": "ead0108a006aeb8c0c91e92c8ec17f88e1f287a6b3512a835beebf95d25e138f"
+    },
+    {
+      "bytes": 9803,
+      "path": "tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    }
+  ]
+}

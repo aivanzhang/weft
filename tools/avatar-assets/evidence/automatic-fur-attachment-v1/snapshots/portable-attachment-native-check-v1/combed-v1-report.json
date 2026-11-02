@@ -1,0 +1,138 @@
+{
+  "elapsed_seconds": 0.008337875362485647,
+  "error_encoding": "little-endian float64 max-absolute-component error per root; part order, state/time then part order",
+  "error_hashes": {
+    "animated_attachment": "ed1e2f74e40dfb96dc13a9428318166acd93839a21513737c9254ee191a2f77b",
+    "named_weight": "16de371ff071c31236828bcf2745a6c1dfab58ab091ff20b2e65fe99e647b28f",
+    "rest_midpoint": "d18e376bc6cd414dd2aaf596970993e70e4bdd1957ea3319d45b7228ce7fb0a5"
+  },
+  "expected_state_ids": [
+    "flex_probe"
+  ],
+  "gates": {
+    "animated_attachment_m": 1e-05,
+    "authored_inset_m": 0.0005,
+    "named_weight": 1e-06,
+    "rest_midpoint_m": 1e-06
+  },
+  "implementations": {
+    "fur_attachment.py": "3f8dc0faebd9fb65554fa7a9c9b34d102607e43d3fba35090c3a4de7903e716c",
+    "fur_bindings.py": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+    "safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "three_d.py": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+  },
+  "inputs": [
+    {
+      "bytes": 6581,
+      "path": "manifest.json",
+      "sha256": "713fe057aed94a8dee81693efe3d2fe9f64136208206c6a18f4ebcb2e9abf5e6"
+    },
+    {
+      "bytes": 4973,
+      "path": "finish-report.json",
+      "sha256": "edf560be1719d951ca4af3ec17d0fa46667d36bf197e95fb47fc07ee5877d1be"
+    },
+    {
+      "bytes": 906,
+      "path": "sources/finish-design.json",
+      "sha256": "6993cf1916caecffa14d5760445bce6829da2a7badf7a27c7a668891a3c4bf4b"
+    },
+    {
+      "bytes": 537532,
+      "path": "model.glb",
+      "sha256": "dd5c36d3c0ae80eec35161821d18f52e9857d3c366958b131156bf41c131eab2"
+    },
+    {
+      "bytes": 1182,
+      "path": "portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "fc9c012141ccaa901992503a1ebb666bd1838b5901eaf9d55a6817a1d846d4fa"
+    },
+    {
+      "bytes": 1182,
+      "path": "portable-root-bindings/PortableCoat_1.npz",
+      "sha256": "0a6627448ec3fe52b1ed152fcae0118592101701a3827507409714100de5f423"
+    }
+  ],
+  "intent": {
+    "design_sha256": "6993cf1916caecffa14d5760445bce6829da2a7badf7a27c7a668891a3c4bf4b",
+    "model_sha256": "dd5c36d3c0ae80eec35161821d18f52e9857d3c366958b131156bf41c131eab2",
+    "schema_version": 1,
+    "source_sha256": "3c16c14774de63a9692e833f3c95d11d529ddaaa8ae9185a5250726fec246a5d",
+    "state_ids": [
+      "flex_probe"
+    ]
+  },
+  "limitations": [
+    "Attachment to the final exported body, not native-source skin fidelity.",
+    "Discrete 24 fps samples only; no continuous-motion, loop, physics or appearance approval."
+  ],
+  "metrics": {
+    "attachment_failures": 46,
+    "body_vertices": 6,
+    "coat_vertices": 24,
+    "exported_vertices": 42,
+    "max_attachment_error_m": 0.017005183738538637,
+    "max_inset_m": 0.0005,
+    "max_named_weight_error": 4.675514642116241e-09,
+    "max_rest_midpoint_error_m": 5.943343067693618e-09,
+    "named_weight_failures": 0,
+    "rest_midpoint_failures": 0,
+    "root_pose_checks": 100,
+    "triangles": 18,
+    "unique_attachment_failed_roots": 2
+  },
+  "passed": false,
+  "policy": "portable-fur-attachment-v1",
+  "reason": "Attachment measured against the final exported body",
+  "roots": 4,
+  "schema_version": 1,
+  "states": [
+    {
+      "id": "flex_probe",
+      "times": [
+        0.0,
+        0.041666666666666664,
+        0.08333333333333333,
+        0.125,
+        0.16666666666666666,
+        0.20833333333333334,
+        0.25,
+        0.2916666666666667,
+        0.3333333333333333,
+        0.375,
+        0.4166666666666667,
+        0.4583333333333333,
+        0.5,
+        0.5416666666666666,
+        0.5833333333333334,
+        0.625,
+        0.6666666666666666,
+        0.7083333333333334,
+        0.75,
+        0.7916666666666666,
+        0.8333333333333334,
+        0.875,
+        0.9166666666666666,
+        0.9583333333333334,
+        1.0
+      ]
+    }
+  ],
+  "status": "measured",
+  "witnesses": [
+    {
+      "error": 0.017005183738538637,
+      "kind": "animated_attachment",
+      "part": 1,
+      "root": 1,
+      "second": 0.5,
+      "source_vertex_ids": [
+        3,
+        4,
+        5
+      ],
+      "state": "flex_probe",
+      "threshold": 1e-05
+    }
+  ]
+}

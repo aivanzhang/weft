@@ -11,6 +11,21 @@ Work stays in `tools/avatar-assets`; Weft simulation, physics, rewards and its
 independent goal are unchanged. Existing assets and failed attempts remain
 immutable. No deployment or persistent server starts automatically.
 
+### Current user direction — November 2, 2026, PST
+
+The user accepts the previous appearance and explicitly prioritizes the fully
+hands-off Studio run. Stop new fur-density, shading and Muse-parity experiments.
+Use that existing visual standard; retain checks for broken geometry, missing
+requested features, detached fur and incorrect actions. Do not promote an old
+manual asset as a new automated delivery. The next bounded acceptance attempt
+should exercise one actual prompt through Studio to final downloadable assets;
+fresh generation still needs its exact spending allowance. Broader generalization
+claims remain limited to actually tested examples.
+
+The reusable automatic attachment stage now passes on a complete saved fox;
+[its evidence](portable-fur-attachment.md) is a component check, not the missing
+Studio run. Its appearance is unchanged and is not another quality upgrade.
+
 ## Completion evidence required
 
 - [ ] A local creation screen accepts subject/style, an optional selected

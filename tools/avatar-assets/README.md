@@ -3,8 +3,9 @@
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.
-Consistently hands-off Muse-level quality and a successful real Studio delivery
-remain unfinished. The latest [texture-preserving undercoat improvement](docs/undercoat-uv2-preservation.md)
+The user has accepted the previous appearance; the active priority is now a
+successful fully hands-off Studio delivery, not further appearance upgrades.
+That real end-to-end delivery remains unverified. The latest [texture-preserving undercoat improvement](docs/undercoat-uv2-preservation.md)
 passes component checks; it is not a newly accepted avatar.
 The subsequent [actual-source control](docs/source-uv-control.md) builds a rigged
 furred GLB and passes independent skin/texture-frame checks, but its eight rendered
@@ -28,6 +29,12 @@ all 3,000 roots pass across 36 sampled poses, with maximum separation below
 0.4 micrometres. Body, colors and existing motions are preserved. Appearance
 still reads as short plush, with abrupt tail/leg boundaries and source deformation
 defects; neither this fox nor the hands-off Studio is newly accepted.
+
+The new [automatic fur-attachment gate](docs/portable-fur-attachment.md) now runs
+before expensive media in the prompt pipeline. The actual saved fox passes
+1,164,000 root-pose checks in1.3s; analytic detached-fur controls correctly fail.
+This verifies attachment to the exported body, not denser fur or an accepted
+end-to-end Studio result. No new paid generation was used.
 
 ## Create from a prompt — studio acceptance pending
 

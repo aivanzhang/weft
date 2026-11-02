@@ -1,0 +1,81 @@
+{
+  "failures": [],
+  "kind": "analytic_software_tests",
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_role_calls": 0,
+  "ownership_released": [
+    "avatar_assets/fur_bindings.py",
+    "tests/test_fur_bindings.py"
+  ],
+  "recorded_local": "2026-11-02T09:47:32.530422-08:00",
+  "runtime": {
+    "bounded_elapsed_seconds": 0.258,
+    "pid": 325,
+    "process_exit_verified": true,
+    "rss_note": "No sample before child exit; peak is unknown, not zero.",
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null
+  },
+  "schema_version": 1,
+  "scope": "v1/v2 archive custody and preallocation-safe reader; not actual exported attachment or appearance verification",
+  "sources": [
+    {
+      "bytes": 19539,
+      "live_and_snapshot_match": true,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 29651,
+      "live_and_snapshot_match": true,
+      "path": "tests/test_fur_bindings.py",
+      "sha256": "fa2d61dde8dce195bb9fbe970e62e0e4372ec34d1e8ff6f7fa987cd06b91fe9e"
+    },
+    {
+      "bytes": 11421,
+      "live_and_snapshot_match": true,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "live_and_snapshot_match": true,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 276,
+      "live_and_snapshot_match": true,
+      "path": "requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 6849,
+      "live_and_snapshot_match": true,
+      "path": "outputs/portable-attachment-integration-preparation-v1/contract.md",
+      "sha256": "0d02281dfb038fe5252b9116e35a1c60760fa6cf6563a42aabbab6deed1c10a2"
+    }
+  ],
+  "status": "frozen_released",
+  "tests": {
+    "elapsed_seconds": 0.139961457811296,
+    "errors": 0,
+    "failures": 0,
+    "kind": "analytic_software_tests",
+    "native_calls": 0,
+    "numeric_attachment_verified": false,
+    "passed": true,
+    "provider_calls": 0,
+    "quality_verified": false,
+    "role_calls": 0,
+    "skipped": 0,
+    "tests_run": 32
+  },
+  "v1_preservation": {
+    "archive_bytes": 892,
+    "archive_sha256": "7ed97eb40d71eda21f57dfc1807503dbe0f80f439dbc2de93ca00ca32dbe9f51",
+    "legacy_source_sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac",
+    "unchanged": true
+  }
+}

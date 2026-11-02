@@ -1,0 +1,349 @@
+{
+  "analytic_exports": 3,
+  "archive_tests": "outputs/portable-attachment-binding-tests-v1",
+  "blender": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-attachment-integration-preparation-v1/native-fixture.py",
+    "--",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-attachment-native-fixture-v1"
+  ],
+  "inputs": [
+    {
+      "path": "scripts/author_browser_fur.py",
+      "sha256": "8bc3adfe1103f83372b706ff234170bd4793c60a77ea757e4c702be9c28571eb",
+      "snapshot": "sources/scripts/author_browser_fur.py"
+    },
+    {
+      "path": "scripts/author_combed_groom.py",
+      "sha256": "baf68323e2de881d28b54e5b1eee7a961c2cb46758031716cbc062f8026fee10",
+      "snapshot": "sources/scripts/author_combed_groom.py"
+    },
+    {
+      "path": "scripts/author_hd_companions.py",
+      "sha256": "0f5664b632c8a2c9b48d73dbec561705cdeea7ee4a83a313844a4263720677cd",
+      "snapshot": "sources/scripts/author_hd_companions.py"
+    },
+    {
+      "path": "scripts/author_hd_fox_v2.py",
+      "sha256": "240ea2716a7ce60b2462b543297e79d8e8966fb7381c83766964594ca3425708",
+      "snapshot": "sources/scripts/author_hd_fox_v2.py"
+    },
+    {
+      "path": "scripts/author_hd_panda.py",
+      "sha256": "28561566431d92db7063880401c3d688ac117a33e5a4efcae887e3cf2feb41e2",
+      "snapshot": "sources/scripts/author_hd_panda.py"
+    },
+    {
+      "path": "scripts/author_hd_panda_v2.py",
+      "sha256": "b546bb9778ff11d35aea908f0757d801108d0f74683deeed91b6cb7961f2248b",
+      "snapshot": "sources/scripts/author_hd_panda_v2.py"
+    },
+    {
+      "path": "scripts/author_hd_panda_v3.py",
+      "sha256": "90c31c471ce101f9111e5ec7ce1036fae70bad33b554c814508d9802e8a133a3",
+      "snapshot": "sources/scripts/author_hd_panda_v3.py"
+    },
+    {
+      "path": "scripts/author_quality_companions.py",
+      "sha256": "30d752d18f752beb1981ab57cc59636d3621f9078b4a2df48c4a6dca8077a273",
+      "snapshot": "sources/scripts/author_quality_companions.py"
+    },
+    {
+      "path": "scripts/author_quality_panda.py",
+      "sha256": "588ce19630aa78e042d5543f49aedfcbc7180a3207d03ce84c3857563028ac68",
+      "snapshot": "sources/scripts/author_quality_panda.py"
+    },
+    {
+      "path": "scripts/author_quality_robot.py",
+      "sha256": "ce4b34e051df66d5c6b4b9223588018a8bf9b12efcfcd0de040274f42c603285",
+      "snapshot": "sources/scripts/author_quality_robot.py"
+    },
+    {
+      "path": "scripts/blender_build.py",
+      "sha256": "4a5f1f03f21b728f2b72056d8783678033f17232de9fb344f7944eb42a3c913d",
+      "snapshot": "sources/scripts/blender_build.py"
+    },
+    {
+      "path": "scripts/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "snapshot": "sources/scripts/blender_color_corrections.py"
+    },
+    {
+      "path": "scripts/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "snapshot": "sources/scripts/blender_comb_groom.py"
+    },
+    {
+      "path": "scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "path": "scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "fb4ccc68da44786052049297ab4fef07bb33f8d5aeda889a7cf21c484922130d",
+      "snapshot": "sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "path": "scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284",
+      "snapshot": "sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "path": "scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55",
+      "snapshot": "sources/scripts/blender_fur_identity.py"
+    },
+    {
+      "path": "scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "path": "scripts/blender_geometry.py",
+      "sha256": "43c747739c43800fdebb664bde61168f2ec4199f076fbf0b2606d47de2b5e562",
+      "snapshot": "sources/scripts/blender_geometry.py"
+    },
+    {
+      "path": "scripts/blender_lookdev.py",
+      "sha256": "2ff4e51adfeb4fcfdd54d0c2d90db7733201566fa365fd2f7576296637326087",
+      "snapshot": "sources/scripts/blender_lookdev.py"
+    },
+    {
+      "path": "scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot": "sources/scripts/blender_material_coat.py"
+    },
+    {
+      "path": "scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "snapshot": "sources/scripts/blender_material_colors.py"
+    },
+    {
+      "path": "scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot": "sources/scripts/blender_material_groom.py"
+    },
+    {
+      "path": "scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot": "sources/scripts/blender_native_groom.py"
+    },
+    {
+      "path": "scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "path": "scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "path": "scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "snapshot": "sources/scripts/blender_part_rigs.py"
+    },
+    {
+      "path": "scripts/blender_partition_generated.py",
+      "sha256": "6c99f42cddb293c7b483f4b44b4a5ae59df46d20535dd6b9d4e32dbf78d3eaab",
+      "snapshot": "sources/scripts/blender_partition_generated.py"
+    },
+    {
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "path": "scripts/blender_render.py",
+      "sha256": "cbc04bcfaed17363aceff826ef4fd398cdd8357da9b865eb9628a1b511872650",
+      "snapshot": "sources/scripts/blender_render.py"
+    },
+    {
+      "path": "scripts/blender_render_prepared.py",
+      "sha256": "f57ecd84b8ff79b632b284c8a91477fcdfb62bfc99723390c39f8822576f4d34",
+      "snapshot": "sources/scripts/blender_render_prepared.py"
+    },
+    {
+      "path": "scripts/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "snapshot": "sources/scripts/blender_surface_profiles.py"
+    },
+    {
+      "path": "scripts/blender_surfaces_hd.py",
+      "sha256": "eb5ee9931df0d50a2b23b333c2e6a808d18739d4d811cc2965669f2814b4b26a",
+      "snapshot": "sources/scripts/blender_surfaces_hd.py"
+    },
+    {
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "sources/scripts/blender_verify.py"
+    },
+    {
+      "path": "scripts/blender_verify_compound_motion.py",
+      "sha256": "74a6edf198a07e17eeeb05104c17a08626ae27f53c4302862c9dc662503d603b",
+      "snapshot": "sources/scripts/blender_verify_compound_motion.py"
+    },
+    {
+      "path": "scripts/blender_verify_motion_controls.py",
+      "sha256": "476c17bbcc004834832321b4f96ae5547729d3112a9718c87b8f5358c9137994",
+      "snapshot": "sources/scripts/blender_verify_motion_controls.py"
+    },
+    {
+      "path": "scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot": "sources/scripts/creature_rig_math.py"
+    },
+    {
+      "path": "scripts/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+      "snapshot": "sources/scripts/deformation_diagnostics.py"
+    },
+    {
+      "path": "scripts/denoise_portrait.py",
+      "sha256": "b722ed597d60d5d20cd4e14fb10235d62c8caf2cb220e68aca92a80ea54fe4a7",
+      "snapshot": "sources/scripts/denoise_portrait.py"
+    },
+    {
+      "path": "scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "sources/scripts/edge_fringe.py"
+    },
+    {
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "path": "scripts/fringe_flow.py",
+      "sha256": "b7d60d5e9f152edf063ed9ce140b187dafe018e82470c66eb695aaccf8940ed9",
+      "snapshot": "sources/scripts/fringe_flow.py"
+    },
+    {
+      "path": "scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "path": "scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot": "sources/scripts/fur_skin_roots.py"
+    },
+    {
+      "path": "scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "path": "scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "sources/scripts/groom_flow.py"
+    },
+    {
+      "path": "scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+      "snapshot": "sources/scripts/material_fur.py"
+    },
+    {
+      "path": "scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "sources/scripts/motion_samples.py"
+    },
+    {
+      "path": "scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "sources/scripts/native_render_tasks.py"
+    },
+    {
+      "path": "scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "sources/scripts/normal_uv_export.py"
+    },
+    {
+      "path": "scripts/package_portable_media.py",
+      "sha256": "2de17898a1f28e5a63573dd7283d55d3ce2de59ef93aedbab180d444847e2d5f",
+      "snapshot": "sources/scripts/package_portable_media.py"
+    },
+    {
+      "path": "scripts/rig_guide_annotations.py",
+      "sha256": "77bad5fc52ada588be692861f0f4f6f6fb79205b08405ab2a457418ee6da38b1",
+      "snapshot": "sources/scripts/rig_guide_annotations.py"
+    },
+    {
+      "path": "scripts/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897",
+      "snapshot": "sources/scripts/source_skin_snapshot.py"
+    },
+    {
+      "path": "scripts/surface_clumps.py",
+      "sha256": "f2010dc5bb8b9e4237c93494f06ac441af38e44c5f141aee0b28dea659556646",
+      "snapshot": "sources/scripts/surface_clumps.py"
+    },
+    {
+      "path": "scripts/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "snapshot": "sources/scripts/surface_integrity.py"
+    },
+    {
+      "path": "scripts/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "snapshot": "sources/scripts/surface_smoothing.py"
+    },
+    {
+      "path": "scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "path": "scripts/validate_studio_framing.py",
+      "sha256": "866c0f4c692074c1bfd9f4d1828f3c4fd24f671412f001ad3708db2d04c82291",
+      "snapshot": "sources/scripts/validate_studio_framing.py"
+    },
+    {
+      "path": "scripts/verify_quality_assets.py",
+      "sha256": "31e3f74edb6dc9f5e964241d464432cf9c7e0a960efde419db016b373568e592",
+      "snapshot": "sources/scripts/verify_quality_assets.py"
+    },
+    {
+      "path": "scripts/verify_studio_live.py",
+      "sha256": "76840fbaa25f3be2f385b7820460b63da1258ace5120f045017bc504a0a77708",
+      "snapshot": "sources/scripts/verify_studio_live.py"
+    },
+    {
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+      "snapshot": "sources/avatar_assets/fur_bindings.py"
+    }
+  ],
+  "limits": {
+    "memory_mb": 2048,
+    "output_mb": 64,
+    "timeout": 120
+  },
+  "native_processes": 1,
+  "output": "outputs/portable-attachment-native-fixture-v1",
+  "ownership": "root",
+  "pipeline_role_calls": 0,
+  "provider_calls": 0,
+  "quality_accepted": false,
+  "recorded": "2026-11-02 09:46:08 PST",
+  "recording_tests_manifest_sha256": "c7c1f11b85a26f6ce4a98e888f33596cd0de31badee83529925d2d786bc24ab5",
+  "render_calls": 0,
+  "schema_version": 1,
+  "script_sha256": "68529517d60054affcf1029492a54d6aec14f3fdaca9da346d018689598e85e8",
+  "status": "prepared_analytic_native_export"
+}

@@ -1,0 +1,43 @@
+{
+  "active_jobs": [],
+  "change": "Metadata-only admission of every selected primitive occurrence before accessor decoding/world or dense geometry allocation.",
+  "checks": [
+    "P/ID/J/W matching counts and bounded metadata",
+    "Per-owner100k vertices/triangles and exact declared triangle coverage",
+    "All-owner aggregate100k vertices/triangles, including repeated cached accessor references",
+    "Inverse-bind count at most64 and exact palette length",
+    "Reject paths assert accessor decode and NumPy asarray/zeros/concatenate never reached",
+    "Existing animated pass, seam/reordered-ID pass and genuine midpoint-detachment failure retained"
+  ],
+  "job_seconds": 0.262,
+  "limitations": [
+    "Analytic CPU tests only; no new native export or character quality acceptance.",
+    "Prior native analytic proofs remain bound to their original auditor hash."
+  ],
+  "native_calls": 0,
+  "numeric_functions_AST_unchanged": {
+    "_owner": true,
+    "_pass": true,
+    "_skin": true,
+    "_states": true,
+    "validate_report": true
+  },
+  "paid_calls": 0,
+  "pid": 2759,
+  "process_exit_verified": true,
+  "rss_scope": "The child exited before an RSS sample;512MiB runner bound configured, no observed peak claimed.",
+  "sampled_peak_rss_bytes": null,
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/fur_attachment.py": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac",
+    "avatar_assets/fur_bindings.py": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+    "avatar_assets/runner.py": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+    "avatar_assets/safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "avatar_assets/three_d.py": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+    "tests/test_fur_attachment.py": "0458b50b8d1c1eaf3bd065756efaa9c020c7a3844d9cc0a3a1ec5a55d89ed629",
+    "tests/test_three_d.py": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+  },
+  "status": "focused_metadata_admission_checks_passed",
+  "tests": 10,
+  "unittest_seconds": 0.103
+}

@@ -1,0 +1,33 @@
+{
+  "approved_asset_and_source_unchanged": true,
+  "ledger_summary_read_only": {
+    "additional_work_authorized": false,
+    "authorized_credits": 210,
+    "remaining_credits": 8,
+    "reported_credits": 202,
+    "states": {
+      "SUCCEEDED": 16
+    },
+    "submissions": 16,
+    "used_reserved_credits": 202
+  },
+  "new_calls_to_generation_account": 0,
+  "no_new_provider_or_pipeline_role_calls": true,
+  "originals": [
+    {
+      "bytes": 2667322,
+      "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb"
+    },
+    {
+      "bytes": 29999436,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67"
+    }
+  ],
+  "pending_request": "outputs/fresh-acceptance-preparation-v1/allowance-request.json",
+  "pending_request_sha256": "4fabfae8c4a485695e932ddb1be5a6cd9cde5d700eb4dc005a74f209394bb2ad",
+  "prior_AI_study_calls_consumed": 13,
+  "recorded": "2026-11-02 10:13:23 PST",
+  "schema_version": 1
+}

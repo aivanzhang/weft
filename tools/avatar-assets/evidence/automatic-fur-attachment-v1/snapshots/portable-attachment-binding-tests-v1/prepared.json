@@ -1,0 +1,56 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-attachment-binding-tests-v1/run-tests.py"
+  ],
+  "controller_sha256": "cb3d8f0448d70431dc89cb401a7b6f38f4419c3e5c7f55eb4ad8f72610a7b84a",
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "kind": "analytic_software_tests",
+  "limits": {
+    "output_mib": 16,
+    "rss_mib": 512,
+    "wall_seconds": 30
+  },
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_role_calls": 0,
+  "recorded_local": "2026-11-02T09:43:57.565612-08:00",
+  "runtime": {
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  },
+  "schema_version": 1,
+  "scope": "Archive versions/custody/preallocation admission only, not native/export attachment or appearance.",
+  "sources": [
+    {
+      "bytes": 19539,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 29651,
+      "path": "tests/test_fur_bindings.py",
+      "sha256": "fa2d61dde8dce195bb9fbe970e62e0e4372ec34d1e8ff6f7fa987cd06b91fe9e"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 276,
+      "path": "requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 6849,
+      "path": "outputs/portable-attachment-integration-preparation-v1/contract.md",
+      "sha256": "0d02281dfb038fe5252b9116e35a1c60760fa6cf6563a42aabbab6deed1c10a2"
+    }
+  ]
+}

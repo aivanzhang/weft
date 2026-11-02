@@ -58,6 +58,12 @@ underfill two coarse fox parts and relocate some roots by 135 mm. The hybrid
 retains interior sampling there. The unexecuted draft and both screens remain
 in `outputs/vertex-only-integration-draft-v1` and the vertex-root preflights.
 
+Current new finishes additionally record exact source vertex IDs in version-2
+archives and export per-mesh IDs. The [automatic attachment audit](portable-fur-attachment.md)
+now checks those final GLBs through a reusable pipeline stage. The version-1
+archive and independent fox result below remain historical evidence; their files
+are unchanged and are not silently upgraded.
+
 ## Outputs and limits
 
 Normal finisher outputs remain: real skinned GLB, editable `source.blend`, portrait,

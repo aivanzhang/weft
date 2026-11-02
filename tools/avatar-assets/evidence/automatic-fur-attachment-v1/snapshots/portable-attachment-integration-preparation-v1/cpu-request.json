@@ -1,0 +1,122 @@
+{
+  "analytic_not_generated_assets": true,
+  "expected_result": "Two legacy motion-attachment rejections despite correct weights, plus a skin-consistent pass",
+  "inputs": [
+    {
+      "bytes": 36485,
+      "path": "avatar_assets/fur_attachment.py",
+      "sha256": "3f8dc0faebd9fb65554fa7a9c9b34d102607e43d3fba35090c3a4de7903e716c"
+    },
+    {
+      "bytes": 19539,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 257,
+      "path": "outputs/portable-attachment-native-fixture-v1/fixture-result.json",
+      "sha256": "c4d85cb8c9ce23ea3779dde4c1ff035c3ccf3b8f30aef96381be962091a0c4e0"
+    },
+    {
+      "bytes": 1037218,
+      "path": "outputs/portable-attachment-native-fixture-v1/legacy/source.blend",
+      "sha256": "d7ab7cdb5e41ca286e61bb562530a378f61ce440e01b0531e6a548a62074754b"
+    },
+    {
+      "bytes": 5952,
+      "path": "outputs/portable-attachment-native-fixture-v1/legacy/binding-report.json",
+      "sha256": "a620fc26d1bb5f9dd1d29d721facd375baf80f165e668ce491716338e26ad0da"
+    },
+    {
+      "bytes": 538368,
+      "path": "outputs/portable-attachment-native-fixture-v1/legacy/model.glb",
+      "sha256": "c6d54d483f22d1976466653dfdd247a1337b82da78f81a013cb7702ed013dc63"
+    },
+    {
+      "bytes": 716688,
+      "path": "outputs/portable-attachment-native-fixture-v1/tuft-v1/source.blend",
+      "sha256": "a316d6750dc3a3cfff4e07e8cdecec727f3954039c4d36ea06f3c6d36a711c84"
+    },
+    {
+      "bytes": 15503,
+      "path": "outputs/portable-attachment-native-fixture-v1/tuft-v1/binding-report.json",
+      "sha256": "1084379076ff402f291b2fc39b44f9c076c706756a485027b479a508ba6a1ff5"
+    },
+    {
+      "bytes": 217468,
+      "path": "outputs/portable-attachment-native-fixture-v1/tuft-v1/model.glb",
+      "sha256": "535cbd61ab1a98c054b5c11579b5effd6a9f6e239532664b59cd14f9cb0c9a4c"
+    },
+    {
+      "bytes": 1037218,
+      "path": "outputs/portable-attachment-native-fixture-v1/combed-v1/source.blend",
+      "sha256": "01f1456f548649d352890dc30c09c0b64c3766db432bae8fbaf31015791d039a"
+    },
+    {
+      "bytes": 5970,
+      "path": "outputs/portable-attachment-native-fixture-v1/combed-v1/binding-report.json",
+      "sha256": "b3fc9c30a2ad5ed0abcd7e41477cfc8efba9ad609caed03d5000f6195e3aa313"
+    },
+    {
+      "bytes": 537532,
+      "path": "outputs/portable-attachment-native-fixture-v1/combed-v1/model.glb",
+      "sha256": "dd5c36d3c0ae80eec35161821d18f52e9857d3c366958b131156bf41c131eab2"
+    },
+    {
+      "bytes": 1182,
+      "path": "outputs/portable-attachment-native-fixture-v1/combed-v1/portable-root-bindings/PortableCoat_1.npz",
+      "sha256": "0a6627448ec3fe52b1ed152fcae0118592101701a3827507409714100de5f423"
+    },
+    {
+      "bytes": 1182,
+      "path": "outputs/portable-attachment-native-fixture-v1/combed-v1/portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "fc9c012141ccaa901992503a1ebb666bd1838b5901eaf9d55a6817a1d846d4fa"
+    },
+    {
+      "bytes": 1182,
+      "path": "outputs/portable-attachment-native-fixture-v1/tuft-v1/portable-root-bindings/PortableCoat_1.npz",
+      "sha256": "bd23469f2137f7eeb24e3237a7f03b60d33e59adf8a71de7ad9d550ded5e27e2"
+    },
+    {
+      "bytes": 1182,
+      "path": "outputs/portable-attachment-native-fixture-v1/tuft-v1/portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "70547ed15343735ea79bc0cadd5356a54aa183993dae75a09098dd0f6766bb39"
+    },
+    {
+      "bytes": 1182,
+      "path": "outputs/portable-attachment-native-fixture-v1/legacy/portable-root-bindings/PortableCoat_1.npz",
+      "sha256": "0a6627448ec3fe52b1ed152fcae0118592101701a3827507409714100de5f423"
+    },
+    {
+      "bytes": 1182,
+      "path": "outputs/portable-attachment-native-fixture-v1/legacy/portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "fc9c012141ccaa901992503a1ebb666bd1838b5901eaf9d55a6817a1d846d4fa"
+    }
+  ],
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "timeout": 30
+  },
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "output": "outputs/portable-attachment-native-check-v1",
+  "recorded": "2026-11-02 09:51:58 PST",
+  "schema_version": 1,
+  "script_sha256": "e47f0752a85041a88057cfb5c1e6e217379ec522320b1b653079cebc87ebd61f"
+}

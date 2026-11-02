@@ -1,0 +1,52 @@
+{
+  "artifacts": [
+    {
+      "bytes": 3449,
+      "path": "check-stage-initial.py",
+      "sha256": "791bf5b8f3fa7a6848a863d9e9a5e571ce003b49039f811386556e557e952d2a"
+    },
+    {
+      "bytes": 3639,
+      "path": "check-stage.py",
+      "sha256": "e389c9649355f68a87bd2de0f64342a690d85b8313486e9dfedf709f3c091e95"
+    },
+    {
+      "bytes": 407,
+      "path": "controller-handle.json",
+      "sha256": "4f72e4ae490439af7830d35bafaa747afd430006278feb23f89e0516f458c9d2"
+    },
+    {
+      "bytes": 1317,
+      "path": "controller-job.json",
+      "sha256": "2251d6b11fc3210b9db616d051c7a1e8d14fe77c976efa7ac7cd7df62a15f0d8"
+    },
+    {
+      "bytes": 1195,
+      "path": "controller-monitor.json",
+      "sha256": "81ab5c55556e8421837e3919212cfc55b87afac1feb9fc0755e35de1b264e36b"
+    },
+    {
+      "bytes": 1403,
+      "path": "controller.log",
+      "sha256": "4056394525e0978c84b677c8d2332cb53a98d4ead39cbeea02ef1becdbb40e75"
+    },
+    {
+      "bytes": 1149,
+      "path": "execute.py",
+      "sha256": "d030a8a7c5a8f6b9754477a494dc0fe643cc83aba37c902c418c9d7186ea3a98"
+    },
+    {
+      "bytes": 9577,
+      "path": "prepared-final.json",
+      "sha256": "2874357b892094223f241f54b71327e6e7fb6fd755c7ebf0f6d9063d9ce742f6"
+    },
+    {
+      "bytes": 9236,
+      "path": "prepared.json",
+      "sha256": "7f924540273bda336ff10d10cfabfca3194f4f1827102c659b8da852c0c52d25"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "One bounded local component execution; no new generation or quality acceptance",
+  "status": "component_verified_not_full_pipeline"
+}

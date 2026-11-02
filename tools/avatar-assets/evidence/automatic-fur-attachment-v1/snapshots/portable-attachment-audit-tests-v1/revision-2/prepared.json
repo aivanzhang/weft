@@ -1,0 +1,45 @@
+{
+  "bounds": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 60
+  },
+  "changed_behavior": "bounded witness retention, required design root total, advertised-v2 binding completeness, cached encoding identity",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_fur_attachment.FurAttachmentTests.test_missing_new_binding_cannot_masquerade_as_historical",
+    "tests.test_fur_attachment.FurAttachmentTests.test_cached_error_encoding_is_not_mutable",
+    "tests.test_fur_attachment.FurAttachmentTests.test_missing_requested_band_roots_cannot_pass_as_complete",
+    "tests.test_fur_attachment.FurAttachmentTests.test_correct_interpolated_weights_do_not_hide_midpoint_detachment",
+    "tests.test_fur_attachment.FurAttachmentTests.test_influence_mismatch_is_measured_not_malformed",
+    "tests.test_fur_attachment.FurAttachmentTests.test_full_inherited_weights_are_not_truncated_to_producer_top_four",
+    "tests.test_fur_attachment.FurAttachmentTests.test_detached_rest_midpoint_fails_fixed_gate",
+    "tests.test_fur_attachment.FurAttachmentTests.test_inverse_bind_difference_is_not_hidden_by_matching_bone_names",
+    "tests.test_fur_attachment.FurAttachmentTests.test_valid_animated_actual_skin_with_inset_and_reordered_palette",
+    "tests.test_fur_attachment.FurAttachmentTests.test_seams_reordered_rows_and_multiple_bands_use_ids",
+    "tests.test_fur_attachment.FurAttachmentTests.test_historical_bindings_are_unsupported_not_reconstructed",
+    "-v"
+  ],
+  "provenance": "analytic_fixture_tests_not_avatars",
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 36485,
+      "path": "avatar_assets/fur_attachment.py",
+      "sha256": "3f8dc0faebd9fb65554fa7a9c9b34d102607e43d3fba35090c3a4de7903e716c"
+    },
+    {
+      "bytes": 21844,
+      "path": "tests/test_fur_attachment.py",
+      "sha256": "95d3046f94efe110464bc9d57cc1f36d44cdefa6b47ab9eea6a7b2c6f07577fc"
+    },
+    {
+      "bytes": 19539,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    }
+  ]
+}

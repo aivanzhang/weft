@@ -407,21 +407,18 @@ def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, nativ
         if tuft:
             data = card_geometry(vertices, selected, weights, settings, normals, profile='tuft-v1',
                                  prepared_flow=prepared_flow,
-                                 root_color_sampler=lambda ordinal, bary: sampler(selected_indices[ordinal], bary))
+                                 root_color_sampler=lambda ordinal, bary: sampler(selected_indices[ordinal], bary),
+                                 record_bindings=True)
         elif settings.get('sample_root_color', False):
             # Byte sRGB image pixels are encoded values; glTF vertex colors are linear.
             sampled = np.where(colors <= .04045, colors/12.92, ((colors+.055)/1.055)**2.4)
         if not tuft:
             data = card_geometry(vertices, selected, weights, settings, normals,
-                                 profile=settings.get('profile', 'legacy'), colors=sampled)
+                                 profile=settings.get('profile', 'legacy'), colors=sampled, record_bindings=True)
         if tuft_source is not None:
             for sample in data['root_samples']:
                 sample['root_linear_rgb'] = list(data['colors'][sample['root_index']*6])
         mesh = bpy.data.meshes.new('PortableCoat_'+str(index))
-        if 'root_bindings' in data:
-            from fur_bindings import write_bindings
-            data['root_summary']['binding_archive'] = write_bindings(
-                out, mesh.name, data.pop('root_bindings'), band['count'])
         mesh.from_pydata(data['vertices'], [], data['faces'])
         mesh.update()
         uv = mesh.uv_layers.new(name='UVMap')
@@ -461,12 +458,20 @@ def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, nativ
             for name, weight in row.items():
                 groups[name].add([vertex], weight, 'REPLACE')
         cards.modifiers.new('PortableSkin', 'ARMATURE').object = rig
+        from fur_bindings import write_bindings
+        root_bindings = data.pop('root_bindings')
+        correspondence = {'source_node': obj.name, 'coat_node': cards.name,
+                          'source_vertex_count': len(vertices),
+                          'source_triangle_count': len(obj.data.loop_triangles),
+                          'source_vertex_ids': [list(selected[i]) for i in root_bindings['triangle_index']]}
+        data['root_summary']['binding_archive'] = write_bindings(
+            out, cards.name, root_bindings, band['count'], correspondence=correspondence)
         meshes.append(cards)
         reports.append({'cards': band['count'], 'vertices': len(data['vertices']), 'material': report, 'config': band,
                         'geometry_profile': settings.get('profile','legacy'),
                         'sample_root_color': sampled is not None or tuft,
-                        **({'sampling': sampling_report, 'root_summary': data['root_summary'],
-                            'root_samples': data['root_samples']} if tuft else {})})
+                        'root_summary': data['root_summary'],
+                        **({'sampling': sampling_report, 'root_samples': data['root_samples']} if tuft else {})})
     return meshes, reports
 
 
@@ -745,6 +750,12 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
             rig.data.pose_position = 'REST'
             bpy.context.view_layer.update()
             report['source_skin_snapshot'] = snapshot_skin_sources([obj, *cards], rig, out)
+        if cfg.get('portable_fur'):
+            from blender_fur_identity import stamp_fur_identities
+            rig.data.pose_position = 'REST'
+            bpy.context.view_layer.update()
+            report['portable_fur_identity'] = stamp_fur_identities(
+                obj, cards, rig, report['portable_fur'], allow_source_skin_ids=preserve_skin_source)
         clear_actions(owners, [rig])
         rig.data.pose_position = 'POSE'
         for action in actions:
@@ -760,7 +771,7 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
             export_force_sampling=True, export_frame_range=False, export_yup=True, export_skins=True,
             export_normals=True, export_tangents=True, export_image_format='AUTO', export_morph=False,
             export_extras=False, export_materials='EXPORT', export_current_frame=False,
-            export_attributes=preserve_skin_source)
+            export_attributes=preserve_skin_source or bool(cfg.get('portable_fur')))
         rig.data.pose_position = 'REST'
         if fringe:
             phase_memory(out, 'after_export')

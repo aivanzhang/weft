@@ -1,0 +1,117 @@
+{
+  "analytic_not_generated_avatars": true,
+  "appearance_accepted": false,
+  "new_native_calls": 0,
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "results": [
+    {
+      "body_proof": {
+        "body_named_weights_exact": true,
+        "body_oriented_id_triangles_exact": true,
+        "body_points_exact_float32_basis": true,
+        "body_vertex_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "metrics": {
+        "attachment_failures": 46,
+        "body_vertices": 6,
+        "coat_vertices": 24,
+        "exported_vertices": 52,
+        "max_attachment_error_m": 0.017005183738538633,
+        "max_inset_m": 0.0005,
+        "max_named_weight_error": 4.675514642116241e-09,
+        "max_rest_midpoint_error_m": 5.967602023648766e-09,
+        "named_weight_failures": 0,
+        "rest_midpoint_failures": 0,
+        "root_pose_checks": 100,
+        "triangles": 18,
+        "unique_attachment_failed_roots": 2
+      },
+      "native_fixture_warnings_retained": true,
+      "passed": false,
+      "profile": "legacy",
+      "report_sha256": "de64af8f18197ecf01bcee57babbeff46c85c2fdc20b5f4b1debb99929e8c722",
+      "source_model_sha256": "c6d54d483f22d1976466653dfdd247a1337b82da78f81a013cb7702ed013dc63"
+    },
+    {
+      "body_proof": {
+        "body_named_weights_exact": true,
+        "body_oriented_id_triangles_exact": true,
+        "body_points_exact_float32_basis": true,
+        "body_vertex_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "metrics": {
+        "attachment_failures": 46,
+        "body_vertices": 6,
+        "coat_vertices": 24,
+        "exported_vertices": 42,
+        "max_attachment_error_m": 0.017005183738538637,
+        "max_inset_m": 0.0005,
+        "max_named_weight_error": 4.675514642116241e-09,
+        "max_rest_midpoint_error_m": 5.943343067693618e-09,
+        "named_weight_failures": 0,
+        "rest_midpoint_failures": 0,
+        "root_pose_checks": 100,
+        "triangles": 18,
+        "unique_attachment_failed_roots": 2
+      },
+      "native_fixture_warnings_retained": true,
+      "passed": false,
+      "profile": "combed-v1",
+      "report_sha256": "407829d6d9ea78950b2890a88029b4a1a894150598c205217e66b8463d974c40",
+      "source_model_sha256": "dd5c36d3c0ae80eec35161821d18f52e9857d3c366958b131156bf41c131eab2"
+    },
+    {
+      "body_proof": {
+        "body_named_weights_exact": true,
+        "body_oriented_id_triangles_exact": true,
+        "body_points_exact_float32_basis": true,
+        "body_vertex_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "metrics": {
+        "attachment_failures": 0,
+        "body_vertices": 6,
+        "coat_vertices": 24,
+        "exported_vertices": 47,
+        "max_attachment_error_m": 9.107366111260617e-09,
+        "max_inset_m": 0.0003585860077981987,
+        "max_named_weight_error": 0.0,
+        "max_rest_midpoint_error_m": 9.107366111260617e-09,
+        "named_weight_failures": 0,
+        "rest_midpoint_failures": 0,
+        "root_pose_checks": 100,
+        "triangles": 18,
+        "unique_attachment_failed_roots": 0
+      },
+      "native_fixture_warnings_retained": true,
+      "passed": true,
+      "profile": "tuft-v1",
+      "report_sha256": "ea9b337ee1b97a36db3b5754b9e6a27414136fc485fdd225bad2952cc5998120",
+      "source_model_sha256": "535cbd61ab1a98c054b5c11579b5effd6a9f6e239532664b59cd14f9cb0c9a4c"
+    }
+  ],
+  "schema_version": 1,
+  "source_pins_unchanged": true,
+  "status": "passed_expected_native_fixture_outcomes"
+}

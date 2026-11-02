@@ -1,0 +1,76 @@
+{
+  "bounds": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 60
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_fur_attachment.FurAttachmentTests.test_shared_accessor_occurrences_cannot_bypass_owner_vertex_budget",
+    "tests.test_fur_attachment.FurAttachmentTests.test_shared_index_occurrences_cannot_bypass_owner_triangle_budget",
+    "tests.test_fur_attachment.FurAttachmentTests.test_all_owner_vertex_budgets_are_checked_before_first_decode",
+    "tests.test_fur_attachment.FurAttachmentTests.test_all_owner_triangle_budgets_are_checked_before_first_decode",
+    "tests.test_fur_attachment.FurAttachmentTests.test_mismatched_attribute_counts_reject_before_numeric_allocation",
+    "tests.test_fur_attachment.FurAttachmentTests.test_declared_triangle_coverage_checked_before_decode",
+    "tests.test_fur_attachment.FurAttachmentTests.test_inverse_bind_count_is_bounded_before_decode",
+    "tests.test_fur_attachment.FurAttachmentTests.test_valid_animated_actual_skin_with_inset_and_reordered_palette",
+    "tests.test_fur_attachment.FurAttachmentTests.test_seams_reordered_rows_and_multiple_bands_use_ids",
+    "tests.test_fur_attachment.FurAttachmentTests.test_correct_interpolated_weights_do_not_hide_midpoint_detachment",
+    "-v"
+  ],
+  "native_calls": 0,
+  "numeric_function_AST_unchanged": {
+    "_owner": true,
+    "_pass": true,
+    "_skin": true,
+    "_states": true,
+    "validate_report": true
+  },
+  "paid_calls": 0,
+  "prior_module": {
+    "path": "outputs/portable-attachment-audit-tests-v1/revision-2/sources/avatar_assets/fur_attachment.py",
+    "sha256": "3f8dc0faebd9fb65554fa7a9c9b34d102607e43d3fba35090c3a4de7903e716c"
+  },
+  "provenance": "analytic_fixture_tests_not_avatars",
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 40332,
+      "path": "avatar_assets/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 25391,
+      "path": "tests/test_fur_attachment.py",
+      "sha256": "0458b50b8d1c1eaf3bd065756efaa9c020c7a3844d9cc0a3a1ec5a55d89ed629"
+    },
+    {
+      "bytes": 19539,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 9803,
+      "path": "tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    }
+  ]
+}

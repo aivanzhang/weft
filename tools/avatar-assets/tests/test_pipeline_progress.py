@@ -82,6 +82,10 @@ class PipelineProgressTests(unittest.TestCase):
         self.worker._action_audit=Mock(side_effect=[{'passed':False,'states':['fixture torso moves']},
                                                   {'passed':True,'states':[]}])
         self.worker._deformation=Mock(return_value={'passed':True,'provenance':'analytic_fixture'})
+        attachment={'status':'not_applicable','passed':True,'reason':'Analytic fixture requests no portable fur',
+                    'provenance':'analytic_fixture'}
+        self.worker._portable_attachment=Mock(return_value=attachment)
+        self.worker._attachment_summary=Mock(return_value={**attachment,'evidence':{'manifest_sha256':'0'*64}})
         self.worker._full_evidence=Mock(return_value=([],{}))
         self.worker._deliver=Mock(return_value={'status':'complete','provenance':'analytic_fixture'})
 
@@ -124,8 +128,12 @@ class PipelineProgressTests(unittest.TestCase):
         states={item['id']:item['status'] for item in _stage_progress(self.root,'complete')}
         self.assertEqual(states['action_audit:0'],'failed')
         self.assertEqual(states['attempt:0'],'rejected')
-        for name in ('author','build','deformation_gate','native_reload','action_audit','exported_views','media','review_evidence'):
+        for name in ('author','build','deformation_gate','portable_attachment','native_reload','action_audit','exported_views','media','review_evidence'):
             self.assertEqual(states[name+':1'],'complete')
+        self.assertEqual(states['portable_attachment:0'],'complete')
+        self.assertEqual(self.worker._portable_attachment.call_count,2)
+        self.assertEqual(self.worker._attachment_summary.call_count,2)
+        self.assertEqual([call.args[0] for call in self.worker._portable_attachment.call_args_list],[0,1])
         self.assertEqual(states['reviewer:1'],'unsupported' if review_error else 'accept')
         self.assertNotIn('running',states.values())
         self.assertEqual(self.worker.agents.call.call_count,3)

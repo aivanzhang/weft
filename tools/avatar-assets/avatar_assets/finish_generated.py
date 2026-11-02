@@ -321,8 +321,11 @@ def reuse_native(folder, out, cfg):
             for name in ('fur_vertex_roots.py', 'fur_skin_roots.py'):
                 require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name),
                         'Skin-consistent root selector changed; rebuild required')
-            require(sha256(root/'sources/fur_bindings.py') == sha256(ROOT/'avatar_assets/fur_bindings.py'),
-                    'Fur root binding custody changed; rebuild required')
+    if cfg.get('portable_fur'):
+        require(sha256(root/'sources/fur_bindings.py') == sha256(ROOT/'avatar_assets/fur_bindings.py'),
+                'Fur root binding custody changed; rebuild required')
+        require(sha256(root/'sources/blender_fur_identity.py') == sha256(ROOT/'scripts/blender_fur_identity.py'),
+                'Fur export identity changed; rebuild required')
     if cfg.get('portable_fringe'):
         for name in ('edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py', 'fur_root_sampling.py'):
             require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name),
@@ -351,7 +354,7 @@ def reuse_native(folder, out, cfg):
             'Normal continuity helper changed; rebuild required')
     normal_uv = root/'normal-uv-export.json'
     finish_report = read_json(root/'finish-report.json')
-    if cfg.get('portable_fur', {}).get('settings', {}).get('root_placement') == 'skin-consistent-v1':
+    if cfg.get('portable_fur'):
         from avatar_assets.fur_bindings import copy_bindings
         copy_bindings(root, out, finish_report.get('portable_fur'),
                       sum(band['count'] for band in cfg['portable_fur']['bands']))
@@ -467,7 +470,9 @@ def finish(config_path, output, reuse=None):
             if cfg['portable_fur']['settings'].get('root_placement') == 'skin-consistent-v1':
                 for name in ('fur_vertex_roots.py', 'fur_skin_roots.py'):
                     shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
-                shutil.copyfile(ROOT/'avatar_assets/fur_bindings.py', out/'sources/fur_bindings.py')
+        if cfg.get('portable_fur'):
+            shutil.copyfile(ROOT/'avatar_assets/fur_bindings.py', out/'sources/fur_bindings.py')
+            shutil.copyfile(ROOT/'scripts/blender_fur_identity.py', out/'sources/blender_fur_identity.py')
         if cfg.get('material_fur'):
             for name in ('material_fur.py', 'blender_material_colors.py', 'blender_material_coat.py', 'blender_material_groom.py'):
                 shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)

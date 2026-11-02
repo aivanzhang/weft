@@ -28,14 +28,17 @@ def _unit(v):
 
 
 def card_geometry(vertices, triangles, weights, settings, normals=None, *, profile="legacy", colors=None,
-                  prepared_flow=None, root_color_sampler=None):
+                  prepared_flow=None, root_color_sampler=None, record_bindings=False):
     """Each six-vertex ribbon carries an atlas tile, not individual mesh hairs."""
     if not isinstance(profile, str) or profile not in ("legacy", "combed-v1", "tuft-v1"):
         raise ValueError("Unknown fur card geometry profile")
+    if type(record_bindings) is not bool:
+        raise ValueError("Root recording must be explicitly boolean")
     if profile == "tuft-v1":
         if colors is not None:
             raise ValueError("Tuft colors must come from the exact root UV sampler, not vertex interpolation")
-        return _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flow, root_color_sampler)
+        return _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flow, root_color_sampler,
+                              record_bindings=record_bindings)
     if prepared_flow is not None or root_color_sampler is not None:
         raise ValueError("Regional flow and exact root UV sampling require tuft-v1")
     if 'root_placement' in settings:
@@ -54,27 +57,34 @@ def card_geometry(vertices, triangles, weights, settings, normals=None, *, profi
     combed = profile == "combed-v1"
     rng = random.Random(settings["seed"])
     cumulative, usable, total = [], [], 0.
-    for triangle in triangles:
+    for ordinal, triangle in enumerate(triangles):
         a, b, c = (vertices[i] for i in triangle)
         cross = _cross(tuple(b[i]-a[i] for i in range(3)), tuple(c[i]-a[i] for i in range(3)))
         area = math.sqrt(sum(x*x for x in cross))/2
         if area > 1e-14:
             total += area
             cumulative.append(total)
-            usable.append((triangle, _unit(cross)))
+            usable.append((ordinal, triangle, _unit(cross)))
     if not usable and settings["count"]:
         raise ValueError("Hair cards require nondegenerate emitter geometry")
     output = {"vertices": [], "faces": [], "weights": [], "uv": [], "normals": []}
     if colors is not None:
         output["colors"] = []
+    if record_bindings:
+        output['root_bindings'] = {'triangle_index': [], 'barycentric': [], 'root_inset': []}
+        output['root_summary'] = {'root_placement': 'area-random-v1', 'recorded_roots': settings['count']}
     direction = settings.get("direction", [0., 0., -1.])
     for _ in range(settings["count"]):
-        triangle, face_normal = usable[min(bisect_left(cumulative, rng.random()*total), len(usable)-1)]
+        ordinal, triangle, face_normal = usable[min(bisect_left(cumulative, rng.random()*total), len(usable)-1)]
         r, fraction = math.sqrt(rng.random()), rng.random()
         bary = (1-r, r*(1-fraction), r*fraction)
         root = tuple(sum(vertices[index][axis]*f for index, f in zip(triangle, bary)) for axis in range(3))
         normal = (_unit(tuple(sum(normals[index][axis]*f for index, f in zip(triangle, bary))
                              for axis in range(3))) if normals else face_normal)
+        if record_bindings:
+            output['root_bindings']['triangle_index'].append(ordinal)
+            output['root_bindings']['barycentric'].append(list(bary))
+            output['root_bindings']['root_inset'].append([value*.0005 for value in normal])
         basis = (0., 0., 1.) if abs(normal[2]) < .9 else (0., 1., 0.)
         tangent = _unit(_cross(normal, basis))
         bitangent = _cross(normal, tangent)
@@ -162,7 +172,8 @@ def tuft_export_budget(base_export_vertices, total_cards, reserve_vertices=4096)
             "scope": "Conservative corner allowance, not measured export size or visible fur coverage"}
 
 
-def _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flow, root_color_sampler):
+def _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flow, root_color_sampler, *,
+                   record_bindings=False):
     try:
         if not 1 <= len(vertices) <= TUFT_VERTEX_LIMIT or not 0 <= len(triangles) <= 100_000:
             raise ValueError("Tuft emitter vertex/triangle limit exceeded")
@@ -248,6 +259,8 @@ def _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flo
     output["root_summary"] = summary
     if anchors is not None:
         summary.update(root_placement='skin-consistent-v1', binding_selection=anchors['summary'])
+    if anchors is not None or record_bindings:
+        summary.setdefault('root_placement', 'area-stratified-v1')
         output['root_bindings'] = {'triangle_index': [], 'barycentric': [], 'root_inset': []}
     for index in range(settings["count"]):
         # Equal-area strata avoid spending the finite card budget on random face clusters.
@@ -291,9 +304,9 @@ def _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flo
         tile_x, tile_y = tile % ATLAS_TILES, tile // ATLAS_TILES
         first = len(output["vertices"])
         inset = min(.0005, length*.05)
-        if anchors is not None:
+        if anchors is not None or record_bindings:
             output['root_bindings']['triangle_index'].append(ordinal)
-            output['root_bindings']['barycentric'].append(bary)
+            output['root_bindings']['barycentric'].append(list(bary))
             output['root_bindings']['root_inset'].append([normal[i]*inset for i in range(3)])
         center = tuple(root[i]-normal[i]*inset for i in range(3))
         for t, span in ((0., .96), (.5, 1.), (1., .38)):

@@ -1,0 +1,33 @@
+{
+  "agent_model": null,
+  "agent_timeout": 240,
+  "created": "2026-11-02T10:06:44.476607-08:00",
+  "custom_actions": [],
+  "id": "fox-automatic-fur-stage-v1",
+  "max_agent_calls": 3,
+  "max_credits": 0,
+  "max_repairs": 0,
+  "media_spec": {
+    "portrait": 1600,
+    "samples": 8,
+    "seconds": 4,
+    "size": 720
+  },
+  "preset": "preview",
+  "prompt": "Component verification of the existing authored fox only; do not generate, repair or deliver an avatar.",
+  "reference": null,
+  "reuse_model": {
+    "bytes": 27708644,
+    "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+    "path": "inputs/source-model.glb",
+    "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+  },
+  "schema_version": 1,
+  "states": [
+    "idle",
+    "making_something",
+    "milestone_level_up",
+    "working"
+  ],
+  "style": ""
+}

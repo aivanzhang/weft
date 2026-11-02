@@ -11,6 +11,7 @@ from unittest.mock import patch
 import numpy as np
 
 from avatar_assets import finish_generated
+from avatar_assets.fur_bindings import write_bindings
 from avatar_assets.safety import artifacts, read_json, sha256, write_json
 
 
@@ -21,14 +22,15 @@ SCRIPT_SOURCES = (
     'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py',
     'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py',
     'normal_uv_export.py', 'blender_normal_uv_export.py', 'fur_root_sampling.py',
-    'material_fur.py', 'blender_material_colors.py', 'blender_material_coat.py', 'blender_material_groom.py')
+    'material_fur.py', 'blender_material_colors.py', 'blender_material_coat.py', 'blender_material_groom.py',
+    'blender_fur_identity.py')
 CONFIG_SOURCES = ('surface_profiles.py', 'surface_smoothing_config.py', 'color_corrections.py',
-                  'part_rigs.py', 'normal_continuity.py')
+                  'part_rigs.py', 'normal_continuity.py', 'fur_bindings.py')
 ANALYTIC = b'ANALYTIC COPY-CUSTODY BYTES; NOT A NATIVE MODEL OR MEDIA\n'
 
 
 class MaterialNativeReuseTests(unittest.TestCase):
-    def setUp(self):
+    def setUp(self, *, portable_bindings=True):
         self.temporary = tempfile.TemporaryDirectory(prefix='material-native-reuse-')
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name).resolve()
@@ -62,6 +64,16 @@ class MaterialNativeReuseTests(unittest.TestCase):
                           'status': 'supported', 'errors': [], 'scope': 'Analytic custody fixture'}
         self.finish_report = {'groom': deepcopy(self.groom), 'material_coat': deepcopy(self.coat),
                               'normal_uv_export': deepcopy(self.normal_uv)}
+        if portable_bindings:
+            self.cfg['portable_fur']['bands'] = [{'count': 100}]
+            receipt = write_bindings(self.source, 'PortableCoat_fixture',
+                {'triangle_index': [0]*100, 'barycentric': [[.2, .3, .5]]*100,
+                 'root_inset': [[0., 0., .0005]]*100}, 100,
+                correspondence={'source_node': 'analytic-body', 'coat_node': 'PortableCoat_fixture',
+                                'source_vertex_count': 3, 'source_triangle_count': 1,
+                                'source_vertex_ids': [[0, 1, 2]]*100})
+            self.finish_report['portable_fur'] = [{'cards': 100, 'geometry_profile': 'tuft-v1',
+                'root_summary': {'root_placement': 'area-stratified-v1', 'binding_archive': receipt}}]
         write_json(self.source/'finish-config.json', self.cfg)
         write_json(self.source/'finish-report.json', self.finish_report)
         write_json(self.source/'material-groom/report.json', self.groom)

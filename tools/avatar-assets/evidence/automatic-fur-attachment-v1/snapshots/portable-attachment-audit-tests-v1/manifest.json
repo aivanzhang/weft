@@ -1,0 +1,119 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1085,
+      "path": "job.json",
+      "sha256": "003f40410150e06fe4c27fd3c71ac4fa18b6ba7ccddc4fe33d94f5dfdb2fdc06"
+    },
+    {
+      "bytes": 1516,
+      "path": "prepared.json",
+      "sha256": "f8a9ba785955528c2914ce0cfcae497f3f31c5225c87e2d3007b8936c8d7c3fd"
+    },
+    {
+      "bytes": 2251,
+      "path": "revision-2/job.json",
+      "sha256": "84e11492f80408560a8cf7811c12819eb0fbdac90d867f7e74910dc7e62935ba"
+    },
+    {
+      "bytes": 2151,
+      "path": "revision-2/prepared.json",
+      "sha256": "538325e23ba21bc1ffe9cf311fe187067fc061cf4846afa5fc334f18559f4e50"
+    },
+    {
+      "bytes": 36485,
+      "path": "revision-2/sources/avatar_assets/fur_attachment.py",
+      "sha256": "3f8dc0faebd9fb65554fa7a9c9b34d102607e43d3fba35090c3a4de7903e716c"
+    },
+    {
+      "bytes": 19539,
+      "path": "revision-2/sources/avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 21844,
+      "path": "revision-2/sources/tests/test_fur_attachment.py",
+      "sha256": "95d3046f94efe110464bc9d57cc1f36d44cdefa6b47ab9eea6a7b2c6f07577fc"
+    },
+    {
+      "bytes": 1323,
+      "path": "revision-2/tests-handle.json",
+      "sha256": "99a3bf26052bfdb6402dd491f6bde4ee8b218cc8c46dd44878190e39b862ec30"
+    },
+    {
+      "bytes": 2105,
+      "path": "revision-2/tests-monitor.json",
+      "sha256": "310d0d59f830feb05156cd0696e27bd951da665bc501cf0414ecf208c2721625"
+    },
+    {
+      "bytes": 1949,
+      "path": "revision-2/tests.log",
+      "sha256": "02930558e12cc03e386b365e7220626743a09800d1e3371d2ce9b970dfa07a36"
+    },
+    {
+      "bytes": 35641,
+      "path": "sources/avatar_assets/fur_attachment.py",
+      "sha256": "1cd1742f2ef77382b928a2138e78f2bbebc61e5e06a9736744bd5f551fad3569"
+    },
+    {
+      "bytes": 19539,
+      "path": "sources/avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 20920,
+      "path": "sources/tests/test_fur_attachment.py",
+      "sha256": "ead0108a006aeb8c0c91e92c8ec17f88e1f287a6b3512a835beebf95d25e138f"
+    },
+    {
+      "bytes": 9803,
+      "path": "sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 195,
+      "path": "tests-handle.json",
+      "sha256": "168b108edbcc34bfa7bbbb8139f996b9cb63ded6b046583c1767942498b38683"
+    },
+    {
+      "bytes": 979,
+      "path": "tests-monitor.json",
+      "sha256": "350846b797683e3f7a3abe89433a36f90318d6e68eb27990cf8b3c74177fa692"
+    },
+    {
+      "bytes": 4263,
+      "path": "tests.log",
+      "sha256": "ac7cbbaa948841f831357215dac856abd96081067458428af6961c725ce7e7e0"
+    },
+    {
+      "bytes": 1425,
+      "path": "review.json",
+      "sha256": "60e99afddc0fe54cacb5f4caad46c158ce30dc3519c9b5f499742616b60326f1"
+    }
+  ],
+  "immutable": true,
+  "kind": "analytic_attachment_audit_tests",
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/fur_attachment.py": "3f8dc0faebd9fb65554fa7a9c9b34d102607e43d3fba35090c3a4de7903e716c",
+    "avatar_assets/fur_bindings.py": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+    "avatar_assets/safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "avatar_assets/three_d.py": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+    "tests/test_fur_attachment.py": "95d3046f94efe110464bc9d57cc1f36d44cdefa6b47ab9eea6a7b2c6f07577fc"
+  }
+}

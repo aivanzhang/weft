@@ -1,0 +1,113 @@
+test_cached_job_budget_change_is_rejected_even_if_resealed (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_cached_job_budget_change_is_rejected_even_if_resealed) ... ok
+test_custody_failure_stops_without_repair_call (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_custody_failure_stops_without_repair_call) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "failed"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+ERROR
+test_failed_or_uncertain_worker_stops_and_does_not_reexecute (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_failed_or_uncertain_worker_stops_and_does_not_reexecute) ... ok
+test_historical_completed_delivery_never_runs_new_audit (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_historical_completed_delivery_never_runs_new_audit) ... ok
+test_missing_controller_receipt_or_model_change_stops_cache (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_missing_controller_receipt_or_model_change_stops_cache) ... ok
+test_missing_unsealed_or_previous_started_pack_never_replays (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_missing_unsealed_or_previous_started_pack_never_replays) ... {"stage": "portable_attachment", "status": "running"}
+{"stage": "portable_attachment", "status": "failed"}
+ok
+test_new_delivery_and_critic_bind_the_validated_audit (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_new_delivery_and_critic_bind_the_validated_audit) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "failed"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+ERROR
+test_new_helper_pins_reject_unfinished_backend_changes (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_new_helper_pins_reject_unfinished_backend_changes) ... ok
+test_not_applicable_and_unsupported_are_structured_not_worker_errors (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_not_applicable_and_unsupported_are_structured_not_worker_errors) ... ok
+test_numeric_failure_repairs_once_with_witnesses_before_media_or_critic (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_numeric_failure_repairs_once_with_witnesses_before_media_or_critic) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "failed"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+ERROR
+test_numeric_rejection_remains_measured_cached_evidence (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_numeric_rejection_remains_measured_cached_evidence) ... ok
+test_pass_completes_gate_before_native_reload (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_pass_completes_gate_before_native_reload) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "failed"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+ERROR
+test_pass_pins_exact_intent_limits_minimal_environment_and_reuses_without_worker (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_pass_pins_exact_intent_limits_minimal_environment_and_reuses_without_worker) ... ok
+test_resealed_report_change_is_detected_by_controller_receipt (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_resealed_report_change_is_detected_by_controller_receipt) ... ok
+test_studio_projects_new_stage_and_marks_interrupted_work_unresolved (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_studio_projects_new_stage_and_marks_interrupted_work_unresolved) ... {"stage": "portable_attachment", "status": "running"}
+ok
+test_summary_preserves_bounded_witnesses_and_report_hash (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_summary_preserves_bounded_witnesses_and_report_hash) ... ok
+test_unsupported_mapping_stops_without_repair_call (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_unsupported_mapping_stops_without_repair_call) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "failed"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+ERROR
+test_validator_rejection_is_not_an_author_repair (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_validator_rejection_is_not_an_author_repair) ... ok
+
+======================================================================
+ERROR: test_custody_failure_stops_without_repair_call (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_custody_failure_stops_without_repair_call)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_portable_attachment_pipeline.py", line 240, in test_custody_failure_stops_without_repair_call
+    with self.assertRaises(pipeline.EvidenceCustodyError):self.worker.run(execute=False)
+                                                          ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 624, in run
+    return self._run(execute, plan_only=plan_only)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 870, in _run
+    require(inspected['source_glb_sha256'] == source['sha256'], 'Preview belongs to a different source')
+            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'source_glb_sha256'
+
+======================================================================
+ERROR: test_new_delivery_and_critic_bind_the_validated_audit (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_new_delivery_and_critic_bind_the_validated_audit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_portable_attachment_pipeline.py", line 288, in test_new_delivery_and_critic_bind_the_validated_audit
+    result=worker.run(execute=False)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 624, in run
+    return self._run(execute, plan_only=plan_only)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 870, in _run
+    require(inspected['source_glb_sha256'] == source['sha256'], 'Preview belongs to a different source')
+            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'source_glb_sha256'
+
+======================================================================
+ERROR: test_numeric_failure_repairs_once_with_witnesses_before_media_or_critic (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_numeric_failure_repairs_once_with_witnesses_before_media_or_critic)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_portable_attachment_pipeline.py", line 224, in test_numeric_failure_repairs_once_with_witnesses_before_media_or_critic
+    result=self.worker.run(execute=False)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 624, in run
+    return self._run(execute, plan_only=plan_only)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 870, in _run
+    require(inspected['source_glb_sha256'] == source['sha256'], 'Preview belongs to a different source')
+            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'source_glb_sha256'
+
+======================================================================
+ERROR: test_pass_completes_gate_before_native_reload (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_pass_completes_gate_before_native_reload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_portable_attachment_pipeline.py", line 246, in test_pass_completes_gate_before_native_reload
+    with self.assertRaisesRegex(RuntimeError,'Analytic stop'):self.worker.run(execute=False)
+                                                              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 624, in run
+    return self._run(execute, plan_only=plan_only)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 870, in _run
+    require(inspected['source_glb_sha256'] == source['sha256'], 'Preview belongs to a different source')
+            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'source_glb_sha256'
+
+======================================================================
+ERROR: test_unsupported_mapping_stops_without_repair_call (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_unsupported_mapping_stops_without_repair_call)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_portable_attachment_pipeline.py", line 233, in test_unsupported_mapping_stops_without_repair_call
+    result=self.worker.run(execute=False)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 624, in run
+    return self._run(execute, plan_only=plan_only)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py", line 870, in _run
+    require(inspected['source_glb_sha256'] == source['sha256'], 'Preview belongs to a different source')
+            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'source_glb_sha256'
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.539s
+
+FAILED (errors=5)

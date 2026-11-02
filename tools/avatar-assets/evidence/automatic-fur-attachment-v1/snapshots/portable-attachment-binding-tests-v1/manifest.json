@@ -1,0 +1,97 @@
+{
+  "artifact_bytes": 96904,
+  "artifact_count": 17,
+  "artifacts": [
+    {
+      "bytes": 10500,
+      "path": "baseline-v1/fur_bindings.py",
+      "sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac"
+    },
+    {
+      "bytes": 892,
+      "path": "baseline-v1/portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "7ed97eb40d71eda21f57dfc1807503dbe0f80f439dbc2de93ca00ca32dbe9f51"
+    },
+    {
+      "bytes": 842,
+      "path": "baseline-v1/receipt.json",
+      "sha256": "26a464db472ff0784b23647fe678a8e74ba87919effc4b5353ace5f09efa13db"
+    },
+    {
+      "bytes": 1077,
+      "path": "job.json",
+      "sha256": "6361047de85ba0067027b94595e194de9e39ae264f20eaa7dd42a272151a76f6"
+    },
+    {
+      "bytes": 1874,
+      "path": "prepared.json",
+      "sha256": "4b670d88b69ef8ee81b29c1a8e4fa32f592806232948d45e6ad34b35a798436d"
+    },
+    {
+      "bytes": 2556,
+      "path": "release.json",
+      "sha256": "a1579c602649ba03e7eae144f5c5e080b8f7c399711a26e90e07506f101725b7"
+    },
+    {
+      "bytes": 297,
+      "path": "result.json",
+      "sha256": "ff3abba5112b04939e33b5607e9b54dfe94c5599c0077c17d7bd9e90172034bb"
+    },
+    {
+      "bytes": 814,
+      "path": "run-tests.py",
+      "sha256": "cb3d8f0448d70431dc89cb401a7b6f38f4419c3e5c7f55eb4ad8f72610a7b84a"
+    },
+    {
+      "bytes": 19539,
+      "path": "sources/avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 6849,
+      "path": "sources/outputs/portable-attachment-integration-preparation-v1/contract.md",
+      "sha256": "0d02281dfb038fe5252b9116e35a1c60760fa6cf6563a42aabbab6deed1c10a2"
+    },
+    {
+      "bytes": 276,
+      "path": "sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 29651,
+      "path": "sources/tests/test_fur_bindings.py",
+      "sha256": "fa2d61dde8dce195bb9fbe970e62e0e4372ec34d1e8ff6f7fa987cd06b91fe9e"
+    },
+    {
+      "bytes": 249,
+      "path": "tests-handle.json",
+      "sha256": "450baa9077cb4f479740f5a83ee1c154ab85920c6a1345c6320374b58eac66a6"
+    },
+    {
+      "bytes": 985,
+      "path": "tests-monitor.json",
+      "sha256": "071a3d31981b3ba811cbbccccf4d82e1900855a3b0e742a7d02ff4081f47600a"
+    },
+    {
+      "bytes": 5323,
+      "path": "tests.log",
+      "sha256": "b5688bbca99a6ed1816003b77f6924377201510289551adb25c5ac1650d4b18c"
+    }
+  ],
+  "kind": "analytic_software_tests",
+  "numeric_attachment_verified": false,
+  "quality_verified": false,
+  "schema_version": 1,
+  "self_excluded": true,
+  "status": "passed"
+}

@@ -1,0 +1,54 @@
+{
+  "analytic_fixture_not_public_finish": true,
+  "id": "analytic-native-combed-v1",
+  "portable_fur": {
+    "bands": [
+      {
+        "brightness": [
+          0,
+          0.5
+        ],
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 2
+      },
+      {
+        "brightness": [
+          0.5,
+          1.01
+        ],
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 2
+      }
+    ],
+    "settings": {
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "length": 0.012,
+      "profile": "combed-v1",
+      "sample_root_color": true,
+      "seed": 211,
+      "width": 0.003
+    }
+  },
+  "schema_version": 1,
+  "source": "source-fixture.json",
+  "source_sha256": "3c16c14774de63a9692e833f3c95d11d529ddaaa8ae9185a5250726fec246a5d",
+  "states": [
+    {
+      "id": "flex_probe"
+    }
+  ]
+}

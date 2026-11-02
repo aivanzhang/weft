@@ -1,0 +1,17 @@
+{
+  "bounded_child_started": false,
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-attachment-legacy-integration-tests-v1/execute.py"
+  ],
+  "error": "ModuleNotFoundError: No module named avatar_assets",
+  "exit_code": 1,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "reason": "Output-local controller could not import the workspace package before creating a worker.",
+  "role_calls": 0,
+  "schema_version": 1,
+  "status": "bootstrap_failed",
+  "tests_started": false
+}

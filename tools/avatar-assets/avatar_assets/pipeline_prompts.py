@@ -332,6 +332,11 @@ is unsupported, not permission to drop fibers or alter body weights. Both domain
 Full root/triangle/barycentric/inset records are preserved in bounded NPZ files, separate from sampled color/flow records.
 This changes root placement where skin varies; check coverage/clumping, full exported attachment and actual appearance.
 It does not add density, repair source deformation, certify native hair, or establish Muse quality. The default is unchanged.
+Every new portable-card export records exact body/card point identities and all root bindings, including legacy/combed cards.
+Before expensive final media, the coordinator checks full named-weight inheritance and actual final-body attachment at24fps.
+A root that moves with its declared weights can still separate from its source triangle. Numeric failures can request bounded
+repair; missing/corrupt evidence stops execution. Do not remove requested fur, weaken gates, or change the user's action to pass.
+Use the retained root/part witnesses to choose a justified attachment change; attachment success is not dense-fur or visual approval.
 Optional material_fur:{version:1,materials:[exact_source_material_name]} selects1–32 unique observed source material names
 for a material-owned coat. Do not invent names or infer ownership from species/color. Unlisted source materials receive no
 hair/cards, so an explicit measured selector can exclude eyes, claws, glass and other non-fur materials without guessed regions.

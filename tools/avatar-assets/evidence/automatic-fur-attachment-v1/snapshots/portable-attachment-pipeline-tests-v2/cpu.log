@@ -1,0 +1,80 @@
+test_custody_failure_stops_without_repair_call (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_custody_failure_stops_without_repair_call) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "complete"}
+{"stage": "author", "status": "running"}
+{"stage": "author", "status": "complete"}
+{"stage": "build", "status": "running"}
+{"stage": "build", "status": "complete"}
+{"stage": "deformation_gate", "status": "running"}
+{"stage": "deformation_gate", "status": "complete"}
+{"stage": "portable_attachment", "status": "running"}
+{"stage": "portable_attachment", "status": "failed"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+ok
+test_new_delivery_and_critic_bind_the_validated_audit (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_new_delivery_and_critic_bind_the_validated_audit) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "complete"}
+{"stage": "author", "status": "running"}
+{"stage": "author", "status": "complete"}
+{"stage": "build", "status": "running"}
+{"stage": "build", "status": "complete"}
+{"stage": "deformation_gate", "status": "running"}
+{"stage": "deformation_gate", "status": "complete"}
+{"stage": "portable_attachment", "status": "running"}
+{"stage": "portable_attachment", "status": "complete"}
+{"stage": "native_reload", "status": "running"}
+{"stage": "native_reload", "status": "complete"}
+{"stage": "action_audit", "status": "running"}
+{"stage": "action_audit", "status": "complete"}
+{"stage": "exported_views", "status": "running"}
+{"stage": "exported_views", "status": "complete"}
+{"stage": "review_evidence", "status": "running"}
+{"stage": "review_evidence", "status": "complete"}
+{"stage": "reviewer", "status": "running"}
+{"stage": "reviewer", "status": "accept"}
+{"stage": "delivery", "status": "running"}
+{"stage": "delivery", "status": "complete"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+ok
+test_numeric_failure_repairs_once_with_witnesses_before_media_or_critic (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_numeric_failure_repairs_once_with_witnesses_before_media_or_critic) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "complete"}
+{"stage": "author", "status": "running"}
+{"stage": "author", "status": "complete"}
+{"stage": "build", "status": "running"}
+{"stage": "build", "status": "complete"}
+{"stage": "deformation_gate", "status": "running"}
+{"stage": "deformation_gate", "status": "complete"}
+{"stage": "portable_attachment", "status": "running"}
+{"stage": "portable_attachment", "status": "failed"}
+{"stage": "attempt", "status": "rejected"}
+{"stage": "author", "status": "running"}
+{"stage": "author", "status": "unsupported"}
+ok
+test_pass_completes_gate_before_native_reload (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_pass_completes_gate_before_native_reload) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "complete"}
+{"stage": "author", "status": "running"}
+{"stage": "author", "status": "complete"}
+{"stage": "build", "status": "running"}
+{"stage": "build", "status": "complete"}
+{"stage": "deformation_gate", "status": "running"}
+{"stage": "deformation_gate", "status": "complete"}
+{"stage": "portable_attachment", "status": "running"}
+{"stage": "portable_attachment", "status": "complete"}
+{"stage": "native_reload", "status": "running"}
+{"stage": "native_reload", "status": "failed"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+ok
+test_unsupported_mapping_stops_without_repair_call (tests.test_portable_attachment_pipeline.AttachmentPipelineTests.test_unsupported_mapping_stops_without_repair_call) ... {"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "complete"}
+{"stage": "author", "status": "running"}
+{"stage": "author", "status": "complete"}
+{"stage": "build", "status": "running"}
+{"stage": "build", "status": "complete"}
+{"stage": "deformation_gate", "status": "running"}
+{"stage": "deformation_gate", "status": "complete"}
+{"stage": "portable_attachment", "status": "running"}
+{"stage": "portable_attachment", "status": "unsupported"}
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.263s
+
+OK

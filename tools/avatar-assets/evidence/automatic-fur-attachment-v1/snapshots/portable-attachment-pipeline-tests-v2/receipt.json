@@ -1,0 +1,241 @@
+{
+  "agent_calls": 0,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "OPENBLAS_NUM_THREADS=1",
+      "OMP_NUM_THREADS=1",
+      "TMPDIR=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-attachment-pipeline-tests-v2/tmp",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-attachment-pipeline-tests-v2/run_tests.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.524,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 873638,
+    "last_rss_sample_elapsed_seconds": 0.262,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 2189,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 873638,
+    "sampled_peak_rss_bytes": 71630848,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "limitation": "No real attachment, renderer or avatar quality verdict is produced by these orchestration fixtures.",
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_unchanged": [
+    {
+      "path": "avatar_assets/__init__.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/action_audit.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/cli.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/deformation_gate.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/finish_generated.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/fringe_export.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/fur_attachment.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/fur_bindings.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/gallery.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/generated_tangents.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/normal_continuity.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/pipeline_evidence.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/portable_fringe.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/quality_policy.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_edge_fringe.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_finish_generated.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_fur_cards.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_fur_identity.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_fur_undercoat.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_material_coat.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_material_colors.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_material_groom.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_normal_continuity.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_normal_uv_export.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/edge_fringe.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/fringe_color_atlas.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/fur_root_sampling.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/fur_skin_roots.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/fur_vertex_roots.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/material_fur.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/motion_samples.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/native_render_tasks.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/normal_uv_export.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/undercoat_uv_atlas.py",
+      "unchanged": true
+    },
+    {
+      "path": "tests/test_portable_attachment_pipeline.py",
+      "unchanged": true
+    }
+  ],
+  "status": "passed",
+  "test_result": {
+    "elapsed_seconds": 0.3132778340950608,
+    "errors": 0,
+    "failures": 0,
+    "passed": true,
+    "scope": "Analytic orchestration, custody and Studio projection. No provider, agent-role, numeric asset or native job.",
+    "selected_tests": [
+      "test_custody_failure_stops_without_repair_call",
+      "test_new_delivery_and_critic_bind_the_validated_audit",
+      "test_numeric_failure_repairs_once_with_witnesses_before_media_or_critic",
+      "test_pass_completes_gate_before_native_reload",
+      "test_unsupported_mapping_stops_without_repair_call"
+    ],
+    "self_peak_rss_bytes": 72040448,
+    "skipped": 0,
+    "tests_run": 5
+  }
+}

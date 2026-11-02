@@ -1,0 +1,43 @@
+{
+  "inputs": {
+    "barycentric": [
+      [
+        0.25,
+        0.25,
+        0.5
+      ],
+      [
+        0.25,
+        0.25,
+        0.5
+      ]
+    ],
+    "root_inset": [
+      [
+        0,
+        0,
+        0.0002
+      ],
+      [
+        0,
+        0,
+        0.0002
+      ]
+    ],
+    "triangle_index": [
+      0,
+      1
+    ]
+  },
+  "receipt": {
+    "bytes": 892,
+    "path": "portable-root-bindings/PortableCoat_0.npz",
+    "root_inset_convention": "surface_root_minus_bottom_edge_midpoint",
+    "roots": 2,
+    "schema_version": 1,
+    "sha256": "7ed97eb40d71eda21f57dfc1807503dbe0f80f439dbc2de93ca00ca32dbe9f51",
+    "space": "blender_local_z_up_meters"
+  },
+  "scope": "Existing trusted v1 writer before extension; numeric fixture only",
+  "source_sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac"
+}
