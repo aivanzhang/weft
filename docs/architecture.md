@@ -4,6 +4,8 @@
 
 **Muse review:** completed projects can queue a server-key Meta construction critique through the same portal. Evidence-linked hypotheses, alternatives, suggested tests and costs remain outside immutable runs; no evaluation data is sent and no proposal is automatically applied. [Live acceptance and remaining repair-loop work](handoffs/portal-muse.md).
 
+**Related local experiments:** fixed control comparisons run under the original task, with bounded background work, full traces and exact replay. Muse's requested physical measurements remain unresolved. Diagnostics do not apply repairs or change scorers. [Verification](handoffs/portal-checks.md).
+
 For the full product target and physics-grounded evaluation design, read [goal.md](../goal.md). For the first product milestone, read [v1.md](../v1.md). This document maps those targets to the current implementation contracts and limitations.
 
 ## Target and evidence boundary

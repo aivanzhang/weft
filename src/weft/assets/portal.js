@@ -6,7 +6,9 @@
   history.replaceState(null, "", location.pathname);
   let selected = null, timer = null, pending = false, uploading = false, lastProjects = "", lastDetail = "";
   let museAvailable = false, reviewing = false;
+  let checking = false;
   const reviewActive = job => ["queued", "running", "cancelling"].includes(job.muse?.status);
+  const checkActive = job => ["queued", "running", "cancelling"].includes(job.muse?.checks?.status);
   const terminal = new Set(["ready", "failed", "cancelled", "interrupted"]);
   const labels = {queued:"Queued",uploading:"Uploading",running:"Processing",ready:"Ready to explore",failed:"Needs attention",cancelled:"Cancelled",interrupted:"Interrupted"};
   const error = message => { $("error").textContent = message; $("error").hidden = false; };
@@ -24,7 +26,7 @@
   async function show(job) {
     if (!job) return;
     selected = job.id;
-    const signature = JSON.stringify([job, museAvailable, reviewing]);
+    const signature = JSON.stringify([job, museAvailable, reviewing, checking]);
     if (lastDetail === signature) return;
     lastDetail = signature;
     $("project").hidden = false;
@@ -32,8 +34,8 @@
     $("project-status").textContent = labels[job.status] || job.status;
     $("project-error").hidden = !job.error;
     $("project-error").textContent = job.error || "";
-    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job);
-    $("cancel").textContent = reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
+    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job) && !checkActive(job);
+    $("cancel").textContent = checkActive(job) ? "Cancel local checks" : reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
     const stage = {source:"reconstruct",observe:"reconstruct",world:"reconstruct",repair:"reconstruct",evaluate:"reconstruct",render:"train",starting:"analyze",queued:"upload"}[job.stage] || job.stage;
     const names = ["upload", "analyze", "reconstruct", "train", "ready"], current = names.indexOf(stage);
     document.querySelectorAll("#steps li").forEach(node => {
@@ -74,6 +76,20 @@
     artifactLink("muse-proposal-download", job, "muse/advice/hypotheses.json", !!advice);
     artifactLink("muse-context-download", job, "muse/advice/context.json", !!job.muse?.receipt);
     artifactLink("muse-receipt-download", job, "muse/advice/advisor-call.json", !!job.muse?.receipt);
+    const checks = job.muse?.checks, report = checks?.report;
+    $("run-checks").hidden = job.muse?.status !== "proposed" || !!checks;
+    $("run-checks").disabled = checking;
+    $("checks-help").hidden = job.muse?.status !== "proposed";
+    $("checks-status").textContent = checks?.message || checks?.status || "";
+    const controls = {authored:"Authored controller",root_unforced:"Controller without root assistance",coast:"No control",positive_x:"Push right",negative_x:"Push left"};
+    $("checks-results").replaceChildren(...(report?.trials || []).map(trial => {
+      const li = document.createElement("li"); li.textContent = `${controls[trial.condition] || trial.condition}: ${trial.steps}/${trial.horizon_steps} steps · original task success: ${trial.success ? "yes" : "no"} · total reward: ${trial.reward_sum.toFixed(3)}`; return li;
+    }));
+    artifactLink("checks-report-download", job, "muse/checks/report.json", !!report);
+    $("checks-traces").replaceChildren(...(report?.trials || []).map(trial => {
+      const a = document.createElement("a"); a.textContent = `${controls[trial.condition] || trial.condition} actions and states`; a.className = "text-link";
+      a.href = fileURL(job.id, "muse/checks/" + trial.trace); a.download = trial.trace; return a;
+    }));
     if (job.plan && $("frame-previews").dataset.job !== job.id) {
       $("frame-previews").dataset.job = job.id;
       $("frame-previews").replaceChildren();
@@ -117,7 +133,7 @@
       if (!selected && data.jobs.length) selected = data.jobs[0].id;
       await show(data.jobs.find(job => job.id === selected));
       $("create").disabled = uploading;
-      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job));
+      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job));
       timer = setTimeout(refresh, active ? 1500 : 12000);
     } catch (e) { error(e.message); $("connection").textContent = "Connection needs attention"; timer = setTimeout(refresh, 12000); }
     finally { pending = false; }
@@ -154,6 +170,16 @@
       if (selected === identity) await show(job);
     } catch (e) { error(`${e.message}. Refresh to inspect the saved review; no automatic retry was made.`); }
     finally { reviewing = false; lastDetail = ""; refresh(); }
+  };
+  $("run-checks").onclick = async () => {
+    if (!selected || checking) return;
+    checking = true; $("run-checks").disabled = true;
+    const identity = selected;
+    try {
+      const job = await request(`/api/projects/${identity}/muse/checks`, {method:"POST"});
+      if (selected === identity) await show(job);
+    } catch (e) { error(e.message); }
+    finally { checking = false; lastDetail = ""; refresh(); }
   };
   $("refresh").onclick = refresh;
   document.addEventListener("visibilitychange", () => { clearTimeout(timer); if (!document.hidden) refresh(); });

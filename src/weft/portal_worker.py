@@ -15,7 +15,8 @@ def main():
     from weft.lab_worker import atomic_json
     root = Path(sys.argv[1])
     review = len(sys.argv) == 4 and sys.argv[3] == "review"
-    work = root / "muse" if review else root
+    checks = len(sys.argv) == 4 and sys.argv[3] == "checks"
+    work = root / "muse/checks" if checks else root / "muse" if review else root
     stopped = threading.Event()
     started = time.monotonic()
 
@@ -30,7 +31,10 @@ def main():
                 os._exit(74)
 
     threading.Thread(target=monitor, name="weft-resource-limit", daemon=True).start()
-    if review:
+    if checks:
+        from weft.portal_checks import execute_checks
+        result = execute_checks(root)
+    elif review:
         from weft.portal_review import execute_review
         result = execute_review(root, project=Path(sys.argv[2]))
     else:

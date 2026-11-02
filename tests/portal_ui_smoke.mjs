@@ -20,6 +20,7 @@ function setup(jobs=[]) {
     fetch:async(path,options={})=>{calls.push({path,options});if(path==="/api/portal")return {ok:true,json:async()=>structuredClone(info)};
       if(path.startsWith("/api/projects?"))return {ok:true,json:async()=>({id:"b".repeat(32),name:"clip.webm",status:"queued",stage:"queued",events:[]})};
       if(path.endsWith("/muse")){info.jobs[0].muse={status:"queued",message:"Waiting"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/muse/checks")){info.jobs[0].muse.checks={status:"queued",message:"Waiting for local comparisons"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       return {ok:true,json:async()=>({frames:[]})};},console};
   vm.runInNewContext(code,context);
   return {elements,calls,timers,document,listeners,info};
@@ -35,6 +36,14 @@ function setup(jobs=[]) {
   assert.equal(e.get("review-muse").hidden,true);assert.equal(e.get("muse-summary").textContent,"Possible support");
   assert.equal(e.get("muse-hypotheses").children[0].children[1].textContent,"<script>untrusted</script>");
   assert.equal(e.get("muse-proposal-download").hidden,false);assert.equal(e.get("cancel").hidden,true);
+  assert.equal(e.get("run-checks").hidden,false);
+  await e.get("run-checks").onclick();await tick();
+  assert.equal(f.calls.filter(c=>c.path.endsWith("/muse/checks")).length,1);
+  assert.equal(e.get("cancel").textContent,"Cancel local checks");assert.equal(e.get("sandbox").hidden,false);
+  f.info.jobs[0].muse.checks={status:"complete",message:"Physical hypotheses remain unresolved",report:{trials:[{condition:"root_unforced",steps:6,horizon_steps:50,success:false,reward_sum:-1.25,trace:"root_unforced.jsonl"}]}};
+  await e.get("refresh").onclick();await tick();
+  assert.match(e.get("checks-results").children[0].textContent,/without root assistance.*6\/50.*success: no/);
+  assert.equal(e.get("checks-report-download").hidden,false);assert.equal(e.get("checks-traces").children.length,1);
   console.log("PASS Muse request, separate budget, retained sandbox and untrusted proposal display");
 }
 

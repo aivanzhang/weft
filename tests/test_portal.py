@@ -155,6 +155,49 @@ def test_inflight_muse_receipt_write_does_not_break_project_list(portal):
         portal.summary(job["id"])
 
 
+def test_local_checks_need_review_but_no_key_and_preserve_ready_world(portal):
+    job = upload(portal)
+    identity = job["id"]
+    folder = portal.root / identity
+    with pytest.raises(ValueError, match="completed simulation"):
+        portal.check(identity)
+    atomic_json(folder / "status.json", {"status": "ready", "route": "exercise", "events": []})
+    (folder / "muse").mkdir()
+    atomic_json(folder / "muse/status.json", {"status": "proposed"})
+    before = (folder / "status.json").read_bytes(), (folder / "muse/status.json").read_bytes()
+    with serving(portal) as server:
+        path = f"/api/projects/{identity}/muse/checks"
+        assert request(server, path, "POST", auth=False)[0] == 401
+        assert request(server, path, "POST", headers={"Origin": "https://attacker.invalid"})[0] == 403
+        assert request(server, path, "POST", b"unexpected")[0] == 400
+        assert request(server, path, "POST")[0] == 202
+        assert request(server, path, "POST")[0] == 202
+        assert portal.summary(identity)["muse"]["checks"]["status"] == "queued"
+        assert request(server, f"/api/projects/{identity}/cancel", "POST")[0] == 200
+    assert portal.summary(identity)["muse"]["checks"]["status"] == "cancelled"
+    assert before == ((folder / "status.json").read_bytes(), (folder / "muse/status.json").read_bytes())
+    assert portal.check(identity)["muse"]["checks"]["status"] == "cancelled"
+
+
+def test_check_restart_keeps_original_ready_and_review_proposed(tmp_path):
+    portal = Portal(tmp_path / "portal", project=tmp_path, start=False)
+    job = upload(portal)
+    folder = portal.root / job["id"]
+    atomic_json(folder / "status.json", {"status": "ready", "route": "exercise", "events": []})
+    (folder / "muse").mkdir()
+    atomic_json(folder / "muse/status.json", {"status": "proposed"})
+    portal.check(job["id"])
+    portal.close()
+    reopened = Portal(tmp_path / "portal", project=tmp_path, start=False)
+    try:
+        result = reopened.summary(job["id"])
+        assert result["status"] == "ready" and result["muse"]["status"] == "proposed"
+        assert result["muse"]["checks"]["status"] == "interrupted"
+        assert reopened.check(job["id"])["muse"]["checks"]["status"] == "interrupted"
+    finally:
+        reopened.close()
+
+
 def test_active_cancel_uses_independent_marker(portal):
     job = upload(portal)
     portal.active = job["id"]

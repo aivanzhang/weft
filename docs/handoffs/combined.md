@@ -1,5 +1,7 @@
 # Combined Weft implementation handoff
 
+**Latest portal milestone — November 2, 2026 (PST):** [Local comparisons beside Muse](portal-checks.md) are live-verified: 2.24 s, 702 exact replayed actions, unchanged run/task/scorer/advice and zero API spend. Authored control passes the 234-step task; root-unforced/coast fail. This is a simulation diagnostic, not physical validation or an accepted repair. Full goal remains active.
+
 **Latest portal milestone — November 2, 2026 (PST):** [Muse construction review](portal-muse.md) is integrated and live-verified using the existing Meta project key. One call cost $0.013384; simulation and scored run remain unchanged. Proposed tests are not yet executed or accepted. The full repair/generalization goal remains active.
 
 ## Current product handoff — November 2, 2026, 11:39 AM PST

@@ -29,6 +29,11 @@ The user starts/manages this server. No browser opens automatically. Use
    physical explanations, cited observations, suggested tests and unresolved questions.
    This sends construction evidence and up to three thumbnails to Meta. Review
    runs in the background; the sandbox remains usable. Proposals are not applied.
+6. Select **Run local comparisons · no API charge**. Exercise projects compare
+   authored control, disabled root assistance and no control under the same task.
+   Object projects compare opposite force interventions and no control. Inspect
+   success/reward and download every action/state. These are local diagnostics,
+   not execution of Muse's requested real-world measurements or automatic repairs.
 
 Projects persist under `.local/portal/`. Closing the server preserves completed
 runs and recordings. Interrupted work is not automatically resubmitted or billed

@@ -1,5 +1,9 @@
 # Muse review in the product portal
 
+**Follow-up:** [local control comparisons](portal-checks.md) now run through the
+portal with exact traces and unchanged scoring. Physical measurement requests and
+automatic repairs remain unresolved; the original live review below is unchanged.
+
 ## Verified milestone — November 2, 2026 (PST)
 
 Muse is now available through an authenticated project action in the existing
