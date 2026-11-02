@@ -46,7 +46,8 @@ def _root_view_inputs(config_path, out, *, additional=False):
     return config, second, inputs
 
 
-def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, root_view_path=None, body_view=None, partial_segments=False, additional_view_paths=(), limb_fit=False):
+def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, root_view_path=None, body_view=None,
+                            partial_segments=False, additional_view_paths=(), limb_fit=False, partial_pixel_fit=False):
     started = time.monotonic()
     source_run, camera_path, out = (Path(value).resolve() for value in (source_run, camera_path, out))
     if (not isinstance(additional_view_paths, (list, tuple)) or len(additional_view_paths) > 2
@@ -58,6 +59,8 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         raise ValueError('Partial segments require --root-view and --body-view directions or both')
     if type(limb_fit) is not bool or limb_fit and body_view not in ('directions', 'both'):
         raise ValueError('Fixed-length limb fitting requires --body-view directions/both')
+    if type(partial_pixel_fit) is not bool or partial_pixel_fit and not (limb_fit and partial_segments):
+        raise ValueError('Partial pixel fitting requires --fit-limbs and --partial-segments')
     if out.exists() or out.is_relative_to(source_run):
         raise ValueError('Choose a new camera-body lab outside the immutable source run')
     if (camera_path.parent/'manifest.json').exists() and out.is_relative_to(camera_path.parent):
@@ -141,7 +144,8 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
     if body_view is not None:
         from weft.multiview_body import make_two_view_body
         spec, body_report = make_two_view_body(spec, triangulation, evidence, second['evidence'],
-            mode=body_view, partial_segments=partial_segments, additional_evidence=[view['evidence'] for view in additional_views], limb_fit=limb_fit)
+            mode=body_view, partial_segments=partial_segments, additional_evidence=[view['evidence'] for view in additional_views], limb_fit=limb_fit,
+            partial_pixel_fit=partial_pixel_fit, pixel_cameras=[camera, second['camera'], *[v['camera'] for v in additional_views]] if partial_pixel_fit else ())
     if ground_bytes is not None:
         ground_audit = audit_ground_clearance(spec)
     feasibility = audit_reference_feasibility(spec)
@@ -233,6 +237,9 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         if limb_fit:
             report['scope'] = 'Manual fixed-length limb angle candidate; source-position fit only, not contact or physical accuracy'
             report['limb_position_fit'] = body_report['limb_position_fit']
+        if partial_pixel_fit:
+            report['scope'] = 'Manual partial-limb image candidate; depth/bend/twist remain inferred, not contact or physical accuracy'
+            report['partial_pixels'] = body_report['partial_pixels']
     write_json(run/'report.json', report)
     write_json(run/'manifest.json', {'schema': 1, 'created_at': local_time(),
                'files': {str(path.relative_to(run)): digest(path) for path in sorted(run.rglob('*')) if path.is_file()}})

@@ -32,10 +32,16 @@ def package(tmp_path):
     return source, camera, ground, config, extra
 
 
-@pytest.mark.parametrize('mode,limb_fit,partial', [(None, False, False), ('both', False, False),
-    ('both', True, False), ('both', False, True), ('both', True, True)])
-def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path, monkeypatch, mode, limb_fit, partial):
+@pytest.mark.parametrize('mode,limb_fit,partial,pixels', [(None, False, False, False), ('both', False, False, False),
+    ('both', True, False, False), ('both', False, True, False), ('both', True, True, False), ('both', True, True, True)])
+def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path, monkeypatch, mode, limb_fit, partial, pixels):
     source, camera, ground, config, extra = package(tmp_path)
+    if pixels:
+        for name in ('second-evidence.json', 'third-evidence.json'):
+            evidence = json.loads((tmp_path/name).read_text())
+            for row in evidence['frames']:
+                for joint in (15, 27): row['landmarks'][joint]['visibility'] = .1
+            write_json(tmp_path/name, evidence)
     before = verify_artifacts(source)
     out = tmp_path/'lab'
     args = ['weft', 'camera-body', '--run', str(source), '--camera', str(camera), '--ground', str(ground),
@@ -46,11 +52,13 @@ def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path,
         args += ['--fit-limbs']
     if partial:
         args += ['--partial-segments']
+    if pixels:
+        args += ['--fit-partial-pixels']
     monkeypatch.setattr(sys, 'argv', args)
     main()
     run = out/'run'; verified = verify_artifacts(run)
     body = json.loads((run/'human.json').read_text())
-    assert body['camera_reference']['method'] == ('camera-body-length-fit-v2' if limb_fit and partial else
+    assert body['camera_reference']['method'] == ('camera-body-partial-pixels-v1' if pixels else 'camera-body-length-fit-v2' if limb_fit and partial else
         'camera-body-length-fit-v1' if limb_fit else 'multi-view-body-v2' if partial else
         'multi-view-body-v1' if mode else 'multi-view-root-body-v1')
     assert (run/'ground.json').read_bytes() == ground.read_bytes()
@@ -58,6 +66,9 @@ def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path,
     scene = json.loads((run/'scene.json').read_text())
     assert scene['human']['camera_view_count'] == 3
     assert scene['human'].get('partial_segments', False) is partial
+    assert ('partial_pixels' in scene['human']) is pixels
+    if pixels:
+        assert scene['human']['partial_pixels']['fitted_group_poses'] == 20
     assert 'Multi-view' in scene['human']['mobility']['root_depth']
     assert not scene['learned_policy_available'] and not (run/'policy.json').exists()
     for name, original in [('config.json', extra), ('evidence.json', tmp_path/'third-evidence.json'),

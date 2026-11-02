@@ -1,5 +1,31 @@
 # Combined Weft implementation handoff
 
+## Distal image constraints — November 2, 2026, 1:06 AM PST
+
+`camera-body --fit-partial-pixels --fit-limbs --partial-segments` integrates
+bounded wrist/ankle image constraints with the existing two-to-four-camera
+manual lab. Upper bones/root/lengths/ground/forces and complete fits remain fixed;
+depth/bend/twist stay explicitly inferred. **176 distinct Python cases /72 mocked
+UI checks pass.** No default, learned-policy or physical-accuracy promotion.
+
+The real candidate retains 24 partial fits, 163 unchanged complete fits and all
+6,768 image slots. Mean left/middle errors improve slightly, right worsens;
+37 individual regressions remain. Floor failures stay 1/47 source +3/111 grid,
+worst .077483→.072313. Exact 39-action/one-reset/41-state recording and export
+pass. [Handoff](aspset-distal-pixels.md) contains seals, input/runtime identities,
+measured bounds, failures, commands and the next uncertainty-scaling hypothesis.
+Both root children are terminal/reaped. No source decode, inference, paid API,
+server/browser or deployment. Full combined goal remains active.
+
+Root runtime is frozen from `0d90496` plus seven overlays. Independent avatar
+checkpoint `5783a36` is now on local main; preserve its dirty follow-up work.
+Publication receipt `.local/aspset-distal-pixel-publication-01.json` records the
+exact pushed revision, remote check, owned-path/index/stash state and immutable
+run verification after interaction closes. Recheck it before further publication.
+Do not rerun the passing construction, audit or recording unchanged. Next,
+qualify explicit uncertainty scaling on controlled geometry; do not fit the
+floor scorer or claim weakly constrained distal depth is measured.
+
 ## Partial multi-view limbs — November 2, 2026, PST
 
 `--partial-segments` now works with two to four views and `--fit-limbs`.

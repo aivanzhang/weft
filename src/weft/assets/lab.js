@@ -1708,7 +1708,8 @@
             const values = coverage[key] || {}, total = Object.values(values).reduce((a, b) => a + b, 0);
             const complete = (values.multi_view_estimate || 0) + (values.two_view_estimate || 0);
             const upper = (values.multi_view_proximal_monocular_distal_and_twist || 0) + (values.two_view_proximal_monocular_distal_and_twist || 0);
-            return partialSegments ? `${label} ${complete} complete + ${upper} upper-only / ${total}` : `${label} ${complete}/${total}`;
+            const pixels = (values.multi_view_proximal_image_constrained_distal || 0) + (values.two_view_proximal_image_constrained_distal || 0);
+            return partialSegments ? `${label} ${complete} complete + ${upper} upper-only${scene.human.partial_pixels ? ` + ${pixels} image-constrained` : ""} / ${total}` : `${label} ${complete}/${total}`;
           });
           const sourceDescription = partialSegments ? "Upper-only limbs use the supported shoulder-to-elbow or hip-to-knee direction; the missing endpoint, bend and twist around the bone remain single-view estimates." : "Missing limb directions retain single-view estimates.";
           text($("world-description"), `${cameraViews > 2 ? cameraViews : "Two"} views set position and ${modes[scene.human.geometry_mode]}. ${sourceDescription} Left/right lengths share a symmetry assumption. Ground and contact are not fitted. Available ${partialSegments ? "limb" : "complete limb"} estimates: ${counts.join("; ")}.`);
@@ -1716,6 +1717,10 @@
           if (scene.human?.limb_position_fit) {
             text($("world-description"), $("world-description").textContent + " For complete limbs, a bounded angle fit reconciles supported joint positions with fixed limb lengths. Body position and ground stay unchanged; this does not establish contact.");
             text($("training-caption"), "Not trained · two-view-body.json retains original directions, proposed angle corrections and remaining position errors. Source observations are unchanged; muscles remain illustrative.");
+          }
+          if (scene.human?.partial_pixels) {
+            text($("world-description"), $("world-description").textContent + " Available wrist/ankle images constrain small bend and twist changes in incomplete limbs. The upper-bone direction stays fixed; depth is still inferred.");
+            text($("training-caption"), "Not trained · two-view-body.json retains every image constraint, excluded view and rejected proposal. A fitted endpoint is not an observed 3D joint or verified contact.");
           }
         }
       }

@@ -1,7 +1,9 @@
 # Three- and four-camera body candidates
 
-The optional [fixed-length angle fit](#optional-fixed-length-angle-fit) now improves
-this saved exercise candidate. It still has four failing in-between poses.
+Optional [fixed-length fitting](#optional-fixed-length-angle-fit),
+[partial directions](#optional-partial-limb-directions) and
+[distal image constraints](#optional-distal-image-constraints) provide separate
+saved comparisons. None passes every floor check or replaces the default.
 
 Weft can now use **two or more supporting cameras per joint** from three or four
 supplied views. This is an optional manual sandbox, not automatic camera recovery
@@ -67,8 +69,8 @@ Matching frame rate alone does not prove physical synchronization.
 ```
 
 Omit `--body-view` for root position only, or choose `directions`/`dimensions`
-separately. No model call, training or server starts. Additional views cannot yet
-be combined with `--partial-segments`. Shared-world/learning adapters that require
+separately. No model call, training or server starts. Additional views can be
+combined with `--partial-segments`. Shared-world/learning adapters that require
 the older two-view method remain unavailable; they are not silently bypassed.
 
 ## What is retained
@@ -217,3 +219,48 @@ interface yourself.
 123 Python checks and 71 mocked UI checks pass. The real 39-action/one-reset
 recording replays all 41 states and frames exactly. This verifies the interaction
 workflow, not the reconstruction's physical accuracy. No default was changed.
+
+## Optional distal image constraints
+
+Add `--fit-partial-pixels --fit-limbs --partial-segments` to the construction
+command, with `--body-view directions` or `both`. When an ankle/wrist lacks a
+supported 3D estimate, any qualified original images can still constrain it.
+This opt-in method changes bend and rotation around the upper bone by at most
+0.30 radians each. Upper-bone direction, root, lengths, ground, forces and
+complete-limb fits stay fixed. **Distal depth remains inferred**, not observed.
+All contributing/excluded views and rejected proposals remain inspectable.
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/aspset-distal-pixel-body-lab-01
+```
+
+Use the same controls and recording commands above; `lab --resume` starts the
+visual interface when you run it. No learned policy is available for this method.
+
+| Check | Partial directions | Added distal pixels |
+| --- | ---: | ---: |
+| Failed source poses | 1/47 | 1/47 |
+| Failed interpolated poses | 3/111 | 3/111 |
+| Worst floor penetration, model units | 0.077483 | 0.072313 |
+| Left-camera mean image error, px | 10.6642 | 10.6286 |
+| Middle-camera mean image error, px | 6.6110 | 6.5939 |
+| Right-camera mean image error, px | 6.1971 | 6.2201 |
+
+This is a mixed construction result: 37 individual image comparisons worsen,
+and the floor check still fails. It is not a completed reconstruction or a new
+default. All 24 fits, 163 unchanged complete fits and 6,768 source-image slots
+were independently checked from saved artifacts. The 39-action, one-reset
+recording replays all 41 states and video frames exactly.
+
+- [Manual replay](../artifacts/aspset-distal-pixel-body-lab-01/sessions/session-9f4a8ded64d7/replay.html)
+  and [video](../artifacts/aspset-distal-pixel-body-lab-01/sessions/session-9f4a8ded64d7/video.mp4).
+- [Independent comparison](../artifacts/aspset-distal-pixel-audit-01/report.json),
+  [all image slots](../artifacts/aspset-distal-pixel-audit-01/source-images.json),
+  and [fit histories](../artifacts/aspset-distal-pixel-body-lab-01/run/two-view-body.json).
+- [Exact verification, limits and next work](handoffs/aspset-distal-pixels.md).
+
+176 distinct scoped Python cases and 72 mocked UI checks pass. Construction
+took 1.654 s /151.4 MB peak RSS; interaction/export/replay 1.035 s /161.9 MB.
+No paid API call, original-video decode or new inference was used. Browser
+painting and sustained responsiveness are not established by these measurements.

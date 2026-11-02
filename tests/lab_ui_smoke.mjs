@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, partialPixels = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -187,6 +187,13 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
         values[key.replace('two_view','multi_view')]=values[key]; delete values[key];
       }
     }
+  }
+  if (partialPixels) {
+    scene.human.root_method='camera-body-partial-pixels-v1';
+    scene.human.partial_pixels={fitted_group_poses:10,changed_group_poses:10,depth_measured:false};
+    const prefix=multiView?'multi_view':'two_view';
+    scene.human.geometry_coverage.left_shoulder[prefix+'_proximal_monocular_distal_and_twist']=32;
+    scene.human.geometry_coverage.left_shoulder[prefix+'_proximal_image_constrained_distal']=10;
   }
   if (initialFailure) {state.terminated=true;state.simulation_failure={reason:'Synthetic nonfinite dynamics',scope:'Last valid state shown'};}
   const exerciseTask = sharedExercise ? {profile:'shared-exercise-task-v1',control:{root_assistance:rootAssistance?'explicit_3_axis':'disabled',object_forces:'forbidden'},
@@ -930,6 +937,19 @@ async function fittedPartialLimbsKeepMissingEndpointsVisible() {
   }
 }
 checks.push(fittedPartialLimbsKeepMissingEndpointsVisible);
+
+async function partialPixelFitNeverClaimsObservedDepthOrContact() {
+  for (const multiView of [false,true]) {
+    const ui = fixture('exercise',{mobile:true,cameraBody:true,suppliedGround:true,geometryMode:'both',partialSegments:true,multiView,limbFit:true,partialPixels:true}); await ui.ready();
+    assert.match(ui.ids.get('world-description').textContent,/left arm 59 complete \+ 32 upper-only \+ 10 image-constrained \/ 112/);
+    assert.match(ui.ids.get('world-description').textContent,/upper-bone direction stays fixed; depth is still inferred/);
+    assert.match(ui.ids.get('training-caption').textContent,/excluded view and rejected proposal/);
+    assert.match(ui.ids.get('training-caption').textContent,/not an observed 3D joint or verified contact/);
+    assert.equal(ui.ids.get('policy').disabled,true);
+    assert(!ui.requests.some(request=>/two-view-(body|triangulation)/.test(request.path)));
+  }
+}
+checks.push(partialPixelFitNeverClaimsObservedDepthOrContact);
 
 
 async function upperSegmentCorrectionDoesNotClaimObservedWristsOrAnkles() {
