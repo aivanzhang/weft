@@ -107,6 +107,8 @@ def main():
     body_source.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw-video anatomy handling; default raw")
     body_source.add_argument("--max-pose-hypotheses", type=int, choices=(1, 2),
                              help="Default 2; 1 explicitly assumes one person and can miss competing people")
+    body_source.add_argument("--person-region", type=int, nargs=4, metavar=("LEFT", "TOP", "RIGHT", "BOTTOM"),
+                             help="Explicit fixed person region in original pixels; preserves full-frame coordinates and competing detections")
     body_source.add_argument("--source-note", help="Raw-video provenance note; never overrides a saved source")
     body_source.add_argument("--max-seconds", type=float, help="Cooperative bound: default 180 for video, 30 for saved evidence")
     body_source.add_argument("--out", required=True, help="New sealed construction-only output; not a playable lab")
@@ -1026,14 +1028,14 @@ def main():
                     message += f" — {detail['decoded_frames']} decoded frames, {detail['sampled_frames']} sampled"
                 print(message, file=sys.stderr, flush=True)
             if args.evidence_run:
-                if any(getattr(args, key) is not None for key in ("pose_model", "pose_mode", "pose_identity", "source_note", "max_pose_hypotheses")):
+                if any(getattr(args, key) is not None for key in ("pose_model", "pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region")):
                     raise ValueError("Saved body evidence inherits its exact source/model/options; overrides are not supported")
                 destination = prepare_exercise_body_source_from_evidence(args.evidence_run, args.out,
                     max_seconds=30 if args.max_seconds is None else args.max_seconds, progress=body_progress)
             else:
                 if not args.pose_model:
                     raise ValueError("--video requires --pose-model; fetch-pose-model can prepare the pinned local model")
-                options = {key: getattr(args, key) for key in ("pose_mode", "pose_identity", "source_note", "max_pose_hypotheses")
+                options = {key: getattr(args, key) for key in ("pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region")
                            if getattr(args, key) is not None}
                 destination = prepare_exercise_body_source(args.video, args.out, pose_model=args.pose_model,
                     max_seconds=180 if args.max_seconds is None else args.max_seconds, progress=body_progress, **options)

@@ -1211,6 +1211,13 @@ Use [`shared-exercise-build --person-only`](equipment-proposals.md#person-only-v
 
 ### Reuse an extracted body
 
+For a small person or bystanders, first prepare the body with
+[`exercise-body --person-region LEFT TOP RIGHT BOTTOM`](equipment-proposals.md#prepare-body-evidence-without-a-lab).
+Use original-video pixel coordinates, keep the person inside the fixed region,
+then use the saved-body path below. This is explicit manual attention; it does not
+recover ground/contact or turn a multi-person scene into verified single-person
+evidence.
+
 If video analysis already produced a successful `exercise-body` package, reuse
 it to build a new world, train, or inspect the results without analyzing the
 video again:

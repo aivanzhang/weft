@@ -57,6 +57,17 @@ def test_single_person_is_an_explicit_raw_input_choice(calls, monkeypatch):
     assert calls[0][3]["max_pose_hypotheses"] == 1
 
 
+def test_person_region_is_explicit_and_cannot_override_saved_evidence(calls, monkeypatch):
+    region = ["120", "80", "500", "700"]
+    invoke(monkeypatch, ["--video", "video.mp4", "--pose-model", "pose.task", "--out", "body",
+                         "--person-region", *region])
+    assert calls[0][3]["person_region"] == [120, 80, 500, 700]
+    calls.clear()
+    with pytest.raises(SystemExit) as error:
+        invoke(monkeypatch, ["--evidence-run", "saved", "--out", "body", "--person-region", *region])
+    assert error.value.code == 1 and not calls
+
+
 def test_saved_command_reuses_evidence_without_raw_input_options(calls, monkeypatch):
     invoke(monkeypatch, ["--evidence-run", "saved", "--out", "body"])
     assert calls == [("saved", "saved", "body", {"max_seconds": 30})]

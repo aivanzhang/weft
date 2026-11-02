@@ -90,7 +90,7 @@ def _read(path, deadline, expected=None):
     return raw
 
 
-def _options(mode, identity, max_pose_hypotheses=2):
+def _options(mode, identity, max_pose_hypotheses=2, person_region=None):
     if mode not in {"video", "image"} or identity not in {"raw", "temporal"}:
         raise ValueError("Pose options require video/image mode and explicit raw/temporal identity")
     if type(max_pose_hypotheses) is not int or max_pose_hypotheses not in (1, 2):
@@ -99,6 +99,8 @@ def _options(mode, identity, max_pose_hypotheses=2):
     # Omission preserves the existing two-hypothesis package contract.
     if max_pose_hypotheses == 1:
         options["max_pose_hypotheses"] = 1
+    if person_region is not None:
+        options["person_region"] = exercise_vision.validate_person_region(person_region)
     return options
 
 
@@ -296,6 +298,9 @@ def _model(model, options):
         raise ValueError("Single-person model metadata conflicts with the two-hypothesis contract")
     if "variant" in model and model["variant"] != matches[0]:
         raise ValueError("Pose model variant conflicts with its pinned bytes")
+    region = options.get("person_region")
+    if model.get("person_region") != (None if region is None else exercise_vision.person_region_metadata(region)):
+        raise ValueError("Pose model person region differs from the declared source options")
 
 
 def _validated_pose(raw_files, options, source_sha, *, deadline=None):
@@ -305,7 +310,7 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
             or evidence.get("source_sha256") != source_sha or source.get("sha256") != source_sha
             or config.get("profile") != "exercise"
             or _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw"),
-                        config.get("max_pose_hypotheses", 2)) != options):
+                        config.get("max_pose_hypotheses", 2), config.get("person_region")) != options):
         raise ValueError("Pose/source/config identities conflict")
     _model(model, options)
     if evidence.get("model") != model or raw.get("model") != model:
@@ -349,6 +354,7 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
             or any(not isinstance(row, dict) for row in frames + original)
             or len(original) != len(frames) or [row.get("frame") for row in frames] != expected):
         raise ValueError("Every sampled source slot must retain its original pose or explicit failure")
+    exercise_vision.validate_person_region_evidence(evidence, raw, options.get("person_region"))
     clocks, repaired = [], []
     for row, prior in zip(frames, original):
         index = row["frame"]
@@ -406,7 +412,7 @@ def validate_body_source_files(files, *, deadline=None):
         raise ValueError("Body source requires its explicit construction-only profile")
     options = marker.get("pose_options", {})
     if not isinstance(options, dict) or options != _options(options.get("pose_mode"), options.get("pose_identity"),
-                                                          options.get("max_pose_hypotheses", 2)):
+                                                          options.get("max_pose_hypotheses", 2), options.get("person_region")):
         raise ValueError("Body source options are invalid")
     construction = marker.get("construction", {})
     if (not isinstance(construction, dict) or construction.get("body_model") != "mobile"
@@ -510,9 +516,9 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
 
 def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", pose_identity="raw",
                                  source_note="Rights not independently verified; user-provided local video",
-                                 max_seconds=180, progress=None, max_pose_hypotheses=2):
+                                 max_seconds=180, progress=None, max_pose_hypotheses=2, person_region=None):
     """Decode/infer once and seal mobile construction inputs; no learned task or dynamics."""
-    options = _options(pose_mode, pose_identity, max_pose_hypotheses)
+    options = _options(pose_mode, pose_identity, max_pose_hypotheses, person_region)
     if not isinstance(source_note, str) or len(source_note) > 4000:
         raise ValueError("Source provenance note must be at most 4000 characters")
     video, model = _path(video), _path(pose_model)
@@ -613,7 +619,7 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, max_seconds=
                 kept[name] = raw
         config = _json(kept["run-config.json"])
         options = _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw"),
-                           config.get("max_pose_hypotheses", 2))
+                           config.get("max_pose_hypotheses", 2), config.get("person_region"))
         snapshots, implementation = _implementation(deadline, recovery_implementation)
         _write(target, {**kept, "inputs/source-manifest.json": manifest_raw,
                         "implementation.json": _bytes(implementation),

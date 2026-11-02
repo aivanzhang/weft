@@ -1,6 +1,7 @@
 """Local pose inference with explicit visibility, projection, and anatomy limits."""
 
 from collections import Counter
+from copy import deepcopy
 import importlib.metadata
 import math
 import os
@@ -203,6 +204,67 @@ def summarize_landmarks(landmarks, world):
     return record | {"status": "tracked" if all(visible.values()) else "tracked_partial", **geometry}
 
 
+def validate_person_region(region, width=4096, height=2160):
+    if type(width) is not int or type(height) is not int or not 64 <= width <= 4096 or not 64 <= height <= 2160:
+        raise ValueError("Person region requires bounded original video dimensions")
+    if (not isinstance(region, (list, tuple)) or len(region) != 4
+            or any(type(value) is not int for value in region)):
+        raise ValueError("Person region requires four integer source-pixel edges: left top right bottom")
+    left, top, right, bottom = region
+    if not (0 <= left < right <= width and 0 <= top < bottom <= height
+            and right-left >= 64 and bottom-top >= 64):
+        raise ValueError("Person region must lie inside the original video and be at least 64×64 pixels")
+    return list(region)
+
+
+def person_region_metadata(region):
+    return {"box_xyxy": validate_person_region(region), "selection": "explicit_fixed_source_region",
+            "coordinates": "Original source pixels; left/top inclusive, right/bottom exclusive",
+            "scope": "Manual attention region, not verified person identity; people outside it are not detected"}
+
+
+def map_person_region(result, region, width, height):
+    left, top, right, bottom = validate_person_region(region, width, height)
+    mapped = deepcopy(result)
+    arrays = [mapped.get("landmarks", [])] + [pose["landmarks"] for pose in mapped.get("poses", [])]
+    masked = False
+    for landmarks in arrays:
+        for point in landmarks:
+            if not 0 <= point["x"] <= 1 or not 0 <= point["y"] <= 1:
+                point["visibility"] = 0.0
+                point["input_region_visibility"] = "outside_region"
+                masked = True
+            point["x"] = (left+point["x"]*(right-left))/width
+            point["y"] = (top+point["y"]*(bottom-top))/height
+            point["z"] *= (right-left)/width
+    # Every downstream confidence gate must reject extrapolated points; raw model scores stay below.
+    if masked and mapped.get("pose_count") == 1:
+        mapped = summarize_landmarks(mapped["landmarks"], mapped["world_landmarks"])
+    mapped["region_raw"] = deepcopy(result)
+    return mapped
+
+
+def validate_person_region_evidence(evidence, raw, region):
+    metadata = None if region is None else person_region_metadata(region)
+    if evidence.get("person_region") != metadata or evidence.get("model", {}).get("person_region") != metadata:
+        raise ValueError("Person-region options and evidence provenance disagree")
+    if region is not None:
+        validate_person_region(region, evidence["width"], evidence["height"])
+    for row in raw["frames"]:
+        if region is None:
+            if "region_raw" in row:
+                raise ValueError("Region observations require their explicit source-region options")
+            continue
+        original = row.get("region_raw")
+        if not isinstance(original, dict) or "region_raw" in original:
+            raise ValueError("Person-region evidence must retain one original region observation")
+        mapped = map_person_region(original, region, evidence["width"], evidence["height"])
+        observed = {key: value for key, value in row.items()
+                    if key not in {"frame", "time_s", "decoder_timestamp_s", "id", "inference_seconds"}}
+        if observed != mapped:
+            raise ValueError("Person-region observations do not match their original-frame mapping")
+
+
 def _detector(model_path, pose_mode="video", *, max_pose_hypotheses=2):
     try:
         import mediapipe as mp
@@ -327,7 +389,7 @@ def _quality(evidence):
 
 
 def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video", pose_identity="raw",
-                     artifact_sink=None, max_preview_frames=None, max_pose_hypotheses=2):
+                     artifact_sink=None, max_preview_frames=None, max_pose_hypotheses=2, person_region=None):
     if pose_mode not in {"video", "image"}:
         raise ValueError("Pose mode must be video or image")
     if pose_identity not in {"raw", "temporal"}:
@@ -336,6 +398,8 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
         raise ValueError("Maximum pose hypotheses must be 1 (explicit single-person assumption) or 2")
     if max_preview_frames is not None and (type(max_preview_frames) is not int or not 1 <= max_preview_frames <= 48):
         raise ValueError("Optional preview retention must be 1–48 frames")
+    if person_region is not None:
+        person_region = validate_person_region(person_region)
     video, out, model_path = Path(video), Path(out), Path(model_path)
     provenance = model_provenance(model_path) | {"running_mode": pose_mode.upper(),
                                                "temporal_tracking": pose_mode == "video",
@@ -359,6 +423,13 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
         cap.release()
         raise ValueError("Exercise video must be 10–1800 frames, <=60seconds, <=4096×2160, and 1–240fps")
     count, width, height = int(count), int(width), int(height)
+    if person_region is not None:
+        try:
+            validate_person_region(person_region, width, height)
+        except ValueError:
+            cap.release()
+            raise
+        provenance["person_region"] = person_region_metadata(person_region)
     stride = max(1, math.ceil(fps / 15), math.ceil(count / 900))
     preview_stride = max(1, math.ceil(math.ceil(count / stride) / 48))
     resized_width = min(960, width)
@@ -378,6 +449,13 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
         evidence["assumptions"].append(
             "Explicit single-person assumption: the detector returns at most one pose and can miss competing people. "
             "VIDEO mode also enables model smoothing; neither continuity nor one returned pose verifies identity.")
+    if person_region is not None:
+        evidence["person_region"] = provenance["person_region"]
+        evidence["assumptions"].append(
+            "An explicit fixed person region limits detection; this is not automatic person selection. "
+            "Image landmarks map back to the unchanged full video; raw region observations remain saved. "
+            "Points outside the observed region have zero effective visibility; their raw model scores remain saved. "
+            "Body scale and world landmarks remain model estimates, not calibrated measurements.")
     previews, preview_times = [], []
     preview_frames, omitted_previews = [], 0
     decoded, sampled = 0, 0
@@ -403,14 +481,24 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
                     continue
                 if sampled >= 900:
                     raise ValueError("Pose inference exceeds the 900-frame bound")
-                resized = cv2.resize(frame, (resized_width, resized_height), interpolation=cv2.INTER_AREA)
+                if person_region is None:
+                    resized = cv2.resize(frame, (resized_width, resized_height), interpolation=cv2.INTER_AREA)
+                else:
+                    left, top, right, bottom = person_region
+                    region_width = min(960, right-left)
+                    region_height = round((bottom-top)*region_width/(right-left))
+                    resized = cv2.resize(frame[top:bottom, left:right], (region_width, region_height),
+                                         interpolation=cv2.INTER_AREA)
                 rgb = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
                 inference_started = time.perf_counter()
                 image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
                 result = (detector.detect_for_video(image, round(frame_index * 1000 / fps))
                           if pose_mode == "video" else detector.detect(image))
                 decoder_timestamp = float(cap.get(cv2.CAP_PROP_POS_MSEC)) / 1000
-                record = summarize_result(result) | {"frame": frame_index, "time_s": frame_index / fps,
+                observation = summarize_result(result)
+                if person_region is not None:
+                    observation = map_person_region(observation, person_region, width, height)
+                record = observation | {"frame": frame_index, "time_s": frame_index / fps,
                                                      "decoder_timestamp_s": decoder_timestamp if math.isfinite(decoder_timestamp) else None,
                                                      "id": f"{evidence['source_sha256']}:frame:{frame_index}",
                                                      "inference_seconds": time.perf_counter() - inference_started}
@@ -418,7 +506,9 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
                 if sampled % preview_stride == 0:
                     # Container undercounts cannot expand an explicitly bounded preview buffer.
                     if max_preview_frames is None or len(previews) < max_preview_frames:
-                        previews.append(_draw_pose(resized, record))
+                        preview = resized if person_region is None else cv2.resize(
+                            frame, (resized_width, resized_height), interpolation=cv2.INTER_AREA)
+                        previews.append(_draw_pose(preview, record))
                         preview_times.append(record["time_s"])
                         if max_preview_frames is not None:
                             preview_frames.append(frame_index)

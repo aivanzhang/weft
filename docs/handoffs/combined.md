@@ -1,5 +1,37 @@
 # Combined Weft implementation handoff
 
+## Explicit person regions on a new source — November 1, 2026, PST
+
+The [ASPset source, reusable person-region feature and calibrated comparison](aspset-source-readiness.md)
+are verified. Public `exercise-body --person-region LEFT TOP RIGHT BOTTOM` retains
+original source coordinates/clocks, raw region observations and competing poses.
+Outside-region predictions receive zero effective visibility; original model
+scores survive. Saved-body import validates the exact mapping and rejects omitted
+or conflicting region metadata. Default inference and scoring gates are unchanged.
+
+Two complete 188-frame/50 fps/4K views of a new CC0 sports clip were acquired through
+bounded archive ranges, not the 23.7 GB parent archive. Full-image inference has
+6/47 and 0/47 usable samples; explicit fixed regions have 47/47 each. This is
+coverage, not anatomical accuracy. Existing two-view triangulation yields 492
+common-joint reference comparisons at 84.6372 mm absolute RMSE, with unavailable
+and inconsistent slots retained. The published reference is not independently
+qualified physical truth; nominal camera-up is not measured gravity or ground.
+
+Both 47-reference bodies pass the actual saved-evidence CLI with exactly two
+static geometry calls total and no new inference/decode/dynamics. Native body
+construction: 1.234845 s /411,041,792 B. There are 183 distinct passing checks.
+Independent audit verifies 221 covered members across ten packages, all 3,102
+region point mappings, 9,588 raw reference coordinates and 11 report links.
+Exact hashes, retained harness failures, resource bounds and commands are in the
+handoff. No paid calls, installation, server, deployment or default promotion.
+
+All root children are reaped. Preserve the avatar session's remaining viewer
+edits; its independent `a460faf` is already on main. Standing merge/push approval
+applies to this verified checkpoint. Publication receipt:
+`.local/aspset-person-region-publication-01.json`. Next: source-qualified calibrated
+body/ground construction, without feeding the assessment reference into generation.
+Equipment contact and full-task learning remain open; the overall goal is active.
+
 ## Recovered body with equipment — November 1, 2026, 8:46 PM PST
 
 The [new coupled build, saved contact comparison and full recorded episode](mode-recovered-equipment.md)

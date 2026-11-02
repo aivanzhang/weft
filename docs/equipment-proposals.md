@@ -133,6 +133,31 @@ Limits: one worker, 30 cooperative seconds, 128 MiB and 512 output files, 64 MiB
 
 ## Prepare body evidence without a lab
 
+If the person is small in the full image or there are bystanders, add an explicit
+fixed attention region to the raw-video command:
+
+```sh
+.venv-lab/bin/python -m weft exercise-body \
+  --video /path/to/exercise.mp4 \
+  --pose-model .local/models/pose_landmarker_full.task \
+  --person-region 120 80 500 700 \
+  --out artifacts/my-person-region-body
+```
+
+Replace the four numbers with **left, top, right, bottom** edges in the original
+video's pixels. The region must stay inside the video and be at least 64×64 pixels;
+right/bottom edges are exclusive. Keep the whole person and motion inside it.
+This is manual attention, not automatic person selection or proof of identity.
+Competing detections remain unresolved, and people outside the region are not
+detected. Original video bytes, frame IDs, clocks and full-image coordinates stay
+unchanged; raw region coordinates/confidence are also retained. Points outside
+the input region receive zero effective visibility, never invented observations.
+
+The resulting body uses the ordinary pipeline and can be passed to
+`scripts/build_sandbox.py --human-run ...` with the appropriate person-only or
+equipment inputs. A region does not calibrate scale, ground, contact or anatomy.
+Saved evidence inherits its exact region; `--evidence-run` rejects overrides.
+
 ```sh
 .venv-lab/bin/python -m weft exercise-body \
   --video /absolute/path/to/exercise.mp4 \
