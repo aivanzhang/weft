@@ -22,8 +22,12 @@ The opt-in [material-owned fur profile](docs/material-owned-fur.md) now finishes
 an existing three-texture fox without sharing one color image across its coat.
 Its native portrait and exported views are verified locally; the coat still
 reads as short plush, not dense Muse fur or a fresh accepted Studio delivery.
-The independent motion check also finds up to 2.50 mm of fur-root separation
-from the body, so this new fox coat is not accepted for animated delivery.
+That first coat failed attachment by up to 2.50 mm. The opt-in
+[skin-consistent root placement](docs/skin-consistent-fur.md) fixes this mechanism:
+all 3,000 roots pass across 36 sampled poses, with maximum separation below
+0.4 micrometres. Body, colors and existing motions are preserved. Appearance
+still reads as short plush, with abrupt tail/leg boundaries and source deformation
+defects; neither this fox nor the hands-off Studio is newly accepted.
 
 ## Create from a prompt — studio acceptance pending
 

@@ -1,0 +1,32 @@
+{
+  "authorized_runs": 1,
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-vertex-root-math-screen-v1/screen.py"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "source_pins": [
+    {
+      "path": "outputs/fox-vertex-root-math-screen-v1/screen.py",
+      "sha256": "312b7c342b149b6ef50a23d7646da25ef13b2d40d253b37d06ba9900f322179a"
+    },
+    {
+      "path": "outputs/fox-vertex-root-math-screen-v1/prepared.json",
+      "sha256": "afb2570e12d831cd4dee003ee5404a8d02c01c2dec01e9921db11058edb709e6"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "fixed_motion_gate_m": 1e-05,
+  "inputs": [
+    {
+      "bytes": 27708644,
+      "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+      "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+    },
+    {
+      "bytes": 2377,
+      "path": "outputs/fox-material-coat-skin-audit-v1/manifest.json",
+      "sha256": "8a8e4f11af8c1817a67e676d206a9b9cffed166b43f74bd11875c510914319a5"
+    },
+    {
+      "bytes": 2993,
+      "path": "outputs/fox-material-coat-skin-audit-v1/prepared.json",
+      "sha256": "63c61ef827af9a80554e6a679aa968e6a78e7af2029d5931dc342f4de444e97e"
+    },
+    {
+      "bytes": 322056,
+      "path": "outputs/fox-material-coat-skin-audit-v1/roots.json",
+      "sha256": "18b9e6a74fe3d5783dcf95589cd2e92d5608a411e8ae843d5e8ed88cdc369752"
+    },
+    {
+      "bytes": 51205,
+      "path": "outputs/fox-material-coat-skin-audit-v1/motion.json",
+      "sha256": "c8c03d4b7e23f7c808bb443722eefac7e44da9f88bb2b3d75e97c6d69006040f"
+    },
+    {
+      "bytes": 368351,
+      "path": "outputs/fox-material-coat-skin-audit-v1/sampled-motion.npz",
+      "sha256": "870de2bdbc5ffec27c13341188690a31382a9921495e7f034b069685ba6c3b65"
+    },
+    {
+      "bytes": 1051,
+      "path": "outputs/fox-material-fur-independent-audit-v2/native-source-identity.json",
+      "sha256": "44e541e5b847c4579f66b78872e7cbcc95edd04f0e01006ea3a219eb393a92e6"
+    },
+    {
+      "bytes": 2980,
+      "path": "outputs/fox-material-fur-independent-audit-v2/manifest.json",
+      "sha256": "2fe038fb9bbc65e2959ea6835ae9ced13e5847ce3b7f9e749abd441a6bf8680e"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    }
+  ],
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "native_provider_AI_calls": 0,
+  "old_audit": "outputs/fox-material-coat-skin-audit-v1",
+  "potential_vertices_per_root": 3,
+  "root_count": 384,
+  "sample_seconds": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0
+  ],
+  "schema_version": 1,
+  "scope": "Numerical source-data screen of one-hot source-vertex placement. No new avatar, native export, actual root allocation or appearance acceptance. All original sampled triangles included.",
+  "source": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb"
+}

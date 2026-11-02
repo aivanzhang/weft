@@ -1,0 +1,87 @@
+{
+  "at": "2026-11-02T06:33:27.682439-08:00",
+  "budget": {
+    "eligible_selected_vertex_ids": 17729,
+    "exported_corners_per_tuft": 12,
+    "native_memory_limit_unchanged": true,
+    "new_geometry_or_selector_implemented": false,
+    "requested_roots": 3000,
+    "reserve_vertices": 4096,
+    "saved_base_vertices": 30418,
+    "unchanged_saved_conservative_vertex_bound": 70514
+  },
+  "concrete_risks": [
+    "The coat has 34.0345% of selected surface area in two indexed components whose combined vertex capacity is about 160.48 roots below their combined proportional share. Sampling without replacement must redistribute that nominal share; it cannot reproduce every old area allocation.",
+    "A unique source ID is not a unique point: coat/cream/dark contain 1439/618/978 duplicate-position excess vertices, with up to 32/40/32 aliases at one point. Selecting two aliases can stack tufts despite without-replacement sampling.",
+    "Many aliases are real UV seams; 183 coat and 25 cream groups also have normal differences above one degree. Do not weld, choose an arbitrary alias, average colors/normals or drop roots to hide this.",
+    "The dark region has 6774 eligible IDs and 5796 distinct positions for 456 tufts, with no component or coarse-grid quota saturation measured. That is capacity evidence, not evidence that dark fur looks dense.",
+    "The unchanged nominal square-root area per tuft is about 67.2 mm in all three materials. It is an allocation scale, not a visible gap or physical hair density; layer geometry, native fibers and occlusion are not measured here."
+  ],
+  "decision": "Nominal capacity supports an opt-in experiment, but unchanged counts do not guarantee unchanged spatial coverage or a full coat.",
+  "exact_native_source_id_binding": true,
+  "measurement_qualifiers": [
+    "Only one bounded source-data census ran. Root selection was not executed; no actual candidate distribution is asserted.",
+    "Grid areas use triangle centroids, not clipped surface cells. Component labels follow indexed topology and can reflect UV seams; no anatomical labels are inferred.",
+    "Nearest-own-corner distances are upper bounds to nearest eligible vertices, not lower bounds or renderer footprint coverage.",
+    "No texture decode, native render, provider call, AI-role call, production edit or Git action occurred.",
+    "RSS monitor captured no sample before exit; self-reported high-water was 111738880 bytes. Runtime 0.262 seconds, child PID 91534 exited verified."
+  ],
+  "quality_approved": false,
+  "required_candidate_evidence": [
+    "Preserve exactly 2017/527/456 roots, original total 3000, eligible material/triangle ownership and explicit source vertex IDs; fail on insufficient eligibility rather than shrink counts.",
+    "Bind each root to its actual source vertex/UV corner/normal/skin tuple. Record selected coincident-position multiplicities and per-component and fixed 6x6x6 cell counts; disclose any capacity-driven redistribution.",
+    "Report selected-root area-allocation residuals against the preserved face-root baseline where exact old roots are available; limited saved root samples are not the complete old distribution.",
+    "Use matched rest/motion images at 720 and 256 pixels with unchanged cameras, materials, flow, counts, lighting and background. Inspect coat, cream and dark separately, including seam/pole clustering, bare-looking coarse cells and silhouette spikes.",
+    "Keep full-motion attachment, native/exported image and resource gates unchanged. Exact one-hot ownership resolves a root attachment mechanism, not appearance or subject identity."
+  ],
+  "results": [
+    {
+      "coincident_position_excess": 1439,
+      "eligible_vertex_ids": 7079,
+      "material": "coat",
+      "minimum_root_quota_shortfall_at_those_components": 160.47597156166654,
+      "requested_roots": 2017,
+      "saturated_component_surface_area_fraction": 0.3403450528317633,
+      "saturated_indexed_components": [
+        {
+          "area_m2": 1.8952121900128618,
+          "area_share": 0.20766662080374396,
+          "faces": 560,
+          "fractional_area_quota": 418.8635741611516,
+          "source_vertex_component": 79,
+          "vertices": 328
+        },
+        {
+          "area_m2": 1.2108531489465144,
+          "area_share": 0.13267843202801932,
+          "faces": 320,
+          "fractional_area_quota": 267.61239740051496,
+          "source_vertex_component": 6781,
+          "vertices": 198
+        }
+      ],
+      "unique_exact_positions": 5640
+    },
+    {
+      "coincident_position_excess": 618,
+      "eligible_vertex_ids": 3876,
+      "material": "cream",
+      "minimum_root_quota_shortfall_at_those_components": 0,
+      "requested_roots": 527,
+      "saturated_component_surface_area_fraction": 0,
+      "saturated_indexed_components": [],
+      "unique_exact_positions": 3258
+    },
+    {
+      "coincident_position_excess": 978,
+      "eligible_vertex_ids": 6774,
+      "material": "dark",
+      "minimum_root_quota_shortfall_at_those_components": 0,
+      "requested_roots": 456,
+      "saturated_component_surface_area_fraction": 0,
+      "saturated_indexed_components": [],
+      "unique_exact_positions": 5796
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,3231 @@
+{
+  "approved_assets_unchanged": true,
+  "artifacts": [
+    {
+      "bytes": 1072,
+      "origin": "outputs/vertex-root-selector-tests-v1/job.json",
+      "sha256": "600025e89f75ad15adc75e2ef623dde12026170929b0ca9e28d0cb5da24fe8c5",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/job.json"
+    },
+    {
+      "bytes": 2233,
+      "origin": "outputs/vertex-root-selector-tests-v1/manifest.json",
+      "sha256": "3d9096b55b855a73a7cb49b49f6716adee6101e64047abb73769b06e0a630ca9",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 1690,
+      "origin": "outputs/vertex-root-selector-tests-v1/prepared.json",
+      "sha256": "f7f0621f601a76cba4fc793a815d014fc8542a09ef3faaa40fb2c8545302806a",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 3097,
+      "origin": "outputs/vertex-root-selector-tests-v1/release.json",
+      "sha256": "85f49b41e44a77aeb7bd24af932de167962f8f1061dc5a226622c97cf8ddcac0",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/release.json"
+    },
+    {
+      "bytes": 294,
+      "origin": "outputs/vertex-root-selector-tests-v1/result.json",
+      "sha256": "64db5d2970d61929dfe7dbe8b4f271fe950409e8827189929b92352967fe3c6b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/result.json"
+    },
+    {
+      "bytes": 813,
+      "origin": "outputs/vertex-root-selector-tests-v1/run-tests.py",
+      "sha256": "435b89e4af3421fded847de36e4d7a6cd30b68db4b6bca722c6e549f31f3b14b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/run-tests.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 276,
+      "origin": "outputs/vertex-root-selector-tests-v1/sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/requirements.lock"
+    },
+    {
+      "bytes": 6002,
+      "origin": "outputs/vertex-root-selector-tests-v1/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "bytes": 10736,
+      "origin": "outputs/vertex-root-selector-tests-v1/sources/tests/test_fur_vertex_roots.py",
+      "sha256": "99485eda2e530abb0a19935acb852d10c19dfce90c88db980fc9d7f4d8c02ec3",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/tests/test_fur_vertex_roots.py"
+    },
+    {
+      "bytes": 244,
+      "origin": "outputs/vertex-root-selector-tests-v1/tests-handle.json",
+      "sha256": "31125bcbda2280f18beb4f874634829eec80f127d400b1910bd504c7cada0b9d",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 980,
+      "origin": "outputs/vertex-root-selector-tests-v1/tests-monitor.json",
+      "sha256": "b00c2e903c243ec4f8ba84fc6f3e61815f15cfc3c4a64a8ad78f6d0a6998957e",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 2167,
+      "origin": "outputs/vertex-root-selector-tests-v1/tests.log",
+      "sha256": "2bc40ceced0ccb8ab64b18322ce033fc0a15605c4f1c08ff75994b4f1d4c3976",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/tests.log"
+    },
+    {
+      "bytes": 1118,
+      "origin": "outputs/skin-root-selector-tests-v1/job.json",
+      "sha256": "c42a87e758bbda064e18f443a3a4c44fd095b43b99b27e8cee0ff4fd9bcab179",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/job.json"
+    },
+    {
+      "bytes": 2411,
+      "origin": "outputs/skin-root-selector-tests-v1/manifest.json",
+      "sha256": "80bfeaaa34c5234022bbe8413a198a03b968373326a3e0a7777929e8aa0d2f4b",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 1851,
+      "origin": "outputs/skin-root-selector-tests-v1/prepared.json",
+      "sha256": "9ee8b7160ba7142b24eb531ff0147e849c8e4218f0ae170d83b91458c314849d",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 3940,
+      "origin": "outputs/skin-root-selector-tests-v1/release.json",
+      "sha256": "a2e7992d4f88898e147d4148934694eb718f9d6e2a6b0d338f97c7f6d8a46b16",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/release.json"
+    },
+    {
+      "bytes": 305,
+      "origin": "outputs/skin-root-selector-tests-v1/result.json",
+      "sha256": "24e40f126d2bd572a755653d48e39ce215c7a48247b7e1494f70245817a54a77",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/result.json"
+    },
+    {
+      "bytes": 822,
+      "origin": "outputs/skin-root-selector-tests-v1/run-tests.py",
+      "sha256": "cd687843075b61b62d6feb0275a67cdf82d1a96a4cc3dbbb561a33fa373c394c",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/run-tests.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/skin-root-selector-tests-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/skin-root-selector-tests-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 276,
+      "origin": "outputs/skin-root-selector-tests-v1/sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/requirements.lock"
+    },
+    {
+      "bytes": 8834,
+      "origin": "outputs/skin-root-selector-tests-v1/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/sources/scripts/fur_skin_roots.py"
+    },
+    {
+      "bytes": 6002,
+      "origin": "outputs/skin-root-selector-tests-v1/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "bytes": 13176,
+      "origin": "outputs/skin-root-selector-tests-v1/sources/tests/test_fur_skin_roots.py",
+      "sha256": "c5e333bfee10a4e5bac624fb40f254a4d4a8a4aa49c8eb1a7833abaef4646aeb",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/sources/tests/test_fur_skin_roots.py"
+    },
+    {
+      "bytes": 242,
+      "origin": "outputs/skin-root-selector-tests-v1/tests-handle.json",
+      "sha256": "3f29f14f11623cda062ac0f7ebb700cb487a852873e571c7c7d4bf82b62a1e85",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 1024,
+      "origin": "outputs/skin-root-selector-tests-v1/tests-monitor.json",
+      "sha256": "0c7c721012e8062c80d240e676aca92dad06a767e56e5123b8e88fa70f9e1048",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 2325,
+      "origin": "outputs/skin-root-selector-tests-v1/tests.log",
+      "sha256": "703808dff6ed76a264e7c59be5a3ada06cc5ab687437ec7eec2d85d744d82621",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/tests.log"
+    },
+    {
+      "bytes": 426,
+      "origin": "outputs/skin-root-binding-tests-v1/cpu-handle.json",
+      "sha256": "d68f8fae63e634ded27817173c705ecc461079af895353b489f7cd6e61afb8a0",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1274,
+      "origin": "outputs/skin-root-binding-tests-v1/cpu-job.json",
+      "sha256": "c7f52ff0bc0bb6045b8123d009e22ad33db8a8e6b2cc9fc2a287045695e95103",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/cpu-job.json"
+    },
+    {
+      "bytes": 1162,
+      "origin": "outputs/skin-root-binding-tests-v1/cpu-monitor.json",
+      "sha256": "8f700b339e8d4dc30ffcb71c355c7bb809a125416ea9e196c693da6e1f4210a8",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 3462,
+      "origin": "outputs/skin-root-binding-tests-v1/cpu.log",
+      "sha256": "aa17651e8337b8612968cb386216a7a49aefebb81888c31c5238a8e77f69cb75",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/cpu.log"
+    },
+    {
+      "bytes": 2810,
+      "origin": "outputs/skin-root-binding-tests-v1/execute.py",
+      "sha256": "4aa96ac7ad9501d7ee30cf84147b3d328b4557428b82907373ed87fa6262b393",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/execute.py"
+    },
+    {
+      "bytes": 2273,
+      "origin": "outputs/skin-root-binding-tests-v1/manifest.json",
+      "sha256": "ef75c2d227574247ac499fc6d61c5ebe7de7c7e05146b80ab7656c051366e904",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 1810,
+      "origin": "outputs/skin-root-binding-tests-v1/prepared.json",
+      "sha256": "79e3c5477752ce34ede742422fc7597e95ec58feb4651bb0d1cad598a0f3c844",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 2365,
+      "origin": "outputs/skin-root-binding-tests-v1/receipt.json",
+      "sha256": "451b2cef15ef5d15c8bce47f69269c9a422a5ab2549798cf3a9bd49b7273a2c4",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/receipt.json"
+    },
+    {
+      "bytes": 941,
+      "origin": "outputs/skin-root-binding-tests-v1/run_tests.py",
+      "sha256": "81493ec78bc9eb7fec0424fec101738cf06649dd1cd9c3a50f0c0410e7041f0f",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/run_tests.py"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/skin-root-binding-tests-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 10500,
+      "origin": "outputs/skin-root-binding-tests-v1/sources/avatar_assets/fur_bindings.py",
+      "sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/sources/avatar_assets/fur_bindings.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/skin-root-binding-tests-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/skin-root-binding-tests-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 15491,
+      "origin": "outputs/skin-root-binding-tests-v1/sources/tests/test_fur_bindings.py",
+      "sha256": "07d9af55992f8b6e0388933a14159bdb1110e0dd37ff5aaca06e60dbd3be9534",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/sources/tests/test_fur_bindings.py"
+    },
+    {
+      "bytes": 261,
+      "origin": "outputs/skin-root-binding-tests-v1/test-result.json",
+      "sha256": "0a2d86841b21d7fe123643c100303b9af72e8f941be25ded35023302a9ad7de0",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/test-result.json"
+    },
+    {
+      "bytes": 1124,
+      "origin": "outputs/skin-root-integration-tests-v1/job.json",
+      "sha256": "c255473635a834bb46a32f1fc8a952e7dc08ea467eb850326dada16abe4f1b3e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/job.json"
+    },
+    {
+      "bytes": 12076,
+      "origin": "outputs/skin-root-integration-tests-v1/manifest.json",
+      "sha256": "05942578102d80f4a02018817a012dcbb246b7a15596a87b0d9ee1df9d620250",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 11517,
+      "origin": "outputs/skin-root-integration-tests-v1/prepared.json",
+      "sha256": "3f024fcac0f03cd20805f6671bc4a71654bee6ad983ee455c60f6aa403e9874a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 15164,
+      "origin": "outputs/skin-root-integration-tests-v1/release.json",
+      "sha256": "352f9c0ce035680ff1ff11e3fd6ece3e045760954047b7424d583fda788e055c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/release.json"
+    },
+    {
+      "bytes": 304,
+      "origin": "outputs/skin-root-integration-tests-v1/result.json",
+      "sha256": "e6479addc7ae2fb583e0737a3431767b051765d737874f6216187a3946a998dc",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/result.json"
+    },
+    {
+      "bytes": 939,
+      "origin": "outputs/skin-root-integration-tests-v1/run-tests.py",
+      "sha256": "d4385e95b8a6c1a21cfea9c4958f6b6346be15c0acc77ec14d21e5a8577b529b",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/run-tests.py"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 6862,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/assemble_generated.py"
+    },
+    {
+      "bytes": 8351,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/color_corrections.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 37874,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "c4ca2b68416d9c6b17b39d4d3c7840f49887a60ae919182de8edce41abf02eb6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 10500,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/fur_bindings.py",
+      "sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/sources/avatar_assets/fur_bindings.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 6665,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/part_rigs.py"
+    },
+    {
+      "bytes": 66048,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "f3996fbf991365fbdc7e24998dc1e5ef51df2440e4feef19a03db4ee1390bca1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 51124,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "93fd5659bca107ca11d5d2e34f66efd87ce473039d204c12cfc597232d4fa205",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 13491,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 2675,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/surface_profiles.py"
+    },
+    {
+      "bytes": 1792,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 23637,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/evidence/material-owned-fur-v1/snapshots/material-pipeline-tests-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/evidence/material-owned-fur-v1/snapshots/material-pipeline-tests-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 276,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/requirements.lock"
+    },
+    {
+      "bytes": 6582,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_color_corrections.py"
+    },
+    {
+      "bytes": 23994,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_comb_groom.py"
+    },
+    {
+      "bytes": 2710,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 57411,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "e08ef4cfb86864b29ba1f0e619f6749d3b8307a36e29b770d082a6b52686a73a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 25390,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "72e21d2d4cd5441ab9a7bfb3ee6ba3a1afcc238cc669907a7c3665c49bc99a12",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 5450,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_coat.py"
+    },
+    {
+      "bytes": 8894,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_colors.py"
+    },
+    {
+      "bytes": 31282,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_groom.py"
+    },
+    {
+      "bytes": 24601,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_native_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 5789,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_part_rigs.py"
+    },
+    {
+      "bytes": 12009,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_surface_profiles.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 5399,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/creature_rig_math.py"
+    },
+    {
+      "bytes": 6870,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 8834,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/sources/scripts/fur_skin_roots.py"
+    },
+    {
+      "bytes": 6002,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 9487,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/material_fur.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 6843,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/surface_integrity.py"
+    },
+    {
+      "bytes": 7538,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/surface_smoothing.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 28716,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/tests/test_finish_quality_contracts.py",
+      "sha256": "1f3fd4cefd87e847317b9a54ca540ae05bd3fd11aa6d5141c0ea6211e7ad046d",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/tests/test_finish_quality_contracts.py"
+    },
+    {
+      "bytes": 13045,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/tests/test_material_native_reuse.py",
+      "sha256": "e5bd4ec698786aec38a067e5505b98fba35c68a20591c5d617553d8ca226e365",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/tests/test_material_native_reuse.py"
+    },
+    {
+      "bytes": 14389,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/tests/test_material_pipeline.py",
+      "sha256": "01f0e6c87c85b515dfac32325ccd1008ba93c589863cde0d0b30b7a0d1bf1f0b",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/tests/test_material_pipeline.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/tests/test_skin_root_integration.py",
+      "sha256": "83eee57f067b36721817b9badcef4dce8618f4c7556a67be9a8ba25567b0a9fd",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/tests/test_skin_root_integration.py"
+    },
+    {
+      "bytes": 13123,
+      "origin": "outputs/skin-root-integration-tests-v1/sources/tests/test_tuft_fur_cards.py",
+      "sha256": "434efb17539e6059da1d5350903e705ca9fdd5bb61e8defc183dcaba6f869446",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/tests/test_tuft_fur_cards.py"
+    },
+    {
+      "bytes": 245,
+      "origin": "outputs/skin-root-integration-tests-v1/tests-handle.json",
+      "sha256": "d7e6bb5b875a20961544c5e1f37571ba0e69c8dbeb497f9ea99fccc6c6c378a3",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 1030,
+      "origin": "outputs/skin-root-integration-tests-v1/tests-monitor.json",
+      "sha256": "d46189c54eb4c1980de2f5ff1fc615769e0ac830ddcd95028a043b9217f3dd41",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 8983,
+      "origin": "outputs/skin-root-integration-tests-v1/tests.log",
+      "sha256": "deaa45d96d9dd5deee66f8ac72e7dc235d738d39070d6e00d44b527ffa329698",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/tests.log"
+    },
+    {
+      "bytes": 1072,
+      "origin": "outputs/skin-root-card-pin-tests-v1/job.json",
+      "sha256": "646c58970c71fd9ecd1b4a38b716175080914b6e1557dc2f9ac1bf302014be20",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/job.json"
+    },
+    {
+      "bytes": 8809,
+      "origin": "outputs/skin-root-card-pin-tests-v1/manifest.json",
+      "sha256": "bba0a649e559ab41db63cc7d10e8c4b72b7df65f52a8607276cd50f260d451a9",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 8123,
+      "origin": "outputs/skin-root-card-pin-tests-v1/prepared.json",
+      "sha256": "090c10993bbdb304a0666b4818c75b4d9eff3c6426267a4ac48898329f0b1dae",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 10697,
+      "origin": "outputs/skin-root-card-pin-tests-v1/release.json",
+      "sha256": "3aa3e956e15a6505ac8e2828ba2c0bef433c62d89dffad9bb5f031e7385ec411",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/release.json"
+    },
+    {
+      "bytes": 258,
+      "origin": "outputs/skin-root-card-pin-tests-v1/result.json",
+      "sha256": "f74c0097dff69fdf84681fd13a523393be601d03eab581c1ebfb908e4abeb3b8",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/result.json"
+    },
+    {
+      "bytes": 891,
+      "origin": "outputs/skin-root-card-pin-tests-v1/run-tests.py",
+      "sha256": "ef72f51e7fd9fcd48f83b0c0abea6c11b422e6da1f51a43a92f702bd0785d1e7",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/run-tests.py"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 6862,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/assemble_generated.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 37874,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "c4ca2b68416d9c6b17b39d4d3c7840f49887a60ae919182de8edce41abf02eb6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 10500,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/fur_bindings.py",
+      "sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/sources/avatar_assets/fur_bindings.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 66098,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "836c71fa73946607fc69da4b60757e3e89291c6d33997eba99fd7041c5b01a62",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 51124,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "93fd5659bca107ca11d5d2e34f66efd87ce473039d204c12cfc597232d4fa205",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 13491,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 276,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/requirements.lock"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 57411,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "e08ef4cfb86864b29ba1f0e619f6749d3b8307a36e29b770d082a6b52686a73a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 25390,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "72e21d2d4cd5441ab9a7bfb3ee6ba3a1afcc238cc669907a7c3665c49bc99a12",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 5450,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_coat.py"
+    },
+    {
+      "bytes": 8894,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_colors.py"
+    },
+    {
+      "bytes": 31282,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 8834,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/sources/scripts/fur_skin_roots.py"
+    },
+    {
+      "bytes": 6002,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 9487,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/material_fur.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 13045,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/tests/test_material_native_reuse.py",
+      "sha256": "e5bd4ec698786aec38a067e5505b98fba35c68a20591c5d617553d8ca226e365",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/tests/test_material_native_reuse.py"
+    },
+    {
+      "bytes": 14389,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/tests/test_material_pipeline.py",
+      "sha256": "01f0e6c87c85b515dfac32325ccd1008ba93c589863cde0d0b30b7a0d1bf1f0b",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/tests/test_material_pipeline.py"
+    },
+    {
+      "bytes": 16959,
+      "origin": "outputs/skin-root-card-pin-tests-v1/sources/tests/test_skin_root_integration.py",
+      "sha256": "18c39f8899f1676f1ad92f97bfce483fa0a581057ff1aec3035d0dc780a90a5b",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/sources/tests/test_skin_root_integration.py"
+    },
+    {
+      "bytes": 242,
+      "origin": "outputs/skin-root-card-pin-tests-v1/tests-handle.json",
+      "sha256": "e403a3562f9825c935ade8955561fdb51dc4c517fcc045a5b079608d5e80fba6",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 980,
+      "origin": "outputs/skin-root-card-pin-tests-v1/tests-monitor.json",
+      "sha256": "f6d8c43c4e97bb1edbdb5de37d92f0b6dc4f555753082dd6aa257ca16ef4080f",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 308,
+      "origin": "outputs/skin-root-card-pin-tests-v1/tests.log",
+      "sha256": "ea9f86e0d73219265e334323eeb2f626c31f6296e07ad07776634d1409eb8c3e",
+      "snapshot": "snapshots/skin-root-card-pin-tests-v1/tests.log"
+    },
+    {
+      "bytes": 994,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/execution-inputs.json",
+      "sha256": "a295f14c7dd4c81a3ad5c983b7160739fbf99f06d40b3aec42b3aab15c0e7ecc",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/execution-inputs.json"
+    },
+    {
+      "bytes": 1073,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/job.json",
+      "sha256": "8a58b11ded84148c41ad4d9c52262f7133fb1b191c1a10d577b0a725cd75c019",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/job.json"
+    },
+    {
+      "bytes": 2405,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/manifest.json",
+      "sha256": "da955ae43cca938898bde47b6a23666d2ebd262515199dec58c80289dd1527cc",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/manifest.json"
+    },
+    {
+      "bytes": 62977,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/measurements.npz",
+      "sha256": "581277bad31475e6f04a4396068f4dffb519adbc7292e329d7a87f4b3d693db2",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/measurements.npz"
+    },
+    {
+      "bytes": 8673,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/motion.json",
+      "sha256": "a2ee9bed05c474b52faa128aad89124c283a89e0bd86151014e3eece2fafcf63",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/motion.json"
+    },
+    {
+      "bytes": 19383,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/old-failure-witnesses.json",
+      "sha256": "b751783e8b6e3b4213b5d65743d608ef1c643fa21a336b6bf92745dc9fa9354a",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/old-failure-witnesses.json"
+    },
+    {
+      "bytes": 275164,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/placements.json",
+      "sha256": "b9ba7ce2711d734732438a2c3576135b05226529f3f4cc5b9f16891b15d02f4b",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/placements.json"
+    },
+    {
+      "bytes": 2583,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/prepared.json",
+      "sha256": "afb2570e12d831cd4dee003ee5404a8d02c01c2dec01e9921db11058edb709e6",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/prepared.json"
+    },
+    {
+      "bytes": 1427,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/result.json",
+      "sha256": "722c9fe451af9cdd236aaabfddebce567b71e5ef2219c3a6629c6ffe110395cb",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/result.json"
+    },
+    {
+      "bytes": 6336,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/review.json",
+      "sha256": "b43d9db2b6a352810b0e2bcbc6cd532af6592106a2c63996202c97e667a6fb1a",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/review.json"
+    },
+    {
+      "bytes": 243,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/screen-handle.json",
+      "sha256": "dad04896f6697d549327ff53a44f7415d8e5c88f62fb5813eb6b0fd95c9cf5a8",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/screen-handle.json"
+    },
+    {
+      "bytes": 981,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/screen-monitor.json",
+      "sha256": "ec099174fb6bb1ecce7165840fa148117da3efdc56cab6cb26e2caf370fc3941",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/screen-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/screen.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/screen.log"
+    },
+    {
+      "bytes": 10029,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/screen.py",
+      "sha256": "312b7c342b149b6ef50a23d7646da25ef13b2d40d253b37d06ba9900f322179a",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/screen.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/fox-vertex-root-math-screen-v1/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 16694,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/census.py",
+      "sha256": "370ebc05c1a6d4cbd4c68cbd5b12f1d3f1c2afdc542eaf20dfb16fa9f9b27b3c",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/census.py"
+    },
+    {
+      "bytes": 247,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/cpu-handle.json",
+      "sha256": "97cc8c8d2e45da9caf842b8e9935f6ce8033174584dd2164e1562adf94503859",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1077,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/cpu-job.json",
+      "sha256": "da5243ee0dc8e8fee19614c6672f0db10ae9d8dfb338af7c5fa93a52084a0478",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/cpu-job.json"
+    },
+    {
+      "bytes": 985,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/cpu-monitor.json",
+      "sha256": "f95fb4d9ffee048ba8132e9e9deb38d159f1f78ce77e4f4cdfad80040987e905",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 804,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/cpu.log",
+      "sha256": "e57d131e70fb0e5582314dd605980aa84a1b33c87e63241498d48ce7e592b74f",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/cpu.log"
+    },
+    {
+      "bytes": 3776,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/execute.py",
+      "sha256": "4a62da52c9439975432e7920bb83f7cdefe649c20050c28fbe7b6797a5150160",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/execute.py"
+    },
+    {
+      "bytes": 2704,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/manifest.json",
+      "sha256": "9ad829eaf3b6544a1574d88dea57f0b8b6320329a86a13706f07577ba181586c",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/manifest.json"
+    },
+    {
+      "bytes": 3054,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/prepared.json",
+      "sha256": "81f88235d4e957d2b397c692d41a70f4d42d75dcf3f97daf9edfa164b990ff54",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/prepared.json"
+    },
+    {
+      "bytes": 2635,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/receipt.json",
+      "sha256": "83b3834ca06a1983b2dd39515dbc44aaa4b864043e86a6ea9f67c11159c625cf",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/receipt.json"
+    },
+    {
+      "bytes": 5245,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/recommendations.json",
+      "sha256": "5ffa5e68a5e183fdc4db4fb8f07778ef7d726bba1bf7190266b0fada31bf8806",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/recommendations.json"
+    },
+    {
+      "bytes": 2945,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/release-manifest.json",
+      "sha256": "f32822ae868980bb77c57a5ed6e8855204db9c0263843798b1b09d8180f26e9c",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/release-manifest.json"
+    },
+    {
+      "bytes": 130433,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/report.json",
+      "sha256": "247c442e63371d05a921a0e9bb03ccfc78c76d11c71c5c06589567c12f89c814",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/report.json"
+    },
+    {
+      "bytes": 4751,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/source-binding.json",
+      "sha256": "56af6fa08d047c9c1bd2bdf8107971095e2d15216b7fc5ccdd8b3fdc26c782f2",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/source-binding.json"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 23637,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/sources/outputs/fox-material-fur-finish-v1/sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/evidence/material-owned-fur-v1/snapshots/material-pipeline-tests-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 5450,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/sources/outputs/fox-material-fur-finish-v1/sources/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_coat.py"
+    },
+    {
+      "bytes": 31282,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/sources/outputs/fox-material-fur-finish-v1/sources/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_groom.py"
+    },
+    {
+      "bytes": 40648,
+      "origin": "outputs/fox-vertex-root-coverage-preflight-v1/spatial-grid.json",
+      "sha256": "61e7bfb9bb30d85cb8aa0f1f8e31062cc856cb510b47b4d8c77f79c481fe5018",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/spatial-grid.json"
+    },
+    {
+      "bytes": 1365,
+      "origin": "outputs/vertex-only-integration-draft-v1/manifest.json",
+      "sha256": "7c28f8c7085b6479b298db56e9987ff6d9ce73ee11a3b27e8f3abc5d180ea410",
+      "snapshot": "snapshots/vertex-only-integration-draft-v1/manifest.json"
+    },
+    {
+      "bytes": 25398,
+      "origin": "outputs/vertex-only-integration-draft-v1/sources/blender_fur_cards.py",
+      "sha256": "8da4a09b195e3cbc052ac2de41be78f07ee5dda1e8e4c446706dfd2ad2630603",
+      "snapshot": "snapshots/vertex-only-integration-draft-v1/sources/blender_fur_cards.py"
+    },
+    {
+      "bytes": 37177,
+      "origin": "outputs/vertex-only-integration-draft-v1/sources/finish_generated.py",
+      "sha256": "d3488dea4eae0ebd05e773e15e0ec156e37ef4e2825c63556cb70a8d28753190",
+      "snapshot": "snapshots/vertex-only-integration-draft-v1/sources/finish_generated.py"
+    },
+    {
+      "bytes": 6002,
+      "origin": "outputs/vertex-only-integration-draft-v1/sources/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "bytes": 66008,
+      "origin": "outputs/vertex-only-integration-draft-v1/sources/pipeline.py",
+      "sha256": "c3d89fc2143e1d6b9eded7b8832640c4516491d69af07809eb29bb863b7e473b",
+      "snapshot": "snapshots/vertex-only-integration-draft-v1/sources/pipeline.py"
+    },
+    {
+      "bytes": 50876,
+      "origin": "outputs/vertex-only-integration-draft-v1/sources/pipeline_prompts.py",
+      "sha256": "fb65b5cc4614131e7bdb1782d9f669db8c724e5a2ef2c063056590d54e6c7ddb",
+      "snapshot": "snapshots/vertex-only-integration-draft-v1/sources/pipeline_prompts.py"
+    },
+    {
+      "bytes": 13546,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/census.py",
+      "sha256": "e581d28b7a103807c4a8ded80e9cc99390c1338578c8f1cacc1ea376931af421",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/census.py"
+    },
+    {
+      "bytes": 126896,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/classification.npz",
+      "sha256": "c935ef32b0cb23ff43109242a46d752d7e7403cdf33ff46560aadde4ec0ed025",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/classification.npz"
+    },
+    {
+      "bytes": 245,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/cpu-handle.json",
+      "sha256": "05769d80b3f6c5cf6ef9fc9a25e99d69fd24cc60ca407d62879bc439abdfd529",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1075,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/cpu-job.json",
+      "sha256": "c8f9e8cc6475b879adffaab6587e0940d44f07a85601ec9744318fddf77d0177",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/cpu-job.json"
+    },
+    {
+      "bytes": 983,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/cpu-monitor.json",
+      "sha256": "f0811d92892d2451ff51b1d82846611e0420a3a8298de7ff4a08b8f90d6e772d",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 640,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/cpu.log",
+      "sha256": "4a53a05235eade1dfd74e9d9e9ba30a755459f165082a2d0026f269ab6cac6b9",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/cpu.log"
+    },
+    {
+      "bytes": 3530,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/execute.py",
+      "sha256": "a2ce775e94b3bea2e5dadf71eb75f03833f5844bcda590bc6a10145e243aa0e8",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/execute.py"
+    },
+    {
+      "bytes": 2095,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/manifest.json",
+      "sha256": "bbf640faa99ee950388d6f745e5cf3b86a252c50a99396f80b97a82ea9462ce8",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/manifest.json"
+    },
+    {
+      "bytes": 3175,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/prepared.json",
+      "sha256": "5a849d8fe21886211d53b5071e2e3aa53ee6c462b5917941e86cd4581ae7087d",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/prepared.json"
+    },
+    {
+      "bytes": 2616,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/receipt.json",
+      "sha256": "40035d9629052e45cb9c26a9d459118becb7da34140d443011793c859a6d792f",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/receipt.json"
+    },
+    {
+      "bytes": 4291,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/recommendations.json",
+      "sha256": "fc13e380ad621f46fbf6d0718d308228af4e27b95fde9b8df8c28abcd0928da9",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/recommendations.json"
+    },
+    {
+      "bytes": 2338,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/release-manifest.json",
+      "sha256": "e280fdbfd44ccd526a4e5e01213bfedccd058308aed286551f6675423bd34a90",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/release-manifest.json"
+    },
+    {
+      "bytes": 321450,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/report.json",
+      "sha256": "fd8afa3bd2cb3ff33ed6a0519c6d041bb0c2cd8eecbc7c2e4e4c1fd1f27e35b7",
+      "snapshot": "snapshots/fox-skin-root-coverage-preflight-v1/report.json"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 16694,
+      "origin": "outputs/fox-skin-root-coverage-preflight-v1/sources/reference_census.py",
+      "sha256": "370ebc05c1a6d4cbd4c68cbd5b12f1d3f1c2afdc542eaf20dfb16fa9f9b27b3c",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/census.py"
+    },
+    {
+      "bytes": 11479,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execute.py",
+      "sha256": "59bedb7b3e97c51d9219beff80fba1543afda25aaa356c2296ca6a64ea1fba2b",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execute.py"
+    },
+    {
+      "bytes": 2861,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution/controller-monitor.json",
+      "sha256": "db3ead8e1e9bf355a2ed8281f5df12d9dfc0d42a05227df18f6c83ccaf5a5a14",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution/controller-monitor.json"
+    },
+    {
+      "bytes": 279,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution/cpu-handle.json",
+      "sha256": "09979a551698c489854fbae52b3cc4ed05b73ff2b9e640b9beaba453bcf4d2c7",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution/cpu-handle.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution/cpu.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/screen.log"
+    },
+    {
+      "bytes": 1000,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution/ipc-00.json",
+      "sha256": "5d4251b66c486485673e2ef7ebf4256c807aa8f5ecc6dafe27a6845b0663d717",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution/ipc-00.json"
+    },
+    {
+      "bytes": 222,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution/ipc-01.json",
+      "sha256": "4f1a5313a109a8d8df9c5adbd6d76df0d5fc58692e671ab013089d2a81ea0ba7",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution/ipc-01.json"
+    },
+    {
+      "bytes": 1545,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution/native-job.json",
+      "sha256": "7293ab37132e72891f0d315339319aea02947487abcf3b1d49b2b0ce2284155f",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution/native-job.json"
+    },
+    {
+      "bytes": 756,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution/native-started.json",
+      "sha256": "868625a145b63eb26e4f52619604f297505ef4cd1d5c4fd201f8c2c0ff5dfb89",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution/native-started.json"
+    },
+    {
+      "bytes": 3248,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution/receipt.json",
+      "sha256": "3737519aa319fbe80d49d4cdb8fd49637f478c211eeac0c994491563d218c14b",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution/receipt.json"
+    },
+    {
+      "bytes": 179,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution/started.json",
+      "sha256": "b989ee1907c04790d65a2543a2db30d21e7e5a1cb3e9f5fdb1b0e00d3d092b64",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution/started.json"
+    },
+    {
+      "bytes": 540,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/execution-release.json",
+      "sha256": "8019c06fb60378a25e02b08998435c948997e3b1c9209c4ae81d0b553c352c74",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution-release.json"
+    },
+    {
+      "bytes": 3389,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/finish-config.json",
+      "sha256": "50248d8a2f1d3d0abe77e224423deee548cdcf3031bfb907f910ea2040e57480",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 1579,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/finish_worker.py",
+      "sha256": "ff5021af5482161f9dcdd154a39f3c4f50ecf7a41db9e9b04daa159f9636ead3",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/finish_worker.py"
+    },
+    {
+      "bytes": 18993,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/manifest.json",
+      "sha256": "c45f9dc870c3ba0f35c15a136facd308456b4c48d707445d82552634992effd9",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/manifest.json"
+    },
+    {
+      "bytes": 39142,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/prepared.json",
+      "sha256": "4d01741dee6e82051d352e346077351845e69c11592fc759875fc59beba9ba64",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 43,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/__main__.py",
+      "sha256": "5b6b90d74686a795930df55bfb70a6512c8b059a8629dd30866c3ecdaf78bf02",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/__main__.py"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 4525,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/archive.py"
+    },
+    {
+      "bytes": 6862,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/assemble_generated.py"
+    },
+    {
+      "bytes": 7879,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/build3d.py",
+      "sha256": "fc914b616570a998d212ddfc4d12434074fb954f17ac26c0e474b0f567b7e31c",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/build3d.py"
+    },
+    {
+      "bytes": 11789,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/cli.py"
+    },
+    {
+      "bytes": 8351,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/color_corrections.py"
+    },
+    {
+      "bytes": 42821,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/compose_sources.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 11162,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/export2d.py",
+      "sha256": "b59c1ebcbab7c1b146229be47fa5e4f06ad900fea026282701978ed959e03baa",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/export2d.py"
+    },
+    {
+      "bytes": 37874,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "c4ca2b68416d9c6b17b39d4d3c7840f49887a60ae919182de8edce41abf02eb6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 21758,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/fringe_fidelity.py",
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/fringe_fidelity.py"
+    },
+    {
+      "bytes": 10500,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/fur_bindings.py",
+      "sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/sources/avatar_assets/fur_bindings.py"
+    },
+    {
+      "bytes": 27764,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/gallery.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 9497,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/lookdev.py",
+      "sha256": "b27acee4a931f4085cc0f125e89880b3a502a57c7687a8a2503914ab8e50e954",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/lookdev.py"
+    },
+    {
+      "bytes": 8912,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/media.py"
+    },
+    {
+      "bytes": 22815,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/meshy.py"
+    },
+    {
+      "bytes": 15225,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/meshy_access.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 9246,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/normalize_generated.py"
+    },
+    {
+      "bytes": 2961,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/packaging.py",
+      "sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/packaging.py"
+    },
+    {
+      "bytes": 6665,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/part_rigs.py"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 2955,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/review.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 17157,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/scene.py",
+      "sha256": "7a1e624a88d2575fce28908001822bfad438f55b916167d1a3af2b050e2909b2",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/scene.py"
+    },
+    {
+      "bytes": 24176,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/source_skin_fidelity.py"
+    },
+    {
+      "bytes": 12424,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/stable_role_projection.py",
+      "sha256": "b5df2934c1416c45fb21073aadcb675456845dc4c714f1f7f4d12011b2aac5bd",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/stable_role_projection.py"
+    },
+    {
+      "bytes": 18169,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/studio.py",
+      "sha256": "ca7fb3ab29e42186b79b77e3b7a1f7b23de0443e7b755ad99da8c12e92131405",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/studio.py"
+    },
+    {
+      "bytes": 9367,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/studio_inspection.py",
+      "sha256": "925daa069c0878696101598938089d43c9cccc3da1d800ac12e224204b67e71d",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/studio_inspection.py"
+    },
+    {
+      "bytes": 43701,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/studio_jobs.py",
+      "sha256": "156de2b8a4aeee9fa83b685c472417e630c90c82db97a9d457c0ffafc8a72aa0",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/studio_jobs.py"
+    },
+    {
+      "bytes": 13680,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/studio_worker.py",
+      "sha256": "494263e6c960bd382c95769eaa9f590c7d9ac1a66995be869a25a6060a75fd69",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/studio_worker.py"
+    },
+    {
+      "bytes": 2675,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/surface_profiles.py"
+    },
+    {
+      "bytes": 1792,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 14456,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/avatar_assets/weft_metadata.py",
+      "sha256": "d3b548fe918fc61f3877c7862c427e14d8f38e611682a9531bba51bd514bab43",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/weft_metadata.py"
+    },
+    {
+      "bytes": 2434,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_browser_fur.py",
+      "sha256": "8bc3adfe1103f83372b706ff234170bd4793c60a77ea757e4c702be9c28571eb",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_browser_fur.py"
+    },
+    {
+      "bytes": 3449,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_combed_groom.py",
+      "sha256": "baf68323e2de881d28b54e5b1eee7a961c2cb46758031716cbc062f8026fee10",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_combed_groom.py"
+    },
+    {
+      "bytes": 11182,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_companions.py",
+      "sha256": "0f5664b632c8a2c9b48d73dbec561705cdeea7ee4a83a313844a4263720677cd",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_companions.py"
+    },
+    {
+      "bytes": 7935,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_fox_v2.py",
+      "sha256": "240ea2716a7ce60b2462b543297e79d8e8966fb7381c83766964594ca3425708",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_fox_v2.py"
+    },
+    {
+      "bytes": 22922,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_panda.py",
+      "sha256": "28561566431d92db7063880401c3d688ac117a33e5a4efcae887e3cf2feb41e2",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_panda.py"
+    },
+    {
+      "bytes": 10387,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_panda_v2.py",
+      "sha256": "b546bb9778ff11d35aea908f0757d801108d0f74683deeed91b6cb7961f2248b",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_panda_v2.py"
+    },
+    {
+      "bytes": 10426,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_panda_v3.py",
+      "sha256": "90c31c471ce101f9111e5ec7ce1036fae70bad33b554c814508d9802e8a133a3",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_hd_panda_v3.py"
+    },
+    {
+      "bytes": 32513,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_quality_companions.py",
+      "sha256": "30d752d18f752beb1981ab57cc59636d3621f9078b4a2df48c4a6dca8077a273",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_quality_companions.py"
+    },
+    {
+      "bytes": 25166,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_quality_panda.py",
+      "sha256": "588ce19630aa78e042d5543f49aedfcbc7180a3207d03ce84c3857563028ac68",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_quality_panda.py"
+    },
+    {
+      "bytes": 27045,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/author_quality_robot.py",
+      "sha256": "ce4b34e051df66d5c6b4b9223588018a8bf9b12efcfcd0de040274f42c603285",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/author_quality_robot.py"
+    },
+    {
+      "bytes": 16082,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_build.py",
+      "sha256": "4a5f1f03f21b728f2b72056d8783678033f17232de9fb344f7944eb42a3c913d",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_build.py"
+    },
+    {
+      "bytes": 6582,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_color_corrections.py"
+    },
+    {
+      "bytes": 23994,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_comb_groom.py"
+    },
+    {
+      "bytes": 2710,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 57411,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "e08ef4cfb86864b29ba1f0e619f6749d3b8307a36e29b770d082a6b52686a73a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 25390,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "72e21d2d4cd5441ab9a7bfb3ee6ba3a1afcc238cc669907a7c3665c49bc99a12",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 21139,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_geometry.py",
+      "sha256": "43c747739c43800fdebb664bde61168f2ec4199f076fbf0b2606d47de2b5e562",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_geometry.py"
+    },
+    {
+      "bytes": 16436,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_lookdev.py",
+      "sha256": "2ff4e51adfeb4fcfdd54d0c2d90db7733201566fa365fd2f7576296637326087",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_lookdev.py"
+    },
+    {
+      "bytes": 5450,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_coat.py"
+    },
+    {
+      "bytes": 8894,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_colors.py"
+    },
+    {
+      "bytes": 31282,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_groom.py"
+    },
+    {
+      "bytes": 24601,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_native_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 5789,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_part_rigs.py"
+    },
+    {
+      "bytes": 13538,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_partition_generated.py",
+      "sha256": "6c99f42cddb293c7b483f4b44b4a5ae59df46d20535dd6b9d4e32dbf78d3eaab",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_partition_generated.py"
+    },
+    {
+      "bytes": 13587,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 3521,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_render.py",
+      "sha256": "cbc04bcfaed17363aceff826ef4fd398cdd8357da9b865eb9628a1b511872650",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_render.py"
+    },
+    {
+      "bytes": 6211,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_render_prepared.py",
+      "sha256": "f57ecd84b8ff79b632b284c8a91477fcdfb62bfc99723390c39f8822576f4d34",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_render_prepared.py"
+    },
+    {
+      "bytes": 12009,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_surface_profiles.py"
+    },
+    {
+      "bytes": 9781,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_surfaces_hd.py",
+      "sha256": "eb5ee9931df0d50a2b23b333c2e6a808d18739d4d811cc2965669f2814b4b26a",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_surfaces_hd.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 26865,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_verify_compound_motion.py",
+      "sha256": "74a6edf198a07e17eeeb05104c17a08626ae27f53c4302862c9dc662503d603b",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_verify_compound_motion.py"
+    },
+    {
+      "bytes": 6524,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/blender_verify_motion_controls.py",
+      "sha256": "476c17bbcc004834832321b4f96ae5547729d3112a9718c87b8f5358c9137994",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/blender_verify_motion_controls.py"
+    },
+    {
+      "bytes": 5399,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/creature_rig_math.py"
+    },
+    {
+      "bytes": 6870,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 17213,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/denoise_portrait.py",
+      "sha256": "b722ed597d60d5d20cd4e14fb10235d62c8caf2cb220e68aca92a80ea54fe4a7",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/denoise_portrait.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 9233,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/fringe_flow.py",
+      "sha256": "b7d60d5e9f152edf063ed9ce140b187dafe018e82470c66eb695aaccf8940ed9",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/fringe_flow.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 8834,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/sources/scripts/fur_skin_roots.py"
+    },
+    {
+      "bytes": 6002,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 9487,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/material_fur.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 13920,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/package_portable_media.py",
+      "sha256": "2de17898a1f28e5a63573dd7283d55d3ce2de59ef93aedbab180d444847e2d5f",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/package_portable_media.py"
+    },
+    {
+      "bytes": 7911,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/rig_guide_annotations.py",
+      "sha256": "77bad5fc52ada588be692861f0f4f6f6fb79205b08405ab2a457418ee6da38b1",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/rig_guide_annotations.py"
+    },
+    {
+      "bytes": 14055,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/source_skin_snapshot.py"
+    },
+    {
+      "bytes": 23107,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/surface_clumps.py",
+      "sha256": "f2010dc5bb8b9e4237c93494f06ac441af38e44c5f141aee0b28dea659556646",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/surface_clumps.py"
+    },
+    {
+      "bytes": 6843,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/surface_integrity.py"
+    },
+    {
+      "bytes": 7538,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/surface_smoothing.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 9850,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/validate_studio_framing.py",
+      "sha256": "866c0f4c692074c1bfd9f4d1828f3c4fd24f671412f001ad3708db2d04c82291",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/validate_studio_framing.py"
+    },
+    {
+      "bytes": 22630,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/verify_quality_assets.py",
+      "sha256": "31e3f74edb6dc9f5e964241d464432cf9c7e0a960efde419db016b373568e592",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/verify_quality_assets.py"
+    },
+    {
+      "bytes": 7537,
+      "origin": "outputs/skin-consistent-fox-preparation-v1/sources/scripts/verify_studio_live.py",
+      "sha256": "76840fbaa25f3be2f385b7820460b63da1258ace5120f045017bc504a0a77708",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/scripts/verify_studio_live.py"
+    },
+    {
+      "bytes": 8619,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/exported-nodes.json",
+      "sha256": "7ccc4f19efe7c6a299de50687c411c8e8056f8dfb3960fe7f02293158bd59b48",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/exported-nodes.json"
+    },
+    {
+      "bytes": 3438,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/finish-config.json",
+      "sha256": "a735afebac79af675a17687eb575e886ef6408206a0027c9762420cdbfda2d35",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/finish-config.json"
+    },
+    {
+      "bytes": 614,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/finish-handle.json",
+      "sha256": "2648b42f10d955e1769427a3c888782e2df3aec8f714bd6a7def427914593a29",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/finish-handle.json"
+    },
+    {
+      "bytes": 1411,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/finish-monitor.json",
+      "sha256": "42605563b94e69fe60eb347b62537589a4cd763fdfb77a7aeb3c55b6424e1f1a",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/finish-monitor.json"
+    },
+    {
+      "bytes": 556080,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/finish-report.json",
+      "sha256": "37ca35dd051ac610a7cf081ce39895a473b6c2292832945982f40a2220e4b4d0",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/finish-report.json"
+    },
+    {
+      "bytes": 148178,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/finish.log",
+      "sha256": "cf6f51afba7e4e9112e327bafb0dec4cfd02f9100ff009175d443f871e37efe3",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/finish.log"
+    },
+    {
+      "bytes": 1545,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/job.json",
+      "sha256": "7293ab37132e72891f0d315339319aea02947487abcf3b1d49b2b0ce2284155f",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/execution/native-job.json"
+    },
+    {
+      "bytes": 624898,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/manifest.json",
+      "sha256": "be6ee85e53a06f28531bec2b4a94d31ca5078b38efeeeceded7d1a0c793f23de",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/manifest.json"
+    },
+    {
+      "bytes": 1221,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/material-coat.json",
+      "sha256": "aea9260208da5fd1700c525eb576a7d9252e754cfb51268372930c070fd538cb",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/material-coat.json"
+    },
+    {
+      "bytes": 2311210,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/material-groom/correspondence.npz",
+      "sha256": "8b7b59269e10cbe83eb146cc30168f9acc6c8a85e0ccde94316c416f90b78d13",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/material-groom/correspondence.npz"
+    },
+    {
+      "bytes": 28714,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/material-groom/report.json",
+      "sha256": "e7eaa6dabda586dfbc154f575e34c20fe4cf885b8083b09b1dc5446d1359b65c",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/material-groom/report.json"
+    },
+    {
+      "bytes": 5113,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/normal-uv-export.json",
+      "sha256": "b36b48974cafb058df5085438abe9b04dd0dc2b5448e442c342b83526b0e9d66",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/normal-uv-export.json"
+    },
+    {
+      "bytes": 28192,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.001.npz",
+      "sha256": "153651a586f1d539f1249ff29a322dec3637b7a51ba100df4dada18a6c68c0ad",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.001.npz"
+    },
+    {
+      "bytes": 24500,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.002.npz",
+      "sha256": "b3753962342ef24f1b66ebe48ef056ed981bb530b8b597c87a467e1e1d8e36a0",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.002.npz"
+    },
+    {
+      "bytes": 105672,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "ff0bed207782a7434bc4164164f25647ce2b9c5194d69b64b22e3794b7de3664",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.npz"
+    },
+    {
+      "bytes": 469180,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/portrait.png",
+      "sha256": "ebfddc0494859c5975f332dfe7c40860b48b2e1eb5757302da8fdf42599afa0a",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/portrait.png"
+    },
+    {
+      "bytes": 7859,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/render-attributes.json",
+      "sha256": "11569336f75203d5219d3055c2b23fb8a8ad650625977b07999a260880fe1307",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/render-attributes.json"
+    },
+    {
+      "bytes": 69536,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0000.png",
+      "sha256": "6c909c555fa688ed690236e5840660c845e6a9e8250e8f98ba4bb677e7599aa1",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/idle/0000.png"
+    },
+    {
+      "bytes": 69191,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0001.png",
+      "sha256": "78c9e9a834250c41156f037e9a95c0ea9c4d9770e83a5b211e01caf915f68768",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/idle/0001.png"
+    },
+    {
+      "bytes": 69536,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0002.png",
+      "sha256": "87fa4bd88c94fda1e6f4a8ca0d1e5c73591b68c939faa78f01d1eaad81d71ab1",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/idle/0002.png"
+    },
+    {
+      "bytes": 69588,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0003.png",
+      "sha256": "a08780f6ca08899414902d7c50464d0cce54beaddbddb3f72e2f14cd0c35b424",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/idle/0003.png"
+    },
+    {
+      "bytes": 69536,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/idle/0004.png",
+      "sha256": "e0f0064f432ead4ded571db52a69f2fbe552be49f8504b3f78aebcf99ef747a9",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/idle/0004.png"
+    },
+    {
+      "bytes": 69460,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0000.png",
+      "sha256": "395d0b2af88d52a7c7520ea43cc0b8a1f90f9de9942ec78e5095f1017df92bb3",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/making_something/0000.png"
+    },
+    {
+      "bytes": 69460,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0001.png",
+      "sha256": "24f544167992d4a66baf7e9f9b8ab0301dd3f7609e7b9294255a953187539586",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/making_something/0001.png"
+    },
+    {
+      "bytes": 69460,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0002.png",
+      "sha256": "5bb4030122aa0eb0e2366003def2546916f526107e72b1195aab57958fe88aa3",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/making_something/0002.png"
+    },
+    {
+      "bytes": 69460,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0003.png",
+      "sha256": "6aaa30152e055013260be6e7ef55a4a7ea75d105b69657618073f19d794a142c",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/making_something/0003.png"
+    },
+    {
+      "bytes": 69460,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/making_something/0004.png",
+      "sha256": "0850e1655c6cb7a7a38e28029284c87c8b41aa6aee17801b1ec036cfd13d2cfa",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/making_something/0004.png"
+    },
+    {
+      "bytes": 69536,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0000.png",
+      "sha256": "2b83d869ab8f0c27b1c6140807a4777d7408f89d9721337d64d16cc6f71284e4",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0000.png"
+    },
+    {
+      "bytes": 72577,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0001.png",
+      "sha256": "ecfaf99ce8429092c3a583a66a8860c1c0b7a35a42377e0baddd2a3af8fd9f7a",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0001.png"
+    },
+    {
+      "bytes": 71748,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0002.png",
+      "sha256": "148459e234036317abb70187c1a655e9cae1a9f5c4718d9ac76adf0d283421f8",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0002.png"
+    },
+    {
+      "bytes": 72351,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0003.png",
+      "sha256": "cb6f710950e525eb74823beaa03fa7c945dab67419147fddb0b6eeb8ddd5bac7",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0003.png"
+    },
+    {
+      "bytes": 69536,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0004.png",
+      "sha256": "aa3046cb8b9144a4c8aea36663bb27e41a04bffccb20b9c53fd1159d64dd9cb6",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0004.png"
+    },
+    {
+      "bytes": 69282,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0000.png",
+      "sha256": "d6daf0b60df8bad8d39f5f645acd97dca6aa0b46282aa06d5410429247a5c746",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/working/0000.png"
+    },
+    {
+      "bytes": 68998,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0001.png",
+      "sha256": "7bf5491ceef350df2d5a985ed778b815a4a75cee5d7eab5f99a7b25f8f4233ee",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/working/0001.png"
+    },
+    {
+      "bytes": 69386,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0002.png",
+      "sha256": "ffd903c9394b2bde13bf1eaa509b7f70c3a4853b1b9330b83e68809abf99d6c2",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/working/0002.png"
+    },
+    {
+      "bytes": 68998,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0003.png",
+      "sha256": "3ef8773ebf3e078bcf1dc6d095e1d38066661d782396dfdeddff6a05da896944",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/working/0003.png"
+    },
+    {
+      "bytes": 69282,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/renders/working/0004.png",
+      "sha256": "c4ac3d748ea4ca66e2dde0221e0ccceda9de6d20f51e2dce4ffd5d7c0c62d7b9",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/renders/working/0004.png"
+    },
+    {
+      "bytes": 1568,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/rig-contract.json",
+      "sha256": "5a8955595378f2faa8d1acbcd3a6317f3dc7f101365f94261258140c50ea5f67",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/rig-contract.json"
+    },
+    {
+      "bytes": 6301,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/rig-verification.json",
+      "sha256": "9cc23296dfd13258e219b434e06e9dce8634b92a79729b6c621f1ba4ed902dbb",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/rig-verification.json"
+    },
+    {
+      "bytes": 6582,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_color_corrections.py"
+    },
+    {
+      "bytes": 23994,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_comb_groom.py"
+    },
+    {
+      "bytes": 2710,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "bytes": 57411,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_finish_generated.py",
+      "sha256": "e08ef4cfb86864b29ba1f0e619f6749d3b8307a36e29b770d082a6b52686a73a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 25390,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_fur_cards.py",
+      "sha256": "72e21d2d4cd5441ab9a7bfb3ee6ba3a1afcc238cc669907a7c3665c49bc99a12",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 5450,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_coat.py"
+    },
+    {
+      "bytes": 8894,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_colors.py"
+    },
+    {
+      "bytes": 31282,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_groom.py"
+    },
+    {
+      "bytes": 24601,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_native_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 5789,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_part_rigs.py"
+    },
+    {
+      "bytes": 12009,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_surface_profiles.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 8351,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/color_corrections.py"
+    },
+    {
+      "bytes": 5399,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/creature_rig_math.py"
+    },
+    {
+      "bytes": 6870,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 3389,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/finish-design.json",
+      "sha256": "50248d8a2f1d3d0abe77e224423deee548cdcf3031bfb907f910ea2040e57480",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 37874,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/finish_generated.py",
+      "sha256": "c4ca2b68416d9c6b17b39d4d3c7840f49887a60ae919182de8edce41abf02eb6",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 10500,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/fur_bindings.py",
+      "sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/sources/avatar_assets/fur_bindings.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 8834,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot": "snapshots/skin-root-selector-tests-v1/sources/scripts/fur_skin_roots.py"
+    },
+    {
+      "bytes": 6002,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 9487,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/material_fur.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 6665,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/part_rigs.py"
+    },
+    {
+      "bytes": 6843,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/surface_integrity.py"
+    },
+    {
+      "bytes": 2675,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/surface_profiles.py"
+    },
+    {
+      "bytes": 7538,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/surface_smoothing.py"
+    },
+    {
+      "bytes": 1792,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/sources/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 487,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/tangent-repair.json",
+      "sha256": "1bbae69c762692defc1c9540afce47bb0fc347bf880ce62447280320cfcafdae",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/tangent-repair.json"
+    },
+    {
+      "bytes": 102653,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/textures/PortableCoat_0-fur-atlas.png",
+      "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/textures/PortableCoat_0-fur-atlas.png"
+    },
+    {
+      "bytes": 102653,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/textures/PortableCoat_0.001-fur-atlas.png",
+      "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/textures/PortableCoat_0-fur-atlas.png"
+    },
+    {
+      "bytes": 102653,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/textures/PortableCoat_0.002-fur-atlas.png",
+      "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/textures/PortableCoat_0-fur-atlas.png"
+    },
+    {
+      "bytes": 289,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/tuft-export-budget.json",
+      "sha256": "ebd23b46d3eade9b67e8c54385cb04c3b06a544041e285af90bf3fc5b9a272b3",
+      "snapshot": "snapshots/fox-skin-consistent-fur-finish-v1/tuft-export-budget.json"
+    },
+    {
+      "bytes": 5742,
+      "origin": "outputs/skin-consistent-fox-preview-preparation-v1/execute.py",
+      "sha256": "21c9ff422fa3708ba01dc38707806856c70cd3fd56ce9ae81cf0e147a2a912cc",
+      "snapshot": "snapshots/skin-consistent-fox-preview-preparation-v1/execute.py"
+    },
+    {
+      "bytes": 3558,
+      "origin": "outputs/skin-consistent-fox-preview-preparation-v1/framing-reference.json",
+      "sha256": "6eeb152e75ec31ecfb402f64c0826f5ae689b9fd61bea6b52c7761356c9e7336",
+      "snapshot": "snapshots/skin-consistent-fox-preview-preparation-v1/framing-reference.json"
+    },
+    {
+      "bytes": 1381,
+      "origin": "outputs/skin-consistent-fox-preview-preparation-v1/manifest.json",
+      "sha256": "3d557e034f124c2a8a00d753305d4163f43e2d6e961856693600f193dffbbc22",
+      "snapshot": "snapshots/skin-consistent-fox-preview-preparation-v1/manifest.json"
+    },
+    {
+      "bytes": 3063,
+      "origin": "outputs/skin-consistent-fox-preview-preparation-v1/prepared.json",
+      "sha256": "9bba9edbbe06d9926607a3f102ff2563540b989f89bfe5000649310649c98837",
+      "snapshot": "snapshots/skin-consistent-fox-preview-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/skin-consistent-fox-preview-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/skin-root-binding-tests-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/skin-consistent-fox-preview-preparation-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/skin-consistent-fox-preview-preparation-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 16084,
+      "origin": "outputs/skin-consistent-fox-preview-preparation-v1/sources/scripts/blender_provider_preview.py",
+      "sha256": "37e151f4cbeec366866a0c60747fa1812335a96de4feede5fc8eae6628e1422f",
+      "snapshot": "snapshots/skin-consistent-fox-preview-preparation-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/skin-consistent-fox-preview-preparation-v1/sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 416109,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/back.png",
+      "sha256": "ba9ad53e504998ec2b7b61b5adb76374a89d56099955d39d75285d716a349b64",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/back.png"
+    },
+    {
+      "bytes": 421736,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/front.png",
+      "sha256": "f3ffc93e95708cb0535baadfee8f2ca3d421aa805001096674def7bf3c1cd03d",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/front.png"
+    },
+    {
+      "bytes": 1591,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/job.json",
+      "sha256": "18573b82783d3a22af0f5f90bd665d76f5fa0e8f6f80fc0a50396423e3a51018",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/job.json"
+    },
+    {
+      "bytes": 18612,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/manifest.json",
+      "sha256": "787df75f0e39aba1836b9633751dd9135bf8fb7e884ada19d88a6b0bd890473f",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/manifest.json"
+    },
+    {
+      "bytes": 654,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/native-handle.json",
+      "sha256": "a431e7b8ee41b66bd14c340b91321594647dabf3a725992658f39a23d609e018",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/native-handle.json"
+    },
+    {
+      "bytes": 12608,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/native-inspection.json",
+      "sha256": "9d938d5d7a5e92f694308c0fb5536adcbe5de12a853e1bf2d68c018631f33c2c",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/native-inspection.json"
+    },
+    {
+      "bytes": 1445,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/native-monitor.json",
+      "sha256": "93f28ade0937c93b018d15562c9b980a7e6a9f86f99d0a658e99a8522760776a",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/native-monitor.json"
+    },
+    {
+      "bytes": 1683,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/native.log",
+      "sha256": "ecc4c52a1322cd219e61b40a71c426c60511d905904f536eaeba93c5399a550a",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/native.log"
+    },
+    {
+      "bytes": 372626,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/side.png",
+      "sha256": "e7a00af6933585cc04ed60d8b42b540fb915da5fb7a0c124f4c4f9b11d4cc146",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/side.png"
+    },
+    {
+      "bytes": 16084,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/sources/blender_provider_preview.py",
+      "sha256": "37e151f4cbeec366866a0c60747fa1812335a96de4feede5fc8eae6628e1422f",
+      "snapshot": "snapshots/skin-consistent-fox-preview-preparation-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 1004,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/started.json",
+      "sha256": "93d31e93cdad60cfd3899538c51072ea559f4775b6b5377c3ce01da7e23550e2",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/started.json"
+    },
+    {
+      "bytes": 407891,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/three-quarter.png",
+      "sha256": "2c14831928f5fb9c7afef0680f2a7a2e3c045a8e1c735df4843e54a82313350b",
+      "snapshot": "snapshots/fox-skin-consistent-fur-export-preview-v1/three-quarter.png"
+    },
+    {
+      "bytes": 1311,
+      "origin": "outputs/skin-root-public-verification-v1/job.json",
+      "sha256": "60399fa46f77f4d305e5fe87eb0a47c2802922b8ab300de1ad7812eb5d2a3e7f",
+      "snapshot": "snapshots/skin-root-public-verification-v1/job.json"
+    },
+    {
+      "bytes": 2967,
+      "origin": "outputs/skin-root-public-verification-v1/manifest.json",
+      "sha256": "1768efdd27b32c3d396d8c758166331ec22dec7f9ccf2bc760a27f814a399f01",
+      "snapshot": "snapshots/skin-root-public-verification-v1/manifest.json"
+    },
+    {
+      "bytes": 589,
+      "origin": "outputs/skin-root-public-verification-v1/request.json",
+      "sha256": "e84e5bcb1296c7a5e719b1df9e87c3a19f7ac0048311c2a316634804dd5ae252",
+      "snapshot": "snapshots/skin-root-public-verification-v1/request.json"
+    },
+    {
+      "bytes": 11789,
+      "origin": "outputs/skin-root-public-verification-v1/sources/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37",
+      "snapshot": "snapshots/skin-consistent-fox-preparation-v1/sources/avatar_assets/cli.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/skin-root-public-verification-v1/sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/skin-root-public-verification-v1/sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/skin-root-public-verification-v1/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 402,
+      "origin": "outputs/skin-root-public-verification-v1/verify-handle.json",
+      "sha256": "f2d84aac7638b5a28c8d6ca4c1038cfd14e5a33eeb3428633760610bbb566460",
+      "snapshot": "snapshots/skin-root-public-verification-v1/verify-handle.json"
+    },
+    {
+      "bytes": 1185,
+      "origin": "outputs/skin-root-public-verification-v1/verify-monitor.json",
+      "sha256": "525d625cf38f5ffacb8a8c7c395edab29e4e670b6a223a9fb1585b3b513fbaba",
+      "snapshot": "snapshots/skin-root-public-verification-v1/verify-monitor.json"
+    },
+    {
+      "bytes": 6921,
+      "origin": "outputs/skin-root-public-verification-v1/verify.log",
+      "sha256": "d04721e9aa1f6a8115bc0df1b509cd1867f3a665b87a6586053b4963ba97db14",
+      "snapshot": "snapshots/skin-root-public-verification-v1/verify.log"
+    },
+    {
+      "bytes": 19713,
+      "origin": "outputs/skin-root-audit-preparation-v1/audit.py",
+      "sha256": "ed0bb548eac9df16009855c4e2b70692c329959c9768b368b2280bba99ed6e1e",
+      "snapshot": "snapshots/skin-root-audit-preparation-v1/audit.py"
+    },
+    {
+      "bytes": 1093,
+      "origin": "outputs/skin-root-audit-preparation-v1/manifest.json",
+      "sha256": "a41615df0a6bb2f7b5c051e66ded34cae40d714c38e8f236a2868b4fb081a453",
+      "snapshot": "snapshots/skin-root-audit-preparation-v1/manifest.json"
+    },
+    {
+      "bytes": 3014,
+      "origin": "outputs/skin-root-audit-preparation-v1/plan.json",
+      "sha256": "6388ec3051e53084398ca5df0e3efc494ffda23a4d33bc8242707e3621966ac3",
+      "snapshot": "snapshots/skin-root-audit-preparation-v1/plan.json"
+    },
+    {
+      "bytes": 926,
+      "origin": "outputs/skin-root-audit-preparation-v1/preparation-review.json",
+      "sha256": "187fcede77c34606254b8370ef7b85b96621206d9576c586bd1f2f7806c0e395",
+      "snapshot": "snapshots/skin-root-audit-preparation-v1/preparation-review.json"
+    },
+    {
+      "bytes": 791,
+      "origin": "outputs/skin-root-audit-preparation-v1/request-template.json",
+      "sha256": "69a9b7bddf533ff7e189dd0788d790785318c027312491d9c3ce94c5890f2a62",
+      "snapshot": "snapshots/skin-root-audit-preparation-v1/request-template.json"
+    },
+    {
+      "bytes": 13906,
+      "origin": "outputs/skin-root-audit-preparation-v1/sources/audit.py",
+      "sha256": "f3b4dda7589be0bf77f47f35b18bd5d4b2cd20c28a19bad70fd29ffc1235bc59",
+      "snapshot": "snapshots/skin-root-audit-preparation-v1/sources/audit.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/skin-root-audit-preparation-v1/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 244,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/audit-handle.json",
+      "sha256": "981f73ee5330be0563cbbed0cdadc47a973230437b71b064354a5b56cb2b7d61",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/audit-handle.json"
+    },
+    {
+      "bytes": 1030,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/audit-monitor.json",
+      "sha256": "638f78251c4d768d45e6e6721b2ac569466e5c3d935d1b48e0b830ef79476677",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/audit-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/screen.log"
+    },
+    {
+      "bytes": 17417,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/audit.py",
+      "sha256": "4c0335872a838532beef86713459ec6ec4d862de617a642724d97ed71f7d4674",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/audit.py"
+    },
+    {
+      "bytes": 1208,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/execution-inputs.json",
+      "sha256": "b80f513f7ffd787846e25ebb47ec2f2192fd9c4546491a75d31778183c419f23",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/execution-inputs.json"
+    },
+    {
+      "bytes": 7937,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/geometry.json",
+      "sha256": "93c5274b1c537448d76e3dca72c3c4cd3a6770edb42dc6a394e1e345fb6530c5",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/geometry.json"
+    },
+    {
+      "bytes": 1124,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/job.json",
+      "sha256": "f87e40bfd47b6d0703db77772189d74bc20fb2cf8b3ec0ced618f832c0c5d091",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/job.json"
+    },
+    {
+      "bytes": 18327,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/lamp_helpers.py",
+      "sha256": "84b053d876e3533f67af2bd5ea5e2201daa87914bd09d869f1999ace524f1e3e",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/lamp_helpers.py"
+    },
+    {
+      "bytes": 2790,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/manifest.json",
+      "sha256": "0fba5de04fb556f50cb6fc22dd5f0198cd2bdf3c3ddea8a1b1910d8290a95e1b",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/manifest.json"
+    },
+    {
+      "bytes": 23575,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/materials.json",
+      "sha256": "b98cce575298018fc1182f73e30fbc0465cd8a2de296e94eadb93ba7fb1e1c34",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/materials.json"
+    },
+    {
+      "bytes": 4315,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/motion.json",
+      "sha256": "b3c4dfe3a90539fefc8ada5adcd5da866ba2f37e8b40bbd675d5b60e92f691d9",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/motion.json"
+    },
+    {
+      "bytes": 1051,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/native-source-identity.json",
+      "sha256": "44e541e5b847c4579f66b78872e7cbcc95edd04f0e01006ea3a219eb393a92e6",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/native-source-identity.json"
+    },
+    {
+      "bytes": 4299,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/prepared.json",
+      "sha256": "9b1254b453657dcd4b14f99b9ff00054eeecbe84379e80a8986e904ddbf92208",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/prepared.json"
+    },
+    {
+      "bytes": 944,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/result.json",
+      "sha256": "e9d160a1473bc68beef1aec322b5845376fc9c9451839881468de8a46cf53ae3",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/result.json"
+    },
+    {
+      "bytes": 4245,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/review.json",
+      "sha256": "2c4e019c2c4eeb7f1ed0791506e2e9ff461b6568dddc2e99acecc43cad9f7fd5",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/review.json"
+    },
+    {
+      "bytes": 2586,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/rig.json",
+      "sha256": "8f19ec209953efaa1ae1ec423a283cd918a2160f87b2aaedaa18f10c01536831",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/rig.json"
+    },
+    {
+      "bytes": 1606,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/roots.json",
+      "sha256": "b6f761a9b72003c7c9b2d36375e6286aa09955a0029d56d5e1629a98ba0f64d2",
+      "snapshot": "snapshots/fox-skin-consistent-body-audit-v1/roots.json"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/fox-skin-consistent-body-audit-v1/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 361,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/audit-handle.json",
+      "sha256": "66236da039024ef85c8edb75e62f8a7fd1f62518f0c0758b4b9089debbd091d3",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/audit-handle.json"
+    },
+    {
+      "bytes": 1149,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/audit-monitor.json",
+      "sha256": "aded84c54985d5d6428a0799a53ece560ee248087a73697be441a424c0f0a38a",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/audit-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/fox-vertex-root-math-screen-v1/screen.log"
+    },
+    {
+      "bytes": 19713,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/audit.py",
+      "sha256": "ed0bb548eac9df16009855c4e2b70692c329959c9768b368b2280bba99ed6e1e",
+      "snapshot": "snapshots/skin-root-audit-preparation-v1/audit.py"
+    },
+    {
+      "bytes": 1290,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/execution-inputs.json",
+      "sha256": "e8203381cca76b07129fd0f01637785b3a71bf2b89de483671446b00b3a43ab1",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/execution-inputs.json"
+    },
+    {
+      "bytes": 1251,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/job.json",
+      "sha256": "09497640cfce30df87f044666447e5e790db224043d773e0a0aa394096859cc1",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/job.json"
+    },
+    {
+      "bytes": 2337,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/manifest.json",
+      "sha256": "688e68215b776ee96737418911aa0fede8f5bb3f9c47a51960e8541cf0712256",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/manifest.json"
+    },
+    {
+      "bytes": 69786,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/motion.json",
+      "sha256": "737ab726124e04df26113f8c029638820ebbb0e21c4237ef551e3dd09f555c0b",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/motion.json"
+    },
+    {
+      "bytes": 3014,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/plan.json",
+      "sha256": "6388ec3051e53084398ca5df0e3efc494ffda23a4d33bc8242707e3621966ac3",
+      "snapshot": "snapshots/skin-root-audit-preparation-v1/plan.json"
+    },
+    {
+      "bytes": 4266,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/request.json",
+      "sha256": "b2e967965a7c10a60b93e7b83066aa1b8d59ad1f7f0180cd68ec518628d9e12f",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/request.json"
+    },
+    {
+      "bytes": 757,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/result.json",
+      "sha256": "a6fee72982d69e6835cdaf1113399275fa3e509a0caa749c9685ab9bf3e42b9e",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/result.json"
+    },
+    {
+      "bytes": 3648,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/review.json",
+      "sha256": "e60cb9e8a965e05c6a915659648cfaa55f9b0f72f159f747d1653887ed6a2a70",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/review.json"
+    },
+    {
+      "bytes": 1355221,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/roots.json",
+      "sha256": "0091e8125b44ecf679253074c2d1c1273d1984851c98838114ef47ce2c1573ea",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/roots.json"
+    },
+    {
+      "bytes": 7360101,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/sampled-motion.npz",
+      "sha256": "45f793212b09bfdccb792ea09c2f9c329e0edae0a4487081e9ac739d70cc901b",
+      "snapshot": "snapshots/fox-skin-consistent-root-audit-v1/sampled-motion.npz"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/fox-skin-consistent-root-audit-v1/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 234627,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/components.json",
+      "sha256": "3d40fe9852de1aed98d26f4a051138b7999203c2271f8dae5b5ab0cd269db45b",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/components.json"
+    },
+    {
+      "bytes": 245,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/cpu-handle.json",
+      "sha256": "a2a1ae0fda55be51fbcf0a732650d73099485ad4899badff53d513ba0802f153",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1075,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/cpu-job.json",
+      "sha256": "b6ba51b4610bfe66536bdab87f63f203acc0c3af51accd395bc4813e813d6cc6",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/cpu-job.json"
+    },
+    {
+      "bytes": 983,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/cpu-monitor.json",
+      "sha256": "7e5f07eb0bc4ad69921eba8f0cb5504aaadd7ef36bd543285e550694a88e50c8",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 2614,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/cpu.log",
+      "sha256": "c6eaa4c4a0c502cdab84d10601bb5c5fc9ddedf730bf558b2421566762061e0a",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/cpu.log"
+    },
+    {
+      "bytes": 3818,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/execute.py",
+      "sha256": "8eceae22c32ffaa5645ea044a79f0e2f7b628a2f2871ec9544aaf330d7b178ae",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/execute.py"
+    },
+    {
+      "bytes": 4037,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/interpretation.json",
+      "sha256": "c3da71fa52068f9b41a7a8a828f4402dad3cc22247d207d52e2647078ac57397",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/interpretation.json"
+    },
+    {
+      "bytes": 2833,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/manifest.json",
+      "sha256": "8397b86155cc5f4a436e62259dc70971ea6caa13fa5cb9373f596459a06967b6",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/manifest.json"
+    },
+    {
+      "bytes": 13037,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/measure.py",
+      "sha256": "49eb1fb150803662f142b606544f7c91e151cc10354f69e321ee7ed1630da278",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/measure.py"
+    },
+    {
+      "bytes": 5452,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/prepared.json",
+      "sha256": "e53cf74ae91c8893ebeca71c24b6d45e1bd79403f3c5c38d67362032a192b195",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/prepared.json"
+    },
+    {
+      "bytes": 3977,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/receipt.json",
+      "sha256": "e486201b74e15296806dd5b23c8ddf02779cbd4371dec80a3d9827f61c23f837",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/receipt.json"
+    },
+    {
+      "bytes": 3074,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/release-manifest.json",
+      "sha256": "4abed1faadf947d84db5a115099e9e5c337f9c5ba1591f10dcd25d141b47f612",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/release-manifest.json"
+    },
+    {
+      "bytes": 4269,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/report.json",
+      "sha256": "6ee6c7506ad12bfb94280ca90ef96103b0c0547f8abecd0d07dbf97da83b1b67",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/report.json"
+    },
+    {
+      "bytes": 92214,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/selected-placement.npz",
+      "sha256": "0d908541fb300dbfd999c5b19ba15ef49dd9cc4f11eb4999c718b2e8316d8e25",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/selected-placement.npz"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/vertex-root-selector-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 25390,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/sources/outputs/fox-skin-consistent-fur-finish-v1/sources/blender_fur_cards.py",
+      "sha256": "72e21d2d4cd5441ab9a7bfb3ee6ba3a1afcc238cc669907a7c3665c49bc99a12",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 5450,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/sources/outputs/fox-skin-consistent-fur-finish-v1/sources/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot": "snapshots/skin-root-integration-tests-v1/sources/scripts/blender_material_coat.py"
+    },
+    {
+      "bytes": 16694,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/sources/reference_census.py",
+      "sha256": "370ebc05c1a6d4cbd4c68cbd5b12f1d3f1c2afdc542eaf20dfb16fa9f9b27b3c",
+      "snapshot": "snapshots/fox-vertex-root-coverage-preflight-v1/census.py"
+    },
+    {
+      "bytes": 46645,
+      "origin": "outputs/fox-skin-root-selected-coverage-v1/spatial-grid.json",
+      "sha256": "ebf0f9a43123af509280a51d4086dbcbeb74dd292f45fe6755693af226f0f26f",
+      "snapshot": "snapshots/fox-skin-root-selected-coverage-v1/spatial-grid.json"
+    },
+    {
+      "bytes": 5054,
+      "origin": "outputs/skin-consistent-fox-appearance-review-v1/manifest.json",
+      "sha256": "094c7cac5899b9d213859e8a32c7a06cdafa475989b44cd251d0b355a754c50d",
+      "snapshot": "snapshots/skin-consistent-fox-appearance-review-v1/manifest.json"
+    },
+    {
+      "bytes": 2343,
+      "origin": "outputs/material-fur-publication-v1/publication.json",
+      "sha256": "64448993bc73da0817524555215435da7faeedfba18ef4a3d46f52f7dcbf3c06",
+      "snapshot": "snapshots/material-fur-publication-v1/publication.json"
+    },
+    {
+      "bytes": 5406,
+      "origin": "outputs/skin-root-checkpoint-v1/package.py",
+      "sha256": "dd469e9449fd63d0a25b146c308b471a4b3cfcd3d48945e3485aa8b19f4f165f",
+      "snapshot": "snapshots/skin-root-checkpoint-v1/package.py"
+    },
+    {
+      "bytes": 2291,
+      "origin": "outputs/skin-root-checkpoint-v1/inputs.json",
+      "sha256": "4d5689ddab3a57c91fc6a0fc902d8d2b4fd22965dfe2319e897dc305a4972245",
+      "snapshot": "snapshots/skin-root-checkpoint-v1/inputs.json"
+    },
+    {
+      "bytes": 5292,
+      "origin": "outputs/skin-root-checkpoint-v1/package-preflight-v1.py",
+      "sha256": "788e860717d72c7672bca5f436946c7095d61d1358eda4cd63834de103ac27fd",
+      "snapshot": "snapshots/skin-root-checkpoint-v1/package-preflight-v1.py"
+    },
+    {
+      "bytes": 490,
+      "origin": "outputs/skin-root-checkpoint-v1/preflight-failure.json",
+      "sha256": "39a5d4956de1cc215fed3f51ed2daa636e651d56b744e78a142707d49bd3bb68",
+      "snapshot": "snapshots/skin-root-checkpoint-v1/preflight-failure.json"
+    },
+    {
+      "bytes": 319,
+      "origin": "outputs/skin-root-checkpoint-v1/request.json",
+      "sha256": "9a188b886ff013a417bf37ba9f1dd4c1e514c03cb1cdfca97f6c8a0e278e1ebe",
+      "snapshot": "snapshots/skin-root-checkpoint-v1/request.json"
+    },
+    {
+      "bytes": 369,
+      "origin": "outputs/skin-root-checkpoint-v1/request-v2.json",
+      "sha256": "d2f76ebce9a6c427077cc16d9b006a5c872e951819422f60593de6da87eb0eea",
+      "snapshot": "snapshots/skin-root-checkpoint-v1/request-v2.json"
+    }
+  ],
+  "binding_and_full_motion_npz_included": true,
+  "copied_bytes": 20275657,
+  "deduplication": "Identical bytes reuse one exact snapshot; no normalization",
+  "default_changed": false,
+  "elapsed_seconds": 0.253,
+  "fresh_studio_acceptance": false,
+  "limits": {
+    "output_mib": 40,
+    "rss_mib": 512,
+    "selected_bytes": 41943040,
+    "selected_files": 900,
+    "single_file_bytes": 8388608,
+    "wall_seconds": 30
+  },
+  "local_references_not_copied": [
+    {
+      "bytes": 27526456,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/model-native-export.glb",
+      "sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80"
+    },
+    {
+      "bytes": 27526456,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/model.glb",
+      "sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80"
+    },
+    {
+      "bytes": 44859740,
+      "origin": "outputs/fox-skin-consistent-fur-finish-v1/source.blend",
+      "sha256": "cdd4ae2945255fbfa3c51488192cdcbc0addc55c3e3f90835cbe8d5296b1e8d0"
+    },
+    {
+      "bytes": 27526456,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/original.glb",
+      "sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80"
+    },
+    {
+      "bytes": 33439308,
+      "origin": "outputs/fox-skin-consistent-fur-export-preview-v1/source.blend",
+      "sha256": "fd40e05cacfd67741cfc575dafd66a3f2dc42bc50f564ad8dbe2b74661cc4f45"
+    },
+    {
+      "bytes": 2667322,
+      "origin": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+      "unchanged": true
+    },
+    {
+      "bytes": 29999436,
+      "origin": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+      "unchanged": true
+    },
+    {
+      "bytes": 2377,
+      "origin": "outputs/fox-material-coat-skin-audit-v1/manifest.json",
+      "sha256": "8a8e4f11af8c1817a67e676d206a9b9cffed166b43f74bd11875c510914319a5",
+      "unchanged": true
+    }
+  ],
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "new_rig_or_action_authored": false,
+  "omitted_runtime_caches": [
+    "__pycache__",
+    ".cache"
+  ],
+  "quality_approved": false,
+  "recorded": "2026-11-02 09:17:35 PST",
+  "schema_version": 1,
+  "source_bytes": 22845765,
+  "source_inputs_sha256": "4d5689ddab3a57c91fc6a0fc902d8d2b4fd22965dfe2319e897dc305a4972245",
+  "source_receipts": 521,
+  "source_recipe": {
+    "path": "outputs/skin-root-checkpoint-v1/package.py",
+    "sha256": "dd469e9449fd63d0a25b146c308b471a4b3cfcd3d48945e3485aa8b19f4f165f"
+  },
+  "status": "sampled_attachment_passed_appearance_not_accepted",
+  "unique_snapshots": 345,
+  "verification": {
+    "all_roots": 3000,
+    "count_groups_not_claimed_disjoint": true,
+    "focused_card_pin_regression": {
+      "additional_unique_case_claimed": false,
+      "changed_test_passed": true,
+      "path": "outputs/skin-root-card-pin-tests-v1/manifest.json",
+      "sha256": "bba0a649e559ab41db63cc7d10e8c4b72b7df65f52a8607276cd50f260d451a9"
+    },
+    "maximum_attachment_error_m": 3.7420779142038896e-07,
+    "new_appearance_images": 6,
+    "old_comparison_images": 2,
+    "root_time_checks": 108000,
+    "software_check_groups": [
+      11,
+      12,
+      21,
+      47
+    ],
+    "unchanged_gate_m": 1e-05
+  },
+  "weft_consumer_changed": false
+}

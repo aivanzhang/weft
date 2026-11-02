@@ -325,6 +325,13 @@ portable_fur:{settings:{seed:0..2147483643 integer,length:0.001..0.04,width:0.00
 bands:[{brightness:[low,high],color:[r,g,b,a],count:integer}]} with1–4 bands,0<=low<high<=1.01,
 Optional card settings profile:"combed-v1" reduces upright ribbon flecks; sample_root_color:true inherits source coat color.
 color channels0..1,each count1..5000,total count<=5000. Cards can add12 exported corners each; keep total under100k vertices.
+For tuft-v1 only, optional root_placement:"skin-consistent-v1" keeps interior roots where the three triangle vertices have
+exactly equal normalized named skin weights. Varying-weight faces instead contribute to area-weighted source-vertex anchors.
+Keep all regions and the requested total: insufficient varying-domain vertices or more than four positive source influences
+is unsupported, not permission to drop fibers or alter body weights. Both domains retain their proportional allocation.
+Full root/triangle/barycentric/inset records are preserved in bounded NPZ files, separate from sampled color/flow records.
+This changes root placement where skin varies; check coverage/clumping, full exported attachment and actual appearance.
+It does not add density, repair source deformation, certify native hair, or establish Muse quality. The default is unchanged.
 Optional material_fur:{version:1,materials:[exact_source_material_name]} selects1–32 unique observed source material names
 for a material-owned coat. Do not invent names or infer ownership from species/color. Unlisted source materials receive no
 hair/cards, so an explicit measured selector can exclude eyes, claws, glass and other non-fur materials without guessed regions.

@@ -1,0 +1,17 @@
+test_coarse_mesh_rejects_requested_count_without_reduction (test_fur_vertex_roots.VertexRootSelectorTests.test_coarse_mesh_rejects_requested_count_without_reduction) ... ok
+test_count_seed_and_oversized_shapes_reject_before_geometry_allocation (test_fur_vertex_roots.VertexRootSelectorTests.test_count_seed_and_oversized_shapes_reject_before_geometry_allocation) ... ok
+test_degenerate_threshold_and_representative_ignore_ineligible_faces (test_fur_vertex_roots.VertexRootSelectorTests.test_degenerate_threshold_and_representative_ignore_ineligible_faces) ... ok
+test_distinct_coincident_ids_are_not_welded_or_silently_repeated (test_fur_vertex_roots.VertexRootSelectorTests.test_distinct_coincident_ids_are_not_welded_or_silently_repeated) ... ok
+test_equal_keys_tie_by_source_id_before_return_order (test_fur_vertex_roots.VertexRootSelectorTests.test_equal_keys_tie_by_source_id_before_return_order) ... ok
+test_list_tuple_array_inputs_remain_byte_identical (test_fur_vertex_roots.VertexRootSelectorTests.test_list_tuple_array_inputs_remain_byte_identical) ... ok
+test_maximum_source_bounds_have_exact_unique_count_and_bounded_summary (test_fur_vertex_roots.VertexRootSelectorTests.test_maximum_source_bounds_have_exact_unique_count_and_bounded_summary) ... ok
+test_noninteger_indices_nonfinite_points_and_malformed_rows_reject (test_fur_vertex_roots.VertexRootSelectorTests.test_noninteger_indices_nonfinite_points_and_malformed_rows_reject) ... ok
+test_one_hot_roots_retain_source_position_uv_and_weight_ownership (test_fur_vertex_roots.VertexRootSelectorTests.test_one_hot_roots_retain_source_position_uv_and_weight_ownership) ... ok
+test_seeded_area_ownership_is_exact_count_and_stably_ordered (test_fur_vertex_roots.VertexRootSelectorTests.test_seeded_area_ownership_is_exact_count_and_stably_ordered) ... ok
+test_triangle_area_not_triangle_count_controls_sampling (test_fur_vertex_roots.VertexRootSelectorTests.test_triangle_area_not_triangle_count_controls_sampling) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.118s
+
+OK
+Maximum analytic selector: 0.069046s;100000vertices/100000triangles/5000unique roots

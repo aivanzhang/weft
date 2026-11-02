@@ -1,0 +1,106 @@
+{
+  "contract": {
+    "allocation": "Hamilton quotas by eligible domain area; uniform domain wins fractional ties; recorded one-root transfer only if needed when count permits both domains",
+    "call": "select_skin_roots(vertices, triangles, weights, count, seed)",
+    "capacity_reallocation": false,
+    "count_reduction": false,
+    "normalization": "positive named entries sorted; divide by math.fsum; exact tuple equality; reject lost positive influence",
+    "output": "roots list with triangle_index, barycentric, binding_kind; source-vertex records also carry exact corner/vertex_index. Summary contains bounded statistics only.",
+    "policy": "exact-skin-domain-roots-v1",
+    "uniform": "seeded cumulative-area strata plus interior barycentric draws",
+    "varying": "frozen source-vertex selector on varying faces; original triangle IDs restored",
+    "weights": "list/tuple of per-vertex bone-name mappings; referenced rows1..64 entries,1..4 positive; zero entries ignored"
+  },
+  "frozen_dependency": {
+    "bytes": 6002,
+    "path": "scripts/fur_vertex_roots.py",
+    "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+  },
+  "job": {
+    "elapsed_seconds": 0.516,
+    "exit_code": 0,
+    "pid": 93683,
+    "process_exit_verified": true,
+    "rss_samples": 1,
+    "sampled_peak_rss_bytes": 81510400
+  },
+  "maximum_fixture": {
+    "measurement": "One mixed uniform/varying analytic source call; not a native avatar performance or quality claim.",
+    "requested_roots": 5000,
+    "selector_elapsed_seconds": 0.168663,
+    "source_triangles": 100000,
+    "source_vertices": 100000
+  },
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_role_calls": 0,
+  "owned_files": [
+    {
+      "bytes": 8834,
+      "path": "scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 13176,
+      "path": "tests/test_fur_skin_roots.py",
+      "sha256": "c5e333bfee10a4e5bac624fb40f254a4d4a8a4aa49c8eb1a7833abaef4646aeb"
+    }
+  ],
+  "ownership_released": true,
+  "recorded_local": "2026-11-02T08:43:28.802486-08:00",
+  "schema_version": 1,
+  "scope": "Analytic commutation/noncommutation and selector proof only; actual avatar attachment remains for parent integration and independent motion audit.",
+  "source_checks": [
+    {
+      "current_matches": true,
+      "path": "scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_fur_skin_roots.py",
+      "sha256": "c5e333bfee10a4e5bac624fb40f254a4d4a8a4aa49c8eb1a7833abaef4646aeb",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448",
+      "snapshot_matches": true
+    }
+  ],
+  "status": "passed_analytic_software_checks",
+  "tests": {
+    "actual_avatar_attachment_verified": false,
+    "elapsed_seconds": 0.24233712535351515,
+    "errors": 0,
+    "failures": 0,
+    "kind": "analytic_software_tests",
+    "native_calls": 0,
+    "passed": true,
+    "provider_calls": 0,
+    "quality_verified": false,
+    "role_calls": 0,
+    "skipped": 0,
+    "tests_run": 12
+  }
+}

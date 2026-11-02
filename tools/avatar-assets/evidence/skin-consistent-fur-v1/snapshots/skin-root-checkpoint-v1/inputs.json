@@ -1,0 +1,70 @@
+{
+  "external_references": [
+    {
+      "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb"
+    },
+    {
+      "path": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67"
+    },
+    {
+      "path": "outputs/fox-material-coat-skin-audit-v1/manifest.json",
+      "sha256": "8a8e4f11af8c1817a67e676d206a9b9cffed166b43f74bd11875c510914319a5"
+    }
+  ],
+  "folders": [
+    "vertex-root-selector-tests-v1",
+    "skin-root-selector-tests-v1",
+    "skin-root-binding-tests-v1",
+    "skin-root-integration-tests-v1",
+    "skin-root-card-pin-tests-v1",
+    "fox-vertex-root-math-screen-v1",
+    "fox-vertex-root-coverage-preflight-v1",
+    "vertex-only-integration-draft-v1",
+    "fox-skin-root-coverage-preflight-v1",
+    "skin-consistent-fox-preparation-v1",
+    "fox-skin-consistent-fur-finish-v1",
+    "skin-consistent-fox-preview-preparation-v1",
+    "fox-skin-consistent-fur-export-preview-v1",
+    "skin-root-public-verification-v1",
+    "skin-root-audit-preparation-v1",
+    "fox-skin-consistent-body-audit-v1",
+    "fox-skin-consistent-root-audit-v1",
+    "fox-skin-root-selected-coverage-v1",
+    "skin-consistent-fox-appearance-review-v1",
+    "material-fur-publication-v1"
+  ],
+  "limits": {
+    "output_mib": 40,
+    "rss_mib": 512,
+    "selected_bytes": 41943040,
+    "selected_files": 900,
+    "single_file_bytes": 8388608,
+    "wall_seconds": 30
+  },
+  "output": "evidence/skin-consistent-fur-v1",
+  "schema_version": 1,
+  "status": "sampled_attachment_passed_appearance_not_accepted",
+  "verification": {
+    "all_roots": 3000,
+    "count_groups_not_claimed_disjoint": true,
+    "focused_card_pin_regression": {
+      "additional_unique_case_claimed": false,
+      "changed_test_passed": true,
+      "path": "outputs/skin-root-card-pin-tests-v1/manifest.json",
+      "sha256": "bba0a649e559ab41db63cc7d10e8c4b72b7df65f52a8607276cd50f260d451a9"
+    },
+    "maximum_attachment_error_m": 3.7420779142038896e-07,
+    "new_appearance_images": 6,
+    "old_comparison_images": 2,
+    "root_time_checks": 108000,
+    "software_check_groups": [
+      11,
+      12,
+      21,
+      47
+    ],
+    "unchanged_gate_m": 1e-05
+  }
+}

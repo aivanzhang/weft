@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-02 06:07:28 PST. Opt-in material-owned fur is implemented and tested on the existing fox; legacy behavior and approved assets are unchanged. Native finish26.123s/1,553,629,184B and independent four-view load2.345s/709,033,984B passed. Independent body/material/weight/motion and384root-color checks pass, but new-coat surface attachment is rejected:21/384roots exceed1e-5m, maximum distance2.495361mm. Preserve this distinction; correct exported skin is not attached fur or quality acceptance. Seventeen images show short plush and retained surface/motion defects, not Muse parity. All listed current jobs/agent lanes have exited. [Material-owned fur handoff](docs/material-owned-fur.md), evidence `evidence/material-owned-fur-v1` (manifest12704910e5e41ad3c144fa2c9c0c2d3efb6ddb8781d921a8a23c7009e269dda9). Private save receipt target `.local/avatar-quality-publication-v15/receipt.json`; previous confirmed checkpoint f54ed0f. No provider/pipeline-role calls or allowance grant; eight Meshy credits remain and fresh-case approval is pending. Next: a different bounded root-attachment policy, not another unchanged fur run or wider gate.
+- Recorded: 2026-11-02 09:18:53 PST. Attachment component and custody fix complete; avatar-only checkpoint is being saved. Actual fox model `e08bd6e...` passes all 3,000 roots at 36 sampled poses, maximum 0.000374 mm. Body/color/public verify pass. Eight inspected images still show short plush and source/boundary defects; no accepted avatar or Studio delivery. Final missing card-helper pin is fixed; one changed regression passes without repeating the prior 47 checks. Evidence bundle: 521 origin records /345 exact snapshots /20,275,657B, manifest `3a1ca77b...`. Root owns docs/save; all agents released and all owned jobs exited. No provider/role calls, browser/server, default/gallery/Weft edits or allowance change. Next: generalize attachment/coverage acceptance, then distinct measured visible-quality work; do not repeat unchanged renders or call the overall goal complete.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -20,7 +20,55 @@ hand-authored panda recipe does not complete this goal. Preserve the approved
 fur panda, standalone dragon, completed dance/flight preview and all failures.
 [Acceptance criteria and integration record](docs/hands-off-studio.md).
 
-### Latest material-owned fur increment — attachment still rejected
+### Latest skin-consistent fur increment — attachment passes, quality incomplete
+
+- [Reusable configuration, commands and limits](docs/skin-consistent-fur.md).
+  New opt-in `skin-consistent-v1` uses interior roots on exactly uniform normalized
+  skin triangles and source vertices only where weights vary. It retains both
+  domains and all requested roots; insufficient capacity or more than four
+  positive influences returns unsupported. Existing defaults are byte-unchanged.
+- Pure vertex-only draft was stopped before native work: some roots would move
+  135mm and coarse torso/tail coverage would be insufficient. Preserve the draft,
+  math/coverage screens and prior failed coat; no failed evidence was relabeled.
+- Actual new fox: `outputs/fox-skin-consistent-fur-finish-v1/model.glb`, SHA
+  `e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80`.
+  Same source, textures, rig, four clips, 5,000 native parents and 3,000 portable
+  tufts. New full-root archives in `portable-root-bindings/`, three files/158,364B,
+  preserve ordered face/barycentric/inset data beyond the 128-sample color record.
+- Native one-shot public finish: 26.348s /1,561,853,952B sampled RSS, PID94785;
+  CPU94770 exited; controller27.277s, combined106,818,971B. Independent frozen-view
+  preview2.080s /712,376,320B, PID95318. Both under120s /2GiB /128MiB; all exited.
+  Exact frozen commands/snapshots in `outputs/skin-consistent-fox-*-preparation-v1`.
+  The fixed framing snapshot is comparison-only, not a production renderer edit.
+- Independent body/color audit preserves47,776oriented triangles,16material/image
+  bindings, positions/UVs/named weights and384sampled colors. Full shading equality
+  remains unverified. All-root audit checks108,000root-time pairs with maximum
+  attachment3.742077914e-7m, below unchanged1e-5m. Full measurements are retained,
+  not just extrema: `outputs/fox-skin-consistent-root-audit-v1/sampled-motion.npz`.
+  This is finite CPU attachment proof, not continuous/native/GPU motion acceptance.
+- Selected coverage:2518interior+482vertex roots; torso419/tail268 match area
+  quotas. One coincident seam pair persists. Every indexed component expecting
+  at least one root has one;236coat/52cream smaller components do not. This is
+  source-index coverage, not proof of visible full-coat density or no holes.
+- Appearance review records six new images plus two old back/side comparisons:
+  `outputs/skin-consistent-fox-appearance-review-v1`. Identity/props remain;
+  short plush, sparse outlines, hard tail/leg boundaries and source part transitions
+  remain. Retained raised-arm source stretch2.543x/excess33.009mm is not repaired.
+  No full video/loop, new accepted avatar, Muse parity or hands-off Studio delivery.
+- Software checks:11vertex selector,12hybrid selector,21binding custody,47integration;
+  public verify passes actual pack. A final-review missing card-builder source pin
+  is fixed. Its one changed prepare/resume case passes in0.038s; bounded0.263s,
+  PID96575 exited, monitor RSS unsampled/null. Evidence `outputs/skin-root-card-pin-tests-v1`,
+  manifest `bba0a649e559ab41db63cc7d10e8c4b72b7df65f52a8607276cd50f260d451a9`.
+  Historical native evidence remains valid; no unchanged full-suite rerun.
+  Defaults, approved assets, gallery and Weft untouched.
+- Exact compact evidence: `evidence/skin-consistent-fur-v1`,521origins /345snapshots /20,275,657B; manifest `3a1ca77bc102a55a0b003709e8255a3235edcdbf3ab0affeb9dca8c8fbea9c3f`. Includes full binding/motion NPZ arrays. Large GLB/Blend stay local by hash; not full remote asset backup. Original ZIP and approved dance model hashes match. Packaging preflight initially rejected a missing empty output directory before launching a child; corrected harness/preserved original. Successful PID96919 exited in0.531s /23,887,872B sampled RSS. Publication receipt will be `.local/avatar-quality-publication-v16/receipt.json`.
+- No new provider or pipeline-role call;202/210Meshy ledger and exhausted13-call
+  study unchanged. Fresh105credit/max15-role proposal remains pending. Next safe
+  work is generic exported attachment/coverage acceptance and distinct measured
+  appearance/source repair, not repeating unchanged builds or promoting defaults.
+
+### Earlier material-owned fur increment — original attachment rejection retained
 
 - Exact source/material ownership now supports multiple source color images or
   constants for native hair and portable tufts. Counts are global, not multiplied

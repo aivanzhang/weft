@@ -1,0 +1,93 @@
+{
+  "contract": {
+    "call": "select_vertex_roots(vertices, triangles, count, seed)",
+    "coincident_ids_merged": false,
+    "count_reduction": false,
+    "eligible_area_exclusive": 1e-14,
+    "output": "roots list of triangle_index/corner/vertex_index/one-hot barycentric; bounded summary without duplicate root arrays",
+    "policy": "area-weighted-source-vertices-v1",
+    "sampling": "seeded weighted exponential keys without replacement; ties by source ID; returned by first eligible triangle/corner",
+    "source_attribute_interpolation": false
+  },
+  "job": {
+    "elapsed_seconds": 0.262,
+    "exit_code": 0,
+    "pid": 91428,
+    "process_exit_verified": true,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null
+  },
+  "maximum_fixture": {
+    "measurement": "Printed monotonic duration for one analytic maximum-size call; not a native avatar performance claim.",
+    "selector_elapsed_seconds": 0.069046,
+    "source_triangles": 100000,
+    "source_vertices": 100000,
+    "unique_requested_roots": 5000
+  },
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_role_calls": 0,
+  "owned_files": [
+    {
+      "bytes": 6002,
+      "path": "scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 10736,
+      "path": "tests/test_fur_vertex_roots.py",
+      "sha256": "99485eda2e530abb0a19935acb852d10c19dfce90c88db980fc9d7f4d8c02ec3"
+    }
+  ],
+  "ownership_released": true,
+  "recorded_local": "2026-11-02T06:28:34.875296-08:00",
+  "schema_version": 1,
+  "scope": "Pure selector only. Actual moving-surface attachment and appearance remain unverified until parent integration.",
+  "source_checks": [
+    {
+      "current_matches": true,
+      "path": "scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_fur_vertex_roots.py",
+      "sha256": "99485eda2e530abb0a19935acb852d10c19dfce90c88db980fc9d7f4d8c02ec3",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448",
+      "snapshot_matches": true
+    }
+  ],
+  "status": "passed_analytic_software_checks",
+  "tests": {
+    "avatar_motion_verified": false,
+    "elapsed_seconds": 0.17164704203605652,
+    "errors": 0,
+    "failures": 0,
+    "kind": "analytic_software_tests",
+    "native_calls": 0,
+    "passed": true,
+    "provider_calls": 0,
+    "quality_verified": false,
+    "role_calls": 0,
+    "skipped": 0,
+    "tests_run": 11
+  }
+}

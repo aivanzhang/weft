@@ -1,0 +1,46 @@
+{
+  "GPU_filtering_verified": false,
+  "all_3000_root_colors_verified": false,
+  "materials": [
+    {
+      "all_samples_owned": true,
+      "cards": 2017,
+      "color_component_type": 5126,
+      "export_color_tolerance": 2e-06,
+      "exported_card_root_center_error_m": 9.571363879246064e-08,
+      "exported_root_rgb_error": 1.3872111459534153e-07,
+      "material": "coat",
+      "root_linear_rgb_error": 1.1289388623936247e-07,
+      "root_position_error_m": 4.440892098500626e-16,
+      "sampled_roots": 128
+    },
+    {
+      "all_samples_owned": true,
+      "cards": 527,
+      "color_component_type": 5126,
+      "export_color_tolerance": 2e-06,
+      "exported_card_root_center_error_m": 5.733812491470758e-08,
+      "exported_root_rgb_error": 1.5842655676223671e-07,
+      "material": "cream",
+      "root_linear_rgb_error": 1.3348136551627476e-07,
+      "root_position_error_m": 4.440892098500626e-16,
+      "sampled_roots": 128
+    },
+    {
+      "all_samples_owned": true,
+      "cards": 456,
+      "color_component_type": 5126,
+      "export_color_tolerance": 2e-06,
+      "exported_card_root_center_error_m": 4.623975025097593e-08,
+      "exported_root_rgb_error": 7.064505078147043e-09,
+      "material": "dark",
+      "root_linear_rgb_error": 5.357297841457331e-09,
+      "root_position_error_m": 4.440892098500626e-16,
+      "sampled_roots": 128
+    }
+  ],
+  "native_groom_texture_sampling_verified": false,
+  "native_parent_total": 5000,
+  "portable_card_total": 3000,
+  "sampling": "Independent sRGB-per-texel decode, REPEAT texel centers, bilinear LOD0; one RGB8 image at a time"
+}

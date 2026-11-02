@@ -1,0 +1,76 @@
+{
+  "artifact_bytes": 42551,
+  "artifact_count": 13,
+  "artifacts": [
+    {
+      "bytes": 1072,
+      "path": "job.json",
+      "sha256": "600025e89f75ad15adc75e2ef623dde12026170929b0ca9e28d0cb5da24fe8c5"
+    },
+    {
+      "bytes": 1690,
+      "path": "prepared.json",
+      "sha256": "f7f0621f601a76cba4fc793a815d014fc8542a09ef3faaa40fb2c8545302806a"
+    },
+    {
+      "bytes": 3097,
+      "path": "release.json",
+      "sha256": "85f49b41e44a77aeb7bd24af932de167962f8f1061dc5a226622c97cf8ddcac0"
+    },
+    {
+      "bytes": 294,
+      "path": "result.json",
+      "sha256": "64db5d2970d61929dfe7dbe8b4f271fe950409e8827189929b92352967fe3c6b"
+    },
+    {
+      "bytes": 813,
+      "path": "run-tests.py",
+      "sha256": "435b89e4af3421fded847de36e4d7a6cd30b68db4b6bca722c6e549f31f3b14b"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 276,
+      "path": "sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 6002,
+      "path": "sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 10736,
+      "path": "sources/tests/test_fur_vertex_roots.py",
+      "sha256": "99485eda2e530abb0a19935acb852d10c19dfce90c88db980fc9d7f4d8c02ec3"
+    },
+    {
+      "bytes": 244,
+      "path": "tests-handle.json",
+      "sha256": "31125bcbda2280f18beb4f874634829eec80f127d400b1910bd504c7cada0b9d"
+    },
+    {
+      "bytes": 980,
+      "path": "tests-monitor.json",
+      "sha256": "b00c2e903c243ec4f8ba84fc6f3e61815f15cfc3c4a64a8ad78f6d0a6998957e"
+    },
+    {
+      "bytes": 2167,
+      "path": "tests.log",
+      "sha256": "2bc40ceced0ccb8ab64b18322ce033fc0a15605c4f1c08ff75994b4f1d4c3976"
+    }
+  ],
+  "avatar_motion_verified": false,
+  "kind": "analytic_software_tests",
+  "quality_verified": false,
+  "schema_version": 1,
+  "status": "passed"
+}

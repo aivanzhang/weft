@@ -1,0 +1,425 @@
+{
+  "historical_fixture": {
+    "commit": "13fd3f9702ed088c359e1557eb72ecc485b5b9f3",
+    "scope": "Trusted tracked repository Python source, copied byte-identically; no archive content executed.",
+    "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+  },
+  "job": {
+    "elapsed_seconds": 0.783,
+    "exit_code": 0,
+    "pid": 94595,
+    "process_exit_verified": true,
+    "rss_samples": 2,
+    "sampled_peak_rss_bytes": 115982336
+  },
+  "limitations": [
+    "Analytic fixture only; no actual avatar attachment, rendered appearance or native hair acceptance.",
+    "Sampled direct-child RSS is not a continuous peak measurement."
+  ],
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_role_calls": 0,
+  "owned_files": [
+    {
+      "bytes": 16614,
+      "path": "tests/test_skin_root_integration.py",
+      "sha256": "83eee57f067b36721817b9badcef4dce8618f4c7556a67be9a8ba25567b0a9fd"
+    }
+  ],
+  "ownership_released": true,
+  "production_edits": false,
+  "recorded_local": "2026-11-02T08:54:25.789207-08:00",
+  "schema_version": 1,
+  "source_checks": [
+    {
+      "current_matches": true,
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/finish_generated.py",
+      "sha256": "c4ca2b68416d9c6b17b39d4d3c7840f49887a60ae919182de8edce41abf02eb6",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "f3996fbf991365fbdc7e24998dc1e5ef51df2440e4feef19a03db4ee1390bca1",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "93fd5659bca107ca11d5d2e34f66efd87ce473039d204c12cfc597232d4fa205",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "evidence/material-owned-fur-v1/snapshots/material-pipeline-tests-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "e08ef4cfb86864b29ba1f0e619f6749d3b8307a36e29b770d082a6b52686a73a",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_fur_cards.py",
+      "sha256": "72e21d2d4cd5441ab9a7bfb3ee6ba3a1afcc238cc669907a7c3665c49bc99a12",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_finish_quality_contracts.py",
+      "sha256": "1f3fd4cefd87e847317b9a54ca540ae05bd3fd11aa6d5141c0ea6211e7ad046d",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_material_native_reuse.py",
+      "sha256": "e5bd4ec698786aec38a067e5505b98fba35c68a20591c5d617553d8ca226e365",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_material_pipeline.py",
+      "sha256": "01f0e6c87c85b515dfac32325ccd1008ba93c589863cde0d0b30b7a0d1bf1f0b",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_skin_root_integration.py",
+      "sha256": "83eee57f067b36721817b9badcef4dce8618f4c7556a67be9a8ba25567b0a9fd",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_tuft_fur_cards.py",
+      "sha256": "434efb17539e6059da1d5350903e705ca9fdd5bb61e8defc183dcaba6f869446",
+      "snapshot_matches": true
+    }
+  ],
+  "status": "passed_analytic_integration_checks",
+  "tests": {
+    "actual_avatar_attachment_verified": false,
+    "elapsed_seconds": 0.6719446247443557,
+    "errors": 0,
+    "failures": 0,
+    "kind": "analytic_software_tests",
+    "native_calls": 0,
+    "passed": true,
+    "provider_calls": 0,
+    "quality_verified": false,
+    "role_calls": 0,
+    "skipped": 0,
+    "tests_run": 47
+  },
+  "verified_scope": [
+    "Actual card_geometry tuft-v1 skin-consistent-v1 bottom-edge centers with skinned declared inset match independently skinned source triangles across three analytic poses to less than1e-12m.",
+    "The same constructed default barycentric case has a moving-surface gap greater than1e-4m without changing that threshold.",
+    "Uniform/varying domains retain all requested roots and full numeric bindings while sampled records remain capped128.",
+    "Default legacy, combed-v1 and tuft-v1 canonical JSON bytes equal the pinned trusted13fd3f9 repository source.",
+    "Author/config preserve root placement and custom actions; prepare-only snapshots bind both selectors and fur_bindings.",
+    "Actual card_geometry binding arrays pass write_bindings and public reuse_native copies their exact bytes/receipts.",
+    "Changed saved/current selectors or binding module, corrupted archives and missing receipts fail without native execution."
+  ]
+}

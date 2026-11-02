@@ -1,0 +1,123 @@
+{
+  "all_root_distinct_positions": 2999,
+  "candidate_model_sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80",
+  "elapsed_seconds": 0.0844431254081428,
+  "limitations": [
+    "Measures saved source-root bindings; separate audit must prove their exported geometry/skin correspondence.",
+    "No final GLB attributes, images or skin motion were decoded or evaluated here.",
+    "Component counts and root spacing do not prove visible full-coat coverage; zero-root tiny components can share adjacent surfaces.",
+    "Authored bone names are role labels, not recovered anatomy."
+  ],
+  "materials": [
+    {
+      "coincident_excess_anchors": 1,
+      "components_total": 322,
+      "components_with_roots": 86,
+      "formerly_saturated_components": [
+        {
+          "actual_roots": 419,
+          "actual_uniform_roots": 419,
+          "actual_vertex_roots": 0,
+          "authored_bone_support": [
+            "torso"
+          ],
+          "eligible_area_m2": 1.8952121900128618,
+          "expected_uniform_roots": 418.9734754398713,
+          "expected_vertex_roots": 0.0,
+          "old_vertex_only_capacity": 328,
+          "old_vertex_only_saturated": true,
+          "root_minus_area_quota": 0.026524560128677876,
+          "source_vertex_component": 79
+        },
+        {
+          "actual_roots": 268,
+          "actual_uniform_roots": 268,
+          "actual_vertex_roots": 0,
+          "authored_bone_support": [
+            "tail"
+          ],
+          "eligible_area_m2": 1.2108531489465144,
+          "expected_uniform_roots": 267.68261344814925,
+          "expected_vertex_roots": 0.0,
+          "old_vertex_only_capacity": 198,
+          "old_vertex_only_saturated": true,
+          "root_minus_area_quota": 0.3173865518507455,
+          "source_vertex_component": 6781
+        }
+      ],
+      "material": "coat",
+      "maximum_absolute_component_quota_deviation": 7.215557141038886,
+      "maximum_selected_position_multiplicity": 2,
+      "selected_aliases": [
+        {
+          "binding_rows": [
+            930,
+            941
+          ],
+          "position_blender_xyz_m": [
+            0.3981359899044037,
+            -0.07199999690055847,
+            1.2579350471496582
+          ],
+          "source_vertices": [
+            5723,
+            5751
+          ]
+        }
+      ],
+      "selected_coincident_position_groups": 1,
+      "total_roots": 2017,
+      "uniform_roots": 1535,
+      "unique_selected_vertex_ids": 482,
+      "unique_selected_vertex_positions": 481,
+      "vertex_anchors": 482,
+      "zero_root_component_area_m2": 0.16154457628349364,
+      "zero_root_components_with_expected_at_least_one": 0
+    },
+    {
+      "coincident_excess_anchors": 0,
+      "components_total": 102,
+      "components_with_roots": 50,
+      "formerly_saturated_components": [],
+      "material": "cream",
+      "maximum_absolute_component_quota_deviation": 1.3222155838217886,
+      "maximum_selected_position_multiplicity": 0,
+      "selected_aliases": [],
+      "selected_coincident_position_groups": 0,
+      "total_roots": 527,
+      "uniform_roots": 527,
+      "unique_selected_vertex_ids": 0,
+      "unique_selected_vertex_positions": 0,
+      "vertex_anchors": 0,
+      "zero_root_component_area_m2": 0.07954484098327838,
+      "zero_root_components_with_expected_at_least_one": 0
+    },
+    {
+      "coincident_excess_anchors": 0,
+      "components_total": 18,
+      "components_with_roots": 18,
+      "formerly_saturated_components": [],
+      "material": "dark",
+      "maximum_absolute_component_quota_deviation": 2.320887153322552,
+      "maximum_selected_position_multiplicity": 0,
+      "selected_aliases": [],
+      "selected_coincident_position_groups": 0,
+      "total_roots": 456,
+      "uniform_roots": 456,
+      "unique_selected_vertex_ids": 0,
+      "unique_selected_vertex_positions": 0,
+      "vertex_anchors": 0,
+      "zero_root_component_area_m2": 0,
+      "zero_root_components_with_expected_at_least_one": 0
+    }
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "selector_rerun": false,
+  "self_peak_rss_bytes": 97959936,
+  "source_body_proof_reused": true,
+  "status": "measured",
+  "total_roots": 3000,
+  "total_uniform_roots": 2518,
+  "total_vertex_anchors": 482
+}

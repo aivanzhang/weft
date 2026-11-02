@@ -1,0 +1,4123 @@
+{
+  "cross_material_exact_coincident_position_groups": 0,
+  "elapsed_seconds": 0.18273658398538828,
+  "limitations": [
+    "Unique vertex indices do not imply unique spatial root positions.",
+    "Fractional area quota is a diagnostic target, not the inclusion law of weighted sampling without replacement.",
+    "Face-centroid-to-corner distance is an upper bound to the nearest eligible source vertex, not a coverage radius.",
+    "Indexed components can be split by UV seams; no welding or anatomy inference was performed.",
+    "Counts and surface area do not certify dense fur, silhouette quality, material coverage or Muse parity."
+  ],
+  "materials": [
+    {
+      "alias_examples": [
+        {
+          "max_normal_angle_degrees": 25.279554289199112,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            3774,
+            3802
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 13.39784253522113,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            3716,
+            3744
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 13.37927226000558,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            3658,
+            3686
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 13.439746973497545,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            3629,
+            3657
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 13.477465845441493,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            3571,
+            3599
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 15.158945563621266,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            3832,
+            3860
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 12.810612464369818,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            3861,
+            3889
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 13.51115788495763,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            3542,
+            3570
+          ]
+        }
+      ],
+      "all_candidate_face_centroid_nearest_own_corner_m": {
+        "max": 0.09933336893044936,
+        "min": 0.0010091677295455447,
+        "p10": 0.01546558568326006,
+        "p50": 0.03084594071925286,
+        "p90": 0.06997126395816297,
+        "p99": 0.09472365490340519
+      },
+      "area_m2": 9.126224439333168,
+      "coincident_groups": 834,
+      "coincident_normal_split_groups_over_1deg": 183,
+      "coincident_skin_split_groups": 0,
+      "coincident_uv_seam_groups": 487,
+      "coincident_vertex_instances": 2273,
+      "distinct_position_capacity_pass": true,
+      "duplicate_position_excess": 1439,
+      "edge_length_m": {
+        "max": 0.2953654291793484,
+        "min": 0.00029380426557235474,
+        "p10": 0.009469790801982264,
+        "p50": 0.03534842146057118,
+        "p90": 0.10000039882144977,
+        "p99": 0.22238102191883213
+      },
+      "eligible_faces": 11200,
+      "eligible_vertices": 7079,
+      "grid_area_fraction_without_own_cell_vertex": 0.001095393616667624,
+      "grid_cells_quota_exceeds_vertex_capacity": 13,
+      "grid_centroid_area_cells": 95,
+      "index_capacity_pass": true,
+      "indexed_components": [
+        {
+          "area_m2": 1.9654154705281106,
+          "area_share": 0.21535909878102,
+          "faces": 4096,
+          "fractional_area_quota": 434.37930224131736,
+          "source_vertex_component": 539,
+          "vertices": 2145
+        },
+        {
+          "area_m2": 1.8952121900128618,
+          "area_share": 0.20766662080374396,
+          "faces": 560,
+          "fractional_area_quota": 418.8635741611516,
+          "source_vertex_component": 79,
+          "vertices": 328
+        },
+        {
+          "area_m2": 1.2108531489465144,
+          "area_share": 0.13267843202801932,
+          "faces": 320,
+          "fractional_area_quota": 267.61239740051496,
+          "source_vertex_component": 6781,
+          "vertices": 198
+        },
+        {
+          "area_m2": 0.7913880910732323,
+          "area_share": 0.0867158260608214,
+          "faces": 1568,
+          "fractional_area_quota": 174.90582116467678,
+          "source_vertex_component": 5341,
+          "vertices": 841
+        },
+        {
+          "area_m2": 0.7778758594630375,
+          "area_share": 0.0852352322292739,
+          "faces": 1568,
+          "fractional_area_quota": 171.91946340644543,
+          "source_vertex_component": 3334,
+          "vertices": 841
+        },
+        {
+          "area_m2": 0.6369936954904063,
+          "area_share": 0.06979816239725856,
+          "faces": 480,
+          "fractional_area_quota": 140.78289355527048,
+          "source_vertex_component": 4331,
+          "vertices": 275
+        },
+        {
+          "area_m2": 0.6369936954903599,
+          "area_share": 0.06979816239725346,
+          "faces": 480,
+          "fractional_area_quota": 140.78289355526024,
+          "source_vertex_component": 6338,
+          "vertices": 275
+        },
+        {
+          "area_m2": 0.24057503847607697,
+          "area_share": 0.026360850543979745,
+          "faces": 224,
+          "fractional_area_quota": 53.16983554720714,
+          "source_vertex_component": 3104,
+          "vertices": 145
+        },
+        {
+          "area_m2": 0.2405749324080637,
+          "area_share": 0.026360838921647426,
+          "faces": 224,
+          "fractional_area_quota": 53.16981210496286,
+          "source_vertex_component": 5111,
+          "vertices": 145
+        },
+        {
+          "area_m2": 0.08029563546713595,
+          "area_share": 0.008798341088464723,
+          "faces": 64,
+          "fractional_area_quota": 17.746253975433348,
+          "source_vertex_component": 2687,
+          "vertices": 66
+        },
+        {
+          "area_m2": 0.07978157336129221,
+          "area_share": 0.008742013073603706,
+          "faces": 40,
+          "fractional_area_quota": 17.632640369458677,
+          "source_vertex_component": 411,
+          "vertices": 42
+        },
+        {
+          "area_m2": 0.04906575784997688,
+          "area_share": 0.005376347927463638,
+          "faces": 28,
+          "fractional_area_quota": 10.844093769694158,
+          "source_vertex_component": 3252,
+          "vertices": 30
+        },
+        {
+          "area_m2": 0.04906575784997688,
+          "area_share": 0.005376347927463638,
+          "faces": 28,
+          "fractional_area_quota": 10.844093769694158,
+          "source_vertex_component": 5259,
+          "vertices": 30
+        },
+        {
+          "area_m2": 0.0450532449887903,
+          "area_share": 0.004936679487589091,
+          "faces": 40,
+          "fractional_area_quota": 9.957282526467196,
+          "source_vertex_component": 410,
+          "vertices": 42
+        },
+        {
+          "area_m2": 0.035349529863379386,
+          "area_share": 0.003873401328048239,
+          "faces": 192,
+          "fractional_area_quota": 7.812650478673298,
+          "source_vertex_component": 2912,
+          "vertices": 117
+        },
+        {
+          "area_m2": 0.035349529863379386,
+          "area_share": 0.003873401328048239,
+          "faces": 192,
+          "fractional_area_quota": 7.812650478673298,
+          "source_vertex_component": 4912,
+          "vertices": 117
+        },
+        {
+          "area_m2": 0.01713517951005926,
+          "area_share": 0.0018775759487360676,
+          "faces": 320,
+          "fractional_area_quota": 3.7870706886006484,
+          "source_vertex_component": 2704,
+          "vertices": 189
+        },
+        {
+          "area_m2": 0.01713517951005926,
+          "area_share": 0.0018775759487360676,
+          "faces": 320,
+          "fractional_area_quota": 3.7870706886006484,
+          "source_vertex_component": 4697,
+          "vertices": 189
+        },
+        {
+          "area_m2": 0.0035232125882562683,
+          "area_share": 0.0003860536864589429,
+          "faces": 1,
+          "fractional_area_quota": 0.7786702855876878,
+          "source_vertex_component": 4648,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035232125882562683,
+          "area_share": 0.0003860536864589429,
+          "faces": 1,
+          "fractional_area_quota": 0.7786702855876878,
+          "source_vertex_component": 4654,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035232125882562683,
+          "area_share": 0.0003860536864589429,
+          "faces": 1,
+          "fractional_area_quota": 0.7786702855876878,
+          "source_vertex_component": 6643,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035232125882562683,
+          "area_share": 0.0003860536864589429,
+          "faces": 1,
+          "fractional_area_quota": 0.7786702855876878,
+          "source_vertex_component": 6650,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523211718978084,
+          "area_share": 0.0003860535912083614,
+          "faces": 1,
+          "fractional_area_quota": 0.778670093467265,
+          "source_vertex_component": 4636,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523211718978084,
+          "area_share": 0.0003860535912083614,
+          "faces": 1,
+          "fractional_area_quota": 0.778670093467265,
+          "source_vertex_component": 4643,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523211718978084,
+          "area_share": 0.0003860535912083614,
+          "faces": 1,
+          "fractional_area_quota": 0.778670093467265,
+          "source_vertex_component": 6655,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523211718978084,
+          "area_share": 0.0003860535912083614,
+          "faces": 1,
+          "fractional_area_quota": 0.778670093467265,
+          "source_vertex_component": 6661,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523183469533685,
+          "area_share": 0.0003860504957941968,
+          "faces": 1,
+          "fractional_area_quota": 0.7786638500168949,
+          "source_vertex_component": 4635,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523183469533685,
+          "area_share": 0.0003860504957941968,
+          "faces": 1,
+          "fractional_area_quota": 0.7786638500168949,
+          "source_vertex_component": 4644,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523183469533685,
+          "area_share": 0.0003860504957941968,
+          "faces": 1,
+          "fractional_area_quota": 0.7786638500168949,
+          "source_vertex_component": 6654,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523183469533685,
+          "area_share": 0.0003860504957941968,
+          "faces": 1,
+          "fractional_area_quota": 0.7786638500168949,
+          "source_vertex_component": 6660,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231833467222976,
+          "area_share": 0.00038605048233722033,
+          "faces": 1,
+          "fractional_area_quota": 0.7786638228741734,
+          "source_vertex_component": 4647,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231833467222976,
+          "area_share": 0.00038605048233722033,
+          "faces": 1,
+          "fractional_area_quota": 0.7786638228741734,
+          "source_vertex_component": 4653,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231833467222976,
+          "area_share": 0.00038605048233722033,
+          "faces": 1,
+          "fractional_area_quota": 0.7786638228741734,
+          "source_vertex_component": 6642,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231833467222976,
+          "area_share": 0.00038605048233722033,
+          "faces": 1,
+          "fractional_area_quota": 0.7786638228741734,
+          "source_vertex_component": 6651,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231828543570397,
+          "area_share": 0.0003860504283866232,
+          "faces": 1,
+          "fractional_area_quota": 0.778663714055819,
+          "source_vertex_component": 4650,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231828543570397,
+          "area_share": 0.0003860504283866232,
+          "faces": 1,
+          "fractional_area_quota": 0.778663714055819,
+          "source_vertex_component": 4656,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231828543570397,
+          "area_share": 0.0003860504283866232,
+          "faces": 1,
+          "fractional_area_quota": 0.778663714055819,
+          "source_vertex_component": 6645,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231828543570397,
+          "area_share": 0.0003860504283866232,
+          "faces": 1,
+          "fractional_area_quota": 0.778663714055819,
+          "source_vertex_component": 6648,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231825155625125,
+          "area_share": 0.0003860503912634372,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636391783529,
+          "source_vertex_component": 4639,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231825155625125,
+          "area_share": 0.0003860503912634372,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636391783529,
+          "source_vertex_component": 4640,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231825155625125,
+          "area_share": 0.0003860503912634372,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636391783529,
+          "source_vertex_component": 4651,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231825155625125,
+          "area_share": 0.0003860503912634372,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636391783529,
+          "source_vertex_component": 4657,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231825155625125,
+          "area_share": 0.0003860503912634372,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636391783529,
+          "source_vertex_component": 6646,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231825155625125,
+          "area_share": 0.0003860503912634372,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636391783529,
+          "source_vertex_component": 6647,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231825155625125,
+          "area_share": 0.0003860503912634372,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636391783529,
+          "source_vertex_component": 6658,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231825155625125,
+          "area_share": 0.0003860503912634372,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636391783529,
+          "source_vertex_component": 6664,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523182377088781,
+          "area_share": 0.0003860503760902698,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636085740741,
+          "source_vertex_component": 4638,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523182377088781,
+          "area_share": 0.0003860503760902698,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636085740741,
+          "source_vertex_component": 4641,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523182377088781,
+          "area_share": 0.0003860503760902698,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636085740741,
+          "source_vertex_component": 6657,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003523182377088781,
+          "area_share": 0.0003860503760902698,
+          "faces": 1,
+          "fractional_area_quota": 0.7786636085740741,
+          "source_vertex_component": 6663,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00352315990757622,
+          "area_share": 0.00038604791400830913,
+          "faces": 1,
+          "fractional_area_quota": 0.7786586425547595,
+          "source_vertex_component": 4634,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00352315990757622,
+          "area_share": 0.00038604791400830913,
+          "faces": 1,
+          "fractional_area_quota": 0.7786586425547595,
+          "source_vertex_component": 4645,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00352315990757622,
+          "area_share": 0.00038604791400830913,
+          "faces": 1,
+          "fractional_area_quota": 0.7786586425547595,
+          "source_vertex_component": 6653,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00352315990757622,
+          "area_share": 0.00038604791400830913,
+          "faces": 1,
+          "fractional_area_quota": 0.7786586425547595,
+          "source_vertex_component": 6659,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231586782313103,
+          "area_share": 0.0003860477793036547,
+          "faces": 1,
+          "fractional_area_quota": 0.7786583708554714,
+          "source_vertex_component": 4646,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231586782313103,
+          "area_share": 0.0003860477793036547,
+          "faces": 1,
+          "fractional_area_quota": 0.7786583708554714,
+          "source_vertex_component": 4652,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231586782313103,
+          "area_share": 0.0003860477793036547,
+          "faces": 1,
+          "fractional_area_quota": 0.7786583708554714,
+          "source_vertex_component": 6641,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231586782313103,
+          "area_share": 0.0003860477793036547,
+          "faces": 1,
+          "fractional_area_quota": 0.7786583708554714,
+          "source_vertex_component": 6652,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231412400433737,
+          "area_share": 0.0003860458685257582,
+          "faces": 1,
+          "fractional_area_quota": 0.7786545168164544,
+          "source_vertex_component": 4637,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231412400433737,
+          "area_share": 0.0003860458685257582,
+          "faces": 1,
+          "fractional_area_quota": 0.7786545168164544,
+          "source_vertex_component": 4642,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231412400433737,
+          "area_share": 0.0003860458685257582,
+          "faces": 1,
+          "fractional_area_quota": 0.7786545168164544,
+          "source_vertex_component": 6656,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231412400433737,
+          "area_share": 0.0003860458685257582,
+          "faces": 1,
+          "fractional_area_quota": 0.7786545168164544,
+          "source_vertex_component": 6662,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231399361260966,
+          "area_share": 0.000386045725649886,
+          "faces": 1,
+          "fractional_area_quota": 0.77865422863582,
+          "source_vertex_component": 4649,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231399361260966,
+          "area_share": 0.000386045725649886,
+          "faces": 1,
+          "fractional_area_quota": 0.77865422863582,
+          "source_vertex_component": 4655,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231399361260966,
+          "area_share": 0.000386045725649886,
+          "faces": 1,
+          "fractional_area_quota": 0.77865422863582,
+          "source_vertex_component": 6644,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0035231399361260966,
+          "area_share": 0.000386045725649886,
+          "faces": 1,
+          "fractional_area_quota": 0.77865422863582,
+          "source_vertex_component": 6649,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00176779543835699,
+          "area_share": 0.00019370501461019938,
+          "faces": 8,
+          "fractional_area_quota": 0.39070301446877215,
+          "source_vertex_component": 3040,
+          "vertices": 10
+        },
+        {
+          "area_m2": 0.0015658822830133484,
+          "area_share": 0.0001715805143104462,
+          "faces": 1,
+          "fractional_area_quota": 0.34607789736417,
+          "source_vertex_component": 4667,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658822830133484,
+          "area_share": 0.0001715805143104462,
+          "faces": 1,
+          "fractional_area_quota": 0.34607789736417,
+          "source_vertex_component": 6679,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658822255222252,
+          "area_share": 0.00017158050801089445,
+          "faces": 1,
+          "fractional_area_quota": 0.34607788465797407,
+          "source_vertex_component": 4660,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658822255222252,
+          "area_share": 0.00017158050801089445,
+          "faces": 1,
+          "fractional_area_quota": 0.34607788465797407,
+          "source_vertex_component": 6685,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658821527662894,
+          "area_share": 0.00017158050003871094,
+          "faces": 1,
+          "fractional_area_quota": 0.34607786857808,
+          "source_vertex_component": 4672,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658821527662894,
+          "area_share": 0.00017158050003871094,
+          "faces": 1,
+          "fractional_area_quota": 0.34607786857808,
+          "source_vertex_component": 6674,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658820952751664,
+          "area_share": 0.0001715804937391592,
+          "faces": 1,
+          "fractional_area_quota": 0.34607785587188417,
+          "source_vertex_component": 4678,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658820952751664,
+          "area_share": 0.0001715804937391592,
+          "faces": 1,
+          "fractional_area_quota": 0.34607785587188417,
+          "source_vertex_component": 6667,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658604820618985,
+          "area_share": 0.0001715781254856266,
+          "faces": 1,
+          "fractional_area_quota": 0.34607307910450885,
+          "source_vertex_component": 4661,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658604820618985,
+          "area_share": 0.0001715781254856266,
+          "faces": 1,
+          "fractional_area_quota": 0.34607307910450885,
+          "source_vertex_component": 6686,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658604540278566,
+          "area_share": 0.00017157812241381504,
+          "faces": 1,
+          "fractional_area_quota": 0.3460730729086649,
+          "source_vertex_component": 4666,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658604540278566,
+          "area_share": 0.00017157812241381504,
+          "faces": 1,
+          "fractional_area_quota": 0.3460730729086649,
+          "source_vertex_component": 6680,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658603123236737,
+          "area_share": 0.00017157810688667302,
+          "faces": 1,
+          "fractional_area_quota": 0.34607304159041946,
+          "source_vertex_component": 4679,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658603123236737,
+          "area_share": 0.00017157810688667302,
+          "faces": 1,
+          "fractional_area_quota": 0.34607304159041946,
+          "source_vertex_component": 6668,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001565860284289646,
+          "area_share": 0.00017157810381486299,
+          "faces": 1,
+          "fractional_area_quota": 0.3460730353945786,
+          "source_vertex_component": 4673,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001565860284289646,
+          "area_share": 0.00017157810381486299,
+          "faces": 1,
+          "fractional_area_quota": 0.3460730353945786,
+          "source_vertex_component": 6673,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658588013095882,
+          "area_share": 0.0001715779413183051,
+          "faces": 1,
+          "fractional_area_quota": 0.3460727076390214,
+          "source_vertex_component": 4674,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658588013095882,
+          "area_share": 0.0001715779413183051,
+          "faces": 1,
+          "fractional_area_quota": 0.3460727076390214,
+          "source_vertex_component": 6672,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001565858794083203,
+          "area_share": 0.00017157794052647873,
+          "faces": 1,
+          "fractional_area_quota": 0.34607270604190765,
+          "source_vertex_component": 4665,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001565858794083203,
+          "area_share": 0.00017157794052647873,
+          "faces": 1,
+          "fractional_area_quota": 0.34607270604190765,
+          "source_vertex_component": 6681,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658585535237616,
+          "area_share": 0.00017157791416733722,
+          "faces": 1,
+          "fractional_area_quota": 0.3460726528755192,
+          "source_vertex_component": 4680,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658585535237616,
+          "area_share": 0.00017157791416733722,
+          "faces": 1,
+          "fractional_area_quota": 0.3460726528755192,
+          "source_vertex_component": 6669,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658585462973692,
+          "area_share": 0.00017157791337551006,
+          "faces": 1,
+          "fractional_area_quota": 0.3460726512784038,
+          "source_vertex_component": 4662,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658585462973692,
+          "area_share": 0.00017157791337551006,
+          "faces": 1,
+          "fractional_area_quota": 0.3460726512784038,
+          "source_vertex_component": 6687,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658439903892647,
+          "area_share": 0.00017157631842151772,
+          "faces": 1,
+          "fractional_area_quota": 0.34606943425620124,
+          "source_vertex_component": 4659,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658439903892647,
+          "area_share": 0.00017157631842151772,
+          "faces": 1,
+          "fractional_area_quota": 0.34606943425620124,
+          "source_vertex_component": 6684,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658439085198413,
+          "area_share": 0.00017157630945072988,
+          "faces": 1,
+          "fractional_area_quota": 0.34606941616212217,
+          "source_vertex_component": 4677,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658439085198413,
+          "area_share": 0.00017157630945072988,
+          "faces": 1,
+          "fractional_area_quota": 0.34606941616212217,
+          "source_vertex_component": 6666,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658438532739805,
+          "area_share": 0.00017157630339720124,
+          "faces": 1,
+          "fractional_area_quota": 0.3460694039521549,
+          "source_vertex_component": 4668,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658438532739805,
+          "area_share": 0.00017157630339720124,
+          "faces": 1,
+          "fractional_area_quota": 0.3460694039521549,
+          "source_vertex_component": 6678,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001565843806436049,
+          "area_share": 0.00017157629826496592,
+          "faces": 1,
+          "fractional_area_quota": 0.34606939360043626,
+          "source_vertex_component": 4669,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001565843806436049,
+          "area_share": 0.00017157629826496592,
+          "faces": 1,
+          "fractional_area_quota": 0.34606939360043626,
+          "source_vertex_component": 6677,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658437714046124,
+          "area_share": 0.00017157629442641947,
+          "faces": 1,
+          "fractional_area_quota": 0.34606938585808805,
+          "source_vertex_component": 4671,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658437714046124,
+          "area_share": 0.00017157629442641947,
+          "faces": 1,
+          "fractional_area_quota": 0.34606938585808805,
+          "source_vertex_component": 6675,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658437345908026,
+          "area_share": 0.0001715762903925706,
+          "faces": 1,
+          "fractional_area_quota": 0.34606937772181495,
+          "source_vertex_component": 4658,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658437345908026,
+          "area_share": 0.0001715762903925706,
+          "faces": 1,
+          "fractional_area_quota": 0.34606937772181495,
+          "source_vertex_component": 6683,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658429868757005,
+          "area_share": 0.0001715762084621834,
+          "faces": 1,
+          "fractional_area_quota": 0.3460692124682239,
+          "source_vertex_component": 4670,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658429868757005,
+          "area_share": 0.0001715762084621834,
+          "faces": 1,
+          "fractional_area_quota": 0.3460692124682239,
+          "source_vertex_component": 6676,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658429150304917,
+          "area_share": 0.00017157620058979222,
+          "faces": 1,
+          "fractional_area_quota": 0.34606919658961094,
+          "source_vertex_component": 4676,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658429150304917,
+          "area_share": 0.00017157620058979222,
+          "faces": 1,
+          "fractional_area_quota": 0.34606919658961094,
+          "source_vertex_component": 6665,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658386462798488,
+          "area_share": 0.0001715757328442671,
+          "faces": 1,
+          "fractional_area_quota": 0.3460682531468867,
+          "source_vertex_component": 4664,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658386462798488,
+          "area_share": 0.0001715757328442671,
+          "faces": 1,
+          "fractional_area_quota": 0.3460682531468867,
+          "source_vertex_component": 6682,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658385402216098,
+          "area_share": 0.00017157572122300578,
+          "faces": 1,
+          "fractional_area_quota": 0.3460682297068027,
+          "source_vertex_component": 4675,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658385402216098,
+          "area_share": 0.00017157572122300578,
+          "faces": 1,
+          "fractional_area_quota": 0.3460682297068027,
+          "source_vertex_component": 6671,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658385089870218,
+          "area_share": 0.0001715757178004965,
+          "faces": 1,
+          "fractional_area_quota": 0.3460682228036014,
+          "source_vertex_component": 4663,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658385089870218,
+          "area_share": 0.0001715757178004965,
+          "faces": 1,
+          "fractional_area_quota": 0.3460682228036014,
+          "source_vertex_component": 6688,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658384029287916,
+          "area_share": 0.00017157570617923614,
+          "faces": 1,
+          "fractional_area_quota": 0.3460681993635193,
+          "source_vertex_component": 4681,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0015658384029287916,
+          "area_share": 0.00017157570617923614,
+          "faces": 1,
+          "fractional_area_quota": 0.3460681993635193,
+          "source_vertex_component": 6670,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754775214355974,
+          "area_share": 0.0001178447372826369,
+          "faces": 1,
+          "fractional_area_quota": 0.23769283509907863,
+          "source_vertex_component": 7069,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754759868761155,
+          "area_share": 0.00011784456913429779,
+          "faces": 1,
+          "fractional_area_quota": 0.23769249594387865,
+          "source_vertex_component": 7077,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754759127372187,
+          "area_share": 0.00011784456101057726,
+          "faces": 1,
+          "fractional_area_quota": 0.2376924795583343,
+          "source_vertex_component": 7056,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001075474378178253,
+          "area_share": 0.00011784439286229469,
+          "faces": 1,
+          "fractional_area_quota": 0.2376921404032484,
+          "source_vertex_component": 7053,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754592993050256,
+          "area_share": 0.0001178427406047453,
+          "faces": 1,
+          "fractional_area_quota": 0.23768880779977125,
+          "source_vertex_component": 7060,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754590287933698,
+          "area_share": 0.00011784271096360974,
+          "faces": 1,
+          "fractional_area_quota": 0.23768874801360082,
+          "source_vertex_component": 7049,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754571385642332,
+          "area_share": 0.00011784250384300371,
+          "faces": 1,
+          "fractional_area_quota": 0.23768833025133845,
+          "source_vertex_component": 7065,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754568680532409,
+          "area_share": 0.00011784247420194084,
+          "faces": 1,
+          "fractional_area_quota": 0.23768827046531468,
+          "source_vertex_component": 7073,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754415066986762,
+          "area_share": 0.00011784079099168595,
+          "faces": 1,
+          "fractional_area_quota": 0.2376848754302306,
+          "source_vertex_component": 7058,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001075441312108253,
+          "area_share": 0.00011784076966956918,
+          "faces": 1,
+          "fractional_area_quota": 0.23768483242352106,
+          "source_vertex_component": 7051,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754401415472602,
+          "area_share": 0.0001178406414061235,
+          "faces": 1,
+          "fractional_area_quota": 0.2376845737161511,
+          "source_vertex_component": 7067,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754399469573533,
+          "area_share": 0.00011784062008406329,
+          "faces": 1,
+          "fractional_area_quota": 0.23768453070955567,
+          "source_vertex_component": 7075,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754309793214122,
+          "area_share": 0.00011783963746129297,
+          "faces": 1,
+          "fractional_area_quota": 0.23768254875942793,
+          "source_vertex_component": 7061,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001075430685808539,
+          "area_share": 0.00011783960529981423,
+          "faces": 1,
+          "fractional_area_quota": 0.2376824838897253,
+          "source_vertex_component": 7048,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001075427137965802,
+          "area_share": 0.00011783921654729555,
+          "faces": 1,
+          "fractional_area_quota": 0.23768169977589512,
+          "source_vertex_component": 7064,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754268444541088,
+          "area_share": 0.00011783918438594611,
+          "faces": 1,
+          "fractional_area_quota": 0.23768163490645333,
+          "source_vertex_component": 7072,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001075421944698574,
+          "area_share": 0.00011783864749847776,
+          "faces": 1,
+          "fractional_area_quota": 0.2376805520044296,
+          "source_vertex_component": 7057,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754218001165956,
+          "area_share": 0.00011783863165600321,
+          "faces": 1,
+          "fractional_area_quota": 0.23768052005015847,
+          "source_vertex_component": 7052,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754202409479538,
+          "area_share": 0.00011783846081113169,
+          "faces": 1,
+          "fractional_area_quota": 0.23768017545605263,
+          "source_vertex_component": 7068,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754202028616594,
+          "area_share": 0.00011783845663785121,
+          "faces": 1,
+          "fractional_area_quota": 0.23768016703854591,
+          "source_vertex_component": 7063,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754200963666392,
+          "area_share": 0.00011783844496872988,
+          "faces": 1,
+          "fractional_area_quota": 0.23768014350192815,
+          "source_vertex_component": 7076,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754198976234332,
+          "area_share": 0.00011783842319157468,
+          "faces": 1,
+          "fractional_area_quota": 0.23768009957740613,
+          "source_vertex_component": 7071,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754160449287739,
+          "area_share": 0.00011783800103510845,
+          "faces": 1,
+          "fractional_area_quota": 0.23767924808781374,
+          "source_vertex_component": 7062,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754157396917277,
+          "area_share": 0.00011783796758896123,
+          "faces": 1,
+          "fractional_area_quota": 0.23767918062693483,
+          "source_vertex_component": 7047,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754090353979199,
+          "area_share": 0.00011783723297040649,
+          "faces": 1,
+          "fractional_area_quota": 0.23767769890130988,
+          "source_vertex_component": 7070,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754090353979199,
+          "area_share": 0.00011783723297040649,
+          "faces": 1,
+          "fractional_area_quota": 0.23767769890130988,
+          "source_vertex_component": 7078,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754086805202959,
+          "area_share": 0.00011783719408492583,
+          "faces": 1,
+          "fractional_area_quota": 0.2376776204692954,
+          "source_vertex_component": 7054,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010754086805202959,
+          "area_share": 0.00011783719408492583,
+          "faces": 1,
+          "fractional_area_quota": 0.2376776204692954,
+          "source_vertex_component": 7055,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010753964170727662,
+          "area_share": 0.00011783585032578302,
+          "faces": 1,
+          "fractional_area_quota": 0.23767491010710437,
+          "source_vertex_component": 7066,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001075396179987527,
+          "area_share": 0.00011783582434732492,
+          "faces": 1,
+          "fractional_area_quota": 0.23767485770855437,
+          "source_vertex_component": 7074,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.001075395195585539,
+          "area_share": 0.0001178357164821289,
+          "faces": 1,
+          "fractional_area_quota": 0.237674640144454,
+          "source_vertex_component": 7059,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0010753949585008162,
+          "area_share": 0.00011783569050372738,
+          "faces": 1,
+          "fractional_area_quota": 0.23767458774601816,
+          "source_vertex_component": 7050,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754739059083963,
+          "area_share": 0.00010688690732875203,
+          "faces": 1,
+          "fractional_area_quota": 0.21559089208209284,
+          "source_vertex_component": 7029,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754736654994,
+          "area_share": 0.00010688688098609546,
+          "faces": 1,
+          "fractional_area_quota": 0.2155908389489545,
+          "source_vertex_component": 7025,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754736025647577,
+          "area_share": 0.0001068868740900737,
+          "faces": 1,
+          "fractional_area_quota": 0.21559082503967864,
+          "source_vertex_component": 7044,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754734511101716,
+          "area_share": 0.0001068868574945377,
+          "faces": 1,
+          "fractional_area_quota": 0.21559079156648256,
+          "source_vertex_component": 7040,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754694546307833,
+          "area_share": 0.000106886419582955,
+          "faces": 1,
+          "fractional_area_quota": 0.21558990829882027,
+          "source_vertex_component": 7020,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754689614270122,
+          "area_share": 0.00010688636554047836,
+          "faces": 1,
+          "fractional_area_quota": 0.21558979929514488,
+          "source_vertex_component": 7036,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754686795149496,
+          "area_share": 0.00010688633465015078,
+          "faces": 1,
+          "fractional_area_quota": 0.2155897369893541,
+          "source_vertex_component": 7024,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754686407605104,
+          "area_share": 0.00010688633040365876,
+          "faces": 1,
+          "fractional_area_quota": 0.2155897284241797,
+          "source_vertex_component": 7045,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754637938697142,
+          "area_share": 0.00010688579930880914,
+          "faces": 1,
+          "fractional_area_quota": 0.21558865720586803,
+          "source_vertex_component": 7018,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754615479992213,
+          "area_share": 0.00010688555321903698,
+          "faces": 1,
+          "fractional_area_quota": 0.21558816084279758,
+          "source_vertex_component": 7034,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754597372816715,
+          "area_share": 0.00010688535481086044,
+          "faces": 1,
+          "fractional_area_quota": 0.21558776065350552,
+          "source_vertex_component": 7028,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754595480999016,
+          "area_share": 0.00010688533408139328,
+          "faces": 1,
+          "fractional_area_quota": 0.21558771884217023,
+          "source_vertex_component": 7041,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754590918362173,
+          "area_share": 0.00010688528408660217,
+          "faces": 1,
+          "fractional_area_quota": 0.2155876180026766,
+          "source_vertex_component": 7026,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754589341463392,
+          "area_share": 0.0001068852668078382,
+          "faces": 1,
+          "fractional_area_quota": 0.21558758315140963,
+          "source_vertex_component": 7031,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754587310435373,
+          "area_share": 0.00010688524455298317,
+          "faces": 1,
+          "fractional_area_quota": 0.21558753826336705,
+          "source_vertex_component": 7015,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754579717943709,
+          "area_share": 0.00010688516135875849,
+          "faces": 1,
+          "fractional_area_quota": 0.21558737046061588,
+          "source_vertex_component": 7033,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754575813137969,
+          "area_share": 0.00010688511857210815,
+          "faces": 1,
+          "fractional_area_quota": 0.21558728415994213,
+          "source_vertex_component": 7043,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754574960354233,
+          "area_share": 0.00010688510922778684,
+          "faces": 1,
+          "fractional_area_quota": 0.21558726531244604,
+          "source_vertex_component": 7017,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754551158474971,
+          "area_share": 0.00010688484842027088,
+          "faces": 1,
+          "fractional_area_quota": 0.21558673926368635,
+          "source_vertex_component": 7038,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754544348384779,
+          "area_share": 0.00010688477379915851,
+          "faces": 1,
+          "fractional_area_quota": 0.21558658875290274,
+          "source_vertex_component": 7022,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754482616086864,
+          "area_share": 0.00010688409737159172,
+          "faces": 1,
+          "fractional_area_quota": 0.21558522439850053,
+          "source_vertex_component": 7021,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754477856006266,
+          "area_share": 0.00010688404521332376,
+          "faces": 1,
+          "fractional_area_quota": 0.21558511919527404,
+          "source_vertex_component": 7037,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754477018847602,
+          "area_share": 0.00010688403604021313,
+          "faces": 1,
+          "fractional_area_quota": 0.2155851006931099,
+          "source_vertex_component": 7035,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.000975443786926739,
+          "area_share": 0.00010688360706128026,
+          "faces": 1,
+          "fractional_area_quota": 0.21558423544260227,
+          "source_vertex_component": 7019,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754423528181091,
+          "area_share": 0.00010688344991977673,
+          "faces": 1,
+          "fractional_area_quota": 0.21558391848818967,
+          "source_vertex_component": 7042,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754396522236209,
+          "area_share": 0.00010688315400392388,
+          "faces": 1,
+          "fractional_area_quota": 0.21558332162591445,
+          "source_vertex_component": 7027,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.000975438229084129,
+          "area_share": 0.00010688299806435639,
+          "faces": 1,
+          "fractional_area_quota": 0.21558300709580683,
+          "source_vertex_component": 7023,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754375480633201,
+          "area_share": 0.0001068829234419522,
+          "faces": 1,
+          "fractional_area_quota": 0.21558285658241758,
+          "source_vertex_component": 7046,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754370795624979,
+          "area_share": 0.00010688287210628482,
+          "faces": 1,
+          "fractional_area_quota": 0.21558275303837648,
+          "source_vertex_component": 7030,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754340151560325,
+          "area_share": 0.00010688253632597548,
+          "faces": 1,
+          "fractional_area_quota": 0.21558207576949254,
+          "source_vertex_component": 7039,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754291701205815,
+          "area_share": 0.00010688200543442408,
+          "faces": 1,
+          "fractional_area_quota": 0.21558100496123336,
+          "source_vertex_component": 7032,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0009754285334309442,
+          "area_share": 0.00010688193566957866,
+          "faces": 1,
+          "fractional_area_quota": 0.21558086424554015,
+          "source_vertex_component": 7016,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022911156736167462,
+          "area_share": 2.5104748287169592e-05,
+          "faces": 8,
+          "fractional_area_quota": 0.05063627729522107,
+          "source_vertex_component": 2896,
+          "vertices": 10
+        },
+        {
+          "area_m2": 0.00022911156736167462,
+          "area_share": 2.5104748287169592e-05,
+          "faces": 8,
+          "fractional_area_quota": 0.05063627729522107,
+          "source_vertex_component": 4890,
+          "vertices": 10
+        },
+        {
+          "area_m2": 0.0002291115091756874,
+          "area_share": 2.510474191147857e-05,
+          "faces": 8,
+          "fractional_area_quota": 0.05063626443545228,
+          "source_vertex_component": 2897,
+          "vertices": 10
+        },
+        {
+          "area_m2": 0.0002291115091756874,
+          "area_share": 2.510474191147857e-05,
+          "faces": 8,
+          "fractional_area_quota": 0.05063626443545228,
+          "source_vertex_component": 4889,
+          "vertices": 10
+        },
+        {
+          "area_m2": 0.00022097742729142988,
+          "area_share": 2.421345527500266e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883853928968036,
+          "source_vertex_component": 3046,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097742729142988,
+          "area_share": 2.421345527500266e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883853928968036,
+          "source_vertex_component": 5045,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097742729142988,
+          "area_share": 2.421345527500266e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883853928968036,
+          "source_vertex_component": 5053,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097716386587155,
+          "area_share": 2.4213426410321532e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.048838481069618536,
+          "source_vertex_component": 3041,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097716386587155,
+          "area_share": 2.4213426410321532e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.048838481069618536,
+          "source_vertex_component": 5040,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097716386587155,
+          "area_share": 2.4213426410321532e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.048838481069618536,
+          "source_vertex_component": 5048,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097533905577946,
+          "area_share": 2.421322645796399e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.048838077765713375,
+          "source_vertex_component": 3047,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097533905577946,
+          "area_share": 2.421322645796399e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.048838077765713375,
+          "source_vertex_component": 5046,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097533905577946,
+          "area_share": 2.421322645796399e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.048838077765713375,
+          "source_vertex_component": 5054,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097533889959802,
+          "area_share": 2.4213226440850513e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883807773119549,
+          "source_vertex_component": 3044,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097533889959802,
+          "area_share": 2.4213226440850513e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883807773119549,
+          "source_vertex_component": 5043,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0002209752857907965,
+          "area_share": 2.4213220621488756e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.048838065993542824,
+          "source_vertex_component": 5051,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097496652665025,
+          "area_share": 2.421318563833133e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883799543251429,
+          "source_vertex_component": 3048,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097496652665025,
+          "area_share": 2.421318563833133e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883799543251429,
+          "source_vertex_component": 5047,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097496652665025,
+          "area_share": 2.421318563833133e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883799543251429,
+          "source_vertex_component": 5055,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097496637046857,
+          "area_share": 2.4213185621217825e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883799539799635,
+          "source_vertex_component": 3043,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097496637046857,
+          "area_share": 2.4213185621217825e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883799539799635,
+          "source_vertex_component": 5042,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097491326175659,
+          "area_share": 2.4213179801865877e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.048837983660363474,
+          "source_vertex_component": 5050,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097037809676822,
+          "area_share": 2.421268286416524e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883698133702129,
+          "source_vertex_component": 3045,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097037809676822,
+          "area_share": 2.421268286416524e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883698133702129,
+          "source_vertex_component": 5044,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0002209703029908856,
+          "area_share": 2.4212674634487883e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.048836964737762056,
+          "source_vertex_component": 5052,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097011467961318,
+          "area_share": 2.42126540004049e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883692311881668,
+          "source_vertex_component": 3042,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00022097011467961318,
+          "area_share": 2.42126540004049e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883692311881668,
+          "source_vertex_component": 5041,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0002209700395738201,
+          "area_share": 2.4212645770737355e-05,
+          "faces": 1,
+          "fractional_area_quota": 0.04883690651957724,
+          "source_vertex_component": 5049,
+          "vertices": 3
+        },
+        {
+          "area_m2": 7.788227532024017e-05,
+          "area_share": 8.533898748377796e-06,
+          "faces": 28,
+          "fractional_area_quota": 0.017212873775478015,
+          "source_vertex_component": 3253,
+          "vertices": 30
+        },
+        {
+          "area_m2": 7.788227532024017e-05,
+          "area_share": 8.533898748377796e-06,
+          "faces": 28,
+          "fractional_area_quota": 0.017212873775478015,
+          "source_vertex_component": 5260,
+          "vertices": 30
+        },
+        {
+          "area_m2": 3.6056175618310464e-05,
+          "area_share": 3.950831568738518e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968827274145591,
+          "source_vertex_component": 4219,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6056175618310464e-05,
+          "area_share": 3.950831568738518e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968827274145591,
+          "source_vertex_component": 6229,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6056172063296826e-05,
+          "area_share": 3.950831179200253e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968826488446911,
+          "source_vertex_component": 4229,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6056172063296826e-05,
+          "area_share": 3.950831179200253e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968826488446911,
+          "source_vertex_component": 6215,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6055733306092484e-05,
+          "area_share": 3.950783102670111e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968729518085613,
+          "source_vertex_component": 4208,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6055733306092484e-05,
+          "area_share": 3.950783102670111e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968729518085613,
+          "source_vertex_component": 6236,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605573215032313e-05,
+          "area_share": 3.9507829760274485e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968729262647365,
+          "source_vertex_component": 4222,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605573215032313e-05,
+          "area_share": 3.9507829760274485e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968729262647365,
+          "source_vertex_component": 6226,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605539670282045e-05,
+          "area_share": 3.95074621958946e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796865512491194,
+          "source_vertex_component": 6266,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605445773730704e-05,
+          "area_share": 3.950643333065065e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968447602792235,
+          "source_vertex_component": 6252,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6054401938803174e-05,
+          "area_share": 3.950637218980951e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968435270684578,
+          "source_vertex_component": 4242,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6054401938803174e-05,
+          "area_share": 3.950637218980951e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968435270684578,
+          "source_vertex_component": 4262,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605374991211547e-05,
+          "area_share": 3.9505657735883865e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968291165327775,
+          "source_vertex_component": 4211,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605374991211547e-05,
+          "area_share": 3.9505657735883865e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968291165327775,
+          "source_vertex_component": 6239,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6053748152242823e-05,
+          "area_share": 3.950565580751506e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968290776375788,
+          "source_vertex_component": 4225,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6053748152242823e-05,
+          "area_share": 3.950565580751506e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968290776375788,
+          "source_vertex_component": 6223,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6052963036841665e-05,
+          "area_share": 3.950479552251289e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796811725689085,
+          "source_vertex_component": 6250,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6052768765703704e-05,
+          "area_share": 3.950458265119984e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968074320747007,
+          "source_vertex_component": 6261,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6052721438269265e-05,
+          "area_share": 3.950453079247693e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968063860842596,
+          "source_vertex_component": 6247,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605265117866962e-05,
+          "area_share": 3.950445380598585e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968048332667345,
+          "source_vertex_component": 6268,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6052465866909224e-05,
+          "area_share": 3.9504250751851435e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007968007376648434,
+          "source_vertex_component": 4252,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605231910346806e-05,
+          "area_share": 3.950408993678258e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967974940249046,
+          "source_vertex_component": 4238,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6052274080367403e-05,
+          "area_share": 3.950404060301815e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967964989628762,
+          "source_vertex_component": 4250,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6052217644045066e-05,
+          "area_share": 3.9503978763291644e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967952516555925,
+          "source_vertex_component": 4236,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605205195892111e-05,
+          "area_share": 3.950379721491416e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967915898248187,
+          "source_vertex_component": 4217,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605205195892111e-05,
+          "area_share": 3.950379721491416e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967915898248187,
+          "source_vertex_component": 6231,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6052051213556826e-05,
+          "area_share": 3.950379639818617e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967915733514151,
+          "source_vertex_component": 4231,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6052051213556826e-05,
+          "area_share": 3.950379639818617e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967915733514151,
+          "source_vertex_component": 6217,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6051979160580176e-05,
+          "area_share": 3.950371744661411e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967899808982066,
+          "source_vertex_component": 4216,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6051979160580176e-05,
+          "area_share": 3.950371744661411e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967899808982066,
+          "source_vertex_component": 6232,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605196884572393e-05,
+          "area_share": 3.950370614417868e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796789752928084,
+          "source_vertex_component": 4232,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605196884572393e-05,
+          "area_share": 3.950370614417868e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796789752928084,
+          "source_vertex_component": 6218,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6051814263283045e-05,
+          "area_share": 3.950353676149265e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967863364793068,
+          "source_vertex_component": 4247,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6051712775564636e-05,
+          "area_share": 3.950342555699721e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967840934846336,
+          "source_vertex_component": 4257,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605114132183154e-05,
+          "area_share": 3.9502799390353055e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796771463703421,
+          "source_vertex_component": 6263,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605093473059058e-05,
+          "area_share": 3.950257301936872e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796766897800667,
+          "source_vertex_component": 4245,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.60509206440709e-05,
+          "area_share": 3.950255758415806e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796766586472468,
+          "source_vertex_component": 4259,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605073752246553e-05,
+          "area_share": 3.950235692987151e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967625392755084,
+          "source_vertex_component": 4233,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605073752246553e-05,
+          "area_share": 3.950235692987151e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967625392755084,
+          "source_vertex_component": 6219,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6050732168543386e-05,
+          "area_share": 3.950235106334677e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967624209477045,
+          "source_vertex_component": 4215,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6050732168543386e-05,
+          "area_share": 3.950235106334677e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967624209477045,
+          "source_vertex_component": 6233,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.60504635777832e-05,
+          "area_share": 3.950205675679977e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967564847846515,
+          "source_vertex_component": 6258,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605020206411999e-05,
+          "area_share": 3.950177020493492e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967507050335373,
+          "source_vertex_component": 6255,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6050198679277324e-05,
+          "area_share": 3.950176649601599e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967506302246425,
+          "source_vertex_component": 6244,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605016969905354e-05,
+          "area_share": 3.950173474112767e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967499897285452,
+          "source_vertex_component": 6253,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6050140342228834e-05,
+          "area_share": 3.950170257358139e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967493409091366,
+          "source_vertex_component": 4212,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6050140342228834e-05,
+          "area_share": 3.950170257358139e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967493409091366,
+          "source_vertex_component": 6240,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605012152900747e-05,
+          "area_share": 3.950168195911865e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796748925115423,
+          "source_vertex_component": 4226,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605012152900747e-05,
+          "area_share": 3.950168195911865e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796748925115423,
+          "source_vertex_component": 6222,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605004335277207e-05,
+          "area_share": 3.950159629802636e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967471973311916,
+          "source_vertex_component": 6245,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.605004335277207e-05,
+          "area_share": 3.950159629802636e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967471973311916,
+          "source_vertex_component": 6259,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6049860785214225e-05,
+          "area_share": 3.950139625083372e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967431623793162,
+          "source_vertex_component": 4209,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6049860785214225e-05,
+          "area_share": 3.950139625083372e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967431623793162,
+          "source_vertex_component": 6237,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6049856675701284e-05,
+          "area_share": 3.950139174786212e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796743071554379,
+          "source_vertex_component": 4223,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6049856675701284e-05,
+          "area_share": 3.950139174786212e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796743071554379,
+          "source_vertex_component": 6225,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604927786331246e-05,
+          "area_share": 3.950075751801968e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796730279138457,
+          "source_vertex_component": 6265,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6048991017155347e-05,
+          "area_share": 3.9500443208242386e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967239395102488,
+          "source_vertex_component": 6243,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604885468867202e-05,
+          "area_share": 3.950029382720947e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967209264948151,
+          "source_vertex_component": 6257,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6048843483854226e-05,
+          "area_share": 3.950028154960457e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967206788555241,
+          "source_vertex_component": 4244,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604877640373878e-05,
+          "area_share": 3.950020804701225e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967191963082371,
+          "source_vertex_component": 4255,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604866335576134e-05,
+          "area_share": 3.950008417543951e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796716697818615,
+          "source_vertex_component": 4241,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6048623061396785e-05,
+          "area_share": 3.950004002315636e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967158072670639,
+          "source_vertex_component": 4260,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604846220627501e-05,
+          "area_share": 3.949986376722178e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967122521848632,
+          "source_vertex_component": 4258,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.60483052584731e-05,
+          "area_share": 3.949969179270707e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967087834589015,
+          "source_vertex_component": 4246,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604827348105662e-05,
+          "area_share": 3.949965697281338e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967080811416456,
+          "source_vertex_component": 4256,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604824941558617e-05,
+          "area_share": 3.949963060323348e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007967075492672192,
+          "source_vertex_component": 4248,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604765520343468e-05,
+          "area_share": 3.9498979499203065e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796694416498926,
+          "source_vertex_component": 6249,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604755565028696e-05,
+          "area_share": 3.949887041450065e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796692216260478,
+          "source_vertex_component": 4220,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604755565028696e-05,
+          "area_share": 3.949887041450065e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796692216260478,
+          "source_vertex_component": 6228,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604755458825892e-05,
+          "area_share": 3.949886925079045e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966921927884434,
+          "source_vertex_component": 4228,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604755458825892e-05,
+          "area_share": 3.949886925079045e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966921927884434,
+          "source_vertex_component": 6214,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6047544771561496e-05,
+          "area_share": 3.949885849420925e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966919758282006,
+          "source_vertex_component": 6269,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604722426511506e-05,
+          "area_share": 3.949850730139281e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796684892269093,
+          "source_vertex_component": 4227,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604722426511506e-05,
+          "area_share": 3.949850730139281e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796684892269093,
+          "source_vertex_component": 6221,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604721509228444e-05,
+          "area_share": 3.949849725032439e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796684689539043,
+          "source_vertex_component": 4213,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604721509228444e-05,
+          "area_share": 3.949849725032439e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796684689539043,
+          "source_vertex_component": 6241,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6047180950794085e-05,
+          "area_share": 3.949845984001241e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966839349730501,
+          "source_vertex_component": 4237,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.60471743537715e-05,
+          "area_share": 3.949845261136859e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966837891713045,
+          "source_vertex_component": 4214,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.60471743537715e-05,
+          "area_share": 3.949845261136859e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966837891713045,
+          "source_vertex_component": 6234,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6047151011973545e-05,
+          "area_share": 3.949842703474804e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966832732908678,
+          "source_vertex_component": 4234,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6047151011973545e-05,
+          "area_share": 3.949842703474804e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966832732908678,
+          "source_vertex_component": 6220,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604709172741162e-05,
+          "area_share": 3.9498362074081865e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966819630342311,
+          "source_vertex_component": 4251,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6047083056860206e-05,
+          "area_share": 3.949835257338256e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966817714051262,
+          "source_vertex_component": 6262,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6046940028525134e-05,
+          "area_share": 3.949819585103147e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966786103153047,
+          "source_vertex_component": 6248,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604691995057656e-05,
+          "area_share": 3.949817385075226e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966781665696733,
+          "source_vertex_component": 4253,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604681181328353e-05,
+          "area_share": 3.949805536002946e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966757766117943,
+          "source_vertex_component": 4239,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6045895266125595e-05,
+          "area_share": 3.949705105955008e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796655519871125,
+          "source_vertex_component": 6242,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6045856654393355e-05,
+          "area_share": 3.949700875100015e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796654666507673,
+          "source_vertex_component": 6256,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6045758229516416e-05,
+          "area_share": 3.949690090259296e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966524912053,
+          "source_vertex_component": 6246,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6045377543791794e-05,
+          "area_share": 3.949648376873092e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966440776153027,
+          "source_vertex_component": 6260,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6044269133672084e-05,
+          "area_share": 3.9495269235681605e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966195804836979,
+          "source_vertex_component": 4207,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6044269133672084e-05,
+          "area_share": 3.9495269235681605e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966195804836979,
+          "source_vertex_component": 6235,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.60442685993222e-05,
+          "area_share": 3.949526865017126e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966195686739543,
+          "source_vertex_component": 4221,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.60442685993222e-05,
+          "area_share": 3.949526865017126e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007966195686739543,
+          "source_vertex_component": 6227,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604305465081999e-05,
+          "area_share": 3.949393847413813e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796592739023366,
+          "source_vertex_component": 4261,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604291990366311e-05,
+          "area_share": 3.949379082583321e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965897609570559,
+          "source_vertex_component": 4243,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604286941862283e-05,
+          "area_share": 3.949373550718461e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965886451799136,
+          "source_vertex_component": 6254,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604275282806836e-05,
+          "area_share": 3.949360775385656e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965860683952868,
+          "source_vertex_component": 6264,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604257839165633e-05,
+          "area_share": 3.949341661631311e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965822131510354,
+          "source_vertex_component": 4249,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6042554306377814e-05,
+          "area_share": 3.949339022502866e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00796581680838828,
+          "source_vertex_component": 4235,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.60424722706801e-05,
+          "area_share": 3.949330033495609e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965798677560643,
+          "source_vertex_component": 4210,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.60424722706801e-05,
+          "area_share": 3.949330033495609e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965798677560643,
+          "source_vertex_component": 6238,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604246293376762e-05,
+          "area_share": 3.949329010409606e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965796613996176,
+          "source_vertex_component": 4224,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604246293376762e-05,
+          "area_share": 3.949329010409606e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965796613996176,
+          "source_vertex_component": 6224,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.604225462276949e-05,
+          "area_share": 3.949306184869919e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965750574882626,
+          "source_vertex_component": 6251,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6041706645460865e-05,
+          "area_share": 3.94924614061917e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965629465628867,
+          "source_vertex_component": 4240,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6041480482190563e-05,
+          "area_share": 3.949221358928581e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965579480958948,
+          "source_vertex_component": 4254,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6041335340010896e-05,
+          "area_share": 3.9492054550703505e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965547402876897,
+          "source_vertex_component": 6267,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6039254492944816e-05,
+          "area_share": 3.94897744763092e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965087511871565,
+          "source_vertex_component": 4218,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.6039254492944816e-05,
+          "area_share": 3.94897744763092e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965087511871565,
+          "source_vertex_component": 6230,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.603925101604572e-05,
+          "area_share": 3.948977066652004e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965086743437093,
+          "source_vertex_component": 4230,
+          "vertices": 3
+        },
+        {
+          "area_m2": 3.603925101604572e-05,
+          "area_share": 3.948977066652004e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.007965086743437093,
+          "source_vertex_component": 6216,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.8229262872098414e-05,
+          "area_share": 3.093202787171544e-06,
+          "faces": 64,
+          "fractional_area_quota": 0.006238990021725004,
+          "source_vertex_component": 2688,
+          "vertices": 66
+        }
+      ],
+      "lumped_area_m2": {
+        "max": 0.026765211822378645,
+        "min": 1.4699995645508132e-07,
+        "p10": 3.197107861773062e-05,
+        "p50": 0.0009272130880641248,
+        "p90": 0.0025705932100783552,
+        "p99": 0.009587011946986902
+      },
+      "material": "coat",
+      "material_slot": 0,
+      "max_position_multiplicity": 32,
+      "maximum_nominal_inclusion_mass": 5.915417991811115,
+      "nominal_inclusion_mass_over_one": 361,
+      "nominal_sqrt_area_per_tuft_m": 0.06726553851679898,
+      "requested_tufts": 2017,
+      "selected_fraction_of_vertex_capacity": 0.28492724961152704,
+      "unique_exact_positions": 5640
+    },
+    {
+      "alias_examples": [
+        {
+          "max_normal_angle_degrees": 0.0,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            9783,
+            9784
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 0.0,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            9785,
+            9786
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 0.0,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            9781,
+            9782
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 8.537736462515939e-07,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            9787,
+            9788
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 8.537736462515939e-07,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            9779,
+            9780
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 0.0,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            9789,
+            9790
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 0.0,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            9777,
+            9778
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 8.537736462515939e-07,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            9791,
+            9792
+          ]
+        }
+      ],
+      "all_candidate_face_centroid_nearest_own_corner_m": {
+        "max": 0.08907698662899793,
+        "min": 0.001747794859717983,
+        "p10": 0.010091819235498116,
+        "p50": 0.015213683040939075,
+        "p90": 0.058344661851640556,
+        "p99": 0.08526848612881714
+      },
+      "area_m2": 2.3809593710790016,
+      "coincident_groups": 231,
+      "coincident_normal_split_groups_over_1deg": 25,
+      "coincident_skin_split_groups": 0,
+      "coincident_uv_seam_groups": 192,
+      "coincident_vertex_instances": 849,
+      "distinct_position_capacity_pass": true,
+      "duplicate_position_excess": 618,
+      "edge_length_m": {
+        "max": 0.27000001072883606,
+        "min": 0.001118680789161653,
+        "p10": 0.011715385072660985,
+        "p50": 0.028333937805913492,
+        "p90": 0.044261991965717076,
+        "p99": 0.18300060470993762
+      },
+      "eligible_faces": 6496,
+      "eligible_vertices": 3876,
+      "grid_area_fraction_without_own_cell_vertex": 0.009002859457902532,
+      "grid_cells_quota_exceeds_vertex_capacity": 1,
+      "grid_centroid_area_cells": 42,
+      "index_capacity_pass": true,
+      "indexed_components": [
+        {
+          "area_m2": 0.6741947806538942,
+          "area_share": 0.28316097655558187,
+          "faces": 2160,
+          "fractional_area_quota": 149.22583464479166,
+          "source_vertex_component": 7869,
+          "vertices": 1187
+        },
+        {
+          "area_m2": 0.5456624745517464,
+          "area_share": 0.229177566480046,
+          "faces": 1600,
+          "fractional_area_quota": 120.77657753498426,
+          "source_vertex_component": 8383,
+          "vertices": 861
+        },
+        {
+          "area_m2": 0.32919155869161304,
+          "area_share": 0.13826004873927364,
+          "faces": 168,
+          "fractional_area_quota": 72.8630456855972,
+          "source_vertex_component": 10751,
+          "vertices": 116
+        },
+        {
+          "area_m2": 0.30149765141031815,
+          "area_share": 0.12662864182923275,
+          "faces": 1216,
+          "fractional_area_quota": 66.73329424400566,
+          "source_vertex_component": 10015,
+          "vertices": 691
+        },
+        {
+          "area_m2": 0.30149765113195226,
+          "area_share": 0.1266286417123194,
+          "faces": 1216,
+          "fractional_area_quota": 66.73329418239233,
+          "source_vertex_component": 9324,
+          "vertices": 691
+        },
+        {
+          "area_m2": 0.0037260728734997838,
+          "area_share": 0.001564946012418181,
+          "faces": 1,
+          "fractional_area_quota": 0.8247265485443814,
+          "source_vertex_component": 10911,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037260725882708214,
+          "area_share": 0.0015649458926223685,
+          "faces": 1,
+          "fractional_area_quota": 0.8247264854119882,
+          "source_vertex_component": 10914,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003726070810560327,
+          "area_share": 0.001564945145986153,
+          "faces": 1,
+          "fractional_area_quota": 0.8247260919347026,
+          "source_vertex_component": 10900,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037260705253323065,
+          "area_share": 0.001564945026190736,
+          "faces": 1,
+          "fractional_area_quota": 0.8247260288025179,
+          "source_vertex_component": 10921,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037260465239286546,
+          "area_share": 0.0015649349456307972,
+          "faces": 1,
+          "fractional_area_quota": 0.8247207163474302,
+          "source_vertex_component": 10903,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037260457927226795,
+          "area_share": 0.0015649346385251893,
+          "faces": 1,
+          "fractional_area_quota": 0.8247205545027748,
+          "source_vertex_component": 10924,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003726045620384093,
+          "area_share": 0.0015649345661431955,
+          "faces": 1,
+          "fractional_area_quota": 0.824720516357464,
+          "source_vertex_component": 10908,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003726044889178432,
+          "area_share": 0.0015649342590377195,
+          "faces": 1,
+          "fractional_area_quota": 0.8247203545128782,
+          "source_vertex_component": 10917,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037260375976748065,
+          "area_share": 0.0015649311966151875,
+          "faces": 1,
+          "fractional_area_quota": 0.8247187406162039,
+          "source_vertex_component": 10907,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037260373960020824,
+          "area_share": 0.0015649311119128922,
+          "faces": 1,
+          "fractional_area_quota": 0.8247186959780942,
+          "source_vertex_component": 10904,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003726036782554926,
+          "area_share": 0.001564930854265843,
+          "faces": 1,
+          "fractional_area_quota": 0.8247185601980992,
+          "source_vertex_component": 10918,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003726036580882202,
+          "area_share": 0.0015649307695635474,
+          "faces": 1,
+          "fractional_area_quota": 0.8247185155599895,
+          "source_vertex_component": 10925,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003725987327789671,
+          "area_share": 0.001564910083325416,
+          "faces": 1,
+          "fractional_area_quota": 0.8247076139124943,
+          "source_vertex_component": 10906,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259864696580496,
+          "area_share": 0.0015649097229111933,
+          "faces": 1,
+          "fractional_area_quota": 0.8247074239741989,
+          "source_vertex_component": 10919,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003725984600867533,
+          "area_share": 0.0015649089380214809,
+          "faces": 1,
+          "fractional_area_quota": 0.8247070103373203,
+          "source_vertex_component": 10905,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259837427365402,
+          "area_share": 0.001564908577607522,
+          "faces": 1,
+          "fractional_area_quota": 0.824706820399164,
+          "source_vertex_component": 10926,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259828417365824,
+          "area_share": 0.0015649081991886507,
+          "faces": 1,
+          "fractional_area_quota": 0.8247066209724189,
+          "source_vertex_component": 10901,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259825086716127,
+          "area_share": 0.001564908059301774,
+          "faces": 1,
+          "fractional_area_quota": 0.824706547252035,
+          "source_vertex_component": 10910,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003725982382293615,
+          "area_share": 0.0015649080062231707,
+          "faces": 1,
+          "fractional_area_quota": 0.8247065192796109,
+          "source_vertex_component": 10922,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259820492289595,
+          "area_share": 0.0015649078663364261,
+          "faces": 1,
+          "fractional_area_quota": 0.8247064455592965,
+          "source_vertex_component": 10915,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003725965943799143,
+          "area_share": 0.0015649011020757622,
+          "faces": 1,
+          "fractional_area_quota": 0.8247028807939266,
+          "source_vertex_component": 10912,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259650336152884,
+          "area_share": 0.0015649007197996655,
+          "faces": 1,
+          "fractional_area_quota": 0.8247026793344238,
+          "source_vertex_component": 10899,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003725962087364221,
+          "area_share": 0.0015648994823778501,
+          "faces": 1,
+          "fractional_area_quota": 0.824702027213127,
+          "source_vertex_component": 10913,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003725961177181309,
+          "area_share": 0.0015648991001021492,
+          "faces": 1,
+          "fractional_area_quota": 0.8247018257538327,
+          "source_vertex_component": 10920,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259222789690254,
+          "area_share": 0.0015648827629009539,
+          "faces": 1,
+          "fractional_area_quota": 0.8246932160488026,
+          "source_vertex_component": 10909,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259216683453093,
+          "area_share": 0.0015648825064397461,
+          "faces": 1,
+          "fractional_area_quota": 0.8246930808937462,
+          "source_vertex_component": 10916,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259209970934154,
+          "area_share": 0.0015648822245147782,
+          "faces": 1,
+          "fractional_area_quota": 0.8246929323192881,
+          "source_vertex_component": 10902,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0037259203864700133,
+          "area_share": 0.0015648819680537023,
+          "faces": 1,
+          "fractional_area_quota": 0.8246927971643011,
+          "source_vertex_component": 10923,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062258786924302,
+          "area_share": 0.0012861449145755686,
+          "faces": 1,
+          "fractional_area_quota": 0.6777983699813247,
+          "source_vertex_component": 9270,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062258786924302,
+          "area_share": 0.0012861449145755686,
+          "faces": 1,
+          "fractional_area_quota": 0.6777983699813247,
+          "source_vertex_component": 9280,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030622487995621635,
+          "area_share": 0.0012861407198957854,
+          "faces": 1,
+          "fractional_area_quota": 0.677796159385079,
+          "source_vertex_component": 9254,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030622487995621635,
+          "area_share": 0.0012861407198957854,
+          "faces": 1,
+          "fractional_area_quota": 0.677796159385079,
+          "source_vertex_component": 9261,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030622487927917624,
+          "area_share": 0.0012861407170522252,
+          "faces": 1,
+          "fractional_area_quota": 0.6777961578865227,
+          "source_vertex_component": 9274,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030622487927917624,
+          "area_share": 0.0012861407170522252,
+          "faces": 1,
+          "fractional_area_quota": 0.6777961578865227,
+          "source_vertex_component": 9284,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062243489231197,
+          "area_share": 0.0012861384895633274,
+          "faces": 1,
+          "fractional_area_quota": 0.6777949839998735,
+          "source_vertex_component": 9250,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062243489231197,
+          "area_share": 0.0012861384895633274,
+          "faces": 1,
+          "fractional_area_quota": 0.6777949839998735,
+          "source_vertex_component": 9265,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030622293349014326,
+          "area_share": 0.0012861325447622795,
+          "faces": 1,
+          "fractional_area_quota": 0.6777918510897212,
+          "source_vertex_component": 9248,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030622293349014326,
+          "area_share": 0.0012861325447622795,
+          "faces": 1,
+          "fractional_area_quota": 0.6777918510897212,
+          "source_vertex_component": 9267,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062229284261873,
+          "area_share": 0.0012861325234937268,
+          "faces": 1,
+          "fractional_area_quota": 0.677791839881194,
+          "source_vertex_component": 9268,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062229284261873,
+          "area_share": 0.0012861325234937268,
+          "faces": 1,
+          "fractional_area_quota": 0.677791839881194,
+          "source_vertex_component": 9278,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00306222540395105,
+          "area_share": 0.0012861308937679658,
+          "faces": 1,
+          "fractional_area_quota": 0.677790981015718,
+          "source_vertex_component": 9276,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00306222540395105,
+          "area_share": 0.0012861308937679658,
+          "faces": 1,
+          "fractional_area_quota": 0.677790981015718,
+          "source_vertex_component": 9286,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030622204245081036,
+          "area_share": 0.0012861288024080683,
+          "faces": 1,
+          "fractional_area_quota": 0.677789878869052,
+          "source_vertex_component": 9256,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030622204245081036,
+          "area_share": 0.0012861288024080683,
+          "faces": 1,
+          "fractional_area_quota": 0.677789878869052,
+          "source_vertex_component": 9259,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062211735534739,
+          "area_share": 0.0012861251530499691,
+          "faces": 1,
+          "fractional_area_quota": 0.6777879556573337,
+          "source_vertex_component": 9272,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062211735534739,
+          "area_share": 0.0012861251530499691,
+          "faces": 1,
+          "fractional_area_quota": 0.6777879556573337,
+          "source_vertex_component": 9282,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621987250667652,
+          "area_share": 0.0012861196886694627,
+          "faces": 1,
+          "fractional_area_quota": 0.6777850759288068,
+          "source_vertex_component": 9252,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621987250667652,
+          "area_share": 0.0012861196886694627,
+          "faces": 1,
+          "fractional_area_quota": 0.6777850759288068,
+          "source_vertex_component": 9263,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062195744346912,
+          "area_share": 0.0012861184367707998,
+          "faces": 1,
+          "fractional_area_quota": 0.6777844161782115,
+          "source_vertex_component": 9251,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062195744346912,
+          "area_share": 0.0012861184367707998,
+          "faces": 1,
+          "fractional_area_quota": 0.6777844161782115,
+          "source_vertex_component": 9264,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621906347859658,
+          "area_share": 0.0012861162907615027,
+          "faces": 1,
+          "fractional_area_quota": 0.6777832852313119,
+          "source_vertex_component": 9253,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621906347859658,
+          "area_share": 0.0012861162907615027,
+          "faces": 1,
+          "fractional_area_quota": 0.6777832852313119,
+          "source_vertex_component": 9262,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062182724576965,
+          "area_share": 0.001286112968483476,
+          "faces": 1,
+          "fractional_area_quota": 0.6777815343907919,
+          "source_vertex_component": 9271,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062182724576965,
+          "area_share": 0.001286112968483476,
+          "faces": 1,
+          "fractional_area_quota": 0.6777815343907919,
+          "source_vertex_component": 9281,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00306218117236631,
+          "area_share": 0.0012861123165569149,
+          "faces": 1,
+          "fractional_area_quota": 0.6777811908254942,
+          "source_vertex_component": 9273,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.00306218117236631,
+          "area_share": 0.0012861123165569149,
+          "faces": 1,
+          "fractional_area_quota": 0.6777811908254942,
+          "source_vertex_component": 9283,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621796976390077,
+          "area_share": 0.0012861116971732663,
+          "faces": 1,
+          "fractional_area_quota": 0.6777808644103114,
+          "source_vertex_component": 9255,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621796976390077,
+          "area_share": 0.0012861116971732663,
+          "faces": 1,
+          "fractional_area_quota": 0.6777808644103114,
+          "source_vertex_component": 9260,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621796903030855,
+          "area_share": 0.0012861116940921882,
+          "faces": 1,
+          "fractional_area_quota": 0.6777808627865831,
+          "source_vertex_component": 9275,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621796903030855,
+          "area_share": 0.0012861116940921882,
+          "faces": 1,
+          "fractional_area_quota": 0.6777808627865831,
+          "source_vertex_component": 9285,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062178974607621,
+          "area_share": 0.0012861113935009757,
+          "faces": 1,
+          "fractional_area_quota": 0.6777807043750141,
+          "source_vertex_component": 9277,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062178974607621,
+          "area_share": 0.0012861113935009757,
+          "faces": 1,
+          "fractional_area_quota": 0.6777807043750141,
+          "source_vertex_component": 9287,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621789746071485,
+          "area_share": 0.001286111393500777,
+          "faces": 1,
+          "fractional_area_quota": 0.6777807043749096,
+          "source_vertex_component": 9257,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.0030621789746071485,
+          "area_share": 0.001286111393500777,
+          "faces": 1,
+          "fractional_area_quota": 0.6777807043749096,
+          "source_vertex_component": 9258,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062150515714851,
+          "area_share": 0.0012860994408011035,
+          "faces": 1,
+          "fractional_area_quota": 0.6777744053021816,
+          "source_vertex_component": 9249,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062150515714851,
+          "area_share": 0.0012860994408011035,
+          "faces": 1,
+          "fractional_area_quota": 0.6777744053021816,
+          "source_vertex_component": 9266,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062150513862189,
+          "area_share": 0.0012860994400229876,
+          "faces": 1,
+          "fractional_area_quota": 0.6777744048921145,
+          "source_vertex_component": 9269,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.003062150513862189,
+          "area_share": 0.0012860994400229876,
+          "faces": 1,
+          "fractional_area_quota": 0.6777744048921145,
+          "source_vertex_component": 9279,
+          "vertices": 3
+        },
+        {
+          "area_m2": 0.002021175628030422,
+          "area_share": 0.0008488912715526376,
+          "faces": 40,
+          "fractional_area_quota": 0.44736570010824,
+          "source_vertex_component": 9288,
+          "vertices": 42
+        },
+        {
+          "area_m2": 2.7836177945597574e-06,
+          "area_share": 1.1691160413620494e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006161241537978001,
+          "source_vertex_component": 10927,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7832358066584093e-06,
+          "area_share": 1.1689556069144954e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.000616039604843939,
+          "source_vertex_component": 10941,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.78304907577049e-06,
+          "area_share": 1.1688771801718187e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006159982739505484,
+          "source_vertex_component": 10949,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7827501808903493e-06,
+          "area_share": 1.1687516446907133e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006159321167520059,
+          "source_vertex_component": 10939,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.782654668703389e-06,
+          "area_share": 1.1687115296899616e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006159109761466097,
+          "source_vertex_component": 10937,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.782557796023227e-06,
+          "area_share": 1.1686708432837428e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006158895344105325,
+          "source_vertex_component": 10951,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7822899755453937e-06,
+          "area_share": 1.1685583590132903e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.000615830255200004,
+          "source_vertex_component": 10931,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.782242377853861e-06,
+          "area_share": 1.168538368041537e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.00061581971995789,
+          "source_vertex_component": 10929,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7821802589750226e-06,
+          "area_share": 1.1685122781890209e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.000615805970605614,
+          "source_vertex_component": 10945,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7821355498583113e-06,
+          "area_share": 1.168493500415131e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006157960747187741,
+          "source_vertex_component": 10947,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.782113111317912e-06,
+          "area_share": 1.1684840762558312e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006157911081868231,
+          "source_vertex_component": 10933,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7820428369001823e-06,
+          "area_share": 1.168454561087037e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006157755536928685,
+          "source_vertex_component": 10943,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.782012363498461e-06,
+          "area_share": 1.1684417622958893e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006157688087299338,
+          "source_vertex_component": 10934,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.782000199465044e-06,
+          "area_share": 1.1684366534168533e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006157661163506816,
+          "source_vertex_component": 10954,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.781784405790471e-06,
+          "area_share": 1.1683460203396178e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006157183527189786,
+          "source_vertex_component": 10953,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7816153725682054e-06,
+          "area_share": 1.1682750265946935e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006156809390154035,
+          "source_vertex_component": 10952,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.781580157222217e-06,
+          "area_share": 1.1682602361928009e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.000615673144473606,
+          "source_vertex_component": 10935,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.781518758372667e-06,
+          "area_share": 1.168234448751698e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006156595544921449,
+          "source_vertex_component": 10936,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.78142248575843e-06,
+          "area_share": 1.1681940143724279e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006156382455742695,
+          "source_vertex_component": 10932,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7813778063198154e-06,
+          "area_share": 1.168175249063302e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006156283562563601,
+          "source_vertex_component": 10946,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.78082186736703e-06,
+          "area_share": 1.1679417553886353e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006155053050898108,
+          "source_vertex_component": 10942,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7804719702663432e-06,
+          "area_share": 1.167794799037789e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006154278590929149,
+          "source_vertex_component": 10928,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7804400388246788e-06,
+          "area_share": 1.1677813878716632e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006154207914083665,
+          "source_vertex_component": 10944,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.780152208661354e-06,
+          "area_share": 1.167660499557977e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006153570832670539,
+          "source_vertex_component": 10930,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.779393431631625e-06,
+          "area_share": 1.1673418141411046e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.000615189136052362,
+          "source_vertex_component": 10940,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7791292378235094e-06,
+          "area_share": 1.1672308530674613e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006151306595665522,
+          "source_vertex_component": 10948,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.779091020434482e-06,
+          "area_share": 1.167214801811194e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006151222005544993,
+          "source_vertex_component": 10938,
+          "vertices": 3
+        },
+        {
+          "area_m2": 2.7790147918306814e-06,
+          "area_share": 1.167182785891592e-06,
+          "faces": 1,
+          "fractional_area_quota": 0.0006151053281648689,
+          "source_vertex_component": 10950,
+          "vertices": 3
+        }
+      ],
+      "lumped_area_m2": {
+        "max": 0.005424756569102556,
+        "min": 9.263382639435604e-07,
+        "p10": 4.055261748717035e-05,
+        "p50": 0.0005327782410843849,
+        "p90": 0.001241974092989675,
+        "p99": 0.003324000383958871
+      },
+      "material": "cream",
+      "material_slot": 1,
+      "max_position_multiplicity": 40,
+      "maximum_nominal_inclusion_mass": 1.2007120938907396,
+      "nominal_inclusion_mass_over_one": 27,
+      "nominal_sqrt_area_per_tuft_m": 0.06721569363428562,
+      "requested_tufts": 527,
+      "selected_fraction_of_vertex_capacity": 0.13596491228070176,
+      "unique_exact_positions": 3258
+    },
+    {
+      "alias_examples": [
+        {
+          "max_normal_angle_degrees": 0.0,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            19497,
+            19498
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 0.0,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            21536,
+            21537
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 0.0,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            19499,
+            19500
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 0.0,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            19495,
+            19496
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 8.537736462515939e-07,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            21538,
+            21539
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 8.537736462515939e-07,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            21534,
+            21535
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 8.537736462515939e-07,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            19501,
+            19502
+          ]
+        },
+        {
+          "max_normal_angle_degrees": 8.537736462515939e-07,
+          "skin_variants": 1,
+          "uv_variants": 2,
+          "vertices": [
+            19493,
+            19494
+          ]
+        }
+      ],
+      "all_candidate_face_centroid_nearest_own_corner_m": {
+        "max": 0.017326784917170657,
+        "min": 0.0029383659304461655,
+        "p10": 0.0069531972494234675,
+        "p50": 0.011292625207394665,
+        "p90": 0.015337958685904934,
+        "p99": 0.017140345029265272
+      },
+      "area_m2": 2.0608908497075507,
+      "coincident_groups": 282,
+      "coincident_normal_split_groups_over_1deg": 0,
+      "coincident_skin_split_groups": 0,
+      "coincident_uv_seam_groups": 282,
+      "coincident_vertex_instances": 1260,
+      "distinct_position_capacity_pass": true,
+      "duplicate_position_excess": 978,
+      "edge_length_m": {
+        "max": 0.05106096909043587,
+        "min": 0.003017890747207432,
+        "p10": 0.010298613421657518,
+        "p50": 0.01960704170336396,
+        "p90": 0.03474717262681419,
+        "p99": 0.0465248409712503
+      },
+      "eligible_faces": 11520,
+      "eligible_vertices": 6774,
+      "grid_area_fraction_without_own_cell_vertex": 0.0,
+      "grid_cells_quota_exceeds_vertex_capacity": 0,
+      "grid_centroid_area_cells": 28,
+      "index_capacity_pass": true,
+      "indexed_components": [
+        {
+          "area_m2": 0.39847338239732355,
+          "area_share": 0.1933500662851061,
+          "faces": 1216,
+          "fractional_area_quota": 88.16763022600838,
+          "source_vertex_component": 24460,
+          "vertices": 691
+        },
+        {
+          "area_m2": 0.3984733817284659,
+          "area_share": 0.1933500659605583,
+          "faces": 1216,
+          "fractional_area_quota": 88.16763007801457,
+          "source_vertex_component": 21073,
+          "vertices": 691
+        },
+        {
+          "area_m2": 0.2796471849038869,
+          "area_share": 0.13569238028475405,
+          "faces": 1216,
+          "fractional_area_quota": 61.87572540984785,
+          "source_vertex_component": 20382,
+          "vertices": 691
+        },
+        {
+          "area_m2": 0.2796471831592665,
+          "area_share": 0.13569237943821705,
+          "faces": 1216,
+          "fractional_area_quota": 61.87572502382697,
+          "source_vertex_component": 23769,
+          "vertices": 691
+        },
+        {
+          "area_m2": 0.1612516622513993,
+          "area_share": 0.07824366936962315,
+          "faces": 1216,
+          "fractional_area_quota": 35.679113232548154,
+          "source_vertex_component": 19034,
+          "vertices": 691
+        },
+        {
+          "area_m2": 0.1612516605074576,
+          "area_share": 0.07824366852341545,
+          "faces": 1216,
+          "fractional_area_quota": 35.67911284667745,
+          "source_vertex_component": 22421,
+          "vertices": 691
+        },
+        {
+          "area_m2": 0.03935980447539256,
+          "area_share": 0.019098442055278126,
+          "faces": 352,
+          "fractional_area_quota": 8.708889577206826,
+          "source_vertex_component": 22084,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.039359803943983876,
+          "area_share": 0.019098441797424256,
+          "faces": 352,
+          "fractional_area_quota": 8.708889459625462,
+          "source_vertex_component": 25252,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.039359803881899434,
+          "area_share": 0.019098441767299204,
+          "faces": 352,
+          "fractional_area_quota": 8.708889445888438,
+          "source_vertex_component": 25690,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.03935980388189943,
+          "area_share": 0.0190984417672992,
+          "faces": 352,
+          "fractional_area_quota": 8.708889445888436,
+          "source_vertex_component": 21865,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.039359803823906234,
+          "area_share": 0.019098441739159335,
+          "faces": 352,
+          "fractional_area_quota": 8.708889433056656,
+          "source_vertex_component": 25471,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.039359803823887506,
+          "area_share": 0.01909844173915025,
+          "faces": 352,
+          "fractional_area_quota": 8.708889433052512,
+          "source_vertex_component": 22303,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.02433126265784922,
+          "area_share": 0.011806186951289502,
+          "faces": 352,
+          "fractional_area_quota": 5.383621249788013,
+          "source_vertex_component": 23213,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.024331262133728528,
+          "area_share": 0.011806186696971963,
+          "faces": 352,
+          "fractional_area_quota": 5.383621133819214,
+          "source_vertex_component": 20264,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.024331261534301124,
+          "area_share": 0.011806186406113568,
+          "faces": 352,
+          "fractional_area_quota": 5.383621001187787,
+          "source_vertex_component": 19826,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.024331261534301124,
+          "area_share": 0.011806186406113568,
+          "faces": 352,
+          "fractional_area_quota": 5.383621001187787,
+          "source_vertex_component": 20045,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.024331261534301124,
+          "area_share": 0.011806186406113568,
+          "faces": 352,
+          "fractional_area_quota": 5.383621001187787,
+          "source_vertex_component": 23432,
+          "vertices": 219
+        },
+        {
+          "area_m2": 0.024331261534301124,
+          "area_share": 0.011806186406113568,
+          "faces": 352,
+          "fractional_area_quota": 5.383621001187787,
+          "source_vertex_component": 23651,
+          "vertices": 219
+        }
+      ],
+      "lumped_area_m2": {
+        "max": 0.0009555819265034404,
+        "min": 5.907614540333469e-06,
+        "p10": 2.6748215191392356e-05,
+        "p50": 0.00023428084755824376,
+        "p90": 0.0007303350506412166,
+        "p99": 0.0009181056994221266
+      },
+      "material": "dark",
+      "material_slot": 7,
+      "max_position_multiplicity": 32,
+      "maximum_nominal_inclusion_mass": 0.21143543751839303,
+      "nominal_inclusion_mass_over_one": 0,
+      "nominal_sqrt_area_per_tuft_m": 0.06722720786578035,
+      "requested_tufts": 456,
+      "selected_fraction_of_vertex_capacity": 0.06731620903454384,
+      "unique_exact_positions": 5796
+    }
+  ],
+  "measurement_scope": "Capacity, seams and topology only; no new roots selected, images decoded or geometry generated.",
+  "schema_version": 1,
+  "self_peak_rss_bytes": 111738880,
+  "source_binding": {
+    "coordinate_space": "Blender Z-up XYZ meters; exact glTF x,y,z -> x,-z,y",
+    "exact_native_array_binding": true,
+    "faces_sha256": "fea82716308897679295d99608e98b7e849212eb7d5cf53252fd3be1aa23ced9",
+    "native_faces_sha256": "fea82716308897679295d99608e98b7e849212eb7d5cf53252fd3be1aa23ced9",
+    "native_positions_sha256": "0f3c160fd70346d85210c26f87f7836379377d81fe03951a4863a2afd1f199c2",
+    "native_slots_sha256": "87b2c5966c2b5eec0fc73479916b3d814308712df7ae50c2a07f6ed207489930",
+    "node_mesh_bindings": [
+      {
+        "mesh": 0,
+        "name": "fox-hd-v3_skinned_mesh",
+        "skin": 0
+      }
+    ],
+    "primitive_ranges": [
+      {
+        "face_count": 11200,
+        "face_start": 0,
+        "gltf_material_index": 0,
+        "material": "coat",
+        "native_material_slot": 0,
+        "primitive": 0,
+        "vertex_count": 7079,
+        "vertex_start": 0
+      },
+      {
+        "face_count": 6496,
+        "face_start": 11200,
+        "gltf_material_index": 2,
+        "material": "cream",
+        "native_material_slot": 1,
+        "primitive": 1,
+        "vertex_count": 3876,
+        "vertex_start": 7079
+      },
+      {
+        "face_count": 3824,
+        "face_start": 17696,
+        "gltf_material_index": 4,
+        "material": "nose",
+        "native_material_slot": 2,
+        "primitive": 2,
+        "vertex_count": 2212,
+        "vertex_start": 10955
+      },
+      {
+        "face_count": 5024,
+        "face_start": 21520,
+        "gltf_material_index": 5,
+        "material": "eye_white",
+        "native_material_slot": 3,
+        "primitive": 3,
+        "vertex_count": 2812,
+        "vertex_start": 13167
+      },
+      {
+        "face_count": 2432,
+        "face_start": 26544,
+        "gltf_material_index": 6,
+        "material": "iris",
+        "native_material_slot": 4,
+        "primitive": 4,
+        "vertex_count": 1382,
+        "vertex_start": 15979
+      },
+      {
+        "face_count": 2432,
+        "face_start": 28976,
+        "gltf_material_index": 7,
+        "material": "pupil",
+        "native_material_slot": 5,
+        "primitive": 5,
+        "vertex_count": 1382,
+        "vertex_start": 17361
+      },
+      {
+        "face_count": 320,
+        "face_start": 31408,
+        "gltf_material_index": 8,
+        "material": "ear_inner",
+        "native_material_slot": 6,
+        "primitive": 6,
+        "vertex_count": 256,
+        "vertex_start": 18743
+      },
+      {
+        "face_count": 11520,
+        "face_start": 31728,
+        "gltf_material_index": 9,
+        "material": "dark",
+        "native_material_slot": 7,
+        "primitive": 7,
+        "vertex_count": 6774,
+        "vertex_start": 18999
+      },
+      {
+        "face_count": 2320,
+        "face_start": 43248,
+        "gltf_material_index": 11,
+        "material": "scarf",
+        "native_material_slot": 8,
+        "primitive": 8,
+        "vertex_count": 1433,
+        "vertex_start": 25773
+      },
+      {
+        "face_count": 612,
+        "face_start": 45568,
+        "gltf_material_index": 12,
+        "material": "scarf_seam",
+        "native_material_slot": 9,
+        "primitive": 9,
+        "vertex_count": 523,
+        "vertex_start": 27206
+      },
+      {
+        "face_count": 296,
+        "face_start": 46180,
+        "gltf_material_index": 13,
+        "material": "book",
+        "native_material_slot": 10,
+        "primitive": 10,
+        "vertex_count": 864,
+        "vertex_start": 27729
+      },
+      {
+        "face_count": 188,
+        "face_start": 46476,
+        "gltf_material_index": 14,
+        "material": "paper",
+        "native_material_slot": 11,
+        "primitive": 11,
+        "vertex_count": 551,
+        "vertex_start": 28593
+      },
+      {
+        "face_count": 84,
+        "face_start": 46664,
+        "gltf_material_index": 15,
+        "material": "page_edge",
+        "native_material_slot": 12,
+        "primitive": 12,
+        "vertex_count": 168,
+        "vertex_start": 29144
+      },
+      {
+        "face_count": 952,
+        "face_start": 46748,
+        "gltf_material_index": 16,
+        "material": "gold",
+        "native_material_slot": 13,
+        "primitive": 13,
+        "vertex_count": 1024,
+        "vertex_start": 29312
+      },
+      {
+        "face_count": 46,
+        "face_start": 47700,
+        "gltf_material_index": 17,
+        "material": "pencil_wood",
+        "native_material_slot": 14,
+        "primitive": 14,
+        "vertex_count": 49,
+        "vertex_start": 30336
+      },
+      {
+        "face_count": 30,
+        "face_start": 47746,
+        "gltf_material_index": 18,
+        "material": "graphite",
+        "native_material_slot": 15,
+        "primitive": 15,
+        "vertex_count": 33,
+        "vertex_start": 30385
+      }
+    ],
+    "slots_sha256": "87b2c5966c2b5eec0fc73479916b3d814308712df7ae50c2a07f6ed207489930",
+    "source_positions_sha256": "0f3c160fd70346d85210c26f87f7836379377d81fe03951a4863a2afd1f199c2",
+    "triangles": 47776,
+    "vertices": 30418,
+    "zero_canonical_positions_sha256": "0f3c160fd70346d85210c26f87f7836379377d81fe03951a4863a2afd1f199c2"
+  },
+  "source_tuft_settings": {
+    "direction": [
+      0,
+      0,
+      -1
+    ],
+    "length": 0.0192,
+    "profile": "tuft-v1",
+    "sample_root_color": true,
+    "seed": 901,
+    "width": 0.004
+  },
+  "status": "measured",
+  "unchanged_requested_tuft_count": 3000
+}

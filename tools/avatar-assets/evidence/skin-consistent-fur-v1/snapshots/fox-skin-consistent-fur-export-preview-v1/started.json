@@ -1,0 +1,30 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-export-preview-v1/sources/blender_provider_preview.py",
+    "--",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-export-preview-v1/original.glb",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-export-preview-v1",
+    "720",
+    "16",
+    "false"
+  ],
+  "limits": {
+    "native_sampled_rss_mib": 2048,
+    "native_seconds": 120,
+    "output_mib": 128,
+    "resolution": 720,
+    "samples": 16,
+    "views": 4
+  },
+  "model_sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80",
+  "prepared_sha256": "9bba9edbbe06d9926607a3f102ff2563540b989f89bfe5000649310649c98837"
+}

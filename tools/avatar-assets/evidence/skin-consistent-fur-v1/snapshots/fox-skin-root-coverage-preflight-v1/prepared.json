@@ -1,0 +1,81 @@
+{
+  "allocation": "Fixed material 2017/527/456; Hamilton domain quotas, uniform-first ties, one-root transfer only if a nonempty domain would be zero.",
+  "at": "2026-11-02T08:35:32.859090-08:00",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-root-coverage-preflight-v1/census.py"
+  ],
+  "hypothesis": "Uniform named skin faces keep area-distributed interior roots; only varying faces require source vertex anchors.",
+  "inputs": [
+    {
+      "bytes": 27708644,
+      "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+      "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+    },
+    {
+      "bytes": 3294,
+      "path": "outputs/fox-material-fur-finish-v1/finish-config.json",
+      "sha256": "abf5eeb4141c1a24438554a7a50280c0ee5cdd58ff76ba1205aa7c7b0df8dcab"
+    },
+    {
+      "bytes": 28714,
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/report.json",
+      "sha256": "8eccf2b1e43c64c9beb06b5fd30ad91579e8a62596d13b906595d93ff24827f8"
+    },
+    {
+      "bytes": 2311210,
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/correspondence.npz",
+      "sha256": "8b7b59269e10cbe83eb146cc30168f9acc6c8a85e0ccde94316c416f90b78d13"
+    },
+    {
+      "bytes": 1221,
+      "path": "outputs/fox-material-fur-finish-v1/material-coat.json",
+      "sha256": "aea9260208da5fd1700c525eb576a7d9252e754cfb51268372930c070fd538cb"
+    },
+    {
+      "bytes": 4751,
+      "path": "outputs/fox-vertex-root-coverage-preflight-v1/source-binding.json",
+      "sha256": "56af6fa08d047c9c1bd2bdf8107971095e2d15216b7fc5ccdd8b3fdc26c782f2"
+    },
+    {
+      "bytes": 130433,
+      "path": "outputs/fox-vertex-root-coverage-preflight-v1/report.json",
+      "sha256": "247c442e63371d05a921a0e9bb03ccfc78c76d11c71c5c06589567c12f89c814"
+    },
+    {
+      "bytes": 2945,
+      "path": "outputs/fox-vertex-root-coverage-preflight-v1/release-manifest.json",
+      "sha256": "f32822ae868980bb77c57a5ed6e8855204db9c0263843798b1b09d8180f26e9c"
+    },
+    {
+      "bytes": 16694,
+      "path": "outputs/fox-vertex-root-coverage-preflight-v1/census.py",
+      "sha256": "370ebc05c1a6d4cbd4c68cbd5b12f1d3f1c2afdc542eaf20dfb16fa9f9b27b3c"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "no_selector_or_model_execution": true,
+  "normalization": "Sort positive named influences, math.fsum normalization, exact tuple equality, no cutoff/tolerance.",
+  "original_body_proof_reused_not_rerun": true,
+  "schema_version": 1,
+  "scripts": {
+    "census.py": "e581d28b7a103807c4a8ded80e9cc99390c1338578c8f1cacc1ea376931af421",
+    "execute.py": "a2ce775e94b3bea2e5dadf71eb75f03833f5844bcda590bc6a10145e243aa0e8"
+  }
+}

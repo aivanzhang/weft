@@ -1,0 +1,86 @@
+{
+  "at": "2026-11-02T06:30:39.197614-08:00",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-vertex-root-coverage-preflight-v1/census.py"
+  ],
+  "hypothesis": "The unchanged material tuft counts may have sufficient vertex capacity but lose spatial uniformity from coincident seams and tessellation.",
+  "inputs": [
+    {
+      "bytes": 27708644,
+      "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+      "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+    },
+    {
+      "bytes": 3294,
+      "path": "outputs/fox-material-fur-finish-v1/finish-config.json",
+      "sha256": "abf5eeb4141c1a24438554a7a50280c0ee5cdd58ff76ba1205aa7c7b0df8dcab"
+    },
+    {
+      "bytes": 28714,
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/report.json",
+      "sha256": "8eccf2b1e43c64c9beb06b5fd30ad91579e8a62596d13b906595d93ff24827f8"
+    },
+    {
+      "bytes": 2311210,
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/correspondence.npz",
+      "sha256": "8b7b59269e10cbe83eb146cc30168f9acc6c8a85e0ccde94316c416f90b78d13"
+    },
+    {
+      "bytes": 1221,
+      "path": "outputs/fox-material-fur-finish-v1/material-coat.json",
+      "sha256": "aea9260208da5fd1700c525eb576a7d9252e754cfb51268372930c070fd538cb"
+    },
+    {
+      "bytes": 31282,
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 5450,
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 23637,
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "schema_version": 1,
+  "scripts": {
+    "census.py": "370ebc05c1a6d4cbd4c68cbd5b12f1d3f1c2afdc542eaf20dfb16fa9f9b27b3c",
+    "execute.py": "4a62da52c9439975432e7920bb83f7cdefe649c20050c28fbe7b6797a5150160"
+  },
+  "settings": {
+    "ai_role_calls": 0,
+    "coordinate_conversion": "glTF x,y,z to Blender x,-z,y; optionally canonical numeric zero before hash binding",
+    "grid": [
+      6,
+      6,
+      6
+    ],
+    "native_jobs": 0,
+    "provider_calls": 0,
+    "source_id_binding": "Exact source-derived arrays against sealed native hashes",
+    "texture_decode": false,
+    "tuple_sampling": null
+  }
+}

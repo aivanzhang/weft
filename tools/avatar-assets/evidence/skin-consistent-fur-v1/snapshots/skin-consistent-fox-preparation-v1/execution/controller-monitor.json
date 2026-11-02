@@ -1,0 +1,89 @@
+{
+  "cleanup_events": [],
+  "combined_output_bytes": 106818971,
+  "cpu_exit_code": null,
+  "cpu_exit_verified": false,
+  "cpu_phases": {
+    "postprocess": {
+      "elapsed_seconds": 0.48201816622167826,
+      "limit_mib": 512,
+      "limit_seconds": 30,
+      "rss_samples": 6,
+      "sampled_peak_rss_bytes": 178208768
+    },
+    "preflight": {
+      "elapsed_seconds": 0.13995412504300475,
+      "limit_mib": 512,
+      "limit_seconds": 30,
+      "rss_samples": 2,
+      "sampled_peak_rss_bytes": 110854144
+    }
+  },
+  "cpu_pid": 94770,
+  "failure": null,
+  "native_calls": 1,
+  "native_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1/sources/blender_finish_generated.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1/finish-config.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 26.348,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 78634564,
+    "last_rss_sample_elapsed_seconds": 26.085,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "finish-monitor.json",
+    "monitor_errors": [],
+    "pid": 94785,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 101,
+    "sampled_max_output_bytes": 78634564,
+    "sampled_peak_rss_bytes": 1561853952,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "output": "outputs/fox-skin-consistent-fur-finish-v1",
+  "prepared_sha256": "4d01741dee6e82051d352e346077351845e69c11592fc759875fc59beba9ba64",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "running",
+  "worker_result": {
+    "kind": "complete",
+    "result": {
+      "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1",
+      "states": 4,
+      "status": "needs_visual_review",
+      "vertices": 62609
+    }
+  }
+}

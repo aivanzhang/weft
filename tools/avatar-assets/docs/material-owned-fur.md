@@ -4,8 +4,11 @@ The opt-in `material_fur` profile keeps each selected surface's own color image
 or constant color when adding native hair and portable tufts. The old single-image
 path and approved panda/dragon assets are unchanged. This is a compatibility and
 source-preservation improvement, not dense-fur, Muse-quality or fresh Studio acceptance.
-The separate animated fur-attachment check **fails** on the fox; this candidate
-is not an accepted animated fur delivery.
+The original animated fur-attachment check **fails** on the fox; this candidate
+is not an accepted animated fur delivery. A separate opt-in
+[skin-consistent root revision](skin-consistent-fur.md) now passes all-root sampled
+attachment without changing the source body. Its appearance and source-motion
+limitations remain; the original failed candidate and evidence below are unchanged.
 
 ## Inputs and reusable command
 

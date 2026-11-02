@@ -1,0 +1,182 @@
+{
+  "coordinate_space": "Blender Z-up XYZ meters; exact glTF x,y,z -> x,-z,y",
+  "exact_native_array_binding": true,
+  "faces_sha256": "fea82716308897679295d99608e98b7e849212eb7d5cf53252fd3be1aa23ced9",
+  "native_faces_sha256": "fea82716308897679295d99608e98b7e849212eb7d5cf53252fd3be1aa23ced9",
+  "native_positions_sha256": "0f3c160fd70346d85210c26f87f7836379377d81fe03951a4863a2afd1f199c2",
+  "native_slots_sha256": "87b2c5966c2b5eec0fc73479916b3d814308712df7ae50c2a07f6ed207489930",
+  "node_mesh_bindings": [
+    {
+      "mesh": 0,
+      "name": "fox-hd-v3_skinned_mesh",
+      "skin": 0
+    }
+  ],
+  "primitive_ranges": [
+    {
+      "face_count": 11200,
+      "face_start": 0,
+      "gltf_material_index": 0,
+      "material": "coat",
+      "native_material_slot": 0,
+      "primitive": 0,
+      "vertex_count": 7079,
+      "vertex_start": 0
+    },
+    {
+      "face_count": 6496,
+      "face_start": 11200,
+      "gltf_material_index": 2,
+      "material": "cream",
+      "native_material_slot": 1,
+      "primitive": 1,
+      "vertex_count": 3876,
+      "vertex_start": 7079
+    },
+    {
+      "face_count": 3824,
+      "face_start": 17696,
+      "gltf_material_index": 4,
+      "material": "nose",
+      "native_material_slot": 2,
+      "primitive": 2,
+      "vertex_count": 2212,
+      "vertex_start": 10955
+    },
+    {
+      "face_count": 5024,
+      "face_start": 21520,
+      "gltf_material_index": 5,
+      "material": "eye_white",
+      "native_material_slot": 3,
+      "primitive": 3,
+      "vertex_count": 2812,
+      "vertex_start": 13167
+    },
+    {
+      "face_count": 2432,
+      "face_start": 26544,
+      "gltf_material_index": 6,
+      "material": "iris",
+      "native_material_slot": 4,
+      "primitive": 4,
+      "vertex_count": 1382,
+      "vertex_start": 15979
+    },
+    {
+      "face_count": 2432,
+      "face_start": 28976,
+      "gltf_material_index": 7,
+      "material": "pupil",
+      "native_material_slot": 5,
+      "primitive": 5,
+      "vertex_count": 1382,
+      "vertex_start": 17361
+    },
+    {
+      "face_count": 320,
+      "face_start": 31408,
+      "gltf_material_index": 8,
+      "material": "ear_inner",
+      "native_material_slot": 6,
+      "primitive": 6,
+      "vertex_count": 256,
+      "vertex_start": 18743
+    },
+    {
+      "face_count": 11520,
+      "face_start": 31728,
+      "gltf_material_index": 9,
+      "material": "dark",
+      "native_material_slot": 7,
+      "primitive": 7,
+      "vertex_count": 6774,
+      "vertex_start": 18999
+    },
+    {
+      "face_count": 2320,
+      "face_start": 43248,
+      "gltf_material_index": 11,
+      "material": "scarf",
+      "native_material_slot": 8,
+      "primitive": 8,
+      "vertex_count": 1433,
+      "vertex_start": 25773
+    },
+    {
+      "face_count": 612,
+      "face_start": 45568,
+      "gltf_material_index": 12,
+      "material": "scarf_seam",
+      "native_material_slot": 9,
+      "primitive": 9,
+      "vertex_count": 523,
+      "vertex_start": 27206
+    },
+    {
+      "face_count": 296,
+      "face_start": 46180,
+      "gltf_material_index": 13,
+      "material": "book",
+      "native_material_slot": 10,
+      "primitive": 10,
+      "vertex_count": 864,
+      "vertex_start": 27729
+    },
+    {
+      "face_count": 188,
+      "face_start": 46476,
+      "gltf_material_index": 14,
+      "material": "paper",
+      "native_material_slot": 11,
+      "primitive": 11,
+      "vertex_count": 551,
+      "vertex_start": 28593
+    },
+    {
+      "face_count": 84,
+      "face_start": 46664,
+      "gltf_material_index": 15,
+      "material": "page_edge",
+      "native_material_slot": 12,
+      "primitive": 12,
+      "vertex_count": 168,
+      "vertex_start": 29144
+    },
+    {
+      "face_count": 952,
+      "face_start": 46748,
+      "gltf_material_index": 16,
+      "material": "gold",
+      "native_material_slot": 13,
+      "primitive": 13,
+      "vertex_count": 1024,
+      "vertex_start": 29312
+    },
+    {
+      "face_count": 46,
+      "face_start": 47700,
+      "gltf_material_index": 17,
+      "material": "pencil_wood",
+      "native_material_slot": 14,
+      "primitive": 14,
+      "vertex_count": 49,
+      "vertex_start": 30336
+    },
+    {
+      "face_count": 30,
+      "face_start": 47746,
+      "gltf_material_index": 18,
+      "material": "graphite",
+      "native_material_slot": 15,
+      "primitive": 15,
+      "vertex_count": 33,
+      "vertex_start": 30385
+    }
+  ],
+  "slots_sha256": "87b2c5966c2b5eec0fc73479916b3d814308712df7ae50c2a07f6ed207489930",
+  "source_positions_sha256": "0f3c160fd70346d85210c26f87f7836379377d81fe03951a4863a2afd1f199c2",
+  "triangles": 47776,
+  "vertices": 30418,
+  "zero_canonical_positions_sha256": "0f3c160fd70346d85210c26f87f7836379377d81fe03951a4863a2afd1f199c2"
+}

@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "bytes": 13546,
+      "path": "census.py",
+      "sha256": "e581d28b7a103807c4a8ded80e9cc99390c1338578c8f1cacc1ea376931af421"
+    },
+    {
+      "bytes": 126896,
+      "path": "classification.npz",
+      "sha256": "c935ef32b0cb23ff43109242a46d752d7e7403cdf33ff46560aadde4ec0ed025"
+    },
+    {
+      "bytes": 245,
+      "path": "cpu-handle.json",
+      "sha256": "05769d80b3f6c5cf6ef9fc9a25e99d69fd24cc60ca407d62879bc439abdfd529"
+    },
+    {
+      "bytes": 1075,
+      "path": "cpu-job.json",
+      "sha256": "c8f9e8cc6475b879adffaab6587e0940d44f07a85601ec9744318fddf77d0177"
+    },
+    {
+      "bytes": 983,
+      "path": "cpu-monitor.json",
+      "sha256": "f0811d92892d2451ff51b1d82846611e0420a3a8298de7ff4a08b8f90d6e772d"
+    },
+    {
+      "bytes": 640,
+      "path": "cpu.log",
+      "sha256": "4a53a05235eade1dfd74e9d9e9ba30a755459f165082a2d0026f269ab6cac6b9"
+    },
+    {
+      "bytes": 3530,
+      "path": "execute.py",
+      "sha256": "a2ce775e94b3bea2e5dadf71eb75f03833f5844bcda590bc6a10145e243aa0e8"
+    },
+    {
+      "bytes": 3175,
+      "path": "prepared.json",
+      "sha256": "5a849d8fe21886211d53b5071e2e3aa53ee6c462b5917941e86cd4581ae7087d"
+    },
+    {
+      "bytes": 2616,
+      "path": "receipt.json",
+      "sha256": "40035d9629052e45cb9c26a9d459118becb7da34140d443011793c859a6d792f"
+    },
+    {
+      "bytes": 321450,
+      "path": "report.json",
+      "sha256": "fd8afa3bd2cb3ff33ed6a0519c6d041bb0c2cd8eecbc7c2e4e4c1fd1f27e35b7"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 16694,
+      "path": "sources/reference_census.py",
+      "sha256": "370ebc05c1a6d4cbd4c68cbd5b12f1d3f1c2afdc542eaf20dfb16fa9f9b27b3c"
+    }
+  ],
+  "kind": "skin_consistent_root_coverage_preflight",
+  "schema_version": 1,
+  "status": "measured"
+}

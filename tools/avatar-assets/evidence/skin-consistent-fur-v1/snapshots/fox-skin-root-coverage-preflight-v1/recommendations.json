@@ -1,0 +1,104 @@
+{
+  "bounds_and_custody": {
+    "actual_cpu_seconds": 0.258,
+    "body_proof_reused": "outputs/fox-vertex-root-coverage-preflight-v1/source-binding.json",
+    "native_jobs": 0,
+    "original_files_unchanged": true,
+    "pid": 93145,
+    "process_exit_verified": true,
+    "production_edits": 0,
+    "provider_calls": 0,
+    "role_calls": 0,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null,
+    "self_peak_rss_bytes": 102596608
+  },
+  "decision": "The hybrid addresses the measured vertex-only coarse-component bottleneck while retaining every mixed-weight face in the candidate domain. It is ready for the separate selector/component checks, not visual acceptance.",
+  "interior_roots": 2518,
+  "material_counts": [
+    {
+      "interior": 1535,
+      "material": "coat",
+      "total": 2017,
+      "varying_distinct_positions": 1794,
+      "varying_source_vertices": 1850,
+      "vertex": 482
+    },
+    {
+      "interior": 527,
+      "material": "cream",
+      "total": 527,
+      "varying_distinct_positions": 0,
+      "varying_source_vertices": 0,
+      "vertex": 0
+    },
+    {
+      "interior": 456,
+      "material": "dark",
+      "total": 456,
+      "varying_distinct_positions": 0,
+      "varying_source_vertices": 0,
+      "vertex": 0
+    }
+  ],
+  "mixed_domain_retention": {
+    "all_3264_faces_retained": true,
+    "component_capacity_deficit_found": false,
+    "domain_count_reallocation_required": false,
+    "minimum_one_transfer_required": false,
+    "varying_area_m2": 2.182704426245256
+  },
+  "old_saturated_components": [
+    {
+      "authored_bone_support": [
+        "torso"
+      ],
+      "faces": 560,
+      "old_vertex_only_capacity": 328,
+      "old_vertex_only_fractional_quota": 418.8635741611516,
+      "old_vertex_only_saturated": true,
+      "source_vertex_component": 79,
+      "uniform_area_m2": 1.8952121900128618,
+      "uniform_faces": 560,
+      "uniform_fractional_quota": 418.9734754398713,
+      "varying_area_m2": 0.0,
+      "varying_candidate_vertices": 0,
+      "varying_distinct_positions": 0,
+      "varying_faces": 0,
+      "varying_fractional_quota": 0.0,
+      "varying_index_capacity_covers_fractional_quota": true
+    },
+    {
+      "authored_bone_support": [
+        "tail"
+      ],
+      "faces": 320,
+      "old_vertex_only_capacity": 198,
+      "old_vertex_only_fractional_quota": 267.61239740051496,
+      "old_vertex_only_saturated": true,
+      "source_vertex_component": 6781,
+      "uniform_area_m2": 1.2108531489465144,
+      "uniform_faces": 320,
+      "uniform_fractional_quota": 267.68261344814925,
+      "varying_area_m2": 0.0,
+      "varying_candidate_vertices": 0,
+      "varying_distinct_positions": 0,
+      "varying_faces": 0,
+      "varying_fractional_quota": 0.0,
+      "varying_index_capacity_covers_fractional_quota": true
+    }
+  ],
+  "old_shortfall_resolution": "Both previously saturated indexed components are entirely exact-uniform skin: authored torso and tail. Their nominal area shares can be sampled in triangle interiors without a source-vertex count ceiling.",
+  "quality_approved": false,
+  "remaining_required_evidence": [
+    "The real selector must reproduce the exact named-vector classification and 1535/482, 527/0, 456/0 domain counts, without a positive influence cutoff, tolerance-based merge or fallback to another domain.",
+    "Preserve one explicit domain/source face or vertex record for each root. Uniform interior roots inherit the exact shared normalized named vector; varying anchors use the exact selected source vertex tuple.",
+    "Record selected coincident-position multiplicities. The varying coat has 56 paired UV seam aliases; unique indices alone do not promise spatially unique anchors.",
+    "Keep every eligible varying face in the sampling support; this does not require or prove one root on every triangle.",
+    "Actual motion/root attachment and unchanged-camera 720/256 image comparisons remain required. Check coarse torso/tail, all three materials and mixed-weight seam regions without reducing counts or quality thresholds."
+  ],
+  "schema_version": 1,
+  "scope": "Read-only classification and capacity, not selected roots, generated geometry, native images, attachment verification, dense fur or Muse parity.",
+  "total_roots": 3000,
+  "vertex_anchors": 482
+}

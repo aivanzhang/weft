@@ -187,9 +187,12 @@ def validate(config):
         require(set(fur) == {'settings', 'bands'} and 1 <= len(fur['bands']) <= 4, 'Invalid portable fur')
         settings = fur['settings']
         fields = {'seed', 'length', 'width', 'direction'}
-        require(fields <= set(settings) <= fields|{'profile', 'sample_root_color'}, 'Invalid card settings')
+        require(fields <= set(settings) <= fields|{'profile', 'sample_root_color', 'root_placement'}, 'Invalid card settings')
         require(settings.get('profile', 'legacy') in ('legacy', 'combed-v1', 'tuft-v1'), 'Unknown card geometry profile')
         require(type(settings.get('sample_root_color', False)) is bool, 'Invalid card color flag')
+        if 'root_placement' in settings:
+            require(settings['root_placement'] == 'skin-consistent-v1' and settings.get('profile') == 'tuft-v1',
+                    'Skin-consistent root placement requires tuft-v1')
         if settings.get('profile') == 'tuft-v1':
             require(settings.get('sample_root_color') is True and config.get('groom_flow')
                     and groom and 'direction' in groom and 'comb' in groom,
@@ -314,6 +317,12 @@ def reuse_native(folder, out, cfg):
     if cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1':
         require(sha256(root/'sources/fur_root_sampling.py') == sha256(ROOT/'scripts/fur_root_sampling.py'),
                 'Tuft root sampler changed; rebuild required')
+        if cfg['portable_fur']['settings'].get('root_placement') == 'skin-consistent-v1':
+            for name in ('fur_vertex_roots.py', 'fur_skin_roots.py'):
+                require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name),
+                        'Skin-consistent root selector changed; rebuild required')
+            require(sha256(root/'sources/fur_bindings.py') == sha256(ROOT/'avatar_assets/fur_bindings.py'),
+                    'Fur root binding custody changed; rebuild required')
     if cfg.get('portable_fringe'):
         for name in ('edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py', 'fur_root_sampling.py'):
             require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name),
@@ -342,6 +351,10 @@ def reuse_native(folder, out, cfg):
             'Normal continuity helper changed; rebuild required')
     normal_uv = root/'normal-uv-export.json'
     finish_report = read_json(root/'finish-report.json')
+    if cfg.get('portable_fur', {}).get('settings', {}).get('root_placement') == 'skin-consistent-v1':
+        from avatar_assets.fur_bindings import copy_bindings
+        copy_bindings(root, out, finish_report.get('portable_fur'),
+                      sum(band['count'] for band in cfg['portable_fur']['bands']))
     if cfg.get('material_fur'):
         groom_report = read_json(root/'material-groom/report.json')
         require(groom_report == finish_report.get('groom') and groom_report.get('original_body_unchanged') is True
@@ -451,6 +464,10 @@ def finish(config_path, output, reuse=None):
         if tuft_budget is not None:
             write_json(out/'tuft-export-budget.json', tuft_budget)
             shutil.copyfile(ROOT/'scripts/fur_root_sampling.py', out/'sources/fur_root_sampling.py')
+            if cfg['portable_fur']['settings'].get('root_placement') == 'skin-consistent-v1':
+                for name in ('fur_vertex_roots.py', 'fur_skin_roots.py'):
+                    shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
+                shutil.copyfile(ROOT/'avatar_assets/fur_bindings.py', out/'sources/fur_bindings.py')
         if cfg.get('material_fur'):
             for name in ('material_fur.py', 'blender_material_colors.py', 'blender_material_coat.py', 'blender_material_groom.py'):
                 shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)

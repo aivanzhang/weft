@@ -1,0 +1,26 @@
+test_copy_aggregate_byte_limit_precedes_copy_even_with_matching_hashes (tests.test_fur_bindings.FurBindingTests.test_copy_aggregate_byte_limit_precedes_copy_even_with_matching_hashes) ... ok
+test_copy_missing_extra_and_oversized_files_reject (tests.test_fur_bindings.FurBindingTests.test_copy_missing_extra_and_oversized_files_reject) ... ok
+test_copy_preserves_all_bytes_receipts_and_source_without_numpy_decode (tests.test_fur_bindings.FurBindingTests.test_copy_preserves_all_bytes_receipts_and_source_without_numpy_decode) ... ok
+test_copy_rejects_existing_destination_and_source_overlap (tests.test_fur_bindings.FurBindingTests.test_copy_rejects_existing_destination_and_source_overlap) ... ok
+test_copy_rejects_global_root_limit_and_too_many_parts (tests.test_fur_bindings.FurBindingTests.test_copy_rejects_global_root_limit_and_too_many_parts) ... ok
+test_copy_rejects_receipt_schema_coordinates_count_and_hash_changes (tests.test_fur_bindings.FurBindingTests.test_copy_rejects_receipt_schema_coordinates_count_and_hash_changes) ... ok
+test_copy_rejects_symlink_destination_folder (tests.test_fur_bindings.FurBindingTests.test_copy_rejects_symlink_destination_folder) ... ok
+test_copy_rejects_traversal_and_symlink_escape (tests.test_fur_bindings.FurBindingTests.test_copy_rejects_traversal_and_symlink_escape) ... ok
+test_copy_rejects_wrong_placement_missing_receipt_duplicates_and_total (tests.test_fur_bindings.FurBindingTests.test_copy_rejects_wrong_placement_missing_receipt_duplicates_and_total) ... ok
+test_copy_validates_every_archive_before_creating_destination (tests.test_fur_bindings.FurBindingTests.test_copy_validates_every_archive_before_creating_destination) ... ok
+test_counts_and_names_fail_before_writes (tests.test_fur_bindings.FurBindingTests.test_counts_and_names_fail_before_writes) ... ok
+test_invalid_numeric_values_and_schema_leave_no_output (tests.test_fur_bindings.FurBindingTests.test_invalid_numeric_values_and_schema_leave_no_output) ... ok
+test_maximum_5000_roots_fit_archive_bound (tests.test_fur_bindings.FurBindingTests.test_maximum_5000_roots_fit_archive_bound) ... ok
+test_no_overwrite_and_blender_suffix_name (tests.test_fur_bindings.FurBindingTests.test_no_overwrite_and_blender_suffix_name) ... ok
+test_noncontiguous_arrays_are_detached_without_mutation (tests.test_fur_bindings.FurBindingTests.test_noncontiguous_arrays_are_detached_without_mutation) ... ok
+test_one_hot_and_inset_boundary_remain_exact (tests.test_fur_bindings.FurBindingTests.test_one_hot_and_inset_boundary_remain_exact) ... ok
+test_shapes_and_container_types_reject_before_array_conversion (tests.test_fur_bindings.FurBindingTests.test_shapes_and_container_types_reject_before_array_conversion) ... ok
+test_standalone_snapshot_import_does_not_import_numpy_or_avatar_package (tests.test_fur_bindings.FurBindingTests.test_standalone_snapshot_import_does_not_import_numpy_or_avatar_package) ... ok
+test_writer_rejects_folder_file_and_byte_limits (tests.test_fur_bindings.FurBindingTests.test_writer_rejects_folder_file_and_byte_limits) ... ok
+test_writer_rejects_symlink_root_folder_and_archive (tests.test_fur_bindings.FurBindingTests.test_writer_rejects_symlink_root_folder_and_archive) ... ok
+test_writer_stores_exact_bounded_arrays_and_receipt (tests.test_fur_bindings.FurBindingTests.test_writer_stores_exact_bounded_arrays_and_receipt) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.059s
+
+OK

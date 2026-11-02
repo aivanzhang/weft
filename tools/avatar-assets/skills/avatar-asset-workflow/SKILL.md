@@ -42,7 +42,19 @@ acceptance or Muse parity; the default combed-card path is unchanged.
 Its declared skin weights pass, but 21 of 384 sampled tuft roots separate from
 the moving source surface by more than the attachment limit (up to 2.50 mm).
 Do not equate correct weight export with attached fur or promote this candidate;
-preserve the failed coat-skin audit and test a different attachment policy first.
+preserve the failed coat-skin audit.
+
+For `tuft-v1`, [skin-consistent roots](../../docs/skin-consistent-fur.md) provide an
+opt-in `root_placement: "skin-consistent-v1"`. Exact equal normalized named weights
+permit area-sampled interior roots; varying-weight faces use source vertices.
+Keep the requested total and both domains; insufficient unique-vertex capacity
+or more than four positive influences is unsupported. Never average source skin
+weights or drop influences to pass. Preserve all-root bounded NPZ archives and
+their hashes; archive copying alone does not validate attachment. The actual fox
+passes all 3,000 roots at 36 sampled poses, but has one coincident seam pair and
+retained appearance/deformation defects. Check coverage, exported attachment and
+final media for each new model. Defaults, native strand validation and quality
+acceptance are unchanged; this is not automatically selected or Muse parity.
 
 For optional short-pile lighting detail, read [adaptive undercoat](../../docs/adaptive-undercoat.md). Preserve source UV1 and linked material-response maps; use an authored UV2 only when needed. Export corrections must match the saved bake policy, exact clone name, face count, UV index and PNG hash—not every material using UV1. Rebuild textures and tangents together after a policy change, preserve raw exports, and never treat this component as dense fur, geometry repair, Muse parity or Weft compatibility. Native and independently loaded appearance still require review; the tested panda component is not promoted. The pre-export guard admits only coherent UV0 or receipt-bound authored UV1/UV2 normal maps; other live nonzero routes are unsupported. Preserve `normal-uv-export.json` and its manifest binding. Do not drop a normal map or rebake unreviewed faces merely to pass; the [actual-source control](../../docs/source-uv-control.md) passes this component but fails appearance.
 

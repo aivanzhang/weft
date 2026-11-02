@@ -1,0 +1,112 @@
+{
+  "body_fidelity_receipt": {
+    "path": "outputs/fox-skin-consistent-body-audit-v1/result.json",
+    "sha256": "e9d160a1473bc68beef1aec322b5845376fc9c9451839881468de8a46cf53ae3"
+  },
+  "checks": {
+    "all_root_archives_hash_and_shape_bound": true,
+    "binding_archive_bytes": 158364,
+    "clips": 4,
+    "detailed_sample_inset_difference": 0.0,
+    "exact_declared_insets_checked_for_all_roots": true,
+    "max_declared_skin_error_m": 3.756963220524767e-07,
+    "max_duplicate_root_error_m": 0.0,
+    "max_named_weight_error": 2.6272609865429786e-08,
+    "max_rest_root_error_m": 1.1512028619264925e-07,
+    "max_source_surface_attachment_error_m": 3.7420779142038896e-07,
+    "motion_gate_m": 1e-05,
+    "named_weight_and_rest_root_gates": 1e-06,
+    "root_time_checks": 108000,
+    "roots": 3000,
+    "times_per_clip": 9,
+    "uniform_interior_roots": 2518,
+    "varying_triangle_vertex_roots": 482
+  },
+  "comparison_to_prior": {
+    "note": "New roots are allocated differently. The new full-root result is not a same-location paired appearance/density comparison.",
+    "path": "outputs/fox-material-coat-skin-audit-v1",
+    "prior_384_root_max_component_drift_m": 0.002142179512126141,
+    "prior_failure_retained": true,
+    "same_root_reconstruction": false
+  },
+  "domains": [
+    {
+      "eligible_triangles": 11200,
+      "material": "coat",
+      "selected": {
+        "source_vertex": 482,
+        "uniform_interior": 1535,
+        "varying_triangle_vertex": 482
+      },
+      "source_band": 0,
+      "uniform_triangles": 7936,
+      "varying_triangles": 3264
+    },
+    {
+      "eligible_triangles": 6496,
+      "material": "cream",
+      "selected": {
+        "source_vertex": 0,
+        "uniform_interior": 527,
+        "varying_triangle_vertex": 0
+      },
+      "source_band": 0,
+      "uniform_triangles": 6496,
+      "varying_triangles": 0
+    },
+    {
+      "eligible_triangles": 11520,
+      "material": "dark",
+      "selected": {
+        "source_vertex": 0,
+        "uniform_interior": 456,
+        "varying_triangle_vertex": 0
+      },
+      "source_band": 0,
+      "uniform_triangles": 11520,
+      "varying_triangles": 0
+    }
+  ],
+  "limits": [
+    "Finite four-clip/nine-time CPU proof, not continuous motion",
+    "No hair-tip/native-hair/GPU/appearance/loop/physics acceptance",
+    "Source body shading differences and milestone motion outliers remain",
+    "No mesh, production source, provider or native work performed by this audit"
+  ],
+  "model_sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80",
+  "per_clip": [
+    {
+      "id": "idle",
+      "max_source_surface_attachment_error_m": 1.517474157441967e-07,
+      "over_gate_root_time_samples": 0
+    },
+    {
+      "id": "making_something",
+      "max_source_surface_attachment_error_m": 3.3326040282943836e-07,
+      "over_gate_root_time_samples": 0
+    },
+    {
+      "id": "milestone_level_up",
+      "max_source_surface_attachment_error_m": 3.052102854894656e-07,
+      "over_gate_root_time_samples": 0
+    },
+    {
+      "id": "working",
+      "max_source_surface_attachment_error_m": 3.7420779142038896e-07,
+      "over_gate_root_time_samples": 0
+    }
+  ],
+  "process_high_water_RSS_bytes": 224477184,
+  "quality_approved": false,
+  "recorded_local": "2026-11-02T09:01:38.552505-08:00",
+  "runtime": {
+    "elapsed_seconds": 3.644,
+    "exit_code": 0,
+    "pid": 95277,
+    "process_exit_verified": true,
+    "sampled_peak_rss_bytes": 221954048
+  },
+  "schema_version": 1,
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "passed_all_recorded_roots_sampled_attachment"
+}

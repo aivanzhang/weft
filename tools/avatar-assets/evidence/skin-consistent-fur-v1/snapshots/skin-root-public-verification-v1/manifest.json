@@ -1,0 +1,100 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1311,
+      "path": "job.json",
+      "sha256": "60399fa46f77f4d305e5fe87eb0a47c2802922b8ab300de1ad7812eb5d2a3e7f"
+    },
+    {
+      "bytes": 589,
+      "path": "request.json",
+      "sha256": "e84e5bcb1296c7a5e719b1df9e87c3a19f7ac0048311c2a316634804dd5ae252"
+    },
+    {
+      "bytes": 11789,
+      "path": "sources/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 402,
+      "path": "verify-handle.json",
+      "sha256": "f2d84aac7638b5a28c8d6ca4c1038cfd14e5a33eeb3428633760610bbb566460"
+    },
+    {
+      "bytes": 1185,
+      "path": "verify-monitor.json",
+      "sha256": "525d625cf38f5ffacb8a8c7c395edab29e4e670b6a223a9fb1585b3b513fbaba"
+    },
+    {
+      "bytes": 6921,
+      "path": "verify.log",
+      "sha256": "d04721e9aa1f6a8115bc0df1b509cd1867f3a665b87a6586053b4963ba97db14"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "-i",
+      "PATH=/usr/bin:/bin",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "PYTHONPATH=/Users/ivan/kintsugi/weft/tools/avatar-assets",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-m",
+      "avatar_assets",
+      "verify",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.522,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 71276,
+    "last_rss_sample_elapsed_seconds": 0.261,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "verify-monitor.json",
+    "monitor_errors": [],
+    "pid": 95397,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 71276,
+    "sampled_peak_rss_bytes": 135249920,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "actual_public_pack_verification",
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "schema_version": 1,
+  "status": "passed",
+  "visual_quality_verified": false
+}

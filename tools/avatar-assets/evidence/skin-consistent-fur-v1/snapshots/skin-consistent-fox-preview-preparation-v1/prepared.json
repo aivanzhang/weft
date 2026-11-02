@@ -1,0 +1,86 @@
+{
+  "animation_requested": false,
+  "blender": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "inputs": [
+    {
+      "bytes": 593815,
+      "path": "outputs/fox-material-fur-finish-v1/manifest.json",
+      "sha256": "8bbad9c6db6263d4fae88b3f8548704af4b8e7f7f0b7caff643d18e6541e055d"
+    },
+    {
+      "bytes": 527752,
+      "path": "outputs/fox-material-fur-finish-v1/finish-report.json",
+      "sha256": "76038d0a72f8da820e9a039ae8e12bc7f23152a7ff594a26aa76fa9b834373eb"
+    },
+    {
+      "bytes": 27526456,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/model.glb",
+      "sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80"
+    },
+    {
+      "bytes": 27527176,
+      "path": "outputs/fox-material-fur-finish-v1/model.glb",
+      "sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb"
+    },
+    {
+      "bytes": 11401,
+      "path": "outputs/fox-material-fur-export-preview-v1/native-inspection.json",
+      "sha256": "a33a0f8972a130b89134a497f359643a865a55d3cd8ccb3cf73de0c4206a74fc"
+    }
+  ],
+  "limits": {
+    "native_sampled_rss_mib": 2048,
+    "native_seconds": 120,
+    "output_mib": 128,
+    "resolution": 720,
+    "samples": 16,
+    "views": 4
+  },
+  "model": "outputs/fox-skin-consistent-fur-finish-v1/model.glb",
+  "model_sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80",
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "output": "outputs/fox-skin-consistent-fur-export-preview-v1",
+  "recorded": "2026-11-02 08:59:40 PST",
+  "schema_version": 1,
+  "scope": "Four720px actual exported rest views with reference camera/light fit. Existing native hair is separate. Not continuous motion or Muse acceptance.",
+  "snapshots": [
+    {
+      "bytes": 5742,
+      "path": "execute.py",
+      "sha256": "21c9ff422fa3708ba01dc38707806856c70cd3fd56ce9ae81cf0e147a2a912cc"
+    },
+    {
+      "bytes": 3558,
+      "path": "framing-reference.json",
+      "sha256": "6eeb152e75ec31ecfb402f64c0826f5ae689b9fd61bea6b52c7761356c9e7336"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 16084,
+      "path": "sources/scripts/blender_provider_preview.py",
+      "sha256": "37e151f4cbeec366866a0c60747fa1812335a96de4feede5fc8eae6628e1422f"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ],
+  "status": "prepared_not_executed"
+}

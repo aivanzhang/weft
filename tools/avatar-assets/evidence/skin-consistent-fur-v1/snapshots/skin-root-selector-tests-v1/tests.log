@@ -1,0 +1,18 @@
+test_all_uniform_coarse_geometry_keeps_full_requested_count (test_fur_skin_roots.SkinRootSelectorTests.test_all_uniform_coarse_geometry_keeps_full_requested_count) ... ok
+test_deterministic_bytes_and_source_inputs_unchanged (test_fur_skin_roots.SkinRootSelectorTests.test_deterministic_bytes_and_source_inputs_unchanged) ... ok
+test_hamilton_is_global_with_stable_ties_and_recorded_minimum_transfer (test_fur_skin_roots.SkinRootSelectorTests.test_hamilton_is_global_with_stable_ties_and_recorded_minimum_transfer) ... ok
+test_invalid_geometry_and_budget_guards_precede_weight_work (test_fur_skin_roots.SkinRootSelectorTests.test_invalid_geometry_and_budget_guards_precede_weight_work) ... ok
+test_invalid_weight_rows_do_not_hide_cutoffs_or_nonfinite_normalization (test_fur_skin_roots.SkinRootSelectorTests.test_invalid_weight_rows_do_not_hide_cutoffs_or_nonfinite_normalization) ... ok
+test_maximum_mixed_source_and_root_bounds_are_practical (test_fur_skin_roots.SkinRootSelectorTests.test_maximum_mixed_source_and_root_bounds_are_practical) ... ok
+test_mixed_weight_barycentric_noncommutation_requires_exact_vertex (test_fur_skin_roots.SkinRootSelectorTests.test_mixed_weight_barycentric_noncommutation_requires_exact_vertex) ... ok
+test_normalization_is_named_exact_and_keeps_tiny_positive_influences (test_fur_skin_roots.SkinRootSelectorTests.test_normalization_is_named_exact_and_keeps_tiny_positive_influences) ... ok
+test_original_triangle_remap_stable_order_and_frozen_vertex_sampling (test_fur_skin_roots.SkinRootSelectorTests.test_original_triangle_remap_stable_order_and_frozen_vertex_sampling) ... ok
+test_uniform_area_strata_cover_large_and_small_faces_without_reduction (test_fur_skin_roots.SkinRootSelectorTests.test_uniform_area_strata_cover_large_and_small_faces_without_reduction) ... ok
+test_uniform_multibone_interior_skinning_commutes (test_fur_skin_roots.SkinRootSelectorTests.test_uniform_multibone_interior_skinning_commutes) ... ok
+test_varying_capacity_failure_never_shifts_roots_to_uniform_region (test_fur_skin_roots.SkinRootSelectorTests.test_varying_capacity_failure_never_shifts_roots_to_uniform_region) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.200s
+
+OK
+Maximum analytic mixed selector: 0.168663s;100000vertices/100000triangles/5000roots

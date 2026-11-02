@@ -1,0 +1,44 @@
+{
+  "all_candidate_displacement_m": {
+    "max": 0.2914832114930643,
+    "median": 0.022208246876407267,
+    "min": 0.0004221263380483928,
+    "p95": 0.13106420715153802
+  },
+  "appearance_accepted": false,
+  "clips": 4,
+  "elapsed_seconds": 0.11691254191100597,
+  "limits": [
+    "Algebraic/source-data numerical screen, not native/export proof",
+    "No actual new roots allocated or avatar created",
+    "Does not prove density, spacing, coverage, native hair motion or appearance"
+  ],
+  "maximum_source_motion_component_error_m": 8.881784197001252e-16,
+  "native_provider_AI_calls": 0,
+  "nearest_vertex_displacement_m": {
+    "max": 0.13506257753023942,
+    "median": 0.012102880616615273,
+    "min": 0.0004221263380483928,
+    "p95": 0.06255494376685876
+  },
+  "new_avatar_created": false,
+  "old_failed_roots_covered": 21,
+  "potential_anchors": 1152,
+  "potential_anchors_with_mixed_weights": 80,
+  "process_high_water_RSS_bytes": 117702656,
+  "same_root_reconstruction": false,
+  "sampled_roots": 384,
+  "schema_version": 1,
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "source_weight_sum_max_deviation": 2.9802322387695312e-08,
+  "status": "passed_numerical_source_vertex_screen",
+  "times_per_clip": 9,
+  "unchanged_source_weight_values": true,
+  "unique_source_vertex_ids": 1093,
+  "weight_support_histogram": {
+    "1": 1072,
+    "2": 63,
+    "3": 17,
+    "4": 0
+  }
+}

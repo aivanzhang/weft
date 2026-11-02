@@ -1,0 +1,80 @@
+{
+  "actual_avatar_derivative_created": false,
+  "files": [
+    {
+      "bytes": 994,
+      "path": "execution-inputs.json",
+      "sha256": "a295f14c7dd4c81a3ad5c983b7160739fbf99f06d40b3aec42b3aab15c0e7ecc"
+    },
+    {
+      "bytes": 1073,
+      "path": "job.json",
+      "sha256": "8a58b11ded84148c41ad4d9c52262f7133fb1b191c1a10d577b0a725cd75c019"
+    },
+    {
+      "bytes": 62977,
+      "path": "measurements.npz",
+      "sha256": "581277bad31475e6f04a4396068f4dffb519adbc7292e329d7a87f4b3d693db2"
+    },
+    {
+      "bytes": 8673,
+      "path": "motion.json",
+      "sha256": "a2ee9bed05c474b52faa128aad89124c283a89e0bd86151014e3eece2fafcf63"
+    },
+    {
+      "bytes": 19383,
+      "path": "old-failure-witnesses.json",
+      "sha256": "b751783e8b6e3b4213b5d65743d608ef1c643fa21a336b6bf92745dc9fa9354a"
+    },
+    {
+      "bytes": 275164,
+      "path": "placements.json",
+      "sha256": "b9ba7ce2711d734732438a2c3576135b05226529f3f4cc5b9f16891b15d02f4b"
+    },
+    {
+      "bytes": 2583,
+      "path": "prepared.json",
+      "sha256": "afb2570e12d831cd4dee003ee5404a8d02c01c2dec01e9921db11058edb709e6"
+    },
+    {
+      "bytes": 1427,
+      "path": "result.json",
+      "sha256": "722c9fe451af9cdd236aaabfddebce567b71e5ef2219c3a6629c6ffe110395cb"
+    },
+    {
+      "bytes": 6336,
+      "path": "review.json",
+      "sha256": "b43d9db2b6a352810b0e2bcbc6cd532af6592106a2c63996202c97e667a6fb1a"
+    },
+    {
+      "bytes": 243,
+      "path": "screen-handle.json",
+      "sha256": "dad04896f6697d549327ff53a44f7415d8e5c88f62fb5813eb6b0fd95c9cf5a8"
+    },
+    {
+      "bytes": 981,
+      "path": "screen-monitor.json",
+      "sha256": "ec099174fb6bb1ecce7165840fa148117da3efdc56cab6cb26e2caf370fc3941"
+    },
+    {
+      "bytes": 0,
+      "path": "screen.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10029,
+      "path": "screen.py",
+      "sha256": "312b7c342b149b6ef50a23d7646da25ef13b2d40d253b37d06ba9900f322179a"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ],
+  "large_inputs": "Exact source and prior evidence hashes bound in prepared.json",
+  "old_failures_and_original_assets_modified": false,
+  "schema_version": 1,
+  "status": "passed_source_data_mathematical_screen_only",
+  "total_bytes": 425186
+}

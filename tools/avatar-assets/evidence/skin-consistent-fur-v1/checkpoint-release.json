@@ -1,0 +1,58 @@
+{
+  "appearance_accepted": false,
+  "bundle_manifest_sha256": "3a1ca77bc102a55a0b003709e8255a3235edcdbf3ab0affeb9dca8c8fbea9c3f",
+  "changed_source_pins": [
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "836c71fa73946607fc69da4b60757e3e89291c6d33997eba99fd7041c5b01a62"
+    },
+    {
+      "path": "tests/test_skin_root_integration.py",
+      "sha256": "18c39f8899f1676f1ad92f97bfce483fa0a581057ff1aec3035d0dc780a90a5b"
+    }
+  ],
+  "packaging_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/skin-root-checkpoint-v1/package.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.531,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 20435973,
+    "last_rss_sample_elapsed_seconds": 0.261,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 40,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "package-monitor.json",
+    "monitor_errors": [],
+    "pid": 96919,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 20435973,
+    "sampled_peak_rss_bytes": 23887872,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "packaging_log_sha256": "c1567abeb1b5e8d7c27455ca7769288e062c1e206b85b7abbfdfbe94c31a3991",
+  "prior_native_build_unchanged": true,
+  "publication": "pending separate local receipt after commit/push",
+  "recorded": "2026-11-02 09:18:53 PST",
+  "regression_manifest_sha256": "bba0a649e559ab41db63cc7d10e8c4b72b7df65f52a8607276cd50f260d451a9",
+  "review": "Read-only production review found missing card-helper prepared-job pin; fixed and focused changed test passed. No additional blockers reported.",
+  "schema_version": 1
+}

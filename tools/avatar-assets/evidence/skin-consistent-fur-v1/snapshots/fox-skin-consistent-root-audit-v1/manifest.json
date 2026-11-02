@@ -1,0 +1,80 @@
+{
+  "files": [
+    {
+      "bytes": 361,
+      "path": "audit-handle.json",
+      "sha256": "66236da039024ef85c8edb75e62f8a7fd1f62518f0c0758b4b9089debbd091d3"
+    },
+    {
+      "bytes": 1149,
+      "path": "audit-monitor.json",
+      "sha256": "aded84c54985d5d6428a0799a53ece560ee248087a73697be441a424c0f0a38a"
+    },
+    {
+      "bytes": 0,
+      "path": "audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 19713,
+      "path": "audit.py",
+      "sha256": "ed0bb548eac9df16009855c4e2b70692c329959c9768b368b2280bba99ed6e1e"
+    },
+    {
+      "bytes": 1290,
+      "path": "execution-inputs.json",
+      "sha256": "e8203381cca76b07129fd0f01637785b3a71bf2b89de483671446b00b3a43ab1"
+    },
+    {
+      "bytes": 1251,
+      "path": "job.json",
+      "sha256": "09497640cfce30df87f044666447e5e790db224043d773e0a0aa394096859cc1"
+    },
+    {
+      "bytes": 69786,
+      "path": "motion.json",
+      "sha256": "737ab726124e04df26113f8c029638820ebbb0e21c4237ef551e3dd09f555c0b"
+    },
+    {
+      "bytes": 3014,
+      "path": "plan.json",
+      "sha256": "6388ec3051e53084398ca5df0e3efc494ffda23a4d33bc8242707e3621966ac3"
+    },
+    {
+      "bytes": 4266,
+      "path": "request.json",
+      "sha256": "b2e967965a7c10a60b93e7b83066aa1b8d59ad1f7f0180cd68ec518628d9e12f"
+    },
+    {
+      "bytes": 757,
+      "path": "result.json",
+      "sha256": "a6fee72982d69e6835cdaf1113399275fa3e509a0caa749c9685ab9bf3e42b9e"
+    },
+    {
+      "bytes": 3648,
+      "path": "review.json",
+      "sha256": "e60cb9e8a965e05c6a915659648cfaa55f9b0f72f159f747d1653887ed6a2a70"
+    },
+    {
+      "bytes": 1355221,
+      "path": "roots.json",
+      "sha256": "0091e8125b44ecf679253074c2d1c1273d1984851c98838114ef47ce2c1573ea"
+    },
+    {
+      "bytes": 7360101,
+      "path": "sampled-motion.npz",
+      "sha256": "45f793212b09bfdccb792ea09c2f9c329e0edae0a4487081e9ac739d70cc901b"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ],
+  "large_model_inputs": "Bound by hashes; no GLB duplication",
+  "native_provider_AI_calls": 0,
+  "original_assets_modified": false,
+  "schema_version": 1,
+  "status": "passed_all_recorded_roots_sampled_attachment",
+  "total_bytes": 8855880
+}

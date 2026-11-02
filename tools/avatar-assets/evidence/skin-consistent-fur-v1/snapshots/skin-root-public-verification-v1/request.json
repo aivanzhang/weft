@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/usr/bin/env",
+    "-i",
+    "PATH=/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONPATH=/Users/ivan/kintsugi/weft/tools/avatar-assets",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "avatar_assets",
+    "verify",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1"
+  ],
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "seconds": 30
+  },
+  "pack_manifest_sha256": "be6ee85e53a06f28531bec2b4a94d31ca5078b38efeeeceded7d1a0c793f23de",
+  "schema_version": 1
+}

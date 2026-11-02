@@ -1,0 +1,37 @@
+{
+  "authorized_runs": 1,
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-body-audit-v1/audit.py"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "limits": {
+    "output_mib": 16,
+    "rss_mib": 512,
+    "seconds": 30
+  },
+  "no_native_provider_AI_calls": true,
+  "source_pins": [
+    {
+      "path": "outputs/fox-skin-consistent-body-audit-v1/audit.py",
+      "sha256": "4c0335872a838532beef86713459ec6ec4d862de617a642724d97ed71f7d4674"
+    },
+    {
+      "path": "outputs/fox-skin-consistent-body-audit-v1/lamp_helpers.py",
+      "sha256": "84b053d876e3533f67af2bd5ea5e2201daa87914bd09d869f1999ace524f1e3e"
+    },
+    {
+      "path": "outputs/fox-skin-consistent-body-audit-v1/prepared.json",
+      "sha256": "9b1254b453657dcd4b14f99b9ff00054eeecbe84379e80a8986e904ddbf92208"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    }
+  ]
+}

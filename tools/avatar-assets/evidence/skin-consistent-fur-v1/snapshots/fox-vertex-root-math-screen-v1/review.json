@@ -1,0 +1,231 @@
+{
+  "coverage": {
+    "all_triangle_corners_evaluated": 1152,
+    "four_clips_nine_samples": true,
+    "mixed_weight_anchor_instances": 80,
+    "old21failed_roots_all_included": true,
+    "potential_anchor_time_checks": 41472,
+    "prior_roots": 384,
+    "source_influences_preserved_without_truncation_or_normalization": true,
+    "source_weight_support_histogram": {
+      "1": 1072,
+      "2": 63,
+      "3": 17,
+      "4": 0
+    },
+    "unique_source_vertices": 1093
+  },
+  "fixed_motion_gate_m": 1e-05,
+  "native_provider_AI_calls": 0,
+  "placement_tradeoff": {
+    "all_three_candidate_displacement_m": {
+      "max": 0.2914832114930643,
+      "median": 0.022208246876407267,
+      "min": 0.0004221263380483928,
+      "p95": 0.13106420715153802
+    },
+    "interpretation": "Exact source-vertex anchors reproduce source motion mathematically. They move the old barycentric placement, sometimes substantially; this screen does not establish root density, even coverage, retained root colors, card spacing, or appearance. It does not choose the future allocator.",
+    "largest_nearest_displacement_witnesses": [
+      {
+        "candidate_named_weights": [
+          {
+            "tail": 1.0
+          },
+          {
+            "tail": 1.0
+          },
+          {
+            "tail": 1.0
+          }
+        ],
+        "distance_from_old_baryroot_m": [
+          0.13506257753023942,
+          0.1603533461377698,
+          0.1587811527475153
+        ],
+        "material": "coat",
+        "nearest_corner": 0,
+        "old_attachment_failed": false,
+        "old_barycentric": [
+          0.5415404987451009,
+          0.3806095973681927,
+          0.07784990388670637
+        ],
+        "old_root_index": 1000,
+        "sample": 63,
+        "source_polygon": 5800,
+        "source_vertex_ids": [
+          6852,
+          6886,
+          6885
+        ]
+      },
+      {
+        "candidate_named_weights": [
+          {
+            "tail": 1.0
+          },
+          {
+            "tail": 1.0
+          },
+          {
+            "tail": 1.0
+          }
+        ],
+        "distance_from_old_baryroot_m": [
+          0.11816869612950734,
+          0.11575183122031624,
+          0.1118374333407968
+        ],
+        "material": "coat",
+        "nearest_corner": 2,
+        "old_attachment_failed": false,
+        "old_barycentric": [
+          0.4608542849578797,
+          0.026225012085348595,
+          0.5129207029567717
+        ],
+        "old_root_index": 2000,
+        "sample": 126,
+        "source_polygon": 11182,
+        "source_vertex_ids": [
+          6899,
+          6900,
+          6962
+        ]
+      },
+      {
+        "candidate_named_weights": [
+          {
+            "tail": 1.0
+          },
+          {
+            "tail": 1.0
+          },
+          {
+            "tail": 1.0
+          }
+        ],
+        "distance_from_old_baryroot_m": [
+          0.13616399981137695,
+          0.11614298975655846,
+          0.11073007019001735
+        ],
+        "material": "coat",
+        "nearest_corner": 2,
+        "old_attachment_failed": false,
+        "old_barycentric": [
+          0.44845642464010815,
+          0.07864027311006463,
+          0.47290330224982724
+        ],
+        "old_root_index": 937,
+        "sample": 59,
+        "source_polygon": 5737,
+        "source_vertex_ids": [
+          6787,
+          6821,
+          6820
+        ]
+      },
+      {
+        "candidate_named_weights": [
+          {
+            "head": 1.0
+          },
+          {
+            "head": 1.0
+          },
+          {
+            "head": 1.0
+          }
+        ],
+        "distance_from_old_baryroot_m": [
+          0.09291454299302798,
+          0.15694347154144794,
+          0.1416174461774897
+        ],
+        "material": "cream",
+        "nearest_corner": 0,
+        "old_attachment_failed": false,
+        "old_barycentric": [
+          0.6095578283834155,
+          0.09806816800226328,
+          0.2923740036143212
+        ],
+        "old_root_index": 149,
+        "sample": 164,
+        "source_polygon": 13146,
+        "source_vertex_ids": [
+          9264,
+          8348,
+          8344
+        ]
+      },
+      {
+        "candidate_named_weights": [
+          {
+            "tail": 1.0
+          },
+          {
+            "tail": 1.0
+          },
+          {
+            "tail": 1.0
+          }
+        ],
+        "distance_from_old_baryroot_m": [
+          0.1906799862151873,
+          0.09107419982844335,
+          0.09155452428421616
+        ],
+        "material": "coat",
+        "nearest_corner": 1,
+        "old_attachment_failed": false,
+        "old_barycentric": [
+          0.3181360091608083,
+          0.3770756255707724,
+          0.3047883652684193
+        ],
+        "old_root_index": 968,
+        "sample": 61,
+        "source_polygon": 5770,
+        "source_vertex_ids": [
+          6821,
+          6855,
+          6854
+        ]
+      }
+    ],
+    "nearest_source_vertex_displacement_m": {
+      "max": 0.13506257753023942,
+      "median": 0.012102880616615273,
+      "min": 0.0004221263380483928,
+      "p95": 0.06255494376685876
+    },
+    "old21failed_nearest_displacement_m": {
+      "max": 0.03535240329400691,
+      "median": 0.014046319173260689,
+      "min": 0.006137257443976395,
+      "p95": 0.03063336763862054
+    },
+    "same_root_reconstruction": false
+  },
+  "quality_approved": false,
+  "recorded_local": "2026-11-02T06:24:14.617780-08:00",
+  "runtime": {
+    "exit_code": 0,
+    "pid": 91065,
+    "process_exit_verified": true,
+    "process_high_water_RSS_bytes": 117702656,
+    "runner_wall_seconds": 0.262,
+    "sampled_peak_RSS_bytes": null,
+    "sampling_note": "Child ended before a usable RSS sample; no measured sampled peak is claimed.",
+    "screen_elapsed_seconds": 0.11691254191100597
+  },
+  "schema_version": 1,
+  "scope": "No model or native scene created. This tests the source data and two numerical skin reductions against shared source animation/bind transforms; it is not an independent native exporter or renderer verification. The future actual model still needs all-anchor custody, skin/motion and appearance checks.",
+  "source_motion_max_component_difference_m": 8.881784197001252e-16,
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "passed_source_data_mathematical_screen_only"
+}

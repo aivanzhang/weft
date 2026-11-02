@@ -1,0 +1,62 @@
+{
+  "attachments": [],
+  "authored_assumptions": [
+    "Mesh, skeleton, skin weights and motion are supplied asset data; their origin and physical validity are not inferred"
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "ear_left": "ear_left",
+    "ear_right": "ear_right",
+    "foot_left": "foot_left",
+    "foot_right": "foot_right",
+    "forearm_left": "forearm_left",
+    "forearm_right": "forearm_right",
+    "hand_left": "hand_left",
+    "hand_right": "hand_right",
+    "head": "head",
+    "pencil": "pencil",
+    "root": "root",
+    "shin_left": "shin_left",
+    "shin_right": "shin_right",
+    "sketchbook": "sketchbook",
+    "tail": "tail",
+    "thigh_left": "thigh_left",
+    "thigh_right": "thigh_right",
+    "torso": "torso",
+    "upper_arm_left": "upper_arm_left",
+    "upper_arm_right": "upper_arm_right"
+  },
+  "rest_pose": "Default exported node transforms and inverse bind matrices; no physical validation implied",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "ear_left",
+      "ear_right",
+      "head",
+      "tail",
+      "sketchbook",
+      "hand_left",
+      "forearm_left",
+      "upper_arm_left",
+      "foot_left",
+      "shin_left",
+      "thigh_left",
+      "pencil",
+      "hand_right",
+      "forearm_right",
+      "upper_arm_right",
+      "foot_right",
+      "shin_right",
+      "thigh_right",
+      "torso",
+      "root"
+    ],
+    "name": "Exported source bone controls, NOT Weft"
+  },
+  "units": "meters",
+  "weft_runtime_verified": false
+}

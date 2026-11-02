@@ -1,0 +1,84 @@
+{
+  "copy_semantic_validation": false,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "OPENBLAS_NUM_THREADS=1",
+      "OMP_NUM_THREADS=1",
+      "TMPDIR=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/skin-root-binding-tests-v1/tmp",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/skin-root-binding-tests-v1/run_tests.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.262,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 52073,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 94314,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 52073,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "limitations": [
+    "Copy checks byte/hash custody only; the independent bounded loader must validate array semantics."
+  ],
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "role_calls": 0,
+  "schema_version": 1,
+  "source_unchanged": [
+    {
+      "path": "avatar_assets/fur_bindings.py",
+      "unchanged": true
+    },
+    {
+      "path": "tests/test_fur_bindings.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/__init__.py",
+      "unchanged": true
+    }
+  ],
+  "status": "passed",
+  "test_result": {
+    "elapsed_seconds": 0.14668433321639895,
+    "errors": 0,
+    "failures": 0,
+    "passed": true,
+    "scope": "Numeric NPZ and analytic filesystem custody only; no native/model/provider calls.",
+    "self_peak_rss_bytes": 44597248,
+    "skipped": 0,
+    "tests_run": 21
+  }
+}

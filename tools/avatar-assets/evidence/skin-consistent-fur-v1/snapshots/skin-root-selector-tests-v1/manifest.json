@@ -1,0 +1,81 @@
+{
+  "actual_avatar_attachment_verified": false,
+  "artifact_bytes": 55095,
+  "artifact_count": 14,
+  "artifacts": [
+    {
+      "bytes": 1118,
+      "path": "job.json",
+      "sha256": "c42a87e758bbda064e18f443a3a4c44fd095b43b99b27e8cee0ff4fd9bcab179"
+    },
+    {
+      "bytes": 1851,
+      "path": "prepared.json",
+      "sha256": "9ee8b7160ba7142b24eb531ff0147e849c8e4218f0ae170d83b91458c314849d"
+    },
+    {
+      "bytes": 3940,
+      "path": "release.json",
+      "sha256": "a2e7992d4f88898e147d4148934694eb718f9d6e2a6b0d338f97c7f6d8a46b16"
+    },
+    {
+      "bytes": 305,
+      "path": "result.json",
+      "sha256": "24e40f126d2bd572a755653d48e39ce215c7a48247b7e1494f70245817a54a77"
+    },
+    {
+      "bytes": 822,
+      "path": "run-tests.py",
+      "sha256": "cd687843075b61b62d6feb0275a67cdf82d1a96a4cc3dbbb561a33fa373c394c"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 276,
+      "path": "sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 8834,
+      "path": "sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 6002,
+      "path": "sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 13176,
+      "path": "sources/tests/test_fur_skin_roots.py",
+      "sha256": "c5e333bfee10a4e5bac624fb40f254a4d4a8a4aa49c8eb1a7833abaef4646aeb"
+    },
+    {
+      "bytes": 242,
+      "path": "tests-handle.json",
+      "sha256": "3f29f14f11623cda062ac0f7ebb700cb487a852873e571c7c7d4bf82b62a1e85"
+    },
+    {
+      "bytes": 1024,
+      "path": "tests-monitor.json",
+      "sha256": "0c7c721012e8062c80d240e676aca92dad06a767e56e5123b8e88fa70f9e1048"
+    },
+    {
+      "bytes": 2325,
+      "path": "tests.log",
+      "sha256": "703808dff6ed76a264e7c59be5a3ada06cc5ab687437ec7eec2d85d744d82621"
+    }
+  ],
+  "kind": "analytic_software_tests",
+  "quality_verified": false,
+  "schema_version": 1,
+  "status": "passed"
+}

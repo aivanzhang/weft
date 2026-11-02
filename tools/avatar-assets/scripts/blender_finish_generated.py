@@ -418,6 +418,10 @@ def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, nativ
             for sample in data['root_samples']:
                 sample['root_linear_rgb'] = list(data['colors'][sample['root_index']*6])
         mesh = bpy.data.meshes.new('PortableCoat_'+str(index))
+        if 'root_bindings' in data:
+            from fur_bindings import write_bindings
+            data['root_summary']['binding_archive'] = write_bindings(
+                out, mesh.name, data.pop('root_bindings'), band['count'])
         mesh.from_pydata(data['vertices'], [], data['faces'])
         mesh.update()
         uv = mesh.uv_layers.new(name='UVMap')

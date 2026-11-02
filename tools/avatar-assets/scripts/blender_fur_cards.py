@@ -38,6 +38,8 @@ def card_geometry(vertices, triangles, weights, settings, normals=None, *, profi
         return _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flow, root_color_sampler)
     if prepared_flow is not None or root_color_sampler is not None:
         raise ValueError("Regional flow and exact root UV sampling require tuft-v1")
+    if 'root_placement' in settings:
+        raise ValueError("Explicit root placement requires tuft-v1")
     if colors is not None:
         try:
             if isinstance(colors, (str, bytes, dict)) or len(colors) != len(vertices):
@@ -170,8 +172,10 @@ def _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flo
         raise ValueError("Tuft emitter requires bounded sequences") from None
     required = {"seed", "count", "length", "width", "direction"}
     if (not isinstance(settings, dict) or not required <= set(settings)
-            or not set(settings) <= required | {"comb", "mode", "profile", "sample_root_color"}):
+            or not set(settings) <= required | {"comb", "mode", "profile", "sample_root_color", "root_placement"}):
         raise ValueError("Invalid tuft settings")
+    if 'root_placement' in settings and settings['root_placement'] != 'skin-consistent-v1':
+        raise ValueError("Unsupported tuft root placement")
     if type(settings["count"]) is not int or not 0 <= settings["count"] <= TUFT_CARD_LIMIT:
         raise ValueError("Tuft card count exceeds its bound")
     if type(settings["seed"]) is not int or not 0 <= settings["seed"] <= 2**31-1:
@@ -221,6 +225,14 @@ def _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flo
             usable.append((ordinal, triangle, _unit(cross)))
     if not math.isfinite(total) or settings["count"] and not usable:
         raise ValueError("Tuft coat requires finite nondegenerate emitter area")
+    anchors = None
+    if settings.get('root_placement') == 'skin-consistent-v1':
+        if __package__:
+            from .fur_skin_roots import select_skin_roots
+        else:
+            from fur_skin_roots import select_skin_roots
+        anchors = select_skin_roots(vertices, triangles, weights, settings['count'], settings['seed'])
+        face_normals = {ordinal: normal for ordinal, _, normal in usable}
     rng = random.Random(settings["seed"])
     layers = [index % 3 != 2 for index in range(settings["count"])]
     rng.shuffle(layers)
@@ -234,12 +246,20 @@ def _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flo
                "length_clamped": 0, "width_clamped": 0, "length_range_m": None, "width_range_m": None,
                "length_scale_range": None, "sample_records": sample_count, "maximum_sample_records": 128}
     output["root_summary"] = summary
+    if anchors is not None:
+        summary.update(root_placement='skin-consistent-v1', binding_selection=anchors['summary'])
+        output['root_bindings'] = {'triangle_index': [], 'barycentric': [], 'root_inset': []}
     for index in range(settings["count"]):
         # Equal-area strata avoid spending the finite card budget on random face clusters.
         ordinal, triangle, face_normal = usable[min(bisect_left(cumulative,
             (index+rng.random())/settings["count"]*total), len(usable)-1)]
         r, fraction = math.sqrt(rng.random()), rng.random()
         bary = (1-r, r*(1-fraction), r*fraction)
+        if anchors is not None:
+            # Retain the existing style draws while changing only the attachment domain.
+            anchor = anchors['roots'][index]
+            ordinal = anchor['triangle_index']
+            triangle, face_normal, bary = triangles[ordinal], face_normals[ordinal], anchor['barycentric']
         root = tuple(sum(vertices[v][axis]*f for v, f in zip(triangle, bary)) for axis in range(3))
         normal = tuple(sum(normals[v][axis]*f for v, f in zip(triangle, bary)) for axis in range(3)) if normals else face_normal
         if math.hypot(*normal) <= 1e-8:
@@ -271,6 +291,10 @@ def _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flo
         tile_x, tile_y = tile % ATLAS_TILES, tile // ATLAS_TILES
         first = len(output["vertices"])
         inset = min(.0005, length*.05)
+        if anchors is not None:
+            output['root_bindings']['triangle_index'].append(ordinal)
+            output['root_bindings']['barycentric'].append(bary)
+            output['root_bindings']['root_inset'].append([normal[i]*inset for i in range(3)])
         center = tuple(root[i]-normal[i]*inset for i in range(3))
         for t, span in ((0., .96), (.5, 1.), (1., .38)):
             if t:
@@ -301,6 +325,10 @@ def _tuft_geometry(vertices, triangles, weights, settings, normals, prepared_flo
                 "barycentric": bary, "position": root, "normal": normal, "direction": direction,
                 "comb": amount, "length_scale": scale, "layer": "pile" if pile else "tuft",
                 "length_m": length, "width_m": width, "root_inset_m": inset})
+            if anchors is not None:
+                output['root_samples'][-1]['root_binding_kind'] = anchor['binding_kind']
+                if 'vertex_index' in anchor:
+                    output['root_samples'][-1]['source_vertex_index'] = anchor['vertex_index']
     return output
 
 

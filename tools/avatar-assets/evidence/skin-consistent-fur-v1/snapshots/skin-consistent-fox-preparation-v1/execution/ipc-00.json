@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1/sources/blender_finish_generated.py",
+    "--",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1/finish-config.json",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "kind": "native",
+  "log": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1/finish.log",
+  "output": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-consistent-fur-finish-v1",
+  "requested_limits": {
+    "memory_mb": 2048,
+    "output_mb": 512,
+    "timeout": 600
+  }
+}

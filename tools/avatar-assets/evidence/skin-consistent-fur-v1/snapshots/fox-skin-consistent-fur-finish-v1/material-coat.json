@@ -1,0 +1,38 @@
+{
+  "allocations": [
+    {
+      "parts": [
+        {
+          "cards": 2017,
+          "eligible_triangles": 11200,
+          "material_name": "coat",
+          "material_slot": 0,
+          "source_triangle_ids_sha256": "99aa7bf094edd222579550cd6f566c54b9566d2a653cd2f1f9544881cee7d54b"
+        },
+        {
+          "cards": 527,
+          "eligible_triangles": 6496,
+          "material_name": "cream",
+          "material_slot": 1,
+          "source_triangle_ids_sha256": "8965780e2aa358486c0f926561505b4d92f0e6890b98801c638ec44418ba501b"
+        },
+        {
+          "cards": 456,
+          "eligible_triangles": 11520,
+          "material_name": "dark",
+          "material_slot": 7,
+          "source_triangle_ids_sha256": "0bebf0e169b41909e59fd4a0bc5a3184351100296f373f1e6177e31f8f4d8cea"
+        }
+      ],
+      "requested_cards": 3000,
+      "source_band": 0
+    }
+  ],
+  "body_materials_or_uvs_changed": false,
+  "created_cards": 3000,
+  "pixel_lifetime": "One material buffer per build call, released before the next material",
+  "policy": "material-owned-tufts-v1",
+  "requested_cards": 3000,
+  "root_color_scope": "Exact source-owned UV roots or constant linear material RGB",
+  "schema_version": 1
+}

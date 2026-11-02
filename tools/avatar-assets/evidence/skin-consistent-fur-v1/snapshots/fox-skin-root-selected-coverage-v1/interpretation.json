@@ -1,0 +1,109 @@
+{
+  "candidate_model_sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80",
+  "coincident_anchor_findings": {
+    "all_root_distinct_positions": 2999,
+    "distinct_vertex_anchor_positions": 481,
+    "groups": [
+      {
+        "binding_rows": [
+          930,
+          941
+        ],
+        "position_blender_xyz_m": [
+          0.3981359899044037,
+          -0.07199999690055847,
+          1.2579350471496582
+        ],
+        "source_vertices": [
+          5723,
+          5751
+        ]
+      }
+    ],
+    "meaning": "Two separate source seam IDs produce one shared surface-root position. Tuft geometry and appearance need not be identical; no root was dropped or relocated.",
+    "selected_vertex_ids": 482
+  },
+  "coverage_qualifiers": [
+    "Every indexed component with a fractional area quota of at least one root has a selected root.",
+    "236 coat and 52 cream indexed components have no root; each has a fractional quota below one. These labels can reflect seams and tiny source patches, not distinct anatomical regions.",
+    "The fixed-grid file compares triangle-centroid area with source-surface root positions. It is not a pixel, occlusion, alpha or clipped-surface coverage calculation.",
+    "This lane does not repeat the separate final GLB body/color or 3000-root attachment audit. Those results are independently owned by the review lane.",
+    "Matched images remain decisive for sparse areas, seam clumping, silhouette spikes and actual fur appearance. No quality threshold, count, model or selection changed."
+  ],
+  "finding": "The actual hybrid preserves 3000 roots and restores the intended coarse torso/tail component allocation. It does not prove visible full-coat coverage.",
+  "formerly_saturated_components": [
+    {
+      "actual_roots": 419,
+      "actual_uniform_roots": 419,
+      "actual_vertex_roots": 0,
+      "authored_bone_support": [
+        "torso"
+      ],
+      "eligible_area_m2": 1.8952121900128618,
+      "expected_uniform_roots": 418.9734754398713,
+      "expected_vertex_roots": 0.0,
+      "old_vertex_only_capacity": 328,
+      "old_vertex_only_saturated": true,
+      "root_minus_area_quota": 0.026524560128677876,
+      "source_vertex_component": 79
+    },
+    {
+      "actual_roots": 268,
+      "actual_uniform_roots": 268,
+      "actual_vertex_roots": 0,
+      "authored_bone_support": [
+        "tail"
+      ],
+      "eligible_area_m2": 1.2108531489465144,
+      "expected_uniform_roots": 267.68261344814925,
+      "expected_vertex_roots": 0.0,
+      "old_vertex_only_capacity": 198,
+      "old_vertex_only_saturated": true,
+      "root_minus_area_quota": 0.3173865518507455,
+      "source_vertex_component": 6781
+    }
+  ],
+  "material_counts_and_small_component_limits": [
+    {
+      "interior": 1535,
+      "material": "coat",
+      "roots": 2017,
+      "vertex": 482,
+      "zero_root_component_area_fraction": 0.017701139979338195,
+      "zero_root_components_with_expected_at_least_one": 0,
+      "zero_root_indexed_components": 236
+    },
+    {
+      "interior": 527,
+      "material": "cream",
+      "roots": 527,
+      "vertex": 0,
+      "zero_root_component_area_fraction": 0.03340873512983563,
+      "zero_root_components_with_expected_at_least_one": 0,
+      "zero_root_indexed_components": 52
+    },
+    {
+      "interior": 456,
+      "material": "dark",
+      "roots": 456,
+      "vertex": 0,
+      "zero_root_component_area_fraction": 0.0,
+      "zero_root_components_with_expected_at_least_one": 0,
+      "zero_root_indexed_components": 0
+    }
+  ],
+  "measurement": {
+    "native_jobs": 0,
+    "one_bounded_cpu_run": true,
+    "pid": 95459,
+    "process_exit_verified": true,
+    "provider_calls": 0,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null,
+    "self_peak_rss_bytes": 97959936,
+    "wall_seconds": 0.259
+  },
+  "next_safe_action": "Use the already parent-owned matched-view comparison; do not select more roots or rerender an unchanged experiment from this lane.",
+  "quality_approved": false,
+  "schema_version": 1
+}

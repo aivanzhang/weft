@@ -1,0 +1,88 @@
+{
+  "ai_role_calls": 0,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-vertex-root-coverage-preflight-v1/census.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.262,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 276873,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 91534,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 276873,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "limits": "Source capacity metrics are not a full-coat or visual-density verdict; no selector was implemented.",
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "report_sha256": "247c442e63371d05a921a0e9bb03ccfc78c76d11c71c5c06589567c12f89c814",
+  "schema_version": 1,
+  "source_unchanged": [
+    {
+      "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/finish-config.json",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/report.json",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/correspondence.npz",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-coat.json",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_material_groom.py",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_material_coat.py",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_fur_cards.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "unchanged": true
+    }
+  ],
+  "status": "measured"
+}

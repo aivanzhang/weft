@@ -28,13 +28,14 @@ MAX_STAGE_START_SECONDS = 3600
 PIPELINE_SOURCES = ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
-                    'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py')
+                    'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py')
 PIPELINE_SCRIPT_SOURCES = ('motion_samples.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py',
                           'edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py',
                           'fur_root_sampling.py', 'blender_finish_generated.py', 'native_render_tasks.py',
                           'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py',
                           'material_fur.py', 'blender_material_colors.py', 'blender_material_coat.py',
-                          'blender_material_groom.py')
+                          'blender_material_groom.py', 'fur_vertex_roots.py', 'fur_skin_roots.py',
+                          'blender_fur_cards.py')
 
 
 class InterruptedStage(ValueError):

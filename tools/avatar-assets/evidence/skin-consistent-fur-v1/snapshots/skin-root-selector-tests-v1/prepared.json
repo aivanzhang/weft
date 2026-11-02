@@ -1,0 +1,57 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/skin-root-selector-tests-v1/run-tests.py"
+  ],
+  "controller_sha256": "cd687843075b61b62d6feb0275a67cdf82d1a96a4cc3dbbb561a33fa373c394c",
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "kind": "analytic_software_tests",
+  "limits": {
+    "output_mib": 16,
+    "rss_mib": 512,
+    "wall_seconds": 30
+  },
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_role_calls": 0,
+  "recorded_local": "2026-11-02T08:42:15.664430-08:00",
+  "runtime": {
+    "numpy": "2.5.4",
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  },
+  "schema_version": 1,
+  "scope": "Pure hybrid root selection and analytic LBS comparison only; actual avatar motion/appearance unverified.",
+  "sources": [
+    {
+      "bytes": 8834,
+      "path": "scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 13176,
+      "path": "tests/test_fur_skin_roots.py",
+      "sha256": "c5e333bfee10a4e5bac624fb40f254a4d4a8a4aa49c8eb1a7833abaef4646aeb"
+    },
+    {
+      "bytes": 6002,
+      "path": "scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 276,
+      "path": "requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    }
+  ]
+}

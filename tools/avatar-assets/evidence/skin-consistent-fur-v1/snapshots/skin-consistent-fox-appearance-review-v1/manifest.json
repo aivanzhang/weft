@@ -1,0 +1,152 @@
+{
+  "accepted_appearance": false,
+  "accepted_studio_delivery": false,
+  "approved_assets_replaced": false,
+  "default_changed": false,
+  "historical_comparison_images_reviewed": 2,
+  "images": [
+    {
+      "bytes": 421736,
+      "dimensions": [
+        720,
+        720
+      ],
+      "directly_viewed": true,
+      "format": "PNG",
+      "kind": "new exported rest",
+      "mode": "RGB",
+      "path": "outputs/fox-skin-consistent-fur-export-preview-v1/front.png",
+      "sha256": "f3ffc93e95708cb0535baadfee8f2ca3d421aa805001096674def7bf3c1cd03d"
+    },
+    {
+      "bytes": 407891,
+      "dimensions": [
+        720,
+        720
+      ],
+      "directly_viewed": true,
+      "format": "PNG",
+      "kind": "new exported rest",
+      "mode": "RGB",
+      "path": "outputs/fox-skin-consistent-fur-export-preview-v1/three-quarter.png",
+      "sha256": "2c14831928f5fb9c7afef0680f2a7a2e3c045a8e1c735df4843e54a82313350b"
+    },
+    {
+      "bytes": 416109,
+      "dimensions": [
+        720,
+        720
+      ],
+      "directly_viewed": true,
+      "format": "PNG",
+      "kind": "new exported rest",
+      "mode": "RGB",
+      "path": "outputs/fox-skin-consistent-fur-export-preview-v1/back.png",
+      "sha256": "ba9ad53e504998ec2b7b61b5adb76374a89d56099955d39d75285d716a349b64"
+    },
+    {
+      "bytes": 372626,
+      "dimensions": [
+        720,
+        720
+      ],
+      "directly_viewed": true,
+      "format": "PNG",
+      "kind": "new exported rest",
+      "mode": "RGB",
+      "path": "outputs/fox-skin-consistent-fur-export-preview-v1/side.png",
+      "sha256": "e7a00af6933585cc04ed60d8b42b540fb915da5fb7a0c124f4c4f9b11d4cc146"
+    },
+    {
+      "bytes": 469180,
+      "dimensions": [
+        720,
+        720
+      ],
+      "directly_viewed": true,
+      "format": "PNG",
+      "kind": "new native portrait",
+      "mode": "RGB",
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/portrait.png",
+      "sha256": "ebfddc0494859c5975f332dfe7c40860b48b2e1eb5757302da8fdf42599afa0a"
+    },
+    {
+      "bytes": 71748,
+      "dimensions": [
+        256,
+        256
+      ],
+      "directly_viewed": true,
+      "format": "PNG",
+      "kind": "new native raised-arm draft",
+      "mode": "RGB",
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/renders/milestone_level_up/0002.png",
+      "sha256": "148459e234036317abb70187c1a655e9cae1a9f5c4718d9ac76adf0d283421f8"
+    },
+    {
+      "bytes": 415800,
+      "dimensions": [
+        720,
+        720
+      ],
+      "directly_viewed": true,
+      "format": "PNG",
+      "kind": "old exported comparison",
+      "mode": "RGB",
+      "path": "outputs/fox-material-fur-export-preview-v1/back.png",
+      "sha256": "15693f3a483bb23b1c858c21fe55d1de8f2fe974825defbf935b06c0d0b401f0"
+    },
+    {
+      "bytes": 372429,
+      "dimensions": [
+        720,
+        720
+      ],
+      "directly_viewed": true,
+      "format": "PNG",
+      "kind": "old exported comparison",
+      "mode": "RGB",
+      "path": "outputs/fox-material-fur-export-preview-v1/side.png",
+      "sha256": "e0e1e4f9d0ad88b8fbf4617b5c665c1f393c638451ad924a9c3a72fa5908b48f"
+    }
+  ],
+  "limitations": [
+    "No continuous clip, loop, HD state-action or browser review in this increment",
+    "No per-strand native hair texture or shading equality proof",
+    "Source motion stretch remains; attachment pass does not repair it",
+    "Existing local authored fox, not new Meshy/text generation"
+  ],
+  "model_sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80",
+  "new_images_reviewed": 6,
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "observations": [
+    "Fox identity, orange/cream/dark palette, teal scarf, sketchbook and pencil remain coherent",
+    "Both coats read as short plush with sparse outline hairs, not dense Muse fur",
+    "Abrupt tail color boundary, dark back-of-leg patches and hard body-part transitions remain",
+    "New raised-arm draft communicates lifted props but is only one 256px frame",
+    "Matched rest views show no established density upgrade; root attachment is measured independently"
+  ],
+  "recorded": "2026-11-02 09:13:08 PST",
+  "references": [
+    {
+      "path": "outputs/fox-skin-consistent-root-audit-v1/review.json",
+      "sha256": "e60cb9e8a965e05c6a915659648cfaa55f9b0f72f159f747d1653887ed6a2a70"
+    },
+    {
+      "path": "outputs/fox-skin-root-selected-coverage-v1/interpretation.json",
+      "sha256": "c3da71fa52068f9b41a7a8a828f4402dad3cc22247d207d52e2647078ac57397"
+    },
+    {
+      "path": "outputs/fox-skin-consistent-body-audit-v1/review.json",
+      "sha256": "2c4e019c2c4eeb7f1ed0791506e2e9ff461b6568dddc2e99acecc43cad9f7fd5"
+    },
+    {
+      "path": "outputs/skin-consistent-fox-preview-preparation-v1/framing-reference.json",
+      "sha256": "6eeb152e75ec31ecfb402f64c0826f5ae689b9fd61bea6b52c7761356c9e7336"
+    }
+  ],
+  "review_method": "Direct local view_image inspection in four two-image batches; no browser or video playback",
+  "schema_version": 1,
+  "status": "attachment_passed_appearance_not_accepted"
+}

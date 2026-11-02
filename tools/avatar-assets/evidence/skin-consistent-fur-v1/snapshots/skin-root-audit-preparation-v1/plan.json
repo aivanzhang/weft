@@ -1,0 +1,67 @@
+{
+  "bindings": {
+    "NPZ_keys": {
+      "barycentric": "float64[N,3]",
+      "root_inset": "float64[N,3] normal times intentional inset",
+      "triangle_index": "int32[N] per-band eligible-source-triangle ordinal"
+    },
+    "binding_archive": {
+      "root_inset_convention": "surface_root_minus_bottom_edge_midpoint",
+      "schema_version": 1,
+      "space": "blender_local_z_up_meters"
+    },
+    "caps": {
+      "archive_bytes": 524288,
+      "files": 128,
+      "roots": 5000,
+      "total_archive_bytes": 1048576
+    },
+    "root_placement": "skin-consistent-v1"
+  },
+  "candidate_model": null,
+  "candidate_model_sha256": null,
+  "checks": [
+    "Exact source/native-ID hashes and source/material face-list hash before using root ordinals",
+    "All roots, all three materials and both root domains; no mixed-weight domain omission",
+    "Interior binding only for exactly equal complete normalized named source weights; otherwise exactly one-hot",
+    "All exported corner weights versus expected source weights; reject more than4 positive inherited influences",
+    "Exported bottom-UV root midpoint matches source barycentric point minus exact declared inset for every root; detailed samples cross-check the archive.",
+    "Four actual clips at nine times; expected inherited skin, duplicate roots and source-surface attachment checked separately, using all exact declared archive insets."
+  ],
+  "existing_evidence": [
+    {
+      "path": "outputs/fox-material-coat-skin-audit-v1/manifest.json",
+      "sha256": "8a8e4f11af8c1817a67e676d206a9b9cffed166b43f74bd11875c510914319a5"
+    },
+    {
+      "path": "outputs/fox-vertex-root-math-screen-v1/manifest.json",
+      "sha256": "da955ae43cca938898bde47b6a23666d2ebd262515199dec58c80289dd1527cc"
+    },
+    {
+      "path": "outputs/fox-material-fur-independent-audit-v2/native-source-identity.json",
+      "sha256": "44e541e5b847c4579f66b78872e7cbcc95edd04f0e01006ea3a219eb393a92e6"
+    }
+  ],
+  "gates": {
+    "max_authored_inset_m": 0.0005,
+    "named_weights": 1e-06,
+    "rest_detailed_root_m": 1e-06,
+    "sampled_motion_m": 1e-05,
+    "source_surface_attachment_m": 1e-05
+  },
+  "limitations": [
+    "Mathematical uniform-weight rule alone does not prove raw source normalization/export fidelity",
+    "No quality, density, spacing, loop, physics or native-hair claim"
+  ],
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "required_release": "Parent must supply terminal candidate model/report/config/body-fidelity hashes and authorize one bounded run. This folder is not an executed proof.",
+  "schema_version": 1,
+  "scope": "Every recorded material-owned skin-consistent-v1 root, not only128 samples per part. Existing source-body preservation proof must bind the exact candidate.",
+  "source": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "preparation_only_unexecuted"
+}

@@ -1,0 +1,147 @@
+{
+  "at": "2026-11-02T09:01:53.166765-08:00",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-skin-root-selected-coverage-v1/measure.py"
+  ],
+  "inputs": [
+    {
+      "bytes": 27526456,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/model.glb",
+      "sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80"
+    },
+    {
+      "bytes": 556080,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/finish-report.json",
+      "sha256": "37ca35dd051ac610a7cf081ce39895a473b6c2292832945982f40a2220e4b4d0"
+    },
+    {
+      "bytes": 3438,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/finish-config.json",
+      "sha256": "a735afebac79af675a17687eb575e886ef6408206a0027c9762420cdbfda2d35"
+    },
+    {
+      "bytes": 1221,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/material-coat.json",
+      "sha256": "aea9260208da5fd1700c525eb576a7d9252e754cfb51268372930c070fd538cb"
+    },
+    {
+      "bytes": 28714,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/material-groom/report.json",
+      "sha256": "e7eaa6dabda586dfbc154f575e34c20fe4cf885b8083b09b1dc5446d1359b65c"
+    },
+    {
+      "bytes": 2311210,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/material-groom/correspondence.npz",
+      "sha256": "8b7b59269e10cbe83eb146cc30168f9acc6c8a85e0ccde94316c416f90b78d13"
+    },
+    {
+      "bytes": 25390,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_fur_cards.py",
+      "sha256": "72e21d2d4cd5441ab9a7bfb3ee6ba3a1afcc238cc669907a7c3665c49bc99a12"
+    },
+    {
+      "bytes": 5450,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 105672,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "ff0bed207782a7434bc4164164f25647ce2b9c5194d69b64b22e3794b7de3664"
+    },
+    {
+      "bytes": 28192,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.001.npz",
+      "sha256": "153651a586f1d539f1249ff29a322dec3637b7a51ba100df4dada18a6c68c0ad"
+    },
+    {
+      "bytes": 24500,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/portable-root-bindings/PortableCoat_0.002.npz",
+      "sha256": "b3753962342ef24f1b66ebe48ef056ed981bb530b8b597c87a467e1e1d8e36a0"
+    },
+    {
+      "bytes": 27708644,
+      "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+      "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+    },
+    {
+      "bytes": 28714,
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/report.json",
+      "sha256": "8eccf2b1e43c64c9beb06b5fd30ad91579e8a62596d13b906595d93ff24827f8"
+    },
+    {
+      "bytes": 1221,
+      "path": "outputs/fox-material-fur-finish-v1/material-coat.json",
+      "sha256": "aea9260208da5fd1700c525eb576a7d9252e754cfb51268372930c070fd538cb"
+    },
+    {
+      "bytes": 321450,
+      "path": "outputs/fox-skin-root-coverage-preflight-v1/report.json",
+      "sha256": "fd8afa3bd2cb3ff33ed6a0519c6d041bb0c2cd8eecbc7c2e4e4c1fd1f27e35b7"
+    },
+    {
+      "bytes": 126896,
+      "path": "outputs/fox-skin-root-coverage-preflight-v1/classification.npz",
+      "sha256": "c935ef32b0cb23ff43109242a46d752d7e7403cdf33ff46560aadde4ec0ed025"
+    },
+    {
+      "bytes": 2338,
+      "path": "outputs/fox-skin-root-coverage-preflight-v1/release-manifest.json",
+      "sha256": "e280fdbfd44ccd526a4e5e01213bfedccd058308aed286551f6675423bd34a90"
+    },
+    {
+      "bytes": 4751,
+      "path": "outputs/fox-vertex-root-coverage-preflight-v1/source-binding.json",
+      "sha256": "56af6fa08d047c9c1bd2bdf8107971095e2d15216b7fc5ccdd8b3fdc26c782f2"
+    },
+    {
+      "bytes": 40648,
+      "path": "outputs/fox-vertex-root-coverage-preflight-v1/spatial-grid.json",
+      "sha256": "61e7bfb9bb30d85cb8aa0f1f8e31062cc856cb510b47b4d8c77f79c481fe5018"
+    },
+    {
+      "bytes": 16694,
+      "path": "outputs/fox-vertex-root-coverage-preflight-v1/census.py",
+      "sha256": "370ebc05c1a6d4cbd4c68cbd5b12f1d3f1c2afdc542eaf20dfb16fa9f9b27b3c"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "model_sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80",
+  "schema_version": 1,
+  "scope": "Selected binding root counts, exact coincident aliases and component/grid allocation. No repeated exported body/skin/color audit.",
+  "scripts": {
+    "execute.py": "8eceae22c32ffaa5645ea044a79f0e2f7b628a2f2871ec9544aaf330d7b178ae",
+    "measure.py": "49eb1fb150803662f142b606544f7c91e151cc10354f69e321ee7ed1630da278"
+  },
+  "settings": {
+    "expected_uniform": 2518,
+    "expected_vertex": 482,
+    "final_glb_attribute_decode": false,
+    "grid": [
+      6,
+      6,
+      6
+    ],
+    "native_jobs": 0,
+    "provider_calls": 0,
+    "root_count": 3000,
+    "texture_decode": false
+  }
+}

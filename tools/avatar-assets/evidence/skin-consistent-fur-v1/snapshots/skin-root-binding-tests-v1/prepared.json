@@ -1,0 +1,54 @@
+{
+  "at": "2026-11-02T08:50:13.306554-08:00",
+  "command": [
+    "/usr/bin/env",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "TMPDIR=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/skin-root-binding-tests-v1/tmp",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/skin-root-binding-tests-v1/run_tests.py"
+  ],
+  "equivalent_test_command": ".venv/bin/python -m unittest -v tests.test_fur_bindings",
+  "inputs": [
+    {
+      "bytes": 10500,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "286c78134b7a6fe72e63a250abbbdbf49a8ebc49f1741227206683edca15b6ac"
+    },
+    {
+      "bytes": 15491,
+      "path": "tests/test_fur_bindings.py",
+      "sha256": "07d9af55992f8b6e0388933a14159bdb1110e0dd37ff5aaca06e60dbd3be9534"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 96,
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    }
+  ],
+  "limits": {
+    "memory_mb": 512,
+    "native_jobs": 0,
+    "output_mb": 16,
+    "provider_calls": 0,
+    "seconds": 30
+  },
+  "schema_version": 1,
+  "scope": "Writer numeric contracts and byte-only copy custody, no native or semantic model approval.",
+  "scripts": {
+    "execute.py": "4aa96ac7ad9501d7ee30cf84147b3d328b4557428b82907373ed87fa6262b393",
+    "run_tests.py": "81493ec78bc9eb7fec0424fec101738cf06649dd1cd9c3a50f0c0410e7041f0f"
+  }
+}

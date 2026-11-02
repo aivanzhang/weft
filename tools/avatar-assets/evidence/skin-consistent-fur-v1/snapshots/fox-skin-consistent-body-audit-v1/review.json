@@ -1,0 +1,110 @@
+{
+  "checks": {
+    "active_embedded_body_images_and_material_semantics_equal": true,
+    "all_body_source_motion_max_component_error_m": 3.433050115297931e-07,
+    "exact_source_ID_and_material_face_memberships": true,
+    "exported_root_color_max_error": 1.5842655676223671e-07,
+    "final_body_vertices_after_export_seams": 30420,
+    "independent_root_color_max_error": 1.3348136551627476e-07,
+    "named_bones": 20,
+    "named_weights_max": 0.0,
+    "normal_uv_export_guard": "supported",
+    "oriented_triangles": 47776,
+    "positions_max_m": 0.0,
+    "rest_world_max_component_error": 2.384185795456517e-07,
+    "retained_body_materials": 16,
+    "sampled_root_colors": 384,
+    "source_clips": 4,
+    "source_vertices": 30418,
+    "times_per_clip": 9,
+    "uv_max": 0.0
+  },
+  "historical_execution_source_pins": [
+    {
+      "equal": true,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/sources/finish_generated.py",
+      "prelaunch_sha256": "c4ca2b68416d9c6b17b39d4d3c7840f49887a60ae919182de8edce41abf02eb6",
+      "sha256": "c4ca2b68416d9c6b17b39d4d3c7840f49887a60ae919182de8edce41abf02eb6"
+    },
+    {
+      "equal": true,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_finish_generated.py",
+      "prelaunch_sha256": "e08ef4cfb86864b29ba1f0e619f6749d3b8307a36e29b770d082a6b52686a73a",
+      "sha256": "e08ef4cfb86864b29ba1f0e619f6749d3b8307a36e29b770d082a6b52686a73a"
+    },
+    {
+      "equal": true,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_material_colors.py",
+      "prelaunch_sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "equal": true,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_material_coat.py",
+      "prelaunch_sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "equal": true,
+      "path": "outputs/fox-skin-consistent-fur-finish-v1/sources/blender_material_groom.py",
+      "prelaunch_sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    }
+  ],
+  "limits": [
+    "Not fresh generation/Studio acceptance",
+    "No source-motion repair or loop/physics claim",
+    "Native hair color sampling and GPU behavior unverified",
+    "This body/color audit excludes new coat motion; see separate full-root audit"
+  ],
+  "model_sha256": "e08bd6e0e548e1e89c6a46b811ab9d5fa11b8c9e15844d50f5ec480455171d80",
+  "quality_approved": false,
+  "recorded_local": "2026-11-02T09:01:38.547402-08:00",
+  "retained_source_deformation_diagnostics": [
+    {
+      "id": "idle",
+      "loop_verified": false,
+      "maximum_excess_m": null,
+      "maximum_stretch_ratio": null,
+      "reported_outliers": 0
+    },
+    {
+      "id": "making_something",
+      "loop_verified": false,
+      "maximum_excess_m": null,
+      "maximum_stretch_ratio": null,
+      "reported_outliers": 0
+    },
+    {
+      "id": "milestone_level_up",
+      "loop_verified": false,
+      "maximum_excess_m": 0.03300863053828105,
+      "maximum_stretch_ratio": 2.543063124449477,
+      "reported_outliers": 4
+    },
+    {
+      "id": "working",
+      "loop_verified": false,
+      "maximum_excess_m": null,
+      "maximum_stretch_ratio": null,
+      "reported_outliers": 0
+    }
+  ],
+  "runtime": {
+    "elapsed_seconds": 3.123,
+    "exit_code": 0,
+    "pid": 95132,
+    "process_exit_verified": true,
+    "sampled_peak_rss_bytes": 337428480
+  },
+  "schema_version": 1,
+  "shading_limits": {
+    "full_shading_frame_equality_claimed": false,
+    "max_normal_min_candidate_component_error": 0.0003999173641204834,
+    "max_tangent_min_candidate_component_error": 0.00039999932050704956,
+    "vertices_with_ambiguous_source_normal_identity": 2075
+  },
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "passed_declared_body_and_sampled_color_fidelity",
+  "unchanged_checker_sha256": "4c0335872a838532beef86713459ec6ec4d862de617a642724d97ed71f7d4674"
+}
