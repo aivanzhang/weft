@@ -3,11 +3,13 @@
 from collections import Counter
 from copy import deepcopy
 import math
+import time
 from types import MappingProxyType
 
 import numpy as np
 
 from weft.io import canonical_hash
+from weft.limb_position_fit import CONTRACT as LIMB_FIT_CONTRACT, STATUSES as LIMB_FIT_STATUSES, fit_limb_positions
 from weft.multiview_root import METHOD as ROOT_METHOD, MULTI_METHOD as MULTI_ROOT_METHOD
 from weft.multiview_segments import METHOD as SEGMENT_METHOD, CONTRACT as SEGMENT_CONTRACT, COMPONENTS, PARTIAL_STATUS
 from weft.spatial_pose import LIMB_ENDPOINTS, SPATIAL_JOINT_NAMES, _limb_rotation, rotation_to_zyx, rotation_zyx
@@ -15,7 +17,8 @@ from weft.spatial_pose import LIMB_ENDPOINTS, SPATIAL_JOINT_NAMES, _limb_rotatio
 
 METHOD = 'two-view-body-v1'
 MULTI_METHOD = 'multi-view-body-v1'
-METHODS = (METHOD, SEGMENT_METHOD, MULTI_METHOD)
+LIMB_FIT_METHOD = 'camera-body-length-fit-v1'
+METHODS = (METHOD, SEGMENT_METHOD, MULTI_METHOD, LIMB_FIT_METHOD)
 SCALE_ASSUMPTION = 'supplied_camera_scale_with_explicit_monocular_body_priors'
 CONTRACT = MappingProxyType({'method': METHOD, 'minimum_dimension_frames': 5,
     'maximum_reference_poses': 900, 'dimensions': 'Median available segment lengths; shared left/right lengths remain an authored symmetry assumption',
@@ -46,9 +49,13 @@ def validate_body_binding(spec):
     fields = {'schema_version', 'mode', 'input_body', 'input_body_sha256', 'triangulation_sha256',
               'output_lengths_sha256', 'output_evidence_sha256', 'audit_sha256'}
     partial = spec['camera_reference']['method'] == SEGMENT_METHOD
-    multi = spec['camera_reference']['method'] == MULTI_METHOD
+    fitted = spec['camera_reference']['method'] == LIMB_FIT_METHOD
+    multi = (spec['camera_reference']['method'] == MULTI_METHOD or fitted
+             and len(spec['camera_reference'].get('root_refinement', {}).get('views', [])) > 2)
     if partial:
         fields.add('segment_contract')
+    if fitted:
+        fields.add('limb_fit_contract')
     if (not isinstance(value, dict) or set(value) != fields or type(value['schema_version']) is not int
             or value['schema_version'] != 1 or value['mode'] not in MODES
             or not isinstance(value['input_body'], dict)
@@ -69,11 +76,43 @@ def validate_body_binding(spec):
     if value['mode'] == 'dimensions' and (spec['reference'] != parent['reference']
                                         or spec['reference_evidence'] != parent['reference_evidence']):
         raise ValueError('Dimension-only body must preserve original angles and their provenance')
+    if fitted:
+        if value['mode'] not in ('directions', 'both') or value['limb_fit_contract'] != dict(LIMB_FIT_CONTRACT):
+            raise ValueError('Length-fit body requires its fixed direction-fitting contract')
+        for meta, reference in zip(spec['reference_evidence'], spec['reference'], strict=True):
+            sources = meta.get('geometry_sources')
+            allowed = {'multi_view_estimate' if multi else 'two_view_estimate',
+                       'monocular_prior_missing_points', 'monocular_prior_degenerate_geometry'}
+            if (not isinstance(sources, dict) or set(sources) != set(GROUPS)
+                    or any(not isinstance(v, str) or v not in allowed for v in sources.values())):
+                raise ValueError('Length-fit geometry sources differ from the retained view method')
+            fits = meta.get('geometry_fit')
+            expected = {name for name, source in sources.items()
+                        if name in LIMB_ENDPOINTS and source in ('two_view_estimate', 'multi_view_estimate')}
+            if meta.get('geometry_method') != LIMB_FIT_METHOD or not isinstance(fits, dict) or set(fits) != expected:
+                raise ValueError('Length-fit provenance must retain every applied supported limb')
+            for group, fit in fits.items():
+                names = (group+'_twist', group+'_lateral', group,
+                         group.rsplit('_', 1)[0]+('_knee' if group.endswith('hip') else '_elbow'))
+                required = {'input_angles_rad', 'angle_correction_rad', 'status', 'position_sse_before_m2', 'position_sse_after_m2'}
+                if not isinstance(fit, dict) or set(fit) != required:
+                    raise ValueError('Length-fit provenance differs from the bounded correction schema')
+                old, delta = fit['input_angles_rad'], fit['angle_correction_rad']
+                costs = [fit['position_sse_before_m2'], fit['position_sse_after_m2']]
+                if (not isinstance(old, list) or not isinstance(delta, list) or len(old) != 4 or len(delta) != 4
+                        or any(type(x) not in (int, float) or not math.isfinite(x) for x in old+delta+costs)
+                        or any(abs(x) > math.tau for x in old) or not 0 <= old[3] <= 2.6
+                        or any(abs(x) > LIMB_FIT_CONTRACT['maximum_angle_change_rad'] for x in delta)
+                        or not isinstance(fit['status'], str) or fit['status'] not in LIMB_FIT_STATUSES
+                        or not 0 <= costs[1] <= costs[0]
+                        or any(abs(reference['joints'][name]-a-d) > 1e-12 for name, a, d in zip(names, old, delta, strict=True))):
+                    raise ValueError('Length-fit angles or source-position nonregression changed')
     if multi and value['mode'] in ('directions', 'both'):
         view_count = len(spec['camera_reference']['root_refinement']['views'])
         for meta in spec['reference_evidence']:
             sources, contributors = meta.get('geometry_sources'), meta.get('geometry_view_indices')
-            if (meta.get('geometry_method') != MULTI_METHOD or not isinstance(sources, dict) or set(sources) != set(GROUPS)
+            if (meta.get('geometry_method') != (LIMB_FIT_METHOD if fitted else MULTI_METHOD)
+                    or not isinstance(sources, dict) or set(sources) != set(GROUPS)
                     or not isinstance(contributors, dict)
                     or set(contributors) != {name for name, source in sources.items() if source == 'multi_view_estimate'}):
                 raise ValueError('Multi-view body must identify the contributors to every applied geometry group')
@@ -142,7 +181,7 @@ def _torso_rotation(points):
     return np.column_stack((right, np.cross(up, right), up))
 
 
-def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mode='both', partial_segments=False, additional_evidence=()):
+def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mode='both', partial_segments=False, additional_evidence=(), limb_fit=False):
     from weft.human import LENGTH_BOUNDS, validate_human
 
     original = validate_human(spec)
@@ -159,7 +198,9 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
         raise ValueError('Partial segments require an explicit boolean and direction-enabled mode')
     if multi and partial_segments:
         raise ValueError('Partial-segment transport is not qualified for multi-view bodies')
-    method = MULTI_METHOD if multi else SEGMENT_METHOD if partial_segments else METHOD
+    if type(limb_fit) is not bool or limb_fit and (partial_segments or mode not in ('directions', 'both')):
+        raise ValueError('Fixed-length limb fitting requires directions/both and cannot use partial segments')
+    method = LIMB_FIT_METHOD if limb_fit else MULTI_METHOD if multi else SEGMENT_METHOD if partial_segments else METHOD
     if canonical_hash(predictions) != binding['root_refinement']['triangulation_sha256']:
         raise ValueError('Two-view body predictions differ from the root construction')
     views = predictions['views']
@@ -191,7 +232,8 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
         dimensions[name] = {'status': status, 'applied': applied, 'original_length': original['lengths'][name],
                             'output_length': candidate['lengths'][name], 'median_observed_length': value,
                             'distinct_frames': count, 'samples': samples}
-    audits, previous = [], {}
+    audits, previous, previous_fit = [], {}, {}
+    fit_deadline = time.monotonic()+LIMB_FIT_CONTRACT['maximum_body_fit_seconds'] if limb_fit else None
     anchor = np.asarray(original['body_frame']['rotation'])
     for i, frame in enumerate(indices):
         original_joints = original['reference'][i]['joints']
@@ -227,6 +269,21 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
                     detail.update(status=estimate_status, assumed_twist=assumed, chart_singular=singular,
                                   flexion_clamped=flexion is not None and flexion > CONTRACT['maximum_flexion_rad'],
                                   chart_wrap=bool(np.max(np.abs(angles-prior)) > math.pi))
+                    if limb_fit and group != 'torso':
+                        if time.monotonic() >= fit_deadline:
+                            raise TimeoutError('Fixed-length body fitting exceeded its declared deadline')
+                        leg = group.endswith('hip'); sign = -1 if group.startswith('left_') else 1
+                        lengths = candidate['lengths']
+                        local_origin = [sign*lengths['hip_width' if leg else 'shoulder_width']/2, 0., 0. if leg else lengths['torso']]
+                        root = np.asarray(binding['origin_world_m'])+original['root_reference'][i]['translation']
+                        parent_targets = (points[1:]-root-torso @ local_origin) @ torso
+                        earlier = previous_fit.get(group)
+                        correction = (earlier[1] if earlier and 0 < meta['time_s']-earlier[0] <= LIMB_FIT_CONTRACT['maximum_temporal_gap_s'] else None)
+                        fit = fit_limb_positions(values, [lengths[key] for key in (('thigh', 'shin') if leg else ('upper_arm', 'forearm'))],
+                                                 parent_targets, -1 if leg else 1, previous=correction)
+                        detail['length_fit'] = fit
+                        values = fit['output_angles_rad']
+                        previous_fit[group] = (meta['time_s'], fit['angle_correction_rad'])
                     if mode in ('directions', 'both'):
                         detail['applied'] = True
                         for name, value in zip(names, values, strict=True):
@@ -237,11 +294,19 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
                         if group == 'torso': torso = target_torso
                 except ValueError as error:
                     detail.update(status='monocular_prior_degenerate_geometry', reason=str(error))
-            previous[group] = np.array([joints[name] for name in names[:3]])
+            if limb_fit and group != 'torso' and 'length_fit' not in detail:
+                previous_fit.pop(group, None)
+            # Fitting must not select a different Euler branch for the next raw source pose.
+            previous[group] = np.array(detail['length_fit']['input_angles_rad'][:3] if limb_fit and 'length_fit' in detail
+                                       else [joints[name] for name in names[:3]])
             groups[group] = detail
         if mode in ('directions', 'both'):
             meta['geometry_sources'] = {group: detail['status'] for group, detail in groups.items()}
-            meta['geometry_method'] = MULTI_METHOD if multi else METHOD
+            meta['geometry_method'] = LIMB_FIT_METHOD if limb_fit else MULTI_METHOD if multi else METHOD
+            if limb_fit:
+                meta['geometry_fit'] = {group: {key: detail['length_fit'][key] for key in
+                    ('input_angles_rad', 'angle_correction_rad', 'status', 'position_sse_before_m2', 'position_sse_after_m2')}
+                    for group, detail in groups.items() if 'length_fit' in detail}
             if multi:
                 meta['geometry_view_indices'] = {group: detail['joint_view_indices'] for group, detail in groups.items() if detail['applied']}
         audits.append({'frame': frame, 'evidence_id': meta['evidence_id'], 'time_s': meta['time_s'], 'groups': groups})
@@ -263,6 +328,14 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
         audit['contract'] = dict(CONTRACT) | {'method': method, 'partial_segments': dict(SEGMENT_CONTRACT)}
         audit['partial_segments'] = segment_report
         audit['scope'] = 'Partial two-view geometry; missing upper directions, distal bends and axial twist retain explicit monocular priors'
+    if limb_fit:
+        audit['contract']['limb_fit'] = dict(LIMB_FIT_CONTRACT)
+        audit['scope'] = 'Fixed-length source-position angle proposals; no root, floor or dynamic fit'
+        fits = [detail['length_fit'] for row in audits for detail in row['groups'].values() if 'length_fit' in detail]
+        audit['limb_position_fit'] = {'method': LIMB_FIT_CONTRACT['method'], 'supported_limbs': len(fits),
+            'changed_limbs': sum(fit['maximum_angle_change_rad'] > 0 for fit in fits),
+            'status_counts': dict(Counter(fit['status'] for fit in fits)),
+            'maximum_angle_change_rad': max((fit['maximum_angle_change_rad'] for fit in fits), default=0.)}
     candidate['camera_reference'].update(method=method, scale_assumption=SCALE_ASSUMPTION,
         angular_reference_sha256=canonical_hash(candidate['reference']), body_refinement={
             'schema_version': 1, 'mode': mode, 'input_body': original, 'input_body_sha256': canonical_hash(original),
@@ -271,6 +344,8 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
             'output_evidence_sha256': canonical_hash(candidate['reference_evidence'])})
     if partial_segments:
         candidate['camera_reference']['body_refinement']['segment_contract'] = dict(SEGMENT_CONTRACT)
+    if limb_fit:
+        candidate['camera_reference']['body_refinement']['limb_fit_contract'] = dict(LIMB_FIT_CONTRACT)
     candidate['assumptions'] = [v for v in candidate['assumptions'] if not v.startswith(
         'Body shape, joint angles, muscle illustrations and motor forces remain')]
     candidate['assumptions'].extend([
@@ -283,5 +358,9 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
     if partial_segments:
         candidate['assumptions'].append(
             'Supported upper-segment directions transport prior limb orientation; missing distal bend and axial twist remain monocular, not measured')
+    if limb_fit:
+        candidate['assumptions'].append('Supported limb angles fit source-derived positions with fixed lengths; corrections and temporal priors are inferred, not measured anatomy or contact')
     candidate['reconstruction_coverage']['two_view_body'] = {'method': method, 'mode': mode, 'group_coverage': audit['group_coverage']}
+    if limb_fit:
+        candidate['reconstruction_coverage']['two_view_body']['limb_position_fit'] = deepcopy(audit['limb_position_fit'])
     return validate_human(candidate), audit

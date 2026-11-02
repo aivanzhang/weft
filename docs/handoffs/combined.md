@@ -1,5 +1,34 @@
 # Combined Weft implementation handoff
 
+## Fixed-length source fit and recording — November 1, 2026, PST
+
+The opt-in [`camera-body --fit-limbs`](../multi-view-body.md#optional-fixed-length-angle-fit)
+reconciles supported source positions with fixed body lengths through bounded
+joint-angle proposals. No root/floor/shape/force change, missing-point filling,
+source observation change or default promotion. **96 distinct Python checks and
+70 mocked UI checks pass.** Source Euler-chart history stays separate from fit
+corrections; partial-segment and learned/coupled admission guards remain intact.
+
+The real candidate preserves all 47 source poses/188 source slots. Source floor
+failures fall 4→0; interpolated failures 7→4, max penetration .055751. It remains
+infeasible between frames 80–88; three source poses also retain smaller
+intersections. Saved-only audit verifies 163 supported limb fits, 1,697 trial
+losses and all6,768 image slots. Mean image error improves in all three views,
+but 278/1,620 compared image points regress. Not independent physical accuracy.
+
+Actual manual control/export/replay verifies 39 actions/one reset/41 states and
+video frames. All root jobs are reaped. No original-video decode, inference,
+network/API, server, browser or deployment. [Handoff](aspset-limb-fit.md) records
+all source/runtime pins, seals, bounded execution, metrics and prototype command.
+Publication identity: `.local/aspset-fixed-limb-publication-01.json` after push.
+Preserve the independent avatar session's files/index ownership.
+
+Next: qualify supported partial-leg geometry around frame 84. Its hip/knee are
+supported, ankle unavailable; the retained whole-leg monocular prior creates a
+large twist change relative to supported frames 80/88. Do not change floor/gates
+or hide missing evidence. Complete coupled contact/control, unfamiliar-video
+coverage, learning and independent physical validation still remain.
+
 ## Three-camera body and actual recording — November 1, 2026, PST
 
 The [multi-view lab](../multi-view-body.md) now reuses the existing bounded pixel

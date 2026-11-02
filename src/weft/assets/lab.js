@@ -1711,6 +1711,10 @@
           const sourceDescription = partialSegments ? "Upper-only limbs use the supported shoulder-to-elbow or hip-to-knee direction; the missing endpoint, bend and twist around the bone remain single-view estimates." : "Missing limb directions retain single-view estimates.";
           text($("world-description"), `${cameraViews > 2 ? cameraViews : "Two"} views set position and ${modes[scene.human.geometry_mode]}. ${sourceDescription} Left/right lengths share a symmetry assumption. Ground and contact are not fitted. Available ${partialSegments ? "limb" : "complete limb"} estimates: ${counts.join("; ")}.`);
           text($("training-caption"), `Not trained · two-view-body.json shows which geometry uses ${cameraViews > 2 ? "multiple" : "two"} views and which retains single-view estimates. Muscles remain illustrative.`);
+          if (scene.human?.limb_position_fit) {
+            text($("world-description"), $("world-description").textContent + " A bounded angle fit reconciles supported joint positions with fixed limb lengths. Body position and ground stay unchanged; this does not establish contact.");
+            text($("training-caption"), "Not trained · two-view-body.json retains original directions, proposed angle corrections and remaining position errors. Source observations are unchanged; muscles remain illustrative.");
+          }
         }
       }
       $("human-controls").hidden = false; $("human-reference-controls").hidden = false;

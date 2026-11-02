@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -171,6 +171,10 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     scene.human.root_method = 'multi-view-body-v1';
     scene.human.camera_view_count = 3;
     scene.human.geometry_coverage.left_shoulder = {multi_view_estimate:104,monocular_prior_missing_points:8};
+  }
+  if (limbFit) {
+    scene.human.root_method = 'camera-body-length-fit-v1';
+    scene.human.limb_position_fit = {method:'fixed-length-limb-position-v1',supported_limbs:330,changed_limbs:120};
   }
   if (partialSegments) {
     scene.human.root_method='two-view-body-v2';
@@ -894,6 +898,20 @@ async function multiViewBodyCountsSupportedLimbsWithoutExtraRequests() {
   assert(!ui.requests.some(request=>/two-view-(body|triangulation)/.test(request.path)));
 }
 checks.push(multiViewBodyCountsSupportedLimbsWithoutExtraRequests);
+
+async function fixedLengthFitRemainsAnUntrainedSourceProposal() {
+  for (const multiView of [false,true]) {
+    const ui = fixture('exercise', {mobile:true,cameraBody:true,suppliedGround:true,geometryMode:'both',multiView,limbFit:true}); await ui.ready();
+    assert.match(ui.ids.get('world-description').textContent,/bounded angle fit/);
+    assert.match(ui.ids.get('world-description').textContent,/fixed limb lengths/);
+    assert.match(ui.ids.get('world-description').textContent,/does not establish contact/);
+    assert.match(ui.ids.get('training-caption').textContent,/Source observations are unchanged/);
+    assert.equal(ui.ids.get('policy').disabled,true);
+    assert(!ui.requests.some(request=>/two-view-(body|triangulation)/.test(request.path)));
+  }
+}
+checks.push(fixedLengthFitRemainsAnUntrainedSourceProposal);
+
 
 async function upperSegmentCorrectionDoesNotClaimObservedWristsOrAnkles() {
   const ui = fixture('exercise', {mobile:true,cameraBody:true,suppliedGround:true,geometryMode:'both',partialSegments:true}); await ui.ready();

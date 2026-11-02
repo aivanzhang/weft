@@ -1,5 +1,8 @@
 # Three- and four-camera body candidates
 
+The optional [fixed-length angle fit](#optional-fixed-length-angle-fit) now improves
+this saved exercise candidate. It still has four failing in-between poses.
+
 Weft can now use **two or more supporting cameras per joint** from three or four
 supplied views. This is an optional manual sandbox, not automatic camera recovery
 from one video. Camera calibration, synchronized clocks, shared coordinates and
@@ -116,3 +119,51 @@ The saved-only audit checked 776 manifest members, all 6,204 joint slots and 4,2
 projections. It retained 84 conflicting joint estimates and all missing slots.
 No paid API call was used. Exact source, runtime, test and process evidence is in
 the [handoff](handoffs/aspset-third-view.md).
+
+## Optional fixed-length angle fit
+
+The input joints imply inconsistent limb lengths in some frames. `--fit-limbs`
+adjusts supported joint angles while keeping body lengths, root position and
+ground fixed. It uses the same body constructor and lab, with no new inference.
+Add the flag to the construction command above; `--body-view directions` or
+`both` is required, and `--partial-segments` is not yet compatible.
+
+Try the saved fitted candidate:
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/aspset-fixed-limb-body-lab-01
+```
+
+Use `lab --resume` instead of `lab-console --resume` to start the visual interface
+yourself. The same manual controls and recording commands apply.
+
+| Check | Unfitted three-view body | Fixed-length angle fit |
+| --- | ---: | ---: |
+| Failing source poses | 4/47 | 0/47 |
+| Failing interpolated poses | 7/111 | 4/111 |
+| Maximum floor penetration, model units | 0.092148 | 0.055751 |
+
+All 47 sampled poses pass the unchanged 0.025 floor limit; three still have
+smaller intersections. The full reference remains **infeasible** between frames
+80–88. Frame 84 lacks a supported left ankle, so its original single-view leg
+prior remains unchanged. No default or learned-policy promotion occurs.
+
+Mean image error improves in each supplied camera, but **278 of 1,620 compared
+joint/view points get worse**. This is construction agreement, not independent
+accuracy. The fit preserves all 6,768 source-image slots and all missing evidence.
+Corrections are limited to 0.30 radians per angle. Its 12-iteration cap and
+no-descent exits do not establish optimizer convergence or physical accuracy.
+
+- [Before/after geometry and remaining failures](../artifacts/aspset-fixed-limb-inspection-01/comparison.png):
+  solid chains are the left leg; dashed chains are the right leg.
+- [Recorded manual replay](../artifacts/aspset-fixed-limb-body-lab-01/sessions/session-d79d024a6b5f/replay.html)
+  and [video](../artifacts/aspset-fixed-limb-body-lab-01/sessions/session-d79d024a6b5f/video.mp4).
+- [Independent saved audit](../artifacts/aspset-fixed-limb-audit-01/report.json),
+  [complete image comparisons](../artifacts/aspset-fixed-limb-audit-01/source-images.json),
+  and [bounded proposal histories](../artifacts/aspset-fixed-limb-body-lab-01/run/two-view-body.json).
+- [Exact implementation, verification and next work](handoffs/aspset-limb-fit.md).
+
+Actual recording again verified 39 actions, one reset and 41 frames exactly.
+Construction took 1.594 s /152.2 MB peak RSS; interaction/export/replay took
+1.026 s /161.8 MB. No paid API call, source-video decode or new inference was used.

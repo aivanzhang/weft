@@ -32,8 +32,8 @@ def package(tmp_path):
     return source, camera, ground, config, extra
 
 
-@pytest.mark.parametrize('mode', [None, 'both'])
-def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path, monkeypatch, mode):
+@pytest.mark.parametrize('mode,limb_fit', [(None, False), ('both', False), ('both', True)])
+def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path, monkeypatch, mode, limb_fit):
     source, camera, ground, config, extra = package(tmp_path)
     before = verify_artifacts(source)
     out = tmp_path/'lab'
@@ -41,11 +41,13 @@ def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path,
             '--root-view', str(config), '--additional-view', str(extra), '--out', str(out)]
     if mode:
         args += ['--body-view', mode]
+    if limb_fit:
+        args += ['--fit-limbs']
     monkeypatch.setattr(sys, 'argv', args)
     main()
     run = out/'run'; verified = verify_artifacts(run)
     body = json.loads((run/'human.json').read_text())
-    assert body['camera_reference']['method'] == ('multi-view-body-v1' if mode else 'multi-view-root-body-v1')
+    assert body['camera_reference']['method'] == ('camera-body-length-fit-v1' if limb_fit else 'multi-view-body-v1' if mode else 'multi-view-root-body-v1')
     assert (run/'ground.json').read_bytes() == ground.read_bytes()
     assert (run/'camera.json').read_bytes() == camera.read_bytes()
     scene = json.loads((run/'scene.json').read_text())
