@@ -1,0 +1,21 @@
+--- v1/screen.py
++++ v2/screen.py
+@@ -19,10 +19,16 @@
+ STARTED = time.monotonic()
+ 
+ 
++def json_scalar(value):
++    if isinstance(value, np.generic):
++        return value.item()
++    raise TypeError('Unsupported JSON value: '+type(value).__name__)
++
++
+ def save(name, value):
++    payload = json.dumps(value, indent=2, sort_keys=True, allow_nan=False, default=json_scalar)+'\n'
+     with (HERE/name).open('x') as stream:
+-        json.dump(value, stream, indent=2, sort_keys=True, allow_nan=False)
+-        stream.write('\n')
++        stream.write(payload)
+ 
+ 
+ def fixture(counts, reverse_diagonal=False):

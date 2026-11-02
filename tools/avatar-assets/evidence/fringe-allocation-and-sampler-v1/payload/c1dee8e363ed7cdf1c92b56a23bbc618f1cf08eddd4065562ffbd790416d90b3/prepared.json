@@ -1,0 +1,130 @@
+{
+  "analytic_result": {
+    "geometry_helper_sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421",
+    "limitation": "At512px two tips merge at3/8 tested phases; at256px always merged. No resolved-small-hair or appearance acceptance.",
+    "root_counts_and_atlas_exact_between_reporting_runs": true,
+    "status": "passed_analytic_screen"
+  },
+  "geometry_change": "Area-share seeded selection and8.5\u201320mm source spans, physically cropped constant-size alpha tips; old source model/body/rig/action remains exact.",
+  "inputs": [
+    {
+      "bytes": 33519456,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+      "sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5"
+    },
+    {
+      "bytes": 39741,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-config.json",
+      "sha256": "8fd968b3b80f0cf5269cda6cd989228a8b79c155041529ef0578bc48b9404ecb"
+    },
+    {
+      "bytes": 48515,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-report.json",
+      "sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650"
+    },
+    {
+      "bytes": 1523,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/rig-contract.json",
+      "sha256": "a903f3f8f0bb44c36223414d67667b9ac291882171aae31cdfac1524e471cbea"
+    },
+    {
+      "bytes": 252141,
+      "path": "outputs/edge-fringe-source-census-v1/candidate-indices.npz",
+      "sha256": "9f69aa0aee97f3a3775864020238449597290ef4c7faf1322424ff649c326f6a"
+    },
+    {
+      "bytes": 2270,
+      "path": "outputs/edge-fringe-allocation-census-v1/manifest.json",
+      "sha256": "3a12f92afb15bde7c900f03894c8f0dd2bc13b4972193851121cab5afc9282dc"
+    },
+    {
+      "bytes": 8672,
+      "path": "outputs/fringe-allocation-analytic-v2/prepared.json",
+      "sha256": "91dfd664fc0a2bf32a0c67c203540dccd0d7a891f6731482d80c974ec4a3d982"
+    },
+    {
+      "bytes": 38394,
+      "path": "outputs/fringe-allocation-analytic-v2/result.json",
+      "sha256": "027c57d290b350e27020aae941ed821c06b2c25c743ef76627944ead38d9fb39"
+    },
+    {
+      "bytes": 1122,
+      "path": "outputs/fringe-allocation-analytic-v2/job.json",
+      "sha256": "7e700d372e93a2a6da9a09498311ba1e49d3d40fb872079c800480d06b56269a"
+    },
+    {
+      "bytes": 1756,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/candidate.json",
+      "sha256": "62bbd9716956fb154528c36728ddd6f2b086a866efa9936f673485f933f77f3b"
+    },
+    {
+      "bytes": 22994,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/build_candidate.py",
+      "sha256": "3ab79f08c5104558e4bb030a40afff6268a72d4caa7cdff8b1862296766ba645"
+    },
+    {
+      "bytes": 2340,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/execute.py",
+      "sha256": "6a415a93c6b8d3222c7ac36ce54aa9cd55cad2ab2744a15894336e800aea7141"
+    },
+    {
+      "bytes": 96,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 9246,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "bytes": 8121,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/sources/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 15402,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/sources/edge_fringe.py",
+      "sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421"
+    },
+    {
+      "bytes": 7179,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 867,
+      "path": "outputs/edge-fringe-area-candidate-preparation-v1/sources/root_sampler.py",
+      "sha256": "8b0f6a9149977c47a7c124578c6418a655d68707c4964c49b872b9d1233e0347"
+    }
+  ],
+  "limits": {
+    "log_mib": 16,
+    "max_attempts": 1,
+    "max_generation_calls": 0,
+    "output_mib": 96,
+    "rss_mib": 512,
+    "wall_seconds": 30
+  },
+  "native_preview_released": false,
+  "new_diagnostic": "Measure nominal visible-tip LOD0 color interpolation error before release to render; do not claim endpoint colors prove whole-fin texture matching.",
+  "quality_approved": false,
+  "run_command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -B outputs/edge-fringe-area-candidate-preparation-v1/execute.py",
+  "schema_version": 1,
+  "status": "prepared_not_executed"
+}

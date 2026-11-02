@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 18:14 PST. Adaptive-undercoat checkpoint `ead2244` is privately pushed and remote-verified. The new upright-fringe candidate passed CPU checks, native reload and independent byte/attribute audit, but direct review finds only partial outline improvement. Both compact evidence bundles are sealed; exact scoped commit/push status is recorded in `.local/avatar-quality-publication-v5/receipt.json`, not inferred from this note. No paid allowance or default/quality promotion.
+- Recorded: 2026-11-01 18:55 PST. The core text-to-3D workflow exists; consistent hands-off quality and accepted fresh Studio delivery remain incomplete. This checkpoint adds area-weighted fringe evidence and an exact-root source guard; appearance is not accepted. Previous private checkpoint: `cb143c5`; exact current commit/push is recorded in `.local/avatar-quality-publication-v6/receipt.json` after publication. No paid allowance or default/quality promotion.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -731,13 +731,11 @@ a remote backup. A separate post-execution receipt records Python 3.14.7,
 NumPy 2.5.4, Pillow 13.0.0, Blender 4.5.13 LTS and executable hashes; no package or
 environment changes occurred. Earlier inventories stay unchanged.
 
-All owned native/CPU/audit processes are exited and agent ownership is released;
-root owns final integrity and scoped private publication. All 143 source pins of
-the previous 682-test pass still match, so that unchanged suite is reused rather
-than rerun. New analytic/actual checks above cover this experimental work; no
-production module, test or automatic policy changes. Next local work is an
-analytic allocation test under nonuniform triangulation, not repeating
-this exact asset or promoting coverage measurements to appearance acceptance.
+At checkpoint `cb143c5`, owned native/CPU/audit processes had exited and all
+143 source pins of the 682-test pass matched. That suite was reused for the
+experimental work without production changes. The later exact-root guard below
+changes production admission and has its own verification; the old pass is not
+presented as certification of those later edits.
 
 Compact diagnostic evidence is independently copied/verified at
 `evidence/portable-fur-diagnostics-v1/manifest.json`, SHA
@@ -770,6 +768,77 @@ Completion remains a general text/custom-action workflow with convincing
 requested materials and an actual accepted Studio delivery. Numeric coverage,
 a normal texture, or another manually tuned panda cannot stand in for that.
 Pending fresh-case grants and the exhausted 13-call study are unchanged.
+
+### Current continuation: allocation and exact-root source guard
+
+- The previous saved checkpoint is `cb143c5cfc0f39d954ed2425835c510228476b7b`;
+  `.local/avatar-quality-publication-v5/receipt.json` binds its private push.
+  Current work preserves unrelated Weft edits, approved models and all failures.
+- Read-only census `outputs/edge-fringe-allocation-census-v1` measured dark
+  surfaces at 46.34% of eligible area but 76.39% of old fins; bright surfaces
+  had 53.38% of area but only 21.32% of fins. Narrow edge availability explains
+  most bias. One pass: 0.523 s / 157,876,224 B sampled RSS, exited; manifest
+  `3a12f92afb15bde7c900f03894c8f0dd2bc13b4972193851121cab5afc9282dc`.
+- Analytic v1 in `outputs/fringe-allocation-analytic-v1` failed only final JSON
+  serialization of a NumPy integer; its partial result remains invalid/failed.
+  V2 fixes serialization and pre-serializes before writing; all six root arrays,
+  atlas and allocation image match v1 bytes. Both runs together: 4.422 s;
+  v2 peak sampled RSS 112,803,840 B. No actual avatar in this screen. Manifest:
+  `73ddb7f8f478560487ff2ec1ca3986517e388a850af04c33c7a8966360ae2f97`.
+  Area weighting improves density CV from .42053 to .09795 on uneven triangles,
+  and .40752 to .06780 on the reordered fixture. Tips still merge in 3/8 phases
+  at 512px and all phases at 256px; uniformity is not appearance acceptance.
+- Actual candidate `outputs/panda-edge-fringe-area-v1/model.glb`, SHA
+  `8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d`,
+  has 4,800 fins / 70,567 vertices / 72,181 triangles / 34,973,564 B. The generic
+  incident-area allocator accepts 8.5–20mm safe edges, but fixed physical atlas
+  crops prevent wider edges from enlarging tips. Exact endpoint anchors retain
+  the original rig/action; maximum root error is 1.070e-7 m at 102 times.
+  CPU job 6938 ended: 1.531 s / 499,957,760 B sampled RSS under 30 s / 512 MiB.
+  Exact source/config pins: `outputs/edge-fringe-area-candidate-preparation-v1`.
+- Native reload 61649 ended: 16.303 s / 1,040,646,144 B sampled RSS /
+  79,601,671 B output under 120 s / 2 GiB / four threads / 128 MiB. Twelve actual
+  opaque 512px PNGs and editable scene are in
+  `outputs/panda-edge-fringe-area-preview-v1`. No new full video/browser test.
+  Parent reviewed front, back and flight pose: more white-region speckles,
+  sparse surface tips rather than dense fur, and unchanged cheek/shoulder marks.
+  Review: `outputs/panda-edge-fringe-area-review-v1/appearance-review.json`.
+  Whole-fin interpolation differs from sampled texture by >.10 linear component
+  at 194/9,600 nominal tips; no palette or quality pass. Do not promote it.
+- Production `RootColorSampler` was already correct; no gamma or sampler math
+  changed. The new `repeat-texel-centers-linear-lod0-srgb-v1` admission guard
+  rejects non-Linear filtering or mismatched render UVs before texture allocation.
+  It rechecks only contributing triangles after masking, so excluded constant
+  materials are not wrongly rejected. Legacy/combed behavior is unchanged.
+  `outputs/root-color-sampler-guard-tests-v1`: 59 focused checks passed in .489 s.
+- Integration exercised 695 tests with 144 unchanged source pins: 668 passed;
+  27 temporary-loopback cases were blocked by sandbox socket permissions, not
+  assertion failures. Those exact 27 passed separately in .635 s after narrow
+  local permission; no already-passing cases were repeated. Preserve both
+  `outputs/root-sampler-integration-tests-v1` (17.638 s / 354,435,072 B sampled
+  RSS, exit 1) and `outputs/root-sampler-loopback-tests-v1` (.775 s /
+  44,204,032 B sampled RSS, exit 0). This is split verification, not one clean
+  695-test run or appearance acceptance.
+- Independent `outputs/panda-edge-fringe-area-audit-v1` verifies the original
+  33,487,168 binary bytes, exact JSON edit allowlist and all 4,800 root anchors,
+  UVs, weights, normals and safe-edge membership. Bright-area root share improves
+  21.32% to 49.75% against 53.38% area; dark/bright density ratio improves 4.126
+  to 1.131. These are allocation statistics, not rendered coverage. One 0.262 s
+  process exited before a memory sample; RSS is unknown. Manifest SHA
+  `7aa51d825fb7746bf1fc08737ef1c924cfbef12f4a258571c483f9bfa3b13812`.
+- Compact evidence `evidence/fringe-allocation-and-sampler-v1` retains 166 files /
+  5,007,651 B with 192 verified origin mappings; manifest SHA
+  `b21cabc3ca6cf4bb85e2319eae90c1536bc920530b6ba7eba0f7651244e8c619`.
+  Four omitted files retain paths/hashes (large local binaries and generated
+  bytecode); this is not a remote backup of model/native files. Exact build script
+  and receipt are in `outputs/fringe-allocation-save-v1`.
+- All generation/native/test/audit children have exited; every agent released
+  ownership. Parent owns scoped save; `.local/avatar-quality-publication-v6`
+  holds preparation and, after publication, the exact commit/remote receipt.
+  No Meshy, Meta or pipeline-role AI calls ran.
+- Next local quality work must address visible-tip color fidelity and pixel-scale
+  coverage before another actual candidate. Do not rerender this unchanged model,
+  relax the budget, or mistake another hand-authored panda for fresh acceptance.
 
 ### Fresh examples — prepared estimate, authorization pending
 
@@ -849,7 +918,7 @@ Pending fresh-case grants and the exhausted 13-call study are unchanged.
    old job or reset usage. Preserve actual failures and
    source/media/reviewer bindings. Reuse is not a fresh text-to-mesh test and
    cannot prove arbitrary prompt quality. The prior integrated source freeze
-   passed 646 tests; the current undercoat suite passes 682. Unchanged-text robot-v3 ended unsupported for torso
+   passed 646 tests; the undercoat checkpoint passed 682; later guard verification covers 695 across two runs. Unchanged-text robot-v3 ended unsupported for torso
    stability. The existing-rig trial also ended unsupported: numeric checks
    passed, but its low wrist swivel failed the critic's greeting check. Twelve
    completed Studio calls used the first 12 of the 13-call estimate; the separate

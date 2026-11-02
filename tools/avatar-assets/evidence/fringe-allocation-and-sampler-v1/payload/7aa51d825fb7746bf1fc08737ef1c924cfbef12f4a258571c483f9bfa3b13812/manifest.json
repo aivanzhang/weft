@@ -1,0 +1,70 @@
+{
+  "artifacts": [
+    {
+      "bytes": 18745,
+      "path": "audit.json",
+      "sha256": "1ff1f062ab63a2525b422089ebe45ebc9da234049f4cd796a0a45c7b0a7645e7"
+    },
+    {
+      "bytes": 27932,
+      "path": "audit.py",
+      "sha256": "f003bddbe60c7740412af6b9b20a971e9b657d197885a48415cdfe03621cc802"
+    },
+    {
+      "bytes": 234,
+      "path": "cpu-handle.json",
+      "sha256": "e0428efd681176076c2f1f28b9df2b02e70249f32a7d7c2fe273f086abb7e6c5"
+    },
+    {
+      "bytes": 1058,
+      "path": "cpu-job.json",
+      "sha256": "26449dfa8b74ccab6e9f5bde1e3ce05ebd4e556d2da51ca108d0f8ddf3ce4048"
+    },
+    {
+      "bytes": 970,
+      "path": "cpu-monitor.json",
+      "sha256": "8d6edb8d1ab65892f38dbd1f634faaf9abe88a5cf3c2086e3c0595d6ff4b6ac8"
+    },
+    {
+      "bytes": 100,
+      "path": "cpu.log",
+      "sha256": "5804bc34f1854f2440a1183cf9fae99b3cd19475e6259e7cc1753e119f19a3cd"
+    },
+    {
+      "bytes": 2205,
+      "path": "execute_cpu.py",
+      "sha256": "d52e229de9f6fff0607bd75265e0a26e0552b71305638832b8ecb50fe3c599f9"
+    },
+    {
+      "bytes": 7001,
+      "path": "prepared.json",
+      "sha256": "8bbaa7bb19c19602526a90f2e47f2609652a3d81835ef1d2fed3bd3dd4b95c27"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "attribute_checks_passed": true,
+  "candidate_accepted": false,
+  "geometry_created": false,
+  "inputs_unchanged": true,
+  "measurement_completed": true,
+  "native_calls": 0,
+  "prepared_sha256": "8bbaa7bb19c19602526a90f2e47f2609652a3d81835ef1d2fed3bd3dd4b95c27",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "measured_with_known_color_defect"
+}

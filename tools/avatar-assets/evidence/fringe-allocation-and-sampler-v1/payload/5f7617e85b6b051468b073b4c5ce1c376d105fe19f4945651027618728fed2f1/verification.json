@@ -1,0 +1,79 @@
+{
+  "actual_character_or_quality_acceptance": false,
+  "added_screen_function": "json_scalar",
+  "additional_generation_or_native_calls": 0,
+  "aggregate_monitor_elapsed_seconds": 4.422000000000001,
+  "all_predecessor_files_unchanged": true,
+  "all_prepared_sources_unchanged": [
+    "README.md",
+    "allocation_fringe.py",
+    "execute.py",
+    "reporting-only.diff",
+    "screen.py",
+    "sources/avatar_assets/__init__.py",
+    "sources/avatar_assets/runner.py",
+    "sources/avatar_assets/safety.py",
+    "sources/candidate_build_frozen.py",
+    "sources/edge_fringe_frozen.py",
+    "sources/root_sampler.py"
+  ],
+  "both_owned_children_exit_verified": true,
+  "byte_identical_computed_outputs": [
+    {
+      "bytes": 80652,
+      "path": "coarse_dense_medium-area_share-roots.npz",
+      "sha256": "01b93bb2aa7758f019190731712f970a9fc425d83566506c8dc2063fdc305655"
+    },
+    {
+      "bytes": 58108,
+      "path": "coarse_dense_medium-frozen_old-roots.npz",
+      "sha256": "7009b0dcd78517e9bb12c9ab958480ada75d938904646bc7f0dc5be20c321eac"
+    },
+    {
+      "bytes": 79904,
+      "path": "dense_medium_coarse_flipped-area_share-roots.npz",
+      "sha256": "68ca3747a2714684feaf1fd85e6b485705bffc2cca31d36478e36965dbed896a"
+    },
+    {
+      "bytes": 58297,
+      "path": "dense_medium_coarse_flipped-frozen_old-roots.npz",
+      "sha256": "f227ff28ee415d20ef471c65ef154ac94c39bb694a893eaa873ed6607189f5e3"
+    },
+    {
+      "bytes": 80099,
+      "path": "uniform-area_share-roots.npz",
+      "sha256": "0ff4fbbce87e2613134f72a71eb6c66c07ab92e439b0514e0d3b6852bd50f3a6"
+    },
+    {
+      "bytes": 73638,
+      "path": "uniform-frozen_old-roots.npz",
+      "sha256": "68d32cd7a97cd40994c83e5dc4b868ac6b4b377b558f853bd795e01d0ef5637b"
+    },
+    {
+      "bytes": 31661,
+      "path": "physical-two-tip-atlas.png",
+      "sha256": "78a26bb5d5b8a80e2917facafdca52442455c2d7562631a5e03bb3c1b6890fa8"
+    },
+    {
+      "bytes": 30166,
+      "path": "analytic-allocation-map.png",
+      "sha256": "82dd6e0957da0c508bd1eaf562fd76718456109730ad18e2da8ea723655f4e6b"
+    }
+  ],
+  "changed_screen_function": "save",
+  "checked_at": "2026-11-01T18:38:13.748008-08:00",
+  "prepared_sha256": "91dfd664fc0a2bf32a0c67c203540dccd0d7a891f6731482d80c974ec4a3d982",
+  "schema_version": 1,
+  "status": "verified_reporting_only_correction",
+  "unchanged_screen_function_asts": [
+    "fixture",
+    "settings",
+    "posed",
+    "measure",
+    "group_ranges",
+    "atlas_measurements",
+    "main"
+  ],
+  "v1_status": "failed_final_json_serialization",
+  "v2_status": "passed_analytic_screen"
+}

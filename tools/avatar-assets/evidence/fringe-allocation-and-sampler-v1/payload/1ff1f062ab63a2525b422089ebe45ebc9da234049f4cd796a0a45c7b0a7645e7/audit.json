@@ -1,0 +1,758 @@
+{
+  "allocation": {
+    "bands": [
+      {
+        "band": "low_0_to_0.10",
+        "new_fin_roots": 2345,
+        "new_relative_density": 1.054245643597993,
+        "new_root_fraction": 0.48854166666666665,
+        "new_roots_per_m2": 1900.167968997306,
+        "old_root_fraction": 0.7638502011761065,
+        "old_roots_per_m2": 1999.8356279255229,
+        "reference_area_fraction": 0.4634040174919217,
+        "reference_eligible_area_m2": 1.2341014259057457
+      },
+      {
+        "band": "middle_0.10_to_0.50",
+        "new_fin_roots": 67,
+        "new_relative_density": 4.999906597166775,
+        "new_root_fraction": 0.013958333333333333,
+        "new_roots_per_m2": 9011.810882604352,
+        "old_root_fraction": 0.02290312596719282,
+        "old_roots_per_m2": 9953.343362876447,
+        "reference_area_fraction": 0.002791718817556092,
+        "reference_eligible_area_m2": 0.007434687752861217
+      },
+      {
+        "band": "high_0.50_to_1",
+        "new_fin_roots": 2388,
+        "new_relative_density": 0.9319895584206773,
+        "new_root_fraction": 0.4975,
+        "new_roots_per_m2": 1679.8141088892291,
+        "old_root_fraction": 0.2132466728567007,
+        "old_roots_per_m2": 484.66998367867626,
+        "reference_area_fraction": 0.5338042636905173,
+        "reference_eligible_area_m2": 1.4215858691525434
+      }
+    ],
+    "grid_cells": [
+      {
+        "cell": [
+          0,
+          0,
+          0
+        ],
+        "new_fin_roots": 1,
+        "old_fin_roots": 1,
+        "reference_eligible_area_m2": 0.0004548667870743528
+      },
+      {
+        "cell": [
+          0,
+          0,
+          1
+        ],
+        "new_fin_roots": 149,
+        "old_fin_roots": 39,
+        "reference_eligible_area_m2": 0.05906818004915629
+      },
+      {
+        "cell": [
+          0,
+          0,
+          2
+        ],
+        "new_fin_roots": 2,
+        "old_fin_roots": 0,
+        "reference_eligible_area_m2": 0.002330491674751715
+      },
+      {
+        "cell": [
+          0,
+          1,
+          0
+        ],
+        "new_fin_roots": 55,
+        "old_fin_roots": 15,
+        "reference_eligible_area_m2": 0.04784152811093047
+      },
+      {
+        "cell": [
+          0,
+          1,
+          1
+        ],
+        "new_fin_roots": 156,
+        "old_fin_roots": 68,
+        "reference_eligible_area_m2": 0.06964037712251
+      },
+      {
+        "cell": [
+          0,
+          1,
+          2
+        ],
+        "new_fin_roots": 90,
+        "old_fin_roots": 24,
+        "reference_eligible_area_m2": 0.045547593418557276
+      },
+      {
+        "cell": [
+          0,
+          1,
+          3
+        ],
+        "new_fin_roots": 58,
+        "old_fin_roots": 57,
+        "reference_eligible_area_m2": 0.02267236805367453
+      },
+      {
+        "cell": [
+          0,
+          2,
+          0
+        ],
+        "new_fin_roots": 67,
+        "old_fin_roots": 2,
+        "reference_eligible_area_m2": 0.02778925213966528
+      },
+      {
+        "cell": [
+          0,
+          2,
+          1
+        ],
+        "new_fin_roots": 47,
+        "old_fin_roots": 5,
+        "reference_eligible_area_m2": 0.054340259592993975
+      },
+      {
+        "cell": [
+          0,
+          2,
+          2
+        ],
+        "new_fin_roots": 54,
+        "old_fin_roots": 8,
+        "reference_eligible_area_m2": 0.025932205741756177
+      },
+      {
+        "cell": [
+          0,
+          2,
+          3
+        ],
+        "new_fin_roots": 27,
+        "old_fin_roots": 36,
+        "reference_eligible_area_m2": 0.009510997616091674
+      },
+      {
+        "cell": [
+          0,
+          3,
+          0
+        ],
+        "new_fin_roots": 173,
+        "old_fin_roots": 236,
+        "reference_eligible_area_m2": 0.051749865435919036
+      },
+      {
+        "cell": [
+          0,
+          3,
+          1
+        ],
+        "new_fin_roots": 81,
+        "old_fin_roots": 98,
+        "reference_eligible_area_m2": 0.02345831481480204
+      },
+      {
+        "cell": [
+          1,
+          0,
+          0
+        ],
+        "new_fin_roots": 120,
+        "old_fin_roots": 128,
+        "reference_eligible_area_m2": 0.067161712764088
+      },
+      {
+        "cell": [
+          1,
+          0,
+          1
+        ],
+        "new_fin_roots": 284,
+        "old_fin_roots": 376,
+        "reference_eligible_area_m2": 0.12902610166220277
+      },
+      {
+        "cell": [
+          1,
+          0,
+          2
+        ],
+        "new_fin_roots": 164,
+        "old_fin_roots": 105,
+        "reference_eligible_area_m2": 0.07775976549896216
+      },
+      {
+        "cell": [
+          1,
+          0,
+          3
+        ],
+        "new_fin_roots": 66,
+        "old_fin_roots": 14,
+        "reference_eligible_area_m2": 0.03741844501881567
+      },
+      {
+        "cell": [
+          1,
+          1,
+          0
+        ],
+        "new_fin_roots": 96,
+        "old_fin_roots": 108,
+        "reference_eligible_area_m2": 0.08507987498276601
+      },
+      {
+        "cell": [
+          1,
+          1,
+          2
+        ],
+        "new_fin_roots": 26,
+        "old_fin_roots": 10,
+        "reference_eligible_area_m2": 0.01481181121135883
+      },
+      {
+        "cell": [
+          1,
+          1,
+          3
+        ],
+        "new_fin_roots": 208,
+        "old_fin_roots": 200,
+        "reference_eligible_area_m2": 0.09334485061347919
+      },
+      {
+        "cell": [
+          1,
+          2,
+          0
+        ],
+        "new_fin_roots": 82,
+        "old_fin_roots": 35,
+        "reference_eligible_area_m2": 0.061961785480911635
+      },
+      {
+        "cell": [
+          1,
+          2,
+          1
+        ],
+        "new_fin_roots": 4,
+        "old_fin_roots": 0,
+        "reference_eligible_area_m2": 0.01147673795098902
+      },
+      {
+        "cell": [
+          1,
+          2,
+          2
+        ],
+        "new_fin_roots": 103,
+        "old_fin_roots": 18,
+        "reference_eligible_area_m2": 0.058280910155092576
+      },
+      {
+        "cell": [
+          1,
+          2,
+          3
+        ],
+        "new_fin_roots": 156,
+        "old_fin_roots": 95,
+        "reference_eligible_area_m2": 0.08132120337682257
+      },
+      {
+        "cell": [
+          1,
+          3,
+          0
+        ],
+        "new_fin_roots": 26,
+        "old_fin_roots": 1,
+        "reference_eligible_area_m2": 0.01388905973380627
+      },
+      {
+        "cell": [
+          1,
+          3,
+          1
+        ],
+        "new_fin_roots": 14,
+        "old_fin_roots": 0,
+        "reference_eligible_area_m2": 0.04822480049976803
+      },
+      {
+        "cell": [
+          1,
+          3,
+          2
+        ],
+        "new_fin_roots": 40,
+        "old_fin_roots": 1,
+        "reference_eligible_area_m2": 0.03433151178494109
+      },
+      {
+        "cell": [
+          1,
+          3,
+          3
+        ],
+        "new_fin_roots": 14,
+        "old_fin_roots": 0,
+        "reference_eligible_area_m2": 0.005960824876489345
+      },
+      {
+        "cell": [
+          2,
+          0,
+          0
+        ],
+        "new_fin_roots": 49,
+        "old_fin_roots": 4,
+        "reference_eligible_area_m2": 0.027644402132430083
+      },
+      {
+        "cell": [
+          2,
+          0,
+          1
+        ],
+        "new_fin_roots": 105,
+        "old_fin_roots": 9,
+        "reference_eligible_area_m2": 0.07116911602885374
+      },
+      {
+        "cell": [
+          2,
+          0,
+          2
+        ],
+        "new_fin_roots": 150,
+        "old_fin_roots": 116,
+        "reference_eligible_area_m2": 0.06615924699904677
+      },
+      {
+        "cell": [
+          2,
+          0,
+          3
+        ],
+        "new_fin_roots": 102,
+        "old_fin_roots": 29,
+        "reference_eligible_area_m2": 0.05066283570478197
+      },
+      {
+        "cell": [
+          2,
+          1,
+          0
+        ],
+        "new_fin_roots": 100,
+        "old_fin_roots": 78,
+        "reference_eligible_area_m2": 0.07551865830192073
+      },
+      {
+        "cell": [
+          2,
+          1,
+          1
+        ],
+        "new_fin_roots": 13,
+        "old_fin_roots": 2,
+        "reference_eligible_area_m2": 0.010113156194527502
+      },
+      {
+        "cell": [
+          2,
+          1,
+          2
+        ],
+        "new_fin_roots": 16,
+        "old_fin_roots": 4,
+        "reference_eligible_area_m2": 0.015155943522211111
+      },
+      {
+        "cell": [
+          2,
+          1,
+          3
+        ],
+        "new_fin_roots": 120,
+        "old_fin_roots": 163,
+        "reference_eligible_area_m2": 0.060162153931550826
+      },
+      {
+        "cell": [
+          2,
+          2,
+          0
+        ],
+        "new_fin_roots": 89,
+        "old_fin_roots": 47,
+        "reference_eligible_area_m2": 0.06832383607752594
+      },
+      {
+        "cell": [
+          2,
+          2,
+          2
+        ],
+        "new_fin_roots": 30,
+        "old_fin_roots": 10,
+        "reference_eligible_area_m2": 0.018223470318921776
+      },
+      {
+        "cell": [
+          2,
+          2,
+          3
+        ],
+        "new_fin_roots": 117,
+        "old_fin_roots": 105,
+        "reference_eligible_area_m2": 0.0684568593228771
+      },
+      {
+        "cell": [
+          2,
+          3,
+          0
+        ],
+        "new_fin_roots": 98,
+        "old_fin_roots": 13,
+        "reference_eligible_area_m2": 0.052857353096737794
+      },
+      {
+        "cell": [
+          2,
+          3,
+          1
+        ],
+        "new_fin_roots": 82,
+        "old_fin_roots": 5,
+        "reference_eligible_area_m2": 0.0737252470067937
+      },
+      {
+        "cell": [
+          2,
+          3,
+          2
+        ],
+        "new_fin_roots": 95,
+        "old_fin_roots": 4,
+        "reference_eligible_area_m2": 0.060884813125751364
+      },
+      {
+        "cell": [
+          2,
+          3,
+          3
+        ],
+        "new_fin_roots": 29,
+        "old_fin_roots": 0,
+        "reference_eligible_area_m2": 0.01460486332030866
+      },
+      {
+        "cell": [
+          3,
+          0,
+          1
+        ],
+        "new_fin_roots": 4,
+        "old_fin_roots": 0,
+        "reference_eligible_area_m2": 0.0013169434794469994
+      },
+      {
+        "cell": [
+          3,
+          0,
+          2
+        ],
+        "new_fin_roots": 64,
+        "old_fin_roots": 12,
+        "reference_eligible_area_m2": 0.02904244822866932
+      },
+      {
+        "cell": [
+          3,
+          0,
+          3
+        ],
+        "new_fin_roots": 10,
+        "old_fin_roots": 6,
+        "reference_eligible_area_m2": 0.00855262997875853
+      },
+      {
+        "cell": [
+          3,
+          1,
+          0
+        ],
+        "new_fin_roots": 104,
+        "old_fin_roots": 214,
+        "reference_eligible_area_m2": 0.05555058976108346
+      },
+      {
+        "cell": [
+          3,
+          1,
+          1
+        ],
+        "new_fin_roots": 175,
+        "old_fin_roots": 166,
+        "reference_eligible_area_m2": 0.1003349591015806
+      },
+      {
+        "cell": [
+          3,
+          1,
+          2
+        ],
+        "new_fin_roots": 116,
+        "old_fin_roots": 17,
+        "reference_eligible_area_m2": 0.06543600254136957
+      },
+      {
+        "cell": [
+          3,
+          1,
+          3
+        ],
+        "new_fin_roots": 161,
+        "old_fin_roots": 188,
+        "reference_eligible_area_m2": 0.0750918555691414
+      },
+      {
+        "cell": [
+          3,
+          2,
+          0
+        ],
+        "new_fin_roots": 150,
+        "old_fin_roots": 169,
+        "reference_eligible_area_m2": 0.08707207264112925
+      },
+      {
+        "cell": [
+          3,
+          2,
+          1
+        ],
+        "new_fin_roots": 169,
+        "old_fin_roots": 48,
+        "reference_eligible_area_m2": 0.09023366100860004
+      },
+      {
+        "cell": [
+          3,
+          2,
+          2
+        ],
+        "new_fin_roots": 125,
+        "old_fin_roots": 19,
+        "reference_eligible_area_m2": 0.07080927745924867
+      },
+      {
+        "cell": [
+          3,
+          2,
+          3
+        ],
+        "new_fin_roots": 105,
+        "old_fin_roots": 109,
+        "reference_eligible_area_m2": 0.048111400946695894
+      },
+      {
+        "cell": [
+          3,
+          3,
+          0
+        ],
+        "new_fin_roots": 17,
+        "old_fin_roots": 4,
+        "reference_eligible_area_m2": 0.008681214449964834
+      },
+      {
+        "cell": [
+          3,
+          3,
+          1
+        ],
+        "new_fin_roots": 42,
+        "old_fin_roots": 10,
+        "reference_eligible_area_m2": 0.027467970428712806
+      },
+      {
+        "cell": [
+          3,
+          3,
+          2
+        ],
+        "new_fin_roots": 0,
+        "old_fin_roots": 0,
+        "reference_eligible_area_m2": 0.0013733059641468067
+      }
+    ],
+    "limitations": [
+      "These are actual endpoint-color/root allocations, not verified color at the visible tip centers; known interpolation errors remain.",
+      "Source-area color/grid bins use the original three-point triangle quadrature; no anatomy labels.",
+      "Root totals differ (3231 versus 4800); fraction/density-ratio comparisons do not prove visible coverage or appearance."
+    ],
+    "method": "Actual stored linear COLOR_0 endpoint average, fixed luminance bands; source area/grid estimates reused unchanged from the pinned prior census.",
+    "new_grid_distribution_total_variation_vs_area": 0.10554783489306219,
+    "new_low_high_roots_per_area_ratio": 1.1311775266929893,
+    "new_luminance_distribution_total_variation_vs_area": 0.036304263690519714,
+    "new_roots": 4800,
+    "new_texture_decodes": 0,
+    "old_grid_distribution_total_variation_vs_area": 0.3759730784007126,
+    "old_low_high_roots_per_area_ratio": 4.126180071533711,
+    "old_roots": 3231,
+    "reference_report_sha256": "eb57b1bb91d287069146a86c810b461d745f03804725b839fe494b0bd72035c6",
+    "source_area_m2": 2.6631219828111634
+  },
+  "atlas": {
+    "bytes": 31762,
+    "embedded_equals_external_png": true,
+    "embedded_sha256": "694926f07435efe2ec0b5303c1caaedaa4028e1d5b1ab21c0ba6a368cca0994b",
+    "endpoint_colors_repeated_at_tips_exact": true,
+    "header_only_not_full_decode": true,
+    "root_colors_resampled": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "source_root_uv_verified": true
+  },
+  "attribute_checks_passed": true,
+  "budgets": {
+    "active_mesh_triangles": 72181,
+    "active_mesh_vertices": 70567,
+    "candidate_decoded_scalar_values": 393600,
+    "file_bytes": 34973564,
+    "file_cap": 67108864,
+    "source_decoded_scalar_values": 444763,
+    "triangle_cap": 100000,
+    "vertex_cap": 100000
+  },
+  "candidate_accepted": false,
+  "candidate_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+  "elapsed_seconds": 0.08122,
+  "geometry": {
+    "actual_tip_positions_match_recorded_direction": true,
+    "all_edges_unique_and_whitelisted": true,
+    "all_root_endpoint_bytes_exact": true,
+    "all_source_face_corner_indices_correspond": true,
+    "all_source_uv0_bytes_exact": true,
+    "fins": 4800,
+    "length_m": 0.008,
+    "maximum_local_crop_uv_error": 1.6419933390743324e-07,
+    "minimum_geometric_normal_dot": 0.9999999578681299,
+    "minimum_outward_direction_dot": 0.9847835588179366,
+    "minimum_triangle_area_m2": 3.279302762782249e-05,
+    "new_triangles": 9600,
+    "new_vertices": 19200,
+    "normal_unit_error": 4.213186999280083e-08,
+    "physical_atlas_domain_m": 0.0208,
+    "source_edge_span_min_max_m": [
+      0.008504916913807392,
+      0.019999511539936066
+    ]
+  },
+  "inputs_unchanged": true,
+  "json_allowlist": {
+    "all_other_json_exact": true,
+    "append_counts": {
+      "accessors": 7,
+      "bufferViews": 8,
+      "images": 1,
+      "materials": 1,
+      "samplers": 1,
+      "textures": 1
+    },
+    "appended_mesh_0_primitives": 1,
+    "buffer_byte_length_extended": true,
+    "metadata_only_generator_change": {
+      "after": "Local experimental edge-fringe derivative; source body, rig and motion unchanged",
+      "before": "Khronos glTF Blender I/O v4.5.51"
+    },
+    "only_detached_nodes": [
+      21,
+      22
+    ],
+    "original_base_primitives_accessors_views_images_textures_materials_samplers_skins_animations_exact": true,
+    "removed_mesh_suffix": [
+      1,
+      2
+    ]
+  },
+  "known_color_defect": {
+    "candidate_approval": false,
+    "evidence": {
+      "limitation": "Diagnostic only; no GPU mip/filter, shadow or appearance equivalence. Source colors are not whitened or suppressed.",
+      "maximum_linear_component_error": 0.6493915013921101,
+      "method": "LOD0 source color versus endpoint COLOR_0 interpolation at nominal physical tip roots",
+      "quantiles_linear_component_error": {
+        "p50": 0.0024499642981961004,
+        "p95": 0.026552556983353275,
+        "p99": 0.219569091528084
+      },
+      "tip_centers_m": [
+        -0.0025,
+        0.0025
+      ],
+      "tip_count": 9600,
+      "tips_over_005": 277,
+      "tips_over_010": 194
+    },
+    "measurement_source": "Hash-bound candidate build report; not independently texture-resampled in this audit",
+    "reason": "194 of 9600 nominal visible-tip colors exceed 0.1 linear RGB component error; endpoint preservation does not establish whole-fin color fidelity.",
+    "status": "unresolved_not_accepted"
+  },
+  "limitations": [
+    "No appearance, softness, dense-fur, silhouette, GPU alpha/lighting, or simulation approval.",
+    "No repeated whole-body or 102-pose validation; parent-owned motion receipts remain separate evidence.",
+    "Original embedded image bytes and exact source UV correspondence are verified; root color texture filtering is not independently rerun.",
+    "Normal checks use actual serialized geometry, finite unit normals, positive winding, and dot > .99999; no texture-normal or physics claim.",
+    "Source rig is authored data, not recovered anatomy; Weft normal-map/vertex-budget compatibility remains unsupported."
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "native_calls": 0,
+  "original_bin_prefix": {
+    "byte_exact": true,
+    "bytes": 33487168,
+    "sha256": "471a4d3a9ef0975fc9537270376258ef6eb6977718e5f831d80d2f8e33b91145"
+  },
+  "passed": false,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "skin": {
+    "all_new_joint_ids_exact": true,
+    "all_new_weights_exact_float32_normalized_source": true,
+    "joints": 19,
+    "maximum_new_weight_sum_error": 4.08690539188683e-08,
+    "source_and_final_four_slot_order_unchanged": true,
+    "source_skin": 0
+  },
+  "source_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "status": "measured_with_known_color_defect"
+}

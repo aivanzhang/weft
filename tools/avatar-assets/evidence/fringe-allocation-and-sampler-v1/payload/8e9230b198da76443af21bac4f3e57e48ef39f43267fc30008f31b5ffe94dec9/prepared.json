@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01 18:49:14 PST",
+  "reason": "Production exact-root admission guard changed; verify integration once after focused tests passed.",
+  "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -B outputs/root-sampler-integration-tests-v1/execute.py",
+  "script_sha256": "dddc55ff40a76fbccc0ba9ebfad844ed7deea5df7a88d6416b0a952b40cb0ee6",
+  "wall_seconds": 180,
+  "rss_mib": 1536,
+  "output_mib": 64,
+  "new_generation_calls": 0,
+  "quality_approval": false
+}

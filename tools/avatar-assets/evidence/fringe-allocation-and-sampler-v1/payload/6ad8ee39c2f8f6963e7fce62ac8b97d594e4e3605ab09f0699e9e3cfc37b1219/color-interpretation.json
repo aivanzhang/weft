@@ -1,0 +1,50 @@
+{
+  "decision": "Keep pixels_are_linear=False for this byte-sRGB adapter. Values match encoded source texels, so per-texel sRGB decoding before linear interpolation is appropriate. Do not apply another global gamma/color correction.",
+  "elapsed_seconds": 1.28,
+  "images": [
+    {
+      "color_space": "sRGB",
+      "float": false,
+      "id": "known-srgb",
+      "maximum_error_by_hypothesis": {
+        "encoded_rgb": 6.68506996426288e-08,
+        "linear_rgb": 0.2861003138852768,
+        "opposite_row_encoded_rgb": 0.8784314393997192,
+        "opposite_row_linear_rgb": 0.8784314393997192
+      },
+      "samples": 16
+    },
+    {
+      "color_space": "sRGB",
+      "float": false,
+      "id": "actual-basecolor",
+      "maximum_error_by_hypothesis": {
+        "encoded_rgb": 7.22268048702901e-08,
+        "linear_rgb": 0.2870180738067072,
+        "opposite_row_encoded_rgb": 0.9764705870738801,
+        "opposite_row_linear_rgb": 0.9616805833546456
+      },
+      "samples": 12
+    }
+  ],
+  "limits": [
+    "Known lossless4x4 PNG16pixels and12 sparse actual4K JPEG texels; not an all-texture numerical comparison.",
+    "No shader/render/appearance or whole-scene memory claim.",
+    "No conclusion about EXR, floating-point, non-sRGB images or other Blender versions.",
+    "Removing NumPy let this changed probe finish under the same cap; two sampled peaks do not establish a general memory saving."
+  ],
+  "native_job_sha256": "9c97082c8b2f4c0b38e7cba34fe9f0b18b81c0c791790272099769ae8d27873c",
+  "new_pipeline_ai_role_calls": 0,
+  "new_provider_calls": 0,
+  "observations_sha256": "d060d289a9ebebbe243208fe86a1ef858875cae80f78c97d23f1e034deeb1595",
+  "probe_manifest_sha256": "9187fec5fc01e582776c7c2e8fa191d1d26635631d4ac46f06cb4ec3681b568d",
+  "probe_v1_failure_manifest_sha256": "a6ace46d284869c3786794881c9cf3dd310fd99ec8e0727dbe53d95200ce297b",
+  "production_color_policy_changed": false,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 17:43:00 PST",
+  "remaining_sampled_headroom_bytes": 6586368,
+  "sampled_peak_rss_bytes": 530284544,
+  "schema_version": 1,
+  "source_unchanged": true,
+  "status": "encoded_srgb_bottom_up_confirmed_at_sampled_scope"
+}

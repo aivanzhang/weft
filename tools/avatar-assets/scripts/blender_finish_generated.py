@@ -18,7 +18,9 @@ from blender_native_groom import add_native_groom
 from motion_samples import sample_action
 
 
-def texture_colors(obj, image):
+def texture_colors(obj, image, *, exact_root=False):
+    if exact_root:
+        exact_root_texture_contract(obj, image)
     width, height = image.size
     if width*height > 16_777_216:
         raise ValueError("Base texture exceeds groom sampling limit")
@@ -57,6 +59,38 @@ def shared_color_texture(materials):
     if selected is None:
         raise ValueError('Texture-driven finish requires a source material')
     return selected
+
+
+def exact_root_texture_contract(obj, image, material_slots=None):
+    from fur_root_sampling import validate_root_sampling_contract
+
+    mesh = obj.data
+    if not 1 <= len(mesh.materials) <= 32 or not 1 <= len(mesh.uv_layers) <= 8:
+        raise ValueError('Exact root sampling requires bounded materials and UV layers')
+    sampled = mesh.uv_layers.active
+    render_layers = [layer for layer in mesh.uv_layers if layer.active_render]
+    sampled_name = sampled.name if sampled is not None else None
+    render_name = render_layers[0].name if len(render_layers) == 1 else None
+    slots = range(len(mesh.materials)) if material_slots is None else material_slots
+    sources = []
+    for slot in slots:
+        if type(slot) is not int or not 0 <= slot < len(mesh.materials):
+            raise ValueError('Exact root sampling references an invalid material slot')
+        material = mesh.materials[slot]
+        if (not material or not material.use_nodes or material.node_tree is None
+                or not 1 <= len(material.node_tree.nodes) <= 256):
+            raise ValueError('Exact root sampling requires a bounded node-based source material')
+        shaders = [node for node in material.node_tree.nodes if node.type == 'BSDF_PRINCIPLED']
+        if len(shaders) != 1 or len(shaders[0].inputs['Base Color'].links) != 1:
+            raise ValueError('Exact root sampling requires one directly textured base-color shader')
+        node = shaders[0].inputs['Base Color'].links[0].from_node
+        if node.type != 'TEX_IMAGE':
+            raise ValueError('Exact root sampling requires a direct base-color image')
+        sources.append({'slot': slot, 'interpolation': node.interpolation,
+                        'extension': node.extension, 'projection': node.projection,
+                        'vector_linked': bool(node.inputs['Vector'].links),
+                        'image_matches': node.image == image})
+    return validate_root_sampling_contract(sources, sampled_name, render_name)
 
 
 def frame_mask(points, low, span, boxes):
@@ -269,6 +303,7 @@ def tuft_sampling_context(obj, image, triangles, groom, flow):
         raise ValueError('Tuft root sampling requires a bounded explicit sRGB image')
     if not 1 <= len(obj.data.vertices) <= 100000 or not 1 <= len(triangles) <= 100000:
         raise ValueError('Tuft sampling requires bounded nonempty emitter geometry')
+    contract = exact_root_texture_contract(obj, image, sorted({t.material_index for t in triangles}))
     vertices = [tuple(v.co) for v in obj.data.vertices]
     low = [min(v[i] for v in vertices) for i in range(3)]
     span = [max(v[i] for v in vertices)-low[i] for i in range(3)]
@@ -287,6 +322,7 @@ def tuft_sampling_context(obj, image, triangles, groom, flow):
         'texture_dimensions': [width, height], 'borrowed_pixel_buffer_bytes': pixels.nbytes,
         'source_pixel_interpretation': 'Existing encoded-sRGB image.pixels convention; bottom-up rows',
         'output_color_space': 'linear RGB after per-texel sRGB decode and bilinear filtering',
+        'sampling_policy': contract['policy'], 'source_contract': contract,
         'uv_source': 'Actual active UV corners of each selected loop triangle; never first-loop vertex UV',
         'sampling_triangles': len(triangles), 'buffer_lifetime': 'Released when portable_coat returns, before native grooming',
     }
@@ -463,7 +499,8 @@ def finish(config, output):
     if cfg.get('portable_fur', {}).get('settings', {}).get('sample_root_color'):
         if color_node.image.colorspace_settings.name != 'sRGB':
             raise ValueError('Root-colored fur requires an explicit sRGB source texture')
-    colors = texture_colors(obj, color_node.image)
+    tuft = cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1'
+    colors = texture_colors(obj, color_node.image, exact_root=tuft)
     mask = ~frame_mask(points, low, high-low, cfg.get('groom_exclusions', []))
     mask &= colors.max(axis=1)-colors.min(axis=1) < cfg.get('fur_max_chroma', 1)
     excluded_part_vertices = set()
@@ -560,7 +597,6 @@ def finish(config, output):
                                 cfg['groom']['direction'], cfg['groom']['comb'], cfg['groom_flow'])
         report['fur_undercoat'] = apply_undercoat(obj, mask, prepared, cfg['fur_undercoat'], out,
             export_vertex_budget=cfg.get('undercoat_export_budget'))
-    tuft = cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1'
     if tuft:
         cards, report['portable_fur'] = portable_coat(obj, rig, mask, colors, cfg['portable_fur'], out,
             tuft_image=color_node.image, native_groom=cfg['groom'], groom_flow=cfg['groom_flow'])

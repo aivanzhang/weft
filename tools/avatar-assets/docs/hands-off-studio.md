@@ -36,9 +36,16 @@ immutable. No deployment or persistent server starts automatically.
 
 - Parent: orchestration integration, local HTTP API,
   shared contract, end-to-end acceptance and save.
-- `agent_runner`: compact adaptive-undercoat evidence assembly; adapter released.
-- `pipeline_contracts`: completed HD UV1/native tangent proof; sources released.
-- `pipeline_review`: completed independent actual export audit; prior browser checks.
+- `agent_runner`: completed exact-root source admission guard and focused tests.
+- `pipeline_contracts`: completed independent area-weighted candidate audit.
+- `pipeline_review`: completed analytic area-weighted allocation screen.
+
+The latest local [fringe experiment](edge-fringe-experiment.md) improves root
+allocation but still shows speckled, sparse fur and the existing contact defects.
+The actual new candidate reloaded successfully; it is not an accepted finish or
+fresh Studio delivery. The production sampler's math was already correct; its
+new source-mode guard has 59 focused checks plus split verification of all 695
+integration cases. Approved assets and production finishing defaults stay unchanged.
 
 No new Meshy generation has started for this acceptance work. The reused-robot
 development study exhausted its 13-call AI allowance; all four Studio jobs are

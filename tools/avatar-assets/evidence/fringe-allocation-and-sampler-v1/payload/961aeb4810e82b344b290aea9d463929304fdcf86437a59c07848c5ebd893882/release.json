@@ -1,0 +1,86 @@
+{
+  "bounded_job_metrics": {
+    "elapsed_seconds": 0.768,
+    "final_output_bytes": 147476,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 32,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "process_exit_verified": true,
+    "sampled_peak_rss_bytes": 148946944
+  },
+  "changed_files": [
+    {
+      "bytes": 4687,
+      "path": "scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 49677,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "4ce8d7c38c515a24da7c62824922e86d13838769aa6b45c6cd393f5bbfe6710b"
+    },
+    {
+      "bytes": 6879,
+      "path": "tests/test_fur_root_sampling.py",
+      "sha256": "53bcb62a0886c8fc0ba3894f53c02f23a9a02af168ea49fd1fb0f8e9f3b94582"
+    },
+    {
+      "bytes": 6927,
+      "path": "tests/test_root_sampling_contract.py",
+      "sha256": "6ece2a3bd808822a9fcfe2e572a643b97d409882969a37279c27f5c9ad723cc1"
+    },
+    {
+      "bytes": 24116,
+      "path": "tests/test_finish_quality_contracts.py",
+      "sha256": "7989763fbe9d74b1464383f4b93087c960b0e5c7bbf0f1580ed16f6102dfb847"
+    }
+  ],
+  "diff": "changes.patch",
+  "exact_command": ".venv/bin/python -B outputs/root-color-sampler-guard-tests-v1/execute.py",
+  "guard_scope": "Only tuft-v1 exact-root mode. Validate all initial source material modes/render UV before the mask pixel buffer; revalidate all contributing selected-triangle materials after material refinements before the exact-root pixel buffer. No material mutation.",
+  "legacy_combed_tests_passed": true,
+  "limits": [
+    "Analytic/mock contract tests only; no native texture node, renderer, GPU mip, appearance or whole-scene memory proof.",
+    "No existing output packs, geometry, default profile, production docs or Git state changed."
+  ],
+  "native_provider_ai_role_calls": 0,
+  "new_internal_APIs": [
+    "validate_root_sampling_contract(sources,sampled_uv,render_uv) -> bounded data report",
+    "exact_root_texture_contract(obj,image,material_slots=None) -> report",
+    "texture_colors(obj,image,*,exact_root=False); default keeps legacy behavior"
+  ],
+  "numeric_or_gamma_sampling_change": false,
+  "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+  "public_sampler_API_and_class_AST_unchanged": true,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 18:43:07 PST",
+  "schema_version": 1,
+  "shared_color_texture_default_AST_unchanged": true,
+  "source_count": 91,
+  "source_pins_unchanged": true,
+  "status": "frozen_and_released_for_root_review",
+  "tests": {
+    "elapsed_seconds": 0.4893515002913773,
+    "errors": 0,
+    "failures": 0,
+    "kind": "analytic_and_mocked_tests_not_generated_assets",
+    "native_provider_ai_role_calls": 0,
+    "quality_approved": false,
+    "schema_version": 1,
+    "skipped": 0,
+    "successful": true,
+    "test_modules": [
+      "test_fur_root_sampling.py",
+      "test_root_sampling_contract.py",
+      "test_finish_quality_contracts.py",
+      "test_combed_fur_cards.py",
+      "test_tuft_fur_cards.py"
+    ],
+    "tests": 59
+  }
+}

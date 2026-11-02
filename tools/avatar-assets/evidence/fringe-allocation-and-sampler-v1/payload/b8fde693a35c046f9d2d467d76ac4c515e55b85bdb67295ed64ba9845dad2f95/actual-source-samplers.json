@@ -1,0 +1,158 @@
+{
+  "json_chunk_bytes": 32260,
+  "json_chunk_sha256": "9c55a5359d07564e0bfbe3f8710b196b332c0b6f20581074127c0c846eaeaa13",
+  "materials": [
+    {
+      "baseColorFactor": null,
+      "baseColorTexture": {
+        "index": 1
+      },
+      "index": 0,
+      "name": "body_surface"
+    },
+    {
+      "baseColorFactor": null,
+      "baseColorTexture": {
+        "index": 4
+      },
+      "index": 1,
+      "name": "companion_surface"
+    },
+    {
+      "baseColorFactor": null,
+      "baseColorTexture": {
+        "index": 6
+      },
+      "index": 2,
+      "name": "body_cap"
+    },
+    {
+      "baseColorFactor": null,
+      "baseColorTexture": {
+        "index": 7
+      },
+      "index": 3,
+      "name": "companion_cap"
+    },
+    {
+      "baseColorFactor": [
+        0.004400849808007479,
+        0.003935939632356167,
+        0.003758403705433011,
+        1
+      ],
+      "baseColorTexture": null,
+      "index": 4,
+      "name": "body_surface__color_rear-tail-base"
+    },
+    {
+      "baseColorFactor": null,
+      "baseColorTexture": {
+        "index": 10
+      },
+      "index": 5,
+      "name": "body_surface__short_pile_adaptive_v1"
+    },
+    {
+      "baseColorFactor": null,
+      "baseColorTexture": {
+        "index": 12
+      },
+      "index": 6,
+      "name": "body_cap__short_pile_adaptive_v1"
+    },
+    {
+      "baseColorFactor": null,
+      "baseColorTexture": {
+        "index": 13
+      },
+      "index": 7,
+      "name": "PortableCoat_0_cutout_fur"
+    },
+    {
+      "baseColorFactor": null,
+      "baseColorTexture": {
+        "index": 14
+      },
+      "index": 8,
+      "name": "PortableCoat_1_cutout_fur"
+    }
+  ],
+  "model_sha256_reference": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    },
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 33071,
+      "wrapT": 33071
+    }
+  ],
+  "source": "outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 1,
+      "source": 5
+    },
+    {
+      "sampler": 1,
+      "source": 6
+    }
+  ],
+  "whole_model_not_rehashed_in_this_read_only_review": true
+}

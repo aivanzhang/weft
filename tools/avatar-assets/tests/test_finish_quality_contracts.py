@@ -281,22 +281,30 @@ class TuftSamplingAdapterTests(unittest.TestCase):
         source = Path(__file__).resolve().parents[1]/'scripts/blender_finish_generated.py'
         tree = ast.parse(source.read_text(), filename=str(source))
         helpers = [node for node in tree.body if isinstance(node, ast.FunctionDef)
-                   and node.name in ('tuft_sampling_context', 'portable_coat')]
+                   and node.name in ('exact_root_texture_contract', 'tuft_sampling_context', 'portable_coat')]
         cls.scope = {'np': np}
         exec(compile(ast.Module(body=helpers, type_ignores=[]), str(source), 'exec'), cls.scope)
 
     def fixture(self):
         vertices = [SimpleNamespace(co=co,normal=(0,0,1),groups=[SimpleNamespace(group=0,weight=1.)])
                     for co in ((0,0,0),(1,0,0),(0,1,1),(1,1,1))]
-        triangles = [SimpleNamespace(vertices=(0,1,2),loops=(0,1,2)),
-                     SimpleNamespace(vertices=(1,3,2),loops=(3,4,5))]
-        uv = SimpleNamespace(data=[SimpleNamespace(uv=value) for value in [(0.125,.25)]*3+[(.875,.75)]*3])
+        triangles = [SimpleNamespace(vertices=(0,1,2),loops=(0,1,2),material_index=0),
+                     SimpleNamespace(vertices=(1,3,2),loops=(3,4,5),material_index=1)]
+        uv = SimpleNamespace(name='UVMap',active_render=True,
+                             data=[SimpleNamespace(uv=value) for value in [(0.125,.25)]*3+[(.875,.75)]*3])
+        class UVLayers(list): pass
+        layers = UVLayers([uv]);layers.active = uv
         obj = SimpleNamespace(vertex_groups=[SimpleNamespace(index=0,name='Root')],data=SimpleNamespace(
             vertices=vertices,loop_triangles=triangles,calc_loop_triangles=Mock(),
-            uv_layers=SimpleNamespace(active=uv),attributes=SimpleNamespace(get=lambda _:None)))
+            uv_layers=layers,attributes=SimpleNamespace(get=lambda _:None)))
         pixels = np.array([[[1,0,0,1]]*2+[[0,0,1,1]]*2]*2,dtype=np.float32)
         image = SimpleNamespace(size=(4,2),colorspace_settings=SimpleNamespace(name='sRGB'),
                                 pixels=SimpleNamespace(foreach_get=Mock(side_effect=lambda target:target.__setitem__(slice(None),pixels.ravel()))))
+        obj.data.materials = []
+        for _ in range(2):
+            source, texture = material(image)
+            texture.interpolation = 'Linear'
+            obj.data.materials.append(source)
         return obj, triangles, image
 
     def modules(self):

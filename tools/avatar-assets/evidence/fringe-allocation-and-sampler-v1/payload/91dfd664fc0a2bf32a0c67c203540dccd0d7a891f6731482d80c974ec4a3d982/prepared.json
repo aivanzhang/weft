@@ -1,0 +1,264 @@
+{
+  "actual_character_model_used": false,
+  "baseline": {
+    "allocation": "unchanged_frozen_orientation_rank",
+    "helper_sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd",
+    "max_edge_m": 0.01,
+    "min_edge_m": 0.0085
+  },
+  "candidate": {
+    "allocation": "eligible-face-area-share-seeded-exponential-v1",
+    "atlas_physical_domain_m": 0.0208,
+    "fin_height_m": 0.008,
+    "helper_sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421",
+    "max_edge_m": 0.02,
+    "maximum_fins": 4800,
+    "maximum_visible_tip_group_span_m": 0.0066,
+    "min_edge_m": 0.0085,
+    "minimum_spacing_m": 0.003
+  },
+  "command": ".venv/bin/python -B outputs/fringe-allocation-analytic-v2/execute.py",
+  "failed_predecessor": {
+    "files": [
+      {
+        "bytes": 2842,
+        "path": "README.md",
+        "sha256": "f22ae5cae3152444461fc48303ecaa88277ca176e8baad66659ecc8f4637afa5"
+      },
+      {
+        "bytes": 15402,
+        "path": "allocation_fringe.py",
+        "sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421"
+      },
+      {
+        "bytes": 30166,
+        "path": "analytic-allocation-map.png",
+        "sha256": "82dd6e0957da0c508bd1eaf562fd76718456109730ad18e2da8ea723655f4e6b"
+      },
+      {
+        "bytes": 80652,
+        "path": "coarse_dense_medium-area_share-roots.npz",
+        "sha256": "01b93bb2aa7758f019190731712f970a9fc425d83566506c8dc2063fdc305655"
+      },
+      {
+        "bytes": 58108,
+        "path": "coarse_dense_medium-frozen_old-roots.npz",
+        "sha256": "7009b0dcd78517e9bb12c9ab958480ada75d938904646bc7f0dc5be20c321eac"
+      },
+      {
+        "bytes": 239,
+        "path": "cpu-handle.json",
+        "sha256": "ab52720d2f4489807009c1f7ba2736486801c75d4d485c156aaa64d5675f26c8"
+      },
+      {
+        "bytes": 1024,
+        "path": "cpu-monitor.json",
+        "sha256": "23110b735475081e273bfb7bbb6d9aefc15f911b143c4376f52bc47e0cbb0735"
+      },
+      {
+        "bytes": 2396,
+        "path": "cpu.log",
+        "sha256": "5c69a082e83e0178382bdb154f9ea18bdbd69473c26b530ea9308bcd5466481c"
+      },
+      {
+        "bytes": 79904,
+        "path": "dense_medium_coarse_flipped-area_share-roots.npz",
+        "sha256": "68ca3747a2714684feaf1fd85e6b485705bffc2cca31d36478e36965dbed896a"
+      },
+      {
+        "bytes": 58297,
+        "path": "dense_medium_coarse_flipped-frozen_old-roots.npz",
+        "sha256": "f227ff28ee415d20ef471c65ef154ac94c39bb694a893eaa873ed6607189f5e3"
+      },
+      {
+        "bytes": 1799,
+        "path": "execute.py",
+        "sha256": "26499fb1c65e407c25e95f53f9dea23efca56fb0490683eac03ea3a5dc4d6e25"
+      },
+      {
+        "bytes": 171,
+        "path": "execution-started.json",
+        "sha256": "a5fc9b144d8cb62f509202be15b020b0bce2e6de47d9d73eec489dd6826a5c76"
+      },
+      {
+        "bytes": 171,
+        "path": "failure.json",
+        "sha256": "66a8eab5e374284e4d72ad184de28de64859284167903cdae59051ae35ceb9a9"
+      },
+      {
+        "bytes": 1118,
+        "path": "job.json",
+        "sha256": "1a8685d06d21a25fc2c2fe744e880d8fefe09f61de006cb0e790254dba1abf48"
+      },
+      {
+        "bytes": 31661,
+        "path": "physical-two-tip-atlas.png",
+        "sha256": "78a26bb5d5b8a80e2917facafdca52442455c2d7562631a5e03bb3c1b6890fa8"
+      },
+      {
+        "bytes": 3272,
+        "path": "prepared.json",
+        "sha256": "45c037568500abc3a1e9fd886709f7723f21cc4ee919f846f4c8556c10d4d5c3"
+      },
+      {
+        "bytes": 444,
+        "path": "result.json",
+        "sha256": "4ccad6c52febf5a4207196c4431e944365f1e0f6f6d67bbd5ae9b4977dc95ac3"
+      },
+      {
+        "bytes": 17711,
+        "path": "screen.py",
+        "sha256": "9ba2e25636a9ce3383b9b0aaeecb68b0a233bf760c98bc5295903fd86a956e66"
+      },
+      {
+        "bytes": 96,
+        "path": "sources/avatar_assets/__init__.py",
+        "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+      },
+      {
+        "bytes": 11421,
+        "path": "sources/avatar_assets/runner.py",
+        "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+      },
+      {
+        "bytes": 3759,
+        "path": "sources/avatar_assets/safety.py",
+        "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+      },
+      {
+        "bytes": 21479,
+        "path": "sources/candidate_build_frozen.py",
+        "sha256": "5cbd3e70a14b55d668a9bc965d9a4211c0969f0f9c70d2d56c2519f947a22916"
+      },
+      {
+        "bytes": 14314,
+        "path": "sources/edge_fringe_frozen.py",
+        "sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd"
+      },
+      {
+        "bytes": 867,
+        "path": "sources/root_sampler.py",
+        "sha256": "8b0f6a9149977c47a7c124578c6418a655d68707c4964c49b872b9d1233e0347"
+      },
+      {
+        "bytes": 80099,
+        "path": "uniform-area_share-roots.npz",
+        "sha256": "0ff4fbbce87e2613134f72a71eb6c66c07ab92e439b0514e0d3b6852bd50f3a6"
+      },
+      {
+        "bytes": 73638,
+        "path": "uniform-frozen_old-roots.npz",
+        "sha256": "68d32cd7a97cd40994c83e5dc4b868ac6b4b377b558f853bd795e01d0ef5637b"
+      }
+    ],
+    "path": "outputs/fringe-allocation-analytic-v1",
+    "prepared_sha256": "45c037568500abc3a1e9fd886709f7723f21cc4ee919f846f4c8556c10d4d5c3",
+    "status": "failed_json_serialization"
+  },
+  "kind": "analytic_allocation_screen_not_avatar",
+  "limits": {
+    "cpu_threads": 1,
+    "output_mb": 16,
+    "rss_mb": 256,
+    "wall_seconds": 17.655
+  },
+  "new_native_provider_ai_role_calls": 0,
+  "prepared_at": "2026-11-01T18:35:18.132055-08:00",
+  "quality_approved": false,
+  "release_required": true,
+  "renderer_used": false,
+  "reporting_only_correction": {
+    "added_screen_functions": [
+      "json_scalar"
+    ],
+    "all_other_screen_functions_ast_exact": true,
+    "changed_screen_functions": [
+      "save"
+    ],
+    "parent_run_wall_seconds": 20,
+    "prior_elapsed_seconds": 2.345,
+    "remaining_seconds": 17.655,
+    "unchanged_copied_files": [
+      "allocation_fringe.py",
+      "sources/avatar_assets/__init__.py",
+      "sources/avatar_assets/runner.py",
+      "sources/avatar_assets/safety.py",
+      "sources/candidate_build_frozen.py",
+      "sources/edge_fringe_frozen.py",
+      "sources/root_sampler.py"
+    ]
+  },
+  "schema_version": 1,
+  "source_origins": [
+    {
+      "copy": "sources/edge_fringe_frozen.py",
+      "path": "outputs/edge-fringe-analytic-v1/edge_fringe.py",
+      "sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd"
+    },
+    {
+      "copy": "sources/candidate_build_frozen.py",
+      "path": "outputs/edge-fringe-candidate-preparation-v2/build_candidate.py",
+      "reused_function": "repeat_root_colors",
+      "sha256": "5cbd3e70a14b55d668a9bc965d9a4211c0969f0f9c70d2d56c2519f947a22916"
+    }
+  ],
+  "sources": [
+    {
+      "bytes": 3328,
+      "path": "README.md",
+      "sha256": "b97656da8d84ccee87682f73c34df2d331eb7e8c026068167ad9aa60384e490f"
+    },
+    {
+      "bytes": 15402,
+      "path": "allocation_fringe.py",
+      "sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421"
+    },
+    {
+      "bytes": 1803,
+      "path": "execute.py",
+      "sha256": "2b96d2cfc7a9ba170f282068ff720da18702c2fc4439cc03bff8554d9faa5f86"
+    },
+    {
+      "bytes": 608,
+      "path": "reporting-only.diff",
+      "sha256": "23617007685d88c5d07bf11bcc44e4d4d7a7accf44fbc58a3eb472c1d708eadb"
+    },
+    {
+      "bytes": 17900,
+      "path": "screen.py",
+      "sha256": "ab4453a7ff4c95a2b6c85c3839777a01546a81ddc1fcef58d355f43f13c9bbb2"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 21479,
+      "path": "sources/candidate_build_frozen.py",
+      "sha256": "5cbd3e70a14b55d668a9bc965d9a4211c0969f0f9c70d2d56c2519f947a22916"
+    },
+    {
+      "bytes": 14314,
+      "path": "sources/edge_fringe_frozen.py",
+      "sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd"
+    },
+    {
+      "bytes": 867,
+      "path": "sources/root_sampler.py",
+      "sha256": "8b0f6a9149977c47a7c124578c6418a655d68707c4964c49b872b9d1233e0347"
+    }
+  ],
+  "status": "prepared_not_executed",
+  "syntax_parsed_only": true
+}

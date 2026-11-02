@@ -1,0 +1,64 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/root-color-sampler-guard-tests-v1/run_focused.py"
+  ],
+  "limits": {
+    "cpu_threads": 1,
+    "output_mib": 32,
+    "rss_mib": 512,
+    "wall_seconds": 30
+  },
+  "native_provider_ai_role_calls": 0,
+  "prepared_files": [
+    {
+      "bytes": 22073,
+      "path": "changes.patch",
+      "sha256": "35e7e3f3f9a95f683331b2e5b7293e5eec32fea466cde5100407889a9a0eb85d"
+    },
+    {
+      "bytes": 1673,
+      "path": "execute.py",
+      "sha256": "209f1c7d9751e0903c02efe755fc6cb11682ee024ffad783641d78481a51297a"
+    },
+    {
+      "bytes": 1172,
+      "path": "run_focused.py",
+      "sha256": "6594f2264a88fb112cdd7184643ee045edb7919b05d721ad6015fcd6376c63b1"
+    },
+    {
+      "bytes": 15370,
+      "path": "source-inventory.json",
+      "sha256": "be91c10b2b3d8fae40908650ff1e56be3a50376030d64fb14a8a6fd29e2f1d82"
+    },
+    {
+      "bytes": 49677,
+      "path": "sources/scripts/blender_finish_generated.py",
+      "sha256": "4ce8d7c38c515a24da7c62824922e86d13838769aa6b45c6cd393f5bbfe6710b"
+    },
+    {
+      "bytes": 4687,
+      "path": "sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 24116,
+      "path": "sources/tests/test_finish_quality_contracts.py",
+      "sha256": "7989763fbe9d74b1464383f4b93087c960b0e5c7bbf0f1580ed16f6102dfb847"
+    },
+    {
+      "bytes": 6879,
+      "path": "sources/tests/test_fur_root_sampling.py",
+      "sha256": "53bcb62a0886c8fc0ba3894f53c02f23a9a02af168ea49fd1fb0f8e9f3b94582"
+    },
+    {
+      "bytes": 6927,
+      "path": "sources/tests/test_root_sampling_contract.py",
+      "sha256": "6ece2a3bd808822a9fcfe2e572a643b97d409882969a37279c27f5c9ad723cc1"
+    }
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_inventory_sha256": "be91c10b2b3d8fae40908650ff1e56be3a50376030d64fb14a8a6fd29e2f1d82"
+}

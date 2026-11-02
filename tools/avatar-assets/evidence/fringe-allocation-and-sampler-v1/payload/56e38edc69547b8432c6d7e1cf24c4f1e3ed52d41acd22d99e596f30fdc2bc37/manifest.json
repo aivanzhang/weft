@@ -1,0 +1,109 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2844,
+      "path": "actual-source-samplers.json",
+      "sha256": "b8fde693a35c046f9d2d467d76ac4c515e55b85bdb67295ed64ba9845dad2f95"
+    },
+    {
+      "bytes": 2204,
+      "path": "analytic-checks.json",
+      "sha256": "715b60e8475f55da62892466f07a033db830cec678bfadc2a6bda98cefd535d6"
+    },
+    {
+      "bytes": 6074,
+      "path": "check_contract.py",
+      "sha256": "a4d31d4e9a82cfb12a983ade8fdad8577cdb2ddf876e24aea5d71ebe1f8affcf"
+    },
+    {
+      "bytes": 3741,
+      "path": "diagnosis.md",
+      "sha256": "5b081f14ec74d9abfa8f4e02c376b5c3d4f72d0af4e2aaa1c5178e7ac39f279a"
+    },
+    {
+      "bytes": 8861,
+      "path": "report.json",
+      "sha256": "77fe278a8a62b34a5a97f384b14f8453fd7bbd226732be946d6581bd7237a618"
+    },
+    {
+      "bytes": 6836,
+      "path": "snapshots/blender-export-sampler.py",
+      "sha256": "4e0a2d099680e86339abf6bfc70de2dad7b2d612b8c7825b8c5c71db315b6996"
+    },
+    {
+      "bytes": 9598,
+      "path": "snapshots/blender-import-texture.py",
+      "sha256": "793910607f00db6ff939dc018133c16426276e104bf92727383ad219c3ad413b"
+    },
+    {
+      "bytes": 47396,
+      "path": "snapshots/blender_finish_generated.py",
+      "sha256": "7a8c6542509d33e28112c979aa4d1c39552f3ab2962507f7815c09e8ef27bd3b"
+    },
+    {
+      "bytes": 23637,
+      "path": "snapshots/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 36931,
+      "path": "snapshots/blender_fur_undercoat.py",
+      "sha256": "cd039759e97e1653bdcc29ab22b6cd36e3e9ff420234413de5520355f9ca50aa"
+    },
+    {
+      "bytes": 9781,
+      "path": "snapshots/blender_surfaces_hd.py",
+      "sha256": "eb5ee9931df0d50a2b23b333c2e6a808d18739d4d811cc2965669f2814b4b26a"
+    },
+    {
+      "bytes": 2184,
+      "path": "snapshots/color-interpretation.json",
+      "sha256": "6ad8ee39c2f8f6963e7fce62ac8b97d594e4e3605ab09f0699e9e3cfc37b1219"
+    },
+    {
+      "bytes": 25993,
+      "path": "snapshots/edge-fringe-build-report.json",
+      "sha256": "fb194b01108657c45685b32ee7224023f29ebc878327648ac8b3d74a09950887"
+    },
+    {
+      "bytes": 21479,
+      "path": "snapshots/experimental_build_candidate_v2.py",
+      "sha256": "5cbd3e70a14b55d668a9bc965d9a4211c0969f0f9c70d2d56c2519f947a22916"
+    },
+    {
+      "bytes": 14314,
+      "path": "snapshots/experimental_edge_fringe_v1.py",
+      "sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd"
+    },
+    {
+      "bytes": 2952,
+      "path": "snapshots/fur_root_sampling.py",
+      "sha256": "6906d5facd5e5a6d34e9814770810be105f746f7b2740b772813cf63edc8ddc2"
+    },
+    {
+      "bytes": 23727,
+      "path": "snapshots/test_finish_quality_contracts.py",
+      "sha256": "42bc0cb5dc7a6e25716953c6fe180a699839ab7ae04d7d867eab602eb46706fe"
+    },
+    {
+      "bytes": 2332,
+      "path": "snapshots/test_fur_root_sampling.py",
+      "sha256": "d96058206af5b8b16bbd0ca4d129844ee9d210ca414d6721d123c80e48d74d63"
+    },
+    {
+      "bytes": 13123,
+      "path": "snapshots/test_tuft_fur_cards.py",
+      "sha256": "434efb17539e6059da1d5350903e705ca9fdd5bb61e8defc183dcaba6f869446"
+    },
+    {
+      "bytes": 3687,
+      "path": "source-pins.json",
+      "sha256": "60c8755669ca31b9ebc67ca56c6e98fcef0083afdf5a9e5cfd9191e97cf57258"
+    }
+  ],
+  "new_native_provider_ai_role_calls": 0,
+  "production_and_test_inputs_unchanged": true,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "read_only_review_complete"
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01 18:49:14 PST",
+  "kind": "Parent visual review of three existing native reload images; no new render or generated asset",
+  "status": "not_accepted_for_quality",
+  "quality_approved": false,
+  "production_promoted": false,
+  "inspected_images": [
+    "outputs/panda-edge-fringe-area-preview-v1/front.png",
+    "outputs/panda-edge-fringe-area-preview-v1/back.png",
+    "outputs/panda-edge-fringe-area-preview-v1/renders/dance_flight/0003.png"
+  ],
+  "observations": [
+    "Panda proportions, black-and-white markings and green shoulder dragon remain recognizable in inspected rest views.",
+    "White face and belly now show more visible speckled/dash-like surface tips; this does not read as a dense continuous fur coat.",
+    "Ear and tail silhouettes are softer than the smooth base; broad white and black areas still look like a solid surface between sparse tips.",
+    "The flight pose exposes the existing dark cheek/shoulder defects; they remain uncorrected.",
+    "Sampled dragon takeoff and panda pose are actual existing rigged action frames, not a new animation or seamless-loop verification."
+  ],
+  "known_measured_color_limit": {
+    "tip_count": 9600,
+    "tips_over_0_10_linear_component_error": 194,
+    "source": "outputs/panda-edge-fringe-area-v1/build-report.json"
+  },
+  "limitations": [
+    "Only these three 512px images reviewed; no full-resolution final media, browser/GPU check, fur physics, fresh prompt or Studio acceptance.",
+    "More uniform allocation does not establish appearance quality.",
+    "No approved asset or default changed."
+  ],
+  "next_safe_action": "Resolve visible-tip color mapping and screen pixel-scale coverage before any further candidate; retain geometry/skin limits and independent final review.",
+  "inputs": [
+    {
+      "path": "outputs/panda-edge-fringe-area-v1/model.glb",
+      "bytes": 34973564,
+      "sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-area-v1/build-report.json",
+      "bytes": 27228,
+      "sha256": "44f1ee5d6e6616aa3de62d347084a4c388079ffbe056dfa3c069d788bf503a9d"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-area-preview-v1/front.png",
+      "bytes": 270410,
+      "sha256": "94d354aa8e6f603885e47b19196699c61ad2a7caa861541ae6d3c2b75867d6d0"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-area-preview-v1/back.png",
+      "bytes": 255796,
+      "sha256": "514df001de9f36935dcd3d2dc34e52fadf03712551dd17f9df8c61206243442d"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-area-preview-v1/renders/dance_flight/0003.png",
+      "bytes": 244558,
+      "sha256": "9453d90115b1de1f64ee159f269af249cf6de40300da1629a0173bfe13bdfa06"
+    }
+  ]
+}

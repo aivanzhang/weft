@@ -2,6 +2,34 @@
 
 import numpy as np
 
+ROOT_COLOR_POLICY = 'repeat-texel-centers-linear-lod0-srgb-v1'
+
+
+def validate_root_sampling_contract(sources, sampled_uv, render_uv):
+    """Reject shader modes the fixed LOD0 sampler cannot reproduce."""
+    if (not isinstance(sampled_uv, str) or not 1 <= len(sampled_uv) <= 128
+            or render_uv != sampled_uv):
+        raise ValueError('Exact root sampling requires matching sampled/render-active UV layers')
+    if not isinstance(sources, (list, tuple)) or not 1 <= len(sources) <= 32:
+        raise ValueError('Exact root sampling requires 1..32 source materials')
+    fields = {'slot', 'interpolation', 'extension', 'projection', 'vector_linked', 'image_matches'}
+    slots = []
+    for source in sources:
+        if (not isinstance(source, dict) or set(source) != fields
+                or type(source['slot']) is not int or not 0 <= source['slot'] < 32
+                or source['slot'] in slots):
+            raise ValueError('Invalid exact root source-material descriptor')
+        if (source['interpolation'] != 'Linear' or source['extension'] != 'REPEAT'
+                or source['projection'] != 'FLAT' or source['vector_linked'] is not False
+                or source['image_matches'] is not True):
+            raise ValueError('Exact root sampling requires Linear/REPEAT direct UVs and one source image')
+        slots.append(source['slot'])
+    return {'policy': ROOT_COLOR_POLICY, 'material_slots': sorted(slots),
+            'sampled_uv_layer': sampled_uv, 'render_uv_layer': render_uv,
+            'extension': 'REPEAT', 'interpolation': 'Linear',
+            'filter_scope': 'Bilinear LOD0 only; no mip or derivative equivalence',
+            'coordinates': 'Blender UVs paired with bottom-up image rows'}
+
 
 class RootColorSampler:
     """Borrow read-only pixel/UV arrays; the adapter owns their lifetime and coordinates."""

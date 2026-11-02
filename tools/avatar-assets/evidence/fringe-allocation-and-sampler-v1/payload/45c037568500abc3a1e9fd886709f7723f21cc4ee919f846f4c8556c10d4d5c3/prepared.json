@@ -1,0 +1,101 @@
+{
+  "actual_character_model_used": false,
+  "baseline": {
+    "allocation": "unchanged_frozen_orientation_rank",
+    "helper_sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd",
+    "max_edge_m": 0.01,
+    "min_edge_m": 0.0085
+  },
+  "candidate": {
+    "allocation": "eligible-face-area-share-seeded-exponential-v1",
+    "atlas_physical_domain_m": 0.0208,
+    "fin_height_m": 0.008,
+    "helper_sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421",
+    "max_edge_m": 0.02,
+    "maximum_fins": 4800,
+    "maximum_visible_tip_group_span_m": 0.0066,
+    "min_edge_m": 0.0085,
+    "minimum_spacing_m": 0.003
+  },
+  "command": ".venv/bin/python -B outputs/fringe-allocation-analytic-v1/execute.py",
+  "kind": "analytic_allocation_screen_not_avatar",
+  "limits": {
+    "cpu_threads": 1,
+    "output_mb": 16,
+    "rss_mb": 256,
+    "wall_seconds": 20
+  },
+  "new_native_provider_ai_role_calls": 0,
+  "prepared_at": "2026-11-01T18:30:45.043355-08:00",
+  "quality_approved": false,
+  "release_required": true,
+  "renderer_used": false,
+  "schema_version": 1,
+  "source_origins": [
+    {
+      "copy": "sources/edge_fringe_frozen.py",
+      "path": "outputs/edge-fringe-analytic-v1/edge_fringe.py",
+      "sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd"
+    },
+    {
+      "copy": "sources/candidate_build_frozen.py",
+      "path": "outputs/edge-fringe-candidate-preparation-v2/build_candidate.py",
+      "reused_function": "repeat_root_colors",
+      "sha256": "5cbd3e70a14b55d668a9bc965d9a4211c0969f0f9c70d2d56c2519f947a22916"
+    }
+  ],
+  "sources": [
+    {
+      "bytes": 2842,
+      "path": "README.md",
+      "sha256": "f22ae5cae3152444461fc48303ecaa88277ca176e8baad66659ecc8f4637afa5"
+    },
+    {
+      "bytes": 15402,
+      "path": "allocation_fringe.py",
+      "sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421"
+    },
+    {
+      "bytes": 1799,
+      "path": "execute.py",
+      "sha256": "26499fb1c65e407c25e95f53f9dea23efca56fb0490683eac03ea3a5dc4d6e25"
+    },
+    {
+      "bytes": 17711,
+      "path": "screen.py",
+      "sha256": "9ba2e25636a9ce3383b9b0aaeecb68b0a233bf760c98bc5295903fd86a956e66"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 21479,
+      "path": "sources/candidate_build_frozen.py",
+      "sha256": "5cbd3e70a14b55d668a9bc965d9a4211c0969f0f9c70d2d56c2519f947a22916"
+    },
+    {
+      "bytes": 14314,
+      "path": "sources/edge_fringe_frozen.py",
+      "sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd"
+    },
+    {
+      "bytes": 867,
+      "path": "sources/root_sampler.py",
+      "sha256": "8b0f6a9149977c47a7c124578c6418a655d68707c4964c49b872b9d1233e0347"
+    }
+  ],
+  "status": "prepared_not_executed",
+  "syntax_parsed_only": true
+}

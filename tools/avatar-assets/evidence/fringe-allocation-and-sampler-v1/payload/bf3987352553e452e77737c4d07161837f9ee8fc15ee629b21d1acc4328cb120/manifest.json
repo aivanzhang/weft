@@ -1,0 +1,202 @@
+{
+  "artifacts": [
+    {
+      "bytes": 255796,
+      "path": "back.png",
+      "sha256": "514df001de9f36935dcd3d2dc34e52fadf03712551dd17f9df8c61206243442d"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "78ac5fd3c4c4c49391d5cce55a30e39a51ff707de95a18e929ac934c8eb0a5f0"
+    },
+    {
+      "bytes": 270410,
+      "path": "front.png",
+      "sha256": "94d354aa8e6f603885e47b19196699c61ad2a7caa861541ae6d3c2b75867d6d0"
+    },
+    {
+      "bytes": 1687,
+      "path": "job.json",
+      "sha256": "0eec51ec611da161dea61be799f9f250922aa211d86b67369f128f33de080bff"
+    },
+    {
+      "bytes": 146,
+      "path": "motion-states.json",
+      "sha256": "edbea41aff7ea24efd011c2725e14158c0394a9721e5fdb426eee9af4ca90335"
+    },
+    {
+      "bytes": 10690,
+      "path": "native-inspection.json",
+      "sha256": "6721d657c620f6daf5bf16666418461f4ec6fbd0037f4170db9d4c2a8f54e0bb"
+    },
+    {
+      "bytes": 34973564,
+      "path": "original.glb",
+      "sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d"
+    },
+    {
+      "bytes": 741,
+      "path": "preview-handle.json",
+      "sha256": "57aecd2f1ad26c525871dda140cc93007b0339e5d549b62ab5c0f41c72fdf334"
+    },
+    {
+      "bytes": 1537,
+      "path": "preview-monitor.json",
+      "sha256": "ae4aeac38c7ce7195e860f4f570d4e85117fe6e8edb66b98368feacf9c6918ea"
+    },
+    {
+      "bytes": 75054,
+      "path": "preview.log",
+      "sha256": "8463faba2c9f01ac67c3b837bc4c4d7be6fefc2b870c5b28642c657e8c170237"
+    },
+    {
+      "bytes": 240081,
+      "path": "renders/dance_flight/0000.png",
+      "sha256": "1e2aa0190c8bf43c3616bfffd6c0588a855e2cdc4b45d725125e8877e3c1781a"
+    },
+    {
+      "bytes": 243912,
+      "path": "renders/dance_flight/0001.png",
+      "sha256": "96a03642a457ada402a6dcbb4a34083b28e952ec69671daea2bff92bb266bfbe"
+    },
+    {
+      "bytes": 243501,
+      "path": "renders/dance_flight/0002.png",
+      "sha256": "cb68eaaaf4b38b5bb38092416bac02ab5fbb70057b090c10268908c657fa42d9"
+    },
+    {
+      "bytes": 244558,
+      "path": "renders/dance_flight/0003.png",
+      "sha256": "9453d90115b1de1f64ee159f269af249cf6de40300da1629a0173bfe13bdfa06"
+    },
+    {
+      "bytes": 242364,
+      "path": "renders/dance_flight/0004.png",
+      "sha256": "de58b094cf310cc008429be4e5fe9e66283453dc4dadab716a8a6540a9e72d71"
+    },
+    {
+      "bytes": 243276,
+      "path": "renders/dance_flight/0005.png",
+      "sha256": "02200e9cc6bd6bdaf281bc23e188c137e9f236e904488390eaaf7ff985a950ad"
+    },
+    {
+      "bytes": 243490,
+      "path": "renders/dance_flight/0006.png",
+      "sha256": "986ee144b4ed31aabf9af5053e3f79e195c7dfdcd9d0571ea3419ba0e0677faf"
+    },
+    {
+      "bytes": 240081,
+      "path": "renders/dance_flight/0007.png",
+      "sha256": "8bddae2eb0d88b9bba402944f0860d233035e5f772aa929ff8e01c65628f5c52"
+    },
+    {
+      "bytes": 242488,
+      "path": "side.png",
+      "sha256": "0c258cbe775cdd2da0f5ce1fc332bb591cb7b9ea21de39c70066573a73df75b7"
+    },
+    {
+      "bytes": 41497487,
+      "path": "source.blend",
+      "sha256": "49da700d3862657e11ff9b35680c185b1bbd465bb2581662fb069954cbc5315e"
+    },
+    {
+      "bytes": 37921,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "adabe442b7a4f58d838186c15d655a6289c4404a071b619729677b32cde28ac6"
+    },
+    {
+      "bytes": 12033,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 264207,
+      "path": "three-quarter.png",
+      "sha256": "1c57f1648bd12d3a11c20a420a2cdf83a919b50dd965ed5833936abc171a724c"
+    }
+  ],
+  "automatic_retry": false,
+  "comparison_limits": [
+    "Same512px/sample16/renderer/lighting/camera-fit algorithm as the prior fringe screen; bounds may alter computed framing slightly.",
+    "Known color-interpolation limitation:194/9600 nominal tip roots differ by>.10linear from actual LOD0 surface samples; this is a placement/appearance diagnostic, not a palette-quality pass.",
+    "White/black markings and source geometry remain unchanged; do not hide this limitation or promote the result merely for allocation.",
+    "512px alpha groups merge at3/8 analytic phases;256px all merged. No individual-strand promise.",
+    "No browser/GPU, physical fur, full video, fresh generation or seamless-loop claim."
+  ],
+  "inputs_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-preview-v1/sources/blender_provider_preview.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-preview-v1/original.glb",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-preview-v1",
+      "512",
+      "16",
+      "false",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-preview-v1/motion-states.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 16.303,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 79601671,
+    "last_rss_sample_elapsed_seconds": 16.043,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "preview-monitor.json",
+    "monitor_errors": [],
+    "pid": 13127,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 63,
+    "sampled_max_output_bytes": 79601671,
+    "sampled_peak_rss_bytes": 1040646144,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "limits": {
+    "max_native_attempts": 1,
+    "output_mib": 128,
+    "pose_images": 8,
+    "resolution": 512,
+    "sampled_direct_child_rss_mib": 2048,
+    "samples": 16,
+    "threads": 4,
+    "views": 4,
+    "wall_seconds": 120
+  },
+  "new_generation_calls": 0,
+  "prepared_path": "outputs/edge-fringe-area-preview-preparation-v1/prepared.json",
+  "prepared_sha256": "99a7e4080956ef6de3ebd6052e6ac8eb763250204e74783f954f5eb0100100fd",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_glb_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+  "status": "needs_visual_review"
+}

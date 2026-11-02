@@ -1,0 +1,93 @@
+{
+  "comparison_limits": [
+    "Same512px/sample16/renderer/lighting/camera-fit algorithm as the prior fringe screen; bounds may alter computed framing slightly.",
+    "Known color-interpolation limitation:194/9600 nominal tip roots differ by>.10linear from actual LOD0 surface samples; this is a placement/appearance diagnostic, not a palette-quality pass.",
+    "White/black markings and source geometry remain unchanged; do not hide this limitation or promote the result merely for allocation.",
+    "512px alpha groups merge at3/8 analytic phases;256px all merged. No individual-strand promise.",
+    "No browser/GPU, physical fur, full video, fresh generation or seamless-loop claim."
+  ],
+  "inputs": [
+    {
+      "bytes": 34973564,
+      "path": "outputs/panda-edge-fringe-area-v1/model.glb",
+      "sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d"
+    },
+    {
+      "bytes": 3170,
+      "path": "outputs/panda-edge-fringe-area-v1/manifest.json",
+      "sha256": "2e448010c84067887e4fbe9404fb2319b8ecbef18e1a49e9e4a9a9c82e9f8b95"
+    },
+    {
+      "bytes": 27228,
+      "path": "outputs/panda-edge-fringe-area-v1/build-report.json",
+      "sha256": "44f1ee5d6e6616aa3de62d347084a4c388079ffbe056dfa3c069d788bf503a9d"
+    },
+    {
+      "bytes": 3318,
+      "path": "outputs/panda-edge-fringe-area-v1/rig-verification.json",
+      "sha256": "854af485ee826b0b560cca47ed0c2c39f31e9c062850129ff72136d84f4472a0"
+    },
+    {
+      "bytes": 4041,
+      "path": "outputs/panda-edge-fringe-area-v1/render-attributes.json",
+      "sha256": "8f0b0b94ac4126105bfd32ae9a37419d23002633b4ab8e619079b005e551cce4"
+    },
+    {
+      "bytes": 2712,
+      "path": "outputs/edge-fringe-area-preview-preparation-v1/execute.py",
+      "sha256": "7abc38f31b599c55870bfb0cb14132d891ca0106aa52806b5cbb9a7085fae45f"
+    },
+    {
+      "bytes": 12033,
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 18248,
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "limits": {
+    "max_native_attempts": 1,
+    "output_mib": 128,
+    "pose_images": 8,
+    "resolution": 512,
+    "sampled_direct_child_rss_mib": 2048,
+    "samples": 16,
+    "threads": 4,
+    "views": 4,
+    "wall_seconds": 120
+  },
+  "motion_states": [
+    {
+      "id": "dance_flight",
+      "seconds": [
+        0,
+        1,
+        1.18,
+        1.36,
+        2.36,
+        2.55,
+        2.8,
+        4
+      ]
+    }
+  ],
+  "new_generation_calls": 0,
+  "output": "outputs/panda-edge-fringe-area-preview-v1",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source": "outputs/panda-edge-fringe-area-v1/model.glb",
+  "status": "prepared_not_executed"
+}

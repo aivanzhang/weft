@@ -1,0 +1,66 @@
+{
+  "status": "passed_analytic_screen",
+  "elapsed_seconds": 1.9673039582557976,
+  "allocation": {
+    "uniform": {
+      "frozen_old": {
+        "fins": 4800,
+        "counts": [
+          1582,
+          1609,
+          1609
+        ],
+        "cv": 0.00795495128834856
+      },
+      "area_share": {
+        "fins": 4800,
+        "counts": [
+          1591,
+          1592,
+          1617
+        ],
+        "cv": 0.007517341063611928
+      }
+    },
+    "coarse_dense_medium": {
+      "frozen_old": {
+        "fins": 3776,
+        "counts": [
+          600,
+          1280,
+          1896
+        ],
+        "cv": 0.4205281661475489
+      },
+      "area_share": {
+        "fins": 4800,
+        "counts": [
+          1461,
+          1520,
+          1819
+        ],
+        "cv": 0.09794901947783248
+      }
+    },
+    "dense_medium_coarse_flipped": {
+      "frozen_old": {
+        "fins": 3776,
+        "counts": [
+          1240,
+          1896,
+          640
+        ],
+        "cv": 0.4075183088856219
+      },
+      "area_share": {
+        "fins": 4800,
+        "counts": [
+          1561,
+          1748,
+          1491
+        ],
+        "cv": 0.06780217855399776
+      }
+    }
+  }
+}

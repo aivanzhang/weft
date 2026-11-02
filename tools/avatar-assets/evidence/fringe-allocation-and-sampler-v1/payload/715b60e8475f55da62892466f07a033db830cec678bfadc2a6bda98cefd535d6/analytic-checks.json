@@ -1,0 +1,169 @@
+{
+  "actual_rgb": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.0
+    ],
+    [
+      0.5,
+      0.5,
+      0.5
+    ],
+    [
+      0.5,
+      0.5,
+      0.5
+    ],
+    [
+      0.5,
+      0.5,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      1.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "blender_bottom_up_uv": [
+    [
+      0.25,
+      0.75
+    ],
+    [
+      0.75,
+      0.75
+    ],
+    [
+      0.25,
+      0.25
+    ],
+    [
+      0.75,
+      0.25
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      1.0,
+      0.0
+    ],
+    [
+      0.5,
+      0.75
+    ],
+    [
+      -0.25,
+      0.75
+    ],
+    [
+      1.25,
+      0.75
+    ]
+  ],
+  "closest_vs_root_bilinear_at_midpoint": {
+    "nearest": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "root_sampler": [
+      0.5,
+      0.5,
+      0.0
+    ]
+  },
+  "elapsed_seconds": 0.018503082916140556,
+  "existing_root_sampler_matches_corrected_candidate_kernel": true,
+  "gltf_image_v_down_uv": [
+    [
+      0.25,
+      0.25
+    ],
+    [
+      0.75,
+      0.25
+    ],
+    [
+      0.25,
+      0.75
+    ],
+    [
+      0.75,
+      0.75
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      1.0,
+      1.0
+    ],
+    [
+      0.5,
+      0.25
+    ],
+    [
+      -0.25,
+      0.25
+    ],
+    [
+      1.25,
+      0.25
+    ]
+  ],
+  "kind": "2x2_fixture_not_avatar_or_native_shader_proof",
+  "legacy_endpoint_helper_maximum_fixture_difference": 0.5,
+  "linear_input_bypass_rgb": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "native_provider_ai_calls": 0,
+  "production_or_tests_changed": false,
+  "quality_approved": false,
+  "schema_version": 1,
+  "shared_color_texture_accepts_interpolations": [
+    "Linear",
+    "Closest",
+    "Cubic",
+    "Smart"
+  ],
+  "source_texture_decodes": 0,
+  "srgb_decode_before_filter": {
+    "expected": 0.6079302500569497,
+    "incorrect_decode_after_filter": 0.5240501387947288,
+    "observed": 0.6079302638631277
+  },
+  "status": "read_only_analytic_contract_checks_complete",
+  "texel_center_repeat_orientation_cases": 9,
+  "wrong_row_orientation_at_first_center": [
+    0.0,
+    0.0,
+    1.0
+  ]
+}

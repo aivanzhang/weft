@@ -1,0 +1,136 @@
+{
+  "analytic_elapsed_seconds": 0.018503082916140556,
+  "consumer_modes": [
+    {
+      "color": "encoded sRGB by default; per-texel decode before filtering; linear bypass optional",
+      "consumer": "RootColorSampler / tuft-v1",
+      "coordinates": "caller-aligned; production Blender loop UVs with bottom-up image.pixels",
+      "interpolation": "bilinear LOD0 fixed",
+      "mode_checked": "REPEAT checked upstream; source interpolation not checked",
+      "wrap": "REPEAT both axes"
+    },
+    {
+      "color": "encoded RGB for masks; decode vertex samples before card interpolation",
+      "consumer": "texture_colors / masks and legacy-combed cards",
+      "interpolation": "nearest texel at each first-loop vertex UV, then barycentric interpolation for card color",
+      "mode_checked": "source filter not matched; approximation must remain explicit",
+      "wrap": "REPEAT modulo"
+    },
+    {
+      "color": "shader consumes same source image",
+      "consumer": "native hair color image node",
+      "interpolation": "not assigned in production; newly created Blender node defaults",
+      "mode_checked": "source texture mode is not copied; no native default or shader sampling probe performed here",
+      "wrap": "not assigned in production; newly created Blender node defaults"
+    },
+    {
+      "color": "neutral atlas multiplied by linear FurRootColor",
+      "consumer": "portable atlas image node",
+      "interpolation": "not assigned in construction; actual exported sampler9729/9987",
+      "mode_checked": "separate atlas sampling, not source root sampling",
+      "wrap": "CLIP explicitly; local exporter maps CLIP to glTF CLAMP_TO_EDGE"
+    },
+    {
+      "color": "Non-Color normal image; source Base Color graph preserved",
+      "consumer": "short-pile undercoat",
+      "coordinates": "legacy UV0; adaptive explicit selected UVMap/NormalMap with original UV0 active/render flags preserved",
+      "interpolation": "Linear explicitly",
+      "mode_checked": "does not call RootColorSampler or resample source basecolor",
+      "wrap": "REPEAT explicitly"
+    },
+    {
+      "color": "authored input palette and generated surface data",
+      "consumer": "blender_surfaces_hd",
+      "interpolation": "not a source-image sampler",
+      "mode_checked": "no RootColorSampler consumer",
+      "wrap": "procedural periodic field generation"
+    }
+  ],
+  "evidence_command": ".venv/bin/python -B outputs/root-color-sampler-review-v1/check_contract.py",
+  "findings": [
+    {
+      "actual_candidate_maximum_linear_change": 0.38430118560791016,
+      "analytic_2x2_maximum_difference": 0.5,
+      "evidence": "outputs/edge-fringe-analytic-v1/edge_fringe.py:75 uses uv*(size-1); corrected candidate resamples output colors with normalized texel centers.",
+      "id": "endpoint_grid_is_experimental_only",
+      "severity": "diagnosed_immutable_experimental_difference"
+    },
+    {
+      "analytic_scope": "Nine 2x2 center/edge/negative/integer-repeat/paired-row-orientation cases match independent expected values and the corrected candidate kernel; separate mid-gray filtering check passes.",
+      "evidence": "scripts/fur_root_sampling.py:41 computes mod(uv,1)*[W,H]-.5, wraps both neighboring indices, decodes each texel then interpolates.",
+      "id": "existing_production_kernel_correct_for_its_contract",
+      "severity": "verified_at_analytic_scope"
+    },
+    {
+      "actual_panda_affected": false,
+      "actual_panda_reason": "Saved source JSON sampler is magFilter9729/minFilter9987 with REPEAT defaults; local Blender importer maps that to Linear/REPEAT.",
+      "evidence": "shared_color_texture validates REPEAT, FLAT and a direct image but never interpolation. The extracted production helper accepts Linear, Closest, Cubic and Smart in the analytic fixture. Tuft root colors are always bilinear LOD0.",
+      "id": "interpolation_admission_gap",
+      "numeric_counterexample": {
+        "nearest": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "root_sampler": [
+          0.5,
+          0.5,
+          0.0
+        ]
+      },
+      "severity": "concrete_contract_bug"
+    },
+    {
+      "evidence": "texture_colors uses the first UV loop per vertex and repeat nearest texels. Mask/band selection and legacy/combed root colors depend on it; combed colors are barycentric interpolation of decoded vertex samples, not root-UV filtering.",
+      "id": "legacy_selection_and_combed_colors_are_approximate",
+      "recommendation": "Do not silently change this path while repairing exact-root contracts.",
+      "severity": "preserve_legacy_behavior"
+    },
+    {
+      "evidence": "RootColorSampler has no automatic row flip, material-factor handling or mip/derivative evaluation. Tuft adapter supplies Blender active loop UVs and bottom-up image rows; the candidate uses glTF image-V-down UVs and PIL top-down rows. Pairing is correct.",
+      "id": "uv_and_lod_scope",
+      "recommendation": "Record the paired coordinate convention and LOD0 limit; future strict exact-root admission should verify sampled UV layer is also the render-active layer.",
+      "severity": "explicit_contract_limit"
+    }
+  ],
+  "limits": [
+    "Tiny analytic arrays only; no render, source-texture scan, or throughput/memory claim.",
+    "Color probe conclusion remains limited to byte-sRGB PNG/JPEG samples and the pinned Blender version.",
+    "No production or tests were changed; implementation awaits root release."
+  ],
+  "native_provider_ai_role_calls": 0,
+  "official_lookup": {
+    "purpose": "Check otherwise implicit new-node defaults",
+    "result": "Tool fetch failed HTTP402; no content relied upon. Local bundled official glTF importer/exporter code was inspected instead; unspecified native defaults remain labeled unprobed.",
+    "url": "https://docs.blender.org/api/4.5/bpy.types.ShaderNodeTexImage.html"
+  },
+  "production_and_test_files_unchanged": true,
+  "production_sampler_sha256": "6906d5facd5e5a6d34e9814770810be105f746f7b2740b772813cf63edc8ddc2",
+  "proposed_tests": [
+    "2x2 four distinct corner colors at exact texel centers (.25,.25),(.75,.25),(.25,.75),(.75,.75).",
+    "At UV0/1 corners expect periodic four-texel blend; at a row seam expect its two-texel blend.",
+    "Negative and integer-offset UVs repeat identically, with no endpoint-grid width-minus-one mapping.",
+    "Mid-gray and white mix must equal mean of decoded texels, not decoded mean; linear-input bypass unchanged.",
+    "Paired PIL/glTF top-down and Blender bottom-up/v-flipped arrays return identical physical colors; wrong orientation fails.",
+    "Strict adapter accepts homogeneous Linear/REPEAT/direct sampled-render UV; rejects Closest/Cubic/Smart and mismatched render-active UV before pixel allocation.",
+    "Legacy shared admission and default/combed color/geometry fixtures remain unchanged; existing exact sampler results remain identical.",
+    "Actual native or GPU filtering/mipmap equality is not asserted by these analytic tests."
+  ],
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 18:30:09 PST",
+  "schema_version": 1,
+  "smallest_recommended_change": {
+    "exact_root_admission": "Add a strict Linear/REPEAT/direct active-render-UV source check only for the exact-root path; reject unsupported filter modes rather than silently approximating them. Keep shared legacy admission unchanged through an optional strict flag or a separate helper.",
+    "existing_legacy_combed_behavior_change": false,
+    "experimental_migration": "Do not edit sealed experimental sources. Any future reusable edge helper gets an explicit new policy opt-in and shared verified sampler math; keep the endpoint-grid legacy policy only for historical reproduction. No geometry/default quality promotion is implied.",
+    "global_gamma_change": false,
+    "interface_suggestion": "Keep RootColorSampler(pixels,triangle_uvs,pixels_are_linear=False) unchanged. Add a strict source-node validation helper or keyword-only strict flag at the adapter boundary; pass the source texture node there, not only its image.",
+    "other_modes": "No CLAMP/MIRROR/nearest/cubic/mip emulation is needed for this narrow fix; fail explicitly under the strict policy.",
+    "policy_name": "repeat-texel-centers-linear-lod0-srgb-v1",
+    "production_math_change": false,
+    "versioning": "Record this policy and coordinate/LOD0 fields in exact-root reports. Existing supported Linear/REPEAT tuft numeric output stays byte-identical. Unchanged default/legacy/combed profiles keep historical behavior."
+  },
+  "source_texture_decodes": 0,
+  "status": "read_only_review_complete_production_change_not_released",
+  "summary": "Production RootColorSampler already has normalized texel-center REPEAT math. Preserve it and encoded byte-sRGB interpretation; tighten the exact-root source contract rather than applying a gamma fix."
+}

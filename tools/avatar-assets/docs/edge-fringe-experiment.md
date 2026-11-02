@@ -107,10 +107,41 @@ PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
   .venv/bin/python -B outputs/edge-fringe-preview-preparation-v1/execute.py
 ```
 
-The next local hypothesis is allocation under nonuniform mesh triangulation,
-with a cheap analytic check before another avatar render. It is not implemented
-or a justification to raise geometry/resource limits. The separate fresh-prompt
-Studio acceptance tests still await their saved spending authorization.
+## Follow-up: area-weighted candidate, still not accepted
+
+A source census found that bright surfaces held 53.38% of eligible area but only
+21.32% of old roots. A generic incident-area weighted allocator and fixed-physical
+atlas crop improved three analytic triangulation cases without changing exact
+endpoint anchors or widening the visible tips. The failed first reporting run is
+preserved; serialization-only v2 passed. At 256px all tested tips still merge.
+
+The new [actual model](../outputs/panda-edge-fringe-area-v1/model.glb) has 4,800
+fins, 70,567 vertices and 72,181 triangles. SHA256:
+`8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d`.
+Build: 1.531s / 499,957,760 B sampled RSS. Native reload: 16.303s /
+1,040,646,144 B sampled RSS, with the same 512px/16-sample preview scope.
+Both jobs exited within their unchanged limits; no new generation calls ran.
+An independent attribute/byte audit also passes; bright-surface root share rises
+from 21.32% to 49.75% against 53.38% area. Allocation is not visible coverage.
+[Compact sources, failures and evidence](../evidence/fringe-allocation-and-sampler-v1/README.md).
+
+[Front](../outputs/panda-edge-fringe-area-preview-v1/front.png),
+[back](../outputs/panda-edge-fringe-area-preview-v1/back.png) and
+[flight pose](../outputs/panda-edge-fringe-area-preview-v1/renders/dance_flight/0003.png)
+show more white-region speckling, not a continuous dense fur coat. Cheek/shoulder
+marks remain. Exact endpoint colors do not imply exact whole-fin color:
+194/9,600 nominal tips differ from texture sampling by more than .10 in a linear
+color component. [Appearance review](../outputs/panda-edge-fringe-area-review-v1/appearance-review.json)
+therefore rejects quality promotion. No approved asset or default is replaced.
+
+Production sampler arithmetic needed no correction. A separate source-admission
+guard now rejects filtering/UV modes the exact-root sampler cannot reproduce,
+before large pixel allocation; legacy/combed behavior stays unchanged. This is
+contract correctness, not a repair of the visible coat.
+
+Next work must address tip-color fidelity and pixel-scale appearance before
+another candidate, without raising geometry/resource limits. Fresh-prompt
+Studio acceptance remains separate and awaits its saved spending authorization.
 
 Original rights/provenance remain inherited from the pinned source manifests:
 user-authorized generated geometry and locally authored hidden surfaces, rig,

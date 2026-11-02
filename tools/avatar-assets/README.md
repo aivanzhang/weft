@@ -30,7 +30,7 @@ review of final media before delivery. No universal prompt success or Muse-level
 finish is promised. [Active goal and acceptance gates](docs/hands-off-studio.md),
 [commands and bounds](docs/prompt-pipeline.md), [current handoff](TODO.md).
 
-Checkpoint **November 1, 2026**: the integrated suite passes **682 tests in
+Earlier checkpoint **November 1, 2026**: the integrated suite passed **682 tests in
 17.120s**, with nine browser fixture checks also preserved. The previous robot
 run remains rejected for arm stretching; its reviewed recovery preserved all
 480 files and spending history. Evidence corruption now halts instead of buying
@@ -72,6 +72,13 @@ smooth, and cheek/shoulder defects remain; it is not promoted into the automatic
 finish. The build and independent reload passed within 1.279s/495 MB and
 15.275s/1.04 GB sampled memory respectively, with no new generation calls.
 [Exact experiment, previews and limits](docs/edge-fringe-experiment.md).
+
+The area-weighted follow-up improves fur placement but still looks speckled,
+not densely furry. It is also **not accepted**. A separate source-texture guard
+now rejects unsupported filtering/UV modes before large allocations; sampler
+math and approved assets are unchanged. Verification covers **695 tests across
+two runs**: 668 passed initially, and all 27 sandbox-blocked localhost tests
+passed with local permission. This verifies software, not hands-off visual quality.
 
 The studio is a local single-user workflow, not a hosted service. No server,
 browser or generation job starts merely by reading this repository. The
