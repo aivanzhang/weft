@@ -51,13 +51,20 @@ def test_raw_explicit_choices_remain_explicit(calls, monkeypatch):
         "source_note": "Licensed exercise", "max_seconds": 90.0}
 
 
+def test_single_person_is_an_explicit_raw_input_choice(calls, monkeypatch):
+    invoke(monkeypatch, ["--video", "video.mp4", "--pose-model", "pose.task", "--out", "body",
+                         "--max-pose-hypotheses", "1"])
+    assert calls[0][3]["max_pose_hypotheses"] == 1
+
+
 def test_saved_command_reuses_evidence_without_raw_input_options(calls, monkeypatch):
     invoke(monkeypatch, ["--evidence-run", "saved", "--out", "body"])
     assert calls == [("saved", "saved", "body", {"max_seconds": 30})]
 
 
 @pytest.mark.parametrize("option,value", [("--pose-model", "pose.task"), ("--pose-mode", "video"),
-    ("--pose-identity", "raw"), ("--source-note", "new rights")])
+    ("--pose-identity", "raw"), ("--source-note", "new rights"), ("--max-pose-hypotheses", "1"),
+    ("--max-pose-hypotheses", "2")])
 def test_saved_command_rejects_even_default_valued_overrides(calls, monkeypatch, option, value):
     with pytest.raises(SystemExit) as error:
         invoke(monkeypatch, ["--evidence-run", "saved", "--out", "body", option, value])

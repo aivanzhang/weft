@@ -142,6 +142,15 @@ Limits: one worker, 30 cooperative seconds, 128 MiB and 512 output files, 64 MiB
 
 Use the existing pinned local model, or obtain one with `weft fetch-pose-model`. The command reports landmark/body stages in the terminal and saves the source video, model identity, raw poses, missing/uncertain slots, annotations, canonical observations and mobile body. It does not train, run control trials, render simulated motion or create a task. Defaults remain `--pose-mode video --pose-identity raw`; alternative identity handling is explicit, not a silent fallback.
 
+For a clip you explicitly treat as **one person**, `exercise-body --video` also
+accepts `--max-pose-hypotheses 1`. This enables the model's single-person temporal
+configuration, including smoothing in VIDEO mode, but can miss competing people.
+The default remains two hypotheses; VIDEO mode alone does not prove tracked-region
+reuse. The assumption is retained in raw poses, model metadata and saved-body
+options. Quality, gap and floor checks do not change. This setting concerns people,
+not equipment absence, and is separate from the `--person-only` scene declaration.
+It is not a guarantee of identity, accurate joints or usable whole-body motion.
+
 If pose evidence already exists, reuse it instead of repeating inference:
 
 ```sh

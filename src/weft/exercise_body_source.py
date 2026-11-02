@@ -90,10 +90,16 @@ def _read(path, deadline, expected=None):
     return raw
 
 
-def _options(mode, identity):
+def _options(mode, identity, max_pose_hypotheses=2):
     if mode not in {"video", "image"} or identity not in {"raw", "temporal"}:
         raise ValueError("Pose options require video/image mode and explicit raw/temporal identity")
-    return {"pose_mode": mode, "pose_identity": identity}
+    if type(max_pose_hypotheses) is not int or max_pose_hypotheses not in (1, 2):
+        raise ValueError("Maximum pose hypotheses must be 1 (explicit single-person assumption) or 2")
+    options = {"pose_mode": mode, "pose_identity": identity}
+    # Omission preserves the existing two-hypothesis package contract.
+    if max_pose_hypotheses == 1:
+        options["max_pose_hypotheses"] = 1
+    return options
 
 
 def _inventory(root, deadline, *, reserve=False, hashes=True):
@@ -278,11 +284,16 @@ def _model(model, options):
                if model.get("sha256") == entry["sha256"] and model.get("bytes") == entry["bytes"]]
     if (len(matches) != 1 or model.get("model_version") != "float16/1"
             or model.get("delegate") != "CPU" or model.get("network_inference") is not False
-            or model.get("maximum_pose_hypotheses") != 2
+            or type(model.get("maximum_pose_hypotheses")) is not int
+            or model.get("maximum_pose_hypotheses") != options.get("max_pose_hypotheses", 2)
             or model.get("running_mode") != options["pose_mode"].upper()
             or model.get("temporal_tracking") is not (options["pose_mode"] == "video")
             or not isinstance(model.get("mediapipe_version"), str) or not model["mediapipe_version"]):
         raise ValueError("Pose model identity/version/options do not match the supported source contract")
+    if options.get("max_pose_hypotheses") == 1 and model.get("person_count_assumption") != "single_person_unverified":
+        raise ValueError("One-hypothesis evidence must retain its explicit unverified single-person assumption")
+    if options.get("max_pose_hypotheses", 2) == 2 and "person_count_assumption" in model:
+        raise ValueError("Single-person model metadata conflicts with the two-hypothesis contract")
     if "variant" in model and model["variant"] != matches[0]:
         raise ValueError("Pose model variant conflicts with its pinned bytes")
 
@@ -293,7 +304,8 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
     if (evidence.get("profile") != "exercise-pose-v1" or evidence.get("schema_version") != 1
             or evidence.get("source_sha256") != source_sha or source.get("sha256") != source_sha
             or config.get("profile") != "exercise"
-            or _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw")) != options):
+            or _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw"),
+                        config.get("max_pose_hypotheses", 2)) != options):
         raise ValueError("Pose/source/config identities conflict")
     _model(model, options)
     if evidence.get("model") != model or raw.get("model") != model:
@@ -379,7 +391,8 @@ def validate_body_source_files(files, *, deadline=None):
             or marker.get("status") != "construction_only" or marker.get("simulation_ready") is not False):
         raise ValueError("Body source requires its explicit construction-only profile")
     options = marker.get("pose_options", {})
-    if not isinstance(options, dict) or options != _options(options.get("pose_mode"), options.get("pose_identity")):
+    if not isinstance(options, dict) or options != _options(options.get("pose_mode"), options.get("pose_identity"),
+                                                          options.get("max_pose_hypotheses", 2)):
         raise ValueError("Body source options are invalid")
     construction = marker.get("construction", {})
     if (not isinstance(construction, dict) or construction.get("body_model") != "mobile"
@@ -480,9 +493,9 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
 
 def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", pose_identity="raw",
                                  source_note="Rights not independently verified; user-provided local video",
-                                 max_seconds=180, progress=None):
+                                 max_seconds=180, progress=None, max_pose_hypotheses=2):
     """Decode/infer once and seal mobile construction inputs; no learned task or dynamics."""
-    options = _options(pose_mode, pose_identity)
+    options = _options(pose_mode, pose_identity, max_pose_hypotheses)
     if not isinstance(source_note, str) or len(source_note) > 4000:
         raise ValueError("Source provenance note must be at most 4000 characters")
     video, model = _path(video), _path(pose_model)
@@ -575,7 +588,8 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, max_seconds=
             if name in POSE_FILES | OPTIONAL_FILES | {source_name} | recovery_files:
                 kept[name] = raw
         config = _json(kept["run-config.json"])
-        options = _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw"))
+        options = _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw"),
+                           config.get("max_pose_hypotheses", 2))
         snapshots, implementation = _implementation(deadline, recovery_implementation)
         _write(target, {**kept, "inputs/source-manifest.json": manifest_raw,
                         "implementation.json": _bytes(implementation),

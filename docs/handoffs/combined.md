@@ -1,5 +1,32 @@
 # Combined Weft implementation handoff
 
+## Single-person inference and body check — November 1, 2026, 7:34 PM PST
+
+The [explicit capacity option and complete native checks](heavy-video-kettlebell.md)
+make implementation progress without changing the default. `exercise-body
+--max-pose-hypotheses 1` preserves an unverified single-person assumption and can
+miss other people. Raw/saved metadata must agree; all original quality, root,
+floor and task gates remain. 234 distinct scoped cases pass, including the reviewed
+producer's compatibility with existing camera/body inputs.
+
+Heavy VIDEO/capacity 2 exactly reproduces all 129 old IMAGE pose rows. Capacity1
+improves Heavy coverage 73→91 but still rejects gaps. Full VIDEO/capacity 1 reaches
+127/129 usable poses and constructs a separate body; original development pair
+scores regress 3/3→0/3 and limb scores 10/12→9/12. The full 127-source/255-grid floor
+check retains a right-knee failure at source frame 132/time 4.4 s, penetration
+0.071874 model units against the unchanged 0.025 limit. No default, equipment,
+controller, task or playable lab is replaced.
+
+All source manifests, frozen plans, saved-only audits and the two harness
+failures are linked in the handoff. Body02 seal `abd4ceb7c8ca699454b0a5d162f893dee5f31cd2990b751d627324751879fbc5`;
+floor02 seal `47690146a0f018dc30390756873e1d547594c24abc79b38172978a42dc2568eb`.
+All owned children exited/reaped; no paid API, download, installation or deployment.
+Root-reviewed; peer agents remain unavailable. Preserve independent avatar work.
+Standing approval covers the ten-path checkpoint; final publication identity is
+`.local/pose-capacity-publication-01.json`. Full goal active, not complete or blocked.
+Next work needs source-qualified geometry at the retained failure, not another
+unchanged model/control sweep or an unqualified floor shift.
+
 ## Automatic-frame silhouette result — November 1, 2026, 6:44 PM PST
 
 Previous turn published/remote-verified `bb4649d` and its reference-overlap

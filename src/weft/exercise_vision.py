@@ -203,14 +203,14 @@ def summarize_landmarks(landmarks, world):
     return record | {"status": "tracked" if all(visible.values()) else "tracked_partial", **geometry}
 
 
-def _detector(model_path, pose_mode="video"):
+def _detector(model_path, pose_mode="video", *, max_pose_hypotheses=2):
     try:
         import mediapipe as mp
     except ImportError as error:
         raise RuntimeError("Exercise videos require the .venv-lab environment with MediaPipe installed") from error
     options = mp.tasks.vision.PoseLandmarkerOptions(
         base_options=mp.tasks.BaseOptions(model_asset_path=str(model_path), delegate=mp.tasks.BaseOptions.Delegate.CPU),
-        running_mode=getattr(mp.tasks.vision.RunningMode, pose_mode.upper()), num_poses=2,
+        running_mode=getattr(mp.tasks.vision.RunningMode, pose_mode.upper()), num_poses=max_pose_hypotheses,
         min_pose_detection_confidence=0.5, min_pose_presence_confidence=0.5,
         min_tracking_confidence=0.5, output_segmentation_masks=False)
     return mp, mp.tasks.vision.PoseLandmarker.create_from_options(options)
@@ -327,17 +327,21 @@ def _quality(evidence):
 
 
 def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video", pose_identity="raw",
-                     artifact_sink=None, max_preview_frames=None):
+                     artifact_sink=None, max_preview_frames=None, max_pose_hypotheses=2):
     if pose_mode not in {"video", "image"}:
         raise ValueError("Pose mode must be video or image")
     if pose_identity not in {"raw", "temporal"}:
         raise ValueError("Pose identity must be raw or temporal")
+    if type(max_pose_hypotheses) is not int or max_pose_hypotheses not in (1, 2):
+        raise ValueError("Maximum pose hypotheses must be 1 (explicit single-person assumption) or 2")
     if max_preview_frames is not None and (type(max_preview_frames) is not int or not 1 <= max_preview_frames <= 48):
         raise ValueError("Optional preview retention must be 1–48 frames")
     video, out, model_path = Path(video), Path(out), Path(model_path)
     provenance = model_provenance(model_path) | {"running_mode": pose_mode.upper(),
                                                "temporal_tracking": pose_mode == "video",
-                                               "maximum_pose_hypotheses": 2}
+                                               "maximum_pose_hypotheses": max_pose_hypotheses}
+    if max_pose_hypotheses == 1:
+        provenance["person_count_assumption"] = "single_person_unverified"
     if not video.is_file() or video.stat().st_size > 100_000_000:
         raise ValueError("Exercise input must be a local video of at most 100 MB")
     if not out.is_dir():
@@ -367,14 +371,19 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
                 "timestamp_basis": "Frame index divided by declared constant fps; per-frame decoder timestamps also preserved",
                 "scope": "Monocular pose reconstruction/development only; muscles and biomechanics are not measured"}
     evidence["assumptions"].append(
-        "VIDEO mode reuses tracked regions between sampled frames; competing hypotheses remain unresolved."
+        "VIDEO mode permits tracked-region reuse; actual reuse depends on detector state and pose capacity, and is not measured."
         if pose_mode == "video" else
         "IMAGE mode infers each sampled frame independently; temporal tracking regions are not reused.")
+    if max_pose_hypotheses == 1:
+        evidence["assumptions"].append(
+            "Explicit single-person assumption: the detector returns at most one pose and can miss competing people. "
+            "VIDEO mode also enables model smoothing; neither continuity nor one returned pose verifies identity.")
     previews, preview_times = [], []
     preview_frames, omitted_previews = [], 0
     decoded, sampled = 0, 0
     try:
-        mp, detector = _detector(model_path, pose_mode)
+        detector_options = {"max_pose_hypotheses": 1} if max_pose_hypotheses == 1 else {}
+        mp, detector = _detector(model_path, pose_mode, **detector_options)
         try:
             for frame_index in range(1801):
                 ok, frame = cap.read()

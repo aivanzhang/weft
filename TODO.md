@@ -2,6 +2,8 @@
 
 ## Active work — November 1, 2026: generalized construction and equipment control
 
+- [x] Add and verify [explicit single-person pose capacity](docs/handoffs/heavy-video-kettlebell.md), preserving the two-hypothesis default and strict source/gap/floor checks. **234 distinct focused cases pass.** Actual Full VIDEO produces 127/129 usable poses and a separate 127-reference body; direction regressions and one source/one grid knee-floor failure prevent promotion. Complete 382-row floor audit and exact source copies verified; existing lab unchanged. Retain both Heavy rejections and the two harness failures; no paid calls or live jobs.
+
 - [x] Test the automatic frame-28 silhouette on the current world: [one completed fit and independent saved audit](docs/handoffs/automatic-silhouette-screen.md), **no qualified improvement**. All eight equipment bands remain frozen under occlusion; IoU stays 0.55. Complete 771 mask slots /257 frames retained; no geometry installed or physics rollout. 0.842237 s /165,281,792 B; all children reaped. Preserve both prior guard failures and do not repeat this shape-only attempt.
 
 - [x] Qualify the [saved reference–equipment overlap report](docs/handoffs/reference-equipment-overlap.md): 132 distinct scoped checks, actual public inspector and independent saved audit pass. **52/121 reference poses overlap `sam-2`, 115 contact records**; first source frame 42/time 1.4 s. All 30 sealed report members and 51 links verified; 0.241444 s /76,562,432 B, no native/media/physics work. Original preflight/task semantics and ready lab unchanged; this is not physical contact or successful learning.
