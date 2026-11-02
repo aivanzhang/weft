@@ -1,0 +1,47 @@
+{
+  "cancel_requested": false,
+  "capabilities": {
+    "cancel": false,
+    "execution_gate": "canonical_ledger_and_explicit_start",
+    "plan": true,
+    "resume": false,
+    "session_required": true,
+    "start": false
+  },
+  "created_at": "2026-11-02T12:34:11.415775-08:00",
+  "elapsed_seconds": 0.31,
+  "error": {
+    "message": "An explicit OpenAI dollar grant bound to this saved request is required before planning."
+  },
+  "id": "b91db2687dca4024af238111",
+  "operation": "plan",
+  "plan": null,
+  "plan_id": null,
+  "previews": [],
+  "provenance": "actual_pipeline",
+  "queued": false,
+  "request": {
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "reference_selected": false,
+    "reuse_model_selected": true,
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass."
+  },
+  "result": null,
+  "reviews": [],
+  "stages": [],
+  "status": "awaiting_authorization",
+  "storage": {
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false,
+    "measured_at": "2026-11-02T12:34:11.728923-08:00",
+    "pipeline_bytes_measured": 15730081,
+    "retained_bytes_measured": 15836665,
+    "total_limit_bytes": 8589934592
+  },
+  "title": "An original friendly upright panda-like character with compact rounded proportio",
+  "updated_at": "2026-11-02T12:34:11.729634-08:00"
+}

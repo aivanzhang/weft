@@ -19,6 +19,10 @@ as the website backend. Check the current handoff before claiming live acceptanc
 New OpenAI author jobs use typedv2 designs; do not embed rig JSON inside a string
 or hand-repair a rejected response. The adapter only converts declared transform
 lists/optional nulls; geometry, action and quality validators remain authoritative.
+Plan-bound schemas forbid invented states; local order/uniqueness gates remain.
+Repairs receive authenticated `native-failure.json` data, never guessed log text.
+A modern failed native process without a valid receipt requires inspection; do
+not buy another repair, rewrite counts, or drop requested features to bypass it.
 
 For an end-to-end result from text, prefer `generate`; read [the prompt pipeline](../../docs/prompt-pipeline.md) for commands, costs, presets and continuation rules. For user-facing input/live tracking, use the [local studio](../../docs/hands-off-studio.md). The user should not need to write rig JSON or operate a generation platform between stages. Preserve manual routes for explicit authoring/repair requests. A fixture or manually repaired example is not hands-off acceptance; check the current handoff before claiming the revised quality/studio path is complete.
 

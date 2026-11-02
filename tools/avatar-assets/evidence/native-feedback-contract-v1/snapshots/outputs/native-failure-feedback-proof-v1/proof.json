@@ -1,0 +1,62 @@
+{
+  "actual_native_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/native-failure-repro-b91-v2/sources/blender_finish_generated.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/native-failure-repro-b91-v2/finish-config.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/native-failure-repro-b91-v2"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.044,
+    "exit_code": 1,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 754764,
+    "last_rss_sample_elapsed_seconds": 0.783,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 600
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "finish-monitor.json",
+    "monitor_errors": [],
+    "pid": 32874,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 3,
+    "sampled_max_output_bytes": 754764,
+    "sampled_peak_rss_bytes": 634404864,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "classification": "Actual bounded native failure reproduction and authenticated diagnostics; no paid call or accepted asset",
+  "config_sha256": "0df922d604474aa52808f984ca91f5bae581b65dd4277ab09661702912479445",
+  "originals_unchanged": true,
+  "reproduction_manifest_sha256": "9118f47c42c104255628e65ff7af315635a7f22a2aa66e4c401cbde2de2fc44d",
+  "retained_native_failure_manifest_sha256": "c44a9685a827c015598d5b0637dd9470c5f9f21b5297fd3f82f09329ec253544",
+  "sandbox_attempt": {
+    "exit_code": -11,
+    "path": "outputs/native-failure-repro-b91-v1",
+    "reason": "Blender crashed before script entry under filesystem sandbox; no native diagnostic receipt. Preserved unchanged."
+  },
+  "schema_version": 1,
+  "thresholds_or_masks_changed": false,
+  "validated_diagnostics_sha256": "968436f54596995f20b25dad89b1fd9a1850da7c3948848f19fb399750bbce95"
+}

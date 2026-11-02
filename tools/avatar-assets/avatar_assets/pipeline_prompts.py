@@ -391,12 +391,48 @@ and critic gates remain required. A structurally admitted fringe config is not v
 """
 
 
-def author_schema(request):
+def author_schema(request, plan=None):
     backend = request.get("agent_backend")
     if backend is None:
         return AUTHOR_SCHEMA
     require(isinstance(backend, dict) and backend.get("provider") == "openai", "Unknown author transport")
-    return AUTHOR_SCHEMA_V2_SKIN_CONSISTENT
+    if plan is None:
+        return AUTHOR_SCHEMA_V2_SKIN_CONSISTENT
+    require(isinstance(plan, dict) and plan.get("status") == "ready", "Author schema needs a ready plan")
+    states = plan.get("states")
+    require(isinstance(states, list) and 1 <= len(states) <= 8
+            and all(isinstance(state, dict) for state in states), "Invalid bounded author states")
+    ids = [slug(state.get("id")) for state in states]
+    require(len(set(ids)) == len(ids), "Duplicate author state IDs")
+    schema = deepcopy(AUTHOR_SCHEMA_V2_SKIN_CONSISTENT)
+    definitions = schema["$defs"]
+    properties = definitions["design"]["properties"]
+    definitions["action"]["properties"]["id"] = {"type": "string", "enum": ids}
+    actions = properties["authored_actions"]["anyOf"][0]
+    actions.update(minItems=len(states), maxItems=len(states))
+    properties["authored_actions"] = actions
+    structured = [state for state in states if state.get("requirements")]
+    bindings = properties["action_bindings"]["anyOf"][0]
+    bindings.update(minItems=len(structured), maxItems=len(structured))
+    if structured:
+        properties["action_bindings"] = bindings
+    alternatives = []
+    for state in structured:
+        roles = state.get("roles")
+        require(isinstance(roles, list) and 1 <= len(roles) <= 4
+                and all(isinstance(role, dict) for role in roles), "Invalid bounded author roles")
+        role_ids = [slug(role.get("id")) for role in roles]
+        require(len(set(role_ids)) == len(role_ids), "Duplicate author role IDs")
+        variant = deepcopy(definitions["binding"])
+        variant["properties"]["state_id"] = {"type": "string", "const": state["id"]}
+        role_array = variant["properties"]["roles"]
+        role_array.update(minItems=len(roles), maxItems=len(roles))
+        role_array["items"]["properties"]["id"] = {"type": "string", "enum": role_ids}
+        alternatives.append(variant)
+    if alternatives:
+        definitions["binding"] = {"anyOf": alternatives}
+    # Homogeneous array schemas cannot enforce uniqueness/order; local plan validators still do.
+    return schema
 
 
 def _author_guide(request):

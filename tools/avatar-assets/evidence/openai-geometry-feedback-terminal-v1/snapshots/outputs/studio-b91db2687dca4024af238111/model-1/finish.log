@@ -1,0 +1,29 @@
+12:39:48 | INFO: Data are loaded, start creating Blender stuff
+12:39:48 | INFO: Blender create Mesh node 0
+12:39:48 | INFO: glTF import finished in 0.02s
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b91db2687dca4024af238111/model-1/sources/creature_rig_math.py:69: RuntimeWarning: divide by zero encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b91db2687dca4024af238111/model-1/sources/creature_rig_math.py:69: RuntimeWarning: overflow encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b91db2687dca4024af238111/model-1/sources/creature_rig_math.py:69: RuntimeWarning: invalid value encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+Blender 4.5.13 LTS (hash daeeeca98fb0 built 2026-08-25 01:30:50)
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b91db2687dca4024af238111/model-1/sources/blender_finish_generated.py", line 949, in <module>
+    finish(args[0], args[1])
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b91db2687dca4024af238111/model-1/sources/blender_finish_generated.py", line 674, in finish
+    report['fur_undercoat'] = apply_undercoat(obj, mask, prepared, cfg['fur_undercoat'], out,
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b91db2687dca4024af238111/model-1/sources/blender_fur_undercoat.py", line 245, in apply_undercoat
+    return _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_vertex_budget)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b91db2687dca4024af238111/model-1/sources/blender_fur_undercoat.py", line 577, in _apply_material_undercoat
+    plan, payloads = plan_material_undercoat(vertices, triangles, uv0, selected, material_ids, settings,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b91db2687dca4024af238111/model-1/sources/blender_fur_undercoat.py", line 368, in plan_material_undercoat
+    raise ValueError('Undercoat selected face count is outside its declared bounds')
+ValueError: Undercoat selected face count is outside its declared bounds
+
+Error: script failed, file: '/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b91db2687dca4024af238111/model-1/sources/blender_finish_generated.py', exiting.
+
+Blender quit

@@ -5,6 +5,7 @@ groom field. It returns tangent normals, not recovered hairs or coat coverage.
 """
 
 import hashlib
+import json
 import math
 from numbers import Real
 from pathlib import Path
@@ -27,6 +28,22 @@ PROFILE = 'short-pile-v1'
 ADAPTIVE_UV_POLICY = 'material-adaptive-v1'
 NORMAL_UV1_NAME = 'AuthoredUndercoatUV1'
 NORMAL_UV2_NAME = 'AuthoredUndercoatUV2'
+
+
+class UndercoatSelectionError(ValueError):
+    """Measured selection rejection, before baking or changing the declared bounds."""
+    def __init__(self, selected, settings, scope):
+        count = int(selected.sum())
+        self.diagnostic = {'schema_version': 1, 'policy': 'undercoat-selection-count-v1',
+            'scope': scope, 'primitive': 'loop_triangles', 'selected_faces': count,
+            'total_faces': len(selected), 'min_faces': settings['min_faces'], 'max_faces': settings['max_faces'],
+            'selection_mask_sha256': hashlib.sha256(selected.astype(np.uint8).tobytes()).hexdigest(),
+            'selection_encoding': 'uint8-boolean-triangle-order',
+            'implementation_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            'settings_sha256': hashlib.sha256(json.dumps(settings, sort_keys=True,
+                separators=(',', ':'), allow_nan=False).encode()).hexdigest()}
+        super().__init__('Undercoat selected face count is outside its declared bounds: '
+                         f"selected={count}, min={settings['min_faces']}, max={settings['max_faces']}, total={len(selected)}")
 
 
 def validate_undercoat(settings):
@@ -174,7 +191,7 @@ def bake_short_pile(vertices, triangles, triangle_uvs, triangle_normals, triangl
         raise ValueError('Undercoat needs bounded rest coordinates, UV0 in0–1, valid indices/signs and shared flow')
     count = int(selected.sum())
     if not settings['min_faces'] <= count <= settings['max_faces']:
-        raise ValueError('Undercoat selected face count is outside its declared bounds')
+        raise UndercoatSelectionError(selected, settings, 'uv0_bake')
     normals, tangents = _unit(normals.astype(np.float32)), _unit(tangents.astype(np.float32))
     started = time.monotonic() if _budget is None else _budget['started']
     if _budget is not None and time.monotonic()-started > MAX_SECONDS:
@@ -365,7 +382,7 @@ def plan_material_undercoat(vertices, triangles, uv0, selected, material_ids, se
         raise ValueError('Invalid or oversized adaptive undercoat triangles')
     selected = _array(selected, (len(triangles),), 'selection', 'b')
     if not settings['min_faces'] <= int(selected.sum()) <= settings['max_faces']:
-        raise ValueError('Undercoat selected face count is outside its declared bounds')
+        raise UndercoatSelectionError(selected, settings, 'adaptive_plan')
     plan, payloads = plan_normal_atlases(vertices, triangles, uv0, selected, material_ids,
         source_export_vertices=budget['source_export_vertices']+budget['portable_export_vertices'],
         resolution=settings['resolution'], atlas_resolution=1024, pitch_m=settings['pitch_m'],

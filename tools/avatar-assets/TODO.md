@@ -1,28 +1,37 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 2, 2026, 12:23 PM PST
+## Session handoff — November 2, 2026, 12:45 PM PST
 
-- Workspace: `tools/avatar-assets` in Weft. Preserve unrelated Weft work.
+- Workspace: `tools/avatar-assets` in Weft; preserve unrelated Weft work.
+- **Latest standing authorization:** continue paid retries without asking again,
+  provided total avatar OpenAI spend stays within **$15 including prior use**.
+  Exact reply: “STOP FUCKING ASKING!!!! You are approved as long as it is within $15”
+  (`call_dc0abee558574e469abc3d2ea5e3defa`). This replaces the former $17 ceiling
+  and per-attempt permission requirement, not local call/time/repair bounds.
+  No new Meshy work. A permanent append-only $15 ledger reduction is being tested;
+  no further API call may start until that reduction and a new exact grant exist.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`.
-- Latest job `f628641c66e74ea09f3b8517` is **unsupported**, not complete. Browser
-  tool session `63922` exited 1; one Start, 71.471 s, browser/server exits verified.
-  No active lease, queued job, worker cancellation or live generation remains.
-- Typed transport worked. First author bound undefined `hip_l`/`hip_r`; the one
-  approved repair added them and passed configuration validation. Native rigging
-  then failed the minimum vertex coverage for a leg region. No finished rig,
-  dance, media or critic call. Preserve all answers; never hand-edit the recipe.
-- Request SHA: `02313adff5ebddf933bbc15f3bd90278f4762b5dd14468429b133c593e00f788`.
-- Plan ID: `4a34bb14e74984e0762206204f796a78940d56ddb49d7ff697a1ef823f4f4272`.
-- Preparation, approval, grants and terminal accounting:
-  `outputs/openai-panda-typed-preparation-v1/`. Native failure:
-  `outputs/studio-f628641c66e74ea09f3b8517/model-1/finish.log`.
-- User approved up to five calls including **one** repair in
-  `call_ca345c2bab28466a8e7c54f137128603`. Three calls used; repair exhausted.
-  The two unused call slots do not authorize another repair. No new Meshy call.
-- Next safe action: diagnose exact region counts and native math warnings locally,
-  improve generic repair feedback, then prepare any further paid retry concretely.
-  Do not start another paid call without authorization, alter old outputs, expand
-  appearance work, deploy or fall back to a personal AI login.
+- Latest job `b91db2687dca4024af238111` is **unsupported**, not complete.
+  Browser session `67917` exited 1: exactly one Start, 117.640 s, browser/server
+  exits verified, no active lease or queued work, no worker cancellation.
+- Measured geometry feedback worked: repair fixed both leg regions while keeping
+  their 2,200-vertex minima. First author also invented an extra `rest` state.
+  Both native builds then failed the undercoat face-count bounds. The repair only
+  received “Finishing failed,” not the exact cause/counts. No finished rig, dance,
+  final media or critic call exists. Never manually rewrite a proposal.
+- Request SHA `aa0253197820da5815233162e1a824bb359a51286d15f8090f389bc6e4b3b34c`.
+  Plan ID `4f61ce1869320447b658a5b51b3d18be6f3aebeba6422268e51e01c592514426`.
+- Exact inputs/grants/terminal accounting:
+  `outputs/openai-panda-geometry-feedback-preparation-v1/`.
+  Native failures: `outputs/studio-b91db2687dca4024af238111/model-{1,2}/finish.log`.
+- User approved seven calls / two repairs in
+  `call_ce885a485bc445a39ad8143249817368`. Four calls used; both repairs exhausted.
+  The three unused slots do not authorize another repair. No new Meshy call.
+- Root owns evidence/docs/save; all agents have frozen and released their files.
+  Plan-bound schemas and structured native failure diagnostics are implemented.
+  No live generation or browser/server remains.
+- Next safe action: save native-feedback fixes, test/apply the append-only $15
+  cap, then prepare a fresh source-pinned job and continue under standing approval. No new paid calls, appearance expansion or deployment.
 
 ## Implemented and locally verified
 
@@ -54,13 +63,11 @@ at position 8043/EOF. No rig, dance, final media or critic call was produced.
 The preceding planner ID failure and local negation false positive remain saved.
 The latter was fixed and the exact plan revalidated without another paid planner.
 
-The prior three API calls cost $0.141219; this run used three more for $0.221596.
-Aggregate **$0.362815** is a conservative usage-cost estimate, not an invoice. The current successor grant is $16.855920; aggregate
-maximum allocation is $16.997139, below the unchanged $17 cap. Five full-context
-holds would exceed it; settled actual costs permit sequential work, but the
-backend stops before any call whose full hold cannot fit. Expected additional
-use about $1.05 is illustrative, not guaranteed. Both preceding jobs were
-explicitly retired with immutable original history, not reset.
+Ten API calls now total **$0.700742** conservative usage-cost estimates, not
+invoices. Latest run: four calls / $0.337927; prior runs: $0.362815. No uncertain
+charges remain. Latest job ceiling $16.637185 plus $0.362815 retired cost equals
+the unchanged $17 aggregate allocation. Original reservations/call history remain;
+validated settled costs release only unused dollar holds, not call/repair limits.
 
 Meshy remains 237/245 credits across 18 submissions; 8 remain. Original paid
 panda generation cost 35 credits. No Meta budget is involved. Credentials are
@@ -113,20 +120,48 @@ manifest `a4b223103fb6b3b0fef65518824025e0cf9d2939fb34533f36105285e7575109`.
 Exact-path save guard: `.local/avatar-quality-publication-v21/`; publication
 receipt destination: `outputs/author-geometry-publication-v1/receipt.json`.
 
-### Prepared next run — no paid execution authorized yet
+### Current failure evidence and next fixes
 
-- Job `b91db2687dca4024af238111` is `awaiting_authorization`; zero paid calls.
-- Request SHA `aa0253197820da5815233162e1a824bb359a51286d15f8090f389bc6e4b3b34c`.
-- `outputs/openai-panda-geometry-feedback-preparation-v1/` contains the exact
-  unchanged user request, owner-settings backup, proposal and zero-call proof.
-- Proposed maximum: seven API calls and two bounded repairs, under the same
-  $17 aggregate ceiling. Prior use $0.362815; proposed successor ceiling
-  $16.637185. Illustrative additional use $1.45, not an invoice or guarantee.
-- Owner configuration now proposes 7/2; **no job grant exists**. A question is
-  pending. Do not reuse the prior approval or make a paid call without its reply.
-- On approval, explicitly retire `studio-f628641c66e74ea09f3b8517` into the new
-  exact-request grant; preserve all previous call/approval rows and known costs.
-  Then plan, inspect the valid plan and submit one bounded browser Start.
+- `evidence/openai-geometry-feedback-terminal-v1`: 281 files / 10,967,667 bytes;
+  manifest `73ca6165b38d7d19056f70cd33906b3acda0ecac2e3914e776aa294c0818eb95`.
+- Plan-bound API schemas now constrain exact action IDs/counts and structured
+  binding/role IDs/counts, rejecting invented states. Required actions/bindings
+  cannot be null; unsupported may set the entire design null. Existing local
+  order/uniqueness checks remain authoritative. 99 integrated checks passed in 4.596 s, sampled direct-child RSS 229,949,440
+  bytes. Evidence `outputs/native-feedback-contract-tests-v1`, manifest
+  `8cfb5b646664562b8e076a5af0729fce047aebed887606c6ebb09b0b5b091edc`.
+- Native feedback now carries bounded, source/config/script-bound exception
+  receipts and exact undercoat counts. Actual unchanged-recipe reproduction:
+  35,758 selected / 18,000 minimum / 32,000 maximum / 36,124 total triangles.
+  `outputs/native-failure-repro-b91-v2` exited with expected failure in 1.044 s,
+  sampled RSS 634,404,864 bytes. Validation proof:
+  `outputs/native-failure-feedback-proof-v1/proof.json`, SHA
+  `66b8aa63ccaa9884921b65f9ca3afc3d54c9a432bcde8aebeaf0ec77d61a7859`.
+  Initial sandbox v1 crashed before script entry and is preserved; the new guard
+  requires inspection for modern failures without receipts, preventing uninformed
+  paid repair. No threshold, mask, recipe, source or old failure was rewritten.
+- Last saved diagnostic checkpoint: `b0d586f748d9ab826c95798637c9ecab1b3eca2e`,
+  privately pushed/remote verified; 96 files / 1,419,645 bytes. Receipt:
+  `outputs/author-geometry-publication-v1/receipt.json`.
+- Current follow-up save guard: `.local/avatar-quality-publication-v22/`.
+  Receipt destination: `outputs/native-feedback-publication-v1/receipt.json`.
+  Component evidence `evidence/native-feedback-contract-v1` contains 167 files /
+  2,507,003 bytes, manifest
+  `24ed093b0c5e8953a6ad999c6494173cd6d061337864783288d591b3e6b44edd`.
+
+### Superseded preparation — new $15 policy requires fresh source pins
+
+- Job `bbd386ca4ee34cad9fbe863c` is `awaiting_authorization`, zero paid calls.
+- Request SHA `86ff60158072bd1e6ecfd346d87bbc852efefde3856c343ab4a00ecf6f112796`.
+- Exact proposal: `outputs/openai-panda-native-feedback-preparation-v1/`.
+- Up to seven calls/two repairs; proposed job ceiling $16.299258 plus prior
+  settled $0.700742 equals the unchanged $17 aggregate cap. Expected additional
+  use about $1.45 is illustrative. No new Meshy work or automatic transport retry.
+- No grant exists. The user granted standing authorization with a lower $15
+  total cap. This old preparation is superseded, not approved for its $17 proposal.
+  Preserve it and use a fresh job after the ledger-code change; do not reset history.
+- On approval, explicitly retire `studio-b91db2687dca4024af238111` into the exact
+  successor grant, plan once, then one temporary browser Start with its plan ID.
 
 ## Remaining acceptance gate
 

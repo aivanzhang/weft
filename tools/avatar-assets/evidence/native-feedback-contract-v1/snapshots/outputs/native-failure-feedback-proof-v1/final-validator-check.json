@@ -1,0 +1,48 @@
+{
+  "modern_startup_crash": {
+    "reason": "Native failure evidence requires inspection: Modern native finish failed without its structured exception receipt; startup/import/crash/kill needs inspection, not an uninformed paid repair",
+    "status": "inspection_required"
+  },
+  "no_native_or_api_rerun": true,
+  "pipeline_sha256": "a44a0ba8c5919e49b0ab98f618f0074883a5d348d743b07f625ccb7df9d60d2e",
+  "schema_version": 1,
+  "structured_failure": {
+    "native_failure": {
+      "manifest_sha256": "9118f47c42c104255628e65ff7af315635a7f22a2aa66e4c401cbde2de2fc44d",
+      "receipt": {
+        "bytes": 1304,
+        "path": "native-failure.json",
+        "sha256": "9b0d62753fe67abc4e257c4213d5a9b13b1f1d09d70cbc2e7a2eef80c3feed1e"
+      },
+      "report": {
+        "automatic_repair_performed": false,
+        "failure_type": "UndercoatSelectionError",
+        "finish_config_sha256": "2ca41dd81e9af31f3da17c7ed9d96a02a623631b786c5b8fe49f21f6c196555e",
+        "measurements": {
+          "undercoat_selection": {
+            "implementation_sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1",
+            "max_faces": 32000,
+            "min_faces": 18000,
+            "policy": "undercoat-selection-count-v1",
+            "primitive": "loop_triangles",
+            "schema_version": 1,
+            "scope": "adaptive_plan",
+            "selected_faces": 35758,
+            "selection_encoding": "uint8-boolean-triangle-order",
+            "selection_mask_sha256": "9e5d922f49017745995c6df4c659f7a15a38e4e45a19a428342136640fd5e524",
+            "settings_sha256": "03bbce48736634102f719f0632e36f6f37f8da4a8920c239bd173a4d214f9f6d",
+            "total_faces": 36124
+          }
+        },
+        "message": "Undercoat selected face count is outside its declared bounds: selected=35758, min=18000, max=32000, total=36124",
+        "message_truncated": false,
+        "native_script_sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081",
+        "policy": "native-finishing-failure-v1",
+        "schema_version": 1,
+        "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+        "status": "failed",
+        "thresholds_changed": false
+      }
+    }
+  }
+}

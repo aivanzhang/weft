@@ -60,6 +60,99 @@ def _json_digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, allow_nan=False).encode()).hexdigest()
 
 
+def _native_failure_diagnostic(pack, manifest):
+    """Only a sealed failed process can supply native exception data to a repair agent."""
+    import ast
+    import hashlib
+    import re
+    path = pack/'native-failure.json'
+    rows = manifest.get('artifacts', [])
+    try:
+        def bound(name, maximum):
+            item = local_file(pack/name, maximum)
+            expected = {'path': name, 'bytes': item.stat().st_size, 'sha256': sha256(item)}
+            require([row for row in rows if row.get('path') == name] == [expected],
+                    'Native failure artifact binding changed: '+name)
+            return item, expected
+        if not any(row.get('path') == path.name for row in rows) and not path.exists() and not path.is_symlink():
+            source_name = 'sources/blender_finish_generated.py'
+            source = pack/source_name
+            if manifest.get('status') == 'failed' and (source.exists() or source.is_symlink()
+                    or any(row.get('path') == source_name for row in rows)):
+                script, _ = bound(source_name, 1024**2)
+                tree = ast.parse(script.read_text())
+                wrappers = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == '_native_failure']
+                if wrappers:
+                    require(len(wrappers) == 1 and any(isinstance(node, ast.Constant)
+                            and node.value == 'native-finishing-failure-v1' for node in ast.walk(wrappers[0])),
+                            'Unknown saved native failure protocol')
+                    raise EvidenceCustodyError('Modern native finish failed without its structured exception receipt; '
+                                               'startup/import/crash/kill needs inspection, not an uninformed paid repair')
+            return None  # Historical code and successful packs do not require a failure receipt.
+        require(manifest.get('status') == 'failed', 'Native failure requires a failed pack')
+        _, binding = bound(path.name, 16*1024)
+        report = read_json(path)
+        fields = {'schema_version', 'policy', 'status', 'failure_type', 'message', 'message_truncated',
+                  'finish_config_sha256', 'source_sha256', 'native_script_sha256', 'measurements',
+                  'automatic_repair_performed', 'thresholds_changed'}
+        require(isinstance(report, dict) and set(report) == fields and type(report['schema_version']) is int
+                and report['schema_version'] == 1 and report['policy'] == 'native-finishing-failure-v1'
+                and report['status'] == 'failed', 'Invalid native failure schema')
+        require(isinstance(report['failure_type'], str) and re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]{0,127}', report['failure_type'])
+                and isinstance(report['message'], str) and len(report['message']) <= 1000
+                and type(report['message_truncated']) is bool
+                and (not report['message_truncated'] or len(report['message']) == 1000)
+                and report['automatic_repair_performed'] is False and report['thresholds_changed'] is False,
+                'Invalid bounded native exception')
+        cfg_path, cfg_pin = bound('finish-config.json', 1024**2)
+        _, code_pin = bound('sources/blender_finish_generated.py', 1024**2)
+        job_path, _ = bound('job.json', 1024**2)
+        config, job = read_json(cfg_path), read_json(job_path)
+        require(type(job.get('exit_code')) is int and job['exit_code'] != 0
+                and job.get('process_exit_verified') is True and not job.get('manual_stop_required'),
+                'Native failure process custody is unresolved or successful')
+        require(report['finish_config_sha256'] == cfg_pin['sha256']
+                and report['native_script_sha256'] == code_pin['sha256']
+                and report['source_sha256'] == config.get('source_sha256')
+                and isinstance(report['source_sha256'], str)
+                and re.fullmatch('[0-9a-f]{64}', report['source_sha256']), 'Native failure input/source binding changed')
+        measured = report['measurements']
+        require(isinstance(measured, dict) and set(measured) <= {'undercoat_selection'},
+                'Unknown native failure measurement')
+        if measured:
+            counts = measured['undercoat_selection']
+            required = {'schema_version', 'policy', 'scope', 'primitive', 'selected_faces', 'total_faces',
+                        'min_faces', 'max_faces', 'selection_mask_sha256', 'selection_encoding',
+                        'settings_sha256', 'implementation_sha256'}
+            require(isinstance(counts, dict) and set(counts) == required
+                    and report['failure_type'] == 'UndercoatSelectionError'
+                    and type(counts['schema_version']) is int and counts['schema_version'] == 1
+                    and counts['policy'] == 'undercoat-selection-count-v1'
+                    and counts['scope'] in ('uv0_bake', 'adaptive_plan') and counts['primitive'] == 'loop_triangles'
+                    and counts['selection_encoding'] == 'uint8-boolean-triangle-order', 'Invalid undercoat rejection schema')
+            require(all(type(counts[name]) is int for name in ('selected_faces', 'total_faces', 'min_faces', 'max_faces'))
+                    and 0 <= counts['selected_faces'] <= counts['total_faces'] <= 100000
+                    and counts['total_faces'] >= 1 and 1 <= counts['min_faces'] <= counts['max_faces'] <= 100000
+                    and not counts['min_faces'] <= counts['selected_faces'] <= counts['max_faces'],
+                    'Undercoat rejection counts contradict the failure')
+            settings = config.get('fur_undercoat')
+            require(isinstance(settings, dict) and counts['min_faces'] == settings.get('min_faces')
+                    and counts['max_faces'] == settings.get('max_faces')
+                    and counts['settings_sha256'] == hashlib.sha256(json.dumps(settings, sort_keys=True,
+                        separators=(',', ':'), allow_nan=False).encode()).hexdigest(), 'Undercoat recipe thresholds changed')
+            require((counts['scope'] == 'adaptive_plan') == (settings.get('uv_policy') == 'material-adaptive-v1'),
+                    'Undercoat rejection scope differs from its recipe')
+            _, undercoat_pin = bound('sources/blender_fur_undercoat.py', 1024**2)
+            require(counts['implementation_sha256'] == undercoat_pin['sha256']
+                    and isinstance(counts['selection_mask_sha256'], str)
+                    and re.fullmatch('[0-9a-f]{64}', counts['selection_mask_sha256']), 'Undercoat measurement binding changed')
+        else:
+            require(report['failure_type'] != 'UndercoatSelectionError', 'Undercoat failure lost its exact counts')
+        return {'report': report, 'receipt': binding, 'manifest_sha256': sha256(pack/'manifest.json')}
+    except (ValueError, OSError, KeyError, TypeError, AttributeError, SyntaxError, RecursionError) as error:
+        raise EvidenceCustodyError('Native failure evidence requires inspection: '+str(error)) from error
+
+
 def _normal_uv_diagnostic(pack, manifest):
     """Authenticate the complete native receipt; send only its failed live-route witness."""
     from scripts.normal_uv_export import (POLICY, FRAME_POLICY, MAX_REPORT_BYTES,
@@ -629,6 +722,9 @@ class Pipeline:
         normal_uv = _normal_uv_diagnostic(pack, manifest)
         if normal_uv is not None:
             result['normal_uv_export_rejection'] = normal_uv
+        native_failure = _native_failure_diagnostic(pack, manifest)
+        if native_failure is not None:
+            result['native_failure'] = native_failure
         if (pack/'surface-integrity.json').exists():
             result['surface_integrity'] = read_json(pack/'surface-integrity.json')
         if (pack/'rig-verification.json').exists():
@@ -932,7 +1028,7 @@ class Pipeline:
             self.guard()
             self.event('author', 'running', attempt=attempt)
             answer = self.agents.call('author-'+str(attempt), prompts.author_prompt(self.request, plan, context, previous, findings),
-                                      prompts.author_schema(self.request), images=[inspection/n for n in
+                                      prompts.author_schema(self.request, plan), images=[inspection/n for n in
                                           ('guide-front.png','guide-side.png','three-quarter.png')]+repair_images[:5])
             if answer.get('status') == 'unsupported':
                 _text(answer['reason'], 4000, 'unsupported author reason')

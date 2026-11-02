@@ -506,7 +506,38 @@ def deformation_baseline(obj, rig, rig_route):
         'pose_samples_measured': 0, 'unchanged_topology_required': True}
 
 
+def _native_failure(config, output, error):
+    """Write bounded structured evidence; retain the original exception and traceback."""
+    config, output = Path(config), Path(output)
+    if config.is_symlink() or not config.is_file() or not 0 < config.stat().st_size <= 1024**2:
+        raise ValueError('Native failure config is not a bounded regular file')
+    cfg = json.loads(config.read_text())
+    message = str(error)
+    measurements = {}
+    if type(error).__name__ == 'UndercoatSelectionError':
+        measurements['undercoat_selection'] = error.diagnostic
+    report = {'schema_version': 1, 'policy': 'native-finishing-failure-v1', 'status': 'failed',
+        'failure_type': type(error).__name__[:128], 'message': message[:1000], 'message_truncated': len(message) > 1000,
+        'finish_config_sha256': hash_file(config), 'source_sha256': cfg['source_sha256'],
+        'native_script_sha256': hash_file(Path(__file__)), 'measurements': measurements,
+        'automatic_repair_performed': False, 'thresholds_changed': False}
+    if len(json.dumps(report, allow_nan=False).encode()) > 16*1024:
+        raise ValueError('Native failure report exceeds16KiB')
+    write_json(output/'native-failure.json', report)
+
+
 def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
+    try:
+        return _finish(config, output, prepare_only=prepare_only, preserve_skin_source=preserve_skin_source)
+    except Exception as error:
+        try:
+            _native_failure(config, output, error)
+        except Exception as diagnostic_error:
+            print('Structured native failure could not be preserved: '+type(diagnostic_error).__name__, file=sys.stderr)
+        raise
+
+
+def _finish(config, output, *, prepare_only=False, preserve_skin_source=False):
     if type(prepare_only) is not bool or type(preserve_skin_source) is not bool:
         raise ValueError('Native preparation must be explicitly boolean')
     if preserve_skin_source and not prepare_only:

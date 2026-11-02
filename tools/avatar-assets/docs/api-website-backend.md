@@ -1,5 +1,11 @@
 # Website and API backend
 
+The latest user authorization permits bounded retries without repeated approval
+questions within **$15 total avatar OpenAI spend**, including prior use. It
+supersedes the earlier $17 ceiling and per-run approval limits described below.
+An append-only ledger reduction preserves all old approvals and charges; it must
+be active before the next request. No new Meshy generation is included.
+
 The user selected OpenAI API for the website backend. Website jobs must not
 depend on a personal ChatGPT login, local CLI session or operator-written rig.
 The first live API planner succeeded; no API-backed delivery has passed yet.
@@ -160,3 +166,39 @@ automatically. Counts alone do not establish anatomy, skin quality or motion.
 On the retained first proposal this exposes both missing hip bones and all four
 under-covered regions in one repair prompt. Local routing/contract checks pass;
 a successful new live run remains unverified.
+
+## Geometry-feedback live result
+
+Job `b91db2687dca4024af238111` ended unsupported after one browser Start in
+117.640 s, with browser/server cleanup verified. Its first response invented an
+extra rest action; repair fixed the action and both measured leg deficits without
+lowering the required vertex minima. Both subsequent native builds failed an
+undercoat face-count bound. The repair saw a generic finishing failure, not the
+undercoat measurements. No final model, dance, media or critic acceptance exists.
+
+This run used four API calls for $0.337927; aggregate use is $0.700742. Both
+approved repairs are exhausted. Remaining call slots do not authorize another
+repair. New local work binds action IDs/counts to the plan and preserves structured
+native failure data. Neither change authorizes a paid rerun or a budget increase.
+
+## Native failure receipts and plan-bound schemas
+
+The strict API schema now binds action IDs/counts and structured state/role
+bindings to the validated plan. It rejects invented states and missing required
+arrays; existing local validators still enforce uniqueness and order.
+
+The native finisher writes bounded `native-failure.json` with exception type,
+message and allowlisted measurements. The pipeline authenticates its failed-stage
+manifest, exited process, recipe, source and native-script hashes before forwarding
+it. Undercoat errors include selected/minimum/maximum/total triangle counts and
+selection/settings hashes. There is no log scraping or automatic threshold change.
+Modern failures without a trustworthy receipt stop for inspection, not another
+uninformed paid repair. Historical failures remain readable.
+
+The unchanged retained recipe reproduced an undercoat rejection at 35,758 selected
+triangles against 18,000–32,000 bounds (36,124 total). The bounded native run took
+1.044 s, sampled direct-child RSS 634,404,864 bytes, and exited as expected.
+The preceding sandbox startup crash is preserved separately; it produced no receipt
+and now correctly blocks automatic repair. These are failure-path checks, not
+an accepted avatar. Ninety-nine integrated checks pass. No API calls were made
+for this implementation or reproduction.

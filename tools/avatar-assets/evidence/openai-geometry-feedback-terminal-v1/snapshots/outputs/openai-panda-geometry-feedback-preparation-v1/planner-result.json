@@ -1,0 +1,91 @@
+{
+  "cancel_requested": false,
+  "capabilities": {
+    "cancel": false,
+    "execution_gate": "canonical_ledger_and_explicit_start",
+    "plan": false,
+    "resume": true,
+    "session_required": true,
+    "start": true
+  },
+  "created_at": "2026-11-02T12:34:11.415775-08:00",
+  "elapsed_seconds": 23.2,
+  "error": null,
+  "id": "b91db2687dca4024af238111",
+  "operation": "plan",
+  "plan": {
+    "authorization": {
+      "can_start": true,
+      "estimated_credits": 0,
+      "execution_gate": "canonical_ledger_and_explicit_start",
+      "reason": "Explicit source reuse requires no new Meshy credits; existing bounded agent/local execution still applies."
+    },
+    "estimate": {
+      "amount": null,
+      "credits": 0,
+      "currency": "USD",
+      "note": "Account dollar price and agent usage price are unknown. No paid retries or allowance changes."
+    },
+    "id": "4f61ce1869320447b658a5b51b3d18be6f3aebeba6422268e51e01c592514426",
+    "summary": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail.",
+    "warnings": [
+      "The provided reusable model may already contain geometry contacts or rig limits that are not visible from the text alone; this planner preserves the requested spacing but cannot confirm the source model already has it.",
+      "This plan supports an authored dance through skinned articulation and bounded body travel; it does not imply simulated balance, physical contact, cloth dynamics, hair dynamics, or new facial blendshapes.",
+      "The style requests identity consistency over a new appearance-polishing pass; this planner cannot verify whether the supplied reusable model exactly matches every requested marking without separate review."
+    ]
+  },
+  "plan_id": "4f61ce1869320447b658a5b51b3d18be6f3aebeba6422268e51e01c592514426",
+  "previews": [],
+  "provenance": "actual_pipeline",
+  "queued": false,
+  "request": {
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "reference_selected": false,
+    "reuse_model_selected": true,
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass."
+  },
+  "result": null,
+  "reviews": [],
+  "stages": [
+    {
+      "attempt": null,
+      "detail": "",
+      "elapsed_seconds": 22.862,
+      "id": "planner",
+      "label": "Planner",
+      "stage": "planner",
+      "status": "ready"
+    },
+    {
+      "attempt": null,
+      "detail": "",
+      "id": "geometry",
+      "label": "Geometry",
+      "stage": "geometry",
+      "status": "reused_generated_source"
+    },
+    {
+      "attempt": null,
+      "detail": "",
+      "id": "pipeline",
+      "label": "Pipeline",
+      "stage": "pipeline",
+      "status": "planned"
+    }
+  ],
+  "status": "planned",
+  "storage": {
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false,
+    "measured_at": "2026-11-02T12:38:00.002954-08:00",
+    "pipeline_bytes_measured": 15774104,
+    "retained_bytes_measured": 15985583,
+    "total_limit_bytes": 8589934592
+  },
+  "title": "An original friendly upright panda-like character with compact rounded proportio",
+  "updated_at": "2026-11-02T12:38:00.005742-08:00"
+}

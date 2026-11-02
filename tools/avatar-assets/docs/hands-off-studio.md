@@ -62,18 +62,20 @@ fresh Studio delivery. The production sampler's math was already correct; its
 new source-mode guard has 59 focused checks plus split verification of all 695
 integration cases. Approved assets and production finishing defaults stay unchanged.
 
-The fresh panda trial generated mesh/textures for35Meshycredits, then stopped
-before rigging under the old personal-login backend. The replacement OpenAI API
-backend has been exercised through an actual browser Start using that saved mesh.
-It stopped truthfully at malformed author design JSON; no accepted delivery.
-Current Meshy totals are18successful submissions/237credits against245authorized,
-leaving8credits. API usage across three calls is estimated$0.141219, separately
-bounded by the approved$17ceiling. No new Meshy call occurred during API recovery.
+The fresh panda trial generated mesh/textures for 35 Meshy credits, then stopped
+before rigging under the old personal-login backend. The server OpenAI backend
+has since been exercised through actual browser Starts using the same paid mesh.
+Typed transport fixed the nested-string formatting issue. Measured repair feedback
+then corrected the leg regions, but the latest run stopped at an undercoat
+face-count check. Native failure measurements were not reaching the repair; that
+reporting gap and exact plan-bound action schemas are now fixed and locally tested.
+No accepted API-backed rig, dance or delivery has passed yet.
 
-Typed author transport is now implemented and locally tested to prevent the
-nested-string formatting failure; live acceptance remains pending. Exact attempts,
-approvals, constraints and immutable evidence are in [the current handoff](../TODO.md).
-No further paid repair, purchase or automatic retry is implied by these fixes.
+Meshy totals remain 18 successful submissions / 237 credits against 245 authorized.
+Ten API calls total an estimated $0.700742 under the separate $17 ceiling. No new
+Meshy call occurred during these recoveries. The latest job used both of its two
+authorized repairs; unused call slots are not permission for another repair.
+Exact attempts, approvals and evidence are in [the current handoff](../TODO.md).
 
 ## Interface contract
 

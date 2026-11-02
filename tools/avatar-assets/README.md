@@ -2,12 +2,17 @@
 
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
+**Budget:** standing authorization permits further bounded retries within **$15
+total OpenAI spend**, including prior use, without repeated approval questions.
+The ledger cap is being tightened before the next call; no new Meshy work.
+
 **Current direction:** Studio uses the server OpenAI API, not a personal AI login;
 Meshy remains the geometry/texture provider. The latest actual browser run reused
-the paid panda, parsed the typed rig response and used its one approved repair.
-It reached Blender but stopped **unsupported** because a leg region did not meet
-its mesh-coverage requirement. No finished rig, dance or delivery was produced.
-Six API calls across attempts cost an estimated **$0.362815** total; no new Meshy
+the paid panda, parsed the typed rig response and used its two approved repairs.
+Measured feedback corrected the leg regions, but the latest run stopped
+**unsupported** at an undercoat face-count check. Native error feedback now includes
+verified measurements; 99 local checks and an actual failure reproduction pass. No finished rig, dance or delivery was produced.
+Ten API calls across attempts cost an estimated **$0.700742** total; no new Meshy
 charge or deployment. Strict response, attachment-policy and spending checks pass
 locally; these are not avatar acceptance. [Backend results](docs/api-website-backend.md).
 

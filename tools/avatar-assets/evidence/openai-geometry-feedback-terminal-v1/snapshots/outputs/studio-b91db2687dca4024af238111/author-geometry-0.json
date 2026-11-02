@@ -1,0 +1,254 @@
+{
+  "available_bones": [
+    "arm_L",
+    "arm_R",
+    "chest",
+    "foot_L",
+    "foot_R",
+    "forearm_L",
+    "forearm_R",
+    "hand_L",
+    "hand_R",
+    "head",
+    "hips",
+    "neck",
+    "shin_L",
+    "shin_R",
+    "spine",
+    "tail",
+    "thigh_L",
+    "thigh_R"
+  ],
+  "failures": [
+    {
+      "bones": [
+        "thigh_L",
+        "shin_L",
+        "foot_L"
+      ],
+      "feather": 0.08,
+      "kind": "region_undercoverage",
+      "layer_index": 4,
+      "max": [
+        0.49,
+        0.72,
+        0.22
+      ],
+      "min": [
+        0.26,
+        0.28,
+        -0.05
+      ],
+      "min_vertices": 2200,
+      "passes": false,
+      "selected_vertices": 1028
+    },
+    {
+      "bones": [
+        "thigh_R",
+        "shin_R",
+        "foot_R"
+      ],
+      "feather": 0.08,
+      "kind": "region_undercoverage",
+      "layer_index": 5,
+      "max": [
+        0.74,
+        0.72,
+        0.22
+      ],
+      "min": [
+        0.51,
+        0.28,
+        -0.05
+      ],
+      "min_vertices": 2200,
+      "passes": false,
+      "selected_vertices": 1455
+    }
+  ],
+  "geometry": {
+    "agreement": "Exact native source hash, vertex/face counts and world bounds",
+    "axis_conversion": "glTF (x,y,z) -> Blender (x,-z,y)",
+    "bounds_blender_z_up": {
+      "max": [
+        0.5749289989471436,
+        0.4936639666557312,
+        0.9502120018005371
+      ],
+      "min": [
+        -0.5757449865341187,
+        -0.4917299747467041,
+        -0.9512320160865784
+      ]
+    },
+    "faces": 36124,
+    "profile": "single-identity-node-unrigged-triangles",
+    "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+    "vertices": 26957
+  },
+  "layers": [
+    {
+      "bones": [
+        "hips"
+      ],
+      "feather": 0.18,
+      "layer_index": 0,
+      "max": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "min": [
+        -0.2,
+        -0.2,
+        -0.2
+      ],
+      "min_vertices": 26957,
+      "passes": true,
+      "selected_vertices": 26957
+    },
+    {
+      "bones": [
+        "hips",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "tail"
+      ],
+      "feather": 0.12,
+      "layer_index": 1,
+      "max": [
+        0.78,
+        0.9,
+        0.98
+      ],
+      "min": [
+        0.22,
+        0.08,
+        0.08
+      ],
+      "min_vertices": 12000,
+      "passes": true,
+      "selected_vertices": 12147
+    },
+    {
+      "bones": [
+        "arm_L",
+        "forearm_L",
+        "hand_L"
+      ],
+      "feather": 0.12,
+      "layer_index": 2,
+      "max": [
+        0.34,
+        0.72,
+        0.72
+      ],
+      "min": [
+        0.0,
+        0.24,
+        0.42
+      ],
+      "min_vertices": 1800,
+      "passes": true,
+      "selected_vertices": 4117
+    },
+    {
+      "bones": [
+        "arm_R",
+        "forearm_R",
+        "hand_R"
+      ],
+      "feather": 0.12,
+      "layer_index": 3,
+      "max": [
+        1.0,
+        0.72,
+        0.72
+      ],
+      "min": [
+        0.66,
+        0.24,
+        0.42
+      ],
+      "min_vertices": 1800,
+      "passes": true,
+      "selected_vertices": 3876
+    },
+    {
+      "bones": [
+        "thigh_L",
+        "shin_L",
+        "foot_L"
+      ],
+      "feather": 0.08,
+      "layer_index": 4,
+      "max": [
+        0.49,
+        0.72,
+        0.22
+      ],
+      "min": [
+        0.26,
+        0.28,
+        -0.05
+      ],
+      "min_vertices": 2200,
+      "passes": false,
+      "selected_vertices": 1028
+    },
+    {
+      "bones": [
+        "thigh_R",
+        "shin_R",
+        "foot_R"
+      ],
+      "feather": 0.08,
+      "layer_index": 5,
+      "max": [
+        0.74,
+        0.72,
+        0.22
+      ],
+      "min": [
+        0.51,
+        0.28,
+        -0.05
+      ],
+      "min_vertices": 2200,
+      "passes": false,
+      "selected_vertices": 1455
+    },
+    {
+      "bones": [
+        "tail"
+      ],
+      "feather": 0.08,
+      "layer_index": 6,
+      "max": [
+        0.66,
+        1.02,
+        0.2
+      ],
+      "min": [
+        0.34,
+        0.7,
+        0.03
+      ],
+      "min_vertices": 200,
+      "passes": true,
+      "selected_vertices": 1222
+    }
+  ],
+  "limits": {
+    "layers": 32,
+    "vertices": 100000
+  },
+  "schema_version": 1,
+  "scope": "Authored role references and region occupancy only; not skin quality or animation acceptance",
+  "status": "available",
+  "unknown_bone_references": [],
+  "version": "author-geometry-diagnostics-v1"
+}

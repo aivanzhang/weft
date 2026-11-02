@@ -1,0 +1,139 @@
+{
+  "artifacts": [
+    {
+      "bytes": 87565,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "a44a0ba8c5919e49b0ab98f618f0074883a5d348d743b07f625ccb7df9d60d2e"
+    },
+    {
+      "bytes": 57060,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "70eabeaaf048e42c61893edef6823a98cee07681ba6719ec73e9990fd3685609"
+    },
+    {
+      "bytes": 59927,
+      "path": "sources/scripts/blender_finish_generated.py",
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    {
+      "bytes": 42039,
+      "path": "sources/scripts/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "bytes": 17129,
+      "path": "sources/tests/test_author_contract.py",
+      "sha256": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f"
+    },
+    {
+      "bytes": 9012,
+      "path": "sources/tests/test_author_geometry.py",
+      "sha256": "3e0877c6f2be52ca86265f12cc69b488b96975b58e19b699e503223373df0efb"
+    },
+    {
+      "bytes": 6173,
+      "path": "sources/tests/test_author_plan_schema.py",
+      "sha256": "475a5cf31092c1588b3838946bb95c58c958ed23a3f3307370ddcc351516385e"
+    },
+    {
+      "bytes": 6993,
+      "path": "sources/tests/test_fur_undercoat.py",
+      "sha256": "5b92a9af0970f4e5ab8be2ea1ff0b384603252dc5f435abb5a420f5d8aeb4eaa"
+    },
+    {
+      "bytes": 10262,
+      "path": "sources/tests/test_native_failure_diagnostics.py",
+      "sha256": "e2d18e28b9c4231f902c3262fdc1abfa789a8a0b09969e44fe35556bbf7d28da"
+    },
+    {
+      "bytes": 16304,
+      "path": "sources/tests/test_pipeline.py",
+      "sha256": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47"
+    },
+    {
+      "bytes": 4191,
+      "path": "sources/tests/test_pipeline_author_geometry.py",
+      "sha256": "5efe19113dafbce648d947b682280f896bdad86bbeab193062667a4713b6f43d"
+    },
+    {
+      "bytes": 21591,
+      "path": "sources/tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545"
+    },
+    {
+      "bytes": 21080,
+      "path": "sources/tests/test_undercoat_material_adapter.py",
+      "sha256": "56323be523483b1500ee7ba2721f3506a6e63af4d319acbb63f3afe98fbe5937"
+    },
+    {
+      "bytes": 578,
+      "path": "tests-handle.json",
+      "sha256": "ab2d80382acea97333baff14b14b3feee28bc3b861b3c1c37a5c31d1d887a7c8"
+    },
+    {
+      "bytes": 1364,
+      "path": "tests-monitor.json",
+      "sha256": "6faa899884a0d110cc731a0d9193970ee97f74d02b703f894bc18a5d82477e89"
+    },
+    {
+      "bytes": 17907,
+      "path": "tests.log",
+      "sha256": "9a7959b2450476704e9828de3b17d3575875fdf0c919469938f74c6cfe4d691d"
+    }
+  ],
+  "classification": "Analytic contracts and retained-source regression; no provider/native/browser calls",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-c",
+      "import sys,unittest;sys.path[:0]=['.','tests'];s=unittest.defaultTestLoader.loadTestsFromNames(['test_native_failure_diagnostics', 'test_author_plan_schema', 'test_author_contract', 'test_pipeline', 'test_pipeline_prompts', 'test_pipeline_author_geometry', 'test_author_geometry', 'test_fur_undercoat', 'test_undercoat_material_adapter']);r=unittest.TextTestRunner(verbosity=2).run(s);raise SystemExit(not r.wasSuccessful())"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 4.596,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 379112,
+    "last_rss_sample_elapsed_seconds": 4.339,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 33235,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 17,
+    "sampled_max_output_bytes": 379112,
+    "sampled_peak_rss_bytes": 229949440,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "avatar_assets/pipeline.py": "a44a0ba8c5919e49b0ab98f618f0074883a5d348d743b07f625ccb7df9d60d2e",
+    "avatar_assets/pipeline_prompts.py": "70eabeaaf048e42c61893edef6823a98cee07681ba6719ec73e9990fd3685609",
+    "scripts/blender_finish_generated.py": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081",
+    "scripts/blender_fur_undercoat.py": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1",
+    "tests/test_author_contract.py": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f",
+    "tests/test_author_geometry.py": "3e0877c6f2be52ca86265f12cc69b488b96975b58e19b699e503223373df0efb",
+    "tests/test_author_plan_schema.py": "475a5cf31092c1588b3838946bb95c58c958ed23a3f3307370ddcc351516385e",
+    "tests/test_fur_undercoat.py": "5b92a9af0970f4e5ab8be2ea1ff0b384603252dc5f435abb5a420f5d8aeb4eaa",
+    "tests/test_native_failure_diagnostics.py": "e2d18e28b9c4231f902c3262fdc1abfa789a8a0b09969e44fe35556bbf7d28da",
+    "tests/test_pipeline.py": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47",
+    "tests/test_pipeline_author_geometry.py": "5efe19113dafbce648d947b682280f896bdad86bbeab193062667a4713b6f43d",
+    "tests/test_pipeline_prompts.py": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545",
+    "tests/test_undercoat_material_adapter.py": "56323be523483b1500ee7ba2721f3506a6e63af4d319acbb63f3afe98fbe5937"
+  }
+}
