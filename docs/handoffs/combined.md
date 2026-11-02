@@ -1,5 +1,23 @@
 # Combined Weft implementation handoff
 
+## Parallel reconstruction fixes active — November 2, 2026, PST
+
+The user explicitly prioritized substantive reconstruction/contact fixes and
+requested parallel agents. Three lanes are running: `/root/force_feasible_reconstruction`
+(new `limb_twist_gauge.py` and tests), `/root/ground_equipment_reconstruction`
+(new `equipment_temporal_silhouette.py`, tests/study/handoff), and
+`/root/unfamiliar_exercise_input` (bounded new source acquisition only). Root owns
+integration and complete-interval verification. Coordinate shared-file edits;
+no task/gate/force changes, assessed-coordinate fitting, paid requests or UI polish.
+Do not duplicate live work or stage these unfinished lanes with other checkpoints.
+
+The [normal motion-force CLI](motion-forces-cli.md) is verified: 75 checks,
+actual .937-second CLI, 92 inverse calls/zero physics steps. It reproduces the
+previous diagnostic exactly; all source/scored artifacts remain unchanged.
+This checkpoint exposes failures, not a reconstruction fix. Its native worker
+is terminal/reaped. Preserve separate avatar work. Publication receipt is
+`.local/motion-forces-cli-publication-01.json` once pushed. Full goal remains active.
+
 ## Camera evidence reader restored — November 2, 2026, PST
 
 The normal reader rejected camera shared-world v6, hiding all fourteen evidence

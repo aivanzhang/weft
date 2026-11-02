@@ -96,8 +96,10 @@ def _direct_axes(model, names, limits):
     return np.array(q), np.array(v), limits, engine_limits
 
 
-def audit_reference_dynamics(model, times, positions, *, names, limits, transition_s):
+def audit_reference_dynamics(model, times, positions, *, names, limits, transition_s, check_budget=None):
     """Inspect source targets in separate MjData; never step or modify the live model/state."""
+    check = check_budget or (lambda: None)
+    check()
     samples = reference_samples(times, positions, transition_s)
     q, v, limits, engine_limits = _direct_axes(model, names, limits)
     if len(q) != len(samples[0]["position"]):
@@ -105,6 +107,7 @@ def audit_reference_dynamics(model, times, positions, *, names, limits, transiti
     data = mujoco.MjData(model)
     rows = []
     for sample in samples:
+        check()
         mujoco.mj_resetData(model, data)
         data.qpos[q], data.qvel[v], data.qacc[v] = sample["position"], sample["velocity"], sample["acceleration"]
         mujoco.mj_inverse(model, data)
@@ -129,6 +132,7 @@ def audit_reference_dynamics(model, times, positions, *, names, limits, transiti
             "force_balance_residual_max": float(np.max(np.abs(residual))),
             "over_limit_axes": [name for name, force, limit in zip(names, required, limits) if abs(force) > limit]})
         rows.append(row)
+    check()
     summaries = {}
     for kind in ("interval_midpoint", "reset_transition_probe", "knot_transition_probe"):
         selected = [row for row in rows if row["kind"] == kind]

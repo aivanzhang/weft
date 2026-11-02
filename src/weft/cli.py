@@ -481,6 +481,10 @@ def main():
     camera_shared.add_argument("--run", required=True, help="Sealed grounded two-view-root camera-body run")
     camera_shared.add_argument("--out", required=True, help="New immutable candidate directory")
     camera_shared.add_argument("--max-seconds", type=float, default=30)
+    force_check = commands.add_parser("motion-forces", help="Explain source-motion motor limits in a new offline report; no simulation steps or training")
+    force_check.add_argument("--run", required=True, help="Sealed assisted human-only camera-world run, usually LAB/run")
+    force_check.add_argument("--out", required=True, help="New report directory outside the immutable run")
+    force_check.add_argument("--max-seconds", type=float, default=30, help="Cooperative processing limit, at most 60 seconds")
     support_build = commands.add_parser("shared-support-build",
         help="Bind a sealed video body to explicitly authored static supports and load requirements")
     support_build.add_argument("--body-source", required=True)
@@ -914,6 +918,9 @@ def main():
         elif args.command == "camera-shared-build":
             from weft.camera_shared_candidate import prepare_camera_shared_candidate
             result = prepare_camera_shared_candidate(args.run, args.out, max_seconds=args.max_seconds)
+        elif args.command == "motion-forces":
+            from weft.reference_dynamics_run import run_motion_force_check
+            result = run_motion_force_check(args.run, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-support-build":
             from weft.shared_world_support import construct_static_support_run
             result = construct_static_support_run(args.body_source, args.config, args.out, max_seconds=args.max_seconds)
@@ -1089,6 +1096,10 @@ def main():
                     print(error)
             result = {"status": "closed"}
         print(json.dumps(result, indent=2, allow_nan=False))
+        if args.command == "motion-forces":
+            if result.get("status") != "diagnostic_only":
+                parser.exit(1, f"weft: motion force check stopped; preserved output: {args.out}\n")
+            print(f"Saved motion force report: {result['report_path']}", file=sys.stderr)
         if args.command == "lab-console" and result.get("recording", {}).get("export") == "failed":
             parser.exit(1, "weft: recording export failed; actions are preserved and recovery guidance is printed above\n")
         if args.command == "shared-exercise-build" and result.get("status") != "ready":
@@ -1192,7 +1203,7 @@ def main():
             parser.exit(1, f"weft: full-reference preparation failed; preserved report: {result['directory']}/fullspan.json\n")
         if args.command == "qualify" and (result["status"] != "completed" or result["operationally_qualified"] != len(result["cases"])):
             parser.exit(1, f"weft: not all environments qualified; preserved report: {result['directory']}/report.json\n")
-    except (ValueError, RuntimeError, TimeoutError, OSError) as error:
+    except (ValueError, RuntimeError, TimeoutError, OSError, MemoryError) as error:
         parser.exit(1, f"weft: {error}\n")
 
 

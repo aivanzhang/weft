@@ -1,7 +1,6 @@
 """Inspect a sealed camera-world reference without stepping physics or changing targets."""
 
 import argparse
-import html
 import json
 from pathlib import Path
 import resource
@@ -14,6 +13,7 @@ import mujoco
 from weft.io import canonical_hash, digest, local_time, write_json
 from weft.pipeline import verify_artifacts
 from weft.reference_dynamics import audit_reference_dynamics
+from weft.reference_dynamics_run import render_report
 from weft.shared_world import SharedWorldEnv
 
 
@@ -57,46 +57,6 @@ def validate_inputs(run, out):
             or task.get('scene_sha256') != canonical_hash(scene)):
         raise ValueError('Diagnostic requires a sealed, unmodified human-only camera world/task')
     return run, out, scene, task, verified
-
-
-def render_report(result):
-    diagnostic = result['diagnostic']
-    labels = {'interval_midpoint': 'Between saved poses (constant target speed)',
-              'reset_transition_probe': 'Starting from rest (finite-window probe)',
-              'knot_transition_probe': 'At pose changes (finite-window probes)'}
-    rows = []
-    for kind, summary in diagnostic['summary'].items():
-        ratio = summary['maximum_force_limit_ratio']
-        free = [row for row in diagnostic['samples'] if row['kind'] == kind and row['constraint_rows'] == 0]
-        free_ratio = max((max(row['force_limit_ratio']) for row in free), default=None)
-        rows.append(f'<tr><td>{labels[kind]}</td><td>{summary["samples"]}</td>'
-            f'<td>{summary["over_limit_samples"]}</td><td>{summary["constraint_free_over_limit_samples"]}</td>'
-            f'<td>{"unavailable" if ratio is None else f"{ratio:.3f}×"}</td>'
-            f'<td>{"unavailable" if free_ratio is None else f"{free_ratio:.3f}×"}</td></tr>')
-    worst = sorted(diagnostic['samples'], key=lambda row: max(row['force_limit_ratio']), reverse=True)[:12]
-    details = []
-    for row in worst:
-        index = max(range(len(diagnostic['names'])), key=lambda i: row['force_limit_ratio'][i])
-        details.append(f'<tr><td>{row["time_s"]:.3f}s</td><td>{labels[row["kind"]]}</td>'
-            f'<td>{html.escape(diagnostic["names"][index])}</td><td>{row["force_limit_ratio"][index]:.3f}×</td>'
-            f'<td>{row["constraint_rows"]}</td></tr>')
-    limits = ''.join(f'<li>{html.escape(text)}</li>' for text in diagnostic['limitations'])
-    return f'''<!doctype html><html lang="en"><meta charset="utf-8"><title>Weft motion force diagnostic</title>
-<style>body{{font:16px system-ui;max-width:1100px;margin:40px auto;padding:0 20px;color:#222}}
-table{{border-collapse:collapse;width:100%}}th,td{{text-align:left;padding:9px;border-bottom:1px solid #ddd}}
-p,li{{line-height:1.5}}</style><h1>Can this model follow the reconstructed movement?</h1>
-<p>This is a source-target diagnostic, not a new controller or a physical measurement.
-Values above <b>1×</b> need more force than the unchanged motor limit at that sampled state.</p>
-<p>The body moves along straight lines between saved joint angles. Its requested speed jumps at pose changes.
-The second and third rows approximate those speed changes over {diagnostic['transition_window_s']:.3f} seconds;
-they do not replace or smooth the saved motion. Constraint-assisted results are not evidence of correct contact.</p>
-<table><thead><tr><th>Sample</th><th>Count</th><th>Over motor limit</th><th>Over limit without constraints</th>
-<th>Largest force / limit</th><th>Largest without constraints</th></tr></thead><tbody>{''.join(rows)}</tbody></table>
-<h2>Largest sampled demands</h2><table><thead><tr><th>Source time</th><th>Sample</th><th>Motor</th>
-<th>Force / limit</th><th>Constraint rows</th></tr></thead><tbody>{''.join(details)}</tbody></table>
-<h2>What this does not establish</h2><ul>{limits}</ul>
-<p><a href="diagnostic.json">Every force and source-time sample</a> · <a href="reference-input.json">Unchanged targets</a>
- · <a href="report.json">Inputs, runtime and resource record</a></p></html>'''
 
 
 def run_audit(run, out):

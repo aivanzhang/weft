@@ -32,6 +32,13 @@ recordings; trained counts and missing physical measurements remain separate.
 The ground, equipment and second-camera sections below are optional advanced
 workflows, not prerequisites for trying the sandbox.
 
+## Check whether reconstructed motion exceeds motor limits
+
+For supported camera-body labs, [run the motion-force check](handoffs/motion-forces-cli.md#use-it).
+It writes a separate readable report without changing the source, body, task or
+force limits. This diagnoses sampled demands in the authored model; it neither
+repairs motion nor measures real contact forces.
+
 ## Check camera and floor measurements
 
 Use [`floor-calibrate`](floor-calibration.md) when you have source-linked camera
