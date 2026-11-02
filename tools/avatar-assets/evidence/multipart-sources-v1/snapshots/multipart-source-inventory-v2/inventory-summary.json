@@ -1,0 +1,290 @@
+{
+  "assembly_requirements": [
+    "Keep both complete source geometries as separately identifiable components; no cutting, welding, simplification or silent texture removal.",
+    "Declare component scale, axes, rest pose and attachment/placement explicitly; raw coordinates are not a calibrated authored height.",
+    "Namespace material/node identities and remap texture/image/primitive indices without changing bytes or UV routes.",
+    "Preserve original PBR/normal maps and UV0; these raw sources lack tangents, so any later native export must establish valid UV0 frames.",
+    "Inspect images without full decode during CPU merge. Eventual native execution remains independently bounded at2GiB; this inventory does not prove GPU/native memory fit."
+  ],
+  "calls": {
+    "ai_roles": 0,
+    "browser": 0,
+    "native": 0,
+    "provider": 0
+  },
+  "check_evidence": {
+    "changed_v2": "Accepted exact absent-transform identity defaults, still rejecting nonidentity TRS; all four pinned source inspections completed before optional equality assertion failed",
+    "initial_failure": "v1 required explicit matrix; untextured source correctly omitted identity transform",
+    "passed_steps_before_v2_failure": [
+      "all source and download-manifest hashes matched",
+      "glTF bounded embedded-only loader accepted all four",
+      "all original node transforms identity by explicit matrix/defaults",
+      "positions, UVs and normals finite; per-primitive lengths matched; indices in range",
+      "texture headers within16MP each; image verify returned",
+      "no skins or animations in all four"
+    ],
+    "scope": "Evidence of completed steps follows exact pinned script control flow and traceback; no unrecorded numeric normal-error values are claimed",
+    "v1_failure_sha256": "d811087dcc268ed5fb8a0aecf84fc45543186b1f9e9ed809adfe4b0e9e7c39b0",
+    "v1_job_sha256": "d6b9c48f6f3c9b47d2b153bebb92ce47fa15fe5ee2909535632afecc86eebccd",
+    "v2_failure_sha256": "fc3e1453fe4ed7733bfa83e422f629382c885b514f2cd388f8463f4cc776d083",
+    "v2_job_sha256": "8894c0f9ad542fa418158de096457225e1d36618a6e4008976cb8e0976e6c7e3",
+    "v2_terminal": "AssertionError at raw-vs-textured attribute hash equality; no passing aggregate report was fabricated",
+    "which_subject_or_attribute_changed": "Not retained by failed harness; no third inventory run was made"
+  },
+  "created_at": "2026-11-02T03:58:03.304218-08:00",
+  "limitations": [
+    "This is reused generated-source development evidence, not fresh generation, an assembled output or animation.",
+    "The standalone dragon is not the original shoulder companion and must never silently replace that identity.",
+    "No overlap/attachment pose, mesh watertightness or rear-surface appearance has been verified.",
+    "Raw mesh-stage and texture-stage attribute identity failed an auxiliary assertion; use the exact textured stage as primary.",
+    "Each source uses a different basecolor image: legacy shared-color fur/groom consumers remain unsupported for this heterogeneous composition. No fur is requested here.",
+    "Commercial rights were not independently verified; original provider/account terms and exact source provenance remain applicable.",
+    "Current provider preflight has only a16MP per-image limit; the96Mi-pixel aggregate cap is a newly explicit assembler design limit, not retroactively claimed as an existing check."
+  ],
+  "live_jobs": [],
+  "optional_untextured_geometry_only": [
+    {
+      "download_manifest": "outputs/workshop-robot-meshy-v1/stages/mesh/downloads/manifest.json",
+      "download_manifest_sha256": "be24dc06ccd694f39c7f98407e19ab8991072d67d82e1b8ffb20d9f4150d7c5d",
+      "id": "workshop-robot-meshy-v1:mesh",
+      "path": "outputs/workshop-robot-meshy-v1/stages/mesh/downloads/model.glb",
+      "sha256": "167a1cc89a5f78df0d71d0582a02c26e848cdeb79c2c4b7da3a1845cc7e60998",
+      "stage": "mesh",
+      "subject_id": "workshop-robot-meshy-v1"
+    },
+    {
+      "download_manifest": "outputs/emerald-dragon-meshy-v1/stages/mesh/downloads/manifest.json",
+      "download_manifest_sha256": "220075b2222ea20c2a117b09f8a8e94376345b7372f5a1e35276268a82cafd38",
+      "id": "emerald-dragon-meshy-v1:mesh",
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/downloads/model.glb",
+      "sha256": "e527f63fe31f9c7e3f7f39f36284e38d93ba0aa1b549e5649ab7ada8f58c99dc",
+      "stage": "mesh",
+      "subject_id": "emerald-dragon-meshy-v1"
+    }
+  ],
+  "optional_untextured_totals": {
+    "images": 0,
+    "source_file_bytes": 3123952,
+    "textured_stage_interchangeability_proven": false,
+    "triangles": 87821,
+    "vertices": 81091
+  },
+  "primary_sources": [
+    {
+      "animations": 0,
+      "attributes": [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ],
+      "bytes": 23097200,
+      "id": "workshop-robot-meshy-v1",
+      "identity_mesh_node": true,
+      "material": {
+        "alpha_mode": "OPAQUE",
+        "base_color_factor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 1,
+        "double_sided": true,
+        "metallic_factor": 1,
+        "name": null,
+        "normal_scale": 1,
+        "roughness_factor": 1,
+        "routes": {
+          "basecolor": {
+            "image": 0,
+            "uv": 0
+          },
+          "metallic_roughness": {
+            "image": 1,
+            "uv": 0
+          },
+          "normal": {
+            "image": 2,
+            "uv": 0
+          }
+        }
+      },
+      "meshes": 1,
+      "path": "outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+      "primitives": 1,
+      "provenance": {
+        "config_snapshot": "inputs/workshop-robot-meshy-v1-config.json",
+        "download_manifest_path": "outputs/workshop-robot-meshy-v1/stages/texture/downloads/manifest.json",
+        "download_manifest_sha256": "27338eff1442e9ee6e1e9b3ea4a356eee6d48e0f8e3684be6c55a35ea913aa7e",
+        "download_status": "downloaded_not_visually_accepted",
+        "generation": {
+          "geometry_resolution": "4k",
+          "mode": "text",
+          "pose_mode": "a-pose",
+          "target_polycount": 50000,
+          "texture_resolution": "4k"
+        },
+        "mode": "text",
+        "model": "meshy-7.1",
+        "provider": "Meshy",
+        "reference_image": null,
+        "rights_verbatim": "Original user-authorized character direction; no reference upload. Neural output and hidden surfaces are authored assumptions. This second subject tests reusable prompt-only generation and rigging; it does not claim completed actions until independently authored and verified. No borrowed Weft credentials or Meta budget. Meshy account terms apply; commercial rights are not independently verified."
+      },
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "skins": 0,
+      "textures": [
+        {
+          "format": "JPEG",
+          "height": 4096,
+          "image": 0,
+          "mode": "RGB",
+          "width": 4096
+        },
+        {
+          "format": "JPEG",
+          "height": 2048,
+          "image": 1,
+          "mode": "RGB",
+          "width": 2048
+        },
+        {
+          "format": "JPEG",
+          "height": 4096,
+          "image": 2,
+          "mode": "RGB",
+          "width": 4096
+        }
+      ],
+      "triangles": 51320,
+      "units_axes": {
+        "format": "glTF 2.0 right-handed +Y-up, metre convention",
+        "forward_facing_numeric_proof": false,
+        "generation_config_height_meters": 1.2,
+        "height_is_later_authoring_target_not_verified_raw_height": true,
+        "raw_physical_calibration_verified": false
+      },
+      "vertices": 45081,
+      "visual_scope": "Saved generated thumbnail shows a distinct complete visible character, not hidden-surface, watertightness or motion proof."
+    },
+    {
+      "animations": 0,
+      "attributes": [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ],
+      "bytes": 25349908,
+      "id": "emerald-dragon-meshy-v1",
+      "identity_mesh_node": true,
+      "material": {
+        "alpha_mode": "OPAQUE",
+        "base_color_factor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 1,
+        "double_sided": true,
+        "metallic_factor": 1,
+        "name": null,
+        "normal_scale": 1,
+        "roughness_factor": 1,
+        "routes": {
+          "basecolor": {
+            "image": 0,
+            "uv": 0
+          },
+          "metallic_roughness": {
+            "image": 1,
+            "uv": 0
+          },
+          "normal": {
+            "image": 2,
+            "uv": 0
+          }
+        }
+      },
+      "meshes": 1,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "primitives": 1,
+      "provenance": {
+        "config_snapshot": "inputs/emerald-dragon-meshy-v1-config.json",
+        "download_manifest_path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/manifest.json",
+        "download_manifest_sha256": "547076ee65c6be582b6d474d345461a9a97e0d70a9221c239d3cedd6c68e304a",
+        "download_status": "downloaded_not_visually_accepted",
+        "generation": {
+          "geometry_resolution": "4k",
+          "mode": "text",
+          "pose_mode": "",
+          "target_polycount": 35000,
+          "texture_resolution": "4k"
+        },
+        "mode": "text",
+        "model": "meshy-7.1",
+        "provider": "Meshy",
+        "reference_image": null,
+        "rights_verbatim": "User requested a new standalone dragon and motions after approving the previous generated examples. Original text direction; no reference image upload. Generated hidden surfaces and locally authored creature rig are assumptions. Provider account terms apply; commercial rights not independently verified. This job is mesh+texture only; local wing/tail rigging and motions are recorded separately. Exact user request: I like this!!! Can you end to end create a dragon for me + have motions."
+      },
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "skins": 0,
+      "textures": [
+        {
+          "format": "JPEG",
+          "height": 4096,
+          "image": 0,
+          "mode": "RGB",
+          "width": 4096
+        },
+        {
+          "format": "JPEG",
+          "height": 2048,
+          "image": 1,
+          "mode": "RGB",
+          "width": 2048
+        },
+        {
+          "format": "JPEG",
+          "height": 4096,
+          "image": 2,
+          "mode": "RGB",
+          "width": 4096
+        }
+      ],
+      "triangles": 36501,
+      "units_axes": {
+        "format": "glTF 2.0 right-handed +Y-up, metre convention",
+        "forward_facing_numeric_proof": false,
+        "generation_config_height_meters": 1.2,
+        "height_is_later_authoring_target_not_verified_raw_height": true,
+        "raw_physical_calibration_verified": false
+      },
+      "vertices": 36010,
+      "visual_scope": "Saved generated thumbnail shows a distinct complete visible character, not hidden-surface, watertightness or motion proof."
+    }
+  ],
+  "primary_totals": {
+    "actual_assembled_file_size": null,
+    "compressed_image_bytes": 44793693,
+    "image_dimensions_per_source": [
+      "4096x4096",
+      "2048x2048",
+      "4096x4096"
+    ],
+    "new_aggregate_cap_exact_pixels": 100663296,
+    "rgb8_decoded_bytes": 226492416,
+    "rgba8_decoded_bytes": 301989888,
+    "source_file_bytes": 48447108,
+    "source_file_mib": 46.202762603759766,
+    "triangles": 87821,
+    "unique_image_pixels": 75497472,
+    "unique_images": 6,
+    "vertices": 81091,
+    "within_100k_vertex_triangle_limits": true,
+    "within_16mp_each": true,
+    "within_64mib_source_sum": true,
+    "within_new_96_mipixel_aggregate": true
+  },
+  "schema_version": 1,
+  "status": "identified_sources_with_preserved_auxiliary_check_failure"
+}

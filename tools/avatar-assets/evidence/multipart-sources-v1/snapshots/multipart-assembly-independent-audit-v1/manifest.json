@@ -1,0 +1,81 @@
+{
+  "bytes": 88659,
+  "candidate_sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+  "files": [
+    {
+      "bytes": 1516,
+      "path": "README.md",
+      "sha256": "aa1b2cd81e3c66ef1b9a661323ac8543a69bb825397b5c01e1765533db22763e"
+    },
+    {
+      "bytes": 779,
+      "path": "audit-handle.json",
+      "sha256": "6da888ab3baac58178e03cb74176f3420acd5bcb430bb01c9afed40667559f35"
+    },
+    {
+      "bytes": 1513,
+      "path": "audit-monitor.json",
+      "sha256": "97b9e51bf318e1abb283e1694a744de45b26eb930b3ed9d66bbb3442eabef21f"
+    },
+    {
+      "bytes": 0,
+      "path": "audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1524,
+      "path": "execution-inputs.json",
+      "sha256": "8817c3c2fc7017d50e5d549d946dec86ac436fadab428e10b5b0298a244410f7"
+    },
+    {
+      "bytes": 2070,
+      "path": "inputs/compose.json",
+      "sha256": "9fdc398d19db732ecfaefa10ba9a3f6aa1b95dd284389737245fbd15b748c343"
+    },
+    {
+      "bytes": 2287,
+      "path": "inputs/layout.json",
+      "sha256": "b8bf35283636c211cfcf3528dcb808bd164e9e0ffea244cb7d99ef6af64c00d5"
+    },
+    {
+      "bytes": 2777,
+      "path": "inputs/prepared.json",
+      "sha256": "ed03bd2f038ea41900ac2a6d9cefdb62eeb068c124a5f2985c1ab162da568998"
+    },
+    {
+      "bytes": 10507,
+      "path": "inputs/worker-result.json",
+      "sha256": "fcb7636cae20ec59cff5e7469d1749ab5b196c5823b5ec7bad6e859b23440737"
+    },
+    {
+      "bytes": 1641,
+      "path": "job.json",
+      "sha256": "2c2e70de14bfce22c81ea20d3f2df4dd47565ad6f5d825400f9beebbdc675af6"
+    },
+    {
+      "bytes": 5022,
+      "path": "result.json",
+      "sha256": "7abc9aa106b4de8993ad556903131262fe177593d851fb063845fe105de291bc"
+    },
+    {
+      "bytes": 2616,
+      "path": "review.json",
+      "sha256": "ea06393223d5de566787c744d9928211cf5cd0dd3ddc6b73c18fcc7af8a02539"
+    },
+    {
+      "bytes": 21084,
+      "path": "sources/audit_assembly.py",
+      "sha256": "ae4e282614e2ac95579063340e3025e59a09c87f1bb9149c4e4575f06c9f12c6"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ],
+  "live_jobs": [],
+  "native_provider_role_calls": 0,
+  "no_visual_rig_animation_acceptance": true,
+  "schema_version": 1,
+  "status": "sealed_independent_cpu_audit_pass"
+}

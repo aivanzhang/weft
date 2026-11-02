@@ -1,0 +1,199 @@
+{
+  "animation_verified": false,
+  "artifacts": [
+    {
+      "bytes": 3544,
+      "path": "component-dragon-report.json",
+      "sha256": "4459f60a79b7dea1e5b334d657bf6cbcaa2895f8731b1e9513cfb4d4f2cf6639"
+    },
+    {
+      "bytes": 3399,
+      "path": "component-robot-report.json",
+      "sha256": "c4324d6692e4429aa02a5d8dd6b87d78faf036575f45874fac5105e8e04ba300"
+    },
+    {
+      "bytes": 2070,
+      "path": "config.original.json",
+      "sha256": "9fdc398d19db732ecfaefa10ba9a3f6aa1b95dd284389737245fbd15b748c343"
+    },
+    {
+      "bytes": 2153,
+      "path": "config.worker.json",
+      "sha256": "05bdff9c5030848e64a11085da98cd6f08ac4227bbf05574ae017ea1b8a1fee1"
+    },
+    {
+      "bytes": 4011,
+      "path": "execution.json",
+      "sha256": "9e5e725c1286e063ee283cf90971e71b8d0b715108178f919df27b8423a7071d"
+    },
+    {
+      "bytes": 25349908,
+      "path": "inputs/dragon.glb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb"
+    },
+    {
+      "bytes": 23097200,
+      "path": "inputs/robot.glb",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c"
+    },
+    {
+      "bytes": 1641,
+      "path": "job.json",
+      "sha256": "c8f324c9f5f868a46f7c73eb119f62ff97f07839e7a0d608da5f25c68258393d"
+    },
+    {
+      "bytes": 728,
+      "path": "metadata-admission.json",
+      "sha256": "099763211f52675e0581c618cdf7ef1975c644ed48115adc28ea49096e45d78b"
+    },
+    {
+      "bytes": 50393860,
+      "path": "model.glb",
+      "sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 42821,
+      "path": "sources/avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6"
+    },
+    {
+      "bytes": 13676,
+      "path": "sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 2710,
+      "path": "sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 754,
+      "path": "worker-handle.json",
+      "sha256": "7258c9b32285038733f40dd8ea8c1fe93e3e49c7b66a57ab69a05ca6ecc825fc"
+    },
+    {
+      "bytes": 1497,
+      "path": "worker-monitor.json",
+      "sha256": "7f52c0c5182c9d95ceed52311c8c7c2e4f1c1b77d22bba03b72103f07aec7f00"
+    },
+    {
+      "bytes": 10507,
+      "path": "worker-result.json",
+      "sha256": "fcb7636cae20ec59cff5e7469d1749ab5b196c5823b5ec7bad6e859b23440737"
+    },
+    {
+      "bytes": 53,
+      "path": "worker.log",
+      "sha256": "828b8328202f6fb08a776d95f2d289dbcfd45242718beadc532905bd50e0ed90"
+    }
+  ],
+  "components": [
+    {
+      "bytes": 23097200,
+      "id": "robot",
+      "original_file_state": {
+        "bytes": 23097200,
+        "device": 16777232,
+        "inode": 25449270,
+        "mtime_ns": 1793470620412650144
+      },
+      "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+      "requested_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "snapshot": "inputs/robot.glb"
+    },
+    {
+      "bytes": 25349908,
+      "id": "dragon",
+      "original_file_state": {
+        "bytes": 25349908,
+        "device": 16777232,
+        "inode": 25608334,
+        "mtime_ns": 1793506280203701814
+      },
+      "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "requested_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "snapshot": "inputs/dragon.glb"
+    }
+  ],
+  "elapsed_seconds": 0.37797325011342764,
+  "kind": "unrigged_source_assembly",
+  "limitations": [
+    "Unrigged local assembly; no recovered attachments, actions or rig.",
+    "No welding, decimation, intersection repair or body smoothing.",
+    "Missing tangents remain missing; raw source composition is not final HD shading validation.",
+    "Multiple source textures are preserved; this does not enable heterogeneous texture grooming."
+  ],
+  "model_sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+  "policy": "unrigged-local-assembly-v1",
+  "quality_approved": false,
+  "rig_created": false,
+  "rights_scope": "Authored config declaration and exact original bytes; not independent rights verification",
+  "schema_version": 1,
+  "source_snapshots": [
+    {
+      "bytes": 42821,
+      "path": "avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6",
+      "snapshot": "sources/avatar_assets/compose_sources.py"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 13676,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 96,
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 2710,
+      "path": "scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "sources/scripts/blender_creature_rig.py"
+    }
+  ],
+  "status": "unrigged_local_assembly"
+}

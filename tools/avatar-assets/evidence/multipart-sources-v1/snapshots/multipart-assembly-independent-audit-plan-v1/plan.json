@@ -1,0 +1,67 @@
+{
+  "awaiting": "Parent concrete assembler config/transform/remap contract and actual output",
+  "candidate_path": null,
+  "candidate_sha256": null,
+  "checks": [
+    "Bind exact source/config/producer/result hashes; use an independent checker, not producer success flags.",
+    "Resolve every output component primitive back to exact source indices and attributes; no deleted/duplicated/altered triangles or undocumented normal/UV changes.",
+    "Check exact original embedded image bytes and all basecolor/normal/MR material routes, scalar factors, alpha/culling and sampler defaults after index remap.",
+    "Verify component node/transform matrices against the frozen explicit assembly config; compare source points transformed independently with actual output world coordinates. No inferred physical scale or anatomy.",
+    "Require distinct component identity and complete source coverage; reject ambiguous material/node ownership and orphan/extra geometry.",
+    "Check unrigged/no-animation status remains honest; no new skin, clip or simulated-joint mapping can be inferred from composition.",
+    "Enforce100k vertices,100k triangles,64MiB aggregate sources/output,16Mi-pixels each and6*16,777,216 aggregate texture pixels without full texture decode.",
+    "Record exact normals/UV/tangent handling according to concrete contract; reject undocumented changes or active-UV normal-map mismatches.",
+    "Preserve unknown appearance, contacts/intersection and future native memory/quality limits."
+  ],
+  "expected_numeric_totals": {
+    "actual_assembled_file_size": null,
+    "compressed_image_bytes": 44793693,
+    "image_dimensions_per_source": [
+      "4096x4096",
+      "2048x2048",
+      "4096x4096"
+    ],
+    "new_aggregate_cap_exact_pixels": 100663296,
+    "rgb8_decoded_bytes": 226492416,
+    "rgba8_decoded_bytes": 301989888,
+    "source_file_bytes": 48447108,
+    "source_file_mib": 46.202762603759766,
+    "triangles": 87821,
+    "unique_image_pixels": 75497472,
+    "unique_images": 6,
+    "vertices": 81091,
+    "within_100k_vertex_triangle_limits": true,
+    "within_16mp_each": true,
+    "within_64mib_source_sum": true,
+    "within_new_96_mipixel_aggregate": true
+  },
+  "live_jobs": [],
+  "native_provider_role_calls": 0,
+  "proposed_cpu_bounds": {
+    "output_mib": 16,
+    "rss_mib": 512,
+    "seconds": 30
+  },
+  "ready": false,
+  "schema_version": 1,
+  "scope": "Independent CPU custody/semantic audit only; not an assembler implementation, render or quality claim",
+  "sources": [
+    {
+      "bytes": 23097200,
+      "id": "workshop-robot-meshy-v1",
+      "path": "outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "triangles": 51320,
+      "vertices": 45081
+    },
+    {
+      "bytes": 25349908,
+      "id": "emerald-dragon-meshy-v1",
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "triangles": 36501,
+      "vertices": 36010
+    }
+  ],
+  "status": "planned_not_executed"
+}

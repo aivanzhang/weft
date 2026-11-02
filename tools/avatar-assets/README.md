@@ -15,6 +15,9 @@ The [current local quality work](docs/quality-next-step.md) also removes an unus
 shared-image requirement for non-color-driven finishing. An existing mixed-material
 lamp passes the public finisher; this is an integration check, not a new generated
 avatar or a Muse-quality result.
+The new [separate-source composer](docs/multipart-sources.md) preserves complete
+character parts, materials and textures in one unrigged GLB. It is tested on the
+saved robot and dragon; automatic multipart generation and animation remain separate work.
 
 ## Create from a prompt — studio acceptance pending
 

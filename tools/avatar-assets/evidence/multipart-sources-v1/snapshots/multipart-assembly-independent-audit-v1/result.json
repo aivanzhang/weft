@@ -1,0 +1,204 @@
+{
+  "ai_role_calls": 0,
+  "appearance_accepted": false,
+  "candidate_sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+  "canonical_rig_prediction": {
+    "actual_rig_or_motion_verified": false,
+    "blender_offset_before_scale": [
+      -0.05177837610244751,
+      0.03615683317184448,
+      0.0
+    ],
+    "receipt_errors": {
+      "offset": 0.0,
+      "scale": 0.0,
+      "translation": 0.0
+    },
+    "requested_height_m": 1.2,
+    "status": "verified_prediction_not_applied",
+    "translation_before_scale": [
+      0.05177837610244751,
+      -0.03615683317184448,
+      -0.0
+    ],
+    "uniform_scale": 0.9999999602635717
+  },
+  "components": [
+    {
+      "declared_height_m": 1.2,
+      "id": "robot",
+      "output_bounds": {
+        "max": [
+          -0.4298599660396576,
+          1.2000000476837158,
+          0.22819998860359192
+        ],
+        "min": [
+          -1.170140027999878,
+          0.0,
+          -0.22819998860359192
+        ]
+      },
+      "primitives": [
+        {
+          "exact_other_attributes": [
+            "TEXCOORD_0"
+          ],
+          "normal_error": 0.0,
+          "output_primitive": 0,
+          "position_error_m": 5.959248561282493e-08,
+          "triangles": 51320,
+          "vertices": 45081
+        }
+      ],
+      "rotation_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale": 0.6309314317008219,
+      "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "translation_m": [
+        -0.7999138812435511,
+        0.6005047724927666,
+        -0.0019227516634975402
+      ]
+    },
+    {
+      "declared_height_m": 0.9,
+      "id": "dragon",
+      "output_bounds": {
+        "max": [
+          1.066583275794983,
+          0.8999999761581421,
+          0.570164144039154
+        ],
+        "min": [
+          0.49401789903640747,
+          0.0,
+          -0.642477810382843
+        ]
+      },
+      "primitives": [
+        {
+          "exact_other_attributes": [
+            "TEXCOORD_0"
+          ],
+          "normal_error": 2.980192559398631e-08,
+          "output_primitive": 1,
+          "position_error_m": 5.9408629571322535e-08,
+          "triangles": 36501,
+          "vertices": 36010
+        }
+      ],
+      "rotation_matrix": [
+        [
+          0.9396926207859084,
+          -0.0,
+          -0.34202014332566877
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        [
+          0.34202014332566877,
+          0.0,
+          0.9396926207859084
+        ]
+      ],
+      "scale": 0.6422194486297619,
+      "source_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "translation_m": [
+        0.852088179659012,
+        0.44954082111143834,
+        -0.007158624113056858
+      ]
+    }
+  ],
+  "elapsed_seconds": 0.15090004075318575,
+  "images": [
+    {
+      "bytes": 11693486,
+      "height": 4096,
+      "mimeType": "image/jpeg",
+      "sha256": "0a7adf38101bd15eb33c681c8f26eb7827bd8ce3d8b8193c531dd332523f1bf2",
+      "width": 4096
+    },
+    {
+      "bytes": 1852579,
+      "height": 2048,
+      "mimeType": "image/jpeg",
+      "sha256": "4bd20181339c497da3da4ce366e6fc549face271a506fef16b03447627589034",
+      "width": 2048
+    },
+    {
+      "bytes": 7490387,
+      "height": 4096,
+      "mimeType": "image/jpeg",
+      "sha256": "cf7aba8303931f01d3f803f23719f52670f141eb6eee078690077130684e7231",
+      "width": 4096
+    },
+    {
+      "bytes": 13197586,
+      "height": 4096,
+      "mimeType": "image/jpeg",
+      "sha256": "4796cfd19907af48cebe547022a838719d24183261b242ffb4f5b1977441b096",
+      "width": 4096
+    },
+    {
+      "bytes": 1450432,
+      "height": 2048,
+      "mimeType": "image/jpeg",
+      "sha256": "b90a5165b6ba717a11ce5b4e93c80e092301ab4535d12a4a35f575a81eafe63e",
+      "width": 2048
+    },
+    {
+      "bytes": 9109223,
+      "height": 4096,
+      "mimeType": "image/jpeg",
+      "sha256": "3a04c7d2744aa7a756ad4f9c74917f85494d054acba6373a513636bef6c63b13",
+      "width": 4096
+    }
+  ],
+  "native_calls": 0,
+  "new_animation": false,
+  "new_rig": false,
+  "output_bounds_gltf": {
+    "max": [
+      1.066583275794983,
+      1.2000000476837158,
+      0.570164144039154
+    ],
+    "min": [
+      -1.170140027999878,
+      0.0,
+      -0.642477810382843
+    ]
+  },
+  "output_bytes": 50393860,
+  "process_high_water_rss_bytes": 248479744,
+  "producer_status_not_used_as_acceptance": "unrigged_local_assembly",
+  "provider_calls": 0,
+  "receipt_sha256": "fcb7636cae20ec59cff5e7469d1749ab5b196c5823b5ec7bad6e859b23440737",
+  "schema_version": 1,
+  "scope": "Independent attribute/transform/material custody only; no visual or animation acceptance",
+  "source_file_bytes": 48447108,
+  "status": "verified_assembly_custody_and_canonical_prediction",
+  "texture_pixels": 75497472,
+  "triangles": 87821,
+  "vertices": 81091
+}

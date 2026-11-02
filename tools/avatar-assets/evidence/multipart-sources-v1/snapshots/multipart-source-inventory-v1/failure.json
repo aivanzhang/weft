@@ -1,0 +1,6 @@
+{
+  "message": "",
+  "status": "failed",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multipart-source-inventory-v1/inspect_sources.py\", line 160, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multipart-source-inventory-v1/inspect_sources.py\", line 125, in main\n    records.append(inspect(case))\n                   ~~~~~~~^^^^^^\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multipart-source-inventory-v1/inspect_sources.py\", line 69, in inspect\n    assert node['mesh'] == 0 and node.get('matrix') == [1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1.]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "type": "AssertionError"
+}

@@ -1,0 +1,88 @@
+{
+  "components": [
+    {
+      "authored_base_center_m": [
+        -0.8,
+        0,
+        0
+      ],
+      "authored_height_m": 1.2,
+      "authored_yaw_degrees": 0.0,
+      "id": "robot",
+      "placement_is_automatic_identity_inference": false,
+      "source_bounds": {
+        "max": [
+          0.5865200161933899,
+          0.9501749277114868,
+          0.364734947681427
+        ],
+        "min": [
+          -0.5867930054664612,
+          -0.9517750144004822,
+          -0.35863998532295227
+        ]
+      },
+      "source_path": "outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+      "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "transformed_bounds": {
+        "max": [
+          -0.4298599677054664,
+          1.1999999999999997,
+          0.22819999106846958
+        ],
+        "min": [
+          -1.1701400322945337,
+          0.0,
+          -0.22819999106846955
+        ]
+      },
+      "units_measured": false
+    },
+    {
+      "authored_base_center_m": [
+        0.85,
+        0,
+        0
+      ],
+      "authored_height_m": 0.9,
+      "authored_yaw_degrees": -20.0,
+      "id": "dragon",
+      "placement_is_automatic_identity_inference": false,
+      "source_bounds": {
+        "max": [
+          0.46567198634147644,
+          0.7014100551605225,
+          0.9508010745048523
+        ],
+        "min": [
+          -0.4641580283641815,
+          -0.6999800801277161,
+          -0.9276279807090759
+        ]
+      },
+      "source_path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "source_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "transformed_bounds": {
+        "max": [
+          1.0665832434712712,
+          0.8999999999999999,
+          0.5701641168031589
+        ],
+        "min": [
+          0.49401788940905633,
+          0.0,
+          -0.6424778242711403
+        ]
+      },
+      "units_measured": false
+    }
+  ],
+  "description": "Uniform authored layout only; original source bytes are unchanged.",
+  "elapsed_seconds": 0.06679549999535084,
+  "geometry_modified": false,
+  "native_calls": 0,
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "schema_version": 1,
+  "status": "prepared_not_executed"
+}

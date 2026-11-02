@@ -1,0 +1,45 @@
+{
+  "calls": {
+    "ai_roles": 0,
+    "browser": 0,
+    "native": 0,
+    "provider": 0
+  },
+  "job_sha256": "2c2e70de14bfce22c81ea20d3f2df4dd47565ad6f5d825400f9beebbdc675af6",
+  "limitations": [
+    "Reuses two already-generated standalone sources; no fresh neural generation or shoulder-companion identity.",
+    "The canonical transform is a numerical future-rig prediction, not a created rig or native transform verification.",
+    "No pixels were decoded or rendered by this audit; no visual quality, watertightness, contacts, physical accuracy, animation or GPU/native memory-fit acceptance.",
+    "The checker supports this explicit unique-material primitive correspondence; it does not prove arbitrary repeated-material assemblies.",
+    "Prior source-inventory raw-versus-textured auxiliary failure remains preserved; this audit uses only the exact textured originals and makes no interchangeability claim."
+  ],
+  "live_jobs": [],
+  "model": {
+    "bytes": 50393860,
+    "path": "outputs/robot-dragon-source-assembly-v1/model.glb",
+    "sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127"
+  },
+  "result_sha256": "7abc9aa106b4de8993ad556903131262fe177593d851fb063845fe105de291bc",
+  "reviewed_at": "2026-11-02T04:29:32.208795-08:00",
+  "runtime": {
+    "checker_seconds": 0.15090004075318575,
+    "exit_code": 0,
+    "pid": 81725,
+    "process_exit_verified": true,
+    "process_high_water_rss_bytes": 248479744,
+    "rss_note": "Child completed before first periodic RSS sample; macOS process high-water RSS is separate, not a sampled monitor peak.",
+    "runner_seconds": 0.262,
+    "sampled_peak_rss_bytes": null
+  },
+  "schema_version": 1,
+  "status": "independent_cpu_custody_pass",
+  "verified": [
+    "Every source primitive, position row and oriented index sequence is represented exactly once under the fixed transform.",
+    "UV0/index bytes and all six embedded image bytes remain exact; PBR/normal/MR/alpha/culling/sampler semantics and component namespacing are preserved.",
+    "One identity node/mesh; no extra rendered primitive/material/texture/image/sampler, skin or animation.",
+    "Independent float64 transform comparison: maximum position error 5.959248561282493e-8 m; maximum normal component error 2.980192559398631e-8. Robot normals are byte-exact.",
+    "Authored heights 1.2 m and0.9 m/base y=0 hold within float32 rounding.",
+    "Canonical Blender [x,-z,y] recenter/height-scale prediction matches receipt exactly and is not applied.",
+    "81,091 vertices/87,821 triangles;50,393,860-byte output;75,497,472 image pixels satisfy declared bounds."
+  ]
+}

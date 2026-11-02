@@ -1,0 +1,34 @@
+{
+  "ai_role_calls": 0,
+  "assembly_manifest_sha256": "a182cc11bbadb8a4559c00e7c50e6771a30765950fac9b7d7bb96bac35f1e9a7",
+  "bounds": {
+    "output_mib": 16,
+    "rss_mib": 512,
+    "seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multipart-assembly-independent-audit-preparation-v1/audit_assembly.py",
+    "--model",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-source-assembly-v1/model.glb",
+    "--expected-sha256",
+    "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+    "--receipt",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-source-assembly-v1/worker-result.json",
+    "--receipt-sha256",
+    "fcb7636cae20ec59cff5e7469d1749ab5b196c5823b5ec7bad6e859b23440737",
+    "--out",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multipart-assembly-independent-audit-v1"
+  ],
+  "hashes": {
+    "model": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+    "receipt": "fcb7636cae20ec59cff5e7469d1749ab5b196c5823b5ec7bad6e859b23440737",
+    "script": "ae4e282614e2ac95579063340e3025e59a09c87f1bb9149c4e4575f06c9f12c6"
+  },
+  "native_calls": 0,
+  "preparation_manifest_sha256": "4307e7e4cb0d19b21f42eaf5188cdfae1df11370be660eb0afea1b95148d02ba",
+  "provider_calls": 0,
+  "runner_sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+  "schema_version": 1,
+  "status": "released_once"
+}

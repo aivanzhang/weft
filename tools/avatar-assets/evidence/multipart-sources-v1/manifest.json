@@ -1,0 +1,972 @@
+{
+  "actual_public_composition": true,
+  "animation_verified": false,
+  "approved_assets_unchanged": true,
+  "artifacts": [
+    {
+      "bytes": 1621,
+      "origin": "outputs/quality-material-clumps-publication-v1/publication.json",
+      "sha256": "1d2b2fdf30ca90738f7aad4ea88f35552a832f4544756ad683005e85cc5b6aca",
+      "snapshot": "snapshots/quality-material-clumps-publication-v1/publication.json"
+    },
+    {
+      "bytes": 245,
+      "origin": "outputs/multipart-source-inventory-v1/execution-inputs.json",
+      "sha256": "ac750f809f4a3efcaff907fee5f7591ce7fc6300d4dba17ceafe492ecad2cd4f",
+      "snapshot": "snapshots/multipart-source-inventory-v1/execution-inputs.json"
+    },
+    {
+      "bytes": 884,
+      "origin": "outputs/multipart-source-inventory-v1/failure.json",
+      "sha256": "d811087dcc268ed5fb8a0aecf84fc45543186b1f9e9ed809adfe4b0e9e7c39b0",
+      "snapshot": "snapshots/multipart-source-inventory-v1/failure.json"
+    },
+    {
+      "bytes": 1916,
+      "origin": "outputs/multipart-source-inventory-v1/inputs/emerald-dragon-meshy-v1-config.json",
+      "sha256": "54a48a877468ff490152bad560853bdead63eedce0de5ffd655b55083c34f319",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inputs/emerald-dragon-meshy-v1-config.json"
+    },
+    {
+      "bytes": 3004,
+      "origin": "outputs/multipart-source-inventory-v1/inputs/emerald-dragon-meshy-v1-plan.json",
+      "sha256": "d74a91542e849fa16bcbc8c5e04526d9260bcf9000a45cc02b34d70f15010800",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inputs/emerald-dragon-meshy-v1-plan.json"
+    },
+    {
+      "bytes": 1702,
+      "origin": "outputs/multipart-source-inventory-v1/inputs/workshop-robot-meshy-v1-config.json",
+      "sha256": "79f676c5de1b00a2696d26183a2db5dd736dc3ae4cedd0142753ab4cf2df6f10",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inputs/workshop-robot-meshy-v1-config.json"
+    },
+    {
+      "bytes": 2814,
+      "origin": "outputs/multipart-source-inventory-v1/inputs/workshop-robot-meshy-v1-plan.json",
+      "sha256": "e4aa94dcc2f979f6f741ceaa2198c1416634a09eb9b0c2323b580d64ab898389",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inputs/workshop-robot-meshy-v1-plan.json"
+    },
+    {
+      "bytes": 8717,
+      "origin": "outputs/multipart-source-inventory-v1/inspect_sources.py",
+      "sha256": "964f1a1303fe59039eb23f424b598836b8b3b724564b5cb1b00125bd5d60ee35",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inspect_sources.py"
+    },
+    {
+      "bytes": 248,
+      "origin": "outputs/multipart-source-inventory-v1/inventory-handle.json",
+      "sha256": "683721c8a5af330879d462abda0dba87ea9e577b931cabc2bd0837037399a3ac",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inventory-handle.json"
+    },
+    {
+      "bytes": 986,
+      "origin": "outputs/multipart-source-inventory-v1/inventory-monitor.json",
+      "sha256": "1ba2559a1ae5376aaa508d90f9fa008a6133b68df8ae9a601be7808294ea2d02",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inventory-monitor.json"
+    },
+    {
+      "bytes": 778,
+      "origin": "outputs/multipart-source-inventory-v1/inventory.log",
+      "sha256": "9d6b4990a28782407525634f6abd2f7fbdfe41955ff0d341d35c6051a943e93f",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inventory.log"
+    },
+    {
+      "bytes": 1074,
+      "origin": "outputs/multipart-source-inventory-v1/job.json",
+      "sha256": "d6b9c48f6f3c9b47d2b153bebb92ce47fa15fe5ee2909535632afecc86eebccd",
+      "snapshot": "snapshots/multipart-source-inventory-v1/job.json"
+    },
+    {
+      "bytes": 3139,
+      "origin": "outputs/multipart-source-inventory-v1/manifest.json",
+      "sha256": "eb908e33eaadc1e89acda9636372c1fc641f03bba55b214053ece3d966803834",
+      "snapshot": "snapshots/multipart-source-inventory-v1/manifest.json"
+    },
+    {
+      "bytes": 4404,
+      "origin": "outputs/multipart-source-inventory-v1/prepared.json",
+      "sha256": "b517de0fe01d4048b0d22706cfc69188920d77f7c78365a9be4c450713f99dd8",
+      "snapshot": "snapshots/multipart-source-inventory-v1/prepared.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/multipart-source-inventory-v1/sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/multipart-source-inventory-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/multipart-source-inventory-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/multipart-source-inventory-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 1671,
+      "origin": "outputs/multipart-source-inventory-v2/README.md",
+      "sha256": "4acd8a37b238d04c25819c6b318735c14e924b96e6a888eee6c0dc0f8c051240",
+      "snapshot": "snapshots/multipart-source-inventory-v2/README.md"
+    },
+    {
+      "bytes": 861,
+      "origin": "outputs/multipart-source-inventory-v2/checker-only.diff",
+      "sha256": "3e19487976315d72f55fafa51068fff06e12049e970adfd8877ca29e207248b1",
+      "snapshot": "snapshots/multipart-source-inventory-v2/checker-only.diff"
+    },
+    {
+      "bytes": 245,
+      "origin": "outputs/multipart-source-inventory-v2/execution-inputs.json",
+      "sha256": "5dfcc5597f90b1dfed1ec4fb335c2505661ac82ed08d467b16e8e538c975742e",
+      "snapshot": "snapshots/multipart-source-inventory-v2/execution-inputs.json"
+    },
+    {
+      "bytes": 473,
+      "origin": "outputs/multipart-source-inventory-v2/failure.json",
+      "sha256": "fc3e1453fe4ed7733bfa83e422f629382c885b514f2cd388f8463f4cc776d083",
+      "snapshot": "snapshots/multipart-source-inventory-v2/failure.json"
+    },
+    {
+      "bytes": 1916,
+      "origin": "outputs/multipart-source-inventory-v2/inputs/emerald-dragon-meshy-v1-config.json",
+      "sha256": "54a48a877468ff490152bad560853bdead63eedce0de5ffd655b55083c34f319",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inputs/emerald-dragon-meshy-v1-config.json"
+    },
+    {
+      "bytes": 3004,
+      "origin": "outputs/multipart-source-inventory-v2/inputs/emerald-dragon-meshy-v1-plan.json",
+      "sha256": "d74a91542e849fa16bcbc8c5e04526d9260bcf9000a45cc02b34d70f15010800",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inputs/emerald-dragon-meshy-v1-plan.json"
+    },
+    {
+      "bytes": 28582,
+      "origin": "outputs/multipart-source-inventory-v2/inputs/prior-model-inventory.json",
+      "sha256": "4b198d29596085104d08c464fe4d84bb6140636738f5ca45ffff172a468b4ea4",
+      "snapshot": "snapshots/multipart-source-inventory-v2/inputs/prior-model-inventory.json"
+    },
+    {
+      "bytes": 1702,
+      "origin": "outputs/multipart-source-inventory-v2/inputs/workshop-robot-meshy-v1-config.json",
+      "sha256": "79f676c5de1b00a2696d26183a2db5dd736dc3ae4cedd0142753ab4cf2df6f10",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inputs/workshop-robot-meshy-v1-config.json"
+    },
+    {
+      "bytes": 2814,
+      "origin": "outputs/multipart-source-inventory-v2/inputs/workshop-robot-meshy-v1-plan.json",
+      "sha256": "e4aa94dcc2f979f6f741ceaa2198c1416634a09eb9b0c2323b580d64ab898389",
+      "snapshot": "snapshots/multipart-source-inventory-v1/inputs/workshop-robot-meshy-v1-plan.json"
+    },
+    {
+      "bytes": 8963,
+      "origin": "outputs/multipart-source-inventory-v2/inspect_sources.py",
+      "sha256": "44d67790be4446aae693ed1c99c54c7a0a3b510c73d82355d7e49396790688bb",
+      "snapshot": "snapshots/multipart-source-inventory-v2/inspect_sources.py"
+    },
+    {
+      "bytes": 248,
+      "origin": "outputs/multipart-source-inventory-v2/inventory-handle.json",
+      "sha256": "830b760fec31e02299367dbe49ee515e7bd49fcf784e133aa63e749151907808",
+      "snapshot": "snapshots/multipart-source-inventory-v2/inventory-handle.json"
+    },
+    {
+      "bytes": 986,
+      "origin": "outputs/multipart-source-inventory-v2/inventory-monitor.json",
+      "sha256": "107780a008c82a939932ce2e5c75e1093add8f3bb90e4b86ca3bd676493e4cbe",
+      "snapshot": "snapshots/multipart-source-inventory-v2/inventory-monitor.json"
+    },
+    {
+      "bytes": 11845,
+      "origin": "outputs/multipart-source-inventory-v2/inventory-summary.json",
+      "sha256": "cf6f1bc726d5e69f6171ced61156ab957ea40301f2b836ad4c2ccc9b0fa9749c",
+      "snapshot": "snapshots/multipart-source-inventory-v2/inventory-summary.json"
+    },
+    {
+      "bytes": 372,
+      "origin": "outputs/multipart-source-inventory-v2/inventory.log",
+      "sha256": "a147a73d4b93ae4a377b519cc16d3ca73b3ea154658bf0e7da961b73700a6b3b",
+      "snapshot": "snapshots/multipart-source-inventory-v2/inventory.log"
+    },
+    {
+      "bytes": 1074,
+      "origin": "outputs/multipart-source-inventory-v2/job.json",
+      "sha256": "8894c0f9ad542fa418158de096457225e1d36618a6e4008976cb8e0976e6c7e3",
+      "snapshot": "snapshots/multipart-source-inventory-v2/job.json"
+    },
+    {
+      "bytes": 3771,
+      "origin": "outputs/multipart-source-inventory-v2/manifest.json",
+      "sha256": "b3f7668b9edd822d2d22d18b378e87c3ff42890b14bbca76e28334975cff4420",
+      "snapshot": "snapshots/multipart-source-inventory-v2/manifest.json"
+    },
+    {
+      "bytes": 4686,
+      "origin": "outputs/multipart-source-inventory-v2/prepared.json",
+      "sha256": "505e5d74537679de0d4907d78ca1c6eb59a9d0a692a637f4202b385e740ec11f",
+      "snapshot": "snapshots/multipart-source-inventory-v2/prepared.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/multipart-source-inventory-v2/sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/multipart-source-inventory-v2/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/multipart-source-inventory-v2/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/multipart-source-inventory-v2/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 314,
+      "origin": "outputs/multipart-assembly-independent-audit-plan-v1/manifest.json",
+      "sha256": "561f9252857c0785528cd03939423e83f371d4db6c3c4ee7885ab291c3a89a77",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-plan-v1/manifest.json"
+    },
+    {
+      "bytes": 3145,
+      "origin": "outputs/multipart-assembly-independent-audit-plan-v1/plan.json",
+      "sha256": "6deaf2c7e9a72cdbd02d48205778d5054b964c7c9778cac5388db75c3c100a07",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-plan-v1/plan.json"
+    },
+    {
+      "bytes": 2449,
+      "origin": "outputs/multipart-assembly-independent-audit-preparation-v1/README.md",
+      "sha256": "bdb240a9e73ca3c015a521eb7764e9cb0501a9eeccf90c55db6cfd92b05e4383",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/README.md"
+    },
+    {
+      "bytes": 21084,
+      "origin": "outputs/multipart-assembly-independent-audit-preparation-v1/audit_assembly.py",
+      "sha256": "ae4e282614e2ac95579063340e3025e59a09c87f1bb9149c4e4575f06c9f12c6",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/audit_assembly.py"
+    },
+    {
+      "bytes": 2070,
+      "origin": "outputs/multipart-assembly-independent-audit-preparation-v1/inputs/compose.json",
+      "sha256": "9fdc398d19db732ecfaefa10ba9a3f6aa1b95dd284389737245fbd15b748c343",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/inputs/compose.json"
+    },
+    {
+      "bytes": 2287,
+      "origin": "outputs/multipart-assembly-independent-audit-preparation-v1/inputs/layout.json",
+      "sha256": "b8bf35283636c211cfcf3528dcb808bd164e9e0ffea244cb7d99ef6af64c00d5",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/inputs/layout.json"
+    },
+    {
+      "bytes": 1451,
+      "origin": "outputs/multipart-assembly-independent-audit-preparation-v1/manifest.json",
+      "sha256": "4307e7e4cb0d19b21f42eaf5188cdfae1df11370be660eb0afea1b95148d02ba",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/manifest.json"
+    },
+    {
+      "bytes": 2777,
+      "origin": "outputs/multipart-assembly-independent-audit-preparation-v1/prepared.json",
+      "sha256": "ed03bd2f038ea41900ac2a6d9cefdb62eeb068c124a5f2985c1ab162da568998",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/multipart-assembly-independent-audit-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/multipart-assembly-independent-audit-preparation-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 252,
+      "origin": "outputs/multipart-assembly-independent-audit-preparation-v1/syntax-only.json",
+      "sha256": "55b2f3eaf30f6924137699fa96d22e3e0793600e76f16f643beddb0438d59fbb",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/syntax-only.json"
+    },
+    {
+      "bytes": 2070,
+      "origin": "outputs/multipart-source-layout-v1/compose.json",
+      "sha256": "9fdc398d19db732ecfaefa10ba9a3f6aa1b95dd284389737245fbd15b748c343",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/inputs/compose.json"
+    },
+    {
+      "bytes": 1075,
+      "origin": "outputs/multipart-source-layout-v1/job.json",
+      "sha256": "41ebc36d92af78c8b975b15e0f8987f623d3a95e04811c1395fa2ef4760e2ac3",
+      "snapshot": "snapshots/multipart-source-layout-v1/job.json"
+    },
+    {
+      "bytes": 247,
+      "origin": "outputs/multipart-source-layout-v1/layout-handle.json",
+      "sha256": "150e34b5fc9c1d977e16f2d9bf3312965426884d573746f5d828494680a7e2e2",
+      "snapshot": "snapshots/multipart-source-layout-v1/layout-handle.json"
+    },
+    {
+      "bytes": 983,
+      "origin": "outputs/multipart-source-layout-v1/layout-monitor.json",
+      "sha256": "1a041f80eeea593e5d5e7f6e67a0ee592502a07718f745f08e56e076275c22db",
+      "snapshot": "snapshots/multipart-source-layout-v1/layout-monitor.json"
+    },
+    {
+      "bytes": 2287,
+      "origin": "outputs/multipart-source-layout-v1/layout.json",
+      "sha256": "b8bf35283636c211cfcf3528dcb808bd164e9e0ffea244cb7d99ef6af64c00d5",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/inputs/layout.json"
+    },
+    {
+      "bytes": 79,
+      "origin": "outputs/multipart-source-layout-v1/layout.log",
+      "sha256": "73bec06db9d95acaae10c0e66d630041e219a9b2fdbf02adf7a31c321f1f719a",
+      "snapshot": "snapshots/multipart-source-layout-v1/layout.log"
+    },
+    {
+      "bytes": 2326,
+      "origin": "outputs/multipart-source-layout-v1/manifest.json",
+      "sha256": "9b49409b43dc902bb66593688baa6ca960a168183ee5151cc348ad2a78150982",
+      "snapshot": "snapshots/multipart-source-layout-v1/manifest.json"
+    },
+    {
+      "bytes": 3536,
+      "origin": "outputs/multipart-source-layout-v1/prepare_layout.py",
+      "sha256": "8d8d6bf1a4ab9b69263e1b1f766f8c902a959cb8616c66aa9361f215589c9802",
+      "snapshot": "snapshots/multipart-source-layout-v1/prepare_layout.py"
+    },
+    {
+      "bytes": 1274,
+      "origin": "outputs/multipart-source-layout-v1/prepared.json",
+      "sha256": "d0385484c3a6561b0126833e4f460bef4b447d532703035238b7f1b85775564c",
+      "snapshot": "snapshots/multipart-source-layout-v1/prepared.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/multipart-source-layout-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/multipart-source-layout-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 9246,
+      "origin": "outputs/multipart-source-layout-v1/sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d",
+      "snapshot": "snapshots/multipart-source-layout-v1/sources/avatar_assets/normalize_generated.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/multipart-source-layout-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/multipart-source-layout-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/multipart-source-layout-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/multipart-source-layout-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/multipart-source-layout-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 1088,
+      "origin": "outputs/compose-sources-tests-v1/job.json",
+      "sha256": "5fb5c8052ec12b03e647dd04ca1f154809a63853c7ad3696ed4beda834d578b8",
+      "snapshot": "snapshots/compose-sources-tests-v1/job.json"
+    },
+    {
+      "bytes": 2353,
+      "origin": "outputs/compose-sources-tests-v1/manifest.json",
+      "sha256": "96cc0bba7de3dc2af31d902502f91c188e6bd9e29fe6b85880eba81cadf88bb7",
+      "snapshot": "snapshots/compose-sources-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 1720,
+      "origin": "outputs/compose-sources-tests-v1/prepared.json",
+      "sha256": "06574d3b6d9b241b0006227d77405416b41519fcf84354d103f3180529d1923c",
+      "snapshot": "snapshots/compose-sources-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 40,
+      "origin": "outputs/compose-sources-tests-v1/source-verification.json",
+      "sha256": "c2ee970942911d48a3c41b38b6f2393f291f63539709b9a6c1ba01286e0f309f",
+      "snapshot": "snapshots/compose-sources-tests-v1/source-verification.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/compose-sources-tests-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/multipart-source-layout-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 42821,
+      "origin": "outputs/compose-sources-tests-v1/sources/avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6",
+      "snapshot": "snapshots/compose-sources-tests-v1/sources/avatar_assets/compose_sources.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/compose-sources-tests-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/compose-sources-tests-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/compose-sources-tests-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/compose-sources-tests-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/multipart-source-layout-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/compose-sources-tests-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 2710,
+      "origin": "outputs/compose-sources-tests-v1/sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/compose-sources-tests-v1/sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "bytes": 20930,
+      "origin": "outputs/compose-sources-tests-v1/sources/tests/test_compose_sources.py",
+      "sha256": "28d66f712030b3b22f83281eac1692fb7b8352489de2c624f4543e770ce0e400",
+      "snapshot": "snapshots/compose-sources-tests-v1/sources/tests/test_compose_sources.py"
+    },
+    {
+      "bytes": 198,
+      "origin": "outputs/compose-sources-tests-v1/tests-handle.json",
+      "sha256": "eda0bfa4037f0a7ec79503ee049086bf14ee881e0633733e9e1c77119785cfbc",
+      "snapshot": "snapshots/compose-sources-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 982,
+      "origin": "outputs/compose-sources-tests-v1/tests-monitor.json",
+      "sha256": "308c7407e3751690c91e111d17fe1dad6bccd484f72588e070f63867b73f3917",
+      "snapshot": "snapshots/compose-sources-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 2651,
+      "origin": "outputs/compose-sources-tests-v1/tests.log",
+      "sha256": "cc7b113284effc998485f2af5fc1992d4373146790370421679c6ab7fc7d3578",
+      "snapshot": "snapshots/compose-sources-tests-v1/tests.log"
+    },
+    {
+      "bytes": 219,
+      "origin": "outputs/compose-sources-release-v1/manifest.json",
+      "sha256": "0d3e62ba12e545c7ee0773e959f7f1f54d35746d9da207d4f94c139bf137cf33",
+      "snapshot": "snapshots/compose-sources-release-v1/manifest.json"
+    },
+    {
+      "bytes": 4430,
+      "origin": "outputs/compose-sources-release-v1/receipt.json",
+      "sha256": "3a5918cc8d2750b9bfb579e6752d0e7de145840ec4605b88e4acd3bd5add6956",
+      "snapshot": "snapshots/compose-sources-release-v1/receipt.json"
+    },
+    {
+      "bytes": 3544,
+      "origin": "outputs/robot-dragon-source-assembly-v1/component-dragon-report.json",
+      "sha256": "4459f60a79b7dea1e5b334d657bf6cbcaa2895f8731b1e9513cfb4d4f2cf6639",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/component-dragon-report.json"
+    },
+    {
+      "bytes": 3399,
+      "origin": "outputs/robot-dragon-source-assembly-v1/component-robot-report.json",
+      "sha256": "c4324d6692e4429aa02a5d8dd6b87d78faf036575f45874fac5105e8e04ba300",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/component-robot-report.json"
+    },
+    {
+      "bytes": 2070,
+      "origin": "outputs/robot-dragon-source-assembly-v1/config.original.json",
+      "sha256": "9fdc398d19db732ecfaefa10ba9a3f6aa1b95dd284389737245fbd15b748c343",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/inputs/compose.json"
+    },
+    {
+      "bytes": 2153,
+      "origin": "outputs/robot-dragon-source-assembly-v1/config.worker.json",
+      "sha256": "05bdff9c5030848e64a11085da98cd6f08ac4227bbf05574ae017ea1b8a1fee1",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/config.worker.json"
+    },
+    {
+      "bytes": 4011,
+      "origin": "outputs/robot-dragon-source-assembly-v1/execution.json",
+      "sha256": "9e5e725c1286e063ee283cf90971e71b8d0b715108178f919df27b8423a7071d",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/execution.json"
+    },
+    {
+      "bytes": 1641,
+      "origin": "outputs/robot-dragon-source-assembly-v1/job.json",
+      "sha256": "c8f324c9f5f868a46f7c73eb119f62ff97f07839e7a0d608da5f25c68258393d",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/job.json"
+    },
+    {
+      "bytes": 6925,
+      "origin": "outputs/robot-dragon-source-assembly-v1/manifest.json",
+      "sha256": "a182cc11bbadb8a4559c00e7c50e6771a30765950fac9b7d7bb96bac35f1e9a7",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/manifest.json"
+    },
+    {
+      "bytes": 728,
+      "origin": "outputs/robot-dragon-source-assembly-v1/metadata-admission.json",
+      "sha256": "099763211f52675e0581c618cdf7ef1975c644ed48115adc28ea49096e45d78b",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/metadata-admission.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/robot-dragon-source-assembly-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/multipart-source-layout-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 42821,
+      "origin": "outputs/robot-dragon-source-assembly-v1/sources/avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6",
+      "snapshot": "snapshots/compose-sources-tests-v1/sources/avatar_assets/compose_sources.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/robot-dragon-source-assembly-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/compose-sources-tests-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/robot-dragon-source-assembly-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/robot-dragon-source-assembly-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/multipart-source-layout-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/robot-dragon-source-assembly-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 2710,
+      "origin": "outputs/robot-dragon-source-assembly-v1/sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/compose-sources-tests-v1/sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "bytes": 754,
+      "origin": "outputs/robot-dragon-source-assembly-v1/worker-handle.json",
+      "sha256": "7258c9b32285038733f40dd8ea8c1fe93e3e49c7b66a57ab69a05ca6ecc825fc",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/worker-handle.json"
+    },
+    {
+      "bytes": 1497,
+      "origin": "outputs/robot-dragon-source-assembly-v1/worker-monitor.json",
+      "sha256": "7f52c0c5182c9d95ceed52311c8c7c2e4f1c1b77d22bba03b72103f07aec7f00",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/worker-monitor.json"
+    },
+    {
+      "bytes": 10507,
+      "origin": "outputs/robot-dragon-source-assembly-v1/worker-result.json",
+      "sha256": "fcb7636cae20ec59cff5e7469d1749ab5b196c5823b5ec7bad6e859b23440737",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/worker-result.json"
+    },
+    {
+      "bytes": 53,
+      "origin": "outputs/robot-dragon-source-assembly-v1/worker.log",
+      "sha256": "828b8328202f6fb08a776d95f2d289dbcfd45242718beadc532905bd50e0ed90",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/worker.log"
+    },
+    {
+      "bytes": 1516,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/README.md",
+      "sha256": "aa1b2cd81e3c66ef1b9a661323ac8543a69bb825397b5c01e1765533db22763e",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-v1/README.md"
+    },
+    {
+      "bytes": 779,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/audit-handle.json",
+      "sha256": "6da888ab3baac58178e03cb74176f3420acd5bcb430bb01c9afed40667559f35",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-v1/audit-handle.json"
+    },
+    {
+      "bytes": 1513,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/audit-monitor.json",
+      "sha256": "97b9e51bf318e1abb283e1694a744de45b26eb930b3ed9d66bbb3442eabef21f",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-v1/audit-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 1524,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/execution-inputs.json",
+      "sha256": "8817c3c2fc7017d50e5d549d946dec86ac436fadab428e10b5b0298a244410f7",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-v1/execution-inputs.json"
+    },
+    {
+      "bytes": 2070,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/inputs/compose.json",
+      "sha256": "9fdc398d19db732ecfaefa10ba9a3f6aa1b95dd284389737245fbd15b748c343",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/inputs/compose.json"
+    },
+    {
+      "bytes": 2287,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/inputs/layout.json",
+      "sha256": "b8bf35283636c211cfcf3528dcb808bd164e9e0ffea244cb7d99ef6af64c00d5",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/inputs/layout.json"
+    },
+    {
+      "bytes": 2777,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/inputs/prepared.json",
+      "sha256": "ed03bd2f038ea41900ac2a6d9cefdb62eeb068c124a5f2985c1ab162da568998",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 10507,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/inputs/worker-result.json",
+      "sha256": "fcb7636cae20ec59cff5e7469d1749ab5b196c5823b5ec7bad6e859b23440737",
+      "snapshot": "snapshots/robot-dragon-source-assembly-v1/worker-result.json"
+    },
+    {
+      "bytes": 1641,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/job.json",
+      "sha256": "2c2e70de14bfce22c81ea20d3f2df4dd47565ad6f5d825400f9beebbdc675af6",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-v1/job.json"
+    },
+    {
+      "bytes": 2418,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/manifest.json",
+      "sha256": "3ea20e55cfc3d9c60ad55602cd250582237ce4db772adc969ca153e6ab48ffeb",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-v1/manifest.json"
+    },
+    {
+      "bytes": 5022,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/result.json",
+      "sha256": "7abc9aa106b4de8993ad556903131262fe177593d851fb063845fe105de291bc",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-v1/result.json"
+    },
+    {
+      "bytes": 2616,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/review.json",
+      "sha256": "ea06393223d5de566787c744d9928211cf5cd0dd3ddc6b73c18fcc7af8a02539",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-v1/review.json"
+    },
+    {
+      "bytes": 21084,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/sources/audit_assembly.py",
+      "sha256": "ae4e282614e2ac95579063340e3025e59a09c87f1bb9149c4e4575f06c9f12c6",
+      "snapshot": "snapshots/multipart-assembly-independent-audit-preparation-v1/audit_assembly.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/multipart-assembly-independent-audit-v1/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 1189,
+      "origin": "outputs/multipart-public-verification-v1/job.json",
+      "sha256": "e105638198fac8d647d4e60f2f6f17fa621bb0bad9617f12af996f5f6db9b2d8",
+      "snapshot": "snapshots/multipart-public-verification-v1/job.json"
+    },
+    {
+      "bytes": 3476,
+      "origin": "outputs/multipart-public-verification-v1/manifest.json",
+      "sha256": "01bf971d1b8ca1a948797843c9b7584fb9872ed3599475d950dee0bf61c0c807",
+      "snapshot": "snapshots/multipart-public-verification-v1/manifest.json"
+    },
+    {
+      "bytes": 576,
+      "origin": "outputs/multipart-public-verification-v1/request.json",
+      "sha256": "969cb1e90229e9c1fefaf4da0d00cab2ce643b71e1320ea3a7f2f1189f5b2561",
+      "snapshot": "snapshots/multipart-public-verification-v1/request.json"
+    },
+    {
+      "bytes": 298,
+      "origin": "outputs/multipart-public-verification-v1/verify-handle.json",
+      "sha256": "087fe2a3438faf6f4af0266b30cedac0d7acd5ce9a1ac3f6439fb81c98616be4",
+      "snapshot": "snapshots/multipart-public-verification-v1/verify-handle.json"
+    },
+    {
+      "bytes": 1079,
+      "origin": "outputs/multipart-public-verification-v1/verify-monitor.json",
+      "sha256": "56ab98990c879281bc66501e2cd9fae37ed1b1164ffd4f4a92238b235b984c96",
+      "snapshot": "snapshots/multipart-public-verification-v1/verify-monitor.json"
+    },
+    {
+      "bytes": 1257,
+      "origin": "outputs/multipart-public-verification-v1/verify.log",
+      "sha256": "428edc81cc383da84ed80912185180ab7556b6b214f0f8e42590751ffe8ccfd9",
+      "snapshot": "snapshots/multipart-public-verification-v1/verify.log"
+    },
+    {
+      "bytes": 5556,
+      "origin": "outputs/multipart-native-preview-preparation-v1/execute.py",
+      "sha256": "8d9e7fa05ee2353ea6a3cffd52ab627685a0bd2f27ed66542cbf58e974ee09a9",
+      "snapshot": "snapshots/multipart-native-preview-preparation-v1/execute.py"
+    },
+    {
+      "bytes": 1224,
+      "origin": "outputs/multipart-native-preview-preparation-v1/manifest.json",
+      "sha256": "b1b209005b0d65613cdb118e0f965517346b690d983b14290a062bc8f6b16599",
+      "snapshot": "snapshots/multipart-native-preview-preparation-v1/manifest.json"
+    },
+    {
+      "bytes": 2483,
+      "origin": "outputs/multipart-native-preview-preparation-v1/prepared.json",
+      "sha256": "d0a809f5ad606a4813bbadad7b1f7708e85e276193d137778ab05a595ca3bf8e",
+      "snapshot": "snapshots/multipart-native-preview-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/multipart-native-preview-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/multipart-source-layout-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/multipart-native-preview-preparation-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/multipart-source-inventory-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/multipart-native-preview-preparation-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/multipart-source-layout-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 13587,
+      "origin": "outputs/multipart-native-preview-preparation-v1/sources/scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "snapshots/multipart-native-preview-preparation-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/multipart-native-preview-preparation-v1/sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/multipart-native-preview-preparation-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 353913,
+      "origin": "outputs/robot-dragon-native-preview-v1/back.png",
+      "sha256": "9d435953a0cae0316f29187bb21de89335125c827e38b9517c1d52f31d3e0082",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/back.png"
+    },
+    {
+      "bytes": 355578,
+      "origin": "outputs/robot-dragon-native-preview-v1/front.png",
+      "sha256": "2dcbb4317b41562e02fd7a4d083a260bd1e096fe51cd728ce313fe7163a0f37d",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/front.png"
+    },
+    {
+      "bytes": 1563,
+      "origin": "outputs/robot-dragon-native-preview-v1/job.json",
+      "sha256": "243834eff65d4f66d2f5d533f3ac2c667de0396e0c7c8a23ce354ba858029f57",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/job.json"
+    },
+    {
+      "bytes": 7278,
+      "origin": "outputs/robot-dragon-native-preview-v1/manifest.json",
+      "sha256": "64682af7552984ff39fd4be74c29778109adcc4fe4f8ee1f797655ba51dd6c34",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/manifest.json"
+    },
+    {
+      "bytes": 621,
+      "origin": "outputs/robot-dragon-native-preview-v1/native-handle.json",
+      "sha256": "33fb17378926958777425f96872374d067b5b792b9b48550bea4d45844ee4560",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/native-handle.json"
+    },
+    {
+      "bytes": 2200,
+      "origin": "outputs/robot-dragon-native-preview-v1/native-inspection.json",
+      "sha256": "88fffd44c5511e4d3cdaedb79ae86f703672c2845408d06b773026c36c0e191f",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/native-inspection.json"
+    },
+    {
+      "bytes": 1417,
+      "origin": "outputs/robot-dragon-native-preview-v1/native-monitor.json",
+      "sha256": "e1cb12c08081a5ac48b31f4b05fa184111eb56372db5653b10063d94c4c9c89b",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/native-monitor.json"
+    },
+    {
+      "bytes": 1467,
+      "origin": "outputs/robot-dragon-native-preview-v1/native.log",
+      "sha256": "433158b0d9e60759791e007ba06948ce0c57180628ad54214955111e2ddec847",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/native.log"
+    },
+    {
+      "bytes": 459875,
+      "origin": "outputs/robot-dragon-native-preview-v1/side.png",
+      "sha256": "b9b2962b53d03c23154c6d3eb1d445167e3a1bc22ee4dd4243010adcb2bffda4",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/side.png"
+    },
+    {
+      "bytes": 13587,
+      "origin": "outputs/robot-dragon-native-preview-v1/sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "snapshots/multipart-native-preview-preparation-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/robot-dragon-native-preview-v1/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/multipart-native-preview-preparation-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 971,
+      "origin": "outputs/robot-dragon-native-preview-v1/started.json",
+      "sha256": "ca8e5db7973c0f2e7fbabe9277e09722771bb0882dd75dce2636240d51a5b363",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/started.json"
+    },
+    {
+      "bytes": 342714,
+      "origin": "outputs/robot-dragon-native-preview-v1/three-quarter.png",
+      "sha256": "2e50571fac9a67a0cf356b8f734bb9915ec1f02a3928ef297ca5d9b7670dc565",
+      "snapshot": "snapshots/robot-dragon-native-preview-v1/three-quarter.png"
+    },
+    {
+      "bytes": 260,
+      "origin": "outputs/multipart-integration-review-v1/manifest.json",
+      "sha256": "f5fd593d54b2cfd2a7463e6551341607570b2c166b0e9e664a8c59855a48eab9",
+      "snapshot": "snapshots/multipart-integration-review-v1/manifest.json"
+    },
+    {
+      "bytes": 4496,
+      "origin": "outputs/multipart-integration-review-v1/review.json",
+      "sha256": "a67e258330b7c5b4aab4679524d706eb5c423b27e33818afb903ff80e2079216",
+      "snapshot": "snapshots/multipart-integration-review-v1/review.json"
+    },
+    {
+      "bytes": 5192,
+      "origin": "outputs/multipart-source-checkpoint-v1/package.py",
+      "sha256": "381eb338da86de9873c03ab2a6ff1cf28e579b27e107db93fbd6090a4310b13b",
+      "snapshot": "snapshots/multipart-source-checkpoint-v1/package.py"
+    },
+    {
+      "bytes": 1950,
+      "origin": "outputs/multipart-source-checkpoint-v1/inputs.json",
+      "sha256": "6706dd42e6a691d7d1cf1717daea330628fa0dce58bb5ed45d99926bc34f9c8c",
+      "snapshot": "snapshots/multipart-source-checkpoint-v1/inputs.json"
+    }
+  ],
+  "copied_bytes": 1943151,
+  "deduplication": "Identical bytes reuse one exact snapshot path; no normalization",
+  "elapsed_seconds": 0.141,
+  "fresh_studio_acceptance": false,
+  "independent_actual_array_audit": true,
+  "limits": {
+    "selected_bytes": 16777216,
+    "selected_files": 300,
+    "single_file_bytes": 4194304
+  },
+  "local_binary_references_not_copied": [
+    {
+      "bytes": 25349908,
+      "origin": "outputs/robot-dragon-source-assembly-v1/inputs/dragon.glb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb"
+    },
+    {
+      "bytes": 23097200,
+      "origin": "outputs/robot-dragon-source-assembly-v1/inputs/robot.glb",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c"
+    },
+    {
+      "bytes": 50393860,
+      "origin": "outputs/robot-dragon-source-assembly-v1/model.glb",
+      "sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127"
+    },
+    {
+      "bytes": 50393860,
+      "origin": "outputs/robot-dragon-native-preview-v1/original.glb",
+      "sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127"
+    },
+    {
+      "bytes": 53954391,
+      "origin": "outputs/robot-dragon-native-preview-v1/source.blend",
+      "sha256": "98ea6536e51c92cea7092cba5d17c41cc0be8b90bcee6ce429260409eb6a5db2"
+    },
+    {
+      "bytes": 29999436,
+      "origin": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+      "unchanged": true
+    },
+    {
+      "bytes": 23097200,
+      "origin": "outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "unchanged": true
+    },
+    {
+      "bytes": 25349908,
+      "origin": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "unchanged": true
+    },
+    {
+      "bytes": 2667322,
+      "origin": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+      "unchanged": true
+    }
+  ],
+  "native_four_view_load": true,
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "omitted_runtime_caches": [
+    "__pycache__",
+    ".cache"
+  ],
+  "quality_approved": false,
+  "recorded": "2026-11-02 04:37:53 PST",
+  "rig_created": false,
+  "schema_version": 1,
+  "source_bytes": 2385631,
+  "source_inputs_sha256": "6706dd42e6a691d7d1cf1717daea330628fa0dce58bb5ed45d99926bc34f9c8c",
+  "source_receipts": 147,
+  "source_recipe": {
+    "path": "outputs/multipart-source-checkpoint-v1/package.py",
+    "sha256": "381eb338da86de9873c03ab2a6ff1cf28e579b27e107db93fbd6090a4310b13b"
+  },
+  "status": "local_source_preparation_verified_not_new_avatar_delivery",
+  "unique_snapshots": 108,
+  "verified_focused_tests": 14,
+  "weft_consumer_changed": false
+}

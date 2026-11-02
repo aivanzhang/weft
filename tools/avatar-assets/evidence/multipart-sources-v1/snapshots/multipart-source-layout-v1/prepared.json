@@ -1,0 +1,42 @@
+{
+  "bounds": {
+    "output_mib": 16,
+    "rss_mib": 256,
+    "wall_seconds": 30
+  },
+  "schema_version": 1,
+  "scope": "Authored development layout, no source mutation or native/provider call",
+  "script_sha256": "8d8d6bf1a4ab9b69263e1b1f766f8c902a959cb8616c66aa9361f215589c9802",
+  "sources": [
+    {
+      "bytes": 96,
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 9246,
+      "path": "avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "bytes": 8121,
+      "path": "avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ]
+}

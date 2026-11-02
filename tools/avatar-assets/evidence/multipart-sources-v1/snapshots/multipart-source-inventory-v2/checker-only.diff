@@ -1,0 +1,12 @@
+--- v1/inspect_sources.py
++++ v2/inspect_sources.py
+@@ -66,7 +66,8 @@
+     assert not doc.get('skins') and not doc.get('animations')
+     assert len(doc['nodes']) == len(doc['meshes']) == 1
+     node = doc['nodes'][0]
+-    assert node['mesh'] == 0 and node.get('matrix') == [1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1.]
++    assert node['mesh'] == 0 and node.get('matrix', [1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1.]) == [1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1.]
++    assert node.get('translation', [0., 0., 0.]) == [0., 0., 0.] and node.get('rotation', [0., 0., 0., 1.]) == [0., 0., 0., 1.] and node.get('scale', [1., 1., 1.]) == [1., 1., 1.]
+     primitives = []
+     for primitive in doc['meshes'][0]['primitives']:
+         assert primitive.get('mode', 4) == 4 and not primitive.get('targets')

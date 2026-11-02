@@ -1,0 +1,137 @@
+{
+  "assembly_bounds_m": {
+    "max": [
+      -0.4298599660396576,
+      1.2000000476837158,
+      0.22819998860359192
+    ],
+    "min": [
+      -1.170140027999878,
+      0.0,
+      -0.22819998860359192
+    ]
+  },
+  "id": "robot",
+  "images": [
+    {
+      "bytes": 11693486,
+      "format": "JPEG",
+      "height": 4096,
+      "mode": "RGB",
+      "packed_sha256": "0a7adf38101bd15eb33c681c8f26eb7827bd8ce3d8b8193c531dd332523f1bf2",
+      "source_image": 0,
+      "width": 4096
+    },
+    {
+      "bytes": 1852579,
+      "format": "JPEG",
+      "height": 2048,
+      "mode": "RGB",
+      "packed_sha256": "4bd20181339c497da3da4ce366e6fc549face271a506fef16b03447627589034",
+      "source_image": 1,
+      "width": 2048
+    },
+    {
+      "bytes": 7490387,
+      "format": "JPEG",
+      "height": 4096,
+      "mode": "RGB",
+      "packed_sha256": "cf7aba8303931f01d3f803f23719f52670f141eb6eee078690077130684e7231",
+      "source_image": 2,
+      "width": 4096
+    }
+  ],
+  "materials": [
+    {
+      "output_material": 0,
+      "output_name": "robot__m0",
+      "source_material": 0,
+      "source_name": null
+    }
+  ],
+  "primitives": [
+    {
+      "attributes": {
+        "NORMAL": {
+          "operation": "rotate_xyz_only",
+          "output_accessor": 5,
+          "source_accessor": 2,
+          "source_value_bytes_sha256": "d50893f6680177a4caab373de2c74d5f12dd371a40c35050dae325d61f365f9d"
+        },
+        "POSITION": {
+          "operation": "explicit_position_transform",
+          "output_accessor": 4,
+          "source_accessor": 0,
+          "source_value_bytes_sha256": "96c0f5373bf9120f592e7a97bdfb6cc4c99c35928e14a237acf45189e5c2d7f6"
+        },
+        "TEXCOORD_0": {
+          "operation": "exact_original_bytes",
+          "output_accessor": 1,
+          "source_accessor": 1,
+          "source_value_bytes_sha256": "f4582ac72609ec7779966fa49759c2fc588bcf38f6a4da5e5882797a43efbd62"
+        }
+      },
+      "index_value_bytes_sha256": "b9b8495bec5851b4fcda45af224f038209c90a517d2935da125d7be3baa83340",
+      "output_material": 0,
+      "output_material_name": "robot__m0",
+      "output_primitive": 0,
+      "source_material": 0,
+      "source_primitive": 0,
+      "tangent_status": "absent_preserved_raw_source_not_final_shading_validation",
+      "triangles": 51320,
+      "vertices": 45081
+    }
+  ],
+  "source_asset": {
+    "generator": "pygltflib@v1.16.5",
+    "version": "2.0"
+  },
+  "source_bytes": 23097200,
+  "source_mesh": 0,
+  "source_node": 0,
+  "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+  "source_transform": {
+    "effective_unit_quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "formula": "p_out=t+(source_meters_per_unit*uniform_scale)*R(q)*p_source",
+    "no_implicit_centering": true,
+    "placement": {
+      "rotation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "translation_m": [
+        -0.7999138812435511,
+        0.6005047724927666,
+        -0.0019227516634975402
+      ],
+      "uniform_scale": 1.0
+    },
+    "quaternion_normalization_delta": 0.0,
+    "rotation_matrix_rows": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "scale_to_meters": 0.6309314317008219,
+    "source_meters_per_unit": 0.6309314317008219
+  }
+}

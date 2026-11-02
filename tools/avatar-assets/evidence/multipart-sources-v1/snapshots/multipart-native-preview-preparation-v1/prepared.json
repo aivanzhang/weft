@@ -1,0 +1,71 @@
+{
+  "animation_requested": false,
+  "blender": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "environment_policy": "Only fixed PATH, TMPDIR, LANG and thread controls; no secrets, HOME override or network/provider work",
+  "inputs": [
+    {
+      "bytes": 50393860,
+      "path": "outputs/robot-dragon-source-assembly-v1/model.glb",
+      "sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127"
+    },
+    {
+      "bytes": 10507,
+      "path": "outputs/robot-dragon-source-assembly-v1/worker-result.json",
+      "sha256": "fcb7636cae20ec59cff5e7469d1749ab5b196c5823b5ec7bad6e859b23440737"
+    },
+    {
+      "bytes": 6925,
+      "path": "outputs/robot-dragon-source-assembly-v1/manifest.json",
+      "sha256": "a182cc11bbadb8a4559c00e7c50e6771a30765950fac9b7d7bb96bac35f1e9a7"
+    }
+  ],
+  "limits": {
+    "native_sampled_rss_mib": 2048,
+    "native_seconds": 120,
+    "output_mib": 128,
+    "resolution": 720,
+    "samples": 16,
+    "views": 4
+  },
+  "model": "outputs/robot-dragon-source-assembly-v1/model.glb",
+  "model_sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "output": "outputs/robot-dragon-native-preview-v1",
+  "recorded": "2026-11-02 04:28:35 PST",
+  "schema_version": 1,
+  "snapshots": [
+    {
+      "bytes": 5556,
+      "path": "execute.py",
+      "sha256": "8d9e7fa05ee2353ea6a3cffd52ab627685a0bd2f27ed66542cbf58e974ee09a9"
+    },
+    {
+      "bytes": 13587,
+      "path": "sources/scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    }
+  ],
+  "status": "prepared_not_executed"
+}

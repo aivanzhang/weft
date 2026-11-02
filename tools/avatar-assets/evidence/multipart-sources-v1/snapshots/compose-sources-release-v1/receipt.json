@@ -1,0 +1,123 @@
+{
+  "actual_robot_dragon_run": "Not executed by this agent; parent owns the source layout and real integration",
+  "all_tested_source_pins": [
+    {
+      "bytes": 42821,
+      "path": "avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 13676,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 96,
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 2710,
+      "path": "scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 20930,
+      "path": "tests/test_compose_sources.py",
+      "sha256": "28d66f712030b3b22f83281eac1692fb7b8352489de2c624f4543e770ce0e400"
+    }
+  ],
+  "api": "compose(config_path, output) -> {out,model_path,model_sha256,status}",
+  "data_caps": {
+    "components": [
+      2,
+      3
+    ],
+    "decoded_scalars": 2000000,
+    "image_pixels_each": 16777216,
+    "image_pixels_sum": 100663296,
+    "input_sum_bytes": 67108864,
+    "materials_each": [
+      1,
+      8
+    ],
+    "model_bytes": 67108864,
+    "model_json_bytes": 2097152,
+    "triangles": 100000,
+    "vertices": 100000
+  },
+  "manifest_kind": "unrigged_source_assembly",
+  "owned_sources": [
+    {
+      "bytes": 42821,
+      "path": "avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6"
+    },
+    {
+      "bytes": 20930,
+      "path": "tests/test_compose_sources.py",
+      "sha256": "28d66f712030b3b22f83281eac1692fb7b8352489de2c624f4543e770ce0e400"
+    }
+  ],
+  "paid_ai_native_calls": 0,
+  "placement_bounds": {
+    "positive_uniform_scale": [
+      0.001,
+      100
+    ],
+    "requested_rig_height_m": [
+      0.1,
+      5
+    ],
+    "source_meters_per_unit": [
+      1e-06,
+      1000
+    ],
+    "transformed_position_abs_max_m": 1000,
+    "translation_each_m": [
+      -100,
+      100
+    ]
+  },
+  "raw_scope": "Constant/default and textured standard materials supported. UVs/indices/embedded images preserve source bytes. Normals rotate only; tangents rotate XYZ and keep W; absence remains absence. No rig, motion, welding, native finish, source-texture grooming enablement or quality claim.",
+  "receipt": "worker-result.json components/source_transform/materials/images/primitives/assembly_bounds_m plus requested_native_canonical_transform with applied=false",
+  "schema_version": 1,
+  "source_quaternion_norm_admission_tolerance": 1e-06,
+  "source_transform": "p_out=t+(source_meters_per_unit*uniform_scale)*R(normalized unit quaternion)*p_source; no centering",
+  "status": "code_frozen_for_independent_actual_pair",
+  "success_status": "unrigged_local_assembly",
+  "tests": {
+    "bounded_controller_seconds": 5.469,
+    "command": ".venv/bin/python -B -m unittest tests.test_compose_sources -v",
+    "controller_exit_verified": true,
+    "controller_pid": 80815,
+    "count": 14,
+    "manifest_path": "outputs/compose-sources-tests-v1/manifest.json",
+    "manifest_sha256": "96cc0bba7de3dc2af31d902502f91c188e6bd9e29fe6b85880eba81cadf88bb7",
+    "sampled_controller_peak_rss_bytes": 56442880,
+    "status": "passed",
+    "unittest_seconds": 5.169
+  },
+  "unsupported_status": "unsupported; model_path and model_sha256 are null even if later custody/resource rejection preserved a partial derivative",
+  "worker": "/usr/bin/env -i PATH=/usr/bin:/bin TMPDIR=<new-output>/tmp LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 <venv-python> -I -B <output>/sources/avatar_assets/compose_sources.py --worker <output>/config.worker.json <output>",
+  "worker_bounds": {
+    "output_mib": 128,
+    "rss_mib": 512,
+    "seconds": 60
+  }
+}

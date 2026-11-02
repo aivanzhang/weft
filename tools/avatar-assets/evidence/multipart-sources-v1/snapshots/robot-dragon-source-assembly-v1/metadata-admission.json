@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "id": "robot",
+      "json_bytes": 2284,
+      "json_sha256": "6ac98c0bb592a7f0c176d685019bad7fe353eb7733dcd6242aaa411bf8f7d1c1",
+      "source_node": 0,
+      "transformed_accessor_count": 2,
+      "used_accessors": 4
+    },
+    {
+      "id": "dragon",
+      "json_bytes": 2304,
+      "json_sha256": "62cb95851ea8ccedb2e325e65b9e8d6845705cec858aba7b58345d2809453d13",
+      "source_node": 0,
+      "transformed_accessor_count": 2,
+      "used_accessors": 4
+    }
+  ],
+  "output_table_counts": {
+    "accessors": 12,
+    "bufferViews": 18,
+    "images": 6,
+    "samplers": 6,
+    "textures": 6
+  },
+  "totals": {
+    "decoded_scalars": 912191,
+    "triangles": 87821,
+    "vertices": 81091
+  }
+}

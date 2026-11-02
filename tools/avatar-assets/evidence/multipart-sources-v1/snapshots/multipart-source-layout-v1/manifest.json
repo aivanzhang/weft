@@ -1,0 +1,77 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2070,
+      "path": "compose.json",
+      "sha256": "9fdc398d19db732ecfaefa10ba9a3f6aa1b95dd284389737245fbd15b748c343"
+    },
+    {
+      "bytes": 1075,
+      "path": "job.json",
+      "sha256": "41ebc36d92af78c8b975b15e0f8987f623d3a95e04811c1395fa2ef4760e2ac3"
+    },
+    {
+      "bytes": 247,
+      "path": "layout-handle.json",
+      "sha256": "150e34b5fc9c1d977e16f2d9bf3312965426884d573746f5d828494680a7e2e2"
+    },
+    {
+      "bytes": 983,
+      "path": "layout-monitor.json",
+      "sha256": "1a041f80eeea593e5d5e7f6e67a0ee592502a07718f745f08e56e076275c22db"
+    },
+    {
+      "bytes": 2287,
+      "path": "layout.json",
+      "sha256": "b8bf35283636c211cfcf3528dcb808bd164e9e0ffea244cb7d99ef6af64c00d5"
+    },
+    {
+      "bytes": 79,
+      "path": "layout.log",
+      "sha256": "73bec06db9d95acaae10c0e66d630041e219a9b2fdbf02adf7a31c321f1f719a"
+    },
+    {
+      "bytes": 3536,
+      "path": "prepare_layout.py",
+      "sha256": "8d8d6bf1a4ab9b69263e1b1f766f8c902a959cb8616c66aa9361f215589c9802"
+    },
+    {
+      "bytes": 1274,
+      "path": "prepared.json",
+      "sha256": "d0385484c3a6561b0126833e4f460bef4b447d532703035238b7f1b85775564c"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 9246,
+      "path": "sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ],
+  "native_provider_pipeline_role_calls": 0,
+  "schema_version": 1,
+  "status": "layout_prepared"
+}

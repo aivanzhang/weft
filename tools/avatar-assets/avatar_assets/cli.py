@@ -24,6 +24,13 @@ def verify_pack(folder):
     if (root / "model.glb").exists():
         if manifest.get("kind") == "weft_authored_model_and_mapping":
             result["rig_verification"] = "Hashes only; use the frozen Weft importer for this consumer bundle"
+        elif manifest.get("kind") == "unrigged_source_assembly":
+            from avatar_assets.provider_model import preflight
+            facts = preflight(root / "model.glb")
+            require(facts["skins"] == facts["animations"] == 0,
+                    "An unrigged source assembly cannot contain skins or animations")
+            result["geometry"] = facts
+            result["rig_verification"] = "Unrigged source only; no skeleton or animation is claimed"
         else:
             from avatar_assets.three_d import validate_glb, validate_render_attributes
             result["rig"] = validate_glb(root / "model.glb", read_json(root / "rig-contract.json"))
@@ -43,6 +50,9 @@ def main():
     inspect.add_argument("archive")
     inspect.add_argument("--out", required=True)
     inspect.add_argument("--sha256")
+    compose = sub.add_parser("compose-sources", help="Combine explicit unrigged source parts locally; does not generate or animate")
+    compose.add_argument("config")
+    compose.add_argument("--out", required=True)
     build = sub.add_parser("build3d", help="Build an authored scene JSON into a real rigged GLB and Blender source")
     build.add_argument("scene")
     build.add_argument("--out", required=True)
@@ -60,7 +70,7 @@ def main():
     export.add_argument('--resume-frames', help='Reuse hash-bound completed generated frames after one wall-time failure; new output required')
     for name in ("size", "portrait", "seconds", "samples"):
         export.add_argument("--" + name, type=int)
-    verify = sub.add_parser("verify", help="Recheck pack hashes and independently decode the rig")
+    verify = sub.add_parser("verify", help="Recheck pack hashes and bounded geometry or rig data")
     verify.add_argument("folder")
     gallery = sub.add_parser("gallery", help="Serve the read-only local browser library; never opens a browser")
     gallery.add_argument("--port", type=int, default=8765)
@@ -111,6 +121,9 @@ def main():
         elif args.command == "inspect":
             from avatar_assets.archive import inspect_bounded
             result = inspect_bounded(args.archive, args.out, args.sha256)
+        elif args.command == "compose-sources":
+            from avatar_assets.compose_sources import compose
+            result = compose(args.config, args.out)
         elif args.command == "build3d":
             from avatar_assets.build3d import build_3d
             result = build_3d(args.scene, args.out, args.blender, args.resolution, args.samples, args.timeout, args.portrait_only)

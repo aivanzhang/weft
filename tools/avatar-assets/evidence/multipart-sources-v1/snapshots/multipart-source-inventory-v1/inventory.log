@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multipart-source-inventory-v1/inspect_sources.py", line 160, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multipart-source-inventory-v1/inspect_sources.py", line 125, in main
+    records.append(inspect(case))
+                   ~~~~~~~^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multipart-source-inventory-v1/inspect_sources.py", line 69, in inspect
+    assert node['mesh'] == 0 and node.get('matrix') == [1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1.]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

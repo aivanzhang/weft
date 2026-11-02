@@ -1,0 +1,100 @@
+{
+  "ai_role_calls": 0,
+  "bytes": 150322,
+  "files": [
+    {
+      "bytes": 245,
+      "path": "execution-inputs.json",
+      "sha256": "ac750f809f4a3efcaff907fee5f7591ce7fc6300d4dba17ceafe492ecad2cd4f"
+    },
+    {
+      "bytes": 884,
+      "path": "failure.json",
+      "sha256": "d811087dcc268ed5fb8a0aecf84fc45543186b1f9e9ed809adfe4b0e9e7c39b0"
+    },
+    {
+      "bytes": 1916,
+      "path": "inputs/emerald-dragon-meshy-v1-config.json",
+      "sha256": "54a48a877468ff490152bad560853bdead63eedce0de5ffd655b55083c34f319"
+    },
+    {
+      "bytes": 3004,
+      "path": "inputs/emerald-dragon-meshy-v1-plan.json",
+      "sha256": "d74a91542e849fa16bcbc8c5e04526d9260bcf9000a45cc02b34d70f15010800"
+    },
+    {
+      "bytes": 1702,
+      "path": "inputs/workshop-robot-meshy-v1-config.json",
+      "sha256": "79f676c5de1b00a2696d26183a2db5dd736dc3ae4cedd0142753ab4cf2df6f10"
+    },
+    {
+      "bytes": 2814,
+      "path": "inputs/workshop-robot-meshy-v1-plan.json",
+      "sha256": "e4aa94dcc2f979f6f741ceaa2198c1416634a09eb9b0c2323b580d64ab898389"
+    },
+    {
+      "bytes": 8717,
+      "path": "inspect_sources.py",
+      "sha256": "964f1a1303fe59039eb23f424b598836b8b3b724564b5cb1b00125bd5d60ee35"
+    },
+    {
+      "bytes": 248,
+      "path": "inventory-handle.json",
+      "sha256": "683721c8a5af330879d462abda0dba87ea9e577b931cabc2bd0837037399a3ac"
+    },
+    {
+      "bytes": 986,
+      "path": "inventory-monitor.json",
+      "sha256": "1ba2559a1ae5376aaa508d90f9fa008a6133b68df8ae9a601be7808294ea2d02"
+    },
+    {
+      "bytes": 778,
+      "path": "inventory.log",
+      "sha256": "9d6b4990a28782407525634f6abd2f7fbdfe41955ff0d341d35c6051a943e93f"
+    },
+    {
+      "bytes": 1074,
+      "path": "job.json",
+      "sha256": "d6b9c48f6f3c9b47d2b153bebb92ce47fa15fe5ee2909535632afecc86eebccd"
+    },
+    {
+      "bytes": 4404,
+      "path": "prepared.json",
+      "sha256": "b517de0fe01d4048b0d22706cfc69188920d77f7c78365a9be4c450713f99dd8"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 216,
+      "path": "sources/avatar_assets/__pycache__/__init__.cpython-314.pyc",
+      "sha256": "52e482560d6418ec409589c325d76dd7a058e4f15afef67da4f311432cc326a8"
+    },
+    {
+      "bytes": 68469,
+      "path": "sources/avatar_assets/__pycache__/three_d.cpython-314.pyc",
+      "sha256": "cda4aeb1d0258e71b94a7a494398f25776b817cdc2733e7b412c950bdf4a078c"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ],
+  "native_calls": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "status": "sealed_failed_initial_checker"
+}

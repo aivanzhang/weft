@@ -1,0 +1,58 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_compose_sources",
+    "-v"
+  ],
+  "sources": [
+    {
+      "path": "avatar_assets/compose_sources.py",
+      "bytes": 42821,
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "bytes": 35323,
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "avatar_assets/fringe_export.py",
+      "bytes": 13676,
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/__init__.py",
+      "bytes": 96,
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "path": "scripts/blender_creature_rig.py",
+      "bytes": 2710,
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "path": "tests/test_compose_sources.py",
+      "bytes": 20930,
+      "sha256": "28d66f712030b3b22f83281eac1692fb7b8352489de2c624f4543e770ce0e400"
+    }
+  ],
+  "bounds": {
+    "seconds": 60,
+    "memory_mib": 512,
+    "output_mib": 8
+  },
+  "provenance": "Analytic triangle/image fixtures and bounded local child workers; no provider, AI-role or native calls, no avatar quality claims"
+}

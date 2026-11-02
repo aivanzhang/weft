@@ -1,0 +1,132 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1189,
+      "path": "job.json",
+      "sha256": "e105638198fac8d647d4e60f2f6f17fa621bb0bad9617f12af996f5f6db9b2d8"
+    },
+    {
+      "bytes": 576,
+      "path": "request.json",
+      "sha256": "969cb1e90229e9c1fefaf4da0d00cab2ce643b71e1320ea3a7f2f1189f5b2561"
+    },
+    {
+      "bytes": 298,
+      "path": "verify-handle.json",
+      "sha256": "087fe2a3438faf6f4af0266b30cedac0d7acd5ce9a1ac3f6439fb81c98616be4"
+    },
+    {
+      "bytes": 1079,
+      "path": "verify-monitor.json",
+      "sha256": "56ab98990c879281bc66501e2cd9fae37ed1b1164ffd4f4a92238b235b984c96"
+    },
+    {
+      "bytes": 1257,
+      "path": "verify.log",
+      "sha256": "428edc81cc383da84ed80912185180ab7556b6b214f0f8e42590751ffe8ccfd9"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "-i",
+      "PATH=/usr/bin:/bin",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/run",
+      "verify",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-source-assembly-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.523,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 3099,
+    "last_rss_sample_elapsed_seconds": 0.262,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "verify-monitor.json",
+    "monitor_errors": [],
+    "pid": 81772,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 3099,
+    "sampled_peak_rss_bytes": 176586752,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "result": {
+    "artifact_hashes_verified": 21,
+    "geometry": {
+      "animations": 0,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ],
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
+      "schema_version": 1,
+      "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+      "sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+      "skins": 0,
+      "source_unchanged": true,
+      "textures": [
+        {
+          "format": "JPEG",
+          "height": 4096,
+          "width": 4096
+        },
+        {
+          "format": "JPEG",
+          "height": 2048,
+          "width": 2048
+        },
+        {
+          "format": "JPEG",
+          "height": 4096,
+          "width": 4096
+        },
+        {
+          "format": "JPEG",
+          "height": 4096,
+          "width": 4096
+        },
+        {
+          "format": "JPEG",
+          "height": 2048,
+          "width": 2048
+        },
+        {
+          "format": "JPEG",
+          "height": 4096,
+          "width": 4096
+        }
+      ],
+      "triangles": 87821,
+      "vertices": 81091
+    },
+    "rig_verification": "Unrigged source only; no skeleton or animation is claimed",
+    "schema_version": 1,
+    "status": "unrigged_local_assembly"
+  },
+  "schema_version": 1,
+  "status": "passed"
+}

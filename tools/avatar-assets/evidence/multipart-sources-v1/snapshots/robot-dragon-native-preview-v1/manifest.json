@@ -1,0 +1,237 @@
+{
+  "animation_verified": false,
+  "artifacts": [
+    {
+      "bytes": 353913,
+      "path": "back.png",
+      "sha256": "9d435953a0cae0316f29187bb21de89335125c827e38b9517c1d52f31d3e0082"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "393af748b5fef59b1249285a8929a6690dd1c2eaa81f1d0acafa3ce77f593873"
+    },
+    {
+      "bytes": 355578,
+      "path": "front.png",
+      "sha256": "2dcbb4317b41562e02fd7a4d083a260bd1e096fe51cd728ce313fe7163a0f37d"
+    },
+    {
+      "bytes": 1563,
+      "path": "job.json",
+      "sha256": "243834eff65d4f66d2f5d533f3ac2c667de0396e0c7c8a23ce354ba858029f57"
+    },
+    {
+      "bytes": 621,
+      "path": "native-handle.json",
+      "sha256": "33fb17378926958777425f96872374d067b5b792b9b48550bea4d45844ee4560"
+    },
+    {
+      "bytes": 2200,
+      "path": "native-inspection.json",
+      "sha256": "88fffd44c5511e4d3cdaedb79ae86f703672c2845408d06b773026c36c0e191f"
+    },
+    {
+      "bytes": 1417,
+      "path": "native-monitor.json",
+      "sha256": "e1cb12c08081a5ac48b31f4b05fa184111eb56372db5653b10063d94c4c9c89b"
+    },
+    {
+      "bytes": 1467,
+      "path": "native.log",
+      "sha256": "433158b0d9e60759791e007ba06948ce0c57180628ad54214955111e2ddec847"
+    },
+    {
+      "bytes": 50393860,
+      "path": "original.glb",
+      "sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127"
+    },
+    {
+      "bytes": 459875,
+      "path": "side.png",
+      "sha256": "b9b2962b53d03c23154c6d3eb1d445167e3a1bc22ee4dd4243010adcb2bffda4"
+    },
+    {
+      "bytes": 53954391,
+      "path": "source.blend",
+      "sha256": "98ea6536e51c92cea7092cba5d17c41cc0be8b90bcee6ce429260409eb6a5db2"
+    },
+    {
+      "bytes": 37918,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "29abc51683e8ad301ed732aa6bc1288db40002446f2f7c458ae03d7cffb6cafd"
+    },
+    {
+      "bytes": 13587,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 971,
+      "path": "started.json",
+      "sha256": "ca8e5db7973c0f2e7fbabe9277e09722771bb0882dd75dce2636240d51a5b363"
+    },
+    {
+      "bytes": 342714,
+      "path": "three-quarter.png",
+      "sha256": "2e50571fac9a67a0cf356b8f734bb9915ec1f02a3928ef297ca5d9b7670dc565"
+    }
+  ],
+  "controller_elapsed_seconds": 3.279,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-native-preview-v1/sources/blender_provider_preview.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-native-preview-v1/original.glb",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-native-preview-v1",
+      "720",
+      "16",
+      "false"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 3.103,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 105936813,
+    "last_rss_sample_elapsed_seconds": 2.842,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "native-monitor.json",
+    "monitor_errors": [],
+    "pid": 82014,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 11,
+    "sampled_max_output_bytes": 105936813,
+    "sampled_peak_rss_bytes": 1184366592,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "unrigged_assembly_native_preview",
+  "limits": {
+    "native_sampled_rss_mib": 2048,
+    "native_seconds": 120,
+    "output_mib": 128,
+    "resolution": 720,
+    "samples": 16,
+    "views": 4
+  },
+  "measurement_scope": "Native wall time and sampled direct-child RSS; controller overhead is separate",
+  "native": {
+    "actions": [],
+    "animation_verified": false,
+    "assumptions": [
+      "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+      "Raw generated units are not a calibrated physical measurement",
+      "Hidden geometry is generated, not recovered"
+    ],
+    "blender_version": "4.5.13 LTS",
+    "bounds_blender_z_up": {
+      "max": [
+        1.066583275794983,
+        0.642477810382843,
+        1.2000000476837158
+      ],
+      "min": [
+        -1.170140027999878,
+        -0.570164144039154,
+        0.0
+      ]
+    },
+    "material_count": 2,
+    "meshes": [
+      {
+        "faces": 87821,
+        "materials": [
+          {
+            "faces": 51320,
+            "name": "robot__m0",
+            "slot": 0
+          },
+          {
+            "faces": 36501,
+            "name": "dragon__m0",
+            "slot": 1
+          }
+        ],
+        "name": "robot-dragon-source-assembly-v1",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 81091
+      }
+    ],
+    "render_engine": "BLENDER_EEVEE_NEXT",
+    "render_policy": {
+      "engine": "BLENDER_EEVEE_NEXT",
+      "engine_fallback": false,
+      "policy": "gltf-single-sided-culling-eevee-next-v1",
+      "reason": "Respect imported glTF single-sided culling and authored-normal semantics",
+      "sample_control": "scene.eevee.taa_render_samples",
+      "samples_actual": 16,
+      "samples_requested": 16,
+      "scope": "Exported GLB review only; native hair/portrait renderers are separate"
+    },
+    "renders": [
+      {
+        "path": "front.png",
+        "sha256": "2dcbb4317b41562e02fd7a4d083a260bd1e096fe51cd728ce313fe7163a0f37d",
+        "view": "front"
+      },
+      {
+        "path": "three-quarter.png",
+        "sha256": "2e50571fac9a67a0cf356b8f734bb9915ec1f02a3928ef297ca5d9b7670dc565",
+        "view": "three-quarter"
+      },
+      {
+        "path": "back.png",
+        "sha256": "9d435953a0cae0316f29187bb21de89335125c827e38b9517c1d52f31d3e0082",
+        "view": "back"
+      },
+      {
+        "path": "side.png",
+        "sha256": "b9b2962b53d03c23154c6d3eb1d445167e3a1bc22ee4dd4243010adcb2bffda4",
+        "view": "side"
+      }
+    ],
+    "rigs": [],
+    "schema_version": 1,
+    "source_is_untextured": false,
+    "source_sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+    "source_unchanged": true
+  },
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "prepared_sha256": "d0a809f5ad606a4813bbadad7b1f7708e85e276193d137778ab05a595ca3bf8e",
+  "quality_approved": false,
+  "rig_created": false,
+  "schema_version": 1,
+  "source_sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+  "status": "needs_visual_review"
+}

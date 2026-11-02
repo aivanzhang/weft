@@ -1,0 +1,55 @@
+{
+  "automatic_paid_retries": 0,
+  "config": {
+    "generation": {
+      "geometry_resolution": "4k",
+      "mode": "text",
+      "pose_mode": "a-pose",
+      "target_polycount": 50000,
+      "texture_resolution": "4k"
+    },
+    "height_meters": 1.2,
+    "id": "workshop-robot-meshy-v1",
+    "max_credits": 40,
+    "prompt": "A complete friendly compact humanoid workshop robot, standing upright in an A-pose. Large rounded rectangular head, cream ceramic faceplate and two inset circular glass eyes, dark blue enamel torso and limb shells, brushed copper joint collars. Clear separate arms, elbows, wrists, three-finger hands, hips, knees and broad rounded feet. Small chest access panel, subtle real screws and seams, backpack-like battery housing. Premium animated-film craftsmanship, believable thickness and soft beveled edges. No fur, no weapons, no logos, no writing, no base or props. Full body, all limbs intact, symmetrical mechanical construction.",
+    "rig": "humanoid",
+    "rights": "Original user-authorized character direction; no reference upload. Neural output and hidden surfaces are authored assumptions. This second subject tests reusable prompt-only generation and rigging; it does not claim completed actions until independently authored and verified. No borrowed Weft credentials or Meta budget. Meshy account terms apply; commercial rights are not independently verified.",
+    "schema_version": 1,
+    "states": [],
+    "style": "Premium animated-film robot. Painted deep blue enamel shell, brushed copper joints, cream ceramic faceplate, dark inset glass eyes with cyan centers. Real seams, fasteners and rounded manufactured edges; subtly worn but clean. No animal fur, no logos, text, pedestal or floating props.",
+    "subject": "Friendly blue and copper workshop robot"
+  },
+  "created": "2026-10-31T11:11:11.525254-07:00",
+  "estimated_credits": 40,
+  "estimated_paid_calls": 3,
+  "id": "workshop-robot-meshy-v1",
+  "limits": {
+    "download_bytes": 67108864,
+    "download_deadline_seconds": 120,
+    "min_poll_seconds": 15,
+    "output_bytes": 536870912,
+    "polls_per_stage": 120,
+    "reference_bytes": 8388608,
+    "request_deadline_seconds": 45
+  },
+  "max_credits": 40,
+  "model": "meshy-7.1",
+  "pricing_checked": "2026-10-31",
+  "pricing_source": "https://docs.meshy.ai/en/api/pricing",
+  "reference_reconstruction": false,
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 19265,
+      "path": "meshy.py",
+      "sha256": "6e20b7470007bcb0e3a46c83c737a029c4e587b57056ce0118878c09b375447f"
+    },
+    {
+      "bytes": 12105,
+      "path": "meshy_access.py",
+      "sha256": "81332eafc9ffe78ef3eb4ed534a84b65cc0a11e277b2296f973363b26a83d830"
+    }
+  ],
+  "usd_cost": null,
+  "usd_reason": "Account credit purchase price is not exposed by the balance endpoint"
+}

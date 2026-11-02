@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "artifacts": [
+    {
+      "path": "job.json",
+      "bytes": 1088,
+      "sha256": "5fb5c8052ec12b03e647dd04ca1f154809a63853c7ad3696ed4beda834d578b8"
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 1720,
+      "sha256": "06574d3b6d9b241b0006227d77405416b41519fcf84354d103f3180529d1923c"
+    },
+    {
+      "path": "source-verification.json",
+      "bytes": 40,
+      "sha256": "c2ee970942911d48a3c41b38b6f2393f291f63539709b9a6c1ba01286e0f309f"
+    },
+    {
+      "path": "sources/avatar_assets/__init__.py",
+      "bytes": 96,
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "path": "sources/avatar_assets/compose_sources.py",
+      "bytes": 42821,
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6"
+    },
+    {
+      "path": "sources/avatar_assets/fringe_export.py",
+      "bytes": 13676,
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "path": "sources/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "sources/avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "sources/avatar_assets/three_d.py",
+      "bytes": 35323,
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "sources/scripts/blender_creature_rig.py",
+      "bytes": 2710,
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "path": "sources/tests/test_compose_sources.py",
+      "bytes": 20930,
+      "sha256": "28d66f712030b3b22f83281eac1692fb7b8352489de2c624f4543e770ce0e400"
+    },
+    {
+      "path": "tests-handle.json",
+      "bytes": 198,
+      "sha256": "eda0bfa4037f0a7ec79503ee049086bf14ee881e0633733e9e1c77119785cfbc"
+    },
+    {
+      "path": "tests-monitor.json",
+      "bytes": 982,
+      "sha256": "308c7407e3751690c91e111d17fe1dad6bccd484f72588e070f63867b73f3917"
+    },
+    {
+      "path": "tests.log",
+      "bytes": 2651,
+      "sha256": "cc7b113284effc998485f2af5fc1992d4373146790370421679c6ab7fc7d3578"
+    }
+  ],
+  "self_excluded": true
+}

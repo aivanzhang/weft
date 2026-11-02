@@ -1,0 +1,120 @@
+{
+  "ai_role_calls": 0,
+  "bytes": 192992,
+  "files": [
+    {
+      "bytes": 1671,
+      "path": "README.md",
+      "sha256": "4acd8a37b238d04c25819c6b318735c14e924b96e6a888eee6c0dc0f8c051240"
+    },
+    {
+      "bytes": 861,
+      "path": "checker-only.diff",
+      "sha256": "3e19487976315d72f55fafa51068fff06e12049e970adfd8877ca29e207248b1"
+    },
+    {
+      "bytes": 245,
+      "path": "execution-inputs.json",
+      "sha256": "5dfcc5597f90b1dfed1ec4fb335c2505661ac82ed08d467b16e8e538c975742e"
+    },
+    {
+      "bytes": 473,
+      "path": "failure.json",
+      "sha256": "fc3e1453fe4ed7733bfa83e422f629382c885b514f2cd388f8463f4cc776d083"
+    },
+    {
+      "bytes": 1916,
+      "path": "inputs/emerald-dragon-meshy-v1-config.json",
+      "sha256": "54a48a877468ff490152bad560853bdead63eedce0de5ffd655b55083c34f319"
+    },
+    {
+      "bytes": 3004,
+      "path": "inputs/emerald-dragon-meshy-v1-plan.json",
+      "sha256": "d74a91542e849fa16bcbc8c5e04526d9260bcf9000a45cc02b34d70f15010800"
+    },
+    {
+      "bytes": 28582,
+      "path": "inputs/prior-model-inventory.json",
+      "sha256": "4b198d29596085104d08c464fe4d84bb6140636738f5ca45ffff172a468b4ea4"
+    },
+    {
+      "bytes": 1702,
+      "path": "inputs/workshop-robot-meshy-v1-config.json",
+      "sha256": "79f676c5de1b00a2696d26183a2db5dd736dc3ae4cedd0142753ab4cf2df6f10"
+    },
+    {
+      "bytes": 2814,
+      "path": "inputs/workshop-robot-meshy-v1-plan.json",
+      "sha256": "e4aa94dcc2f979f6f741ceaa2198c1416634a09eb9b0c2323b580d64ab898389"
+    },
+    {
+      "bytes": 8963,
+      "path": "inspect_sources.py",
+      "sha256": "44d67790be4446aae693ed1c99c54c7a0a3b510c73d82355d7e49396790688bb"
+    },
+    {
+      "bytes": 248,
+      "path": "inventory-handle.json",
+      "sha256": "830b760fec31e02299367dbe49ee515e7bd49fcf784e133aa63e749151907808"
+    },
+    {
+      "bytes": 986,
+      "path": "inventory-monitor.json",
+      "sha256": "107780a008c82a939932ce2e5c75e1093add8f3bb90e4b86ca3bd676493e4cbe"
+    },
+    {
+      "bytes": 11845,
+      "path": "inventory-summary.json",
+      "sha256": "cf6f1bc726d5e69f6171ced61156ab957ea40301f2b836ad4c2ccc9b0fa9749c"
+    },
+    {
+      "bytes": 372,
+      "path": "inventory.log",
+      "sha256": "a147a73d4b93ae4a377b519cc16d3ca73b3ea154658bf0e7da961b73700a6b3b"
+    },
+    {
+      "bytes": 1074,
+      "path": "job.json",
+      "sha256": "8894c0f9ad542fa418158de096457225e1d36618a6e4008976cb8e0976e6c7e3"
+    },
+    {
+      "bytes": 4686,
+      "path": "prepared.json",
+      "sha256": "505e5d74537679de0d4907d78ca1c6eb59a9d0a692a637f4202b385e740ec11f"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 216,
+      "path": "sources/avatar_assets/__pycache__/__init__.cpython-314.pyc",
+      "sha256": "52e482560d6418ec409589c325d76dd7a058e4f15afef67da4f311432cc326a8"
+    },
+    {
+      "bytes": 68469,
+      "path": "sources/avatar_assets/__pycache__/three_d.cpython-314.pyc",
+      "sha256": "cda4aeb1d0258e71b94a7a494398f25776b817cdc2733e7b412c950bdf4a078c"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ],
+  "native_calls": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "status": "sealed_inventory_with_auxiliary_failure"
+}

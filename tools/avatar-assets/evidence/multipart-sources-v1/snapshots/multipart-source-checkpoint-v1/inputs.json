@@ -1,0 +1,57 @@
+{
+  "external_references": [
+    {
+      "bytes": 29999436,
+      "path": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "role": "approved_panda_dance_flight",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+      "unchanged": true
+    },
+    {
+      "bytes": 23097200,
+      "path": "outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+      "role": "saved_robot_source",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "unchanged": true
+    },
+    {
+      "bytes": 25349908,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "role": "saved_dragon_source",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "unchanged": true
+    },
+    {
+      "bytes": 2667322,
+      "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "role": "original_reference_zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+      "unchanged": true
+    }
+  ],
+  "folders": [
+    "quality-material-clumps-publication-v1",
+    "multipart-source-inventory-v1",
+    "multipart-source-inventory-v2",
+    "multipart-assembly-independent-audit-plan-v1",
+    "multipart-assembly-independent-audit-preparation-v1",
+    "multipart-source-layout-v1",
+    "compose-sources-tests-v1",
+    "compose-sources-release-v1",
+    "robot-dragon-source-assembly-v1",
+    "multipart-assembly-independent-audit-v1",
+    "multipart-public-verification-v1",
+    "multipart-native-preview-preparation-v1",
+    "robot-dragon-native-preview-v1",
+    "multipart-integration-review-v1"
+  ],
+  "limits": {
+    "selected_bytes": 16777216,
+    "selected_files": 300,
+    "single_file_bytes": 4194304
+  },
+  "output": "evidence/multipart-sources-v1",
+  "schema_version": 1,
+  "status": "local_source_preparation_verified_not_new_avatar_delivery",
+  "verified_focused_tests": 14
+}

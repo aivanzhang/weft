@@ -1,0 +1,98 @@
+{
+  "bounds": {
+    "output_mib": 16,
+    "rss_mib": 256,
+    "seconds": 20
+  },
+  "cases": [
+    {
+      "download_manifest": "outputs/workshop-robot-meshy-v1/stages/mesh/downloads/manifest.json",
+      "download_manifest_sha256": "be24dc06ccd694f39c7f98407e19ab8991072d67d82e1b8ffb20d9f4150d7c5d",
+      "id": "workshop-robot-meshy-v1:mesh",
+      "path": "outputs/workshop-robot-meshy-v1/stages/mesh/downloads/model.glb",
+      "sha256": "167a1cc89a5f78df0d71d0582a02c26e848cdeb79c2c4b7da3a1845cc7e60998",
+      "stage": "mesh",
+      "subject_id": "workshop-robot-meshy-v1"
+    },
+    {
+      "download_manifest": "outputs/workshop-robot-meshy-v1/stages/texture/downloads/manifest.json",
+      "download_manifest_sha256": "27338eff1442e9ee6e1e9b3ea4a356eee6d48e0f8e3684be6c55a35ea913aa7e",
+      "id": "workshop-robot-meshy-v1:texture",
+      "path": "outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "stage": "texture",
+      "subject_id": "workshop-robot-meshy-v1"
+    },
+    {
+      "download_manifest": "outputs/emerald-dragon-meshy-v1/stages/mesh/downloads/manifest.json",
+      "download_manifest_sha256": "220075b2222ea20c2a117b09f8a8e94376345b7372f5a1e35276268a82cafd38",
+      "id": "emerald-dragon-meshy-v1:mesh",
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/downloads/model.glb",
+      "sha256": "e527f63fe31f9c7e3f7f39f36284e38d93ba0aa1b549e5649ab7ada8f58c99dc",
+      "stage": "mesh",
+      "subject_id": "emerald-dragon-meshy-v1"
+    },
+    {
+      "download_manifest": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/manifest.json",
+      "download_manifest_sha256": "547076ee65c6be582b6d474d345461a9a97e0d70a9221c239d3cedd6c68e304a",
+      "id": "emerald-dragon-meshy-v1:texture",
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "stage": "texture",
+      "subject_id": "emerald-dragon-meshy-v1"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Known saved original sources only; no generation, repair, render or appearance acceptance",
+  "source_inventory": "outputs/quality-next-action-audit-v1/model-inventory.json",
+  "source_inventory_sha256": "4b198d29596085104d08c464fe4d84bb6140636738f5ca45ffff172a468b4ea4",
+  "source_pins": [
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 8121,
+      "path": "avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 1702,
+      "path": "outputs/workshop-robot-meshy-v1/inputs/config.json",
+      "sha256": "79f676c5de1b00a2696d26183a2db5dd736dc3ae4cedd0142753ab4cf2df6f10",
+      "snapshot": "inputs/workshop-robot-meshy-v1-config.json"
+    },
+    {
+      "bytes": 2814,
+      "path": "outputs/workshop-robot-meshy-v1/plan.json",
+      "sha256": "e4aa94dcc2f979f6f741ceaa2198c1416634a09eb9b0c2323b580d64ab898389",
+      "snapshot": "inputs/workshop-robot-meshy-v1-plan.json"
+    },
+    {
+      "bytes": 1916,
+      "path": "outputs/emerald-dragon-meshy-v1/inputs/config.json",
+      "sha256": "54a48a877468ff490152bad560853bdead63eedce0de5ffd655b55083c34f319",
+      "snapshot": "inputs/emerald-dragon-meshy-v1-config.json"
+    },
+    {
+      "bytes": 3004,
+      "path": "outputs/emerald-dragon-meshy-v1/plan.json",
+      "sha256": "d74a91542e849fa16bcbc8c5e04526d9260bcf9000a45cc02b34d70f15010800",
+      "snapshot": "inputs/emerald-dragon-meshy-v1-plan.json"
+    }
+  ],
+  "thumbnail_review": {
+    "dragon_sha256": "26c4d421c06e40bd995208a7ae69968c0045be8f4c126e93e638fac9e6d87519",
+    "robot_sha256": "5348634f0ebe3008652375b936eb421d7a2e4a171f730a5523f29378a4e7b7d6",
+    "scope": "Previously generated front thumbnails only; complete visible robot and standalone dragon bodies, no hidden-surface or watertightness proof"
+  }
+}

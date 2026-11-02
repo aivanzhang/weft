@@ -1,0 +1,364 @@
+{
+  "animation_verified": false,
+  "assembly_bounds_m": {
+    "max": [
+      1.066583275794983,
+      1.2000000476837158,
+      0.570164144039154
+    ],
+    "min": [
+      -1.170140027999878,
+      0.0,
+      -0.642477810382843
+    ]
+  },
+  "components": [
+    {
+      "assembly_bounds_m": {
+        "max": [
+          -0.4298599660396576,
+          1.2000000476837158,
+          0.22819998860359192
+        ],
+        "min": [
+          -1.170140027999878,
+          0.0,
+          -0.22819998860359192
+        ]
+      },
+      "id": "robot",
+      "images": [
+        {
+          "bytes": 11693486,
+          "format": "JPEG",
+          "height": 4096,
+          "mode": "RGB",
+          "packed_sha256": "0a7adf38101bd15eb33c681c8f26eb7827bd8ce3d8b8193c531dd332523f1bf2",
+          "source_image": 0,
+          "width": 4096
+        },
+        {
+          "bytes": 1852579,
+          "format": "JPEG",
+          "height": 2048,
+          "mode": "RGB",
+          "packed_sha256": "4bd20181339c497da3da4ce366e6fc549face271a506fef16b03447627589034",
+          "source_image": 1,
+          "width": 2048
+        },
+        {
+          "bytes": 7490387,
+          "format": "JPEG",
+          "height": 4096,
+          "mode": "RGB",
+          "packed_sha256": "cf7aba8303931f01d3f803f23719f52670f141eb6eee078690077130684e7231",
+          "source_image": 2,
+          "width": 4096
+        }
+      ],
+      "materials": [
+        {
+          "output_material": 0,
+          "output_name": "robot__m0",
+          "source_material": 0,
+          "source_name": null
+        }
+      ],
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": {
+              "operation": "rotate_xyz_only",
+              "output_accessor": 5,
+              "source_accessor": 2,
+              "source_value_bytes_sha256": "d50893f6680177a4caab373de2c74d5f12dd371a40c35050dae325d61f365f9d"
+            },
+            "POSITION": {
+              "operation": "explicit_position_transform",
+              "output_accessor": 4,
+              "source_accessor": 0,
+              "source_value_bytes_sha256": "96c0f5373bf9120f592e7a97bdfb6cc4c99c35928e14a237acf45189e5c2d7f6"
+            },
+            "TEXCOORD_0": {
+              "operation": "exact_original_bytes",
+              "output_accessor": 1,
+              "source_accessor": 1,
+              "source_value_bytes_sha256": "f4582ac72609ec7779966fa49759c2fc588bcf38f6a4da5e5882797a43efbd62"
+            }
+          },
+          "index_value_bytes_sha256": "b9b8495bec5851b4fcda45af224f038209c90a517d2935da125d7be3baa83340",
+          "output_material": 0,
+          "output_material_name": "robot__m0",
+          "output_primitive": 0,
+          "source_material": 0,
+          "source_primitive": 0,
+          "tangent_status": "absent_preserved_raw_source_not_final_shading_validation",
+          "triangles": 51320,
+          "vertices": 45081
+        }
+      ],
+      "source_asset": {
+        "generator": "pygltflib@v1.16.5",
+        "version": "2.0"
+      },
+      "source_bytes": 23097200,
+      "source_mesh": 0,
+      "source_node": 0,
+      "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "source_transform": {
+        "effective_unit_quaternion_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "formula": "p_out=t+(source_meters_per_unit*uniform_scale)*R(q)*p_source",
+        "no_implicit_centering": true,
+        "placement": {
+          "rotation_xyzw": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "translation_m": [
+            -0.7999138812435511,
+            0.6005047724927666,
+            -0.0019227516634975402
+          ],
+          "uniform_scale": 1.0
+        },
+        "quaternion_normalization_delta": 0.0,
+        "rotation_matrix_rows": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "scale_to_meters": 0.6309314317008219,
+        "source_meters_per_unit": 0.6309314317008219
+      }
+    },
+    {
+      "assembly_bounds_m": {
+        "max": [
+          1.066583275794983,
+          0.8999999761581421,
+          0.570164144039154
+        ],
+        "min": [
+          0.49401789903640747,
+          0.0,
+          -0.642477810382843
+        ]
+      },
+      "id": "dragon",
+      "images": [
+        {
+          "bytes": 13197586,
+          "format": "JPEG",
+          "height": 4096,
+          "mode": "RGB",
+          "packed_sha256": "4796cfd19907af48cebe547022a838719d24183261b242ffb4f5b1977441b096",
+          "source_image": 0,
+          "width": 4096
+        },
+        {
+          "bytes": 1450432,
+          "format": "JPEG",
+          "height": 2048,
+          "mode": "RGB",
+          "packed_sha256": "b90a5165b6ba717a11ce5b4e93c80e092301ab4535d12a4a35f575a81eafe63e",
+          "source_image": 1,
+          "width": 2048
+        },
+        {
+          "bytes": 9109223,
+          "format": "JPEG",
+          "height": 4096,
+          "mode": "RGB",
+          "packed_sha256": "3a04c7d2744aa7a756ad4f9c74917f85494d054acba6373a513636bef6c63b13",
+          "source_image": 2,
+          "width": 4096
+        }
+      ],
+      "materials": [
+        {
+          "output_material": 1,
+          "output_name": "dragon__m0",
+          "source_material": 0,
+          "source_name": null
+        }
+      ],
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": {
+              "operation": "rotate_xyz_only",
+              "output_accessor": 11,
+              "source_accessor": 2,
+              "source_value_bytes_sha256": "04fe3c099051eb0c03480574bdfe172f7b319c3817780a7b40c6e39242a914a6"
+            },
+            "POSITION": {
+              "operation": "explicit_position_transform",
+              "output_accessor": 10,
+              "source_accessor": 0,
+              "source_value_bytes_sha256": "470b5b38432d687873e642ba9ff664361eef316266b7ec9557209539cffbe2c4"
+            },
+            "TEXCOORD_0": {
+              "operation": "exact_original_bytes",
+              "output_accessor": 7,
+              "source_accessor": 1,
+              "source_value_bytes_sha256": "f971cd073ff5f6aea804ec5eea15ce55145a9d88c25c7b2539ec7af3f2090037"
+            }
+          },
+          "index_value_bytes_sha256": "9cc6b339e6b0ad23035d203988231b2880bd6da262ac5cb994662e2cd4be0e21",
+          "output_material": 1,
+          "output_material_name": "dragon__m0",
+          "output_primitive": 1,
+          "source_material": 0,
+          "source_primitive": 0,
+          "tangent_status": "absent_preserved_raw_source_not_final_shading_validation",
+          "triangles": 36501,
+          "vertices": 36010
+        }
+      ],
+      "source_asset": {
+        "generator": "pygltflib@v1.16.5",
+        "version": "2.0"
+      },
+      "source_bytes": 25349908,
+      "source_mesh": 0,
+      "source_node": 0,
+      "source_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "source_transform": {
+        "effective_unit_quaternion_xyzw": [
+          0.0,
+          -0.17364817766693036,
+          0.0,
+          0.9848077530122081
+        ],
+        "formula": "p_out=t+(source_meters_per_unit*uniform_scale)*R(q)*p_source",
+        "no_implicit_centering": true,
+        "placement": {
+          "rotation_xyzw": [
+            0.0,
+            -0.17364817766693033,
+            0.0,
+            0.984807753012208
+          ],
+          "translation_m": [
+            0.852088179659012,
+            0.44954082111143834,
+            -0.007158624113056858
+          ],
+          "uniform_scale": 1.0
+        },
+        "quaternion_normalization_delta": 1.1102230246251565e-16,
+        "rotation_matrix_rows": [
+          [
+            0.9396926207859084,
+            -0.0,
+            -0.34202014332566877
+          ],
+          [
+            0.0,
+            1.0,
+            -0.0
+          ],
+          [
+            0.34202014332566877,
+            0.0,
+            0.9396926207859084
+          ]
+        ],
+        "scale_to_meters": 0.6422194486297619,
+        "source_meters_per_unit": 0.6422194486297619
+      }
+    }
+  ],
+  "image_verification": "Pillow metadata and verify only; no full pixel decode or appearance claim",
+  "measured_totals": {
+    "decoded_scalars": 912191,
+    "image_pixels": 75497472,
+    "triangles": 87821,
+    "vertices": 81091
+  },
+  "metadata_admission": {
+    "components": [
+      {
+        "id": "robot",
+        "json_bytes": 2284,
+        "json_sha256": "6ac98c0bb592a7f0c176d685019bad7fe353eb7733dcd6242aaa411bf8f7d1c1",
+        "source_node": 0,
+        "transformed_accessor_count": 2,
+        "used_accessors": 4
+      },
+      {
+        "id": "dragon",
+        "json_bytes": 2304,
+        "json_sha256": "62cb95851ea8ccedb2e325e65b9e8d6845705cec858aba7b58345d2809453d13",
+        "source_node": 0,
+        "transformed_accessor_count": 2,
+        "used_accessors": 4
+      }
+    ],
+    "output_table_counts": {
+      "accessors": 12,
+      "bufferViews": 18,
+      "images": 6,
+      "samplers": 6,
+      "textures": 6
+    },
+    "totals": {
+      "decoded_scalars": 912191,
+      "triangles": 87821,
+      "vertices": 81091
+    }
+  },
+  "model_bytes": 50393860,
+  "model_sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+  "native_calls": 0,
+  "paid_calls": 0,
+  "policy": "unrigged-local-assembly-v1",
+  "quality_approved": false,
+  "requested_native_canonical_transform": {
+    "applied": false,
+    "blender_offset_before_scale": [
+      -0.05177837610244751,
+      0.03615683317184448,
+      0.0
+    ],
+    "blender_translation_before_scale": [
+      0.05177837610244751,
+      -0.03615683317184448,
+      -0.0
+    ],
+    "formula": "p_native=(gltf_to_blender(p_assembly)-blender_offset_before_scale)*uniform_scale",
+    "gltf_to_blender": "[x,-z,y]",
+    "native_helper": "scripts/blender_creature_rig.py:create_rig",
+    "requested_height_m": 1.2,
+    "uniform_scale": 0.9999999602635717,
+    "warning": "Future create_rig recenters and rescales every component; assembly anchors are not preserved as native world positions."
+  },
+  "rig_created": false,
+  "runtime": {
+    "numpy": "2.5.4",
+    "pillow": "13.0.0",
+    "python": "3.14.7"
+  },
+  "schema_version": 1,
+  "status": "unrigged_local_assembly",
+  "worker_elapsed_seconds": 0.11094516701996326
+}

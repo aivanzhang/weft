@@ -1,0 +1,30 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-native-preview-v1/sources/blender_provider_preview.py",
+    "--",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-native-preview-v1/original.glb",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-native-preview-v1",
+    "720",
+    "16",
+    "false"
+  ],
+  "limits": {
+    "native_sampled_rss_mib": 2048,
+    "native_seconds": 120,
+    "output_mib": 128,
+    "resolution": 720,
+    "samples": 16,
+    "views": 4
+  },
+  "model_sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+  "prepared_sha256": "d0a809f5ad606a4813bbadad7b1f7708e85e276193d137778ab05a595ca3bf8e"
+}

@@ -1,0 +1,104 @@
+{
+  "command": [
+    "/usr/bin/env",
+    "-i",
+    "PATH=/usr/bin:/bin",
+    "TMPDIR=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-source-assembly-v1/tmp",
+    "LANG=C.UTF-8",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "OMP_NUM_THREADS=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "VECLIB_MAXIMUM_THREADS=1",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-I",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-source-assembly-v1/sources/avatar_assets/compose_sources.py",
+    "--worker",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-source-assembly-v1/config.worker.json",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-source-assembly-v1"
+  ],
+  "environment_policy": "Empty environment plus listed nonsecret variables; no HOME/CODEX_HOME/auth variables",
+  "inputs": [
+    {
+      "bytes": 23097200,
+      "id": "robot",
+      "original_file_state": {
+        "bytes": 23097200,
+        "device": 16777232,
+        "inode": 25449270,
+        "mtime_ns": 1793470620412650144
+      },
+      "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+      "requested_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "snapshot": "inputs/robot.glb"
+    },
+    {
+      "bytes": 25349908,
+      "id": "dragon",
+      "original_file_state": {
+        "bytes": 25349908,
+        "device": 16777232,
+        "inode": 25608334,
+        "mtime_ns": 1793506280203701814
+      },
+      "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "requested_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "snapshot": "inputs/dragon.glb"
+    }
+  ],
+  "limits": {
+    "output_mib": 128,
+    "rss_mib": 512,
+    "wall_seconds": 60
+  },
+  "original_config_sha256": "9fdc398d19db732ecfaefa10ba9a3f6aa1b95dd284389737245fbd15b748c343",
+  "python_executable_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634",
+  "source_header_only_parent": true,
+  "sources": [
+    {
+      "bytes": 42821,
+      "path": "avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6",
+      "snapshot": "sources/avatar_assets/compose_sources.py"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 13676,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 96,
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 2710,
+      "path": "scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "sources/scripts/blender_creature_rig.py"
+    }
+  ],
+  "worker_config_sha256": "05bdff9c5030848e64a11085da98cd6f08ac4227bbf05574ae017ea1b8a1fee1"
+}

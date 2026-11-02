@@ -1,0 +1,15 @@
+{
+  "cli_sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37",
+  "command": [
+    "/usr/bin/env",
+    "-i",
+    "PATH=/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/run",
+    "verify",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-dragon-source-assembly-v1"
+  ],
+  "schema_version": 1,
+  "scope": "Public CLI hash/raw-geometry verification, not rig, motion or appearance acceptance",
+  "source_manifest_sha256": "a182cc11bbadb8a4559c00e7c50e6771a30765950fac9b7d7bb96bac35f1e9a7"
+}

@@ -1,0 +1,83 @@
+{
+  "actions": [],
+  "animation_verified": false,
+  "assumptions": [
+    "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+    "Raw generated units are not a calibrated physical measurement",
+    "Hidden geometry is generated, not recovered"
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up": {
+    "max": [
+      1.066583275794983,
+      0.642477810382843,
+      1.2000000476837158
+    ],
+    "min": [
+      -1.170140027999878,
+      -0.570164144039154,
+      0.0
+    ]
+  },
+  "material_count": 2,
+  "meshes": [
+    {
+      "faces": 87821,
+      "materials": [
+        {
+          "faces": 51320,
+          "name": "robot__m0",
+          "slot": 0
+        },
+        {
+          "faces": 36501,
+          "name": "dragon__m0",
+          "slot": 1
+        }
+      ],
+      "name": "robot-dragon-source-assembly-v1",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "vertices": 81091
+    }
+  ],
+  "render_engine": "BLENDER_EEVEE_NEXT",
+  "render_policy": {
+    "engine": "BLENDER_EEVEE_NEXT",
+    "engine_fallback": false,
+    "policy": "gltf-single-sided-culling-eevee-next-v1",
+    "reason": "Respect imported glTF single-sided culling and authored-normal semantics",
+    "sample_control": "scene.eevee.taa_render_samples",
+    "samples_actual": 16,
+    "samples_requested": 16,
+    "scope": "Exported GLB review only; native hair/portrait renderers are separate"
+  },
+  "renders": [
+    {
+      "path": "front.png",
+      "sha256": "2dcbb4317b41562e02fd7a4d083a260bd1e096fe51cd728ce313fe7163a0f37d",
+      "view": "front"
+    },
+    {
+      "path": "three-quarter.png",
+      "sha256": "2e50571fac9a67a0cf356b8f734bb9915ec1f02a3928ef297ca5d9b7670dc565",
+      "view": "three-quarter"
+    },
+    {
+      "path": "back.png",
+      "sha256": "9d435953a0cae0316f29187bb21de89335125c827e38b9517c1d52f31d3e0082",
+      "view": "back"
+    },
+    {
+      "path": "side.png",
+      "sha256": "b9b2962b53d03c23154c6d3eb1d445167e3a1bc22ee4dd4243010adcb2bffda4",
+      "view": "side"
+    }
+  ],
+  "rigs": [],
+  "schema_version": 1,
+  "source_is_untextured": false,
+  "source_sha256": "a2bdca0698d3ef777323889f8476ca80219bcde03c4e56a761c270fc97e44127",
+  "source_unchanged": true
+}

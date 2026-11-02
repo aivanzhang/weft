@@ -1,0 +1,137 @@
+{
+  "assembly_bounds_m": {
+    "max": [
+      1.066583275794983,
+      0.8999999761581421,
+      0.570164144039154
+    ],
+    "min": [
+      0.49401789903640747,
+      0.0,
+      -0.642477810382843
+    ]
+  },
+  "id": "dragon",
+  "images": [
+    {
+      "bytes": 13197586,
+      "format": "JPEG",
+      "height": 4096,
+      "mode": "RGB",
+      "packed_sha256": "4796cfd19907af48cebe547022a838719d24183261b242ffb4f5b1977441b096",
+      "source_image": 0,
+      "width": 4096
+    },
+    {
+      "bytes": 1450432,
+      "format": "JPEG",
+      "height": 2048,
+      "mode": "RGB",
+      "packed_sha256": "b90a5165b6ba717a11ce5b4e93c80e092301ab4535d12a4a35f575a81eafe63e",
+      "source_image": 1,
+      "width": 2048
+    },
+    {
+      "bytes": 9109223,
+      "format": "JPEG",
+      "height": 4096,
+      "mode": "RGB",
+      "packed_sha256": "3a04c7d2744aa7a756ad4f9c74917f85494d054acba6373a513636bef6c63b13",
+      "source_image": 2,
+      "width": 4096
+    }
+  ],
+  "materials": [
+    {
+      "output_material": 1,
+      "output_name": "dragon__m0",
+      "source_material": 0,
+      "source_name": null
+    }
+  ],
+  "primitives": [
+    {
+      "attributes": {
+        "NORMAL": {
+          "operation": "rotate_xyz_only",
+          "output_accessor": 11,
+          "source_accessor": 2,
+          "source_value_bytes_sha256": "04fe3c099051eb0c03480574bdfe172f7b319c3817780a7b40c6e39242a914a6"
+        },
+        "POSITION": {
+          "operation": "explicit_position_transform",
+          "output_accessor": 10,
+          "source_accessor": 0,
+          "source_value_bytes_sha256": "470b5b38432d687873e642ba9ff664361eef316266b7ec9557209539cffbe2c4"
+        },
+        "TEXCOORD_0": {
+          "operation": "exact_original_bytes",
+          "output_accessor": 7,
+          "source_accessor": 1,
+          "source_value_bytes_sha256": "f971cd073ff5f6aea804ec5eea15ce55145a9d88c25c7b2539ec7af3f2090037"
+        }
+      },
+      "index_value_bytes_sha256": "9cc6b339e6b0ad23035d203988231b2880bd6da262ac5cb994662e2cd4be0e21",
+      "output_material": 1,
+      "output_material_name": "dragon__m0",
+      "output_primitive": 1,
+      "source_material": 0,
+      "source_primitive": 0,
+      "tangent_status": "absent_preserved_raw_source_not_final_shading_validation",
+      "triangles": 36501,
+      "vertices": 36010
+    }
+  ],
+  "source_asset": {
+    "generator": "pygltflib@v1.16.5",
+    "version": "2.0"
+  },
+  "source_bytes": 25349908,
+  "source_mesh": 0,
+  "source_node": 0,
+  "source_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+  "source_transform": {
+    "effective_unit_quaternion_xyzw": [
+      0.0,
+      -0.17364817766693036,
+      0.0,
+      0.9848077530122081
+    ],
+    "formula": "p_out=t+(source_meters_per_unit*uniform_scale)*R(q)*p_source",
+    "no_implicit_centering": true,
+    "placement": {
+      "rotation_xyzw": [
+        0.0,
+        -0.17364817766693033,
+        0.0,
+        0.984807753012208
+      ],
+      "translation_m": [
+        0.852088179659012,
+        0.44954082111143834,
+        -0.007158624113056858
+      ],
+      "uniform_scale": 1.0
+    },
+    "quaternion_normalization_delta": 1.1102230246251565e-16,
+    "rotation_matrix_rows": [
+      [
+        0.9396926207859084,
+        -0.0,
+        -0.34202014332566877
+      ],
+      [
+        0.0,
+        1.0,
+        -0.0
+      ],
+      [
+        0.34202014332566877,
+        0.0,
+        0.9396926207859084
+      ]
+    ],
+    "scale_to_meters": 0.6422194486297619,
+    "source_meters_per_unit": 0.6422194486297619
+  }
+}
