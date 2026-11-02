@@ -74,7 +74,7 @@ CRITIC_SCHEMA = _object({
 
 AUTHOR_FIELDS = frozenset({
     "authored_rig", "authored_actions", "action_bindings", "part_rigs", "normal_continuity", "smoothing", "weight_constraints", "attachment", "groom",
-    "groom_exclusions", "groom_excluded_parts", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view", "camera_fit", "surface_profiles", "surface_smoothing", "groom_shader", "groom_flow", "color_corrections", "pose_resolution", "review_views",
+    "groom_exclusions", "groom_excluded_parts", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view", "camera_fit", "surface_profiles", "surface_smoothing", "groom_shader", "groom_flow", "color_corrections", "pose_resolution", "review_views", "fur_undercoat",
 })
 
 
@@ -187,7 +187,7 @@ _DESIGN_GUIDE = """
 Return AUTHOR_SCHEMA with status, reason and design_json. design_json is a JSON object of ONLY these optional fields:
 authored_rig, authored_actions, action_bindings, part_rigs, normal_continuity, smoothing, weight_constraints, attachment, groom, groom_exclusions, groom_excluded_parts,
 fur_max_chroma, fur_clump, portable_fur, camera_view, camera_fit, surface_profiles, surface_smoothing, groom_shader, groom_flow, color_corrections,
-pose_resolution, review_views. authored_actions is mandatory for ready.
+pose_resolution, review_views, fur_undercoat. authored_actions is mandatory for ready.
 Never include identity, source paths/hashes, states, IDs, execution, resolution, samples or paid-operation fields.
 Render settings are coordinator-owned by the supplied quality policy. Clips run from0 to4seconds; shorter media presets retime the full curves.
 Consistent-quality review requires pose_resolution:720 and review_views:true; a large contact sheet of small tiles is insufficient.
@@ -291,6 +291,14 @@ Optional direction:[-1..1,-1..1,-1..1] and comb:0..0.95 must both be present, wi
 Start conservatively (e.g.1500parents/12children) within the unchanged2GiB worker bound; dense native overrides are not allowed.
 groom_exclusions:[region] up to16; fur_max_chroma:0..1; fur_clump:0..1.
 With groom, optional groom_shader:{roughness:0.04..1,radial_roughness:0.04..1} controls sheen independently of strand shape.
+With native groom and groom_flow, optional fur_undercoat:{profile:short-pile-v1,resolution:1024|2048,
+seed:0..2147483647 integer,pitch_m:0.002..0.02,strength:0..0.5,roughness:0.5..1,min_faces:integer,max_faces:integer}
+adds authored short-pile lighting detail only on measured fur faces; require1<=min_faces<=max_faces<=100000.
+Optional uv_policy:material-adaptive-v1 measures each material: retain adequate UV0, otherwise author normal-only UV1.
+It preserves color UV0 and refuses preexisting UV1, more than4 selected material regions, or over2048faces in a region
+needing UV1. The coordinator budgets the whole model, coat and split reserve; never supply private budget fields.
+Undercoat is not actual hair, denser coat coverage, geometry repair or a substitute for native/portable fibers.
+Use it only for requested short-pile surfaces; it replaces selected normal response and does not establish Muse parity.
 Optional color_corrections:[{name,regions:[{center:[x,y,z],radius:[x,y,z]}],dominant_channel:0|1|2,
 dominant_ratio:1.05..5,color_srgb:[r,g,b],roughness:0.04..1,min_faces:integer,max_faces:integer}]
 supports1–4 corrections/1–4 regions each. Normalized bounds, center[-1,3],radius0.001..3,color0..1,

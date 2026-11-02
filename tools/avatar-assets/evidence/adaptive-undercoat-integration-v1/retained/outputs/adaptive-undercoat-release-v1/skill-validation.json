@@ -1,0 +1,17 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "/Users/ivan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+    "skills/avatar-asset-workflow"
+  ],
+  "exit_code": 0,
+  "new_paid_calls": 0,
+  "recorded_local": "2026-11-01 17:17:07 PST",
+  "schema_version": 1,
+  "scope": "Skill format and metadata validation, not model generation or visual quality",
+  "skill_path": "skills/avatar-asset-workflow/SKILL.md",
+  "skill_sha256": "8446277959a8bc13b226a4a3f4ced9dd3efb552abf386ce892778d73fa8fcb76",
+  "status": "passed",
+  "stdout": "Skill is valid!\n",
+  "validator_sha256": "ee6dba90f44d37171c5a6edb8095979c54919ff6822c1a907afca2e78c48738c"
+}

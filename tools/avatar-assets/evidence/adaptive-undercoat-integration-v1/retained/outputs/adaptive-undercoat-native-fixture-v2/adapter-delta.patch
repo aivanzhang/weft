@@ -1,0 +1,76 @@
+--- v1/blender_fur_undercoat.py
++++ v2/blender_fur_undercoat.py
+@@ -471,6 +471,14 @@
+     return image, digest.hexdigest()
+ 
+ 
++def _original_uv_layer(mesh, index, name):
++    # Tangent/UV CustomData allocation can invalidate previously saved RNA handles.
++    layer = mesh.uv_layers[index]
++    if layer.name != name:
++        raise ValueError('Original undercoat UV0 identity changed unexpectedly')
++    return layer
++
++
+ def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_vertex_budget):
+     import bpy
+     if __package__:
+@@ -486,10 +494,10 @@
+     mask = _array(mask, (len(mesh.vertices),), 'vertex mask', 'b')
+     if len(mesh.uv_layers) != 1 or mesh.uv_layers.active_index != 0:
+         raise ValueError('Adaptive undercoat requires only original UV0; preexisting UV1 is unsupported')
+-    uv_layer = mesh.uv_layers[0]
+-    if uv_layer.name == NORMAL_UV1_NAME or mesh.attributes.get(NORMAL_UV1_NAME) is not None:
++    original_uv_name = mesh.uv_layers[0].name
++    if original_uv_name == NORMAL_UV1_NAME or mesh.attributes.get(NORMAL_UV1_NAME) is not None:
+         raise ValueError('Authored undercoat UV1 name conflicts with existing data')
+-    original_active, original_render = mesh.uv_layers.active_index, uv_layer.active_render
++    original_active, original_render = mesh.uv_layers.active_index, mesh.uv_layers[0].active_render
+     mesh.calc_loop_triangles()
+     if not 1 <= len(mesh.loop_triangles) <= MAX_TRIANGLES:
+         raise ValueError('Undercoat triangle count exceeds bounds')
+@@ -506,7 +514,8 @@
+         raise ValueError('Adaptive undercoat material ownership or clone count exceeds bounds')
+     for slot in slots:
+         _material_shader(mesh.materials[int(slot)])
+-    uv0_loops = np.asarray([tuple(value.uv) for value in uv_layer.data], dtype=np.float32)
++    uv0_loops = np.asarray([tuple(value.uv) for value in
++        _original_uv_layer(mesh, original_active, original_uv_name).data], dtype=np.float32)
+     uv0 = uv0_loops[loops]
+     normals = np.asarray([tuple(value.vector) for value in mesh.corner_normals], dtype=np.float32)[loops]
+     normals = _array(normals, (len(triangles), 3, 3), 'normals')
+@@ -516,7 +525,7 @@
+     if any(path.exists() for path in paths.values()):
+         raise ValueError('Adaptive undercoat texture output already exists')
+     # Validate all requested tangent frames before adding a UV layer or material.
+-    mesh.calc_tangents(uvmap=uv_layer.name)
++    mesh.calc_tangents(uvmap=original_uv_name)
+     tangents = np.asarray([tuple(value.tangent) for value in mesh.loops], dtype=np.float32)[loops]
+     signs = np.asarray([value.bitangent_sign for value in mesh.loops], dtype=np.float32)[loops]
+     tangents = _array(tangents, (len(triangles), 3, 3), 'tangents')
+@@ -546,7 +555,7 @@
+         new_uv.data.foreach_set('uv', uv1_loops.ravel())
+         new_uv.active_render = False
+         mesh.uv_layers.active_index = original_active
+-        uv_layer.active_render = original_render
++        _original_uv_layer(mesh, original_active, original_uv_name).active_render = original_render
+     Path(out, 'textures').mkdir(exist_ok=True)
+     work = {'started': started, 'remaining_raster': MAX_RASTER_WORK-plan['raster_candidates']}
+     rows, clones = [], {}
+@@ -554,7 +563,7 @@
+         slot = region['region_id']
+         ids = np.flatnonzero(selected & (material_ids == slot))
+         authored_uv = slot in payloads
+-        target_uv = NORMAL_UV1_NAME if authored_uv else uv_layer.name
++        target_uv = NORMAL_UV1_NAME if authored_uv else original_uv_name
+         frames = authored.get(slot)
+         bake_settings = {key: value for key, value in settings.items() if key != 'uv_policy'}
+         bake_settings.update(resolution=1024 if authored_uv else settings['resolution'], min_faces=1, max_faces=len(ids))
+@@ -582,6 +591,7 @@
+         polygon = mesh.polygons[int(index)]
+         polygon.material_index = clones[polygon.material_index]
+     mesh.uv_layers.active_index = original_active
++    uv_layer = _original_uv_layer(mesh, original_active, original_uv_name)
+     uv_layer.active_render = original_render
+     if payloads:
+         mesh.uv_layers[1].active_render = False

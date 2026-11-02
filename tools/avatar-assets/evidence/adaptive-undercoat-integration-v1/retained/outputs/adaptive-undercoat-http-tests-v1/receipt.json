@@ -1,0 +1,49 @@
+{
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_gallery.HTTPTests",
+      "tests.test_studio.StudioHTTPTests",
+      "-q"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.766,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 2967,
+    "last_rss_sample_elapsed_seconds": 0.51,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 64,
+      "rss_mb": 768,
+      "wall_seconds": 90
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 92978,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 2,
+    "sampled_max_output_bytes": 2967,
+    "sampled_peak_rss_bytes": 44072960,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "log_sha256": "8763bf558b548183002e07f095137d60a3a502e2bd911c505ca7c048fed3c942",
+  "new_paid_calls": 0,
+  "original_suite_log_sha256": "62f045790237b25aac8f622307a5d2c8692c7936b6f03d00c75c114865720e61",
+  "schema_version": 1,
+  "scope": "Temporary loopback HTTP fixtures only; no browser or generation",
+  "source_inventory_sha256": "168264062c759bd56bbe182e20327f949f5c4d480bb9722c604e9830459b3db4",
+  "sources_unchanged": true
+}

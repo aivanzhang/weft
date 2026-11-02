@@ -13,7 +13,7 @@ from unittest.mock import Mock, patch
 import sys
 import numpy as np
 
-from avatar_assets.finish_generated import finish, validate
+from avatar_assets.finish_generated import finish, validate, _undercoat_frame_policy
 from scripts import surface_integrity, blender_fur_cards, fur_root_sampling, groom_flow
 
 
@@ -51,6 +51,49 @@ def material(image, *, route=(), projection='FLAT', extension='REPEAT'):
 
 
 class FinishQualityConfigTests(unittest.TestCase):
+    def test_uv1_export_requires_the_saved_bake_policy_not_just_an_opt_in(self):
+        from avatar_assets.generated_tangents import NORMAL_UV1_FRAME_POLICY
+        policy = NORMAL_UV1_FRAME_POLICY
+        current = {'fur_undercoat': {'frame_policy': policy, 'plan': {'frame_policy': policy},
+                                    'materials': [{'normal_texcoord': 0, 'frame_policy': None},
+                                                  {'normal_texcoord': 1, 'frame_policy': policy}]}}
+        self.assertEqual(_undercoat_frame_policy(current, True), policy)
+        self.assertIsNone(_undercoat_frame_policy({}, False))
+        for defect in ('missing_top', 'old_top', 'missing_plan', 'old_material', 'boolean_uv', 'no_materials'):
+            bad = deepcopy(current); undercoat = bad['fur_undercoat']
+            if defect == 'missing_top': undercoat.pop('frame_policy')
+            if defect == 'old_top': undercoat['frame_policy'] = 'authored-unshared-atlas-blender-v-up-v1'
+            if defect == 'missing_plan': undercoat.pop('plan')
+            if defect == 'old_material': undercoat['materials'][1]['frame_policy'] = 'old'
+            if defect == 'boolean_uv': undercoat['materials'][1]['normal_texcoord'] = True
+            if defect == 'no_materials': undercoat['materials'] = []
+            with self.subTest(defect=defect), self.assertRaises(ValueError):
+                _undercoat_frame_policy(bad, True)
+
+    def test_adaptive_undercoat_budget_is_private_and_reserved_before_native(self):
+        config = tuft_config()
+        config['portable_fur']['settings']['profile'] = 'combed-v1'
+        config['portable_fur']['bands'][0]['count'] = 3600
+        config['fur_undercoat'] = {'profile':'short-pile-v1', 'resolution':2048, 'seed':41,
+            'pitch_m':.004, 'strength':.22, 'roughness':.92, 'min_faces':1, 'max_faces':100000,
+            'uv_policy':'material-adaptive-v1'}
+        validate(config)
+        with self.assertRaisesRegex(ValueError, 'Invalid generated finishing config'):
+            validate({**config, 'undercoat_export_budget': {'source_export_vertices':1,
+                      'portable_export_vertices':0, 'reserve_vertices':0}})
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root/'analytic.glb'
+            source.write_bytes(b'ANALYTIC PREFLIGHT FIXTURE ONLY')
+            config.update(source=str(source), source_sha256=hashlib.sha256(source.read_bytes()).hexdigest())
+            path = root/'config.json';path.write_text(json.dumps(config))
+            with patch('avatar_assets.finish_generated.preflight', return_value={'vertices':55000,'skins':1}), \
+                 patch('avatar_assets.finish_generated.run_bounded') as native, \
+                 self.assertRaisesRegex(ValueError, 'Adaptive undercoat base, coat and reserve'):
+                finish(path, root/'new-pack')
+            native.assert_not_called()
+            self.assertFalse((root/'new-pack').exists())
+
     def test_undercoat_is_opt_in_and_requires_shared_measured_groom_context(self):
         config = tuft_config()
         config['fur_undercoat'] = {'profile':'short-pile-v1','resolution':2048,'seed':41,

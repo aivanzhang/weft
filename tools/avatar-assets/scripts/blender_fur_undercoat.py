@@ -24,11 +24,15 @@ MAX_RASTER_WORK = 32000000
 MAX_SECONDS = 90.0
 CHUNK = 16384
 PROFILE = 'short-pile-v1'
+ADAPTIVE_UV_POLICY = 'material-adaptive-v1'
+NORMAL_UV1_NAME = 'AuthoredUndercoatUV1'
 
 
 def validate_undercoat(settings):
     fields = {'profile', 'resolution', 'seed', 'pitch_m', 'strength', 'roughness', 'min_faces', 'max_faces'}
-    if not isinstance(settings, dict) or set(settings) != fields or settings['profile'] != PROFILE:
+    if (not isinstance(settings, dict) or set(settings) not in (fields, fields | {'uv_policy'}) or
+            settings['profile'] != PROFILE or
+            ('uv_policy' in settings and settings['uv_policy'] != ADAPTIVE_UV_POLICY)):
         raise ValueError('Undercoat requires the exact short-pile-v1 settings')
     if type(settings['resolution']) is not int or settings['resolution'] not in (1024, 2048):
         raise ValueError('Undercoat resolution must be1024 or2048')
@@ -92,7 +96,7 @@ def _noise_gradient(points, seed):
     return gradient
 
 
-def _raster(vertices, triangles, uvs, selected, size, started):
+def _raster(vertices, triangles, uvs, selected, size, started, remaining_work=None):
     owner = np.full((size, size), -1, dtype=np.int32)
     bary = np.zeros((size, size, 2), dtype=np.float32)
     work, overlap, subpixel = 0, 0, 0
@@ -111,7 +115,7 @@ def _raster(vertices, triangles, uvs, selected, size, started):
             continue
         width, height = high-low+1
         work += int(width*height)
-        if work > MAX_RASTER_WORK:
+        if work > (MAX_RASTER_WORK if remaining_work is None else remaining_work):
             raise ValueError('Undercoat UV raster work exceeds32000000 pixels')
         hit = False
         # Tall/overlapping triangles cannot create an unbounded temporary raster.
@@ -148,7 +152,7 @@ def _raster(vertices, triangles, uvs, selected, size, started):
 
 
 def bake_short_pile(vertices, triangles, triangle_uvs, triangle_normals, triangle_tangents,
-                    triangle_signs, selected, prepared_flow, settings):
+                    triangle_signs, selected, prepared_flow, settings, *, _budget=None, _directions=None):
     """Return a bounded RGBA normal atlas and analytic evidence; input arrays stay unchanged."""
     settings = validate_undercoat(settings)
     if not isinstance(vertices, np.ndarray) or not 1 <= len(vertices) <= MAX_VERTICES:
@@ -171,10 +175,20 @@ def bake_short_pile(vertices, triangles, triangle_uvs, triangle_normals, triangl
     if not settings['min_faces'] <= count <= settings['max_faces']:
         raise ValueError('Undercoat selected face count is outside its declared bounds')
     normals, tangents = _unit(normals.astype(np.float32)), _unit(tangents.astype(np.float32))
-    started = time.monotonic()
-    directions = np.asarray([evaluate_prepared_flow(point, prepared_flow)[0] for point in vertices], dtype=np.float32)
+    started = time.monotonic() if _budget is None else _budget['started']
+    if _budget is not None and time.monotonic()-started > MAX_SECONDS:
+        raise RuntimeError('Undercoat bake exceeded its90-second deadline')
+    if _directions is None:
+        directions = np.asarray([evaluate_prepared_flow(point, prepared_flow)[0] for point in vertices], dtype=np.float32)
+    else:
+        directions = _checked_directions(_directions, nv)
     size = settings['resolution']
-    owner, bary, report = _raster(vertices, triangles, uv, selected, size, started)
+    if _budget is None:
+        owner, bary, report = _raster(vertices, triangles, uv, selected, size, started)
+    else:
+        owner, bary, report = _raster(vertices, triangles, uv, selected, size, started,
+                                    remaining_work=_budget['remaining_raster'])
+        _budget['remaining_raster'] -= report['raster_candidate_pixels']
     output = np.empty((size, size, 4), dtype=np.float32)
     output[:] = (.5, .5, 1, 1)
     locations = np.flatnonzero(owner.ravel() >= 0)
@@ -222,10 +236,12 @@ def bake_short_pile(vertices, triangles, triangle_uvs, triangle_normals, triangl
     return output, report
 
 
-def apply_undercoat(obj, mask, prepared_flow, settings, out):
+def apply_undercoat(obj, mask, prepared_flow, settings, out, *, export_vertex_budget=None):
     """Clone selected face materials and bake one supported PNG normal texture."""
     import bpy
     settings = validate_undercoat(settings)
+    if settings.get('uv_policy') == ADAPTIVE_UV_POLICY:
+        return _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_vertex_budget)
     mesh = obj.data
     if len(mesh.vertices) > MAX_VERTICES or len(mesh.loops) > 300000 or len(mesh.materials) > 32:
         raise ValueError('Undercoat mesh or material count exceeds bounds')
@@ -296,3 +312,310 @@ def apply_undercoat(obj, mask, prepared_flow, settings, out):
                   original_normal_replaced_only_on_selected_faces=True, original_materials_preserved=True,
                   source_images_unchanged=True)
     return report
+
+
+def _export_budget(value, native_vertices):
+    fields = {'source_export_vertices', 'portable_export_vertices', 'reserve_vertices'}
+    if not isinstance(value, dict) or set(value) != fields or any(type(v) is not int for v in value.values()):
+        raise ValueError('Adaptive undercoat requires the exact aggregate export_vertex_budget')
+    source, portable, reserve = (value[key] for key in
+                                  ('source_export_vertices', 'portable_export_vertices', 'reserve_vertices'))
+    if (not native_vertices <= source <= MAX_VERTICES or not 0 <= portable <= MAX_VERTICES or
+            not 0 <= reserve <= 10000 or source+portable+reserve > MAX_VERTICES):
+        raise ValueError('Adaptive undercoat exceeds the100000vertex aggregate export budget')
+    return dict(value)
+
+
+def _checked_directions(directions, count):
+    directions = _array(directions, (count, 3), 'shared flow directions', 'f')
+    if (directions.dtype != np.dtype(np.float32) or directions.flags.writeable or
+            np.any(np.abs(directions) > 1.00001) or
+            np.any(np.abs(np.linalg.norm(directions, axis=1)-1) > 1e-5)):
+        raise ValueError('Shared undercoat directions must be read-only unit float32 vectors')
+    return directions
+
+
+def _prepare_directions(vertices, prepared_flow, started):
+    # Material bakes share one call-local array; never cache source geometry or flow globally.
+    directions = np.empty((len(vertices), 3), dtype=np.float32)
+    for index, point in enumerate(vertices):
+        if index % 256 == 0 and time.monotonic()-started > MAX_SECONDS:
+            raise RuntimeError('Undercoat flow preparation exceeded its90-second deadline')
+        directions[index] = evaluate_prepared_flow(point, prepared_flow)[0]
+    if time.monotonic()-started > MAX_SECONDS:
+        raise RuntimeError('Undercoat flow preparation exceeded its90-second deadline')
+    directions.flags.writeable = False
+    return _checked_directions(directions, len(vertices))
+
+
+def plan_material_undercoat(vertices, triangles, uv0, selected, material_ids, settings, *, export_vertex_budget):
+    """Plan normal-only UV changes using supplied whole-pack counts, never native count guesses."""
+    if __package__:
+        from .undercoat_uv_atlas import plan_normal_atlases
+    else:
+        from undercoat_uv_atlas import plan_normal_atlases
+    settings = validate_undercoat(settings)
+    if settings.get('uv_policy') != ADAPTIVE_UV_POLICY:
+        raise ValueError('Material planning requires material-adaptive-v1')
+    if not isinstance(vertices, np.ndarray) or vertices.ndim != 2 or not 1 <= len(vertices) <= MAX_VERTICES:
+        raise ValueError('Invalid or oversized adaptive undercoat vertices')
+    budget = _export_budget(export_vertex_budget, len(vertices))
+    if not isinstance(triangles, np.ndarray) or triangles.ndim != 2 or not 1 <= len(triangles) <= MAX_TRIANGLES:
+        raise ValueError('Invalid or oversized adaptive undercoat triangles')
+    selected = _array(selected, (len(triangles),), 'selection', 'b')
+    if not settings['min_faces'] <= int(selected.sum()) <= settings['max_faces']:
+        raise ValueError('Undercoat selected face count is outside its declared bounds')
+    plan, payloads = plan_normal_atlases(vertices, triangles, uv0, selected, material_ids,
+        source_export_vertices=budget['source_export_vertices']+budget['portable_export_vertices'],
+        resolution=settings['resolution'], atlas_resolution=1024, pitch_m=settings['pitch_m'],
+        reserve_vertices=budget['reserve_vertices'])
+    extra = 0
+    for row in plan['regions']:
+        region = material_ids == row['region_id']
+        yes = np.bincount(triangles[selected & region].ravel(), minlength=len(vertices))
+        no = np.bincount(triangles[~selected & region].ravel(), minlength=len(vertices))
+        # One native vertex can already have several exported UV/normal seam copies.
+        corner_bound = int(np.minimum(yes, no).sum())
+        delta = corner_bound-row['material_split_extra_vertices']
+        extra += delta
+        row['material_split_corner_bound'] = corner_bound
+        row['additional_material_seam_reserve_vertices'] = delta
+    plan['additional_export_vertices'] += extra
+    plan['projected_export_vertex_ceiling'] += extra
+    if plan['projected_export_vertex_ceiling'] > MAX_VERTICES:
+        raise ValueError('Adaptive material seams exceed the100000vertex aggregate export budget')
+    plan.update(export_vertex_budget=budget, additional_material_seam_reserve_vertices=extra,
+        source_export_vertices_scope='Pinned source GLB vertices plus planned whole-coat exported corners; not a measured source-only count',
+        uv_policy=ADAPTIVE_UV_POLICY, selected_triangles=int(selected.sum()),
+        excluded_triangles=int((~selected).sum()), max_simultaneous_float_atlases=1,
+        aggregate_raster_limit=MAX_RASTER_WORK, aggregate_runtime_seconds=MAX_SECONDS,
+        quality_approved=False, automatic_quality_policy_promoted=False)
+    return plan, payloads
+
+
+def _selected_triangular_polygons(loops, polygon_ids, polygon_loop_counts, selected, loop_count):
+    nt = len(selected)
+    selected = _array(selected, (nt,), 'selection', 'b')
+    loops = _array(loops, (nt, 3), 'triangle loops', 'iu')
+    polygon_ids = _array(polygon_ids, (nt,), 'polygon IDs', 'iu')
+    if (not isinstance(polygon_loop_counts, np.ndarray) or polygon_loop_counts.ndim != 1 or
+            not 1 <= len(polygon_loop_counts) <= MAX_TRIANGLES):
+        raise ValueError('Invalid undercoat polygon loop counts')
+    counts = _array(polygon_loop_counts, (len(polygon_loop_counts),), 'polygon loop counts', 'iu')
+    if (type(loop_count) is not int or not 1 <= loop_count <= 300000 or
+            loops.min() < 0 or loops.max() >= loop_count or polygon_ids.min() < 0 or
+            polygon_ids.max() >= len(counts)):
+        raise ValueError('Undercoat polygon or loop ownership is invalid')
+    polygons, occurrences = np.unique(polygon_ids[selected], return_counts=True)
+    owned = loops[selected].ravel()
+    references = np.bincount(loops.ravel(), minlength=loop_count)
+    if np.any(counts[polygons] != 3) or np.any(occurrences != 1) or np.any(references[owned] != 1):
+        raise ValueError('Adaptive undercoat requires triangular selected polygons with unambiguous loop ownership')
+    return polygons
+
+
+def _material_shader(material):
+    if not material or not material.use_nodes or not 1 <= len(material.node_tree.nodes) <= 252:
+        raise ValueError('Adaptive undercoat needs bounded node-based materials')
+    shaders = [node for node in material.node_tree.nodes if node.type == 'BSDF_PRINCIPLED']
+    if len(shaders) != 1 or any(name not in shaders[0].inputs for name in ('Base Color', 'Normal', 'Roughness', 'Metallic')):
+        raise ValueError('Adaptive undercoat requires one supported Principled shader')
+    return shaders[0]
+
+
+def _clone_material(original, image, uv_name, roughness):
+    clone = original.copy()
+    if clone is original or clone.node_tree is original.node_tree or clone.node_tree.nodes is original.node_tree.nodes:
+        raise ValueError('Undercoat material copy did not isolate the source graph')
+    clone.name = original.name+'__short_pile_adaptive_v1'
+    shader = _material_shader(clone)
+    for name in ('Normal', 'Roughness', 'Metallic'):
+        for link in list(shader.inputs[name].links):
+            clone.node_tree.links.remove(link)
+    shader.inputs['Roughness'].default_value = roughness
+    shader.inputs['Metallic'].default_value = 0
+    uv = clone.node_tree.nodes.new('ShaderNodeUVMap')
+    uv.uv_map = uv_name
+    texture = clone.node_tree.nodes.new('ShaderNodeTexImage')
+    texture.image, texture.extension, texture.interpolation = image, 'REPEAT', 'Linear'
+    normal = clone.node_tree.nodes.new('ShaderNodeNormalMap')
+    normal.space, normal.uv_map = 'TANGENT', uv_name
+    normal.inputs['Strength'].default_value = 1
+    clone.node_tree.links.new(uv.outputs['UV'], texture.inputs['Vector'])
+    clone.node_tree.links.new(texture.outputs['Color'], normal.inputs['Color'])
+    clone.node_tree.links.new(normal.outputs['Normal'], shader.inputs['Normal'])
+    return clone
+
+
+def _save_material_normal(bpy, pixels, path, size, label):
+    temporary = bpy.data.images.new(label, width=size, height=size, alpha=False)
+    try:
+        temporary.colorspace_settings.name = 'Non-Color'
+        temporary.pixels.foreach_set(pixels.ravel())
+        temporary.filepath_raw, temporary.file_format = str(path), 'PNG'
+        temporary.save()
+    finally:
+        bpy.data.images.remove(temporary)
+    if not 0 < path.stat().st_size <= 32*1024*1024:
+        raise ValueError('Undercoat normal PNG exceeds32MiB')
+    # Retain packed PNG bytes, not four generated float buffers between regional bakes.
+    image = bpy.data.images.load(str(path), check_existing=False)
+    image.name = label
+    image.colorspace_settings.name = 'Non-Color'
+    image.pack()
+    image.buffers_free()
+    digest = hashlib.sha256()
+    with path.open('rb') as handle:
+        for chunk in iter(lambda: handle.read(1024*1024), b''):
+            digest.update(chunk)
+    return image, digest.hexdigest()
+
+
+def _original_uv_layer(mesh, index, name):
+    # Tangent/UV CustomData allocation can invalidate previously saved RNA handles.
+    layer = mesh.uv_layers[index]
+    if layer.name != name:
+        raise ValueError('Original undercoat UV0 identity changed unexpectedly')
+    return layer
+
+
+def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_vertex_budget):
+    import bpy
+    if __package__:
+        from .undercoat_uv_atlas import atlas_tangents, NORMAL_UV1_FRAME_POLICY
+    else:
+        from undercoat_uv_atlas import atlas_tangents, NORMAL_UV1_FRAME_POLICY
+    started = time.monotonic()
+    mesh = obj.data
+    if (not 1 <= len(mesh.vertices) <= MAX_VERTICES or not 1 <= len(mesh.loops) <= 300000 or
+            not 1 <= len(mesh.materials) <= 32 or not isinstance(prepared_flow, PreparedFlow)):
+        raise ValueError('Adaptive undercoat needs bounded mesh/materials and shared prepared flow')
+    _export_budget(export_vertex_budget, len(mesh.vertices))
+    mask = _array(mask, (len(mesh.vertices),), 'vertex mask', 'b')
+    if len(mesh.uv_layers) != 1 or mesh.uv_layers.active_index != 0:
+        raise ValueError('Adaptive undercoat requires only original UV0; preexisting UV1 is unsupported')
+    original_uv_name = mesh.uv_layers[0].name
+    if original_uv_name == NORMAL_UV1_NAME or mesh.attributes.get(NORMAL_UV1_NAME) is not None:
+        raise ValueError('Authored undercoat UV1 name conflicts with existing data')
+    original_active, original_render = mesh.uv_layers.active_index, mesh.uv_layers[0].active_render
+    mesh.calc_loop_triangles()
+    if not 1 <= len(mesh.loop_triangles) <= MAX_TRIANGLES:
+        raise ValueError('Undercoat triangle count exceeds bounds')
+    vertices = np.asarray([tuple(v.co) for v in mesh.vertices], dtype=np.float32)
+    triangles = np.asarray([tuple(t.vertices) for t in mesh.loop_triangles], dtype=np.int32)
+    loops = np.asarray([tuple(t.loops) for t in mesh.loop_triangles], dtype=np.int32)
+    polygon_ids = np.asarray([t.polygon_index for t in mesh.loop_triangles], dtype=np.int32)
+    material_ids = np.asarray([mesh.polygons[i].material_index for i in polygon_ids], dtype=np.int32)
+    selected = mask[triangles].all(axis=1)
+    polygons = _selected_triangular_polygons(loops, polygon_ids,
+        np.asarray([p.loop_total for p in mesh.polygons], dtype=np.int32), selected, len(mesh.loops))
+    slots = np.unique(material_ids[selected])
+    if np.any(slots < 0) or np.any(slots >= len(mesh.materials)) or len(mesh.materials)+len(slots) > 32:
+        raise ValueError('Adaptive undercoat material ownership or clone count exceeds bounds')
+    for slot in slots:
+        _material_shader(mesh.materials[int(slot)])
+    uv0_loops = np.asarray([tuple(value.uv) for value in
+        _original_uv_layer(mesh, original_active, original_uv_name).data], dtype=np.float32)
+    uv0 = uv0_loops[loops]
+    normals = np.asarray([tuple(value.vector) for value in mesh.corner_normals], dtype=np.float32)[loops]
+    normals = _array(normals, (len(triangles), 3, 3), 'normals')
+    plan, payloads = plan_material_undercoat(vertices, triangles, uv0, selected, material_ids, settings,
+                                           export_vertex_budget=export_vertex_budget)
+    paths = {int(slot): Path(out)/'textures'/f'authored-short-pile-normal-material-{int(slot):02d}.png' for slot in slots}
+    if any(path.exists() for path in paths.values()):
+        raise ValueError('Adaptive undercoat texture output already exists')
+    # Validate all requested tangent frames before adding a UV layer or material.
+    mesh.calc_tangents(uvmap=original_uv_name)
+    tangents = np.asarray([tuple(value.tangent) for value in mesh.loops], dtype=np.float32)[loops]
+    signs = np.asarray([value.bitangent_sign for value in mesh.loops], dtype=np.float32)[loops]
+    tangents = _array(tangents, (len(triangles), 3, 3), 'tangents')
+    signs = _array(signs, (len(triangles), 3), 'bitangent signs')
+    uv1_loops, authored = uv0_loops.copy(), {}
+    for slot, payload in payloads.items():
+        ids = payload['face_ids']
+        frames = atlas_tangents(vertices, triangles, ids, payload['uvs'], normals[ids])
+        authored[slot] = frames
+        uv1_loops[loops[ids].ravel()] = payload['uvs'].reshape(-1, 2)
+    for slot in slots:
+        ids = np.flatnonzero(selected & (material_ids == slot))
+        unit_normal = _unit(normals[ids])
+        if int(slot) not in authored:
+            _unit(tangents[ids]-unit_normal*np.sum(tangents[ids]*unit_normal, axis=2)[:, :, None])
+            if np.any(np.abs(signs[ids]) != 1):
+                raise ValueError('Selected original UV0 has invalid tangent handedness')
+    if time.monotonic()-started > MAX_SECONDS:
+        raise RuntimeError('Undercoat bake exceeded its90-second deadline')
+    flow_started = time.monotonic()
+    directions = _prepare_directions(vertices, prepared_flow, started)
+    flow_elapsed = time.monotonic()-flow_started
+    if payloads:
+        new_uv = mesh.uv_layers.new(name=NORMAL_UV1_NAME)
+        if new_uv.name != NORMAL_UV1_NAME:
+            raise ValueError('Native UV1 layer name changed unexpectedly')
+        new_uv.data.foreach_set('uv', uv1_loops.ravel())
+        new_uv.active_render = False
+        mesh.uv_layers.active_index = original_active
+        _original_uv_layer(mesh, original_active, original_uv_name).active_render = original_render
+    Path(out, 'textures').mkdir(exist_ok=True)
+    work = {'started': started, 'remaining_raster': MAX_RASTER_WORK-plan['raster_candidates']}
+    rows, clones = [], {}
+    for region in plan['regions']:
+        slot = region['region_id']
+        ids = np.flatnonzero(selected & (material_ids == slot))
+        authored_uv = slot in payloads
+        target_uv = NORMAL_UV1_NAME if authored_uv else original_uv_name
+        frames = authored.get(slot)
+        bake_settings = {key: value for key, value in settings.items() if key != 'uv_policy'}
+        bake_settings.update(resolution=1024 if authored_uv else settings['resolution'], min_faces=1, max_faces=len(ids))
+        pixels, baked = bake_short_pile(vertices, triangles[ids],
+            payloads[slot]['uvs'] if authored_uv else uv0[ids], normals[ids],
+            frames[:, :, :3] if authored_uv else tangents[ids],
+            frames[:, :, 3] if authored_uv else signs[ids], np.ones(len(ids), dtype=bool),
+            prepared_flow, bake_settings, _budget=work, _directions=directions)
+        image, image_hash = _save_material_normal(bpy, pixels, paths[slot], bake_settings['resolution'],
+                                                  f'AuthoredShortPileNormal_{slot:02d}')
+        del pixels
+        if time.monotonic()-started > MAX_SECONDS:
+            raise RuntimeError('Undercoat bake exceeded its90-second deadline')
+        original = mesh.materials[slot]
+        clone = _clone_material(original, image, target_uv, settings['roughness'])
+        clones[slot] = len(mesh.materials)
+        mesh.materials.append(clone)
+        rows.append({'source_material': original.name, 'material': clone.name,
+            'source_material_index': slot, 'selected_faces': len(ids), 'normal_uv_map': target_uv,
+            'normal_texcoord': 1 if authored_uv else 0, 'basecolor_graph_preserved': True,
+            'frame_policy': NORMAL_UV1_FRAME_POLICY if authored_uv else None,
+            'texture_path': str(paths[slot].relative_to(out)), 'texture_sha256': image_hash,
+            'bake': baked, 'atlas': payloads[slot]['report'] if authored_uv else None,
+            'authored_tangents_sha256': hashlib.sha256(frames.tobytes()).hexdigest() if authored_uv else None})
+    for index in polygons:
+        polygon = mesh.polygons[int(index)]
+        polygon.material_index = clones[polygon.material_index]
+    mesh.uv_layers.active_index = original_active
+    uv_layer = _original_uv_layer(mesh, original_active, original_uv_name)
+    uv_layer.active_render = original_render
+    if payloads:
+        mesh.uv_layers[1].active_render = False
+    actual_uv0 = np.asarray([tuple(value.uv) for value in uv_layer.data], dtype=np.float32)
+    if not np.array_equal(actual_uv0, uv0_loops):
+        raise ValueError('Original undercoat UV0 changed unexpectedly')
+    return {'schema_version': 1, 'profile': PROFILE, 'settings': settings, 'uv_policy': ADAPTIVE_UV_POLICY,
+        'frame_policy': NORMAL_UV1_FRAME_POLICY,
+        'plan': plan, 'materials': rows, 'selected_triangles': int(selected.sum()),
+        'excluded_triangles': int((~selected).sum()), 'selected_polygons': len(polygons),
+        'excluded_polygons': len(mesh.polygons)-len(polygons),
+        'selected_faces_sha256': hashlib.sha256(np.flatnonzero(selected).astype('<i4').tobytes()).hexdigest(),
+        'original_uv0_sha256': hashlib.sha256(uv0_loops.tobytes()).hexdigest(),
+        'authored_uv1_sha256': hashlib.sha256(uv1_loops.tobytes()).hexdigest() if payloads else None,
+        'original_active_uv_index': original_active, 'original_uv0_active_render': original_render,
+        'original_uvs_changed': False, 'original_materials_preserved': True, 'source_images_unchanged': True,
+        'original_normal_replaced_only_on_selected_faces': True, 'palette_changed': False,
+        'geometry_displaced': False, 'skin_or_animation_changed': False,
+        'raster_candidate_pixels_including_plan': MAX_RASTER_WORK-work['remaining_raster'],
+        'shared_flow': {'evaluated_vertices': len(vertices), 'material_bakes': len(rows),
+                        'array_bytes': directions.nbytes, 'read_only': True,
+                        'directions_float32_sha256': hashlib.sha256(directions.tobytes()).hexdigest(),
+                        'elapsed_seconds': round(flow_elapsed, 6)},
+        'elapsed_seconds': round(time.monotonic()-started, 6), 'quality_approved': False,
+        'weft_appearance_compatible': False, 'max_simultaneous_float_atlases': 1,
+        'assumption': 'Authored optional short-pile surface detail, not dense fur, recovered fibers or measured coat coverage'}

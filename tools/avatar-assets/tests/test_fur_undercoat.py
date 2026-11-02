@@ -54,6 +54,8 @@ class UndercoatTests(unittest.TestCase):
         for actual, before in zip(values[:7], originals):
             np.testing.assert_array_equal(actual, before)
         self.assertEqual(report['normal_float32_sha256'], second['normal_float32_sha256'])
+        self.assertEqual(report['normal_float32_sha256'],
+                         '64953c8d89139043b8cb1bfaed441af49ed649c25e8e769e368aac85d1b9a0fc')
         self.assertEqual(report['selected_triangles'], 2)
         self.assertEqual(report['covered_texels'], 1024**2)
         self.assertEqual(report['overlapping_different_surface_samples'], 0)

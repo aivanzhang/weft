@@ -1,0 +1,142 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "42da0afd6801b73d77739e547e9ccb0f70b229532d85359ce3513cecba7cd114"
+    },
+    {
+      "bytes": 10695,
+      "path": "build_fixture.py",
+      "sha256": "148114b0a3566abfbf82e47ea78898bb3fa48b10431542f28e0cb4386ed43adc"
+    },
+    {
+      "bytes": 3591,
+      "path": "execute_prepared.py",
+      "sha256": "b560977b67baf40978808742215922739fd610ced1d121c5b70042367099a3f4"
+    },
+    {
+      "bytes": 217,
+      "path": "execution-failure.json",
+      "sha256": "c9cbfd0b14ce393390014682430e01c2ed2a7885dc72018b70833ae738cee109"
+    },
+    {
+      "bytes": 469,
+      "path": "execution-started.json",
+      "sha256": "99d65c15caa2a84ddc0e57090b0a1a24d16960f04fc69ef9741d4fe63c5c5a3a"
+    },
+    {
+      "bytes": 4368,
+      "path": "failure-manifest.json",
+      "sha256": "5bbdd35498a83279b74b86aeca1ee1917f498e2f6f7aaff7a08cbd4ba0328cd1"
+    },
+    {
+      "bytes": 3956,
+      "path": "fixture.json",
+      "sha256": "3c3ec5b43ba45556461822256ca177a0cc05e8e13a35ccd14114a25be796dc80"
+    },
+    {
+      "bytes": 391,
+      "path": "native-handle.json",
+      "sha256": "e8727db7e344306666a7dff420173a1f45a8491467c0ac1515d69bad1edf7310"
+    },
+    {
+      "bytes": 1316,
+      "path": "native-job.json",
+      "sha256": "c78d022414ef785853b616263227314c87e52f2d7aa4e6eee41d8f36077a8288"
+    },
+    {
+      "bytes": 1194,
+      "path": "native-monitor.json",
+      "sha256": "16c94c73ee54e419c3ae73dc9b60ca0637942dfbba690199fbdc1a987d3343a8"
+    },
+    {
+      "bytes": 1368,
+      "path": "native.log",
+      "sha256": "b91c89c2f7b8c420f55ab53bf81fc49af85467eb1b876a78cda80c9ea59020b7"
+    },
+    {
+      "bytes": 798,
+      "path": "prepare-receipt.json",
+      "sha256": "8b8b520306e12b6dff9b5d1e8b723365cf9ee7b164854c80cb2784311db3696b"
+    },
+    {
+      "bytes": 3934,
+      "path": "prepared.json",
+      "sha256": "d6b24022b418c35e72dbefd3fe6cb1dcb3449c0d758cc97492dc9a3f4afb4b3d"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 64031,
+      "path": "sources/native/__pycache__/blender_fur_undercoat.cpython-311.pyc",
+      "sha256": "6878887001eac1437a7a92b9247efaeea652350c5d58d95d344d2e7e1a6e3135"
+    },
+    {
+      "bytes": 13323,
+      "path": "sources/native/__pycache__/groom_flow.cpython-311.pyc",
+      "sha256": "ae21815ae5b6ef62615fe983207aa632ed677c481267c86c246e3c1498638701"
+    },
+    {
+      "bytes": 27619,
+      "path": "sources/native/__pycache__/undercoat_uv_atlas.cpython-311.pyc",
+      "sha256": "5726ba47c5283dcce5be68f79c3416f04b2442579a6dc89d0d3031f0447d58df"
+    },
+    {
+      "bytes": 36250,
+      "path": "sources/native/blender_fur_undercoat.py",
+      "sha256": "c46540e5b8667c18608ba4fdbeb972c1e9517ff841fb2b448b5bb0a02b7c210c"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/native/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 14546,
+      "path": "sources/native/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "bytes": 95079,
+      "path": "textures/authored-short-pile-normal-material-00.png",
+      "sha256": "a2b2e7c36f8e1b756f4be6eb5ed99611d929cc0b2c9d590a223fc5244e8eff36"
+    },
+    {
+      "bytes": 96088,
+      "path": "textures/authored-short-pile-normal-material-01.png",
+      "sha256": "7d6019535de7f8731974a4caaaa7413627dee9b5da4baba322905b9c8f7090c3"
+    },
+    {
+      "bytes": 196,
+      "path": "textures/original-basecolor.png",
+      "sha256": "19dce3d80867362d84de2d4107853db01524fdf5f1fc2b3aef0f02a45439e4c2"
+    },
+    {
+      "bytes": 9973,
+      "path": "verify_fixture.py",
+      "sha256": "e8d89e1d554783e6a9098e32da25e5290664d2eb0aec9da0cfe88c4e236d88e8"
+    }
+  ],
+  "root": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v1",
+  "schema_version": 1,
+  "scope": "Read-only inventory of every preserved v1 file; original folder untouched."
+}

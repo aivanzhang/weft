@@ -1,0 +1,823 @@
+{
+  "all_four_faces_measured": true,
+  "bake_handedness_signs_checked": [
+    -1.0,
+    1.0
+  ],
+  "coordinate_space": "glTF world Y-up",
+  "elapsed_seconds": 0.022500041872262955,
+  "excluded_triangle_original_material_preserved": true,
+  "hd_render_attributes": {
+    "checks": [
+      "finite normals/UV0/UV1/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "selected normal-map UV0/UV1 binding"
+    ],
+    "decoded_scalar_values": 132,
+    "limitations": [
+      "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+      "This HD check does not change Weft's diffuse UV0-only contract; normal-map/UV1 assets remain unsupported there."
+    ],
+    "limits": {
+      "decoded_global_values": 2000000,
+      "decoded_surface_values": 1100000,
+      "file_bytes": 67108864,
+      "normal_map_uv_indices": [
+        0,
+        1
+      ],
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "AnalyticAliasedColor",
+        "normal_map_uv_set": null,
+        "normal_mapped": false,
+        "normal_squared_length_error": 0.0,
+        "normal_tangent_dot_error": 0.0,
+        "tangent_squared_length_error": 0.0,
+        "verified_uv_sets": [
+          0,
+          1
+        ],
+        "vertices": 3
+      },
+      {
+        "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+        "normal_map_uv_set": 1,
+        "normal_mapped": true,
+        "normal_squared_length_error": 0.0,
+        "normal_tangent_dot_error": 0.0,
+        "tangent_squared_length_error": 5.18340541457718e-05,
+        "verified_uv_sets": [
+          0,
+          1
+        ],
+        "vertices": 6
+      },
+      {
+        "material": "AnalyticHealthyColor__short_pile_adaptive_v1",
+        "normal_map_uv_set": 0,
+        "normal_mapped": true,
+        "normal_squared_length_error": 0.0,
+        "normal_tangent_dot_error": 0.0,
+        "tangent_squared_length_error": 0.0,
+        "verified_uv_sets": [
+          0,
+          1
+        ],
+        "vertices": 3
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "2500c2e72aad7c1e64d8d8493f697c42280f88057cc5c68b9a9c61d07ef4e249",
+    "status": "validated_render_attributes",
+    "tangent_uv_derivation_verified": false,
+    "vertices": 12,
+    "weft_runtime_verified": false
+  },
+  "material_png_images_checked": 3,
+  "model_sha256": "2500c2e72aad7c1e64d8d8493f697c42280f88057cc5c68b9a9c61d07ef4e249",
+  "native_jobs": 0,
+  "native_negative_cases": [
+    {
+      "case": "existing_uv1",
+      "no_bake_or_material_mutation": true,
+      "reason": "Adaptive undercoat requires only original UV0; preexisting UV1 is unsupported",
+      "rejected": true
+    },
+    {
+      "case": "conflicting_attribute",
+      "no_bake_or_material_mutation": true,
+      "reason": "Authored undercoat UV1 name conflicts with existing data",
+      "rejected": true
+    }
+  ],
+  "native_report_sha256": "3d2b9e24a401544591808751119168047f7c1f56af978244deafc0b5823160aa",
+  "new_renders": 0,
+  "normal_uv_regions": [
+    0,
+    1
+  ],
+  "passed": false,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "raw_source_model_sha256": "2500c2e72aad7c1e64d8d8493f697c42280f88057cc5c68b9a9c61d07ef4e249",
+  "rotated_uv1_min_angle_degrees": 48.410398790532405,
+  "schema_version": 3,
+  "scope": "Four analytic triangles only; not an avatar, complete pack, rendered appearance or general tangent proof.",
+  "source_geometry_uv0_basecolor_and_active_flags_preserved": true,
+  "status": "analytic_export_rejected",
+  "tangent_convention": "Native Blender V-up baked PNG vectors; XYZ rotated to glTF Y-up; B=cross(N,T)*W. Exported V flip changes addressing, not unchanged PNG vector Y or bake W.",
+  "triangles": [
+    {
+      "corners": [
+        {
+          "bake_w_matches": true,
+          "corner": 0,
+          "exported_vertex_index": 0,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.4129237933681,
+          "native_bake_tangent_dot": 0.6637575203730329,
+          "native_bake_tangent_world": [
+            -0.8221921942943693,
+            0.0,
+            -0.5692099750016774
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990289345,
+          "native_uv0_w": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "uv1_vs_uv0_angle_degrees": 48.410398790532405,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6637575203730329
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 1,
+          "exported_vertex_index": 1,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.4129237933681,
+          "native_bake_tangent_dot": 0.6637575203730329,
+          "native_bake_tangent_world": [
+            -0.8221921942943693,
+            0.0,
+            -0.5692099750016774
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990289345,
+          "native_uv0_w": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "uv1_vs_uv0_angle_degrees": 48.410398790532405,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6637575203730329
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 2,
+          "exported_vertex_index": 2,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.4129237933681,
+          "native_bake_tangent_dot": 0.6637575203730329,
+          "native_bake_tangent_world": [
+            -0.8221921942943693,
+            0.0,
+            -0.5692099750016774
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990289345,
+          "native_uv0_w": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "uv1_vs_uv0_angle_degrees": 48.410398790532405,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6637575203730329
+        }
+      ],
+      "failure": "Selected-UV tangent frame differs from unchanged-PNG native bake",
+      "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+      "native_bake_frame_preserved": false,
+      "normal_uv": 1,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 1,
+      "rgb_world_normal_samples": [
+        {
+          "barycentric": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "exported_world_normal": [
+            -0.017772876457957675,
+            0.998634099288046,
+            -0.04913309069825838
+          ],
+          "native_bake_world_normal": [
+            -0.048545868902570094,
+            0.998634099288046,
+            -0.019319274097325423
+          ],
+          "native_uv_v_up": [
+            0.2962109446525574,
+            0.09156249960263568
+          ],
+          "png_pixel_top_left_origin": [
+            303,
+            930
+          ],
+          "rgb8": [
+            134,
+            129,
+            255
+          ],
+          "world_normal_angle_degrees": 2.455123585423696,
+          "world_normal_dot": 0.999082079637845
+        },
+        {
+          "barycentric": [
+            0.5,
+            0.25,
+            0.25
+          ],
+          "exported_world_normal": [
+            -0.0447419602880273,
+            0.9960101650076529,
+            -0.07721339385762399
+          ],
+          "native_bake_world_normal": [
+            -0.08744940288383812,
+            0.996010165007653,
+            -0.017786318806547432
+          ],
+          "native_uv_v_up": [
+            0.31931641697883606,
+            0.13612304627895355
+          ],
+          "png_pixel_top_left_origin": [
+            326,
+            884
+          ],
+          "rgb8": [
+            138,
+            132,
+            255
+          ],
+          "world_normal_angle_degrees": 4.193915930932374,
+          "world_normal_dot": 0.9973222485488997
+        },
+        {
+          "barycentric": [
+            0.25,
+            0.5,
+            0.25
+          ],
+          "exported_world_normal": [
+            0.02368205168034541,
+            0.9991859240331373,
+            0.03265960260405795
+          ],
+          "native_bake_world_normal": [
+            0.040146818747860094,
+            0.9991859240331373,
+            0.003965117712251367
+          ],
+          "native_uv_v_up": [
+            0.22276856005191803,
+            0.06928222626447678
+          ],
+          "png_pixel_top_left_origin": [
+            228,
+            953
+          ],
+          "rgb8": [
+            123,
+            125,
+            255
+          ],
+          "world_normal_angle_degrees": 1.8955829186193793,
+          "world_normal_dot": 0.9994527689911032
+        },
+        {
+          "barycentric": [
+            0.25,
+            0.25,
+            0.5
+          ],
+          "exported_world_normal": [
+            -0.023513265992656355,
+            0.9950840602018879,
+            -0.09620207614435503
+          ],
+          "native_bake_world_normal": [
+            -0.0875612410799003,
+            0.9950840602018879,
+            -0.04626815527631584
+          ],
+          "native_uv_v_up": [
+            0.34654785692691803,
+            0.06928222626447678
+          ],
+          "png_pixel_top_left_origin": [
+            354,
+            953
+          ],
+          "rgb8": [
+            140,
+            129,
+            254
+          ],
+          "world_normal_angle_degrees": 4.654437681509577,
+          "world_normal_dot": 0.9967022302169842
+        }
+      ],
+      "source_face": 0,
+      "tangent_w_exported": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          -0.11999999731779099,
+          0.0,
+          -0.9927999973297119
+        ],
+        [
+          -0.11999999731779099,
+          0.0,
+          -0.9927999973297119
+        ],
+        [
+          -0.11999999731779099,
+          0.0,
+          -0.9927999973297119
+        ]
+      ]
+    },
+    {
+      "corners": [
+        {
+          "bake_w_matches": true,
+          "corner": 0,
+          "exported_vertex_index": 3,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.41292384672894,
+          "native_bake_tangent_dot": 0.6637575196764525,
+          "native_bake_tangent_world": [
+            -0.8221921948244872,
+            0.0,
+            -0.5692099742359515
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990294044,
+          "native_uv0_w": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "uv1_vs_uv0_angle_degrees": 48.410399454983256,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6637575196764525
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 1,
+          "exported_vertex_index": 4,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.41292384672894,
+          "native_bake_tangent_dot": 0.6637575196764525,
+          "native_bake_tangent_world": [
+            -0.8221921948244872,
+            0.0,
+            -0.5692099742359515
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990294044,
+          "native_uv0_w": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "uv1_vs_uv0_angle_degrees": 48.410399454983256,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6637575196764525
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 2,
+          "exported_vertex_index": 5,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.41292384672894,
+          "native_bake_tangent_dot": 0.6637575196764525,
+          "native_bake_tangent_world": [
+            -0.8221921948244872,
+            0.0,
+            -0.5692099742359515
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990294044,
+          "native_uv0_w": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "uv1_vs_uv0_angle_degrees": 48.410399454983256,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6637575196764525
+        }
+      ],
+      "failure": "Selected-UV tangent frame differs from unchanged-PNG native bake",
+      "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+      "native_bake_frame_preserved": false,
+      "normal_uv": 1,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 1,
+      "rgb_world_normal_samples": [
+        {
+          "barycentric": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "exported_world_normal": [
+            0.005304552640213967,
+            0.9999231153652807,
+            0.011208259431282848
+          ],
+          "native_bake_world_normal": [
+            0.011904130013210787,
+            0.9999231153652807,
+            0.0034720378483415267
+          ],
+          "native_uv_v_up": [
+            0.7962109446525574,
+            0.09156249960263568
+          ],
+          "png_pixel_top_left_origin": [
+            815,
+            930
+          ],
+          "rgb8": [
+            126,
+            127,
+            255
+          ],
+          "world_normal_angle_degrees": 0.5826291634796016,
+          "world_normal_dot": 0.9999482982270589
+        },
+        {
+          "barycentric": [
+            0.5,
+            0.25,
+            0.25
+          ],
+          "exported_world_normal": [
+            -0.01683920925810214,
+            0.9990018808215746,
+            -0.04137249263119753
+          ],
+          "native_bake_world_normal": [
+            -0.04212161781891626,
+            0.9990018808215745,
+            -0.014866453083160178
+          ],
+          "native_uv_v_up": [
+            0.8193164169788361,
+            0.13612304627895355
+          ],
+          "png_pixel_top_left_origin": [
+            838,
+            884
+          ],
+          "rgb8": [
+            133,
+            129,
+            255
+          ],
+          "world_normal_angle_degrees": 2.098872248381914,
+          "world_normal_dot": 0.999329114842421
+        },
+        {
+          "barycentric": [
+            0.25,
+            0.5,
+            0.25
+          ],
+          "exported_world_normal": [
+            0.025358791571851055,
+            0.9934257135745609,
+            0.11163459723083188
+          ],
+          "native_bake_world_normal": [
+            0.10032894324828812,
+            0.9934257135745609,
+            0.05513125026295368
+          ],
+          "native_uv_v_up": [
+            0.722768560051918,
+            0.06928222626447678
+          ],
+          "png_pixel_top_left_origin": [
+            740,
+            953
+          ],
+          "rgb8": [
+            113,
+            126,
+            254
+          ],
+          "world_normal_angle_degrees": 5.380812606962701,
+          "world_normal_dot": 0.99559342406952
+        },
+        {
+          "barycentric": [
+            0.25,
+            0.25,
+            0.5
+          ],
+          "exported_world_normal": [
+            0.012149339129154658,
+            0.9999231153652807,
+            0.002481313546598535
+          ],
+          "native_bake_world_normal": [
+            0.009920108286599692,
+            0.9999231153652806,
+            -0.007440081301563713
+          ],
+          "native_uv_v_up": [
+            0.846547856926918,
+            0.06928222626447678
+          ],
+          "png_pixel_top_left_origin": [
+            866,
+            953
+          ],
+          "rgb8": [
+            127,
+            126,
+            255
+          ],
+          "world_normal_angle_degrees": 0.5826291634802272,
+          "world_normal_dot": 0.9999482982270588
+        }
+      ],
+      "source_face": 1,
+      "tangent_w_exported": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          -0.11999999731779099,
+          0.0,
+          -0.9927999973297119
+        ],
+        [
+          -0.11999999731779099,
+          0.0,
+          -0.9927999973297119
+        ],
+        [
+          -0.11999999731779099,
+          0.0,
+          -0.9927999973297119
+        ]
+      ]
+    },
+    {
+      "corners": [
+        {
+          "bake_w_matches": true,
+          "corner": 0,
+          "exported_vertex_index": 0,
+          "exported_w": -1.0,
+          "native_bake_tangent_angle_degrees": 0.0,
+          "native_bake_tangent_dot": 1.0,
+          "native_bake_tangent_world": [
+            1.0,
+            0.0,
+            -0.0
+          ],
+          "native_bake_w": -1.0,
+          "native_uv0_tangent_dot": 1.0,
+          "native_uv0_w": -1.0,
+          "old_vdown_w_assertion_matches": false,
+          "uv1_vs_uv0_angle_degrees": 0.0,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 1.0
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 1,
+          "exported_vertex_index": 1,
+          "exported_w": -1.0,
+          "native_bake_tangent_angle_degrees": 0.0,
+          "native_bake_tangent_dot": 1.0,
+          "native_bake_tangent_world": [
+            1.0,
+            0.0,
+            -0.0
+          ],
+          "native_bake_w": -1.0,
+          "native_uv0_tangent_dot": 1.0,
+          "native_uv0_w": -1.0,
+          "old_vdown_w_assertion_matches": false,
+          "uv1_vs_uv0_angle_degrees": 0.0,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 1.0
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 2,
+          "exported_vertex_index": 2,
+          "exported_w": -1.0,
+          "native_bake_tangent_angle_degrees": 0.0,
+          "native_bake_tangent_dot": 1.0,
+          "native_bake_tangent_world": [
+            1.0,
+            0.0,
+            -0.0
+          ],
+          "native_bake_w": -1.0,
+          "native_uv0_tangent_dot": 1.0,
+          "native_uv0_w": -1.0,
+          "old_vdown_w_assertion_matches": false,
+          "uv1_vs_uv0_angle_degrees": 0.0,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 1.0
+        }
+      ],
+      "failure": null,
+      "material": "AnalyticHealthyColor__short_pile_adaptive_v1",
+      "native_bake_frame_preserved": true,
+      "normal_uv": 0,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 2,
+      "rgb_world_normal_samples": [
+        {
+          "barycentric": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "exported_world_normal": [
+            -0.04309419878053846,
+            0.9990018808215745,
+            -0.011752963303783188
+          ],
+          "native_bake_world_normal": [
+            -0.04309419878053846,
+            0.9990018808215745,
+            -0.011752963303783188
+          ],
+          "native_uv_v_up": [
+            0.3833333378036817,
+            0.5666666751106579
+          ],
+          "png_pixel_top_left_origin": [
+            392,
+            443
+          ],
+          "rgb8": [
+            122,
+            126,
+            255
+          ],
+          "world_normal_angle_degrees": 0.0,
+          "world_normal_dot": 1.0
+        },
+        {
+          "barycentric": [
+            0.5,
+            0.25,
+            0.25
+          ],
+          "exported_world_normal": [
+            -0.027405080287753653,
+            0.9983279247681682,
+            -0.05089514910582823
+          ],
+          "native_bake_world_normal": [
+            -0.027405080287753653,
+            0.9983279247681682,
+            -0.05089514910582823
+          ],
+          "native_uv_v_up": [
+            0.3125000037252903,
+            0.6250000093132257
+          ],
+          "png_pixel_top_left_origin": [
+            320,
+            383
+          ],
+          "rgb8": [
+            124,
+            121,
+            255
+          ],
+          "world_normal_angle_degrees": 0.0,
+          "world_normal_dot": 1.0
+        },
+        {
+          "barycentric": [
+            0.25,
+            0.5,
+            0.25
+          ],
+          "exported_world_normal": [
+            -0.11387795492097474,
+            0.9934869860347103,
+            -0.003926826031757734
+          ],
+          "native_bake_world_normal": [
+            -0.11387795492097474,
+            0.9934869860347103,
+            -0.003926826031757734
+          ],
+          "native_uv_v_up": [
+            0.4875000063329935,
+            0.6250000093132257
+          ],
+          "png_pixel_top_left_origin": [
+            499,
+            383
+          ],
+          "rgb8": [
+            113,
+            127,
+            254
+          ],
+          "world_normal_angle_degrees": 0.0,
+          "world_normal_dot": 1.0
+        },
+        {
+          "barycentric": [
+            0.25,
+            0.25,
+            0.5
+          ],
+          "exported_world_normal": [
+            0.10593286739023128,
+            0.9926302018417962,
+            0.058851592994572904
+          ],
+          "native_bake_world_normal": [
+            0.10593286739023128,
+            0.9926302018417962,
+            0.058851592994572904
+          ],
+          "native_uv_v_up": [
+            0.35000000335276127,
+            0.45000000670552254
+          ],
+          "png_pixel_top_left_origin": [
+            358,
+            563
+          ],
+          "rgb8": [
+            141,
+            135,
+            254
+          ],
+          "world_normal_angle_degrees": 0.0,
+          "world_normal_dot": 1.0000000000000002
+        }
+      ],
+      "source_face": 2,
+      "tangent_w_exported": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "excluded_original_material_preserved": true,
+      "failure": null,
+      "material": "AnalyticAliasedColor",
+      "native_bake_frame_preserved": null,
+      "normal_frame_check": "not_applicable_no_normal_texture",
+      "normal_uv": null,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 0,
+      "source_face": 3,
+      "tangent_w_exported": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "verifier_sha256": "e1f7c49f28dbde5ee49b75803ec4c30579649c3ce1a95e31c88bdc5a0216dc79",
+  "weft_compatible": false
+}

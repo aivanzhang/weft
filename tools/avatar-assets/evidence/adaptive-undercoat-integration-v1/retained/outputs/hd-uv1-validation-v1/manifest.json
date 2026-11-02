@@ -1,0 +1,95 @@
+{
+  "analytic_decoded_scalar_values": 1100000,
+  "analytic_vertices": 100000,
+  "artifacts": [
+    {
+      "bytes": 1609,
+      "path": "analytic-100k-report.json",
+      "sha256": "936822ae92c0d4b73863ed9ad3a00dadf070a5f83efa91685e2a76ed074ea23f"
+    },
+    {
+      "bytes": 5601168,
+      "path": "analytic-100k.glb",
+      "sha256": "812f9149d77ea3acf6edd97b2d99a91a7be8cb320b3dbeae09884e7c00587b40"
+    },
+    {
+      "bytes": 5047,
+      "path": "component-report.json",
+      "sha256": "de650a691778adf43826945cfc5a86d49a20da684b82a10fff8db7d423e78b1a"
+    },
+    {
+      "bytes": 225,
+      "path": "cpu-handle.json",
+      "sha256": "7362d3b5ad135de8911c0982cf7f28b9a4ab99497ef6ef28cc63aaa83962b213"
+    },
+    {
+      "bytes": 1012,
+      "path": "cpu-monitor.json",
+      "sha256": "13b7c01fb144f47d571bc4bf5e2f93cde0ef31314d6a7d7fabdf04a9de66a963"
+    },
+    {
+      "bytes": 170,
+      "path": "cpu.log",
+      "sha256": "ffa052268ad5341031286592a804a250cb4eea8298502c1e1eafd9ab4f59dbcd"
+    },
+    {
+      "bytes": 1011,
+      "path": "inputs.json",
+      "sha256": "188041ff2e10e57212b9bd11725700fde40d178604d986325fb164d1d47683b4"
+    },
+    {
+      "bytes": 1102,
+      "path": "job.json",
+      "sha256": "c18938dbd6834c748ffec3db506ab58d58fa2c7750a9b547a5a281e4098d3978"
+    },
+    {
+      "bytes": 2092,
+      "path": "measure.py",
+      "sha256": "4149b69f40179cef0f659479636a9a0bf5328bb3bd4c50bac15eacdde81b1b90"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 8585,
+      "path": "sources/tests/test_hd_uv1_attributes.py",
+      "sha256": "321e1397c18ec4ee2bdf48fecd6d83b6b4e3e054bfb6c12045e33aec36f15a70"
+    },
+    {
+      "bytes": 18400,
+      "path": "sources/tests/test_scene_quality.py",
+      "sha256": "f296d2e6f6377c3561db8463db1af5d8624981203f6c9ab8a931ce9475a8163c"
+    },
+    {
+      "bytes": 9803,
+      "path": "sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 694,
+      "path": "tests-receipt.json",
+      "sha256": "f57ae8505100e0c3e80ca07f6ca802a1ee13fff5f41fd21cb146ff97e97581a3"
+    }
+  ],
+  "complete_pack_accepted": false,
+  "component_status": "attributes_validated",
+  "model_calls": 0,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "status": "hd_uv1_attribute_validation_tested",
+  "tangent_derivation_verified": false,
+  "weft_runtime_verified": false
+}

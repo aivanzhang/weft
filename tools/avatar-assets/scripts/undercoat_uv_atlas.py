@@ -17,6 +17,7 @@ MAX_REGIONS = 4
 MAX_ATLAS_FACES = 2048
 MAX_PIXELS = 32000000
 MAX_SECONDS = 20.0
+NORMAL_UV1_FRAME_POLICY = 'mikk-unshared-triangle-v-up-v2'
 
 
 def _array(value, shape, name, kinds='fiu'):
@@ -173,11 +174,12 @@ def triangle_atlas(points,faces,face_ids,*,resolution=1024,padding_px=2):
         'faces':count,'max_meters_per_texel':max(densities),'median_meters_per_texel':float(np.median(densities)),
         'uv1_float32_sha256':hashlib.sha256(result.tobytes()).hexdigest(),
         'layout':'One ordered longest-edge local triangle per padded grid cell; no shared chart texels',
-        'authored_not_recovered':True,'geometry_changed':False,'uv0_changed':False}
+        'authored_not_recovered':True,'geometry_changed':False,'uv0_changed':False,
+        'frame_policy':NORMAL_UV1_FRAME_POLICY}
 
 
 def atlas_tangents(points,faces,face_ids,uv1,corner_normals):
-    """Construct finite unit tangent frames for the authored, unshared triangle charts."""
+    """Match Mikk's per-face orientation on unshared V-up triangle charts."""
     if not isinstance(points,np.ndarray) or points.ndim!=2 or not 1<=len(points)<=MAX_VERTICES:
         raise ValueError('Invalid authored tangent points')
     if not isinstance(faces,np.ndarray) or faces.ndim!=2 or not 1<=len(faces)<=MAX_FACES:
@@ -200,15 +202,19 @@ def atlas_tangents(points,faces,face_ids,uv1,corner_normals):
     determinant=a[:,0]*b[:,1]-a[:,1]*b[:,0]
     if np.any(np.abs(determinant)<1e-12):raise ValueError('Authored UV1 tangent chart is degenerate')
     e1,e2=xyz[:,1]-xyz[:,0],xyz[:,2]-xyz[:,0]
+    if np.any(np.linalg.norm(np.cross(e1,e2),axis=1)<=1e-12):
+        raise ValueError('Authored UV1 tangent geometry is degenerate')
     du=(e1*b[:,1,None]-e2*a[:,1,None])/determinant[:,None]
-    dv=(e2*a[:,0,None]-e1*b[:,0,None])/determinant[:,None]
     tangent=np.repeat(du[:,None,:],3,axis=1)
     tangent-=normals*np.sum(tangent*normals,axis=2)[:,:,None]
     size=np.linalg.norm(tangent,axis=2)
     if np.any(size<1e-8):raise ValueError('Source normals cannot support authored tangent frames')
     tangent/=size[:,:,None]
-    sign=np.sign(np.sum(np.cross(normals,tangent)*dv[:,None,:],axis=2))
+    # Mikk orientation comes from UV area, even when authored normals oppose the face.
+    sign=np.repeat(np.sign(determinant)[:,None],3,axis=1)
     if np.any(sign==0):raise ValueError('Authored tangent handedness is undefined')
+    if np.any(sign!=sign[:,:1]):
+        raise ValueError('Authored UV1 triangle has inconsistent tangent handedness')
     return np.concatenate((tangent,sign[:,:,None]),axis=2).astype(np.float32)
 
 
@@ -235,7 +241,7 @@ def plan_normal_atlases(points,faces,uv0,selected,regions,*,source_export_vertic
         payloads[region]={'face_ids':ids,'uvs':uvs,'report':report}
     analysis.update(atlas_regions=[region for region,_ in pending],source_export_vertices=source_export_vertices,
         additional_export_vertices=extra,reserve_vertices=reserve_vertices,projected_export_vertex_ceiling=projected,
-        hd_only=True,weft_appearance_compatible=False,
+        hd_only=True,weft_appearance_compatible=False,frame_policy=NORMAL_UV1_FRAME_POLICY,
         limitations=['Normal UV1 and selected tangents are authored, not recovered.',
                     'Weft rejects normal maps and TEXCOORD_1; no importer change is implied.',
                     'This plan establishes no visible softness or animation quality.'])

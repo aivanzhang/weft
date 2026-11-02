@@ -1,0 +1,102 @@
+{
+  "claims": {
+    "ai_role_calls": 0,
+    "motion_replay": false,
+    "native_execution": false,
+    "provider_calls": 0,
+    "visual_quality": false
+  },
+  "expected_frame_policy": "mikk-unshared-triangle-v-up-v2",
+  "expected_model_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "inputs": [
+    {
+      "bytes": 11962,
+      "copy": "sources/generated_tangents.py",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/generated_tangents.py",
+      "sha256": "58cd7003f95ce05d9655f5be9ff0c7b701d67319cc6d6138c9547dd0beb3815f"
+    },
+    {
+      "bytes": 14944,
+      "copy": "sources/undercoat_uv_atlas.py",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 36931,
+      "copy": "sources/blender_fur_undercoat.py",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_fur_undercoat.py",
+      "sha256": "cd039759e97e1653bdcc29ab22b6cd36e3e9ff420234413de5520355f9ca50aa"
+    },
+    {
+      "bytes": 26050,
+      "copy": "sources/finish_generated.py",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/finish_generated.py",
+      "sha256": "fc3b902dc73245937076f7eef339d45beb7b292ddde46899eb50013400396f34"
+    },
+    {
+      "bytes": 73661,
+      "copy": "receipts/manifest.json",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/manifest.json",
+      "sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655"
+    },
+    {
+      "bytes": 39741,
+      "copy": "receipts/finish-config.json",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-config.json",
+      "sha256": "8fd968b3b80f0cf5269cda6cd989228a8b79c155041529ef0578bc48b9404ecb"
+    },
+    {
+      "bytes": 48515,
+      "copy": "receipts/finish-report.json",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-report.json",
+      "sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650"
+    },
+    {
+      "bytes": 1233,
+      "copy": "receipts/tangent-repair.json",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/tangent-repair.json",
+      "sha256": "ed7886f5e42d025185b93ef038c17a87aa8d503964a914d7f5bcddb049e30074"
+    },
+    {
+      "bytes": 1552,
+      "copy": "receipts/job.json",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/job.json",
+      "sha256": "b26a8f1f8fc92956b2fe221307411295fd7019c9e12dd51d5203a77f3d8c9e10"
+    },
+    {
+      "bytes": 33519456,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/model-native-export.glb",
+      "sha256": "80b266415b1bbae8234a0962a2706457ca414c378b59ac4f17e48ba66a7f88e5"
+    },
+    {
+      "bytes": 33519456,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+      "sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5"
+    },
+    {
+      "bytes": 26414540,
+      "path": "outputs/companion-separation-v7/diagnostic-model.glb",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    {
+      "bytes": 2897299,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/textures/authored-short-pile-normal-material-00.png",
+      "sha256": "0f33f9671b450c7fe80358a82ad010cd27293470f46b908642df0390d4b4fc49"
+    },
+    {
+      "bytes": 191869,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/textures/authored-short-pile-normal-material-02.png",
+      "sha256": "216d1b75b2af72607619daaf989b75e81023aaf1271b10509bd5a4a4e2cde4b5"
+    }
+  ],
+  "kind": "independent_cpu_export_byte_audit",
+  "limits": {
+    "audit_output_bytes": 2097152,
+    "deadline_seconds": 30,
+    "json_bytes_each": 2097152,
+    "model_bytes_each": 67108864
+  },
+  "prepared_at": "2026-11-01T17:10:50.243614-08:00",
+  "schema_version": 1,
+  "source_pack": "outputs/panda-adaptive-undercoat-finish-v2"
+}

@@ -1,0 +1,69 @@
+{
+  "all_v1_files_preserved": true,
+  "byte_identical_fixture_and_dependencies": [
+    {
+      "path": "build_fixture.py",
+      "sha256": "148114b0a3566abfbf82e47ea78898bb3fa48b10431542f28e0cb4386ed43adc"
+    },
+    {
+      "path": "execute_prepared.py",
+      "sha256": "b560977b67baf40978808742215922739fd610ced1d121c5b70042367099a3f4"
+    },
+    {
+      "path": "fixture.json",
+      "sha256": "3c3ec5b43ba45556461822256ca177a0cc05e8e13a35ccd14114a25be796dc80"
+    },
+    {
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "path": "sources/native/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "path": "sources/native/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "path": "verify_fixture.py",
+      "sha256": "e8d89e1d554783e6a9098e32da25e5290664d2eb0aec9da0cfe88c4e236d88e8"
+    }
+  ],
+  "changed_hypothesis": "Cache immutable UV0 identifiers and reacquire the actual layer after Blender CustomData allocation; do not reuse invalidated UV-layer RNA handles.",
+  "corrected_adapter_sha256": "8e772b23cee3f4e5bd137ae0183da31fe7c478654c0bd2db9ade6620ea961fb3",
+  "native_confirmation_pending": true,
+  "new_paid_calls": 0,
+  "previous_adapter_sha256": "c46540e5b8667c18608ba4fdbeb972c1e9517ff841fb2b448b5bb0a02b7c210c",
+  "previous_attempt": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v1",
+  "previous_failure": "Original undercoat UV0 changed unexpectedly",
+  "previous_status": "failed_preserved",
+  "production_source_delta": "adapter-delta.patch",
+  "runner_regression": {
+    "native_execution": false,
+    "observed_snapshot_sha256": "5b92a9af0970f4e5ab8be2ea1ff0b384603252dc5f435abb5a420f5d8aeb4eaa",
+    "reported_by": "/root/agent_runner",
+    "reported_elapsed_seconds": [
+      1.26,
+      0.014
+    ],
+    "reported_test_source_sha256": "cb31537a2085ff5752274fb6baf4e914ce9ec4b6171da067bd179b9dd24b07e5",
+    "scope": "Mock invalidates old handles after calc_tangents and new; runner reports pre-fix failure reproduced and affected checks passed after fix; no-UV1 allocation checked.",
+    "snapshot_note": "Current test snapshot differs from the earlier reported test hash. Snapshot is preserved and syntax-checked here; no claim it is the exact earlier test run. Native preparation uses the exact frozen adapter hash."
+  },
+  "same_native_api_and_budgets": true,
+  "schema_version": 1,
+  "v1_inventory_sha256": "6605503ea103301dda08d89ec13787f094d02381cda7cfe5895f575d75873fa7"
+}

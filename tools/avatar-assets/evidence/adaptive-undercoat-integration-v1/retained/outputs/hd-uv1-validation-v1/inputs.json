@@ -1,0 +1,36 @@
+{
+  "limits": {
+    "output_mib": 16,
+    "rss_mib": 768,
+    "wall_seconds": 15
+  },
+  "native_calls": 0,
+  "new_paid_calls": 0,
+  "schema_version": 1,
+  "source_files": [
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "path": "tests/test_hd_uv1_attributes.py",
+      "sha256": "321e1397c18ec4ee2bdf48fecd6d83b6b4e3e054bfb6c12045e33aec36f15a70"
+    },
+    {
+      "path": "tests/test_scene_quality.py",
+      "sha256": "f296d2e6f6377c3561db8463db1af5d8624981203f6c9ab8a931ce9475a8163c"
+    },
+    {
+      "path": "tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ]
+}

@@ -1,0 +1,1195 @@
+{
+  "all_original_files_unchanged": true,
+  "diagnostic_script_sha256": "163abd225bbab5a9b7ab83f971861091b70d608544c956f51b7f00a6ec15d430",
+  "elapsed_seconds": 0.11103162495419383,
+  "finish_report_sha256": "2c6f6952402770f77a83c82ddf45de5bee70f8d591bcce889211f19645a22b0d",
+  "interpretation": [
+    "For the current projected tangent, sign(cross(N,T) dot dPdv) = sign(N dot geometric face normal) times sign(UV determinant).",
+    "Mixed per-corner signs therefore identify normals on opposite sides of a triangle plane; a uniform V-axis sign change cannot fix them.",
+    "The native bake uses this per-corner sign formula, whereas a per-triangle UV orientation is a different frame policy. Changing only exported W would reinterpret unchanged PNG vectors.",
+    "Transferred cap shading normals and cap geometry are not mutually hemisphere-coherent under this strict authored frame profile. This does not prove the GLB is universally invalid or identify a measured physical surface.",
+    "The preserved normal-continuity report is context, not a before/after causal proof for each exported corner. No source.blend execution or native inspection occurred."
+  ],
+  "model_calls": 0,
+  "model_sha256": "c0d628924d1d15952970ccc19f47601b555602ffc8ece6e72407794b26ef2c3b",
+  "native_atlas_source_sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c",
+  "native_jobs": 0,
+  "next_safe_action": "Reject this unsupported region before bake/render with the same consistency guard. Any future geometry/normal/frame-policy repair needs new bounded source-bound evidence and a new bake; do not force W after the current bake.",
+  "normal_continuity_context": {
+    "attributes": {
+      "repair_face": {
+        "domain": "FACE",
+        "name": "AuthoredNormalRepair",
+        "type": "BOOLEAN"
+      },
+      "surface_normal": {
+        "domain": "POINT",
+        "name": "AuthoredSurfaceNormal",
+        "type": "FLOAT_VECTOR"
+      }
+    },
+    "authored_not_recovered": true,
+    "authored_point_normals_sha256": "d1d2050edcd212269b436a3004faf6ec106c05776e06d88ac5a95b0b02cf5e37",
+    "candidate_pairs_tested": 9581,
+    "corrections": [
+      {
+        "angle_degrees": {
+          "max": 178.90478386707898,
+          "median": 16.61265062116721,
+          "min": 0.00021164978087971292
+        },
+        "matched_vertex_ids_sha256": "d6cc55e4ec74c3b2efc57875032c746e8399b887b753e6ce474c52d3e1e95720",
+        "matched_vertices": 1095,
+        "materials": [
+          "body_cap"
+        ],
+        "maximum_distance_m": 0.013717931528457546,
+        "name": "vacated-shoulder-continuity",
+        "reference_corners": 104082,
+        "reference_materials": [
+          "body_surface"
+        ],
+        "reference_normal_sha256": "f039b32e32496d5c89f9419b5e404c5f18e8d47c23927d35db21dc26a1083f78",
+        "reference_position_sha256": "7b647f6c0f87106cf9275aabf204de31b8ec488fa1be3be610ce8cdcbb8e2562",
+        "reference_unique_positions": 17479,
+        "repaired_faces": 369,
+        "target_vertices": 1107,
+        "transferred_corners": 1095,
+        "unmatched_vertices": 12
+      }
+    ],
+    "face_attribute": "AuthoredNormalRepair",
+    "face_corner_indices_sha256": "692cb98fb2b2523c6673784d8272a7859c93ada9d2247a0c5441ef209d0708bc",
+    "geometry_uv_skin_unchanged": true,
+    "limits": {
+      "candidate_pairs": 2000000,
+      "corners": 300000,
+      "faces": 100000,
+      "target_vertices": 10000,
+      "vertices": 100000
+    },
+    "method": "Unweighted original reference-corner normals averaged at exact positions, then nearest-position transfer within each configured distance; target-face corners only.",
+    "native_particle_note": "Particles may use geometric normals; the caller must orient repaired-face strands from AuthoredSurfaceNormal explicitly.",
+    "original_corner_normals_sha256": "b22ed1263765c5bb3606ad366e402be9ec55b4c4100067de8debaba148b237a0",
+    "planned_corner_normals_sha256": "a7c0bd529d226434807d50e7a5d5a68246e585d3a2be9c2d0abe23aed6a62a56",
+    "point_attribute": "AuthoredSurfaceNormal",
+    "point_normal_cancellation_fallbacks": 0,
+    "position_sha256": "fb0fa2cf176c698526125c4a67b31c0a29a2dfc4129b92deeceb8b6680ed8731",
+    "protected_after": {
+      "face_corner_indices": "692cb98fb2b2523c6673784d8272a7859c93ada9d2247a0c5441ef209d0708bc",
+      "face_material_indices": "e7b22bb4feed937ecffa556f73a22aec5c4917411e98c1f017eafd5c34fa6156",
+      "positions": "fb0fa2cf176c698526125c4a67b31c0a29a2dfc4129b92deeceb8b6680ed8731",
+      "skin_weights_and_groups": "334bb6d2e41e035088daee37dfdbddc744375c1de000ffda5592e9f53771e00b",
+      "uv_layers": "f8458b228466f27c55b97d2f969b233374de3aa332f2a1044eb2d7af1d2d7e84"
+    },
+    "protected_before": {
+      "face_corner_indices": "692cb98fb2b2523c6673784d8272a7859c93ada9d2247a0c5441ef209d0708bc",
+      "face_material_indices": "e7b22bb4feed937ecffa556f73a22aec5c4917411e98c1f017eafd5c34fa6156",
+      "positions": "fb0fa2cf176c698526125c4a67b31c0a29a2dfc4129b92deeceb8b6680ed8731",
+      "skin_weights_and_groups": "334bb6d2e41e035088daee37dfdbddc744375c1de000ffda5592e9f53771e00b",
+      "uv_layers": "f8458b228466f27c55b97d2f969b233374de3aa332f2a1044eb2d7af1d2d7e84"
+    },
+    "repair_face_mask_sha256": "5a56799146a68609d4ece882fe1c93715b0f6c00df0af4b48314b740a5356d63",
+    "repaired_faces": 369,
+    "repaired_vertices": 1095,
+    "schema_version": 1,
+    "scope": "Authored shading and fur-direction metadata; no geometry, UV, weight or topology repair.",
+    "space": "Object-local meters with applied rotation and scale",
+    "status": "applied",
+    "stored_corner_normals_sha256": "4b61a6d5d3327a745659859c0381bf97e3396ad0f5e64fc36f38f14ea53138cd",
+    "stored_custom_normal_max_component_error": 0.0016965558474115738
+  },
+  "preserved_failed_files": 72,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "regions": [
+    {
+      "all_corner_normals_against_winding_faces": 29,
+      "all_corner_normals_with_winding_faces": 284,
+      "corner_normal_dot_geometric_normal_min_max": [
+        -0.9998158049197367,
+        0.9999999996600477
+      ],
+      "exported_vertices": 1104,
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "minimum_tangent_projection_length": 0.023218006193709624,
+      "mixed_face_indices": [
+        28,
+        32,
+        38,
+        40,
+        43,
+        44,
+        68,
+        72,
+        81,
+        83,
+        85,
+        87,
+        102,
+        151,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        244,
+        251,
+        252,
+        253,
+        255,
+        256,
+        266,
+        267,
+        273,
+        275,
+        308,
+        309,
+        310,
+        311,
+        313,
+        314,
+        315,
+        317,
+        324,
+        326,
+        327,
+        328,
+        333,
+        334,
+        335,
+        336,
+        349,
+        350,
+        354,
+        355,
+        356,
+        358,
+        359
+      ],
+      "mixed_handedness_faces": 55,
+      "native_bake_authored_tangent_hash": "db8565dfd994628482f4f108a4ae7f8feb5f9722a1d2b3a4d2a1f33c6215309a",
+      "near_tangent_normal_corners_abs_dot_below_1e_6": 0,
+      "normal_hemisphere_exactly_explains_mixed_faces": true,
+      "opposed_normal_corners": 170,
+      "preserved_native_atlas_formula_reproduces_signs": true,
+      "primitive": 6,
+      "replay": {
+        "bytes": 20928,
+        "call": "atlas_tangents(points, faces, face_ids, uv1, corner_normals)",
+        "coordinate_space": "GLB mesh-local XYZ; UV1 restored to native V-up; corner normals from exported NORMAL",
+        "path": "uv1-region-0.npz",
+        "scope": "Actual exported region, not byte-identical pre-export native arrays; V round-trip and exporter ordering may differ.",
+        "sha256": "d6f82d3ae37ef6ec0df8736f75e3f6a7302b5bdc1b0957432dfaa3e3bcc8a184"
+      },
+      "source_material": "body_cap",
+      "triangle_area_m2_min_max": [
+        1.9052868941565144e-07,
+        0.0024991139857059213
+      ],
+      "triangles": 368,
+      "uniform_v_flip_still_mixed_faces": 55,
+      "uv_determinant_min_max": [
+        3.2318057492375374e-06,
+        0.0016491259448230267
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "source_file": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-adaptive-undercoat-finish-v1/model-native-export.glb",
+  "status": "mixed_handedness_diagnosed_no_repair",
+  "strict_export_helper_sha256": "6957f072751af86c89dea86b3e4a269a23a4801f445b571cf4dc9aa257124b73",
+  "total_mixed_faces": 55,
+  "total_uv1_faces": 368,
+  "witness_selection": "At most8 mixed faces, ordered by most negative corner N dot geometric face N, then stable mesh/primitive/face indices.",
+  "worst_witnesses": [
+    {
+      "corner_handedness": [
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "corner_normal_dot_geometric_face_normal": [
+        -0.9178347068365661,
+        -0.9959825200900327,
+        0.594778065716101
+      ],
+      "cross_N_T_dot_dPdv": [
+        -0.344683862144345,
+        -0.37496523337695026,
+        0.24162000055011285
+      ],
+      "dPdu_mesh_local_gltf": [
+        0.057988705842391304,
+        -0.14823714546535327,
+        0.3398696235988451
+      ],
+      "dPdv_mesh_local_gltf": [
+        0.33738711368550345,
+        0.1637872813155759,
+        0.013872259058634968
+      ],
+      "exported_vertex_indices": [
+        348,
+        317,
+        328
+      ],
+      "geometric_face_normal_mesh_local_gltf": [
+        -0.40982111530310916,
+        0.8084087844873967,
+        0.422518509198503
+      ],
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "minimum_corner_normal_dot_face": -0.9959825200900327,
+      "normal_mesh_local_gltf": [
+        [
+          0.015200690304964617,
+          -0.900340911091702,
+          -0.4349197429742831
+        ],
+        [
+          0.433697870930427,
+          -0.7555962654912128,
+          -0.49089758639266845
+        ],
+        [
+          0.33260802723439964,
+          0.9405227421296323,
+          -0.06920167451874377
+        ]
+      ],
+      "position_mesh_local_gltf_m": [
+        [
+          -0.26199236512184143,
+          0.8396149277687073,
+          0.13871388137340546
+        ],
+        [
+          -0.2669864892959595,
+          0.8382692337036133,
+          0.1364445686340332
+        ],
+        [
+          -0.2643815279006958,
+          0.8316101431846619,
+          0.15171214938163757
+        ]
+      ],
+      "primitive": 6,
+      "projected_tangent_mesh_local_gltf": [
+        [
+          0.155159497197228,
+          -0.427577066512537,
+          0.8905635197008896
+        ],
+        [
+          0.18941066130558626,
+          -0.4561786332657587,
+          0.8694967831657372
+        ],
+        [
+          0.30505812594870446,
+          -0.037865972162364266,
+          0.9515806365962179
+        ]
+      ],
+      "triangle_area_m2": 4.350319007027192e-05,
+      "triangle_index_in_primitive": 356,
+      "uv1_export_v_down": [
+        [
+          0.805432140827179,
+          0.13712769746780396
+        ],
+        [
+          0.79931640625,
+          0.15087890625
+        ],
+        [
+          0.84423828125,
+          0.15087890625
+        ]
+      ],
+      "uv1_native_bake_v_up": [
+        [
+          0.805432140827179,
+          0.862872302532196
+        ],
+        [
+          0.79931640625,
+          0.84912109375
+        ],
+        [
+          0.84423828125,
+          0.84912109375
+        ]
+      ],
+      "uv_determinant": 0.000617730082012713
+    },
+    {
+      "corner_handedness": [
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "corner_normal_dot_geometric_face_normal": [
+        -0.9928608825197124,
+        -0.887086497093302,
+        0.2904415955127549
+      ],
+      "cross_N_T_dot_dPdv": [
+        -0.2225992755566128,
+        -0.2049040650556573,
+        0.08544726165751333
+      ],
+      "dPdu_mesh_local_gltf": [
+        -0.11816804305366847,
+        -0.18911875849184784,
+        -0.022526616635529892
+      ],
+      "dPdv_mesh_local_gltf": [
+        -0.017229532208084302,
+        -0.015786653737926516,
+        0.22291481394633328
+      ],
+      "exported_vertex_indices": [
+        970,
+        990,
+        1011
+      ],
+      "geometric_face_normal_mesh_local_gltf": [
+        -0.8462475487759825,
+        0.5320679188028236,
+        -0.027727530929984992
+      ],
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "minimum_corner_normal_dot_face": -0.9928608825197124,
+      "normal_mesh_local_gltf": [
+        [
+          0.8366390137397538,
+          -0.5401251488284019,
+          -0.0911042495807354
+        ],
+        [
+          0.5930308498916281,
+          -0.7036366224585107,
+          0.3914203809358842
+        ],
+        [
+          -0.6414289150602476,
+          -0.4416199103522461,
+          0.6273283045623782
+        ]
+      ],
+      "position_mesh_local_gltf_m": [
+        [
+          -0.21500791609287262,
+          0.7725536823272705,
+          0.23358866572380066
+        ],
+        [
+          -0.21225976943969727,
+          0.7771604061126709,
+          0.23811404407024384
+        ],
+        [
+          -0.2096995860338211,
+          0.7810492515563965,
+          0.23460060358047485
+        ]
+      ],
+      "primitive": 6,
+      "projected_tangent_mesh_local_gltf": [
+        [
+          -0.5472885399929701,
+          -0.8311437658997589,
+          -0.09836307436395898
+        ],
+        [
+          -0.6910482562034631,
+          -0.6942768285813836,
+          -0.20107708196890284
+        ],
+        [
+          -0.14665769066552573,
+          -0.7320404110198264,
+          -0.6652881769598636
+        ]
+      ],
+      "triangle_area_m2": 1.9961030838655215e-05,
+      "triangle_index_in_primitive": 310,
+      "uv1_export_v_down": [
+        [
+          0.54541015625,
+          0.25048828125
+        ],
+        [
+          0.5195745825767517,
+          0.23279815912246704
+        ],
+        [
+          0.50048828125,
+          0.25048828125
+        ]
+      ],
+      "uv1_native_bake_v_up": [
+        [
+          0.54541015625,
+          0.74951171875
+        ],
+        [
+          0.5195745825767517,
+          0.767201840877533
+        ],
+        [
+          0.50048828125,
+          0.74951171875
+        ]
+      ],
+      "uv_determinant": 0.0007946734549477696
+    },
+    {
+      "corner_handedness": [
+        1.0,
+        -1.0,
+        1.0
+      ],
+      "corner_normal_dot_geometric_face_normal": [
+        0.43800930337295385,
+        -0.9911037671774167,
+        0.4545837980258229
+      ],
+      "cross_N_T_dot_dPdv": [
+        0.19524988018676442,
+        -0.43804791256799935,
+        0.20194274697483014
+      ],
+      "dPdu_mesh_local_gltf": [
+        -0.1797943115234375,
+        -0.13733838952105978,
+        -0.3773541657820992
+      ],
+      "dPdv_mesh_local_gltf": [
+        -0.15827405307244133,
+        -0.35574609013640884,
+        0.2048855702809706
+      ],
+      "exported_vertex_indices": [
+        940,
+        958,
+        1010
+      ],
+      "geometric_face_normal_mesh_local_gltf": [
+        -0.8388136591140359,
+        0.498815095516601,
+        0.21811727526375801
+      ],
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "minimum_corner_normal_dot_face": -0.9911037671774167,
+      "normal_mesh_local_gltf": [
+        [
+          -0.7512113530283566,
+          -0.5468082647175102,
+          0.36970559194841934
+        ],
+        [
+          0.8366237447413766,
+          -0.5401153074709906,
+          -0.09130259782959889
+        ],
+        [
+          -0.6414289150602476,
+          -0.4416199103522461,
+          0.6273283045623782
+        ]
+      ],
+      "position_mesh_local_gltf_m": [
+        [
+          -0.21777628362178802,
+          0.7748797535896301,
+          0.21764914691448212
+        ],
+        [
+          -0.2174343317747116,
+          0.7700609564781189,
+          0.2299843579530716
+        ],
+        [
+          -0.2096995860338211,
+          0.7810492515563965,
+          0.23460060358047485
+        ]
+      ],
+      "primitive": 6,
+      "projected_tangent_mesh_local_gltf": [
+        [
+          -0.2917990222225251,
+          -0.22728979217202025,
+          -0.9290816331218577
+        ],
+        [
+          -0.33067504005494874,
+          -0.365094633534732,
+          -0.8702642854034617
+        ],
+        [
+          -0.5020104740281984,
+          -0.37672821848730054,
+          -0.7784994112787551
+        ]
+      ],
+      "triangle_area_m2": 9.405407752114001e-05,
+      "triangle_index_in_primitive": 308,
+      "uv1_export_v_down": [
+        [
+          0.44580078125,
+          0.25048828125
+        ],
+        [
+          0.4248568117618561,
+          0.2288571000099182
+        ],
+        [
+          0.40087890625,
+          0.25048828125
+        ]
+      ],
+      "uv1_native_bake_v_up": [
+        [
+          0.44580078125,
+          0.74951171875
+        ],
+        [
+          0.4248568117618561,
+          0.7711428999900818
+        ],
+        [
+          0.40087890625,
+          0.74951171875
+        ]
+      ],
+      "uv_determinant": 0.000971713219769299
+    },
+    {
+      "corner_handedness": [
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "corner_normal_dot_geometric_face_normal": [
+        -0.9907774221956107,
+        -0.9907774221956107,
+        0.4563915665507784
+      ],
+      "cross_N_T_dot_dPdv": [
+        -0.31338557389739585,
+        -0.31338557389739585,
+        0.1652594837067013
+      ],
+      "dPdu_mesh_local_gltf": [
+        -0.17218216605808423,
+        -0.24460900348165762,
+        -0.10276164179262907
+      ],
+      "dPdv_mesh_local_gltf": [
+        0.00274047535862794,
+        -0.12413762240200568,
+        0.29090071218630154
+      ],
+      "exported_vertex_indices": [
+        957,
+        969,
+        1009
+      ],
+      "geometric_face_normal_mesh_local_gltf": [
+        -0.8387950532588759,
+        0.49786110277421425,
+        0.22035693992448416
+      ],
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "minimum_corner_normal_dot_face": -0.9907774221956107,
+      "normal_mesh_local_gltf": [
+        [
+          0.8366237447413766,
+          -0.5401153074709906,
+          -0.09130259782959889
+        ],
+        [
+          0.8366237447413766,
+          -0.5401153074709906,
+          -0.09130259782959889
+        ],
+        [
+          -0.6413886839626837,
+          -0.44159222539766346,
+          0.6273889244742497
+        ]
+      ],
+      "position_mesh_local_gltf_m": [
+        [
+          -0.2174343317747116,
+          0.7700609564781189,
+          0.2299843579530716
+        ],
+        [
+          -0.21500791609287262,
+          0.7725536823272705,
+          0.23358866572380066
+        ],
+        [
+          -0.2096995860338211,
+          0.7810492515563965,
+          0.23460060358047485
+        ]
+      ],
+      "primitive": 6,
+      "projected_tangent_mesh_local_gltf": [
+        [
+          -0.5376449831134996,
+          -0.7777497034699599,
+          -0.32564285787542485
+        ],
+        [
+          -0.5376449831134996,
+          -0.7777497034699599,
+          -0.32564285787542485
+        ],
+        [
+          -0.2657465875786905,
+          -0.6392529208659196,
+          -0.7216193278693911
+        ]
+      ],
+      "triangle_area_m2": 1.6749122701112757e-05,
+      "triangle_index_in_primitive": 309,
+      "uv1_export_v_down": [
+        [
+          0.49560546875,
+          0.25048828125
+        ],
+        [
+          0.48163196444511414,
+          0.24303430318832397
+        ],
+        [
+          0.45068359375,
+          0.25048828125
+        ]
+      ],
+      "uv1_native_bake_v_up": [
+        [
+          0.49560546875,
+          0.74951171875
+        ],
+        [
+          0.48163196444511414,
+          0.756965696811676
+        ],
+        [
+          0.45068359375,
+          0.74951171875
+        ]
+      ],
+      "uv_determinant": 0.0003348466707393527
+    },
+    {
+      "corner_handedness": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "corner_normal_dot_geometric_face_normal": [
+        0.29525285705150744,
+        -0.6360061991245136,
+        -0.9733748619094785
+      ],
+      "cross_N_T_dot_dPdv": [
+        0.10221092131937592,
+        -0.20532329427820903,
+        -0.2896242375321675
+      ],
+      "dPdu_mesh_local_gltf": [
+        -0.007612145465353261,
+        0.10727061396059782,
+        -0.2745925239894701
+      ],
+      "dPdv_mesh_local_gltf": [
+        -0.20337067395329847,
+        -0.20076735731795955,
+        -0.0727930138693102
+      ],
+      "exported_vertex_indices": [
+        938,
+        933,
+        956
+      ],
+      "geometric_face_normal_mesh_local_gltf": [
+        -0.7237055606985261,
+        0.6357653039776822,
+        0.2684264138869301
+      ],
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "minimum_corner_normal_dot_face": -0.9733748619094785,
+      "normal_mesh_local_gltf": [
+        [
+          -0.7512113530283566,
+          -0.5468082647175102,
+          0.36970559194841934
+        ],
+        [
+          0.018599152775933832,
+          -0.9987545126695625,
+          0.0462978934531839
+        ],
+        [
+          0.8365785374696855,
+          -0.5401861599931299,
+          -0.09129766260402687
+        ]
+      ],
+      "position_mesh_local_gltf_m": [
+        [
+          -0.21777628362178802,
+          0.7748797535896301,
+          0.21764914691448212
+        ],
+        [
+          -0.22033455967903137,
+          0.7699543833732605,
+          0.2224174588918686
+        ],
+        [
+          -0.2174343317747116,
+          0.7700609564781189,
+          0.2299843579530716
+        ]
+      ],
+      "primitive": 6,
+      "projected_tangent_mesh_local_gltf": [
+        [
+          -0.4921738340330365,
+          0.09080858186279878,
+          -0.8657474912197485
+        ],
+        [
+          -0.019972950473326822,
+          -0.046667808820306085,
+          -0.998710767374269
+        ],
+        [
+          0.08628474723923954,
+          0.2944851034611603,
+          -0.9517528388364966
+        ]
+      ],
+      "triangle_area_m2": 2.6100361203681078e-05,
+      "triangle_index_in_primitive": 313,
+      "uv1_export_v_down": [
+        [
+          0.69482421875,
+          0.25048828125
+        ],
+        [
+          0.6739169955253601,
+          0.23712635040283203
+        ],
+        [
+          0.64990234375,
+          0.25048828125
+        ]
+      ],
+      "uv1_native_bake_v_up": [
+        [
+          0.69482421875,
+          0.74951171875
+        ],
+        [
+          0.6739169955253601,
+          0.762873649597168
+        ],
+        [
+          0.64990234375,
+          0.74951171875
+        ]
+      ],
+      "uv_determinant": 0.0006002429872751236
+    },
+    {
+      "corner_handedness": [
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "corner_normal_dot_geometric_face_normal": [
+        -0.8715956572678285,
+        -0.47427235742990403,
+        0.6352019928843885
+      ],
+      "cross_N_T_dot_dPdv": [
+        -0.17699287024075988,
+        -0.1057249476134483,
+        0.11366121603343955
+      ],
+      "dPdu_mesh_local_gltf": [
+        -0.06189296556555707,
+        0.16232432489809784,
+        0.042877031409222145
+      ],
+      "dPdv_mesh_local_gltf": [
+        -0.10649241355519219,
+        -0.002630431967695685,
+        -0.14377122284462734
+      ],
+      "exported_vertex_indices": [
+        331,
+        346,
+        337
+      ],
+      "geometric_face_normal_mesh_local_gltf": [
+        -0.7253654621041677,
+        -0.42052871486416254,
+        0.5449775650071323
+      ],
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "minimum_corner_normal_dot_face": -0.8715956572678285,
+      "normal_mesh_local_gltf": [
+        [
+          0.3916255855858124,
+          0.7935518671312667,
+          -0.46573043156642663
+        ],
+        [
+          0.16490049162768133,
+          -0.35110103024885897,
+          -0.9217027147725774
+        ],
+        [
+          -0.9221080035857682,
+          -0.2740023581901965,
+          -0.2732023744942207
+        ]
+      ],
+      "position_mesh_local_gltf_m": [
+        [
+          -0.26522567868232727,
+          0.8267107009887695,
+          0.1262802630662918
+        ],
+        [
+          -0.26310208439826965,
+          0.8203733563423157,
+          0.12421659380197525
+        ],
+        [
+          -0.262445330619812,
+          0.8194187879562378,
+          0.12435414642095566
+        ]
+      ],
+      "primitive": 6,
+      "projected_tangent_mesh_local_gltf": [
+        [
+          -0.6026845020164144,
+          0.6036973704095137,
+          0.5218437275563107
+        ],
+        [
+          -0.3083970798400326,
+          0.8692852421687207,
+          -0.38630869637352105
+        ],
+        [
+          -0.3413588959155321,
+          0.9085197967972856,
+          0.24096863490244513
+        ]
+      ],
+      "triangle_area_m2": 1.958758681654945e-06,
+      "triangle_index_in_primitive": 256,
+      "uv1_export_v_down": [
+        [
+          0.84423828125,
+          0.39990234375
+        ],
+        [
+          0.8052411675453186,
+          0.39717864990234375
+        ],
+        [
+          0.79931640625,
+          0.39990234375
+        ]
+      ],
+      "uv1_native_bake_v_up": [
+        [
+          0.84423828125,
+          0.60009765625
+        ],
+        [
+          0.8052411675453186,
+          0.6028213500976562
+        ],
+        [
+          0.79931640625,
+          0.60009765625
+        ]
+      ],
+      "uv_determinant": 0.0001223534345626831
+    },
+    {
+      "corner_handedness": [
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "corner_normal_dot_geometric_face_normal": [
+        -0.8455132817445947,
+        0.5023018827172963,
+        -0.2553144387979478
+      ],
+      "cross_N_T_dot_dPdv": [
+        -0.29223290371557487,
+        0.21533961114985872,
+        -0.1507732656171753
+      ],
+      "dPdu_mesh_local_gltf": [
+        -0.05318484099014946,
+        -0.17819346552309784,
+        0.2893527487049932
+      ],
+      "dPdv_mesh_local_gltf": [
+        0.283041327571442,
+        0.13884829359251905,
+        0.13753203078663565
+      ],
+      "exported_vertex_indices": [
+        350,
+        330,
+        452
+      ],
+      "geometric_face_normal_mesh_local_gltf": [
+        -0.5467449785645032,
+        0.7540875673427806,
+        0.3638981577221136
+      ],
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "minimum_corner_normal_dot_face": -0.8455132817445947,
+      "normal_mesh_local_gltf": [
+        [
+          0.015200690304964617,
+          -0.900340911091702,
+          -0.4349197429742831
+        ],
+        [
+          0.33248785627382554,
+          0.9405655403257657,
+          -0.06919746947783963
+        ],
+        [
+          -0.41688975183990673,
+          -0.8249797124509423,
+          0.38159062993635134
+        ]
+      ],
+      "position_mesh_local_gltf_m": [
+        [
+          -0.26199236512184143,
+          0.8396149277687073,
+          0.13871388137340546
+        ],
+        [
+          -0.2643815279006958,
+          0.8316101431846619,
+          0.15171214938163757
+        ],
+        [
+          -0.2567143142223358,
+          0.837385356426239,
+          0.15126420557498932
+        ]
+      ],
+      "primitive": 6,
+      "projected_tangent_mesh_local_gltf": [
+        [
+          -0.15687769200588736,
+          -0.431730457266136,
+          0.8882557075638069
+        ],
+        [
+          0.054636940545110715,
+          0.054038477711723994,
+          0.9970429517600883
+        ],
+        [
+          0.31634032505095133,
+          0.2618832125269305,
+          0.9117817621247054
+        ]
+      ],
+      "triangle_area_m2": 6.537058285236813e-05,
+      "triangle_index_in_primitive": 354,
+      "uv1_export_v_down": [
+        [
+          0.69970703125,
+          0.15087890625
+        ],
+        [
+          0.74462890625,
+          0.15087890625
+        ],
+        [
+          0.7313879132270813,
+          0.12627828121185303
+        ]
+      ],
+      "uv1_native_bake_v_up": [
+        [
+          0.69970703125,
+          0.84912109375
+        ],
+        [
+          0.74462890625,
+          0.84912109375
+        ],
+        [
+          0.7313879132270813,
+          0.873721718788147
+        ]
+      ],
+      "uv_determinant": 0.0011051062028855085
+    },
+    {
+      "corner_handedness": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "corner_normal_dot_geometric_face_normal": [
+        0.44039532281927835,
+        -0.25057220831283944,
+        -0.7724844882250459
+      ],
+      "cross_N_T_dot_dPdv": [
+        0.2506525625994992,
+        -0.27011124754874816,
+        -0.41955161514271005
+      ],
+      "dPdu_mesh_local_gltf": [
+        0.37520499851392664,
+        -0.011109725288722826,
+        0.20965211287788724
+      ],
+      "dPdv_mesh_local_gltf": [
+        0.027144951415689345,
+        -0.42317650908103677,
+        -0.07100482198341629
+      ],
+      "exported_vertex_indices": [
+        607,
+        615,
+        616
+      ],
+      "geometric_face_normal_mesh_local_gltf": [
+        0.484206209446835,
+        0.17490513113392384,
+        -0.8572937313640829
+      ],
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "minimum_corner_normal_dot_face": -0.7724844882250459,
+      "normal_mesh_local_gltf": [
+        [
+          0.8238037929614688,
+          -0.5440025005314538,
+          -0.15940072182340687
+        ],
+        [
+          -0.9411761253535947,
+          0.2852927590651615,
+          -0.18109539665431093
+        ],
+        [
+          -0.9181712394593222,
+          0.05099840200466907,
+          0.3928876913606506
+        ]
+      ],
+      "position_mesh_local_gltf_m": [
+        [
+          -0.2535421848297119,
+          0.8076861500740051,
+          0.17057770490646362
+        ],
+        [
+          -0.23668727278709412,
+          0.8071870803833008,
+          0.17999567091464996
+        ],
+        [
+          -0.25091326236724854,
+          0.8011658787727356,
+          0.1707322746515274
+        ]
+      ],
+      "primitive": 6,
+      "projected_tangent_mesh_local_gltf": [
+        [
+          0.44065956187860045,
+          0.4376548839212794,
+          0.783758478808881
+        ],
+        [
+          0.024066163323075266,
+          0.5911482020225142,
+          0.8062038346649412
+        ],
+        [
+          0.3937062274008873,
+          0.006720867694833884,
+          0.9192117473374617
+        ]
+      ],
+      "triangle_area_m2": 6.333102633557007e-05,
+      "triangle_index_in_primitive": 68,
+      "uv1_export_v_down": [
+        [
+          0.40087890625,
+          0.84814453125
+        ],
+        [
+          0.44580078125,
+          0.84814453125
+        ],
+        [
+          0.40678203105926514,
+          0.832891583442688
+        ]
+      ],
+      "uv1_native_bake_v_up": [
+        [
+          0.40087890625,
+          0.15185546875
+        ],
+        [
+          0.44580078125,
+          0.15185546875
+        ],
+        [
+          0.40678203105926514,
+          0.167108416557312
+        ]
+      ],
+      "uv_determinant": 0.0006851910147815943
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "bundle_ready": true,
+  "final_actual_build_status": "technical_pass_partial_component_not_promoted",
+  "fresh_studio_acceptance": false,
+  "large_models_policy": "Preserved in immutable local outputs with compact hash references, not claimed remotely backed up",
+  "native_or_paid_jobs_active": false,
+  "new_ai_role_calls": 0,
+  "new_paid_provider_cost_usd": 0,
+  "new_provider_calls": 0,
+  "proofs": [
+    {
+      "artifact_count_verified": null,
+      "path": "outputs/adaptive-undercoat-policy-tests-v2/tests.txt",
+      "sha256": "211537c0af4918fb8a2b41b68509f71856006835f6d22462e6a90028b2b8bf2e"
+    },
+    {
+      "artifact_count_verified": 49,
+      "path": "outputs/adaptive-undercoat-verifier-v6/manifest.json",
+      "sha256": "6a1a05b8d107e4448a587981989883b29283ac073c322ee4c2caeea1657dd466"
+    },
+    {
+      "artifact_count_verified": 77,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/manifest.json",
+      "sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655"
+    },
+    {
+      "artifact_count_verified": 25,
+      "path": "outputs/panda-adaptive-undercoat-export-preview-v2/manifest.json",
+      "sha256": "af787ecdad333f67949715bb5afc76d83a7d8eb3358d32272ab8318dcfae3154"
+    },
+    {
+      "artifact_count_verified": 14,
+      "path": "outputs/panda-adaptive-undercoat-export-audit-v1/manifest.json",
+      "sha256": "a96d84bfc5ad97d10ebd4af27023e6d2ada4558a297a026535286ffc1885dbca"
+    },
+    {
+      "artifact_count_verified": 6,
+      "path": "outputs/panda-adaptive-undercoat-review-v2/manifest.json",
+      "sha256": "62c1d208ad62a8b9a2ad0662fdd5847cbd43def26731185de29d61e91bb9065c"
+    }
+  ],
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 17:15:02 PST",
+  "schema_version": 1,
+  "scoped_save_authorized": true,
+  "source_pins_verified": 143,
+  "test_count": 682,
+  "test_seconds": 17.12,
+  "unrelated_weft_edits_excluded": true
+}

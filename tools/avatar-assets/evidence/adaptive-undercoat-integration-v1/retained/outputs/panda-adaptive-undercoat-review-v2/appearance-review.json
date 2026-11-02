@@ -1,0 +1,128 @@
+{
+  "decisions": {
+    "certified_loop": false,
+    "default_promotion": false,
+    "dense_portable_fur_accepted": false,
+    "gallery_changed": false,
+    "muse_parity": false,
+    "new_complete_animation_media": false,
+    "quality_approved": false,
+    "technical_component_verified": true,
+    "weft_compatible": false
+  },
+  "deformation_gate_sha256": "4c4c78f82c43c209973fe9d8c6492ba3b93c2aadead37f2ff99052dda25a6de5",
+  "inspected_images": [
+    {
+      "alpha_extrema": null,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "format": "PNG",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/views/front.png",
+      "sha256": "890b3f54ee3bd577380feeb9d53c2a193fa3f5ddc87d9cfd1506bb52aa74d1e8",
+      "visually_inspected": true
+    },
+    {
+      "alpha_extrema": null,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "format": "PNG",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/views/side.png",
+      "sha256": "5f4d4eb13f1c61d91983e2ccbe775f964312c931909b2a08842e54364ac8c241",
+      "visually_inspected": true
+    },
+    {
+      "alpha_extrema": null,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/renders/dance_flight/0003.png",
+      "sha256": "221952fc5e58cbd37393bdf090f3393dc8ec51a286b6c023f7415a42d79c08b3",
+      "visually_inspected": true
+    },
+    {
+      "alpha_extrema": null,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "path": "outputs/panda-adaptive-undercoat-export-preview-v2/front.png",
+      "sha256": "3ac1b3800ac6cf50c85bf7a5d98ba1db9ae711bba72e3cf22262cc1d4dab5e6d",
+      "visually_inspected": true
+    },
+    {
+      "alpha_extrema": null,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "path": "outputs/panda-adaptive-undercoat-export-preview-v2/side.png",
+      "sha256": "bee276edf199548956317673aa72827ff81ceca3a1aee517707a1ee217744170",
+      "visually_inspected": true
+    },
+    {
+      "alpha_extrema": null,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "path": "outputs/panda-adaptive-undercoat-export-preview-v2/renders/dance_flight/0003.png",
+      "sha256": "d51f64ee35fefcf660386acd132449536a9060041e137b5537270a3e294a8cf6",
+      "visually_inspected": true
+    }
+  ],
+  "limits": [
+    "Not a fresh text-to-mesh or hands-off Studio acceptance test.",
+    "No new full-frame MP4 render, browser run, all-frame deformation check, seamless-loop certification or physics proof.",
+    "New UV1 normal-mapped HD model exceeds the frozen Weft diffuse/vertex profile."
+  ],
+  "model_manifest_sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655",
+  "model_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "new_ai_role_calls": 0,
+  "new_meshy_calls": 0,
+  "new_provider_cost_usd": 0,
+  "next_safe_action": "Preserve this opt-in technical fix. Use a changed, bounded portable-fiber/contact-surface hypothesis for future quality work; fresh text-driven acceptance still requires the pending allowance and actual review.",
+  "observations": [
+    "Native sampled views retain soft dense-looking hair, ivory/charcoal palette, round proportions and the small green dragon on viewer-left.",
+    "The independently imported GLB retains character identity and subtle matte short-pile detail, but its silhouette and white coat still read substantially smoother than native strands. Sparse cutout cards are not native hair.",
+    "At the sampled 1.36-second flight pose, the dragon is visibly away from the shoulder. Exposed cheek pockmarks/dark scuffs and bright shoulder flecks remain in both representations.",
+    "Different native and reload backgrounds/lighting prevent attributing all appearance differences to the undercoat alone. No controlled overall quality improvement is claimed."
+  ],
+  "preview_manifest_sha256": "af787ecdad333f67949715bb5afc76d83a7d8eb3358d32272ab8318dcfae3154",
+  "recorded_local": "2026-11-01 17:11:43 PST",
+  "reviewer": "Primary implementation agent; sampled direct image inspection, not user acceptance or a separate paid critic",
+  "schema_version": 1,
+  "source_and_approved_preservation": [
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/diagnostic-model.glb",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+      "unchanged": true
+    }
+  ],
+  "static_fallback": {
+    "new_media_pack": false,
+    "path": "outputs/panda-adaptive-undercoat-finish-v2/portrait.png",
+    "purpose": "Existing opaque portrait; no autoplay",
+    "sha256": "096d3cae61c3e09310f10fe6b98d7fffe0b5dda58eea77a8e6a3cc3e5c3ddaa8"
+  },
+  "status": "partial_component_not_promoted",
+  "verification_scope": "Actual existing-source local finish, one skin/19 bones and one 4-second authored clip. Structural CPU motion and eight sampled poses are separate from full rendered playback. Native reload inspector intentionally retains animation_verified=false; its pose images do not override that field."
+}

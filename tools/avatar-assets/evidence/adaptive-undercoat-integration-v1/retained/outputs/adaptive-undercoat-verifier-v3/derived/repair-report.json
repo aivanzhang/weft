@@ -1,0 +1,31 @@
+{
+  "geometry_uv_weights_motion_unchanged": true,
+  "limitation": "Normal-map direction at degenerate UVs is authored, not recovered",
+  "method": "Orthogonalize rare invalid export tangents; choose an axis fallback only for zero/parallel tangents",
+  "normal_uv1_correction": {
+    "limits": {
+      "faces_per_primitive": 2048,
+      "primitives": 4
+    },
+    "policy": "authored-unshared-atlas-blender-v-up-v1",
+    "primitives": [
+      {
+        "authored_tangents_sha256": "4fe3143d83b4930eb72ecf40c20b406f259d3d8602daafc084aefa4c4d946033",
+        "faces": 2,
+        "mesh": 0,
+        "primitive": 1,
+        "source_tangents_sha256": "73b39ff97f8024b87e36ad869f703b10b9c8ca5484dba8ae4d03b34c8517ba9d",
+        "tangent_accessor": 10,
+        "vertices": 6
+      }
+    ],
+    "quality_approved": false,
+    "uv1_correction_changes_only_selected_tangent_float4_bytes": true,
+    "uv_basis": "Blender bake basis (u, 1-v_export); preserve PNG green-axis handedness",
+    "vertices": 6
+  },
+  "repaired_vertices": [],
+  "result_sha256": "294567e318d6979a0d398eb2d7d3cd1a8ed974c441152ac50a0030ecab2615bc",
+  "source_sha256": "2500c2e72aad7c1e64d8d8493f697c42280f88057cc5c68b9a9c61d07ef4e249",
+  "texture_bytes_unchanged": true
+}

@@ -1,0 +1,92 @@
+{
+  "automatic_retry": false,
+  "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python outputs/panda-adaptive-undercoat-rejection-v1/execute_cpu.py",
+  "frozen_files": [
+    {
+      "bytes": 11736,
+      "path": "diagnose.py",
+      "sha256": "163abd225bbab5a9b7ab83f971861091b70d608544c956f51b7f00a6ec15d430"
+    },
+    {
+      "bytes": 1539,
+      "path": "execute_cpu.py",
+      "sha256": "590eaa9ca7cd9fbee959a62bdb0a01ce859f3dde32dd6a4962ddb9fd18a3ad44"
+    },
+    {
+      "bytes": 12364,
+      "path": "source-inventory.json",
+      "sha256": "f9e81e682c332367499802f9d1d038b33722dc9b5dc042f659607eaf97e93ef7"
+    },
+    {
+      "bytes": 39741,
+      "path": "source-snapshot/finish-config.json",
+      "sha256": "aa2abcb341cceb48f81bbc095ae64d637662666798f164a92eec0c851e703a54"
+    },
+    {
+      "bytes": 48258,
+      "path": "source-snapshot/finish-report.json",
+      "sha256": "2c6f6952402770f77a83c82ddf45de5bee70f8d591bcce889211f19645a22b0d"
+    },
+    {
+      "bytes": 1552,
+      "path": "source-snapshot/job.json",
+      "sha256": "97cab63b89c3620ea1bbab940bcdce54960239257fe7af003cdcb7654dc36e7a"
+    },
+    {
+      "bytes": 12359,
+      "path": "source-snapshot/manifest.json",
+      "sha256": "c56cce611fd388750950738b8108b00acc9ccb55b74bda89315fba711ed9add0"
+    },
+    {
+      "bytes": 36754,
+      "path": "source-snapshot/sources/blender_fur_undercoat.py",
+      "sha256": "8e772b23cee3f4e5bd137ae0183da31fe7c478654c0bd2db9ade6620ea961fb3"
+    },
+    {
+      "bytes": 11562,
+      "path": "source-snapshot/sources/generated_tangents.py",
+      "sha256": "6957f072751af86c89dea86b3e4a269a23a4801f445b571cf4dc9aa257124b73"
+    },
+    {
+      "bytes": 14546,
+      "path": "source-snapshot/sources/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    }
+  ],
+  "limits": {
+    "child_rss_mib": 512,
+    "child_wall_seconds": 60,
+    "output_mib": 16,
+    "replay_payload_bytes_max_each": 1048576,
+    "threads": 1,
+    "uv1_faces_per_region": 2048,
+    "uv1_regions": 4,
+    "witness_faces": 8
+  },
+  "model_sha256": "c0d628924d1d15952970ccc19f47601b555602ffc8ece6e72407794b26ef2c3b",
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "recorded_local_time": "2026-11-01 16:46:34 PST",
+  "schema_version": 1,
+  "status": "parent_released_cpu_diagnosis"
+}

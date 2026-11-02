@@ -1,0 +1,1723 @@
+{
+  "all_six_faces_measured": true,
+  "bake_handedness_signs_checked": [
+    -1.0,
+    1.0
+  ],
+  "coordinate_space": "glTF world Y-up",
+  "elapsed_seconds": 0.02822900004684925,
+  "excluded_triangle_original_material_preserved": true,
+  "frame_policy": "mikk-unshared-triangle-v-up-v2",
+  "hd_render_attributes": {
+    "checks": [
+      "finite normals/UV0/UV1/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "selected normal-map UV0/UV1 binding"
+    ],
+    "decoded_scalar_values": 198,
+    "limitations": [
+      "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+      "This HD check does not change Weft's diffuse UV0-only contract; normal-map/UV1 assets remain unsupported there."
+    ],
+    "limits": {
+      "decoded_global_values": 2000000,
+      "decoded_surface_values": 1100000,
+      "file_bytes": 67108864,
+      "normal_map_uv_indices": [
+        0,
+        1
+      ],
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "AnalyticAliasedColor",
+        "normal_map_uv_set": null,
+        "normal_mapped": false,
+        "normal_squared_length_error": 0.0,
+        "normal_tangent_dot_error": 0.0,
+        "tangent_squared_length_error": 0.0,
+        "verified_uv_sets": [
+          0,
+          1
+        ],
+        "vertices": 3
+      },
+      {
+        "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+        "normal_map_uv_set": 1,
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.9963702380110249e-07,
+        "normal_tangent_dot_error": 9.349307897382753e-05,
+        "tangent_squared_length_error": 0.00011454818555844959,
+        "verified_uv_sets": [
+          0,
+          1
+        ],
+        "vertices": 12
+      },
+      {
+        "material": "AnalyticHealthyColor__short_pile_adaptive_v1",
+        "normal_map_uv_set": 0,
+        "normal_mapped": true,
+        "normal_squared_length_error": 0.0,
+        "normal_tangent_dot_error": 0.0,
+        "tangent_squared_length_error": 0.0,
+        "verified_uv_sets": [
+          0,
+          1
+        ],
+        "vertices": 3
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "33c08e929c054d76abc42b8d524ea3b21b5a1c211fd8d1e4bddfb5e07361732f",
+    "status": "validated_render_attributes",
+    "tangent_uv_derivation_verified": false,
+    "vertices": 18,
+    "weft_runtime_verified": false
+  },
+  "material_png_images_checked": 3,
+  "model_sha256": "33c08e929c054d76abc42b8d524ea3b21b5a1c211fd8d1e4bddfb5e07361732f",
+  "native_frame_witness_sha256": "9fa9c7f2069e92dbd833c752573692a62c297f5ddb3150fb15a29a1b7d589039",
+  "native_jobs": 0,
+  "native_negative_cases": [
+    {
+      "case": "existing_uv1",
+      "no_bake_or_material_mutation": true,
+      "reason": "Adaptive undercoat requires only original UV0; preexisting UV1 is unsupported",
+      "rejected": true
+    },
+    {
+      "case": "conflicting_attribute",
+      "no_bake_or_material_mutation": true,
+      "reason": "Authored undercoat UV1 name conflicts with existing data",
+      "rejected": true
+    }
+  ],
+  "native_report_sha256": "6652f84a641e107e1972627e67bddd57eb7f92a862ecd5433adbce2bc99589f4",
+  "new_renders": 0,
+  "normal_quantization": {
+    "constant_source_sha256": "a812f552ef90409f5cdb0965e23ac6c4fe7ade5de39bcfffbd57e462ea9355e6",
+    "exact_installed_exporter_transform_matched_all_corners": true,
+    "exact_nonzero_float32_bits_all_corners": true,
+    "maximum_angular_error_degrees_from_native": 0.003294174838924426,
+    "maximum_component_error_from_native": 5.4195523262023926e-05,
+    "normalization": "np.linalg.norm(axis=1, keepdims=True); np.divide(..., out=values)",
+    "other_bit_difference_count": 0,
+    "primary_code_sha256": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7",
+    "round_digits": 4,
+    "signed_zero_difference_count": 10,
+    "tolerance_widened": false,
+    "verified_corners": 18,
+    "working_dtype": "float32"
+  },
+  "normal_uv_regions": [
+    0,
+    1
+  ],
+  "passed": false,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "raw_source_model_sha256": "33c08e929c054d76abc42b8d524ea3b21b5a1c211fd8d1e4bddfb5e07361732f",
+  "rotated_uv1_min_angle_degrees": 40.95069190793227,
+  "rotated_uv1_original_control_min_angle_degrees": 47.93002300429036,
+  "schema_version": 6,
+  "scope": "Six analytic triangles only, including custom normals. No avatar, rendered appearance or broad tangent proof.",
+  "source_geometry_uv0_basecolor_and_active_flags_preserved": true,
+  "status": "analytic_export_rejected",
+  "tangent_convention": "Actual Blender Mikk selected-UV frames and newly baked V-up PNG vectors; XYZ rotated to glTF Y-up; B=cross(N,T)*W. No old per-corner-sign PNG reuse.",
+  "triangles": [
+    {
+      "case": "healthy_flat_uv1",
+      "corners": [
+        {
+          "bake_w_matches": true,
+          "corner": 0,
+          "exported_vertex_index": 0,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.412928494323694,
+          "native_bake_tangent_dot": 0.6637574590060408,
+          "native_bake_tangent_world": [
+            -0.8221922409964244,
+            0.0,
+            -0.5692099075431467
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990293106,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 48.41040398051765,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6637575203730329
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 1,
+          "exported_vertex_index": 1,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.412927630365104,
+          "native_bake_tangent_dot": 0.6637574702842884,
+          "native_bake_tangent_world": [
+            -0.8221922324133526,
+            0.0,
+            -0.5692099199409192
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990293106,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 48.41040311655908,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6637575203730329
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 2,
+          "exported_vertex_index": 2,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.41292482250104,
+          "native_bake_tangent_dot": 0.6637575069385748,
+          "native_bake_tangent_world": [
+            -0.8221922045183808,
+            0.0,
+            -0.56920996023366
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990286587,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 48.41039946109503,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6637575203730329
+        }
+      ],
+      "failure": "Selected-UV tangent frame differs from unchanged-PNG native bake",
+      "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+      "native_bake_frame_preserved": false,
+      "normal_quantization": {
+        "actual_exported_float32": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "angular_errors_degrees_from_native": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "bit_differences_only_signed_zero": true,
+        "exact_bytes_match": false,
+        "exact_float32_values_match": true,
+        "expected_exported_float32": [
+          [
+            0.0,
+            1.0,
+            -0.0
+          ],
+          [
+            0.0,
+            1.0,
+            -0.0
+          ],
+          [
+            0.0,
+            1.0,
+            -0.0
+          ]
+        ],
+        "maximum_angular_error_degrees_from_native": 0.0,
+        "maximum_component_error_from_native": 0.0,
+        "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+        "mismatched_components_after_exact_exporter_transform": 0,
+        "nonzero_components_bit_exact": true,
+        "signed_zero_difference_count": 3
+      },
+      "normal_uv": 1,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 1,
+      "rgb_world_normal_samples": [
+        {
+          "exported_world_normal": [
+            -0.017772876457957675,
+            0.998634099288046,
+            -0.04913309069825838
+          ],
+          "native_bake_world_normal": [
+            -0.048545869976548306,
+            0.998634099288046,
+            -0.019319271398610678
+          ],
+          "native_uv_v_up": [
+            0.29638671875,
+            0.09130859375
+          ],
+          "png_pixel_top_left_origin": [
+            303,
+            930
+          ],
+          "requested_barycentric": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "rgb8": [
+            134,
+            129,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.33238366719899837,
+            0.33318724470212185,
+            0.3344290880988798
+          ],
+          "world_normal_angle_degrees": 2.455123737245213,
+          "world_normal_dot": 0.9990820795243365
+        },
+        {
+          "exported_world_normal": [
+            -0.0447419602880273,
+            0.9960101650076529,
+            -0.07721339385762399
+          ],
+          "native_bake_world_normal": [
+            -0.08744940399235049,
+            0.9960101650076529,
+            -0.017786313356360692
+          ],
+          "native_uv_v_up": [
+            0.31884765625,
+            0.13623046875
+          ],
+          "png_pixel_top_left_origin": [
+            326,
+            884
+          ],
+          "requested_barycentric": [
+            0.5,
+            0.25,
+            0.25
+          ],
+          "rgb8": [
+            138,
+            132,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.5004017846842064,
+            0.2508583746183038,
+            0.24873984069748983
+          ],
+          "world_normal_angle_degrees": 4.193916221774329,
+          "world_normal_dot": 0.9973222481776692
+        },
+        {
+          "exported_world_normal": [
+            0.02368205168034541,
+            0.9991859240331373,
+            0.03265960260405795
+          ],
+          "native_bake_world_normal": [
+            0.04014681897927416,
+            0.9991859240331373,
+            0.003965115369183086
+          ],
+          "native_uv_v_up": [
+            0.22314453125,
+            0.06884765625
+          ],
+          "png_pixel_top_left_origin": [
+            228,
+            953
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.5,
+            0.25
+          ],
+          "rgb8": [
+            123,
+            125,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.24837460845639447,
+            0.49959822806750226,
+            0.2520271634761033
+          ],
+          "world_normal_angle_degrees": 1.8955830416761155,
+          "world_normal_dot": 0.9994527689200599
+        },
+        {
+          "exported_world_normal": [
+            -0.023513265992656355,
+            0.9950840602018879,
+            -0.09620207614435503
+          ],
+          "native_bake_world_normal": [
+            -0.08756124321671932,
+            0.9950840602018879,
+            -0.04626815123244301
+          ],
+          "native_uv_v_up": [
+            0.34619140625,
+            0.06884765625
+          ],
+          "png_pixel_top_left_origin": [
+            354,
+            953
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.25,
+            0.5
+          ],
+          "rgb8": [
+            140,
+            129,
+            254
+          ],
+          "texel_center_barycentric": [
+            0.24837460845639425,
+            0.2510775180083307,
+            0.500547873535275
+          ],
+          "world_normal_angle_degrees": 4.654437920720168,
+          "world_normal_dot": 0.9967022298781989
+        }
+      ],
+      "source_face": 0,
+      "tangent_w_exported": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          -0.11999999731779099,
+          0.0,
+          -0.9927999973297119
+        ],
+        [
+          -0.11999999731779099,
+          0.0,
+          -0.9927999973297119
+        ],
+        [
+          -0.11999999731779099,
+          0.0,
+          -0.9927999973297119
+        ]
+      ]
+    },
+    {
+      "case": "healthy_smooth_uv1",
+      "corners": [
+        {
+          "bake_w_matches": true,
+          "corner": 0,
+          "exported_vertex_index": 3,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 47.928434238892834,
+          "native_bake_tangent_dot": 0.6700583152573107,
+          "native_bake_tangent_world": [
+            -0.825798250062862,
+            -0.03096100452601735,
+            -0.5631151448787849
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999991344839,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 47.93002300429036,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6700584117531805
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 1,
+          "exported_vertex_index": 4,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 48.87886575617521,
+          "native_bake_tangent_dot": 0.6576531620720477,
+          "native_bake_tangent_world": [
+            -0.7974943837529809,
+            -0.2222030102651182,
+            -0.5609175787150666
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999999843453,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 48.87874643632464,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6576622487088881
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 2,
+          "exported_vertex_index": 5,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 49.28176940932962,
+          "native_bake_tangent_dot": 0.6523395969048874,
+          "native_bake_tangent_world": [
+            -0.8087733206052664,
+            0.2079558921774392,
+            -0.5501273150697175
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999998855599,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 49.28215172073187,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6523389504208211
+        }
+      ],
+      "failure": "Selected-UV tangent frame differs from unchanged-PNG native bake",
+      "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+      "native_bake_frame_preserved": false,
+      "normal_quantization": {
+        "actual_exported_float32": [
+          [
+            0.10039542615413666,
+            0.9744556546211243,
+            -0.20089085400104523
+          ],
+          [
+            -0.20089085400104523,
+            0.9744556546211243,
+            -0.10039542615413666
+          ],
+          [
+            0.14959467947483063,
+            0.977365255355835,
+            0.14959467947483063
+          ]
+        ],
+        "angular_errors_degrees_from_native": [
+          0.0027662674579319257,
+          0.003041925651299079,
+          0.0020461288837550365
+        ],
+        "bit_differences_only_signed_zero": true,
+        "exact_bytes_match": true,
+        "exact_float32_values_match": true,
+        "expected_exported_float32": [
+          [
+            0.10039542615413666,
+            0.9744556546211243,
+            -0.20089085400104523
+          ],
+          [
+            -0.20089085400104523,
+            0.9744556546211243,
+            -0.10039542615413666
+          ],
+          [
+            0.14959467947483063,
+            0.977365255355835,
+            0.14959467947483063
+          ]
+        ],
+        "maximum_angular_error_degrees_from_native": 0.003041925651299079,
+        "maximum_component_error_from_native": 4.5768916606903076e-05,
+        "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+        "mismatched_components_after_exact_exporter_transform": 0,
+        "nonzero_components_bit_exact": true,
+        "signed_zero_difference_count": 0
+      },
+      "normal_uv": 1,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 1,
+      "rgb_world_normal_samples": [
+        {
+          "exported_world_normal": [
+            0.022073393553207303,
+            0.9989501171525438,
+            -0.040142605022148614
+          ],
+          "native_bake_world_normal": [
+            0.02877914469771807,
+            0.9984350979699071,
+            -0.04794909772133052
+          ],
+          "native_uv_v_up": [
+            0.79638671875,
+            0.09130859375
+          ],
+          "png_pixel_top_left_origin": [
+            815,
+            930
+          ],
+          "requested_barycentric": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "rgb8": [
+            126,
+            127,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.33238366719899837,
+            0.33318724470212185,
+            0.3344290880988798
+          ],
+          "world_normal_angle_degrees": 0.5903818143456796,
+          "world_normal_dot": 0.9999469131642834
+        },
+        {
+          "exported_world_normal": [
+            0.02093733987338654,
+            0.9910972277279069,
+            -0.13148350843008375
+          ],
+          "native_bake_world_normal": [
+            -0.004361506874658812,
+            0.994463612570308,
+            -0.10499095452178116
+          ],
+          "native_uv_v_up": [
+            0.81884765625,
+            0.13623046875
+          ],
+          "png_pixel_top_left_origin": [
+            838,
+            884
+          ],
+          "requested_barycentric": [
+            0.5,
+            0.25,
+            0.25
+          ],
+          "rgb8": [
+            133,
+            129,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.5004017846842064,
+            0.2508583746183038,
+            0.24873984069748983
+          ],
+          "world_normal_angle_degrees": 2.1078090435310077,
+          "world_normal_dot": 0.9993233901968638
+        },
+        {
+          "exported_world_normal": [
+            -0.014289400433347758,
+            0.9987309166593172,
+            0.04829460781594094
+          ],
+          "native_bake_world_normal": [
+            0.06183117445517415,
+            0.9980514149437363,
+            -0.008383256783602466
+          ],
+          "native_uv_v_up": [
+            0.72314453125,
+            0.06884765625
+          ],
+          "png_pixel_top_left_origin": [
+            740,
+            953
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.5,
+            0.25
+          ],
+          "rgb8": [
+            113,
+            126,
+            254
+          ],
+          "texel_center_barycentric": [
+            0.24837460845639447,
+            0.49959822806750226,
+            0.2520271634761033
+          ],
+          "world_normal_angle_degrees": 5.43976670355878,
+          "world_normal_dot": 0.9954964080102479
+        },
+        {
+          "exported_world_normal": [
+            0.06263194089801635,
+            0.9980338423853454,
+            0.002385253213167424
+          ],
+          "native_bake_world_normal": [
+            0.06040265891810709,
+            0.9981441435612094,
+            -0.007732235775167624
+          ],
+          "native_uv_v_up": [
+            0.84619140625,
+            0.06884765625
+          ],
+          "png_pixel_top_left_origin": [
+            866,
+            953
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.25,
+            0.5
+          ],
+          "rgb8": [
+            127,
+            126,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.24837460845639425,
+            0.2510775180083307,
+            0.500547873535275
+          ],
+          "world_normal_angle_degrees": 0.5936307526258849,
+          "world_normal_dot": 0.9999463272760378
+        }
+      ],
+      "source_face": 1,
+      "tangent_w_exported": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          -0.14139999449253082,
+          -0.1859000027179718,
+          -0.9724000096321106
+        ],
+        [
+          -0.09589999914169312,
+          -0.12160000205039978,
+          -0.9879000186920166
+        ],
+        [
+          -0.09650000184774399,
+          0.16500000655651093,
+          -0.9815999865531921
+        ]
+      ]
+    },
+    {
+      "case": "healthy_mirrored_uv0",
+      "corners": [
+        {
+          "bake_w_matches": true,
+          "corner": 0,
+          "exported_vertex_index": 0,
+          "exported_w": -1.0,
+          "native_bake_tangent_angle_degrees": 0.0,
+          "native_bake_tangent_dot": 1.0,
+          "native_bake_tangent_world": [
+            1.0,
+            0.0,
+            -0.0
+          ],
+          "native_bake_w": -1.0,
+          "native_uv0_tangent_dot": 1.0,
+          "native_uv0_w": -1.0,
+          "old_per_corner_sign": -1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 0.0,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 1.0
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 1,
+          "exported_vertex_index": 1,
+          "exported_w": -1.0,
+          "native_bake_tangent_angle_degrees": 0.0,
+          "native_bake_tangent_dot": 1.0,
+          "native_bake_tangent_world": [
+            1.0,
+            0.0,
+            -0.0
+          ],
+          "native_bake_w": -1.0,
+          "native_uv0_tangent_dot": 1.0,
+          "native_uv0_w": -1.0,
+          "old_per_corner_sign": -1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 0.0,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 1.0
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 2,
+          "exported_vertex_index": 2,
+          "exported_w": -1.0,
+          "native_bake_tangent_angle_degrees": 0.0,
+          "native_bake_tangent_dot": 1.0,
+          "native_bake_tangent_world": [
+            1.0,
+            0.0,
+            -0.0
+          ],
+          "native_bake_w": -1.0,
+          "native_uv0_tangent_dot": 1.0,
+          "native_uv0_w": -1.0,
+          "old_per_corner_sign": -1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 0.0,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 1.0
+        }
+      ],
+      "failure": null,
+      "material": "AnalyticHealthyColor__short_pile_adaptive_v1",
+      "native_bake_frame_preserved": true,
+      "normal_quantization": {
+        "actual_exported_float32": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "angular_errors_degrees_from_native": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "bit_differences_only_signed_zero": true,
+        "exact_bytes_match": false,
+        "exact_float32_values_match": true,
+        "expected_exported_float32": [
+          [
+            0.0,
+            1.0,
+            -0.0
+          ],
+          [
+            0.0,
+            1.0,
+            -0.0
+          ],
+          [
+            0.0,
+            1.0,
+            -0.0
+          ]
+        ],
+        "maximum_angular_error_degrees_from_native": 0.0,
+        "maximum_component_error_from_native": 0.0,
+        "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+        "mismatched_components_after_exact_exporter_transform": 0,
+        "nonzero_components_bit_exact": true,
+        "signed_zero_difference_count": 3
+      },
+      "normal_uv": 0,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 2,
+      "rgb_world_normal_samples": [
+        {
+          "exported_world_normal": [
+            -0.04309419878053846,
+            0.9990018808215745,
+            -0.011752963303783188
+          ],
+          "native_bake_world_normal": [
+            -0.04309419878053846,
+            0.9990018808215745,
+            -0.011752963303783188
+          ],
+          "native_uv_v_up": [
+            0.38330078125,
+            0.56689453125
+          ],
+          "png_pixel_top_left_origin": [
+            392,
+            443
+          ],
+          "requested_barycentric": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "rgb8": [
+            122,
+            126,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.3336355995840621,
+            0.3333565758482427,
+            0.33300782456769523
+          ],
+          "world_normal_angle_degrees": 0.0,
+          "world_normal_dot": 1.0
+        },
+        {
+          "exported_world_normal": [
+            -0.027405080287753653,
+            0.9983279247681682,
+            -0.05089514910582823
+          ],
+          "native_bake_world_normal": [
+            -0.027405080287753653,
+            0.9983279247681682,
+            -0.05089514910582823
+          ],
+          "native_uv_v_up": [
+            0.31298828125,
+            0.62548828125
+          ],
+          "png_pixel_top_left_origin": [
+            320,
+            383
+          ],
+          "requested_barycentric": [
+            0.5,
+            0.25,
+            0.25
+          ],
+          "rgb8": [
+            124,
+            121,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.49985052102212135,
+            0.2508470103057336,
+            0.24930246867214512
+          ],
+          "world_normal_angle_degrees": 0.0,
+          "world_normal_dot": 1.0
+        },
+        {
+          "exported_world_normal": [
+            -0.11387795492097474,
+            0.9934869860347103,
+            -0.003926826031757734
+          ],
+          "native_bake_world_normal": [
+            -0.11387795492097474,
+            0.9934869860347103,
+            -0.003926826031757734
+          ],
+          "native_uv_v_up": [
+            0.48779296875,
+            0.62548828125
+          ],
+          "png_pixel_top_left_origin": [
+            499,
+            383
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.5,
+            0.25
+          ],
+          "rgb8": [
+            113,
+            127,
+            254
+          ],
+          "texel_center_barycentric": [
+            0.25012954260039666,
+            0.5005679887274582,
+            0.24930246867214512
+          ],
+          "world_normal_angle_degrees": 0.0,
+          "world_normal_dot": 1.0
+        },
+        {
+          "exported_world_normal": [
+            0.10593286739023128,
+            0.9926302018417962,
+            0.058851592994572904
+          ],
+          "native_bake_world_normal": [
+            0.10593286739023128,
+            0.9926302018417962,
+            0.058851592994572904
+          ],
+          "native_uv_v_up": [
+            0.35009765625,
+            0.44970703125
+          ],
+          "png_pixel_top_left_origin": [
+            358,
+            563
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.25,
+            0.5
+          ],
+          "rgb8": [
+            141,
+            135,
+            254
+          ],
+          "texel_center_barycentric": [
+            0.2495316458647424,
+            0.25004981777646207,
+            0.5004185363587955
+          ],
+          "world_normal_angle_degrees": 0.0,
+          "world_normal_dot": 1.0000000000000002
+        }
+      ],
+      "source_face": 2,
+      "tangent_w_exported": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "case": "excluded",
+      "excluded_original_material_preserved": true,
+      "failure": null,
+      "material": "AnalyticAliasedColor",
+      "native_bake_frame_preserved": null,
+      "normal_frame_check": "not_applicable_no_normal_texture",
+      "normal_quantization": {
+        "actual_exported_float32": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "angular_errors_degrees_from_native": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "bit_differences_only_signed_zero": true,
+        "exact_bytes_match": false,
+        "exact_float32_values_match": true,
+        "expected_exported_float32": [
+          [
+            0.0,
+            1.0,
+            -0.0
+          ],
+          [
+            0.0,
+            1.0,
+            -0.0
+          ],
+          [
+            0.0,
+            1.0,
+            -0.0
+          ]
+        ],
+        "maximum_angular_error_degrees_from_native": 0.0,
+        "maximum_component_error_from_native": 0.0,
+        "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+        "mismatched_components_after_exact_exporter_transform": 0,
+        "nonzero_components_bit_exact": true,
+        "signed_zero_difference_count": 3
+      },
+      "normal_uv": null,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 0,
+      "source_face": 3,
+      "tangent_w_exported": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "case": "mixed_hemisphere_uv1",
+      "corners": [
+        {
+          "bake_w_matches": true,
+          "corner": 0,
+          "exported_vertex_index": 6,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 40.952411234272276,
+          "native_bake_tangent_dot": 0.7552542297705904,
+          "native_bake_tangent_world": [
+            -0.512641812002254,
+            0.502639556084993,
+            -0.6960975860076853
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999995487187,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 40.95069190793227,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.7552613201888843
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 1,
+          "exported_vertex_index": 7,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 52.996031971236945,
+          "native_bake_tangent_dot": 0.6018703313441721,
+          "native_bake_tangent_world": [
+            -0.5660388168935774,
+            0.6594705329645407,
+            -0.49467026787667734
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999984709693,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": -1.0,
+          "old_vdown_w_assertion_matches": true,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 52.99919513922321,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 0.60185808118588
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 2,
+          "exported_vertex_index": 8,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 45.84030764181562,
+          "native_bake_tangent_dot": 0.6966605830030339,
+          "native_bake_tangent_world": [
+            -0.8714421966670334,
+            -0.13944136526652104,
+            -0.4702601445165689
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999990132322,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": 1.0,
+          "old_vdown_w_assertion_matches": false,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 45.838964420121144,
+          "vdown_derivative_w": -1.0,
+          "vdown_tangent_dot": 0.6966569341516315
+        }
+      ],
+      "failure": "Selected-UV tangent frame differs from unchanged-PNG native bake",
+      "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+      "native_bake_frame_preserved": false,
+      "normal_quantization": {
+        "actual_exported_float32": [
+          [
+            0.7001224160194397,
+            0.7140228152275085,
+            0.0
+          ],
+          [
+            -0.6006960272789001,
+            -0.7408950328826904,
+            -0.30039799213409424
+          ],
+          [
+            0.2001059502363205,
+            0.7743229866027832,
+            -0.6003178358078003
+          ]
+        ],
+        "angular_errors_degrees_from_native": [
+          0.0012678466780422614,
+          0.0013752372184063337,
+          0.0031738147354964646
+        ],
+        "bit_differences_only_signed_zero": true,
+        "exact_bytes_match": false,
+        "exact_float32_values_match": true,
+        "expected_exported_float32": [
+          [
+            0.7001224160194397,
+            0.7140228152275085,
+            -0.0
+          ],
+          [
+            -0.6006960272789001,
+            -0.7408950328826904,
+            -0.30039799213409424
+          ],
+          [
+            0.2001059502363205,
+            0.7743229866027832,
+            -0.6003178358078003
+          ]
+        ],
+        "maximum_angular_error_degrees_from_native": 0.0031738147354964646,
+        "maximum_component_error_from_native": 5.4195523262023926e-05,
+        "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+        "mismatched_components_after_exact_exporter_transform": 0,
+        "nonzero_components_bit_exact": true,
+        "signed_zero_difference_count": 1
+      },
+      "normal_uv": 1,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 1,
+      "rgb_world_normal_samples": [
+        {
+          "exported_world_normal": [
+            0.26032402603712707,
+            0.602296618827717,
+            -0.7546324830117778
+          ],
+          "native_bake_world_normal": [
+            0.2374452648851814,
+            0.6038348154819668,
+            -0.7609226385089782
+          ],
+          "native_uv_v_up": [
+            0.29638671875,
+            0.59130859375
+          ],
+          "png_pixel_top_left_origin": [
+            303,
+            418
+          ],
+          "requested_barycentric": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "rgb8": [
+            129,
+            125,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.3323836301490186,
+            0.3331872528531158,
+            0.3344291169978656
+          ],
+          "world_normal_angle_degrees": 1.36238286678396,
+          "world_normal_dot": 0.9997173150915131
+        },
+        {
+          "exported_world_normal": [
+            0.5608741609190293,
+            0.7234885865727431,
+            -0.4024729068053516
+          ],
+          "native_bake_world_normal": [
+            0.5645337377450729,
+            0.6870894199025476,
+            -0.45739456490600994
+          ],
+          "native_uv_v_up": [
+            0.31884765625,
+            0.63623046875
+          ],
+          "png_pixel_top_left_origin": [
+            326,
+            372
+          ],
+          "requested_barycentric": [
+            0.5,
+            0.25,
+            0.25
+          ],
+          "rgb8": [
+            120,
+            121,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.5004017289056655,
+            0.2508583868895804,
+            0.24873988420475418
+          ],
+          "world_normal_angle_degrees": 3.7816349758502548,
+          "world_normal_dot": 0.9978226598173221
+        },
+        {
+          "exported_world_normal": [
+            -0.09909950189492667,
+            -0.0685601389745444,
+            -0.9927128467326132
+          ],
+          "native_bake_world_normal": [
+            -0.28394561053684053,
+            0.16575470481477336,
+            -0.9444047162570866
+          ],
+          "native_uv_v_up": [
+            0.22314453125,
+            0.56884765625
+          ],
+          "png_pixel_top_left_origin": [
+            228,
+            441
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.5,
+            0.25
+          ],
+          "rgb8": [
+            145,
+            139,
+            253
+          ],
+          "texel_center_barycentric": [
+            0.24837458077069519,
+            0.4995982341583549,
+            0.2520271850709499
+          ],
+          "world_normal_angle_degrees": 17.38906237001207,
+          "world_normal_dot": 0.9542973973149445
+        },
+        {
+          "exported_world_normal": [
+            0.228688400993738,
+            0.7267898662485576,
+            -0.6476712943842201
+          ],
+          "native_bake_world_normal": [
+            0.26938247883822236,
+            0.7009583937730612,
+            -0.6603714184412168
+          ],
+          "native_uv_v_up": [
+            0.34619140625,
+            0.56884765625
+          ],
+          "png_pixel_top_left_origin": [
+            354,
+            441
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.25,
+            0.5
+          ],
+          "rgb8": [
+            121,
+            129,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.24837458077069519,
+            0.2510775240991833,
+            0.5005478951301214
+          ],
+          "world_normal_angle_degrees": 2.856228046854778,
+          "world_normal_dot": 0.9987577169535358
+        }
+      ],
+      "source_face": 4,
+      "tangent_w_exported": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          -0.061400000005960464,
+          0.06019999831914902,
+          -0.9962999820709229
+        ],
+        [
+          0.11020000278949738,
+          0.2953999936580658,
+          -0.9490000009536743
+        ],
+        [
+          -0.2858000099658966,
+          -0.539900004863739,
+          -0.791700005531311
+        ]
+      ]
+    },
+    {
+      "case": "all_opposed_uv1",
+      "corners": [
+        {
+          "bake_w_matches": true,
+          "corner": 0,
+          "exported_vertex_index": 9,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 53.30431432033466,
+          "native_bake_tangent_dot": 0.59756477230106,
+          "native_bake_tangent_world": [
+            -0.8085107493860263,
+            0.38140235871445605,
+            -0.44815467072685455
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.999999998556654,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": -1.0,
+          "old_vdown_w_assertion_matches": true,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 53.30267594631556,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 0.5975560682647326
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 1,
+          "exported_vertex_index": 10,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 45.15558599156357,
+          "native_bake_tangent_dot": 0.7051840366360587,
+          "native_bake_tangent_world": [
+            -0.7413448931666404,
+            -0.257464694542813,
+            -0.6197738946097345
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999992206835,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": -1.0,
+          "old_vdown_w_assertion_matches": true,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 45.15332676524881,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 0.7051784938910286
+        },
+        {
+          "bake_w_matches": true,
+          "corner": 2,
+          "exported_vertex_index": 11,
+          "exported_w": 1.0,
+          "native_bake_tangent_angle_degrees": 41.78829916052296,
+          "native_bake_tangent_dot": 0.7456121021809217,
+          "native_bake_tangent_world": [
+            -0.7053493910513876,
+            0.2623863836025436,
+            -0.6585101534854383
+          ],
+          "native_bake_w": 1.0,
+          "native_uv0_tangent_dot": 0.9999999992866613,
+          "native_uv0_w": 1.0,
+          "old_per_corner_sign": -1.0,
+          "old_vdown_w_assertion_matches": true,
+          "oracle": "Actual Blender calc_tangents selected UV layer",
+          "uv1_vs_uv0_angle_degrees": 41.78771336799771,
+          "vdown_derivative_w": 1.0,
+          "vdown_tangent_dot": 0.7456004322575105
+        }
+      ],
+      "failure": "Selected-UV tangent frame differs from unchanged-PNG native bake",
+      "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+      "native_bake_frame_preserved": false,
+      "normal_quantization": {
+        "actual_exported_float32": [
+          [
+            -0.200102761387825,
+            -0.89431232213974,
+            -0.40020552277565
+          ],
+          [
+            0.40001580119132996,
+            -0.9110360145568848,
+            -0.10000395029783249
+          ],
+          [
+            -0.500188410282135,
+            -0.842480480670929,
+            0.20009537041187286
+          ]
+        ],
+        "angular_errors_degrees_from_native": [
+          0.0030253980852089596,
+          0.0016844856676920717,
+          0.003294174838924426
+        ],
+        "bit_differences_only_signed_zero": true,
+        "exact_bytes_match": true,
+        "exact_float32_values_match": true,
+        "expected_exported_float32": [
+          [
+            -0.200102761387825,
+            -0.89431232213974,
+            -0.40020552277565
+          ],
+          [
+            0.40001580119132996,
+            -0.9110360145568848,
+            -0.10000395029783249
+          ],
+          [
+            -0.500188410282135,
+            -0.842480480670929,
+            0.20009537041187286
+          ]
+        ],
+        "maximum_angular_error_degrees_from_native": 0.003294174838924426,
+        "maximum_component_error_from_native": 4.100799560546875e-05,
+        "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+        "mismatched_components_after_exact_exporter_transform": 0,
+        "nonzero_components_bit_exact": true,
+        "signed_zero_difference_count": 0
+      },
+      "normal_uv": 1,
+      "positions_and_uv0_preserved": true,
+      "primitive_index": 1,
+      "rgb_world_normal_samples": [
+        {
+          "exported_world_normal": [
+            -0.13322944211060153,
+            -0.9837868760703815,
+            -0.12005539649086051
+          ],
+          "native_bake_world_normal": [
+            -0.13360798356861336,
+            -0.9856961026213044,
+            -0.10272341507125055
+          ],
+          "native_uv_v_up": [
+            0.79638671875,
+            0.59130859375
+          ],
+          "png_pixel_top_left_origin": [
+            815,
+            418
+          ],
+          "requested_barycentric": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "rgb8": [
+            129,
+            125,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.3323836301490186,
+            0.3331872528531158,
+            0.3344291169978656
+          ],
+          "world_normal_angle_degrees": 0.9993043133347848,
+          "world_normal_dot": 0.9998479069902062
+        },
+        {
+          "exported_world_normal": [
+            -0.10799565251444936,
+            -0.9875143183346295,
+            -0.11468395756194635
+          ],
+          "native_bake_world_normal": [
+            -0.05894617995118445,
+            -0.9851120710985611,
+            -0.16149165688996484
+          ],
+          "native_uv_v_up": [
+            0.81884765625,
+            0.63623046875
+          ],
+          "png_pixel_top_left_origin": [
+            838,
+            372
+          ],
+          "requested_barycentric": [
+            0.5,
+            0.25,
+            0.25
+          ],
+          "rgb8": [
+            117,
+            130,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.5004017289056655,
+            0.2508583868895804,
+            0.24873988420475418
+          ],
+          "world_normal_angle_degrees": 3.8878252319285944,
+          "world_normal_dot": 0.9976987088665502
+        },
+        {
+          "exported_world_normal": [
+            0.028205754493016957,
+            -0.9910746779757664,
+            -0.13028974667528773
+          ],
+          "native_bake_world_normal": [
+            0.013880033411360107,
+            -0.9919862971959303,
+            -0.12558077419735497
+          ],
+          "native_uv_v_up": [
+            0.72314453125,
+            0.56884765625
+          ],
+          "png_pixel_top_left_origin": [
+            740,
+            441
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.5,
+            0.25
+          ],
+          "rgb8": [
+            130,
+            128,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.24837458077069519,
+            0.4995982341583549,
+            0.2520271850709499
+          ],
+          "world_normal_angle_degrees": 0.8655951178529693,
+          "world_normal_dot": 0.9998858841220452
+        },
+        {
+          "exported_world_normal": [
+            -0.25833561637640945,
+            -0.9619842596826864,
+            -0.08859454517166697
+          ],
+          "native_bake_world_normal": [
+            -0.2897042213196733,
+            -0.9559758959702239,
+            -0.04670707091532668
+          ],
+          "native_uv_v_up": [
+            0.84619140625,
+            0.56884765625
+          ],
+          "png_pixel_top_left_origin": [
+            866,
+            441
+          ],
+          "requested_barycentric": [
+            0.25,
+            0.25,
+            0.5
+          ],
+          "rgb8": [
+            136,
+            124,
+            255
+          ],
+          "texel_center_barycentric": [
+            0.24837458077069519,
+            0.2510775240991833,
+            0.5005478951301214
+          ],
+          "world_normal_angle_degrees": 3.018401322598142,
+          "world_normal_dot": 0.9986126748449184
+        }
+      ],
+      "source_face": 5,
+      "tangent_w_exported": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tangent_xyz_world_exported": [
+        [
+          -0.039400000125169754,
+          0.4153999984264374,
+          -0.9088000059127808
+        ],
+        [
+          -0.14069999754428864,
+          0.046799998730421066,
+          -0.9889000058174133
+        ],
+        [
+          -0.19120000302791595,
+          -0.11789999902248383,
+          -0.974399983882904
+        ]
+      ]
+    }
+  ],
+  "verifier_sha256": "13768c4a928109d129a04ebb816041f4d48b25ab912be8c28e04ba7a7680d001",
+  "weft_compatible": false
+}

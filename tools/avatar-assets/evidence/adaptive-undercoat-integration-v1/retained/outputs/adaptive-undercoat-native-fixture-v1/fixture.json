@@ -1,0 +1,316 @@
+{
+  "basecolor_pixels": [
+    [
+      0.08,
+      0.25,
+      0.75,
+      1
+    ],
+    [
+      0.9,
+      0.4,
+      0.08,
+      1
+    ],
+    [
+      0.2,
+      0.7,
+      0.15,
+      1
+    ],
+    [
+      0.8,
+      0.7,
+      0.25,
+      1
+    ],
+    [
+      0.08,
+      0.25,
+      0.75,
+      1
+    ],
+    [
+      0.9,
+      0.4,
+      0.08,
+      1
+    ],
+    [
+      0.2,
+      0.7,
+      0.15,
+      1
+    ],
+    [
+      0.8,
+      0.7,
+      0.25,
+      1
+    ],
+    [
+      0.08,
+      0.25,
+      0.75,
+      1
+    ],
+    [
+      0.9,
+      0.4,
+      0.08,
+      1
+    ],
+    [
+      0.2,
+      0.7,
+      0.15,
+      1
+    ],
+    [
+      0.8,
+      0.7,
+      0.25,
+      1
+    ],
+    [
+      0.08,
+      0.25,
+      0.75,
+      1
+    ],
+    [
+      0.9,
+      0.4,
+      0.08,
+      1
+    ],
+    [
+      0.2,
+      0.7,
+      0.15,
+      1
+    ],
+    [
+      0.8,
+      0.7,
+      0.25,
+      1
+    ]
+  ],
+  "expectations": {
+    "face3": "Excluded triangle in original region0 material: material and source basecolor remain unchanged.",
+    "region0": "Two noncoincident surfaces share the same UV0 triangle: must receive authored normal UV1.",
+    "region1": "One healthy, deliberately mirrored UV0 triangle: must retain UV0 normal mapping.",
+    "rotated_uv1": "Longest-edge atlas axes differ materially from the rotated asymmetric source UV0; both tangent direction and sign must match exported selected UV derivatives."
+  },
+  "export_vertex_budget": {
+    "portable_export_vertices": 0,
+    "reserve_vertices": 0,
+    "source_export_vertices": 12
+  },
+  "faces": [
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      3,
+      4,
+      5
+    ],
+    [
+      6,
+      7,
+      8
+    ],
+    [
+      9,
+      10,
+      11
+    ]
+  ],
+  "groom_flow": {
+    "regions": [
+      {
+        "center": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "comb": 0.6,
+        "direction": [
+          0.3,
+          0.8,
+          0.1
+        ],
+        "feather": 0.5,
+        "length_scale": 1,
+        "name": "analytic-direction",
+        "radius": [
+          2,
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "kind": "analytic_mixed_material_uv_fixture",
+  "material_indices": [
+    0,
+    0,
+    1,
+    0
+  ],
+  "material_names": [
+    "AnalyticAliasedColor",
+    "AnalyticHealthyColor"
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "selected_vertices": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+  ],
+  "settings": {
+    "max_faces": 3,
+    "min_faces": 3,
+    "pitch_m": 0.004,
+    "profile": "short-pile-v1",
+    "resolution": 1024,
+    "roughness": 0.92,
+    "seed": 41,
+    "strength": 0.22,
+    "uv_policy": "material-adaptive-v1"
+  },
+  "triangle_uv0": [
+    [
+      [
+        0.12,
+        0.8
+      ],
+      [
+        0.12,
+        0.12
+      ],
+      [
+        0.72,
+        0.66
+      ]
+    ],
+    [
+      [
+        0.12,
+        0.8
+      ],
+      [
+        0.12,
+        0.12
+      ],
+      [
+        0.72,
+        0.66
+      ]
+    ],
+    [
+      [
+        0.1,
+        0.8
+      ],
+      [
+        0.8,
+        0.8
+      ],
+      [
+        0.25,
+        0.1
+      ]
+    ],
+    [
+      [
+        0.1,
+        0.1
+      ],
+      [
+        0.5,
+        0.1
+      ],
+      [
+        0.2,
+        0.55
+      ]
+    ]
+  ],
+  "vertices": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0.03,
+      0,
+      0
+    ],
+    [
+      0.004,
+      0.018,
+      0
+    ],
+    [
+      0.055,
+      0.006,
+      0.025
+    ],
+    [
+      0.085,
+      0.006,
+      0.025
+    ],
+    [
+      0.059,
+      0.024,
+      0.025
+    ],
+    [
+      0,
+      0.055,
+      0.005
+    ],
+    [
+      0.018,
+      0.055,
+      0.005
+    ],
+    [
+      0.004,
+      0.07,
+      0.005
+    ],
+    [
+      0.055,
+      0.055,
+      0.01
+    ],
+    [
+      0.075,
+      0.055,
+      0.01
+    ],
+    [
+      0.059,
+      0.071,
+      0.01
+    ]
+  ]
+}

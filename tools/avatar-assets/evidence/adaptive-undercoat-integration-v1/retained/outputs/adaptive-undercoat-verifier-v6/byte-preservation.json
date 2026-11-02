@@ -1,0 +1,46 @@
+{
+  "allowed_tangent_bytes": 192,
+  "changed_bytes": 121,
+  "geometry_all_uvs_normals_materials_images_exact": true,
+  "healthy_uv0_and_excluded_tangents_exact": true,
+  "nonselected_bytes_sha256": "87850b2723f259886825bef246e9ddf0f37c953fb23674d177554f9e4fbe5dfc",
+  "only_uv1_tangent_float4_storage_changed": true,
+  "result_sha256": "3766e51c3a8c25fac153a7e89a6e11bed604195686424924eb4afb0e8899bbda",
+  "scene_json_exact": true,
+  "selected_ranges": [
+    {
+      "after_sha256": "5ee6cdf653c8c2e4d72fbc51fe6833fcbec696cb9cd50468428476b9f295c1f7",
+      "before_sha256": "4c130857dce176351c1252bb49f19870f451982731bbf16eada52a83864ba0e9",
+      "bytes": 192,
+      "file_offset": 5216,
+      "mesh": 0,
+      "normal_texcoord": 1,
+      "primitive": 1
+    }
+  ],
+  "source_animations": 0,
+  "source_sha256": "33c08e929c054d76abc42b8d524ea3b21b5a1c211fd8d1e4bddfb5e07361732f",
+  "source_skins": 0,
+  "unchanged_nonselected_bytes": 274512,
+  "untouched_tangent_ranges": [
+    {
+      "after_sha256": "d5143fb13aae9370a3e179561637788404f52ff7476f2fc905c92bec1f28e440",
+      "before_sha256": "d5143fb13aae9370a3e179561637788404f52ff7476f2fc905c92bec1f28e440",
+      "bytes": 48,
+      "file_offset": 4484,
+      "mesh": 0,
+      "normal_texcoord": null,
+      "primitive": 0
+    },
+    {
+      "after_sha256": "8fe8307cb413c4cecadf343547863bfc4a898f2336cdaae409375eeb8dc3b845",
+      "before_sha256": "8fe8307cb413c4cecadf343547863bfc4a898f2336cdaae409375eeb8dc3b845",
+      "bytes": 48,
+      "file_offset": 178568,
+      "mesh": 0,
+      "normal_texcoord": 0,
+      "primitive": 2
+    }
+  ],
+  "weight_and_motion_scope": "Fixture contains no skin weights or actions; none added. All bytes outside UV1 tangent storage remain exact."
+}

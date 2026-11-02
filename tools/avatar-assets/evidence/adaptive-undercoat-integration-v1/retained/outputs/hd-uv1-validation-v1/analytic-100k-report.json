@@ -1,0 +1,53 @@
+{
+  "fixture_bytes": 5601168,
+  "kind": "analytic_frame_fixture_not_a_character",
+  "report": {
+    "checks": [
+      "finite normals/UV0/UV1/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "selected normal-map UV0/UV1 binding"
+    ],
+    "decoded_scalar_values": 1100000,
+    "limitations": [
+      "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+      "This HD check does not change Weft's diffuse UV0-only contract; normal-map/UV1 assets remain unsupported there."
+    ],
+    "limits": {
+      "decoded_global_values": 2000000,
+      "decoded_surface_values": 1100000,
+      "file_bytes": 67108864,
+      "normal_map_uv_indices": [
+        0,
+        1
+      ],
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "HD normal mapped",
+        "normal_map_uv_set": 1,
+        "normal_mapped": true,
+        "normal_squared_length_error": 0.0,
+        "normal_tangent_dot_error": 0.0,
+        "tangent_squared_length_error": 0.0,
+        "verified_uv_sets": [
+          0,
+          1
+        ],
+        "vertices": 100000
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "812f9149d77ea3acf6edd97b2d99a91a7be8cb320b3dbeae09884e7c00587b40",
+    "status": "validated_render_attributes",
+    "tangent_uv_derivation_verified": false,
+    "vertices": 100000,
+    "weft_runtime_verified": false
+  },
+  "seconds": 0.13173970812931657
+}

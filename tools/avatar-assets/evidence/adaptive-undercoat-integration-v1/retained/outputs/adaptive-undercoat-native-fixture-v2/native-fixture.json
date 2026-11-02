@@ -1,0 +1,883 @@
+{
+  "active_render_flags": [
+    true,
+    false
+  ],
+  "active_uv_index": 0,
+  "blender_version": "4.5.13 LTS",
+  "elapsed_seconds": 0.6511085419915617,
+  "faces": [
+    {
+      "expected_normal_uv": 1,
+      "face_index": 0,
+      "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+      "positions_blender_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.029999999329447746,
+          0.0,
+          0.0
+        ],
+        [
+          0.004000000189989805,
+          0.017999999225139618,
+          0.0
+        ]
+      ],
+      "uv0_blender": [
+        [
+          0.11999999731779099,
+          0.800000011920929
+        ],
+        [
+          0.11999999731779099,
+          0.11999999731779099
+        ],
+        [
+          0.7200000286102295,
+          0.6600000262260437
+        ]
+      ],
+      "uv1_blender": [
+        [
+          0.3886328339576721,
+          0.2698046863079071
+        ],
+        [
+          0.00244140625,
+          0.00244140625
+        ],
+        [
+          0.49755859375,
+          0.00244140625
+        ]
+      ]
+    },
+    {
+      "expected_normal_uv": 1,
+      "face_index": 1,
+      "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+      "positions_blender_m": [
+        [
+          0.054999999701976776,
+          0.006000000052154064,
+          0.02500000037252903
+        ],
+        [
+          0.08500000089406967,
+          0.006000000052154064,
+          0.02500000037252903
+        ],
+        [
+          0.05900000035762787,
+          0.024000000208616257,
+          0.02500000037252903
+        ]
+      ],
+      "uv0_blender": [
+        [
+          0.11999999731779099,
+          0.800000011920929
+        ],
+        [
+          0.11999999731779099,
+          0.11999999731779099
+        ],
+        [
+          0.7200000286102295,
+          0.6600000262260437
+        ]
+      ],
+      "uv1_blender": [
+        [
+          0.8886328339576721,
+          0.2698046863079071
+        ],
+        [
+          0.50244140625,
+          0.00244140625
+        ],
+        [
+          0.99755859375,
+          0.00244140625
+        ]
+      ]
+    },
+    {
+      "expected_normal_uv": 0,
+      "face_index": 2,
+      "material": "AnalyticHealthyColor__short_pile_adaptive_v1",
+      "positions_blender_m": [
+        [
+          0.0,
+          0.054999999701976776,
+          0.004999999888241291
+        ],
+        [
+          0.017999999225139618,
+          0.054999999701976776,
+          0.004999999888241291
+        ],
+        [
+          0.004000000189989805,
+          0.07000000029802322,
+          0.004999999888241291
+        ]
+      ],
+      "uv0_blender": [
+        [
+          0.10000000149011612,
+          0.800000011920929
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929
+        ],
+        [
+          0.25,
+          0.10000000149011612
+        ]
+      ],
+      "uv1_blender": [
+        [
+          0.10000000149011612,
+          0.800000011920929
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929
+        ],
+        [
+          0.25,
+          0.10000000149011612
+        ]
+      ]
+    },
+    {
+      "expected_normal_uv": null,
+      "face_index": 3,
+      "material": "AnalyticAliasedColor",
+      "positions_blender_m": [
+        [
+          0.054999999701976776,
+          0.054999999701976776,
+          0.009999999776482582
+        ],
+        [
+          0.07500000298023224,
+          0.054999999701976776,
+          0.009999999776482582
+        ],
+        [
+          0.05900000035762787,
+          0.07100000232458115,
+          0.009999999776482582
+        ]
+      ],
+      "uv0_blender": [
+        [
+          0.10000000149011612,
+          0.10000000149011612
+        ],
+        [
+          0.5,
+          0.10000000149011612
+        ],
+        [
+          0.20000000298023224,
+          0.550000011920929
+        ]
+      ],
+      "uv1_blender": [
+        [
+          0.10000000149011612,
+          0.10000000149011612
+        ],
+        [
+          0.5,
+          0.10000000149011612
+        ],
+        [
+          0.20000000298023224,
+          0.550000011920929
+        ]
+      ]
+    }
+  ],
+  "kind": "analytic_adapter_export_fixture",
+  "model_sha256": "2500c2e72aad7c1e64d8d8493f697c42280f88057cc5c68b9a9c61d07ef4e249",
+  "negative_cases": [
+    {
+      "case": "existing_uv1",
+      "no_bake_or_material_mutation": true,
+      "reason": "Adaptive undercoat requires only original UV0; preexisting UV1 is unsupported",
+      "rejected": true
+    },
+    {
+      "case": "conflicting_attribute",
+      "no_bake_or_material_mutation": true,
+      "reason": "Authored undercoat UV1 name conflicts with existing data",
+      "rejected": true
+    }
+  ],
+  "original_data_unchanged": true,
+  "original_geometry": {
+    "active_uv_index": 0,
+    "faces": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        6,
+        7,
+        8
+      ],
+      [
+        9,
+        10,
+        11
+      ]
+    ],
+    "uv0": [
+      [
+        0.11999999731779099,
+        0.800000011920929
+      ],
+      [
+        0.11999999731779099,
+        0.11999999731779099
+      ],
+      [
+        0.7200000286102295,
+        0.6600000262260437
+      ],
+      [
+        0.11999999731779099,
+        0.800000011920929
+      ],
+      [
+        0.11999999731779099,
+        0.11999999731779099
+      ],
+      [
+        0.7200000286102295,
+        0.6600000262260437
+      ],
+      [
+        0.10000000149011612,
+        0.800000011920929
+      ],
+      [
+        0.800000011920929,
+        0.800000011920929
+      ],
+      [
+        0.25,
+        0.10000000149011612
+      ],
+      [
+        0.10000000149011612,
+        0.10000000149011612
+      ],
+      [
+        0.5,
+        0.10000000149011612
+      ],
+      [
+        0.20000000298023224,
+        0.550000011920929
+      ]
+    ],
+    "uv0_active_render": true,
+    "vertices": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.029999999329447746,
+        0.0,
+        0.0
+      ],
+      [
+        0.004000000189989805,
+        0.017999999225139618,
+        0.0
+      ],
+      [
+        0.054999999701976776,
+        0.006000000052154064,
+        0.02500000037252903
+      ],
+      [
+        0.08500000089406967,
+        0.006000000052154064,
+        0.02500000037252903
+      ],
+      [
+        0.05900000035762787,
+        0.024000000208616257,
+        0.02500000037252903
+      ],
+      [
+        0.0,
+        0.054999999701976776,
+        0.004999999888241291
+      ],
+      [
+        0.017999999225139618,
+        0.054999999701976776,
+        0.004999999888241291
+      ],
+      [
+        0.004000000189989805,
+        0.07000000029802322,
+        0.004999999888241291
+      ],
+      [
+        0.054999999701976776,
+        0.054999999701976776,
+        0.009999999776482582
+      ],
+      [
+        0.07500000298023224,
+        0.054999999701976776,
+        0.009999999776482582
+      ],
+      [
+        0.05900000035762787,
+        0.07100000232458115,
+        0.009999999776482582
+      ]
+    ]
+  },
+  "provider_calls": 0,
+  "quality_approved": false,
+  "renders": 0,
+  "schema_version": 1,
+  "source_basecolor": [
+    {
+      "default": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "extension": "REPEAT",
+      "image": "OriginalFixtureBaseColor",
+      "image_color_space": "sRGB",
+      "image_pixels_sha256": "6c096f621eaca06d4ec12eeba390165a5802230d19c713ee4133525424ef8a39",
+      "interpolation": "Linear",
+      "source_node": "UnchangedSourceColor",
+      "vector_links": []
+    },
+    {
+      "default": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "extension": "REPEAT",
+      "image": "OriginalFixtureBaseColor",
+      "image_color_space": "sRGB",
+      "image_pixels_sha256": "6c096f621eaca06d4ec12eeba390165a5802230d19c713ee4133525424ef8a39",
+      "interpolation": "Linear",
+      "source_node": "UnchangedSourceColor",
+      "vector_links": []
+    }
+  ],
+  "source_basecolor_pixel_sha256": "6c096f621eaca06d4ec12eeba390165a5802230d19c713ee4133525424ef8a39",
+  "source_graphs": [
+    {
+      "links": [
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "UnchangedSourceColor",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ]
+      ],
+      "nodes": [
+        {
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.5,
+            "Metallic": 0.17000000178813934,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.6299999952316284,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED"
+        },
+        {
+          "image": "OriginalFixtureBaseColor",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "UnchangedSourceColor",
+          "type": "TEX_IMAGE"
+        }
+      ]
+    },
+    {
+      "links": [
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "UnchangedSourceColor",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ]
+      ],
+      "nodes": [
+        {
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.5,
+            "Metallic": 0.17000000178813934,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.7099999785423279,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED"
+        },
+        {
+          "image": "OriginalFixtureBaseColor",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "UnchangedSourceColor",
+          "type": "TEX_IMAGE"
+        }
+      ]
+    }
+  ],
+  "undercoat": {
+    "assumption": "Authored optional short-pile surface detail, not dense fur, recovered fibers or measured coat coverage",
+    "authored_uv1_sha256": "e5d08f8b10593daf5fbfa43cc243c8f113163cf1c32a2cd897ba53a5f6e31b6b",
+    "elapsed_seconds": 0.546704,
+    "excluded_polygons": 1,
+    "excluded_triangles": 1,
+    "geometry_displaced": false,
+    "materials": [
+      {
+        "atlas": {
+          "authored_not_recovered": true,
+          "cell_pixels": 512,
+          "columns": 2,
+          "faces": 2,
+          "geometry_changed": false,
+          "layout": "One ordered longest-edge local triangle per padded grid cell; no shared chart texels",
+          "max_meters_per_texel": 6.237234148284399e-05,
+          "median_meters_per_texel": 6.237233982731408e-05,
+          "padding_px": 2,
+          "resolution": 1024,
+          "uv0_changed": false,
+          "uv1_float32_sha256": "cbed9cd6815ecb3b13237e97d7466db198b19c5f3a825676c57df0020f610c78"
+        },
+        "authored_tangents_sha256": "97416dbe7e8ac61bc915add0c712105befe5f7532bd0eb982c2e5309bf1ebe9a",
+        "bake": {
+          "array_memory_bound_bytes": 62914560,
+          "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+          "covered_texels": 139308,
+          "elapsed_seconds": 0.111314,
+          "excluded_triangles": 0,
+          "geometry_displaced": false,
+          "maximum_normal_tilt_degrees": 18.754368795902224,
+          "normal_float32_sha256": "70150ef4293ab452a1428dda4db8c3b73880e20c55354aaa04a3fc8e51875bba",
+          "original_uvs_changed": false,
+          "overlap_limit_fraction": 0.01,
+          "overlapping_different_surface_samples": 0,
+          "palette_changed": false,
+          "profile": "short-pile-v1",
+          "raster_candidate_pixels": 278384,
+          "selected_faces_sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d",
+          "selected_triangles": 2,
+          "settings": {
+            "max_faces": 2,
+            "min_faces": 1,
+            "pitch_m": 0.004,
+            "profile": "short-pile-v1",
+            "resolution": 1024,
+            "roughness": 0.92,
+            "seed": 41,
+            "strength": 0.22
+          },
+          "subpixel_faces": 0,
+          "total_triangles": 2
+        },
+        "basecolor_graph_preserved": true,
+        "material": "AnalyticAliasedColor__short_pile_adaptive_v1",
+        "normal_texcoord": 1,
+        "normal_uv_map": "AuthoredUndercoatUV1",
+        "selected_faces": 2,
+        "source_material": "AnalyticAliasedColor",
+        "source_material_index": 0,
+        "texture_path": "textures/authored-short-pile-normal-material-00.png",
+        "texture_sha256": "a2b2e7c36f8e1b756f4be6eb5ed99611d929cc0b2c9d590a223fc5244e8eff36"
+      },
+      {
+        "atlas": null,
+        "authored_tangents_sha256": null,
+        "bake": {
+          "array_memory_bound_bytes": 62914560,
+          "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+          "covered_texels": 256788,
+          "elapsed_seconds": 0.400278,
+          "excluded_triangles": 0,
+          "geometry_displaced": false,
+          "maximum_normal_tilt_degrees": 13.685752780290459,
+          "normal_float32_sha256": "8251b4b7087a5022377341fc825abd8883772fdf882936fc3234a4769d503332",
+          "original_uvs_changed": false,
+          "overlap_limit_fraction": 0.01,
+          "overlapping_different_surface_samples": 0,
+          "palette_changed": false,
+          "profile": "short-pile-v1",
+          "raster_candidate_pixels": 514089,
+          "selected_faces_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+          "selected_triangles": 1,
+          "settings": {
+            "max_faces": 1,
+            "min_faces": 1,
+            "pitch_m": 0.004,
+            "profile": "short-pile-v1",
+            "resolution": 1024,
+            "roughness": 0.92,
+            "seed": 41,
+            "strength": 0.22
+          },
+          "subpixel_faces": 0,
+          "total_triangles": 1
+        },
+        "basecolor_graph_preserved": true,
+        "material": "AnalyticHealthyColor__short_pile_adaptive_v1",
+        "normal_texcoord": 0,
+        "normal_uv_map": "OriginalColorUV0",
+        "selected_faces": 1,
+        "source_material": "AnalyticHealthyColor",
+        "source_material_index": 1,
+        "texture_path": "textures/authored-short-pile-normal-material-01.png",
+        "texture_sha256": "7d6019535de7f8731974a4caaaa7413627dee9b5da4baba322905b9c8f7090c3"
+      }
+    ],
+    "max_simultaneous_float_atlases": 1,
+    "original_active_uv_index": 0,
+    "original_materials_preserved": true,
+    "original_normal_replaced_only_on_selected_faces": true,
+    "original_uv0_active_render": true,
+    "original_uv0_sha256": "e5fd43233002300be64acc2eb507854078eddc8c0706040c54d3211f55ba10d9",
+    "original_uvs_changed": false,
+    "palette_changed": false,
+    "plan": {
+      "additional_export_vertices": 0,
+      "additional_material_seam_reserve_vertices": 0,
+      "aggregate_raster_limit": 32000000,
+      "aggregate_runtime_seconds": 90.0,
+      "atlas_regions": [
+        0
+      ],
+      "automatic_quality_policy_promoted": false,
+      "elapsed_seconds": 0.03331,
+      "excluded_triangles": 1,
+      "export_vertex_budget": {
+        "portable_export_vertices": 0,
+        "reserve_vertices": 0,
+        "source_export_vertices": 12
+      },
+      "hd_only": true,
+      "limitations": [
+        "Normal UV1 and selected tangents are authored, not recovered.",
+        "Weft rejects normal maps and TEXCOORD_1; no importer change is implied.",
+        "This plan establishes no visible softness or animation quality."
+      ],
+      "max_simultaneous_float_atlases": 1,
+      "normal_texture_policy": "One normal image per selected material region",
+      "original_uv0_unchanged": true,
+      "pitch_m": 0.004,
+      "projected_export_vertex_ceiling": 12,
+      "quality_approved": false,
+      "raster_candidates": 1368777,
+      "regions": [
+        {
+          "additional_material_seam_reserve_vertices": 0,
+          "conflicting_surface_samples": 213816,
+          "covered_texels": 213816,
+          "degenerate_uv_faces": 0,
+          "effective_meters_per_unique_texel": 5.02547107585622e-05,
+          "effective_texels_per_pitch": 79.59452834615104,
+          "material_split_corner_bound": 0,
+          "material_split_extra_vertices": 0,
+          "method": "authored_uv1",
+          "raster_candidates": 854688,
+          "reasons": [
+            "different_surface_uv_aliases"
+          ],
+          "region_id": 0,
+          "selected_faces": 2,
+          "selection_sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d",
+          "subpixel_faces": 0,
+          "surface_area_m2": 0.0005399999954178933,
+          "unique_conflicting_texels": 213816,
+          "uv1_extra_vertices": 0
+        },
+        {
+          "additional_material_seam_reserve_vertices": 0,
+          "conflicting_surface_samples": 0,
+          "covered_texels": 256788,
+          "degenerate_uv_faces": 0,
+          "effective_meters_per_unique_texel": 2.2928704705036707e-05,
+          "effective_texels_per_pitch": 174.4538146161099,
+          "material_split_corner_bound": 0,
+          "material_split_extra_vertices": 0,
+          "method": "keep_uv0",
+          "raster_candidates": 514089,
+          "reasons": [],
+          "region_id": 1,
+          "selected_faces": 1,
+          "selection_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "subpixel_faces": 0,
+          "surface_area_m2": 0.00013499999955296493,
+          "unique_conflicting_texels": 0,
+          "uv1_extra_vertices": 0
+        }
+      ],
+      "reserve_vertices": 0,
+      "resolution": 1024,
+      "schema_version": 1,
+      "scope": "Per-material alias/density measurements; not visual quality or recovered fur",
+      "selected_triangles": 3,
+      "source_export_vertices": 12,
+      "source_export_vertices_scope": "Pinned source GLB vertices plus planned whole-coat exported corners; not a measured source-only count",
+      "uv_policy": "material-adaptive-v1",
+      "weft_appearance_compatible": false
+    },
+    "profile": "short-pile-v1",
+    "quality_approved": false,
+    "raster_candidate_pixels_including_plan": 2161250,
+    "schema_version": 1,
+    "selected_faces_sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+    "selected_polygons": 3,
+    "selected_triangles": 3,
+    "settings": {
+      "max_faces": 3,
+      "min_faces": 3,
+      "pitch_m": 0.004,
+      "profile": "short-pile-v1",
+      "resolution": 1024,
+      "roughness": 0.92,
+      "seed": 41,
+      "strength": 0.22,
+      "uv_policy": "material-adaptive-v1"
+    },
+    "shared_flow": {
+      "array_bytes": 144,
+      "directions_float32_sha256": "df9f5eb2ff11e92983dabc54692638eb91953a1b013816aeda603047bc0c5dff",
+      "elapsed_seconds": 5.6e-05,
+      "evaluated_vertices": 12,
+      "material_bakes": 2,
+      "read_only": true
+    },
+    "skin_or_animation_changed": false,
+    "source_images_unchanged": true,
+    "uv_policy": "material-adaptive-v1",
+    "weft_appearance_compatible": false
+  },
+  "uv_layers": [
+    "OriginalColorUV0",
+    "AuthoredUndercoatUV1"
+  ]
+}

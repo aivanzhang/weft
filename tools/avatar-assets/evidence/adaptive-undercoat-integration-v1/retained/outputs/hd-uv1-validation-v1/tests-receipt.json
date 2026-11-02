@@ -1,0 +1,12 @@
+{
+  "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest tests.test_hd_uv1_attributes tests.test_scene_quality.RenderAttributeGateTests -v",
+  "passed": 13,
+  "schema_version": 1,
+  "scope": "Observed focused analytic test output; no native/exporter/Weft or appearance acceptance.",
+  "seconds": 0.015,
+  "source_hashes": {
+    "avatar_assets/three_d.py": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc",
+    "tests/test_hd_uv1_attributes.py": "321e1397c18ec4ee2bdf48fecd6d83b6b4e3e054bfb6c12045e33aec36f15a70",
+    "tests/test_scene_quality.py": "f296d2e6f6377c3561db8463db1af5d8624981203f6c9ab8a931ce9475a8163c"
+  }
+}

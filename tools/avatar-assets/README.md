@@ -30,8 +30,8 @@ review of final media before delivery. No universal prompt success or Muse-level
 finish is promised. [Active goal and acceptance gates](docs/hands-off-studio.md),
 [commands and bounds](docs/prompt-pipeline.md), [current handoff](TODO.md).
 
-Checkpoint **November 1, 2026**: the integrated suite passes **646 tests in
-15.331s**, with nine browser fixture checks also preserved. The previous robot
+Checkpoint **November 1, 2026**: the integrated suite passes **682 tests in
+17.120s**, with nine browser fixture checks also preserved. The previous robot
 run remains rejected for arm stretching; its reviewed recovery preserved all
 480 files and spending history. Evidence corruption now halts instead of buying
 another repair call. The new unchanged-text robot run ended **unsupported**:
@@ -50,12 +50,21 @@ calls, but the allowance reply/grants remain pending.
 A separate UV1 texture diagnostic improves matte short-pile detail in sampled
 views, not dense fur or Muse parity; no coat/default is promoted. Exact receipts,
 ownership and remaining quality/UI acceptance are in the [handoff](TODO.md).
-Private checkpoint `3a7a0ec` is preserved. This checkpoint adds the diagnostic
+Private checkpoint `d259f26` is preserved. It saved the diagnostic
 code and compact evidence; its exact commit/push confirmation is recorded in
 `.local/avatar-quality-publication-v3/receipt.json`. A local-only rigid-part correction
 passed stability measurements but failed the exported deformation/visual check;
 it is not promoted. That trial also exposed a severe-stretch reporting gap now
 fixed and verified on the same exported poses without new AI/provider calls.
+
+The **opt-in adaptive undercoat** now passes analytic tangent-direction checks,
+an actual panda finish and an independent exported-model reload. It preserves
+color UVs and uses a separate normal-map UV where measured conflicts require it.
+The 122.283-second finish and 22.214-second reload made no new paid calls.
+Appearance review still finds smooth portable fur and exposed cheek/shoulder
+marks, so this is a technical component pass—not a new accepted fur model,
+Muse parity or a changed default. Weft's importer stays unchanged.
+[Inputs, bounds and verification](docs/adaptive-undercoat.md).
 
 The studio is a local single-user workflow, not a hosted service. No server,
 browser or generation job starts merely by reading this repository. The

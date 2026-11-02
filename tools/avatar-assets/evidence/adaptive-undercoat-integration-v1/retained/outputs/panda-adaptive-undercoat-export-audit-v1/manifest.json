@@ -1,0 +1,79 @@
+{
+  "artifacts": [
+    {
+      "bytes": 37022,
+      "path": "accessors.json",
+      "sha256": "66104ef3b54182805948cc24308b5266cfb68ae2fac3ad447c76708c28cef6a1"
+    },
+    {
+      "bytes": 17499,
+      "path": "audit.py",
+      "sha256": "a97baab937101af47bdd311f74229d5b414fa2d26f96be009857cf15544fa44a"
+    },
+    {
+      "bytes": 2554,
+      "path": "byte-preservation.json",
+      "sha256": "79c8c00a0e99428cc23f006b9d8121255281d43554c00919b10ac558caac14b9"
+    },
+    {
+      "bytes": 3917,
+      "path": "prepared.json",
+      "sha256": "f241dae5b8cba56e3813ac975ce7b473b0d61cd884dcbda5d0356613f269ac49"
+    },
+    {
+      "bytes": 39741,
+      "path": "receipts/finish-config.json",
+      "sha256": "8fd968b3b80f0cf5269cda6cd989228a8b79c155041529ef0578bc48b9404ecb"
+    },
+    {
+      "bytes": 48515,
+      "path": "receipts/finish-report.json",
+      "sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650"
+    },
+    {
+      "bytes": 1552,
+      "path": "receipts/job.json",
+      "sha256": "b26a8f1f8fc92956b2fe221307411295fd7019c9e12dd51d5203a77f3d8c9e10"
+    },
+    {
+      "bytes": 73661,
+      "path": "receipts/manifest.json",
+      "sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655"
+    },
+    {
+      "bytes": 1233,
+      "path": "receipts/tangent-repair.json",
+      "sha256": "ed7886f5e42d025185b93ef038c17a87aa8d503964a914d7f5bcddb049e30074"
+    },
+    {
+      "bytes": 3682,
+      "path": "result.json",
+      "sha256": "b4b61d2125f8f8af1b5c7de3a519148a675a123590756f6d3630805a0be499ad"
+    },
+    {
+      "bytes": 36931,
+      "path": "sources/blender_fur_undercoat.py",
+      "sha256": "cd039759e97e1653bdcc29ab22b6cd36e3e9ff420234413de5520355f9ca50aa"
+    },
+    {
+      "bytes": 26050,
+      "path": "sources/finish_generated.py",
+      "sha256": "fc3b902dc73245937076f7eef339d45beb7b292ddde46899eb50013400396f34"
+    },
+    {
+      "bytes": 11962,
+      "path": "sources/generated_tangents.py",
+      "sha256": "58cd7003f95ce05d9655f5be9ff0c7b701d67319cc6d6138c9547dd0beb3815f"
+    },
+    {
+      "bytes": 14944,
+      "path": "sources/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    }
+  ],
+  "kind": "independent_cpu_export_audit",
+  "originals_preserved": true,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "passed_structure_and_byte_custody"
+}

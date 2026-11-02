@@ -558,7 +558,8 @@ def finish(config, output):
         local = np.asarray([tuple(vertex.co) for vertex in obj.data.vertices])
         prepared = prepare_flow(local.min(axis=0), np.ptp(local, axis=0),
                                 cfg['groom']['direction'], cfg['groom']['comb'], cfg['groom_flow'])
-        report['fur_undercoat'] = apply_undercoat(obj, mask, prepared, cfg['fur_undercoat'], out)
+        report['fur_undercoat'] = apply_undercoat(obj, mask, prepared, cfg['fur_undercoat'], out,
+            export_vertex_budget=cfg.get('undercoat_export_budget'))
     tuft = cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1'
     if tuft:
         cards, report['portable_fur'] = portable_coat(obj, rig, mask, colors, cfg['portable_fur'], out,

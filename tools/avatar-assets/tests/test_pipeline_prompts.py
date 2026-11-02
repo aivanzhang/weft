@@ -216,6 +216,24 @@ class AuthorContractTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 self.config(author_response(bad))
 
+    def test_optional_undercoat_requires_shared_flow_and_cannot_override_budget(self):
+        candidate = design()
+        candidate['groom'] = {'parents':16,'children':0,'length':.01,'radius':.0001,
+                             'roughness':.001,'seed':3,'direction':[0,0,-1],'comb':.6}
+        candidate['groom_flow'] = {'regions':[{'name':'surface','center':[.5,.5,.5],
+            'radius':[1,1,1],'feather':.5,'direction':[0,0,-1],'comb':.6,'length_scale':1}]}
+        candidate['fur_undercoat'] = {'profile':'short-pile-v1','resolution':1024,'seed':41,
+            'pitch_m':.004,'strength':.22,'roughness':.92,'min_faces':1,'max_faces':1000,
+            'uv_policy':'material-adaptive-v1'}
+        config = self.config(author_response(candidate))
+        self.assertEqual(config['fur_undercoat'], candidate['fur_undercoat'])
+        bad = deepcopy(candidate);bad.pop('groom_flow')
+        with self.assertRaisesRegex(ValueError, 'shared regional flow'):
+            self.config(author_response(bad))
+        bad = deepcopy(candidate);bad['undercoat_export_budget'] = {'reserve_vertices':0}
+        with self.assertRaisesRegex(ValueError, 'override'):
+            self.config(author_response(bad))
+
     def test_static_repeated_short_and_unbound_curves_fail(self):
         for mutate in (
             lambda d: d["authored_actions"][0]["keys"][1].update(rotations={}),

@@ -1,0 +1,37 @@
+{
+  "candidate_design_sha256": "069448b7bcb484375d435039a30d8f9e782d99f0b65597ead2160f8050d5e3a5",
+  "config_changes_from_v1": [
+    "id only; shader/bake convention is an explicit backend source change"
+  ],
+  "edit_prompt": "Rebake the existing short-pile normal maps with the same versioned per-triangle Mikk-compatible V-up tangent convention used by Blender and the exported correction. Preserve all original subject/style, geometry, normals, fur density, color textures, camera quality and actions. Do not patch old texture pixels with new tangent signs. Retain rejected v1 unchanged.",
+  "estimate_basis": "Previous actual native pass122.789s; not a guarantee. New build retains195000configured child fibers and2400portable cards; no quality/count reduction.",
+  "expected_native_seconds": 125,
+  "native_attempts_max": 1,
+  "native_limits": {
+    "cpu_threads": 4,
+    "output_mib": 512,
+    "sampled_direct_child_rss_mib": 2048,
+    "wall_seconds": 600
+  },
+  "native_started": false,
+  "new_frame_policy": "mikk-unshared-triangle-v-up-v2",
+  "new_paid_calls": 0,
+  "new_provider_cost_usd": 0,
+  "original_design_sha256": "322bb4eede882fdd1c442e92059e011ab99031a2d51fd9c485c0ff9452a66e44",
+  "preconditions": [
+    "Actual Blender tangent oracle with opposing normals passes",
+    "Exact new-policy export/RGB preservation proof passes",
+    "Current full suite passes with unchanged pinned inputs",
+    "No other owned native job active"
+  ],
+  "previous_attempt": "outputs/panda-adaptive-undercoat-finish-v1",
+  "previous_manifest_sha256": "c56cce611fd388750950738b8108b00acc9ccb55b74bda89315fba711ed9add0",
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 16:57:38 PST",
+  "schema_version": 2,
+  "source": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/diagnostic-model.glb",
+    "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+  },
+  "status": "prepared_waiting_for_native_mikk_export_proof"
+}

@@ -1,0 +1,337 @@
+{
+  "all_six_faces_measured": true,
+  "faces": [
+    {
+      "actual_exported_float32": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "angular_errors_degrees_from_native": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bit_differences_only_signed_zero": true,
+      "case": "healthy_flat_uv1",
+      "exact_bytes_match": false,
+      "exact_float32_values_match": true,
+      "expected_exported_float32": [
+        [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0
+        ]
+      ],
+      "maximum_angular_error_degrees_from_native": 0.0,
+      "maximum_component_error_from_native": 0.0,
+      "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+      "mismatched_components_after_exact_exporter_transform": 0,
+      "nonzero_components_bit_exact": true,
+      "signed_zero_difference_count": 3,
+      "source_face": 0
+    },
+    {
+      "actual_exported_float32": [
+        [
+          0.10039542615413666,
+          0.9744556546211243,
+          -0.20089085400104523
+        ],
+        [
+          -0.20089085400104523,
+          0.9744556546211243,
+          -0.10039542615413666
+        ],
+        [
+          0.14959467947483063,
+          0.977365255355835,
+          0.14959467947483063
+        ]
+      ],
+      "angular_errors_degrees_from_native": [
+        0.0027662674579319257,
+        0.003041925651299079,
+        0.0020461288837550365
+      ],
+      "bit_differences_only_signed_zero": true,
+      "case": "healthy_smooth_uv1",
+      "exact_bytes_match": true,
+      "exact_float32_values_match": true,
+      "expected_exported_float32": [
+        [
+          0.10039542615413666,
+          0.9744556546211243,
+          -0.20089085400104523
+        ],
+        [
+          -0.20089085400104523,
+          0.9744556546211243,
+          -0.10039542615413666
+        ],
+        [
+          0.14959467947483063,
+          0.977365255355835,
+          0.14959467947483063
+        ]
+      ],
+      "maximum_angular_error_degrees_from_native": 0.003041925651299079,
+      "maximum_component_error_from_native": 4.5768916606903076e-05,
+      "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+      "mismatched_components_after_exact_exporter_transform": 0,
+      "nonzero_components_bit_exact": true,
+      "signed_zero_difference_count": 0,
+      "source_face": 1
+    },
+    {
+      "actual_exported_float32": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "angular_errors_degrees_from_native": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bit_differences_only_signed_zero": true,
+      "case": "healthy_mirrored_uv0",
+      "exact_bytes_match": false,
+      "exact_float32_values_match": true,
+      "expected_exported_float32": [
+        [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0
+        ]
+      ],
+      "maximum_angular_error_degrees_from_native": 0.0,
+      "maximum_component_error_from_native": 0.0,
+      "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+      "mismatched_components_after_exact_exporter_transform": 0,
+      "nonzero_components_bit_exact": true,
+      "signed_zero_difference_count": 3,
+      "source_face": 2
+    },
+    {
+      "actual_exported_float32": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "angular_errors_degrees_from_native": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bit_differences_only_signed_zero": true,
+      "case": "excluded",
+      "exact_bytes_match": false,
+      "exact_float32_values_match": true,
+      "expected_exported_float32": [
+        [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0
+        ]
+      ],
+      "maximum_angular_error_degrees_from_native": 0.0,
+      "maximum_component_error_from_native": 0.0,
+      "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+      "mismatched_components_after_exact_exporter_transform": 0,
+      "nonzero_components_bit_exact": true,
+      "signed_zero_difference_count": 3,
+      "source_face": 3
+    },
+    {
+      "actual_exported_float32": [
+        [
+          0.7001224160194397,
+          0.7140228152275085,
+          0.0
+        ],
+        [
+          -0.6006960272789001,
+          -0.7408950328826904,
+          -0.30039799213409424
+        ],
+        [
+          0.2001059502363205,
+          0.7743229866027832,
+          -0.6003178358078003
+        ]
+      ],
+      "angular_errors_degrees_from_native": [
+        0.0012678466780422614,
+        0.0013752372184063337,
+        0.0031738147354964646
+      ],
+      "bit_differences_only_signed_zero": true,
+      "case": "mixed_hemisphere_uv1",
+      "exact_bytes_match": false,
+      "exact_float32_values_match": true,
+      "expected_exported_float32": [
+        [
+          0.7001224160194397,
+          0.7140228152275085,
+          -0.0
+        ],
+        [
+          -0.6006960272789001,
+          -0.7408950328826904,
+          -0.30039799213409424
+        ],
+        [
+          0.2001059502363205,
+          0.7743229866027832,
+          -0.6003178358078003
+        ]
+      ],
+      "maximum_angular_error_degrees_from_native": 0.0031738147354964646,
+      "maximum_component_error_from_native": 5.4195523262023926e-05,
+      "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+      "mismatched_components_after_exact_exporter_transform": 0,
+      "nonzero_components_bit_exact": true,
+      "signed_zero_difference_count": 1,
+      "source_face": 4
+    },
+    {
+      "actual_exported_float32": [
+        [
+          -0.200102761387825,
+          -0.89431232213974,
+          -0.40020552277565
+        ],
+        [
+          0.40001580119132996,
+          -0.9110360145568848,
+          -0.10000395029783249
+        ],
+        [
+          -0.500188410282135,
+          -0.842480480670929,
+          0.20009537041187286
+        ]
+      ],
+      "angular_errors_degrees_from_native": [
+        0.0030253980852089596,
+        0.0016844856676920717,
+        0.003294174838924426
+      ],
+      "bit_differences_only_signed_zero": true,
+      "case": "all_opposed_uv1",
+      "exact_bytes_match": true,
+      "exact_float32_values_match": true,
+      "expected_exported_float32": [
+        [
+          -0.200102761387825,
+          -0.89431232213974,
+          -0.40020552277565
+        ],
+        [
+          0.40001580119132996,
+          -0.9110360145568848,
+          -0.10000395029783249
+        ],
+        [
+          -0.500188410282135,
+          -0.842480480670929,
+          0.20009537041187286
+        ]
+      ],
+      "maximum_angular_error_degrees_from_native": 0.003294174838924426,
+      "maximum_component_error_from_native": 4.100799560546875e-05,
+      "method": "float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up",
+      "mismatched_components_after_exact_exporter_transform": 0,
+      "nonzero_components_bit_exact": true,
+      "signed_zero_difference_count": 0,
+      "source_face": 5
+    }
+  ],
+  "native_jobs": 0,
+  "previous_host_failure": "V4 used2e-6 component preservation, but exporter rounds float32 to4 decimals and renormalizes; V5 proved exact numeric matching but rejected10 signed-zero bit differences.",
+  "schema_version": 1,
+  "source_sha256": "33c08e929c054d76abc42b8d524ea3b21b5a1c211fd8d1e4bddfb5e07361732f",
+  "summary": {
+    "constant_source_sha256": "a812f552ef90409f5cdb0965e23ac6c4fe7ade5de39bcfffbd57e462ea9355e6",
+    "exact_installed_exporter_transform_matched_all_corners": true,
+    "exact_nonzero_float32_bits_all_corners": true,
+    "maximum_angular_error_degrees_from_native": 0.003294174838924426,
+    "maximum_component_error_from_native": 5.4195523262023926e-05,
+    "normalization": "np.linalg.norm(axis=1, keepdims=True); np.divide(..., out=values)",
+    "other_bit_difference_count": 0,
+    "primary_code_sha256": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7",
+    "round_digits": 4,
+    "signed_zero_difference_count": 10,
+    "tolerance_widened": false,
+    "verified_corners": 18,
+    "working_dtype": "float32"
+  },
+  "tangent_and_rgb_dot_threshold_unchanged": 0.99999
+}

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v4/postprocess.py", line 90, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v4/postprocess.py", line 70, in main
+    raw = verify(source, sha256(source))
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v4/verify_fixture.py", line 177, in verify
+    require(np.allclose(normals[ids], native_normals, atol=2e-6, rtol=0), 'Export changed custom corner normals')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v4/sources/host/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: Export changed custom corner normals

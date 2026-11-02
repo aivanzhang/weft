@@ -1,0 +1,103 @@
+{
+  "bindings": {
+    "authored_height_m": 1.2,
+    "design_sha256": "069448b7bcb484375d435039a30d8f9e782d99f0b65597ead2160f8050d5e3a5",
+    "exported_model_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+    "finish_report_sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650",
+    "manifest_sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655",
+    "requested_height_m": 1.2,
+    "rig_verification_sha256": "8dc733f6dc6f7e49871306ea3aae6cbb12212cc0f944eb76bf6482335f4844b3",
+    "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+    "state_ids": [
+      "dance_flight"
+    ]
+  },
+  "implementation_sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+  "measurement": {
+    "bone_names": [
+      "Root",
+      "Pelvis",
+      "Torso",
+      "Neck",
+      "Head",
+      "RightShoulder",
+      "RightUpperArm",
+      "RightForearm",
+      "RightHand",
+      "LeftShoulder",
+      "LeftUpperArm",
+      "LeftForearm",
+      "LeftHand",
+      "Tail",
+      "RightFoot",
+      "LeftFoot",
+      "CompanionRoot",
+      "DragonWingRight",
+      "DragonWingLeft"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 110682,
+    "edges_sha256": "35bb1710cf0dcbee94060c6fcb2ea3f2594eea748de5b464035aa15c206ac04c",
+    "pose_samples_measured": 8,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 1.2000000476837158,
+      "height_basis": "z_span",
+      "max": [
+        0.45410776138305664,
+        0.38847070932388306,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.45410776138305664,
+        -0.38847070932388306,
+        0.0
+      ]
+    },
+    "rest_sha256": "fb0fa2cf176c698526125c4a67b31c0a29a2dfc4129b92deeceb8b6680ed8731",
+    "rig_route": "authored",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 51055
+  },
+  "measurement_scope": "bound_native_rest_and_pose_samples",
+  "passed": true,
+  "physics_verified": false,
+  "rig_route": "authored",
+  "sampling_implementation_sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+  "schema_version": 1,
+  "scope": "Conservative gross-spike rejection of at most four retained edges per sampled pose set; not exhaustive edge/frame coverage, skin correctness or visual acceptance.",
+  "states": [
+    {
+      "id": "dance_flight",
+      "max_reported_excess_m": 0,
+      "max_reported_stretch_ratio": 1,
+      "offending_outliers": [],
+      "passed": true,
+      "reported_outliers": 0,
+      "sample_seconds": [
+        0.0,
+        1.0,
+        1.18,
+        1.36,
+        2.36,
+        2.55,
+        2.8,
+        4.0
+      ]
+    }
+  ],
+  "status": "no_reported_severe_spike",
+  "thresholds": {
+    "excess_height_fraction_strictly_greater_than": 0.03,
+    "excess_m_strictly_greater_than": 0.03600000143051147,
+    "height_m": 1.2000000476837158,
+    "height_source": "native_measured_rest",
+    "stretch_ratio_strictly_greater_than": 8.0
+  },
+  "version": "sampled-deformation-gate-v2",
+  "visual_approval": false
+}

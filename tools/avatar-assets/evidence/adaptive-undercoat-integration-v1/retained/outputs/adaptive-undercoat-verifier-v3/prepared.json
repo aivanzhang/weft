@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "status": "cpu_verifier_prepared",
+  "recorded_local_time": "2026-11-01 16:34:32 PST",
+  "source_model_sha256": "2500c2e72aad7c1e64d8d8493f697c42280f88057cc5c68b9a9c61d07ef4e249",
+  "source_native_sha256": "3d2b9e24a401544591808751119168047f7c1f56af978244deafc0b5823160aa",
+  "verifier_sha256": "244c13c0d90dd6fe2cde0bd6a072bc274e7d6f11ec552e826b17cb958016f8fb",
+  "frozen_files": [
+    {
+      "path": "prior-test-hash-clarification.json",
+      "bytes": 757,
+      "sha256": "4a23a16803e165cc8af26de7a0344966c99ab13a6d147e9bccf234e23fc30b08"
+    },
+    {
+      "path": "source-v2/build_fixture.py",
+      "bytes": 10695,
+      "sha256": "148114b0a3566abfbf82e47ea78898bb3fa48b10431542f28e0cb4386ed43adc"
+    },
+    {
+      "path": "source-v2/execution-failure.json",
+      "bytes": 219,
+      "sha256": "b6fefc0e2b88498c03ea852ba025051a8a4b4f8d518e876252b1b95b2beecf36"
+    },
+    {
+      "path": "source-v2/failure-manifest.json",
+      "bytes": 7375,
+      "sha256": "04a6c4f6ea9b4624654ba976620cbf073e31ad689a1218d72c145f588cefdaf8"
+    },
+    {
+      "path": "source-v2/fixture.json",
+      "bytes": 3956,
+      "sha256": "3c3ec5b43ba45556461822256ca177a0cc05e8e13a35ccd14114a25be796dc80"
+    },
+    {
+      "path": "source-v2/host-job.json",
+      "bytes": 1079,
+      "sha256": "7cd31c8099ff912d2b7c95cac6950a9395f75ec6b7c9458bfff7294e10fb41d4"
+    },
+    {
+      "path": "source-v2/host.log",
+      "bytes": 957,
+      "sha256": "10cedc6c53ac556a9aa0cf1b9dee69fc5273ec9aaa9ae9d5aef58bd0b6cf2e65"
+    },
+    {
+      "path": "source-v2/model.glb",
+      "bytes": 196404,
+      "sha256": "2500c2e72aad7c1e64d8d8493f697c42280f88057cc5c68b9a9c61d07ef4e249"
+    },
+    {
+      "path": "source-v2/native-fixture.json",
+      "bytes": 23444,
+      "sha256": "3d2b9e24a401544591808751119168047f7c1f56af978244deafc0b5823160aa"
+    },
+    {
+      "path": "source-v2/native-job.json",
+      "bytes": 1318,
+      "sha256": "7899c76ab6401a3852a2e2d7676ce7f01d5e5527461215a3260cc771ecb89e21"
+    },
+    {
+      "path": "source-v2/prepare-receipt.json",
+      "bytes": 950,
+      "sha256": "443d889cccd8e7cb56bdc244d98073fee5a020483fa93be601237d505869cd2c"
+    },
+    {
+      "path": "source-v2/prepared.json",
+      "bytes": 6032,
+      "sha256": "c8e15262f66f7d3c9735bbec4bffb9a77a53fced17c1b6eacfe44af462b0d363"
+    },
+    {
+      "path": "source-v2/sources/native/blender_fur_undercoat.py",
+      "bytes": 36754,
+      "sha256": "8e772b23cee3f4e5bd137ae0183da31fe7c478654c0bd2db9ade6620ea961fb3"
+    },
+    {
+      "path": "source-v2/sources/native/groom_flow.py",
+      "bytes": 7179,
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "path": "source-v2/sources/native/undercoat_uv_atlas.py",
+      "bytes": 14546,
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "path": "source-v2/textures/authored-short-pile-normal-material-00.png",
+      "bytes": 95079,
+      "sha256": "a2b2e7c36f8e1b756f4be6eb5ed99611d929cc0b2c9d590a223fc5244e8eff36"
+    },
+    {
+      "path": "source-v2/textures/authored-short-pile-normal-material-01.png",
+      "bytes": 96088,
+      "sha256": "7d6019535de7f8731974a4caaaa7413627dee9b5da4baba322905b9c8f7090c3"
+    },
+    {
+      "path": "source-v2/textures/original-basecolor.png",
+      "bytes": 196,
+      "sha256": "19dce3d80867362d84de2d4107853db01524fdf5f1fc2b3aef0f02a45439e4c2"
+    },
+    {
+      "path": "source-v2/verify_fixture.py",
+      "bytes": 9973,
+      "sha256": "e8d89e1d554783e6a9098e32da25e5290664d2eb0aec9da0cfe88c4e236d88e8"
+    },
+    {
+      "path": "source-v2-inventory.json",
+      "bytes": 7601,
+      "sha256": "65317eb94f4ec088e55410ce45685c683cf5386d230cbec79de87232a57fdb8e"
+    },
+    {
+      "path": "sources/host/avatar_assets/__init__.py",
+      "bytes": 96,
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "path": "sources/host/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "sources/host/avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "sources/host/avatar_assets/three_d.py",
+      "bytes": 35106,
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "path": "verify_fixture.py",
+      "bytes": 15184,
+      "sha256": "244c13c0d90dd6fe2cde0bd6a072bc274e7d6f11ec552e826b17cb958016f8fb"
+    }
+  ],
+  "limits": {
+    "cpu_child_wall_seconds": 30,
+    "child_rss_mib": 768,
+    "output_mib": 32,
+    "threads": 1
+  },
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "scope": "CPU analytic diagnosis of all four preserved v2 faces; selected-UV bake-frame check remains strict; old V-down W assertion reported separately, not applied."
+}

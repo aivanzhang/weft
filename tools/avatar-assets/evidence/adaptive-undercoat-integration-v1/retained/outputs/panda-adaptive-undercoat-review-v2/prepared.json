@@ -1,0 +1,442 @@
+{
+  "basis": "Prior equivalent four-view/eight-pose reload took 23.280 seconds; not guaranteed",
+  "estimated_seconds": 25,
+  "limits": {
+    "output_mb": 256,
+    "sampled_rss_mb": 2048,
+    "seconds": 600,
+    "threads": 4
+  },
+  "manifest_sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655",
+  "model_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "new_ai_role_calls": 0,
+  "new_paid_cost_usd": 0,
+  "new_provider_calls": 0,
+  "one_native_attempt_max": 1,
+  "original_pack": [
+    {
+      "bytes": 121,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/blender-extensions/.cache/compat.dat",
+      "sha256": "eee6269135ed00393bf7cd150ac74bdea6a9d25d88a1116605c89297d198ddf4"
+    },
+    {
+      "bytes": 8721,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/exported-nodes.json",
+      "sha256": "f7c8b119040f9877e9ce8fcd65aa0a3bdd97e3e39c6ccfbf553adfac0e54bde9"
+    },
+    {
+      "bytes": 39741,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-config.json",
+      "sha256": "8fd968b3b80f0cf5269cda6cd989228a8b79c155041529ef0578bc48b9404ecb"
+    },
+    {
+      "bytes": 617,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-handle.json",
+      "sha256": "7ab625a07c408ecd8cfd995aaf9ae1450a06311faab3bc811b20bf25cbd4afa9"
+    },
+    {
+      "bytes": 1418,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-monitor.json",
+      "sha256": "555608e5b1d33d868520a2fc2eb25d06ee9fa6ea3d189ec32d9c05b6a134a29e"
+    },
+    {
+      "bytes": 48515,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-report.json",
+      "sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650"
+    },
+    {
+      "bytes": 86143,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish.log",
+      "sha256": "c6ebc342a51ff42ce9822eb6c6c4aefcd49b1e52ffadf8b08d91bc75fa212a20"
+    },
+    {
+      "bytes": 1552,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/job.json",
+      "sha256": "b26a8f1f8fc92956b2fe221307411295fd7019c9e12dd51d5203a77f3d8c9e10"
+    },
+    {
+      "bytes": 73661,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/manifest.json",
+      "sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655"
+    },
+    {
+      "bytes": 33519456,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/model-native-export.glb",
+      "sha256": "80b266415b1bbae8234a0962a2706457ca414c378b59ac4f17e48ba66a7f88e5"
+    },
+    {
+      "bytes": 33519456,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+      "sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5"
+    },
+    {
+      "bytes": 773089,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/portrait.png",
+      "sha256": "096d3cae61c3e09310f10fe6b98d7fffe0b5dda58eea77a8e6a3cc3e5c3ddaa8"
+    },
+    {
+      "bytes": 4457,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/render-attributes.json",
+      "sha256": "dde6d1a130b4624773451c217df7b847bbd0c83db50b9b5f72cf04bf4ad08ff8"
+    },
+    {
+      "bytes": 415817,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/renders/dance_flight/0000.png",
+      "sha256": "99bdb896e13633e98d7e6256cb060ddfe2b9b5e8155e056c72c015d66d3be101"
+    },
+    {
+      "bytes": 424413,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/renders/dance_flight/0001.png",
+      "sha256": "0aedf0dd859bb97f392a5cf99d46c4d8c8e42dd3ceb49adb55fe4ff989142684"
+    },
+    {
+      "bytes": 423619,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/renders/dance_flight/0002.png",
+      "sha256": "86231a322d5eb95de70d33e16b08db4b4eb52e83562b46ca62d9fde5688fb742"
+    },
+    {
+      "bytes": 424712,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/renders/dance_flight/0003.png",
+      "sha256": "221952fc5e58cbd37393bdf090f3393dc8ec51a286b6c023f7415a42d79c08b3"
+    },
+    {
+      "bytes": 420783,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/renders/dance_flight/0004.png",
+      "sha256": "40d9ab9318ba759f4608705a4cf4d2cdc1e08b359329856c563d8c832da68bbc"
+    },
+    {
+      "bytes": 421498,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/renders/dance_flight/0005.png",
+      "sha256": "dea4629e798be679bc989707d1366c8fcf477071a9175b781b3f49fc2df5fa5e"
+    },
+    {
+      "bytes": 422563,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/renders/dance_flight/0006.png",
+      "sha256": "640987b70dc11b4622044780aa7aa8a3c2777d759ebe4b6593d34523260d5b56"
+    },
+    {
+      "bytes": 415817,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/renders/dance_flight/0007.png",
+      "sha256": "13e157ce2904ca38d81e4a32a1332aa44b071f92d23fea849337fbebefb9dc37"
+    },
+    {
+      "bytes": 1523,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/rig-contract.json",
+      "sha256": "a903f3f8f0bb44c36223414d67667b9ac291882171aae31cdfac1524e471cbea"
+    },
+    {
+      "bytes": 3317,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/rig-verification.json",
+      "sha256": "8dc733f6dc6f7e49871306ea3aae6cbb12212cc0f944eb76bf6482335f4844b3"
+    },
+    {
+      "bytes": 56971154,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/source.blend",
+      "sha256": "d541ae85aabc6ab95c18016e293797b2bf2c180e4af40682c39cfeb32f752685"
+    },
+    {
+      "bytes": 11082,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_color_corrections.cpython-311.pyc",
+      "sha256": "425515b15f9fe0633a0a9c83f4436ecc7fdbc69a7407b748a6ebca49128923b8"
+    },
+    {
+      "bytes": 51282,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+      "sha256": "74e27ef7762b88e4ad9a0aabdba6221f5e4c32e416af72ce18af07366dc667ca"
+    },
+    {
+      "bytes": 6142,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_creature_rig.cpython-311.pyc",
+      "sha256": "9c03514aa6db0f51103aff64d13e9b33543e5871268a90c326c294eb7ea1f3a4"
+    },
+    {
+      "bytes": 50477,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+      "sha256": "d42ead59779554c8adcc0c9803197aa08bb6ce9d2dd35aefc8cecc3e21aad976"
+    },
+    {
+      "bytes": 64684,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_fur_undercoat.cpython-311.pyc",
+      "sha256": "dfb5bb539566ff933bfafc7e67a6a7db85a27c761a055d518a9424245fdb3d2e"
+    },
+    {
+      "bytes": 44382,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "c222cc775fcf56c136f386b64cd5cb206217dbad5871fba31b0efb82ead90aa2"
+    },
+    {
+      "bytes": 13986,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_normal_continuity.cpython-311.pyc",
+      "sha256": "b669d41c22a726f697bf3fb192399c9d33253424fa1b1ac7507394744815ed07"
+    },
+    {
+      "bytes": 11431,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_part_rigs.cpython-311.pyc",
+      "sha256": "726f256e35c2847f9d0d407e4449960271fdff1dafadac71a891e0b9a4ae480b"
+    },
+    {
+      "bytes": 22556,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_surface_profiles.cpython-311.pyc",
+      "sha256": "1a033827b548dceeb752cd6d8546d3f1ba23849387f68e448016aa3e1e912ba2"
+    },
+    {
+      "bytes": 37922,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "f9d0de42d239f6fbfeaeac6ebb9aafed740766f3ca01054fec11e3e7d2f8a84c"
+    },
+    {
+      "bytes": 16348,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/color_corrections.cpython-311.pyc",
+      "sha256": "70c3760b0069922dd326d60457c1be7a44155aed056a6c8d7c1108c86a4ba729"
+    },
+    {
+      "bytes": 12893,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/creature_rig_math.cpython-311.pyc",
+      "sha256": "7c6d0287405277586ec91d485b78c0f2f92ef77682373689a9cc09072b33e007"
+    },
+    {
+      "bytes": 12245,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+      "sha256": "04bfb19043e0a9633d4a439ee306a723232ee11fd80a10a09111376f60076f28"
+    },
+    {
+      "bytes": 13314,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/groom_flow.cpython-311.pyc",
+      "sha256": "37bcc41091c101b95ed7af03410c3e13a1b20b24dd628a94b8c6cfc70a73a4d3"
+    },
+    {
+      "bytes": 9465,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "5897bbe2e77d47b43ffb699ba69d0735f6d2c689741a6a17cf2b2e6af65f5ccb"
+    },
+    {
+      "bytes": 25730,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/normal_continuity.cpython-311.pyc",
+      "sha256": "d54c0cf70a7f738f710af80b92cd6ea5c18bf44cd7d1e28773c391e86c3beb4c"
+    },
+    {
+      "bytes": 12562,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/part_rigs.cpython-311.pyc",
+      "sha256": "88ed21d82f27645f5b8c4b11901fa1d4bf2249183fdfe1440a59e5798850224b"
+    },
+    {
+      "bytes": 4266,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/surface_profiles.cpython-311.pyc",
+      "sha256": "103067bf75d02d1d319ab23c04cd641b44091e1078f021296990370d5a4e8216"
+    },
+    {
+      "bytes": 27991,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/__pycache__/undercoat_uv_atlas.cpython-311.pyc",
+      "sha256": "e88079f67fa1973290c067b690808fd7c2cc8befca2ae51e3312dbf8ad20b174"
+    },
+    {
+      "bytes": 6582,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4"
+    },
+    {
+      "bytes": 23994,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd"
+    },
+    {
+      "bytes": 2710,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 47396,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_finish_generated.py",
+      "sha256": "7a8c6542509d33e28112c979aa4d1c39552f3ab2962507f7815c09e8ef27bd3b"
+    },
+    {
+      "bytes": 23637,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 36931,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_fur_undercoat.py",
+      "sha256": "cd039759e97e1653bdcc29ab22b6cd36e3e9ff420234413de5520355f9ca50aa"
+    },
+    {
+      "bytes": 24601,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 6839,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_normal_continuity.py",
+      "sha256": "1640b08c1adc1b9c5d0b5994dd5623982ec816dfa02f6bd30bb43bf64a55e9be"
+    },
+    {
+      "bytes": 5789,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e"
+    },
+    {
+      "bytes": 12009,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+    },
+    {
+      "bytes": 18248,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 8351,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2"
+    },
+    {
+      "bytes": 5399,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 6870,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7"
+    },
+    {
+      "bytes": 39551,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/finish-design.json",
+      "sha256": "069448b7bcb484375d435039a30d8f9e782d99f0b65597ead2160f8050d5e3a5"
+    },
+    {
+      "bytes": 26050,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/finish_generated.py",
+      "sha256": "fc3b902dc73245937076f7eef339d45beb7b292ddde46899eb50013400396f34"
+    },
+    {
+      "bytes": 11962,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/generated_tangents.py",
+      "sha256": "58cd7003f95ce05d9655f5be9ff0c7b701d67319cc6d6138c9547dd0beb3815f"
+    },
+    {
+      "bytes": 7179,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 5273,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 13937,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/normal_continuity.py",
+      "sha256": "6719fb8c7cfb47b240d34848b91838021b678abc806e32f0286d1b1115813d2a"
+    },
+    {
+      "bytes": 6665,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 6843,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0"
+    },
+    {
+      "bytes": 2675,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 7538,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a"
+    },
+    {
+      "bytes": 1792,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    },
+    {
+      "bytes": 14944,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 1233,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/tangent-repair.json",
+      "sha256": "ed7886f5e42d025185b93ef038c17a87aa8d503964a914d7f5bcddb049e30074"
+    },
+    {
+      "bytes": 262894,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/textures/PortableCoat_0-fur-atlas.png",
+      "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+    },
+    {
+      "bytes": 262894,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/textures/PortableCoat_1-fur-atlas.png",
+      "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+    },
+    {
+      "bytes": 2897299,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/textures/authored-short-pile-normal-material-00.png",
+      "sha256": "0f33f9671b450c7fe80358a82ad010cd27293470f46b908642df0390d4b4fc49"
+    },
+    {
+      "bytes": 191869,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/textures/authored-short-pile-normal-material-02.png",
+      "sha256": "216d1b75b2af72607619daaf989b75e81023aaf1271b10509bd5a4a4e2cde4b5"
+    },
+    {
+      "bytes": 1035208,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/views/back.png",
+      "sha256": "ac76f8a4f049b99312621830a9dfed85cb345609a57c1b6d70a6362e33c4d2de"
+    },
+    {
+      "bytes": 1053971,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/views/front.png",
+      "sha256": "890b3f54ee3bd577380feeb9d53c2a193fa3f5ddc87d9cfd1506bb52aa74d1e8"
+    },
+    {
+      "bytes": 932117,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/views/side.png",
+      "sha256": "5f4d4eb13f1c61d91983e2ccbe775f964312c931909b2a08842e54364ac8c241"
+    },
+    {
+      "bytes": 1045989,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/views/three_quarter.png",
+      "sha256": "1e7be12015af56bcb1de46aac4755907d337a988628df421dd408ea532a6c040"
+    }
+  ],
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 17:09:38 PST",
+  "schema_version": 1,
+  "source_pins": [
+    {
+      "path": "avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "path": ".tools/Blender.app/Contents/MacOS/Blender",
+      "sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55"
+    }
+  ],
+  "status": "prepared_local_reload"
+}

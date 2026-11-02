@@ -25,9 +25,10 @@ _WIDTHS = {"SCALAR": 1, "VEC2": 2, "VEC3": 3, "VEC4": 4, "MAT4": 16}
 
 
 def validate_render_attributes(path):
-    """Verify portable normal-mapped surface frames in a separate bounded GLB pass."""
+    """Check HD frame validity and UV binding, not tangent derivation or Weft compatibility."""
     glb = _GLB(path)
     primitives, vertices = [], 0
+    surface_value_limit = 11*MAX_VERTICES
     for mesh in glb.doc.get("meshes", []):
         for primitive in mesh.get("primitives", []):
             attrs = primitive.get("attributes", {})
@@ -36,38 +37,58 @@ def validate_render_attributes(path):
             _require(type(count) is int and 0 < count <= MAX_VERTICES, "Invalid surface vertex count")
             vertices += count
             _require(vertices <= MAX_VERTICES, "Surface vertex count exceeds bound")
+
+            def surface_accessor(index, kind, components, label):
+                index = _index(index, len(glb.doc["accessors"]), label+" accessor")
+                spec = glb.doc["accessors"][index]
+                _require(type(spec.get("count")) is int and spec["count"] == count,
+                         "Surface "+label+" count mismatch")
+                if index not in glb.cache:
+                    _require(glb.value_count+count*_WIDTHS[kind] <= surface_value_limit,
+                             "Decoded surface values exceed bound")
+                return glb.accessor(index, kind, components)
+
             material = glb.doc.get("materials", [])[_index(primitive.get("material"), len(glb.doc.get("materials", [])), "material")]
             normal_mapped = "normalTexture" in material
+            normal_uv = None
+            if normal_mapped:
+                normal_uv = material["normalTexture"].get("texCoord", 0)
+                _require(type(normal_uv) is int and normal_uv in (0, 1), "Normal map requires exact integer UV index 0 or 1")
             _require("NORMAL" in attrs, "Portable surface requires normals")
-            normals = glb.accessor(attrs["NORMAL"], "VEC3", (5126,))
-            _require(len(normals) == count, "Surface normal count mismatch")
+            normals = surface_accessor(attrs["NORMAL"], "VEC3", (5126,), "normal")
             normal_error = max(abs(sum(value*value for value in row)-1) for row in normals)
             _require(normal_error < .001, "Surface normals are not unit vectors")
-            _require(not normal_mapped or "TEXCOORD_0" in attrs and "TANGENT" in attrs,
-                     "Normal-mapped material requires UV0 and tangents")
-            if "TEXCOORD_0" in attrs:
-                uv = glb.accessor(attrs["TEXCOORD_0"], "VEC2", (5121, 5123, 5126))
-                _require(len(uv) == count, "Surface UV0 count mismatch")
+            _require(not normal_mapped or "TEXCOORD_"+str(normal_uv) in attrs and "TANGENT" in attrs,
+                     f"Normal-mapped material requires UV{normal_uv} and tangents")
+            verified_uv_sets = []
+            for uv_index in (0, 1):
+                name = "TEXCOORD_"+str(uv_index)
+                if name in attrs:
+                    surface_accessor(attrs[name], "VEC2", (5121, 5123, 5126), "UV"+str(uv_index))
+                    verified_uv_sets.append(uv_index)
             tangent_error, dot_error = 0., 0.
             if "TANGENT" in attrs:
-                tangents = glb.accessor(attrs["TANGENT"], "VEC4", (5126,))
-                _require(len(tangents) == count, "Surface tangent count mismatch")
+                tangents = surface_accessor(attrs["TANGENT"], "VEC4", (5126,), "tangent")
                 tangent_error = max(abs(sum(value*value for value in row[:3])-1) for row in tangents)
                 dot_error = max(abs(sum(normal[i]*tangent[i] for i in range(3))) for normal, tangent in zip(normals, tangents))
                 _require(tangent_error < .001, "Surface tangents are not unit vectors")
                 _require(dot_error < .002, "Surface tangent is not orthogonal to normal")
                 _require(all(abs(abs(row[3])-1) < 1e-6 for row in tangents), "Invalid tangent handedness")
-            if normal_mapped:
-                _require(material["normalTexture"].get("texCoord", 0) == 0, "Normal map does not use verified UV0")
             primitives.append({"vertices": count, "material": material.get("name"), "normal_mapped": normal_mapped,
+                               "normal_map_uv_set": normal_uv, "verified_uv_sets": verified_uv_sets,
                                "normal_squared_length_error": normal_error, "tangent_squared_length_error": tangent_error,
                                "normal_tangent_dot_error": dot_error})
     _require(primitives, "No surface primitives to verify")
     return {"schema_version": 1, "status": "validated_render_attributes", "sha256": glb.hash,
             "vertices": vertices, "primitives": primitives, "decoded_scalar_values": glb.value_count,
-            "checks": ["finite normals/UV0/tangents", "matching counts", "unit normals/tangents",
-                       "orthogonal normal/tangent frames", "tangent handedness", "normal-map UV0 binding"],
-            "limits": {"vertices": MAX_VERTICES, "decoded_surface_values": 9*MAX_VERTICES,
+            "checks": ["finite normals/UV0/UV1/tangents", "matching counts", "unit normals/tangents",
+                       "orthogonal normal/tangent frames", "tangent handedness", "selected normal-map UV0/UV1 binding"],
+            "tangent_uv_derivation_verified": False, "weft_runtime_verified": False,
+            "limitations": ["Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+                            "This HD check does not change Weft's diffuse UV0-only contract; normal-map/UV1 assets remain unsupported there."],
+            "limits": {"vertices": MAX_VERTICES, "file_bytes": MAX_FILE_BYTES,
+                       "decoded_surface_values": surface_value_limit, "decoded_global_values": MAX_ACCESSOR_VALUES,
+                       "normal_map_uv_indices": [0, 1],
                        "normal_tangent_squared_length_tolerance": .001, "orthogonality_tolerance": .002}}
 
 

@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 15:58 PST. The rejected rigid-part correction and verified severe-witness fix are saved as separate evidence. All native jobs ended; publication of this checkpoint is the final local action. Current follow-up is below; earlier sections are historical checkpoints.
+- Recorded: 2026-11-01 17:13 PST. Checkpoint d259f26 is privately pushed; current adaptive-undercoat changes await scoped save. The corrected v2 finish and independent GLB reload passed their technical checks, but appearance review does not promote the coat. All native workers exited. No new AI/provider calls. Current follow-up is below; earlier sections are historical checkpoints.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -477,6 +477,139 @@ node browser/tests/studio-live.mjs outputs/studio-live-rigged-robot-v1 b184afa00
   All 29 replay originals are unchanged; five omitted model/cache files remain
   hash-bound. Fixed source snapshots match the final 140-source test inventory.
 
+### Current continuation: adaptive undercoat — technical pass, no quality promotion
+
+- The reusable opt-in `fur_undercoat.uv_policy: material-adaptive-v1` is
+  implemented and verified on an analytic exporter fixture and the existing
+  generated panda. Measured regions keep adequate UV0 or receive a normal-only
+  UV1 atlas. Color UVs, source textures, geometry, weights and actions are
+  preserved across the tangent correction. This changes surface lighting, not
+  hair density or silhouette. Defaults and approved assets are unchanged.
+- Host-derived `undercoat_export_budget` includes exact source vertices, all
+  portable cards at twelve exported corners each and a 4,096-vertex reserve.
+  Material/UV splits must fit the unchanged 100k export ceiling. User/AI JSON
+  cannot supply the private budget. Native bounds remain 600 s / 2 GiB sampled
+  direct-child RSS / 512 MiB output / four threads. At most four material regions,
+  2,048 atlas faces per region, 32M aggregate raster candidates and 90 s adapter
+  time; shared flow is calculated once, one float atlas retained at a time.
+- HD attribute validation checks exact UV0/UV1 selection, finite/count/unit/
+  orthogonality/sign constraints. The global 64 MiB / 100k vertices / 2M decoded
+  values remain unchanged; the derived surface bound is 1.1M values. The maximum
+  analytic fixture took 0.13174 s / 148,570,112 B sampled RSS:
+  `outputs/hd-uv1-validation-v1/manifest.json`, SHA
+  `2acdef6c5779d8e70cb2bc6da0465fd0d4fef50e803bb08502a4f24fe74a0dae`.
+  This validator alone does not prove tangent direction or Weft compatibility.
+- Final shared bake/correction policy is `mikk-unshared-triangle-v-up-v2`.
+  Per-triangle UV orientation matches Blender's MikkTSpace result even for
+  opposed corner normals. Exact policy is required in the top-level bake report,
+  atlas plan and every UV1 material. Missing/old policies fail before correction;
+  new tangent signs must never be applied to old normal PNGs without rebaking.
+  The mixed-sign guard remains. Raw native exports are retained unchanged.
+- **682 tests passed in 17.120 s**, 143 source pins unchanged, bounded worker
+  17.594 s / 355,713,024 B sampled RSS. Evidence:
+  `outputs/adaptive-undercoat-policy-tests-v2`, log SHA
+  `211537c0af4918fb8a2b41b68509f71856006835f6d22462e6a90028b2b8bf2e`.
+  Prior 668/678-test checkpoints and the initial sandbox HTTP-bind failures are
+  retained, not counted as extra current tests. Do not rerun this unchanged suite.
+
+**Preserved failures and changed hypotheses:**
+
+1. `adaptive-undercoat-native-fixture-v1` failed UV0 preservation after Blender
+   invalidated a retained layer handle. Reacquisition fixed it; v2 native passed
+   in 1.021 s / 286,736,384 B sampled RSS, then exposed exported UV0 tangents on a
+   UV1 normal texture. Both fixture folders under `outputs/` remain immutable.
+2. `adaptive-undercoat-verifier-v3` proved the first correction only on its flat
+   fixture: 42 bytes changed inside 96 allowed tangent bytes, 196,308 bytes exact.
+   It was not proof for every authored normal configuration or avatar quality.
+3. Actual `panda-adaptive-undercoat-finish-v1` rendered successfully but failed
+   host correction on mixed handedness. Tool 85757 / native PID 95166 exited;
+   122.789 s / 2,086,715,392 B sampled RSS / 103,311,767 B output. No final model
+   or accepted pack. Raw GLB SHA
+   `c0d628924d1d15952970ccc19f47601b555602ffc8ece6e72407794b26ef2c3b`;
+   editable source SHA
+   `053b5beb0cc626fd174bbf8b10e6cc99149019adf9e03227085f2c5797c3a514`.
+   Its 72 files stay unchanged; never resume the consumed v1 preparation.
+4. `panda-adaptive-undercoat-rejection-v1` isolated 55/368 cap faces with mixed
+   signs, exactly where corner normals cross the geometric-face hemisphere.
+   This was the old corner-dependent convention, not a uniform V flip or proof
+   of an invalid mesh. Replay NPZ SHA
+   `d6f82d3ae37ef6ec0df8736f75e3f6a7302b5bdc1b0957432dfaa3e3bcc8a184`.
+5. Native fixture v4 passed six real Blender tangent cases in 1.279 s /
+   287,129,600 B sampled RSS. Its host normal comparison was too strict: the
+   exporter rounds float32 components to four decimals, normalizes and rotates.
+   CPU verifier v5 reproduced all 54 components numerically but rejected ten
+   signed-zero bit differences. Both failed checker outputs remain preserved.
+6. CPU verifier v6 passed exact numeric equality, with nonzero bits unchanged
+   and signed zeros reported separately. Maximum tangent error 0.002761° and
+   sampled PNG world-normal error 0.003507°; corresponding direction dot products
+   exceed the unchanged 0.99999 gate.
+   Only 121 bytes inside 192 UV1 tangent bytes changed; 274,512 other bytes exact.
+   Runtime 0.258 s; RSS unsampled, not zero. Manifest
+   `outputs/adaptive-undercoat-verifier-v6/manifest.json`, SHA
+   `6a1a05b8d107e4448a587981989883b29283ac073c322ee4c2caeea1657dd466`.
+   All 47 v4 and 37 v5 files remain unchanged. This is an analytic proof only.
+
+**Actual v2 finish and independent reload:**
+
+- Consumed one new local attempt from
+  `outputs/adaptive-undercoat-integration-preparation-v2/execute_verified.py`.
+  Release SHA `cec71559e0a9cd8ea0ded0bf163243f7d611449813d6e2690b14acb2fe5605d0`
+  binds tests, fixture, backend and inputs. Same source, full 6,500-parent/
+  30-child native groom, 2,400 combed cards, rig/actions and camera as v1; only
+  the recipe ID and corrected backend/bake policy changed. No paid calls.
+- `outputs/panda-adaptive-undercoat-finish-v2`: native PID 99810 exited 0 in
+  **122.283 s / 2,085,765,120 B sampled RSS / 103,314,206 B native output**.
+  There is little measured headroom under 2 GiB; this is not a general memory
+  guarantee. Successful manifest remains `needs_visual_review`, SHA
+  `7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655`.
+- Corrected GLB SHA
+  `e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5`:
+  75,548 exported vertices / 72,181 triangles / one skin / 19 bones / one real
+  four-second `dance_flight` clip. All 368 cap faces (1,104 vertices) use the
+  new UV1 tangent frame. Structure/render checks pass; the hash-bound native
+  eight-pose deformation gate reports no severe spike. No threshold was weakened.
+- Independent exported reload ran once via
+  `outputs/panda-adaptive-undercoat-review-v2/execute.py`, tool 49815 / native
+  PID 872, both exited. Four 720px rest views and eight actual sampled poses:
+  **22.214 s / 1,266,188,288 B sampled RSS / 80,786,727 B output**, within
+  600 s / 2 GiB / 256 MiB / four threads. Preview manifest SHA
+  `af787ecdad333f67949715bb5afc76d83a7d8eb3358d32272ab8318dcfae3154`.
+  Pose rendering does not override the inspector's `animation_verified: false`;
+  the separate CPU skin verifier supplies bounded movement evidence.
+- Root inspected native/exported front, side and 1.36-second flight images.
+  Native hair remains soft; exported coat still reads substantially smoother.
+  Vacated cheek/shoulder pockmarks, scuffs and bright flecks remain. The result is
+  **partial_component_not_promoted**, not dense portable fur, Muse parity,
+  fresh text-to-mesh acceptance or an accepted Studio job. No new full MP4,
+  browser run, gallery/default change or certified loop. The opaque portrait is
+  a static fallback. Review SHA
+  `a26b3b0a7e87de5132d3ea886795c8dd1eda888c4ec07edd799706bd4707e751`;
+  review manifest SHA
+  `62c1d208ad62a8b9a2ad0662fdd5847cbd43def26731185de29d61e91bb9065c`.
+  All 78 v2 build files, original ZIP, separated source and approved dance model
+  are unchanged. Weft's diffuse UV0-only importer remains unsupported for this HD model.
+- The independent CPU export audit passed in 0.286438 s: only 11,250 bytes
+  changed inside the 17,664-byte UV1 tangent accessor; all 33,508,206 bytes outside
+  it remain exact. JSON, geometry, UVs, normals, seven embedded images, 19 joints
+  and 57 animation channels/samplers are unchanged. Measured 75,548 vertices fit
+  the 84,435 projected ceiling. Fifteen input files/source hashes stayed exact.
+  Evidence: `outputs/panda-adaptive-undercoat-export-audit-v1/manifest.json`, SHA
+  `a96d84bfc5ad97d10ebd4af27023e6d2ada4558a297a026535286ffc1885dbca`.
+  RSS was not monitored; no rendering, playback or quality acceptance is inferred.
+- Root owns final docs/save; `agent_runner` owns compact evidence assembly.
+  Production sources and independent audits are released. No native/paid job
+  or persistent server is active. The compact copy is
+  `evidence/adaptive-undercoat-integration-v1`; only its final manifest establishes
+  sealing. Large rejected/candidate GLB and Blender files remain locally at exact
+  hash-bound paths, not remotely backed up by the compact evidence copy.
+  Next safe quality work requires a changed portable-fiber/contact-surface
+  hypothesis; no repeat of these unchanged renders, old Studio Starts or paid
+  generation while the fresh-case allowance is pending. [Inputs and bounds](docs/adaptive-undercoat.md).
+  After verifying the bundle, checkpoint only this tool's paths on the authorized
+  private main branch. Exact revision/remote confirmation belongs in
+  `.local/avatar-quality-publication-v4/receipt.json`; never infer a push from
+  this handoff or include another Weft owner's index/worktree changes.
+
 ### Fresh examples — prepared estimate, authorization pending
 
 - `outputs/fresh-acceptance-preparation-v1/requests.json` preserves three fresh
@@ -530,8 +663,9 @@ node browser/tests/studio-live.mjs outputs/studio-live-rigged-robot-v1 b184afa00
   Meshy submission, credit purchase, paid retry, account or Meta-budget use in
   this implementation pass. AI usage dollars remain unknown. Aggregate fresh
   example costs must be prepared before any additional spending decision.
-- Previous private pushed checkpoint: **`3a7a0ec`**. This save includes the new
-  terminal outcomes, compact bundles, diagnostics and severe-witness fix.
+- Previous private pushed checkpoint: **`d259f26`**. It includes the terminal
+  robot outcomes, compact bundles, diagnostics and severe-witness fix. The current
+  adaptive-undercoat integration is a separate incomplete-goal checkpoint.
   Its exact revision and remote confirmation are written after publication to
   tool-local `.local/avatar-quality-publication-v3/receipt.json`. Prior `87f224f`
   and its root-local
@@ -553,8 +687,8 @@ node browser/tests/studio-live.mjs outputs/studio-live-rigged-robot-v1 b184afa00
    lease is now safely released through the tested API; never restart either
    old job or reset usage. Preserve actual failures and
    source/media/reviewer bindings. Reuse is not a fresh text-to-mesh test and
-   cannot prove arbitrary prompt quality. The integrated source freeze now
-   passes 646 tests, but unchanged-text robot-v3 ended unsupported for torso
+   cannot prove arbitrary prompt quality. The prior integrated source freeze
+   passed 646 tests; the current undercoat suite passes 682. Unchanged-text robot-v3 ended unsupported for torso
    stability. The existing-rig trial also ended unsupported: numeric checks
    passed, but its low wrist swivel failed the critic's greeting check. Twelve
    completed Studio calls used the first 12 of the 13-call estimate; the separate

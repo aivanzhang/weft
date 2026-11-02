@@ -1,0 +1,54 @@
+--- v5/verify_fixture.py
++++ v6/verify_fixture.py
+@@ -1,4 +1,4 @@
+-"""Native-Mikk/RGB proof with exact installed-exporter normal quantization checks."""
++"""Exact float32 exporter quantization plus native-Mikk/RGB proof; signed zero is numerically equal."""
+ 
+ from io import BytesIO
+ import argparse
+@@ -178,13 +178,22 @@
+                 original_normals = np.asarray(face['native_corner_normals_blender'])[order]
+                 predicted_normals = exported_normal_bytes(original_normals)
+                 actual_normals = normal_attribute[ids]
+-                exact_normals = actual_normals.tobytes() == predicted_normals.tobytes()
++                exact_normals = bool(np.array_equal(actual_normals, predicted_normals))
++                bit_equal = actual_normals.view(np.uint32) == predicted_normals.view(np.uint32)
++                zero_sign_difference = ((actual_normals == 0) & (predicted_normals == 0)
++                    & (np.signbit(actual_normals) != np.signbit(predicted_normals)))
++                nonzero = (actual_normals != 0) | (predicted_normals != 0)
++                nonzero_bit_exact = bool(np.all(bit_equal[nonzero]))
++                zero_only_bit_difference = bool(np.all(bit_equal | zero_sign_difference))
+                 native_rotated = blender_to_gltf(original_normals)
+                 angular_errors = [float(np.degrees(np.arccos(np.clip(np.dot(unit(before), unit(after)), -1, 1))))
+                                   for before, after in zip(native_rotated, actual_normals)]
+                 row['normal_quantization'] = {'method': 'float32 round4 -> float32 normalize -> Blender Z-up to glTF Y-up',
+                     'expected_exported_float32': predicted_normals.tolist(), 'actual_exported_float32': actual_normals.tolist(),
+-                    'exact_bytes_match': exact_normals,
++                    'exact_float32_values_match': exact_normals, 'exact_bytes_match': bool(np.all(bit_equal)),
++                    'nonzero_components_bit_exact': nonzero_bit_exact,
++                    'bit_differences_only_signed_zero': zero_only_bit_difference,
++                    'signed_zero_difference_count': int(zero_sign_difference.sum()),
+                     'maximum_component_error_from_native': float(np.max(np.abs(actual_normals - native_rotated))),
+                     'maximum_angular_error_degrees_from_native': max(angular_errors),
+                     'angular_errors_degrees_from_native': angular_errors,
+@@ -268,13 +277,18 @@
+     require(native["active_uv_index"] == 0 and native["active_render_flags"] == [True, False], "UV flags changed")
+     require({row["case"] for row in native["negative_cases"] if row["rejected"]} ==
+             {"existing_uv1", "conflicting_attribute"}, "Refusal cases missing")
+-    quantized_exact = all(row['normal_quantization']['exact_bytes_match'] for row in rows)
++    quantized_exact = all(row['normal_quantization']['exact_float32_values_match']
++        and row['normal_quantization']['nonzero_components_bit_exact']
++        and row['normal_quantization']['bit_differences_only_signed_zero'] for row in rows)
+     passed = quantized_exact and all(row["native_bake_frame_preserved"] is not False for row in rows)
+-    return {"schema_version": 5, "status": "analytic_export_verified" if passed else "analytic_export_rejected",
++    return {"schema_version": 6, "status": "analytic_export_verified" if passed else "analytic_export_rejected",
+         "passed": passed, "model_sha256": glb.hash, "raw_source_model_sha256": native["model_sha256"],
+         "native_report_sha256": sha256(SOURCE / "native-fixture.json"), "verifier_sha256": sha256(Path(__file__)),
+         "frame_policy": native['frame_policy'],
+         "normal_quantization": {'exact_installed_exporter_transform_matched_all_corners': quantized_exact,
++            'exact_nonzero_float32_bits_all_corners': all(row['normal_quantization']['nonzero_components_bit_exact'] for row in rows),
++            'signed_zero_difference_count': sum(row['normal_quantization']['signed_zero_difference_count'] for row in rows),
++            'other_bit_difference_count': sum(row['normal_quantization']['mismatched_components_after_exact_exporter_transform'] for row in rows),
+             'verified_corners': sum(len(row['normal_quantization']['actual_exported_float32']) for row in rows),
+             'maximum_component_error_from_native': max(row['normal_quantization']['maximum_component_error_from_native'] for row in rows),
+             'maximum_angular_error_degrees_from_native': max(row['normal_quantization']['maximum_angular_error_degrees_from_native'] for row in rows),

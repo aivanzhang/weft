@@ -1,0 +1,243 @@
+{
+  "automatic_retry": false,
+  "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python outputs/adaptive-undercoat-verifier-v3/execute_cpu.py",
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "frozen_files": [
+    {
+      "bytes": 525,
+      "path": "cpu-handle.json",
+      "sha256": "7239e60cd0debbe86b6786b5858b47293349a93c9d440f74c12235938c3f9b2a"
+    },
+    {
+      "bytes": 1363,
+      "path": "cpu-job.json",
+      "sha256": "4b4b9ac356a3356f834b6d534738e277e2ccc1722c4a7448488ac5d7b22f4a17"
+    },
+    {
+      "bytes": 1263,
+      "path": "cpu-monitor.json",
+      "sha256": "ebee12f133faa7f69f3f300c0a3bdb053973a671e24dbde03b1431737fe6060f"
+    },
+    {
+      "bytes": 531,
+      "path": "cpu-v2-handle.json",
+      "sha256": "f3f67a8a6640c589959abfe22af3635a816261f9fdba7fc68ba151ecb397d045"
+    },
+    {
+      "bytes": 1369,
+      "path": "cpu-v2-job.json",
+      "sha256": "bc6c058a8681a773ee72c0f8fab5f77d2751793488e07c94746919c8532878d8"
+    },
+    {
+      "bytes": 1269,
+      "path": "cpu-v2-monitor.json",
+      "sha256": "2ce7d0a4185e811c595d3ed7579ab2818ac4fb8185989e86b61d86b9eae873d6"
+    },
+    {
+      "bytes": 68,
+      "path": "cpu-v2.log",
+      "sha256": "7da5c5405b93d948bd928b408f70e52a04b2a8e0b9103b636cbbad62bf912357"
+    },
+    {
+      "bytes": 1413,
+      "path": "cpu.log",
+      "sha256": "946f68f51d6452f81527198ad76882c7b776a26b1bf4f305a1efdf77ae073385"
+    },
+    {
+      "bytes": 1656,
+      "path": "execute_cpu.py",
+      "sha256": "8e1d90b3a6dea5a493e6c316a98c6a8de8e4746ab4b5eb0ca7feb7989eb6c5bb"
+    },
+    {
+      "bytes": 131,
+      "path": "pre-child-wrapper-failure.json",
+      "sha256": "7322c86d6bfe59877673290ae9cba175d5723f5a74e42840f10caead0abfd688"
+    },
+    {
+      "bytes": 5513,
+      "path": "prepared-v2.json",
+      "sha256": "72b9b276b280e64e7ec54ccff1d57b262abe21b85c5326b931f728cef2b059ab"
+    },
+    {
+      "bytes": 4949,
+      "path": "prepared.json",
+      "sha256": "3d49ebbb45053b3359985b620430564a845c3febf9b95d55b53fcd68b01f99fb"
+    },
+    {
+      "bytes": 757,
+      "path": "prior-test-hash-clarification.json",
+      "sha256": "4a23a16803e165cc8af26de7a0344966c99ab13a6d147e9bccf234e23fc30b08"
+    },
+    {
+      "bytes": 22743,
+      "path": "raw-diagnosis.json",
+      "sha256": "19dbbbee3eef1f236342bc1559de3a641dcdd01110908012fe199476ff9a5731"
+    },
+    {
+      "bytes": 13253,
+      "path": "regression/test_uv1_tangent_repair.py",
+      "sha256": "7ad63603bfc5bd006bdf2fa23673c707d234d0d8e9a75e1008c024774bd7ab91"
+    },
+    {
+      "bytes": 6696,
+      "path": "repair_and_verify.py",
+      "sha256": "3a3a0de3005072f4d09910850aa87a2b7222240557f3ef83b52f32bb15060e2b"
+    },
+    {
+      "bytes": 10695,
+      "path": "source-v2/build_fixture.py",
+      "sha256": "148114b0a3566abfbf82e47ea78898bb3fa48b10431542f28e0cb4386ed43adc"
+    },
+    {
+      "bytes": 219,
+      "path": "source-v2/execution-failure.json",
+      "sha256": "b6fefc0e2b88498c03ea852ba025051a8a4b4f8d518e876252b1b95b2beecf36"
+    },
+    {
+      "bytes": 7375,
+      "path": "source-v2/failure-manifest.json",
+      "sha256": "04a6c4f6ea9b4624654ba976620cbf073e31ad689a1218d72c145f588cefdaf8"
+    },
+    {
+      "bytes": 3956,
+      "path": "source-v2/fixture.json",
+      "sha256": "3c3ec5b43ba45556461822256ca177a0cc05e8e13a35ccd14114a25be796dc80"
+    },
+    {
+      "bytes": 1079,
+      "path": "source-v2/host-job.json",
+      "sha256": "7cd31c8099ff912d2b7c95cac6950a9395f75ec6b7c9458bfff7294e10fb41d4"
+    },
+    {
+      "bytes": 957,
+      "path": "source-v2/host.log",
+      "sha256": "10cedc6c53ac556a9aa0cf1b9dee69fc5273ec9aaa9ae9d5aef58bd0b6cf2e65"
+    },
+    {
+      "bytes": 196404,
+      "path": "source-v2/model.glb",
+      "sha256": "2500c2e72aad7c1e64d8d8493f697c42280f88057cc5c68b9a9c61d07ef4e249"
+    },
+    {
+      "bytes": 23444,
+      "path": "source-v2/native-fixture.json",
+      "sha256": "3d2b9e24a401544591808751119168047f7c1f56af978244deafc0b5823160aa"
+    },
+    {
+      "bytes": 1318,
+      "path": "source-v2/native-job.json",
+      "sha256": "7899c76ab6401a3852a2e2d7676ce7f01d5e5527461215a3260cc771ecb89e21"
+    },
+    {
+      "bytes": 950,
+      "path": "source-v2/prepare-receipt.json",
+      "sha256": "443d889cccd8e7cb56bdc244d98073fee5a020483fa93be601237d505869cd2c"
+    },
+    {
+      "bytes": 6032,
+      "path": "source-v2/prepared.json",
+      "sha256": "c8e15262f66f7d3c9735bbec4bffb9a77a53fced17c1b6eacfe44af462b0d363"
+    },
+    {
+      "bytes": 36754,
+      "path": "source-v2/sources/native/blender_fur_undercoat.py",
+      "sha256": "8e772b23cee3f4e5bd137ae0183da31fe7c478654c0bd2db9ade6620ea961fb3"
+    },
+    {
+      "bytes": 7179,
+      "path": "source-v2/sources/native/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 14546,
+      "path": "source-v2/sources/native/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "bytes": 95079,
+      "path": "source-v2/textures/authored-short-pile-normal-material-00.png",
+      "sha256": "a2b2e7c36f8e1b756f4be6eb5ed99611d929cc0b2c9d590a223fc5244e8eff36"
+    },
+    {
+      "bytes": 96088,
+      "path": "source-v2/textures/authored-short-pile-normal-material-01.png",
+      "sha256": "7d6019535de7f8731974a4caaaa7413627dee9b5da4baba322905b9c8f7090c3"
+    },
+    {
+      "bytes": 196,
+      "path": "source-v2/textures/original-basecolor.png",
+      "sha256": "19dce3d80867362d84de2d4107853db01524fdf5f1fc2b3aef0f02a45439e4c2"
+    },
+    {
+      "bytes": 9973,
+      "path": "source-v2/verify_fixture.py",
+      "sha256": "e8d89e1d554783e6a9098e32da25e5290664d2eb0aec9da0cfe88c4e236d88e8"
+    },
+    {
+      "bytes": 7601,
+      "path": "source-v2-inventory.json",
+      "sha256": "65317eb94f4ec088e55410ce45685c683cf5386d230cbec79de87232a57fdb8e"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11562,
+      "path": "sources/host/avatar_assets/generated_tangents.py",
+      "sha256": "6957f072751af86c89dea86b3e4a269a23a4801f445b571cf4dc9aa257124b73"
+    },
+    {
+      "bytes": 9246,
+      "path": "sources/host/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/host/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 15184,
+      "path": "verify_fixture.py",
+      "sha256": "244c13c0d90dd6fe2cde0bd6a072bc274e7d6f11ec552e826b17cb958016f8fb"
+    },
+    {
+      "bytes": 15278,
+      "path": "verify_fixture_v3.py",
+      "sha256": "e1f7c49f28dbde5ee49b75803ec4c30579649c3ce1a95e31c88bdc5a0216dc79"
+    }
+  ],
+  "limits": {
+    "child_rss_mib": 768,
+    "child_wall_seconds": 60,
+    "output_mib": 128,
+    "threads": 1
+  },
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "raw_diagnosis_sha256": "19dbbbee3eef1f236342bc1559de3a641dcdd01110908012fe199476ff9a5731",
+  "recorded_local_time": "2026-11-01 16:38:05 PST",
+  "repair_helper_sha256": "6957f072751af86c89dea86b3e4a269a23a4801f445b571cf4dc9aa257124b73",
+  "schema_version": 1,
+  "scope": "One CPU derivative using explicit correct_normal_uv1=True and independent native V-up checker; no rendering or avatar acceptance.",
+  "source_model_sha256": "2500c2e72aad7c1e64d8d8493f697c42280f88057cc5c68b9a9c61d07ef4e249",
+  "status": "parent_released_cpu_only",
+  "verifier_sha256": "e1f7c49f28dbde5ee49b75803ec4c30579649c3ce1a95e31c88bdc5a0216dc79"
+}

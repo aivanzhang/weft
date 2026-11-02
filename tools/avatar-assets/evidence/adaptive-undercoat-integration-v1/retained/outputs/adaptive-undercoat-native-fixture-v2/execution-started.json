@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v2/build_fixture.py"
+  ],
+  "prepared_sha256": "c8e15262f66f7d3c9735bbec4bffb9a77a53fced17c1b6eacfe44af462b0d363"
+}

@@ -1,0 +1,128 @@
+{
+  "actions": [
+    {
+      "channels": 57,
+      "name": "dance_flight",
+      "samplers": 57
+    }
+  ],
+  "audit_inputs_unchanged_before_after": true,
+  "changed_bytes": 11250,
+  "corrected_uv1_vertices": 1104,
+  "elapsed_seconds": 0.2864378751255572,
+  "export_budget": {
+    "portable_export_vertices": 28800,
+    "reserve_vertices": 4096,
+    "source_export_vertices": 51055
+  },
+  "frame_policy": "mikk-unshared-triangle-v-up-v2",
+  "limitations": [
+    "All bytes/accessors were compared, but no renderer or animation playback ran in this audit.",
+    "This proves correction custody, not fidelity from the original generated model to the authored finished pack.",
+    "Runtime tangent direction was checked by the separate analytic native fixture, not independently re-derived here.",
+    "No visual quality, dense-fur equivalence, Weft compatibility or physical validity acceptance."
+  ],
+  "model_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "new_native_provider_or_ai_calls": 0,
+  "nodes": 23,
+  "original_status_preserved": "needs_visual_review",
+  "primitives": [
+    {
+      "material": "body_surface",
+      "mesh": 0,
+      "mesh_name": "PartitionedMesh",
+      "normal_texcoord": null,
+      "primitive": 0,
+      "triangles": 2603,
+      "vertices": 2148
+    },
+    {
+      "material": "companion_surface",
+      "mesh": 0,
+      "mesh_name": "PartitionedMesh",
+      "normal_texcoord": null,
+      "primitive": 1,
+      "triangles": 27205,
+      "vertices": 24705
+    },
+    {
+      "material": "body_cap",
+      "mesh": 0,
+      "mesh_name": "PartitionedMesh",
+      "normal_texcoord": null,
+      "primitive": 2,
+      "triangles": 1,
+      "vertices": 3
+    },
+    {
+      "material": "companion_cap",
+      "mesh": 0,
+      "mesh_name": "PartitionedMesh",
+      "normal_texcoord": null,
+      "primitive": 3,
+      "triangles": 313,
+      "vertices": 939
+    },
+    {
+      "material": "body_surface__color_rear-tail-base",
+      "mesh": 0,
+      "mesh_name": "PartitionedMesh",
+      "normal_texcoord": null,
+      "primitive": 4,
+      "triangles": 738,
+      "vertices": 549
+    },
+    {
+      "material": "body_surface__short_pile_adaptive_v1",
+      "mesh": 0,
+      "mesh_name": "PartitionedMesh",
+      "normal_texcoord": null,
+      "primitive": 5,
+      "triangles": 31353,
+      "vertices": 21919
+    },
+    {
+      "correction_scope": "tangent_float4_only",
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "mesh_name": "PartitionedMesh",
+      "mixed_w_faces": 0,
+      "normal_texcoord": 1,
+      "primitive": 6,
+      "triangles": 368,
+      "vertices": 1104
+    },
+    {
+      "material": "PortableCoat_0_cutout_fur",
+      "mesh": 1,
+      "mesh_name": "PortableCoat_0",
+      "normal_texcoord": null,
+      "primitive": 0,
+      "triangles": 5280,
+      "vertices": 13226
+    },
+    {
+      "material": "PortableCoat_1_cutout_fur",
+      "mesh": 2,
+      "mesh_name": "PortableCoat_1",
+      "normal_texcoord": null,
+      "primitive": 0,
+      "triangles": 4320,
+      "vertices": 10955
+    }
+  ],
+  "projected_vertex_ceiling": 84435,
+  "quality_approved": false,
+  "raw_model_sha256": "80b266415b1bbae8234a0962a2706457ca414c378b59ac4f17e48ba66a7f88e5",
+  "recorded_at": "2026-11-01T17:12:36.182582-08:00",
+  "sampled_peak_rss_bytes": null,
+  "schema_version": 1,
+  "skin_joint_counts": [
+    19
+  ],
+  "source_json_geometry_uv_normals_weights_actions_materials_and_texture_bytes_preserved": true,
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "passed_structure_and_byte_custody",
+  "triangles": 72181,
+  "vertices": 75548
+}

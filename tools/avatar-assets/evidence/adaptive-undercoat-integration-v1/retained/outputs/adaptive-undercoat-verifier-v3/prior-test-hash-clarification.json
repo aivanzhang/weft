@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "clarifies": "source-v2/change-provenance.json runner_regression snapshot_note (sealed v2 unchanged)",
+  "reported_test": {
+    "path": "tests/test_undercoat_material_adapter.py",
+    "sha256": "cb31537a2085ff5752274fb6baf4e914ce9ec4b6171da067bd179b9dd24b07e5"
+  },
+  "observed_other_test": {
+    "path": "tests/test_fur_undercoat.py",
+    "sha256": "5b92a9af0970f4e5ab8be2ea1ff0b384603252dc5f435abb5a420f5d8aeb4eaa"
+  },
+  "explanation": "The earlier reported and observed hashes refer to different files, not an unreported source change. Runner confirms the mock UV-handle lifetime tests ran against test_undercoat_material_adapter.py. V2 preserved the legacy test_fur_undercoat.py snapshot instead.",
+  "native_claim": false
+}

@@ -26,8 +26,8 @@ MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
 PIPELINE_SOURCES = ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
-                    'deformation_gate.py')
-PIPELINE_SCRIPT_SOURCES = ('motion_samples.py',)
+                    'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py')
+PIPELINE_SCRIPT_SOURCES = ('motion_samples.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py')
 
 
 class InterruptedStage(ValueError):

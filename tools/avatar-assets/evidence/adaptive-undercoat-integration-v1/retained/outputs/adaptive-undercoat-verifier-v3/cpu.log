@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-verifier-v3/verify_fixture.py", line 235, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-verifier-v3/verify_fixture.py", line 226, in main
+    report = verify(args.model.resolve(), args.model_sha256)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-verifier-v3/verify_fixture.py", line 98, in verify
+    points = np.asarray(glb.accessor(attrs["POSITION"], "VEC3", (5126,), count_limit=64)) @ basis.T + matrix[:3, 3]
+                        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-verifier-v3/sources/host/avatar_assets/three_d.py", line 291, in accessor
+    _require(type(count_limit) is int and count_limit in (MAX_VERTICES, MAX_TRIANGLE_INDICES),
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             "Unsupported accessor count limit")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-verifier-v3/sources/host/avatar_assets/three_d.py", line 117, in _require
+    raise ValueError(message)
+ValueError: Unsupported accessor count limit

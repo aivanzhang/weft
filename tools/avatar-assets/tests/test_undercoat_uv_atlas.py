@@ -20,6 +20,8 @@ class NormalAtlasTests(unittest.TestCase):
         args=fixture();before=[value.copy() for value in args]
         report,payloads=atlas.plan_normal_atlases(*args,source_export_vertices=12,resolution=1024)
         self.assertEqual(report['atlas_regions'],[1])
+        self.assertEqual(report['frame_policy'],atlas.NORMAL_UV1_FRAME_POLICY)
+        self.assertEqual(payloads[1]['report']['frame_policy'],atlas.NORMAL_UV1_FRAME_POLICY)
         self.assertEqual(report['regions'][0]['method'],'keep_uv0')
         self.assertEqual(report['regions'][0]['conflicting_surface_samples'],0)
         self.assertGreater(report['regions'][1]['unique_conflicting_texels'],0)
@@ -66,6 +68,28 @@ class NormalAtlasTests(unittest.TestCase):
         with patch.object(atlas,'MAX_ATLAS_FACES',3),self.assertRaisesRegex(ValueError,'repair bound'):
             atlas.plan_normal_atlases(*fixture(),source_export_vertices=12,resolution=1024)
 
+    def test_mikk_orientation_preserves_opposed_normals_with_known_world_vectors(self):
+        points=np.array([[0.,0.,0.],[1.,0.,0.],[0.,1.,0.]])
+        faces=np.array([[0,1,2]]);ids=np.array([0])
+        uv=np.array([[[0.,0.],[1.,0.],[0.,1.]]])
+        normals=np.array([[[0.,0.,-1.],[0.,0.,1.],[0.,0.,-1.]]])
+        before=[value.copy() for value in (points,faces,ids,uv,normals)]
+        for mirrored in (False,True):
+            chart=uv.copy()
+            if mirrored:chart[:,:,0]=1-chart[:,:,0]
+            result=atlas.atlas_tangents(points,faces,ids,chart,normals)
+            direction=-1. if mirrored else 1.
+            np.testing.assert_array_equal(result[:,:,:3],np.tile([direction,0.,0.],(1,3,1)))
+            np.testing.assert_array_equal(result[:,:,3],np.full((1,3),direction))
+            # Known X/Y/Z axes independently predict the sampled normal's world vector.
+            color=np.array([.3,.4,np.sqrt(.75)])
+            observed=result[:,:,:3]*color[0]+np.cross(normals,result[:,:,:3])*result[:,:,3,None]*color[1]+normals*color[2]
+            expected=np.array([[[direction*.3,-.4,-np.sqrt(.75)],
+                                [direction*.3,.4,np.sqrt(.75)],[direction*.3,-.4,-np.sqrt(.75)]]])
+            np.testing.assert_allclose(observed,expected,atol=1e-7)
+        for actual,original in zip((points,faces,ids,uv,normals),before):
+            np.testing.assert_array_equal(actual,original)
+
     def test_invalid_inputs_fail_before_raster(self):
         for index,bad in [(0,np.full((12,3),np.nan)),(1,np.full((6,3),-1)),
                           (2,np.full((6,3,2),2.)),(3,np.ones(6,dtype=int)),
@@ -88,6 +112,8 @@ class NormalAtlasTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'degenerate geometric'):atlas.triangle_atlas(bad,faces,ids)
         with self.assertRaises(ValueError):atlas.triangle_atlas(points,faces,np.array([0,0]))
         uv,_=atlas.triangle_atlas(points,faces,ids)
+        with self.assertRaisesRegex(ValueError,'tangent geometry is degenerate'):
+            atlas.atlas_tangents(bad,faces,ids,uv,np.tile([0.,0.,1.],(1,3,1)))
         for bad_ids,normals in [(np.array([-1]),np.tile([0.,0.,1.],(1,3,1))),
                                 (ids,np.zeros((1,3,3))),(ids,np.full((1,3,3),np.nan))]:
             with self.assertRaises(ValueError):atlas.atlas_tangents(points,faces,bad_ids,uv,normals)

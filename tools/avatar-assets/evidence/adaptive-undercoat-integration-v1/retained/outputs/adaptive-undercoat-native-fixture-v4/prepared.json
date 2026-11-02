@@ -1,0 +1,151 @@
+{
+  "blender_executable": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_executable_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "blender_version_observed_prior_v2": "4.5.13 LTS",
+  "frame_policy": "mikk-unshared-triangle-v-up-v2",
+  "frozen_files": [
+    {
+      "bytes": 17247,
+      "path": "build_fixture.py",
+      "sha256": "85e816b23ff81b3f66a88469431293c204a564f0b6edae6cc2588a37770afdb0"
+    },
+    {
+      "bytes": 4078,
+      "path": "execute_prepared.py",
+      "sha256": "4da79ac90ab5b70b11d920c37e1d3c80ba728d29c1f7fe1dc50163042e1041fc"
+    },
+    {
+      "bytes": 6714,
+      "path": "fixture.json",
+      "sha256": "e28dbb23e55e7cfaa2013c985e2112ff5d6e2b2eccd6e2e1757e643ec91bc1e0"
+    },
+    {
+      "bytes": 1691,
+      "path": "policy-change.json",
+      "sha256": "5744e208affaff2a35dc231d16b45728a2305a22be91e8195d12a84d211f3fa0"
+    },
+    {
+      "bytes": 5763,
+      "path": "postprocess.py",
+      "sha256": "c8534af67ff405bf9f8a19822d6ea6f4c02861a28441187d7cc409bd61b564ae"
+    },
+    {
+      "bytes": 20928,
+      "path": "preserved/actual-cap-replay.npz",
+      "sha256": "d6f82d3ae37ef6ec0df8736f75e3f6a7302b5bdc1b0957432dfaa3e3bcc8a184"
+    },
+    {
+      "bytes": 12364,
+      "path": "preserved/panda-failed-inventory.json",
+      "sha256": "f9e81e682c332367499802f9d1d038b33722dc9b5dc042f659607eaf97e93ef7"
+    },
+    {
+      "bytes": 4708,
+      "path": "preserved/v1-inventory.json",
+      "sha256": "6605503ea103301dda08d89ec13787f094d02381cda7cfe5895f575d75873fa7"
+    },
+    {
+      "bytes": 7601,
+      "path": "preserved/v2-inventory.json",
+      "sha256": "65317eb94f4ec088e55410ce45685c683cf5386d230cbec79de87232a57fdb8e"
+    },
+    {
+      "bytes": 10695,
+      "path": "previous-v2/build_fixture.py",
+      "sha256": "148114b0a3566abfbf82e47ea78898bb3fa48b10431542f28e0cb4386ed43adc"
+    },
+    {
+      "bytes": 3956,
+      "path": "previous-v2/fixture.json",
+      "sha256": "3c3ec5b43ba45556461822256ca177a0cc05e8e13a35ccd14114a25be796dc80"
+    },
+    {
+      "bytes": 9973,
+      "path": "previous-v2/verify_fixture.py",
+      "sha256": "e8d89e1d554783e6a9098e32da25e5290664d2eb0aec9da0cfe88c4e236d88e8"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11962,
+      "path": "sources/host/avatar_assets/generated_tangents.py",
+      "sha256": "58cd7003f95ce05d9655f5be9ff0c7b701d67319cc6d6138c9547dd0beb3815f"
+    },
+    {
+      "bytes": 9246,
+      "path": "sources/host/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/host/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 36931,
+      "path": "sources/native/blender_fur_undercoat.py",
+      "sha256": "cd039759e97e1653bdcc29ab22b6cd36e3e9ff420234413de5520355f9ca50aa"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/native/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 14944,
+      "path": "sources/native/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 18623,
+      "path": "verify_fixture.py",
+      "sha256": "9d3e8cee9a0a4367ebd90b225e6823172f83cec013759f1d0ad43bb1b3f1da28"
+    }
+  ],
+  "id": "adaptive-undercoat-native-fixture-v4",
+  "limits": {
+    "aggregate_wall_seconds": 120,
+    "child_rss_mib": 1024,
+    "host_threads": 1,
+    "native_threads": 4,
+    "output_mib": 128
+  },
+  "native_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v4/build_fixture.py"
+  ],
+  "native_jobs_started": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "recorded_local_time": "2026-11-01 16:55:36 PST",
+  "release_required": "Root review and explicit release before the one bounded native proof.",
+  "renders": 0,
+  "schema_version": 4,
+  "status": "prepared_not_executed"
+}

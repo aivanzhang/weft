@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "prepared_waiting_for_adapter_fixture",
+  "recorded_local": "2026-11-01 16:14:40 PST",
+  "edit_prompt": "Integrate the bounded per-material short-pile undercoat with separate normal UV1 only where original UV0 aliases or lacks density. Preserve original character/color/geometry/rig/actions, full native groom and original portable cards. Retain original1024px/48sample portrait controls, add720px state review and multiview inspection. No style or density acceptance from a successful export.",
+  "original_design": {
+    "path": "outputs/muse-panda-dance-flight-v2/sources/finish-design.json",
+    "sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909"
+  },
+  "source": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/diagnostic-model.glb",
+    "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+  },
+  "candidate_design_sha256": "322bb4eede882fdd1c442e92059e011ab99031a2d51fd9c485c0ff9452a66e44",
+  "new_meshy_calls": 0,
+  "new_pipeline_role_calls": 0,
+  "new_provider_cost_usd": 0,
+  "no_native_jobs_started": true,
+  "native_attempts_max": 1,
+  "native_limits": {
+    "seconds": 600,
+    "rss_mb": 2048,
+    "output_mb": 512,
+    "cpu_threads": 4
+  },
+  "preconditions": [
+    "Frozen adaptive adapter and passing focused tests",
+    "Actual native analytic fixture proves UV0 preservation and correct UV1 tangent basis",
+    "Single native worker ownership"
+  ],
+  "memory_risk": "Prior different tuft-v1 profile crossed2GiB during rendering. This candidate retains originalcombed-v1cards and fullgroom, with newundercoat. No memory improvement is claimed; limits unchanged.",
+  "next_safe_action": "Complete and verify adapter/exportfixture before onefullfinish; if blocked/fails, preserve exactreason without retrying unchanged or reducingquality."
+}

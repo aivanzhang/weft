@@ -332,7 +332,7 @@ class RenderAttributeGateTests(unittest.TestCase):
                     validate_render_attributes(path)
             document["materials"][0]["normalTexture"]["texCoord"] = 1
             path.write_bytes(glb_bytes(document, binary))
-            with self.assertRaisesRegex(ValueError, "verified UV0"):
+            with self.assertRaisesRegex(ValueError, "requires UV1 and tangents"):
                 validate_render_attributes(path)
 
 

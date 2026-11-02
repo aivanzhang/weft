@@ -218,6 +218,24 @@ def validate(config):
     return config
 
 
+def _undercoat_frame_policy(report, enabled):
+    if not enabled:
+        return None
+    from avatar_assets.generated_tangents import NORMAL_UV1_FRAME_POLICY
+    undercoat = report.get('fur_undercoat')
+    require(isinstance(undercoat, dict) and undercoat.get('frame_policy') == NORMAL_UV1_FRAME_POLICY,
+            'Adaptive undercoat needs a new bake with the current UV1 frame policy')
+    plan, materials = undercoat.get('plan'), undercoat.get('materials')
+    require(isinstance(plan, dict) and plan.get('frame_policy') == NORMAL_UV1_FRAME_POLICY
+            and isinstance(materials, list) and 1 <= len(materials) <= 4,
+            'Adaptive undercoat frame-policy evidence is incomplete')
+    require(all(isinstance(row, dict) and type(row.get('normal_texcoord')) is int
+                and row['normal_texcoord'] in (0, 1)
+                and (row['normal_texcoord'] == 0 or row.get('frame_policy') == NORMAL_UV1_FRAME_POLICY)
+                for row in materials), 'Adaptive undercoat material was baked with a different frame policy')
+    return NORMAL_UV1_FRAME_POLICY
+
+
 def reuse_native(folder, out, cfg):
     root = Path(folder).resolve()
     manifest = read_json(root/'manifest.json')
@@ -235,6 +253,9 @@ def reuse_native(folder, out, cfg):
     if cfg.get('fur_undercoat'):
         require(sha256(root/'sources/blender_fur_undercoat.py') == sha256(ROOT/'scripts/blender_fur_undercoat.py'),
                 'Undercoat baker changed; rebuild required')
+        if cfg['fur_undercoat'].get('uv_policy') == 'material-adaptive-v1':
+            require(sha256(root/'sources/undercoat_uv_atlas.py') == sha256(ROOT/'scripts/undercoat_uv_atlas.py'),
+                    'Undercoat atlas planner changed; rebuild required')
     require(sha256(root/'sources/surface_profiles.py') == sha256(ROOT/'avatar_assets/surface_profiles.py'),
             'Surface profile validator changed; rebuild required')
     require(sha256(root/'sources/surface_smoothing_config.py') == sha256(ROOT/'avatar_assets/surface_smoothing_config.py'),
@@ -276,17 +297,27 @@ def finish(config_path, output, reuse=None):
         tuft_budget = tuft_export_budget(facts['vertices'], total_cards)
     else:
         require(facts['vertices']+total_cards*12 <= 100000, 'Base plus portable fur exceeds vertex budget')
+    undercoat_budget = None
+    if cfg.get('fur_undercoat', {}).get('uv_policy') == 'material-adaptive-v1':
+        undercoat_budget = {'source_export_vertices': facts['vertices'],
+                           'portable_export_vertices': total_cards*12, 'reserve_vertices': 4096}
+        require(sum(undercoat_budget.values()) <= 100000,
+                'Adaptive undercoat base, coat and reserve exceed the 100000-vertex budget')
     out = new_directory(output)
     try:
         (out/'sources').mkdir()
         shutil.copyfile(path, out/'sources/finish-design.json')
         cfg.update(source=str(source), export_model=True, sample_states=True)
+        if undercoat_budget is not None:
+            cfg['undercoat_export_budget'] = undercoat_budget
         write_json(out/'finish-config.json', cfg)
         if tuft_budget is not None:
             write_json(out/'tuft-export-budget.json', tuft_budget)
             shutil.copyfile(ROOT/'scripts/fur_root_sampling.py', out/'sources/fur_root_sampling.py')
         if cfg.get('fur_undercoat'):
             shutil.copyfile(ROOT/'scripts/blender_fur_undercoat.py', out/'sources/blender_fur_undercoat.py')
+            if undercoat_budget is not None:
+                shutil.copyfile(ROOT/'scripts/undercoat_uv_atlas.py', out/'sources/undercoat_uv_atlas.py')
         for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                      'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
                      'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py'):
@@ -310,9 +341,11 @@ def finish(config_path, output, reuse=None):
         require(job['exit_code'] == 0 and not job['failure'], 'Finishing failed; inspect preserved attempt')
         report = read_json(out/'finish-report.json')
         from avatar_assets.generated_tangents import repair
+        frame_policy = _undercoat_frame_policy(report, undercoat_budget is not None)
         native_export = out/'model-native-export.glb'
         (out/'model.glb').rename(native_export)
-        tangent_report = repair(native_export, out/'model.glb')
+        tangent_report = repair(native_export, out/'model.glb', correct_normal_uv1=undercoat_budget is not None,
+                                normal_uv1_frame_policy=frame_policy)
         write_json(out/'tangent-repair.json', tangent_report)
         doc = _GLB(out/'model.glb').doc
         contract = rig_contract(doc, authored=bool(cfg.get('authored_rig')))

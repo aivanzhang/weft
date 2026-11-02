@@ -1,0 +1,39 @@
+{
+  "actual_cap_replay": {
+    "path": "preserved/actual-cap-replay.npz",
+    "scope": "Preserved real rejected cap input arrays, not new generated geometry or old PNG permission",
+    "sha256": "d6f82d3ae37ef6ec0df8736f75e3f6a7302b5bdc1b0957432dfaa3e3bcc8a184"
+  },
+  "controls": [
+    "healthy flat UV1",
+    "healthy smooth UV1",
+    "mirrored healthy UV0",
+    "excluded original material",
+    "mixed-hemisphere UV1 custom normals",
+    "all-opposed UV1 custom normals"
+  ],
+  "frame_policy": "mikk-unshared-triangle-v-up-v2",
+  "hypothesis": "New bakes use per-face Mikk UV orientation, including custom corner normals opposed to geometric faces; actual Blender tangent calculation is the independent oracle.",
+  "limits": {
+    "aggregate_wall_seconds": 120,
+    "child_rss_mib": 1024,
+    "host_threads": 1,
+    "native_threads": 4,
+    "output_mib": 128
+  },
+  "native_executed": false,
+  "new_bake_only": true,
+  "not_a_retry_of_unchanged_inputs": true,
+  "old_png_or_model_mutation": false,
+  "oracle": "Actual Blender mesh.calc_tangents(uvmap=selected layer), recorded before restoring UV0 active/render defaults",
+  "prior_failures_preserved": [
+    "adaptive-undercoat-native-fixture-v1 UV-layer handle failure",
+    "adaptive-undercoat-native-fixture-v2 wrong active-UV tangent export and old handedness checker convention",
+    "panda-adaptive-undercoat-finish-v1 rejected55 mixed-sign cap faces under old per-corner bake policy"
+  ],
+  "provider_calls": 0,
+  "quality_approved": false,
+  "renders": 0,
+  "rgb_check": "Actual newly baked PNG texel vectors transformed by native and exported interpolated frames at texel-center barycentric positions",
+  "schema_version": 1
+}

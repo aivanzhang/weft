@@ -36,14 +36,17 @@ immutable. No deployment or persistent server starts automatically.
 
 - Parent: orchestration integration, local HTTP API,
   shared contract, end-to-end acceptance and save.
-- `agent_runner`: completed durable jobs/worker; bounded opt-in portable tuft profile.
-- `pipeline_contracts`: action stability intent/audit correction after live planner evidence.
-- `pipeline_review`: completed browser/docs and analytic native framing regression.
+- `agent_runner`: compact adaptive-undercoat evidence assembly; adapter released.
+- `pipeline_contracts`: completed HD UV1/native tangent proof; sources released.
+- `pipeline_review`: completed independent actual export audit; prior browser checks.
 
-No new Meshy generation has started. Five real AI calls across the development
-study produced two plans, two rig attempts and one repair verdict. Neither job
-completed a delivery. The renderer proof and temporary HTTP/browser fixtures are
-local checks, not fresh generation.
+No new Meshy generation has started for this acceptance work. The reused-robot
+development study exhausted its 13-call AI allowance; all four Studio jobs are
+terminal, and none produced an accepted delivery. One rigged-robot attempt reached
+full media but failed the final action review. The renderer proofs and temporary
+HTTP/browser fixtures are local checks, not fresh generation. Current local fur
+work uses no new AI/provider calls. Exact attempts, costs and latest evidence are
+in [the handoff](../TODO.md).
 Read-only canonical Meshy verification still shows
 16 successful submissions / 202 credits against 210 authorized credits.
 The remaining eight credits do not authorize a new 35-credit generation.
@@ -302,9 +305,19 @@ Blender's measured import rounding. V2 retained exact face indices/UVs, measured
 at most0.000000240274m positional rounding, then rejected aliased normal-map UVs.
 Read-only attribution isolated all19,884 overlap samples to the authored repair
 cap; the main body surface has no self-overlap. A separate bounded normal atlas
-for only aliased regions is being prepared. No overlap threshold is relaxed and
-no new coat is accepted. Such a UV1/normal-mapped result is HD-preview-only, not
+for only aliased regions now passes the tests and actual local build below.
+No overlap threshold is relaxed and no new coat is accepted. Such a
+UV1/normal-mapped result is HD-preview-only, not
 Weft appearance-compatible; the existing approved geometry/motion stays unchanged.
+
+The adaptive-undercoat integration passes 682 tests, a six-case native tangent
+proof, an actual local finish and independent GLB reload. The v2 panda retains
+75,548 vertices, one 19-bone skin and the original four-second authored action.
+The correction changes only the selected tangent bytes; geometry, source color,
+skin and animation bytes remain exact against the raw export. Native finish
+122.283 s; four-view/eight-pose reload 22.214 s. Sampled review still finds smooth
+portable fur and cheek/shoulder marks, so there is no default/gallery promotion,
+new full-media claim or accepted Studio job. [Details and limits](adaptive-undercoat.md).
 
 ## Saved checkpoint
 

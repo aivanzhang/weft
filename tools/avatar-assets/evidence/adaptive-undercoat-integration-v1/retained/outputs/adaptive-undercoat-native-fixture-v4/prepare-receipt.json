@@ -1,0 +1,26 @@
+{
+  "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python outputs/adaptive-undercoat-native-fixture-v4/execute_prepared.py",
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "frozen_inputs": 23,
+  "limits": {
+    "aggregate_wall_seconds": 120,
+    "child_rss_mib": 1024,
+    "host_threads": 1,
+    "native_threads": 4,
+    "output_mib": 128
+  },
+  "native_not_executed": true,
+  "prepared_sha256": "21f03c8c93cc8fa452012721f8b6ad0f4f5666800a7ddc2854df79cd36d2d395",
+  "schema_version": 4,
+  "source_hashes": {
+    "build_fixture.py": "85e816b23ff81b3f66a88469431293c204a564f0b6edae6cc2588a37770afdb0",
+    "execute_prepared.py": "4da79ac90ab5b70b11d920c37e1d3c80ba728d29c1f7fe1dc50163042e1041fc",
+    "postprocess.py": "c8534af67ff405bf9f8a19822d6ea6f4c02861a28441187d7cc409bd61b564ae",
+    "sources/host/avatar_assets/generated_tangents.py": "58cd7003f95ce05d9655f5be9ff0c7b701d67319cc6d6138c9547dd0beb3815f",
+    "sources/native/blender_fur_undercoat.py": "cd039759e97e1653bdcc29ab22b6cd36e3e9ff420234413de5520355f9ca50aa",
+    "sources/native/undercoat_uv_atlas.py": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+    "verify_fixture.py": "9d3e8cee9a0a4367ebd90b225e6823172f83cec013759f1d0ad43bb1b3f1da28"
+  },
+  "static_check": "All Python sources compile; exact adapter/atlas/corrector/groom hashes match their owner freezes.",
+  "status": "prepared_not_executed"
+}

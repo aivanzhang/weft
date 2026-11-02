@@ -22,6 +22,8 @@ For requested fur/hair, address both editable native strands and portable cards;
 
 For a furry character, read [fur workflow](../../docs/fur-workflow.md). Separate clean base geometry, regional native grooming and portable cutout-card export. Protect eyes, nose and non-furry accessories with measured masks; inspect exported colors as well as strands. A smooth raster guide is optional preparation, not a model, and image-mode texture text cannot repair geometry. Do not apply panda masks, bones or coat directions to a different subject.
 
+For optional short-pile lighting detail, read [adaptive undercoat](../../docs/adaptive-undercoat.md). Its measured UV routing preserves color coordinates; normal textures and exported tangent frames must share the current saved bake policy. Rebuild both after a policy change, preserve raw exports, and never treat this technical component as dense fur, geometry repair, Muse parity or Weft compatibility. Native and independently loaded appearance still require review; the tested panda component is not promoted.
+
 ## Authorized neural generation
 
 Read [Meshy workflow](../../docs/meshy-workflow.md) when the user wants automatic text/reference-to-3D and has authorized their designated Meshy key. Do not ask them to operate the platform instead of completing the work. Never use the unrelated Meta key/ledger, create accounts, buy credits or expand the credit ceiling automatically.

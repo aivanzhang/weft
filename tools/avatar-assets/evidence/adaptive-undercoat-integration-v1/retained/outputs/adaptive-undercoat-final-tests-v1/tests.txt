@@ -1,0 +1,25 @@
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "pipeline", "status": "cancelled"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "fixture", "status": "checked"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "reused_generated_source"}
+{"stage": "pipeline", "status": "planned"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "unsupported"}
+{"stage": "planner", "status": "unsupported"}
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/lib/python3.14/site-packages/PIL/Image.py:3593: DecompressionBombWarning: Image size (16781312 pixels) exceeds limit of 16777216 pixels, could be decompression bomb DOS attack.
+  warnings.warn(
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/lib/python3.14/site-packages/PIL/Image.py:3593: DecompressionBombWarning: Image size (16785409 pixels) exceeds limit of 16777216 pixels, could be decompression bomb DOS attack.
+  warnings.warn(
+----------------------------------------------------------------------
+Ran 678 tests in 17.163s
+
+OK
+HD_SURFACE_MEASUREMENTS=[{"elapsed_seconds": 0.050514, "incremental_peak_rss_bytes": 47464448, "normal_detail_residual_from_512": 0.005690624471753836, "pattern": "brushed", "peak_rss_bytes": 83738624, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.20142, "incremental_peak_rss_bytes": 166412288, "normal_detail_residual_from_512": 0.011063765734434128, "pattern": "brushed", "peak_rss_bytes": 202735616, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.084638, "incremental_peak_rss_bytes": 51658752, "normal_detail_residual_from_512": 0.04252931848168373, "pattern": "fur", "peak_rss_bytes": 87965696, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.340216, "incremental_peak_rss_bytes": 181190656, "normal_detail_residual_from_512": 0.0704735517501831, "pattern": "fur", "peak_rss_bytes": 217464832, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.077527, "incremental_peak_rss_bytes": 49561600, "normal_detail_residual_from_512": 0.0016504161758348346, "pattern": "iris", "peak_rss_bytes": 85835776, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.315573, "incremental_peak_rss_bytes": 177913856, "normal_detail_residual_from_512": 0.0023371647112071514, "pattern": "iris", "peak_rss_bytes": 214269952, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.198985, "incremental_peak_rss_bytes": 58851328, "normal_detail_residual_from_512": 0.00608360581099987, "pattern": "scales", "peak_rss_bytes": 95158272, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.787951, "incremental_peak_rss_bytes": 183074816, "normal_detail_residual_from_512": 0.010090735740959644, "pattern": "scales", "peak_rss_bytes": 219414528, "resolution": 2048, "returned_array_bytes": 134217728}]

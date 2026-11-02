@@ -1,0 +1,112 @@
+{
+  "adapter_sha256": "c46540e5b8667c18608ba4fdbeb972c1e9517ff841fb2b448b5bb0a02b7c210c",
+  "ai_calls": 0,
+  "blender_executable": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_executable_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "checks": [
+    "original positions, UV0, material graphs and source pixels preserved",
+    "original active and render UV flags preserved",
+    "true UV overlap routes only affected region to UV1",
+    "healthy region normalTexture remains UV0",
+    "excluded triangle keeps original material",
+    "PNG normal/basecolor pixels survive standard glTF export",
+    "exported tangent directions and both handedness signs match selected UV derivatives",
+    "UV1 basis differs from UV0 by more than 15 degrees",
+    "preexistingUV1 and conflicting attribute reject before mutation"
+  ],
+  "complete_pack_accepted": false,
+  "expected_outputs": [
+    "model.glb",
+    "source.blend",
+    "textures/original-basecolor.png",
+    "textures/authored-short-pile-normal-material-00.png",
+    "textures/authored-short-pile-normal-material-01.png",
+    "native-fixture.json",
+    "host-verification.json"
+  ],
+  "frozen_files": [
+    {
+      "bytes": 10695,
+      "path": "build_fixture.py",
+      "sha256": "148114b0a3566abfbf82e47ea78898bb3fa48b10431542f28e0cb4386ed43adc"
+    },
+    {
+      "bytes": 3591,
+      "path": "execute_prepared.py",
+      "sha256": "b560977b67baf40978808742215922739fd610ced1d121c5b70042367099a3f4"
+    },
+    {
+      "bytes": 3956,
+      "path": "fixture.json",
+      "sha256": "3c3ec5b43ba45556461822256ca177a0cc05e8e13a35ccd14114a25be796dc80"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 36250,
+      "path": "sources/native/blender_fur_undercoat.py",
+      "sha256": "c46540e5b8667c18608ba4fdbeb972c1e9517ff841fb2b448b5bb0a02b7c210c"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/native/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 14546,
+      "path": "sources/native/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "bytes": 9973,
+      "path": "verify_fixture.py",
+      "sha256": "e8d89e1d554783e6a9098e32da25e5290664d2eb0aec9da0cfe88c4e236d88e8"
+    }
+  ],
+  "limits": {
+    "aggregate_wall_seconds": 120,
+    "child_rss_mib": 1024,
+    "host_threads": 1,
+    "native_cpu_threads": 4,
+    "output_mib": 128
+  },
+  "model_calls": 0,
+  "native_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v1/build_fixture.py"
+  ],
+  "native_jobs_started": 0,
+  "new_paid_cost_usd": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "recorded_local_time": "2026-11-01 16:22:46 PST",
+  "schema_version": 1,
+  "scope": "Analytic adapter/export fixture only; no hair, rendering, animation or generated-avatar claim.",
+  "status": "prepared_not_executed"
+}

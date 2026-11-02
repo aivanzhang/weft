@@ -1,0 +1,87 @@
+{
+  "all_embedded_texture_bytes_exact": true,
+  "all_nonselected_accessor_data_exact": true,
+  "changed_bytes": 11250,
+  "images": [
+    {
+      "bytes": 12953242,
+      "image": 0,
+      "mime_type": "image/png",
+      "sha256": "f180b04cbe0b2ca9b38c27cbe6beb81184609e8104267ee3c960041a26646878"
+    },
+    {
+      "bytes": 8958941,
+      "image": 1,
+      "mime_type": "image/jpeg",
+      "sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d"
+    },
+    {
+      "bytes": 1671094,
+      "image": 2,
+      "mime_type": "image/jpeg",
+      "sha256": "584da6f768206620a99c333e612d5353f4cba1ae18358c931dabd9de9ac8b415"
+    },
+    {
+      "bytes": 2897299,
+      "image": 3,
+      "mime_type": "image/png",
+      "sha256": "0f33f9671b450c7fe80358a82ad010cd27293470f46b908642df0390d4b4fc49"
+    },
+    {
+      "bytes": 191869,
+      "image": 4,
+      "mime_type": "image/png",
+      "sha256": "216d1b75b2af72607619daaf989b75e81023aaf1271b10509bd5a4a4e2cde4b5"
+    },
+    {
+      "bytes": 262894,
+      "image": 5,
+      "mime_type": "image/png",
+      "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+    },
+    {
+      "bytes": 262894,
+      "image": 6,
+      "mime_type": "image/png",
+      "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+    }
+  ],
+  "json_bytes_exact": true,
+  "model_bytes_each": 33519456,
+  "new_bake_bindings": [
+    {
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "embedded_image": 3,
+      "material": "body_surface__short_pile_adaptive_v1",
+      "normal_texcoord": 0,
+      "rgba_sha256": "ea70c6079ddc670a374aca98092bb3e45364095f481c41de5c4f79def93ccb06",
+      "saved_png_sha256": "0f33f9671b450c7fe80358a82ad010cd27293470f46b908642df0390d4b4fc49"
+    },
+    {
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "embedded_image": 4,
+      "material": "body_cap__short_pile_adaptive_v1",
+      "normal_texcoord": 1,
+      "rgba_sha256": "8b0b697c2db6c3b834249a9b0e03b908a4dd0fef13d869d9f0d0de0772df8bfc",
+      "saved_png_sha256": "216d1b75b2af72607619daaf989b75e81023aaf1271b10509bd5a4a4e2cde4b5"
+    }
+  ],
+  "tangent_storage_ranges": [
+    {
+      "absolute_end": 30767972,
+      "absolute_start": 30750308,
+      "accessor": 52,
+      "changed_bytes": 11250,
+      "corrected_sha256": "47177aebb842ed3d4395a23dc6c1bbbbca20fdd0fb668a781d5c97522ddf128d",
+      "permitted_bytes": 17664,
+      "raw_sha256": "5d8bb86f4ac8ec1f241219c8212a4dc56d7307871197e02e69e626dc43cf758a"
+    }
+  ],
+  "unchanged_bytes": 33508206
+}

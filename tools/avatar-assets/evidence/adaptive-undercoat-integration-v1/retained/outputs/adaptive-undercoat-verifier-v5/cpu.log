@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-verifier-v5/postprocess.py", line 104, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-verifier-v5/postprocess.py", line 75, in main
+    require(raw['normal_quantization']['exact_installed_exporter_transform_matched_all_corners'],
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'Exact installed-exporter quantization does not explain all normals; do not correct the model')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-verifier-v5/sources/host/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: Exact installed-exporter quantization does not explain all normals; do not correct the model

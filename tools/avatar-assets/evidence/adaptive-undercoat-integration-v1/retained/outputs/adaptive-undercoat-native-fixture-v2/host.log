@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v2/verify_fixture.py", line 158, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v2/verify_fixture.py", line 127, in main
+    require(dot > .99999 and abs(tangent_data[index, 3]-sign) < 1e-6,
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "Exporter tangent direction/handedness does not match selected normal UV derivatives")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/adaptive-undercoat-native-fixture-v2/sources/host/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: Exporter tangent direction/handedness does not match selected normal UV derivatives

@@ -1,0 +1,119 @@
+{
+  "artifacts": [
+    {
+      "bytes": 243,
+      "path": "cpu-handle.json",
+      "sha256": "a62ddc98cfab73feb5eeafed74b23788feb12e55a668c45922a5312f1eb51f08"
+    },
+    {
+      "bytes": 1069,
+      "path": "cpu-job.json",
+      "sha256": "f5ddeb85dfb2631d971fac552fd23b91691280de985501ce827ad108f12a0f8e"
+    },
+    {
+      "bytes": 981,
+      "path": "cpu-monitor.json",
+      "sha256": "b1db671c508932b57cec68e2d9134362f72de0e58d796cf02424babe3c1c8c6d"
+    },
+    {
+      "bytes": 104,
+      "path": "cpu.log",
+      "sha256": "c2bc3c4e0cc7ad802a4e0c860574293ae871e0fb545721d024300e39aa549016"
+    },
+    {
+      "bytes": 11736,
+      "path": "diagnose.py",
+      "sha256": "163abd225bbab5a9b7ab83f971861091b70d608544c956f51b7f00a6ec15d430"
+    },
+    {
+      "bytes": 31217,
+      "path": "diagnosis.json",
+      "sha256": "5fa3f9309d90d47a71d66fee77f51a91b7e27c05d2373e9dfd8624627c3277e5"
+    },
+    {
+      "bytes": 1539,
+      "path": "execute_cpu.py",
+      "sha256": "590eaa9ca7cd9fbee959a62bdb0a01ce859f3dde32dd6a4962ddb9fd18a3ad44"
+    },
+    {
+      "bytes": 292,
+      "path": "execution-started.json",
+      "sha256": "ae69d747839868634555f9a5ab810f61e4c673c3176bcb86e84db93d9b6ebac4"
+    },
+    {
+      "bytes": 3055,
+      "path": "prepared.json",
+      "sha256": "c4e43ee66a4ef9d53bd4b337036c668d29d51f2a1e7ed87af8db97ff22b403a5"
+    },
+    {
+      "bytes": 12364,
+      "path": "source-inventory.json",
+      "sha256": "f9e81e682c332367499802f9d1d038b33722dc9b5dc042f659607eaf97e93ef7"
+    },
+    {
+      "bytes": 39741,
+      "path": "source-snapshot/finish-config.json",
+      "sha256": "aa2abcb341cceb48f81bbc095ae64d637662666798f164a92eec0c851e703a54"
+    },
+    {
+      "bytes": 48258,
+      "path": "source-snapshot/finish-report.json",
+      "sha256": "2c6f6952402770f77a83c82ddf45de5bee70f8d591bcce889211f19645a22b0d"
+    },
+    {
+      "bytes": 1552,
+      "path": "source-snapshot/job.json",
+      "sha256": "97cab63b89c3620ea1bbab940bcdce54960239257fe7af003cdcb7654dc36e7a"
+    },
+    {
+      "bytes": 12359,
+      "path": "source-snapshot/manifest.json",
+      "sha256": "c56cce611fd388750950738b8108b00acc9ccb55b74bda89315fba711ed9add0"
+    },
+    {
+      "bytes": 36754,
+      "path": "source-snapshot/sources/blender_fur_undercoat.py",
+      "sha256": "8e772b23cee3f4e5bd137ae0183da31fe7c478654c0bd2db9ade6620ea961fb3"
+    },
+    {
+      "bytes": 11562,
+      "path": "source-snapshot/sources/generated_tangents.py",
+      "sha256": "6957f072751af86c89dea86b3e4a269a23a4801f445b571cf4dc9aa257124b73"
+    },
+    {
+      "bytes": 14546,
+      "path": "source-snapshot/sources/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 20928,
+      "path": "uv1-region-0.npz",
+      "sha256": "d6f82d3ae37ef6ec0df8736f75e3f6a7302b5bdc1b0957432dfaa3e3bcc8a184"
+    }
+  ],
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "diagnosis_complete_no_repair"
+}
