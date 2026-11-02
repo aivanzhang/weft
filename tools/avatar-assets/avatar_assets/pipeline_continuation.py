@@ -1,8 +1,9 @@
-"""Immutable native-failure continuation; no model call, recipe edit or budget mutation."""
+"""Immutable evidence-bound continuation; no model call, recipe edit or budget mutation."""
 from contextlib import ExitStack, closing
 import fcntl
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import sqlite3
@@ -12,8 +13,8 @@ import time
 from avatar_assets.safety import local_file, read_json, require, sha256, write_json
 
 POLICY='terminal-native-repair-continuation-v1'
-MAX_FILES=512
-MAX_BYTES=256*1024**2
+MAX_FILES=1024
+MAX_BYTES=512*1024**2
 INTENT=('prompt','style','states','custom_actions','preset','media_spec')
 
 
@@ -30,7 +31,7 @@ def _inventory(parent):
                 require(stat.S_ISREG(info.st_mode),'Unsupported continuation parent entry')
                 total+=info.st_size
                 require(len(files)<MAX_FILES and total<=MAX_BYTES and info.st_size<=64*1024**2,
-                        'Continuation parent exceeds512 files/256MiB/64MiB per file')
+                        'Continuation parent exceeds1024 files/512MiB/64MiB per file')
                 digest=hashlib.sha256();read=0
                 with path.open('rb') as stream:
                     while True:
@@ -91,7 +92,7 @@ def _ledger(root,parent,request,*,successor=None):
 
 def _role(parent,role,row,settings):
     from avatar_assets.agent_runner import _call_artifacts,_validate
-    from avatar_assets.openai_runner import digest,_decode
+    from avatar_assets.openai_runner import digest,_decode,response_answer_text
     folder=parent/'agents'/role
     receipt=read_json(folder/'receipt.json');request=read_json(folder/'request.json')
     answer=read_json(folder/'answer.json');schema=read_json(folder/'schema.json')
@@ -109,10 +110,8 @@ def _role(parent,role,row,settings):
     require(response.get('id')==row['response_id'] and response.get('status')=='completed'
             and response.get('model')==settings['model'] and response.get('usage')==receipt['usage'],
             'Continuation provider response differs')
-    output=response.get('output')
-    require(isinstance(output,list) and len(output)==1 and output[0].get('type')=='message'
-            and len(output[0].get('content',[]))==1 and output[0]['content'][0].get('type')=='output_text'
-            and _decode(output[0]['content'][0]['text'].encode())==answer,'Continuation answer differs from provider text')
+    require(_decode(response_answer_text(response,reasoning_effort=settings.get('reasoning',{}).get('effort','none')).encode())==answer,
+            'Continuation answer differs from provider text')
     _validate(answer,schema)
     return answer
 
@@ -140,15 +139,334 @@ def _read_context(child,request):
             and receipt.get('schema_version')==1 and 1<=receipt.get('depth',0)<=8,'Continuation receipt changed')
     context=read_json(child/'continuation/context.json')
     require(receipt['context_sha256']==sha256(child/'continuation/context.json')
-            and set(context)=={'plan','previous_answer','findings'},'Continuation context changed')
+            and set(context) in ({'plan','previous_answer','findings'}, {'plan','previous_answer','findings','replan'}),
+            'Continuation context changed')
+    if 'replan' in context:
+        require(isinstance(context['replan'],dict) and set(context['replan'])=={'validation_failure','previous_plan'}
+                and context['replan']['previous_plan']==context['plan']
+                and isinstance(context['replan']['validation_failure'],str)
+                and 0<len(context['replan']['validation_failure'])<=4000,'Invalid continuation replan evidence')
     return receipt,context
 
 
+def _sealed_folder(parent,folder,inventory):
+    prefix=str(folder.relative_to(parent))+'/'
+    rows=[{**row,'path':row['path'][len(prefix):]} for row in inventory
+          if row['path'].startswith(prefix) and row['path']!=prefix+'manifest.json']
+    manifest=read_json(folder/'manifest.json')
+    require(manifest.get('artifacts')==rows,'Continuation measured pack custody changed')
+    return manifest
+
+
+def _portable_geometry_facts(parent,pack,manifest,pinned,config,attempt):
+    """Summarize sealed authored coat geometry, not measured spacing or visual quality."""
+    report_path=f'{pack.name}/finish-report.json';config_path=f'finish-{attempt}.json'
+    config_pin=pinned[config_path]
+    require(config_pin['sha256']==pinned[f'{pack.name}/sources/finish-design.json']['sha256'],
+            'Historical geometry config differs from model snapshot')
+    facts={'status':'unavailable','scope':'Historical authored coat geometry; not current acceptance or measured root spacing.',
+           'finish_config_reference':config_pin,'bands':[]}
+    def number(value,label):
+        require(type(value) in (int,float) and math.isfinite(value),'Invalid historical '+label)
+        return value
+    groom=config.get('groom') or {}
+    if 'comb' in groom:facts['groom_comb']=number(groom['comb'],'groom comb')
+    regions=(config.get('groom_flow') or {}).get('regions',[])
+    require(isinstance(regions,list) and len(regions)<=12,'Historical groom flow exceeds12 regions')
+    facts['groom_flow_regions']=[]
+    for index,region in enumerate(regions):
+        row={'index':index}
+        if 'name' in region:
+            require(isinstance(region['name'],str) and len(region['name'])<=128,'Invalid historical flow name')
+            row['name']=region['name']
+        for key in ('comb','length_scale'):
+            if key in region:row[key]=number(region[key],'flow '+key)
+        if 'direction' in region:
+            require(isinstance(region['direction'],list) and len(region['direction'])==3,'Invalid historical flow direction')
+            row['direction']=[number(x,'flow direction') for x in region['direction']]
+        facts['groom_flow_regions'].append(row)
+    if report_path not in pinned:
+        facts['reason']='No preserved finish report';return facts
+    pin=pinned[report_path]
+    require({**pin,'path':'finish-report.json'} in manifest['artifacts'],'Historical coat report is not model-manifest bound')
+    report=read_json(parent/report_path)
+    require(report.get('source_sha256')==config['source_sha256'],'Historical coat report source differs')
+    facts['report_reference']=pin
+    bands=report.get('portable_fur')
+    if bands is None or bands==[]:
+        facts['reason']='No portable fur geometry facts in preserved report';return facts
+    require(isinstance(bands,list) and len(bands)<=4,'Historical portable geometry exceeds4 bands')
+    for index,band in enumerate(bands):
+        root=band.get('root_summary') or {};row={'index':index,'missing_fields':[]}
+        values={'cards':band.get('cards'),'roots':root.get('roots'),'eligible_area_m2':root.get('eligible_area_m2'),
+                'length_range_m':root.get('length_range_m'),'width_range_m':root.get('width_range_m')}
+        for key,value in values.items():
+            if value is None:row['missing_fields'].append(key);continue
+            if key in ('cards','roots'):
+                require(type(value) is int and 0<=value<=1000000,'Invalid historical coat count')
+            elif key.endswith('_range_m'):
+                require(isinstance(value,list) and len(value)==2 and 0<=number(value[0],key)<=number(value[1],key),
+                        'Invalid historical coat dimensions')
+            else:require(number(value,key)>0,'Invalid historical coat area')
+            row[key]=value
+        if row.get('roots',0)>0 and 'eligible_area_m2' in row:
+            row['roots_per_m2']=row['roots']/row['eligible_area_m2']
+            row['nominal_sqrt_area_per_root_m']=math.sqrt(row['eligible_area_m2']/row['roots'])
+            require(math.isfinite(row['roots_per_m2']),'Historical coat density is nonfinite')
+            row['derived_scope']='Density = roots/eligible area; nominal sqrt(area/roots) is not measured spacing or coverage.'
+        row['status']='available' if not row['missing_fields'] else 'unavailable'
+        facts['bands'].append(row)
+    facts['status']='available' if all(row['status']=='available' for row in facts['bands']) else 'partial'
+    return facts
+
+
+def _historical_visual_reviews(parent,request,plan,answers,inventory,before_attempt):
+    """Carry paid visual repair targets without applying an older verdict to a newer recipe."""
+    from avatar_assets.pipeline_prompts import validate_review
+    pinned={row['path']:row for row in inventory};reviews=[]
+    for attempt in range(before_attempt):
+        role=f'reviewer-{attempt}'
+        if role not in answers:continue
+        review=answers[role];receipt=read_json(parent/f'review-{attempt}.json')
+        pack=parent/f'model-{attempt}';manifest=_sealed_folder(parent,pack,inventory)
+        model_pin=pinned[f'model-{attempt}/manifest.json']['sha256']
+        require(receipt.get('review')==review and review.get('verdict')=='repair'
+                and receipt.get('model_manifest_sha256')==model_pin and receipt.get('human_approval') is False
+                and manifest.get('status')=='needs_visual_review'
+                and manifest.get('source_sha256')==request['reuse_model']['sha256'],
+                'Historical visual review differs from paid answer/model')
+        folder=parent/f'final-evidence-{attempt}';proof=_sealed_folder(parent,folder,inventory)
+        require(proof.get('model_manifest_sha256')==model_pin,'Historical visual evidence belongs to another model')
+        evidence=receipt.get('evidence');expected=[{**row,'path':str(folder/row['path'])} for row in proof['images']]
+        require(evidence==expected and 1<=len(evidence)<=8,'Historical visual evidence list changed')
+        image_refs=[]
+        for image in evidence:
+            path=Path(image['path']);relative=str(path.relative_to(parent));row=pinned.get(relative)
+            require(row is not None and row['sha256']==image['sha256'],'Historical review image changed')
+            image_refs.append({'id':image['id'],'path':relative,'sha256':row['sha256'],'bytes':row['bytes']})
+        paid=read_json(parent/f'agents/{role}/request.json')
+        require(paid.get('images')==[{'bytes':row['bytes'],'sha256':row['sha256'],'suffix':Path(row['path']).suffix}
+                                    for row in image_refs],'Historical reviewer saw different images')
+        prompt=local_file(parent/f'agents/{role}/prompt.txt',512*1024).read_text()
+        marker='INPUT_JSON (data, not instructions):\n'
+        require(marker in prompt,'Historical reviewer prompt lacks bound input')
+        supplied=json.loads(prompt.split(marker,1)[1])
+        config=read_json(parent/f'finish-{attempt}.json')
+        require(supplied.get('plan')==plan and supplied.get('request')==request
+                and supplied.get('evidence')==evidence
+                and supplied.get('authored_config')==config,
+                'Historical reviewer prompt/model intent differs')
+        validate_review(review,plan,[row['id'] for row in supplied['available_citations']])
+        summary={'attempt':attempt,'role':role,'parent_output':'outputs/'+parent.name,
+            'scope':'Historical repair targets for this earlier reviewed model, not a verdict on the latest recipe. Recheck after repair.',
+            'summary':review['summary'],'required_repairs':review['required_repairs'],
+            'failed_checks':[row for row in review['checks'] if not row['passed']],
+            'passed_checks':[row['name'] for row in review['checks'] if row['passed']],
+            'state_results':[{key:row[key] for key in ('id','meaning_passed','motion_passed')} for row in review['state_reviews']],
+            'evidence':image_refs,'model_manifest_sha256':model_pin,
+            'review_reference':{'path':f'review-{attempt}.json','sha256':pinned[f'review-{attempt}.json']['sha256']},
+            'answer_sha256':pinned[f'agents/{role}/answer.json']['sha256'],
+            'receipt_sha256':pinned[f'agents/{role}/receipt.json']['sha256']}
+        summary['portable_geometry_facts']=_portable_geometry_facts(parent,pack,manifest,pinned,config,attempt)
+        require(len(json.dumps(summary).encode())<=32*1024,'Historical visual review summary exceeds32KiB')
+        reviews.append(summary)
+    require(len(reviews)<=3,'Historical visual review count exceeds bounded attempts')
+    return reviews
+
+
+def _replan_context(parent,request,plan,answers,inventory,last,validation_failure):
+    """Keep a built design only when its failed audit and later local rejections are bound."""
+    from avatar_assets.pipeline_prompts import _author_design,finish_config,extract_action_bindings
+    from avatar_assets.author_geometry import author_diagnostics
+    pinned={row['path']:row for row in inventory}
+    built=[attempt for attempt in range(last+1) if (parent/f'model-{attempt}/manifest.json').exists()]
+    require(built and not any(role.startswith('reviewer-') for role in answers),
+            'Semantic replan requires built action evidence without a reviewer verdict')
+    attempt=max(built);pack=parent/f'model-{attempt}'
+    manifest=_sealed_folder(parent,pack,inventory)
+    source=request['reuse_model'];inspection=read_json(parent/'inspection/manifest.json');native=inspection['native']
+    require(manifest.get('status')=='needs_visual_review' and manifest.get('source_sha256')==source['sha256']
+            and inspection.get('source_glb_sha256')==source['sha256'], 'Replan model source/status differs')
+    quality=read_json(parent/'quality-policy.json')
+    parents={bone['name']:bone['parent'] for rig in native.get('rigs',[]) for bone in rig['bones']}
+    def recipe(answer,index):
+        return finish_config(answer,request,plan,{'path':str(parent/source['path']),'sha256':source['sha256']},index,
+                             quality_policy=quality,bone_parents=parents)
+    def geometry(answer,index):
+        measured=author_diagnostics(_author_design(answer),parent/source['path'],source['sha256'],native)
+        require(measured==read_json(parent/f'author-geometry-{index}.json'),'Replan geometry evidence differs')
+        return measured
+    answer=answers[f'author-{attempt}'];config=recipe(answer,attempt)
+    require(answer.get('status')=='ready' and config==read_json(parent/f'finish-{attempt}.json')
+            and sha256(parent/f'finish-{attempt}.json')==sha256(pack/'sources/finish-design.json'),
+            'Replan built recipe differs from paid author')
+    measured=geometry(answer,attempt)
+    audit=parent/f'action-audit-{attempt}';audit_manifest=_sealed_folder(parent,audit,inventory)
+    report=read_json(audit/'report.json');intent=read_json(audit/'intent.json');model_hash=sha256(pack/'model.glb')
+    bindings=extract_action_bindings(answer,plan,report['actual_bone_parents'])
+    contract={'states':plan['states'],'action_bindings':bindings,'height_meters':plan['height_meters']}
+    contract_hash=hashlib.sha256(json.dumps(contract,sort_keys=True,ensure_ascii=False,allow_nan=False).encode()).hexdigest()
+    require(intent=={'schema_version':1,**contract,'source_sha256':model_hash}
+            and audit_manifest.get('status')=='measured' and audit_manifest.get('kind')=='weighted_action_audit'
+            and audit_manifest.get('model_sha256')==report.get('model_sha256')==model_hash
+            and report.get('passed') is False and report.get('source_unchanged') is True
+            and report.get('intent_sha256')==sha256(audit/'intent.json')
+            and report.get('input_contract_sha256')==contract_hash,
+            'Replan action audit differs from exact model/plan/author')
+    require([row.get('id') for row in report.get('states',[])]==[row['id'] for row in plan['states']]
+            and any(row.get('requirement_results',{}).get('passed') is False for row in report['states']),
+            'Replan action audit has no bound failed state')
+    for folder in (pack,audit):
+        job=read_json(folder/'job.json')
+        require(job.get('exit_code')==0 and not job.get('failure'),'Replan measured stage did not finish successfully')
+    implementations=report.get('implementation_sha256')
+    require(isinstance(implementations,dict) and set(implementations)=={'action_audit.py','action_intent.py','three_d.py'}
+            and all(pinned['sources/'+name]['sha256']==value for name,value in implementations.items())
+            and audit_manifest.get('implementation_sha256')==implementations['action_audit.py'],
+            'Replan action audit source snapshot differs')
+    events=[read_json(parent/row['path']) for row in inventory if row['path'].startswith('events/') and row['path'].endswith('.json')]
+    error='Requested action capability failed: '+json.dumps(report['states'])
+    require(any(event.get('stage')=='action_audit' and event.get('status')=='failed'
+                and event.get('attempt')==attempt and event.get('reason')==error[:4000] for event in events)
+            and any(event.get('stage')=='attempt' and event.get('status')=='rejected'
+                    and event.get('attempt')==attempt and event.get('reason')==error for event in events),
+            'Replan lacks exact failed action stage')
+    findings={'validation_failure':error,'measurements':{'action_audit':report,'author_geometry':measured},
+              'later_rejected_authors':[]}
+    latest=None
+    for index in range(attempt+1,last+1):
+        role=f'author-{index}';rejected=answers[role]
+        require(rejected.get('status')=='ready' and not (parent/f'model-{index}').exists()
+                and not (parent/f'finish-{index}.json').exists(),'Replan later author has unexplained build evidence')
+        measured=geometry(rejected,index)
+        try:
+            recipe(rejected,index)
+        except (ValueError,KeyError,TypeError) as exc:
+            failure=str(exc)
+        else:
+            require(measured.get('status')=='available' and measured.get('failures'),
+                    'Replan later author has no reproducible local rejection')
+            failure='Authored geometry preflight failed; inspect all measured layer and bone findings'
+        require(any(event.get('stage')=='author' and event.get('status')=='failed' and event.get('attempt')==index
+                    and event.get('reason')==failure for event in events),'Replan later author rejection differs')
+        findings['later_rejected_authors'].append({'role':role,'answer':rejected,'validation_failure':failure,
+            'answer_sha256':pinned[f'agents/{role}/answer.json']['sha256'],
+            'receipt_sha256':pinned[f'agents/{role}/receipt.json']['sha256']})
+        latest={'validation_failure':failure,'measurements':{'author_geometry':measured}}
+    require(latest is not None and read_json(parent/'unsupported.json').get('findings')==latest,
+            'Replan terminal does not match reproduced later rejection')
+    return {'plan':plan,'previous_answer':answer,'findings':findings,
+            'replan':{'validation_failure':validation_failure,'previous_plan':plan}}
+
+
+def _visual_terminal(parent,request,plan,answer,inventory,attempt,terminal,prior_context):
+    """Authenticate a completed review's inputs; never rerun rendering or numerical audits."""
+    from avatar_assets.pipeline import Pipeline,_remember_source_failures
+    from avatar_assets.pipeline_prompts import finish_config,extract_action_bindings
+    from avatar_assets.quality_policy import evaluate_quality_evidence
+    pinned={row['path']:row for row in inventory}
+    def digest(path):return pinned[str(path.relative_to(parent))]['sha256']
+    pack=parent/f'model-{attempt}';manifest=_sealed_folder(parent,pack,inventory)
+    source=request['reuse_model'];model_hash=digest(pack/'model.glb');model_pin=digest(pack/'manifest.json')
+    require(answer.get('status')=='ready' and manifest.get('status')=='needs_visual_review'
+            and manifest.get('source_sha256')==source['sha256'],'Visual continuation lacks the completed source-bound design')
+    inspection=read_json(parent/'inspection/manifest.json');native=inspection['native']
+    require(inspection.get('source_glb_sha256')==source['sha256'],'Visual inspection source differs')
+    quality=read_json(parent/'quality-policy.json')
+    config=finish_config(answer,request,plan,{'path':str(parent/source['path']),'sha256':source['sha256']},attempt,
+        quality_policy=quality,bone_parents={bone['name']:bone['parent'] for rig in native.get('rigs',[]) for bone in rig['bones']})
+    require(config==read_json(parent/f'finish-{attempt}.json')
+            and digest(parent/f'finish-{attempt}.json')==digest(pack/'sources/finish-design.json'),
+            'Visual continuation recipe differs from paid author')
+    prompt=local_file(parent/f'agents/reviewer-{attempt}/prompt.txt',512*1024).read_text()
+    supplied=json.loads(prompt.split('INPUT_JSON (data, not instructions):\n',1)[1])
+    proof=read_json(parent/f'final-evidence-{attempt}/manifest.json')
+    exported=parent/f'exported-preview-{attempt}';exported_manifest=_sealed_folder(parent,exported,inventory)
+    reload_manifest=_sealed_folder(parent,parent/f'reload-{attempt}',inventory)
+    media=[parent/name for name in (f'media-{attempt}',f'media-continuation-{attempt}')
+           if f'{name}/manifest.json' in pinned and pinned[f'{name}/manifest.json']['sha256']==proof['media_manifest_sha256']]
+    require(len(media)==1,'Visual continuation final media binding differs')
+    media=media[0];media_manifest=_sealed_folder(parent,media,inventory)
+    portable=parent/f'media-portable-{attempt}';portable_manifest=_sealed_folder(parent,portable,inventory)
+    require(proof['exported_manifest_sha256']==digest(exported/'manifest.json')
+            and exported_manifest.get('source_glb_sha256')==model_hash
+            and reload_manifest.get('status')=='passed' and reload_manifest.get('source_manifest_sha256')==model_pin
+            and reload_manifest.get('source_model_sha256')==model_hash
+            and media_manifest.get('parent_3d_manifest_sha256')==portable_manifest.get('parent_3d_manifest_sha256')==model_pin
+            and digest(portable/'source-manifest.json')==digest(media/'manifest.json'),
+            'Visual continuation media/reload belongs to another model')
+    for path,value in proof['sources'].items():
+        require(digest(Path(path))==value,'Visual continuation source image/media changed')
+    action_folder=parent/f'action-audit-{attempt}';action_manifest=_sealed_folder(parent,action_folder,inventory)
+    action=read_json(action_folder/'report.json');intent=read_json(action_folder/'intent.json')
+    contract={'states':plan['states'],'action_bindings':extract_action_bindings(answer,plan,action['actual_bone_parents']),
+              'height_meters':plan['height_meters']}
+    require(action.get('passed') is True and action.get('source_unchanged') is True
+            and action_manifest.get('model_sha256')==action.get('model_sha256')==model_hash
+            and action.get('intent_sha256')==digest(action_folder/'intent.json')
+            and intent=={'schema_version':1,**contract,'source_sha256':model_hash},
+            'Visual continuation action gate/model intent differs')
+    deformation=read_json(parent/f'deformation-gate-{attempt}.json');bindings=deformation['bindings']
+    expected={'source_sha256':source['sha256'],'design_sha256':digest(parent/f'finish-{attempt}.json'),
+              'manifest_sha256':model_pin,'exported_model_sha256':model_hash,
+              'finish_report_sha256':digest(pack/'finish-report.json'),'rig_verification_sha256':digest(pack/'rig-verification.json'),
+              'state_ids':[state['id'] for state in plan['states']]}
+    require(deformation.get('passed') is True and all(bindings.get(key)==value for key,value in expected.items()),
+            'Visual continuation deformation gate/model binding differs')
+    attachment_folder=parent/f'portable-root-audit-{attempt}'
+    attachment_manifest=_sealed_folder(parent,attachment_folder,inventory)
+    attachment=read_json(attachment_folder/'report.json');attachment_intent=read_json(attachment_folder/'intent.json')
+    expected_intent={'schema_version':1,'source_sha256':source['sha256'],'design_sha256':expected['design_sha256'],
+                     'model_sha256':model_hash,'state_ids':expected['state_ids']}
+    require(attachment.get('passed') is True and attachment.get('status') in ('measured','not_applicable')
+            and attachment.get('intent')==attachment_intent==expected_intent
+            and attachment_manifest.get('model_manifest_sha256')==model_pin
+            and attachment_manifest.get('model_sha256')==model_hash,
+            'Visual continuation portable attachment gate/model differs')
+    receipt=read_json(parent/f'portable-root-audit-{attempt}.json')
+    require(receipt=={'schema_version':1,'manifest_sha256':digest(attachment_folder/'manifest.json'),
+        'report_sha256':digest(attachment_folder/'report.json'),'job_sha256':digest(attachment_folder/'job.json'),
+        'intent_sha256':digest(attachment_folder/'intent.json'),'model_manifest_sha256':model_pin},
+        'Visual continuation attachment receipt changed')
+    for row in attachment['inputs']:
+        require(pinned.get(str((pack/row['path']).relative_to(parent)))=={**row,'path':str((pack/row['path']).relative_to(parent))},
+                'Visual continuation attachment input changed')
+    worker=Pipeline.__new__(Pipeline);worker.root=parent
+    summary=worker._attachment_summary(attempt,attachment)
+    review_receipt=read_json(parent/f'review-{attempt}.json')
+    require(review_receipt.get('portable_attachment_manifest_sha256')==digest(attachment_folder/'manifest.json'),
+            'Visual review attachment binding differs')
+    coverage=evaluate_quality_evidence(quality,proof['coverage'])
+    require(coverage['passed'],'Visual continuation has incomplete final review coverage')
+    expected_proofs={'rig':manifest['rig_verification'],'native_reload':'passed',
+        'attributes':read_json(pack/'render-attributes.json'),'action_audit':action,'deformation_gate':deformation,
+        'portable_attachment':summary,'quality_policy':quality,'quality_coverage':coverage,'delivered_media':portable_manifest['clips']}
+    require(supplied.get('independent_proofs')==expected_proofs,'Visual reviewer independent proofs differ from measured files')
+    contacts=read_json(parent/f'evidence-{attempt}/evidence.json')
+    require(contacts.get('finish_report_sha256')==expected['finish_report_sha256'],'Visual repair contacts belong to another model')
+    for row in contacts['images']:
+        require(pinned.get(f'evidence-{attempt}/'+row['path'])=={**row,'path':f'evidence-{attempt}/'+row['path']},
+                'Visual repair contact image changed')
+    findings={'review':review_receipt['review'],'measurements':worker._diagnostics(pack),
+              'repair_images':[str(parent/f'evidence-{attempt}'/row['path']) for row in contacts['images'][:5]]}
+    findings['measurements']['portable_attachment']=summary
+    memory=_remember_source_failures([],prior_context.get('findings'),source['sha256'])
+    for index in range(attempt+1):
+        earlier=parent/f'model-{index}'
+        if f'model-{index}/manifest.json' not in pinned:continue
+        if _sealed_folder(parent,earlier,inventory).get('status')=='failed':
+            memory=_remember_source_failures(memory,{'measurements':worker._diagnostics(earlier)},source['sha256'])
+    if memory:findings['known_source_failures']=memory
+    require(findings==terminal.get('findings'),'Visual continuation terminal findings differ from authenticated review')
+    return findings
+
+
 def collect(root,parent):
-    """Verify one terminal parent and capture its latest complete failed-native context."""
-    from avatar_assets.pipeline import Pipeline
+    """Capture a bound native failure, visual repair budget, or semantically invalid plan."""
+    from avatar_assets.pipeline import Pipeline,_remember_source_failures
     from avatar_assets.pipeline_prompts import validate_plan,_author_design,finish_config
     from avatar_assets.author_geometry import author_diagnostics
+    from avatar_assets.action_intent import PlanIntentError
     root=Path(root);parent=_parent(root,parent)
     with ExitStack() as stack:
         for name in ('pipeline.lock','agents/runner.lock'):
@@ -197,15 +515,27 @@ def collect(root,parent):
                 and settings.get('implementation_sha256')==pinned['sources/openai_runner.py']['sha256'],
                 'Continuation parent runner binding changed')
         answers={role:_role(parent,role,row,settings) for role,row in calls.items()}
-        plan=read_json(parent/'plan.json');validate_plan(plan,request)
-        depth=1
+        plan=read_json(parent/'plan.json');plan_failure=None
+        try:validate_plan(plan,request)
+        except PlanIntentError as error:
+            require(not rejected,'Semantic replan needs a terminal repair-budget result')
+            plan_failure=str(error)
+        depth=1;prior_context={}
         if 'continuation' in request:
             prior,prior_context=_read_context(parent,request)
-            require(prior_context['plan']==plan and 'planner' not in calls,'Continuation inherited plan changed')
+            if 'replan' in prior_context:
+                require(answers.get('planner')==plan,'Continuation revised plan differs from completed planner answer')
+            else:
+                require(prior_context['plan']==plan and 'planner' not in calls,'Continuation inherited plan changed')
             depth=prior['depth']+1
         else:
             require(answers.get('planner')==plan,'Continuation plan differs from completed planner answer')
         require(depth<=8,'Continuation chain reached its eight-job bound')
+        if plan_failure is not None:
+            context=_replan_context(parent,request,plan,answers,inventory,last,plan_failure)
+            require(_inventory(parent)==inventory,'Continuation parent changed during inspection')
+            return {'parent':str(parent.relative_to(root)),'parent_request':request,'inventory':inventory,
+                    'ledger':ledger,'depth':depth,'context':context}
         rejection=None
         if rejected:
             rejected_role=f'author-{last}';rejected_answer=answers[rejected_role]
@@ -215,6 +545,20 @@ def collect(root,parent):
                        'answer_sha256':pinned[f'agents/{rejected_role}/answer.json']['sha256'],
                        'receipt_sha256':pinned[f'agents/{rejected_role}/receipt.json']['sha256']}
         attempt=last-1 if rejected else last;role='author-'+str(attempt)
+        if not rejected and f'reviewer-{attempt}' in answers:
+            reviews=_historical_visual_reviews(parent,request,plan,answers,inventory,attempt+1)
+            findings=_visual_terminal(parent,request,plan,answers[role],inventory,attempt,terminal,prior_context)
+            inherited=prior_context.get('findings',{}).get('historical_visual_reviews',[])
+            require(isinstance(inherited,list) and len(inherited)<=8,'Invalid inherited visual review bound')
+            visual_reviews=list(inherited)
+            for review in reviews:
+                if review not in visual_reviews:visual_reviews.append(review)
+            require(len(visual_reviews)<=8 and len(json.dumps(visual_reviews).encode())<=64*1024,
+                    'Historical visual review memory exceeds bounded context')
+            findings['historical_visual_reviews']=visual_reviews
+            require(_inventory(parent)==inventory,'Continuation parent changed during inspection')
+            return {'parent':str(parent.relative_to(root)),'parent_request':request,'inventory':inventory,
+                    'ledger':ledger,'depth':depth,'context':{'plan':plan,'previous_answer':answers[role],'findings':findings}}
         require(role in answers and 'reviewer-'+str(attempt) not in answers,'Continuation requires the latest failed native author attempt')
         answer=answers[role]
         require(answer.get('status')=='ready','Continuation seed author did not complete a design')
@@ -239,11 +583,29 @@ def collect(root,parent):
         geometry=author_diagnostics(design,parent/source['path'],source['sha256'],native)
         require(geometry==read_json(parent/f'author-geometry-{attempt}.json'),'Continuation geometry diagnostics changed')
         findings['measurements']['author_geometry']=geometry
+        memory=_remember_source_failures([],prior_context.get('findings'),source['sha256'])
+        for index in range(attempt+1):
+            earlier=parent/f'model-{index}'
+            if not (earlier/'manifest.json').exists():continue
+            earlier_manifest=_sealed_folder(parent,earlier,inventory)
+            if earlier_manifest.get('status')=='failed':
+                diagnostic=findings['measurements'] if index==attempt else Pipeline.__new__(Pipeline)._diagnostics(earlier)
+                memory=_remember_source_failures(memory,{'measurements':diagnostic},source['sha256'])
         if rejected:
             # The refusal is evidence, not the seed: its null design must never replace the valid proposal.
             findings['author_rejection']=rejection
         else:
+            if 'known_source_failures' in terminal.get('findings',{}):findings['known_source_failures']=memory
             require(findings==terminal.get('findings'),'Continuation terminal findings differ from authenticated evidence')
+        if memory:findings['known_source_failures']=memory
+        inherited_reviews=prior_context.get('findings',{}).get('historical_visual_reviews',[])
+        require(isinstance(inherited_reviews,list) and len(inherited_reviews)<=8,'Invalid inherited visual review bound')
+        visual_reviews=list(inherited_reviews)
+        for review in _historical_visual_reviews(parent,request,plan,answers,inventory,attempt):
+            if review not in visual_reviews:visual_reviews.append(review)
+        require(len(visual_reviews)<=8 and len(json.dumps(visual_reviews).encode())<=64*1024,
+                'Historical visual review memory exceeds bounded context')
+        if visual_reviews:findings['historical_visual_reviews']=visual_reviews
         require(_inventory(parent)==inventory,'Continuation parent changed during inspection')
         return {'parent':str(parent.relative_to(root)),'parent_request':request,'inventory':inventory,
                 'ledger':ledger,'depth':depth,'context':{'plan':plan,'previous_answer':answer,'findings':findings}}
@@ -256,7 +618,8 @@ def save(child,request,captured):
     receipt={'schema_version':1,'policy':POLICY,'parent':captured['parent'],
              'parent_request_sha256':next(row['sha256'] for row in captured['inventory'] if row['path']=='request.json'),
              'inventory':captured['inventory'],'ledger':captured['ledger'],'depth':captured['depth'],
-             'context_sha256':sha256(folder/'context.json'),'new_planner_calls':0,'parent_mutated':False}
+             'context_sha256':sha256(folder/'context.json'),'new_planner_calls':int('replan' in captured['context']),
+             'parent_mutated':False}
     write_json(folder/'receipt.json',receipt)
     return {'schema_version':1,'policy':POLICY,'parent':captured['parent'],
             'receipt':'continuation/receipt.json','sha256':sha256(folder/'receipt.json')}

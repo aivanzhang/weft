@@ -1,0 +1,101 @@
+"""Analytic orchestration only: no provider, Blender, or generated asset claims."""
+from copy import deepcopy
+from pathlib import Path
+import tempfile
+import unittest
+from unittest.mock import Mock, patch
+
+import importlib.util
+_spec = importlib.util.spec_from_file_location('scratch_visual_memory_pipeline', Path(__file__).with_name('pipeline.py'))
+pipeline = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(pipeline)
+from avatar_assets.safety import read_json, write_json
+
+
+SOURCE = 'a'*64
+
+
+def diagnostic(index=0, source=SOURCE):
+    return {'native_failure': {'report': {'source_sha256': source,
+        'finish_config_sha256': f'{index:064x}', 'failure_type': 'ValueError',
+        'message': 'Analytic UV1 bound rejected the optional layer', 'message_truncated': False},
+        'receipt': {'path': 'native-failure.json', 'bytes': 900, 'sha256': 'b'*64},
+        'manifest_sha256': 'c'*64}}
+
+
+class VisualHistoryMemoryTests(unittest.TestCase):
+    def test_native_failure_survives_critic_overwrite_before_next_author(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);worker=pipeline.Pipeline.__new__(pipeline.Pipeline)
+            worker.root=root;worker.request={'max_repairs':2}
+            historical=[{'summary':'Analytic prior exported coat flecks', 'model_manifest_sha256':'f'*64}]
+            worker.continuation={'previous_answer':{'status':'ready'},'findings':{'historical_visual_reviews':deepcopy(historical)}}
+            original_continuation=deepcopy(worker.continuation)
+            worker.guard=Mock();worker.event=Mock();worker._fail_active_stage=Mock()
+            worker._plan=Mock(return_value={'status':'ready'})
+            worker._source=Mock(return_value={'path':'analytic.glb','sha256':SOURCE})
+            worker._author_preflight=Mock(return_value={'status':'not_applicable'})
+            worker._diagnostics=Mock(side_effect=lambda p:diagnostic() if p.name=='model-0' else {})
+            worker._deformation=Mock(return_value={});worker._portable_attachment=Mock(return_value={'status':'not_applicable','passed':True})
+            attachment={'evidence':{'manifest_sha256':'d'*64}}
+            worker._attachment_summary=Mock(return_value=attachment)
+            worker._action_audit=Mock(return_value={'passed':True,'states':[]})
+            worker._full_evidence=Mock(return_value=([],{}));worker._contacts=Mock(return_value=(None,[]))
+            worker._bind_review=Mock();worker.unsupported=Mock(return_value={'status':'unsupported'})
+            def pack(path,create):
+                if path.name=='inspection':return {'source_glb_sha256':SOURCE,'preflight':{},'native':{'rigs':[]}}
+                if path.name=='model-0':raise ValueError('Analytic native failure')
+                if path.name=='model-1':
+                    (path/'sources').mkdir(parents=True)
+                    (path/'sources/finish-design.json').write_bytes((root/'finish-1.json').read_bytes())
+                    write_json(path/'manifest.json',{'fixture':True})
+                    write_json(path/'finish-report.json',{'states':[]})
+                    write_json(path/'render-attributes.json',{})
+                    (path/'model.glb').write_bytes(b'Analytic fixture, not a renderable model')
+                    return {'source_sha256':SOURCE,'rig_verification':{}}
+                if path.name=='reload-1':return {'status':'passed','source_manifest_sha256':pipeline.sha256(root/'model-1/manifest.json')}
+                if path.name=='exported-preview-1':return {'source_glb_sha256':pipeline.sha256(root/'model-1/model.glb')}
+                raise AssertionError(path)
+            worker._pack=Mock(side_effect=pack)
+            portable=root/'portable';portable.mkdir();write_json(portable/'manifest.json',{'clips':[]})
+            worker._media=Mock(return_value=(root/'media',portable))
+            worker.agents=Mock();worker.agents.call.side_effect=[{'status':'ready'},{'status':'ready'},
+                {'verdict':'repair','summary':'Analytic portable flecks need adjustment'},
+                {'status':'unsupported','reason':'Analytic stop after checking repaired prompt'}]
+            with patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
+                 patch('avatar_assets.quality_policy.evaluate_quality_evidence',return_value={'passed':True,'missing':[]}), \
+                 patch('avatar_assets.pipeline_prompts.finish_config',return_value={'analytic':True}), \
+                 patch('avatar_assets.pipeline_prompts.author_schema',return_value={}), \
+                 patch('avatar_assets.pipeline_prompts.author_prompt',return_value='Analytic') as author_prompt, \
+                 patch('avatar_assets.pipeline_prompts.critic_prompt',return_value='Analytic'), \
+                 patch('avatar_assets.pipeline_prompts.critic_schema',return_value={}), \
+                 patch('avatar_assets.pipeline_prompts.validate_review'):
+                worker._run(False)
+            prompts=author_prompt.call_args_list
+            self.assertEqual(len(prompts),3)
+            after_native,after_critic=prompts[1].args[4],prompts[2].args[4]
+            self.assertEqual(after_native['known_source_failures'],after_critic['known_source_failures'])
+            self.assertIn('native_failure',after_native['measurements'])
+            self.assertIn('review',after_critic);self.assertIn('portable_attachment',after_critic['measurements'])
+            for call in prompts:
+                self.assertEqual(call.args[4]['historical_visual_reviews'],historical)
+            self.assertEqual(worker.continuation,original_continuation)
+            self.assertIsNot(prompts[0].args[4]['historical_visual_reviews'],prompts[1].args[4]['historical_visual_reviews'])
+            self.assertEqual(after_critic['review'],{'verdict':'repair','summary':'Analytic portable flecks need adjustment'})
+            self.assertEqual(len(after_critic['historical_visual_reviews']),1)
+            self.assertEqual(after_critic['known_source_failures'][0]['finish_config_sha256'],'0'*64)
+            self.assertEqual([call.args[0] for call in worker.agents.call.call_args_list],
+                             ['author-0','author-1','reviewer-1','author-2'])
+
+    def test_visual_history_is_bounded_and_copied_without_promoting_current_review(self):
+        findings={'historical_visual_reviews':[{'summary':'Prior'}], 'review':{'summary':'Current'}}
+        memory=pipeline._historical_visual_memory(findings)
+        self.assertEqual(memory,[{'summary':'Prior'}])
+        memory[0]['summary']='Changed scratch copy'
+        self.assertEqual(findings['historical_visual_reviews'],[{'summary':'Prior'}])
+        self.assertEqual(pipeline._historical_visual_memory({'review':{'summary':'Not historical'}}),[])
+        for reviews in ([{}]*9, [{'summary':'x'*(64*1024)}], {}):
+            with self.assertRaises(ValueError):pipeline._historical_visual_memory({'historical_visual_reviews':reviews})
+
+
+if __name__=='__main__':unittest.main()

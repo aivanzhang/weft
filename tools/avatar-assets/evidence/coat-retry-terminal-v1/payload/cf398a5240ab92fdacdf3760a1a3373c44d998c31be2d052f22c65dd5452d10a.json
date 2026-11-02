@@ -1,0 +1,545 @@
+{
+  "findings": {
+    "known_source_failures": [
+      {
+        "evidence": {
+          "manifest_sha256": "dd853a54e9c5133e7a85098fedc5a98617e12075ebcc4329d6f197468593770f",
+          "receipt": {
+            "bytes": 586,
+            "path": "native-failure.json",
+            "sha256": "79daa169cc5cf49f6967b206583514295882d729987f59f263c58d297fd42e45"
+          }
+        },
+        "failure_type": "ValueError",
+        "finish_config_sha256": "a4c1559c438b3523d11b7b1c8fcb8ed000fe6d897e2aefaf11af6abbb8653af3",
+        "message": "Aliased material exceeds2048face UV1 repair bound",
+        "message_truncated": false,
+        "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+      }
+    ],
+    "measurements": {
+      "portable_attachment": {
+        "evidence": {
+          "manifest_sha256": "24a13c53b07ddf2a0fc1b88e771e949a4c05c4e8ba97174c0979834266431de5",
+          "report": "portable-root-audit-2/report.json",
+          "sha256": "ac9d927ec283e9240b52b2d71f60983a0b0292266dc88f0531e643e2bb14f275"
+        },
+        "gates": {
+          "animated_attachment_m": 1e-05,
+          "authored_inset_m": 0.0005,
+          "named_weight": 1e-06,
+          "rest_midpoint_m": 1e-06
+        },
+        "metrics": {
+          "attachment_failures": 0,
+          "body_vertices": 26957,
+          "coat_vertices": 6120,
+          "exported_vertices": 37832,
+          "max_attachment_error_m": 5.355973042853179e-08,
+          "max_inset_m": 0.00030206364775546633,
+          "max_named_weight_error": 1.8849236393947422e-08,
+          "max_rest_midpoint_error_m": 5.3512124953414286e-08,
+          "named_weight_failures": 0,
+          "rest_midpoint_failures": 0,
+          "root_pose_checks": 98940,
+          "triangles": 40204,
+          "unique_attachment_failed_roots": 0
+        },
+        "passed": true,
+        "policy": "portable-fur-attachment-v1",
+        "reason": "Attachment measured against the final exported body",
+        "retained_witnesses": 0,
+        "roots": 1020,
+        "schema_version": 1,
+        "scope": "Portable root attachment only; not body-skin fidelity, density, appearance or physics.",
+        "states": [
+          {
+            "id": "dance",
+            "sample_count": 97
+          }
+        ],
+        "status": "measured",
+        "witnesses": []
+      },
+      "sampled_states": [
+        {
+          "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+          "deformation_outliers": [
+            {
+              "endpoint_indices": [
+                19381,
+                19388
+              ],
+              "endpoint_influences": [
+                {
+                  "chest": 0.21989330649375916,
+                  "hips": 0.1706571727991104,
+                  "spine": 0.37849879264831543,
+                  "tail": 0.2309507131576538
+                },
+                {
+                  "forearm_r": 0.25200480222702026,
+                  "hand_r": 0.21283796429634094,
+                  "spine": 0.33197855949401855,
+                  "upperarm_r": 0.20317867398262024
+                }
+              ],
+              "excess_length": 0.0936041090917184,
+              "posed_length": 0.10822112239828167,
+              "rest_length": 0.014617013306563276,
+              "rest_normalized_bounds": [
+                [
+                  0.7658103149025909,
+                  0.7968325392780793,
+                  0.3456825213934612
+                ],
+                [
+                  0.7779718837995758,
+                  0.7761544977167469,
+                  0.348435172201608
+                ]
+              ],
+              "second": 2.7000000000000006,
+              "stretch_ratio": 7.403778058386841
+            },
+            {
+              "endpoint_indices": [
+                20397,
+                20400
+              ],
+              "endpoint_influences": [
+                {
+                  "forearm_l": 0.2542077302932739,
+                  "hand_l": 0.2564616799354553,
+                  "spine": 0.227680966258049,
+                  "tail": 0.26164960861206055
+                },
+                {
+                  "hips": 0.20375938713550568,
+                  "spine": 0.26203176379203796,
+                  "tail": 0.3538462519645691,
+                  "thigh_l": 0.18036261200904846
+                }
+              ],
+              "excess_length": 0.08781402089639956,
+              "posed_length": 0.10374718136398249,
+              "rest_length": 0.01593316046758294,
+              "rest_normalized_bounds": [
+                [
+                  0.20641378269206936,
+                  0.7734530351675546,
+                  0.28142083164950216
+                ],
+                [
+                  0.2185344988141279,
+                  0.791925850790664,
+                  0.2733985072179598
+                ]
+              ],
+              "second": 2.0,
+              "stretch_ratio": 6.511400018537624
+            },
+            {
+              "endpoint_indices": [
+                20394,
+                20400
+              ],
+              "endpoint_influences": [
+                {
+                  "forearm_l": 0.27112799882888794,
+                  "hand_l": 0.2827252447605133,
+                  "tail": 0.22787635028362274,
+                  "thigh_l": 0.218270406126976
+                },
+                {
+                  "hips": 0.20375938713550568,
+                  "spine": 0.26203176379203796,
+                  "tail": 0.3538462519645691,
+                  "thigh_l": 0.18036261200904846
+                }
+              ],
+              "excess_length": 0.08659542262880052,
+              "posed_length": 0.1109330199489436,
+              "rest_length": 0.024337597320143078,
+              "rest_normalized_bounds": [
+                [
+                  0.1974798964054214,
+                  0.7585615453640354,
+                  0.2680867581348688
+                ],
+                [
+                  0.2185344988141279,
+                  0.791925850790664,
+                  0.2733985072179598
+                ]
+              ],
+              "second": 2.0,
+              "stretch_ratio": 4.558092505587213
+            },
+            {
+              "endpoint_indices": [
+                26375,
+                26378
+              ],
+              "endpoint_influences": [
+                {
+                  "forearm_l": 0.27112799882888794,
+                  "hand_l": 0.2827252447605133,
+                  "tail": 0.22787635028362274,
+                  "thigh_l": 0.218270406126976
+                },
+                {
+                  "hips": 0.20375938713550568,
+                  "spine": 0.26203176379203796,
+                  "tail": 0.3538462519645691,
+                  "thigh_l": 0.18036261200904846
+                }
+              ],
+              "excess_length": 0.08659542262880052,
+              "posed_length": 0.1109330199489436,
+              "rest_length": 0.024337597320143078,
+              "rest_normalized_bounds": [
+                [
+                  0.1974798964054214,
+                  0.7585615453640354,
+                  0.2680867581348688
+                ],
+                [
+                  0.2185344988141279,
+                  0.791925850790664,
+                  0.2733985072179598
+                ]
+              ],
+              "second": 2.0,
+              "stretch_ratio": 4.558092505587213
+            }
+          ],
+          "deformation_rest_sha256": "2094c1cf31da8a8edb64e7011074375b06acf264def34ceac4fa0a6413e5bd51",
+          "deformation_samples_measured": 7,
+          "duration_seconds": 4.0,
+          "frames": [
+            0.0,
+            15.600000000000001,
+            32.400000000000006,
+            48.0,
+            64.80000000000001,
+            80.4,
+            96.0
+          ],
+          "id": "dance",
+          "loop_verified": false,
+          "sampling_method": "authored_keyframes",
+          "seconds": [
+            0.0,
+            0.65,
+            1.35,
+            2.0,
+            2.7,
+            3.35,
+            4.0
+          ]
+        }
+      ],
+      "skin_motion": {
+        "animation_verified": true,
+        "animations": [
+          {
+            "loop": "not_claimed",
+            "max_sampled_displacement_m": 0.21421047073833416,
+            "motion_observed": true,
+            "name": "dance",
+            "sample_count": 33,
+            "sample_times_seconds": [
+              0.0,
+              0.02083333395421505,
+              0.25,
+              0.2708333283662796,
+              0.5,
+              0.5208333432674408,
+              0.75,
+              0.7708333432674408,
+              1.0,
+              1.0208333134651184,
+              1.25,
+              1.2708333134651184,
+              1.5,
+              1.5208333134651184,
+              1.75,
+              1.7708333134651184,
+              2.0,
+              2.020833373069763,
+              2.25,
+              2.270833373069763,
+              2.5,
+              2.520833373069763,
+              2.75,
+              2.770833373069763,
+              3.0,
+              3.020833373069763,
+              3.25,
+              3.270833373069763,
+              3.5,
+              3.520833373069763,
+              3.75,
+              3.770833373069763,
+              4.0
+            ]
+          }
+        ],
+        "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+        "probe_vertices": 128
+      },
+      "weight_coverage": {
+        "input_world_bounds": {
+          "max": [
+            0.5749289989471436,
+            0.4936639666557312,
+            0.9502120018005371
+          ],
+          "min": [
+            -0.5757449865341187,
+            -0.4917299747467041,
+            -0.9512320160865784
+          ]
+        },
+        "layers": [
+          {
+            "bones": [
+              "hips",
+              "spine",
+              "chest",
+              "neck",
+              "head",
+              "thigh_l",
+              "shin_l",
+              "foot_l",
+              "thigh_r",
+              "shin_r",
+              "foot_r",
+              "upperarm_l",
+              "forearm_l",
+              "hand_l",
+              "upperarm_r",
+              "forearm_r",
+              "hand_r",
+              "tail",
+              "ear_l",
+              "ear_r"
+            ],
+            "selected_vertices": 26957
+          },
+          {
+            "bones": [
+              "hips",
+              "spine",
+              "chest",
+              "neck",
+              "head",
+              "tail"
+            ],
+            "selected_vertices": 15176
+          },
+          {
+            "bones": [
+              "upperarm_l",
+              "forearm_l",
+              "hand_l"
+            ],
+            "selected_vertices": 3977
+          },
+          {
+            "bones": [
+              "upperarm_r",
+              "forearm_r",
+              "hand_r"
+            ],
+            "selected_vertices": 3790
+          },
+          {
+            "bones": [
+              "thigh_l",
+              "shin_l",
+              "foot_l"
+            ],
+            "selected_vertices": 2021
+          },
+          {
+            "bones": [
+              "thigh_r",
+              "shin_r",
+              "foot_r"
+            ],
+            "selected_vertices": 2187
+          },
+          {
+            "bones": [
+              "head",
+              "ear_l",
+              "ear_r"
+            ],
+            "selected_vertices": 6773
+          },
+          {
+            "bones": [
+              "tail"
+            ],
+            "selected_vertices": 1790
+          }
+        ],
+        "positive_vertices_per_bone": {
+          "chest": 12803,
+          "ear_l": 8075,
+          "ear_r": 7744,
+          "foot_l": 1917,
+          "foot_r": 2006,
+          "forearm_l": 3738,
+          "forearm_r": 3644,
+          "hand_l": 1801,
+          "hand_r": 1948,
+          "head": 12685,
+          "hips": 4309,
+          "neck": 14106,
+          "shin_l": 2168,
+          "shin_r": 2337,
+          "spine": 5601,
+          "tail": 3439,
+          "thigh_l": 3131,
+          "thigh_r": 3170,
+          "upperarm_l": 4457,
+          "upperarm_r": 4160
+        }
+      }
+    },
+    "repair_images": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-1f98497e18e74820bda487ce/evidence-2/states/dance.png"
+    ],
+    "review": {
+      "checks": [
+        {
+          "evidence_ids": [
+            "evidence-native-views",
+            "evidence-exported-views",
+            "evidence-delivered-portrait"
+          ],
+          "name": "identity",
+          "passed": true,
+          "reason": "The character remains a single cute upright panda-like figure with compact rounded proportions, ivory face and belly, black ears, black eye patches, black limbs, warm brown eyes, short muzzle, and small tail. No companion, clothes, props, pedestal, lettering, or scenery are visible."
+        },
+        {
+          "evidence_ids": [
+            "evidence-native-views",
+            "evidence-exported-views",
+            "evidence-delivered-portrait"
+          ],
+          "name": "appearance",
+          "passed": false,
+          "reason": "Core panda appearance is present, but the requested short soft tidy fur/clean smooth undercoat presentation is not preserved cleanly in exported and motion views. Visible gray mottling and patchy/sparse card-like coat breakup appear around the cheeks/neck and outer legs, with rough noisy patches on the exported body that read less like tidy short fur and more like unstable coat artifacts. This is a visible quality defect, not just a material variation."
+        },
+        {
+          "evidence_ids": [
+            "evidence-native-views",
+            "evidence-exported-views"
+          ],
+          "name": "framing",
+          "passed": true,
+          "reason": "Full body is visible in front, side, back, and three-quarter views in both native and exported evidence, including head, hands, feet, and tail."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance"
+          ],
+          "name": "deformation",
+          "passed": false,
+          "reason": "During dance poses, visible deformation/coat presentation breaks down around the cheek-neck junction and along the outer thighs/legs, especially in exported views. The isolated peak-stretch samples show conspicuous patchy tearing-like coat breakup and silhouette roughening rather than clean short-fur deformation."
+        }
+      ],
+      "limitations": [
+        "Motion contact, balance, collisions, and loop seamlessness are not established by the provided visual evidence.",
+        "Numeric audit supports that motion exists and returns to start, but does not by itself prove semantic quality or visual cleanliness."
+      ],
+      "required_repairs": [
+        "Repair exported and motion coat presentation around cheeks/neck and outer legs/thighs to remove patchy polygonal/card-like fur breakup and restore a tidy short-fur silhouette.",
+        "Clean deformation presentation in the dance pose so moving regions do not show conspicuous coat tearing/gaps or noisy mottled patches in either native or exported state evidence."
+      ],
+      "state_reviews": [
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "dance",
+          "meaning_passed": true,
+          "motion_passed": false,
+          "reason": "The visible action reads as a cheerful toy dance with alternating side-to-side beats, small hops, arm swings, head tilts, and a return to the starting pose, consistent with the request and supported by the numeric audit. However, the state does not pass overall because exported/native moving poses show conspicuous coat/deformation artifacts around the cheek-neck area and outer legs.",
+          "requirement_reviews": [
+            {
+              "evidence_ids": [
+                "evidence-motion-00",
+                "evidence-isolated-native-dance",
+                "evidence-isolated-exported-dance",
+                "action-audit-dance"
+              ],
+              "id": "body_rhythm",
+              "passed": true,
+              "reason": "The body visibly shifts side to side in alternating beats across the motion sheet, and the audit also reports rhythmic reversals."
+            },
+            {
+              "evidence_ids": [
+                "evidence-motion-00",
+                "evidence-isolated-native-dance",
+                "evidence-isolated-exported-dance",
+                "action-audit-dance"
+              ],
+              "id": "body_hops",
+              "passed": true,
+              "reason": "Small whole-body upward beats are visible in the motion samples, consistent with brief hops; the audit also measures vertical rise/travel."
+            },
+            {
+              "evidence_ids": [
+                "evidence-motion-00",
+                "evidence-isolated-native-dance",
+                "evidence-isolated-exported-dance",
+                "action-audit-dance"
+              ],
+              "id": "arms_swing",
+              "passed": true,
+              "reason": "Both arms visibly swing relative to the torso rather than only translating with the whole body, matching the requested gentle coordinated motion."
+            },
+            {
+              "evidence_ids": [
+                "evidence-motion-00",
+                "evidence-isolated-native-dance",
+                "evidence-isolated-exported-dance",
+                "action-audit-dance"
+              ],
+              "id": "head_tilts",
+              "passed": true,
+              "reason": "The head visibly tilts with the dance and changes relative to the torso, not merely by whole-character travel."
+            },
+            {
+              "evidence_ids": [
+                "evidence-motion-00",
+                "action-audit-dance"
+              ],
+              "id": "return_neutral",
+              "passed": true,
+              "reason": "The final pose visually returns to the starting neutral pose, and the audit reports endpoint return within tolerance."
+            }
+          ]
+        }
+      ],
+      "summary": "Requested panda identity and dance meaning are preserved, and framing coverage is sufficient, but the attempt should not be accepted because visible coat/deformation artifacts remain in motion and exported views. Patchy card-like/mottled fur breakup around the cheeks/neck and outer legs undermines the requested tidy short-fur presentation and clean deformation quality.",
+      "verdict": "repair"
+    }
+  },
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-1f98497e18e74820bda487ce",
+  "reason": "No accepted model within the bounded local repair attempts",
+  "request_sha256": "985f6e899ed5cbb1073bf252714c85fa3743f46411337e33dd24f8af585b236f",
+  "schema_version": 1,
+  "stage": "repair_budget",
+  "status": "unsupported"
+}

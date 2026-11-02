@@ -1,0 +1,514 @@
+{
+  "schema_version": 1,
+  "status": "failed",
+  "provenance": "actual_pipeline",
+  "recorded_local": "11/02/2026, 13:53:50 PST",
+  "timezone": "America/Los_Angeles",
+  "job_id": "b082dc54dbb54f9d9030f75b",
+  "explicit_start_requested": true,
+  "limits": {
+    "wall_seconds": 1800,
+    "operation_ms": 15000,
+    "sampled_browser_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "server_log_bytes": 1048576,
+    "json_bytes": 1048576,
+    "requests": 2056,
+    "snapshots": 128,
+    "events": 4096,
+    "event_bytes": 1048576
+  },
+  "scope": "Actual local HTML/HTTP/canonical job manager, UI progress and real delivered GLB/video/static assets. Geometry provenance is bound to the inspected job. This does not establish visual quality, physical action, seamless loops or sustained FPS.",
+  "sources": [
+    {
+      "path": "browser/tests/studio-live.mjs",
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "scripts/verify_studio_live.py",
+      "sha256": "b9a7d4259c51818dfad4eefb9dbc44d1d10e69e502fa827ec964a4bc6ce9a1f1"
+    },
+    {
+      "path": "browser/studio.html",
+      "sha256": "cc6d2ef78f748138c422d15ad01bdb013e2ef7dd8927c55550e9eb95cd988af1"
+    },
+    {
+      "path": "browser/studio.js",
+      "sha256": "71228c299a8d4a12813592b522eb18bb61469138d11d789577a8f7acadb29c66"
+    },
+    {
+      "path": "browser/studio.css",
+      "sha256": "7c14ae8ba8fc041dd404dfe5a4d0655f16522997b23d19281d769b01818e6a04"
+    },
+    {
+      "path": "avatar_assets/studio.py",
+      "sha256": "cf7ee42f824d3a736504059bc002b3f4f2857bad88dd5f6126c2b61c3814da7c"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "bfdee26fb3e7d9831ba1f049a2e43c13ada731228137991f352a28ae262b1a00"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "91d741d31debaaddb9ec2424fe7239d4988783b6e0e716231d722bc5ef677e02"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "437a81ee55e797861c811acc88ac9b58895fb64d6fc39b38fd55becc29652f95"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "6b03a5f444a01749d92869d2e5eca8b01d1aee9f7d29741f271cd577ce05e169"
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "37ebf5f3d2b68b22f34d691b1108da5833bbc6cc211c5dc141fb935a50e9c4c6"
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "job-000.json",
+      "status": "planned",
+      "observed_seconds": 1.436062375,
+      "elapsed_seconds_measured": 11.71,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 10.909
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-001.json",
+      "status": "launching",
+      "observed_seconds": 2.305840083,
+      "elapsed_seconds_measured": 0.01,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 10.909
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-002.json",
+      "status": "running",
+      "observed_seconds": 4.88716025,
+      "elapsed_seconds_measured": 2.59,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.002
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "running",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-003.json",
+      "status": "needs_inspection",
+      "observed_seconds": 7.453007458,
+      "elapsed_seconds_measured": 2.65,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.002
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "checkpointed_error",
+          "detail": "Agent input exceeds 160KiB",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.195
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "failed",
+          "detail": "Agent input exceeds 160KiB",
+          "attempt": 0,
+          "elapsed_seconds": 0.001
+        }
+      ],
+      "reviews": []
+    }
+  ],
+  "checks": [
+    "Saved OpenAI backend is pinned to 7 calls and 2 repairs; dollar authorization remains an action-time worker check",
+    "Real HTTP/UI preserve the saved exact prompt/style/actions and disclose source reuse, 0 estimated Meshy credits and unknown Meshy account dollar conversion",
+    "OpenAI dollar reservation is recorded separately from Meshy generation credits; this verifier creates no API allowance",
+    "One explicit UI Start sent the pinned plan_id with a session token; no plan/create/cancel/retry mutation"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "at_seconds": 0.740566083
+    },
+    {
+      "method": "GET",
+      "path": "/studio.css",
+      "at_seconds": 0.759886291
+    },
+    {
+      "method": "GET",
+      "path": "/studio.js",
+      "at_seconds": 0.762188375
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 0.76287375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/session",
+      "at_seconds": 0.775283375
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 0.7910104579999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 0.7913178750000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/b082dc54dbb54f9d9030f75b",
+      "at_seconds": 1.3768172909999998
+    },
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/b082dc54dbb54f9d9030f75b/start",
+      "at_seconds": 2.287381375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 2.3043183330000003
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/b082dc54dbb54f9d9030f75b",
+      "at_seconds": 2.3352417500000002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 4.844547458
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/b082dc54dbb54f9d9030f75b",
+      "at_seconds": 4.879661125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/b082dc54dbb54f9d9030f75b/files/0ae19c7ee4ba1d0b02c600a43dac6f53",
+      "at_seconds": 4.886272541
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 7.390903166
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/b082dc54dbb54f9d9030f75b",
+      "at_seconds": 7.446573750000001
+    }
+  ],
+  "errors": [],
+  "external_requests": [],
+  "request_failures": [],
+  "mutations": [
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/b082dc54dbb54f9d9030f75b/start",
+      "plan_id": "22a44720c3f0f0005a387fcd47f155baf2e28f181a8b838ad3e9ba45c15ddc54",
+      "csrf_present": true
+    }
+  ],
+  "assets": {},
+  "artifacts": [
+    {
+      "path": "source-test.mjs",
+      "bytes": 38951,
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "source-helper.py",
+      "bytes": 29503,
+      "sha256": "b9a7d4259c51818dfad4eefb9dbc44d1d10e69e502fa827ec964a4bc6ce9a1f1"
+    },
+    {
+      "path": "ownership-before.json",
+      "bytes": 3932,
+      "sha256": "dbec83c2ea1b1bee4b0b4094bcc2986e282410713a9512fd489c4b62991068d5"
+    },
+    {
+      "path": "job-000.json",
+      "bytes": 4368,
+      "sha256": "4d1433078b0d38366d740d8125cd079004570990c1329079440a6aa157d44fe0"
+    },
+    {
+      "path": "initial-job.png",
+      "bytes": 350234,
+      "sha256": "9942f9f47eab8ce9d9354579223e686b48afaa9ee1e1fed252c3c89a21932431"
+    },
+    {
+      "path": "job-001.json",
+      "bytes": 4373,
+      "sha256": "a65353fcfc263e87d8a62cce411ed9c469db718e1922f81ae93e67aeff62f98e"
+    },
+    {
+      "path": "progress-00.png",
+      "bytes": 355803,
+      "sha256": "81c43df888dbe89c14c8466cea0fc3134752e4a01a29d14c4bbe0d2f3742ce9f"
+    },
+    {
+      "path": "job-002.json",
+      "bytes": 4984,
+      "sha256": "beb9991c477b8868fb98e4cc619636b3ee7b60be07e88054572fe499a68e0cd1"
+    },
+    {
+      "path": "progress-01.png",
+      "bytes": 521398,
+      "sha256": "6f47d24de149f3b1b4aeb0ffcc5e6f4ace76894c09487b47760b2d4bf15ba548"
+    },
+    {
+      "path": "job-003.json",
+      "bytes": 5486,
+      "sha256": "0316a1e55c00d99b41f8ec7d9b4ef782877f67a6b683fe4e2362a4d52028e74d"
+    },
+    {
+      "path": "progress-02.png",
+      "bytes": 537501,
+      "sha256": "6e34b13c852c66a168332ab020111b83e2537539a8cc0336f9475272e19f3c0a"
+    },
+    {
+      "path": "terminal-job.json",
+      "bytes": 5486,
+      "sha256": "0316a1e55c00d99b41f8ec7d9b4ef782877f67a6b683fe4e2362a4d52028e74d"
+    },
+    {
+      "path": "ownership-after.json",
+      "bytes": 3966,
+      "sha256": "db4a852574e53b3ea9001fab13f2e6f21998954b7542e08be1f58d4864d931cc"
+    },
+    {
+      "path": "server.log",
+      "bytes": 108,
+      "sha256": "11faaf559dbe37e1bf1cf0612c7f5ec0bc113e6ae3a948b1940d16c06b67457a"
+    }
+  ],
+  "cleanup": {
+    "browser_exit_verified": true,
+    "server_exit_verified": true,
+    "worker_cancel_requested": false,
+    "worker_signalled": false
+  },
+  "resources": {
+    "sampled_peak_rss_bytes": 1693941760,
+    "samples": 3,
+    "sampling_interval_ms": 2000,
+    "scope": "Tester Node + direct HTTP server + owned Chrome subtree; detached generation workers are EXCLUDED and keep their own bounds. RSS is sampled and shared pages may be double-counted."
+  },
+  "initial_status": "planned",
+  "frozen_plan_id": "22a44720c3f0f0005a387fcd47f155baf2e28f181a8b838ad3e9ba45c15ddc54",
+  "generation_mode": "reused_generated_source",
+  "source_reuse": {
+    "bytes": 14902088,
+    "path": "inputs/source-model.glb",
+    "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+  },
+  "source_generation": null,
+  "agent_backend": {
+    "authorization_checked": false,
+    "automatic_paid_retries": 0,
+    "currency": "USD",
+    "execution_gate": "exact_request_dollar_grant_and_explicit_start",
+    "historical_plan_semantics_revalidated": true,
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "maximum_reservation_microdollars": 39330480,
+    "model": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "reservation_microdollars_per_call": 5618640,
+    "timeout": 240
+  },
+  "server_pid": 48418,
+  "server": {
+    "port": 51163,
+    "pid": 48418,
+    "job_id": "b082dc54dbb54f9d9030f75b",
+    "canonical_state_dir": ".local/studio"
+  },
+  "browser_pid": 48419,
+  "browser": {
+    "version": "156.0.8078.76",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "software_webgl": true
+  },
+  "initial_ui": {
+    "status": "planned",
+    "timeline_entries": 3,
+    "reviews": 0,
+    "elapsed_label": "11s elapsed"
+  },
+  "last_ui": {
+    "status": "needs_inspection",
+    "timeline_entries": 5,
+    "reviews": 0,
+    "elapsed_label": "2s elapsed"
+  },
+  "terminal_status": "needs_inspection",
+  "result": "Actual worker stopped without a completed delivery; preserved attempts are not a pass",
+  "worker_handoff": {
+    "status": "needs_inspection",
+    "output": "outputs/studio-b082dc54dbb54f9d9030f75b",
+    "owner": {
+      "active_lease_job": "b082dc54dbb54f9d9030f75b",
+      "cancel_requested": false,
+      "ended_local": "2026-11-02T13:53:55.390588-08:00",
+      "heartbeat_local": "2026-11-02T13:53:55.390588-08:00",
+      "identity_verified_live": false,
+      "invocation_dir": "jobs/b082dc54dbb54f9d9030f75b/run-0002",
+      "invocations": 2,
+      "operation": "execute",
+      "owner_identity": "darwin-start:1793656432:745879",
+      "owner_pid": 48443,
+      "queued_jobs": []
+    },
+    "next_action": "Inspect the canonical status and preserved receipts before any next action; this verifier issued no worker cancellation."
+  },
+  "start_requests": 1,
+  "request_count": 16,
+  "observed_rejected_reviews": [],
+  "elapsed_seconds": 8.039460916000001,
+  "finished_local": "11/02/2026, 13:53:58 PST"
+}

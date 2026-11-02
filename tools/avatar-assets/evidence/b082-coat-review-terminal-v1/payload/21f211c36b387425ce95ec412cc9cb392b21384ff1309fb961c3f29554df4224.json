@@ -1,0 +1,10 @@
+{
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "scope": "One read-only bounded CPU texture/material/root-color sample. No source/runtime edits, render, provider or API calls",
+  "source_model_sha256": "d042dcf478b20faf576aa95be5fcf03bd4b281678166c7ae5779fa0cd7e264de",
+  "worker_sha256": "fb39683fffc6844e115f09c137e5a78c964e31251ed336bd59c01338b3c8ff34"
+}

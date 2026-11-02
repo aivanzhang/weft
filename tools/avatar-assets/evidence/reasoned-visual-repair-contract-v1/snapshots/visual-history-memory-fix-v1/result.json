@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "scope": "Scratch-copy proposal only; active runtime and tests unchanged",
+  "command": "PYTHONPATH=. .venv/bin/python -m unittest discover -s outputs/visual-history-memory-fix-v1 -p test_visual_history_memory.py -v",
+  "tests": 2,
+  "seconds": 0.108,
+  "evidence_kind": "analyst-recorded command results; session stdout not copied",
+  "production_hashes_unchanged": {
+    "avatar_assets/pipeline.py": "63b39b134470ebfada78de7d0308cbf2ab0abbfeb0d66772a41291ef533d186c"
+  },
+  "paid_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "files": {
+    "pipeline.py": "51d45abd62d72eed13e1b2b79fcbba7412f503547747ce8ec18397e654222bb1",
+    "test_visual_history_memory.py": "6dc76affeac23b9893aadc4e557cde1e98d2a87bd210337fa5f11e8eca2e2b80",
+    "change.patch": "922af24157a5b17145f6ed73df299fde1b60e5e9df633a1effc46a7ea7d9eacc"
+  },
+  "apply_from_repository_root": "git apply tools/avatar-assets/outputs/visual-history-memory-fix-v1/change.patch",
+  "post_apply_command": "cd tools/avatar-assets && .venv/bin/python -m unittest discover -s tests -p test_visual_history_memory.py -v",
+  "notes": "Reattaches only verified inherited history to each author prompt via deep copies. Current review remains unchanged and is not promoted into history. Terminal findings retain existing reconstruction semantics; continuation already inherits raw bound historical reviews."
+}

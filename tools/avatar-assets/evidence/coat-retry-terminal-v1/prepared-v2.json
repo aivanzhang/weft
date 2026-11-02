@@ -1,0 +1,12 @@
+{
+  "accounting_sha256": "3a572a18d7aebd59ccd0d7481a1bf105ff3ad310154371847a396a2d413eb124",
+  "change": "Use the exact received read-only ledger receipt schema instead of the preceding receipt schema; original preparatory failure and script retained. No copied source/model/ledger change.",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 64,
+    "seconds": 60
+  },
+  "schema_version": 1,
+  "source_continuation_sha256": "39812dd2b2a5398912ff5ab47dc113938df7352674a35026441db714a5d56d38",
+  "worker_sha256": "daf3c4e660f647f11ba78e1ecc4f645f63cd006251afaff1e6f4bb785dfd94f6"
+}

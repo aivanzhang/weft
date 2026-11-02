@@ -1,0 +1,76 @@
+{
+  "actual_microdollars_upper_estimate": 137980,
+  "answer_sha256": "7c916a17ff32ba13d506d0821fb1eaea0ff188553ff994fa86560c6371beb8bc",
+  "artifacts": [
+    {
+      "bytes": 34644,
+      "path": "answer.json",
+      "sha256": "7c916a17ff32ba13d506d0821fb1eaea0ff188553ff994fa86560c6371beb8bc"
+    },
+    {
+      "bytes": 289158,
+      "path": "image-00.png",
+      "sha256": "0cb578b511819ef51c6b31995eac9cdccb0480355913002ffa0dfb5cb4f00c9d"
+    },
+    {
+      "bytes": 249759,
+      "path": "image-01.png",
+      "sha256": "2618a66248f46988cd73ee84292cbd03f934f7f3cb2145181b85d7b82979c37c"
+    },
+    {
+      "bytes": 211947,
+      "path": "image-02.png",
+      "sha256": "e76b6abf16cddac23f38cb29fd8337813da181a3a0bbbfc9a5babdb8917a902f"
+    },
+    {
+      "bytes": 1618570,
+      "path": "image-03.png",
+      "sha256": "f35a81fdc354f05f52befc583f7a6b6cb07bb2640943b30f823340220aeea2d5"
+    },
+    {
+      "bytes": 661,
+      "path": "payload-metadata.json",
+      "sha256": "19b3bd806ec5f80d130f59f4ff5cb31aab315140c2e31cb843d7dad966d2b0cf"
+    },
+    {
+      "bytes": 99894,
+      "path": "prompt.txt",
+      "sha256": "fae330bd06bcfe6c23cb4753c1850a2e788e0724ae600550c87504ab76117ddd"
+    },
+    {
+      "bytes": 879,
+      "path": "request.json",
+      "sha256": "5f8511689bab6091e18b35fa15cec8255862626a160704e8dfa81f65c3ff3c03"
+    },
+    {
+      "bytes": 61124,
+      "path": "response.json",
+      "sha256": "334c815cf390b4cb47f888df9f6e2b5f2182d1c43803e3c2a8418dc7a3206d6e"
+    },
+    {
+      "bytes": 36992,
+      "path": "schema.json",
+      "sha256": "fafbfeb57dabb4da36a215756baa6215883763a3a746fec06bb440f55b6a9e8f"
+    }
+  ],
+  "elapsed_seconds": 34.036443958990276,
+  "execution_kind": "openai_responses_api",
+  "model": "gpt-5.4-2026-03-05",
+  "reserved_microdollars": 5618640,
+  "response_id": "resp_0c5e95fb0bdb574f016ae910a27c9c87d09aef85acae3d1fbb",
+  "schema_version": 1,
+  "status": "succeeded",
+  "tool_activity": false,
+  "usage": {
+    "input_tokens": 30406,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 5888
+    },
+    "output_tokens": 4131,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 34537
+  }
+}

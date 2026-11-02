@@ -1,0 +1,121 @@
+{
+  "allocation": [
+    {
+      "area_m2": 1.271721025174353,
+      "area_per_root_sqrt_m": 0.026580287444879492,
+      "cards": 1800,
+      "length_range_m": [
+        0.004845988644782734,
+        0.014288831197275056
+      ],
+      "roots_per_m2": 1415.4047659573923,
+      "width_range_m": [
+        0.0029928805136362827,
+        0.006246926793033713
+      ]
+    },
+    {
+      "area_m2": 0.38017735975258515,
+      "area_per_root_sqrt_m": 0.015414631031762185,
+      "cards": 1600,
+      "length_range_m": [
+        0.004751103951951838,
+        0.01427435924117005
+      ],
+      "roots_per_m2": 4208.562027579077,
+      "width_range_m": [
+        0.00299251866271459,
+        0.00624744032544369
+      ]
+    }
+  ],
+  "body_metal_roughness_8bit": {
+    "metallic_blue_quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      39.0
+    ],
+    "roughness_green_quantiles": [
+      42.0,
+      137.0,
+      168.0,
+      171.0,
+      190.0
+    ],
+    "size": [
+      2048,
+      2048
+    ]
+  },
+  "color_check_convention": "Actual root source IDs and oriented UV corners; repeat bilinear LOD0; per-texel sRGB decode; compare every exported duplicate of selected root COLOR_0. No mip/lighting equivalence claim.",
+  "kind": "read_only_shader_and_color_diagnosis",
+  "limitations": [
+    "No rendering or source changes",
+    "Shader differences and sparse upright geometry are not causally isolated by this CPU check",
+    "Square root area per root is a nominal allocation scale, not measured nearest-neighbor spacing"
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Material_0",
+      "normalTexture": {
+        "index": 0,
+        "scale": 0.30000001192092896
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      }
+    },
+    {
+      "alphaCutoff": 0.2199999988079071,
+      "alphaMode": "MASK",
+      "name": "PortableCoat_0_cutout_fur",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8999999761581421
+      }
+    },
+    {
+      "alphaCutoff": 0.2199999988079071,
+      "alphaMode": "MASK",
+      "name": "PortableCoat_1_cutout_fur",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 4
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8999999761581421
+      }
+    }
+  ],
+  "model_unchanged": true,
+  "sampled_color_check": [
+    {
+      "ambiguous_roots": 0,
+      "band": 0,
+      "matched_roots": 128,
+      "max_color_component_error": 1.52825229138287e-07,
+      "median_color_component_error": 1.6359802332277518e-09,
+      "requested_sample_roots": 128
+    },
+    {
+      "ambiguous_roots": 0,
+      "band": 1,
+      "matched_roots": 128,
+      "max_color_component_error": 1.643660374472944e-07,
+      "median_color_component_error": 1.4209653592667237e-07,
+      "requested_sample_roots": 128
+    }
+  ],
+  "source_model_sha256": "d042dcf478b20faf576aa95be5fcf03bd4b281678166c7ae5779fa0cd7e264de"
+}

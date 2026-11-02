@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-02T14:24:05.066206-08:00",
+  "evidence_kind": "analyst-recorded completed command results; stdout retained in session, not copied",
+  "status": "passed",
+  "tests": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_source_failure_memory.py -v",
+      "count": 4,
+      "seconds": 0.098
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline.py -v",
+      "count": 21,
+      "seconds": 0.571
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_replan.py -v",
+      "count": 7,
+      "seconds": 0.136
+    }
+  ],
+  "source_files": {
+    "avatar_assets/pipeline.py": "63b39b134470ebfada78de7d0308cbf2ab0abbfeb0d66772a41291ef533d186c",
+    "tests/test_source_failure_memory.py": "80c88dbcdcd8377c5ad8ca04074120e44ebbb113b175cf805009cc52a1e1f03b"
+  },
+  "actual_read_only_check": {
+    "pack": "outputs/studio-b082dc54dbb54f9d9030f75b/model-1",
+    "authenticated_error": "Aliased material exceeds2048face UV1 repair bound",
+    "checksums_before_after_equal": [
+      "manifest.json",
+      "native-failure.json",
+      "finish-config.json"
+    ]
+  },
+  "calls": {
+    "provider": 0,
+    "native": 0,
+    "browser": 0
+  },
+  "fixture_development_failure": "Mock quality coverage omitted required missing list; corrected fixture, no production gate change."
+}

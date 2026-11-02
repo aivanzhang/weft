@@ -1,0 +1,69 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1969,
+      "path": "ERRATUM.md",
+      "sha256": "b522f6761d91a8838dd9b2436143e08654ca2d4fa9817642a4cef333486a3ee6"
+    },
+    {
+      "bytes": 1071,
+      "path": "job.json",
+      "sha256": "d1a616b1a017761c0e01750395fdb98647f57319fc3758d2d291ea9fc0e0e89c"
+    },
+    {
+      "bytes": 792,
+      "path": "prepared.json",
+      "sha256": "494c3a699901b004bd08ed6950744198a73d6cca8ad5a6c93039ba59926b4b60"
+    },
+    {
+      "bytes": 4452,
+      "path": "result.json",
+      "sha256": "56ad87d1cd019779d649ac0735088ae9a73f250d3913716646710b0d51d3a860"
+    },
+    {
+      "bytes": 26471,
+      "path": "sources/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 98954,
+      "path": "sources/pipeline.py",
+      "sha256": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069"
+    },
+    {
+      "bytes": 62234,
+      "path": "sources/pipeline_prompts.py",
+      "sha256": "b7b2188778c1cd75ddab59358ada97bd90be2f534823ce61549eeacc5de97304"
+    },
+    {
+      "bytes": 7047,
+      "path": "sources/test_repair_prompt_view.py",
+      "sha256": "1162c534d2bfbd92ba35d4fe558afe0a2026e8cf71847d2520aa964bdd65b418"
+    },
+    {
+      "bytes": 245,
+      "path": "verify-handle.json",
+      "sha256": "38d473322f1285bb902487bfbf9215f5baaee4e3bad821c28f8a9a1cc62cabe8"
+    },
+    {
+      "bytes": 983,
+      "path": "verify-monitor.json",
+      "sha256": "f3f22bea5369560bbdd0f7eaab82987ff73dd4e69c84c0c68d91172a8cfc4199"
+    },
+    {
+      "bytes": 308,
+      "path": "verify.log",
+      "sha256": "4c1579a203794e232e63f936e50e141f8d9fad39a38c97ca7e16003250827f53"
+    },
+    {
+      "bytes": 6243,
+      "path": "verify.py",
+      "sha256": "17744022fdc8bc712641298d82164fdf391e9b681f081f5129a56cc2c3c24b43"
+    }
+  ],
+  "kind": "complete_author_prompt_limit_erratum",
+  "prior_custody_proof_retracted": false,
+  "prior_prompt_admission_claim_valid": false,
+  "schema_version": 1,
+  "status": "passed"
+}

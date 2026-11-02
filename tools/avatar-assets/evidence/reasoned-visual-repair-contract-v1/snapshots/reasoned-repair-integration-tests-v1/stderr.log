@@ -1,0 +1,29 @@
+E....E....
+======================================================================
+ERROR: test_reasoning_support (unittest.loader._FailedTest.test_reasoning_support)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_reasoning_support
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 141, in loadTestsFromName
+    module = __import__(module_name)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_reasoning_support.py", line 8, in <module>
+    import test_openai_runner as runner_fixtures
+ModuleNotFoundError: No module named 'test_openai_runner'
+
+
+======================================================================
+ERROR: test_visual_repair_continuation (unittest.loader._FailedTest.test_visual_repair_continuation)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_visual_repair_continuation
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 141, in loadTestsFromName
+    module = __import__(module_name)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_visual_repair_continuation.py", line 13, in <module>
+    import test_pipeline_continuation as fixtures
+ModuleNotFoundError: No module named 'test_pipeline_continuation'
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.105s
+
+FAILED (errors=2)

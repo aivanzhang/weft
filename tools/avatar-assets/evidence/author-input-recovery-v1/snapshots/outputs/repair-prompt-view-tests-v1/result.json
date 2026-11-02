@@ -1,0 +1,37 @@
+{
+  "actual_parent": "outputs/studio-b082dc54dbb54f9d9030f75b",
+  "classification": "Analyst-recorded test results plus exact deterministic saved-input prompt reconstruction",
+  "full_author_prompt_including_continuation_bytes": 105838,
+  "job_or_ledger_mutations": 0,
+  "limitations": [
+    "Prompt-only deterministic view; all original context and rejected answers remain preserved.",
+    "Current native failures/counts and active audit details are not summarized.",
+    "Historical action metrics and requirement results remain, explicitly not current requirements/acceptance."
+  ],
+  "native_calls": 0,
+  "new_payload_bytes": 78689,
+  "preserved_context_sha256": "b570843b3acd22630ec224bce16ffa2df98095d6919b5a91e57bc81895c7f256",
+  "preserved_previous_design": true,
+  "previous_payload_bytes": 213985,
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T13:59:22.424501-08:00",
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/pipeline_prompts.py": "5cc07158b54b5dfea658c2bc413ded1da3725b1dabe8a55fc17511aff97ec232",
+    "tests/test_repair_prompt_view.py": "afd87f327b3ae9ae54e13f08237255b946a67aadc1f0d542b6dd7d0d93b8fc1d"
+  },
+  "status": "passed",
+  "tests": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_repair_prompt_view.py -v",
+      "elapsed_seconds": 0.004,
+      "passed": 4
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_prompts.py -q",
+      "elapsed_seconds": 0.025,
+      "passed": 23
+    }
+  ],
+  "unchanged_limit_bytes": 163840
+}

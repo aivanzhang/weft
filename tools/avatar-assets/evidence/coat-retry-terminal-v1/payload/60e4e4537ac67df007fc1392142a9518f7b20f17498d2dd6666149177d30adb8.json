@@ -1,0 +1,195 @@
+{
+  "elapsed_seconds": 0.2591215409338474,
+  "error_encoding": "little-endian float64 max-absolute-component error per root; part order, state/time then part order",
+  "error_hashes": {
+    "animated_attachment": "ae10ae0ef10386988f4684e514e69c77d965b65960887f02c365ea568be8040e",
+    "named_weight": "eb1ba5c00f9ea7775524f79a19fc0a3fb7a3445112a5deb8e0cf78dee19d2620",
+    "rest_midpoint": "614ca461fc054a5d43839e7e7dee8b526b2c0c4e8888da41f56ddeee7d57ae4b"
+  },
+  "expected_state_ids": [
+    "dance"
+  ],
+  "gates": {
+    "animated_attachment_m": 1e-05,
+    "authored_inset_m": 0.0005,
+    "named_weight": 1e-06,
+    "rest_midpoint_m": 1e-06
+  },
+  "implementations": {
+    "fur_attachment.py": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac",
+    "fur_bindings.py": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+    "safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "three_d.py": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+  },
+  "inputs": [
+    {
+      "bytes": 310161,
+      "path": "manifest.json",
+      "sha256": "432861e80989a957a33bed4f4782bacc77b3dee9d89185792832c3bcd03fd698"
+    },
+    {
+      "bytes": 269670,
+      "path": "finish-report.json",
+      "sha256": "cfde4ad5da2f4794c2bf0e73e468fc607e2142efd125a63f3a610b7ed297eff7"
+    },
+    {
+      "bytes": 23619,
+      "path": "sources/finish-design.json",
+      "sha256": "a47b91859ac459b43cea70c1a028c1096091bc58886809f49bb3a2d8962cc4cd"
+    },
+    {
+      "bytes": 17478944,
+      "path": "model.glb",
+      "sha256": "8c0680be893f289a037c235eceb5ae12f86d3221ce677458c817aa9ac5526932"
+    },
+    {
+      "bytes": 58654,
+      "path": "portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "b39c1ab02bde9aee4d2078863654bdc4a184f900b5f177702066bc9e83652afb"
+    },
+    {
+      "bytes": 45854,
+      "path": "portable-root-bindings/PortableCoat_1.npz",
+      "sha256": "449cb1fac4bccc3ad887ecda12c4f2c2b574fc5a932bc6c73e5584877d856ae7"
+    }
+  ],
+  "intent": {
+    "design_sha256": "a47b91859ac459b43cea70c1a028c1096091bc58886809f49bb3a2d8962cc4cd",
+    "model_sha256": "8c0680be893f289a037c235eceb5ae12f86d3221ce677458c817aa9ac5526932",
+    "schema_version": 1,
+    "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+    "state_ids": [
+      "dance"
+    ]
+  },
+  "limitations": [
+    "Attachment to the final exported body, not native-source skin fidelity.",
+    "Discrete 24 fps samples only; no continuous-motion, loop, physics or appearance approval."
+  ],
+  "metrics": {
+    "attachment_failures": 0,
+    "body_vertices": 26957,
+    "coat_vertices": 9600,
+    "exported_vertices": 43879,
+    "max_attachment_error_m": 5.616387821483215e-08,
+    "max_inset_m": 0.000411963097528934,
+    "max_named_weight_error": 1.8849236393947422e-08,
+    "max_rest_midpoint_error_m": 5.6157755778940555e-08,
+    "named_weight_failures": 0,
+    "rest_midpoint_failures": 0,
+    "root_pose_checks": 155200,
+    "triangles": 42524,
+    "unique_attachment_failed_roots": 0
+  },
+  "passed": true,
+  "policy": "portable-fur-attachment-v1",
+  "reason": "Attachment measured against the final exported body",
+  "roots": 1600,
+  "schema_version": 1,
+  "states": [
+    {
+      "id": "dance",
+      "times": [
+        0.0,
+        0.041666666666666664,
+        0.08333333333333333,
+        0.125,
+        0.16666666666666666,
+        0.20833333333333334,
+        0.25,
+        0.2916666666666667,
+        0.3333333333333333,
+        0.375,
+        0.4166666666666667,
+        0.4583333333333333,
+        0.5,
+        0.5416666666666666,
+        0.5833333333333334,
+        0.625,
+        0.6666666666666666,
+        0.7083333333333334,
+        0.75,
+        0.7916666666666666,
+        0.8333333333333334,
+        0.875,
+        0.9166666666666666,
+        0.9583333333333334,
+        1.0,
+        1.0416666666666667,
+        1.0833333333333333,
+        1.125,
+        1.1666666666666667,
+        1.2083333333333333,
+        1.25,
+        1.2916666666666667,
+        1.3333333333333333,
+        1.375,
+        1.4166666666666667,
+        1.4583333333333333,
+        1.5,
+        1.5416666666666667,
+        1.5833333333333333,
+        1.625,
+        1.6666666666666667,
+        1.7083333333333333,
+        1.75,
+        1.7916666666666667,
+        1.8333333333333333,
+        1.875,
+        1.9166666666666667,
+        1.9583333333333333,
+        2.0,
+        2.0416666666666665,
+        2.0833333333333335,
+        2.125,
+        2.1666666666666665,
+        2.2083333333333335,
+        2.25,
+        2.2916666666666665,
+        2.3333333333333335,
+        2.375,
+        2.4166666666666665,
+        2.4583333333333335,
+        2.5,
+        2.5416666666666665,
+        2.5833333333333335,
+        2.625,
+        2.6666666666666665,
+        2.7083333333333335,
+        2.75,
+        2.7916666666666665,
+        2.8333333333333335,
+        2.875,
+        2.9166666666666665,
+        2.9583333333333335,
+        3.0,
+        3.0416666666666665,
+        3.0833333333333335,
+        3.125,
+        3.1666666666666665,
+        3.2083333333333335,
+        3.25,
+        3.2916666666666665,
+        3.3333333333333335,
+        3.375,
+        3.4166666666666665,
+        3.4583333333333335,
+        3.5,
+        3.5416666666666665,
+        3.5833333333333335,
+        3.625,
+        3.6666666666666665,
+        3.7083333333333335,
+        3.75,
+        3.7916666666666665,
+        3.8333333333333335,
+        3.875,
+        3.9166666666666665,
+        3.9583333333333335,
+        4.0
+      ]
+    }
+  ],
+  "status": "measured",
+  "witnesses": []
+}

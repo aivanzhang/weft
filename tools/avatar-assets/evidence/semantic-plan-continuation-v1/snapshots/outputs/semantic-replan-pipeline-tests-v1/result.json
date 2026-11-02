@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-02T13:52:08.769407-08:00",
+  "kind": "analyst-recorded focused test outcomes; stdout logs not retained",
+  "checks": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_replan.py -v",
+      "passed": 7,
+      "unittest_seconds": 0.127
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline.py -v",
+      "passed": 21,
+      "unittest_seconds": 0.544
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_studio_live_verifier.py -v",
+      "passed": 29,
+      "unittest_seconds": 0.237
+    }
+  ],
+  "actual_readonly_inspection": {
+    "job": "1f87be60ed4c4fe1aa95968c",
+    "exit_code": 0,
+    "status": "unsupported",
+    "owner": {
+      "active_lease_job": null,
+      "cancel_requested": false,
+      "ended_local": "2026-11-02T13:43:22.208355-08:00",
+      "heartbeat_local": "2026-11-02T13:43:22.208355-08:00",
+      "identity_verified_live": false,
+      "invocation_dir": "jobs/1f87be60ed4c4fe1aa95968c/run-0002",
+      "invocations": 2,
+      "operation": "execute",
+      "owner_identity": "darwin-start:1793655621:611301",
+      "owner_pid": 45606,
+      "queued_jobs": []
+    }
+  },
+  "scope": "No actual API/native/browser calls; planner HTTP transport mocked; isolated analytic ledgers only; existing paid artifacts unchanged",
+  "notes": [
+    "Root .venv-lab lacks av for full pipeline imports; project .venv was used without installing anything.",
+    "A test fixture was corrected to give invented stability its own role so the intended semantic error, not a preexisting structural role conflict, is tested."
+  ],
+  "sources": [
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "437a81ee55e797861c811acc88ac9b58895fb64d6fc39b38fd55becc29652f95"
+    },
+    {
+      "path": "tests/test_pipeline_replan.py",
+      "sha256": "98bdda9dcf2ed7a5aa85a78247bcfcf59e9d28355e91132024130584fb792baa"
+    },
+    {
+      "path": "scripts/verify_studio_live.py",
+      "sha256": "b9a7d4259c51818dfad4eefb9dbc44d1d10e69e502fa827ec964a4bc6ce9a1f1"
+    },
+    {
+      "path": "tests/test_studio_live_verifier.py",
+      "sha256": "ff73c4826e82bb626daad8693809990f059995b9bd62b541e70ef82eaf699ae3"
+    }
+  ]
+}

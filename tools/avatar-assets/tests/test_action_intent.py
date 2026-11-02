@@ -63,6 +63,20 @@ class ActionIntentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             evaluate_action_evidence([{**requirement[0], "tolerance_m": 1}], stationary, 1.)
 
+    def test_return_pose_has_bounded_endpoint_only_metric_and_required_coverage(self):
+        requirements=state(kinds=('return_pose',))['requirements']
+        self.assertTrue(evaluate_action_evidence(requirements,measured(max_final_world_displacement_m=.005),1.)['passed'])
+        for changes in ({'max_final_world_displacement_m':.005001},
+                        {'scale_m':.2,'max_final_world_displacement_m':.00101},
+                        {'scale_m':10.,'max_final_world_displacement_m':.006},
+                        {'weighted_vertices':7,'moving_vertices':7,'max_final_world_displacement_m':0}):
+            self.assertFalse(evaluate_action_evidence(requirements,measured(**changes),1.)['passed'])
+        missing=evaluate_action_evidence(requirements,measured(),1.)
+        self.assertEqual(missing['requirements'][0]['status'],'missing')
+        for value in (True,-1,float('nan'),float('inf'),101):
+            with self.assertRaises(ValueError):
+                evaluate_action_evidence(requirements,measured(max_final_world_displacement_m=value),1.)
+
     def test_exact_custom_actions_survive_order_unicode_and_whitespace(self):
         actions = ["  Dance twice — then bow. ", "Fly left while flapping both wings."]
         self.assertEqual(validate_custom_actions(actions), actions)

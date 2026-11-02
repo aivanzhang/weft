@@ -1,0 +1,9 @@
+{
+  "attempt": 2,
+  "elapsed_seconds": 5.854,
+  "reason": "unsupported: the preserved finishing attempt failed on native fur_undercoat authoring with \"Aliased material exceeds2048face UV1 repair bound\". This source has a single 36124-face material, and the demonstrated defect is in the undercoat/UV-repair path rather than rig, motion, or measured coat masks. The request requires native groom plus portable fur and measured non-fur masking, which the prior design already provided, but the current evidence does not identify a supported bounded finishing change that guarantees the required short-pile undercoat route or an alternative local repair on this aliased single-material surface without re-inspecting material/UV ownership beyond the supplied findings. Returning unsupported preserves the validated rig, motion, and grooming intent instead of inventing an unmeasured material workaround.",
+  "recorded": "2026-11-02T14:12:31.947705-08:00",
+  "schema_version": 1,
+  "stage": "author",
+  "status": "unsupported"
+}

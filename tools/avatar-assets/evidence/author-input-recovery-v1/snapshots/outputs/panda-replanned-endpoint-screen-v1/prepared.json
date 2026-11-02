@@ -1,0 +1,63 @@
+{
+  "attempts": 1,
+  "controller_sha256": "85fd5ec4653e3463817668a7771e54dffb886bd076470235a4171dc1bc3fdbfa",
+  "inputs": {
+    "model": {
+      "bytes": 19079356,
+      "path": "outputs/studio-1f87be60ed4c4fe1aa95968c/model-0/model.glb",
+      "sha256": "e052d5f01d942f4a53833b06fd6dcad17e6dde3c0b3b93fc82002d5da983d33b"
+    },
+    "new_plan": {
+      "bytes": 6152,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/plan.json",
+      "sha256": "c4713e81f95ba393a5a50292e2511193ebc57bb08093152502799e2d21f86c97"
+    },
+    "old_intent": {
+      "bytes": 3808,
+      "path": "outputs/studio-1f87be60ed4c4fe1aa95968c/action-audit-0/intent.json",
+      "sha256": "5a4d2516e77dff02e33dd9fafce228d3a9092ae0ab491054ca609f6b5baa6da0"
+    }
+  },
+  "intent_sha256": "29c124ec158d9848d83d710da1283f8693c61fec4357533136a5a79877ec3352",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "timeout_seconds": 30
+  },
+  "projection_sha256": "718adfad3c0c7515f608d2650d68b5203f20de3bf29f3742625c10fc8b0d895c",
+  "schema_version": 1,
+  "scope": "One bounded CPU-only analytic measurement on existing immutable model and new planner intent. No native/provider/API/DB/production edits.",
+  "sources": [
+    {
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d",
+      "snapshot": "sources/avatar_assets/action_audit.py"
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad",
+      "snapshot": "sources/avatar_assets/action_intent.py"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "sources/avatar_assets/three_d.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/avatar_assets/safety.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/avatar_assets/runner.py"
+    },
+    {
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "sources/avatar_assets/__init__.py"
+    }
+  ],
+  "worker_sha256": "c5785a3dc028739326949c0c65440f7c30aa9ebd9ef88699f78f375b76dcbedf"
+}

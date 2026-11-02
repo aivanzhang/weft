@@ -1,0 +1,52 @@
+{
+  "authored_targets": [],
+  "elapsed_seconds": 0.017794,
+  "errors": [],
+  "geometry_or_materials_changed": false,
+  "materials": [
+    {
+      "admission": "coherent_uv0",
+      "material": "Material_0",
+      "normal": {
+        "image": "Image_2",
+        "normal_uv_index": 0,
+        "packed_png_bytes": 0,
+        "texture_sha256": null,
+        "texture_uv_index": 0
+      },
+      "object": "Mesh_0",
+      "polygons": 36124,
+      "slot": 0,
+      "triangles": 36124
+    },
+    {
+      "admission": "no_live_normal_map",
+      "material": "PortableCoat_0_cutout_fur",
+      "normal": null,
+      "object": "PortableCoat_0",
+      "polygons": 3600,
+      "slot": 0,
+      "triangles": 3600
+    },
+    {
+      "admission": "no_live_normal_map",
+      "material": "PortableCoat_1_cutout_fur",
+      "normal": null,
+      "object": "PortableCoat_1",
+      "polygons": 2800,
+      "slot": 0,
+      "triangles": 2800
+    }
+  ],
+  "objects": 3,
+  "packed_png_bytes_hashed": 0,
+  "policy": "live-normal-uv-export-v1",
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "supported",
+  "tangent_restoration_performed": false,
+  "texture_pixels_read": false,
+  "triangles": 42524,
+  "used_materials": 3,
+  "vertices": 36557
+}

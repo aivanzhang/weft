@@ -9,14 +9,19 @@ The append-only ledger cap is active; no new Meshy work.
 **Current direction:** Studio uses the server OpenAI API, not a personal AI login;
 Meshy remains the geometry/texture provider. The website now supports authenticated
 **Retry saved work → Prepare → Start** under an owner-approved standing budget.
-The actual retry reused the paid panda and saved plan with no new planner or
-Meshy call. It corrected the undercoat count, then stopped **unsupported** at a
-texture-coordinate repair limit; the author incorrectly treated appearance
-repair as outside its role. That narrow prompt/continuation fix passed 35 local checks; the next live
-continuation is being verified.
-Sixteen API calls total an estimated **$1.270513**, under the enforced **$15 total**
-cap including prior use. No accepted API-backed rig/dance delivery or deployment
-is claimed. [Backend results](docs/api-website-backend.md).
+The latest completed run built a real rigged panda, passed the dance and
+fur-attachment checks, and rendered the final native media. Independent visual
+review accepted identity, motion and native appearance but rejected sparse,
+upright fur on the exported GLB. A later repair reintroduced an optional texture
+route that had already failed; no accepted delivery resulted.
+Persistent failure memory and measured coat feedback are now implemented and
+tested. The next website run also ended unsupported: dance meaning passed, but patchy
+coat artifacts remained. The reasoning-enabled successor stopped before its first API call on a prompt
+size check. A whitespace-only fix and guarded same-job recovery are verified;
+the same job is planned for one new Start. The [handoff](TODO.md) records custody; do not duplicate the job. Settled API use before this successor
+is **$2.777078 across 29 calls**, under the enforced
+**$15 cap including all prior use**. No new Meshy call or deployment.
+[Backend results](docs/api-website-backend.md).
 
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.
 The user has accepted the previous appearance; the active priority is now a

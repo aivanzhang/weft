@@ -1,0 +1,94 @@
+{
+  "action_bindings": [
+    {
+      "roles": [
+        {
+          "bones": [
+            "hips",
+            "spine",
+            "chest"
+          ],
+          "id": "body",
+          "root_bone": "hips"
+        },
+        {
+          "bones": [
+            "upperarm_l",
+            "forearm_l",
+            "hand_l",
+            "upperarm_r",
+            "forearm_r",
+            "hand_r"
+          ],
+          "id": "arms",
+          "root_bone": "chest"
+        },
+        {
+          "bones": [
+            "neck",
+            "head"
+          ],
+          "id": "head",
+          "root_bone": "chest"
+        }
+      ],
+      "state_id": "dance"
+    }
+  ],
+  "height_meters": 1.1,
+  "schema_version": 1,
+  "source_sha256": "e052d5f01d942f4a53833b06fd6dcad17e6dde3c0b3b93fc82002d5da983d33b",
+  "states": [
+    {
+      "id": "dance",
+      "meaning": "A cheerful four-second toy dance with readable alternating side-to-side beats, small whole-body hops, coordinated arm swings, and head tilts, ending back in the starting neutral pose.",
+      "requirements": [
+        {
+          "description": "The main body shifts side to side in three clear alternating beats over the clip, creating a readable dance pattern rather than standing nearly still.",
+          "id": "body_rhythm",
+          "kind": "rhythm",
+          "role": "body"
+        },
+        {
+          "description": "The body performs small visible hops with brief upward travel and return, with the feet allowed to lift during the hops.",
+          "id": "body_hops",
+          "kind": "travel",
+          "role": "body"
+        },
+        {
+          "description": "Both arms swing in gentle coordinated motion relative to the torso so the arm movement is visible and not just carried by overall body travel.",
+          "id": "arms_swing",
+          "kind": "articulation",
+          "role": "arms"
+        },
+        {
+          "description": "The head tilts in coordination with the dance and moves relative to the torso, remaining visibly distinct from whole-body travel alone.",
+          "id": "head_tilts",
+          "kind": "articulation",
+          "role": "head"
+        },
+        {
+          "description": "By the end of the clip, the full character returns to the neutral starting pose established at the beginning.",
+          "id": "return_neutral",
+          "kind": "return_pose",
+          "role": "body"
+        }
+      ],
+      "roles": [
+        {
+          "description": "the full panda character body for overall dance travel and return",
+          "id": "body"
+        },
+        {
+          "description": "both arms as the swinging appendages",
+          "id": "arms"
+        },
+        {
+          "description": "the head for coordinated tilts",
+          "id": "head"
+        }
+      ],
+      "user_request": "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    }
+  ]
+}

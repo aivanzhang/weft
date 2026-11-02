@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/coat-retry-terminal-bundle-preparation-v1/package.py", line 53, in <module>
+    assert account['accounting']['project_exposure_microdollars'] == 2777078
+           ~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'accounting'

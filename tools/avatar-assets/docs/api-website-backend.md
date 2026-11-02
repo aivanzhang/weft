@@ -222,10 +222,87 @@ reuse, not another Meshy generation or arbitrary new text jobs.
 
 Continuation preserves the last paid plan, author proposal and authenticated
 native failure measurements. It makes no new planner call and does not edit the
-old recipe. Current continuation supports terminal `repair_budget` native-build
-failures and a later explicit author refusal backed by the preceding authenticated
-native failure. The last valid proposal is reused; the refusal is preserved as
+old recipe. Continuation supports terminal `repair_budget` native-build failures, a later
+explicit author refusal backed by the preceding authenticated native failure,
+and an exhausted visual-repair budget with an authenticated final critic rejection.
+The visual path verifies paid answers, model/media/audit manifests and exact
+terminal findings before reusing the last recipe; it does not turn rejection
+into acceptance. The last valid proposal is reused; the refusal is preserved as
 evidence, never substituted for a design. Exact source reuse remains required;
 other failures remain explicit, not silently restarted. Parent process custody must be released and all API calls settled.
 No automatic cross-job scheduler, hosted deployment or universal success is
 claimed by this recovery path.
+
+## Plan semantics and bounded context
+
+Custom actions cannot acquire unrequested world-stationary or landing constraints.
+`return_pose` checks every selected weighted surface vertex at the initial and
+final poses; it does not require a minimum jump height or claim a seamless loop.
+Genuine stability still measures world-space stillness throughout the clip;
+genuine landing retains its original descent requirement.
+
+When a previously accepted plan fails these newer intent rules, a narrowly
+verified continuation can request one new paid plan. It preserves the prior
+subject, style, scale, geometry brief and state identity. The old plan, measured
+rejection and author attempts stay intact; the new plan gets its own response
+and verification. This is not deletion or relaxation of the old score.
+
+Repair prompts use a bounded view of saved evidence. Duplicate error JSON and
+historical rejected answers become hash references; the valid design and relevant
+measurements remain. Full history stays in the job. JSON data has a 160 KiB bound, but the complete
+agent prompt has a stricter **128 KiB** bound. Both must pass. Payload whitespace
+is compacted without changing decoded values. An initial continuation preflight
+used the wrong limit and stopped before any API call; its append-only correction
+measures the complete actual prompt at 84,075 / 131,072 bytes. An inspected, append-only runtime revision recovered the unsubmitted
+author request while preserving its paid planner, completed source inspection,
+original code snapshots, call counts and dollar grant. This development recovery
+is not a claim that every future software failure repairs itself unattended.
+
+
+## Repair memory and exported coat feedback
+
+Native failures survive later visual reviews in a bounded, source-bound history.
+Earlier visual reviews and the latest authenticated critique also survive later
+native failures. The latest critique is retained only after its model and review
+receipt are bound; current review results are not rewritten.
+A successful build does not erase an earlier unsupported optional texture route.
+Historical critic findings retain their paid response and model/media manifest
+references; they are repair targets, not approval of a newer artifact.
+
+For furred assets, the author also receives authenticated root counts, eligible
+surface areas, tuft length/width ranges and grooming directions. Roots per area
+and square-root area per root are explicitly derived allocation measures, not
+measured spacing or coverage. Higher comb lays tufts closer to the surface;
+lower comb makes them more upright. Missing evidence is marked unavailable.
+The API selects the recipe; local code does not silently change fur counts,
+replace paid answers or relax acceptance checks.
+
+The actual b082 run passed rig/deformation, attachment, action and native-media
+review. Its exported fur failed appearance review. The following optional
+undercoat repair failed the existing UV-capacity bound; the author then returned
+unsupported. These results remain preserved. Local color sampling found no
+conversion error in 256 tested roots; it does not prove every pixel is correct.
+A hands-off accepted portable delivery remains the completion gate.
+
+
+## Bounded reasoning for repairs
+
+The owner configuration accepts optional `reasoning_effort`: `none`, `low`,
+`medium` or `high`. Existing snapshots without the field retain `none`; new jobs
+bind the explicit selection into the request, runner and payload hashes. The
+local owner configuration now selects `medium` for new jobs. Historical jobs
+and receipts are unchanged.
+
+Reasoning and the final structured response share the same 16,384-output-token
+limit. There is no separate reasoning surcharge: all output tokens count once
+at the pinned output rate. The full $5.618640 per-call reservation, effective
+$15 project cap, call limits and unknown-charge holds remain unchanged. The
+adapter accepts bounded reasoning metadata plus exactly one final structured
+answer; tools, multiple answers and incomplete responses remain rejected.
+
+Assuming 2,000–6,000 extra reasoning tokens adds $0.03–$0.09 per call, or
+$0.21–$0.63 across seven calls. The next-run estimate is $0.50–$2.10 total within
+existing authorization, with no new Meshy or recurring service. These are
+scenarios, not measured improvements. Reasoning benefit and latency require an
+actual new run. See the official [model documentation](https://developers.openai.com/api/docs/models/gpt-5.4)
+and [reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).

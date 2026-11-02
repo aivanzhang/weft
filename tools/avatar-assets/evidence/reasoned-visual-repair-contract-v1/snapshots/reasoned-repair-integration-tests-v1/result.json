@@ -1,0 +1,29 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_reasoning_support",
+    "tests.test_visual_history_memory",
+    "tests.test_visual_repair_continuation",
+    "tests.test_repair_prompt_view"
+  ],
+  "elapsed_seconds": 0.1909863748587668,
+  "exit_code": 1,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/agent_backend.py": "4ee863873c193e0dd75eb7801cecce305ffacabe67da6d2759aa3317a31050b9",
+    "avatar_assets/openai_runner.py": "a5806e54e0b574194d50131e365abaf0a08d8580cf7190cafc783a0a8ba781e3",
+    "avatar_assets/pipeline.py": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069",
+    "avatar_assets/pipeline_continuation.py": "6287047106d8b1bad66e6971b3776bc1ca4f5d2dfaba619c765ebcf6b66141bb",
+    "avatar_assets/pipeline_prompts.py": "e14644d35088361072f2dac730087dbeacc1468cbb1e0a460c073561830e857d",
+    "avatar_assets/studio_inspection.py": "3dd26c4bd3b3d4a9e5f97332b813161878eab386369ad626a8987e0903c4cf58",
+    "tests/test_reasoning_support.py": "ffacfe5f3ca8448dee1d022714b7d947b461c2ef6995d71f7a7ec0b9f0b2e3cf",
+    "tests/test_repair_prompt_view.py": "afd87f327b3ae9ae54e13f08237255b946a67aadc1f0d542b6dd7d0d93b8fc1d",
+    "tests/test_visual_history_memory.py": "7c611088d1cbabdc19c954b16cc08421a91197c60d5c16bc8dd9076c993b9c7f",
+    "tests/test_visual_repair_continuation.py": "37c70fbb923e2fa1d6d8503ea22a6f0955875f7b33a575afeca97765113edb9f"
+  }
+}

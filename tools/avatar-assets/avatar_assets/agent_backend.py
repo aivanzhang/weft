@@ -8,7 +8,7 @@ from pathlib import Path
 import sqlite3
 import stat
 
-from avatar_assets.openai_runner import MODEL, reserve_microdollars, accounting_snapshot, budget_snapshot
+from avatar_assets.openai_runner import MODEL, reserve_microdollars, accounting_snapshot, budget_snapshot, validate_reasoning_effort
 from avatar_assets.safety import require
 
 DEFAULT = {'provider': 'openai', 'model': MODEL, 'max_calls': 5, 'max_repairs': 1,
@@ -16,7 +16,9 @@ DEFAULT = {'provider': 'openai', 'model': MODEL, 'max_calls': 5, 'max_repairs': 
 
 
 def validate_settings(value):
-    require(isinstance(value, dict) and set(value) == set(DEFAULT), 'Invalid server AI configuration fields')
+    require(isinstance(value, dict) and set(value) in (set(DEFAULT),set(DEFAULT)|{'reasoning_effort'}),
+            'Invalid server AI configuration fields')
+    validate_reasoning_effort(value.get('reasoning_effort','none'))
     require(value['provider'] == 'openai' and value['model'] == MODEL, 'Unsupported server AI provider or model')
     for field, low, high in (('max_calls', 3, 12), ('max_repairs', 0, 2),
                              ('timeout', 30, 600), ('max_output_tokens', 256, 32768)):

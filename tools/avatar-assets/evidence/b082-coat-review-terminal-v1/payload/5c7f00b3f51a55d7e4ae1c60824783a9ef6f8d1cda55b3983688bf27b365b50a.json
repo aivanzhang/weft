@@ -1,0 +1,167 @@
+{
+  "actual_read_only_check": {
+    "context_bytes": 27599,
+    "elapsed_seconds": 0.329242,
+    "facts": {
+      "bands": [
+        {
+          "cards": 1800,
+          "derived_scope": "Density = roots/eligible area; nominal sqrt(area/roots) is not measured spacing or coverage.",
+          "eligible_area_m2": 1.271721025174353,
+          "index": 0,
+          "length_range_m": [
+            0.004845988644782734,
+            0.014288831197275056
+          ],
+          "missing_fields": [],
+          "nominal_sqrt_area_per_root_m": 0.026580287444879492,
+          "roots": 1800,
+          "roots_per_m2": 1415.4047659573923,
+          "status": "available",
+          "width_range_m": [
+            0.0029928805136362827,
+            0.006246926793033713
+          ]
+        },
+        {
+          "cards": 1600,
+          "derived_scope": "Density = roots/eligible area; nominal sqrt(area/roots) is not measured spacing or coverage.",
+          "eligible_area_m2": 0.38017735975258515,
+          "index": 1,
+          "length_range_m": [
+            0.004751103951951838,
+            0.01427435924117005
+          ],
+          "missing_fields": [],
+          "nominal_sqrt_area_per_root_m": 0.015414631031762185,
+          "roots": 1600,
+          "roots_per_m2": 4208.562027579077,
+          "status": "available",
+          "width_range_m": [
+            0.00299251866271459,
+            0.00624744032544369
+          ]
+        }
+      ],
+      "finish_config_reference": {
+        "bytes": 23612,
+        "path": "finish-0.json",
+        "sha256": "fed9df0e53d027f6dc227633c0df291fd456e8b5a381fb36487d091b3211cc4e"
+      },
+      "groom_comb": 0.35,
+      "groom_flow_regions": [
+        {
+          "comb": 0.3,
+          "direction": [
+            0,
+            -1,
+            0.1
+          ],
+          "index": 0,
+          "length_scale": 1,
+          "name": "body"
+        },
+        {
+          "comb": 0.45,
+          "direction": [
+            0,
+            -0.9,
+            0.2
+          ],
+          "index": 1,
+          "length_scale": 0.75,
+          "name": "head"
+        },
+        {
+          "comb": 0.4,
+          "direction": [
+            -0.7,
+            -0.4,
+            -0.2
+          ],
+          "index": 2,
+          "length_scale": 0.9,
+          "name": "arm_l"
+        },
+        {
+          "comb": 0.4,
+          "direction": [
+            0.7,
+            -0.4,
+            -0.2
+          ],
+          "index": 3,
+          "length_scale": 0.9,
+          "name": "arm_r"
+        },
+        {
+          "comb": 0.25,
+          "direction": [
+            -0.1,
+            -0.2,
+            -0.97
+          ],
+          "index": 4,
+          "length_scale": 0.8,
+          "name": "leg_l"
+        },
+        {
+          "comb": 0.25,
+          "direction": [
+            0.1,
+            -0.2,
+            -0.97
+          ],
+          "index": 5,
+          "length_scale": 0.8,
+          "name": "leg_r"
+        },
+        {
+          "comb": 0.5,
+          "direction": [
+            0,
+            0.95,
+            -0.2
+          ],
+          "index": 6,
+          "length_scale": 0.7,
+          "name": "tail"
+        }
+      ],
+      "report_reference": {
+        "bytes": 268779,
+        "path": "model-0/finish-report.json",
+        "sha256": "910e48c734491bd654c9fb49d837f43ae62edff84287cc6c36603c0e3dacb927"
+      },
+      "scope": "Historical authored coat geometry; not current acceptance or measured root spacing.",
+      "status": "available"
+    },
+    "parent": "outputs/studio-b082dc54dbb54f9d9030f75b",
+    "summary_bytes": 5531
+  },
+  "bounds": {
+    "bands": 4,
+    "regions": 12
+  },
+  "classification": "Analyst-recorded focused tests plus actual read-only authenticated parent collection",
+  "ledger_or_parent_mutations": 0,
+  "limitations": [
+    "Derived density is root count divided by eligible area; nominal sqrt(area/root count) is not measured root spacing or coverage.",
+    "Facts describe the earlier reviewed model, not later recipe geometry or acceptance.",
+    "Missing report facts are explicit unavailable; no generated counts/settings or gate changes."
+  ],
+  "native_calls": 0,
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T14:29:23.975236-08:00",
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/pipeline_continuation.py": "aa0f25d134236b6999ae76acd112a3d4fd37bd155b7c001449a391085bb3c095",
+    "tests/test_pipeline_continuation.py": "13d8aa8fb771bcf3d4c59fffa2ff858b444c7b33b364821f0f315c4e16d457b0"
+  },
+  "status": "passed",
+  "tests": {
+    "command": "PYTHONPATH=tests .venv/bin/python -m unittest test_pipeline_continuation.ContinuationTests.test_coat_geometry_facts_are_manifest_bound_and_nominal_not_measured_spacing test_pipeline_continuation.ContinuationTests.test_absent_coat_facts_are_unavailable_and_region_count_is_bounded test_pipeline_continuation.ContinuationTests.test_historical_visual_repairs_keep_bound_targets_without_latest_approval test_pipeline_continuation.ContinuationTests.test_historical_review_rejects_mismatched_answer_model_and_paid_images -v",
+    "elapsed_seconds": 0.158,
+    "passed": 4
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "actual_read_only_check": {
+    "bytes": 134175927,
+    "command": "collect(Path.cwd(), Path.cwd()/'outputs/studio-1f87be60ed4c4fe1aa95968c')",
+    "files": 260,
+    "later_rejected_authors": [
+      "author-1",
+      "author-2"
+    ],
+    "parent": "outputs/studio-1f87be60ed4c4fe1aa95968c",
+    "pins": {
+      "action-audit-0/manifest.json": "de01042f6649d0f45a7eaabac37e9f94981e9bc164b449d4442f2ee2795a9160",
+      "action-audit-0/report.json": "fd4ef1deec8f52ee4191d18dd738a1576bd9cfcaec87aef323f201b4d7eba8d4",
+      "agents/author-0/answer.json": "37de63195622a7d51d4e9fe65830f9a96342801fd027c4c43616ca4100c808d8",
+      "model-0/manifest.json": "154951a8a1a58d09a07036fca68b967010c1e8f8951330f7ad45c6f95379156a",
+      "plan.json": "7c4b9c1a078513dcc448dda68884c8ca3a916ddf182259eb9d6d948405c28f0c",
+      "unsupported.json": "9116c84430a97c0f8307026e53c42bad18b62544fdd4e8816b002012642fbf16"
+    },
+    "selected_author": "author-0",
+    "status": "passed",
+    "validation_failure": "Planner added world-stationary stability without affirmative stationary user intent"
+  },
+  "classification": "Analyst-recorded tool outputs; no unchanged checks rerun for evidence",
+  "limits": [
+    "Semantic replan requires PlanIntentError, a complete built model with exact failed action audit, and reproducible later author validation failures.",
+    "Unsupported failure classes still fail closed; no gates or recipes changed.",
+    "A new planner call is required and reported in the continuation receipt; old plan and judgments remain historical evidence."
+  ],
+  "live_ledger_mutations": 0,
+  "native_calls": 0,
+  "parent_mutations": 0,
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T13:50:41.171796-08:00",
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/pipeline_continuation.py": "c854a783c1bba39872e4babce17c8b1146e53d5ad1b95010a23d9d1e7aaf93f8",
+    "tests/test_pipeline_continuation.py": "b4c7a6382fbe9217f16bdb5ee41d5039ad0b03e51eba76bd8fcb73dbe2e54461"
+  },
+  "status": "passed",
+  "tests": {
+    "commands": [
+      ".venv/bin/python -m unittest discover -s tests -p test_pipeline_continuation.py -v",
+      "PYTHONPATH=tests .venv/bin/python -m unittest test_pipeline_continuation.ContinuationTests.test_replan_preserves_built_seed_and_all_rejected_answers test_pipeline_continuation.ContinuationTests.test_replan_rejects_unrelated_invalid_plan_and_missing_or_rebound_audit -v",
+      "PYTHONPATH=tests .venv/bin/python -m unittest test_pipeline_continuation.ContinuationTests.test_paid_replanned_child_remains_continuable_with_its_new_planner_receipt -v",
+      "PYTHONPATH=tests .venv/bin/python -m unittest test_pipeline_continuation.ContinuationTests.test_replan_preserves_built_seed_and_all_rejected_answers test_pipeline_continuation.ContinuationTests.test_child_preserves_context_and_never_replans_or_resets_parent -v"
+    ],
+    "distinct_tests_passed": 15,
+    "final_focused_elapsed_seconds": 0.145,
+    "final_focused_tests": 2,
+    "initial_fixture_failures": [
+      "Synthetic events directory already existed; fixture now uses exist_ok",
+      "Synthetic event serialized key order differed from preserved report; fixture now uses read-back report"
+    ]
+  }
+}

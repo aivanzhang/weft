@@ -1,0 +1,38 @@
+{
+  "budget": {
+    "effective_ceiling_microdollars": 15000000,
+    "original_ceiling_microdollars": 17000000,
+    "policy": "append-only-lower-ceiling-v1",
+    "reductions": 1
+  },
+  "calls": [
+    {
+      "actual_microdollars_upper_estimate": 25538,
+      "request_digest": "6769562ae420960af4949aa6db59476f7430e30e0acd9a91c2155a269e645267",
+      "reserved_microdollars": 5618640,
+      "response_id_sha256": "ad50c032fd7d762e89f5ad8481b44aab5dbd3d3568aba0e840d9fe7c1498a5e9",
+      "role": "planner",
+      "state": "settled",
+      "usage": {
+        "input_tokens": 3825,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 1065,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 4890
+      }
+    }
+  ],
+  "global_uncertain_reserved_microdollars": 0,
+  "grant_microdollars": 13311051,
+  "job_digest": "0a68ca29427e7c145323048edb49e9a8d953e189d862302750c8cfec6ac191dd",
+  "job_id": "studio-b082dc54dbb54f9d9030f75b",
+  "max_calls": 7,
+  "mutated": false,
+  "planner_receipt_sha256": "da0eb9f957cbed7e415c75cc72a551b3a9bc240dd59ac8a95911c0c4cde39767",
+  "project_exposure_microdollars": 1714487
+}

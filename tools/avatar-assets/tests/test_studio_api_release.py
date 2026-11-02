@@ -39,8 +39,8 @@ class StudioApiReleaseTests(unittest.TestCase):
         self.jobs.plan(self.job)
         self.claim()
         self.output = self.jobs.resolve_job(self.job)
-        self.backend = {'provider': 'openai', 'model': api.MODEL, 'max_calls': 3,
-                        'max_repairs': 0, 'timeout': 240, 'max_output_tokens': 16384}
+        self.backend = {'provider': 'openai', 'model': api.MODEL, 'max_calls': getattr(self,'fixture_calls',3),
+                        'max_repairs': getattr(self,'fixture_repairs',0), 'timeout': 240, 'max_output_tokens': 16384}
         with self.jobs._db() as db:
             row = self.jobs._row(db, self.job)
             self.request = json.loads(row['request'])
@@ -48,7 +48,7 @@ class StudioApiReleaseTests(unittest.TestCase):
         copied.parent.mkdir(parents=True)
         copied.write_bytes(self.source.read_bytes())
         prepared = {**self.request, 'schema_version': 1, 'id': self.output.name,
-                    'states': [], 'max_credits': 0, 'max_repairs': 0, 'max_agent_calls': 3,
+                    'states': [], 'max_credits': 0, 'max_repairs': self.backend['max_repairs'], 'max_agent_calls': self.backend['max_calls'],
                     'agent_timeout': 240, 'agent_model': api.MODEL, 'agent_backend': self.backend,
                     'media_spec': MEDIA_SPECS['preview'], 'created': '2026-11-02T11:00:00-08:00',
                     'reuse_model': {'path': 'inputs/source-model.glb', 'original_path': str(self.source),
@@ -73,10 +73,11 @@ class StudioApiReleaseTests(unittest.TestCase):
         ledger = api.OpenAILedger(self.root / '.local/openai')
         approval = {'decision': 'approved', 'user_reply': 'Analytic allowance only; no real spending'}
         ledger.configure(17000000, approval)
-        ledger.authorize_job(self.output.name, request_hash, 3, 17000000, approval)
-        self.answer = {'state_id': 'dance_' + 'a' * 65}
+        ledger.authorize_job(self.output.name, request_hash, self.backend['max_calls'], 17000000, approval)
+        self.answer = getattr(self,'fixture_answer',{'state_id': 'dance_' + 'a' * 65})
         schema = {'type': 'object', 'properties': {'state_id': {'type': 'string'}},
                   'required': ['state_id'], 'additionalProperties': False}
+        schema = getattr(self,'fixture_schema',schema)
         response = {'id': 'resp_analytic_planner', 'model': api.MODEL, 'service_tier': 'default',
                     'status': 'completed', 'usage': {'input_tokens': 100, 'output_tokens': 20, 'total_tokens': 120},
                     'output': [{'type': 'message', 'role': 'assistant', 'status': 'completed',
@@ -85,7 +86,7 @@ class StudioApiReleaseTests(unittest.TestCase):
             with patch.object(api, 'read_api_key', return_value='ANALYTIC NEVER REAL'), \
                     patch.object(api, 'post_response', return_value=json.dumps(response).encode()) as transport:
                 runner = api.OpenAIRunner(self.output / 'agents', job_id=self.output.name,
-                    job_digest=request_hash, ledger=ledger, max_calls=3)
+                    job_digest=request_hash, ledger=ledger, max_calls=self.backend['max_calls'])
                 runner.call('planner', 'Plan this analytic dance; no tool execution', schema)
                 self.assertEqual(transport.call_count, 1)
         finally:

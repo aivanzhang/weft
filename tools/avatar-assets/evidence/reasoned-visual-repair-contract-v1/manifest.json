@@ -1,0 +1,822 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2013,
+      "path": "README.md",
+      "sha256": "01a6189818270197ed913535f646d45543807f9df015c7ca46743d38c2c77523"
+    },
+    {
+      "bytes": 59919,
+      "path": "inventory.json",
+      "sha256": "974604ababc034f4de7f0a4291550da9f86298011b9125862fac7af64e8f1f3e"
+    },
+    {
+      "bytes": 178,
+      "path": "snapshots/openai-medium-backend-setting-v1/after.json",
+      "sha256": "fb25e00c69c3e919e72e42d6bd8ebfd02ec8895fe0416f40385a51a6a83bcf65"
+    },
+    {
+      "bytes": 146,
+      "path": "snapshots/openai-medium-backend-setting-v1/before.json",
+      "sha256": "c12d7a429b204f629077107bad8d129f7e0e48769436951b707f8bc88e6e3c2c"
+    },
+    {
+      "bytes": 1026,
+      "path": "snapshots/openai-medium-backend-setting-v1/receipt.json",
+      "sha256": "9170043ce4bb3b2b3ab16a0c24a1741833ecf127b96342e9ce81dbf9de3d9ccb"
+    },
+    {
+      "bytes": 2137,
+      "path": "snapshots/openai-reasoning-support-v1/README.md",
+      "sha256": "909e739694dc27ac4f284918eb2e395e38cfe7564e92907acc5ea715bdb56e3c"
+    },
+    {
+      "bytes": 96,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 43,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/__main__.py",
+      "sha256": "5b6b90d74686a795930df55bfb70a6512c8b059a8629dd30866c3ecdaf78bf02"
+    },
+    {
+      "bytes": 35083,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "bytes": 17776,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 7891,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/agent_backend.py",
+      "sha256": "37ebf5f3d2b68b22f34d691b1108da5833bbc6cc211c5dc141fb935a50e9c4c6"
+    },
+    {
+      "bytes": 26471,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 4525,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b"
+    },
+    {
+      "bytes": 6862,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a"
+    },
+    {
+      "bytes": 12872,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "bytes": 8595,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "bytes": 7879,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/build3d.py",
+      "sha256": "fc914b616570a998d212ddfc4d12434074fb954f17ac26c0e474b0f567b7e31c"
+    },
+    {
+      "bytes": 11789,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37"
+    },
+    {
+      "bytes": 8351,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2"
+    },
+    {
+      "bytes": 42821,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6"
+    },
+    {
+      "bytes": 16614,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 11162,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/export2d.py",
+      "sha256": "b59c1ebcbab7c1b146229be47fa5e4f06ad900fea026282701978ed959e03baa"
+    },
+    {
+      "bytes": 38146,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 13676,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 21758,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/fringe_fidelity.py",
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1"
+    },
+    {
+      "bytes": 40332,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 19539,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 27764,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d"
+    },
+    {
+      "bytes": 16931,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 9497,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/lookdev.py",
+      "sha256": "b27acee4a931f4085cc0f125e89880b3a502a57c7687a8a2503914ab8e50e954"
+    },
+    {
+      "bytes": 8912,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52"
+    },
+    {
+      "bytes": 22815,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    },
+    {
+      "bytes": 15225,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+    },
+    {
+      "bytes": 17295,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 9246,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "bytes": 32021,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/openai_runner.py",
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "bytes": 2961,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/packaging.py",
+      "sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a"
+    },
+    {
+      "bytes": 6665,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 42517,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642"
+    },
+    {
+      "bytes": 96821,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/pipeline.py",
+      "sha256": "63b39b134470ebfada78de7d0308cbf2ab0abbfeb0d66772a41291ef533d186c"
+    },
+    {
+      "bytes": 37261,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/pipeline_continuation.py",
+      "sha256": "aa0f25d134236b6999ae76acd112a3d4fd37bd155b7c001449a391085bb3c095"
+    },
+    {
+      "bytes": 9788,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    },
+    {
+      "bytes": 61990,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/pipeline_prompts.py",
+      "sha256": "7d9c7076a79e8126971470fd1749d80281dfcdf6263716f1e09ff7b0ba8ed40b"
+    },
+    {
+      "bytes": 12183,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/pipeline_recovery.py",
+      "sha256": "fc85c177d2162d3341abcc4fc1ad1a1165e63389d679a5b4bb867c2babdb1483"
+    },
+    {
+      "bytes": 1326,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 8121,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 14626,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "bytes": 2955,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62"
+    },
+    {
+      "bytes": 11421,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 17157,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/scene.py",
+      "sha256": "7a1e624a88d2575fce28908001822bfad438f55b916167d1a3af2b050e2909b2"
+    },
+    {
+      "bytes": 24176,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5"
+    },
+    {
+      "bytes": 12424,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/stable_role_projection.py",
+      "sha256": "b5df2934c1416c45fb21073aadcb675456845dc4c714f1f7f4d12011b2aac5bd"
+    },
+    {
+      "bytes": 16914,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/standing_authorization.py",
+      "sha256": "e3134f4772d4669122b629d2ec932ef1868357dc0cc07d1a8713cc9cd4bedbcc"
+    },
+    {
+      "bytes": 18821,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/studio.py",
+      "sha256": "cf7ee42f824d3a736504059bc002b3f4f2857bad88dd5f6126c2b61c3814da7c"
+    },
+    {
+      "bytes": 43705,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/studio_inspection.py",
+      "sha256": "cd878a71634b5c57780e8880b1ca2fda2a984837e73d93a4747c7c7c0940c4ba"
+    },
+    {
+      "bytes": 57164,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/studio_jobs.py",
+      "sha256": "1975642b8b01ded6da19d8f82f5835731c570c908f97f82ce9ac5328716cdd4f"
+    },
+    {
+      "bytes": 15535,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/studio_worker.py",
+      "sha256": "91d741d31debaaddb9ec2424fe7239d4988783b6e0e716231d722bc5ef677e02"
+    },
+    {
+      "bytes": 2675,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 1792,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    },
+    {
+      "bytes": 35323,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 14456,
+      "path": "snapshots/openai-reasoning-support-v1/baseline/avatar_assets/weft_metadata.py",
+      "sha256": "d3b548fe918fc61f3877c7862c427e14d8f38e611682a9531bba51bd514bab43"
+    },
+    {
+      "bytes": 8034,
+      "path": "snapshots/openai-reasoning-support-v1/final/avatar_assets/agent_backend.py",
+      "sha256": "4ee863873c193e0dd75eb7801cecce305ffacabe67da6d2759aa3317a31050b9"
+    },
+    {
+      "bytes": 34778,
+      "path": "snapshots/openai-reasoning-support-v1/final/avatar_assets/openai_runner.py",
+      "sha256": "a5806e54e0b574194d50131e365abaf0a08d8580cf7190cafc783a0a8ba781e3"
+    },
+    {
+      "bytes": 96898,
+      "path": "snapshots/openai-reasoning-support-v1/final/avatar_assets/pipeline.py",
+      "sha256": "6baac90359c25b120bb33a6f5f5f3d6e13cf34548b47bc55efb55e95da6d51b3"
+    },
+    {
+      "bytes": 43388,
+      "path": "snapshots/openai-reasoning-support-v1/final/avatar_assets/studio_inspection.py",
+      "sha256": "3dd26c4bd3b3d4a9e5f97332b813161878eab386369ad626a8987e0903c4cf58"
+    },
+    {
+      "bytes": 7521,
+      "path": "snapshots/openai-reasoning-support-v1/final/tests/test_reasoning_support.py",
+      "sha256": "ffacfe5f3ca8448dee1d022714b7d947b461c2ef6995d71f7a7ec0b9f0b2e3cf"
+    },
+    {
+      "bytes": 96,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 43,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/__main__.py",
+      "sha256": "5b6b90d74686a795930df55bfb70a6512c8b059a8629dd30866c3ecdaf78bf02"
+    },
+    {
+      "bytes": 35083,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "bytes": 17776,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 8034,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/agent_backend.py",
+      "sha256": "4ee863873c193e0dd75eb7801cecce305ffacabe67da6d2759aa3317a31050b9"
+    },
+    {
+      "bytes": 26471,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 4525,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b"
+    },
+    {
+      "bytes": 6862,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a"
+    },
+    {
+      "bytes": 12872,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "bytes": 8595,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "bytes": 7879,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/build3d.py",
+      "sha256": "fc914b616570a998d212ddfc4d12434074fb954f17ac26c0e474b0f567b7e31c"
+    },
+    {
+      "bytes": 11789,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37"
+    },
+    {
+      "bytes": 8351,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2"
+    },
+    {
+      "bytes": 42821,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/compose_sources.py",
+      "sha256": "e44c1b4cff23d23644e241107f0b57a051b228ad6cce77aa3a4d7fa27e7f61f6"
+    },
+    {
+      "bytes": 16614,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 11162,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/export2d.py",
+      "sha256": "b59c1ebcbab7c1b146229be47fa5e4f06ad900fea026282701978ed959e03baa"
+    },
+    {
+      "bytes": 38146,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 13676,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 21758,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/fringe_fidelity.py",
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1"
+    },
+    {
+      "bytes": 40332,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 19539,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 27764,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d"
+    },
+    {
+      "bytes": 16931,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 9497,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/lookdev.py",
+      "sha256": "b27acee4a931f4085cc0f125e89880b3a502a57c7687a8a2503914ab8e50e954"
+    },
+    {
+      "bytes": 8912,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52"
+    },
+    {
+      "bytes": 22815,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    },
+    {
+      "bytes": 15225,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+    },
+    {
+      "bytes": 17295,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 9246,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "bytes": 34778,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/openai_runner.py",
+      "sha256": "a5806e54e0b574194d50131e365abaf0a08d8580cf7190cafc783a0a8ba781e3"
+    },
+    {
+      "bytes": 2961,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/packaging.py",
+      "sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a"
+    },
+    {
+      "bytes": 6665,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 42517,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642"
+    },
+    {
+      "bytes": 96898,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/pipeline.py",
+      "sha256": "6baac90359c25b120bb33a6f5f5f3d6e13cf34548b47bc55efb55e95da6d51b3"
+    },
+    {
+      "bytes": 37124,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/pipeline_continuation.py",
+      "sha256": "39812dd2b2a5398912ff5ab47dc113938df7352674a35026441db714a5d56d38"
+    },
+    {
+      "bytes": 9788,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    },
+    {
+      "bytes": 61990,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/pipeline_prompts.py",
+      "sha256": "7d9c7076a79e8126971470fd1749d80281dfcdf6263716f1e09ff7b0ba8ed40b"
+    },
+    {
+      "bytes": 12183,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/pipeline_recovery.py",
+      "sha256": "fc85c177d2162d3341abcc4fc1ad1a1165e63389d679a5b4bb867c2babdb1483"
+    },
+    {
+      "bytes": 1326,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 8121,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 14626,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "bytes": 2955,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62"
+    },
+    {
+      "bytes": 11421,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 17157,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/scene.py",
+      "sha256": "7a1e624a88d2575fce28908001822bfad438f55b916167d1a3af2b050e2909b2"
+    },
+    {
+      "bytes": 24176,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5"
+    },
+    {
+      "bytes": 12424,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/stable_role_projection.py",
+      "sha256": "b5df2934c1416c45fb21073aadcb675456845dc4c714f1f7f4d12011b2aac5bd"
+    },
+    {
+      "bytes": 16914,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/standing_authorization.py",
+      "sha256": "e3134f4772d4669122b629d2ec932ef1868357dc0cc07d1a8713cc9cd4bedbcc"
+    },
+    {
+      "bytes": 18821,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/studio.py",
+      "sha256": "cf7ee42f824d3a736504059bc002b3f4f2857bad88dd5f6126c2b61c3814da7c"
+    },
+    {
+      "bytes": 43388,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/studio_inspection.py",
+      "sha256": "3dd26c4bd3b3d4a9e5f97332b813161878eab386369ad626a8987e0903c4cf58"
+    },
+    {
+      "bytes": 57164,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/studio_jobs.py",
+      "sha256": "1975642b8b01ded6da19d8f82f5835731c570c908f97f82ce9ac5328716cdd4f"
+    },
+    {
+      "bytes": 15535,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/studio_worker.py",
+      "sha256": "91d741d31debaaddb9ec2424fe7239d4988783b6e0e716231d722bc5ef677e02"
+    },
+    {
+      "bytes": 2675,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 1792,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    },
+    {
+      "bytes": 35323,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 14456,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/avatar_assets/weft_metadata.py",
+      "sha256": "d3b548fe918fc61f3877c7862c427e14d8f38e611682a9531bba51bd514bab43"
+    },
+    {
+      "bytes": 6317,
+      "path": "snapshots/openai-reasoning-support-v1/proposed/tests/test_reasoning_support.py",
+      "sha256": "a517df618d69f7ca1a9f82ef3118c1c71748aa11f05d6b3ad3276134a6611be2"
+    },
+    {
+      "bytes": 3842,
+      "path": "snapshots/openai-reasoning-support-v1/result.json",
+      "sha256": "e3365258c1bb662939f4aac8fda6e8ddc038e94df3f8948d98d8ce2197657127"
+    },
+    {
+      "bytes": 22878,
+      "path": "snapshots/openai-reasoning-support-v1/runtime.patch",
+      "sha256": "06a0b3995c38481cf2c065f5dd215db7b6b7e2346cd58157af4191af8a395933"
+    },
+    {
+      "bytes": 1473,
+      "path": "snapshots/reasoned-repair-integration-tests-v1/result.json",
+      "sha256": "ab1836bdc3b903d75149a1320ba302667827885c5043f8082f9033ca7770849f"
+    },
+    {
+      "bytes": 1644,
+      "path": "snapshots/reasoned-repair-integration-tests-v1/stderr.log",
+      "sha256": "e45a2d7d5408d4db1736a3efc78f8f8f28fb6f8386e7b01f7e540797db0d8bbe"
+    },
+    {
+      "bytes": 0,
+      "path": "snapshots/reasoned-repair-integration-tests-v1/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1679,
+      "path": "snapshots/reasoned-repair-integration-tests-v2/result.json",
+      "sha256": "071326053225911151b11cd5069299224094c2d729ca0bc7b335ddb48b78e291"
+    },
+    {
+      "bytes": 124,
+      "path": "snapshots/reasoned-repair-integration-tests-v2/stderr.log",
+      "sha256": "d57b2a6d2c250915649db39845c0ab375dc7023339a8b956c7cd9ac7c3a0d209"
+    },
+    {
+      "bytes": 0,
+      "path": "snapshots/reasoned-repair-integration-tests-v2/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 8998,
+      "path": "snapshots/visual-history-memory-fix-v1/change.patch",
+      "sha256": "922af24157a5b17145f6ed73df299fde1b60e5e9df633a1effc46a7ea7d9eacc"
+    },
+    {
+      "bytes": 97489,
+      "path": "snapshots/visual-history-memory-fix-v1/pipeline.py",
+      "sha256": "51d45abd62d72eed13e1b2b79fcbba7412f503547747ce8ec18397e654222bb1"
+    },
+    {
+      "bytes": 1417,
+      "path": "snapshots/visual-history-memory-fix-v1/result.json",
+      "sha256": "5baa3753ffe3db76f933f22fb2a206c747fb6a3784c266dc2d54775983084b44"
+    },
+    {
+      "bytes": 102,
+      "path": "snapshots/visual-history-memory-fix-v1/source-before.json",
+      "sha256": "10293dfe5b8fe1fc5d1e06902b7fe1be5aa823aca0f4f279a1209f8a817888bf"
+    },
+    {
+      "bytes": 7030,
+      "path": "snapshots/visual-history-memory-fix-v1/test_visual_history_memory.py",
+      "sha256": "6dc76affeac23b9893aadc4e557cde1e98d2a87bd210337fa5f11e8eca2e2b80"
+    },
+    {
+      "bytes": 1544,
+      "path": "snapshots/visual-history-memory-tests-v2/result.json",
+      "sha256": "6b8bba69b715865643c5c5dcfce7e77f25b2f2041a0dc833569f3d120a9c9ee9"
+    },
+    {
+      "bytes": 89047,
+      "path": "snapshots/visual-repair-continuation-tests-v1/actual-context.json",
+      "sha256": "de31150af37d3e6023ecf95e001cc7ae75521405da9dfdf3a8824a0e7e333028"
+    },
+    {
+      "bytes": 242,
+      "path": "snapshots/visual-repair-continuation-tests-v1/actual-handle.json",
+      "sha256": "1865577b1a9c02d9beaab1d5f5fd82fb5d229eed4f768959ddcb5dd26fe5a4df"
+    },
+    {
+      "bytes": 1116,
+      "path": "snapshots/visual-repair-continuation-tests-v1/actual-job.json",
+      "sha256": "978e63cf703e0a97a98fa4d03a32be94e2fb60744f92c0f9b4654d4ace521cc3"
+    },
+    {
+      "bytes": 1026,
+      "path": "snapshots/visual-repair-continuation-tests-v1/actual-monitor.json",
+      "sha256": "6c0e0979a1e796aac1c0df919b596be5cede686eec261400501a61e2042c3ec4"
+    },
+    {
+      "bytes": 987,
+      "path": "snapshots/visual-repair-continuation-tests-v1/actual-result.json",
+      "sha256": "158f60de58ee65984747c73caa81405e5435b6b018f9fee75f7e4c1301bbddeb"
+    },
+    {
+      "bytes": 945,
+      "path": "snapshots/visual-repair-continuation-tests-v1/actual.log",
+      "sha256": "9ba01d40fd4b91a6d25042a45108503ae7c2c3caf9e283ff85834eb24c286ee6"
+    },
+    {
+      "bytes": 2247,
+      "path": "snapshots/visual-repair-continuation-tests-v1/actual.py",
+      "sha256": "5f8d52a4e2047e1cd565f0193c94ff1eb08928740462a0ff12d721cafc910c1d"
+    },
+    {
+      "bytes": 3538,
+      "path": "snapshots/visual-repair-continuation-tests-v1/manifest.json",
+      "sha256": "efb7b303a02b412cf8b6403a43d226de12646fb8ed33123f56e9ba4a08596fb7"
+    },
+    {
+      "bytes": 2207,
+      "path": "snapshots/visual-repair-continuation-tests-v1/result.json",
+      "sha256": "ebb1df76fcd13a6ff4eb4fe3f4d94d3ffacbfb61f2406a1e0be426e0cff83477"
+    },
+    {
+      "bytes": 98954,
+      "path": "snapshots/visual-repair-continuation-tests-v1/sources/pipeline.py",
+      "sha256": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069"
+    },
+    {
+      "bytes": 46941,
+      "path": "snapshots/visual-repair-continuation-tests-v1/sources/pipeline_continuation.py",
+      "sha256": "6287047106d8b1bad66e6971b3776bc1ca4f5d2dfaba619c765ebcf6b66141bb"
+    },
+    {
+      "bytes": 62221,
+      "path": "snapshots/visual-repair-continuation-tests-v1/sources/pipeline_prompts.py",
+      "sha256": "e14644d35088361072f2dac730087dbeacc1468cbb1e0a460c073561830e857d"
+    },
+    {
+      "bytes": 12606,
+      "path": "snapshots/visual-repair-continuation-tests-v1/sources/test_visual_repair_continuation-final.py",
+      "sha256": "37c70fbb923e2fa1d6d8503ea22a6f0955875f7b33a575afeca97765113edb9f"
+    },
+    {
+      "bytes": 12590,
+      "path": "snapshots/visual-repair-continuation-tests-v1/sources/test_visual_repair_continuation.py",
+      "sha256": "17e08270d97a21438bd846c151e95e80e8d20d6c6e4002ff20893fd8199baef7"
+    },
+    {
+      "bytes": 548,
+      "path": "snapshots/visual-repair-continuation-tests-v1/test-preparation.json",
+      "sha256": "6aaede9676f7be53dab32d8315880107ff9eefd2a52fc3991aeb286186ee5102"
+    },
+    {
+      "bytes": 239,
+      "path": "snapshots/visual-repair-continuation-tests-v1/tests-final-handle.json",
+      "sha256": "bf862af9bea430429588b0e73c99c14560aa0172df579765370c17daf2a8d682"
+    },
+    {
+      "bytes": 1141,
+      "path": "snapshots/visual-repair-continuation-tests-v1/tests-final-job.json",
+      "sha256": "a75bb1aa23c9b5b97c03fd2a5ca8ba8ae38f934dc119164aaea6a14d034f8042"
+    },
+    {
+      "bytes": 1023,
+      "path": "snapshots/visual-repair-continuation-tests-v1/tests-final-monitor.json",
+      "sha256": "aae9a41e03d9affbb4cb72db8ebba44dfd2c8673a21cfef708dfb1b1751045fa"
+    },
+    {
+      "bytes": 1753,
+      "path": "snapshots/visual-repair-continuation-tests-v1/tests-final.log",
+      "sha256": "5120c47fc6cf31627627be0d2276bafa916ea048b4e35533255f72e44865f773"
+    },
+    {
+      "bytes": 233,
+      "path": "snapshots/visual-repair-continuation-tests-v1/tests-handle.json",
+      "sha256": "7ca6242bffc534c569109e83aa13ff9049457ee806ea73569881ebcedb224775"
+    },
+    {
+      "bytes": 1135,
+      "path": "snapshots/visual-repair-continuation-tests-v1/tests-job.json",
+      "sha256": "8e9ad059d32cfd03b0cacf7c8a492c750af1fca2d05cae9929878c83487b47d2"
+    },
+    {
+      "bytes": 1017,
+      "path": "snapshots/visual-repair-continuation-tests-v1/tests-monitor.json",
+      "sha256": "4ae224a4ba26d0f68bbf71af9640281b9eb55c2cc3d950416154d0050d2e52bb"
+    },
+    {
+      "bytes": 6351,
+      "path": "snapshots/visual-repair-continuation-tests-v1/tests.log",
+      "sha256": "ac27a6d53b44cd48ab301774c1a86e0ab66501f1cfd36a772a893ba21c34ab10"
+    },
+    {
+      "bytes": 2086,
+      "path": "summary.json",
+      "sha256": "f7bf0fa36d10b18606d1e8efbd1a58e2e9f308c3a064b2991db1b495ea4a7913"
+    },
+    {
+      "bytes": 431,
+      "path": "verification.json",
+      "sha256": "78e27deb43962e0881fd79c502f4d4c72f299b0e0c9c9ff3572f5db1a51845ed"
+    }
+  ],
+  "kind": "reasoned_visual_repair_contract_evidence",
+  "schema_version": 1,
+  "status": "verified"
+}

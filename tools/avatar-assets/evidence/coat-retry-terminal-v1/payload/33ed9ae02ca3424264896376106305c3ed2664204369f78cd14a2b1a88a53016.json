@@ -1,0 +1,197 @@
+{
+  "evidence": [
+    {
+      "height": 1496,
+      "id": "evidence-native-views",
+      "kind": "multiview",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-1f98497e18e74820bda487ce/final-evidence-2/native-views.png",
+      "sha256": "16edf60b92a22fb138c32e22415cb58631ec2d840e0271c8891035d01d4c87ff",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 1496,
+      "id": "evidence-exported-views",
+      "kind": "multiview",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-1f98497e18e74820bda487ce/final-evidence-2/exported-views.png",
+      "sha256": "250013a83f5123d727e9619fee9d3feb7a99c9abfc06f143886ba46da04ce8a3",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00",
+      "kind": "native_exported_and_delivered_motion",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-1f98497e18e74820bda487ce/final-evidence-2/motion-00.png",
+      "sha256": "14c17a6136b23564a7d5e4d3e5c959a7fe7c9b324d54bd4365603638a91e48be",
+      "state_ids": [
+        "dance"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "delivered_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-1f98497e18e74820bda487ce/final-evidence-2/delivered-portrait.webp",
+      "sha256": "7a515c077579449fc9c4a6f68352b05af7c32ab1fe4c95cb2a88fa3d128c846a",
+      "state_ids": [],
+      "width": 1600
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-native-dance",
+      "kind": "isolated_motion_pose",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-1f98497e18e74820bda487ce/final-evidence-2/isolated-native-dance.png",
+      "representation": "native",
+      "sample_index": 4,
+      "second": 2.7,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "2e63c3453a58b05be7f137d91a110a37cdc4f2cb4116f737f6cd50f64f7dc97a",
+      "state_ids": [
+        "dance"
+      ],
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-exported-dance",
+      "kind": "isolated_motion_pose",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-1f98497e18e74820bda487ce/final-evidence-2/isolated-exported-dance.png",
+      "representation": "exported",
+      "sample_index": 4,
+      "second": 2.7,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "9f4246d237a158a23ff11a4f05ad4fe607a7e8f8f91b9dac7fc14cdf30ed3192",
+      "state_ids": [
+        "dance"
+      ],
+      "width": 720
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "b1e3283ca33eb3f8ebc36cdd022d2b7fd2698a2767d135da5cdd3b4c7a86da9b",
+  "portable_attachment_manifest_sha256": "24a13c53b07ddf2a0fc1b88e771e949a4c05c4e8ba97174c0979834266431de5",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-delivered-portrait"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "The character remains a single cute upright panda-like figure with compact rounded proportions, ivory face and belly, black ears, black eye patches, black limbs, warm brown eyes, short muzzle, and small tail. No companion, clothes, props, pedestal, lettering, or scenery are visible."
+      },
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-delivered-portrait"
+        ],
+        "name": "appearance",
+        "passed": false,
+        "reason": "Core panda appearance is present, but the requested short soft tidy fur/clean smooth undercoat presentation is not preserved cleanly in exported and motion views. Visible gray mottling and patchy/sparse card-like coat breakup appear around the cheeks/neck and outer legs, with rough noisy patches on the exported body that read less like tidy short fur and more like unstable coat artifacts. This is a visible quality defect, not just a material variation."
+      },
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "Full body is visible in front, side, back, and three-quarter views in both native and exported evidence, including head, hands, feet, and tail."
+      },
+      {
+        "evidence_ids": [
+          "evidence-motion-00",
+          "evidence-isolated-native-dance",
+          "evidence-isolated-exported-dance"
+        ],
+        "name": "deformation",
+        "passed": false,
+        "reason": "During dance poses, visible deformation/coat presentation breaks down around the cheek-neck junction and along the outer thighs/legs, especially in exported views. The isolated peak-stretch samples show conspicuous patchy tearing-like coat breakup and silhouette roughening rather than clean short-fur deformation."
+      }
+    ],
+    "limitations": [
+      "Motion contact, balance, collisions, and loop seamlessness are not established by the provided visual evidence.",
+      "Numeric audit supports that motion exists and returns to start, but does not by itself prove semantic quality or visual cleanliness."
+    ],
+    "required_repairs": [
+      "Repair exported and motion coat presentation around cheeks/neck and outer legs/thighs to remove patchy polygonal/card-like fur breakup and restore a tidy short-fur silhouette.",
+      "Clean deformation presentation in the dance pose so moving regions do not show conspicuous coat tearing/gaps or noisy mottled patches in either native or exported state evidence."
+    ],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "evidence-motion-00",
+          "evidence-isolated-native-dance",
+          "evidence-isolated-exported-dance",
+          "action-audit-dance"
+        ],
+        "id": "dance",
+        "meaning_passed": true,
+        "motion_passed": false,
+        "reason": "The visible action reads as a cheerful toy dance with alternating side-to-side beats, small hops, arm swings, head tilts, and a return to the starting pose, consistent with the request and supported by the numeric audit. However, the state does not pass overall because exported/native moving poses show conspicuous coat/deformation artifacts around the cheek-neck area and outer legs.",
+        "requirement_reviews": [
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "evidence-isolated-native-dance",
+              "evidence-isolated-exported-dance",
+              "action-audit-dance"
+            ],
+            "id": "body_rhythm",
+            "passed": true,
+            "reason": "The body visibly shifts side to side in alternating beats across the motion sheet, and the audit also reports rhythmic reversals."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "evidence-isolated-native-dance",
+              "evidence-isolated-exported-dance",
+              "action-audit-dance"
+            ],
+            "id": "body_hops",
+            "passed": true,
+            "reason": "Small whole-body upward beats are visible in the motion samples, consistent with brief hops; the audit also measures vertical rise/travel."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "evidence-isolated-native-dance",
+              "evidence-isolated-exported-dance",
+              "action-audit-dance"
+            ],
+            "id": "arms_swing",
+            "passed": true,
+            "reason": "Both arms visibly swing relative to the torso rather than only translating with the whole body, matching the requested gentle coordinated motion."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "evidence-isolated-native-dance",
+              "evidence-isolated-exported-dance",
+              "action-audit-dance"
+            ],
+            "id": "head_tilts",
+            "passed": true,
+            "reason": "The head visibly tilts with the dance and changes relative to the torso, not merely by whole-character travel."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-dance"
+            ],
+            "id": "return_neutral",
+            "passed": true,
+            "reason": "The final pose visually returns to the starting neutral pose, and the audit reports endpoint return within tolerance."
+          }
+        ]
+      }
+    ],
+    "summary": "Requested panda identity and dance meaning are preserved, and framing coverage is sufficient, but the attempt should not be accepted because visible coat/deformation artifacts remain in motion and exported views. Patchy card-like/mottled fur breakup around the cheeks/neck and outer legs undermines the requested tidy short-fur presentation and clean deformation quality.",
+    "verdict": "repair"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "artifacts": [
+    {
+      "bytes": 89047,
+      "path": "actual-context.json",
+      "sha256": "de31150af37d3e6023ecf95e001cc7ae75521405da9dfdf3a8824a0e7e333028"
+    },
+    {
+      "bytes": 242,
+      "path": "actual-handle.json",
+      "sha256": "1865577b1a9c02d9beaab1d5f5fd82fb5d229eed4f768959ddcb5dd26fe5a4df"
+    },
+    {
+      "bytes": 1116,
+      "path": "actual-job.json",
+      "sha256": "978e63cf703e0a97a98fa4d03a32be94e2fb60744f92c0f9b4654d4ace521cc3"
+    },
+    {
+      "bytes": 1026,
+      "path": "actual-monitor.json",
+      "sha256": "6c0e0979a1e796aac1c0df919b596be5cede686eec261400501a61e2042c3ec4"
+    },
+    {
+      "bytes": 987,
+      "path": "actual-result.json",
+      "sha256": "158f60de58ee65984747c73caa81405e5435b6b018f9fee75f7e4c1301bbddeb"
+    },
+    {
+      "bytes": 945,
+      "path": "actual.log",
+      "sha256": "9ba01d40fd4b91a6d25042a45108503ae7c2c3caf9e283ff85834eb24c286ee6"
+    },
+    {
+      "bytes": 2247,
+      "path": "actual.py",
+      "sha256": "5f8d52a4e2047e1cd565f0193c94ff1eb08928740462a0ff12d721cafc910c1d"
+    },
+    {
+      "bytes": 2207,
+      "path": "result.json",
+      "sha256": "ebb1df76fcd13a6ff4eb4fe3f4d94d3ffacbfb61f2406a1e0be426e0cff83477"
+    },
+    {
+      "bytes": 98954,
+      "path": "sources/pipeline.py",
+      "sha256": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069"
+    },
+    {
+      "bytes": 46941,
+      "path": "sources/pipeline_continuation.py",
+      "sha256": "6287047106d8b1bad66e6971b3776bc1ca4f5d2dfaba619c765ebcf6b66141bb"
+    },
+    {
+      "bytes": 62221,
+      "path": "sources/pipeline_prompts.py",
+      "sha256": "e14644d35088361072f2dac730087dbeacc1468cbb1e0a460c073561830e857d"
+    },
+    {
+      "bytes": 12606,
+      "path": "sources/test_visual_repair_continuation-final.py",
+      "sha256": "37c70fbb923e2fa1d6d8503ea22a6f0955875f7b33a575afeca97765113edb9f"
+    },
+    {
+      "bytes": 12590,
+      "path": "sources/test_visual_repair_continuation.py",
+      "sha256": "17e08270d97a21438bd846c151e95e80e8d20d6c6e4002ff20893fd8199baef7"
+    },
+    {
+      "bytes": 548,
+      "path": "test-preparation.json",
+      "sha256": "6aaede9676f7be53dab32d8315880107ff9eefd2a52fc3991aeb286186ee5102"
+    },
+    {
+      "bytes": 239,
+      "path": "tests-final-handle.json",
+      "sha256": "bf862af9bea430429588b0e73c99c14560aa0172df579765370c17daf2a8d682"
+    },
+    {
+      "bytes": 1141,
+      "path": "tests-final-job.json",
+      "sha256": "a75bb1aa23c9b5b97c03fd2a5ca8ba8ae38f934dc119164aaea6a14d034f8042"
+    },
+    {
+      "bytes": 1023,
+      "path": "tests-final-monitor.json",
+      "sha256": "aae9a41e03d9affbb4cb72db8ebba44dfd2c8673a21cfef708dfb1b1751045fa"
+    },
+    {
+      "bytes": 1753,
+      "path": "tests-final.log",
+      "sha256": "5120c47fc6cf31627627be0d2276bafa916ea048b4e35533255f72e44865f773"
+    },
+    {
+      "bytes": 233,
+      "path": "tests-handle.json",
+      "sha256": "7ca6242bffc534c569109e83aa13ff9049457ee806ea73569881ebcedb224775"
+    },
+    {
+      "bytes": 1135,
+      "path": "tests-job.json",
+      "sha256": "8e9ad059d32cfd03b0cacf7c8a492c750af1fca2d05cae9929878c83487b47d2"
+    },
+    {
+      "bytes": 1017,
+      "path": "tests-monitor.json",
+      "sha256": "4ae224a4ba26d0f68bbf71af9640281b9eb55c2cc3d950416154d0050d2e52bb"
+    },
+    {
+      "bytes": 6351,
+      "path": "tests.log",
+      "sha256": "ac27a6d53b44cd48ab301774c1a86e0ab66501f1cfd36a772a893ba21c34ab10"
+    }
+  ],
+  "kind": "visual_repair_continuation_validation",
+  "schema_version": 1,
+  "status": "passed"
+}

@@ -1,0 +1,85 @@
+{
+  "agent_backend": {
+    "authorization_checked": false,
+    "automatic_paid_retries": 0,
+    "currency": "USD",
+    "execution_gate": "exact_request_dollar_grant_and_explicit_start",
+    "historical_plan_semantics_revalidated": true,
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "maximum_reservation_microdollars": 39330480,
+    "model": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "reservation_microdollars_per_call": 5618640,
+    "timeout": 240
+  },
+  "files": [
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/request.json",
+      "sha256": "0a68ca29427e7c145323048edb49e9a8d953e189d862302750c8cfec6ac191dd"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/plan.json",
+      "sha256": "c4713e81f95ba393a5a50292e2511193ebc57bb08093152502799e2d21f86c97"
+    },
+    {
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/retry-parent-custody.json",
+      "sha256": "e4d31e1e2af7635124e6a90246b5066d270398c2f4ac7327c6f9737b83d18582"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/input-receipt.json",
+      "sha256": "49afe2ef6b545b8b09a1ff4ce542c788e62ce7a67e5d81a7f2b5f81e57983995"
+    },
+    {
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/pipeline-request.json",
+      "sha256": "2bb13126b6c271b15d234c46ed6537ce641f92e04508445339f9b18794373ebb"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/runtime-revision.json",
+      "sha256": "78f0c7a74818779d14eb7f8b307de25e2dff5c4e96b940c68d5eef51c297a622"
+    },
+    {
+      "path": "outputs/openai-panda-author-input-runtime-v1/manifest.json",
+      "sha256": "f928dc942cd8cb7d70abbafa2829b4ea7be8a93537ac7b78f9a252c0ccbdbce3"
+    }
+  ],
+  "generation_mode": "reused_generated_source",
+  "id": "b082dc54dbb54f9d9030f75b",
+  "output": "outputs/studio-b082dc54dbb54f9d9030f75b",
+  "owner": {
+    "active_lease_job": null,
+    "cancel_requested": false,
+    "ended_local": "2026-11-02T13:53:55.390588-08:00",
+    "heartbeat_local": "2026-11-02T13:53:55.390588-08:00",
+    "identity_verified_live": false,
+    "invocation_dir": "jobs/b082dc54dbb54f9d9030f75b/run-0002",
+    "invocations": 2,
+    "operation": "execute",
+    "owner_identity": "darwin-start:1793656432:745879",
+    "owner_pid": 48443,
+    "queued_jobs": []
+  },
+  "ownership_scope": "Read-only canonical registry and selected PID identity; no dispatch, cancellation or signal",
+  "plan_id": "22a44720c3f0f0005a387fcd47f155baf2e28f181a8b838ad3e9ba45c15ddc54",
+  "provenance": "actual_pipeline",
+  "recorded_local": "2026-11-02T14:07:20.953217-08:00",
+  "reference_selected": false,
+  "request": {
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass."
+  },
+  "schema_version": 1,
+  "source_generation": null,
+  "source_reuse": {
+    "bytes": 14902088,
+    "path": "inputs/source-model.glb",
+    "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+  },
+  "state_dir": ".local/studio",
+  "status": "planned"
+}

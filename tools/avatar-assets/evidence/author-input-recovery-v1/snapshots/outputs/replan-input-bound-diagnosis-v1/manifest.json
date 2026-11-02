@@ -1,0 +1,107 @@
+{
+  "artifacts": [
+    {
+      "bytes": 242,
+      "path": "check-handle.json",
+      "sha256": "e5f84cb403df0d9502a392279f1f5067561555d7889ebcfebd3abb4a29d002b9"
+    },
+    {
+      "bytes": 980,
+      "path": "check-monitor.json",
+      "sha256": "1cc3e0ae012bd114908474a786f3c0545da3dceca6c94c4b003b7cf2d0da6e26"
+    },
+    {
+      "bytes": 615,
+      "path": "check.log",
+      "sha256": "d5de1cdf285d6b38c4936d60ce72d17322c204c93a71086b8eae6960c93bdb39"
+    },
+    {
+      "bytes": 5500,
+      "path": "check.py",
+      "sha256": "5894b4199c97f0df5ed9363126eeb07ea7194056d12d034b41e240b9057f5d03"
+    },
+    {
+      "bytes": 1204,
+      "path": "execute.py",
+      "sha256": "c72c63e997d11f31483410a452c820d289c9a52bac4f1373a26fe3971f908383"
+    },
+    {
+      "bytes": 1072,
+      "path": "job.json",
+      "sha256": "ba0e820f0fd696c38c4ac7c0c1d1481febd67b4dd393f41430d70a58e2dd91a9"
+    },
+    {
+      "bytes": 1235,
+      "path": "ledger-summary.json",
+      "sha256": "56c7544677ea6682ad3b5ad6d57140a701a98883e90a40f1ffc38949f21f2030"
+    },
+    {
+      "bytes": 15475,
+      "path": "output-hashes.json",
+      "sha256": "a6bcc3b6aa1fbf6fe865b74dcfd17361bf9587e6867a42c1fb5fd383dbecda1f"
+    },
+    {
+      "bytes": 333,
+      "path": "predispatch.json",
+      "sha256": "ee7da038b581d00d1e85a40b9efa0f085199290a31a5ca4831f1a7cc75da126d"
+    },
+    {
+      "bytes": 1211,
+      "path": "prepared.json",
+      "sha256": "233c24d0ff0eff05814350a0b569eba89fcff3e8484b5b3ab4f9d830996a33df"
+    },
+    {
+      "bytes": 5888,
+      "path": "process-custody.json",
+      "sha256": "ff79471493e4c79f6b611571af0d3f52bc871640093b80ea01d06e964709b759"
+    },
+    {
+      "bytes": 1908,
+      "path": "prompt-evidence.json",
+      "sha256": "427fdffdc7c6e1c6f6d76b61c38b802ab0cc41a0a5e88290a09a6efced619969"
+    },
+    {
+      "bytes": 396,
+      "path": "registry-summary.json",
+      "sha256": "d991d4a24e818605d1b1281ca79cefafc78d2aaced516f3ff492014f484e7440"
+    },
+    {
+      "bytes": 1311,
+      "path": "result.json",
+      "sha256": "18d9385fc0f70147907f56fa795d20dd12da5261b3fbab14be680714cc644f9a"
+    },
+    {
+      "bytes": 26471,
+      "path": "sources/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 32021,
+      "path": "sources/openai_runner.py",
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 43365,
+      "path": "sources/studio_inspection.py",
+      "sha256": "309d3627084c476e2366070ac425d668f7a7170918f2f1056ee6718ed3109786"
+    },
+    {
+      "bytes": 57164,
+      "path": "sources/studio_jobs.py",
+      "sha256": "1975642b8b01ded6da19d8f82f5835731c570c908f97f82ce9ac5328716cdd4f"
+    },
+    {
+      "bytes": 675,
+      "path": "summary.json",
+      "sha256": "1d91f46640fbde24e0724edb2f1ecf8204f22ebada70f8fef576c6a0e1a32109"
+    }
+  ],
+  "kind": "actual_replan_predispatch_diagnosis",
+  "schema_version": 1,
+  "status": "verified_read_only"
+}

@@ -1,0 +1,129 @@
+{
+  "agent_backend": {
+    "authorization_checked": false,
+    "automatic_paid_retries": 0,
+    "currency": "USD",
+    "execution_gate": "exact_request_dollar_grant_and_explicit_start",
+    "historical_plan_semantics_revalidated": false,
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "maximum_reservation_microdollars": 39330480,
+    "model": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "reservation_microdollars_per_call": 5618640,
+    "timeout": 240
+  },
+  "files": [
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/request.json",
+      "sha256": "0a68ca29427e7c145323048edb49e9a8d953e189d862302750c8cfec6ac191dd"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/plan.json",
+      "sha256": "c4713e81f95ba393a5a50292e2511193ebc57bb08093152502799e2d21f86c97"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/unsupported.json",
+      "sha256": "c99372a8edb60364063d57f8038aa05600a1dd433f0c2ebdcb7bf5f2cc19c3e6"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/status.json",
+      "sha256": "d962326a12a23b20e828490ac7345d35f932b8c6ae2f4c0c4dd8b97e813e6a13"
+    },
+    {
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0003/invocation.json",
+      "sha256": "f09037ee9cc38d33b90765f140f4de00e7098be1d992bf8506caf60fa1104337"
+    },
+    {
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0003/owner.json",
+      "sha256": "78a86dc8b8e9169f41b6d97978eb5628e102e19b85f863339f5bd3f7a8651093"
+    },
+    {
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0003/worker-job.json",
+      "sha256": "680407faacbe06394ee7d31432f6ac2375ee4d0905a2afa283df1e871fa36ba8"
+    },
+    {
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0003/result.json",
+      "sha256": "0e519f988dc6a8a392ba3e11fecce0e2c05b839e67bf9cdea09fa92e0ff23c22"
+    },
+    {
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0003/supervisor-result.json",
+      "sha256": "21f4fcedde7fcb0821932be836c6aedf90fd7c55c2133c3b8a2623d514d13dd5"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/agents/author-2/answer.json",
+      "sha256": "cde970faa2a9c18c34d2e0a1be02d494b3bff20d84aa7dbb72290f5eb98b0272"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/agents/author-2/receipt.json",
+      "sha256": "45eaf3996d38a84f89b17078cd3e2d6523a5641b33b531b9f5ac2a47a8750be9"
+    },
+    {
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/retry-parent-custody.json",
+      "sha256": "e4d31e1e2af7635124e6a90246b5066d270398c2f4ac7327c6f9737b83d18582"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/input-receipt.json",
+      "sha256": "49afe2ef6b545b8b09a1ff4ce542c788e62ce7a67e5d81a7f2b5f81e57983995"
+    },
+    {
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/pipeline-request.json",
+      "sha256": "2bb13126b6c271b15d234c46ed6537ce641f92e04508445339f9b18794373ebb"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/continuation/receipt.json",
+      "sha256": "bfbd505702f1563116e8e5338ba4d51be6c2f0365fa91949ebed931a9aaae352"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/continuation/context.json",
+      "sha256": "b570843b3acd22630ec224bce16ffa2df98095d6919b5a91e57bc81895c7f256"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/agents/planner/answer.json",
+      "sha256": "c4713e81f95ba393a5a50292e2511193ebc57bb08093152502799e2d21f86c97"
+    },
+    {
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/agents/planner/receipt.json",
+      "sha256": "da0eb9f957cbed7e415c75cc72a551b3a9bc240dd59ac8a95911c0c4cde39767"
+    }
+  ],
+  "generation_mode": "reused_generated_source",
+  "id": "b082dc54dbb54f9d9030f75b",
+  "output": "outputs/studio-b082dc54dbb54f9d9030f75b",
+  "owner": {
+    "active_lease_job": null,
+    "cancel_requested": false,
+    "ended_local": "2026-11-02T14:12:32.088658-08:00",
+    "heartbeat_local": "2026-11-02T14:12:32.088658-08:00",
+    "identity_verified_live": false,
+    "invocation_dir": "jobs/b082dc54dbb54f9d9030f75b/run-0003",
+    "invocations": 3,
+    "operation": "execute",
+    "owner_identity": "darwin-start:1793657243:359897",
+    "owner_pid": 51374,
+    "queued_jobs": []
+  },
+  "ownership_scope": "Read-only canonical registry and selected PID identity; no dispatch, cancellation or signal",
+  "plan_id": "22a44720c3f0f0005a387fcd47f155baf2e28f181a8b838ad3e9ba45c15ddc54",
+  "provenance": "actual_pipeline",
+  "recorded_local": "2026-11-02T14:12:35.214540-08:00",
+  "reference_selected": false,
+  "request": {
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass."
+  },
+  "schema_version": 1,
+  "source_generation": null,
+  "source_reuse": {
+    "bytes": 14902088,
+    "path": "inputs/source-model.glb",
+    "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+  },
+  "state_dir": ".local/studio",
+  "status": "unsupported"
+}

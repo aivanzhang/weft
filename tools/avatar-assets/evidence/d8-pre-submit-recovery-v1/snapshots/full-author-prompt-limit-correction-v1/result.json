@@ -1,0 +1,101 @@
+{
+  "api_calls": 0,
+  "ast_changes_only_json_whitespace": true,
+  "canonical_payload_sha256": "2a922d198cce2fbd7e89168d30e278291824d417c8c81b2e92a4f4f1933b509e",
+  "complete_prompt_sha256": "4936f5fff889bb36a62290a120f1675468c28a56f6b363094f56c42f37ebf759",
+  "directive_source": "AST literal from Pipeline._run, equal to saved source",
+  "effective_limit_source": "avatar_assets.agent_runner.MAX_PROMPT_BYTES imported by OpenAIRunner.call",
+  "effective_prompt_limit_bytes": 131072,
+  "elapsed_seconds": 0.04412325005978346,
+  "exact_continuation_directive_bytes": 259,
+  "input_bindings": {
+    "avatar_assets/agent_runner.py": {
+      "bytes": 26471,
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    "avatar_assets/pipeline.py": {
+      "bytes": 98954,
+      "sha256": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069"
+    },
+    "avatar_assets/pipeline_prompts.py": {
+      "bytes": 62234,
+      "sha256": "b7b2188778c1cd75ddab59358ada97bd90be2f534823ce61549eeacc5de97304"
+    },
+    "evidence/reasoned-visual-repair-contract-v1/README.md": {
+      "bytes": 2013,
+      "sha256": "01a6189818270197ed913535f646d45543807f9df015c7ca46743d38c2c77523"
+    },
+    "evidence/reasoned-visual-repair-contract-v1/manifest.json": {
+      "bytes": 33783,
+      "sha256": "4f17fc5cd0556bfbbff3b459685a120bd8176ba4564feeff2a137f5a296973c7"
+    },
+    "evidence/reasoned-visual-repair-contract-v1/summary.json": {
+      "bytes": 2086,
+      "sha256": "f7bf0fa36d10b18606d1e8efbd1a58e2e9f308c3a064b2991db1b495ea4a7913"
+    },
+    "outputs/studio-d8a680ce6580429f9fdd016f/continuation/context.json": {
+      "bytes": 89047,
+      "sha256": "de31150af37d3e6023ecf95e001cc7ae75521405da9dfdf3a8824a0e7e333028"
+    },
+    "outputs/studio-d8a680ce6580429f9fdd016f/inspection/manifest.json": {
+      "bytes": 17767,
+      "sha256": "fb4c34b22a7fa6e17ce2fab53b2b7a3663881de133f76410fb8d1b61e9f89ff7"
+    },
+    "outputs/studio-d8a680ce6580429f9fdd016f/plan.json": {
+      "bytes": 6152,
+      "sha256": "c4713e81f95ba393a5a50292e2511193ebc57bb08093152502799e2d21f86c97"
+    },
+    "outputs/studio-d8a680ce6580429f9fdd016f/request.json": {
+      "bytes": 2552,
+      "sha256": "24573e3e63254bc3e3eaa69d84f7bac21220220b8a13110a5110ab71337f4170"
+    },
+    "outputs/studio-d8a680ce6580429f9fdd016f/sources/pipeline.py": {
+      "bytes": 98954,
+      "sha256": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069"
+    },
+    "outputs/studio-d8a680ce6580429f9fdd016f/sources/pipeline_prompts.py": {
+      "bytes": 62221,
+      "sha256": "e14644d35088361072f2dac730087dbeacc1468cbb1e0a460c073561830e857d"
+    },
+    "outputs/visual-repair-continuation-tests-v1/actual-result.json": {
+      "bytes": 987,
+      "sha256": "158f60de58ee65984747c73caa81405e5435b6b018f9fee75f7e4c1301bbddeb"
+    },
+    "outputs/visual-repair-continuation-tests-v1/manifest.json": {
+      "bytes": 3538,
+      "sha256": "efb7b303a02b412cf8b6403a43d226de12646fb8ed33123f56e9ba4a08596fb7"
+    },
+    "outputs/visual-repair-continuation-tests-v1/result.json": {
+      "bytes": 2207,
+      "sha256": "ebb1df76fcd13a6ff4eb4fe3f4d94d3ffacbfb61f2406a1e0be426e0cff83477"
+    },
+    "tests/test_repair_prompt_view.py": {
+      "bytes": 7047,
+      "sha256": "1162c534d2bfbd92ba35d4fe558afe0a2026e8cf71847d2520aa964bdd65b418"
+    }
+  },
+  "json_values_equal": true,
+  "native_runs": 0,
+  "new_complete_prompt_bytes": 84075,
+  "new_payload_bytes": 56082,
+  "new_prompt_plus_conservative_1024_bytes": 84840,
+  "new_prompt_without_directive_bytes": 83816,
+  "old_complete_prompt_bytes": 137155,
+  "old_complete_prompt_sha256": "9dce46c77ec1c25a754689e771134cd94d441cedbded62edd920cb2bd3737307",
+  "old_payload_bytes": 109162,
+  "old_prompt_without_directive_bytes": 136896,
+  "original_preflight_correction": {
+    "actual_limit": 131072,
+    "exceeded_actual_limit_by_bytes": 6564,
+    "incorrect_compared_limit": 163840,
+    "prior_admission_claim_valid": false,
+    "reported_bytes_with_allowance": 137636
+  },
+  "parent": "outputs/studio-d8a680ce6580429f9fdd016f",
+  "payload_limit_bytes": 163840,
+  "payload_limit_scope": "Serialized data only; does not replace the stricter complete-prompt limit",
+  "schema_version": 1,
+  "scope": "Independent reconstruction from actual saved d8 request/inspection/context; no provider/native/release/job calls",
+  "source_input_and_prior_evidence_hashes_unchanged": true,
+  "status": "passed"
+}

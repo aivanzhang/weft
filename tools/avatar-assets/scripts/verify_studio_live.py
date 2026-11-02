@@ -181,8 +181,16 @@ def api_backend(state, job_id, output, request, prepared, plan, request_digest, 
     from avatar_assets.studio_worker import _validate_prepared_request
 
     settings = validate_settings(prepared["agent_backend"])
-    _validate_prepared_request(prepared, request, output, agent_backend=settings)
-    require(validate_plan(plan, prepared)["status"] == "ready", "API inspection needs a ready planner result")
+    if terminal_sealed and "continuation" in prepared:
+        # Historical provenance is immutable; do not rerun today's semantic collection over yesterday's plan.
+        _validate_prepared_request({key: value for key, value in prepared.items() if key != "continuation"},
+            {key: value for key, value in request.items() if key not in
+             ("continuation_from", "continuation_policy_sha256", "continuation_custody_sha256")}, output, agent_backend=settings)
+    else:
+        _validate_prepared_request(prepared, request, output, agent_backend=settings)
+    historical_files = historical_plan(output, request, prepared, plan) if terminal_sealed else []
+    if not terminal_sealed:
+        require(validate_plan(plan, prepared)["status"] == "ready", "API inspection needs a ready planner result")
     request_hash = sha(output / "request.json", MAX_JSON)
     receipt_path = output / "input-receipt.json"
     receipt = read_json(receipt_path)
@@ -198,7 +206,50 @@ def api_backend(state, job_id, output, request, prepared, plan, request_digest, 
     return {**settings, "currency": "USD", "reservation_microdollars_per_call": reservation,
             "maximum_reservation_microdollars": reservation * settings["max_calls"],
             "automatic_paid_retries": 0, "authorization_checked": False,
-            "execution_gate": "exact_request_dollar_grant_and_explicit_start"}, [receipt_path, binding_path, *revision_files]
+            "historical_plan_semantics_revalidated": False if terminal_sealed else True,
+            "execution_gate": "exact_request_dollar_grant_and_explicit_start"}, [receipt_path, binding_path, *revision_files, *historical_files]
+
+
+def historical_plan(output, request, prepared, plan):
+    """Authenticate old plan bytes without treating superseded semantics as currently valid."""
+    files = []
+    if "continuation" in prepared:
+        binding = prepared["continuation"]
+        require(isinstance(binding, dict) and set(binding) == {"schema_version", "policy", "parent", "receipt", "sha256"}
+                and binding["schema_version"] == 1 and binding["policy"] == "terminal-native-repair-continuation-v1"
+                and binding["parent"] == "outputs/studio-" + request["continuation_from"]
+                and binding["receipt"] == "continuation/receipt.json", "Historical continuation binding differs")
+        receipt_path = relative_file(output, binding["receipt"])
+        context_path = relative_file(output, "continuation/context.json")
+        receipt, context = read_json(receipt_path), read_json(context_path)
+        require(sha(receipt_path, MAX_JSON) == binding["sha256"] and receipt.get("policy") == binding["policy"]
+                and receipt.get("parent") == binding["parent"] and receipt.get("schema_version") == 1
+                and receipt.get("context_sha256") == sha(context_path, MAX_JSON), "Historical continuation context changed")
+        files.extend((receipt_path, context_path))
+        if not context.get("replan"):
+            require(context.get("plan") == plan, "Historical inherited plan differs from its pinned context")
+            return files
+    folder = output / "agents/planner"
+    answer_path, receipt_path = folder / "answer.json", folder / "receipt.json"
+    answer, receipt = read_json(answer_path), read_json(receipt_path)
+    require(answer == plan and receipt.get("status") == "succeeded"
+            and receipt.get("execution_kind") == "openai_responses_api"
+            and receipt.get("answer_sha256") == sha(answer_path, MAX_JSON), "Historical plan differs from its completed planner receipt")
+    artifacts = receipt.get("artifacts")
+    require(isinstance(artifacts, list) and 1 <= len(artifacts) <= 16, "Invalid historical planner artifact inventory")
+    names, total = set(), 0
+    for row in artifacts:
+        require(isinstance(row, dict) and set(row) == {"path", "bytes", "sha256"}
+                and isinstance(row["path"], str) and "/" not in row["path"] and row["path"] not in names,
+                "Invalid historical planner artifact pin")
+        names.add(row["path"])
+        path = relative_file(folder, row["path"], 8 * MAX_JSON)
+        require(type(row["bytes"]) is int and path.stat().st_size == row["bytes"]
+                and sha(path, 8 * MAX_JSON) == row["sha256"], "Historical planner artifact changed")
+        total += row["bytes"]
+        require(total <= 32 * MAX_JSON, "Historical planner artifacts exceed bound")
+    require("answer.json" in names, "Planner receipt omitted its answer")
+    return files + [answer_path, receipt_path]
 
 
 def unsupported_seal(state, job_id, output, data, request_digest):

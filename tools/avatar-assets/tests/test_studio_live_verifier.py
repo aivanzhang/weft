@@ -400,8 +400,9 @@ class StudioInspectionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "source pin changed"):
             verifier.inspect(JOB)
 
-    def seal_unsupported_fixture(self):
-        self.api_fixture(reuse=True)
+    def seal_unsupported_fixture(self, reset=True):
+        if reset:
+            self.api_fixture(reuse=True)
         self.data.update(token="b"*32, owner_pid=900001, owner_identity="analytic-exited-owner", operation="execute",
                          invocation_dir="jobs/"+JOB+"/run-0001")
         invocation = self.state/self.data["invocation_dir"]
@@ -417,6 +418,11 @@ class StudioInspectionTests(unittest.TestCase):
         for name in ("result.json","supervisor-result.json"):
             write(invocation/name,{"status":"unsupported","safe_to_release":True})
         self.update_row(data=json.dumps(self.data),status="unsupported")
+        folder=self.output/"agents/planner"
+        write(folder/"answer.json",self.plan)
+        write(folder/"receipt.json",{"status":"succeeded","execution_kind":"openai_responses_api",
+            "answer_sha256":digest(folder/"answer.json"),"artifacts":[
+                {"path":"answer.json","bytes":(folder/"answer.json").stat().st_size,"sha256":digest(folder/"answer.json")}]})
         return invocation
 
     def test_sealed_unsupported_uses_archived_sources_not_current_source(self):
@@ -472,7 +478,13 @@ class StudioInspectionTests(unittest.TestCase):
         self.request.update(continuation_from="c"*24,continuation_policy_sha256="d"*64,
                             continuation_custody_sha256=_digest(proof))
         write(self.job/"request.json",self.request);write(self.job/"retry-parent-custody.json",proof)
-        self.prepared["continuation"]={"parent":"outputs/studio-"+"c"*24}
+        context_path=self.output/"continuation/context.json"
+        receipt_path=self.output/"continuation/receipt.json"
+        write(context_path,{"plan":self.plan,"previous_answer":{},"findings":{}})
+        write(receipt_path,{"schema_version":1,"policy":"terminal-native-repair-continuation-v1",
+                            "parent":"outputs/studio-"+"c"*24,"context_sha256":digest(context_path)})
+        self.prepared["continuation"]={"schema_version":1,"policy":"terminal-native-repair-continuation-v1",
+            "parent":"outputs/studio-"+"c"*24,"receipt":"continuation/receipt.json","sha256":digest(receipt_path)}
         write(self.output/"request.json",self.prepared)
         write(self.output/"input-receipt.json",{"request_sha256":digest(self.output/"request.json"),
                                                "sources":self.pins(self.output/"sources")})
@@ -492,6 +504,24 @@ class StudioInspectionTests(unittest.TestCase):
             verifier.inspect(JOB)
         write(self.job/"retry-parent-custody.json",{"changed":True})
         with self.assertRaisesRegex(ValueError,"custody receipt differs"):verifier.inspect(JOB)
+
+    def test_historical_terminal_plan_keeps_old_provenance_without_current_semantic_validation(self):
+        self.seal_unsupported_fixture()
+        with patch("avatar_assets.pipeline_prompts.validate_plan",side_effect=AssertionError("Do not revalidate historical semantics")):
+            result=verifier.inspect(JOB)
+        self.assertFalse(result["agent_backend"]["historical_plan_semantics_revalidated"])
+        write(self.output/"agents/planner/answer.json",{**self.plan,"subject":"Changed"})
+        with self.assertRaisesRegex(ValueError,"completed planner receipt"):verifier.inspect(JOB)
+
+    def test_historical_inherited_plan_checks_pinned_context_not_new_semantic_collection(self):
+        self.continuation_fixture();self.seal_unsupported_fixture(reset=False)
+        with patch("avatar_assets.pipeline_continuation.verify",side_effect=AssertionError("No current re-collection")), \
+             patch("avatar_assets.pipeline_prompts.validate_plan",side_effect=AssertionError("No current semantics")):
+            result=verifier.inspect(JOB)
+        self.assertEqual(result["status"],"unsupported")
+        context=verifier.read_json(self.output/"continuation/context.json")
+        write(self.output/"continuation/context.json",{**context,"plan":{**self.plan,"subject":"Changed"}})
+        with self.assertRaisesRegex(ValueError,"context changed"):verifier.inspect(JOB)
 
     def test_continuation_fields_are_exact_not_arbitrary_request_extensions(self):
         self.continuation_fixture()

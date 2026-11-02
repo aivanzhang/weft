@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_visual_repair_continuation.py",
+    "-v"
+  ],
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "sources": {
+    "avatar_assets/pipeline_continuation.py": "6287047106d8b1bad66e6971b3776bc1ca4f5d2dfaba619c765ebcf6b66141bb",
+    "tests/test_visual_repair_continuation.py": "17e08270d97a21438bd846c151e95e80e8d20d6c6e4002ff20893fd8199baef7"
+  }
+}

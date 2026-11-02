@@ -1,0 +1,91 @@
+{
+  "active_focused_tests_passed": 55,
+  "actual_key_reads": 0,
+  "allowed_efforts": [
+    "none",
+    "low",
+    "medium",
+    "high"
+  ],
+  "classification": "Analyst-recorded focused test results; temporary mock transports/ledgers only",
+  "cost_assumption": {
+    "additional_reasoning_tokens_per_call": [
+      2000,
+      6000
+    ],
+    "additional_usd_at_standard_output_rate": [
+      0.03,
+      0.09
+    ],
+    "classification": "Scenario estimate, not measured reasoning usage or guaranteed completion; shares existing output cap and approved dollar budget",
+    "seven_call_additional_usd": [
+      0.21,
+      0.63
+    ]
+  },
+  "default_effort": "none",
+  "limitations": [
+    "Real medium-mode API compatibility and quality benefit remain unverified until a separately bounded authorized job.",
+    "Reasoning and visible output share16384-token cap; exhaustion stays incomplete/no automatic retry.",
+    "Changing source/config does not retrofit historical requests or reopen old runner fingerprints. New jobs bind explicit medium.",
+    "Parent must update owner configuration and source-bound standing policy after combined runtime freeze."
+  ],
+  "model": "gpt-5.4-2026-03-05",
+  "native_calls": 0,
+  "observed_legacy_b082": {
+    "author0_output_tokens": 3955,
+    "author1_output_tokens": 4008,
+    "legacy_planner_receipt_readonly_authentication": "passed",
+    "reasoning_tokens": 0
+  },
+  "official_sources": [
+    "https://developers.openai.com/api/docs/models/gpt-5.4",
+    "https://developers.openai.com/api/docs/guides/reasoning"
+  ],
+  "owner_config_or_live_ledger_mutations": 0,
+  "pricing_unchanged": true,
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T14:45:47.984324-08:00",
+  "schema_version": 1,
+  "shared_continuation_parser": "pipeline_continuation._role now calls openai_runner.response_answer_text; other continuation regions concurrently owned by contracts agent",
+  "sources": {
+    "avatar_assets/agent_backend.py": "4ee863873c193e0dd75eb7801cecce305ffacabe67da6d2759aa3317a31050b9",
+    "avatar_assets/openai_runner.py": "a5806e54e0b574194d50131e365abaf0a08d8580cf7190cafc783a0a8ba781e3",
+    "avatar_assets/pipeline.py": "6baac90359c25b120bb33a6f5f5f3d6e13cf34548b47bc55efb55e95da6d51b3",
+    "avatar_assets/studio_inspection.py": "3dd26c4bd3b3d4a9e5f97332b813161878eab386369ad626a8987e0903c4cf58",
+    "tests/test_reasoning_support.py": "ffacfe5f3ca8448dee1d022714b7d947b461c2ef6995d71f7a7ec0b9f0b2e3cf"
+  },
+  "status": "implemented_active_after_parent_terminal_authorization",
+  "tests": [
+    {
+      "command": "../../../.venv/bin/python -m unittest discover -s tests -p test_reasoning_support.py -v",
+      "cwd": "outputs/openai-reasoning-support-v1/proposed",
+      "elapsed_seconds": 0.111,
+      "note": "7new +12 imported baseline runner tests on proposed sources before active application",
+      "passed": 19
+    },
+    {
+      "command": "PYTHONPATH=tests .venv/bin/python -m unittest test_reasoning_support test_openai_runner.ContinuationTests test_openai_runner.ExposureTests test_openai_runner.BudgetReductionTests -v",
+      "elapsed_seconds": 0.158,
+      "passed": 27
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_openai_studio_integration.py -q",
+      "elapsed_seconds": 0.425,
+      "passed": 18
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_recovery.py -q",
+      "elapsed_seconds": 0.373,
+      "note": "Existing unclosed temporary SQLite ResourceWarning emitted; tests passed",
+      "passed": 9
+    },
+    {
+      "command": "PYTHONPATH=tests .venv/bin/python -m unittest test_reasoning_support.ReasoningStudioTests -v",
+      "elapsed_seconds": 0.039,
+      "passed": 1
+    }
+  ],
+  "unchanged_max_output_tokens": 16384,
+  "unchanged_max_reservation_microdollars": 5618640
+}

@@ -7,11 +7,19 @@ import re
 from avatar_assets.safety import require, slug
 
 
-KINDS = ("articulation", "travel", "rhythm", "takeoff", "landing", "stability", "interaction", "expression")
+KINDS = ("articulation", "travel", "rhythm", "takeoff", "landing", "stability", "return_pose", "interaction", "expression")
 METRICS = frozenset({"scale_m", "weighted_vertices", "moving_vertices",
-                     "max_root_relative_displacement_m", "max_world_displacement_m", "max_travel_m", "max_vertical_rise_m",
+                     "max_root_relative_displacement_m", "max_world_displacement_m", "max_final_world_displacement_m",
+                     "max_travel_m", "max_vertical_rise_m",
                      "descent_from_peak_m", "rhythmic_reversals", "active_control_count"})
 COUNTS = frozenset({"weighted_vertices", "moving_vertices", "rhythmic_reversals", "active_control_count"})
+
+
+class PlanIntentError(ValueError):
+    """A structurally valid plan added or misclassified an explicit action constraint."""
+    def __init__(self, code, message):
+        self.code = code
+        super().__init__(message)
 
 
 def _text(value, label, maximum=600):
@@ -42,6 +50,11 @@ def required_kinds(text):
         kinds.update(("takeoff", "travel"))
     if re.search(r"\b(?:land|lands|landing)\b", text):
         kinds.add("landing")
+    if re.search(r"\b(?:return(?:s|ing)?|(?:go|come)\s+back)\s+(?:back\s+)?to\s+"
+                 r"(?:(?:the|its|their|your)\s+)?"
+                 r"(?:(?:(?:neutral|rest|starting|initial|original|start)\s+){1,3}(?:pose|stance)\b"
+                 r"|neutral(?=\s*(?:[.,;!?]|$)))", text):
+        kinds.add("return_pose")
     return kinds
 
 
@@ -133,7 +146,18 @@ def validate_state_intents(states, custom_actions, requested_ids=(), *, ready=Tr
         if structured:
             validate_requirements(state.get("requirements"), state.get("roles"))
             kinds = {item["kind"] for item in state["requirements"]}
-            require(required_kinds(supplied or state["meaning"]) <= kinds,
+            requested = required_kinds(supplied or state["meaning"])
+            if actions:
+                if 'stability' in kinds and 'stability' not in requested:
+                    raise PlanIntentError('unrequested_stability',
+                        'Planner added world-stationary stability without affirmative stationary user intent')
+                if 'landing' in kinds and 'landing' not in requested:
+                    raise PlanIntentError('unrequested_landing',
+                        'Planner added landing without a requested landing; return-to-pose is a different condition')
+                if 'return_pose' in requested and 'return_pose' not in kinds:
+                    raise PlanIntentError('missing_return_pose',
+                        'Planner omitted requested return_pose; landing or whole-clip stability cannot replace it')
+            require(requested <= kinds,
                     "Planner omitted a required action capability; do not relabel the action")
             if ready:
                 require(not kinds & {"interaction", "expression"},
@@ -215,6 +239,7 @@ def evaluate_action_evidence(requirements, evidence, height_meters):
         "takeoff": {"scale_m", "max_vertical_rise_m", "max_travel_m"},
         "landing": {"scale_m", "descent_from_peak_m"},
         "stability": {"scale_m", "weighted_vertices", "max_world_displacement_m"},
+        "return_pose": {"scale_m", "weighted_vertices", "max_final_world_displacement_m"},
     }
     rows = []
     for item in requirements:
@@ -244,6 +269,11 @@ def evaluate_action_evidence(requirements, evidence, height_meters):
                 tolerance = min(.005*scale, .005)
                 passed = values["weighted_vertices"] >= 8 and values["max_world_displacement_m"] <= tolerance
                 reason = "World-space weighted-surface displacement at most 0.5% of measured role scale, capped at 5mm; not ground-contact proof"
+                row["maximum_displacement_m"] = tolerance
+            elif kind == "return_pose":
+                tolerance = min(.005*scale, .005)
+                passed = values["weighted_vertices"] >= 8 and values["max_final_world_displacement_m"] <= tolerance
+                reason = "All selected weighted vertices return within 0.5% of measured role scale, capped at 5mm; endpoints only, not loop or contact proof"
                 row["maximum_displacement_m"] = tolerance
             else:
                 passed, reason = values["descent_from_peak_m"] >= .05*scale, "Actual descent from peak; contact still needs visual review"

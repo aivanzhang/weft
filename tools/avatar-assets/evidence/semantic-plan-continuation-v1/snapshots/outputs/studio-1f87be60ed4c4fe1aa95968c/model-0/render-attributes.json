@@ -1,0 +1,72 @@
+{
+  "checks": [
+    "finite normals/UV0/UV1/UV2/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "selected normal-map UV0/UV1/UV2 binding"
+  ],
+  "decoded_scalar_values": 561753,
+  "limitations": [
+    "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+    "This HD check does not change Weft's diffuse UV0-only contract; normal maps and extra UV sets remain unsupported there."
+  ],
+  "limits": {
+    "decoded_global_values": 2000000,
+    "decoded_surface_values": 1100000,
+    "file_bytes": 67108864,
+    "normal_map_uv_indices": [
+      0,
+      1,
+      2
+    ],
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "Material_0",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.3991781095134e-07,
+      "normal_tangent_dot_error": 0.00013272060614966108,
+      "tangent_squared_length_error": 0.00015030258575521316,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 27043
+    },
+    {
+      "material": "PortableCoat_0_cutout_fur",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.1795687032977185e-07,
+      "normal_tangent_dot_error": 0.0001308348897057776,
+      "tangent_squared_length_error": 0.0001524476964576138,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 18687
+    },
+    {
+      "material": "PortableCoat_1_cutout_fur",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.1903931402000865e-07,
+      "normal_tangent_dot_error": 0.00013072107550549106,
+      "tangent_squared_length_error": 0.00015043586143548282,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 16687
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "e052d5f01d942f4a53833b06fd6dcad17e6dde3c0b3b93fc82002d5da983d33b",
+  "status": "validated_render_attributes",
+  "tangent_uv_derivation_verified": false,
+  "vertices": 62417,
+  "weft_runtime_verified": false
+}

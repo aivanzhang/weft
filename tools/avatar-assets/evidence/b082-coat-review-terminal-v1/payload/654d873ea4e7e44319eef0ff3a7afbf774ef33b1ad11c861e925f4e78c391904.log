@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/b082-portable-fur-flecks-v1/check.py", line 17, in <module>
+    s=g.doc['accessors'][body['indices']];ix=np.asarray(g.accessor(body['indices'],'SCALAR',(5125,5123))).reshape(-1,3).astype(int)
+                                                        ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/three_d.py", line 297, in accessor
+    _require(type(count) is int and 0 < count <= count_limit, "Accessor count outside bounds")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/three_d.py", line 119, in _require
+    raise ValueError(message)
+ValueError: Accessor count outside bounds

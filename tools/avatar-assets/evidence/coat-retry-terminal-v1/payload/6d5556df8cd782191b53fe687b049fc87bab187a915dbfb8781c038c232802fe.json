@@ -1,0 +1,116 @@
+{
+  "checks": [
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "identity",
+      "passed": true,
+      "reason": "The character remains a single cute upright panda-like avatar with compact rounded proportions, black ears, black eye patches, ivory face and belly, black limbs, warm brown eyes, short muzzle, and small black tail. No companion, clothing, props, pedestal, lettering, or scenery are visible."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "appearance",
+      "passed": false,
+      "reason": "Native views read as the requested stylized panda, but the exported appearance shows conspicuous sparse dark card/fleck artifacts across the back, head, and body, plus rough patchy coat breakup around the cheeks/neck and sides. The exported coat looks less tidy than requested and no longer reads as consistently short soft fur with clean simple boundaries."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views"
+      ],
+      "name": "framing",
+      "passed": true,
+      "reason": "Full body is visible in native and exported review views, including head, arms, hands, feet, and tail. The subject is fully framed for inspection."
+    },
+    {
+      "evidence_ids": [
+        "evidence-isolated-native-dance",
+        "evidence-isolated-exported-dance",
+        "evidence-motion-00"
+      ],
+      "name": "deformation",
+      "passed": false,
+      "reason": "Motion remains mild, but the exported dance pose shows visible coat/card breakup and silhouette roughness along the flanks and around the neck/cheek area. The isolated exported pose also shows an unnatural protruding white clump under the mouth/chin that reads as a geometry/coat artifact rather than intentional fur detail."
+    }
+  ],
+  "limitations": [
+    "Assessment is based on supplied review images and sampled motion sheets; continuous-time collision, support, and loop quality are not certified.",
+    "The motion montage samples readable poses, but does not prove every frame is artifact-free."
+  ],
+  "required_repairs": [
+    "Clean the exported portable fur/coat to remove the conspicuous sparse dark flecks/cards across the back, head, and body so exported views match the tidy native look.",
+    "Repair exported cheek/neck/flank coat breakup and broken silhouette patches visible in multiview and dance evidence.",
+    "Remove the protruding white chin/mouth artifact visible in the exported dance pose.",
+    "Recheck exported motion poses after coat cleanup to ensure no new clipping or silhouette tearing appears during the dance."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": [
+        "evidence-motion-00",
+        "evidence-isolated-native-dance",
+        "evidence-isolated-exported-dance",
+        "action-audit-dance"
+      ],
+      "id": "dance",
+      "meaning_passed": true,
+      "motion_passed": false,
+      "reason": "The sampled motion reads as a cheerful toy dance with alternating side-to-side beats, small body hops, coordinated arm swings, and head tilts, and the numeric audit supports return to the start pose. However, the exported state fails visual motion quality because the exported pose shows conspicuous coat artifacts and a chin/mouth protrusion, so the state cannot be accepted.",
+      "requirement_reviews": [
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "action-audit-dance"
+          ],
+          "id": "body_rhythm",
+          "passed": true,
+          "reason": "The motion sheet shows repeated left-right body sway across multiple poses, and the audit reports rhythmic reversals for the body consistent with alternating beats."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "action-audit-dance"
+          ],
+          "id": "body_hops",
+          "passed": true,
+          "reason": "The sampled poses show small whole-body vertical bobbing/hops rather than a fully static stance, and the audit reports measurable body rise/travel."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "action-audit-dance"
+          ],
+          "id": "arms_swing",
+          "passed": true,
+          "reason": "Both arms visibly change angle relative to the torso across the sampled poses, not merely moving with whole-body travel; the audit also reports root-relative arm displacement."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "action-audit-dance"
+          ],
+          "id": "head_tilts",
+          "passed": true,
+          "reason": "The head visibly tilts from side to side in coordination with the dance across the sampled poses, and the audit reports root-relative head displacement."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "action-audit-dance"
+          ],
+          "id": "return_neutral",
+          "passed": true,
+          "reason": "The final sampled pose returns to the starting neutral dance stance visually, and the audit reports endpoint return within the stated tolerance."
+        }
+      ]
+    }
+  ],
+  "summary": "Requested panda identity and dance meaning are achieved, but exported visual quality is not acceptable. The exported coat introduces obvious fleck/card artifacts, broken tidy-fur appearance, silhouette breakup during motion, and a visible chin/mouth artifact in the exported dance pose.",
+  "verdict": "repair"
+}

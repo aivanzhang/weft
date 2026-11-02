@@ -1,0 +1,54 @@
+test_absent_coat_facts_are_unavailable_and_region_count_is_bounded (test_pipeline_continuation.ContinuationTests.test_absent_coat_facts_are_unavailable_and_region_count_is_bounded) ... ok
+test_author_refusal_reason_attempt_and_receipt_are_authenticated (test_pipeline_continuation.ContinuationTests.test_author_refusal_reason_attempt_and_receipt_are_authenticated) ... ok
+test_child_preserves_context_and_never_replans_or_resets_parent (test_pipeline_continuation.ContinuationTests.test_child_preserves_context_and_never_replans_or_resets_parent) ... {"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+ok
+test_coat_geometry_facts_are_manifest_bound_and_nominal_not_measured_spacing (test_pipeline_continuation.ContinuationTests.test_coat_geometry_facts_are_manifest_bound_and_nominal_not_measured_spacing) ... ok
+test_first_author_receives_parent_answer_and_exact_failure (test_pipeline_continuation.ContinuationTests.test_first_author_receives_parent_answer_and_exact_failure) ... {"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "reused_generated_source"}
+{"stage": "inspection", "status": "running"}
+{"stage": "inspection", "status": "complete"}
+{"stage": "author", "status": "running"}
+ok
+test_historical_review_rejects_mismatched_answer_model_and_paid_images (test_pipeline_continuation.ContinuationTests.test_historical_review_rejects_mismatched_answer_model_and_paid_images) ... ok
+test_historical_visual_repairs_keep_bound_targets_without_latest_approval (test_pipeline_continuation.ContinuationTests.test_historical_visual_repairs_keep_bound_targets_without_latest_approval) ... ok
+test_inherited_plan_can_continue_again_without_planner_role (test_pipeline_continuation.ContinuationTests.test_inherited_plan_can_continue_again_without_planner_role) ... {"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "reused_generated_source"}
+{"stage": "pipeline", "status": "planned"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "reused_generated_source"}
+{"stage": "pipeline", "status": "planned"}
+ok
+test_mismatched_intent_rejected_before_child_creation (test_pipeline_continuation.ContinuationTests.test_mismatched_intent_rejected_before_child_creation) ... ok
+test_modified_seed_receipt_or_missing_context_stops_without_replan (test_pipeline_continuation.ContinuationTests.test_modified_seed_receipt_or_missing_context_stops_without_replan) ... ok
+test_new_terminal_native_memory_matches_authenticated_diagnostics (test_pipeline_continuation.ContinuationTests.test_new_terminal_native_memory_matches_authenticated_diagnostics) ... ok
+test_nonterminal_and_changed_recipe_are_not_continuable (test_pipeline_continuation.ContinuationTests.test_nonterminal_and_changed_recipe_are_not_continuable) ... ok
+test_paid_author_refusal_retains_valid_seed_and_native_failure_without_planner (test_pipeline_continuation.ContinuationTests.test_paid_author_refusal_retains_valid_seed_and_native_failure_without_planner) ... {"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "reused_generated_source"}
+{"stage": "pipeline", "status": "planned"}
+ok
+test_paid_replanned_child_remains_continuable_with_its_new_planner_receipt (test_pipeline_continuation.ContinuationTests.test_paid_replanned_child_remains_continuable_with_its_new_planner_receipt) ... ok
+test_parent_and_child_tampering_stop_without_fallback (test_pipeline_continuation.ContinuationTests.test_parent_and_child_tampering_stop_without_fallback) ... ok
+test_parent_inventory_is_bounded_before_reading_oversized_assets (test_pipeline_continuation.ContinuationTests.test_parent_inventory_is_bounded_before_reading_oversized_assets) ... ok
+test_replan_preserves_built_seed_and_all_rejected_answers (test_pipeline_continuation.ContinuationTests.test_replan_preserves_built_seed_and_all_rejected_answers) ... ok
+test_replan_rejects_unrelated_invalid_plan_and_missing_or_rebound_audit (test_pipeline_continuation.ContinuationTests.test_replan_rejects_unrelated_invalid_plan_and_missing_or_rebound_audit) ... ok
+test_retirement_is_only_valid_for_exact_child_and_known_parent_cost (test_pipeline_continuation.ContinuationTests.test_retirement_is_only_valid_for_exact_child_and_known_parent_cost) ... ok
+test_uncertain_call_and_live_parent_lock_are_rejected (test_pipeline_continuation.ContinuationTests.test_uncertain_call_and_live_parent_lock_are_rejected) ... ok
+test_author_refusal_does_not_enter_the_new_visual_path (test_visual_repair_continuation.VisualContinuationTests.test_author_refusal_does_not_enter_the_new_visual_path) ... ok
+test_changed_action_gate_cannot_be_repaired_by_resealing_its_pack (test_visual_repair_continuation.VisualContinuationTests.test_changed_action_gate_cannot_be_repaired_by_resealing_its_pack) ... ok
+test_changed_attachment_receipt_rejects (test_visual_repair_continuation.VisualContinuationTests.test_changed_attachment_receipt_rejects) ... ok
+test_changed_final_media_is_not_accepted_after_local_reseal (test_visual_repair_continuation.VisualContinuationTests.test_changed_final_media_is_not_accepted_after_local_reseal) ... ok
+test_changed_independent_proof_cannot_replace_the_paid_critic_input (test_visual_repair_continuation.VisualContinuationTests.test_changed_independent_proof_cannot_replace_the_paid_critic_input) ... ok
+test_changed_model_resealed_locally_still_rejects_original_review_binding (test_visual_repair_continuation.VisualContinuationTests.test_changed_model_resealed_locally_still_rejects_original_review_binding) ... ok
+test_changed_paid_review_receipt_rejects (test_visual_repair_continuation.VisualContinuationTests.test_changed_paid_review_receipt_rejects) ... ok
+test_completed_visual_repair_retains_paid_design_critique_and_no_new_calls (test_visual_repair_continuation.VisualContinuationTests.test_completed_visual_repair_retains_paid_design_critique_and_no_new_calls) ... ok
+test_terminal_repair_targets_must_equal_the_paid_review (test_visual_repair_continuation.VisualContinuationTests.test_terminal_repair_targets_must_equal_the_paid_review) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 1.918s
+
+OK

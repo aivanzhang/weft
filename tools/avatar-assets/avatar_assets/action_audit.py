@@ -30,7 +30,7 @@ MAX_REPORT_BYTES = 4*1024*1024
 MAX_STABILITY_OUTLIERS = 4
 WEIGHT_FLOOR = .05
 RESERVED_SURFACES = ("PortableCoat_", "NativeGroom_")
-VERSION = "weighted-glb-action-audit-v3"
+VERSION = "weighted-glb-action-audit-v4"
 
 
 def _deadline(start):
@@ -365,13 +365,14 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
                          "full_skin_frames_per_state": MAX_FULL_FRAMES, "seconds": MAX_SECONDS,
                          "stability_outliers_per_role": MAX_STABILITY_OUTLIERS,
                          "report_bytes": MAX_REPORT_BYTES, "file_bytes": three_d.MAX_FILE_BYTES},
-              "scope": "Actual GLB linear-blend skinning. Travel uses bound root origin; articulation removes animated root transform; stability measures world displacement.",
+              "scope": "Actual GLB linear-blend skinning. Travel uses bound root origin; articulation removes animated root transform; stability measures world displacement; return_pose compares all selected vertices at endpoints.",
               "limitations": ["No semantic, visual, collision, physical, Weft or seamless-loop approval.",
                               "24fps joint-targeted probes are sampled evidence, not all vertices at every time.",
                               "Moving-vertex counts are exact conservative counts at listed full-skin frames, never extrapolated from probes.",
                               "Roles include target-joint descendants with at least 0.05 cumulative weight; UV-seam vertices remain separate.",
                               "Stability instead selects direct target-bone surfaces with at least0.5 summed weight, excluding unrelated descendants.",
                               "Stability is sampled world-space stillness, not ground contact, balance or a continuous-time upper bound.",
+                              "Return-pose error covers all selected weighted vertices at the first and last poses only; no seamless-loop, velocity or contact proof.",
                               "Input weight-sum encoding errors up to 0.001 are reported and normalized for CPU skinning.",
                               "Reserved coat/groom surfaces are excluded; source mesh naming outside those prefixes is retained.",
                               "Travel/rise/descent use glTF meter coordinates and +Y up, not ground/contact measurements."],
@@ -396,7 +397,8 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
             root = names[role["root_bone"]]
             role_data[role["id"]] = {"design": role, "ids": ids, "scale": scale, "root": root, "probes": probes,
                 "stable": stable is not None, "root_positions": [], "relative": [], "world_displacement": [],
-                "full_world_max": 0., "own_max": {name: 0. for name in role["bones"]},
+                "full_world_max": 0., "final_world_displacement": None,
+                "own_max": {name: 0. for name in role["bones"]},
                 "moving": np.zeros(len(ids), dtype=bool)}
             if stable is not None:
                 role_data[role['id']].update(full_vertex_world_peaks=np.zeros(len(ids)),
@@ -450,6 +452,8 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
                 item["moving"] |= shift > max(1e-5, .001*item["scale"])
                 world_shift = np.linalg.norm(posed[ids]-item["full_baseline_world"], axis=1)
                 item["full_world_max"] = max(item["full_world_max"], float(world_shift.max(initial=0)))
+                if frame == len(times)-1:
+                    item["final_world_displacement"] = float(world_shift.max(initial=0))
                 if item['stable']:
                     higher = world_shift > item['full_vertex_world_peaks']
                     item['full_vertex_world_peaks'][higher] = world_shift[higher]
@@ -457,6 +461,7 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
         metrics, detail = {}, {}
         for identifier, item in role_data.items():
             scale, relative = item["scale"], item["relative"]
+            require(item["final_world_displacement"] is not None, "Full endpoint skin measurement is missing")
             travel = np.asarray(item["root_positions"])
             root_shift = travel-travel[0]
             traces = [root_shift[:, axis] for axis in range(3)]
@@ -467,6 +472,7 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
                 "moving_vertices": int(item["moving"].sum()),
                 "max_root_relative_displacement_m": float(np.linalg.norm(relative, axis=2).max(initial=0)),
                 "max_world_displacement_m": max(item["full_world_max"], max(item["world_displacement"])),
+                "max_final_world_displacement_m": item["final_world_displacement"],
                 "max_travel_m": float(np.linalg.norm(root_shift, axis=1).max(initial=0)),
                 "max_vertical_rise_m": float(max(0, root_shift[:, 1].max())),
                 "descent_from_peak_m": float(max(0, travel[:, 1].max()-travel[-1, 1])),
@@ -476,6 +482,8 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
                 "probe_count": len(item["probes"]), "own_control_displacement_m": item["own_max"],
                 "surface_selection": "direct_target_bone_weight_sum_at_least_0.5" if item["stable"] else "target_and_descendant_weight_sum_at_least_0.05",
                 "selected_vertices": len(item["ids"]),
+                "endpoint_measurement": {"initial_second": times[0], "final_second": times[-1],
+                                         "all_selected_vertices": len(item["ids"]), "space": "glTF world meters"},
                 "moving_vertex_threshold_m": max(1e-5, .001*scale), "rest_world_bounds_m": {
                     "min": rest[item["ids"]].min(axis=0).tolist(), "max": rest[item["ids"]].max(axis=0).tolist()}}
         evidence = {"state_id": state["id"], "evidence_id": "action-audit-"+state["id"], "roles": metrics}

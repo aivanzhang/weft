@@ -27,6 +27,60 @@ MAX_REQUEST = 48 * 1024**2
 KEY_FILE = ROOT.parents[1] / '.local/credentials/openai-api-key'
 EXPOSURE_POLICY = 'validated-settled-exposure-v1'
 BUDGET_POLICY = 'append-only-lower-ceiling-v1'
+REASONING_EFFORTS = ('none', 'low', 'medium', 'high')
+
+
+def validate_reasoning_effort(value):
+    require(isinstance(value,str) and value in REASONING_EFFORTS,'Unsupported bounded reasoning effort')
+    return value
+
+
+def validate_reasoning_usage(usage, output_tokens):
+    details=usage.get('output_tokens_details')
+    if details is not None:
+        require(isinstance(details,dict),'Invalid reported output token details')
+        if 'reasoning_tokens' in details:
+            _integer(details['reasoning_tokens'],0,output_tokens,'reported reasoning tokens')
+
+
+def response_answer_text(response, *, reasoning_effort='none'):
+    """Reasoning metadata is not an answer; tools and multiple final messages stay forbidden."""
+    effort=validate_reasoning_effort(reasoning_effort)
+    require(isinstance(response,dict) and response.get('status')=='completed','Incomplete API response')
+    items=response.get('output')
+    require(isinstance(items,list) and 1<=len(items)<=16,'Response contains unexpected output structure')
+    messages=[];reasoning_bytes=0
+    for item in items:
+        require(isinstance(item,dict),'Invalid API output item')
+        if item.get('type')=='reasoning':
+            require(effort!='none' and {'id','type','summary'}<=set(item)
+                    and set(item)<={'id','type','summary','content','encrypted_content','status'}
+                    and isinstance(item['id'],str) and item['id'].startswith('rs_') and len(item['id'])<=256
+                    and item.get('status') in (None,'completed'),'Unexpected API reasoning item')
+            for key,kind in (('summary','summary_text'),('content','reasoning_text')):
+                parts=item.get(key,[])
+                require(isinstance(parts,list) and len(parts)<=32,'Reasoning metadata exceeds item bound')
+                for part in parts:
+                    require(isinstance(part,dict) and set(part)=={'type','text'} and part['type']==kind
+                            and isinstance(part['text'],str),'Unexpected reasoning metadata content')
+                    reasoning_bytes+=len(part['text'].encode())
+            encrypted=item.get('encrypted_content')
+            if encrypted is not None:
+                require(isinstance(encrypted,str),'Unexpected encrypted reasoning metadata')
+                reasoning_bytes+=len(encrypted.encode())
+            require(reasoning_bytes<=256*1024,'Reasoning metadata exceeds256KiB')
+        else:
+            require(item.get('type')=='message' and item.get('role')=='assistant'
+                    and item.get('status')=='completed' and item.get('phase') in (None,'final_answer'),
+                    'Response contains unexpected tool activity or message structure')
+            messages.append(item)
+    require(len(messages)==1 and items[-1] is messages[0],'Response must contain exactly one final assistant message')
+    parts=messages[0].get('content')
+    require(isinstance(parts,list) and len(parts)==1 and isinstance(parts[0],dict)
+            and parts[0].get('type')=='output_text','Response refused or omitted structured text')
+    answer=parts[0].get('text')
+    require(isinstance(answer,str) and len(answer.encode())<=MAX_ANSWER_BYTES,'Structured answer exceeds1MiB')
+    return answer
 
 
 def digest(value):
@@ -106,6 +160,7 @@ def call_exposure(call):
     inp = _integer(usage.get('input_tokens'), 0, 1050000, 'settled input tokens')
     output = _integer(usage.get('output_tokens'), 0, 32768, 'settled output tokens')
     _integer(usage.get('total_tokens'), inp+output, inp+output, 'settled total tokens')
+    validate_reasoning_usage(usage,output)
     expected = math.ceil(inp*(5 if inp > 272000 else 2.5) + output*(22.5 if inp > 272000 else 15))
     require(type(call['actual']) is int and call['actual'] == expected <= reserved
             and isinstance(call['response_id'], str) and call['response_id'].startswith('resp_')
@@ -402,9 +457,10 @@ def _strict(schema):
 
 class OpenAIRunner:
     def __init__(self, root, *, job_id, job_digest, ledger=None, max_calls=5, timeout=240,
-                 model=MODEL, max_output_tokens=16384):
+                 model=MODEL, max_output_tokens=16384, reasoning_effort='none'):
         slug(job_id)
         require(model == MODEL, 'Model lacks an approved pinned price profile')
+        validate_reasoning_effort(reasoning_effort)
         _integer(max_calls, 1, 12, 'call ceiling')
         require(type(timeout) in (int,float) and math.isfinite(timeout) and 1 <= timeout <= 600, 'Invalid API timeout')
         self.reservation = reserve_microdollars(max_output_tokens)
@@ -416,7 +472,7 @@ class OpenAIRunner:
         self.settings = {'schema_version':1, 'execution_kind':'openai_responses_api', 'model':model,
             'max_calls':max_calls, 'timeout':timeout, 'max_output_tokens':max_output_tokens,
             'job_id':job_id, 'job_digest':job_digest, 'automatic_retries':0, 'tools':[], 'store':False,
-            'service_tier':'default', 'reasoning':{'effort':'none'}, 'truncation':'disabled', 'pricing':PRICING, 'implementation_sha256':sha256(Path(__file__)), 'reservation_microdollars_per_call':self.reservation,
+            'service_tier':'default', 'reasoning':{'effort':reasoning_effort}, 'truncation':'disabled', 'pricing':PRICING, 'implementation_sha256':sha256(Path(__file__)), 'reservation_microdollars_per_call':self.reservation,
             'reservation_policy':'validated-settled-exposure-v1 with append-only-lower-ceiling-v1: reserve the full1.05M context at long-context rates plus maximum output before every call. Validated settled upper costs replace holds in exposure; the latest validated lower project ceiling applies. Uncertain holds, original rows, call caps and explicit retry approval remain.'}
         with self._lock():
             path = self.root/'runner.json'
@@ -473,7 +529,7 @@ class OpenAIRunner:
                 content.append({'type':'input_image','image_url':'data:'+mime+';base64,'+base64.b64encode(raw).decode(), 'detail':'high'})
             payload = {'model':MODEL, 'instructions':INSTRUCTIONS, 'input':[{'role':'user','content':content}],
                        'text':{'format':{'type':'json_schema','name':'avatar_'+role.replace('-','_'),'schema':schema,'strict':True}},
-                       'max_output_tokens':self.settings['max_output_tokens'], 'reasoning':{'effort':'none'},
+                       'max_output_tokens':self.settings['max_output_tokens'], 'reasoning':self.settings['reasoning'],
                        'store':False,'tools':[],'tool_choice':'none','service_tier':'default','truncation':'disabled'}
             require(len(_canonical(payload)) <= MAX_REQUEST, 'API request exceeds bound')
             write_json(out/'payload-metadata.json',{'sha256':digest(payload),'bytes':len(_canonical(payload)),
@@ -494,18 +550,10 @@ class OpenAIRunner:
                 inp = _integer(usage.get('input_tokens'),0,1050000,'reported input tokens')
                 output = _integer(usage.get('output_tokens'),0,self.settings['max_output_tokens'],'reported output tokens')
                 _integer(usage.get('total_tokens'),inp+output,inp+output,'reported total tokens')
+                validate_reasoning_usage(usage,output)
                 cost = math.ceil(inp*(5 if inp>272000 else 2.5)+output*(22.5 if inp>272000 else 15))
                 self.ledger.settle(self.job_id,role,rid,usage,cost)
-                messages = response.get('output')
-                require(isinstance(messages,list) and len(messages)==1 and messages[0].get('type')=='message'
-                        and messages[0].get('role')=='assistant' and messages[0].get('status')=='completed',
-                        'Response contains unexpected tool activity or message structure')
-                parts = messages[0].get('content')
-                require(isinstance(parts,list) and len(parts)==1 and parts[0].get('type')=='output_text',
-                        'Response refused or omitted structured text')
-                answer_text = parts[0].get('text')
-                require(isinstance(answer_text, str) and len(answer_text.encode()) <= MAX_ANSWER_BYTES,
-                        'Structured answer exceeds1MiB')
+                answer_text = response_answer_text(response,reasoning_effort=self.settings['reasoning']['effort'])
                 answer = _decode(answer_text.encode()); _validate(answer,schema)
                 write_json(out/'answer.json',answer)
                 write_json(out/'receipt.json',{'schema_version':1,'status':'succeeded','execution_kind':'openai_responses_api',

@@ -1,0 +1,12 @@
+{
+  "change": "Use the existing300k index-count limit for actual triangle indices; no model/threshold/source change",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "previous_failure": "outputs/b082-portable-fur-flecks-v1/check.log",
+  "scope": "One CPU-only source-color sample; no native/API calls",
+  "source_model_sha256": "d042dcf478b20faf576aa95be5fcf03bd4b281678166c7ae5779fa0cd7e264de",
+  "worker_sha256": "7ed57e1f6b8c2cd924a36a4f0e8d3647b4018b964b69c1433bd34027eaf93138"
+}

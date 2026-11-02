@@ -7,6 +7,7 @@ from pathlib import Path
 import struct
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 
@@ -142,6 +143,50 @@ class ActionAuditTests(unittest.TestCase):
                 self.assertEqual(metrics["active_control_count"], 0)
                 self.assertGreater(metrics["max_world_displacement_m"], .01)
                 self.assertFalse(result["passed"])
+
+    def test_small_hop_can_return_to_pose_without_meeting_landing_height(self):
+        doc,binary=fixture(travel=True,flap=True)
+        accessor=doc['accessors'][doc['animations'][0]['samplers'][0]['output']]
+        offset=doc['bufferViews'][accessor['bufferView']]['byteOffset']
+        for index in range(9):
+            struct.pack_into('<fff',binary,offset+12*index,.1*math.sin(index*math.pi/2),.04*(index%2),0)
+        self.save(doc,binary)
+        states,bindings=intent(('return_pose','landing'),body=True)
+        result=audit_glb(self.path,states,bindings,1.)
+        rows=result['states'][0]['requirement_results']['requirements']
+        self.assertEqual([(r['kind'],r['status']) for r in rows],[('return_pose','passed'),('landing','failed')])
+        metrics=result['states'][0]['evidence']['roles']['subject']
+        self.assertAlmostEqual(metrics['descent_from_peak_m'],.04,places=7)
+        self.assertLess(metrics['max_final_world_displacement_m'],1e-6)
+        self.assertGreater(metrics['max_world_displacement_m'],.1)
+
+    def test_descent_without_neutral_return_fails_endpoint_gate(self):
+        doc,binary=fixture(travel=True,flap=False)
+        accessor=doc['accessors'][doc['animations'][0]['samplers'][0]['output']]
+        offset=doc['bufferViews'][accessor['bufferView']]['byteOffset']
+        struct.pack_into('<fff',binary,offset+12*8,.02,0,0)
+        self.save(doc,binary)
+        states,bindings=intent(('landing','return_pose'),body=True)
+        result=audit_glb(self.path,states,bindings,1.)
+        self.assertEqual([r['status'] for r in result['states'][0]['requirement_results']['requirements']],['passed','failed'])
+        self.assertAlmostEqual(result['states'][0]['evidence']['roles']['subject']['max_final_world_displacement_m'],.02,places=7)
+
+    def test_endpoint_covers_unprobed_vertices_not_only_stationary_probe_roots(self):
+        doc,binary=fixture(travel=False,flap=False)
+        accessor=doc['accessors'][doc['animations'][0]['samplers'][1]['output']]
+        offset=doc['bufferViews'][accessor['bufferView']]['byteOffset']
+        struct.pack_into('<ffff',binary,offset+16*8,0,0,math.sin(.5),math.cos(.5))
+        self.save(doc,binary)
+        states,bindings=intent(('return_pose',),body=True)
+        # Deliberately sample only each control's first point, including the stationary wing pivot.
+        with patch('avatar_assets.action_audit._select_probes',side_effect=lambda ids,*a,**kw:ids[:1]):
+            result=audit_glb(self.path,states,bindings,1.)
+        state=result['states'][0];metrics=state['evidence']['roles']['subject']
+        self.assertLess(metrics['max_root_relative_displacement_m'],1e-6)
+        self.assertGreater(metrics['max_final_world_displacement_m'],.3)
+        self.assertEqual(state['role_details']['subject']['endpoint_measurement']['all_selected_vertices'],24)
+        self.assertEqual(result['probe_count'],2)
+        self.assertFalse(result['passed'])
 
     def test_fully_stationary_weighted_roles_do_not_need_animation(self):
         result = self.audit(("stability",), travel=False, flap=False)

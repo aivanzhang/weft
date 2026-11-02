@@ -415,17 +415,21 @@ def recheck_generation(proof):
         _require(_file_pin(Path(pin['path']),64*1024**2)==pin,'Remote evidence changed during inspection')
 
 
-def collect_api_planning(root,output,request,binding_path):
-    """Settle custody, not semantics: only one completed API planner on an explicit reused source is admitted."""
+def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
+    """Verify a paid planner or a zero-call inherited plan; never dispatch or alter accounting."""
+    _require(profile in ("planning","author_input_bound"),"Unsupported API custody profile")
     from avatar_assets.agent_backend import validate_settings
-    from avatar_assets.openai_runner import MODEL,PRICING,digest,reserve_microdollars
+    from avatar_assets.openai_runner import MODEL,PRICING,digest,reserve_microdollars,response_answer_text,validate_reasoning_usage
     from avatar_assets.studio_worker import _validate_prepared_request
     root,output,binding_path=map(Path,(root,output,binding_path))
     _require(output.resolve()==output and output.is_relative_to(root/'outputs')
              and request.get('reuse_model') is not None and request.get('reference') is None,
              'API planning release requires explicit source reuse without a reference')
     allowed={'request.json','input-receipt.json','estimate.json','status.json','pipeline.lock','sources','inputs','events','agents'}
-    _require(set(_entries(output,16))==allowed,'API release cannot cover a plan, native output or generation work')
+    if profile=='author_input_bound':
+        allowed |= {'plan.json','inspection','quality-policy.json'}
+        if request.get('continuation_from'):allowed.add('continuation')
+    _require(set(_entries(output,16))==allowed,'API release cannot cover a plan, native output or generation work outside its profile')
     records=[];total=0;started=time.monotonic()
 
     def read(path,limit=MAX_JSON):
@@ -438,6 +442,9 @@ def collect_api_planning(root,output,request,binding_path):
 
     prepared=read(output/'request.json')
     backend=validate_settings(prepared.get('agent_backend'))
+    if profile=='author_input_bound':
+        _require(backend['max_calls']==7 and backend['max_repairs']==2,
+                 'Author-input recovery retains exactly seven calls and two repairs')
     _validate_prepared_request(prepared,request,output,agent_backend=backend)
     request_hash=records[-1]['sha256']
     binding=read(binding_path)
@@ -468,13 +475,19 @@ def collect_api_planning(root,output,request,binding_path):
     status=read(output/'status.json')
     _require(status.get('status')=='checkpointed_error' and status.get('automatic_retry') is False,
              'API planning did not preserve a non-retrying failure')
+    if profile=='author_input_bound':
+        _require(status.get('stage')=='pipeline' and status.get('error') in ('Agent input exceeds 160KiB','API prompt exceeds bound'),
+                 'Author-input recovery requires the exact bounded-input checkpoint')
+    inherited_plan=profile=='author_input_bound' and status.get('error')=='API prompt exceeds bound'
+    _require(not inherited_plan or prepared.get('continuation') is not None,'Zero-call recovery requires an inherited continuation plan')
     agents=output/'agents'
-    _require(_entries(agents,3)==['planner','runner.json','runner.lock'],'Only one API planning call can be released here')
+    expected_agents=['runner.json','runner.lock'] if inherited_plan else ['planner','runner.json','runner.lock']
+    _require(_entries(agents,3)==expected_agents,'Only one API planner or an exact zero-call inherited plan can be released here')
     settings=read(agents/'runner.json')
     expected={'schema_version':1,'execution_kind':'openai_responses_api','model':MODEL,
               'max_calls':backend['max_calls'],'timeout':backend['timeout'],'max_output_tokens':backend['max_output_tokens'],
               'job_id':output.name,'job_digest':request_hash,'automatic_retries':0,'tools':[],'store':False,
-              'service_tier':'default','reasoning':{'effort':'none'},'truncation':'disabled','pricing':PRICING,
+              'service_tier':'default','reasoning':{'effort':backend.get('reasoning_effort','none')},'truncation':'disabled','pricing':PRICING,
               'reservation_microdollars_per_call':reserve_microdollars(backend['max_output_tokens'])}
     _require(all(settings.get(k)==value for k,value in expected.items())
              and set(settings)==set(expected)|{'implementation_sha256','reservation_policy'}
@@ -492,6 +505,7 @@ def collect_api_planning(root,output,request,binding_path):
         budget=db.execute('SELECT ceiling,approval FROM budget WHERE id=1').fetchone()
         grant=db.execute('SELECT digest,calls,ceiling,approval FROM jobs WHERE id=?',(output.name,)).fetchone()
         calls=[dict(row) for row in db.execute('SELECT * FROM calls WHERE job=? ORDER BY role',(output.name,))]
+        retired=db.execute('SELECT 1 FROM retirements WHERE parent=?',(output.name,)).fetchone()
     finally:db.close()
     _require(_file_pin(ledger,64*1024**2)==ledger_pin,'API ledger changed during inspection')
     _require(budget is not None and grant is not None and grant['digest']==request_hash
@@ -506,68 +520,120 @@ def collect_api_planning(root,output,request,binding_path):
                  and isinstance(approval.get('user_reply'),str) and 0<len(approval['user_reply'])<=4000,
                  'API spending approval is missing')
         approvals.append(hashlib.sha256(row['approval'].encode()).hexdigest())
-    _require(len(calls)==1 and calls[0]['role']=='planner' and calls[0]['state']=='settled',
-             'API calls are uncertain, missing or outside this completed planning scope')
-    call=calls[0]
-    _require(type(call['reserved']) is int and call['reserved']==settings['reservation_microdollars_per_call']
-             and type(call['actual']) is int and 0<=call['actual']<=call['reserved']<=grant['ceiling'],
-             'API settled cost or reservation differs')
-    folder=agents/'planner';names=['answer.json','payload-metadata.json','prompt.txt','receipt.json','request.json','response.json','schema.json']
-    _require(_entries(folder,7)==names,'API planner files are missing, extra or unsafe')
-    receipt=read(folder/'receipt.json');call_request=read(folder/'request.json');schema=read(folder/'schema.json',64*1024)
-    payload=read(folder/'payload-metadata.json');answer=read(folder/'answer.json');response=read(folder/'response.json',4*1024**2)
-    prompt_pin=_file_pin(folder/'prompt.txt',128*1024);records.append(prompt_pin)
-    artifact_rows=[{'path':name,'bytes':pin['bytes'],'sha256':pin['sha256']} for name in names if name!='receipt.json'
-                   for pin in records if pin['path']==str(folder/name)]
-    _require(receipt.get('schema_version')==1 and receipt.get('status')=='succeeded'
-             and receipt.get('execution_kind')=='openai_responses_api' and receipt.get('model')==MODEL
-             and receipt.get('tool_activity') is False and receipt.get('artifacts')==artifact_rows
-             and receipt.get('answer_sha256')==next(p['sha256'] for p in records if p['path']==str(folder/'answer.json')),
-             'API response receipt or artifact hashes changed')
-    _require(call_request=={'role':'planner','prompt_sha256':prompt_pin['sha256'],'schema_sha256':digest(schema),
-                           'settings_sha256':digest(settings),'images':[]}
-             and call['request_digest']==digest(call_request),'API call request does not match its reservation')
-    _require(response.get('status')=='completed' and response.get('model')==MODEL
-             and response.get('service_tier')=='default' and isinstance(response.get('id'),str)
-             and response['id'].startswith('resp_') and len(response['id'])<=256
-             and response['id']==call['response_id']==receipt.get('response_id'),
-             'API completed response identity changed')
-    _require(isinstance(call['usage'],str) and len(call['usage'].encode())<=16384,'API usage exceeds its bound')
-    usage=response.get('usage');_require(isinstance(usage,dict) and usage==json.loads(call['usage'])==receipt.get('usage'),
-                                        'API usage differs from settled accounting')
-    inp,out=usage.get('input_tokens'),usage.get('output_tokens')
-    _require(type(inp) is int and 0<=inp<=1050000 and type(out) is int and 0<=out<=backend['max_output_tokens']
-             and type(usage.get('total_tokens')) is int and usage['total_tokens']==inp+out,'Invalid settled API token counts')
-    amount=math.ceil(inp*(5 if inp>272000 else 2.5)+out*(22.5 if inp>272000 else 15))
-    _require(call['actual']==receipt.get('actual_microdollars_upper_estimate')==amount
-             and receipt.get('reserved_microdollars')==call['reserved'],'API settled token cost differs')
-    messages=response.get('output')
-    _require(isinstance(messages,list) and len(messages)==1 and isinstance(messages[0],dict)
-             and messages[0].get('type')=='message' and messages[0].get('role')=='assistant'
-             and messages[0].get('status')=='completed','API response contains unowned tool activity')
-    content=messages[0].get('content')
-    _require(isinstance(content,list) and len(content)==1 and isinstance(content[0],dict)
-             and content[0].get('type')=='output_text' and isinstance(content[0].get('text'),str)
-             and len(content[0]['text'].encode())<=MAX_JSON and json.loads(content[0]['text'])==answer,
-             'API preserved answer differs from the completed response')
-    prompt=(folder/'prompt.txt').read_text()
-    actual_payload={'model':MODEL,'instructions':payload.get('instructions'),'input':[{'role':'user','content':[{'type':'input_text','text':prompt}]}],
-                    'text':{'format':{'type':'json_schema','name':'avatar_planner','schema':schema,'strict':True}},
-                    'max_output_tokens':backend['max_output_tokens'],'reasoning':{'effort':'none'},'store':False,'tools':[],
-                    'tool_choice':'none','service_tier':'default','truncation':'disabled'}
-    encoded=json.dumps(actual_payload,sort_keys=True,ensure_ascii=False,allow_nan=False,separators=(',',':')).encode()
-    _require(payload.get('endpoint')=='https://api.openai.com/v1/responses' and payload.get('sha256')==digest(actual_payload)
-             and payload.get('bytes')==len(encoded),'API payload metadata differs from saved inputs')
-    return {'schema_version':1,'policy':'completed-api-planning-custody-v1','job_id':output.name,
+    inherited_proof=None
+    if inherited_plan:
+        _require(not calls and not retired,'Inherited-plan recovery requires zero API calls and an unretired grant')
+        from avatar_assets.pipeline_continuation import verify
+        inherited=verify(root,output,prepared)
+        _require('replan' not in inherited,'Inherited-plan recovery cannot skip a required paid replan')
+        answer=inherited['plan']
+        read(output/'continuation/receipt.json');read(output/'continuation/context.json')
+        inherited_proof={'receipt_sha256':_file_pin(output/'continuation/receipt.json',MAX_JSON)['sha256'],
+                         'context_sha256':_file_pin(output/'continuation/context.json',MAX_JSON)['sha256']}
+        proof_calls=[]
+    else:
+        _require(len(calls)==1 and calls[0]['role']=='planner' and calls[0]['state']=='settled',
+                 'API calls are uncertain, missing or outside this completed planning scope')
+        call=calls[0]
+        _require(type(call['reserved']) is int and call['reserved']==settings['reservation_microdollars_per_call']
+                 and type(call['actual']) is int and 0<=call['actual']<=call['reserved']<=grant['ceiling'],
+                 'API settled cost or reservation differs')
+        folder=agents/'planner';names=['answer.json','payload-metadata.json','prompt.txt','receipt.json','request.json','response.json','schema.json']
+        _require(_entries(folder,7)==names,'API planner files are missing, extra or unsafe')
+        receipt=read(folder/'receipt.json');call_request=read(folder/'request.json');schema=read(folder/'schema.json',64*1024)
+        payload=read(folder/'payload-metadata.json');answer=read(folder/'answer.json');response=read(folder/'response.json',4*1024**2)
+        prompt_pin=_file_pin(folder/'prompt.txt',128*1024);records.append(prompt_pin)
+        artifact_rows=[{'path':name,'bytes':pin['bytes'],'sha256':pin['sha256']} for name in names if name!='receipt.json'
+                       for pin in records if pin['path']==str(folder/name)]
+        _require(receipt.get('schema_version')==1 and receipt.get('status')=='succeeded'
+                 and receipt.get('execution_kind')=='openai_responses_api' and receipt.get('model')==MODEL
+                 and receipt.get('tool_activity') is False and receipt.get('artifacts')==artifact_rows
+                 and receipt.get('answer_sha256')==next(p['sha256'] for p in records if p['path']==str(folder/'answer.json')),
+                 'API response receipt or artifact hashes changed')
+        _require(call_request=={'role':'planner','prompt_sha256':prompt_pin['sha256'],'schema_sha256':digest(schema),
+                               'settings_sha256':digest(settings),'images':[]}
+                 and call['request_digest']==digest(call_request),'API call request does not match its reservation')
+        _require(response.get('status')=='completed' and response.get('model')==MODEL
+                 and response.get('service_tier')=='default' and isinstance(response.get('id'),str)
+                 and response['id'].startswith('resp_') and len(response['id'])<=256
+                 and response['id']==call['response_id']==receipt.get('response_id'),
+                 'API completed response identity changed')
+        _require(isinstance(call['usage'],str) and len(call['usage'].encode())<=16384,'API usage exceeds its bound')
+        usage=response.get('usage');_require(isinstance(usage,dict) and usage==json.loads(call['usage'])==receipt.get('usage'),
+                                            'API usage differs from settled accounting')
+        inp,out=usage.get('input_tokens'),usage.get('output_tokens')
+        _require(type(inp) is int and 0<=inp<=1050000 and type(out) is int and 0<=out<=backend['max_output_tokens']
+                 and type(usage.get('total_tokens')) is int and usage['total_tokens']==inp+out,'Invalid settled API token counts')
+        validate_reasoning_usage(usage,out)
+        amount=math.ceil(inp*(5 if inp>272000 else 2.5)+out*(22.5 if inp>272000 else 15))
+        _require(call['actual']==receipt.get('actual_microdollars_upper_estimate')==amount
+                 and receipt.get('reserved_microdollars')==call['reserved'],'API settled token cost differs')
+        answer_text=response_answer_text(response,reasoning_effort=backend.get('reasoning_effort','none'))
+        _require(len(answer_text.encode())<=MAX_JSON and json.loads(answer_text)==answer,
+                 'API preserved answer differs from the completed response')
+        prompt=(folder/'prompt.txt').read_text()
+        actual_payload={'model':MODEL,'instructions':payload.get('instructions'),'input':[{'role':'user','content':[{'type':'input_text','text':prompt}]}],
+                        'text':{'format':{'type':'json_schema','name':'avatar_planner','schema':schema,'strict':True}},
+                        'max_output_tokens':backend['max_output_tokens'],'reasoning':{'effort':backend.get('reasoning_effort','none')},'store':False,'tools':[],
+                        'tool_choice':'none','service_tier':'default','truncation':'disabled'}
+        encoded=json.dumps(actual_payload,sort_keys=True,ensure_ascii=False,allow_nan=False,separators=(',',':')).encode()
+        _require(payload.get('endpoint')=='https://api.openai.com/v1/responses' and payload.get('sha256')==digest(actual_payload)
+                 and payload.get('bytes')==len(encoded),'API payload metadata differs from saved inputs')
+        proof_calls=[{'role':'planner','state':'settled','response_id':call['response_id'],
+                      'reserved_microdollars':call['reserved'],'actual_microdollars':amount,'usage':usage}]
+    inspection_proof=None
+    if profile=='author_input_bound':
+        from avatar_assets.pipeline_prompts import validate_plan
+        plan=read(output/'plan.json')
+        _require(plan==answer and validate_plan(plan,prepared)['status']=='ready',
+                 'Author-input recovery needs the unchanged valid paid or inherited plan')
+        read(output/'quality-policy.json')
+        inspection=output/'inspection';manifest=read(inspection/'manifest.json')
+        _require(manifest.get('status')=='needs_visual_review' and manifest.get('kind')=='generated_geometry_preview'
+                 and manifest.get('source_glb_sha256')==selected['sha256']
+                 and manifest.get('provider_calls')==0,'Completed inspection is not bound to the selected source')
+        entries=manifest.get('artifacts');_require(isinstance(entries,list) and 1<=len(entries)<=64,
+                                                 'Inspection artifact inventory exceeds bound')
+        from avatar_assets.safety import artifacts
+        _require(artifacts(inspection)==entries
+                 and {'job.json','native-inspection.json','original.glb'}<={row['path'] for row in entries},
+                 'Completed inspection artifact inventory changed')
+        _require(_file_pin(inspection/'original.glb',64*1024**2)['sha256']==selected['sha256'],
+                 'Completed inspection copied source differs')
+        inspection_bytes=0
+        for row in entries:
+            _require(set(row)=={'path','bytes','sha256'} and isinstance(row['path'],str)
+                     and not Path(row['path']).is_absolute() and '..' not in Path(row['path']).parts,
+                     'Invalid inspection artifact path')
+            pin=_file_pin(inspection/row['path'],256*1024**2);inspection_bytes+=pin['bytes']
+            _require(inspection_bytes<=256*1024**2 and pin['bytes']==row['bytes'] and pin['sha256']==row['sha256'],
+                     'Completed inspection bytes changed or exceeded bound')
+            records.append(pin)
+        native=read(inspection/'native-inspection.json')
+        _require(native.get('source_sha256')==selected['sha256'] and native.get('source_unchanged') is True,
+                 'Native inspection source binding differs')
+        for row in entries:
+            if row['path'].endswith('job.json'):
+                job=read(inspection/row['path'])
+                _require(job.get('status')=='finished' and job.get('exit_code')==0
+                         and job.get('process_exit_verified') is True and job.get('manual_stop_required') is False
+                         and not job.get('failure'),'Inspection process has no verified successful exit')
+        inspection_proof={'manifest_sha256':_file_pin(inspection/'manifest.json',MAX_JSON)['sha256'],
+                          'source_sha256':selected['sha256'],'plan_sha256':_file_pin(output/'plan.json',MAX_JSON)['sha256']}
+    return {'schema_version':1,'policy':('inherited-plan-author-input-bound-custody-v1' if inherited_plan else
+                                       'author-input-bound-custody-v1' if profile=='author_input_bound' else
+                                       'completed-api-planning-custody-v1'),'job_id':output.name,
+            **({'inherited_plan':inherited_proof} if inherited_proof else {}),
+            **({'inspection':inspection_proof} if inspection_proof else {}),
             'request_sha256':request_hash,'ledger':ledger_pin,'files':records,'receipt_bytes':total,
-            'approval_sha256':approvals,'calls':[{'role':'planner','state':'settled','response_id':call['response_id'],
-                'reserved_microdollars':call['reserved'],'actual_microdollars':amount,'usage':usage}],
+            'approval_sha256':approvals,'calls':proof_calls,
             'call_ceiling_preserved':grant['calls'],'dollar_ceiling_microdollars_preserved':grant['ceiling'],
-            'new_provider_calls':0,'scope':'Completed API transport/accounting only; rejected semantics are preserved, not accepted or retried.'}
+            'new_provider_calls':0,'scope':('Verified inherited plan with zero submitted API calls; no replay or budget reset.' if inherited_plan else
+                 'Completed API transport/accounting only; rejected semantics are preserved, not accepted or retried.')}
 
 
 def recheck_api_planning(proof):
-    _require(proof.get('policy')=='completed-api-planning-custody-v1','Unknown API custody proof')
+    _require(proof.get('policy') in ('completed-api-planning-custody-v1','author-input-bound-custody-v1','inherited-plan-author-input-bound-custody-v1'),'Unknown API custody proof')
     ledger=Path(proof['ledger']['path'])
     _require(not any(Path(str(ledger)+suffix).exists() for suffix in ('-wal','-journal','-shm')),
              'API ledger journal appeared during inspection')

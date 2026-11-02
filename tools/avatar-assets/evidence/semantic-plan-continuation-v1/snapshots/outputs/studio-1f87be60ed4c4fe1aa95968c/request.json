@@ -1,0 +1,45 @@
+{
+  "agent_backend": {
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "model": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "timeout": 240
+  },
+  "agent_model": "gpt-5.4-2026-03-05",
+  "agent_timeout": 240,
+  "continuation": {
+    "parent": "outputs/studio-6869ed56ce1c4266bc0f873c",
+    "policy": "terminal-native-repair-continuation-v1",
+    "receipt": "continuation/receipt.json",
+    "schema_version": 1,
+    "sha256": "c326f93e549330952216b7059b95234eed294181119fd5da6c57179fe99c46b0"
+  },
+  "created": "2026-11-02T13:40:03.273428-08:00",
+  "custom_actions": [
+    "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+  ],
+  "id": "studio-1f87be60ed4c4fe1aa95968c",
+  "max_agent_calls": 7,
+  "max_credits": 0,
+  "max_repairs": 2,
+  "media_spec": {
+    "portrait": 1600,
+    "samples": 8,
+    "seconds": 4,
+    "size": 720
+  },
+  "preset": "preview",
+  "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+  "reference": null,
+  "reuse_model": {
+    "bytes": 14902088,
+    "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-2fa07fbb61ef4da4bc8f7f70/generation/stages/texture/downloads/model.glb",
+    "path": "inputs/source-model.glb",
+    "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+  },
+  "schema_version": 1,
+  "states": [],
+  "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass."
+}

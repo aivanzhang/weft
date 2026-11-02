@@ -1,0 +1,169 @@
+{
+  "bounds": {
+    "inventory_entries": 20000,
+    "inventory_seconds": 8,
+    "os_snapshot_seconds": 2,
+    "receipt_bytes": 4194304,
+    "receipts": 512
+  },
+  "known_pids": [
+    48337,
+    48338,
+    48443,
+    48444,
+    48447,
+    48454
+  ],
+  "previous_planning_invocations": 1,
+  "process_check": {
+    "known_pid_count": 6,
+    "matched_processes": [],
+    "os_snapshot_sha256": "e74e8d9b328024d5fc81c1c01402c0eecc6e2ef3a741eb1fd54f7e0db73a82ad",
+    "recorded_local": "2026-11-02T14:04:14.406268-08:00",
+    "scope": "Recorded PIDs, direct children and process groups are absent; no worker was signalled."
+  },
+  "receipt_bytes": 16638,
+  "receipts": [
+    {
+      "bytes": 1490,
+      "kind": "invocation",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0002/invocation.json",
+      "sha256": "e2339e966d7c540d0af80dc69e05b866441abd74229f71468983b7fc2147c4a6"
+    },
+    {
+      "bytes": 156,
+      "exit_code": null,
+      "kind": "owner",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0002/owner.json",
+      "pid": 48443,
+      "sha256": "175d9daaca22e2536f0ad8a1e179a19d3e4148489dab7c85363297631c6e5644"
+    },
+    {
+      "bytes": 170,
+      "kind": "terminal_result",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0002/result.json",
+      "sha256": "8a481577e0e6fc431ff5a80da3cb6f9229918ca9c7efbeb82dcd196a22fb086e"
+    },
+    {
+      "bytes": 327,
+      "kind": "terminal_result",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0002/supervisor-result.json",
+      "sha256": "2d73a8237742a228af79c65c790816a5ab36de0a55c427ff2eeaa6596eb47a8e"
+    },
+    {
+      "bytes": 408,
+      "exit_code": null,
+      "kind": "handle",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0002/worker-handle.json",
+      "pid": 48444,
+      "sha256": "3f645e428124327305a470a385fc1e35ba4c77ea84c8606bce5a682c3dbbd1da"
+    },
+    {
+      "bytes": 1326,
+      "exit_code": 1,
+      "kind": "exit",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0002/worker-job.json",
+      "pid": 48444,
+      "sha256": "18250f66db5f53a3552a7c0423a7b6c0444150672fbed98d8cd11ed0cb8886f8"
+    },
+    {
+      "bytes": 1196,
+      "exit_code": 1,
+      "kind": "exit",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0002/worker-monitor.json",
+      "pid": 48444,
+      "sha256": "98aa98dc0763c6f3abc4acf61f9b433624feb3f4a9eed101867a84f1fda5b5a4"
+    },
+    {
+      "bytes": 382,
+      "exit_code": null,
+      "kind": "handle",
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/inspection/guide-annotation-handle.json",
+      "pid": 48454,
+      "sha256": "97f444a45b719fa31a47b077436fe6950959a32c0d58e0c06a4b5c4348010e4a"
+    },
+    {
+      "bytes": 1218,
+      "exit_code": 0,
+      "kind": "exit",
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/inspection/guide-annotation-job.json",
+      "pid": 48454,
+      "sha256": "71b7e56cc229aee347bc72d4b1db5f89f0d0bb2dd029feb7c04e82a6b0c955aa"
+    },
+    {
+      "bytes": 1126,
+      "exit_code": 0,
+      "kind": "exit",
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/inspection/guide-annotation-monitor.json",
+      "pid": 48454,
+      "sha256": "4649994a972c4f8788e4164330f252a35e6e2fe79fe32e5b67bc4cab9e3e2979"
+    },
+    {
+      "bytes": 1608,
+      "exit_code": 0,
+      "kind": "exit",
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/inspection/job.json",
+      "pid": 48447,
+      "sha256": "647757524dc3683ef5a723d1415f6edd8d7e59d1f6649b36800eec639eceb2e6"
+    },
+    {
+      "bytes": 656,
+      "exit_code": null,
+      "kind": "handle",
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/inspection/preview-handle.json",
+      "pid": 48447,
+      "sha256": "60d9c2a52bd9f9ebb9e01a436402b3364f123a73f8f55fa1d24f54f2bc8acba7"
+    },
+    {
+      "bytes": 1462,
+      "exit_code": 0,
+      "kind": "exit",
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/inspection/preview-monitor.json",
+      "pid": 48447,
+      "sha256": "143df6ff69587811efc89ed87540fb862776040ce469bdefa57fd67290975c7e"
+    },
+    {
+      "bytes": 156,
+      "kind": "prior_plan_owner",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0001/owner.json",
+      "sha256": "bbc49cebcd6169de88dfa68329b86f1a172a998a203e808c784c963daa3bc302"
+    },
+    {
+      "bytes": 1487,
+      "kind": "prior_plan_invocation",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0001/invocation.json",
+      "sha256": "98e52d9176f3f925d01f9dd191295b3a748e1f784e69f6c071b3cd05d3c721d9"
+    },
+    {
+      "bytes": 1329,
+      "kind": "prior_plan_exit",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0001/worker-job.json",
+      "sha256": "284caa76a3aff06e4f9f5d35928942500e3b6933d2363bc1b3e335e3ea0f1c6f"
+    },
+    {
+      "bytes": 1199,
+      "kind": "prior_plan_exit",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0001/worker-monitor.json",
+      "sha256": "9ccb5ca02aa76cb67b6e949d989e31b73f5c36e2ef39abcc013365b2c878040d"
+    },
+    {
+      "bytes": 408,
+      "kind": "prior_plan_handle",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0001/worker-handle.json",
+      "sha256": "e7eb76b96d37dc6eedbe0b74998318242809331a0c6b785a8c5defdc1aa33272"
+    },
+    {
+      "bytes": 217,
+      "kind": "prior_plan_terminal",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0001/result.json",
+      "sha256": "4abba54385a6874d8a023e46f1ef174eb56d6aa2b1976434ffb7a83f11f9ed28"
+    },
+    {
+      "bytes": 317,
+      "kind": "prior_plan_terminal",
+      "path": ".local/studio/jobs/b082dc54dbb54f9d9030f75b/run-0001/supervisor-result.json",
+      "sha256": "d659723f14a299969531bf30d626f620c06e95c56840fde8ba359b873d14a903"
+    }
+  ],
+  "scope": "Local source-reuse custody only. No accepted assets, remote-task completion, refunded spend or replay authorization."
+}

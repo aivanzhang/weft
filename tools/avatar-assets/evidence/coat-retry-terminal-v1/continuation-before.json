@@ -1,0 +1,8 @@
+{
+  "elapsed_seconds": 0.28110866621136665,
+  "error": "Continuation requires the latest failed native author attempt",
+  "scope": "Read-only real terminal collect; no provider, worker or grant calls",
+  "source_sha256": "39812dd2b2a5398912ff5ab47dc113938df7352674a35026441db714a5d56d38",
+  "status": "rejected",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/coat-retry-terminal-bundle-preparation-v1/package-v2.py\", line 61, in <module>\n    captured = collect(ROOT, PARENT)\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline_continuation.py\", line 446, in collect\n    require(role in answers and 'reviewer-'+str(attempt) not in answers,'Continuation requires the latest failed native author attempt')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py\", line 31, in require\n    raise ValueError(message)\nValueError: Continuation requires the latest failed native author attempt\n"
+}

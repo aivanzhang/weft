@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-02T14:05:37.272606-08:00",
+  "evidence_kind": "analyst-recorded test results plus saved actual read-only custody proof",
+  "checks": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_author_input_recovery.py -v",
+      "passed": 4,
+      "seconds": 0.16
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_recovery.py -v",
+      "passed": 9,
+      "seconds": 0.365
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_studio_api_release.py -v",
+      "passed": 13,
+      "seconds": 0.364
+    }
+  ],
+  "actual_readonly": {
+    "job": "b082dc54dbb54f9d9030f75b",
+    "policy": "author-input-bound-custody-v1",
+    "calls": 1,
+    "call_ceiling": 7,
+    "repair_ceiling": 2,
+    "elapsed_api_custody_seconds": 0.1496752081438899,
+    "process_custody_prior_check": {
+      "elapsed_seconds": 0.16746308282017708,
+      "known_pids": [
+        48443,
+        48444,
+        48447,
+        48454
+      ],
+      "result": "absent; saved process handles/exits and free locks verified read-only",
+      "note": "Narrow approved escalation permitted ps after sandbox denied process listing. No signal/release/adoption."
+    }
+  },
+  "changes": {
+    "pipeline_recovery.py": {
+      "before": "9160986edd98978c7e5f2c0080e2248f12919be37e1633111de5e4fb54b6e791",
+      "after": "fc85c177d2162d3341abcc4fc1ad1a1165e63389d679a5b4bb867c2babdb1483"
+    },
+    "pipeline_prompts.py": {
+      "before": "6b03a5f444a01749d92869d2e5eca8b01d1aee9f7d29741f271cd577ce05e169",
+      "after": "5cc07158b54b5dfea658c2bc413ded1da3725b1dabe8a55fc17511aff97ec232"
+    }
+  },
+  "sources": [
+    {
+      "path": "avatar_assets/pipeline_recovery.py",
+      "sha256": "fc85c177d2162d3341abcc4fc1ad1a1165e63389d679a5b4bb867c2babdb1483"
+    },
+    {
+      "path": "avatar_assets/studio_inspection.py",
+      "sha256": "cd878a71634b5c57780e8880b1ca2fda2a984837e73d93a4747c7c7c0940c4ba"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "1975642b8b01ded6da19d8f82f5835731c570c908f97f82ce9ac5328716cdd4f"
+    },
+    {
+      "path": "tests/test_author_input_recovery.py",
+      "sha256": "454f34683e48226cd7ce9304622dec83ed1342958c68b3dbfcf8ad90e61f1e20"
+    },
+    {
+      "path": "tests/test_studio_api_release.py",
+      "sha256": "84430249d57fdcfd9f27628236f2e415d5372c344aa0c0cb239a1432719247ac"
+    }
+  ],
+  "limits": [
+    "No actual job, grant, ledger, proposal, plan or old source snapshot was changed.",
+    "No provider/native/browser calls. Tests use isolated analytic fixtures.",
+    "Original checkpoint status is preserved in append-only revision before mutable runtime status resumes.",
+    "One earlier analytic test assertion was corrected to exclude intentionally mutable status.json; original status copy remains verified. Existing API-release test fixture emits resource warnings for its legacy sqlite context usage."
+  ]
+}

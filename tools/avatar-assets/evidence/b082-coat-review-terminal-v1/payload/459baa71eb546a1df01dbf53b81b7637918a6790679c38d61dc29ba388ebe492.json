@@ -1,0 +1,142 @@
+{
+  "actual_parent": {
+    "bytes": 258015667,
+    "context_bytes": 25506,
+    "current_native_failure": "Aliased material exceeds2048face UV1 repair bound",
+    "elapsed_seconds": 0.326803,
+    "files": 549,
+    "historical_visual_review": {
+      "answer_sha256": "36fbd54303eaa60d8d7e05f072f67dd6899206050718fabeae2e2e431948601b",
+      "attempt": 0,
+      "evidence": [
+        {
+          "bytes": 1116909,
+          "id": "evidence-native-views",
+          "path": "final-evidence-0/native-views.png",
+          "sha256": "5b376d164556625cfef35b9e76cbf19c07420e0d123b25b5abc29fb5d40bd169"
+        },
+        {
+          "bytes": 1022417,
+          "id": "evidence-exported-views",
+          "path": "final-evidence-0/exported-views.png",
+          "sha256": "cebbfa67c8a949821fb59a76c07a3fc1d4b55c86c59e9292252999a2867d25bd"
+        },
+        {
+          "bytes": 3957045,
+          "id": "evidence-motion-00",
+          "path": "final-evidence-0/motion-00.png",
+          "sha256": "06d5b9aded9b31c081e3ad50fafef98edcb3cf54f668d2d30778c867a030c0fb"
+        },
+        {
+          "bytes": 589794,
+          "id": "evidence-delivered-portrait",
+          "path": "final-evidence-0/delivered-portrait.webp",
+          "sha256": "68003698725730e1d8241737e71193636737f036726237264759ddfaf1a70557"
+        },
+        {
+          "bytes": 422887,
+          "id": "evidence-isolated-native-dance",
+          "path": "final-evidence-0/isolated-native-dance.png",
+          "sha256": "aaf2ad4ace2f9415ffe648083701105f6db3d881d1664e43ad7f3f41a8109e0f"
+        },
+        {
+          "bytes": 409144,
+          "id": "evidence-isolated-exported-dance",
+          "path": "final-evidence-0/isolated-exported-dance.png",
+          "sha256": "ae39e7778a2bb728b85658f5cc617eb2285c76dc63f36f8959a79f6df9cff368"
+        }
+      ],
+      "failed_checks": [
+        {
+          "evidence_ids": [
+            "evidence-native-views",
+            "evidence-exported-views",
+            "evidence-delivered-portrait"
+          ],
+          "name": "appearance",
+          "passed": false,
+          "reason": "Native views show the intended short soft stylized fur look, but exported views visibly degrade it with conspicuous sparse dark card/stubble flecks across the head, back, and body, especially in back and side views. The exported coat reads patchy and dotted rather than tidy short fur, which breaks the requested clean simple color boundaries and polished panda appearance."
+        }
+      ],
+      "model_manifest_sha256": "6f3df0a225d48b5d15270dad2e925289f7f05ae512a2346eb7ce005050772c02",
+      "parent_output": "outputs/studio-b082dc54dbb54f9d9030f75b",
+      "passed_checks": [
+        "identity",
+        "framing",
+        "deformation"
+      ],
+      "receipt_sha256": "8e180f918ebe792321cad441779838308ab1f90141187cb1cc8105b703ff1a11",
+      "required_repairs": [
+        "Repair exported fur/coat presentation so the black body surfaces match the intended short tidy soft fur instead of showing conspicuous sparse dark card/stubble flecks across the head, back, and torso.",
+        "Reduce visible polygon/card protrusions and patchy dotted silhouette noise in exported back and side views while preserving the panda's existing proportions, palette, and facial identity.",
+        "Recheck exported coat around the neck, head, torso, and limb edges for cleaner continuous coverage and simpler color boundaries consistent with the native appearance."
+      ],
+      "review_reference": {
+        "path": "review-0.json",
+        "sha256": "d3d810e96ea1f3a8844c7af76c1d718c36d1b4aba551aedf9ac43b95b8d876f3"
+      },
+      "role": "reviewer-0",
+      "scope": "Historical repair targets for this earlier reviewed model, not a verdict on the latest recipe. Recheck after repair.",
+      "state_results": [
+        {
+          "id": "dance",
+          "meaning_passed": true,
+          "motion_passed": true
+        }
+      ],
+      "summary": "The panda's identity, framing, and sampled dance meaning are acceptable, and the motion shows readable alternating beats, hops, arm swings, head tilts, and a neutral return. However, the exported appearance fails visual quality because the portable/exported fur introduces obvious sparse dark flecks and patchy card-like stubble across the body, especially in back and side views, which breaks the requested tidy short-fur look."
+    },
+    "known_source_failures": [
+      {
+        "evidence": {
+          "manifest_sha256": "dd853a54e9c5133e7a85098fedc5a98617e12075ebcc4329d6f197468593770f",
+          "receipt": {
+            "bytes": 586,
+            "path": "native-failure.json",
+            "sha256": "79daa169cc5cf49f6967b206583514295882d729987f59f263c58d297fd42e45"
+          }
+        },
+        "failure_type": "ValueError",
+        "finish_config_sha256": "a4c1559c438b3523d11b7b1c8fcb8ed000fe6d897e2aefaf11af6abbb8653af3",
+        "message": "Aliased material exceeds2048face UV1 repair bound",
+        "message_truncated": false,
+        "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+      }
+    ],
+    "original_runtime_revision_sha256": "78f0c7a74818779d14eb7f8b307de25e2dff5c4e96b940c68d5eef51c297a622",
+    "path": "outputs/studio-b082dc54dbb54f9d9030f75b",
+    "rejected": "author-2",
+    "seed": "author-1"
+  },
+  "bound_change_reason": "Actual completed-media parent has549files; preserve all evidence under finite1024-file/512MiB cap rather than omit files or repeatedly raise a small cap. Hashing remains streamed.",
+  "classification": "Analyst-recorded local tests plus read-only actual sealed parent verification",
+  "limits": {
+    "entries": 2048,
+    "files": 1024,
+    "historical_review_memory_bytes": 65536,
+    "historical_review_memory_count": 8,
+    "individual_file_bytes": 67108864,
+    "inventory_seconds": 20,
+    "review_summary_bytes_each": 32768,
+    "total_bytes": 536870912
+  },
+  "live_ledger_or_parent_mutations": 0,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T14:24:39.461638-08:00",
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/pipeline_continuation.py": "04cbf55c1d7658fe23036e5fcf28fce20266684d61313ef972901dc67edcf442",
+    "tests/test_pipeline_continuation.py": "5c864a99919a34a052e634a16d5dfb91490920f432ce05d514d0e4873f61b7ec"
+  },
+  "status": "passed",
+  "tests": {
+    "distinct_passed": 18,
+    "final_elapsed_seconds": 0.289,
+    "final_focused_command": "PYTHONPATH=tests .venv/bin/python -m unittest test_pipeline_continuation.ContinuationTests.test_new_terminal_native_memory_matches_authenticated_diagnostics test_pipeline_continuation.ContinuationTests.test_inherited_plan_can_continue_again_without_planner_role test_pipeline_continuation.ContinuationTests.test_historical_visual_repairs_keep_bound_targets_without_latest_approval -v",
+    "final_focused_passed": 3,
+    "full_command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_continuation.py -q",
+    "full_elapsed_seconds": 1.249,
+    "full_passed": 17
+  }
+}

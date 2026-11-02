@@ -1,0 +1,9 @@
+{
+  "attempt": 2,
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b082dc54dbb54f9d9030f75b",
+  "reason": "unsupported: the preserved finishing attempt failed on native fur_undercoat authoring with \"Aliased material exceeds2048face UV1 repair bound\". This source has a single 36124-face material, and the demonstrated defect is in the undercoat/UV-repair path rather than rig, motion, or measured coat masks. The request requires native groom plus portable fur and measured non-fur masking, which the prior design already provided, but the current evidence does not identify a supported bounded finishing change that guarantees the required short-pile undercoat route or an alternative local repair on this aliased single-material surface without re-inspecting material/UV ownership beyond the supplied findings. Returning unsupported preserves the validated rig, motion, and grooming intent instead of inventing an unmeasured material workaround.",
+  "request_sha256": "0a68ca29427e7c145323048edb49e9a8d953e189d862302750c8cfec6ac191dd",
+  "schema_version": 1,
+  "stage": "author",
+  "status": "unsupported"
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-02T14:49:46.200145-08:00",
+  "status": "passed",
+  "evidence_kind": "analyst-recorded completed commands; stdout retained in session only",
+  "tests": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_visual_history_memory.py -v",
+      "count": 4,
+      "seconds": 0.103
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_source_failure_memory.py -q",
+      "count": 4,
+      "seconds": 0.109
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline.py -q",
+      "count": 21,
+      "seconds": 0.594
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_replan.py -q",
+      "count": 7,
+      "seconds": 0.14
+    }
+  ],
+  "sha256": {
+    "avatar_assets/pipeline.py": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069",
+    "tests/test_visual_history_memory.py": "7c611088d1cbabdc19c954b16cc08421a91197c60d5c16bc8dd9076c993b9c7f"
+  },
+  "verification_scope": "Analytic inherited visual history and current authenticated critic survive later native failures; current review unchanged; receipt tamper/oversize rejected; deep copies preserve input history. No new accepted avatar claim.",
+  "paid_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "saved_runtime_modified": false,
+  "fixture_failure": "Initial oversized fixture attempted exclusive rewrite; changed to separate new fixture path; production behavior unchanged."
+}

@@ -1,0 +1,263 @@
+{
+  "findings": {
+    "measurements": {
+      "author_geometry": {
+        "available_bones": [
+          "chest",
+          "ear_l",
+          "ear_r",
+          "foot_l",
+          "foot_r",
+          "forearm_l",
+          "forearm_r",
+          "hand_l",
+          "hand_r",
+          "head",
+          "hips",
+          "neck",
+          "shin_l",
+          "shin_r",
+          "spine",
+          "tail",
+          "thigh_l",
+          "thigh_r",
+          "upperarm_l",
+          "upperarm_r"
+        ],
+        "failures": [],
+        "geometry": {
+          "agreement": "Exact native source hash, vertex/face counts and world bounds",
+          "axis_conversion": "glTF (x,y,z) -> Blender (x,-z,y)",
+          "bounds_blender_z_up": {
+            "max": [
+              0.5749289989471436,
+              0.4936639666557312,
+              0.9502120018005371
+            ],
+            "min": [
+              -0.5757449865341187,
+              -0.4917299747467041,
+              -0.9512320160865784
+            ]
+          },
+          "faces": 36124,
+          "profile": "single-identity-node-unrigged-triangles",
+          "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+          "vertices": 26957
+        },
+        "layers": [
+          {
+            "bones": [
+              "hips",
+              "spine",
+              "chest",
+              "neck",
+              "head",
+              "thigh_l",
+              "shin_l",
+              "foot_l",
+              "thigh_r",
+              "shin_r",
+              "foot_r",
+              "upperarm_l",
+              "forearm_l",
+              "hand_l",
+              "upperarm_r",
+              "forearm_r",
+              "hand_r",
+              "tail",
+              "ear_l",
+              "ear_r"
+            ],
+            "feather": 0.18,
+            "layer_index": 0,
+            "max": [
+              1.08,
+              1.08,
+              1.02
+            ],
+            "min": [
+              -0.08,
+              -0.08,
+              -0.02
+            ],
+            "min_vertices": 26957,
+            "passes": true,
+            "selected_vertices": 26957
+          },
+          {
+            "bones": [
+              "hips",
+              "spine",
+              "chest",
+              "neck",
+              "head",
+              "tail"
+            ],
+            "feather": 0.12,
+            "layer_index": 1,
+            "max": [
+              0.82,
+              0.94,
+              1.02
+            ],
+            "min": [
+              0.18,
+              0.12,
+              0.06
+            ],
+            "min_vertices": 12000,
+            "passes": true,
+            "selected_vertices": 15176
+          },
+          {
+            "bones": [
+              "upperarm_l",
+              "forearm_l",
+              "hand_l"
+            ],
+            "feather": 0.1,
+            "layer_index": 2,
+            "max": [
+              0.34,
+              0.64,
+              0.7
+            ],
+            "min": [
+              0.02,
+              0.24,
+              0.24
+            ],
+            "min_vertices": 1200,
+            "passes": true,
+            "selected_vertices": 3977
+          },
+          {
+            "bones": [
+              "upperarm_r",
+              "forearm_r",
+              "hand_r"
+            ],
+            "feather": 0.1,
+            "layer_index": 3,
+            "max": [
+              0.98,
+              0.64,
+              0.7
+            ],
+            "min": [
+              0.66,
+              0.24,
+              0.24
+            ],
+            "min_vertices": 1200,
+            "passes": true,
+            "selected_vertices": 3790
+          },
+          {
+            "bones": [
+              "thigh_l",
+              "shin_l",
+              "foot_l"
+            ],
+            "feather": 0.08,
+            "layer_index": 4,
+            "max": [
+              0.56,
+              0.8,
+              0.24
+            ],
+            "min": [
+              0.2,
+              0.28,
+              -0.02
+            ],
+            "min_vertices": 1800,
+            "passes": true,
+            "selected_vertices": 2021
+          },
+          {
+            "bones": [
+              "thigh_r",
+              "shin_r",
+              "foot_r"
+            ],
+            "feather": 0.08,
+            "layer_index": 5,
+            "max": [
+              0.78,
+              0.78,
+              0.24
+            ],
+            "min": [
+              0.46,
+              0.3,
+              -0.02
+            ],
+            "min_vertices": 1800,
+            "passes": true,
+            "selected_vertices": 2187
+          },
+          {
+            "bones": [
+              "head",
+              "ear_l",
+              "ear_r"
+            ],
+            "feather": 0.08,
+            "layer_index": 6,
+            "max": [
+              0.88,
+              0.52,
+              1.02
+            ],
+            "min": [
+              0.12,
+              0.16,
+              0.62
+            ],
+            "min_vertices": 5000,
+            "passes": true,
+            "selected_vertices": 6773
+          },
+          {
+            "bones": [
+              "tail"
+            ],
+            "feather": 0.05,
+            "layer_index": 7,
+            "max": [
+              0.7,
+              0.98,
+              0.24
+            ],
+            "min": [
+              0.3,
+              0.64,
+              0.02
+            ],
+            "min_vertices": 200,
+            "passes": true,
+            "selected_vertices": 1790
+          }
+        ],
+        "limits": {
+          "layers": 32,
+          "vertices": 100000
+        },
+        "schema_version": 1,
+        "scope": "Authored role references and region occupancy only; not skin quality or animation acceptance",
+        "status": "available",
+        "unknown_bone_references": [],
+        "version": "author-geometry-diagnostics-v1"
+      }
+    },
+    "validation_failure": "Action target is outside its bound root hierarchy"
+  },
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-1f87be60ed4c4fe1aa95968c",
+  "reason": "No accepted model within the bounded local repair attempts",
+  "request_sha256": "a5d8a7816d54060c27ef966adda206d9cfd7af7ef85c753f9df9c360506edd60",
+  "schema_version": 1,
+  "stage": "repair_budget",
+  "status": "unsupported"
+}

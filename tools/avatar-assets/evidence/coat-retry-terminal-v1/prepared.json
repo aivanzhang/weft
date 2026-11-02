@@ -1,0 +1,20 @@
+{
+  "accounting_sha256": "3a572a18d7aebd59ccd0d7481a1bf105ff3ad310154371847a396a2d413eb124",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 64,
+    "seconds": 60
+  },
+  "no_provider_native_browser_or_runtime_mutations": true,
+  "schema_version": 1,
+  "source_continuation_sha256": "39812dd2b2a5398912ff5ab47dc113938df7352674a35026441db714a5d56d38",
+  "source_metadata_before_close": {
+    "byte_limit": 536870912,
+    "bytes": 505817129,
+    "file_limit": 1024,
+    "files": 942,
+    "method": "os.scandir/stat only; no live hashes/copies"
+  },
+  "terminal_release": "Parent confirmed browser/server exited, no active lease/queue, terminal unsupported repair_budget; run only after that release",
+  "worker_sha256": "1da79f778664442e196b0e2db1064e29d4d777e9fc56d46843170e9fcc4baef0"
+}

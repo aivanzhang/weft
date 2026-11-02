@@ -1,0 +1,92 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1363,
+      "path": "execute.py",
+      "sha256": "986497b8a8bd27ca740ce3399c5b41a1520713b6c28c507571e4e4c73942ffcd"
+    },
+    {
+      "bytes": 1121,
+      "path": "job.json",
+      "sha256": "4e8736c87c13f1f94d56aa9bd4108a58b00ac834856cf333ffcec0a490205e69"
+    },
+    {
+      "bytes": 1693,
+      "path": "prepared.json",
+      "sha256": "d317e6478844b19940acdf5a4ffbb63dece9b746578530135034d01106a65141"
+    },
+    {
+      "bytes": 1369,
+      "path": "result.json",
+      "sha256": "ff48b02726ff910e618ccf316d91552e8ea4b4c2200f3dfbffd9ed7a570d63f1"
+    },
+    {
+      "bytes": 563,
+      "path": "run.py",
+      "sha256": "77a1fbc45c5043a738253377cb11d9087e1219eb21fe05bb6aaf6d05c7d1d129"
+    },
+    {
+      "bytes": 35083,
+      "path": "sources/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "bytes": 17776,
+      "path": "sources/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 58351,
+      "path": "sources/pipeline_prompts.py",
+      "sha256": "6b03a5f444a01749d92869d2e5eca8b01d1aee9f7d29741f271cd577ce05e169"
+    },
+    {
+      "bytes": 23069,
+      "path": "sources/test_action_audit.py",
+      "sha256": "bb9b95023046b5e27f9756fcc9bfceb18ea8b383d5825f2a996e25fcfdbeadbc"
+    },
+    {
+      "bytes": 11968,
+      "path": "sources/test_action_intent.py",
+      "sha256": "01a375a20ea05bc00c4cd0ecc2078ba8711c80830eabc6a07acfc072c4ba4540"
+    },
+    {
+      "bytes": 5072,
+      "path": "sources/test_action_plan_semantics.py",
+      "sha256": "5f56190ce440784e77bd42823522e1219ef70674de746b39fe7d35275bcf5d4a"
+    },
+    {
+      "bytes": 4895,
+      "path": "sources/test_stationary_language.py",
+      "sha256": "ab48cf12a03e07a5220f17794866e451dcce1d7d14f6f9c9dd858dc6e7d8e7af"
+    },
+    {
+      "bytes": 9803,
+      "path": "sources/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 243,
+      "path": "tests-handle.json",
+      "sha256": "cf08e2e1dbfe0980877043d39ac1106ea6d369729663873938174d4a96547310"
+    },
+    {
+      "bytes": 1027,
+      "path": "tests-monitor.json",
+      "sha256": "a4ed0a5b3fd05181e3d85ede75f38fee71dcd3330adaef7572a5b69fcd8d084f"
+    },
+    {
+      "bytes": 6595,
+      "path": "tests.log",
+      "sha256": "18a7c35b5a59cb326b7191ab06a6c56f9283edcd9972dce23616d8b74cfe909c"
+    }
+  ],
+  "kind": "return_pose_and_grounded_plan_semantics_tests",
+  "schema_version": 1,
+  "status": "passed"
+}

@@ -1,0 +1,127 @@
+{
+  "checks": [
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "identity",
+      "passed": true,
+      "reason": "The avatar remains a single cute upright panda-like character with compact rounded proportions, ivory face and belly, black ears and limbs, black facial mask/patches, warm brown eyes, short muzzle, and a small tail. No clothes, props, pedestal, lettering, or companion are visible."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "appearance",
+      "passed": false,
+      "reason": "Native views show the intended short soft stylized fur look, but exported views visibly degrade it with conspicuous sparse dark card/stubble flecks across the head, back, and body, especially in back and side views. The exported coat reads patchy and dotted rather than tidy short fur, which breaks the requested clean simple color boundaries and polished panda appearance."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "framing",
+      "passed": true,
+      "reason": "Full body is visible in native and exported review views and delivered portrait. Arms, legs, feet, head, and tail are shown sufficiently for inspection."
+    },
+    {
+      "evidence_ids": [
+        "evidence-motion-00",
+        "evidence-isolated-native-dance",
+        "evidence-isolated-exported-dance"
+      ],
+      "name": "deformation",
+      "passed": true,
+      "reason": "Sampled dance poses show only mild stylized bending with no obvious severe limb collapse, explosive stretching, or major clipping in the reviewed frames. The isolated native and exported peak-stretch poses remain broadly intact."
+    }
+  ],
+  "limitations": [
+    "Motion evidence is sampled by contact sheet and isolated pose, so continuous-frame collisions, contact quality, and loop smoothness are not established.",
+    "State meaning assessment is based on visible sampled poses plus numeric audit support; not every frame is shown at large scale.",
+    "Delivered portrait shows only one view and does not substitute for multiview/exported inspection."
+  ],
+  "required_repairs": [
+    "Repair exported fur/coat presentation so the black body surfaces match the intended short tidy soft fur instead of showing conspicuous sparse dark card/stubble flecks across the head, back, and torso.",
+    "Reduce visible polygon/card protrusions and patchy dotted silhouette noise in exported back and side views while preserving the panda's existing proportions, palette, and facial identity.",
+    "Recheck exported coat around the neck, head, torso, and limb edges for cleaner continuous coverage and simpler color boundaries consistent with the native appearance."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": [
+        "evidence-motion-00",
+        "evidence-isolated-native-dance",
+        "evidence-isolated-exported-dance",
+        "action-audit-dance"
+      ],
+      "id": "dance",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The sampled poses show alternating side-to-side body lean, visible small whole-body rise/fall, coordinated arm swings, and head tilts, with the final pose returning to the starting neutral. Motion is subtle but still reads as a toy dance rather than mere constant drift, and the audit supports real relative motion of body, arms, and head.",
+      "requirement_reviews": [
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "body_rhythm",
+          "passed": true,
+          "reason": "The motion sheet shows alternating left-right body lean across the clip, and the audit reports rhythmic reversals for the body. The visible pattern reads as repeated side-to-side dance beats."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "body_hops",
+          "passed": true,
+          "reason": "The contact sheet shows small vertical whole-body rise/fall accompanying the dance, and the audit records measurable upward travel and descent. The visible motion reads as small hops rather than a completely planted sway."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "arms_swing",
+          "passed": true,
+          "reason": "Across sampled poses the arms change angle relative to the torso rather than only moving with whole-body travel. The audit also reports root-relative arm displacement, supporting visible coordinated arm swings."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "head_tilts",
+          "passed": true,
+          "reason": "The head visibly tilts side to side in coordination with the body beats, and the audit reports root-relative head motion. The motion reads as actual head tilting, not just full-character travel."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "return_neutral",
+          "passed": true,
+          "reason": "The final sampled pose matches the starting neutral pose visually, and the audit reports zero endpoint displacement within its measured tolerance."
+        }
+      ]
+    }
+  ],
+  "summary": "The panda's identity, framing, and sampled dance meaning are acceptable, and the motion shows readable alternating beats, hops, arm swings, head tilts, and a neutral return. However, the exported appearance fails visual quality because the portable/exported fur introduces obvious sparse dark flecks and patchy card-like stubble across the body, especially in back and side views, which breaks the requested tidy short-fur look.",
+  "verdict": "repair"
+}

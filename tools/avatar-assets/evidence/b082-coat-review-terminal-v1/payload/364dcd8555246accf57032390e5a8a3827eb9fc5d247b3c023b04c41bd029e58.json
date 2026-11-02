@@ -1,0 +1,327 @@
+{
+  "bands": [
+    {
+      "cards": 1800,
+      "eligible_area_m2": 1.271721025174353,
+      "index": 0,
+      "length_range_m": [
+        0.004845988644782734,
+        0.014288831197275056
+      ],
+      "length_scale_range": [
+        0.7,
+        1.0
+      ],
+      "nominal_sqrt_area_per_root_m": 0.026580287444879492,
+      "root_placement": "skin-consistent-v1",
+      "roots_per_m2": 1415.4047659573923,
+      "sampled_regional_comb_range": [
+        0.25,
+        0.5
+      ],
+      "sampled_roots": 128,
+      "scopes": {
+        "comb_range": "128 retained sampled root records, not all roots",
+        "density": "Area allocation only; not measured visible fur coverage or nearest-neighbor spacing",
+        "length_width_ranges": "Actual helper-generated range over all roots; not projected visible coverage"
+      },
+      "source_json_pointers": {
+        "bindings": "/portable_fur/0/root_summary/binding_archive",
+        "cards": "/portable_fur/0/cards",
+        "eligible_area_m2": "/portable_fur/0/root_summary/eligible_area_m2",
+        "length_range_m": "/portable_fur/0/root_summary/length_range_m",
+        "length_scale_range": "/portable_fur/0/root_summary/length_scale_range",
+        "mask_band": "/portable_fur/0/config/brightness",
+        "sampled_comb": "/portable_fur/0/root_samples/*/comb",
+        "sampled_direction": "/portable_fur/0/root_samples/*/direction",
+        "source_sampler": "/portable_fur/0/sampling",
+        "width_range_m": "/portable_fur/0/root_summary/width_range_m"
+      },
+      "width_range_m": [
+        0.0029928805136362827,
+        0.006246926793033713
+      ]
+    },
+    {
+      "cards": 1600,
+      "eligible_area_m2": 0.38017735975258515,
+      "index": 1,
+      "length_range_m": [
+        0.004751103951951838,
+        0.01427435924117005
+      ],
+      "length_scale_range": [
+        0.7,
+        1.0
+      ],
+      "nominal_sqrt_area_per_root_m": 0.015414631031762185,
+      "root_placement": "skin-consistent-v1",
+      "roots_per_m2": 4208.562027579077,
+      "sampled_regional_comb_range": [
+        0.25,
+        0.5
+      ],
+      "sampled_roots": 128,
+      "scopes": {
+        "comb_range": "128 retained sampled root records, not all roots",
+        "density": "Area allocation only; not measured visible fur coverage or nearest-neighbor spacing",
+        "length_width_ranges": "Actual helper-generated range over all roots; not projected visible coverage"
+      },
+      "source_json_pointers": {
+        "bindings": "/portable_fur/1/root_summary/binding_archive",
+        "cards": "/portable_fur/1/cards",
+        "eligible_area_m2": "/portable_fur/1/root_summary/eligible_area_m2",
+        "length_range_m": "/portable_fur/1/root_summary/length_range_m",
+        "length_scale_range": "/portable_fur/1/root_summary/length_scale_range",
+        "mask_band": "/portable_fur/1/config/brightness",
+        "sampled_comb": "/portable_fur/1/root_samples/*/comb",
+        "sampled_direction": "/portable_fur/1/root_samples/*/direction",
+        "source_sampler": "/portable_fur/1/sampling",
+        "width_range_m": "/portable_fur/1/root_summary/width_range_m"
+      },
+      "width_range_m": [
+        0.00299251866271459,
+        0.00624744032544369
+      ]
+    }
+  ],
+  "body_metal_roughness_8bit": {
+    "metallic_blue_quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      39.0
+    ],
+    "roughness_green_quantiles": [
+      42.0,
+      137.0,
+      168.0,
+      171.0,
+      190.0
+    ],
+    "size": [
+      2048,
+      2048
+    ]
+  },
+  "color_scope": "Actual root source IDs and oriented UV corners; repeat bilinear LOD0; per-texel sRGB decode; compare every exported duplicate of selected root COLOR_0. No mip/lighting equivalence claim.",
+  "comb_semantics": {
+    "flow_semantics": "Ordered ellipsoid regions blend direction, comb and length_scale by smooth influence. Length_scale multiplies native/portable length.",
+    "meaning": "For fixed outward normal and nondegenerate projected direction, lower comb follows the outward normal more; higher comb follows the surface tangent more. This controls lean, not root density.",
+    "portable_formula": "lean=comb*(0.30+0.70*t); segment=normalize(normal*(1-lean)+tangent*lean)",
+    "sampled_comb_range_scope": "The current recorded samples lie in0.25..0.5; this is not an exhaustive extrema proof.",
+    "verified_in_frozen_native_and_portable_sources": true
+  },
+  "derived_dark_to_bright_area_allocation_density_ratio": 2.973398231234843,
+  "existing_supported_controls": {
+    "body_only": "normal_strength is the body normal-map strength, not portable card roughness",
+    "native_only": "groom_shader changes native hair shader, not portable card material",
+    "no_manual_recipe": "These are generic verified semantics and current measurements, not recommended numeric settings or changed acceptance gates.",
+    "not_a_tuft_tint": "portable_fur.bands[].color does not recolor exact-root tuft-v1; source UV determines color",
+    "portable_length_width": "portable_fur.settings.length and width",
+    "regional_lean_length": "groom_flow.regions[].comb and length_scale; shared by native hair and tuft cards"
+  },
+  "failed_probe": {
+    "change": "Only existing accessor count-limit argument; no model, provider or evaluator threshold changes.",
+    "changed_cpu_probe": "outputs/b082-portable-fur-flecks-v2",
+    "job": {
+      "cleanup_events": [],
+      "cleanup_status": "not_required",
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "-B",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/b082-portable-fur-flecks-v2/check.py"
+      ],
+      "descendant_exit_verified": false,
+      "elapsed_seconds": 0.523,
+      "exit_code": 0,
+      "failure": null,
+      "failure_reasons": [],
+      "final_output_bytes": 9740,
+      "last_rss_sample_elapsed_seconds": 0.261,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 16,
+        "rss_mb": 512,
+        "wall_seconds": 30
+      },
+      "manual_stop_required": false,
+      "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+      "monitor_checkpoint": "check-monitor.json",
+      "monitor_errors": [],
+      "pid": 55718,
+      "process_exit_verified": true,
+      "rss_exit_race_observed": true,
+      "rss_samples": 1,
+      "sampled_max_output_bytes": 9740,
+      "sampled_peak_rss_bytes": 423165952,
+      "sampling_interval_seconds": 0.25,
+      "schema_version": 1,
+      "status": "finished"
+    },
+    "path": "outputs/b082-portable-fur-flecks-v1/check.log",
+    "reason": "Diagnostic omitted existing300k scalar index-count override; failed before texture decode. Preserved unchanged."
+  },
+  "finish_report_is_manifest_bound": true,
+  "inputs": {
+    "color_probe_job": {
+      "bytes": 1113,
+      "path": "outputs/b082-portable-fur-flecks-v2/job.json",
+      "sha256": "5fc7ce4f2eb73593ea0b4ca5eafe59cec010a83239821c14b4ac441b0c70c96f"
+    },
+    "color_probe_manifest": {
+      "bytes": 1127,
+      "path": "outputs/b082-portable-fur-flecks-v2/manifest.json",
+      "sha256": "124928176a1d388f70373333a870dc6fd165ea11c737369f5a0fdf61de6ba70b"
+    },
+    "color_probe_result": {
+      "bytes": 3121,
+      "path": "outputs/b082-portable-fur-flecks-v2/result.json",
+      "sha256": "a2cfd1fd3e99d63e59ea62bf4a9e2be097daea63c2dd58278347ac60e9f3d01e"
+    },
+    "exported_back": {
+      "bytes": 400519,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/exported-preview-0/back.png",
+      "sha256": "56233fc4f45c62cc8f54877e2849c6ed075fdc6dfdf222aba938c050b077655b"
+    },
+    "failed_probe_manifest": {
+      "bytes": 979,
+      "path": "outputs/b082-portable-fur-flecks-v1/manifest.json",
+      "sha256": "67615b65e2deac343e00e366f57e9f49d68531535e909b1e68831b3367a61c3b"
+    },
+    "finish_config": {
+      "bytes": 23661,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/model-0/finish-config.json",
+      "sha256": "328410eb04ee66fdac1420bc0a4bd69834634f4d4bf7af35cafed03e5e50a57a"
+    },
+    "finish_manifest": {
+      "bytes": 309264,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/model-0/manifest.json",
+      "sha256": "6f3df0a225d48b5d15270dad2e925289f7f05ae512a2346eb7ce005050772c02"
+    },
+    "finish_report": {
+      "bytes": 268779,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/model-0/finish-report.json",
+      "sha256": "910e48c734491bd654c9fb49d837f43ae62edff84287cc6c36603c0e3dacb927"
+    },
+    "model": {
+      "bytes": 19079356,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/model-0/model.glb",
+      "sha256": "d042dcf478b20faf576aa95be5fcf03bd4b281678166c7ae5779fa0cd7e264de"
+    },
+    "native_back": {
+      "bytes": 438581,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/model-0/views/back.png",
+      "sha256": "a3b1c8f9ca5b1fd96b2f916a5fa7f68dbc51e962e48aa3f5687a0b2a33ca8450"
+    },
+    "source_cards": {
+      "bytes": 26295,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/model-0/sources/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    "source_flow": {
+      "bytes": 7179,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/model-0/sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    "source_native_comb": {
+      "bytes": 23994,
+      "path": "outputs/studio-b082dc54dbb54f9d9030f75b/model-0/sources/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd"
+    }
+  },
+  "interpretation": {
+    "likely": "Sparse visibly protruding tufts plus differing card/body material response; not a demonstrated source RGB or export color bug.",
+    "no_quality_acceptance": true,
+    "unproved": "Individual contributions of visibility, minification, card shadows, provider roughness and lighting have not been isolated."
+  },
+  "kind": "actual_portable_fur_observation",
+  "limits": [
+    "No native rerender, provider or AI call; source/runtime/model files unchanged.",
+    "256 sampled roots do not prove every root color or rendered pixel.",
+    "No density upgrade or shader substitution authorized by this observation."
+  ],
+  "material_metadata": [
+    {
+      "doubleSided": true,
+      "name": "Material_0",
+      "normalTexture": {
+        "index": 0,
+        "scale": 0.30000001192092896
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      }
+    },
+    {
+      "alphaCutoff": 0.2199999988079071,
+      "alphaMode": "MASK",
+      "name": "PortableCoat_0_cutout_fur",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8999999761581421
+      }
+    },
+    {
+      "alphaCutoff": 0.2199999988079071,
+      "alphaMode": "MASK",
+      "name": "PortableCoat_1_cutout_fur",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 4
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8999999761581421
+      }
+    }
+  ],
+  "native_groom": {
+    "base_comb": 0.35,
+    "children": 10,
+    "parents": 1800,
+    "source_pointers": {
+      "applied_flow": "finish-report.json#/groom/comb/flow_config",
+      "base_comb": "finish-config.json#/groom/comb",
+      "children": "finish-config.json#/groom/children",
+      "parents": "finish-config.json#/groom/parents",
+      "regional_flow": "finish-config.json#/groom_flow/regions"
+    }
+  },
+  "observations": [
+    "Saved exported back view visibly exposes distinct upright card/stubble forms; saved native back shows much finer short hair. The two representations also use different render scenes, so this is not a controlled shader ablation.",
+    "No wrong color conversion was found in256 deterministic actual roots: maximum exported linear COLOR_0 error1.643660374472944e-7 against independent source-UV bilinear sampling.",
+    "Cards use metallic0,roughness0.9,neutral atlas times linear vertex color,no normal map,and single-sided MASK alpha cutoff0.22. Body retains its provider metallic/roughness texture and normal map scale0.3.",
+    "The dark band has roughly one-third the roots per emitting surface area of the bright band. This is allocation evidence, not proof that higher density is required."
+  ],
+  "sampled_color_evidence": [
+    {
+      "ambiguous_roots": 0,
+      "band": 0,
+      "matched_roots": 128,
+      "max_color_component_error": 1.52825229138287e-07,
+      "median_color_component_error": 1.6359802332277518e-09,
+      "requested_sample_roots": 128
+    },
+    {
+      "ambiguous_roots": 0,
+      "band": 1,
+      "matched_roots": 128,
+      "max_color_component_error": 1.643660374472944e-07,
+      "median_color_component_error": 1.4209653592667237e-07,
+      "requested_sample_roots": 128
+    }
+  ],
+  "schema_version": 1,
+  "status": "read_only_observed"
+}

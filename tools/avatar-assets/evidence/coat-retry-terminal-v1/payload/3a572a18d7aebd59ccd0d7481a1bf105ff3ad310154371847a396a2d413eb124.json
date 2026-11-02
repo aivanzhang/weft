@@ -1,0 +1,22 @@
+{
+  "budget": {
+    "effective_ceiling_microdollars": 15000000,
+    "original_ceiling_microdollars": 17000000,
+    "policy": "append-only-lower-ceiling-v1",
+    "reductions": 1
+  },
+  "calls": 29,
+  "classification": "read_only_validated_api_ledger_snapshot",
+  "cost_scope": "Conservative usage-based estimate, not provider invoice. All prior calls included; no new Meshy.",
+  "current_job": {
+    "calls": 5,
+    "effective_exposure_microdollars": 620851,
+    "reserved_microdollars": 28093200,
+    "settled_actual_microdollars": 620851,
+    "uncertain_reserved_microdollars": 0
+  },
+  "recorded_local": "2026-11-02T14:42:51.738161-08:00",
+  "schema_version": 1,
+  "total_settled_microdollars": 2777078,
+  "uncertain_reserved_microdollars": 0
+}

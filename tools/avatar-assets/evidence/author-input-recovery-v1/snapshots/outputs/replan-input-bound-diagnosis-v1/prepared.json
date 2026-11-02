@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "job_id": "b082dc54dbb54f9d9030f75b",
+  "sources": [
+    {
+      "path": "avatar_assets/studio_inspection.py",
+      "bytes": 43365,
+      "sha256": "309d3627084c476e2366070ac425d668f7a7170918f2f1056ee6718ed3109786"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "bytes": 57164,
+      "sha256": "1975642b8b01ded6da19d8f82f5835731c570c908f97f82ce9ac5328716cdd4f"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "bytes": 32021,
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "bytes": 26471,
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "worker_sha256": "5894b4199c97f0df5ed9363126eeb07ea7194056d12d034b41e240b9057f5d03",
+  "limits": {
+    "seconds": 30,
+    "memory_mib": 512,
+    "output_mib": 16
+  },
+  "process_command": [
+    "/bin/ps",
+    "-axo",
+    "pid=,ppid=,pgid="
+  ],
+  "no_secret_reads": true,
+  "no_live_mutations": true
+}

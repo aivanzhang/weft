@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-02T14:46:06.620644-08:00",
+  "before_sha256": "c12d7a429b204f629077107bad8d129f7e0e48769436951b707f8bc88e6e3c2c",
+  "after_sha256": "fb25e00c69c3e919e72e42d6bd8ebfd02ec8895fe0416f40385a51a6a83bcf65",
+  "scope": "New jobs only; no historical request, grant, ledger, response or key modified.",
+  "reasoning_effort": "medium",
+  "max_output_tokens": 16384,
+  "extra_reasoning_token_assumption_per_call": [
+    2000,
+    6000
+  ],
+  "extra_cost_usd_assumption_per_call": [
+    0.03,
+    0.09
+  ],
+  "aggregate_next_run_calls": 7,
+  "additional_reasoning_cost_usd_assumption": [
+    0.21,
+    0.63
+  ],
+  "estimated_next_run_total_usd": [
+    0.5,
+    2.1
+  ],
+  "recurring_service_cost_usd": 0,
+  "enforced_project_cap_usd": 15,
+  "prior_usage_usd": 2.777078,
+  "per_call_reservation_microdollars": 5618640,
+  "uncertainty": "Reasoning demand and visual repair success unproven; final JSON and reasoning share existing maximum output tokens. No new Meshy or subscription."
+}

@@ -1,0 +1,122 @@
+{
+  "checks": [
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "identity",
+      "passed": true,
+      "reason": "The character remains a single cute upright panda-like figure with compact rounded proportions, ivory face and belly, black ears, black eye patches, black limbs, warm brown eyes, short muzzle, and small tail. No companion, clothes, props, pedestal, lettering, or scenery are visible."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "appearance",
+      "passed": false,
+      "reason": "Core panda appearance is present, but the requested short soft tidy fur/clean smooth undercoat presentation is not preserved cleanly in exported and motion views. Visible gray mottling and patchy/sparse card-like coat breakup appear around the cheeks/neck and outer legs, with rough noisy patches on the exported body that read less like tidy short fur and more like unstable coat artifacts. This is a visible quality defect, not just a material variation."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views"
+      ],
+      "name": "framing",
+      "passed": true,
+      "reason": "Full body is visible in front, side, back, and three-quarter views in both native and exported evidence, including head, hands, feet, and tail."
+    },
+    {
+      "evidence_ids": [
+        "evidence-motion-00",
+        "evidence-isolated-native-dance",
+        "evidence-isolated-exported-dance"
+      ],
+      "name": "deformation",
+      "passed": false,
+      "reason": "During dance poses, visible deformation/coat presentation breaks down around the cheek-neck junction and along the outer thighs/legs, especially in exported views. The isolated peak-stretch samples show conspicuous patchy tearing-like coat breakup and silhouette roughening rather than clean short-fur deformation."
+    }
+  ],
+  "limitations": [
+    "Motion contact, balance, collisions, and loop seamlessness are not established by the provided visual evidence.",
+    "Numeric audit supports that motion exists and returns to start, but does not by itself prove semantic quality or visual cleanliness."
+  ],
+  "required_repairs": [
+    "Repair exported and motion coat presentation around cheeks/neck and outer legs/thighs to remove patchy polygonal/card-like fur breakup and restore a tidy short-fur silhouette.",
+    "Clean deformation presentation in the dance pose so moving regions do not show conspicuous coat tearing/gaps or noisy mottled patches in either native or exported state evidence."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": [
+        "evidence-motion-00",
+        "evidence-isolated-native-dance",
+        "evidence-isolated-exported-dance",
+        "action-audit-dance"
+      ],
+      "id": "dance",
+      "meaning_passed": true,
+      "motion_passed": false,
+      "reason": "The visible action reads as a cheerful toy dance with alternating side-to-side beats, small hops, arm swings, head tilts, and a return to the starting pose, consistent with the request and supported by the numeric audit. However, the state does not pass overall because exported/native moving poses show conspicuous coat/deformation artifacts around the cheek-neck area and outer legs.",
+      "requirement_reviews": [
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "body_rhythm",
+          "passed": true,
+          "reason": "The body visibly shifts side to side in alternating beats across the motion sheet, and the audit also reports rhythmic reversals."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "body_hops",
+          "passed": true,
+          "reason": "Small whole-body upward beats are visible in the motion samples, consistent with brief hops; the audit also measures vertical rise/travel."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "arms_swing",
+          "passed": true,
+          "reason": "Both arms visibly swing relative to the torso rather than only translating with the whole body, matching the requested gentle coordinated motion."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance",
+            "action-audit-dance"
+          ],
+          "id": "head_tilts",
+          "passed": true,
+          "reason": "The head visibly tilts with the dance and changes relative to the torso, not merely by whole-character travel."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "action-audit-dance"
+          ],
+          "id": "return_neutral",
+          "passed": true,
+          "reason": "The final pose visually returns to the starting neutral pose, and the audit reports endpoint return within tolerance."
+        }
+      ]
+    }
+  ],
+  "summary": "Requested panda identity and dance meaning are preserved, and framing coverage is sufficient, but the attempt should not be accepted because visible coat/deformation artifacts remain in motion and exported views. Patchy card-like/mottled fur breakup around the cheeks/neck and outer legs undermines the requested tidy short-fur presentation and clean deformation quality.",
+  "verdict": "repair"
+}

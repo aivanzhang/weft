@@ -1,0 +1,20 @@
+{
+  "changes": "Use the actual new plan requirements; remove only the unused torso binding. No rig, model, animation, prompt or plan edits.",
+  "exact_new_planner_states_used": true,
+  "kind": "analytic_saved_model_new_plan_role_projection",
+  "limitations": [
+    "This is a numeric causal screen using an old authored model, not a new generation or pipeline acceptance.",
+    "No visual quality, physical contact, continuous motion or seamless-loop proof."
+  ],
+  "old_model_and_curves_unchanged": true,
+  "removed_binding_roles": [
+    "torso"
+  ],
+  "retained_binding_roles": [
+    "body",
+    "arms",
+    "head"
+  ],
+  "retained_bone_lists_and_roots_exact": true,
+  "same_exact_user_request": true
+}

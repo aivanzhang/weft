@@ -66,17 +66,20 @@ class StationaryLanguageTests(unittest.TestCase):
                 self.assertFalse(_stationary_language(text))
         self.assertEqual(required_kinds('Wave without flying.'), {'articulation'})
 
-    def test_retained_api_plan_validates_without_changing_any_bytes(self):
+    def test_retained_plan_negation_remains_valid_but_missing_endpoint_kind_is_explicit(self):
         folder = Path(__file__).resolve().parents[1] / 'outputs/studio-9e1cceb87c40437896c5a77f'
         answer, request = folder/'agents/planner/answer.json', folder/'request.json'
         if not answer.is_file() or not request.is_file():
             self.skipTest('Optional local retained paid-response evidence is absent')
         before = {path: path.read_bytes() for path in (answer, request)}
         plan = json.loads(before[answer])
-        result = validate_plan(plan, json.loads(before[request]))
-        self.assertEqual(result, plan)
-        self.assertEqual(result['states'][0]['id'], 'dance')
-        self.assertEqual(len(result['states'][0]['requirements']), 5)
+        from avatar_assets.action_intent import PlanIntentError
+        state=plan['states'][0]
+        validate_requirements(state['requirements'],state['roles'])
+        self.assertFalse(_stationary_language(state['requirements'][2]['description']))
+        with self.assertRaises(PlanIntentError) as caught:
+            validate_plan(plan,json.loads(before[request]))
+        self.assertEqual(caught.exception.code,'missing_return_pose')
         for path, content in before.items():
             self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), hashlib.sha256(content).hexdigest())
 

@@ -1,0 +1,452 @@
+{
+  "approval_sha256": [
+    "051607149ae89ce106843c7222b36c764d159661d70eef5da506314098dcef20",
+    "8a8a7edaa78486f758760dccc59e71a6782b87b4d0c6ef4a8144cccc0f1adbe4"
+  ],
+  "call_ceiling_preserved": 7,
+  "calls": [],
+  "dollar_ceiling_microdollars_preserved": 12222922,
+  "files": [
+    {
+      "bytes": 2552,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/request.json",
+      "sha256": "24573e3e63254bc3e3eaa69d84f7bac21220220b8a13110a5110ab71337f4170"
+    },
+    {
+      "bytes": 218,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.local/studio/jobs/d8a680ce6580429f9fdd016f/pipeline-request.json",
+      "sha256": "985bcfcd1d2992574766fb7d21bcf63b2a8f7dc68329c083d5bd47a655668744"
+    },
+    {
+      "bytes": 6778,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/input-receipt.json",
+      "sha256": "c29e34ba5e171c6c10c5c7701a2813d261674be32a569fd580bb07e0cb65370e"
+    },
+    {
+      "bytes": 35083,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "bytes": 17776,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 8034,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/agent_backend.py",
+      "sha256": "4ee863873c193e0dd75eb7801cecce305ffacabe67da6d2759aa3317a31050b9"
+    },
+    {
+      "bytes": 26471,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 12872,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "bytes": 8595,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "bytes": 16614,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 38146,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 13676,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 40332,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 19539,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 16931,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 17295,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 34778,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/openai_runner.py",
+      "sha256": "a5806e54e0b574194d50131e365abaf0a08d8580cf7190cafc783a0a8ba781e3"
+    },
+    {
+      "bytes": 98954,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/pipeline.py",
+      "sha256": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069"
+    },
+    {
+      "bytes": 46941,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/pipeline_continuation.py",
+      "sha256": "6287047106d8b1bad66e6971b3776bc1ca4f5d2dfaba619c765ebcf6b66141bb"
+    },
+    {
+      "bytes": 9788,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    },
+    {
+      "bytes": 62221,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/pipeline_prompts.py",
+      "sha256": "e14644d35088361072f2dac730087dbeacc1468cbb1e0a460c073561830e857d"
+    },
+    {
+      "bytes": 12183,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/pipeline_recovery.py",
+      "sha256": "fc85c177d2162d3341abcc4fc1ad1a1165e63389d679a5b4bb867c2babdb1483"
+    },
+    {
+      "bytes": 1326,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 14626,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "bytes": 20746,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "bytes": 59927,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_finish_generated.py",
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    {
+      "bytes": 26295,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 6657,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "bytes": 42039,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "bytes": 5450,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 8894,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 31282,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 6885,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 10304,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 17397,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 4687,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 8834,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 6002,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 9487,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 5273,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 6129,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 9560,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 14944,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 35323,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 14902088,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-2fa07fbb61ef4da4bc8f7f70/generation/stages/texture/downloads/model.glb",
+      "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+    },
+    {
+      "bytes": 14902088,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inputs/source-model.glb",
+      "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+    },
+    {
+      "bytes": 200,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/status.json",
+      "sha256": "63397aea3c4ef1c5d4673b2f0887e50ccf7f2669489fbb343f862bf83abc34d3"
+    },
+    {
+      "bytes": 1346,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/agents/runner.json",
+      "sha256": "13aeabecc581a748880517667d3193189f1488f4202917bab42edd26381723e3"
+    },
+    {
+      "bytes": 162224,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/continuation/receipt.json",
+      "sha256": "42872bcb27c249dce9eee61587d4d537d130f410f1578e4b583cdc5b2cddc5f2"
+    },
+    {
+      "bytes": 89047,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/continuation/context.json",
+      "sha256": "de31150af37d3e6023ecf95e001cc7ae75521405da9dfdf3a8824a0e7e333028"
+    },
+    {
+      "bytes": 6152,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/plan.json",
+      "sha256": "c4713e81f95ba393a5a50292e2511193ebc57bb08093152502799e2d21f86c97"
+    },
+    {
+      "bytes": 4427,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/quality-policy.json",
+      "sha256": "f03fd0a6c1ed9dec4ec84aa112976130c17620c986a5ad4f3fdf2c4b516a17d8"
+    },
+    {
+      "bytes": 17767,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/manifest.json",
+      "sha256": "fb4c34b22a7fa6e17ce2fab53b2b7a3663881de133f76410fb8d1b61e9f89ff7"
+    },
+    {
+      "bytes": 204208,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/back.png",
+      "sha256": "51819b63469aa3a449ccd68f929f1901a0e8714de85ba01b0f8427e8ad6857ba"
+    },
+    {
+      "bytes": 121,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/blender-extensions/.cache/compat.dat",
+      "sha256": "eb7aa51772707a1dc0f4ca5c31c56c6b659fad836014e991d1bf63aeb0335f41"
+    },
+    {
+      "bytes": 216600,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/front.png",
+      "sha256": "80ae02684d1e2f4b571d906cf43b50140e7d143342d266f21c4aa4a2aad0980c"
+    },
+    {
+      "bytes": 382,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/guide-annotation-handle.json",
+      "sha256": "6e7ef3431333f52a2c9bfd374c8b4d85fa5d2e2cb8a50788c09a7a52d88d9d6b"
+    },
+    {
+      "bytes": 1218,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/guide-annotation-job.json",
+      "sha256": "75214854bc52a35d91a04b4ebef2b1761907de2e9da2120489d7adb919e8bc21"
+    },
+    {
+      "bytes": 1126,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/guide-annotation-monitor.json",
+      "sha256": "7b07168fb8c2673ef114f7f78cd75833adcdb3045b6edc250d630e33e710c7ea"
+    },
+    {
+      "bytes": 72,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/guide-annotation.log",
+      "sha256": "09555e0c5ea70717354d350806dd8cb33b521e52a3733018fb144f5de97ae45c"
+    },
+    {
+      "bytes": 329872,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/guide-front-raw.png",
+      "sha256": "3287b36ad32fa265b9b13e155d87c1138b41ff82223f438090f0cb75796e6e7a"
+    },
+    {
+      "bytes": 289158,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/guide-front.png",
+      "sha256": "0cb578b511819ef51c6b31995eac9cdccb0480355913002ffa0dfb5cb4f00c9d"
+    },
+    {
+      "bytes": 293104,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/guide-side-raw.png",
+      "sha256": "0d56b7dcf8c6a7aed61bd88d4a75f616bc0192e801479bb1786341e991356876"
+    },
+    {
+      "bytes": 249759,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/guide-side.png",
+      "sha256": "2618a66248f46988cd73ee84292cbd03f934f7f3cb2145181b85d7b82979c37c"
+    },
+    {
+      "bytes": 1608,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/job.json",
+      "sha256": "d0880b7bb4abc21cdb548a4abedc6aed68aa448b79b74c3fcd3046831053ea14"
+    },
+    {
+      "bytes": 10351,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/native-inspection.json",
+      "sha256": "e53caab4c2a4a88503081014c6942be22b122a2bb5a97134cec00aef95b33f78"
+    },
+    {
+      "bytes": 14902088,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/original.glb",
+      "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+    },
+    {
+      "bytes": 651,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/preflight.json",
+      "sha256": "5d8cc29d2ddf07290b182d0adf692946d560a744fef4e30126e00e8c4aa46974"
+    },
+    {
+      "bytes": 656,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/preview-handle.json",
+      "sha256": "82894ea9a8a224ecc8d2817aa44634a4ec614f7313af4e7073c39d28a3cdb967"
+    },
+    {
+      "bytes": 1462,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/preview-monitor.json",
+      "sha256": "e833030d07e0e37107c434685c5ce2eaab260c1f6279472a468083dc11454007"
+    },
+    {
+      "bytes": 2094,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/preview.log",
+      "sha256": "5e0fbfbfcf8ddcb85a76dcb4ce4871c128dbca4c3684049a69b6c1eb67c525b9"
+    },
+    {
+      "bytes": 2489,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/rig-guide-annotations.json",
+      "sha256": "77b502cec1e91b6f4801ccd4018bc77d07ffe2e3265898e6a72f6bf73308487a"
+    },
+    {
+      "bytes": 192044,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/side.png",
+      "sha256": "b81f382e3093abd4f05d8f948df3b91acd06645e37f130cb726ddb4da6db3573"
+    },
+    {
+      "bytes": 17484875,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/source.blend",
+      "sha256": "caa30f7622596650a1ab101ba7c2fedfbb9435fc60795bb012736d470ba2240e"
+    },
+    {
+      "bytes": 37930,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "b2e3af3d378e815bcb795c90679f75b8d003a9f1350a951082c98f49421f32ab"
+    },
+    {
+      "bytes": 14995,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/sources/__pycache__/rig_guide_annotations.cpython-311.pyc",
+      "sha256": "0407152e822348f82ac00294234c0bace36106098214c969c826d59a00415085"
+    },
+    {
+      "bytes": 13587,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 7911,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/sources/rig_guide_annotations.py",
+      "sha256": "77bad5fc52ada588be692861f0f4f6f6fb79205b08405ab2a457418ee6da38b1"
+    },
+    {
+      "bytes": 211947,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/three-quarter.png",
+      "sha256": "6e567455d73842716cd0ce023f88425bddf0c9ff33da0e7604c48995bdfa9723"
+    },
+    {
+      "bytes": 10351,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/native-inspection.json",
+      "sha256": "e53caab4c2a4a88503081014c6942be22b122a2bb5a97134cec00aef95b33f78"
+    },
+    {
+      "bytes": 1218,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/guide-annotation-job.json",
+      "sha256": "75214854bc52a35d91a04b4ebef2b1761907de2e9da2120489d7adb919e8bc21"
+    },
+    {
+      "bytes": 1608,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/inspection/job.json",
+      "sha256": "d0880b7bb4abc21cdb548a4abedc6aed68aa448b79b74c3fcd3046831053ea14"
+    }
+  ],
+  "inherited_plan": {
+    "context_sha256": "de31150af37d3e6023ecf95e001cc7ae75521405da9dfdf3a8824a0e7e333028",
+    "receipt_sha256": "42872bcb27c249dce9eee61587d4d537d130f410f1578e4b583cdc5b2cddc5f2"
+  },
+  "inspection": {
+    "manifest_sha256": "fb4c34b22a7fa6e17ce2fab53b2b7a3663881de133f76410fb8d1b61e9f89ff7",
+    "plan_sha256": "c4713e81f95ba393a5a50292e2511193ebc57bb08093152502799e2d21f86c97",
+    "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+  },
+  "job_id": "studio-d8a680ce6580429f9fdd016f",
+  "ledger": {
+    "bytes": 69632,
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.local/openai/ledger.sqlite3",
+    "sha256": "34065194062706248e646bb8a1a92b37cb86d7cd0e1f8bb672661efeb0905e7a"
+  },
+  "new_provider_calls": 0,
+  "policy": "inherited-plan-author-input-bound-custody-v1",
+  "receipt_bytes": 303888,
+  "request_sha256": "24573e3e63254bc3e3eaa69d84f7bac21220220b8a13110a5110ab71337f4170",
+  "schema_version": 1,
+  "scope": "Verified inherited plan with zero submitted API calls; no replay or budget reset."
+}

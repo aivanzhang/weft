@@ -65,18 +65,21 @@ integration cases. Approved assets and production finishing defaults stay unchan
 The fresh panda trial generated mesh/textures for 35 Meshy credits, then stopped
 before rigging under the old personal-login backend. The server OpenAI backend
 has since been exercised through actual browser Starts using the same paid mesh.
-Typed transport fixed the nested-string formatting issue. Measured repair feedback
-then corrected the leg regions, but the latest run stopped at an undercoat
-face-count check. Native failure measurements were not reaching the repair; that
-reporting gap and exact plan-bound action schemas are now fixed and locally tested.
-No accepted API-backed rig, dance or delivery has passed yet.
+Typed transport and authenticated repair feedback now reach real native builds.
+The latest completed API run passed skin/deformation, attachment, action and
+native-media review, but exported fur failed visual review. A later optional
+texture repair failed; no portable delivery was accepted. Persistent failure
+memory and measured coat feedback are tested, with a new actual website run
+now also terminal unsupported for exported coat artifacts. See the handoff
+before starting any work.
 
 Meshy totals remain 18 successful submissions / 237 credits against 245 authorized.
-Fourteen API calls total an estimated $1.079085 under the effective **$15 total**
-ceiling, including prior usage. The user authorized further bounded retries
-within that cap without repeated questions. No new Meshy call occurred during
-these recoveries. Each job still has finite call/repair bounds and unknown
-charges retain their full reservations.
+Settled API use is $2.777078 across 29 calls, under the effective **$15 total**
+ceiling, including all prior usage. The medium-reasoning successor stopped before its first API call; see the
+handoff for guarded same-job recovery and the corrected prompt-size check.
+The user authorized bounded retries within that cap without repeated questions.
+No new Meshy call occurs in these recoveries. Each job retains finite call/repair
+bounds and unknown charges retain their full reservations.
 Exact attempts, approvals and evidence are in [the current handoff](../TODO.md).
 
 ## Interface contract

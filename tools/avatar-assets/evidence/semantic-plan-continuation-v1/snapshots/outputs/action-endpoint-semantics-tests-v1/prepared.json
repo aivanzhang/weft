@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "avatar_assets/action_intent.py",
+      "bytes": 17776,
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "path": "avatar_assets/action_audit.py",
+      "bytes": 35083,
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "path": "tests/test_action_intent.py",
+      "bytes": 11968,
+      "sha256": "01a375a20ea05bc00c4cd0ecc2078ba8711c80830eabc6a07acfc072c4ba4540"
+    },
+    {
+      "path": "tests/test_action_audit.py",
+      "bytes": 23069,
+      "sha256": "bb9b95023046b5e27f9756fcc9bfceb18ea8b383d5825f2a996e25fcfdbeadbc"
+    },
+    {
+      "path": "tests/test_action_plan_semantics.py",
+      "bytes": 5072,
+      "sha256": "5f56190ce440784e77bd42823522e1219ef70674de746b39fe7d35275bcf5d4a"
+    },
+    {
+      "path": "tests/test_stationary_language.py",
+      "bytes": 4895,
+      "sha256": "ab48cf12a03e07a5220f17794866e451dcce1d7d14f6f9c9dd858dc6e7d8e7af"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "bytes": 58351,
+      "sha256": "6b03a5f444a01749d92869d2e5eca8b01d1aee9f7d29741f271cd577ce05e169"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "bytes": 35323,
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "tests/test_three_d.py",
+      "bytes": 9803,
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    }
+  ],
+  "worker_sha256": "77a1fbc45c5043a738253377cb11d9087e1219eb21fe05bb6aaf6d05c7d1d129",
+  "limits": {
+    "seconds": 30,
+    "memory_mib": 512,
+    "output_mib": 16
+  }
+}

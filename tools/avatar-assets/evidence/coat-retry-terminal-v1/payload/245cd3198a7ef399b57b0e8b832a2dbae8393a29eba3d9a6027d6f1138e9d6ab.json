@@ -1,0 +1,326 @@
+{
+  "id": "1f98497e18e74820bda487ce",
+  "title": "An original friendly upright panda-like character with compact rounded proportio",
+  "status": "running",
+  "created_at": "2026-11-02T14:31:42.892637-08:00",
+  "updated_at": "2026-11-02T14:38:02.322331-08:00",
+  "elapsed_seconds": 350.06,
+  "request": {
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass.",
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "reference_selected": false,
+    "reuse_model_selected": true
+  },
+  "operation": "execute",
+  "queued": false,
+  "cancel_requested": false,
+  "stages": [
+    {
+      "id": "planner",
+      "stage": "planner",
+      "label": "Planner",
+      "status": "ready",
+      "detail": "",
+      "attempt": null,
+      "elapsed_seconds": 0.001
+    },
+    {
+      "id": "geometry",
+      "stage": "geometry",
+      "label": "Geometry",
+      "status": "reused_generated_source",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "pipeline",
+      "stage": "pipeline",
+      "label": "Pipeline",
+      "status": "planned",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "inspection",
+      "stage": "inspection",
+      "label": "Inspection",
+      "status": "complete",
+      "detail": "Source geometry and review views inspected; no quality acceptance.",
+      "attempt": null,
+      "elapsed_seconds": 2.688
+    },
+    {
+      "id": "author:0",
+      "stage": "author",
+      "label": "Author · attempt 1",
+      "status": "complete",
+      "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "attempt": 0,
+      "elapsed_seconds": 38.576
+    },
+    {
+      "id": "build:0",
+      "stage": "build",
+      "label": "Build · attempt 1",
+      "status": "complete",
+      "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+      "attempt": 0,
+      "elapsed_seconds": 27.482
+    },
+    {
+      "id": "deformation_gate:0",
+      "stage": "deformation_gate",
+      "label": "Check skin stretching · attempt 1",
+      "status": "complete",
+      "detail": "No reported gross skin spike; this is not visual acceptance.",
+      "attempt": 0,
+      "elapsed_seconds": 0.006
+    },
+    {
+      "id": "portable_attachment:0",
+      "stage": "portable_attachment",
+      "label": "Check portable fur attachment · attempt 1",
+      "status": "complete",
+      "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+      "attempt": 0,
+      "elapsed_seconds": 0.565
+    },
+    {
+      "id": "native_reload:0",
+      "stage": "native_reload",
+      "label": "Native Reload · attempt 1",
+      "status": "complete",
+      "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+      "attempt": 0,
+      "elapsed_seconds": 1.819
+    },
+    {
+      "id": "action_audit:0",
+      "stage": "action_audit",
+      "label": "Action Audit · attempt 1",
+      "status": "failed",
+      "detail": "Requested action capability failed: [{\"evidence\": {\"evidence_id\": \"action-audit-dance\", \"roles\": {\"arms\": {\"active_control_count\": 6, \"descent_from_peak_m\": 0.03999999538064003, \"max_final_world_displacement_m\": 0.0, \"max_root_relative_displacement_m\": 0.10430679984625531, \"max_travel_m\": 0.07211102423538743, \"max_vertical_rise_m\": 0.03999999538064003, \"max_world_displacement_m\": 0.15931549268642253, \"moving_vertices\": 9101, \"rhythmic_reversals\": 5, \"scale_m\": 0.716468055643217, \"weighted_vertic",
+      "attempt": 0,
+      "elapsed_seconds": 0.288
+    },
+    {
+      "id": "attempt:0",
+      "stage": "attempt",
+      "label": "Attempt · attempt 1",
+      "status": "rejected",
+      "detail": "Requested action capability failed: [{\"evidence\": {\"evidence_id\": \"action-audit-dance\", \"roles\": {\"arms\": {\"active_control_count\": 6, \"descent_from_peak_m\": 0.03999999538064003, \"max_final_world_displacement_m\": 0.0, \"max_root_relative_displacement_m\": 0.10430679984625531, \"max_travel_m\": 0.07211102423538743, \"max_vertical_rise_m\": 0.03999999538064003, \"max_world_displacement_m\": 0.15931549268642253, \"moving_vertices\": 9101, \"rhythmic_reversals\": 5, \"scale_m\": 0.716468055643217, \"weighted_vertic",
+      "attempt": 0
+    },
+    {
+      "id": "author:1",
+      "stage": "author",
+      "label": "Author · attempt 2",
+      "status": "complete",
+      "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "attempt": 1,
+      "elapsed_seconds": 33.44
+    },
+    {
+      "id": "build:1",
+      "stage": "build",
+      "label": "Build · attempt 2",
+      "status": "complete",
+      "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+      "attempt": 1,
+      "elapsed_seconds": 27.48
+    },
+    {
+      "id": "deformation_gate:1",
+      "stage": "deformation_gate",
+      "label": "Check skin stretching · attempt 2",
+      "status": "complete",
+      "detail": "No reported gross skin spike; this is not visual acceptance.",
+      "attempt": 1,
+      "elapsed_seconds": 0.006
+    },
+    {
+      "id": "portable_attachment:1",
+      "stage": "portable_attachment",
+      "label": "Check portable fur attachment · attempt 2",
+      "status": "complete",
+      "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+      "attempt": 1,
+      "elapsed_seconds": 0.564
+    },
+    {
+      "id": "native_reload:1",
+      "stage": "native_reload",
+      "label": "Native Reload · attempt 2",
+      "status": "complete",
+      "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+      "attempt": 1,
+      "elapsed_seconds": 1.837
+    },
+    {
+      "id": "action_audit:1",
+      "stage": "action_audit",
+      "label": "Action Audit · attempt 2",
+      "status": "complete",
+      "detail": "Numeric movement/stability checks passed; visual action review is pending.",
+      "attempt": 1,
+      "elapsed_seconds": 0.3
+    },
+    {
+      "id": "exported_views:1",
+      "stage": "exported_views",
+      "label": "Exported Views · attempt 2",
+      "status": "complete",
+      "detail": "Actual exported views rendered; their quality still requires review.",
+      "attempt": 1,
+      "elapsed_seconds": 3.29
+    },
+    {
+      "id": "media:1",
+      "stage": "media",
+      "label": "Media · attempt 2",
+      "status": "complete",
+      "detail": "Portrait, video and static files encoded; independent quality review is pending.",
+      "attempt": 1,
+      "elapsed_seconds": 148.241
+    },
+    {
+      "id": "review_evidence:1",
+      "stage": "review_evidence",
+      "label": "Review Evidence · attempt 2",
+      "status": "complete",
+      "detail": "Final-media and numeric evidence prepared; no critic verdict yet.",
+      "attempt": 1,
+      "elapsed_seconds": 0.793
+    },
+    {
+      "id": "reviewer:1",
+      "stage": "reviewer",
+      "label": "Reviewer · attempt 2",
+      "status": "repair",
+      "detail": "",
+      "attempt": 1,
+      "elapsed_seconds": 19.793
+    },
+    {
+      "id": "author:2",
+      "stage": "author",
+      "label": "Author · attempt 3",
+      "status": "complete",
+      "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "attempt": 2,
+      "elapsed_seconds": 34.135
+    },
+    {
+      "id": "build:2",
+      "stage": "build",
+      "label": "Build · attempt 3",
+      "status": "running",
+      "detail": "",
+      "attempt": 2
+    }
+  ],
+  "plan_id": "c77df21bd8ac0ae53ad7d211aae2595879d45c08b1142f99121209a62f6c24ef",
+  "plan": {
+    "id": "c77df21bd8ac0ae53ad7d211aae2595879d45c08b1142f99121209a62f6c24ef",
+    "summary": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail.",
+    "estimate": {
+      "credits": 0,
+      "amount": null,
+      "currency": "USD",
+      "note": "Account dollar price and agent usage price are unknown. No paid retries or allowance changes."
+    },
+    "authorization": {
+      "can_start": true,
+      "estimated_credits": 0,
+      "reason": "Explicit source reuse requires no new Meshy credits; existing bounded agent/local execution still applies.",
+      "execution_gate": "canonical_ledger_and_explicit_start"
+    },
+    "warnings": [
+      "The supplied reuse model is treated only as input data here; this plan cannot verify whether its existing geometry already preserves the requested clear gaps at shoulders, hands, and feet.",
+      "The dance can be authored with bounded skeletal motion and small hops, but this planner cannot confirm exact final deformation quality or identity match to the reuse model.",
+      "No facial blendshapes, lip sync, new props, cloth or hair dynamics, or physical balance simulation are part of this backend request."
+    ]
+  },
+  "capabilities": {
+    "plan": false,
+    "start": false,
+    "cancel": true,
+    "retry": false,
+    "resume": false,
+    "session_required": true,
+    "execution_gate": "canonical_ledger_and_explicit_start"
+  },
+  "previews": [
+    {
+      "url": "/api/studio/jobs/1f98497e18e74820bda487ce/files/70cb3641e6eaaab1fb413b029259e775",
+      "kind": "image",
+      "id": "front",
+      "label": "Work-in-progress preview",
+      "bytes": 216600
+    },
+    {
+      "url": "/api/studio/jobs/1f98497e18e74820bda487ce/files/597ed4a34d117cb2d67cebf86659863f",
+      "kind": "image",
+      "id": "three-quarter",
+      "label": "Work-in-progress preview",
+      "bytes": 211947
+    },
+    {
+      "url": "/api/studio/jobs/1f98497e18e74820bda487ce/files/70b6f9d1fb8565fccdf8a99c3f6e55ee",
+      "kind": "image",
+      "id": "portrait",
+      "label": "Work-in-progress preview",
+      "bytes": 426139
+    },
+    {
+      "url": "/api/studio/jobs/1f98497e18e74820bda487ce/files/de8b6ef10198dc0aed1eae168478aefb",
+      "kind": "image",
+      "id": "portrait",
+      "label": "Work-in-progress preview",
+      "bytes": 425384
+    },
+    {
+      "url": "/api/studio/jobs/1f98497e18e74820bda487ce/files/c08ff7cbf635a1ec817a2f9682e41edb",
+      "kind": "image",
+      "id": "portrait",
+      "label": "Work-in-progress preview",
+      "bytes": 816243
+    },
+    {
+      "url": "/api/studio/jobs/1f98497e18e74820bda487ce/files/0e9bbd3a75949be35baefff8fb2e3248",
+      "kind": "image",
+      "id": "portrait",
+      "label": "Work-in-progress preview",
+      "bytes": 816243
+    },
+    {
+      "url": "/api/studio/jobs/1f98497e18e74820bda487ce/files/5f2cfe3fcc25964e7dbb2f525d95756c",
+      "kind": "image",
+      "id": "portrait",
+      "label": "Work-in-progress preview",
+      "bytes": 426149
+    }
+  ],
+  "reviews": [
+    {
+      "attempt": 1,
+      "status": "repair",
+      "summary": "Requested panda identity and dance meaning are achieved, but exported visual quality is not acceptable. The exported coat introduces obvious fleck/card artifacts, broken tidy-fur appearance, silhouette breakup during motion, and a visible chin/mouth artifact in the exported dance pose."
+    }
+  ],
+  "result": null,
+  "error": null,
+  "storage": {
+    "retained_bytes_measured": 337683891,
+    "pipeline_bytes_measured": 337236358,
+    "measured_at": "2026-11-02T14:38:02.322328-08:00",
+    "total_limit_bytes": 8589934592,
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false
+  },
+  "provenance": "actual_pipeline"
+}

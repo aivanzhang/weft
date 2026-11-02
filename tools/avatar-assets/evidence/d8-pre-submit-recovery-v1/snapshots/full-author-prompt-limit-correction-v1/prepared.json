@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/full-author-prompt-limit-correction-v1/verify.py"
+  ],
+  "limits": {
+    "memory_mb": 256,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "schema_version": 1,
+  "script_sha256": "17744022fdc8bc712641298d82164fdf391e9b681f081f5129a56cc2c3c24b43",
+  "source_sha256": {
+    "agent_runner.py": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535",
+    "pipeline.py": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069",
+    "pipeline_prompts.py": "b7b2188778c1cd75ddab59358ada97bd90be2f534823ce61549eeacc5de97304",
+    "test_repair_prompt_view.py": "1162c534d2bfbd92ba35d4fe558afe0a2026e8cf71847d2520aa964bdd65b418"
+  }
+}

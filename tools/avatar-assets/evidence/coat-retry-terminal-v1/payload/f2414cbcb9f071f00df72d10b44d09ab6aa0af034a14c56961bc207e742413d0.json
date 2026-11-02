@@ -1,0 +1,132 @@
+{
+  "attachments": [],
+  "authored_assumptions": [
+    "Bone placement, skin weights and scale are locally authored; hidden geometry and motion are not physically verified"
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "chest": "chest",
+    "ear_l": "ear_l",
+    "ear_r": "ear_r",
+    "foot_l": "foot_l",
+    "foot_r": "foot_r",
+    "forearm_l": "forearm_l",
+    "forearm_r": "forearm_r",
+    "hand_l": "hand_l",
+    "hand_r": "hand_r",
+    "head": "head",
+    "hips": "hips",
+    "neck": "neck",
+    "shin_l": "shin_l",
+    "shin_r": "shin_r",
+    "spine": "spine",
+    "tail": "tail",
+    "thigh_l": "thigh_l",
+    "thigh_r": "thigh_r",
+    "upperarm_l": "upperarm_l",
+    "upperarm_r": "upperarm_r"
+  },
+  "bones": [
+    "ear_l",
+    "ear_r",
+    "head",
+    "neck",
+    "hand_l",
+    "forearm_l",
+    "upperarm_l",
+    "hand_r",
+    "forearm_r",
+    "upperarm_r",
+    "chest",
+    "spine",
+    "foot_l",
+    "shin_l",
+    "thigh_l",
+    "foot_r",
+    "shin_r",
+    "thigh_r",
+    "tail",
+    "hips"
+  ],
+  "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+  "limits": {
+    "accessor_values": 2000000,
+    "file_bytes": 67108864,
+    "motion_probe_vertices": 128,
+    "nodes": 256,
+    "triangle_index_elements_per_accessor": 300000,
+    "vertices": 100000
+  },
+  "loading_verified": true,
+  "material_count": 3,
+  "mesh_vertices": 43879,
+  "motion": {
+    "animation_verified": true,
+    "animations": [
+      {
+        "loop": "not_claimed",
+        "max_sampled_displacement_m": 0.23629773180232153,
+        "motion_observed": true,
+        "name": "dance",
+        "sample_count": 33,
+        "sample_times_seconds": [
+          0.0,
+          0.02083333395421505,
+          0.25,
+          0.2708333283662796,
+          0.5,
+          0.5208333432674408,
+          0.75,
+          0.7708333432674408,
+          1.0,
+          1.0208333134651184,
+          1.25,
+          1.2708333134651184,
+          1.5,
+          1.5208333134651184,
+          1.75,
+          1.7708333134651184,
+          2.0,
+          2.020833373069763,
+          2.25,
+          2.270833373069763,
+          2.5,
+          2.520833373069763,
+          2.75,
+          2.770833373069763,
+          3.0,
+          3.020833373069763,
+          3.25,
+          3.270833373069763,
+          3.5,
+          3.520833373069763,
+          3.75,
+          3.770833373069763,
+          4.0
+        ]
+      }
+    ],
+    "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+    "probe_vertices": 128
+  },
+  "primitive_count": 3,
+  "rest_pose": "Default exported node transforms and inverse bind matrices; no physical validation implied",
+  "schema_version": 1,
+  "sha256": "1eeaf087ec58e0f9c6214e76ebd84a1c5dbd86460b73c08ff02dd9ff5118b3f9",
+  "skeleton_roots": [
+    {
+      "name": "hips",
+      "node": 19,
+      "source": "derived_common_ancestor"
+    }
+  ],
+  "skin_count": 1,
+  "status": "validated_local_structure",
+  "units": "meters",
+  "visual_review": "required; materials/textures are not rendered by this validator",
+  "weft_runtime_verified": false
+}

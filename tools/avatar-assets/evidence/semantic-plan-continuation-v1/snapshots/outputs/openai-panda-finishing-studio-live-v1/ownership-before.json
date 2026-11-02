@@ -1,0 +1,76 @@
+{
+  "agent_backend": {
+    "authorization_checked": false,
+    "automatic_paid_retries": 0,
+    "currency": "USD",
+    "execution_gate": "exact_request_dollar_grant_and_explicit_start",
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "maximum_reservation_microdollars": 39330480,
+    "model": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "reservation_microdollars_per_call": 5618640,
+    "timeout": 240
+  },
+  "files": [
+    {
+      "path": "outputs/studio-1f87be60ed4c4fe1aa95968c/request.json",
+      "sha256": "a5d8a7816d54060c27ef966adda206d9cfd7af7ef85c753f9df9c360506edd60"
+    },
+    {
+      "path": "outputs/studio-1f87be60ed4c4fe1aa95968c/plan.json",
+      "sha256": "7c4b9c1a078513dcc448dda68884c8ca3a916ddf182259eb9d6d948405c28f0c"
+    },
+    {
+      "path": ".local/studio/jobs/1f87be60ed4c4fe1aa95968c/retry-parent-custody.json",
+      "sha256": "34a0e66ad68f623a3ce4242c32571a56cd1149dde1900dbb1336cc36839657a4"
+    },
+    {
+      "path": "outputs/studio-1f87be60ed4c4fe1aa95968c/input-receipt.json",
+      "sha256": "60b4b69e458806f8e5ffa00abf57f277b021a71000a07a77ceb0a84984bac69f"
+    },
+    {
+      "path": ".local/studio/jobs/1f87be60ed4c4fe1aa95968c/pipeline-request.json",
+      "sha256": "4eb27cf5597e097e00be6e9c0274e22144fdd8e90e6d56c66f12e1fc3b378405"
+    }
+  ],
+  "generation_mode": "reused_generated_source",
+  "id": "1f87be60ed4c4fe1aa95968c",
+  "output": "outputs/studio-1f87be60ed4c4fe1aa95968c",
+  "owner": {
+    "active_lease_job": null,
+    "cancel_requested": false,
+    "ended_local": "2026-11-02T13:40:03.568534-08:00",
+    "heartbeat_local": "2026-11-02T13:40:03.568534-08:00",
+    "identity_verified_live": false,
+    "invocation_dir": "jobs/1f87be60ed4c4fe1aa95968c/run-0001",
+    "invocations": 1,
+    "operation": "plan",
+    "owner_identity": "darwin-start:1793655603:7831",
+    "owner_pid": 45478,
+    "queued_jobs": []
+  },
+  "ownership_scope": "Read-only canonical registry and selected PID identity; no dispatch, cancellation or signal",
+  "plan_id": "2dcd50acfed9c81587fb78c863990b0d57cd8db99558118973ca9969341d48c8",
+  "provenance": "actual_pipeline",
+  "recorded_local": "2026-11-02T13:40:19.738063-08:00",
+  "reference_selected": false,
+  "request": {
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass."
+  },
+  "schema_version": 1,
+  "source_generation": null,
+  "source_reuse": {
+    "bytes": 14902088,
+    "path": "inputs/source-model.glb",
+    "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+  },
+  "state_dir": ".local/studio",
+  "status": "planned"
+}

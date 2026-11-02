@@ -519,6 +519,7 @@ class StudioJobs:
         runner=_json(folder/'agents/runner.json',{})
         api_planning=not fresh and (isinstance(prepared,dict) and 'agent_backend' in prepared
                       or isinstance(runner,dict) and runner.get('execution_kind')=='openai_responses_api')
+        author_input=api_planning and data.get('operation')=='execute'
         if not fresh:
             _require(not (folder/'generation').exists(),'Remote-generation artifacts need separate inspection')
         invocation=self.state_dir/data['invocation_dir']
@@ -536,7 +537,7 @@ class StudioJobs:
             locks.append(folder/'agents/runner.lock')
         with custody_locks(locks):
             proof=collect(self.root,folder,invocation,expected_pid,expected_identity,
-                          **({'operation':'plan'} if api_planning else {}))
+                          **({'operation':'execute' if author_input else 'plan'} if api_planning else {}))
             proof['locks']=[str(path.relative_to(self.root)) for path in locks]
             if fresh:
                 proof=include_previous_plans(self.root,invocation,proof,row['request_digest'])
@@ -545,8 +546,9 @@ class StudioJobs:
             if api_planning:
                 _require(not fresh,'API fresh-source release requires separate remote-task inspection')
                 proof=include_previous_plans(self.root,invocation,proof,row['request_digest'])
-                proof['api_planning']=collect_api_planning(self.root,folder,request,self.jobs_dir/job_id/'pipeline-request.json')
-                proof['scope']='Exited local owners plus one settled API planner; rejected semantics preserved, no replay or acceptance.'
+                proof['api_planning']=collect_api_planning(self.root,folder,request,self.jobs_dir/job_id/'pipeline-request.json',
+                    **({'profile':'author_input_bound'} if author_input else {}))
+                proof['scope']='Exited local owners plus separately verified paid or zero-call inherited plan custody; no replay or acceptance.'
             with self._db(True) as db:
                 current,current_data,current_request=owned(db)
                 _require(current['request_digest']==row['request_digest'] and current_request==request
@@ -599,8 +601,9 @@ class StudioJobs:
             proof=_json(path)
             _require(proof.get('job_id')==job_id and proof.get('request_digest')==row['request_digest']
                      and proof.get('requested_transition')=='failed_and_release_exact_lease'
-                     and proof.get('proof',{}).get('api_planning',{}).get('policy')=='completed-api-planning-custody-v1',
-                     'This job has no settled API planner custody release')
+                     and proof.get('proof',{}).get('api_planning',{}).get('policy') in
+                        ('completed-api-planning-custody-v1','author-input-bound-custody-v1','inherited-plan-author-input-bound-custody-v1'),
+                     'This job has no verified API or inherited-plan custody release')
             return row,data
 
         with self._db() as db:row,data=released(db)
@@ -610,11 +613,13 @@ class StudioJobs:
             current,current_data=released(db)
             _require(current['request_digest']==row['request_digest'] and current_data==data,'Failed job changed during local review')
             verified=verify_runtime_revision(output,_pipeline_sources(),revision=revision)
-            _require(not (output/'runtime-revision.json').exists() and not (output/'plan.json').exists(),
+            existing_plan=verified.get('profile')=='author_input_bound'
+            _require(not (output/'runtime-revision.json').exists()
+                     and (_json(output/'plan.json')==verified['plan'] if existing_plan else not (output/'plan.json').exists()),
                      'Runtime adoption is append-only; no overwrite or automatic repeat')
             pointer={'schema_version':1,'path':str(revision.relative_to(self.root)),'sha256':expected_revision_sha256}
             write_json(output/'runtime-revision.json',pointer)
-            write_json(output/'plan.json',verified['plan'])
+            if not existing_plan:write_json(output/'plan.json',verified['plan'])
             current_data.update(runtime_revision=pointer,error=None,plan_id=self._plan_id(current))
             self._update(db,current,current_data,'planned')
             self._journal(db,job_id,{'status':'planned','action':'cached_planner_runtime_revision',
