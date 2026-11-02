@@ -25,7 +25,7 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
-PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py',
+PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
@@ -563,6 +563,18 @@ class Pipeline:
             require(sha256(folder/item['path']) == item['sha256'], 'Review evidence changed')
         return folder, [folder/item['path'] for item in record['images']]
 
+    def _author_preflight(self, answer, source, native, attempt):
+        from avatar_assets.author_geometry import author_diagnostics
+        from avatar_assets.pipeline_prompts import _author_design
+        report = author_diagnostics(_author_design(answer), source['path'], source['sha256'], native)
+        path = self.root/f'author-geometry-{attempt}.json'
+        if path.exists():
+            if read_json(path) != report:
+                raise EvidenceCustodyError('Saved author geometry diagnostics changed')
+        else:
+            write_json(path, report)
+        return report
+
     def _diagnostics(self, pack):
         result = {}
         rejection = pack/'normal-continuity-rejection.json'
@@ -928,10 +940,13 @@ class Pipeline:
             config_path = self.root/f'finish-{attempt}.json'
             pack, reload = self.root/f'model-{attempt}', self.root/f'reload-{attempt}'
             exported = self.root/f'exported-preview-{attempt}'
-            attachment_proof = None
+            attachment_proof, author_geometry = None, None
             try:
+                author_geometry = self._author_preflight(answer, source, context['native'], attempt)
                 config = prompts.finish_config(answer, self.request, plan, source, attempt,
                                                quality_policy=quality, bone_parents=source_parents)
+                require(author_geometry['status'] != 'available' or not author_geometry['failures'],
+                        'Authored geometry preflight failed; inspect all measured layer and bone findings')
                 if config_path.exists():
                     require(read_json(config_path) == config, 'Authored configuration changed')
                 else:
@@ -1005,6 +1020,8 @@ class Pipeline:
                         require(not job.get('manual_stop_required') and job.get('process_exit_verified'),
                                 'Owned native process exit is unresolved; no automatic repair')
                 previous, findings = answer, {'validation_failure': str(error), 'measurements': self._diagnostics(pack)}
+                if author_geometry is not None:
+                    findings['measurements']['author_geometry'] = author_geometry
                 if attachment_proof is not None:
                     findings['measurements']['portable_attachment'] = attachment_proof
                 if (pack/'finish-report.json').exists() and read_json(pack/'finish-report.json').get('states'):

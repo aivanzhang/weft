@@ -1,0 +1,69 @@
+{
+  "artifacts": [
+    {
+      "bytes": 17129,
+      "path": "tests/test_author_contract.py",
+      "sha256": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f"
+    },
+    {
+      "bytes": 9012,
+      "path": "tests/test_author_geometry.py",
+      "sha256": "3e0877c6f2be52ca86265f12cc69b488b96975b58e19b699e503223373df0efb"
+    },
+    {
+      "bytes": 383,
+      "path": "tests-handle.json",
+      "sha256": "07ef0873a9c53dbcb72609ddf62e27bdffa23b3c91513e3ef7f9b87a4a28ae78"
+    },
+    {
+      "bytes": 1165,
+      "path": "tests-monitor.json",
+      "sha256": "6cae1e3959e99e51182ad329d945a859a77a9b2559e1520bfb97214a40bae46b"
+    },
+    {
+      "bytes": 3583,
+      "path": "tests.log",
+      "sha256": "11b951c81dae06da704764f3d20d60f5a2620394468a1a0c017fdf15afdfecf1"
+    }
+  ],
+  "classification": "Tracked fixture path regression; no paid/native calls",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-c",
+      "import sys,unittest;sys.path[:0]=['.','tests'];s=unittest.defaultTestLoader.loadTestsFromNames(['test_author_geometry','test_author_contract']);r=unittest.TextTestRunner(verbosity=2).run(s);raise SystemExit(not r.wasSuccessful())"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.512,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 31160,
+    "last_rss_sample_elapsed_seconds": 0.256,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 29140,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 31160,
+    "sampled_peak_rss_bytes": 84918272,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "schema_version": 1
+}

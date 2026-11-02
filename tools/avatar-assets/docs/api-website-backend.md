@@ -143,3 +143,20 @@ terminal unsupported, with no finished rig, dance or critic call. It used three
 API calls for $0.221596; aggregate use is $0.362815. Two unused call slots do not
 authorize another repair. Follow [TODO](../TODO.md)
 for current handles and results; do not start a duplicate.
+
+## Measured author feedback
+
+New jobs record `author-geometry-N.json` before validating a proposed rig. For
+admitted single-mesh, single-primitive, unrigged identity-node sources, the helper
+requires exact agreement with the native inspection's source hash, vertex/face
+counts and coordinate bounds. It reports every missing role bone and all region
+occupancy counts together. Other geometry explicitly reports unavailable coverage;
+that is not a pass and never replaces native validation.
+
+The repair receives these findings even if ordinary validation fails first.
+Available under-coverage blocks finishing; saved diagnostics cannot be rewritten
+on resume. No proposal, bone, region, minimum count or requested action is changed
+automatically. Counts alone do not establish anatomy, skin quality or motion.
+On the retained first proposal this exposes both missing hip bones and all four
+under-covered regions in one repair prompt. Local routing/contract checks pass;
+a successful new live run remains unverified.

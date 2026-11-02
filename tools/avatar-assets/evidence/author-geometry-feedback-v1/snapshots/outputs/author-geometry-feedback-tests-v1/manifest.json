@@ -1,0 +1,121 @@
+{
+  "artifacts": [
+    {
+      "bytes": 12872,
+      "path": "sources/avatar_assets/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "bytes": 8595,
+      "path": "sources/avatar_assets/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "bytes": 80269,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "360a915b4c8989abd10e9ba4effc7fb94b1498c6b7df9f30eff1a5d714ba712b"
+    },
+    {
+      "bytes": 54977,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "ea004919dd2a2706f4a101e7602a9a131e5cb270a9dedcf423e4cc8e001d012f"
+    },
+    {
+      "bytes": 17084,
+      "path": "sources/tests/test_author_contract.py",
+      "sha256": "59b2e1799d4f85e66379ceb416db76db0a8201294f4318ef281580941845e6e9"
+    },
+    {
+      "bytes": 8853,
+      "path": "sources/tests/test_author_geometry.py",
+      "sha256": "b3798848d2ce1787b46ebc829828a5dc24443b2fa0986547b3417ea25d0c9bbb"
+    },
+    {
+      "bytes": 18961,
+      "path": "sources/tests/test_openai_studio_integration.py",
+      "sha256": "c0902fb19a7c9f4946d10b31cdc35a6b12361c7a17fc6fcdff2354f56204d3a5"
+    },
+    {
+      "bytes": 16304,
+      "path": "sources/tests/test_pipeline.py",
+      "sha256": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47"
+    },
+    {
+      "bytes": 4191,
+      "path": "sources/tests/test_pipeline_author_geometry.py",
+      "sha256": "5efe19113dafbce648d947b682280f896bdad86bbeab193062667a4713b6f43d"
+    },
+    {
+      "bytes": 21591,
+      "path": "sources/tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545"
+    },
+    {
+      "bytes": 493,
+      "path": "tests-handle.json",
+      "sha256": "e0689ca202bcad35d8caaed0b62f3a8e7c5d72ffdf50309b8e81b20a0dcfb95a"
+    },
+    {
+      "bytes": 1278,
+      "path": "tests-monitor.json",
+      "sha256": "24486011b5fab13dd746c1b67a0d1aff395a5919d4a2602975cb3d4d98396286"
+    },
+    {
+      "bytes": 14684,
+      "path": "tests.log",
+      "sha256": "9860f6a4c41938e1a90cd961baf48c1768c2bff8f1644e0449001afc57a38acb"
+    }
+  ],
+  "classification": "Analytic routing/contract fixtures and read-only retained-model geometry checks; no provider/native/browser calls",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-c",
+      "import sys,unittest;sys.path[:0]=['.','tests'];s=unittest.defaultTestLoader.loadTestsFromNames(['test_author_geometry', 'test_pipeline_author_geometry', 'test_pipeline', 'test_pipeline_prompts', 'test_author_contract', 'test_openai_studio_integration']);r=unittest.TextTestRunner(verbosity=2).run(s);raise SystemExit(not r.wasSuccessful())"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.277,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 260037,
+    "last_rss_sample_elapsed_seconds": 1.022,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 29049,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 4,
+    "sampled_max_output_bytes": 260037,
+    "sampled_peak_rss_bytes": 151846912,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "avatar_assets/author_contract.py": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d",
+    "avatar_assets/author_geometry.py": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de",
+    "avatar_assets/pipeline.py": "360a915b4c8989abd10e9ba4effc7fb94b1498c6b7df9f30eff1a5d714ba712b",
+    "avatar_assets/pipeline_prompts.py": "ea004919dd2a2706f4a101e7602a9a131e5cb270a9dedcf423e4cc8e001d012f",
+    "tests/test_author_contract.py": "59b2e1799d4f85e66379ceb416db76db0a8201294f4318ef281580941845e6e9",
+    "tests/test_author_geometry.py": "b3798848d2ce1787b46ebc829828a5dc24443b2fa0986547b3417ea25d0c9bbb",
+    "tests/test_openai_studio_integration.py": "c0902fb19a7c9f4946d10b31cdc35a6b12361c7a17fc6fcdff2354f56204d3a5",
+    "tests/test_pipeline.py": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47",
+    "tests/test_pipeline_author_geometry.py": "5efe19113dafbce648d947b682280f896bdad86bbeab193062667a4713b6f43d",
+    "tests/test_pipeline_prompts.py": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545"
+  }
+}

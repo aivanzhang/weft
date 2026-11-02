@@ -223,7 +223,10 @@ Cover a whole moving chain with its own bone subset before refining individual s
 A whole-body torso layer overrides that fallback again; restrict stable-body overrides to the actual body region.
 Avoid assigning belly to arms or head to wings. Never fix stability by zeroing every feather while leaving coverage holes.
 Each required moving appendage must have substantial coverage, not a handful of stray vertices. Choose min_vertices
-from its visible area (often50–100or more), rather than1 merely to bypass missing coverage. Repair findings include counts.
+from its visible area (often50–100or more), rather than1 merely to bypass missing coverage.
+Available author_geometry findings list every measured layer count and unknown bone reference, not only the first failure.
+Use both coordinate guides and measured counts to repair all defects together. Counts do not identify anatomy; do not expand
+regions into unrelated parts or lower required coverage merely to bypass the check. Unavailable diagnostics are not a pass.
 For hard-surface objects use rigid single-bone regions with zero or very small feather at real joints, not broad blended panels.
 If geometry overlaps so a requested action cannot deform credibly, report unsupported rather than disguising the action.
 For a VERIFIED disjoint source part, optional part_rigs overrides only its weights using ORIGINAL whole-mesh bounds.

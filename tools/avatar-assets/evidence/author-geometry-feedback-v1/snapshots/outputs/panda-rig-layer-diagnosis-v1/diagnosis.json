@@ -1,0 +1,351 @@
+{
+  "conclusions": [
+    "The observed stopping condition is an actual authored box coverage shortfall, independent of bone-distance matmul.",
+    "A CPU distance comparison does not measure Blender-specific floating-point flags or establish that the native warnings were harmless; original native outputs remain failed.",
+    "No replacement rig, modified thresholds or successful animation is produced."
+  ],
+  "correspondence": {
+    "all_source_position_rows_indexed": true,
+    "axis_conversion": "glTF (x,y,z) to Blender (x,-z,y)",
+    "calibration_matches_saved_create_rig": true,
+    "merge_vertices_default": false,
+    "native_count_and_exact_bounds_match": true,
+    "native_point_snapshot_available": false,
+    "point_array_sha256": "67cc33a2fcbe5bd0f80ca54582b60222ac1602d2d27a5060ff22415ae3fba6eb",
+    "single_identity_node": true,
+    "triangles": 36124,
+    "vertices": 26957
+  },
+  "distance_math": {
+    "all_finite": true,
+    "bones": [
+      {
+        "bone": "root",
+        "direction_length_squared_m2": 0.0144,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.0144,
+        "warnings": []
+      },
+      {
+        "bone": "spine",
+        "direction_length_squared_m2": 0.08409999999999995,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.08409999999999995,
+        "warnings": []
+      },
+      {
+        "bone": "chest",
+        "direction_length_squared_m2": 0.036341710322563614,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.036341710322563614,
+        "warnings": []
+      },
+      {
+        "bone": "neck",
+        "direction_length_squared_m2": 0.01096684129025452,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.01096684129025452,
+        "warnings": []
+      },
+      {
+        "bone": "head",
+        "direction_length_squared_m2": 0.029329707240113134,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.029329707240113134,
+        "warnings": []
+      },
+      {
+        "bone": "hip_l",
+        "direction_length_squared_m2": 0.006436621615818248,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.006436621615818248,
+        "warnings": []
+      },
+      {
+        "bone": "leg_l_upper",
+        "direction_length_squared_m2": 0.016936621615818246,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.016936621615818246,
+        "warnings": []
+      },
+      {
+        "bone": "leg_l_lower",
+        "direction_length_squared_m2": 0.004899999999999999,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.004899999999999999,
+        "warnings": []
+      },
+      {
+        "bone": "foot_l",
+        "direction_length_squared_m2": 0.004710179841730344,
+        "max_abs_distance_error_m": 1.1102230246251565e-16,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.004710179841730345,
+        "warnings": []
+      },
+      {
+        "bone": "hip_r",
+        "direction_length_squared_m2": 0.006436621615818248,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.006436621615818248,
+        "warnings": []
+      },
+      {
+        "bone": "leg_r_upper",
+        "direction_length_squared_m2": 0.016936621615818246,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.016936621615818246,
+        "warnings": []
+      },
+      {
+        "bone": "leg_r_lower",
+        "direction_length_squared_m2": 0.004899999999999999,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.004899999999999999,
+        "warnings": []
+      },
+      {
+        "bone": "foot_r",
+        "direction_length_squared_m2": 0.004710179841730336,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.004710179841730336,
+        "warnings": []
+      },
+      {
+        "bone": "arm_l_upper",
+        "direction_length_squared_m2": 0.010173512677827286,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.010173512677827286,
+        "warnings": []
+      },
+      {
+        "bone": "arm_l_lower",
+        "direction_length_squared_m2": 0.007012802555598992,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.007012802555598992,
+        "warnings": []
+      },
+      {
+        "bone": "hand_l",
+        "direction_length_squared_m2": 0.002856451244871273,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.002856451244871273,
+        "warnings": []
+      },
+      {
+        "bone": "arm_r_upper",
+        "direction_length_squared_m2": 0.010173512677827286,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.010173512677827286,
+        "warnings": []
+      },
+      {
+        "bone": "arm_r_lower",
+        "direction_length_squared_m2": 0.007012802555598992,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.007012802555598992,
+        "warnings": []
+      },
+      {
+        "bone": "hand_r",
+        "direction_length_squared_m2": 0.0028564512448712737,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.0028564512448712737,
+        "warnings": []
+      },
+      {
+        "bone": "tail",
+        "direction_length_squared_m2": 0.005467365161018104,
+        "max_abs_distance_error_m": 0.0,
+        "max_abs_dot_error": 0.0,
+        "scalar_denominator_m2": 0.005467365161018104,
+        "warnings": []
+      }
+    ],
+    "comparison": "same float64 points, BLAS matmul versus explicit elementwise sum; no configuration thresholds changed"
+  },
+  "environment": {
+    "native_log_version": "4.5.13 LTS",
+    "native_numpy_backend_not_measured": true,
+    "numpy": "2.5.4",
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.14.7"
+  },
+  "inputs_unchanged": true,
+  "job": "outputs/studio-f628641c66e74ea09f3b8517",
+  "layers": [
+    {
+      "bones": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l",
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r",
+        "hip_l",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l",
+        "hip_r",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r",
+        "tail"
+      ],
+      "edge_near_zero_within_1e_7_vertices": 0,
+      "index": 0,
+      "max_edge": 0.5843686483772739,
+      "min_edge": 0.19999999999999996,
+      "passes_minimum": true,
+      "required_min_vertices": 26957,
+      "selected_indices_sha256": "98d80c497b2eb125cbe07f9ce295f1303d7ed870aaf5e50c316647007d432831",
+      "selected_vertices": 26957,
+      "shortfall": 0
+    },
+    {
+      "bones": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "tail",
+        "hip_l",
+        "hip_r"
+      ],
+      "edge_near_zero_within_1e_7_vertices": 0,
+      "index": 1,
+      "max_edge": 0.232155390133574,
+      "min_edge": -0.18,
+      "passes_minimum": true,
+      "required_min_vertices": 14000,
+      "selected_indices_sha256": "df3e6814adc376d116b16a88662c9e761890520d5d5206d2932a628763146bb6",
+      "selected_vertices": 14721,
+      "shortfall": 0
+    },
+    {
+      "bones": [
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l"
+      ],
+      "edge_near_zero_within_1e_7_vertices": 0,
+      "index": 2,
+      "max_edge": 0.15538611514146938,
+      "min_edge": -0.62,
+      "passes_minimum": true,
+      "required_min_vertices": 1800,
+      "selected_indices_sha256": "a0aff8e7044e00f708129e58a39767393f32567a0cf15a8c37b9b59f6950201c",
+      "selected_vertices": 4069,
+      "shortfall": 0
+    },
+    {
+      "bones": [
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r"
+      ],
+      "edge_near_zero_within_1e_7_vertices": 0,
+      "index": 3,
+      "max_edge": 0.15645385009115864,
+      "min_edge": -0.62,
+      "passes_minimum": true,
+      "required_min_vertices": 1800,
+      "selected_indices_sha256": "3ae82814af8cd28a2d314471af3856cc8b6e1c1cacfe7f1cd365784a9e091fe1",
+      "selected_vertices": 4357,
+      "shortfall": 0
+    },
+    {
+      "bones": [
+        "hip_l",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l"
+      ],
+      "edge_near_zero_within_1e_7_vertices": 0,
+      "index": 4,
+      "max_edge": 0.10987646221678349,
+      "min_edge": -0.74,
+      "passes_minimum": false,
+      "required_min_vertices": 2400,
+      "selected_indices_sha256": "7e31bf5617f0b58b8dd5ca6177d0e8e2152c114d98dcdab344f7593025b93c15",
+      "selected_vertices": 1247,
+      "shortfall": 1153
+    },
+    {
+      "bones": [
+        "hip_r",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r"
+      ],
+      "edge_near_zero_within_1e_7_vertices": 0,
+      "index": 5,
+      "max_edge": 0.10902416542027787,
+      "min_edge": -0.74,
+      "passes_minimum": false,
+      "required_min_vertices": 2400,
+      "selected_indices_sha256": "ef81ce64c7043320bbd61be8ae293b67acd214db0fe2804cd5dfb9a8ba99fc4a",
+      "selected_vertices": 857,
+      "shortfall": 1543
+    },
+    {
+      "bones": [
+        "neck",
+        "head"
+      ],
+      "edge_near_zero_within_1e_7_vertices": 0,
+      "index": 6,
+      "max_edge": 0.1268901082356596,
+      "min_edge": -0.6,
+      "passes_minimum": true,
+      "required_min_vertices": 7000,
+      "selected_indices_sha256": "94e264f2c6ca74e0f955fd3453319dcfab2631a8a96bf44def0b0a37eed89939",
+      "selected_vertices": 8213,
+      "shortfall": 0
+    },
+    {
+      "bones": [
+        "tail"
+      ],
+      "edge_near_zero_within_1e_7_vertices": 0,
+      "index": 7,
+      "max_edge": 0.08993126189365536,
+      "min_edge": -0.78,
+      "passes_minimum": true,
+      "required_min_vertices": 250,
+      "selected_indices_sha256": "77a332960f3930e181231c697d6ff73f32f63288e18e03f8cf893db1baae543c",
+      "selected_vertices": 1230,
+      "shortfall": 0
+    }
+  ],
+  "saved_kernel_error": "Authored weight layer missed expected geometry: hip_l,leg_l_upper,leg_l_lower,foot_l",
+  "saved_kernel_warnings": [],
+  "schema_version": 1,
+  "scope": "CPU reproduction of exact saved source vertices and unchanged authored rig; no native or texture decode",
+  "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+  "status": "diagnosed"
+}

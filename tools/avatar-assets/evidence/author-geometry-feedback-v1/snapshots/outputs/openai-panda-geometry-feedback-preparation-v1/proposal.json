@@ -1,0 +1,18 @@
+{
+  "aggregate_max_exposure_microdollars": 17000000,
+  "approval_record": null,
+  "estimate_assumptions": "Up to seven calls; illustrative 50k input and 5.5k output tokens each at pinned short-context pricing. Not a bill or guarantee. Every call must reserve full $5.618640 within both ceilings; may stop before seven. No automatic transport retries.",
+  "expected_additional_usd": 1.45,
+  "known_prior_microdollars": 362815,
+  "new_meshy_calls": 0,
+  "parent_job_id": "f628641c66e74ea09f3b8517",
+  "project_ceiling_microdollars_unchanged": 17000000,
+  "proposed_successor_ceiling_microdollars": 16637185,
+  "request_unchanged": true,
+  "schema_version": 1,
+  "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+  "status": "prepared_no_grant_no_paid_call",
+  "successor_job_id": "b91db2687dca4024af238111",
+  "successor_max_calls": 7,
+  "successor_max_repairs": 2
+}

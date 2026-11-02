@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "job": "outputs/studio-f628641c66e74ea09f3b8517",
+  "hypothesis": "Separate a region-count rejection from matmul numerical failures using exact imported source rows and saved rig math",
+  "inputs": [
+    {
+      "path": "outputs/studio-f628641c66e74ea09f3b8517/inputs/source-model.glb",
+      "bytes": 14902088,
+      "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+    },
+    {
+      "path": "outputs/studio-f628641c66e74ea09f3b8517/model-1/finish-config.json",
+      "bytes": 20344,
+      "sha256": "744e3fe54358031a09040c38fbe1f95def64b5ee115ab4246655f57b34303661"
+    },
+    {
+      "path": "outputs/studio-f628641c66e74ea09f3b8517/model-1/finish.log",
+      "bytes": 2509,
+      "sha256": "45960a616a5b96c6bc0cf70d6daf3c2db46f48db29815c07fadb9cd8bc074e90"
+    },
+    {
+      "path": "outputs/studio-f628641c66e74ea09f3b8517/model-1/sources/creature_rig_math.py",
+      "bytes": 5399,
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "path": "outputs/studio-f628641c66e74ea09f3b8517/model-1/sources/blender_creature_rig.py",
+      "bytes": 2710,
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "path": "outputs/studio-f628641c66e74ea09f3b8517/model-1/sources/blender_finish_generated.py",
+      "bytes": 58228,
+      "sha256": "fb4ccc68da44786052049297ab4fef07bb33f8d5aeda889a7cf21c484922130d"
+    },
+    {
+      "path": "outputs/studio-f628641c66e74ea09f3b8517/inspection/native-inspection.json",
+      "bytes": 10351,
+      "sha256": "fab1e684a0d6634b68ea34e1f2da339e7f54f5e3e5b19415510c6f47d1107acc"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "bytes": 35323,
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/imp/mesh.py",
+      "bytes": 37898,
+      "sha256": "7524c816b6c293e47548e6efc351b6964d0fffac35e5b35156edb178b1b92c8b"
+    },
+    {
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/__init__.py",
+      "bytes": 84361,
+      "sha256": "65d621a211ba6a3a0424b6179fef7e7a9f953aa2bfb35d1e6aa649f89a432e41"
+    }
+  ],
+  "worker_sha256": "a44df8bbcb768c2bf882ee23a348b2274783487a3573fc5e748bd8bc2f3ac108",
+  "limits": {
+    "seconds": 30,
+    "memory_mib": 512,
+    "output_mib": 16
+  },
+  "native_calls": 0,
+  "provider_calls": 0,
+  "source_mutations": false
+}

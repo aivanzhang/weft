@@ -71,8 +71,10 @@ server-only and never copied into evidence or generated-code workers.
 - API/backend checkpoint `434d351acadccfc4f71f412aab13991cafef6214` was privately
   pushed and verified: 489 files / 12,180,346 bytes; receipt
   `outputs/openai-backend-publication-v1/receipt.json`.
-- Current typed-author, attachment-policy and settled-cost changes are tested but
-  not yet committed. Root owns their avatar-only checkpoint; preserve other work.
+- Typed-author, attachment-policy and settled-cost changes plus the real failed
+  run are saved and privately pushed in `5f2f4bed8089de72728fd13f3759c67af1b27ece`:
+  307 files / 9,723,692 bytes. Exact remote head verified. Receipt
+  `outputs/openai-typed-publication-v1/receipt.json`. The measured-diagnostic follow-up is separately tested and preserved below.
 - `evidence/openai-typed-backend-v1`: 96 files / 1,524,418 bytes; manifest
   `10887522682fe46b252c799c277e54d37137b662e7c269d73bccdd28e8387443`.
 - `evidence/openai-typed-terminal-v1`: 199 files / 7,848,365 bytes; manifest
@@ -86,13 +88,53 @@ server-only and never copied into evidence or generated-code workers.
 - `evidence/openai-studio-terminal-v1`: manifest
   `55907b4d34c677a4327abf8f14876eaf5511d986e254ee72970e66556064de4d`.
 
+## Current local diagnostic work
+
+Read-only diagnosis confirms the saved repair selects 1,247 left-leg and 857
+right-leg vertices versus 2,400 required each. Other layers pass. This rejection
+is independent of the native matrix warnings; CPU distance calculations remain
+finite and match scalar arithmetic within 1.11e-16 m. Do not introduce a numerical
+workaround from unexplained warnings. Evidence: `outputs/panda-rig-layer-diagnosis-v1`,
+manifest `d0d08ed9e2865620618f88ac2ea1667848b985e6da362105481bae4d18253440`.
+
+The generic diagnostic helper and pipeline routing are implemented. Available
+source/native correspondence yields all missing role bones and layer counts
+before the first validation error can consume a repair. Unsupported correspondence
+is unavailable, never invented. Recipes, thresholds and downstream gates remain.
+81 tests passed in 1.277 s with 151,846,912 bytes sampled direct-child RSS:
+`outputs/author-geometry-feedback-tests-v1`, manifest
+`a88104f11406eb63b6cee49dd6c0a803eb89482648194b615bd30e0eeae59980`.
+After moving retained-response fixtures to committed evidence, 19 focused tests
+passed: `outputs/author-geometry-portable-fixtures-v1`, manifest
+`61d3dded7680ac44c9a3afcebd387814908b951778f57a0b5057079e69829da0`.
+All agents have released their files; root owns save and continuation. Follow-up
+evidence `evidence/author-geometry-feedback-v1` contains 86 files / 1,173,080 bytes,
+manifest `a4b223103fb6b3b0fef65518824025e0cf9d2939fb34533f36105285e7575109`.
+Exact-path save guard: `.local/avatar-quality-publication-v21/`; publication
+receipt destination: `outputs/author-geometry-publication-v1/receipt.json`.
+
+### Prepared next run — no paid execution authorized yet
+
+- Job `b91db2687dca4024af238111` is `awaiting_authorization`; zero paid calls.
+- Request SHA `aa0253197820da5815233162e1a824bb359a51286d15f8090f389bc6e4b3b34c`.
+- `outputs/openai-panda-geometry-feedback-preparation-v1/` contains the exact
+  unchanged user request, owner-settings backup, proposal and zero-call proof.
+- Proposed maximum: seven API calls and two bounded repairs, under the same
+  $17 aggregate ceiling. Prior use $0.362815; proposed successor ceiling
+  $16.637185. Illustrative additional use $1.45, not an invoice or guarantee.
+- Owner configuration now proposes 7/2; **no job grant exists**. A question is
+  pending. Do not reuse the prior approval or make a paid call without its reply.
+- On approval, explicitly retire `studio-f628641c66e74ea09f3b8517` into the new
+  exact-request grant; preserve all previous call/approval rows and known costs.
+  Then plan, inspect the valid plan and submit one bounded browser Start.
+
 ## Remaining acceptance gate
 
 - [x] Typed author response and different-subject transport fixtures.
 - [x] Explicit bounded retry authorization and exact-request grant.
 - [ ] Actual website/backend delivery: accepted rig, meaningful requested dance,
   fur/identity checks, final media, static fallback and editable-source downloads.
-- [ ] Save the current code, exact prompts/settings, results and failed attempts
+- [x] Save the current code, exact prompts/settings, results and failed attempts
   in a new immutable evidence bundle and private avatar-only checkpoint.
 
 The user accepts the earlier appearance. Do not expand fur-density or Muse-parity

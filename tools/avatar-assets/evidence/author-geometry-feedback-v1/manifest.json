@@ -1,0 +1,527 @@
+{
+  "classification": "Analytic tests and read-only geometry diagnosis of retained generated model; prepared successor has no grant or paid calls",
+  "credentials_included": false,
+  "files": [
+    {
+      "bytes": 4933,
+      "path": "outputs/author-geometry-feedback-tests-v1/manifest.json",
+      "sha256": "a88104f11406eb63b6cee49dd6c0a803eb89482648194b615bd30e0eeae59980",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 12872,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/avatar_assets/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/avatar_assets/author_contract.py"
+    },
+    {
+      "bytes": 8595,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/avatar_assets/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/avatar_assets/author_geometry.py"
+    },
+    {
+      "bytes": 80269,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "360a915b4c8989abd10e9ba4effc7fb94b1498c6b7df9f30eff1a5d714ba712b",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 54977,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "ea004919dd2a2706f4a101e7602a9a131e5cb270a9dedcf423e4cc8e001d012f",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 17084,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/tests/test_author_contract.py",
+      "sha256": "59b2e1799d4f85e66379ceb416db76db0a8201294f4318ef281580941845e6e9",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/tests/test_author_contract.py"
+    },
+    {
+      "bytes": 8853,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/tests/test_author_geometry.py",
+      "sha256": "b3798848d2ce1787b46ebc829828a5dc24443b2fa0986547b3417ea25d0c9bbb",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/tests/test_author_geometry.py"
+    },
+    {
+      "bytes": 18961,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/tests/test_openai_studio_integration.py",
+      "sha256": "c0902fb19a7c9f4946d10b31cdc35a6b12361c7a17fc6fcdff2354f56204d3a5",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/tests/test_openai_studio_integration.py"
+    },
+    {
+      "bytes": 16304,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/tests/test_pipeline.py",
+      "sha256": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/tests/test_pipeline.py"
+    },
+    {
+      "bytes": 4191,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/tests/test_pipeline_author_geometry.py",
+      "sha256": "5efe19113dafbce648d947b682280f896bdad86bbeab193062667a4713b6f43d",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/tests/test_pipeline_author_geometry.py"
+    },
+    {
+      "bytes": 21591,
+      "path": "outputs/author-geometry-feedback-tests-v1/sources/tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/sources/tests/test_pipeline_prompts.py"
+    },
+    {
+      "bytes": 493,
+      "path": "outputs/author-geometry-feedback-tests-v1/tests-handle.json",
+      "sha256": "e0689ca202bcad35d8caaed0b62f3a8e7c5d72ffdf50309b8e81b20a0dcfb95a",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 1278,
+      "path": "outputs/author-geometry-feedback-tests-v1/tests-monitor.json",
+      "sha256": "24486011b5fab13dd746c1b67a0d1aff395a5919d4a2602975cb3d4d98396286",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 14684,
+      "path": "outputs/author-geometry-feedback-tests-v1/tests.log",
+      "sha256": "9860f6a4c41938e1a90cd961baf48c1768c2bff8f1644e0449001afc57a38acb",
+      "snapshot": "snapshots/outputs/author-geometry-feedback-tests-v1/tests.log"
+    },
+    {
+      "bytes": 2248,
+      "path": "outputs/author-geometry-portable-fixtures-v1/manifest.json",
+      "sha256": "61d3dded7680ac44c9a3afcebd387814908b951778f57a0b5057079e69829da0",
+      "snapshot": "snapshots/outputs/author-geometry-portable-fixtures-v1/manifest.json"
+    },
+    {
+      "bytes": 17129,
+      "path": "outputs/author-geometry-portable-fixtures-v1/tests/test_author_contract.py",
+      "sha256": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f",
+      "snapshot": "snapshots/outputs/author-geometry-portable-fixtures-v1/tests/test_author_contract.py"
+    },
+    {
+      "bytes": 9012,
+      "path": "outputs/author-geometry-portable-fixtures-v1/tests/test_author_geometry.py",
+      "sha256": "3e0877c6f2be52ca86265f12cc69b488b96975b58e19b699e503223373df0efb",
+      "snapshot": "snapshots/outputs/author-geometry-portable-fixtures-v1/tests/test_author_geometry.py"
+    },
+    {
+      "bytes": 383,
+      "path": "outputs/author-geometry-portable-fixtures-v1/tests-handle.json",
+      "sha256": "07ef0873a9c53dbcb72609ddf62e27bdffa23b3c91513e3ef7f9b87a4a28ae78",
+      "snapshot": "snapshots/outputs/author-geometry-portable-fixtures-v1/tests-handle.json"
+    },
+    {
+      "bytes": 1165,
+      "path": "outputs/author-geometry-portable-fixtures-v1/tests-monitor.json",
+      "sha256": "6cae1e3959e99e51182ad329d945a859a77a9b2559e1520bfb97214a40bae46b",
+      "snapshot": "snapshots/outputs/author-geometry-portable-fixtures-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 3583,
+      "path": "outputs/author-geometry-portable-fixtures-v1/tests.log",
+      "sha256": "11b951c81dae06da704764f3d20d60f5a2620394468a1a0c017fdf15afdfecf1",
+      "snapshot": "snapshots/outputs/author-geometry-portable-fixtures-v1/tests.log"
+    },
+    {
+      "bytes": 1036,
+      "path": "outputs/openai-panda-geometry-feedback-preparation-v1/accounting-before.json",
+      "sha256": "48756ad75c80080e99be478b6751b662c24492d6bad721fbb3542ac29a66c6c0",
+      "snapshot": "snapshots/outputs/openai-panda-geometry-feedback-preparation-v1/accounting-before.json"
+    },
+    {
+      "bytes": 2376,
+      "path": "outputs/openai-panda-geometry-feedback-preparation-v1/created.json",
+      "sha256": "17b43902d0c3f6b5c9837e4a1e7129cc9167e49ac85393397c3747ad1ebe9600",
+      "snapshot": "snapshots/outputs/openai-panda-geometry-feedback-preparation-v1/created.json"
+    },
+    {
+      "bytes": 146,
+      "path": "outputs/openai-panda-geometry-feedback-preparation-v1/owner-settings-before.json",
+      "sha256": "8bd948a2b71b07bc95260f7b4b01c89140e001f717ff7ea881986f8f2b3d2c4c",
+      "snapshot": "snapshots/outputs/openai-panda-geometry-feedback-preparation-v1/owner-settings-before.json"
+    },
+    {
+      "bytes": 146,
+      "path": "outputs/openai-panda-geometry-feedback-preparation-v1/owner-settings-proposed.json",
+      "sha256": "c12d7a429b204f629077107bad8d129f7e0e48769436951b707f8bc88e6e3c2c",
+      "snapshot": "snapshots/outputs/openai-panda-geometry-feedback-preparation-v1/owner-settings-proposed.json"
+    },
+    {
+      "bytes": 203,
+      "path": "outputs/openai-panda-geometry-feedback-preparation-v1/prepared-binding.json",
+      "sha256": "717465ab7725314f4003d77133456a74e856d0e3c982bf14a053a627d0c0f166",
+      "snapshot": "snapshots/outputs/openai-panda-geometry-feedback-preparation-v1/prepared-binding.json"
+    },
+    {
+      "bytes": 2548,
+      "path": "outputs/openai-panda-geometry-feedback-preparation-v1/prepared.json",
+      "sha256": "5f75e57652b497b1549fb2db74d82e58f678a5f8bc339e15bf8d7fed3496c64e",
+      "snapshot": "snapshots/outputs/openai-panda-geometry-feedback-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 900,
+      "path": "outputs/openai-panda-geometry-feedback-preparation-v1/proposal.json",
+      "sha256": "752e598a26e5700bf10fb1060822f0f12b742545c5019d85d5367a114c95868b",
+      "snapshot": "snapshots/outputs/openai-panda-geometry-feedback-preparation-v1/proposal.json"
+    },
+    {
+      "bytes": 1524,
+      "path": "outputs/openai-panda-geometry-feedback-preparation-v1/request.json",
+      "sha256": "a5d0cc2e1360af992c2c0248b023b56654ab665584840b544255cf011261a8a8",
+      "snapshot": "snapshots/outputs/openai-panda-geometry-feedback-preparation-v1/request.json"
+    },
+    {
+      "bytes": 416,
+      "path": "outputs/openai-typed-publication-v1/receipt.json",
+      "sha256": "e115fde8ec5bde232ab7e181e8596acc5255c32aae7299c88630b55bd7aa5937",
+      "snapshot": "snapshots/outputs/openai-typed-publication-v1/receipt.json"
+    },
+    {
+      "bytes": 239,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/check-handle.json",
+      "sha256": "22a5b5f2c197e2dd06dc5e8e591a2781816d9531d9411edaebe622e6b122d1ea",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/check-handle.json"
+    },
+    {
+      "bytes": 975,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/check-monitor.json",
+      "sha256": "ffd689ef3995c833d0f16b0c5cad79699ef4faae65a1868d245772c8a204d7a6",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/check-monitor.json"
+    },
+    {
+      "bytes": 539,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/check.log",
+      "sha256": "b7d20337d581a821b85dca44e357efe7012501af22faea7eb7967be20fe020c7",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/check.log"
+    },
+    {
+      "bytes": 6785,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/check.py",
+      "sha256": "a44df8bbcb768c2bf882ee23a348b2274783487a3573fc5e748bd8bc2f3ac108",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/check.py"
+    },
+    {
+      "bytes": 10952,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/diagnosis.json",
+      "sha256": "a0c20f6605103927b68743e2280dff8edc14b42a86e903c1d5bba439e751be34",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/diagnosis.json"
+    },
+    {
+      "bytes": 1301,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/execute.py",
+      "sha256": "8b317228a97d4596f83f8ac1591fe631bdbd9d5dd252548e69380b967db0a063",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/execute.py"
+    },
+    {
+      "bytes": 1067,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/job.json",
+      "sha256": "930407f8ba6bfc212e12e5e88dc1e26c1a2313dbe28c4b13b30eb46e395a4041",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/job.json"
+    },
+    {
+      "bytes": 1923,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/manifest.json",
+      "sha256": "d0d08ed9e2865620618f88ac2ea1667848b985e6da362105481bae4d18253440",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/manifest.json"
+    },
+    {
+      "bytes": 1170,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/numpy-configuration.txt",
+      "sha256": "5fa15812c03f6f85cf260965bf6f73295826df4490718a05346c1eebf1c35100",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/numpy-configuration.txt"
+    },
+    {
+      "bytes": 2857,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/prepared.json",
+      "sha256": "a53c04545139b587e621a739d18f89beb6588b9b791083300750e31c83243979",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/prepared.json"
+    },
+    {
+      "bytes": 1270,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/result.json",
+      "sha256": "c917f054f1c73cfedb64e632a107a72ee87b27b412971590b79bbebc2769d280",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/result.json"
+    },
+    {
+      "bytes": 2710,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/sources/blender_creature_rig.py"
+    },
+    {
+      "bytes": 5399,
+      "path": "outputs/panda-rig-layer-diagnosis-v1/sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot": "snapshots/outputs/panda-rig-layer-diagnosis-v1/sources/creature_rig_math.py"
+    },
+    {
+      "bytes": 1655,
+      "path": "outputs/studio-b91db2687dca4024af238111/estimate.json",
+      "sha256": "5d2d465767a13e2cbc2e9309a7e49af25e8b832fb58c6c414da310efdb5166a3",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/estimate.json"
+    },
+    {
+      "bytes": 6618,
+      "path": "outputs/studio-b91db2687dca4024af238111/input-receipt.json",
+      "sha256": "ea45666cd1b631ad1a4cf72fea13b7ced64955ecfa8a4c8ff2b176179445926f",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/input-receipt.json"
+    },
+    {
+      "bytes": 2230,
+      "path": "outputs/studio-b91db2687dca4024af238111/request.json",
+      "sha256": "aa0253197820da5815233162e1a824bb359a51286d15f8090f389bc6e4b3b34c",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/request.json"
+    },
+    {
+      "bytes": 34271,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/action_audit.py"
+    },
+    {
+      "bytes": 15821,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/action_intent.py",
+      "sha256": "88d2d0f176b7eaac99fdfa6ea82ad9a73b4884cbb4c100645a9aa589ca7a864b",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/action_intent.py"
+    },
+    {
+      "bytes": 7553,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/agent_backend.py",
+      "sha256": "f7c00ff68b3a0d80d32e04346c6b912bf416e2e14c8d951f7aac005903d8d7d6",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/agent_backend.py"
+    },
+    {
+      "bytes": 26471,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/agent_runner.py"
+    },
+    {
+      "bytes": 12872,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/author_contract.py"
+    },
+    {
+      "bytes": 8595,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/author_geometry.py"
+    },
+    {
+      "bytes": 16614,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/deformation_gate.py"
+    },
+    {
+      "bytes": 38146,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/fringe_export.py"
+    },
+    {
+      "bytes": 40332,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/fur_attachment.py"
+    },
+    {
+      "bytes": 19539,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/fur_bindings.py"
+    },
+    {
+      "bytes": 16931,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/generated_tangents.py"
+    },
+    {
+      "bytes": 17295,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/normal_continuity.py"
+    },
+    {
+      "bytes": 28640,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/openai_runner.py",
+      "sha256": "843d8b7576bd68db33a1704449414ffd84a8014a6e021f417b64fb505ac48429",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/openai_runner.py"
+    },
+    {
+      "bytes": 80269,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/pipeline.py",
+      "sha256": "360a915b4c8989abd10e9ba4effc7fb94b1498c6b7df9f30eff1a5d714ba712b",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/pipeline_evidence.py"
+    },
+    {
+      "bytes": 54977,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/pipeline_prompts.py",
+      "sha256": "ea004919dd2a2706f4a101e7602a9a131e5cb270a9dedcf423e4cc8e001d012f",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/pipeline_prompts.py"
+    },
+    {
+      "bytes": 10345,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/pipeline_recovery.py",
+      "sha256": "9160986edd98978c7e5f2c0080e2248f12919be37e1633111de5e4fb54b6e791",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/pipeline_recovery.py"
+    },
+    {
+      "bytes": 1326,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/portable_fringe.py"
+    },
+    {
+      "bytes": 14626,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/quality_policy.py"
+    },
+    {
+      "bytes": 20746,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 58228,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_finish_generated.py",
+      "sha256": "fb4ccc68da44786052049297ab4fef07bb33f8d5aeda889a7cf21c484922130d",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 26295,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 6657,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_fur_identity.py"
+    },
+    {
+      "bytes": 40912,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 5450,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_material_coat.py"
+    },
+    {
+      "bytes": 8894,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_material_colors.py"
+    },
+    {
+      "bytes": 31282,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_material_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 17397,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 4687,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 8834,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/fur_skin_roots.py"
+    },
+    {
+      "bytes": 6002,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "bytes": 9487,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/material_fur.py"
+    },
+    {
+      "bytes": 5273,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 9560,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 14944,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 35323,
+      "path": "outputs/studio-b91db2687dca4024af238111/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/outputs/studio-b91db2687dca4024af238111/sources/three_d.py"
+    }
+  ],
+  "no_accepted_rig_or_motion": true,
+  "schema_version": 1,
+  "snapshot_bytes": 1173080,
+  "source_model_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+  "source_model_snapshot": "evidence/studio-fresh-panda-attempt-v1/snapshots/studio-2fa07fbb61ef4da4bc8f7f70/generation/stages/texture/downloads/model.glb"
+}

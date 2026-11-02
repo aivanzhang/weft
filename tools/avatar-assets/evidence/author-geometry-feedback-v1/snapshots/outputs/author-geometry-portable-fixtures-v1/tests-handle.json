@@ -1,0 +1,1 @@
+{"pid": 29140, "command": ["/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python", "-B", "-c", "import sys,unittest;sys.path[:0]=['.','tests'];s=unittest.defaultTestLoader.loadTestsFromNames(['test_author_geometry','test_author_contract']);r=unittest.TextTestRunner(verbosity=2).run(s);raise SystemExit(not r.wasSuccessful())"], "monitor_checkpoint": "tests-monitor.json"}

@@ -288,7 +288,7 @@ class TypedAuthorContractTests(unittest.TestCase):
         self.assertNotIn('groom', decode_typed_author(wire))
 
     def test_preserved_malformed_legacy_response_remains_invalid_and_unchanged(self):
-        path = ROOT/'outputs/studio-9e1cceb87c40437896c5a77f/agents/author-0/answer.json'
+        path = ROOT/'evidence/openai-studio-terminal-v1/snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/author-0/answer.json'
         if not path.is_file():
             self.skipTest('Optional retained local paid-response evidence is absent')
         before = path.read_bytes()
