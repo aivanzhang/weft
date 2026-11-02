@@ -2,6 +2,9 @@
 
 ## Product priority — November 2, 2026, 11:39 AM PST
 
+- [x] Add [Muse construction review to the portal](docs/handoffs/portal-muse.md): authenticated/deduplicated background action, separate budget, cited evidence, alternatives/tests and receipts; ready simulations remain usable and unchanged. **72 Python / four UI checks pass.** Real API acceptance 8.62 s / $0.013384, three unaccepted proposals, all 1,325 run members verified. Meta balance now $4.750664, zero unsettled; OpenAI unchanged.
+- [ ] Connect typed Muse proposals to bounded independent test/repair executors and show accepted/rejected comparisons. Current portal review is a critic, not an automatic repair loop; the live proposals require additional physical evidence. Preserve scorer, holdout, geometry/contact and spending boundaries.
+
 - [x] Build the [local web portal](docs/portal.md): authenticated video upload, persistent projects, bounded background jobs, progress and failure inspection, OpenAI scene planning, sandbox interaction and recording. Project key only; no ChatGPT login/agent runtime. [Implementation, acceptance and preserved failures](docs/handoffs/portal-api.md).
 - [x] Enforce the approved $5 OpenAI portal allowance with durable reservations, known-usage settlement, no automatic retries, and exact-source/request reuse. Keep Meta and unrelated avatar budgets separate.
 - [x] Verify a real exercise upload through the full shared-body pipeline and web API: **29.59s**, 1,325 run members verified, 9 actions/10 events replay exactly. Learned and authored controllers each pass3/3 exposed simulator starts; the original feasible controller was retained, not improved.

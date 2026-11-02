@@ -2,6 +2,8 @@
 
 **Current product priority (November 2, 2026):** deliver the interactive [web portal](docs/portal.md), backed by server-side AI API keys—not a ChatGPT login or coding-session runtime. Upload → AI analysis → reconstruction/checks → RL simulation → interaction/recording/export must be one user journey. The user approved a separate $5 total OpenAI portal development allowance. Both reconstruction and simulation tracks remain in scope; generalization and physical-accuracy gaps are not waived. Hosted publication remains explicitly deferred.
 
+**Meta integration priority:** Muse Spark is the physical-scene proposer/critic, separate from avatar generation. The portal now exposes construction review; completing bounded repair proposals and independent tests remains part of the full goal. OpenAI planning does not replace meaningful Meta use. [Current evidence](docs/handoffs/portal-muse.md).
+
 Current implementation and the user's exercise-video priority are documented in the [local lab guide](docs/local-lab.md). This file retains the broader product target; the original single-ball status descriptions are historical, not the current feature inventory.
 
 **Current combined assignment — October 29, 2026, 7:04 PM PDT:** the user closed agy's session and transferred Track B into this session. Codex now owns both video understanding/reconstruction and simulation/RL/lab/recording. Use the [complete replacement /goal prompt](docs/handoffs/complete-goal.md), which includes inherited unfinished work, verified evidence, remaining requirements and operating constraints. Earlier A-only/B-only assignments are historical; preserve their implementation without duplicating it. The product target below remains unchanged.

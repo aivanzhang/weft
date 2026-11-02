@@ -1,7 +1,7 @@
 # Weft web portal
 
 Upload a video, follow its reconstruction, open the interactive 3D sandbox, and
-save your actions. AI analysis uses a **server-side OpenAI API key**, never a
+save your actions. OpenAI scene analysis and Muse physics review use **server-side project API keys**, never a
 ChatGPT login, browser session, coding-agent CLI, or subscription token.
 
 ## Open it locally
@@ -25,6 +25,10 @@ The user starts/manages this server. No browser opens automatically. Use
 4. Select **Open interactive sandbox**. Inspect the source, tracks and geometry;
    rotate the view; choose manual, authored reference or learned controls where
    available; then **Record & start → Stop & save**.
+5. Select **Send evidence to Muse for review** in the project. Inspect alternative
+   physical explanations, cited observations, suggested tests and unresolved questions.
+   This sends construction evidence and up to three thumbnails to Meta. Review
+   runs in the background; the sandbox remains usable. Proposals are not applied.
 
 Projects persist under `.local/portal/`. Closing the server preserves completed
 runs and recordings. Interrupted work is not automatically resubmitted or billed
@@ -58,8 +62,29 @@ There are no automatic API retries or model-generated commands. Identical source
 and request identities can reuse an already settled analysis at no new API cost.
 This is an application allowance, not a provider-account hard cap.
 
-Muse is not required for this workflow. Optional avatar asset generation is a
-separate integration; selecting a skin must not alter the physics or task.
+### Where Muse fits
+
+Muse Spark is the physical-scene proposer/critic, not the avatar feature. The
+portal now exposes the existing [Meta advisor](meta-advisor.md) on completed
+exercise and object projects. It receives construction observations and authored
+body assumptions, never evaluation scores or policies. Evidence IDs, alternative
+explanations, required tests, the exact request/response and usage receipt are saved
+under each project's `muse/` directory, outside immutable runs.
+
+The existing Meta project key is already configured in this workspace. It uses
+`META_API_KEY` / `MODEL_API_KEY` or `.local/credentials/meta-api-key`, and the
+canonical `.local/meta-budget/ledger.json`. The separate **$5 total Meta budget**
+is shared with other Weft Meta adapters. One review reserves an estimated
+**$0.058368**, with no automatic retry. Repeated clicks return the existing review;
+restart or cancellation preserves uncertain charges and never relabels the
+completed simulation. The reviewed price was unchanged on November 2, 2026.
+
+OpenAI currently provides initial scene planning; Muse provides inspectable
+physical reasoning. An OpenAI-only run does not demonstrate Meta use. The full
+Muse → bounded repair → independent test/acceptance loop remains unfinished:
+displayed tests are suggestions, not executed experiments. The live review does
+not by itself establish hackathon readiness or physical correctness. Avatar
+generation is separate; selecting a skin must not alter physics or task behavior.
 
 ## What the result means
 

@@ -2,6 +2,8 @@
 
 **Product entry point:** [the local web portal](portal.md) owns video uploads, bounded background jobs and server-side OpenAI analysis, then calls the existing exercise/shared-world or rigid-scene builders and mounts the existing lab for interaction/recording. It does not use a ChatGPT login or execute model-generated commands. [Implementation and acceptance](handoffs/portal-api.md).
 
+**Muse review:** completed projects can queue a server-key Meta construction critique through the same portal. Evidence-linked hypotheses, alternatives, suggested tests and costs remain outside immutable runs; no evaluation data is sent and no proposal is automatically applied. [Live acceptance and remaining repair-loop work](handoffs/portal-muse.md).
+
 For the full product target and physics-grounded evaluation design, read [goal.md](../goal.md). For the first product milestone, read [v1.md](../v1.md). This document maps those targets to the current implementation contracts and limitations.
 
 ## Target and evidence boundary

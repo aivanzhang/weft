@@ -1,5 +1,7 @@
 # Combined Weft implementation handoff
 
+**Latest portal milestone — November 2, 2026 (PST):** [Muse construction review](portal-muse.md) is integrated and live-verified using the existing Meta project key. One call cost $0.013384; simulation and scored run remain unchanged. Proposed tests are not yet executed or accepted. The full repair/generalization goal remains active.
+
 ## Current product handoff — November 2, 2026, 11:39 AM PST
 
 The user redirected priority to the end-user web portal with a server-side OpenAI API key, explicitly excluding ChatGPT-login/agent-session dependence, and approved a separate **$5 total OpenAI portal development budget**. Both earlier tracks and the generalizable-video goal remain active. [Portal API handoff](portal-api.md) has exact files, frozen acceptance inputs/results, preserved failures, resource/cost bounds and remaining hosted/generalization work. [Start the portal](../portal.md) with `.venv-lab/bin/python -m weft portal`; the user manages that local server. Hosted deployment remains unauthorized/offline.

@@ -87,6 +87,74 @@ def test_cancel_does_not_relabel_ready_result(portal):
     assert path.read_bytes() == before
 
 
+def test_muse_review_auth_dedup_cancel_and_artifacts(portal, monkeypatch):
+    import weft.portal as module
+    monkeypatch.setattr(module, "muse_availability", lambda _: {"available": True})
+    job = upload(portal)
+    identity = job["id"]
+    folder = portal.root / identity
+    with pytest.raises(ValueError, match="Finish reconstruction"):
+        portal.review(identity)
+    atomic_json(folder / "status.json", {"status": "ready", "route": "exercise", "events": []})
+    before = (folder / "status.json").read_bytes()
+    with serving(portal) as server:
+        path = f"/api/projects/{identity}/muse"
+        assert request(server, path, "POST", auth=False)[0] == 401
+        assert request(server, path, "POST", headers={"Origin": "https://attacker.invalid"})[0] == 403
+        assert request(server, path, "POST", b"unexpected")[0] == 400
+        assert request(server, path, "POST")[0] == 202
+        assert request(server, path, "POST")[0] == 202
+        assert portal.summary(identity)["muse"]["status"] == "queued"
+        (folder / "muse/advice").mkdir()
+        write_json(folder / "muse/advice/hypotheses.json", {"accepted": False, "advice": {}})
+        assert request(server, f"/api/projects/{identity}/files/muse/advice/hypotheses.json")[0] == 200
+        assert request(server, f"/api/projects/{identity}/files/muse/status.json")[0] == 400
+        assert request(server, f"/api/projects/{identity}/cancel", "POST")[0] == 200
+    assert portal.summary(identity)["muse"]["status"] == "cancelled"
+    assert (folder / "status.json").read_bytes() == before
+    assert portal.summary(identity)["sandbox"]
+    assert portal.review(identity)["muse"]["status"] == "cancelled"
+
+
+def test_muse_restart_preserves_ready_world_without_retry(tmp_path, monkeypatch):
+    import weft.portal as module
+    monkeypatch.setattr(module, "muse_availability", lambda _: {"available": True})
+    portal = Portal(tmp_path / "portal", project=tmp_path, start=False)
+    job = upload(portal)
+    folder = portal.root / job["id"]
+    atomic_json(folder / "status.json", {"status": "ready", "route": "objects", "events": []})
+    portal.review(job["id"])
+    portal.close()
+    reopened = Portal(tmp_path / "portal", project=tmp_path, start=False)
+    try:
+        assert reopened.summary(job["id"])["status"] == "ready"
+        assert reopened.summary(job["id"])["muse"]["status"] == "interrupted"
+        assert reopened.review(job["id"])["muse"]["status"] == "interrupted"
+    finally:
+        reopened.close()
+
+
+def test_muse_missing_budget_does_not_queue(portal):
+    job = upload(portal)
+    folder = portal.root / job["id"]
+    atomic_json(folder / "status.json", {"status": "ready", "route": "exercise", "events": []})
+    with pytest.raises(ValueError, match="allowance"):
+        portal.review(job["id"])
+    assert not (folder / "muse").exists()
+
+
+def test_inflight_muse_receipt_write_does_not_break_project_list(portal):
+    job = upload(portal)
+    folder = portal.root / job["id"]
+    (folder / "muse/advice").mkdir(parents=True)
+    atomic_json(folder / "muse/status.json", {"status": "running"})
+    (folder / "muse/advice/advisor-call.json").write_text('{"status":')
+    assert "receipt" not in portal.summary(job["id"])["muse"]
+    atomic_json(folder / "muse/status.json", {"status": "failed"})
+    with pytest.raises(json.JSONDecodeError):
+        portal.summary(job["id"])
+
+
 def test_active_cancel_uses_independent_marker(portal):
     job = upload(portal)
     portal.active = job["id"]

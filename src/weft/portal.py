@@ -19,6 +19,7 @@ from weft.io import local_time, write_json
 from weft.lab import Lab, LabHandler, LabServer, PUBLIC_ASSETS
 from weft.lab_worker import atomic_json
 from weft.openai_access import MODEL, PROJECT_ROOT, OpenAIBudget, credential_status
+from weft.portal_review import TERMINAL as REVIEW_TERMINAL, availability as muse_availability
 
 MAX_UPLOAD = 100_000_000
 MAX_JOBS = 50
@@ -75,6 +76,9 @@ class Portal:
                 if status["status"] not in TERMINAL:
                     atomic_json(folder / "status.json", {"status": "interrupted", "stage": "interrupted",
                         "events": status.get("events", []), "error": "Portal restarted before this job finished. Evidence and uncertain API charges are preserved; no automatic retry."})
+                review = folder / "muse/status.json"
+                if review.is_file() and bounded_json(review)["status"] not in REVIEW_TERMINAL:
+                    atomic_json(review, {"status": "interrupted", "message": "Portal restarted during Muse review. No automatic retry; uncertain charges remain reserved."})
             self.thread = threading.Thread(target=self._work, name="weft-portal-queue", daemon=True) if start else None
             if self.thread:
                 self.thread.start()
@@ -111,12 +115,24 @@ class Portal:
                 if path.is_file():
                     result[name] = bounded_json(path)
             result["sandbox"] = f"/labs/{identity}/" if status["status"] == "ready" else None
+            review = folder / "muse/status.json"
+            if review.is_file():
+                result["muse"] = bounded_json(review)
+                for field, name in (("receipt", "advisor-call"), ("proposal", "hypotheses")):
+                    path = folder / "muse/advice" / (name + ".json")
+                    if path.is_file():
+                        try:
+                            result["muse"][field] = bounded_json(path, maximum=140_000)
+                        except json.JSONDecodeError:
+                            if result["muse"]["status"] in REVIEW_TERMINAL:
+                                raise
             return result
 
     def info(self):
         with self.lock:
             ids = list(self.jobs)
         return {"provider": "openai", "model": MODEL, "credential": credential_status(self.project),
+                "muse": muse_availability(self.project),
                 "budget": self.budget.status(), "local_only": True, "max_upload_bytes": MAX_UPLOAD,
                 "jobs": [self.summary(identity) for identity in reversed(ids)],
                 "limits": "60-second videos, 1,800 frames, one processing job at a time; failed reconstructions remain inspectable"}
@@ -180,43 +196,74 @@ class Portal:
         while not self.stopping.is_set():
             with self.lock:
                 identity = next((i for i in self.jobs if self._status(i)["status"] == "queued"), None)
+                review = False
+                if identity is None:
+                    identity = next((i for i in self.jobs if self._review_status(i).get("status") == "queued"), None)
+                    review = identity is not None
                 if identity:
                     self.active = identity
-                    atomic_json(self._folder(identity) / "status.json", {"status": "running", "stage": "starting", "events": []})
+                    target = self._folder(identity) / ("muse/status.json" if review else "status.json")
+                    atomic_json(target, {"status": "running", "stage": "starting", "events": []})
             if identity is None:
                 self.wake.wait(1)
                 self.wake.clear()
                 continue
-            self._run(identity)
+            self._run(identity, review=review)
             with self.lock:
                 self.active, self.process = None, None
 
-    def _run(self, identity):
+    def _review_status(self, identity):
+        path = self._folder(identity) / "muse/status.json"
+        return bounded_json(path) if path.is_file() else {}
+
+    def review(self, identity):
+        with self.lock:
+            folder = self._folder(identity)
+            if (folder / "muse").exists():
+                return self.summary(identity)
+            if self._status(identity)["status"] != "ready":
+                raise ValueError("Finish reconstruction before requesting Muse review")
+            if not muse_availability(self.project)["available"]:
+                raise ValueError("Meta project key or remaining allowance is unavailable")
+            if sum(self._review_status(i).get("status") in {"queued", "running"} for i in self.jobs) >= 4:
+                raise ValueError("Muse review queue is full")
+            (folder / "muse").mkdir(mode=0o700)
+            atomic_json(folder / "muse/status.json", {"status": "queued", "message": "Waiting for the shared processing slot", "requested_at": local_time()})
+            self.wake.set()
+            return self.summary(identity)
+
+    def _run(self, identity, *, review=False):
         folder = self._folder(identity)
+        work = folder / "muse" if review else folder
+        terminal = REVIEW_TERMINAL if review else TERMINAL
         env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "PYTHONPATH": str(Path(__file__).resolve().parent.parent),
                "PYTHONUNBUFFERED": "1", "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1",
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MPLCONFIGDIR": str(folder / "runtime/matplotlib")}
-        if os.environ.get("OPENAI_API_KEY"):
+        if not review and os.environ.get("OPENAI_API_KEY"):
             env["OPENAI_API_KEY"] = os.environ["OPENAI_API_KEY"]
+        if review:
+            for name in ("META_API_KEY", "MODEL_API_KEY"):
+                if os.environ.get(name):
+                    env[name] = os.environ[name]
         process = None
         reason = None
         try:
-            with (folder / "worker.log").open("xb") as log:
-                process = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.portal_worker", str(folder), str(self.project)],
+            with (work / "worker.log").open("xb") as log:
+                process = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.portal_worker", str(folder), str(self.project), *( ["review"] if review else [])],
                                            stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, env=env)
                 with self.lock:
                     self.process = process
-                deadline = time.monotonic() + 420
+                deadline = time.monotonic() + (90 if review else 420)
                 next_inventory = 0
                 while process.poll() is None:
                     if self.stopping.wait(.5):
                         reason = "Portal stopped; no automatic retry"
                         break
-                    if (folder / "cancel-request.json").exists():
+                    if (work / "cancel-request.json").exists():
                         reason = "Cancelled by user; partial evidence and uncertain charges preserved"
                         break
                     if time.monotonic() >= deadline:
-                        reason = "Processing exceeded the seven-minute wall-time limit"
+                        reason = "Processing exceeded its wall-time limit"
                         break
                     if time.monotonic() >= next_inventory:
                         next_inventory = time.monotonic() + 2
@@ -231,10 +278,10 @@ class Portal:
                     except subprocess.TimeoutExpired:
                         process.kill()
                 process.wait()
-                current = self._status(identity)
-                if current["status"] not in TERMINAL:
-                    state = "cancelled" if (folder / "cancel-request.json").exists() else "interrupted" if self.stopping.is_set() else "failed"
-                    atomic_json(folder / "status.json", {**current, "status": state,
+                current = bounded_json(work / "status.json")
+                if current["status"] not in terminal:
+                    state = "cancelled" if (work / "cancel-request.json").exists() else "interrupted" if self.stopping.is_set() else "failed"
+                    atomic_json(work / "status.json", {**current, "status": state,
                         "error": reason or f"Worker exited ({process.returncode}); inspect saved artifacts"})
         except Exception as error:
             if process is not None and process.poll() is None:
@@ -244,12 +291,19 @@ class Portal:
                 except subprocess.TimeoutExpired:
                     process.kill()
                     process.wait()
-            current = self._status(identity)
-            if current["status"] not in TERMINAL:
-                atomic_json(folder / "status.json", {**current, "status": "failed", "error": str(error)[:500]})
+            current = bounded_json(work / "status.json")
+            if current["status"] not in terminal:
+                atomic_json(work / "status.json", {**current, "status": "failed", "error": str(error)[:500]})
 
     def cancel(self, identity):
         with self.lock:
+            review = self._review_status(identity)
+            if review and review["status"] not in REVIEW_TERMINAL:
+                folder = self._folder(identity) / "muse"
+                atomic_json(folder / "cancel-request.json", {"requested_at": local_time()})
+                atomic_json(folder / "status.json", {**review, "status": "cancelling" if self.active == identity else "cancelled",
+                    "message": "Review cancelled; uncertain charges stay reserved. The simulation is unchanged."})
+                return self.summary(identity)
             status = self._status(identity)
             if status["status"] in TERMINAL:
                 return self.summary(identity)
@@ -286,7 +340,7 @@ class Portal:
         if not file.is_relative_to(folder) or not file.is_file():
             raise ValueError("Artifact is outside this project")
         relative = file.relative_to(folder).as_posix()
-        if not relative.startswith(("analysis/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity]["source_file"], "failure.json", "worker.log"}:
+        if not relative.startswith(("analysis/", "muse/advice/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity]["source_file"], "failure.json", "worker.log", "muse/binding.json"}:
             raise ValueError("File is not a public project artifact")
         return file
 
@@ -377,6 +431,11 @@ class PortalHandler(LabHandler):
                 if int(self.headers.get("Content-Length", "0")) > 2:
                     raise ValueError("Cancellation takes no arguments")
                 return self.reply(self.server.portal.cancel(match[1]))
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/muse", path)
+            if match:
+                if int(self.headers.get("Content-Length", "0")) != 0:
+                    raise ValueError("Muse review takes no arguments")
+                return self.reply(self.server.portal.review(match[1]), 202)
             return self.reply({"error": "Not found"}, 404)
         except (ValueError, OSError, RuntimeError, KeyError) as error:
             return self.reply({"error": str(error)}, 400)

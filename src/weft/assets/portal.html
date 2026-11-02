@@ -15,7 +15,7 @@
 <label class="check"><input id="rights" type="checkbox" required> I have permission to process this video and send the sampled frames if AI is enabled.</label>
 <button id="create" type="submit">Build simulation <span aria-hidden="true">→</span></button><p id="upload-status" role="status" class="hint"></p>
 </form>
-<div class="budget"><h3>AI allowance</h3><p id="ai-status">Checking server configuration…</p><p id="budget" class="hint"></p><p class="hint">Charges are recorded across restarts. Uncertain requests are not retried automatically.</p></div>
+<div class="budget"><h3>AI allowances</h3><p id="ai-status">Checking server configuration…</p><p id="budget" class="hint"></p><p id="muse-budget" class="hint"></p><p class="hint">Charges are recorded across restarts. OpenAI and Meta have separate allowances. Uncertain requests are not retried automatically.</p></div>
 </section>
 <section class="projects-panel" aria-labelledby="projects-heading"><div class="section-heading"><h2 id="projects-heading">Your projects</h2><button class="secondary" id="refresh" type="button">Refresh</button></div><p id="empty">Your uploaded videos and saved simulations will appear here.</p><div id="projects"></div></section>
 </div>
@@ -26,6 +26,12 @@
 <div id="analysis" hidden><h3>What AI identified</h3><p id="analysis-summary"></p><ul id="analysis-warnings"></ul><div id="frame-previews" class="previews"></div><p class="hint">Sampled frames guide a proposal. They are not verified 3D geometry, calibrated contact, or measured muscle activity.</p></div>
 <div class="actions"><a id="sandbox" class="button" hidden>Open interactive sandbox →</a><a id="source-download" class="text-link" hidden>Original video</a><a id="plan-download" class="text-link" hidden>Scene analysis</a><a id="receipt-download" class="text-link" hidden>API usage receipt</a><a id="failure-download" class="text-link" hidden>Failure details</a></div>
 <p id="sandbox-help" class="hint" hidden>In the sandbox: inspect the original and tracked video, rotate the 3D view, switch controls, then start a recording. Saved actions, replay and exports remain with this project.</p>
+<section id="muse-review" hidden aria-labelledby="muse-heading"><h3 id="muse-heading">Review the physics with Muse</h3>
+<p class="hint">Muse Spark examines construction observations and up to three source thumbnails to propose missing constraints, alternative explanations and tests. It does not see evaluation scores or change your simulation.</p>
+<button id="review-muse" type="button" class="secondary">Send evidence to Muse for review</button>
+<p id="muse-status" role="status"></p><p id="muse-summary"></p><div id="muse-hypotheses"></div><ul id="muse-questions"></ul>
+<div class="actions"><a id="muse-proposal-download" class="text-link" hidden>Full proposals</a><a id="muse-context-download" class="text-link" hidden>Evidence sent to Muse</a><a id="muse-receipt-download" class="text-link" hidden>Meta API receipt</a></div>
+<p class="hint">Proposals are untested and not applied. Suggested experiments are not results; no physical accuracy or measured muscle activity is established by this review.</p></section>
 <details><summary>Processing log</summary><ol id="events" class="events"></ol></details>
 </section>
 <footer><strong>Built from evidence. Clear about assumptions.</strong><p>This local preview generates simulated hypotheses. Unfamiliar motion, camera movement, occlusion, and equipment contact can prevent a usable reconstruction. Failed runs keep their evidence; they are not shown as successful environments.</p></footer>

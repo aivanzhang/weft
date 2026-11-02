@@ -14,14 +14,28 @@ function setup(jobs=[]) {
   }
   const timers=new Map(), calls=[], listeners=new Map(); let next=1;
   const document={hidden:false,getElementById:id=>elements.get(id),createElement:tag=>new Element(tag),querySelectorAll:()=>[],addEventListener:(name,fn)=>listeners.set(name,fn)};
-  const info={credential:{configured:true},budget:{configured:true,remaining_usd:5,total_usd:5,calls:0,unsettled_calls:0,reservation_usd:.3135},jobs};
+  const info={credential:{configured:true},budget:{configured:true,remaining_usd:5,total_usd:5,calls:0,unsettled_calls:0,reservation_usd:.3135},muse:{available:true,budget_configured:true,remaining_usd:4.7,total_budget_usd:5,unsettled_count:0,estimated_one_call_usd:.058368},jobs};
   const context={document,location:{hash:"#token=test-owner-token",pathname:"/"},history:{replaceState(){}},sessionStorage:{getItem(){return null;},setItem(){}},URLSearchParams,AbortSignal,crypto:{randomUUID:()=>"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"},
     setTimeout:fn=>{const id=next++;timers.set(id,fn);return id;},clearTimeout:id=>timers.delete(id),window:{addEventListener(){}},
     fetch:async(path,options={})=>{calls.push({path,options});if(path==="/api/portal")return {ok:true,json:async()=>structuredClone(info)};
       if(path.startsWith("/api/projects?"))return {ok:true,json:async()=>({id:"b".repeat(32),name:"clip.webm",status:"queued",stage:"queued",events:[]})};
+      if(path.endsWith("/muse")){info.jobs[0].muse={status:"queued",message:"Waiting"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       return {ok:true,json:async()=>({frames:[]})};},console};
   vm.runInNewContext(code,context);
   return {elements,calls,timers,document,listeners,info};
+}
+{
+  const id="d".repeat(32), f=setup([{id,name:"exercise.webm",status:"ready",stage:"ready",events:[],sandbox:`/labs/${id}/`}]);await tick();
+  const e=f.elements;assert.equal(e.get("review-muse").disabled,false);assert.match(e.get("muse-budget").textContent,/Meta \/ Muse/);
+  await e.get("review-muse").onclick();await tick();
+  assert.equal(f.calls.filter(c=>c.path.endsWith("/muse")).length,1);assert.equal(e.get("cancel").textContent,"Cancel Muse review");
+  assert.equal(e.get("sandbox").hidden,false);
+  f.info.jobs[0].muse={status:"proposed",message:"Not applied",receipt:{cost_usd:.002},proposal:{accepted:false,advice:{summary:"Possible support",hypotheses:[{concept:"contact",status:"hypothesis",claim:"<script>untrusted</script>",evidence_ids:["source:frame:1"],alternatives:["Camera projection"],required_tests:["Measure the support"]}],unanswered_questions:["Scale?"]}}};
+  await e.get("refresh").onclick();await tick();
+  assert.equal(e.get("review-muse").hidden,true);assert.equal(e.get("muse-summary").textContent,"Possible support");
+  assert.equal(e.get("muse-hypotheses").children[0].children[1].textContent,"<script>untrusted</script>");
+  assert.equal(e.get("muse-proposal-download").hidden,false);assert.equal(e.get("cancel").hidden,true);
+  console.log("PASS Muse request, separate budget, retained sandbox and untrusted proposal display");
 }
 
 {

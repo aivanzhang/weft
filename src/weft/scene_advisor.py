@@ -16,7 +16,7 @@ from weft.io import canonical_hash, digest, local_time, write_json
 from weft.meta import MODEL, PRICING as BASE_PRICING
 from weft.meta_access import access_status, reserve_call, resolve_key, settle_call
 
-PRICING = {**BASE_PRICING, "checked_on": "2026-10-28"}
+PRICING = {**BASE_PRICING, "checked_on": "2026-11-02"}
 
 INPUT_TOKEN_ENVELOPE = 32768
 OUTPUT_TOKEN_LIMIT = 4096
@@ -297,6 +297,8 @@ def advise_run(run, out, questions=None, *, execute=False, max_cost_usd=None, pr
         response = json.loads(body)
         record.update(usage=response.get("usage"), cost_usd=_cost(response.get("usage")),
                       model_returned=response.get("model"), response_id=response.get("id"))
+        if response.get("model") != MODEL:
+            raise ValueError("Advisor returned an unexpected model")
         choice = response["choices"][0]
         record.update(finish_reason=choice.get('finish_reason'), live_access_verified=True)
         if choice.get("finish_reason") != "stop" or choice["message"].get("refusal"):

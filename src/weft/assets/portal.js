@@ -5,6 +5,8 @@
   if (token) sessionStorage.setItem("weft-portal-token", token);
   history.replaceState(null, "", location.pathname);
   let selected = null, timer = null, pending = false, uploading = false, lastProjects = "", lastDetail = "";
+  let museAvailable = false, reviewing = false;
+  const reviewActive = job => ["queued", "running", "cancelling"].includes(job.muse?.status);
   const terminal = new Set(["ready", "failed", "cancelled", "interrupted"]);
   const labels = {queued:"Queued",uploading:"Uploading",running:"Processing",ready:"Ready to explore",failed:"Needs attention",cancelled:"Cancelled",interrupted:"Interrupted"};
   const error = message => { $("error").textContent = message; $("error").hidden = false; };
@@ -22,7 +24,7 @@
   async function show(job) {
     if (!job) return;
     selected = job.id;
-    const signature = JSON.stringify(job);
+    const signature = JSON.stringify([job, museAvailable, reviewing]);
     if (lastDetail === signature) return;
     lastDetail = signature;
     $("project").hidden = false;
@@ -30,7 +32,8 @@
     $("project-status").textContent = labels[job.status] || job.status;
     $("project-error").hidden = !job.error;
     $("project-error").textContent = job.error || "";
-    $("cancel").hidden = terminal.has(job.status);
+    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job);
+    $("cancel").textContent = reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
     const stage = {source:"reconstruct",observe:"reconstruct",world:"reconstruct",repair:"reconstruct",evaluate:"reconstruct",render:"train",starting:"analyze",queued:"upload"}[job.stage] || job.stage;
     const names = ["upload", "analyze", "reconstruct", "train", "ready"], current = names.indexOf(stage);
     document.querySelectorAll("#steps li").forEach(node => {
@@ -51,6 +54,26 @@
     artifactLink("plan-download", job, "analysis/plan.json", !!job.plan);
     artifactLink("receipt-download", job, "analysis/receipt.json", !!job.receipt);
     artifactLink("failure-download", job, "failure.json", job.status === "failed");
+    $("muse-review").hidden = job.status !== "ready" && !job.muse;
+    $("review-muse").hidden = !!job.muse;
+    $("review-muse").disabled = !museAvailable || reviewing;
+    $("muse-status").textContent = job.muse ? (job.muse.message || job.muse.error || job.muse.status) : museAvailable ? "One bounded request, charged to the Meta allowance shown above." : "Meta key or remaining allowance is unavailable. Your simulation remains usable.";
+    const advice = job.muse?.proposal?.advice;
+    $("muse-summary").textContent = advice?.summary || "";
+    $("muse-hypotheses").replaceChildren(...(advice?.hypotheses || []).map(hypothesis => {
+      const section = document.createElement("section"), heading = document.createElement("h4"), claim = document.createElement("p"), evidence = document.createElement("p"), alternatives = document.createElement("p"), tests = document.createElement("ul");
+      heading.textContent = `${hypothesis.concept} · ${hypothesis.status} · not applied`;
+      claim.textContent = hypothesis.claim;
+      evidence.textContent = hypothesis.evidence_ids.length ? `Evidence: ${hypothesis.evidence_ids.join(", ")}` : "Prior assumption; no observation cited.";
+      evidence.className = "hint";
+      alternatives.textContent = `Other explanations: ${hypothesis.alternatives.join("; ") || "None proposed"}`;
+      tests.replaceChildren(...hypothesis.required_tests.map(value => { const li = document.createElement("li"); li.textContent = `Test needed: ${value}`; return li; }));
+      section.append(heading, claim, evidence, alternatives, tests); return section;
+    }));
+    $("muse-questions").replaceChildren(...(advice?.unanswered_questions || []).map(value => { const li = document.createElement("li"); li.textContent = `Still unknown: ${value}`; return li; }));
+    artifactLink("muse-proposal-download", job, "muse/advice/hypotheses.json", !!advice);
+    artifactLink("muse-context-download", job, "muse/advice/context.json", !!job.muse?.receipt);
+    artifactLink("muse-receipt-download", job, "muse/advice/advisor-call.json", !!job.muse?.receipt);
     if (job.plan && $("frame-previews").dataset.job !== job.id) {
       $("frame-previews").dataset.job = job.id;
       $("frame-previews").replaceChildren();
@@ -75,6 +98,8 @@
       $("connection").textContent = "Local portal · connected";
       $("ai-status").textContent = data.credential.configured ? "Project API key configured on the server" : "OpenAI key unavailable on the server";
       $("budget").textContent = data.budget.configured ? `$${data.budget.remaining_usd.toFixed(3)} remaining of $${data.budget.total_usd.toFixed(2)} · ${data.budget.calls} requests · ${data.budget.unsettled_calls} uncertain. Up to $${data.budget.reservation_usd.toFixed(4)} is reserved per request; known unused cost is released.` : "No OpenAI allowance configured. Local mode remains available with an explicit scene type.";
+      museAvailable = !!data.muse?.available;
+      $("muse-budget").textContent = data.muse?.budget_configured ? `Meta / Muse: $${data.muse.remaining_usd.toFixed(3)} remaining of $${data.muse.total_budget_usd.toFixed(2)} · ${data.muse.unsettled_count} uncertain. Estimated reservation $${data.muse.estimated_one_call_usd.toFixed(4)} per review; this is not a provider hard cap.` : "Meta / Muse allowance unavailable. No review will be sent.";
       const signature = JSON.stringify(data.jobs.map(job => [job.id,job.name,job.status,job.stage,selected]));
       if (signature !== lastProjects) {
         lastProjects = signature;
@@ -92,7 +117,7 @@
       if (!selected && data.jobs.length) selected = data.jobs[0].id;
       await show(data.jobs.find(job => job.id === selected));
       $("create").disabled = uploading;
-      const active = data.jobs.some(job => !terminal.has(job.status));
+      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job));
       timer = setTimeout(refresh, active ? 1500 : 12000);
     } catch (e) { error(e.message); $("connection").textContent = "Connection needs attention"; timer = setTimeout(refresh, 12000); }
     finally { pending = false; }
@@ -119,6 +144,16 @@
     try { await request(`/api/projects/${selected}/cancel`, {method:"POST"}); await refresh(); }
     catch (e) { error(e.message); }
     finally { $("cancel").disabled = false; }
+  };
+  $("review-muse").onclick = async () => {
+    if (!selected || reviewing || !museAvailable) return;
+    reviewing = true; $("review-muse").disabled = true;
+    const identity = selected;
+    try {
+      const job = await request(`/api/projects/${identity}/muse`, {method:"POST"});
+      if (selected === identity) await show(job);
+    } catch (e) { error(`${e.message}. Refresh to inspect the saved review; no automatic retry was made.`); }
+    finally { reviewing = false; lastDetail = ""; refresh(); }
   };
   $("refresh").onclick = refresh;
   document.addEventListener("visibilitychange", () => { clearTimeout(timer); if (!document.hidden) refresh(); });

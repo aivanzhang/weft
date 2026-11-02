@@ -1,5 +1,7 @@
 # Meta scene advisor
 
+**Portal integration:** use **Send evidence to Muse for review** on a completed portal project. The [live acceptance](handoffs/portal-muse.md) verifies the real Meta call, visible proposals, separate ledger and unchanged simulation. Suggested tests are not yet automatically executed; no proposal is accepted or applied.
+
 The scene advisor asks Meta's Muse Spark model about **competing physical explanations** for a video: gravity versus camera projection, contact and support, articulated movement, actuator assumptions, and what cannot be inferred about muscles. It produces proposals and suggested tests, not verified physics or automatic simulator changes.
 
 ## What is implemented

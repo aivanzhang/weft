@@ -1,5 +1,7 @@
 # API-backed product portal
 
+**Follow-up:** [Muse physics review is now integrated](portal-muse.md), using the separate existing Meta key/ledger. The acceptance history below describes the earlier OpenAI portal milestone.
+
 ## Direction and ownership
 
 November 2, 2026 (PST): prioritize the user-facing web product over additional
