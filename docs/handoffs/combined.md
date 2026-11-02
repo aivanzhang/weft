@@ -1,5 +1,33 @@
 # Combined Weft implementation handoff
 
+## Reconstructed body in shared physics — November 2, 2026, PST
+
+The exact two-to-four-view reconstructed body can now enter shared-world-v6
+without root-only substitution or refitting. Every contributing camera,
+original parent/audit/settings and source slot survives. New coupling v2 pins
+the reconstruction and preserves legacy v1. Task arithmetic/floor gates stay
+unchanged; new scope labels distinguish reconstructed shape from monocular priors.
+
+**210 distinct Python cases pass.** Actual ASPset shared construction preserves
+all 188 original slots across three views. The assisted 184-step/3.68-second
+authored episode passes the unchanged simulator task: angular RMSE .184786 rad,
+root RMSE .009218 model units, peak floor penetration .001537. It is not learned
+or unassisted balance, equipment/contact validation or a fresh final holdout.
+
+The first 190-action/192-event export hit a 24-compilation study guard during
+repeated validation, after video/seal publication; preserve that failure. A
+separate bounded job exactly replays all old actions without modifying the old
+recording, then creates a new 12-action/14-event export with a complete receipt.
+The lab's 394 run members and ready lifecycle remain unchanged after close.
+Verification takes 6.192 s /241.1 MB; 30 in-process controls have 1.482 ms median,
+not browser performance. All jobs reaped; no paid calls or source inference.
+
+[Handoff, seals, frozen-runtime command and next work](reconstructed-camera-coupling.md).
+Final publication receipt: `.local/reconstructed-camera-publication-01.json`.
+Next: source-world learning/changed-start evaluation and unfamiliar-video
+qualification; keep root assistance and unresolved physical contact explicit.
+Preserve the separate avatar session's dirty files. The combined goal is active.
+
 ## Joint-image trajectory — November 2, 2026, 2:59 AM PST
 
 `camera-body --fit-joint-pixels SETTINGS.json --fit-limbs --partial-segments`

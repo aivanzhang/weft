@@ -1,4 +1,4 @@
-"""Package unchanged two-view camera bodies for shared-world-v6; no simulation run."""
+"""Package unchanged two-to-four-view camera bodies for shared-world-v6; no simulation run."""
 
 from collections import Counter
 from copy import deepcopy
@@ -16,10 +16,11 @@ import time
 
 from weft.camera_ground import validate_ground
 from weft.camera_shared_contract import (
-    CALIBRATION_STATUS, LENGTH_UNIT, MASS_UNIT, build_camera_coupling, validate_camera_coupling,
+    BODY_RUNTIME_FILES, CALIBRATION_STATUS, LENGTH_UNIT, MASS_UNIT, build_camera_coupling, validate_camera_coupling,
 )
 from weft.io import canonical_hash, local_time
-from weft.multiview_pose import CONTRACT as RAY_CONTRACT, _view
+from weft.multiview_pose import CONTRACT as RAY_CONTRACT, MULTI_CONTRACT as MULTI_RAY_CONTRACT, _view
+from weft.multiview_root import METHOD as ROOT_METHOD, MULTI_METHOD as MULTI_ROOT_METHOD
 from weft.observations import adapt_exercise, validate_observations
 from weft.shared_world_evidence import build_shared_world_binding
 from weft.shared_world_packaging import read_package_file, validate_package_layout, write_package_files
@@ -38,7 +39,7 @@ RUNTIME_FILES = (
     "observations.py", "world_evidence.py", "shared_world_evidence.py", "shared_world_packaging.py",
     "source_equivalence.py", "shared_world.py", "shared_world_observation.py", "human.py", "mobile_human.py",
     "spatial_pose.py", "spatial_rigid.py", "body_frame.py", "whole_body.py", "io.py",
-    "multiview_segments.py", "root_motion.py", "errors.py",
+    "multiview_segments.py", "root_motion.py", "errors.py", *BODY_RUNTIME_FILES,
 )
 REQUIRED = (
     "human.json", "evidence.json", "camera.json", "ground.json", "two-view-triangulation.json",
@@ -148,10 +149,12 @@ def _qualified_inputs(inputs, deadline):
     coupling = build_camera_coupling(body)
     binding = body["camera_reference"]
     root, prediction, ground = binding["root_refinement"], data["two-view-triangulation.json"], data["ground.json"]
+    count_views = len(root["views"])
+    ray_contract = MULTI_RAY_CONTRACT if count_views > 2 else RAY_CONTRACT
     validate_ground(ground, binding)
     _require(canonical_hash(ground) == canonical_hash(binding["ground"]), "ground differs from exact body ground")
     _require(prediction.get("schema_version") == 1 and type(prediction.get("schema_version")) is int
-             and canonical_hash(prediction.get("contract")) == canonical_hash(dict(RAY_CONTRACT))
+             and canonical_hash(prediction.get("contract")) == canonical_hash(dict(ray_contract))
              and prediction.get("monocular_world_landmarks_used") is False
              and prediction.get("reference_body_or_contacts_used") is False
              and prediction.get("physical_validation") == "unverified"
@@ -160,7 +163,9 @@ def _qualified_inputs(inputs, deadline):
              "saved triangulation differs from the original two-view body binding")
     report = data["two-view-root.json"]
     _require(report.get("binding") == root and report.get("source_frames") == root["source_frames"]
-             and report.get("method") == binding["method"], "root report differs from the exact body")
+             and report.get("method") == (MULTI_ROOT_METHOD if count_views > 2 else ROOT_METHOD),
+             "root report differs from the exact body")
+    _geometry_inputs(data, binding)
     count, rows = root["source_frames"], prediction.get("frames")
     _require(type(rows) is list and len(rows) == count and prediction.get("joint_slots") == 33 * count,
              "triangulation must retain every original source slot")
@@ -171,8 +176,15 @@ def _qualified_inputs(inputs, deadline):
              and config.get("world_provenance") == root["world_provenance"]
              and config.get("clock_provenance") == root["views"][0]["clock_provenance"],
              "two-view config must preserve original identities and assumed alignment")
-    evidence_names = ("evidence.json", "inputs/two-view-root/evidence.json")
-    camera_names = ("camera.json", "inputs/two-view-root/camera.json")
+    prefixes = ["", "inputs/two-view-root/", *[f"inputs/two-view-root/extra-{i}/" for i in range(count_views - 2)]]
+    evidence_names = [prefix + "evidence.json" for prefix in prefixes]
+    camera_names = [prefix + "camera.json" for prefix in prefixes]
+    for index, prefix in enumerate(prefixes[2:], 2):
+        extra = data[prefix + "config.json"]
+        _require(type(extra.get("schema_version")) is int and extra["schema_version"] == 1
+                 and extra.get("name") == root["views"][index]["name"]
+                 and extra.get("clock_provenance") == root["views"][index]["clock_provenance"],
+                 "additional-view config differs from original identity or clock")
     poses, views = [], []
     for view, ename, cname in zip(root["views"], evidence_names, camera_names, strict=True):
         evidence, camera = data[ename], data[cname]
@@ -223,6 +235,47 @@ def _qualified_inputs(inputs, deadline):
     return body, coupling, data["evidence.json"], views, source_slots
 
 
+def _extension_members(body):
+    binding = body.get("camera_reference", {})
+    views = binding.get("root_refinement", {}).get("views", [])
+    _require(type(views) is list and 2 <= len(views) <= 4, "camera body requires two to four pinned views")
+    names = [f"inputs/two-view-root/extra-{i}/{name}.json"
+             for i in range(len(views) - 2) for name in ("camera", "evidence", "config")]
+    refinement = binding.get("body_refinement")
+    if refinement is not None:
+        _require(type(refinement) is dict, "body refinement must remain an object")
+        names.extend(("inputs/two-view-root-body.json", "two-view-body.json"))
+        if "partial_pixel_uncertainty" in refinement:
+            names.append("partial-pixel-uncertainty.json")
+        if "joint_pixel_fit" in refinement:
+            names.append("joint-pixel-uncertainty.json")
+    return names
+
+
+def _geometry_inputs(data, binding):
+    refinement = binding.get("body_refinement")
+    if refinement is None:
+        return
+    parent, audit = data["inputs/two-view-root-body.json"], data["two-view-body.json"]
+    _require(canonical_hash(parent) == refinement["input_body_sha256"]
+             and parent == refinement["input_body"], "saved original body differs from reconstruction parent")
+    _require(canonical_hash(audit) == refinement["audit_sha256"]
+             and audit.get("input_body_sha256") == refinement["input_body_sha256"]
+             and audit.get("triangulation_sha256") == refinement["triangulation_sha256"]
+             and audit.get("mode") == refinement["mode"]
+             and audit.get("contract", {}).get("method") == binding["method"]
+             and audit.get("physical_validation") == "unverified"
+             and audit.get("root_and_ground_unchanged") is True,
+             "saved body reconstruction audit differs from its exact source and method")
+    settings = []
+    if "partial_pixel_uncertainty" in refinement:
+        settings.append(("partial-pixel-uncertainty.json", refinement["partial_pixel_uncertainty"]))
+    if "joint_pixel_fit" in refinement:
+        settings.append(("joint-pixel-uncertainty.json", refinement["joint_pixel_fit"]["uncertainty"]))
+    for name, expected in settings:
+        _require(canonical_hash(data[name]) == canonical_hash(expected), "explicit image-fit uncertainty changed")
+
+
 def _observations(evidence, evidence_raw):
     document = adapt_exercise(evidence)
     # Pose interchange's generic fixed-camera prior is not evidence for these moving-camera sources.
@@ -250,7 +303,9 @@ def _scene(body, coupling, source_binding):
                   "orientation": "quaternion_wxyz", "angular_velocity": "world_radians_per_second"},
         "scale_bridge": {"body_height_to_world_scale": 1.0, "origin_world": [0.0, 0.0, 0.0],
                          "method": "Exact camera world-to-local transform; no outer placement",
-                         "uncertainty_note": "Supplied camera/ground priors; unchanged monocular shape and authored masses, not measured anatomy"},
+                         "uncertainty_note": ("Supplied camera/ground priors; unchanged inferred shape and authored masses, not measured anatomy"
+                                              if "body_reconstruction" in coupling else
+                                              "Supplied camera/ground priors; unchanged monocular shape and authored masses, not measured anatomy")},
         "clock_binding": {"control_dt_s": dt, "physics_substeps": substeps,
                           "source_fps": coupling["clock"]["source_fps"],
                           "source_time_offset_s": coupling["clock"]["source_time_offset_s"],
@@ -359,14 +414,19 @@ def prepare_camera_shared_candidate(source_run, out, *, max_seconds=MAX_SECONDS)
         _write(target, runtime, pins, sizes, deadline)
         inputs, selected, json_bytes = {}, {}, 0
         stage = "source_custody"
-        for name in REQUIRED:
+        required = list(REQUIRED)
+        for name in required:
             _check(deadline)
+            _require(name in source_pins, f"sealed reconstruction member missing: {name}")
             raw = read_package_file(source, name, max_bytes=min(MAX_MEMBER_BYTES, MAX_JSON_BYTES - json_bytes),
                                     expected_sha256=source_pins[name])
             json_bytes += len(raw)
             inputs[name] = raw
             selected[name] = {"sha256": source_pins[name], "bytes": len(raw),
                               "candidate_member": "source-run/" + name if name in ("scene.json", "task.json") else name}
+            if name == "human.json":
+                required.extend(_extension_members(_json(raw)))
+        _require(all(name in inputs for name in required), "reconstruction source members are missing")
         body, coupling, evidence, views, slots = _qualified_inputs(inputs, deadline)
         source_data = _json(inputs["source.json"])
         media = source_data.get("artifact")
@@ -400,6 +460,14 @@ def prepare_camera_shared_candidate(source_run, out, *, max_seconds=MAX_SECONDS)
             "time": {"nominal_basis": "frame_index_divided_by_fps", "nominal_status": "assumed",
                      "native_timestamps": "retained_exactly_for_sampled_rows; unsampled_unknown", "cross_view_alignment": "supplied_unverified"},
             "independent_physical_validation": False}
+        if len(views) > 2 or "body_refinement" in body["camera_reference"]:
+            qualification["additional_view_custody"] = [
+                {"source_sha256": view["source_sha256"], "media": "unavailable", "rights": "unavailable",
+                 "available": [f"inputs/two-view-root/extra-{i}/{name}.json" for name in ("evidence", "camera", "config")]}
+                for i, view in enumerate(views[2:])]
+            qualification["body_reconstruction"] = {"method": body["camera_reference"]["method"],
+                "exact_body_preserved": True, "construction_rerun": False,
+                "retained_members": _extension_members(body), "physical_accuracy": "unverified"}
         summary = {"schema_version": 1, "profile": PROFILE, "status": "constructed", "created_at": local_time(),
             "source_manifest_sha256": sha256(manifest_raw).hexdigest(), "source_sha256": body["source_sha256"],
             "human_bytes_sha256": source_pins["human.json"], "human_sha256": canonical_hash(body),

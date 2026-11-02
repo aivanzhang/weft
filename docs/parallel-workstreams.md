@@ -58,6 +58,19 @@ Integration corrections for B's current note: rigid distances use **`scene_width
 
 ## File ownership
 
+### Integrated camera-body extension — November 2, 2026
+
+The combined-track integrator extends existing shared-world-v6 admission with
+`camera-shared-coupling-v2` for existing validated multi-view root/body methods.
+The original two-view-root coupling v1 remains unchanged. The same body, source
+clock, cameras, original parent, construction audit and fit settings are pinned;
+no scorer, floor gate, force or geometry is modified by import. Shared-lab
+runtime snapshots add the reconstructed-body validator dependencies. Existing
+saved labs retain their original runtime; new import is opt-in. Qualification
+covers two/three/four views, input tampering, missing observations, native
+parameters/geometry, floor rejection and exact recording/replay. Root owns
+both sides of this interface. [Results and remaining work](handoffs/reconstructed-camera-coupling.md).
+
 ### A: exclusive implementation area
 
 `src/weft/*vision.py`, `observations.py`, `segmentation_evidence.py`, `segmentation_masks.py`, `segmentation_observations.py`, `surface_features.py`, `feature_tracks.py`, `regional_features.py`, `joint_tracking.py`, `pose_*`, camera/triangulation/correspondence modules, and source-derived reconstruction/fit studies. Corresponding source-label metadata, focused tests and study docs belong to A.

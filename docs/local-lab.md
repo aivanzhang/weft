@@ -541,14 +541,15 @@ existing playable video example. [Evidence and remaining reconstruction gap](han
 
 ## Import a camera-based body (experimental)
 
-For an existing sealed two-view body with supplied ground:
+For an existing sealed two-to-four-view body with supplied ground:
 
 ```sh
 .venv-lab/bin/python -m weft camera-shared-build \
   --run path/to/sealed-camera-body/run --out artifacts/my-camera-world
 ```
 
-This preserves the body, both camera/evidence documents and original video timing.
+This preserves the exact root-only or reconstructed body, every contributing
+camera/evidence document, the construction audit and original video timing.
 It writes `scene.json`, `camera-coupling.json`, `source-verification.json` and exact
 input copies. `manifest.json` records whether construction succeeded. Each output
 must be new. This importer does not accept arbitrary raw video. To make its
@@ -567,6 +568,23 @@ unassisted balance. In the console, use `controls`, `record start`, `mode refere
 `step 6`, `reset 29`, `record stop` and `quit`. To inspect the graphical lab,
 run `lab --resume` instead of `lab-console --resume`, then open the printed local
 address yourself.
+
+The newer three-camera reconstructed-body example is ready for full-body
+interaction, programmed-reference control and recording:
+
+```sh
+PYTHONPATH="$PWD/.local/reconstructed-camera-source-01/runtime/src" \
+  .venv-lab/bin/python -B -P -m weft lab-console \
+  --resume artifacts/reconstructed-camera-source-01/lab
+```
+
+It explicitly enables three virtual body-position forces alongside 19 joint
+motors. Its full 184-step programmed episode passes the original simulated
+tracking gates; 190 recorded actions replay exactly. A separate 12-action
+recording has a complete export/replay receipt. **No learned policy, unassisted
+balance, recovered equipment or physical contact accuracy is claimed.** The
+first export guard failure is preserved; reconstruction was not repeated.
+[Exact evidence, limits and next work](handoffs/reconstructed-camera-coupling.md).
 
 The saved jogging candidate is already available at
 `artifacts/camera-shared-admission-jog-01/candidate`; do not rebuild it merely to

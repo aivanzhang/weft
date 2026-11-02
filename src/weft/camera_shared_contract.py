@@ -1,4 +1,4 @@
-"""Pure admission bindings for unchanged grounded two-view bodies in one shared world.
+"""Admission bindings for unchanged grounded camera bodies in one shared world.
 
 This validates custody and coordinates, not anatomy, physics or task success. The
 caller still validates the full human model and ordinary shared-world schema.
@@ -10,10 +10,16 @@ import time
 
 from weft.camera_body import ROOT_LIMIT, validate_camera_binding
 from weft.io import canonical_hash
-from weft.multiview_root import METHOD, shape_hash
+from weft.multiview_root import METHOD, METHODS as ROOT_METHODS, shape_hash
+from weft.multiview_body import METHODS as BODY_METHODS
 
 
 PROFILE = "camera-shared-coupling-v1"
+RECONSTRUCTED_PROFILE = "camera-shared-coupling-v2"
+BODY_RUNTIME_FILES = (
+    "limb_position_fit.py", "constrained_stereo.py", "distal_pixel_fit.py", "multiview_distal_pixels.py",
+    "distal_depth_branches.py", "multiview_depth_branches.py", "joint_pixel_trajectory.py", "multiview_joint_pixels.py",
+)
 SOURCE_CLOCK_PROFILE = "camera-shared-source-clock-v1"
 LENGTH_UNIT = "supplied_camera_metre_prior"
 MASS_UNIT = "authored_body_mass_prior"
@@ -124,8 +130,10 @@ def _prepare_body(body, deadline):
             or type(body.get("schema_version")) is not int or body["schema_version"] != 3):
         raise ValueError("Camera coupling requires an original exercise-v3/schema3 body")
     binding = body.get("camera_reference")
-    if type(binding) is not dict or binding.get("method") != METHOD or type(binding.get("ground")) is not dict:
-        raise ValueError("Camera coupling supports only grounded two-view-root-body-v1 bodies")
+    if (type(binding) is not dict or binding.get("method") not in (*ROOT_METHODS, *BODY_METHODS)
+            or type(binding.get("ground")) is not dict
+            or binding.get("method") in BODY_METHODS and type(binding.get("body_refinement")) is not dict):
+        raise ValueError("Camera coupling requires grounded two-view/multi-view root or reconstructed bodies")
     refinement = binding.get("root_refinement")
     if (type(refinement) is not dict or type(refinement.get("source_frames")) is not int
             or not 2 <= refinement["source_frames"] <= MAX_SOURCE_FRAMES):
@@ -147,7 +155,7 @@ def _prepare_body(body, deadline):
     if (type(mobility) is not dict or not _number(mobility.get("base_height"))
             or not .01 <= mobility["base_height"] <= 5.0):
         raise ValueError("Camera body root must remain 0.01–5 units above supplied ground")
-    # This dispatch reuses the root and ground validators without entering body reconstruction.
+    # Validate the complete constructor chain; never rerun a fit or replace it with its root-only parent.
     try:
         validate_camera_binding(body)
     except (KeyError, TypeError, IndexError, OverflowError) as exc:
@@ -193,6 +201,12 @@ def _coupling(body, binding, refinement, rows, deadline):
                         "body_mass": "unchanged_authored_model", "anatomy": "not_independently_measured", "support": "unscored"},
         "runtime_bounds": {"root_abs_max": ROOT_ABS_MAX, "segment_contact_abs_max": SEGMENT_CONTACT_ABS_MAX},
     }
+    if binding["method"] != METHOD:
+        value["profile"] = RECONSTRUCTED_PROFILE
+        value["body_reconstruction"] = {"method": binding["method"], "view_count": len(refinement["views"]),
+            "body_refinement_sha256": canonical_hash(binding["body_refinement"]) if "body_refinement" in binding else None}
+        if "body_refinement" in binding:
+            value["assumptions"]["body_shape"] = "unchanged_reconstructed_estimate_with_explicit_monocular_priors"
     _check_time(deadline)
     return value
 

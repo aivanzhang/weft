@@ -90,9 +90,12 @@ def _envelope(scene, root_assistance):
     coupling = scene["camera_coupling"]
     interval = {key: scene["task"][key] for key in ("start_offset_s", "horizon_steps")}
     control = {"root_assistance": "explicit_3_axis" if root_assistance else "disabled", "object_forces": "forbidden"}
+    scope = dict(SCOPE)
+    if "body_refinement" in scene["human_spec"]["camera_reference"]:
+        scope["body_scale"] = "supplied_camera_scale_unchanged_reconstructed_shape_with_explicit_priors"
     # These selector arguments lack legacy task identity/gates and are never legacy-validated.
     arguments = {"profile": kernel.HUMAN_ONLY_TASK_PROFILE, "interval": deepcopy(interval),
-                 "control": dict(control), "equipment_ids": [], "contact_requirements": [], "source_scope": dict(SCOPE)}
+                 "control": dict(control), "equipment_ids": [], "contact_requirements": [], "source_scope": scope}
     context = {"schema_version": 1, "profile": CONTEXT_PROFILE, "scene_sha256": scene_sha,
                "kernel": "weft.shared_exercise_task._ExerciseMetrics", "kernel_branch": kernel.HUMAN_ONLY_TASK_PROFILE,
                "valid_legacy_task": False, "projection": "identity_22_motor_samples_without_equipment",
@@ -108,7 +111,7 @@ def _envelope(scene, root_assistance):
         "adapter_implementation_sha256": implementation["files"]["camera_shared_task.py"],
         "evaluator_sha256": implementation["sha256"],
         "gate_profile": kernel.GATE_PROFILE, "gates_sha256": kernel.GATES_SHA256,
-        "interval": interval, "control": control, "scope": dict(SCOPE),
+        "interval": interval, "control": control, "scope": scope,
     }
 
 

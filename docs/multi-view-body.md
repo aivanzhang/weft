@@ -410,3 +410,13 @@ the completed run and lifecycle stay unchanged after close. Construction took
 2.458 s /159.9 MB peak RSS; interaction/export/replay 1.092 s /164.2 MB.
 These are local pipeline measurements, not browser responsiveness. No new
 source-video decode, inference or paid call was used.
+
+### Use full-body controls
+
+The exact reconstructed body also works in the
+[shared physics/RL lab](local-lab.md#import-a-camera-based-body-experimental),
+with 19 joint motors and explicitly enabled body-position assistance. Its
+184-step programmed-reference episode passes the unchanged simulator task;
+190 recorded actions replay exactly. This is a separate optional lab, not a
+learned policy or validated real-world contact. All three cameras, original
+body estimates, uncertainties and source slots remain preserved.

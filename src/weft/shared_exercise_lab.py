@@ -64,6 +64,9 @@ def _validate_task(task, scene):
 def runtime_files(scene):
     """Extra evaluator dependencies are pinned only for the profiles that execute them."""
     if scene["profile"] == CAMERA_PROFILE:
+        if "body_reconstruction" in scene["camera_coupling"]:
+            from weft.camera_shared_contract import BODY_RUNTIME_FILES
+            return (*RUNTIME_FILES, *CAMERA_RUNTIME_FILES, *BODY_RUNTIME_FILES)
         return (*RUNTIME_FILES, *CAMERA_RUNTIME_FILES)
     if scene["profile"] == FEET_PROFILE:
         inventory = ("person_inventory.py",) if _base_profile(scene) == HUMAN_ONLY_PROFILE else ()
@@ -624,7 +627,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
              or base_profile == HUMAN_ONLY_PROFILE and name in {"inventory.json", "source-clock.json"}
              or base_profile == STATIC_SUPPORT_PROFILE and name in {"support-config.json", "source-clock.json"}
              or base_profile == CAMERA_PROFILE and name in {"camera-coupling.json", "camera.json", "ground.json",
-                 "ground-clearance.json", "two-view-triangulation.json", "camera-provenance.json"}
+                 "ground-clearance.json", "two-view-triangulation.json", "camera-provenance.json", "two-view-body.json",
+                 "partial-pixel-uncertainty.json", "joint-pixel-uncertainty.json"}
              or feet and name in {"foot-reference.json", "feet-migration.json"}}
     if feet:
         views["foot-reference.json"] = scene["foot_extension"]["reference_json"].encode("utf-8")
