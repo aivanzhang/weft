@@ -1,0 +1,31 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "61a7b931ffa756920071db1cd5bc141a2d2b36b3e1b4fc04fbb335d3cb3ff8b4"
+    },
+    {
+      "bytes": 374,
+      "path": "completion.json",
+      "sha256": "a208b5aa46d878d1dee2ffdfd2423e20acf205ba213cc6654439a81557452764"
+    },
+    {
+      "bytes": 121,
+      "path": "native-failure.json",
+      "sha256": "aa8601860bf0a785c21fab876ad2d02f39f1a3b4473706a79fe584f02962fb93"
+    },
+    {
+      "bytes": 131,
+      "path": "runtime.json",
+      "sha256": "457b01545d34a9f0a81be80ab952b6191b1be06f4bee6893b14547b460e81f52"
+    }
+  ],
+  "preparation": "outputs/fox-fringe-component-preparation-v1",
+  "prepared_sha256": "ad06cbf248bd64f23a5bce4db844c6fff66b85913fff8a5d9729a5373076fc39",
+  "provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+  "status": "failure_preserved_no_retry"
+}

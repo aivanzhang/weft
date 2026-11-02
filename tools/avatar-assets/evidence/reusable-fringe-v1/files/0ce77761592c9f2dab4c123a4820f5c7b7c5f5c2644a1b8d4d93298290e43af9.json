@@ -1,0 +1,102 @@
+{
+  "acceptance": false,
+  "exported_vertices": 1433,
+  "matching_without_normals": {
+    "complete": true,
+    "maximum_selected_errors": {
+      "dense_weights": 0.0,
+      "positions": 0.0,
+      "uv": 0.0
+    },
+    "oriented_triangle_multiset_equal": true,
+    "source": {
+      "ambiguous_vertices": 0,
+      "candidate_count_histogram": {
+        "1": 1433
+      },
+      "first_missing": [],
+      "missing_count": 0
+    },
+    "source_attribute_groups_covered": true,
+    "target": {
+      "ambiguous_vertices": 0,
+      "candidate_count_histogram": {
+        "1": 1433
+      },
+      "first_missing": [],
+      "missing_count": 0
+    },
+    "thresholds": {
+      "dense_weights": 1e-06,
+      "positions": 1e-06,
+      "uv": 2e-06
+    }
+  },
+  "material": "scarf",
+  "normal_comparison": {
+    "ambiguous_matches_with_different_source_normals": 0,
+    "maximum_angular_error_degrees": 0.018104309782152876,
+    "maximum_component_error": 0.00030237436294555664,
+    "maximum_source_normal_ambiguity_component_spread": 0.0,
+    "original_component_limit": 0.0002,
+    "over_original_limit": 3,
+    "p99_component_error": 9.972229599952698e-05,
+    "policy": "Normal is excluded from correspondence. Report closest candidate normal as a lower bound where position/UV/weight aliases are ambiguous.",
+    "samples": 1433,
+    "worst_violations": [
+      {
+        "angular_error_degrees": 0.018104309782152876,
+        "closest_source_vertex": 1380,
+        "component_error": 0.00030237436294555664,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          -0.19920089840888977,
+          -0.7183032035827637,
+          -0.6666029691696167
+        ],
+        "target_normal": [
+          -0.19950327277183533,
+          -0.718211829662323,
+          -0.6666109561920166
+        ],
+        "target_vertex": 1380
+      },
+      {
+        "angular_error_degrees": 0.01702888465976375,
+        "closest_source_vertex": 9,
+        "component_error": 0.00029075145721435547,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          0.8232424855232239,
+          -0.0854044109582901,
+          0.5612289905548096
+        ],
+        "target_normal": [
+          0.8232535719871521,
+          -0.08569516241550446,
+          0.561168372631073
+        ],
+        "target_vertex": 9
+      },
+      {
+        "angular_error_degrees": 0.01702888465976375,
+        "closest_source_vertex": 553,
+        "component_error": 0.00029075145721435547,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          0.8232424855232239,
+          0.0854044109582901,
+          -0.5612289905548096
+        ],
+        "target_normal": [
+          0.8232535719871521,
+          0.08569516241550446,
+          -0.561168372631073
+        ],
+        "target_vertex": 553
+      }
+    ]
+  },
+  "reference_kind": "original_GLB_base",
+  "source_vertices": 1433
+}

@@ -24,6 +24,8 @@ For a furry character, read [fur workflow](../../docs/fur-workflow.md). Separate
 
 For optional short-pile lighting detail, read [adaptive undercoat](../../docs/adaptive-undercoat.md). Its measured UV routing preserves color coordinates; normal textures and exported tangent frames must share the current saved bake policy. Rebuild both after a policy change, preserve raw exports, and never treat this technical component as dense fur, geometry repair, Muse parity or Weft compatibility. Native and independently loaded appearance still require review; the tested panda component is not promoted.
 
+Do not choose `portable_fringe`: real panda/fox exports failed normal/weight fidelity, and panda native poses exceeded memory bounds. Execution now returns unsupported before native work. Read [portable edge fringe](../../docs/portable-fringe.md) before further development; preserve failures and do not weaken gates or raise limits to enable it. Its generic helper arrays and small native fixture pass, not full avatars. Existing combed cards remain the default; none of this establishes dense fur, Muse parity or fresh Studio acceptance.
+
 For exported GLB review, use the bounded EEVEE path and read [renderer semantics](../../docs/exported-preview-renderer.md). The measured Cycles control ignored single-sided culling and altered authored normals; native hair/portrait rendering remains separate. Missing EEVEE or sample controls must fail explicitly, not silently fall back. Compare changes under the same renderer. A correct LOD0 color sample does not prove correct small-scale texture filtering; keep experimental fur variants unpromoted until their actual display-size appearance passes.
 
 ## Authorized neural generation

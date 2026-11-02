@@ -1,0 +1,29 @@
+{
+  "primitives": [
+    {
+      "corners": 960,
+      "material": {
+        "alphaCutoff": 0.18000000715255737,
+        "alphaMode": "MASK",
+        "name": "SourceColoredFringe",
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 2
+          },
+          "metallicFactor": 0,
+          "roughnessFactor": 0.9200000166893005
+        }
+      },
+      "mesh": 1,
+      "primitive": 0,
+      "tangent_accessor": 17,
+      "zero_xyz_tangents": 151
+    }
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "scope": "Read-only metadata/attribute observation of preserved raw native v3; no derivative or native rerun here.",
+  "source_manifest_sha256": "57f9cd84c9688b35192ae3db665d63dd7b4ba6218bc8f7d679f07c5ddf9285fa",
+  "source_path": "outputs/fringe-native-adapter-fixture-v3/model.glb",
+  "source_sha256": "c04f9db97693e070c28f4d0feb9011a15d05756f5b9365c8710576145c44de6e"
+}

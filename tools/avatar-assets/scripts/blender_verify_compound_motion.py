@@ -291,7 +291,8 @@ def audit(blend_path, config_path, report_path, finish_report_path=None):
         counts = material_coverage[regions[owner]['name']]
         counts[name] = counts.get(name, 0)+1
     margin = max(config.get('groom', {}).get('length', 0)*3,
-                 config.get('portable_fur', {}).get('settings', {}).get('length', 0))
+                 config.get('portable_fur', {}).get('settings', {}).get('length', 0),
+                 config.get('portable_fringe', {}).get('settings', {}).get('length_m', 0))
     camera_inverse = np.asarray(camera.matrix_world.inverted())
     camera_frame = np.asarray([tuple(point) for point in camera.data.view_frame(scene=scene)])
     camera_matrix = np.asarray(camera.matrix_world).copy()

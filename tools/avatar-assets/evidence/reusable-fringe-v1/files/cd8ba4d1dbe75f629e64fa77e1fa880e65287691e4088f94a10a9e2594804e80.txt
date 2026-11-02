@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-native-adapter-fixture-v3-final-v1/derive.py", line 157, in <module>
+    work()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-native-adapter-fixture-v3-final-v1/derive.py", line 126, in work
+    verify(OUT, SOURCE)
+    ~~~~~~^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-native-adapter-fixture-v3-final-v1/verify.py", line 209, in verify
+    check(times[0] <= seconds <= times[-1], 'STEP sample outside track')
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-native-adapter-fixture-v3-final-v1/verify.py", line 16, in check
+    raise ValueError(message)
+ValueError: STEP sample outside track

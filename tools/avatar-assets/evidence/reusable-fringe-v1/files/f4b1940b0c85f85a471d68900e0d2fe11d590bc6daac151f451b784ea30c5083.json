@@ -1,0 +1,98 @@
+{
+  "attachments": [],
+  "authored_assumptions": [
+    "Synthetic component fixture; no avatar, physical simulation or Weft mapping."
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "Root": "Root",
+    "Tip": "Tip"
+  },
+  "bones": [
+    "Tip",
+    "Root"
+  ],
+  "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+  "limits": {
+    "accessor_values": 2000000,
+    "file_bytes": 67108864,
+    "motion_probe_vertices": 128,
+    "nodes": 256,
+    "triangle_index_elements_per_accessor": 300000,
+    "vertices": 100000
+  },
+  "loading_verified": true,
+  "material_count": 3,
+  "mesh_vertices": 1142,
+  "motion": {
+    "animation_verified": true,
+    "animations": [
+      {
+        "loop": "not_claimed",
+        "max_sampled_displacement_m": 0.06459573262257884,
+        "motion_observed": true,
+        "name": "analytic_bend",
+        "sample_count": 35,
+        "sample_times_seconds": [
+          0.0416666679084301,
+          0.06250000186264515,
+          0.1041666679084301,
+          0.125,
+          0.1666666716337204,
+          0.1875,
+          0.2083333283662796,
+          0.25,
+          0.2708333283662796,
+          0.3125,
+          0.3333333432674408,
+          0.375,
+          0.3958333283662796,
+          0.4166666567325592,
+          0.4583333432674408,
+          0.4791666716337204,
+          0.5208333432674408,
+          0.5416666865348816,
+          0.5625,
+          0.6041666567325592,
+          0.625,
+          0.6666666865348816,
+          0.6875,
+          0.7083333134651184,
+          0.75,
+          0.7708333432674408,
+          0.8125,
+          0.8333333134651184,
+          0.875,
+          0.8958333432674408,
+          0.9166666865348816,
+          0.9583333134651184,
+          0.9791666567325592,
+          1.0208333134651184,
+          1.0416666269302368
+        ]
+      }
+    ],
+    "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+    "probe_vertices": 101
+  },
+  "primitive_count": 3,
+  "rest_pose": "Analytic curved panel with two straight +Y bones; no recovered anatomy.",
+  "schema_version": 1,
+  "sha256": "e74b05c20b80427934de5c519da13ee82c6800e62231fba591c6f9c082037a5f",
+  "skeleton_roots": [
+    {
+      "name": "Root",
+      "node": 1,
+      "source": "derived_common_ancestor"
+    }
+  ],
+  "skin_count": 1,
+  "status": "validated_local_structure",
+  "units": "meters",
+  "visual_review": "required; materials/textures are not rendered by this validator",
+  "weft_runtime_verified": false
+}

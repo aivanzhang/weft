@@ -1,0 +1,203 @@
+{
+  "audit_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v1/audit_export.py"
+  ],
+  "blender": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "files": [
+    {
+      "bytes": 4671,
+      "path": "config.json",
+      "sha256": "2a0e9803c66b6e10e3ceb6f5d60ce69a6b04ca375614c30e6aad5a649c87df03"
+    },
+    {
+      "bytes": 2031,
+      "path": "baseline-proof.json",
+      "sha256": "8e650dc1d7a22bcec7c9174443eb6c966860a7ace203f1b4a50b7b3f512942ba"
+    },
+    {
+      "bytes": 27708644,
+      "path": "inputs/base-no-legacy-cards.glb",
+      "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+    },
+    {
+      "bytes": 4713,
+      "path": "prepare_baseline.py",
+      "sha256": "365f243464ced62cdb26ec1462ad99e6ffbdd2ad240695a0a60dbb44ecdc31be"
+    },
+    {
+      "bytes": 10366,
+      "path": "build_component.py",
+      "sha256": "405144a736348f6f215e628f486bff4b62c55bae6317bc4ac0c29707f80102b7"
+    },
+    {
+      "bytes": 15918,
+      "path": "audit_export.py",
+      "sha256": "852a4966d8d872db6c5c2e15432cc9765ebfead3a5f001f5661b875387e9f47a"
+    },
+    {
+      "bytes": 3132,
+      "path": "postprocess_export.py",
+      "sha256": "8400af8a7604436a069fde6fca75ccdb66a29db56899a9d8f2c4477202d13473"
+    },
+    {
+      "bytes": 4826,
+      "path": "execute.py",
+      "sha256": "dc07ed5c203152048d65b63065caf7028f00c344afa1113e1b8cd423b21f64db"
+    },
+    {
+      "bytes": 3412,
+      "path": "source-freeze.json",
+      "sha256": "3f056030ced74c01aa7e747a42b1247a5eada3f0e619b0f86844f59ada0dd0f0"
+    },
+    {
+      "bytes": 912,
+      "path": "syntax-check-v2.json",
+      "sha256": "e871413f5fbb4b7859a2c984d04a50cba4d2438ebe634e394b486740182426a9"
+    },
+    {
+      "bytes": 13511,
+      "path": "sources/scripts/blender_edge_fringe.py",
+      "sha256": "9dc57f6b8fb7c75828a642bec3d0eabfa219964c4569b635b2d2f7b6296b0e4f"
+    },
+    {
+      "bytes": 17397,
+      "path": "sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "path": "sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 50399,
+      "path": "sources/scripts/blender_finish_generated.py",
+      "sha256": "b2fbd0d2d66f42a02531676dd2e7cd53b20e3ab46e7b210cba62ac87a88596d4"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 4687,
+      "path": "sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/host/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 13676,
+      "path": "sources/host/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    }
+  ],
+  "inputs": [
+    {
+      "bytes": 27709020,
+      "path": "outputs/fox-hd-build-v2/model.glb",
+      "sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78"
+    },
+    {
+      "bytes": 6847,
+      "path": "outputs/fringe-integration-review-v1/fox-census.json",
+      "sha256": "0a08412c5e62825c27adbd565dbad32d401b891d2e75a183a387dc659bf20a95"
+    },
+    {
+      "bytes": 170381,
+      "path": "outputs/fox-hd-build-v2/manifest.json",
+      "sha256": "29c9673ec2ccb51428c2a8e2595cfe6e861a66792e9657c7eb8c4cb83662a3be"
+    },
+    {
+      "bytes": 5231,
+      "path": "outputs/fox-hd-build-v2/rig-contract.json",
+      "sha256": "0531418eaa7462238097e51ce121dd2b94f2b990fd6159f77f7518059e0f0b7a"
+    }
+  ],
+  "limits": {
+    "audit": {
+      "memory_mib": 512,
+      "output_mib": 8,
+      "seconds": 60
+    },
+    "native": {
+      "attempts": 1,
+      "memory_mib": 2048,
+      "output_mib": 128,
+      "seconds": 120,
+      "threads": 4
+    },
+    "postprocess": {
+      "aggregate_output_mib": 128,
+      "memory_mib": 512,
+      "seconds": 30
+    }
+  },
+  "native_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v1/build_component.py"
+  ],
+  "new_paid_cost_usd": 0,
+  "new_provider_or_ai_role_calls": 0,
+  "numpy": "2.5.4",
+  "postprocess_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v1/postprocess_export.py"
+  ],
+  "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "python_executable_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634",
+  "quality_approved": false,
+  "required_release": "A new native-release.json must name this prepared.json SHA and status root_released_single_native_component; root has not released the native lane.",
+  "schema_version": 1,
+  "status": "source_frozen_native_held"
+}

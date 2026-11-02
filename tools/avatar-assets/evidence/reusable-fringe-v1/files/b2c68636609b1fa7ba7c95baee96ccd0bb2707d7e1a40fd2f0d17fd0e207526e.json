@@ -1,0 +1,516 @@
+{
+  "cards": 3600,
+  "vertices": 43200,
+  "native_topology": "Independent triangle corners; exact helper positions/normals/UVs/skin duplicated",
+  "geometry_profile": "edge-fringe-v1",
+  "sample_root_color": true,
+  "material": {
+    "material": "SourceColoredFringe",
+    "profile": "edge-fringe-v1",
+    "path": "textures/portable-fringe-color-atlas.png",
+    "dimensions": [
+      4096,
+      1824
+    ],
+    "sha256": "c8ae03507b2d96f101986b25108412e56e5f0fadbb13918b3afd61add3e1fcda",
+    "alpha_mode": "MASK",
+    "alpha_cutoff": 0.18,
+    "double_sided": false,
+    "metallic": 0,
+    "roughness": 0.92,
+    "vertex_color_multiplier": false
+  },
+  "geometry": {
+    "profile": "edge-fringe-source-surface-v1",
+    "settings": {
+      "comb": 0.15,
+      "length_m": 0.008,
+      "max_edge_m": 0.02,
+      "max_fins": 3600,
+      "min_edge_m": 0.0085,
+      "min_fins": 2400,
+      "min_spacing_m": 0.003,
+      "seed": 7123
+    },
+    "source_vertices": 51055,
+    "source_faces": 62581,
+    "selected_fins": 3600,
+    "geometric_vertices": 14400,
+    "triangles": 14400,
+    "export_budget": {
+      "source_export_vertices": 51055,
+      "source_export_triangles": 62581,
+      "max_fins": 3600,
+      "worst_exported_fin_corners": 43200,
+      "reserve_vertices": 4096,
+      "projected_vertices": 98351,
+      "projected_triangles": 76981,
+      "vertex_limit": 100000,
+      "triangle_limit": 100000
+    },
+    "unshared_boundary_edges": 33621,
+    "nonmanifold_edges": 0,
+    "coincident_shared_edge_aliases": 9,
+    "exclusions": {
+      "coincident_edge_alias": 9,
+      "edge_span": 21625,
+      "incoherent_normals": 2,
+      "non_fur": 35680
+    },
+    "eligible_edges": 19745,
+    "examined_candidates": 3614,
+    "candidate_scan_cap": 32000,
+    "spacing_rejected": 14,
+    "min_outward_dot": 0.9847835588179364,
+    "elapsed_seconds": 0.13400950003415346,
+    "camera_billboarding": false,
+    "source_modified": false,
+    "material_requirement": {
+      "alphaMode": "MASK",
+      "alphaCutoff": 0.18,
+      "doubleSided": false
+    },
+    "normal_policy": "Normalized source endpoint normals repeated at corresponding tips; not fin-plane normals",
+    "quality_approved": false,
+    "allocation": {
+      "policy": "eligible-face-area-share-seeded-exponential-v1",
+      "represented_face_area_m2": 1.7696460546497472,
+      "edge_area_mass_sum_m2": 1.7696460546497474,
+      "view_preference_bounds": [
+        0.5,
+        1.0
+      ],
+      "source_edges_not_welded": true
+    },
+    "atlas": {
+      "physical_domain_m": 0.0208,
+      "tip_centers_m": [
+        -0.0025,
+        0.0025
+      ],
+      "maximum_tip_radius_m": 0.0008,
+      "visible_groups_max_span_m": 0.0066
+    },
+    "limitations": [
+      "Explicit authored shading, not volumetric or recovered fur.",
+      "Source color/material sampling and renderer culling verification are caller responsibilities.",
+      "No intersection, physical motion, density, or appearance acceptance is inferred."
+    ]
+  },
+  "atlas": {
+    "policy": "edge-fringe-source-color-atlas-v1",
+    "source_fin_policy": "edge-fringe-source-surface-v1",
+    "fins": 3600,
+    "atlas_dimensions": [
+      4096,
+      1824
+    ],
+    "pixels": 7471104,
+    "cell_grid": [
+      64,
+      57
+    ],
+    "cell_dimensions": [
+      64,
+      32
+    ],
+    "padding_px": 2,
+    "interior_samples": [
+      60,
+      28
+    ],
+    "batch_fins": 128,
+    "unused_cells": 48,
+    "unused_cell_rgba": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "source_pixels": 16777216,
+    "source_material_ids": [
+      5
+    ],
+    "sampling_policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+    "image_rows": "top-down",
+    "uv_convention": "glTF V-down",
+    "packing": {
+      "enabled": true,
+      "policy": "nominal-tip-mean-32-luma-bins-rgb-stable-v1",
+      "permutation_scope": "Cells only; UV and all diagnostic arrays retain original fin order",
+      "unused_cell_policy": "Trailing unassigned cells stay transparent black; not populated duplicates"
+    },
+    "nominal_tip_audit": {
+      "method": "All nominal +/-2.5 mm tips at half fin height; maximum absolute linear RGB component error",
+      "tip_count": 7200,
+      "p50": 0.0001912439363648032,
+      "p95": 0.0036020636185606523,
+      "p99": 0.004303673961724138,
+      "maximum_linear_component_error": 0.01115276497762585,
+      "tips_over_005": 0,
+      "tips_over_010": 0,
+      "fixed_color_gate": {
+        "p95_max": 0.02,
+        "p99_max": 0.05,
+        "tips_over_010_max": 36
+      },
+      "minimum_alpha": 0.9999999999999999,
+      "tips_below_mask_cutoff": 0,
+      "alpha_cutoff": 0.18,
+      "color_gate_passed": true,
+      "alpha_gate_passed": true,
+      "passed": true,
+      "omitted_or_hidden_samples": 0,
+      "worst_tips": [
+        {
+          "fin": 2790,
+          "tip": 1,
+          "error": 0.01115276497762585,
+          "source_rgb": [
+            0.9584680908223527,
+            0.8986625330738064,
+            0.8491936223980587
+          ],
+          "atlas_rgb": [
+            0.9696208557999786,
+            0.9094149601389004,
+            0.8537546736991373
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 1203,
+          "tip": 0,
+          "error": 0.010033505859937342,
+          "source_rgb": [
+            0.9826242949777776,
+            0.9127069848653829,
+            0.8672375350508746
+          ],
+          "atlas_rgb": [
+            0.9725907891178402,
+            0.9038431174664819,
+            0.8623617022430341
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 2699,
+          "tip": 0,
+          "error": 0.008734550134083974,
+          "source_rgb": [
+            0.6040852327452073,
+            0.5586670820591324,
+            0.5202699494473135
+          ],
+          "atlas_rgb": [
+            0.5953506826111233,
+            0.5502439153144582,
+            0.5132209661083352
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 2449,
+          "tip": 1,
+          "error": 0.008409194250886487,
+          "source_rgb": [
+            0.9995112913647163,
+            0.9378660813222837,
+            0.8875464333235655
+          ],
+          "atlas_rgb": [
+            0.9911020971138298,
+            0.9357900889402222,
+            0.8851200555026437
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 2768,
+          "tip": 0,
+          "error": 0.007902811683266467,
+          "source_rgb": [
+            0.1025420436939319,
+            0.10135653426504988,
+            0.08189749688157474
+          ],
+          "atlas_rgb": [
+            0.10925934594831635,
+            0.10925934594831635,
+            0.08854991782741536
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 816,
+          "tip": 1,
+          "error": 0.00786533470024621,
+          "source_rgb": [
+            0.09465446661359508,
+            0.09298097038979312,
+            0.09381553317288421
+          ],
+          "atlas_rgb": [
+            0.08748627435363807,
+            0.08535555685464119,
+            0.085950198472638
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 2114,
+          "tip": 1,
+          "error": 0.00782724026508641,
+          "source_rgb": [
+            0.981272530663499,
+            0.9037292004197449,
+            0.8622505442763801
+          ],
+          "atlas_rgb": [
+            0.9734452903984125,
+            0.8962693533742664,
+            0.8549926081242338
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 285,
+          "tip": 1,
+          "error": 0.00748312828561537,
+          "source_rgb": [
+            0.9528459452190491,
+            0.8766434995532011,
+            0.8359017217580684
+          ],
+          "atlas_rgb": [
+            0.9603290735046645,
+            0.879643736987605,
+            0.8428354478537582
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 2257,
+          "tip": 1,
+          "error": 0.007195700041112918,
+          "source_rgb": [
+            0.9544623179355178,
+            0.8781854099727341,
+            0.8364954256759778
+          ],
+          "atlas_rgb": [
+            0.9616580179766308,
+            0.885038141915002,
+            0.83879901174074
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 797,
+          "tip": 0,
+          "error": 0.007187748121531667,
+          "source_rgb": [
+            0.9721476903351522,
+            0.9118489225126811,
+            0.8459960940784984
+          ],
+          "atlas_rgb": [
+            0.9697058475387229,
+            0.9046611743911495,
+            0.8434261557079555
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 1888,
+          "tip": 1,
+          "error": 0.007143593375541379,
+          "source_rgb": [
+            0.9509277093171954,
+            0.8748172920722966,
+            0.8341260785565757
+          ],
+          "atlas_rgb": [
+            0.9580713026927368,
+            0.8816211003840941,
+            0.8407431767468316
+          ],
+          "alpha": 1.0
+        },
+        {
+          "fin": 957,
+          "tip": 0,
+          "error": 0.007059518177951696,
+          "source_rgb": [
+            0.9663857722204608,
+            0.8896307765271305,
+            0.8468769359367254
+          ],
+          "atlas_rgb": [
+            0.9734452903984125,
+            0.8962693533742664,
+            0.8491849741988609
+          ],
+          "alpha": 1.0
+        }
+      ]
+    },
+    "technical_gate_passed": true,
+    "status": "passed_technical_color_and_alpha_gates",
+    "geometry_mutated": false,
+    "weights_mutated": false,
+    "source_colors_whitened_or_suppressed": false,
+    "alpha_policy": "Resample unchanged physical two-tip UV crop; no per-fin width stretch",
+    "maximum_horizontal_sample_pitch_m": 0.00033332716563637274,
+    "material_requirements": {
+      "baseColorFactor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertex_color": "omit",
+      "alphaMode": "MASK",
+      "alphaCutoff": 0.18,
+      "sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987,
+        "wrapS": 33071,
+        "wrapT": 33071
+      }
+    },
+    "bounds": {
+      "max_fins": 4800,
+      "max_dimension": 4096,
+      "max_pixels": 16777216,
+      "internal_seconds": 20,
+      "sample_batch": 8192
+    },
+    "limits": [
+      "LOD0 CPU gates do not prove GPU filtering, lighting, visibility or avatar quality.",
+      "Color follows the source edge along fin height; this is not recovered volumetric fur.",
+      "Finite samples/sRGB8 quantization can lose subtexel markings; failing tips remain reported.",
+      "Color-coherent packing does not eliminate within-cell blending or deep-mip/anisotropic bleed.",
+      "Source alpha is ignored; the caller must admit only opaque source color materials.",
+      "Unused cells are transparent black and can affect coarse filtering near the final row."
+    ],
+    "elapsed_seconds": 0.2511408752761781,
+    "quality_approved": false
+  },
+  "budget": {
+    "source_export_vertices": 51055,
+    "source_export_triangles": 62581,
+    "max_fins": 3600,
+    "worst_exported_fin_corners": 43200,
+    "reserve_vertices": 4096,
+    "projected_vertices": 98351,
+    "projected_triangles": 76981,
+    "vertex_limit": 100000,
+    "triangle_limit": 100000
+  },
+  "sampling": [
+    {
+      "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+      "material_slots": [
+        5
+      ],
+      "sampled_uv_layer": "UVMap",
+      "render_uv_layer": "UVMap",
+      "extension": "REPEAT",
+      "interpolation": "Linear",
+      "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+      "coordinates": "Blender UVs paired with bottom-up image rows"
+    }
+  ],
+  "config": {
+    "design_views": [
+      [
+        0,
+        -1,
+        0
+      ],
+      [
+        -0.47,
+        -0.88,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0.47,
+        0.88,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ],
+      [
+        0.7,
+        -0.7,
+        0
+      ],
+      [
+        -0.7,
+        0.7,
+        0
+      ]
+    ],
+    "excluded_materials": [
+      "body_cap"
+    ],
+    "profile": "edge-fringe-v1",
+    "settings": {
+      "comb": 0.15,
+      "length_m": 0.008,
+      "max_edge_m": 0.02,
+      "max_fins": 3600,
+      "min_edge_m": 0.0085,
+      "min_fins": 2400,
+      "min_spacing_m": 0.003,
+      "seed": 7123
+    }
+  },
+  "bone_order": [
+    "Root",
+    "Pelvis",
+    "Torso",
+    "Neck",
+    "Head",
+    "RightShoulder",
+    "RightUpperArm",
+    "RightForearm",
+    "RightHand",
+    "LeftShoulder",
+    "LeftUpperArm",
+    "LeftForearm",
+    "LeftHand",
+    "Tail",
+    "RightFoot",
+    "LeftFoot",
+    "CompanionRoot",
+    "DragonWingRight",
+    "DragonWingLeft"
+  ],
+  "mixed_part_faces_excluded": 0,
+  "explicit_material_faces_excluded": 369,
+  "geometry_arrays_npz": "fringe-correspondence.npz",
+  "source_point_sha256": "fb0fa2cf176c698526125c4a67b31c0a29a2dfc4129b92deeceb8b6680ed8731",
+  "elapsed_seconds": 1.4498452497646213,
+  "quality_approved": false,
+  "limits": [
+    "Regional direction is sampled; fin length/lean are explicit uniform controls, not native-strand parity.",
+    "MASK filtering and source shading can still differ at small scales; inspect the exported model.",
+    "No dense-fur, Muse-parity, contact repair, physical-hair or fresh-prompt acceptance claim."
+  ]
+}

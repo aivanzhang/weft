@@ -1,0 +1,22 @@
+{
+  "column_major_weighted_transform_oracle": true,
+  "corruptions_rejected": [
+    "uv",
+    "normals",
+    "dense_weights",
+    "faces"
+  ],
+  "limits": [
+    "Prepared checker semantics only; no actual native import/export, source weighted pose or appearance acceptance."
+  ],
+  "native_executed": false,
+  "permuted_vertex_correspondence": true,
+  "source_sha256": {
+    "audit_export.py": "852a4966d8d872db6c5c2e15432cc9765ebfead3a5f001f5661b875387e9f47a",
+    "build_component.py": "903c63266934763855b924b0d0bab15e2acbe1d6277df48c56b2fcec5c2b5584",
+    "check_preparation.py": "a431b1506e2e704a410ebc9ebe459bdc71333e8a8cc8e5cf99d0bd6a7d95fa5d",
+    "execute.py": "6412e35bdccef5cfeecad166d59e4da132cb36484791eec8acf16e232d77d20b",
+    "prepare_baseline.py": "365f243464ced62cdb26ec1462ad99e6ffbdd2ad240695a0a60dbb44ecdc31be"
+  },
+  "status": "analytic_preparation_checks_passed"
+}

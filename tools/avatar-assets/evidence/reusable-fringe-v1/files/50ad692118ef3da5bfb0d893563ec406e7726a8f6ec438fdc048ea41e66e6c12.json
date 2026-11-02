@@ -1,0 +1,163 @@
+{
+  "atlas_embedded_pixel_identical": true,
+  "constant_step_tracks_verified": 5,
+  "duplicate_roots_checked_per_pose": 480,
+  "elapsed_seconds": 0.027381834108382463,
+  "frame_rate": 24,
+  "fringe_masks_verified": true,
+  "fringe_tangent_policy": "Explicit absent unused attribute; no zero-vector tolerance or invented frame",
+  "limits": [
+    "Analytic component fixture, not a generated or accepted avatar.",
+    "CPU LOD0 sampling does not measure GPU mip/filtering, visibility or appearance.",
+    "Source normals may use the exporter's bounded float rounding; measurements are retained.",
+    "Five actual animation samples do not prove continuous-time collision freedom."
+  ],
+  "measurements": {
+    "normal_error": 0.00012709200382232666,
+    "pose_error_m": 1.8376572048445906e-08,
+    "root_error_m": 0.0,
+    "skin_error": 2.895082740206334e-08,
+    "uv_error": 5.563100158312295e-08
+  },
+  "model_sha256": "e74b05c20b80427934de5c519da13ee82c6800e62231fba591c6f9c082037a5f",
+  "native_corners_verified": 960,
+  "nominal_tip_color": {
+    "count_error_over_0_1": 0,
+    "maximum": 0.0032717510299337116,
+    "minimum_tip_alpha": 1.0,
+    "p95": 0.00241230302806161,
+    "p99": 0.0028249981520741376,
+    "samples": 160
+  },
+  "provenance": "analytic_fixture",
+  "raw_channel_time_bounds": [
+    {
+      "first_second": 0.0416666679084301,
+      "interpolation": "STEP",
+      "keys": 2,
+      "last_second": 1.0416666269302368,
+      "target": {
+        "node": 1,
+        "path": "translation"
+      }
+    },
+    {
+      "first_second": 0.0416666679084301,
+      "interpolation": "STEP",
+      "keys": 2,
+      "last_second": 1.0416666269302368,
+      "target": {
+        "node": 1,
+        "path": "rotation"
+      }
+    },
+    {
+      "first_second": 0.0416666679084301,
+      "interpolation": "STEP",
+      "keys": 2,
+      "last_second": 1.0416666269302368,
+      "target": {
+        "node": 1,
+        "path": "scale"
+      }
+    },
+    {
+      "first_second": 0.0416666679084301,
+      "interpolation": "STEP",
+      "keys": 2,
+      "last_second": 1.0416666269302368,
+      "target": {
+        "node": 0,
+        "path": "translation"
+      }
+    },
+    {
+      "first_second": 0.0416666679084301,
+      "interpolation": "LINEAR",
+      "keys": 25,
+      "last_second": 1.0416666269302368,
+      "target": {
+        "node": 0,
+        "path": "rotation"
+      }
+    },
+    {
+      "first_second": 0.0416666679084301,
+      "interpolation": "STEP",
+      "keys": 2,
+      "last_second": 1.0416666269302368,
+      "target": {
+        "node": 0,
+        "path": "scale"
+      }
+    }
+  ],
+  "sample_times_seconds": [
+    0.041666666666666664,
+    0.2916666666666667,
+    0.5416666666666666,
+    0.7916666666666666,
+    1.0416666666666667
+  ],
+  "saved_action_relative_offsets_seconds": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "saved_native_sample_frames": [
+    1,
+    7,
+    13,
+    19,
+    25
+  ],
+  "selected_fins": 80,
+  "source_geometry_and_weights_preserved": true,
+  "source_material_pixels_preserved": true,
+  "source_topology_preserved": true,
+  "status": "passed",
+  "timing_oracles": {
+    "actual": [
+      10.0,
+      10.0,
+      10.0,
+      20.0,
+      20.0
+    ],
+    "expected": [
+      10.0,
+      10.0,
+      10.0,
+      20.0,
+      20.0
+    ],
+    "frame_conversion": {
+      "expected_seconds": [
+        1,
+        2
+      ],
+      "fps": 24,
+      "frames": [
+        24,
+        48
+      ]
+    },
+    "queries": [
+      -1.0,
+      1.0,
+      1.5,
+      2.0,
+      3.0
+    ],
+    "step_times": [
+      1.0,
+      2.0
+    ],
+    "step_values": [
+      10.0,
+      20.0
+    ]
+  }
+}

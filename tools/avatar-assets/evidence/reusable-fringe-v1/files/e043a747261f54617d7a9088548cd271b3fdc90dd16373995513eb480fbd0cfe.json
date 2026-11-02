@@ -1,0 +1,24 @@
+{
+  "derivation_repeated": false,
+  "proofs": [
+    {
+      "path": "outputs/fringe-native-adapter-fixture-v3-final-v1/independent-preservation.json",
+      "sha256": "ba54447b6006505dabe25c623c75ad3711b365767d2598d90566b25ac966f982",
+      "status": "passed"
+    },
+    {
+      "path": "outputs/fringe-native-adapter-fixture-v3-final-v1/render-attribute-validation.json",
+      "sha256": "f1f70cc9091f8933da4f7019b118f61e1fc841e3ed6c53e8592128da1eb1a735",
+      "status": "validated_render_attributes"
+    },
+    {
+      "path": "outputs/fringe-native-adapter-fixture-v3-final-v1/structure-validation.json",
+      "sha256": "f4b1940b0c85f85a471d68900e0d2fe11d590bc6daac151f451b784ea30c5083",
+      "status": "validated_local_structure"
+    }
+  ],
+  "result_sha256": "e74b05c20b80427934de5c519da13ee82c6800e62231fba591c6f9c082037a5f",
+  "source_raw_sha256": "c04f9db97693e070c28f4d0feb9011a15d05756f5b9365c8710576145c44de6e",
+  "standard_validation_repeated": false,
+  "status": "reused_unchanged_passing_proofs"
+}

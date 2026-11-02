@@ -1,0 +1,30 @@
+test_absent_binding_is_an_explicit_byte_exact_noop_to_a_new_path (tests.test_fringe_export.FringeExportTests.test_absent_binding_is_an_explicit_byte_exact_noop_to_a_new_path) ... ok
+test_exact_json_allowlist_and_padded_binary_preserve_all_other_data (tests.test_fringe_export.FringeExportTests.test_exact_json_allowlist_and_padded_binary_preserve_all_other_data) ... ok
+test_missing_duplicate_ambiguous_or_unused_material_names_reject (tests.test_fringe_export.FringeExportTests.test_missing_duplicate_ambiguous_or_unused_material_names_reject) ... ok
+test_missing_skin_attributes_morphs_and_unindexed_or_oversized_primitives_reject (tests.test_fringe_export.FringeExportTests.test_missing_skin_attributes_morphs_and_unindexed_or_oversized_primitives_reject) ... ok
+test_new_target_only_and_file_bound_fail_before_parsing (tests.test_fringe_export.FringeExportTests.test_new_target_only_and_file_bound_fail_before_parsing) ... ok
+test_nonfinite_data_duplicate_json_and_invalid_source_paths_reject (tests.test_fringe_export.FringeExportTests.test_nonfinite_data_duplicate_json_and_invalid_source_paths_reject) ... ok
+test_normal_maps_extensions_other_shader_routes_and_wrong_policy_reject (tests.test_fringe_export.FringeExportTests.test_normal_maps_extensions_other_shader_routes_and_wrong_policy_reject) ... 
+  test_normal_maps_extensions_other_shader_routes_and_wrong_policy_reject (tests.test_fringe_export.FringeExportTests.test_normal_maps_extensions_other_shader_routes_and_wrong_policy_reject) (material={'name': 'SourceColoredFringe', 'alphaMode': 'MASK', 'alphaCutoff': 0.18000000715255737, 'pbrMetallicRoughness': {'baseColorTexture': {'index': 0}, 'metallicFactor': 0, 'roughnessFactor': 0.9200000166893005}, 'normalTexture': None}) ... ERROR
+test_other_invalid_tangents_are_not_hidden_or_repaired (tests.test_fringe_export.FringeExportTests.test_other_invalid_tangents_are_not_hidden_or_repaired) ... ok
+
+======================================================================
+ERROR: test_normal_maps_extensions_other_shader_routes_and_wrong_policy_reject (tests.test_fringe_export.FringeExportTests.test_normal_maps_extensions_other_shader_routes_and_wrong_policy_reject) (material={'name': 'SourceColoredFringe', 'alphaMode': 'MASK', 'alphaCutoff': 0.18000000715255737, 'pbrMetallicRoughness': {'baseColorTexture': {'index': 0}, 'metallicFactor': 0, 'roughnessFactor': 0.9200000166893005}, 'normalTexture': None})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-export-tests-v1/attempt-1/sources/tests/test_fringe_export.py", line 152, in test_normal_maps_extensions_other_shader_routes_and_wrong_policy_reject
+    self.execute()
+    ~~~~~~~~~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-export-tests-v1/attempt-1/sources/tests/test_fringe_export.py", line 86, in execute
+    return omit_unused_fringe_tangents(self.source, self.target, ['SourceColoredFringe'] if names is None else names)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-export-tests-v1/attempt-1/sources/avatar_assets/fringe_export.py", line 93, in omit_unused_fringe_tangents
+    glb = _GLB(source)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-export-tests-v1/attempt-1/sources/avatar_assets/three_d.py", line 277, in __init__
+    _index(container[key].get("index"), len(doc.get("textures", [])), "material texture")
+           ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.022s
+
+FAILED (errors=1)

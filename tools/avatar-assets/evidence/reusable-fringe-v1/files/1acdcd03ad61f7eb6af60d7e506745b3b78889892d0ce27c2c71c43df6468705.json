@@ -1,0 +1,29 @@
+{
+  "sources": [
+    {
+      "path": "scripts/fringe_color_atlas.py",
+      "bytes": 16114,
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "path": "tests/test_fringe_color_atlas.py",
+      "bytes": 18623,
+      "sha256": "6081029fce10d4427db4863b4eea217e644f88705a18ffcc092502ab4ffa3f8b",
+      "snapshot": "sources/tests/test_fringe_color_atlas.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/avatar_assets/runner.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/avatar_assets/safety.py"
+    }
+  ],
+  "changed_hypothesis": "Accept finite raw REPEAT UVs; never modulo edge endpoints. Model output clamp explicitly; test real allocated4Ksource and three-material sum."
+}

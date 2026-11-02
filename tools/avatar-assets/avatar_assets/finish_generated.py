@@ -7,8 +7,8 @@ import shutil
 
 from avatar_assets.assemble_generated import rig_contract
 from avatar_assets.provider_model import preflight
-from avatar_assets.runner import run_bounded
-from avatar_assets.safety import artifacts, local_file, new_directory, preserve_failure, read_json, require, sha256, slug, write_json
+from avatar_assets.runner import _output_bytes, run_bounded
+from avatar_assets.safety import LIMITS, artifacts, local_file, new_directory, preserve_failure, read_json, require, sha256, slug, write_json
 from avatar_assets.three_d import _GLB, validate_glb, validate_render_attributes
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,7 +34,7 @@ def validate(config):
                 'weight_constraints', 'portable_fur', 'authored_actions', 'portrait_denoise', 'native_render_children',
                 'authored_rig', 'camera_view', 'camera_fit', 'surface_profiles', 'surface_smoothing', 'groom_shader', 'groom_flow',
                 'color_corrections', 'part_rigs', 'groom_excluded_parts', 'normal_continuity',
-                'pose_resolution', 'review_views', 'fur_undercoat'}
+                'pose_resolution', 'review_views', 'fur_undercoat', 'portable_fringe'}
     require(isinstance(config, dict) and required <= set(config) <= required|optional
             and config['schema_version'] == 1, 'Invalid generated finishing config')
     slug(config['id'])
@@ -104,6 +104,11 @@ def validate(config):
         from scripts.blender_fur_undercoat import validate_undercoat
         require(groom and config.get('groom_flow'), 'Undercoat requires the measured groom mask and shared regional flow')
         validate_undercoat(config['fur_undercoat'])
+    if 'portable_fringe' in config:
+        from avatar_assets.portable_fringe import validate_fringe
+        require(groom and config.get('groom_flow') and 'portable_fur' not in config,
+                'Portable fringe requires native groom/regional flow and excludes portable_fur')
+        validate_fringe(config['portable_fringe'])
     if 'groom_shader' in config:
         shader = config['groom_shader']
         require(groom and isinstance(shader, dict) and set(shader) == {'roughness', 'radial_roughness'},
@@ -250,6 +255,12 @@ def reuse_native(folder, out, cfg):
     if cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1':
         require(sha256(root/'sources/fur_root_sampling.py') == sha256(ROOT/'scripts/fur_root_sampling.py'),
                 'Tuft root sampler changed; rebuild required')
+    if cfg.get('portable_fringe'):
+        for name in ('edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py', 'fur_root_sampling.py'):
+            require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name),
+                    'Portable fringe backend changed; rebuild required')
+        require(sha256(root/'sources/portable_fringe.py') == sha256(ROOT/'avatar_assets/portable_fringe.py'),
+                'Portable fringe config changed; rebuild required')
     if cfg.get('fur_undercoat'):
         require(sha256(root/'sources/blender_fur_undercoat.py') == sha256(ROOT/'scripts/blender_fur_undercoat.py'),
                 'Undercoat baker changed; rebuild required')
@@ -270,15 +281,40 @@ def reuse_native(folder, out, cfg):
         shutil.copyfile(root/name, out/name)
     if (root/'surface-integrity.json').exists():
         shutil.copyfile(root/'surface-integrity.json', out/'surface-integrity.json')
-    for name in ('renders', 'textures'):
+    for name in ('renders', 'textures', 'views'):
         if (root/name).exists():
             shutil.copytree(root/name, out/name)
+    if cfg.get('portable_fringe'):
+        for name in ('fringe-correspondence.npz', 'fringe-report.json', 'phase-memory.jsonl'):
+            require((root/name).is_file(), 'Native fringe evidence is missing; rebuild required')
+            shutil.copyfile(root/name, out/name)
     original = root/('model-native-export.glb' if (root/'model-native-export.glb').exists() else 'model.glb')
     shutil.copyfile(original, out/'model.glb')
     write_json(out/'native-reuse.json', {'source': str(root), 'source_manifest_sha256': sha256(root/'manifest.json'),
                'native_execution_repeated': False, 'source_export_sha256': sha256(original),
                'reason': 'Same hashed design/native backend; repeat only changed local postprocessing'})
     return job
+
+
+def _portable_fringe_export(out, report):
+    from avatar_assets.fringe_export import omit_unused_fringe_tangents
+    fringe = read_json(out/'fringe-report.json')
+    require(fringe.get('geometry_profile') == 'edge-fringe-v1'
+            and report.get('portable_fringe') == fringe
+            and report.get('portable_fur') == [fringe],
+            'Fringe export needs the exact native material report')
+    material = fringe.get('material', {}).get('material')
+    require(isinstance(material, str) and bool(material), 'Fringe material identity is missing')
+    # Keep both derivatives and their receipts inside the native pack's existing cap.
+    used = _output_bytes(out)
+    reserve = 2*LIMITS['input_bytes']+LIMITS['json_bytes']
+    require(used+reserve <= LIMITS['output_bytes'], 'Fringe export derivatives exceed pack byte budget')
+    target = out/'model-fringe-export.glb'
+    result = omit_unused_fringe_tangents(out/'model-native-export.glb', target, [material])
+    result['pack_budget'] = {'existing_bytes': used, 'reserved_bytes': reserve,
+                             'limit_bytes': LIMITS['output_bytes']}
+    write_json(out/'fringe-export.json', result)
+    return target
 
 
 def finish(config_path, output, reuse=None):
@@ -291,6 +327,10 @@ def finish(config_path, output, reuse=None):
             'Finishing requires one skin, or unrigged geometry with an explicit authored_rig')
     # Curved ribbons can split at tangent discontinuities: budget all twelve triangle corners.
     total_cards = sum(b['count'] for b in cfg.get('portable_fur', {}).get('bands', []))
+    fringe_budget = None
+    if cfg.get('portable_fringe'):
+        from scripts.edge_fringe import export_budget
+        fringe_budget = export_budget(facts['vertices'], facts['triangles'], cfg['portable_fringe']['settings']['max_fins'])
     tuft_budget = None
     if cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1':
         from scripts.blender_fur_cards import tuft_export_budget
@@ -300,9 +340,13 @@ def finish(config_path, output, reuse=None):
     undercoat_budget = None
     if cfg.get('fur_undercoat', {}).get('uv_policy') == 'material-adaptive-v1':
         undercoat_budget = {'source_export_vertices': facts['vertices'],
-                           'portable_export_vertices': total_cards*12, 'reserve_vertices': 4096}
+                           'portable_export_vertices': fringe_budget['worst_exported_fin_corners'] if fringe_budget else total_cards*12,
+                           'reserve_vertices': 4096}
         require(sum(undercoat_budget.values()) <= 100000,
                 'Adaptive undercoat base, coat and reserve exceed the 100000-vertex budget')
+    require(fringe_budget is None,
+            'Unsupported portable_fringe: real-avatar normal/weight fidelity and native memory checks have not passed; '
+            'the experimental sources are preserved, but finishing is disabled before native execution')
     out = new_directory(output)
     try:
         (out/'sources').mkdir()
@@ -310,10 +354,18 @@ def finish(config_path, output, reuse=None):
         cfg.update(source=str(source), export_model=True, sample_states=True)
         if undercoat_budget is not None:
             cfg['undercoat_export_budget'] = undercoat_budget
+        if fringe_budget is not None:
+            cfg['fringe_export_budget'] = fringe_budget
         write_json(out/'finish-config.json', cfg)
         if tuft_budget is not None:
             write_json(out/'tuft-export-budget.json', tuft_budget)
             shutil.copyfile(ROOT/'scripts/fur_root_sampling.py', out/'sources/fur_root_sampling.py')
+        if fringe_budget is not None:
+            write_json(out/'fringe-export-budget.json', fringe_budget)
+            for name in ('edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py', 'fur_root_sampling.py'):
+                shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
+            shutil.copyfile(ROOT/'avatar_assets/portable_fringe.py', out/'sources/portable_fringe.py')
+            shutil.copyfile(ROOT/'avatar_assets/fringe_export.py', out/'sources/fringe_export.py')
         if cfg.get('fur_undercoat'):
             shutil.copyfile(ROOT/'scripts/blender_fur_undercoat.py', out/'sources/blender_fur_undercoat.py')
             if undercoat_budget is not None:
@@ -344,7 +396,8 @@ def finish(config_path, output, reuse=None):
         frame_policy = _undercoat_frame_policy(report, undercoat_budget is not None)
         native_export = out/'model-native-export.glb'
         (out/'model.glb').rename(native_export)
-        tangent_report = repair(native_export, out/'model.glb', correct_normal_uv1=undercoat_budget is not None,
+        tangent_source = _portable_fringe_export(out, report) if fringe_budget is not None else native_export
+        tangent_report = repair(tangent_source, out/'model.glb', correct_normal_uv1=undercoat_budget is not None,
                                 normal_uv1_frame_policy=frame_policy)
         write_json(out/'tangent-repair.json', tangent_report)
         doc = _GLB(out/'model.glb').doc

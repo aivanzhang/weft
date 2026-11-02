@@ -1,0 +1,96 @@
+{
+  "live_sources_may_advance_after_this_snapshot": true,
+  "sources": [
+    {
+      "bytes": 13511,
+      "origin": "scripts/blender_edge_fringe.py",
+      "path": "sources/scripts/blender_edge_fringe.py",
+      "sha256": "9dc57f6b8fb7c75828a642bec3d0eabfa219964c4569b635b2d2f7b6296b0e4f"
+    },
+    {
+      "bytes": 17397,
+      "origin": "scripts/edge_fringe.py",
+      "path": "sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "origin": "scripts/fringe_color_atlas.py",
+      "path": "sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 7179,
+      "origin": "scripts/groom_flow.py",
+      "path": "sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 50399,
+      "origin": "scripts/blender_finish_generated.py",
+      "path": "sources/scripts/blender_finish_generated.py",
+      "sha256": "b2fbd0d2d66f42a02531676dd2e7cd53b20e3ab46e7b210cba62ac87a88596d4"
+    },
+    {
+      "bytes": 18248,
+      "origin": "scripts/blender_verify.py",
+      "path": "sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 24601,
+      "origin": "scripts/blender_native_groom.py",
+      "path": "sources/scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 5273,
+      "origin": "scripts/motion_samples.py",
+      "path": "sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 4687,
+      "origin": "scripts/fur_root_sampling.py",
+      "path": "sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 96,
+      "origin": "avatar_assets/__init__.py",
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "origin": "avatar_assets/runner.py",
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "origin": "avatar_assets/safety.py",
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 8121,
+      "origin": "avatar_assets/provider_model.py",
+      "path": "sources/host/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 35106,
+      "origin": "avatar_assets/three_d.py",
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 13676,
+      "origin": "avatar_assets/fringe_export.py",
+      "path": "sources/host/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    }
+  ],
+  "status": "frozen_after_root_helper_release"
+}

@@ -1,0 +1,80 @@
+{
+  "artifacts": [
+    {
+      "bytes": 10845,
+      "path": "compare.py",
+      "sha256": "d3c4aeedb0f6a942e805b2078855a31ee594f55db0e695af524bf01cb8019a23"
+    },
+    {
+      "bytes": 237,
+      "path": "cpu-handle.json",
+      "sha256": "60fe552389d3b97844fc6f40fbba797b660b72ce283f521a2751f29529f4c57d"
+    },
+    {
+      "bytes": 1063,
+      "path": "cpu-job.json",
+      "sha256": "71004d15533de13735373e33491d659180d63675761aa14f18ce05b63ac70512"
+    },
+    {
+      "bytes": 975,
+      "path": "cpu-monitor.json",
+      "sha256": "dfe1e11f3052418abbbb841a4e7056f47dac6c35c90d0b5ebec7e8cc8deb10f5"
+    },
+    {
+      "bytes": 272,
+      "path": "cpu.log",
+      "sha256": "72c07c58b88f974441333e4a4cc98f93488551e6058b39768a56ec15232761a7"
+    },
+    {
+      "bytes": 86,
+      "path": "custody.json",
+      "sha256": "5101f0a429332bad0cec562c551d5253709bac32c5eadb2cf833da3e3e37cee3"
+    },
+    {
+      "bytes": 9176,
+      "path": "diagnosis.json",
+      "sha256": "ff35c7754360574e2a77947b568f1883c6cf34356ca939d26b34ffc993729f46"
+    },
+    {
+      "bytes": 1126,
+      "path": "execute_cpu.py",
+      "sha256": "0dc77d83c23972e6eb881e4a0de8f889374c1f556d86eb59c348d73bd25d25b4"
+    },
+    {
+      "bytes": 10858,
+      "path": "prepared.json",
+      "sha256": "f863600d29ee55532c1a6ba5d4b23cbb16fcb083c1a2504466bc39c00e2bb4d2"
+    },
+    {
+      "bytes": 94649,
+      "path": "preservation-comparison.json",
+      "sha256": "c057509065574d8809d9dda0a0c8be8fd703c05b18fd2256d584c5d27f531e0d"
+    },
+    {
+      "bytes": 1649,
+      "path": "raw-difference-witness.json",
+      "sha256": "01746e0cc61d724f3e11041e43bd6ce36401f3be5a5aa0d61723f9e4cbe0a352"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "native_calls": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "comparison_completed_memory_experiment_failed",
+  "strict_accessor_identity": false
+}

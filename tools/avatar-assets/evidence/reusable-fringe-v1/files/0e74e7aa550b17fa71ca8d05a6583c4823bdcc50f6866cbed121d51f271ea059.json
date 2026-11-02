@@ -1,0 +1,102 @@
+{
+  "artifacts": [
+    {
+      "bytes": 37468,
+      "path": "__pycache__/verify.cpython-314.pyc",
+      "sha256": "9b5a151f62d4b5df13c748f552e7f7d3edf9d15c57a13f933a6cfaf25b5a5b31"
+    },
+    {
+      "bytes": 4806,
+      "path": "checker-only.diff",
+      "sha256": "a96f68e2eb995519452fccf3ac83272995e8a19815331994432637f332e06ad5"
+    },
+    {
+      "bytes": 255,
+      "path": "cpu-handle.json",
+      "sha256": "bf78125f31d8247f8bc2a74b01d7ef62e15aa05d752a651615cddc1f598d9e4a"
+    },
+    {
+      "bytes": 1085,
+      "path": "cpu-job.json",
+      "sha256": "848678af9a635867b89bc8f6c579611ef0f3c370b436aea020ab7b82dd2f831e"
+    },
+    {
+      "bytes": 993,
+      "path": "cpu-monitor.json",
+      "sha256": "8f0377de58100d36e8de4f9887563b5826c92f0864a708fccdc3586773c109b3"
+    },
+    {
+      "bytes": 0,
+      "path": "cpu.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 7857,
+      "path": "derive.py",
+      "sha256": "aeb954e36605c0e32f9e53da962e7935fa319dff3b3f0e724c8106fb1388ea52"
+    },
+    {
+      "bytes": 124184,
+      "path": "model.glb",
+      "sha256": "e74b05c20b80427934de5c519da13ee82c6800e62231fba591c6f9c082037a5f"
+    },
+    {
+      "bytes": 7321,
+      "path": "prepared.json",
+      "sha256": "a03eaa0fda89c7904df4d012f674f698e77b7ea4e62e0a613ff0624408bb243e"
+    },
+    {
+      "bytes": 278,
+      "path": "result.json",
+      "sha256": "39b3e948ceaabf6878d3302276d1b66025e625cd2ae23b99236b7b18e6c84338"
+    },
+    {
+      "bytes": 1015,
+      "path": "reused-passing-proofs.json",
+      "sha256": "e043a747261f54617d7a9088548cd271b3fdc90dd16373995513eb480fbd0cfe"
+    },
+    {
+      "bytes": 7857,
+      "path": "sources/derive.py",
+      "sha256": "aeb954e36605c0e32f9e53da962e7935fa319dff3b3f0e724c8106fb1388ea52"
+    },
+    {
+      "bytes": 13676,
+      "path": "sources/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 20153,
+      "path": "sources/verify.py",
+      "sha256": "6af945e0d2d5dfeb071cf48ef5945d8b676c9340d2d5269227cb3caa2e683fc3"
+    },
+    {
+      "bytes": 3635,
+      "path": "verification.json",
+      "sha256": "50ad692118ef3da5bfb0d893563ec406e7726a8f6ec438fdc048ea41e66e6c12"
+    },
+    {
+      "bytes": 20153,
+      "path": "verify.py",
+      "sha256": "6af945e0d2d5dfeb071cf48ef5945d8b676c9340d2d5269227cb3caa2e683fc3"
+    }
+  ],
+  "provenance": "analytic_fixture",
+  "schema_version": 1,
+  "status": "passed"
+}

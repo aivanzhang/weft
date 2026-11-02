@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v2/audit_export.py", line 262, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v2/audit_export.py", line 202, in main
+    mapping[name], errors = correspondence(original[name], exported[name])
+                            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v2/audit_export.py", line 107, in correspondence
+    source_ids, target_ids = match(source, False), match(target, True)
+                                                   ~~~~~^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v2/audit_export.py", line 99, in match
+    require(len(candidate) > 0, 'Base position/UV/normal/skin correspondence failed')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v2/audit_export.py", line 27, in require
+    raise ValueError(message)
+ValueError: Base position/UV/normal/skin correspondence failed

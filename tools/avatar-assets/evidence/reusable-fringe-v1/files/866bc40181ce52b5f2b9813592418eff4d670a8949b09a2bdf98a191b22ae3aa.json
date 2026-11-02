@@ -1,0 +1,104 @@
+{
+  "acceptance": false,
+  "exported_vertices": 7079,
+  "matching_without_normals": {
+    "complete": true,
+    "maximum_selected_errors": {
+      "dense_weights": 0.0,
+      "positions": 0.0,
+      "uv": 0.0
+    },
+    "oriented_triangle_multiset_equal": true,
+    "source": {
+      "ambiguous_vertices": 746,
+      "candidate_count_histogram": {
+        "1": 6333,
+        "2": 746
+      },
+      "first_missing": [],
+      "missing_count": 0
+    },
+    "source_attribute_groups_covered": true,
+    "target": {
+      "ambiguous_vertices": 746,
+      "candidate_count_histogram": {
+        "1": 6333,
+        "2": 746
+      },
+      "first_missing": [],
+      "missing_count": 0
+    },
+    "thresholds": {
+      "dense_weights": 1e-06,
+      "positions": 1e-06,
+      "uv": 2e-06
+    }
+  },
+  "material": "coat",
+  "normal_comparison": {
+    "ambiguous_matches_with_different_source_normals": 0,
+    "maximum_angular_error_degrees": 0.021431178293962034,
+    "maximum_component_error": 0.0003146827220916748,
+    "maximum_source_normal_ambiguity_component_spread": 0.0,
+    "original_component_limit": 0.0002,
+    "over_original_limit": 22,
+    "p99_component_error": 0.0001104661822319032,
+    "policy": "Normal is excluded from correspondence. Report closest candidate normal as a lower bound where position/UV/weight aliases are ambiguous.",
+    "samples": 7079,
+    "worst_violations": [
+      {
+        "angular_error_degrees": 0.018351557549382287,
+        "closest_source_vertex": 6619,
+        "component_error": 0.0003146827220916748,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          0.17059111595153809,
+          -0.8054580092430115,
+          0.5675704479217529
+        ],
+        "target_normal": [
+          0.17090579867362976,
+          -0.8054273128509521,
+          0.5675192475318909
+        ],
+        "target_vertex": 6619
+      },
+      {
+        "angular_error_degrees": 0.021431178293962034,
+        "closest_source_vertex": 6268,
+        "component_error": 0.00030350685119628906,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          -0.47790005803108215,
+          -0.34530001878738403,
+          0.8077000975608826
+        ],
+        "target_normal": [
+          -0.4780048429965973,
+          -0.3456035256385803,
+          0.8075082302093506
+        ],
+        "target_vertex": 6268
+      },
+      {
+        "angular_error_degrees": 0.018086291001643866,
+        "closest_source_vertex": 4582,
+        "component_error": 0.00030316412448883057,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          0.16840046644210815,
+          -0.7000018954277039,
+          -0.6940019130706787
+        ],
+        "target_normal": [
+          0.16870363056659698,
+          -0.7000150680541992,
+          -0.6939149498939514
+        ],
+        "target_vertex": 4582
+      }
+    ]
+  },
+  "reference_kind": "original_GLB_base",
+  "source_vertices": 7079
+}

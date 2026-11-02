@@ -1,0 +1,81 @@
+{
+  "actual_native_derivative_made_here": false,
+  "admission": "1..4 exact unambiguous material names and matching indexed skinned TRIANGLES; single-sided MASK cutoff.18 metallic0 roughness.92 direct basecolor UV0 only; no normal map/material or primitive extensions/morphs. Exact scalar literals or exact float32 round-trips only.",
+  "api": "omit_unused_fringe_tangents(source:Path,target:Path,material_names:list[str])->dict",
+  "changes": "Only selected primitive TANGENT bindings; preserve full padded BIN, every accessor/view/material/node/skin/animation/generator and all other attributes. New target only.",
+  "job": {
+    "elapsed_seconds": 0.257,
+    "pid": 30411,
+    "process_exit_verified": true,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null
+  },
+  "latest_attempt_manifest_sha256": "a45da0405272157f5adbb0cfd6ffbd9d4e7750afd79c04b236b36864dac78be9",
+  "limits": {
+    "selected_primitives": 4,
+    "source_and_target_bytes": 67108864,
+    "triangle_indices": 300000,
+    "vertices": 100000
+  },
+  "model_role_calls": 0,
+  "native_calls": 0,
+  "no_owned_running_jobs": true,
+  "policy": "omit-unused-fringe-tangent-bindings-v1",
+  "previous_attempt_preserved": {
+    "failure": "Malformed null normalTexture was refused before output but escaped as AttributeError from existing GLB loader; new helper now normalizes it to ValueError. No admission or repair threshold was changed.",
+    "path": "attempt-1"
+  },
+  "provider_calls": 0,
+  "quality_approved": false,
+  "real_native_v3_observation": {
+    "primitives": [
+      {
+        "corners": 960,
+        "material": {
+          "alphaCutoff": 0.18000000715255737,
+          "alphaMode": "MASK",
+          "name": "SourceColoredFringe",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 2
+            },
+            "metallicFactor": 0,
+            "roughnessFactor": 0.9200000166893005
+          }
+        },
+        "mesh": 1,
+        "primitive": 0,
+        "tangent_accessor": 17,
+        "zero_xyz_tangents": 151
+      }
+    ],
+    "quality_approved": false,
+    "schema_version": 1,
+    "scope": "Read-only metadata/attribute observation of preserved raw native v3; no derivative or native rerun here.",
+    "source_manifest_sha256": "57f9cd84c9688b35192ae3db665d63dd7b4ba6218bc8f7d679f07c5ddf9285fa",
+    "source_path": "outputs/fringe-native-adapter-fixture-v3/model.glb",
+    "source_sha256": "c04f9db97693e070c28f4d0feb9011a15d05756f5b9365c8710576145c44de6e"
+  },
+  "recorded_local": "2026-11-01 20:51:16 PST",
+  "remaining": "Independent actual v3 CPU derivative/color/skin/pose verification belongs to pipeline_review; this is not an appearance or Muse-quality claim.",
+  "schema_version": 1,
+  "source": {
+    "path": "avatar_assets/fringe_export.py",
+    "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+  },
+  "status": "frozen_analytic_tests_passed",
+  "tests": {
+    "passed": 8,
+    "path": "tests/test_fringe_export.py",
+    "sha256": "073a6bd6c40e0790a50d59cfd1fa1e8c37679ca5b2373eb34c1811a88e305992",
+    "summary": [
+      "Ran 8 tests in 0.021s"
+    ]
+  },
+  "verification": [
+    "Strict render validator rejects analytic151zero/960corner input and passes its derivative; invalid unselected normal-mapped/body tangents remain rejected.",
+    "Exact JSON allowlist and padded binary equality, source unchanged, metadata/accessor/image/motion preservation.",
+    "Wrong/ambiguous/unused names, unsupported shaders/extensions/morphs, malformed rig/attribute data, source/target path hazards and oversized files fail before output.",
+    "An already-absent selected binding produces an explicit byte-exact copy to a new target."
+  ]
+}

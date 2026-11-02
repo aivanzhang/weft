@@ -1,0 +1,33 @@
+{
+  "all_accessors_bufferViews_images_materials_skins_actions_unchanged": true,
+  "body_tangent_bindings_unchanged": [
+    {
+      "mesh": 0,
+      "primitive": 0,
+      "tangent_accessor": 3
+    },
+    {
+      "mesh": 0,
+      "primitive": 1,
+      "tangent_accessor": 10
+    }
+  ],
+  "full_padded_bin_exact": true,
+  "only_json_changes": [
+    {
+      "accessor": 17,
+      "material": 2,
+      "mesh": 1,
+      "primitive": 0,
+      "retained_raw_zero_tangent_count": 151,
+      "vertices": 960
+    }
+  ],
+  "padded_bin_bytes": 117532,
+  "padded_bin_sha256": "dfde79adc289acb0b9540d7f0e11326c4561927fe6aa7f539bfcf7c7ee4269df",
+  "raw_model_unchanged": true,
+  "raw_sha256": "c04f9db97693e070c28f4d0feb9011a15d05756f5b9365c8710576145c44de6e",
+  "result_sha256": "e74b05c20b80427934de5c519da13ee82c6800e62231fba591c6f9c082037a5f",
+  "status": "passed",
+  "tangent_vectors_repaired": false
+}

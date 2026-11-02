@@ -1,0 +1,83 @@
+--- final-v1/verify.py
++++ final-v2/verify.py
+@@ -30,6 +30,22 @@
+     return np.array([[1-2*(y*y+z*z), 2*(x*y-z*w), 2*(x*z+y*w)],
+                      [2*(x*y+z*w), 1-2*(x*x+z*z), 2*(y*z-x*w)],
+                      [2*(x*z-y*w), 2*(y*z+x*w), 1-2*(x*x+y*y)]])
++
++
++def step_sample(times, values, seconds):
++    index = min(len(times)-1, max(0, int(np.searchsorted(times, seconds, side='right')-1)))
++    return values[index]
++
++
++def timing_oracles():
++    times, values = np.array([1., 2.]), np.array([[10.], [20.]])
++    queries, wanted = [-1., 1., 1.5, 2., 3.], [10., 10., 10., 20., 20.]
++    actual = [float(step_sample(times, values, time)[0]) for time in queries]
++    check(actual == wanted, 'STEP boundary oracle')
++    check(np.array_equal(np.array([24, 48])/24, [1., 2.]), 'Frame-to-time oracle')
++    return {'step_times': times.tolist(), 'step_values': values.ravel().tolist(),
++            'queries': queries, 'expected': wanted, 'actual': actual,
++            'frame_conversion': {'frames': [24, 48], 'fps': 24, 'expected_seconds': [1, 2]}}
+ 
+ 
+ def sample_rgb(pixels, uv, repeat):
+@@ -58,6 +74,7 @@
+     started = time.monotonic()
+     out = Path(out)
+     source = Path(source)
++    oracle = timing_oracles()
+     model = out/'model.glb'
+     check(28 <= model.stat().st_size < 64*1024**2, 'Model byte bounds')
+     blob = model.read_bytes()
+@@ -98,6 +115,11 @@
+         return pixels
+ 
+     expected = np.load(source/'expected-source.npz')
++    native_report = json.loads((source/'native-result.json').read_text())
++    frames = np.asarray(native_report['sampled_frames'])
++    check(np.array_equal(frames, [1, 7, 13, 19, 25]), 'Native frame evidence changed')
++    sample_times = frames/24
++    check(np.array_equal((frames-1)/24, expected['times']), 'Saved action-relative offsets changed')
+     fins = np.load(source/'fringe-correspondence.npz')
+     native = np.load(source/'native-corner-attributes.npz')
+     native_map = fins['native_vertex_to_helper_vertex']
+@@ -201,18 +223,20 @@
+         check(sampler.get('interpolation', 'LINEAR') in ('LINEAR', 'STEP'), 'Unexpected interpolation')
+         channels.append((channel['target'], accessor(sampler['input']).ravel(), accessor(sampler['output']),
+                          sampler.get('interpolation', 'LINEAR')))
+-    for ti, seconds in enumerate(expected['times']):
++    channel_bounds = [{'target': target, 'interpolation': interpolation, 'keys': len(times),
++                       'first_second': float(times[0]), 'last_second': float(times[-1])}
++                      for target, times, values, interpolation in channels]
++    for ti, seconds in enumerate(sample_times):
+         overrides, globals_ = {}, {}
+         for target, times, values, interpolation in channels:
+             if interpolation == 'STEP':
+                 check(len(times) == 2 and np.array_equal(values[0], values[1]), 'Fixture STEP endpoints must be exactly constant')
+-                check(times[0] <= seconds <= times[-1], 'STEP sample outside track')
+-                index = min(len(times)-1, max(0, int(np.searchsorted(times, seconds, side='right')-1)))
++                value = step_sample(times, values, seconds)
+             else:
+                 near = np.flatnonzero(np.abs(times-seconds) < 1e-6)
+                 check(len(near) == 1, 'Expected actual baked sample time')
+-                index = near[0]
+-            overrides[(target['node'], target['path'])] = values[index]
++                value = values[near[0]]
++            overrides[(target['node'], target['path'])] = value
+ 
+         def global_matrix(index):
+             if index in globals_:
+@@ -272,7 +296,10 @@
+              'maximum': max(errors), 'minimum_tip_alpha': min(alpha), 'count_error_over_0_1': int(np.sum(np.asarray(errors) > .1))}
+     check(color['p95'] <= .02 and color['p99'] <= .05 and min(alpha) > .18, 'Independent exported tip RGB/orientation gate')
+     result = {'status': 'passed', 'provenance': 'analytic_fixture', 'model_sha256': hashlib.sha256(blob).hexdigest(),
+-              'measurements': measurements, 'nominal_tip_color': color, 'sample_times_seconds': expected['times'].tolist(),
++              'measurements': measurements, 'nominal_tip_color': color, 'sample_times_seconds': sample_times.tolist(),
++              'saved_native_sample_frames': frames.tolist(), 'frame_rate': 24,
++              'saved_action_relative_offsets_seconds': expected['times'].tolist(),
++              'raw_channel_time_bounds': channel_bounds, 'timing_oracles': oracle,
+               'source_material_pixels_preserved': True, 'source_topology_preserved': True,
+               'source_geometry_and_weights_preserved': True, 'atlas_embedded_pixel_identical': True,
+               'fringe_masks_verified': True, 'selected_fins': len(fins['root_vertex_ids']),

@@ -1,0 +1,116 @@
+{
+  "arrays": {
+    "fin_directions": "(F,3) normalized authored outward/comb directions",
+    "joints": "(4F,4) uint16",
+    "material_ids": "(F,) original per-face material ID dtype",
+    "normals": "(4F,3) float32 normalized source endpoint normals, repeated at tips",
+    "outward_normals": "(F,3) normalized source-average directions",
+    "positions": "(4F,3) float32",
+    "root_centers": "(F,3) meters",
+    "root_corner_ids": "(F,2) exact face-corner indices",
+    "root_face_ids": "(F,) source triangle indices",
+    "root_source_uv": "(F,2,2) unchanged raw source UV dtype/values",
+    "root_vertex_ids": "(F,2) source indices",
+    "triangles": "(4F,3) int32; all original2F then each reversed",
+    "uv": "(4F,2) float32 top-down/V-down atlas coordinates",
+    "weights": "(4F,4) float32 normalized inherited endpoint weights"
+  },
+  "changed_hypothesis": "Actual second-subject census revealed valid raw REPEAT UVs outside0..1. Added finite abs<=1e6 support without endpoint wrapping; seam checks remain exact.",
+  "coordinate_contract": "Positions in meters; normals, flow and fixed views in same applied mesh frame. Caller owns explicit rig-slot mapping and any Blender/image V conversion.",
+  "exports": [
+    "build_edge_fringe",
+    "validate_settings",
+    "export_budget",
+    "two_tip_atlas"
+  ],
+  "fixtures": [
+    {
+      "analytic_fixture": "maximum_candidate_scan",
+      "elapsed_seconds": 0.32228304212912917,
+      "examined_candidates": 32000,
+      "projected_vertices": 98560,
+      "quality_approved": false,
+      "selected_fins": 951,
+      "source_faces": 72962,
+      "source_vertices": 36864
+    },
+    {
+      "analytic_fixture": "maximum_projected_triangles",
+      "elapsed_seconds": 0.15614587487652898,
+      "projected_triangles": 100000,
+      "quality_approved": false,
+      "selected_fins": 24,
+      "source_faces": 99904,
+      "source_vertices": 50400
+    }
+  ],
+  "job": {
+    "elapsed_seconds": 0.783,
+    "pid": 25009,
+    "process_exit_verified": true,
+    "rss_samples": 2,
+    "sampled_peak_rss_bytes": 223821824,
+    "sampling_interval_seconds": 0.25
+  },
+  "latest_attempt_manifest_sha256": "336de7149ed72ffae1ce3ae21a8a26ae89e6d7c15af5b885b57c3b07aab4ca63",
+  "limitations": [
+    "Analytic fixtures are not generated avatars, rendered fur or general hands-off quality proof.",
+    "Conservative exact alias/normal/UV seam rejection may reduce available roots; never relax automatically.",
+    "Source materials, explicit non-fur/closure/part masks and native/exported frame/skin adapters remain controller responsibilities.",
+    "Color atlas, material culling and actual-subject rendering require separate integration verification."
+  ],
+  "material_requirements": {
+    "alphaCutoff": 0.18,
+    "alphaMode": "MASK",
+    "doubleSided": false
+  },
+  "model_role_calls": 0,
+  "native_calls": 0,
+  "no_owned_running_jobs": true,
+  "numeric_policy": {
+    "atlas_domain_m": 0.0208,
+    "export_triangles": "source+4*requested_max <=100000",
+    "export_vertices": "source+12*requested_max+4096 <=100000",
+    "internal_deadline_seconds": 10,
+    "max_examined_candidates": 32000,
+    "max_fins": 4800,
+    "minimum_selected_fins_enforced": true,
+    "no_budget_shrink": true,
+    "no_welding": true,
+    "source_triangles": 100000,
+    "source_vertices": 100000,
+    "supported_edge_span_m": [
+      0.0085,
+      0.02
+    ]
+  },
+  "previous_attempt_preserved": "attempt-1",
+  "profile": "edge-fringe-source-surface-v1",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 20:21:36 PST",
+  "schema_version": 1,
+  "settings_fields": [
+    "seed",
+    "min_fins",
+    "max_fins",
+    "length_m",
+    "min_spacing_m",
+    "min_edge_m",
+    "max_edge_m",
+    "comb"
+  ],
+  "source": {
+    "path": "scripts/edge_fringe.py",
+    "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+  },
+  "status": "frozen_library_verified_analytically",
+  "tests": {
+    "passed": 15,
+    "path": "tests/test_edge_fringe.py",
+    "sha256": "0a5b22aad3edce16b6ee78e15da57e6822203c40cd03862ada487572a94b0454",
+    "unittest_summary": [
+      "Ran 15 tests in 0.545s"
+    ]
+  }
+}

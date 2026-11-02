@@ -1,0 +1,107 @@
+{
+  "budget_caveat": "Editable Blend estimate is empirical, not a rigorous compression upper bound. Recompute from actual final model; runtime monitor enforces128MiB. Reject estimate overflow instead of raising the bound.",
+  "launcher_sha256": "00e39ae600d27bcef135fbcfccfc3c4516988c79f3000b75fe9e6d70511aa480",
+  "models_copied": 0,
+  "native_jobs": 0,
+  "plans": {
+    "fox": {
+      "headroom_if_final_model_equal_reference_bytes": 5698875,
+      "hold_reason": "Component v1 failed initial scene inventory before adapter; corrected v2 owned by another agent has not yet provided validated model/release.",
+      "image_count": 20,
+      "limits": {
+        "output_mb": 128,
+        "rss_mb": 2048,
+        "threads": 4,
+        "wall_seconds": 120
+      },
+      "motion_states": [
+        {
+          "id": "idle",
+          "seconds": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "id": "making_something",
+          "seconds": [
+            0.5,
+            1,
+            1.5,
+            2.5
+          ]
+        },
+        {
+          "id": "milestone_level_up",
+          "seconds": [
+            0.75,
+            1.5,
+            2,
+            3.25
+          ]
+        },
+        {
+          "id": "working",
+          "seconds": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "native_execution_started": false,
+      "provisional_reference_size_estimate_bytes": 128518853,
+      "quality_approved": false,
+      "reference_blend_bytes": 39356116,
+      "reference_source_bytes": 27709020,
+      "requested_output": "outputs/fox-fringe-exported-720-v1",
+      "resolution": [
+        720,
+        720
+      ],
+      "samples": 16,
+      "status": "held_no_validated_final_model"
+    },
+    "panda": {
+      "headroom_if_final_model_equal_reference_bytes": 11176267,
+      "hold_reason": "Full-finisher v1 was killed/reaped at memory limit:29.799s,2292908032B sampled RSS; raw partial artifacts are not an admitted final model.",
+      "image_count": 8,
+      "limits": {
+        "output_mb": 128,
+        "rss_mb": 2048,
+        "threads": 4,
+        "wall_seconds": 120
+      },
+      "motion_states": [
+        {
+          "id": "dance_flight",
+          "seconds": [
+            0.36,
+            1.36,
+            2.36,
+            3.36
+          ]
+        }
+      ],
+      "native_execution_started": false,
+      "provisional_reference_size_estimate_bytes": 123041461,
+      "quality_approved": false,
+      "reference_blend_bytes": 42030941,
+      "reference_source_bytes": 38532288,
+      "requested_output": "outputs/panda-fringe-exported-720-v1",
+      "resolution": [
+        720,
+        720
+      ],
+      "samples": 16,
+      "status": "held_no_validated_final_model"
+    }
+  },
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_provenance_frozen": false,
+  "status": "preparation_only"
+}

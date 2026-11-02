@@ -1,0 +1,32 @@
+{
+  "inputs": [
+    {
+      "bytes": 35693464,
+      "path": "outputs/panda-portable-fringe-finish-v1/model.glb",
+      "sha256": "af387843524ba560f2b8f0dd9d5c75f5d923e8f2e8f0ed7db62d60f1dcdf9026"
+    },
+    {
+      "bytes": 567833,
+      "path": "outputs/panda-portable-fringe-finish-v1/fringe-correspondence.npz",
+      "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+    },
+    {
+      "bytes": 13534,
+      "path": "outputs/panda-portable-fringe-finish-v1/fringe-report.json",
+      "sha256": "a0209a11a07e97261af908b45ff46de08fed6e201d3e761fe8b73942d1fdeb4b"
+    },
+    {
+      "bytes": 1680,
+      "path": "outputs/panda-portable-fringe-finish-v1/job.json",
+      "sha256": "988fe48d4786bc2493ca5a9a2a734169ce8071647b41d99650314f68be42e4d5"
+    },
+    {
+      "bytes": 12540,
+      "path": "outputs/panda-portable-fringe-finish-v1/manifest.json",
+      "sha256": "0f5ca73a93480ee2930e0bfef5bc6f186c864576af0863065dca31b3f1f1efb6"
+    }
+  ],
+  "normal_component_limit": 0.0002,
+  "purpose": "Raw retained failed-native panda fin attributes only; no source-rig inference or acceptance",
+  "source_reference": "Actual saved helper rest arrays mapped to actual exported skin joint names"
+}

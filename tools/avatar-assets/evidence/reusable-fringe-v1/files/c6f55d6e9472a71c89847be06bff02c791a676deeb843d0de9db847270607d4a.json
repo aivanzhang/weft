@@ -1,0 +1,67 @@
+{
+  "inputs": [
+    {
+      "path": "scripts/edge_fringe.py",
+      "sha256": "b7ad630129e3c8b4fdbc5ecdd6ea7e877f3403c0153179febe0ad93286257d1f"
+    },
+    {
+      "path": "tests/test_edge_fringe.py",
+      "sha256": "68b14dea19209237d09b205160e1d4bdc351af36757886b5288315fc5a1d44d8"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "outputs/fringe-allocation-analytic-v2/allocation_fringe.py",
+      "sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421"
+    },
+    {
+      "path": "outputs/edge-fringe-analytic-v1/edge_fringe.py",
+      "sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd"
+    }
+  ],
+  "limits": {
+    "output_mb": 8,
+    "rss_mb": 512,
+    "wall_seconds": 40
+  },
+  "python": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+  "recorded_local": "2026-11-01 20:18:38 PST",
+  "schema_version": 1,
+  "scope": "Pure analytic library tests and worst-case CPU/resource evidence only; no native/provider/AI calls or generated-avatar quality claim.",
+  "sources": [
+    {
+      "path": "outputs/edge-fringe-library-tests-v1/attempt-1/sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/edge-fringe-library-tests-v1/attempt-1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "outputs/edge-fringe-library-tests-v1/attempt-1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "outputs/edge-fringe-library-tests-v1/attempt-1/sources/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/edge-fringe-library-tests-v1/attempt-1/sources/scripts/edge_fringe.py",
+      "sha256": "b7ad630129e3c8b4fdbc5ecdd6ea7e877f3403c0153179febe0ad93286257d1f"
+    },
+    {
+      "path": "outputs/edge-fringe-library-tests-v1/attempt-1/sources/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/edge-fringe-library-tests-v1/attempt-1/sources/tests/test_edge_fringe.py",
+      "sha256": "68b14dea19209237d09b205160e1d4bdc351af36757886b5288315fc5a1d44d8"
+    }
+  ]
+}

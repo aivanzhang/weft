@@ -1,0 +1,83 @@
+{
+  "inputs": [
+    {
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "9a814800e9f949150595f1cbecaa27a92d5393f6afb72d83ed553e42076a2a0f"
+    },
+    {
+      "path": "tests/test_fringe_export.py",
+      "sha256": "073a6bd6c40e0790a50d59cfd1fa1e8c37679ca5b2373eb34c1811a88e305992"
+    },
+    {
+      "path": "tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "path": "outputs/fringe-native-adapter-fixture-v3/model.glb",
+      "sha256": "c04f9db97693e070c28f4d0feb9011a15d05756f5b9365c8710576145c44de6e"
+    },
+    {
+      "path": "outputs/fringe-native-adapter-fixture-v3/manifest.json",
+      "sha256": "57f9cd84c9688b35192ae3db665d63dd7b4ba6218bc8f7d679f07c5ddf9285fa"
+    }
+  ],
+  "limits": {
+    "output_mb": 8,
+    "rss_mb": 512,
+    "wall_seconds": 40
+  },
+  "python": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+  "recorded_local": "2026-11-01 20:50:05 PST",
+  "schema_version": 1,
+  "scope": "Focused analytic JSON-binding omission and byte preservation; native v3 metadata observed read-only. No actual-model derivative, native or provider calls.",
+  "sources": [
+    {
+      "path": "outputs/fringe-export-tests-v1/attempt-1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "path": "outputs/fringe-export-tests-v1/attempt-1/sources/avatar_assets/fringe_export.py",
+      "sha256": "9a814800e9f949150595f1cbecaa27a92d5393f6afb72d83ed553e42076a2a0f"
+    },
+    {
+      "path": "outputs/fringe-export-tests-v1/attempt-1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "outputs/fringe-export-tests-v1/attempt-1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "outputs/fringe-export-tests-v1/attempt-1/sources/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "path": "outputs/fringe-export-tests-v1/attempt-1/sources/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/fringe-export-tests-v1/attempt-1/sources/tests/test_fringe_export.py",
+      "sha256": "073a6bd6c40e0790a50d59cfd1fa1e8c37679ca5b2373eb34c1811a88e305992"
+    },
+    {
+      "path": "outputs/fringe-export-tests-v1/attempt-1/sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    }
+  ]
+}

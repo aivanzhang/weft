@@ -1,0 +1,378 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "4870eba17d54d50d48ce37a3c8b69e3e455fa81ec7c8bf8215f79d6211b40ba4"
+    },
+    {
+      "bytes": 37425,
+      "path": "finish-config.json",
+      "sha256": "4ab29ccce8b00b74d9e3fadc75c247ad22aa7877e2a8eb65aecb006a8caafc7d"
+    },
+    {
+      "bytes": 608,
+      "path": "finish-handle.json",
+      "sha256": "5efcf8a392e09b4b80fca01921c1886792a8191150aab1a179aa6a638f851124"
+    },
+    {
+      "bytes": 1506,
+      "path": "finish-monitor.json",
+      "sha256": "afcff71fee06f1d267b86563635e911a01363d1bebaf4b3679ef78d12b4c277e"
+    },
+    {
+      "bytes": 42786,
+      "path": "finish.log",
+      "sha256": "81bfcbb6551f2bcb4ca85d898025db017a7bfc82afcfe4ccb5812142a0571edf"
+    },
+    {
+      "bytes": 567833,
+      "path": "fringe-correspondence.npz",
+      "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+    },
+    {
+      "bytes": 278,
+      "path": "fringe-export-budget.json",
+      "sha256": "8047bbe4b9134122df3ef065d1d8c35c90c9b8dff8f72a96d396213bdfb654cb"
+    },
+    {
+      "bytes": 13534,
+      "path": "fringe-report.json",
+      "sha256": "b2c68636609b1fa7ba7c95baee96ccd0bb2707d7e1a40fd2f0d17fd0e207526e"
+    },
+    {
+      "bytes": 1678,
+      "path": "job.json",
+      "sha256": "c9e483dd7c5c88eda8c7e571ff906001e36c3601ffdd569f54f6b8eb48631ba6"
+    },
+    {
+      "bytes": 35693464,
+      "path": "model.glb",
+      "sha256": "f37da3330d282a19a39db358cc61aab50c6922d0cf61b78ffb05fe41d44cf560"
+    },
+    {
+      "bytes": 1486,
+      "path": "phase-memory.jsonl",
+      "sha256": "cff1e32e93a96e56fd371d0e49196959db13913d7441100da7cb9e744438fcf4"
+    },
+    {
+      "bytes": 404418,
+      "path": "portrait.png",
+      "sha256": "d4ab79c67bb2164f3a377604001c4addc3db507b4b85ca7c176d07cd7dba1dd8"
+    },
+    {
+      "bytes": 11079,
+      "path": "sources/__pycache__/blender_color_corrections.cpython-311.pyc",
+      "sha256": "765216ca9d8e76aea5f345a104d47182f0f284f5ba1517d08547536e5f41138b"
+    },
+    {
+      "bytes": 51279,
+      "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+      "sha256": "00d29fda7c768c0a093741823a829380cd2dca754430f622c921be9dd7889d0d"
+    },
+    {
+      "bytes": 6139,
+      "path": "sources/__pycache__/blender_creature_rig.cpython-311.pyc",
+      "sha256": "15ca8c903a999454726da373177e4557db7a1330cbf694a42c00c1510e238644"
+    },
+    {
+      "bytes": 41904,
+      "path": "sources/__pycache__/blender_edge_fringe.cpython-311.pyc",
+      "sha256": "0172da3f26e0a3c281f49142894ef59c1d52cb121a6c6556d6130828e3354c1a"
+    },
+    {
+      "bytes": 64681,
+      "path": "sources/__pycache__/blender_fur_undercoat.cpython-311.pyc",
+      "sha256": "d99793bd3ebabc5190a547cd232623147819b5a2217355519d4ab5c474fa0177"
+    },
+    {
+      "bytes": 44379,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "e5cc9e70872514c8b0e350ac793c69b681cc5b68a32d76f3f73410ae58144868"
+    },
+    {
+      "bytes": 13983,
+      "path": "sources/__pycache__/blender_normal_continuity.cpython-311.pyc",
+      "sha256": "8ac0c328eaf79d819780b251c63687645582559ca91b0cf08b5726839cc42aa0"
+    },
+    {
+      "bytes": 11428,
+      "path": "sources/__pycache__/blender_part_rigs.cpython-311.pyc",
+      "sha256": "f53f479a3fab7f23057f1ec3aec115747518fe73aca89c9b9409a1fd2101451d"
+    },
+    {
+      "bytes": 22553,
+      "path": "sources/__pycache__/blender_surface_profiles.cpython-311.pyc",
+      "sha256": "fc04cb95dcdcd83d5a8e0b35a4bd90d14145c4b7b26130fd806d29f9f9cd386f"
+    },
+    {
+      "bytes": 37919,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "162d8ef3f05d8364c5619441febef271d8fbd98e7a3c0a7c64bdb0eb470a4954"
+    },
+    {
+      "bytes": 16345,
+      "path": "sources/__pycache__/color_corrections.cpython-311.pyc",
+      "sha256": "a7e609f9e745b93d265a5b0d18ff570a9eff6b8ea4f9cfaacc18b1b1b44d69da"
+    },
+    {
+      "bytes": 12890,
+      "path": "sources/__pycache__/creature_rig_math.cpython-311.pyc",
+      "sha256": "5ecc38c09a9eee2d2a06b90609a2eccb0da50a3c1dcb85bd49c2450972feb8a3"
+    },
+    {
+      "bytes": 12242,
+      "path": "sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+      "sha256": "91004dbacdcfb2183f7bbb9a533dc23f6febb3db14f47044d002f96b40f138f3"
+    },
+    {
+      "bytes": 32526,
+      "path": "sources/__pycache__/edge_fringe.cpython-311.pyc",
+      "sha256": "08e1a2ecf39f88194a4ab50522caa747dd81038e9e266d6e678f000ff85455ca"
+    },
+    {
+      "bytes": 29358,
+      "path": "sources/__pycache__/fringe_color_atlas.cpython-311.pyc",
+      "sha256": "de8a99ef0675580173365fd9bb6204bac6ef59b65ca207c3a99e60d70f00531a"
+    },
+    {
+      "bytes": 8173,
+      "path": "sources/__pycache__/fur_root_sampling.cpython-311.pyc",
+      "sha256": "b636bf4d33a9bcf9269db25bdb275da76ff45c9c810b17b01041218e59fbac83"
+    },
+    {
+      "bytes": 13311,
+      "path": "sources/__pycache__/groom_flow.cpython-311.pyc",
+      "sha256": "d8abae0942980409d431a620008f25574b4c409eef6961bb4845ee2cc5c77911"
+    },
+    {
+      "bytes": 9462,
+      "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "876ef1c7f024b7678b1686703c2d962a0b3c2bdd88b248d763472d0d9e5b7cbe"
+    },
+    {
+      "bytes": 25727,
+      "path": "sources/__pycache__/normal_continuity.cpython-311.pyc",
+      "sha256": "385b9a0dd659bcc3fd9cb88c3ee62add360b8fd4c9585197bba1c6b8becac8f5"
+    },
+    {
+      "bytes": 12559,
+      "path": "sources/__pycache__/part_rigs.cpython-311.pyc",
+      "sha256": "5e66876b2c744aff62868f62c82e37f50e454d24ca3e8130b73ac051b6f73885"
+    },
+    {
+      "bytes": 4263,
+      "path": "sources/__pycache__/surface_profiles.cpython-311.pyc",
+      "sha256": "390950b60ce3f4956648608e465fa5523377f4344edb473fd54c2007ddaedf60"
+    },
+    {
+      "bytes": 27988,
+      "path": "sources/__pycache__/undercoat_uv_atlas.cpython-311.pyc",
+      "sha256": "bca29d9e6f01d926484146cc4bcbc28d4c839d10952e0afe27afcc9e029a6683"
+    },
+    {
+      "bytes": 6582,
+      "path": "sources/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4"
+    },
+    {
+      "bytes": 23994,
+      "path": "sources/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd"
+    },
+    {
+      "bytes": 2710,
+      "path": "sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 20404,
+      "path": "sources/blender_edge_fringe.py",
+      "sha256": "4d7f0ef49bc1b471b5ec3f205ba1a1d6e21353799e9ac7d7597bef51d21be2e8"
+    },
+    {
+      "bytes": 50813,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "4dea9c23bebe0d3df8a3856d4371f31832fa4b834ff7c8929532a22d86812ffa"
+    },
+    {
+      "bytes": 23637,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 36931,
+      "path": "sources/blender_fur_undercoat.py",
+      "sha256": "cd039759e97e1653bdcc29ab22b6cd36e3e9ff420234413de5520355f9ca50aa"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 6839,
+      "path": "sources/blender_normal_continuity.py",
+      "sha256": "1640b08c1adc1b9c5d0b5994dd5623982ec816dfa02f6bd30bb43bf64a55e9be"
+    },
+    {
+      "bytes": 5789,
+      "path": "sources/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e"
+    },
+    {
+      "bytes": 12009,
+      "path": "sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 8351,
+      "path": "sources/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2"
+    },
+    {
+      "bytes": 5399,
+      "path": "sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 6870,
+      "path": "sources/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7"
+    },
+    {
+      "bytes": 17397,
+      "path": "sources/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 36870,
+      "path": "sources/finish-design.json",
+      "sha256": "72f112ab66406b52a6ef8d39f2b625e7d20f1a52de3effb71d09b94da3de8da7"
+    },
+    {
+      "bytes": 29427,
+      "path": "sources/finish_generated.py",
+      "sha256": "8f3fd8eed9eec58a3c4e662066799eefed26ce47906cb7041d8098b86c4726b8"
+    },
+    {
+      "bytes": 16114,
+      "path": "sources/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 13676,
+      "path": "sources/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 4687,
+      "path": "sources/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 11962,
+      "path": "sources/generated_tangents.py",
+      "sha256": "58cd7003f95ce05d9655f5be9ff0c7b701d67319cc6d6138c9547dd0beb3815f"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 13937,
+      "path": "sources/normal_continuity.py",
+      "sha256": "6719fb8c7cfb47b240d34848b91838021b678abc806e32f0286d1b1115813d2a"
+    },
+    {
+      "bytes": 6665,
+      "path": "sources/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 1326,
+      "path": "sources/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 6843,
+      "path": "sources/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0"
+    },
+    {
+      "bytes": 2675,
+      "path": "sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 7538,
+      "path": "sources/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a"
+    },
+    {
+      "bytes": 1792,
+      "path": "sources/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    },
+    {
+      "bytes": 14944,
+      "path": "sources/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 2897299,
+      "path": "textures/authored-short-pile-normal-material-00.png",
+      "sha256": "0f33f9671b450c7fe80358a82ad010cd27293470f46b908642df0390d4b4fc49"
+    },
+    {
+      "bytes": 191869,
+      "path": "textures/authored-short-pile-normal-material-02.png",
+      "sha256": "216d1b75b2af72607619daaf989b75e81023aaf1271b10509bd5a4a4e2cde4b5"
+    },
+    {
+      "bytes": 1669859,
+      "path": "textures/portable-fringe-color-atlas.png",
+      "sha256": "c8ae03507b2d96f101986b25108412e56e5f0fadbb13918b3afd61add3e1fcda"
+    },
+    {
+      "bytes": 550150,
+      "path": "views/back.png",
+      "sha256": "c61ae5e35c53af94a9e461060072794380c6e9e900ca3e208d109df20228cc56"
+    },
+    {
+      "bytes": 560334,
+      "path": "views/front.png",
+      "sha256": "ad8a7e104636c77d92a827edd84a5f00162cda66e47d7bf8fb93b4b04b5bdfe0"
+    },
+    {
+      "bytes": 493161,
+      "path": "views/side.png",
+      "sha256": "99041f77340b8b950b4b71186fc4157f9d0580ed8c8307cd1db072db360f6114"
+    },
+    {
+      "bytes": 556238,
+      "path": "views/three_quarter.png",
+      "sha256": "cf57493ddb114cfda0a6ed21a3da28b30f1d298acd9b43412fb51e89985da90d"
+    }
+  ],
+  "error": "Finishing failed; inspect preserved attempt",
+  "rejected_attempts": [
+    {
+      "preserved": true,
+      "reason": "Finishing failed; inspect preserved attempt"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed"
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01 20:27:55 PST",
+  "status": "prepared_waiting_for_native_adapter_fixture_and_source_freeze",
+  "config": "examples/meshy/panda-portable-fringe-v1.json",
+  "config_sha256": "72f112ab66406b52a6ef8d39f2b625e7d20f1a52de3effb71d09b94da3de8da7",
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "original_design_sha256": "069448b7bcb484375d435039a30d8f9e782d99f0b65597ead2160f8050d5e3a5",
+  "output": "outputs/panda-portable-fringe-finish-v1",
+  "export_budget": {
+    "source_export_vertices": 51055,
+    "source_export_triangles": 62581,
+    "max_fins": 3600,
+    "worst_exported_fin_corners": 43200,
+    "reserve_vertices": 4096,
+    "projected_vertices": 98351,
+    "projected_triangles": 76981,
+    "vertex_limit": 100000,
+    "triangle_limit": 100000
+  },
+  "native_limits": {
+    "max_attempts": 1,
+    "wall_seconds": 600,
+    "sampled_direct_child_rss_mib": 2048,
+    "output_mib": 512,
+    "threads": 4
+  },
+  "verification_plan": "Only after adapterfixturepasses: one fullactualfinisher and one independentexported720pxpreview; inspectrealposes and preservefailures. No gallery/defaultpromotion.",
+  "aggregate_local_envelope": {
+    "expected_native_seconds_approx": 150,
+    "maximum_native_seconds": 1020,
+    "maximum_retained_output_mib": 960,
+    "heavy_worker_concurrency": 1,
+    "components": [
+      "smallnativeadapterfixture60s/64MiB",
+      "foxcomponent120s/128MiB",
+      "pandanativefinish600s/512MiB",
+      "foxexportpreview120s/128MiB",
+      "pandaexportpreview120s/128MiB"
+    ]
+  },
+  "cost": {
+    "new_meshy_credits": 0,
+    "new_meta_calls": 0,
+    "new_image_generation_calls": 0,
+    "new_pipeline_role_AI_calls": 0,
+    "paid_retries": 0,
+    "local_energy_price": "unpriced",
+    "pending_fresh_allowance_unchanged": true
+  },
+  "risk": "Prioradaptivefinish sampled2,085,765,120B close to2GiB. New atlas adds data;720px/16sample review and released temporary buffers reduce work but memory success is unproved. Do not raiseboundorautomaticallyretry."
+}

@@ -1,0 +1,482 @@
+{
+  "audit_script_sha256": "852a4966d8d872db6c5c2e15432cc9765ebfead3a5f001f5661b875387e9f47a",
+  "diagnoses": [
+    {
+      "first_failures": [
+        {
+          "position": [
+            -0.30719101428985596,
+            2.1236579418182373,
+            0.36399999260902405
+          ],
+          "stages": [
+            {
+              "best_source_vertex": 2878,
+              "bound": 1e-06,
+              "candidates_before": 4,
+              "field": "positions",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                -0.30719101428985596,
+                2.1236579418182373,
+                0.36399999260902405
+              ],
+              "target_values": [
+                -0.30719101428985596,
+                2.1236579418182373,
+                0.36399999260902405
+              ]
+            },
+            {
+              "best_source_vertex": 2878,
+              "bound": 2e-06,
+              "candidates_before": 4,
+              "field": "uv",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                0.0,
+                0.0
+              ],
+              "target_values": [
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "best_source_vertex": 2878,
+              "bound": 0.0002,
+              "candidates_before": 2,
+              "field": "normals",
+              "minimum_component_error": 0.00020647048950195312,
+              "source_values": [
+                -0.8243018984794617,
+                -0.4762011170387268,
+                -0.30620071291923523
+              ],
+              "target_values": [
+                -0.8243844509124756,
+                -0.47619104385375977,
+                -0.3059942424297333
+              ]
+            },
+            {
+              "candidates": 0,
+              "field": "dense_weights"
+            }
+          ],
+          "target_vertex": 2878
+        },
+        {
+          "position": [
+            -0.20999999344348907,
+            1.5,
+            -0.014000000432133675
+          ],
+          "stages": [
+            {
+              "best_source_vertex": 4207,
+              "bound": 1e-06,
+              "candidates_before": 28,
+              "field": "positions",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                -0.20999999344348907,
+                1.5,
+                -0.014000000432133675
+              ],
+              "target_values": [
+                -0.20999999344348907,
+                1.5,
+                -0.014000000432133675
+              ]
+            },
+            {
+              "best_source_vertex": 4212,
+              "bound": 2e-06,
+              "candidates_before": 28,
+              "field": "uv",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                0.13513459265232086,
+                0.8704216480255127
+              ],
+              "target_values": [
+                0.13513459265232086,
+                0.8704216480255127
+              ]
+            },
+            {
+              "best_source_vertex": 4212,
+              "bound": 0.0002,
+              "candidates_before": 1,
+              "field": "normals",
+              "minimum_component_error": 0.00021142512559890747,
+              "source_values": [
+                0.9645461440086365,
+                -0.2357112616300583,
+                -0.11870567500591278
+              ],
+              "target_values": [
+                0.9645532369613647,
+                -0.23578855395317078,
+                -0.11849424988031387
+              ]
+            },
+            {
+              "candidates": 0,
+              "field": "dense_weights"
+            }
+          ],
+          "target_vertex": 4212
+        },
+        {
+          "position": [
+            -0.20999999344348907,
+            1.5,
+            -0.014000000432133675
+          ],
+          "stages": [
+            {
+              "best_source_vertex": 4207,
+              "bound": 1e-06,
+              "candidates_before": 28,
+              "field": "positions",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                -0.20999999344348907,
+                1.5,
+                -0.014000000432133675
+              ],
+              "target_values": [
+                -0.20999999344348907,
+                1.5,
+                -0.014000000432133675
+              ]
+            },
+            {
+              "best_source_vertex": 4215,
+              "bound": 2e-06,
+              "candidates_before": 28,
+              "field": "uv",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                0.20656223595142365,
+                0.8704211115837097
+              ],
+              "target_values": [
+                0.20656223595142365,
+                0.8704211115837097
+              ]
+            },
+            {
+              "best_source_vertex": 4215,
+              "bound": 0.0002,
+              "candidates_before": 1,
+              "field": "normals",
+              "minimum_component_error": 0.0002086237072944641,
+              "source_values": [
+                0.9645461440086365,
+                -0.2357112616300583,
+                -0.11870567500591278
+              ],
+              "target_values": [
+                0.964576005935669,
+                -0.23569412529468536,
+                -0.11849705129861832
+              ]
+            },
+            {
+              "candidates": 0,
+              "field": "dense_weights"
+            }
+          ],
+          "target_vertex": 4215
+        }
+      ],
+      "material": "coat",
+      "source_bounds": [
+        [
+          -0.6642569899559021,
+          0.17013199627399445,
+          -0.5487639904022217
+        ],
+        [
+          1.0584779977798462,
+          2.6500000953674316,
+          0.4725179970264435
+        ]
+      ],
+      "source_vertices": 7079,
+      "target_bounds": [
+        [
+          -0.6642569899559021,
+          0.17013199627399445,
+          -0.5487639904022217
+        ],
+        [
+          1.0584779977798462,
+          2.6500000953674316,
+          0.4725179970264435
+        ]
+      ],
+      "target_vertices": 7079
+    },
+    {
+      "first_failures": [
+        {
+          "position": [
+            0.0,
+            2.0099539756774902,
+            0.2436469942331314
+          ],
+          "stages": [
+            {
+              "best_source_vertex": 1246,
+              "bound": 1e-06,
+              "candidates_before": 3,
+              "field": "positions",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                0.0,
+                2.0099539756774902,
+                0.2436469942331314
+              ],
+              "target_values": [
+                0.0,
+                2.0099539756774902,
+                0.2436469942331314
+              ]
+            },
+            {
+              "best_source_vertex": 1247,
+              "bound": 2e-06,
+              "candidates_before": 3,
+              "field": "uv",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                0.6521505117416382,
+                0.7417649030685425
+              ],
+              "target_values": [
+                0.6521505117416382,
+                0.7417649030685425
+              ]
+            },
+            {
+              "best_source_vertex": 1247,
+              "bound": 0.0002,
+              "candidates_before": 1,
+              "field": "normals",
+              "minimum_component_error": 0.0002000034146476537,
+              "source_values": [
+                -0.0002000034146476537,
+                0.5424093008041382,
+                -0.8401143550872803
+              ],
+              "target_values": [
+                0.0,
+                0.5424093008041382,
+                -0.8401143550872803
+              ]
+            },
+            {
+              "candidates": 0,
+              "field": "dense_weights"
+            }
+          ],
+          "target_vertex": 1247
+        },
+        {
+          "position": [
+            0.891169011592865,
+            1.0288310050964355,
+            -0.4740990102291107
+          ],
+          "stages": [
+            {
+              "best_source_vertex": 3600,
+              "bound": 1e-06,
+              "candidates_before": 3,
+              "field": "positions",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                0.891169011592865,
+                1.0288310050964355,
+                -0.4740990102291107
+              ],
+              "target_values": [
+                0.891169011592865,
+                1.0288310050964355,
+                -0.4740990102291107
+              ]
+            },
+            {
+              "best_source_vertex": 3602,
+              "bound": 2e-06,
+              "candidates_before": 3,
+              "field": "uv",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                0.40830934047698975,
+                0.7591612339019775
+              ],
+              "target_values": [
+                0.40830934047698975,
+                0.7591612339019775
+              ]
+            },
+            {
+              "best_source_vertex": 3602,
+              "bound": 0.0002,
+              "candidates_before": 1,
+              "field": "normals",
+              "minimum_component_error": 0.00020005041733384132,
+              "source_values": [
+                0.004899894818663597,
+                -0.8696812987327576,
+                -0.4935894012451172
+              ],
+              "target_values": [
+                0.005099945235997438,
+                -0.8697906136512756,
+                -0.4933947026729584
+              ]
+            },
+            {
+              "candidates": 0,
+              "field": "dense_weights"
+            }
+          ],
+          "target_vertex": 3602
+        },
+        {
+          "position": [
+            0.6888309717178345,
+            1.2311689853668213,
+            -0.4740990102291107
+          ],
+          "stages": [
+            {
+              "best_source_vertex": 3624,
+              "bound": 1e-06,
+              "candidates_before": 3,
+              "field": "positions",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                0.6888309717178345,
+                1.2311689853668213,
+                -0.4740990102291107
+              ],
+              "target_values": [
+                0.6888309717178345,
+                1.2311689853668213,
+                -0.4740990102291107
+              ]
+            },
+            {
+              "best_source_vertex": 3626,
+              "bound": 2e-06,
+              "candidates_before": 3,
+              "field": "uv",
+              "minimum_component_error": 0.0,
+              "source_values": [
+                0.5987842082977295,
+                0.7591590285301208
+              ],
+              "target_values": [
+                0.5987842082977295,
+                0.7591590285301208
+              ]
+            },
+            {
+              "best_source_vertex": 3626,
+              "bound": 0.0002,
+              "candidates_before": 1,
+              "field": "normals",
+              "minimum_component_error": 0.0003128647804260254,
+              "source_values": [
+                -0.8681814670562744,
+                0.012499733828008175,
+                -0.4960894286632538
+              ],
+              "target_values": [
+                -0.8680040240287781,
+                0.012400058098137379,
+                -0.4964022934436798
+              ]
+            },
+            {
+              "candidates": 0,
+              "field": "dense_weights"
+            }
+          ],
+          "target_vertex": 3626
+        }
+      ],
+      "material": "cream",
+      "source_bounds": [
+        [
+          -0.46973246335983276,
+          0.8300000429153442,
+          -0.5429999828338623
+        ],
+        [
+          1.0685839653015137,
+          2.0533270835876465,
+          0.5965620279312134
+        ]
+      ],
+      "source_vertices": 3876,
+      "target_bounds": [
+        [
+          -0.46973246335983276,
+          0.8300000429153442,
+          -0.5429999828338623
+        ],
+        [
+          1.0685839653015137,
+          2.0533270835876465,
+          0.5965620279312134
+        ]
+      ],
+      "target_vertices": 3876
+    },
+    {
+      "first_failures": [],
+      "material": "dark",
+      "source_bounds": [
+        [
+          -0.3999998867511749,
+          0.02000001072883606,
+          -0.13499972224235535
+        ],
+        [
+          0.3999999761581421,
+          1.375999927520752,
+          0.5189999938011169
+        ]
+      ],
+      "source_vertices": 6774,
+      "target_bounds": [
+        [
+          -0.3999998867511749,
+          0.02000001072883606,
+          -0.13499972224235535
+        ],
+        [
+          0.3999999761581421,
+          1.375999927520752,
+          0.5189999938011169
+        ]
+      ],
+      "target_vertices": 6774
+    }
+  ],
+  "elapsed_seconds": 0.7319368333555758,
+  "model_sha256": "ac8c0d905564861cefe75a08c64bdc8d659242f34b08a269f4aeeb303f304c92",
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "read_only_failure_localized",
+  "thresholds_changed": false
+}

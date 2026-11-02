@@ -1,0 +1,75 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1373,
+      "path": "execute_cpu.py",
+      "sha256": "83ddf9d1792ea967292d073d8b28eca192fb9b7cd6ae9abbbfa3a4b1b0043702"
+    },
+    {
+      "bytes": 1337,
+      "path": "job.json",
+      "sha256": "745cc75851cf0a4987b781e409e2103b1f9fe6e2bfeb9c42375037f70de66ce1"
+    },
+    {
+      "bytes": 2923,
+      "path": "prepared.json",
+      "sha256": "bd51f5acefd28c47289c8d59ef929c76e3c7f148d5d4d4fd222adb00629e0504"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 17397,
+      "path": "sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 19251,
+      "path": "sources/tests/test_edge_fringe.py",
+      "sha256": "0a5b22aad3edce16b6ee78e15da57e6822203c40cd03862ada487572a94b0454"
+    },
+    {
+      "bytes": 429,
+      "path": "tests-handle.json",
+      "sha256": "07da48f7f2475970c5aa1c601ce52d56aad0f0dd67e10cae952ca654619f0757"
+    },
+    {
+      "bytes": 1211,
+      "path": "tests-monitor.json",
+      "sha256": "6285fba2374b915951339ba0ee41172055681a3e32139c09d7cbb60902ac8a92"
+    },
+    {
+      "bytes": 3239,
+      "path": "tests.log",
+      "sha256": "97cc2a2bf662b1045adf8af2a12ae5963a359a6e02de3412bba2349467604f0d"
+    }
+  ],
+  "inputs_unchanged": true,
+  "native_calls": 0,
+  "passed": true,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1
+}

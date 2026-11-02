@@ -1,0 +1,16 @@
+20:54:48 | INFO: Data are loaded, start creating Blender stuff
+20:54:48 | INFO: Blender create Mesh node pear_shaped_body_surface
+20:54:48 | INFO: glTF import finished in 0.07s
+Blender 4.5.13 LTS (hash daeeeca98fb0 built 2026-08-25 01:30:50)
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v1/build_component.py", line 172, in <module>
+    main()
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v1/build_component.py", line 99, in main
+    require(len(meshes) == len(rigs) == 1, 'Expected one original mesh and one rig')
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v1/build_component.py", line 24, in require
+    raise ValueError(message)
+ValueError: Expected one original mesh and one rig
+
+Error: script failed, file: '/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v1/build_component.py', exiting.
+
+Blender quit

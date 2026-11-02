@@ -1,0 +1,61 @@
+{
+  "accepted": false,
+  "bounds": {
+    "memory_mib": 512,
+    "output_mib": 16,
+    "wall_seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-attribute-diagnosis-v1/diagnose_fringe.py"
+  ],
+  "matching_core": {
+    "origin": "outputs/fox-fringe-export-diagnosis-v2/localize_all.py",
+    "unchanged_sha256": "6a0c9c6f919c88f9837fbeec9b2b47acb1da2261fc849fb76028891c6283a662"
+  },
+  "no_native": true,
+  "provider_calls": 0,
+  "source_pins": [
+    {
+      "bytes": 13230,
+      "path": "diagnose_fringe.py",
+      "sha256": "4480e0f7c71c928074ade6d8f687cfed0344f9e097da82ab472531051fa2fabf"
+    },
+    {
+      "bytes": 929,
+      "path": "execute.py",
+      "sha256": "2676dbcf263f664d4ef87c65143f2f10788b07af8e69a42576e34cee457693e1"
+    },
+    {
+      "bytes": 1221,
+      "path": "inputs.json",
+      "sha256": "9f87edad89a2bbc39452b4eeac5eb93e01df1500628e46a8b75333d4543e3fcd"
+    },
+    {
+      "bytes": 8839,
+      "path": "sources/fox-localize-all.py",
+      "sha256": "cd866991d69ad5e121008633943e4bee0562c14db414a4d31ad1a4f93d78ad24"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    }
+  ]
+}

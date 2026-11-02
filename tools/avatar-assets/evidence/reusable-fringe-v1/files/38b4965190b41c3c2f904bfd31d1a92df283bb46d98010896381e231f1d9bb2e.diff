@@ -1,0 +1,116 @@
+--- v3/verify.py
++++ v3-final-v1/verify.py
+@@ -54,9 +54,10 @@
+     return output
+ 
+ 
+-def verify(out):
++def verify(out, source):
+     started = time.monotonic()
+     out = Path(out)
++    source = Path(source)
+     model = out/'model.glb'
+     check(28 <= model.stat().st_size < 64*1024**2, 'Model byte bounds')
+     blob = model.read_bytes()
+@@ -96,9 +97,9 @@
+             pixels = np.asarray(im.convert('RGBA'))
+         return pixels
+ 
+-    expected = np.load(out/'expected-source.npz')
+-    fins = np.load(out/'fringe-correspondence.npz')
+-    native = np.load(out/'native-corner-attributes.npz')
++    expected = np.load(source/'expected-source.npz')
++    fins = np.load(source/'fringe-correspondence.npz')
++    native = np.load(source/'native-corner-attributes.npz')
+     native_map = fins['native_vertex_to_helper_vertex']
+     check(np.array_equal(native_map, fins['triangles'].ravel()), 'Native corner correspondence changed')
+     check(np.array_equal(native['native_vertex_to_helper_vertex'], native_map), 'Native attribute correspondence changed')
+@@ -131,12 +132,20 @@
+         decoded[name] = []
+         for primitive in doc['meshes'][node['mesh']]['primitives']:
+             attributes = primitive['attributes']
+-            check({'POSITION', 'NORMAL', 'TANGENT', 'TEXCOORD_0', 'JOINTS_0', 'WEIGHTS_0'} <= set(attributes), 'Missing exported attribute')
+-            p, n, tangent, uv, j, w = [accessor(attributes[k]) for k in
+-                                     ('POSITION', 'NORMAL', 'TANGENT', 'TEXCOORD_0', 'JOINTS_0', 'WEIGHTS_0')]
+-            check(np.isfinite(np.c_[p, n, tangent, uv, w]).all(), 'Nonfinite exported data')
+-            check(np.max(np.abs(np.linalg.norm(tangent[:, :3], axis=1)-1)) < .001 and
+-                  np.isin(tangent[:, 3], [-1, 1]).all(), 'Invalid tangent frame')
++            check({'POSITION', 'NORMAL', 'TEXCOORD_0', 'JOINTS_0', 'WEIGHTS_0'} <= set(attributes), 'Missing exported attribute')
++            material = doc['materials'][primitive['material']]
++            check('normalTexture' not in material or 'TANGENT' in attributes, 'Normal-mapped primitive needs valid tangent')
++            if 'TANGENT' not in attributes:
++                check(name == 'PortableEdgeFringe' and material.get('name') == 'SourceColoredFringe'
++                      and 'normalTexture' not in material and not material.get('extensions')
++                      and not primitive.get('extensions'), 'Unadmitted tangent omission')
++            else:
++                tangent = accessor(attributes['TANGENT'])
++                check(np.isfinite(tangent).all() and np.max(np.abs(np.linalg.norm(tangent[:, :3], axis=1)-1)) < .001
++                      and np.isin(tangent[:, 3], [-1, 1]).all(), 'Invalid tangent frame')
++            p, n, uv, j, w = [accessor(attributes[k]) for k in
++                              ('POSITION', 'NORMAL', 'TEXCOORD_0', 'JOINTS_0', 'WEIGHTS_0')]
++            check(np.isfinite(np.c_[p, n, uv, w]).all(), 'Nonfinite exported data')
+             tri = accessor(primitive['indices']).reshape(-1, 3)
+             material = doc['materials'][primitive['material']]
+             skin_weight = np.zeros((len(p), 2))
+@@ -149,7 +158,7 @@
+                 check(distances[np.arange(len(p)), mapping].max() < 1e-8, 'Source positions changed')
+                 slot = int(material['name'][-1])
+                 pixels = texture_image(material)
+-                original = np.asarray(Image.open(out/f'source-{slot}.png').convert('RGBA'))
++                original = np.asarray(Image.open(source/f'source-{slot}.png').convert('RGBA'))
+                 check(np.array_equal(pixels, original), 'Source texture pixels changed')
+                 expected_uv = expected['raw_uv_topdown'][mapping]
+                 measurements['uv_error'] = max(measurements['uv_error'], float(np.max(np.abs(uv-expected_uv))))
+@@ -174,7 +183,7 @@
+                         expected_w[:, bone] += np.where(fins['joints'][mapping, column] == bone,
+                                                        fins['weights'][mapping, column], 0)
+                 atlas = texture_image(material)
+-                saved_atlas = np.asarray(Image.open(out/'textures/portable-fringe-color-atlas.png').convert('RGBA'))
++                saved_atlas = np.asarray(Image.open(source/'textures/portable-fringe-color-atlas.png').convert('RGBA'))
+                 check(np.array_equal(atlas, saved_atlas), 'Embedded atlas differs from saved PNG')
+             measurements['skin_error'] = max(measurements['skin_error'], float(np.max(np.abs(skin_weight-expected_w))))
+             decoded[name].append({'node': node_id, 'skin': skin, 'positions': p, 'joints': j, 'weights': w, 'mapping': mapping})
+@@ -190,13 +199,20 @@
+     for channel in animation['channels']:
+         sampler = animation['samplers'][channel['sampler']]
+         check(sampler.get('interpolation', 'LINEAR') in ('LINEAR', 'STEP'), 'Unexpected interpolation')
+-        channels.append((channel['target'], accessor(sampler['input']).ravel(), accessor(sampler['output'])))
++        channels.append((channel['target'], accessor(sampler['input']).ravel(), accessor(sampler['output']),
++                         sampler.get('interpolation', 'LINEAR')))
+     for ti, seconds in enumerate(expected['times']):
+         overrides, globals_ = {}, {}
+-        for target, times, values in channels:
+-            near = np.flatnonzero(np.abs(times-seconds) < 1e-6)
+-            check(len(near) == 1, 'Expected actual baked sample time')
+-            overrides[(target['node'], target['path'])] = values[near[0]]
++        for target, times, values, interpolation in channels:
++            if interpolation == 'STEP':
++                check(len(times) == 2 and np.array_equal(values[0], values[1]), 'Fixture STEP endpoints must be exactly constant')
++                check(times[0] <= seconds <= times[-1], 'STEP sample outside track')
++                index = min(len(times)-1, max(0, int(np.searchsorted(times, seconds, side='right')-1)))
++            else:
++                near = np.flatnonzero(np.abs(times-seconds) < 1e-6)
++                check(len(near) == 1, 'Expected actual baked sample time')
++                index = near[0]
++            overrides[(target['node'], target['path'])] = values[index]
+ 
+         def global_matrix(index):
+             if index in globals_:
+@@ -240,7 +256,7 @@
+     uv4 = fins['uv_gltf'].reshape(-1, 4, 2)
+     span = np.linalg.norm(fins['positions'].reshape(-1, 4, 3)[:, 1]-fins['positions'].reshape(-1, 4, 3)[:, 0], axis=1)
+     errors, alpha = [], []
+-    source_textures = [np.asarray(Image.open(out/f'source-{i}.png').convert('RGBA')) for i in range(2)]
++    source_textures = [np.asarray(Image.open(source/f'source-{i}.png').convert('RGBA')) for i in range(2)]
+     for physical_offset in (-.0025, .0025):
+         fraction = .5+physical_offset/span
+         source_uv = raw_uv[:, 0]*(1-fraction[:, None])+raw_uv[:, 1]*fraction[:, None]
+@@ -261,6 +277,8 @@
+               'source_geometry_and_weights_preserved': True, 'atlas_embedded_pixel_identical': True,
+               'fringe_masks_verified': True, 'selected_fins': len(fins['root_vertex_ids']),
+               'native_corners_verified': len(native_map), 'duplicate_roots_checked_per_pose': len(native_roots),
++              'fringe_tangent_policy': 'Explicit absent unused attribute; no zero-vector tolerance or invented frame',
++              'constant_step_tracks_verified': sum(row[3] == 'STEP' for row in channels),
+               'elapsed_seconds': time.monotonic()-started,
+               'limits': ['Analytic component fixture, not a generated or accepted avatar.',
+                          'CPU LOD0 sampling does not measure GPU mip/filtering, visibility or appearance.',

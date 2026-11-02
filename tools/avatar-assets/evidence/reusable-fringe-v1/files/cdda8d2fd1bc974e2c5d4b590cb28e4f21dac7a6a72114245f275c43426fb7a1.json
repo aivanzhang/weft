@@ -1,0 +1,90 @@
+{
+  "all_data_objects": [
+    {
+      "armature_modifiers": [],
+      "bone_display_shape": false,
+      "collections": [
+        "Scene Collection"
+      ],
+      "hide_render": false,
+      "name": "AvatarRig",
+      "type": "ARMATURE"
+    },
+    {
+      "armature_modifiers": [
+        "AvatarRig"
+      ],
+      "bone_display_shape": false,
+      "collections": [
+        "Scene Collection"
+      ],
+      "hide_render": false,
+      "name": "fox-hd-v3_skinned_mesh",
+      "type": "MESH"
+    },
+    {
+      "armature_modifiers": [],
+      "bone_display_shape": true,
+      "collections": [
+        "glTF_not_exported"
+      ],
+      "hide_render": false,
+      "name": "Icosphere",
+      "type": "MESH"
+    }
+  ],
+  "all_scenes": [
+    {
+      "name": "Scene",
+      "objects": [
+        "AvatarRig",
+        "fox-hd-v3_skinned_mesh",
+        "Icosphere"
+      ]
+    }
+  ],
+  "bone_display_shapes": [
+    "Icosphere"
+  ],
+  "context_scene": "Scene",
+  "context_scene_objects": [
+    {
+      "armature_modifiers": [],
+      "bone_display_shape": false,
+      "collections": [
+        "Scene Collection"
+      ],
+      "hide_render": false,
+      "name": "AvatarRig",
+      "type": "ARMATURE"
+    },
+    {
+      "armature_modifiers": [
+        "AvatarRig"
+      ],
+      "bone_display_shape": false,
+      "collections": [
+        "Scene Collection"
+      ],
+      "hide_render": false,
+      "name": "fox-hd-v3_skinned_mesh",
+      "type": "MESH"
+    },
+    {
+      "armature_modifiers": [],
+      "bone_display_shape": true,
+      "collections": [
+        "glTF_not_exported"
+      ],
+      "hide_render": false,
+      "name": "Icosphere",
+      "type": "MESH"
+    }
+  ],
+  "real_mesh_candidates": [
+    "fox-hd-v3_skinned_mesh"
+  ],
+  "rigs": [
+    "AvatarRig"
+  ]
+}

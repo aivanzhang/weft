@@ -1,0 +1,20 @@
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "pipeline", "status": "cancelled"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "fixture", "status": "checked"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "reused_generated_source"}
+{"stage": "pipeline", "status": "planned"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "unsupported"}
+{"stage": "planner", "status": "unsupported"}
+----------------------------------------------------------------------
+Ran 72 tests in 0.922s
+
+OK

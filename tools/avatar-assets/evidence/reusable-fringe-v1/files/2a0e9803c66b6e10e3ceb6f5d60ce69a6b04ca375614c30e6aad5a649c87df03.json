@@ -1,0 +1,206 @@
+{
+  "authored_assumptions": [
+    "Global downward rest-space comb and one upper-body region are explicitly authored, not inferred fur anatomy.",
+    "Uniform9mm fins and0.18lean remain fixed; no native groom, recovered strands, new motions or physical hair.",
+    "Keep all13non-fur retained material regions bare.",
+    "Only the preparation baseline has exact original BIN and retained primitive/rig/action JSON custody. Final actual Blender export is reserialization and requires numeric correspondence/weighted-pose verification.",
+    "Existing authored fox is a heterogeneous-texture integration subject, not fresh AI prompt acceptance.",
+    "No appearance promotion follows from technical color/geometry gates."
+  ],
+  "baseline": "inputs/base-no-legacy-cards.glb",
+  "excluded_retained_materials": [
+    "nose",
+    "eye_white",
+    "iris",
+    "pupil",
+    "ear_inner",
+    "scarf",
+    "scarf_seam",
+    "book",
+    "paper",
+    "page_edge",
+    "gold",
+    "pencil_wood",
+    "graphite"
+  ],
+  "expected_actions": [
+    "idle",
+    "making_something",
+    "milestone_level_up",
+    "working"
+  ],
+  "expected_bones": 20,
+  "export_budget": {
+    "max_fins": 4800,
+    "projected_triangles": 66976,
+    "projected_vertices": 92114,
+    "reserve_vertices": 4096,
+    "source_export_triangles": 47776,
+    "source_export_vertices": 30418,
+    "triangle_limit": 100000,
+    "vertex_limit": 100000,
+    "worst_exported_fin_corners": 57600
+  },
+  "groom_flow": {
+    "regions": [
+      {
+        "center": [
+          0.5,
+          0.5,
+          0.75
+        ],
+        "comb": 0.18,
+        "direction": [
+          0,
+          0.15,
+          -1
+        ],
+        "feather": 0.5,
+        "length_scale": 1,
+        "name": "upper-rest-flow",
+        "radius": [
+          0.5,
+          0.5,
+          0.3
+        ]
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "bytes": 27709020,
+      "path": "outputs/fox-hd-build-v2/model.glb",
+      "sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78"
+    },
+    {
+      "bytes": 6847,
+      "path": "outputs/fringe-integration-review-v1/fox-census.json",
+      "sha256": "0a08412c5e62825c27adbd565dbad32d401b891d2e75a183a387dc659bf20a95"
+    },
+    {
+      "bytes": 170381,
+      "path": "outputs/fox-hd-build-v2/manifest.json",
+      "sha256": "29c9673ec2ccb51428c2a8e2595cfe6e861a66792e9657c7eb8c4cb83662a3be"
+    },
+    {
+      "bytes": 5231,
+      "path": "outputs/fox-hd-build-v2/rig-contract.json",
+      "sha256": "0531418eaa7462238097e51ce121dd2b94f2b990fd6159f77f7518059e0f0b7a"
+    }
+  ],
+  "native_groom_controls_for_flow_only": {
+    "comb": 0.18,
+    "direction": [
+      0,
+      0,
+      -1
+    ]
+  },
+  "native_limits": {
+    "attempts": 1,
+    "memory_mib": 2048,
+    "output_mib": 128,
+    "seconds": 120,
+    "threads": 4
+  },
+  "new_native_provider_ai_role_calls": 0,
+  "numeric_tolerances": {
+    "source_normal_component": 0.0002,
+    "source_position_m": 1e-06,
+    "source_uv": 2e-06,
+    "source_weight": 1e-06,
+    "weighted_pose_m": 1e-05
+  },
+  "output": "outputs/fox-fringe-component-v1",
+  "paid_cost_usd": 0,
+  "portable_fringe": {
+    "design_views": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        -1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        -1
+      ]
+    ],
+    "excluded_materials": [
+      "nose",
+      "eye_white",
+      "iris",
+      "pupil",
+      "ear_inner",
+      "scarf",
+      "scarf_seam",
+      "book",
+      "paper",
+      "page_edge",
+      "gold",
+      "pencil_wood",
+      "graphite"
+    ],
+    "profile": "edge-fringe-v1",
+    "settings": {
+      "comb": 0.18,
+      "length_m": 0.009,
+      "max_edge_m": 0.02,
+      "max_fins": 4800,
+      "min_edge_m": 0.0085,
+      "min_fins": 1000,
+      "min_spacing_m": 0.003,
+      "seed": 912
+    }
+  },
+  "quality_approved": false,
+  "remove_original_mesh0_primitives": [
+    1,
+    3,
+    10
+  ],
+  "removed_materials": [
+    "coat_cutout_fur",
+    "cream_cutout_fur",
+    "dark_cutout_fur"
+  ],
+  "schema_version": 1,
+  "selected_materials": [
+    "coat",
+    "cream",
+    "dark"
+  ],
+  "source": "outputs/fox-hd-build-v2/model.glb",
+  "source_budget": {
+    "source_export_triangles": 47776,
+    "source_export_vertices": 30418
+  },
+  "source_sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+  "source_texture_pixels": 9437184,
+  "status": "prepared_not_released_for_native",
+  "verification_limits": {
+    "memory_mib": 512,
+    "output_mib": 8,
+    "seconds": 60
+  }
+}

@@ -6,6 +6,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import shutil
 from types import SimpleNamespace
 import tempfile
 import unittest
@@ -13,7 +14,8 @@ from unittest.mock import Mock, patch
 import sys
 import numpy as np
 
-from avatar_assets.finish_generated import finish, validate, _undercoat_frame_policy
+from avatar_assets.finish_generated import ROOT, finish, validate, reuse_native, _undercoat_frame_policy, _portable_fringe_export
+from avatar_assets.safety import LIMITS, artifacts, sha256, write_json
 from scripts import surface_integrity, blender_fur_cards, fur_root_sampling, groom_flow
 
 
@@ -51,6 +53,71 @@ def material(image, *, route=(), projection='FLAT', extension='REPEAT'):
 
 
 class FinishQualityConfigTests(unittest.TestCase):
+    def test_unverified_fringe_finishing_fails_before_output_or_native_work(self):
+        cfg = tuft_config()
+        cfg.pop('portable_fur')
+        cfg['portable_fringe'] = {'profile': 'edge-fringe-v1', 'settings': {'seed': 1, 'min_fins': 1,
+            'max_fins': 10, 'length_m': .008, 'min_spacing_m': .003, 'min_edge_m': .0085,
+            'max_edge_m': .02, 'comb': .15}, 'design_views': [[0, -1, 0]], 'excluded_materials': []}
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root/'analytic.glb'; source.write_bytes(b'ANALYTIC PREFLIGHT FIXTURE')
+            cfg.update(source=str(source), source_sha256=sha256(source))
+            write_json(root/'config.json', cfg)
+            with patch('avatar_assets.finish_generated.preflight', return_value={'vertices': 100, 'triangles': 50, 'skins': 1}), \
+                 patch('avatar_assets.finish_generated.run_bounded') as native, \
+                 self.assertRaisesRegex(ValueError, 'Unsupported portable_fringe'):
+                finish(root/'config.json', root/'new')
+            native.assert_not_called()
+            self.assertFalse((root/'new').exists())
+
+    def test_native_reuse_retains_hash_bound_review_views(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)/'old'; root.mkdir()
+            out = Path(temporary)/'new'; out.mkdir()
+            (root/'sources').mkdir()
+            for folder in ('avatar_assets', 'scripts'):
+                for path in (ROOT/folder).glob('*.py'):
+                    shutil.copyfile(path, root/'sources'/path.name)
+            (root/'views').mkdir()
+            image = root/'views/front.png'
+            image.write_bytes(b'ANALYTIC COPY-CUSTODY FIXTURE, NOT AN IMAGE')
+            cfg = {'review_views': True, 'portable_fringe': {'profile': 'edge-fringe-v1'}}
+            report = {'review_views': [{'path': 'views/front.png', 'sha256': sha256(image)}]}
+            write_json(root/'finish-config.json', cfg)
+            write_json(root/'finish-report.json', report)
+            write_json(root/'fringe-report.json', {'provenance': 'analytic copy-custody fixture'})
+            write_json(root/'job.json', {'exit_code': 0, 'failure': None})
+            for name in ('source.blend', 'portrait.png', 'finish.log', 'finish-monitor.json',
+                         'finish-handle.json', 'model-native-export.glb', 'fringe-correspondence.npz'):
+                (root/name).write_bytes(b'ANALYTIC COPY-CUSTODY FIXTURE')
+            (root/'phase-memory.jsonl').write_text('{"provenance":"analytic fixture","rss_bytes":null}\n')
+            write_json(root/'manifest.json', {'artifacts': artifacts(root)})
+            reuse_native(root, out, cfg)
+            self.assertEqual(sha256(out/'views/front.png'), report['review_views'][0]['sha256'])
+            self.assertEqual(json.loads((out/'finish-report.json').read_text()), report)
+            self.assertEqual(sha256(out/'phase-memory.jsonl'), sha256(root/'phase-memory.jsonl'))
+            self.assertFalse(json.loads((out/'native-reuse.json').read_text())['native_execution_repeated'])
+
+    def test_fringe_postprocessing_rejects_unbound_material_and_reserves_both_glbs(self):
+        fringe = {'geometry_profile': 'edge-fringe-v1', 'material': {'material': 'ObservedCoat'}}
+        report = {'portable_fringe': fringe, 'portable_fur': [fringe]}
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root/'fringe-report.json').write_text(json.dumps(fringe))
+            with patch('avatar_assets.fringe_export.omit_unused_fringe_tangents') as derive:
+                mismatched = deepcopy(report)
+                mismatched['portable_fringe']['material']['material'] = 'UnrelatedSurface'
+                with self.assertRaisesRegex(ValueError, 'exact native material report'):
+                    _portable_fringe_export(root, mismatched)
+                # Sparse bytes exercise actual directory accounting without allocating a large fixture.
+                with (root/'preserved-native.bin').open('wb') as handle:
+                    handle.truncate(LIMITS['output_bytes']-2*LIMITS['input_bytes'])
+                with self.assertRaisesRegex(ValueError, 'pack byte budget'):
+                    _portable_fringe_export(root, report)
+                derive.assert_not_called()
+                self.assertFalse((root/'model-fringe-export.glb').exists())
+
     def test_uv1_export_requires_the_saved_bake_policy_not_just_an_opt_in(self):
         from avatar_assets.generated_tangents import NORMAL_UV1_FRAME_POLICY
         policy = NORMAL_UV1_FRAME_POLICY

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v2/build_component.py"
+  ],
+  "prepared_sha256": "4bd86a92f7899869b0bf5dc7942a8fa45345fffdd9a64c5ce745a0f122282380"
+}

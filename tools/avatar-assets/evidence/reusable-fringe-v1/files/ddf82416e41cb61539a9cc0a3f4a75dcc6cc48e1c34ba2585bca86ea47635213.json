@@ -1,0 +1,74 @@
+{
+  "aggregate_local_envelope": {
+    "components": [
+      "smallnativeadapterfixture60s/64MiB",
+      "foxcomponent120s/128MiB",
+      "pandanativefinish600s/512MiB",
+      "foxexportpreview120s/128MiB",
+      "pandaexportpreview120s/128MiB"
+    ],
+    "expected_native_seconds_approx": 150,
+    "heavy_worker_concurrency": 1,
+    "maximum_native_seconds": 1020,
+    "maximum_retained_output_mib": 960
+  },
+  "changed_hypothesis": "Retain packed FILE PNG instead of generated atlas; free decoded hidden-fringe buffers after export. Instrument actual phase RSS. Geometry,PNG pixels,fur density,resolution,samples,denoising,rig and motions stay unchanged; no failed-native reuse.",
+  "config": "examples/meshy/panda-portable-fringe-v1.json",
+  "config_sha256": "72f112ab66406b52a6ef8d39f2b625e7d20f1a52de3effb71d09b94da3de8da7",
+  "cost": {
+    "local_energy_price": "unpriced",
+    "new_image_generation_calls": 0,
+    "new_meshy_credits": 0,
+    "new_meta_calls": 0,
+    "new_pipeline_role_AI_calls": 0,
+    "paid_retries": 0,
+    "pending_fresh_allowance_unchanged": true
+  },
+  "export_budget": {
+    "max_fins": 3600,
+    "projected_triangles": 76981,
+    "projected_vertices": 98351,
+    "reserve_vertices": 4096,
+    "source_export_triangles": 62581,
+    "source_export_vertices": 51055,
+    "triangle_limit": 100000,
+    "vertex_limit": 100000,
+    "worst_exported_fin_corners": 43200
+  },
+  "native_limits": {
+    "max_attempts": 1,
+    "output_mib": 512,
+    "sampled_direct_child_rss_mib": 2048,
+    "threads": 4,
+    "wall_seconds": 600
+  },
+  "original_design_sha256": "069448b7bcb484375d435039a30d8f9e782d99f0b65597ead2160f8050d5e3a5",
+  "output": "outputs/panda-portable-fringe-finish-v2",
+  "prior_attempt": {
+    "elapsed_seconds": 29.799,
+    "failed_manifest_sha256": "0f5ca73a93480ee2930e0bfef5bc6f186c864576af0863065dca31b3f1f1efb6",
+    "job_sha256": "988fe48d4786bc2493ca5a9a2a734169ce8071647b41d99650314f68be42e4d5",
+    "path": "outputs/panda-portable-fringe-finish-v1",
+    "sampled_peak_rss_bytes": 2292908032
+  },
+  "recorded_local": "2026-11-01 21:13:30 PST",
+  "remaining_local_envelope": {
+    "combined_max_native_seconds": 760.977,
+    "conditional_export_preview_max_seconds": 120,
+    "conditional_preview_max_bytes": 134217728,
+    "measured_prior_native_seconds": 40.977,
+    "memory_savings_unverified": true,
+    "native_finish_max_seconds": 600,
+    "new_finish_output_max_bytes": 536870912,
+    "new_native_attempts": 1,
+    "one_heavy_worker": true,
+    "original_cumulative_output_mib": 960,
+    "original_cumulative_seconds_limit": 1020,
+    "prior_retained_bytes_snapshot": 197267377
+  },
+  "risk": "Prioradaptivefinish sampled2,085,765,120B close to2GiB. New atlas adds data;720px/16sample review and released temporary buffers reduce work but memory success is unproved. Do not raiseboundorautomaticallyretry.",
+  "schema_version": 1,
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "status": "prepared_changed_image_lifetime_not_reduced_quality",
+  "verification_plan": "Only after adapterfixturepasses: one fullactualfinisher and one independentexported720pxpreview; inspectrealposes and preservefailures. No gallery/defaultpromotion."
+}

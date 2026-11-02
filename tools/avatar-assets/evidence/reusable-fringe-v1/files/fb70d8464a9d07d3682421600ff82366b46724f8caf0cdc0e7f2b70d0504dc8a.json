@@ -1,0 +1,402 @@
+{
+  "accepted": false,
+  "aggregate_measured_wall_seconds": 4.159,
+  "all_children_exit_verified": true,
+  "all_corner_localization_sha256": "5f915b5f142b7ce25812637a0b01ba42c9ca0b9ff2ff738ae1bc96e3de0eaad1",
+  "all_corner_normals": {
+    "ambiguous_matches_with_different_source_normals": 0,
+    "maximum_angular_error_degrees": 0.7959728696772713,
+    "maximum_component_error": 0.013583168387413025,
+    "maximum_source_normal_ambiguity_component_spread": 0.0,
+    "original_component_limit": 0.0002,
+    "over_original_limit": 315,
+    "p99_component_error": 0.00014341026544570953,
+    "policy": "Normal is excluded from correspondence. Report closest candidate normal as a lower bound where position/UV/weight aliases are ambiguous.",
+    "samples": 43200,
+    "worst_violations": [
+      {
+        "angular_error_degrees": 0.7866131346327309,
+        "closest_source_vertex": 8697,
+        "component_error": 0.013583168387413025,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          -0.1297183781862259,
+          0.3705756366252899,
+          -0.9196993112564087
+        ],
+        "target_normal": [
+          -0.14330154657363892,
+          0.3705039918422699,
+          -0.9177098870277405
+        ],
+        "target_vertex": 13045
+      },
+      {
+        "angular_error_degrees": 0.7851145003540849,
+        "closest_source_vertex": 6145,
+        "component_error": 0.013391129672527313,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          0.12311119586229324,
+          0.17951449751853943,
+          -0.9760215878486633
+        ],
+        "target_normal": [
+          0.13650232553482056,
+          0.17690300941467285,
+          -0.9747166037559509
+        ],
+        "target_vertex": 9217
+      },
+      {
+        "angular_error_degrees": 0.7657548240808957,
+        "closest_source_vertex": 12672,
+        "component_error": 0.013197529129683971,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          -0.020897619426250458,
+          0.19220741093158722,
+          0.9811317920684814
+        ],
+        "target_normal": [
+          -0.007700090296566486,
+          0.1943022757768631,
+          0.9809114933013916
+        ],
+        "target_vertex": 40613
+      }
+    ]
+  },
+  "all_corner_weights": {
+    "ambiguous_matches_with_different_source_weights": 0,
+    "maximum_component_error": 0.0001290440559387207,
+    "original_component_limit": 1e-06,
+    "over_original_limit": 414,
+    "policy": "Weights excluded only to localize original-gate failures; closest candidate is a lower bound for aliases.",
+    "samples": 43200,
+    "worst_violations": [
+      {
+        "closest_source_vertex": 13665,
+        "maximum_component_error": 0.0001290440559387207,
+        "source_dense_weights": [
+          7.013243885012344e-05,
+          0.00901399552822113,
+          6.011861114529893e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9908557534217834,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_dense_weights": [
+          0.0,
+          0.00901516992598772,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9909847974777222,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_vertex": 20497
+      },
+      {
+        "closest_source_vertex": 13667,
+        "maximum_component_error": 0.0001290440559387207,
+        "source_dense_weights": [
+          7.013243885012344e-05,
+          0.00901399552822113,
+          6.011861114529893e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9908557534217834,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_dense_weights": [
+          0.0,
+          0.00901516992598772,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9909847974777222,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_vertex": 20498
+      },
+      {
+        "closest_source_vertex": 13667,
+        "maximum_component_error": 0.0001290440559387207,
+        "source_dense_weights": [
+          7.013243885012344e-05,
+          0.00901399552822113,
+          6.011861114529893e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9908557534217834,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_dense_weights": [
+          0.0,
+          0.00901516992598772,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9909847974777222,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_vertex": 20500
+      }
+    ]
+  },
+  "costs": {
+    "ai_role_calls": 0,
+    "native_calls": 0,
+    "provider_calls": 0
+  },
+  "exported_corners": 43200,
+  "fins": 3600,
+  "helper_vertices": 14400,
+  "inputs": [
+    {
+      "bytes": 35693464,
+      "path": "outputs/panda-portable-fringe-finish-v1/model.glb",
+      "sha256": "af387843524ba560f2b8f0dd9d5c75f5d923e8f2e8f0ed7db62d60f1dcdf9026"
+    },
+    {
+      "bytes": 567833,
+      "path": "outputs/panda-portable-fringe-finish-v1/fringe-correspondence.npz",
+      "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+    },
+    {
+      "bytes": 13534,
+      "path": "outputs/panda-portable-fringe-finish-v1/fringe-report.json",
+      "sha256": "a0209a11a07e97261af908b45ff46de08fed6e201d3e761fe8b73942d1fdeb4b"
+    },
+    {
+      "bytes": 1680,
+      "path": "outputs/panda-portable-fringe-finish-v1/job.json",
+      "sha256": "988fe48d4786bc2493ca5a9a2a734169ce8071647b41d99650314f68be42e4d5"
+    },
+    {
+      "bytes": 12540,
+      "path": "outputs/panda-portable-fringe-finish-v1/manifest.json",
+      "sha256": "0f5ca73a93480ee2930e0bfef5bc6f186c864576af0863065dca31b3f1f1efb6"
+    }
+  ],
+  "interpretation": [
+    "Panda also has roughly0.80degree exported fringe-normal drift, not only fox.",
+    "All43200corners map uniquely by position and UV; all oriented triangles and helper attribute groups are covered.",
+    "315corners exceed unchanged0.0002normal-component bound;414corners exceed unchanged1e-6weight-component bound.",
+    "Worst observed weight rows lose two small nonzero helper influences (about7.01e-5 and6.01e-5), with remaining weights enlarged. This observation is consistent with pruning plus renormalization, but the mechanism was not proven here.",
+    "Position/UV-only localization is not a replacement acceptance gate; all original normal and weight failures remain."
+  ],
+  "limitations": [
+    "The source native build was stopped for exceeding2GiB; no pack acceptance.",
+    "No tangents inspected/omitted, texture decode, render, weighted pose audit, normal patch, threshold change, or production source change.",
+    "No new quality or Muse-equivalence claim."
+  ],
+  "owned_child_pids": [
+    34615,
+    34814
+  ],
+  "position_uv_only_diagnosis": {
+    "complete": true,
+    "maximum_selected_errors": {
+      "positions": 0.0,
+      "uv": 2.9802322387695312e-08
+    },
+    "oriented_triangle_multiset_equal": true,
+    "source": {
+      "ambiguous_vertices": 0,
+      "candidate_count_histogram": {
+        "1": 14400
+      },
+      "first_missing": [],
+      "missing_count": 0
+    },
+    "source_attribute_groups_covered": true,
+    "target": {
+      "ambiguous_vertices": 0,
+      "candidate_count_histogram": {
+        "1": 43200
+      },
+      "first_missing": [],
+      "missing_count": 0
+    },
+    "thresholds": {
+      "positions": 1e-06,
+      "uv": 2e-06
+    }
+  },
+  "reference": "Actual helper arrays; Blender-to-glTF rest axis transform and actual exported skin joint names",
+  "sampled_peak_rss_bytes": 177471488,
+  "status": "diagnosis_complete_original_gates_failed",
+  "strict_diagnosis_sha256": "a59d46d1d1808be9ed05b39f1c34262a580603ac63c4fe8ad9bafe56877c07b6",
+  "strict_position_uv_weight_matching": {
+    "complete": false,
+    "maximum_selected_errors": {
+      "dense_weights": 7.748603820800781e-07,
+      "positions": 0.0,
+      "uv": 2.9802322387695312e-08
+    },
+    "oriented_triangle_multiset_equal": false,
+    "source": {
+      "ambiguous_vertices": 0,
+      "candidate_count_histogram": {
+        "1": 14400
+      },
+      "first_missing": [],
+      "missing_count": 0
+    },
+    "source_attribute_groups_covered": false,
+    "target": {
+      "ambiguous_vertices": 0,
+      "candidate_count_histogram": {
+        "0": 414,
+        "1": 42786
+      },
+      "first_missing": [
+        {
+          "position": [
+            -0.2579546272754669,
+            0.5699137449264526,
+            0.2450544834136963
+          ],
+          "vertex": 211
+        },
+        {
+          "position": [
+            -0.26048198342323303,
+            0.5731247663497925,
+            0.2519321143627167
+          ],
+          "vertex": 212
+        },
+        {
+          "position": [
+            -0.26048198342323303,
+            0.5731247663497925,
+            0.2519321143627167
+          ],
+          "vertex": 214
+        },
+        {
+          "position": [
+            0.3391183316707611,
+            0.26709380745887756,
+            -0.02738667093217373
+          ],
+          "vertex": 696
+        },
+        {
+          "position": [
+            0.3395170569419861,
+            0.25873637199401855,
+            -0.030845850706100464
+          ],
+          "vertex": 697
+        },
+        {
+          "position": [
+            0.33389320969581604,
+            0.2590772807598114,
+            -0.03652529418468475
+          ],
+          "vertex": 698
+        },
+        {
+          "position": [
+            0.3391183316707611,
+            0.26709380745887756,
+            -0.02738667093217373
+          ],
+          "vertex": 699
+        },
+        {
+          "position": [
+            0.33389320969581604,
+            0.2590772807598114,
+            -0.03652529418468475
+          ],
+          "vertex": 700
+        }
+      ],
+      "missing_count": 414
+    },
+    "thresholds": {
+      "dense_weights": 1e-06,
+      "positions": 1e-06,
+      "uv": 2e-06
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "api": {
+    "admission": "Caller must reject report.technical_gate_passed=false; helper retains all2F tip errors/alphas instead of discarding failing colors.",
+    "atlas_material": "WhitebaseColorFactor/novertexcolor; MASKcutoff.18; Linear/trilinear withCLAMP_TO_EDGE; do not reuse source normal maps.",
+    "call": "build_color_atlas(fins, material_ids, textures, silhouette, *, cell_width=64, cell_height=32, padding=2, batch_fins=128, pack_by_color=True)",
+    "geometry": "All source arrays are untouched; only cell order/assigned UVs change.",
+    "return": [
+      "pixels top-down RGBA8",
+      "uv glTF-V-down float32 in source-fin geometry order",
+      "report",
+      "permutation.destination_for_source_fin",
+      "permutation.source_fin_at_destination",
+      "nominal_tips arrays"
+    ],
+    "source_materials": "1..32 uint8RGB(A) images +linearRGBfactor; distinct-array pixel sum<=16777216. Caller must establish OPAQUE/directUV0/Linear/REPEAT.",
+    "source_uv": "Raw finite abs<=1e6; interpolate first, REPEAT per sample; never modulo endpoints."
+  },
+  "bounds": {
+    "atlas_dimension": 4096,
+    "batch_fins": 128,
+    "fins": 4800,
+    "helper_seconds": 20,
+    "source_or_atlas_pixels": 16777216,
+    "test_job_memory_mib": 512,
+    "test_job_output_mib": 8,
+    "test_job_seconds": 30
+  },
+  "coverage": [
+    "Independent2x2centers/seams/negative/wrap/orientation/sRGBfactor",
+    "Stripedsourcevsendpointinterpolation",
+    "Coloredgradient+secondmaterial",
+    "Exactcellpermutation/deterministicbytes/batchsizeinvariance",
+    "Physicaltwo-tipwidth",
+    "Failingcolors+alpha remainreported",
+    "ArbitraryN/unusedcells/threeimage9.44MPsum",
+    "ModeledlinearBOX+bilinearCLAMPcoarsefiltering",
+    "Invalid/oversized/timeboundinputs/sourceimmutability"
+  ],
+  "files": [
+    {
+      "bytes": 16114,
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 18695,
+      "path": "tests/test_fringe_color_atlas.py",
+      "sha256": "8c87b94504d9ca2915f73a0e13e07672bce3b1d6be2e868881c404fc43f9c6e8",
+      "snapshot": "sources/tests/test_fringe_color_atlas.py"
+    }
+  ],
+  "final_run": {
+    "bounded_wall_seconds": 0.522,
+    "job": "attempt-3/job.json",
+    "pid": 25230,
+    "process_exit_verified": true,
+    "rss_samples": 1,
+    "sampled_peak_rss_bytes": 146980864,
+    "test_seconds": 0.411,
+    "tests": 16
+  },
+  "limits": [
+    "Analytic fixtures are not generatedavatars.",
+    "Sampling/filtermodels do not establish actualGPUmips,lighting,coverage or densefur quality.",
+    "SampledRSS is not a guaranteed peak.",
+    "Colorcoherentpacking does not remove within-cellblend or deep-mipbleed."
+  ],
+  "new_native_provider_ai_role_calls": 0,
+  "preserved_history": [
+    {
+      "path": "attempt-1",
+      "status": "passed14tests_earlier_revision"
+    },
+    {
+      "path": "attempt-2",
+      "reason": "Wrap control used different float32 silhouette crops, causing28alpha bytes to differ by1; RGB matched. Final control shares exact crop; assertions retained.",
+      "status": "15passed_1failed_test_fixture_alpha_tile_mismatch"
+    },
+    {
+      "path": "attempt-3",
+      "status": "passed16tests_current_revision"
+    }
+  ],
+  "quality_approved": false,
+  "representative_bound_case": "4800fins+allocated4096x4096RGBA8source; output4096x2400RGBA8=39321600bytes,9600nominaltips.",
+  "schema_version": 1,
+  "status": "frozen_focused_analytic_tests_passed"
+}

@@ -1,0 +1,96 @@
+{
+  "artifacts": [
+    {
+      "bytes": 133,
+      "path": "audit/export-audit-failure.json",
+      "sha256": "a960dc20e53a38340ce49bbdaca10c9e676edce51e940cfa99bf265945491ff9"
+    },
+    {
+      "bytes": 391,
+      "path": "audit/fringe-material.json",
+      "sha256": "565be71f60282f9007053860a140ff40919892d1aaaa2417b505384d4c5e2daa"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "1544a07deb64fc409d5fa341245ba6e73201c3dc32c1ec8fe6fde236444e4339"
+    },
+    {
+      "bytes": 492,
+      "path": "completion.json",
+      "sha256": "70b5ab7a7e1cc970e0a6bcea186484d224c1012154d1dce190d0f94d377c5365"
+    },
+    {
+      "bytes": 563138,
+      "path": "fringe-correspondence.npz",
+      "sha256": "874fece1cbb9e3f0e7d386f4f6baa278118d87cfba427d59d42862ecec7f0a99"
+    },
+    {
+      "bytes": 14489,
+      "path": "fringe-report.json",
+      "sha256": "cda144f052d3376a1e98a1b0b0b4121d422395a0ca6b3f77ed3047072061a376"
+    },
+    {
+      "bytes": 1773,
+      "path": "import-inventory.json",
+      "sha256": "cdda8d2fd1bc974e2c5d4b590cb28e4f21dac7a6a72114245f275c43426fb7a1"
+    },
+    {
+      "bytes": 30424508,
+      "path": "model.glb",
+      "sha256": "ac8c0d905564861cefe75a08c64bdc8d659242f34b08a269f4aeeb303f304c92"
+    },
+    {
+      "bytes": 17946,
+      "path": "native-result.json",
+      "sha256": "ea7f5de183cc0c05c92a371ec3dca83805c7fb0f098c541f2394b43fd5cd86ec"
+    },
+    {
+      "bytes": 2141,
+      "path": "native-source-after-export.json",
+      "sha256": "64bd1cae96a5bfc789299bb0390e960d51ac4243af87881dcd3d5d8ef6624ed2"
+    },
+    {
+      "bytes": 2141,
+      "path": "native-source-after.json",
+      "sha256": "64bd1cae96a5bfc789299bb0390e960d51ac4243af87881dcd3d5d8ef6624ed2"
+    },
+    {
+      "bytes": 3452,
+      "path": "native-source-before.json",
+      "sha256": "d87d78cf9fe563b23512f9ae3ee8e240d79420394eafae0526f13e9e57944177"
+    },
+    {
+      "bytes": 30424524,
+      "path": "raw-export.glb",
+      "sha256": "fdbd63a9b0804f2b9287959708876cdf68a54f476e2911dacf31e931439426be"
+    },
+    {
+      "bytes": 131,
+      "path": "runtime.json",
+      "sha256": "457b01545d34a9f0a81be80ab952b6191b1be06f4bee6893b14547b460e81f52"
+    },
+    {
+      "bytes": 26530155,
+      "path": "source.blend",
+      "sha256": "c04cf47007edaeea6055101b772e1f424af708256d802503cf250472f9784045"
+    },
+    {
+      "bytes": 1824962,
+      "path": "textures/portable-fringe-color-atlas.png",
+      "sha256": "95fc6e50353d73ce06b93392aeb634485a6e1639a1fa827bdabe8a7679dc37e1"
+    },
+    {
+      "bytes": 2610,
+      "path": "unused-fringe-tangent-omission.json",
+      "sha256": "3087259b8f7e4b4b1a3942b4f79d69a961df003443a281d626671c22e9a3ab78"
+    }
+  ],
+  "preparation": "outputs/fox-fringe-component-preparation-v2",
+  "prepared_sha256": "4bd86a92f7899869b0bf5dc7942a8fa45345fffdd9a64c5ce745a0f122282380",
+  "provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+  "status": "failure_preserved_no_retry"
+}

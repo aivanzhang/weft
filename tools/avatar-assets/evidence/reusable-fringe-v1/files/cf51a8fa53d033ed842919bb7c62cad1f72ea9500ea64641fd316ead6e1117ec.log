@@ -1,0 +1,21 @@
+INFO Draco mesh compression is available, use library at /Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib
+20:36:47 | INFO: Starting glTF 2.0 export
+20:36:47 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+20:36:47 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+20:36:47 | INFO: Extracting primitive: AnalyticCurvedSurface
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py:73: RuntimeWarning: divide by zero encountered in matmul
+  res = np.matmul(vectors, np.array(m.transposed()))
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py:73: RuntimeWarning: overflow encountered in matmul
+  res = np.matmul(vectors, np.array(m.transposed()))
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py:73: RuntimeWarning: invalid value encountered in matmul
+  res = np.matmul(vectors, np.array(m.transposed()))
+20:36:47 | INFO: Primitives created: 2
+20:36:47 | INFO: Extracting primitive: PortableEdgeFringe
+20:36:47 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+20:36:47 | INFO: Primitives created: 1
+20:36:47 | INFO: Finished glTF 2.0 export in 0.01080775260925293 s
+
+Info: Saved as "source.blend"
+Blender 4.5.13 LTS (hash daeeeca98fb0 built 2026-08-25 01:30:50)
+
+Blender quit

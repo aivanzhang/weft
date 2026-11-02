@@ -1,0 +1,140 @@
+{
+  "final_mask_vertices": 17729,
+  "mask_origin": "Declared positive source material names only",
+  "mesh": {
+    "active_uv": "UVMap",
+    "corner_normal_sha256": "c3e0263aecceeb32abb98f7a525552b923a4d6aa806b70bba41b18792dd3f785",
+    "face_material_sha256": "e7b4837e1df8b047e4d3abda273bec549ad07f57a31027f2b88243c0de572fe1",
+    "material_slots": [
+      "coat",
+      "cream",
+      "nose",
+      "eye_white",
+      "iris",
+      "pupil",
+      "ear_inner",
+      "dark",
+      "scarf",
+      "scarf_seam",
+      "book",
+      "paper",
+      "page_edge",
+      "gold",
+      "pencil_wood",
+      "graphite"
+    ],
+    "matrix_world": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "position_sha256": "0f3c160fd70346d85210c26f87f7836379377d81fe03951a4863a2afd1f199c2",
+    "render_uv": [
+      "UVMap"
+    ],
+    "triangle_sha256": "9bde134399efa16aae3eed9e4c02ed37269dcc510a754c5abd495da92c1f5d0c",
+    "triangles": 47776,
+    "uv_sha256": {
+      "UVMap": "3c4bd75b4d5ddfce83dcfeea88f96cadfadfc7a929ac2dbb2e8edf9477600e1f"
+    },
+    "vertices": 30418,
+    "weights_sha256": "165aac009e7fd529775fd2ae8e55f9f81eb02d017da1d88d44a7ece746ee6beb"
+  },
+  "rig": {
+    "action_names": [
+      "idle",
+      "making_something",
+      "milestone_level_up",
+      "working"
+    ],
+    "actions_sha256": "3a50e1c5d8faf6a4b2c9cd1ad1abb5121ec30ba91791fc3fb5246c354ab4d20b",
+    "bone_names": [
+      "root",
+      "torso",
+      "head",
+      "ear_left",
+      "ear_right",
+      "tail",
+      "upper_arm_left",
+      "forearm_left",
+      "hand_left",
+      "sketchbook",
+      "thigh_left",
+      "shin_left",
+      "foot_left",
+      "upper_arm_right",
+      "forearm_right",
+      "hand_right",
+      "pencil",
+      "thigh_right",
+      "shin_right",
+      "foot_right"
+    ],
+    "bones_sha256": "4eb0e50dfba3bfec08c0d6b1867823b26debdc017a291644d05234b2e9f6a5d6",
+    "curve_counts": {
+      "idle": 200,
+      "making_something": 200,
+      "milestone_level_up": 200,
+      "working": 200
+    }
+  },
+  "texture_contracts": [
+    {
+      "coordinates": "Blender UVs paired with bottom-up image rows",
+      "extension": "REPEAT",
+      "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+      "interpolation": "Linear",
+      "material_slots": [
+        0
+      ],
+      "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+      "render_uv_layer": "UVMap",
+      "sampled_uv_layer": "UVMap"
+    },
+    {
+      "coordinates": "Blender UVs paired with bottom-up image rows",
+      "extension": "REPEAT",
+      "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+      "interpolation": "Linear",
+      "material_slots": [
+        1
+      ],
+      "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+      "render_uv_layer": "UVMap",
+      "sampled_uv_layer": "UVMap"
+    },
+    {
+      "coordinates": "Blender UVs paired with bottom-up image rows",
+      "extension": "REPEAT",
+      "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+      "interpolation": "Linear",
+      "material_slots": [
+        7
+      ],
+      "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+      "render_uv_layer": "UVMap",
+      "sampled_uv_layer": "UVMap"
+    }
+  ]
+}

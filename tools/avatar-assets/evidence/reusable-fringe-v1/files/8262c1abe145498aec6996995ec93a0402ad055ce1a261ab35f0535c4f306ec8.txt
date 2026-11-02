@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-native-adapter-fixture-v2/fixture.py", line 265, in launch
+    verify.verify(out)
+    ~~~~~~~~~~~~~^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-native-adapter-fixture-v2/sources/verify.py", line 128, in verify
+    check(np.max(np.abs(np.linalg.norm(tangent[:, :3], axis=1)-1)) < .001 and
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          np.isin(tangent[:, 3], [-1, 1]).all(), 'Invalid tangent frame')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-native-adapter-fixture-v2/sources/verify.py", line 16, in check
+    raise ValueError(message)
+ValueError: Invalid tangent frame

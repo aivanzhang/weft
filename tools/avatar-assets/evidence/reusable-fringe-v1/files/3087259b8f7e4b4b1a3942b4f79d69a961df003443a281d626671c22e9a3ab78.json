@@ -1,0 +1,66 @@
+{
+  "entire_original_binary_unchanged": true,
+  "helper_report": {
+    "all_accessors_buffer_views_materials_nodes_skins_animations_preserved": true,
+    "binary_bytes_unchanged": true,
+    "elapsed_seconds": 0.08828487480059266,
+    "generator_unchanged": true,
+    "json_allowlist_verified": true,
+    "json_changed_paths": [
+      "/meshes/1/primitives/0/attributes/TANGENT"
+    ],
+    "limitation": "Unused attribute binding omission only; strict material/rig/render validation remains required.",
+    "limits": {
+      "file_bytes": 67108864,
+      "selected_primitives": 4,
+      "triangle_indices": 300000,
+      "vertices": 100000
+    },
+    "material_admission": "Exact .18/.92 policy scalars or their exact float32 round-trips; omitted doubleSided means false",
+    "normals_positions_uv_skin_weights_motion_unchanged": true,
+    "other_attributes_unchanged": true,
+    "padded_binary_bytes": 30360948,
+    "padded_binary_sha256": "b853634b7330334348acf8a09408ce985b4f493c685a9da99c72a7fbedd48323",
+    "policy": "omit-unused-fringe-tangent-bindings-v1",
+    "quality_approved": false,
+    "removed_bindings": 1,
+    "result_padded_binary_sha256": "b853634b7330334348acf8a09408ce985b4f493c685a9da99c72a7fbedd48323",
+    "result_sha256": "ac8c0d905564861cefe75a08c64bdc8d659242f34b08a269f4aeeb303f304c92",
+    "schema_version": 1,
+    "selected_primitives": [
+      {
+        "binding_removed": true,
+        "material": 16,
+        "material_name": "SourceColoredFringe",
+        "mesh": 1,
+        "primitive": 0,
+        "tangent_accessor": 115,
+        "tangent_values_sha256": "cf1e800d9c2e507839f8fc833137e70a4f7d092f6234b8331273132b181e06ca",
+        "triangles": 19200,
+        "vertices": 57600,
+        "zero_xyz_tangents": 1257
+      }
+    ],
+    "source_index_entries": 200928,
+    "source_sha256": "fdbd63a9b0804f2b9287959708876cdf68a54f476e2911dacf31e931439426be",
+    "source_unchanged": true,
+    "source_vertex_entries": 88020
+  },
+  "limits": [
+    "This does not repair or validate geometric normals; the independent export audit still runs.",
+    "Only unused non-normalmapped fringe tangent bindings are removed; raw export stays retained."
+  ],
+  "model_sha256": "ac8c0d905564861cefe75a08c64bdc8d659242f34b08a269f4aeeb303f304c92",
+  "omitted_bindings": [
+    {
+      "mesh": 1,
+      "primitive": 0,
+      "unbound_accessor": 115
+    }
+  ],
+  "other_json_fields_unchanged": true,
+  "quality_approved": false,
+  "raw_file_unchanged": true,
+  "raw_sha256": "fdbd63a9b0804f2b9287959708876cdf68a54f476e2911dacf31e931439426be",
+  "status": "strict_unused_binding_omission_verified"
+}

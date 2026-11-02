@@ -61,9 +61,12 @@ def build_quality_policy(request, plan, inspection=None):
         "inspection": observed,
         "candidate_settings": {"resolution": 720, "samples": 16, "normal_strength": .3 if fibers else .6,
                                "pose_resolution": 720, "review_views": True},
-        "required_features": (["native_groom", "portable_fur", "regional_groom_flow", "source_colored_cards"] if fibers else [])
+        "required_features": (["native_groom", "portable_fiber_geometry", "regional_groom_flow", "source_colored_portable_geometry"] if fibers else [])
                              + (["measured_non_fur_masks"] if mixed_coat else []),
         "fur_requested": fibers, "mixed_coat": mixed_coat,
+        "portable_coat_routes": {"default": "portable_fur/combed-v1" if fibers else None,
+                                 "optional": ["portable_fringe/edge-fringe-v1"] if fibers else [],
+                                 "automatic_fringe_selection": False, "visual_acceptance": False},
         "review": {"minimum_side": 720, "portrait_minimum_side":
                    512 if request.get("preset") == "draft" else 1600 if request.get("preset") == "muse" else 720,
                    "views": list(VIEWS), "representations": list(REPRESENTATIONS), "state_ids": ids,
@@ -72,7 +75,9 @@ def build_quality_policy(request, plan, inspection=None):
             "Choose masks, bone locations and coat directions from actual source geometry and coordinate guides; no subject templates.",
             "Use clean neutral geometry with space around moving parts; coarse carved fur and fused contacts are not solved by denser grooming.",
             "Keep scale relief, metal highlights, glass and mechanical creases; do not add fibers or globally smooth every subject.",
-            "For fur/hair, preserve silhouette, patch colors and directional length changes; inspect native strands and exported cards independently.",
+            "For fur/hair, preserve silhouette, patch colors and directional length changes; inspect native strands and exported coat geometry independently.",
+            "Portable fringe is an opt-in source-colored edge-fin alternative, not the default, dense fur or Muse parity; it shares flow direction only, with uniform fin length and lean.",
+            "Fringe-specific excluded materials do not mask native hair; mixed surfaces still need measured native exclusions or explicit part masks.",
             "Only diagnose-and-repair color, normals or geometry with their bounded controls; retained textures or high counts are not added detail.",
             "A departing fused part needs a separately reviewed geometry derivative; hidden separation/cap repair is not automatic.",
         ],
@@ -85,9 +90,14 @@ def build_quality_policy(request, plan, inspection=None):
 def evaluate_finish_policy(config, policy):
     """Structural prerequisites cannot prove coat density, likeness or material appearance."""
     require(isinstance(config, dict) and isinstance(policy, dict) and policy.get("mode") == "high_quality", "Invalid finishing policy input")
-    require(all(field not in config or isinstance(config[field], dict) for field in ("groom", "groom_flow", "portable_fur")),
+    require(all(field not in config or isinstance(config[field], dict) for field in ("groom", "groom_flow", "portable_fur", "portable_fringe")),
             "Finishing policy requires validated finishing fields")
+    if "portable_fringe" in config:
+        from avatar_assets.portable_fringe import validate_fringe
+        validate_fringe(config["portable_fringe"])
     failures = []
+    if "portable_fur" in config and "portable_fringe" in config:
+        failures.append("Choose one portable coat: portable_fur or opt-in portable_fringe")
     if type(config.get("pose_resolution")) is not int or config["pose_resolution"] < 720 or config.get("review_views") is not True:
         failures.append("High-quality review requires actual 720px state poses and native multiview renders")
     if not policy["surface_intent"]:
@@ -97,17 +107,19 @@ def evaluate_finish_policy(config, policy):
     elif config.get("source_sha256") != policy["inspection"]["source_sha256"]:
         failures.append("Finishing and inspection source hashes differ")
     if policy["fur_requested"]:
-        for field in ("groom", "portable_fur", "groom_flow"):
+        for field in ("groom", "groom_flow"):
             if not config.get(field):
                 failures.append("Requested fur/hair requires " + field + "; painted texture is not a substitute")
+        if not (config.get("portable_fur") or config.get("portable_fringe")):
+            failures.append("Requested fur/hair requires portable_fur or opt-in portable_fringe; painted texture is not a substitute")
         if config.get("groom") and config["groom"].get("parents", 0) * (config["groom"].get("children", 0)+1) < 1000:
             failures.append("Sparse diagnostic groom cannot stand in for the required coat")
         settings = config.get("portable_fur", {}).get("settings", {})
-        if settings.get("sample_root_color") is not True or settings.get("profile") != "combed-v1":
+        if config.get("portable_fur") and (settings.get("sample_root_color") is not True or settings.get("profile") != "combed-v1"):
             failures.append("Portable fur needs source-colored combed cards; inspect their actual fidelity separately")
         if policy["mixed_coat"] and not (config.get("groom_exclusions") or config.get("groom_excluded_parts")):
             failures.append("Mixed furry/non-furry surfaces need measured exclusions or exact part masks")
-    elif config.get("groom") or config.get("portable_fur"):
+    elif config.get("groom") or config.get("portable_fur") or config.get("portable_fringe"):
         failures.append("Finishing added fibers absent from the intended materials")
     return {"passed": not failures, "failures": failures, "visual_acceptance": False,
             "scope": "Structural material/representation prerequisites only; appearance still needs full-resolution review."}

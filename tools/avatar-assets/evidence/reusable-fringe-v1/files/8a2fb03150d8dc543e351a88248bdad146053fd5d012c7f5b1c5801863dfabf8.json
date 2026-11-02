@@ -1,0 +1,12 @@
+{
+  "actual_build_script_sha256": "8e082a79fc17aa5e2d6b5186b74e07d379408a6923696fd8dcc6aa89f80165a6",
+  "checks": [
+    "Exact custom_shape identity excluded",
+    "Unrelated hidden/name-matching mesh retained for rejection",
+    "Renamed helper still excluded",
+    "Missing rig never invents a helper exclusion"
+  ],
+  "native_executed": false,
+  "scope": "Actual new filter AST only; actual scene inventory remains unverified until the separate released native attempt.",
+  "status": "four_analytic_inventory_controls_passed"
+}

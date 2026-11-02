@@ -1,0 +1,51 @@
+{
+  "bounds": {
+    "memory_mib": 512,
+    "output_mib": 16,
+    "wall_seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-attribute-diagnosis-v1/localize_weight_mismatch.py"
+  ],
+  "original_diagnosis_sha256": "a59d46d1d1808be9ed05b39f1c34262a580603ac63c4fe8ad9bafe56877c07b6",
+  "purpose": "Localize 414 unmatched weights and all normal differences after unchanged strict-gate diagnosis; no acceptance or gate changes",
+  "source_pins": [
+    {
+      "bytes": 1221,
+      "path": "inputs.json",
+      "sha256": "9f87edad89a2bbc39452b4eeac5eb93e01df1500628e46a8b75333d4543e3fcd"
+    },
+    {
+      "bytes": 8839,
+      "path": "sources/fox-localize-all.py",
+      "sha256": "cd866991d69ad5e121008633943e4bee0562c14db414a4d31ad1a4f93d78ad24"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 14861,
+      "path": "localize_weight_mismatch.py",
+      "sha256": "a028c894824f7b565df4d2fdc0490d2967673ea077c9cd2943a91d00603b1667"
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "accepted": false,
+  "elapsed_seconds": 1.8997708330862224,
+  "inputs": [
+    {
+      "bytes": 35693464,
+      "path": "outputs/panda-portable-fringe-finish-v1/model.glb",
+      "sha256": "af387843524ba560f2b8f0dd9d5c75f5d923e8f2e8f0ed7db62d60f1dcdf9026"
+    },
+    {
+      "bytes": 567833,
+      "path": "outputs/panda-portable-fringe-finish-v1/fringe-correspondence.npz",
+      "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+    },
+    {
+      "bytes": 13534,
+      "path": "outputs/panda-portable-fringe-finish-v1/fringe-report.json",
+      "sha256": "a0209a11a07e97261af908b45ff46de08fed6e201d3e761fe8b73942d1fdeb4b"
+    },
+    {
+      "bytes": 1680,
+      "path": "outputs/panda-portable-fringe-finish-v1/job.json",
+      "sha256": "988fe48d4786bc2493ca5a9a2a734169ce8071647b41d99650314f68be42e4d5"
+    },
+    {
+      "bytes": 12540,
+      "path": "outputs/panda-portable-fringe-finish-v1/manifest.json",
+      "sha256": "0f5ca73a93480ee2930e0bfef5bc6f186c864576af0863065dca31b3f1f1efb6"
+    }
+  ],
+  "limits": [
+    "Raw retained derivative is from a memory-rejected native build; this diagnosis is not delivery acceptance.",
+    "The original0.0002component gate is unchanged; matching without normals is diagnosis only.",
+    "No texture decode, tangent inspection or omission, render, weighted-pose audit, or appearance review was performed.",
+    "Only actual saved helper rest arrays and the raw exported fringe primitive are compared; original body is outside scope."
+  ],
+  "matching_excludes_weights_for_diagnosis": true,
+  "materials": [
+    {
+      "acceptance": false,
+      "exported_vertices": 43200,
+      "matching_without_normals": {
+        "complete": true,
+        "maximum_selected_errors": {
+          "positions": 0.0,
+          "uv": 2.9802322387695312e-08
+        },
+        "oriented_triangle_multiset_equal": true,
+        "source": {
+          "ambiguous_vertices": 0,
+          "candidate_count_histogram": {
+            "1": 14400
+          },
+          "first_missing": [],
+          "missing_count": 0
+        },
+        "source_attribute_groups_covered": true,
+        "target": {
+          "ambiguous_vertices": 0,
+          "candidate_count_histogram": {
+            "1": 43200
+          },
+          "first_missing": [],
+          "missing_count": 0
+        },
+        "thresholds": {
+          "positions": 1e-06,
+          "uv": 2e-06
+        }
+      },
+      "material": "SourceColoredFringe",
+      "normal_comparison": {
+        "ambiguous_matches_with_different_source_normals": 0,
+        "maximum_angular_error_degrees": 0.7959728696772713,
+        "maximum_component_error": 0.013583168387413025,
+        "maximum_source_normal_ambiguity_component_spread": 0.0,
+        "original_component_limit": 0.0002,
+        "over_original_limit": 315,
+        "p99_component_error": 0.00014341026544570953,
+        "policy": "Normal is excluded from correspondence. Report closest candidate normal as a lower bound where position/UV/weight aliases are ambiguous.",
+        "samples": 43200,
+        "worst_violations": [
+          {
+            "angular_error_degrees": 0.7866131346327309,
+            "closest_source_vertex": 8697,
+            "component_error": 0.013583168387413025,
+            "eligible_correspondences": 1,
+            "source_normal": [
+              -0.1297183781862259,
+              0.3705756366252899,
+              -0.9196993112564087
+            ],
+            "target_normal": [
+              -0.14330154657363892,
+              0.3705039918422699,
+              -0.9177098870277405
+            ],
+            "target_vertex": 13045
+          },
+          {
+            "angular_error_degrees": 0.7851145003540849,
+            "closest_source_vertex": 6145,
+            "component_error": 0.013391129672527313,
+            "eligible_correspondences": 1,
+            "source_normal": [
+              0.12311119586229324,
+              0.17951449751853943,
+              -0.9760215878486633
+            ],
+            "target_normal": [
+              0.13650232553482056,
+              0.17690300941467285,
+              -0.9747166037559509
+            ],
+            "target_vertex": 9217
+          },
+          {
+            "angular_error_degrees": 0.7657548240808957,
+            "closest_source_vertex": 12672,
+            "component_error": 0.013197529129683971,
+            "eligible_correspondences": 1,
+            "source_normal": [
+              -0.020897619426250458,
+              0.19220741093158722,
+              0.9811317920684814
+            ],
+            "target_normal": [
+              -0.007700090296566486,
+              0.1943022757768631,
+              0.9809114933013916
+            ],
+            "target_vertex": 40613
+          }
+        ]
+      },
+      "reference_kind": "actual_helper_arrays",
+      "source_vertices": 14400,
+      "weight_comparison": {
+        "ambiguous_matches_with_different_source_weights": 0,
+        "maximum_component_error": 0.0001290440559387207,
+        "original_component_limit": 1e-06,
+        "over_original_limit": 414,
+        "policy": "Weights excluded only to localize original-gate failures; closest candidate is a lower bound for aliases.",
+        "samples": 43200,
+        "worst_violations": [
+          {
+            "closest_source_vertex": 13665,
+            "maximum_component_error": 0.0001290440559387207,
+            "source_dense_weights": [
+              7.013243885012344e-05,
+              0.00901399552822113,
+              6.011861114529893e-05,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.9908557534217834,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target_dense_weights": [
+              0.0,
+              0.00901516992598772,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.9909847974777222,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target_vertex": 20497
+          },
+          {
+            "closest_source_vertex": 13667,
+            "maximum_component_error": 0.0001290440559387207,
+            "source_dense_weights": [
+              7.013243885012344e-05,
+              0.00901399552822113,
+              6.011861114529893e-05,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.9908557534217834,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target_dense_weights": [
+              0.0,
+              0.00901516992598772,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.9909847974777222,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target_vertex": 20498
+          },
+          {
+            "closest_source_vertex": 13667,
+            "maximum_component_error": 0.0001290440559387207,
+            "source_dense_weights": [
+              7.013243885012344e-05,
+              0.00901399552822113,
+              6.011861114529893e-05,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.9908557534217834,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target_dense_weights": [
+              0.0,
+              0.00901516992598772,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.9909847974777222,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target_vertex": 20500
+          }
+        ]
+      }
+    }
+  ],
+  "model_sha256": "af387843524ba560f2b8f0dd9d5c75f5d923e8f2e8f0ed7db62d60f1dcdf9026",
+  "native_corner_mapping": {
+    "actual_exported_bone_order": [
+      "Root",
+      "Pelvis",
+      "Torso",
+      "Neck",
+      "Head",
+      "RightShoulder",
+      "RightUpperArm",
+      "RightForearm",
+      "RightHand",
+      "LeftShoulder",
+      "LeftUpperArm",
+      "LeftForearm",
+      "LeftHand",
+      "Tail",
+      "RightFoot",
+      "LeftFoot",
+      "CompanionRoot",
+      "DragonWingRight",
+      "DragonWingLeft"
+    ],
+    "actual_node_index": 21,
+    "actual_primitive_index": 0,
+    "actual_skin_index": 0,
+    "exact_native_corner_map": true,
+    "helper_bone_order": [
+      "Root",
+      "Pelvis",
+      "Torso",
+      "Neck",
+      "Head",
+      "RightShoulder",
+      "RightUpperArm",
+      "RightForearm",
+      "RightHand",
+      "LeftShoulder",
+      "LeftUpperArm",
+      "LeftForearm",
+      "LeftHand",
+      "Tail",
+      "RightFoot",
+      "LeftFoot",
+      "CompanionRoot",
+      "DragonWingRight",
+      "DragonWingLeft"
+    ],
+    "helper_to_exported_bone_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "helper_vertices": 14400,
+    "native_independent_corners": 43200,
+    "native_map_sha256": "c540af37c78adf300fc239f3cc13e448cef5a9fef8df6ae619d37965ee6f84b5",
+    "target_attributes_present_not_all_validated": [
+      "JOINTS_0",
+      "NORMAL",
+      "POSITION",
+      "TANGENT",
+      "TEXCOORD_0",
+      "WEIGHTS_0"
+    ]
+  },
+  "native_rerun": false,
+  "normal_threshold_changed": false,
+  "normals_patched": false,
+  "status": "supplemental_position_uv_only_localization_original_gates_unchanged",
+  "weight_threshold_changed": false
+}

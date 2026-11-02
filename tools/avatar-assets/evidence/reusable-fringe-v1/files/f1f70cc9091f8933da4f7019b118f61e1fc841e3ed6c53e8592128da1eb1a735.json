@@ -1,0 +1,71 @@
+{
+  "checks": [
+    "finite normals/UV0/UV1/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "selected normal-map UV0/UV1 binding"
+  ],
+  "decoded_scalar_values": 6438,
+  "limitations": [
+    "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+    "This HD check does not change Weft's diffuse UV0-only contract; normal-map/UV1 assets remain unsupported there."
+  ],
+  "limits": {
+    "decoded_global_values": 2000000,
+    "decoded_surface_values": 1100000,
+    "file_bytes": 67108864,
+    "normal_map_uv_indices": [
+      0,
+      1
+    ],
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "AnalyticSource0",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.4078370114134486e-07,
+      "normal_tangent_dot_error": 5.154080576019737e-05,
+      "tangent_squared_length_error": 8.782220956859987e-05,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 91
+    },
+    {
+      "material": "AnalyticSource1",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.4078370114134486e-07,
+      "normal_tangent_dot_error": 5.154080576019737e-05,
+      "tangent_squared_length_error": 8.782220956859987e-05,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 91
+    },
+    {
+      "material": "SourceColoredFringe",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.5078316373262624e-07,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 960
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "e74b05c20b80427934de5c519da13ee82c6800e62231fba591c6f9c082037a5f",
+  "status": "validated_render_attributes",
+  "tangent_uv_derivation_verified": false,
+  "vertices": 1142,
+  "weft_runtime_verified": false
+}

@@ -500,7 +500,8 @@ def finish(config, output):
         if color_node.image.colorspace_settings.name != 'sRGB':
             raise ValueError('Root-colored fur requires an explicit sRGB source texture')
     tuft = cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1'
-    colors = texture_colors(obj, color_node.image, exact_root=tuft)
+    fringe = cfg.get('portable_fringe')
+    colors = texture_colors(obj, color_node.image, exact_root=tuft or bool(fringe))
     mask = ~frame_mask(points, low, high-low, cfg.get('groom_exclusions', []))
     mask &= colors.max(axis=1)-colors.min(axis=1) < cfg.get('fur_max_chroma', 1)
     excluded_part_vertices = set()
@@ -602,6 +603,14 @@ def finish(config, output):
             tuft_image=color_node.image, native_groom=cfg['groom'], groom_flow=cfg['groom_flow'])
         report['portable_fur_export_budget'] = json.loads((out/'tuft-export-budget.json').read_text())
         report['portable_fur_build_order'] = 'Tuft cards and borrowed root-color buffer completed before native grooming'
+    if fringe:
+        from blender_edge_fringe import attach_edge_fringe, phase_memory, release_hidden_fringe_buffers
+        cards, report['portable_fur'] = attach_edge_fringe(obj, rig, mask, color_node.image, fringe,
+            cfg['groom'], cfg['groom_flow'], out, cfg['fringe_export_budget'],
+            root_contract=exact_root_texture_contract, part_report=part_rigs,
+            undercoat_report=report.get('fur_undercoat'))
+        report['portable_fringe'] = report['portable_fur'][0]
+        report['portable_fur_build_order'] = 'Edge fins and borrowed source buffers completed before native grooming'
     if cfg.get("groom"):
         if int(mask.sum()) < 1000:
             raise ValueError("Fur mask selected too few source vertices")
@@ -665,11 +674,15 @@ def finish(config, output):
             export_normals=True, export_tangents=True, export_image_format='AUTO', export_morph=False,
             export_extras=False, export_materials='EXPORT', export_current_frame=False)
         rig.data.pose_position = 'REST'
+        if fringe:
+            phase_memory(out, 'after_export')
     for card in cards:
         card.hide_render = True
     for image in bpy.data.images:
         if image.size[0]:
             image.pack()
+    if fringe:
+        report['fringe_buffer_release'] = release_hidden_fringe_buffers(cards, out)
     scene = bpy.context.scene
     scene.render.engine = "CYCLES"
     scene.cycles.device, scene.cycles.samples = "CPU", cfg["samples"]
@@ -722,7 +735,8 @@ def finish(config, output):
         motion_low, motion_high, bounds_report = motion_bounds(obj, rig, actions, bindings, owners, cfg['authored_actions'])
         # The base skin excludes strands/cards; add their configured extent before the framing margin.
         fur_margin = max(cfg.get('groom', {}).get('length', 0)*3,
-                         cfg.get('portable_fur', {}).get('settings', {}).get('length', 0))
+                         cfg.get('portable_fur', {}).get('settings', {}).get('length', 0),
+                         cfg.get('portable_fringe', {}).get('settings', {}).get('length_m', 0))
         motion_low = np.minimum(motion_low, low)-fur_margin
         motion_high = np.maximum(motion_high, high)+fur_margin
         fit = fit_motion_camera(motion_low, motion_high, np.asarray(camera.rotation_euler.to_matrix()),
@@ -802,7 +816,11 @@ def finish(config, output):
                     finally:
                         evaluated.to_mesh_clear()
                 scene.render.filepath = str(folder/f'{index:04d}.png')
+                if fringe:
+                    phase_memory(out, f'before_pose_{action.name}_{index}')
                 bpy.ops.render.render(write_still=True)
+                if fringe:
+                    phase_memory(out, f'after_pose_{action.name}_{index}')
             worst = retain_stretched_edges(outliers, report['deformation_measurement']['rest_bounds']['height'])
             report['states'].append({'id': action.name, **sampling,
                 'duration_seconds': (end-start)/(scene.render.fps/scene.render.fps_base), 'loop_verified': False,

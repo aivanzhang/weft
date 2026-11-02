@@ -1,0 +1,67 @@
+{
+  "change": "Filter only actual bone.custom_shape identities; record complete scene/data inventory before assertions. Require one remaining actual armature-modified source mesh/one rig and unchanged exact counts.",
+  "hypothesis": "Default Blender glTF importer creates a hidden mesh as bone.custom_shape. The v1 recipe omitted the existing working tool identity filter.",
+  "native_executed": false,
+  "observed_failure": "Import completed, then unfiltered MESH/ARMATURE inventory assertion failed. Counts were not recorded.",
+  "original_failure_manifest": {
+    "path": "outputs/fox-fringe-component-v1/manifest.json",
+    "sha256": "9c0b94ba79f94f25fe4c98423650196a390acd316a52a11ca94991129ea9d2cb"
+  },
+  "original_native_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-fringe-component-preparation-v1/build_component.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.305,
+    "exit_code": 1,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 373,
+    "last_rss_sample_elapsed_seconds": 1.043,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "native-monitor.json",
+    "monitor_errors": [],
+    "pid": 31685,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 4,
+    "sampled_max_output_bytes": 373,
+    "sampled_peak_rss_bytes": 253673472,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "original_prepared_sha256": "ad06cbf248bd64f23a5bce4db844c6fff66b85913fff8a5d9729a5373076fc39",
+  "provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "status": "prepared_changed_recipe_hypothesis_native_held",
+  "unchanged": [
+    "baseline bytes",
+    "all15 production backend source snapshots",
+    "source model/rig/fouractions",
+    "all fin settings/minimumcount",
+    "all source/pose/normal/UV/weight audit thresholds",
+    "resource bounds",
+    "strict unused-fringe tangent omission"
+  ]
+}

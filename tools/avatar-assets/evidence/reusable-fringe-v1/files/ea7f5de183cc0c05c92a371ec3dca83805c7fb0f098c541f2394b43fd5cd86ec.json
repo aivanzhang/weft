@@ -1,0 +1,574 @@
+{
+  "actual_action_names": [
+    "idle",
+    "making_something",
+    "milestone_level_up",
+    "working"
+  ],
+  "actual_bones": 20,
+  "baseline_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "blend_sha256": "c04cf47007edaeea6055101b772e1f424af708256d802503cf250472f9784045",
+  "component_reports": [
+    {
+      "atlas": {
+        "alpha_policy": "Resample unchanged physical two-tip UV crop; no per-fin width stretch",
+        "atlas_dimensions": [
+          4096,
+          2400
+        ],
+        "batch_fins": 128,
+        "bounds": {
+          "internal_seconds": 20,
+          "max_dimension": 4096,
+          "max_fins": 4800,
+          "max_pixels": 16777216,
+          "sample_batch": 8192
+        },
+        "cell_dimensions": [
+          64,
+          32
+        ],
+        "cell_grid": [
+          64,
+          75
+        ],
+        "elapsed_seconds": 0.341515667270869,
+        "fins": 4800,
+        "geometry_mutated": false,
+        "image_rows": "top-down",
+        "interior_samples": [
+          60,
+          28
+        ],
+        "limits": [
+          "LOD0 CPU gates do not prove GPU filtering, lighting, visibility or avatar quality.",
+          "Color follows the source edge along fin height; this is not recovered volumetric fur.",
+          "Finite samples/sRGB8 quantization can lose subtexel markings; failing tips remain reported.",
+          "Color-coherent packing does not eliminate within-cell blending or deep-mip/anisotropic bleed.",
+          "Source alpha is ignored; the caller must admit only opaque source color materials.",
+          "Unused cells are transparent black and can affect coarse filtering near the final row."
+        ],
+        "material_requirements": {
+          "alphaCutoff": 0.18,
+          "alphaMode": "MASK",
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 33071,
+            "wrapT": 33071
+          },
+          "vertex_color": "omit"
+        },
+        "maximum_horizontal_sample_pitch_m": 0.0003332451107976128,
+        "nominal_tip_audit": {
+          "alpha_cutoff": 0.18,
+          "alpha_gate_passed": true,
+          "color_gate_passed": true,
+          "fixed_color_gate": {
+            "p95_max": 0.02,
+            "p99_max": 0.05,
+            "tips_over_010_max": 48
+          },
+          "maximum_linear_component_error": 0.027214725192523548,
+          "method": "All nominal +/-2.5 mm tips at half fin height; maximum absolute linear RGB component error",
+          "minimum_alpha": 0.9999999999999999,
+          "omitted_or_hidden_samples": 0,
+          "p50": 0.0003111551998689621,
+          "p95": 0.0035716211071774415,
+          "p99": 0.010800425607991961,
+          "passed": true,
+          "tip_count": 9600,
+          "tips_below_mask_cutoff": 0,
+          "tips_over_005": 0,
+          "tips_over_010": 0,
+          "worst_tips": [
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6866853124353135,
+                0.15292615199615017,
+                0.028426039504420793
+              ],
+              "error": 0.027214725192523548,
+              "fin": 147,
+              "source_rgb": [
+                0.65947058724279,
+                0.1471790722297335,
+                0.027150928280157048
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6750570539867754,
+                0.15004831916619496,
+                0.027696061424497997
+              ],
+              "error": 0.023291985031416385,
+              "fin": 169,
+              "source_rgb": [
+                0.651765068955359,
+                0.14657084108730567,
+                0.026241221894849898
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6750570539867754,
+                0.15004831916619496,
+                0.027696061424497997
+              ],
+              "error": 0.023291985031416385,
+              "fin": 1082,
+              "source_rgb": [
+                0.651765068955359,
+                0.14657084108730567,
+                0.026241221894849898
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6679796836388486,
+                0.14902857401874897,
+                0.027695833776101585
+              ],
+              "error": 0.023136712276873195,
+              "fin": 436,
+              "source_rgb": [
+                0.6448429713619754,
+                0.14412847085805777,
+                0.026241221894849898
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6868547286536056,
+                0.1539437607276319,
+                0.027695722065186085
+              ],
+              "error": 0.02109428404073599,
+              "fin": 3863,
+              "source_rgb": [
+                0.6657604446128697,
+                0.14995978981060856,
+                0.027320891639074894
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6868546842470575,
+                0.15394375454780557,
+                0.027695719788881967
+              ],
+              "error": 0.021094177626066135,
+              "fin": 3858,
+              "source_rgb": [
+                0.6657605066209914,
+                0.14995978981060856,
+                0.027320891639074894
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6655597489748687,
+                0.14802265225635633,
+                0.027320891639074894
+              ],
+              "error": 0.01957134797617932,
+              "fin": 3153,
+              "source_rgb": [
+                0.6459884009986894,
+                0.14427853063505156,
+                0.026241221894849898
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6655597489748687,
+                0.14802265225635633,
+                0.027320891639074894
+              ],
+              "error": 0.01957134797617932,
+              "fin": 3362,
+              "source_rgb": [
+                0.6459884009986894,
+                0.14427853063505156,
+                0.026241221894849898
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6701924140019719,
+                0.14995978981060856,
+                0.027320891639074894
+              ],
+              "error": 0.019517353133031712,
+              "fin": 790,
+              "source_rgb": [
+                0.6506750608689402,
+                0.14427815583998505,
+                0.026241221894849894
+              ],
+              "tip": 0
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6701924140019719,
+                0.14995978981060856,
+                0.027320891639074894
+              ],
+              "error": 0.019517353133031712,
+              "fin": 907,
+              "source_rgb": [
+                0.6506750608689402,
+                0.14427815583998505,
+                0.026241221894849894
+              ],
+              "tip": 0
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6963408041459692,
+                0.15493560818277097,
+                0.028426039504420793
+              ],
+              "error": 0.0193526963605114,
+              "fin": 1668,
+              "source_rgb": [
+                0.7156935005064806,
+                0.1589608350608804,
+                0.028850921006549478
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.6631506632488856,
+                0.14802278408993744,
+                0.027320891639074894
+              ],
+              "error": 0.018670981278303467,
+              "fin": 885,
+              "source_rgb": [
+                0.6444796819705821,
+                0.14412847085805777,
+                0.026241221894849894
+              ],
+              "tip": 0
+            }
+          ]
+        },
+        "packing": {
+          "enabled": true,
+          "permutation_scope": "Cells only; UV and all diagnostic arrays retain original fin order",
+          "policy": "nominal-tip-mean-32-luma-bins-rgb-stable-v1",
+          "unused_cell_policy": "Trailing unassigned cells stay transparent black; not populated duplicates"
+        },
+        "padding_px": 2,
+        "pixels": 9830400,
+        "policy": "edge-fringe-source-color-atlas-v1",
+        "quality_approved": false,
+        "sampling_policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+        "source_colors_whitened_or_suppressed": false,
+        "source_fin_policy": "edge-fringe-source-surface-v1",
+        "source_material_ids": [
+          0,
+          1,
+          7
+        ],
+        "source_pixels": 9437184,
+        "status": "passed_technical_color_and_alpha_gates",
+        "technical_gate_passed": true,
+        "unused_cell_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "unused_cells": 0,
+        "uv_convention": "glTF V-down",
+        "weights_mutated": false
+      },
+      "bone_order": [
+        "root",
+        "torso",
+        "head",
+        "ear_left",
+        "ear_right",
+        "tail",
+        "upper_arm_left",
+        "forearm_left",
+        "hand_left",
+        "sketchbook",
+        "thigh_left",
+        "shin_left",
+        "foot_left",
+        "upper_arm_right",
+        "forearm_right",
+        "hand_right",
+        "pencil",
+        "thigh_right",
+        "shin_right",
+        "foot_right"
+      ],
+      "budget": {
+        "max_fins": 4800,
+        "projected_triangles": 66976,
+        "projected_vertices": 92114,
+        "reserve_vertices": 4096,
+        "source_export_triangles": 47776,
+        "source_export_vertices": 30418,
+        "triangle_limit": 100000,
+        "vertex_limit": 100000,
+        "worst_exported_fin_corners": 57600
+      },
+      "cards": 4800,
+      "config": {
+        "design_views": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            -1
+          ]
+        ],
+        "excluded_materials": [
+          "nose",
+          "eye_white",
+          "iris",
+          "pupil",
+          "ear_inner",
+          "scarf",
+          "scarf_seam",
+          "book",
+          "paper",
+          "page_edge",
+          "gold",
+          "pencil_wood",
+          "graphite"
+        ],
+        "profile": "edge-fringe-v1",
+        "settings": {
+          "comb": 0.18,
+          "length_m": 0.009,
+          "max_edge_m": 0.02,
+          "max_fins": 4800,
+          "min_edge_m": 0.0085,
+          "min_fins": 1000,
+          "min_spacing_m": 0.003,
+          "seed": 912
+        }
+      },
+      "elapsed_seconds": 1.3455398338846862,
+      "explicit_material_faces_excluded": 18560,
+      "geometry": {
+        "allocation": {
+          "edge_area_mass_sum_m2": 1.8456122284426395,
+          "policy": "eligible-face-area-share-seeded-exponential-v1",
+          "represented_face_area_m2": 1.8456122284426395,
+          "source_edges_not_welded": true,
+          "view_preference_bounds": [
+            0.5,
+            1.0
+          ]
+        },
+        "atlas": {
+          "maximum_tip_radius_m": 0.0008,
+          "physical_domain_m": 0.0208,
+          "tip_centers_m": [
+            -0.0025,
+            0.0025
+          ],
+          "visible_groups_max_span_m": 0.0066
+        },
+        "camera_billboarding": false,
+        "candidate_scan_cap": 32000,
+        "coincident_shared_edge_aliases": 1,
+        "elapsed_seconds": 0.1264631669037044,
+        "eligible_edges": 9910,
+        "examined_candidates": 4853,
+        "exclusions": {
+          "coincident_edge_alias": 1,
+          "edge_span": 31089,
+          "incoherent_normals": 146,
+          "non_fur": 25253
+        },
+        "export_budget": {
+          "max_fins": 4800,
+          "projected_triangles": 66976,
+          "projected_vertices": 92114,
+          "reserve_vertices": 4096,
+          "source_export_triangles": 47776,
+          "source_export_vertices": 30418,
+          "triangle_limit": 100000,
+          "vertex_limit": 100000,
+          "worst_exported_fin_corners": 57600
+        },
+        "geometric_vertices": 19200,
+        "limitations": [
+          "Explicit authored shading, not volumetric or recovered fur.",
+          "Source color/material sampling and renderer culling verification are caller responsibilities.",
+          "No intersection, physical motion, density, or appearance acceptance is inferred."
+        ],
+        "material_requirement": {
+          "alphaCutoff": 0.18,
+          "alphaMode": "MASK",
+          "doubleSided": false
+        },
+        "min_outward_dot": 0.9767443431718834,
+        "nonmanifold_edges": 0,
+        "normal_policy": "Normalized source endpoint normals repeated at corresponding tips; not fin-plane normals",
+        "profile": "edge-fringe-source-surface-v1",
+        "quality_approved": false,
+        "selected_fins": 4800,
+        "settings": {
+          "comb": 0.18,
+          "length_m": 0.009,
+          "max_edge_m": 0.02,
+          "max_fins": 4800,
+          "min_edge_m": 0.0085,
+          "min_fins": 1000,
+          "min_spacing_m": 0.003,
+          "seed": 912
+        },
+        "source_faces": 47776,
+        "source_modified": false,
+        "source_vertices": 30418,
+        "spacing_rejected": 53,
+        "triangles": 19200,
+        "unshared_boundary_edges": 10530
+      },
+      "geometry_arrays_npz": "fringe-correspondence.npz",
+      "geometry_profile": "edge-fringe-v1",
+      "limits": [
+        "Regional direction is sampled; fin length/lean are explicit uniform controls, not native-strand parity.",
+        "MASK filtering and source shading can still differ at small scales; inspect the exported model.",
+        "No dense-fur, Muse-parity, contact repair, physical-hair or fresh-prompt acceptance claim."
+      ],
+      "material": {
+        "alpha_cutoff": 0.18,
+        "alpha_mode": "MASK",
+        "dimensions": [
+          4096,
+          2400
+        ],
+        "double_sided": false,
+        "material": "SourceColoredFringe",
+        "metallic": 0,
+        "path": "textures/portable-fringe-color-atlas.png",
+        "profile": "edge-fringe-v1",
+        "roughness": 0.92,
+        "sha256": "95fc6e50353d73ce06b93392aeb634485a6e1639a1fa827bdabe8a7679dc37e1",
+        "vertex_color_multiplier": false
+      },
+      "mixed_part_faces_excluded": 0,
+      "native_topology": "Independent triangle corners; exact helper positions/normals/UVs/skin duplicated",
+      "quality_approved": false,
+      "sample_root_color": true,
+      "sampling": [
+        {
+          "coordinates": "Blender UVs paired with bottom-up image rows",
+          "extension": "REPEAT",
+          "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+          "interpolation": "Linear",
+          "material_slots": [
+            0
+          ],
+          "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+          "render_uv_layer": "UVMap",
+          "sampled_uv_layer": "UVMap"
+        },
+        {
+          "coordinates": "Blender UVs paired with bottom-up image rows",
+          "extension": "REPEAT",
+          "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+          "interpolation": "Linear",
+          "material_slots": [
+            1
+          ],
+          "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+          "render_uv_layer": "UVMap",
+          "sampled_uv_layer": "UVMap"
+        },
+        {
+          "coordinates": "Blender UVs paired with bottom-up image rows",
+          "extension": "REPEAT",
+          "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+          "interpolation": "Linear",
+          "material_slots": [
+            7
+          ],
+          "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+          "render_uv_layer": "UVMap",
+          "sampled_uv_layer": "UVMap"
+        }
+      ],
+      "source_point_sha256": "277e404318e0a00cd36f7356bd6f6e8c3d7fee84f8f80abca53be1860ffc4321",
+      "vertices": 57600
+    }
+  ],
+  "elapsed_seconds": 4.110133541747928,
+  "limits": [
+    "Actual Blender export is reserialization, not an append-spliced preservation claim.",
+    "raw-export.glb is retained before the declared unused non-normalmapped fringe TANGENT omission.",
+    "Exported geometry, weighted poses, skin/clip validity and normals still require the prepared CPU audit.",
+    "Existing authored fox actions are retained; no new action meaning or fresh AI avatar acceptance is claimed."
+  ],
+  "native_groom_generated": false,
+  "native_source_unchanged": true,
+  "new_provider_or_ai_role_calls": 0,
+  "quality_approved": false,
+  "raw_model_sha256": "fdbd63a9b0804f2b9287959708876cdf68a54f476e2911dacf31e931439426be",
+  "rendered_images": 0,
+  "source": "outputs/fox-hd-build-v2/model.glb",
+  "source_sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+  "status": "actual_component_exported_pending_independent_verification"
+}

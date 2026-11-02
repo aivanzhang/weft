@@ -1,0 +1,251 @@
+{
+  "acceptance": false,
+  "exported_vertices": 43200,
+  "matching_without_normals": {
+    "complete": true,
+    "maximum_selected_errors": {
+      "positions": 0.0,
+      "uv": 2.9802322387695312e-08
+    },
+    "oriented_triangle_multiset_equal": true,
+    "source": {
+      "ambiguous_vertices": 0,
+      "candidate_count_histogram": {
+        "1": 14400
+      },
+      "first_missing": [],
+      "missing_count": 0
+    },
+    "source_attribute_groups_covered": true,
+    "target": {
+      "ambiguous_vertices": 0,
+      "candidate_count_histogram": {
+        "1": 43200
+      },
+      "first_missing": [],
+      "missing_count": 0
+    },
+    "thresholds": {
+      "positions": 1e-06,
+      "uv": 2e-06
+    }
+  },
+  "material": "SourceColoredFringe",
+  "normal_comparison": {
+    "ambiguous_matches_with_different_source_normals": 0,
+    "maximum_angular_error_degrees": 0.7959728696772713,
+    "maximum_component_error": 0.013583168387413025,
+    "maximum_source_normal_ambiguity_component_spread": 0.0,
+    "original_component_limit": 0.0002,
+    "over_original_limit": 315,
+    "p99_component_error": 0.00014341026544570953,
+    "policy": "Normal is excluded from correspondence. Report closest candidate normal as a lower bound where position/UV/weight aliases are ambiguous.",
+    "samples": 43200,
+    "worst_violations": [
+      {
+        "angular_error_degrees": 0.7866131346327309,
+        "closest_source_vertex": 8697,
+        "component_error": 0.013583168387413025,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          -0.1297183781862259,
+          0.3705756366252899,
+          -0.9196993112564087
+        ],
+        "target_normal": [
+          -0.14330154657363892,
+          0.3705039918422699,
+          -0.9177098870277405
+        ],
+        "target_vertex": 13045
+      },
+      {
+        "angular_error_degrees": 0.7851145003540849,
+        "closest_source_vertex": 6145,
+        "component_error": 0.013391129672527313,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          0.12311119586229324,
+          0.17951449751853943,
+          -0.9760215878486633
+        ],
+        "target_normal": [
+          0.13650232553482056,
+          0.17690300941467285,
+          -0.9747166037559509
+        ],
+        "target_vertex": 9217
+      },
+      {
+        "angular_error_degrees": 0.7657548240808957,
+        "closest_source_vertex": 12672,
+        "component_error": 0.013197529129683971,
+        "eligible_correspondences": 1,
+        "source_normal": [
+          -0.020897619426250458,
+          0.19220741093158722,
+          0.9811317920684814
+        ],
+        "target_normal": [
+          -0.007700090296566486,
+          0.1943022757768631,
+          0.9809114933013916
+        ],
+        "target_vertex": 40613
+      }
+    ]
+  },
+  "reference_kind": "actual_helper_arrays",
+  "source_vertices": 14400,
+  "weight_comparison": {
+    "ambiguous_matches_with_different_source_weights": 0,
+    "maximum_component_error": 0.0001290440559387207,
+    "original_component_limit": 1e-06,
+    "over_original_limit": 414,
+    "policy": "Weights excluded only to localize original-gate failures; closest candidate is a lower bound for aliases.",
+    "samples": 43200,
+    "worst_violations": [
+      {
+        "closest_source_vertex": 13665,
+        "maximum_component_error": 0.0001290440559387207,
+        "source_dense_weights": [
+          7.013243885012344e-05,
+          0.00901399552822113,
+          6.011861114529893e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9908557534217834,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_dense_weights": [
+          0.0,
+          0.00901516992598772,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9909847974777222,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_vertex": 20497
+      },
+      {
+        "closest_source_vertex": 13667,
+        "maximum_component_error": 0.0001290440559387207,
+        "source_dense_weights": [
+          7.013243885012344e-05,
+          0.00901399552822113,
+          6.011861114529893e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9908557534217834,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_dense_weights": [
+          0.0,
+          0.00901516992598772,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9909847974777222,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_vertex": 20498
+      },
+      {
+        "closest_source_vertex": 13667,
+        "maximum_component_error": 0.0001290440559387207,
+        "source_dense_weights": [
+          7.013243885012344e-05,
+          0.00901399552822113,
+          6.011861114529893e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9908557534217834,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_dense_weights": [
+          0.0,
+          0.00901516992598772,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9909847974777222,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_vertex": 20500
+      }
+    ]
+  }
+}

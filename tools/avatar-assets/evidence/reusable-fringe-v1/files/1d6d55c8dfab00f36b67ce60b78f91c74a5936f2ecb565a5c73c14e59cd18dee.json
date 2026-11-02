@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_fringe_color_atlas.py",
+    "-v"
+  ],
+  "timeout_s": 30,
+  "memory_mb": 512,
+  "output_mb": 8,
+  "runtime": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+}

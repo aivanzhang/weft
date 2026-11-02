@@ -1,0 +1,152 @@
+{
+  "admission": "Only SourceColoredFringe; no normalTexture or material/primitive extensions; preserve padded BIN and all other JSON.",
+  "inputs": [
+    {
+      "bytes": 7895,
+      "path": "outputs/fringe-native-adapter-fixture-v3/manifest.json",
+      "sha256": "57f9cd84c9688b35192ae3db665d63dd7b4ba6218bc8f7d679f07c5ddf9285fa"
+    },
+    {
+      "bytes": 4926,
+      "path": "outputs/fringe-native-adapter-fixture-v3/prepared.json",
+      "sha256": "40c541dc5c4c4aca870f2a70d3e67241029c24dade97232299b83729d5458362"
+    },
+    {
+      "bytes": 124196,
+      "path": "outputs/fringe-native-adapter-fixture-v3/model.glb",
+      "sha256": "c04f9db97693e070c28f4d0feb9011a15d05756f5b9365c8710576145c44de6e"
+    },
+    {
+      "bytes": 13241,
+      "path": "outputs/fringe-native-adapter-fixture-v3/fringe-report.json",
+      "sha256": "cd683c3452b76ad7d6ce77e24ee856434f0e06c306ef0fb118578669ef1a3446"
+    },
+    {
+      "bytes": 10271,
+      "path": "outputs/fringe-native-adapter-fixture-v3/fringe-correspondence.npz",
+      "sha256": "c6aab67c28d7bf6ba90af6e8d4759f93f72fb55df1b4d1447313149300972427"
+    },
+    {
+      "bytes": 762,
+      "path": "outputs/fringe-native-adapter-fixture-v3/native-result.json",
+      "sha256": "0c23e63ac256640d10b74ad8171beecb3775a1bebba8268a2e0a177e135dd67e"
+    },
+    {
+      "bytes": 157,
+      "path": "outputs/fringe-native-adapter-fixture-v3/native-corner-attributes.json",
+      "sha256": "167b01cc813fc93f734246639c75800bbd9b754b82a79a3fdf14279b05fb6fe7"
+    },
+    {
+      "bytes": 15394,
+      "path": "outputs/fringe-native-adapter-fixture-v3/native-corner-attributes.npz",
+      "sha256": "f62d55d47c5638692d2a195bab5027db63796aca8cfdbd449659abb12074d587"
+    },
+    {
+      "bytes": 26353,
+      "path": "outputs/fringe-native-adapter-fixture-v3/expected-source.npz",
+      "sha256": "3a6a693a4f9f47e54b0b7de17fbcbafbd59d59fe877d7b74b34e520f10c890bd"
+    },
+    {
+      "bytes": 84,
+      "path": "outputs/fringe-native-adapter-fixture-v3/source-0.png",
+      "sha256": "f2e7f214ed9a63f4898c1461bddef31a0709d52d5e3fdd506a2a13f6e61ffeef"
+    },
+    {
+      "bytes": 85,
+      "path": "outputs/fringe-native-adapter-fixture-v3/source-1.png",
+      "sha256": "f7926153ca86c3dfb496112ceddcf7d28c54ae65b044910c5bd507b43d7e550a"
+    },
+    {
+      "bytes": 36178,
+      "path": "outputs/fringe-native-adapter-fixture-v3/textures/portable-fringe-color-atlas.png",
+      "sha256": "c693e73b26c8858bed02593087cc1a57b40546acb467f486d540977d57e2d03c"
+    },
+    {
+      "bytes": 845,
+      "path": "outputs/fringe-native-adapter-fixture-v3/verification-error.txt",
+      "sha256": "16ec73a94957ba5dcedf89a5e358229de48da404a7837ad5d719d48ff59b3f3b"
+    },
+    {
+      "bytes": 790,
+      "path": "outputs/fringe-native-adapter-fixture-v3/source-uv-before.json",
+      "sha256": "da5bac3c0c8e1de1b0141c3f1f3791dad8744d1a9ee4af1dfce35840754a0660"
+    },
+    {
+      "bytes": 1623,
+      "path": "outputs/fringe-native-adapter-fixture-v3/source-uv-after.json",
+      "sha256": "ce14b2438e51673c53d756dbf3064a3db7e4043895a2fc23c8a5a2d5a820fc09"
+    }
+  ],
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 20
+  },
+  "native_jobs": 0,
+  "not_claimed": [
+    "Tangents repaired",
+    "Surface or anatomy reconstructed",
+    "Avatar/appearance acceptance"
+  ],
+  "provenance": "analytic_fixture",
+  "provider_calls": 0,
+  "raw_model_sha256": "c04f9db97693e070c28f4d0feb9011a15d05756f5b9365c8710576145c44de6e",
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "sources/fringe_export.py"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc",
+      "snapshot": "sources/three_d.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/safety.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/runner.py"
+    },
+    {
+      "path": "outputs/fringe-native-adapter-fixture-v3-final-v1/derive.py",
+      "sha256": "ecafa79f39eabfee412ad00dbee568a7c9508b96d1c17f26c78df97bd19087d9",
+      "snapshot": "sources/derive.py"
+    },
+    {
+      "path": "outputs/fringe-native-adapter-fixture-v3-final-v1/verify.py",
+      "sha256": "d68050eec5c5a7fadedafcd4cd6bc1f44ad4b1a2b3c8d40ce386e696cce424e8",
+      "snapshot": "sources/verify.py"
+    }
+  ],
+  "structural_contract": {
+    "attachments": [],
+    "authored_assumptions": [
+      "Synthetic component fixture; no avatar, physical simulation or Weft mapping."
+    ],
+    "axes": {
+      "forward": "+Z",
+      "handedness": "right",
+      "up": "+Y"
+    },
+    "bone_to_simulated_joint": {
+      "Root": "Root",
+      "Tip": "Tip"
+    },
+    "rest_pose": "Analytic curved panel with two straight +Y bones; no recovered anatomy.",
+    "schema_version": 1,
+    "target": {
+      "joint_names": [
+        "Root",
+        "Tip"
+      ],
+      "name": "analytic fixture labels only; no simulator"
+    },
+    "units": "meters"
+  }
+}

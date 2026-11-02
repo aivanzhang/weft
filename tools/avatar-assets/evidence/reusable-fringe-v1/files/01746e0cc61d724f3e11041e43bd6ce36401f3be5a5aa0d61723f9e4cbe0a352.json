@@ -1,0 +1,64 @@
+{
+  "absolute_component_delta": [
+    0.00010001659393310547,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "changed_component_count": 1,
+  "no_normal_or_tangent_threshold_changed": true,
+  "quality_approved": false,
+  "rows": [
+    {
+      "accessor": 12,
+      "component_index": 0,
+      "exported_vertex_index": 21805,
+      "raw_vector_hex": "5a644bbf0f0bf53ed26fbf3e0000803f",
+      "source_sha256": "af387843524ba560f2b8f0dd9d5c75f5d923e8f2e8f0ed7db62d60f1dcdf9026",
+      "tag": "v1",
+      "uses": [
+        {
+          "attribute": "TANGENT",
+          "material": 1,
+          "material_name": "companion_surface",
+          "mesh": 0,
+          "primitive": 1
+        }
+      ],
+      "values": [
+        -0.7944999933242798,
+        0.47859999537467957,
+        0.37389999628067017,
+        1.0
+      ],
+      "view": 15
+    },
+    {
+      "accessor": 12,
+      "component_index": 0,
+      "exported_vertex_index": 21805,
+      "raw_vector_hex": "cc5d4bbf0f0bf53ed26fbf3e0000803f",
+      "source_sha256": "f37da3330d282a19a39db358cc61aab50c6922d0cf61b78ffb05fe41d44cf560",
+      "tag": "v2",
+      "uses": [
+        {
+          "attribute": "TANGENT",
+          "material": 1,
+          "material_name": "companion_surface",
+          "mesh": 0,
+          "primitive": 1
+        }
+      ],
+      "values": [
+        -0.7943999767303467,
+        0.47859999537467957,
+        0.37389999628067017,
+        1.0
+      ],
+      "view": 15
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Targeted header and16-byte vector reads at offsets identified by the single bounded comparison; no rescanning or texture decoding",
+  "strict_accessor_identity": false
+}

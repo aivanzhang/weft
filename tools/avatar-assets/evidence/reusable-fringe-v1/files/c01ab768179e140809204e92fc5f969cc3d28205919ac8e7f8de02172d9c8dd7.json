@@ -1,0 +1,50 @@
+{
+  "sources": [
+    {
+      "path": "scripts/fringe_color_atlas.py",
+      "bytes": 16106,
+      "sha256": "d81513f8703a83db5982f824a509f2e79f1923db13f9fbd34c5efd8eca01b1d8",
+      "snapshot": "attempt-1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "path": "tests/test_fringe_color_atlas.py",
+      "bytes": 16595,
+      "sha256": "4260311b237e03cfa8780a7f7aa16c0069806ffb6d601d28557249a82755d92c",
+      "snapshot": "attempt-1/sources/tests/test_fringe_color_atlas.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "attempt-1/sources/avatar_assets/runner.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "attempt-1/sources/avatar_assets/safety.py"
+    }
+  ],
+  "read_only_origins": [
+    {
+      "path": "outputs/fringe-color-atlas-analytic-v1/color_atlas.py",
+      "bytes": 9639,
+      "sha256": "63685feb39972363d8e0b55b2e51de62240dfad0d0a6992f63404120d0856bd5"
+    },
+    {
+      "path": "outputs/fringe-color-atlas-analytic-v1/screen.py",
+      "bytes": 13544,
+      "sha256": "0f80b3ed9e104e95e9b780182ebedff44d84e3706c93b3d0199acd51da8eb623"
+    },
+    {
+      "path": "outputs/fringe-atlas-mip-review-v1/screen.py",
+      "bytes": 15824,
+      "sha256": "e3946b4ffd55c9007a56e7f6625c9a0eba27ec39d341e7b0d3ae3c3a8cd440ac"
+    },
+    {
+      "path": "outputs/fringe-color-candidate-preparation-v1/build_candidate.py",
+      "bytes": 17550,
+      "sha256": "8f4db2fadb32501dbfbbe43cbe325489c5d46d97a1fd15e627af61991574b7a1"
+    }
+  ]
+}

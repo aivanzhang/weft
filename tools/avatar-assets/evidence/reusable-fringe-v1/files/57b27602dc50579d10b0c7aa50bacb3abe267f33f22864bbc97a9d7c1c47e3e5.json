@@ -1,0 +1,61 @@
+{
+  "all_historical_jobs_untouched": true,
+  "changes": [
+    "Admit validated portable_fringe only as an explicit source-colored alternative to the existing default combed-card route.",
+    "Require structured fur/hair intent for AI fringe designs; reject non-fiber and unclassified surfaces.",
+    "Preserve native groom/flow and sparse-groom threshold; fringe-only material exclusions do not replace native mixed-surface masks.",
+    "Preserve full-resolution native/exported views, action/stability/deformation gates, final-media and critic review.",
+    "Pin portable_fringe.py, edge_fringe.py, fringe_color_atlas.py, blender_edge_fringe.py, fur_root_sampling.py and blender_finish_generated.py in new pipeline jobs.",
+    "Extend the author data guide with exact schema, fixed physical sizes, unchanged geometry budgets, conservative exclusions and directional-only flow reuse."
+  ],
+  "diff_whitespace_check": "passed for three changed production files",
+  "focused_tests": {
+    "attempt_manifest_sha256": "fa12b9bdb852bb214cd5b21ddff3c0db5856c6877c1f8ccea54dc13c743f907b",
+    "passed": 11,
+    "unittest_seconds": 0.146
+  },
+  "job": {
+    "elapsed_seconds": 0.521,
+    "pid": 27359,
+    "process_exit_verified": true,
+    "rss_samples": 1,
+    "sampled_peak_rss_bytes": 51396608,
+    "sampling_interval_seconds": 0.25
+  },
+  "limitations": [
+    "Analytic contracts do not establish rendered fur quality, density, Muse equivalence, fresh-subject success or default readiness.",
+    "Root owns the final integrated changed-suite and native adapter verification."
+  ],
+  "model_role_calls": 0,
+  "native_calls": 0,
+  "no_owned_running_jobs": true,
+  "owned_sources": [
+    {
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "0a81da546b95b8d7e53c78f92c9d78510df152ea6d67182aaca3b46abd5a89ef"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "b875fe15412de16f93240008e834d46bdb4d8bb4768dc892aa4927452d646d12"
+    },
+    {
+      "path": "tests/test_portable_fringe_contracts.py",
+      "sha256": "0b81e19bbbe072e588c8e272cb1f3fe3073c19ee29964171868e0426dc412ba2"
+    }
+  ],
+  "provider_calls": 0,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 20:31:41 PST",
+  "schema_version": 1,
+  "status": "frozen_analytic_contract_tests_passed",
+  "verification": [
+    "Invalid schema/nonfinite/bool/range fields rejected.",
+    "Measured export counts exceeding requested 12-corner plus4096-reserve or4-triangle budgets reject before output creation or native work.",
+    "AI design identity/source hashes/states/actions preserved; private budgets and resolution overrides rejected.",
+    "Prepared source receipts capture new helpers; changed or missing source pins block unfinished resume without upgrading its data."
+  ]
+}

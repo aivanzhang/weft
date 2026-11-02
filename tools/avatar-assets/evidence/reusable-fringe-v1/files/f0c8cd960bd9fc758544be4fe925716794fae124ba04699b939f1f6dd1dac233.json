@@ -1,0 +1,173 @@
+{
+  "acceptance": {
+    "color_tip_p95_max": 0.02,
+    "color_tip_p99_max": 0.05,
+    "export_pose_max_error_m": 2e-06,
+    "native_root_max_error_m": 1e-06,
+    "no_quality_claim": true,
+    "normalized_export_normal_max_component_error": 0.0002
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-native-adapter-fixture-v2/sources/fixture.py",
+    "--",
+    "--native",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-native-adapter-fixture-v2"
+  ],
+  "fringe": {
+    "design_views": [
+      [
+        0,
+        -1,
+        0
+      ],
+      [
+        0.6,
+        -0.8,
+        0
+      ],
+      [
+        -0.6,
+        -0.8,
+        0
+      ]
+    ],
+    "excluded_materials": [],
+    "profile": "edge-fringe-v1",
+    "settings": {
+      "comb": 0.2,
+      "length_m": 0.008,
+      "max_edge_m": 0.02,
+      "max_fins": 80,
+      "min_edge_m": 0.0085,
+      "min_fins": 24,
+      "min_spacing_m": 0.003,
+      "seed": 7
+    }
+  },
+  "groom_flow": {
+    "regions": [
+      {
+        "center": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "comb": 0.2,
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "feather": 0.5,
+        "length_scale": 1,
+        "name": "analytic-flow",
+        "radius": [
+          2,
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "path": "source-0.png",
+      "sha256": "f2e7f214ed9a63f4898c1461bddef31a0709d52d5e3fdd506a2a13f6e61ffeef"
+    },
+    {
+      "path": "source-1.png",
+      "sha256": "f7926153ca86c3dfb496112ceddcf7d28c54ae65b044910c5bd507b43d7e550a"
+    }
+  ],
+  "limits": {
+    "output_mb": 64,
+    "rss_mb": 1024,
+    "threads": 4,
+    "wall_seconds": 60
+  },
+  "prior_failure": {
+    "changed_hypothesis": "Reacquire UV layer and prove exact before/after/formula values; cached handle is diagnostic only.",
+    "path": "outputs/fringe-native-adapter-fixture-v1/manifest.json",
+    "preserved": true,
+    "sha256": "333b5a8363b1a9cd281ea29df28039905497b12a7c36fc5e7a7fcbab899fb39c"
+  },
+  "provenance": "analytic_fixture",
+  "provider_calls": 0,
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "scripts/blender_edge_fringe.py",
+      "sha256": "15499b9d9c3dca4add129068ba04a2475e588ece917409a49886541897ce646b",
+      "snapshot": "sources/blender_edge_fringe.py"
+    },
+    {
+      "path": "scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "sources/edge_fringe.py"
+    },
+    {
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "sources/fringe_color_atlas.py"
+    },
+    {
+      "path": "scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "sources/groom_flow.py"
+    },
+    {
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "b2fbd0d2d66f42a02531676dd2e7cd53b20e3ab46e7b210cba62ac87a88596d4",
+      "snapshot": "sources/blender_finish_generated.py"
+    },
+    {
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "sources/blender_verify.py"
+    },
+    {
+      "path": "scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot": "sources/blender_native_groom.py"
+    },
+    {
+      "path": "scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "sources/motion_samples.py"
+    },
+    {
+      "path": "scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "sources/fur_root_sampling.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/runner.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/safety.py"
+    },
+    {
+      "path": "outputs/fringe-native-adapter-fixture-v2/fixture.py",
+      "sha256": "2836de21fedb87106add19e3f6deea9d855f5f3b43b83b9de29eeeff04af76dc",
+      "snapshot": "sources/fixture.py"
+    },
+    {
+      "path": "outputs/fringe-native-adapter-fixture-v2/verify.py",
+      "sha256": "710d5dac56bd6809563eacddea18145932bb3cc048b71c5e535e2ad932b590fb",
+      "snapshot": "sources/verify.py"
+    }
+  ]
+}

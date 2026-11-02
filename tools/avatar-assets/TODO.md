@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 20:01 PST. Exported-preview culling, source-normal shading and texture-packing components are verified. Matched previews lose most coat speckles; contact defects and sparse fur remain, with no quality/default promotion. Prior private checkpoint `8afc084`; current exact commit/push status is in `.local/avatar-quality-publication-v7/receipt.json`. Fresh Studio allowance remains pending.
+- Recorded: 2026-11-01 21:25 PST. Reusable fringe is experimental and execution-disabled after real-avatar fidelity/resource failures. All owned workers exited; approved assets/default workflow unchanged. Previous checkpoint `3874809` is privately pushed; this continuation awaits its own reviewed checkpoint. No new paid allowance or generation call.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -965,6 +965,147 @@ Pending fresh-case grants and the exhausted 13-call study are unchanged.
   hashes and are not remotely backed up by these bundles. Exact commit/private
   push status belongs to `.local/avatar-quality-publication-v7/receipt.json`;
   a missing receipt is not a verified push. Preserve unrelated Weft owner work.
+
+### Current continuation: reusable fringe — experimental execution disabled
+
+**Progress, not goal completion.** The reusable geometry/color libraries and a
+small actual native fixture pass, but both real subjects exposed export-fidelity
+failures, and both panda full finishes exceeded memory. `finish_generated.finish`
+now returns **unsupported before output creation/native execution** for
+`portable_fringe`; the AI author is explicitly told not to choose it. The old
+combed-card workflow, approved assets, gallery default and Weft consumer remain
+unchanged. [Schema, results and restrictions](docs/portable-fringe.md).
+
+#### Code and checks
+
+- Generic `scripts/edge_fringe.py`: source-safe edge selection, source-outward
+  helper normals, exact helper skin influences, repeated raw UVs, deterministic
+  placement, seam/closure/material/part exclusions and up-front geometry bounds.
+  Fifteen analytic tests pass; manifest
+  `outputs/edge-fringe-library-tests-v1/manifest.json`, SHA
+  `77029da5ff1659d55b10d482286336e5095a2b017efbadee5ae7612079c6212c`.
+- `scripts/fringe_color_atlas.py`: bounded source-colored, color-packed RGBA cells
+  with correct REPEAT sampling; sixteen tests pass, including allocated4K/4800fin
+  and three-image fixtures. Manifest SHA
+  `5e5b4355e0d3c4ab30dfe30b070b2d3a5e51b294ea46fbc6c849909a0f09cbe6`.
+- `scripts/blender_edge_fringe.py` emits12 independent triangle corners per fin.
+  `avatar_assets/portable_fringe.py`, finishing, author/schema, source pins and
+  motion margins are reusable, without panda coordinates/bone IDs in code.
+  The lower-level adapter supports selected multiple textures; the complete
+  native-groom finisher still requires a shared image. Do not claim otherwise.
+- `avatar_assets/fringe_export.py` removes only unused TANGENT bindings from
+  exact non-normalmapped fringe materials; every padded BIN byte and other JSON
+  remains unchanged. Normal maps/extensions/morphs/ambiguous identities reject.
+  Existing body/UV1 tangent repair limits are unchanged. Eight tests pass;
+  manifest `outputs/fringe-export-tests-v1/manifest.json`, SHA
+  `a8e297532ed5a879dc2abc37817f05245201fb747833ac3e9be226b294cca0ed`.
+- Strict postprocessing uses the native material report and reserves two64MiB
+  derivatives plus1MiB metadata inside the existing512MiB pack cap. Native reuse
+  now copies `views/` and fringe memory evidence; hashed copy-custody tests cover
+  that defect. Final release-guard/contracts run: **59 passed**, .523s,
+  56,131,584B sampled RSS, process exited;
+  `outputs/fringe-release-guard-tests-v1/receipt.json`.
+  Earlier11/102/72/25-check receipts remain; counts overlap, do not sum them.
+
+#### Actual fixture and failures
+
+- `outputs/fringe-native-adapter-fixture-v{1,2,3}` preserve all attempts. v1 used
+  a stale UV-checker RNA handle; v2 proved UVs unchanged but had invalid shared
+  topology/74zero tangents. Independent corners fixed topology in v3, but151zero
+  tangents remained because outward shading normals are nearly perpendicular
+  to the fin plane. No tangent-vector repair or larger repair allowance was used.
+- CPU derivative/independent proof passes in
+  `outputs/fringe-native-adapter-fixture-v3-final-v2`, manifest SHA
+  `0e74e7aa550b17fa71ca8d05a6583c4823bdcc50f6866cbed121d51f271ea059`.
+  It checks960corners and480roots across five actual poses, exact padded BIN,
+  source pixels, strict skin/render attributes and160nominal tip colors.
+  Max pose error1.84e-8m, root error0, colorp99.002825. Earlier final-v1 failed
+  a checker time assumption: native frames1,7,13,19,25 use frames/24, not relative
+  offsets0..1. Correct STEP/time oracles fixed the checker without asset retiming
+  or relaxed tolerances. This is an analytic component, not an accepted avatar.
+
+#### Real fox: export exists, fidelity failed
+
+- Original authored source `outputs/fox-hd-build-v2/model.glb`, SHA
+  `0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78`.
+  Preparation omits only three legacy-card primitive bindings in a new baseline;
+  original BIN/remaining geometry/20-joint rig/four actions remain exact.
+  This is procedural authored geometry, not a fresh neural example.
+- v1 failed before the adapter: its recipe counted the importer's bone-display
+  Icosphere as a source mesh. v2 records inventory and uses the existing exact
+  custom-shape identity filter. Native v2 passed in4.684s /1,091,141,632B sampled
+  RSS; strict tangent omission passed. Raw/filtered GLBs and Blend are retained
+  in `outputs/fox-fringe-component-v2`; preparation and v1 stay unchanged.
+- Independent audit **failed**. All17material position/UV/weight/triangle groups
+  match;43body vertices exceed normal-component limit. Among unambiguous fringe
+  corners,213exceed the unchanged.0002 limit, max.01371359 / .7910648degrees.
+  Some body aliases have different normals, explicitly reported as lower-bound
+  matches. The9600tip color check passes (p99.0108004), not appearance acceptance.
+  The full weighted-pose audit stopped at the original fidelity gate.
+- Sealed localization: `outputs/fox-fringe-export-diagnosis-v2/manifest.json`, SHA
+  `e8d4116f6f8b53ee2bfdd36f7fd8c404e99ff8637f392e1ce4979380402a0c64`.
+  Do not relax normal tolerance or promote the model based on color/geometry alone.
+
+#### Real panda: memory and export fidelity failed
+
+- Same design `examples/meshy/panda-portable-fringe-v1.json`, SHA
+  `72f112ab66406b52a6ef8d39f2b625e7d20f1a52de3effb71d09b94da3de8da7`,
+  preserves source/rig/dance-flight/native groom;3600fins,720px/16samples.
+  `outputs/panda-portable-fringe-finish-v1` stopped at the first denoised pose:
+  29.799s /2,292,908,032B sampled RSS exceeded2GiB. Native32524/tool71425 ended.
+- Changed-hypothesis v2 retains the same texture pixels/density/render settings,
+  but hands the atlas to a packed FILE image and frees hidden decoded buffers.
+  `outputs/panda-portable-fringe-preparation-v2/execution.json` SHA
+  `0be38ddb693c2a8f9943b35fffd996eaab109a3992c4082352ddfac5d164d20d` pins92sources.
+  Exact executed command:
+  `.venv/bin/python -B outputs/panda-portable-fringe-preparation-v2/execute.py`.
+  It also failed at first pose:31.320s /2,338,013,184B. Native34262/tool9934 ended.
+  No third identical attempt, cap increase, failed-native reuse or saved-asset replacement.
+- Buffer release showed **zero instantaneous RSS reduction**; this is not a
+  successful optimization. Both raw exports have identical JSON, geometry,
+  normals, skin, animations, six image payloads, atlas and helper arrays. Five
+  native view pairs are pixel-identical. One companion tangent component differs
+  by.0001000166, so strict complete-payload identity is false. Sealed comparison:
+  `outputs/panda-fringe-memory-diagnosis-v1/manifest.json`, SHA
+  `c7e9d5b35c48405d5bee96cdc08460959059d2661aa68fb0d8760fc004b226fa`.
+- All43,200fringe corners match uniquely by position/UV and winding, but315fail
+  the unchanged normal limit (max.01358317 / .7959729degrees) and414fail the
+  unchanged1e-6 weight limit (max.0001290441). Small influences disappear and
+  remaining weights increase; exporter prune/renormalize is a hypothesis, not
+  yet a proven cause. Diagnosis manifest
+  `outputs/panda-fringe-attribute-diagnosis-v1/manifest.json`, SHA
+  `1e6a84bbc8356937578eba228ab465b6d60bbe68ae0f556bb7584afa0d63dcf8`.
+  Partial portraits/raw GLBs are not completed packs; no final Blend/pose pass.
+
+#### Custody, cost and next safe action
+
+- Compact evidence is saved in `evidence/reusable-fringe-v1`:775exact origin
+  mappings,444content-addressed snapshots /10,393,998bytes; manifest SHA
+  `fdca3c57a17803fbbe38fac9e3d3ee242d1421e90f2aa11bfc3c419d5cbaab0f`.
+  All origins were rehashed unchanged. Large GLB/Blend files stay local with
+  explicit hashes; this bundle is not their remote backup. The publication
+  receipt for this continuation belongs in
+  `.local/avatar-quality-publication-v8/receipt.json`; until it exists, do not
+  claim the new checkpoint was committed/pushed.
+- All owned native/CPU workers have exited. Prepared720px EEVEE previews in
+  `outputs/fringe-720-preview-preparation-v1` are **not running** and must not be
+  released against these rejected models. No browser/server/provider job started.
+- New Meshy/Meta/image-generation/pipeline-role AI calls: **0**. Meshy allowance
+  remains8credits; the pending105credit/15AI-call fresh-example request remains
+  pending. Local energy is unpriced. Aggregate observed native time for these
+  adapter/avatar attempts is72.297s; no recurring resources were created.
+- Keep original ZIP, old approved assets, all attempts and exact snapshots.
+  Commands above are historical receipts, not instructions to bypass current
+  source pins/execution guard. The memory mock checks were reported by the helper
+  author, not sealed test artifacts; actual native/CPU receipts take precedence.
+- Next: diagnose actual custom-normal export and small-weight pruning, then
+  implement a faithful bounded correction without weakening the independent
+  scorer. Separately test a prepared scene/render lifetime boundary or targeted
+  exporter/denoiser retention measurements with unchanged image/fur quality.
+  Do not repeat buffer freeing as an unchanged hypothesis. Only remove the
+  execution guard after both real subjects pass fidelity, complete motion and
+  appearance checks inside the existing limits. Fresh Studio acceptance is still
+  a separate, allowance-gated requirement.
 
 ### Fresh examples — prepared estimate, authorization pending
 

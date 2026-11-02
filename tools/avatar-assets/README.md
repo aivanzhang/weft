@@ -88,6 +88,13 @@ dark-region flecks in matched actual previews without changing geometry or motio
 Cheek/shoulder defects and sparse fur remain; no experimental coat is promoted.
 The renderer change passes six focused and 49 integration checks.
 
+The experimental [portable edge-fringe workflow](docs/portable-fringe.md) has
+reusable geometry/color libraries and a passing small Blender fixture. Real
+panda/fox checks exposed exported normal/weight drift, and the panda exceeded
+its memory limit. That option now returns **unsupported before native work**;
+existing combed-card finishing and approved assets are unchanged. The final
+guard and surrounding contracts pass 59 tests. This is not a new Studio delivery.
+
 The studio is a local single-user workflow, not a hosted service. No server,
 browser or generation job starts merely by reading this repository. The
 existing read-only gallery remains separate on port 8765.

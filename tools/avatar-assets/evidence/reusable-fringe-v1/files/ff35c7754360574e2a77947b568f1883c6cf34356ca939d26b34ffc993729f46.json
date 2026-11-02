@@ -1,0 +1,201 @@
+{
+  "actual_preservation": {
+    "accessors_checked": 118,
+    "all_other_accessor_payloads_identical": true,
+    "all_six_embedded_images_byte_identical": true,
+    "buffer_views_checked": 124,
+    "changed_accessor_indices": [
+      12
+    ],
+    "evidence": {
+      "comparison": "preservation-comparison.json",
+      "comparison_sha256": "c057509065574d8809d9dda0a0c8be8fd703c05b18fd2256d584c5d27f531e0d",
+      "witness": "raw-difference-witness.json",
+      "witness_sha256": "01746e0cc61d724f3e11041e43bd6ce36401f3be5a5aa0d61723f9e4cbe0a352"
+    },
+    "exact_difference": "Two BIN bytes encode one companion_surface tangent X component at exported vertex21805: -0.7944999933242798 versus -0.7943999767303467; absolute delta0.00010001659393310547. Cause is not established; no tangent/normal threshold was relaxed.",
+    "external_fringe_png_and_correspondence_npz_byte_identical": true,
+    "geometry_position_normal_uv_joints_weights_animation_payloads_identical": true,
+    "json_bytes_and_all_sections_identical": true,
+    "portrait_and_four_rest_view_pixels_identical": true,
+    "render_png_file_hashes_differ": true,
+    "strict_all_payload_identity": false
+  },
+  "all_pinned_inputs_unchanged": true,
+  "comparison_job": {
+    "elapsed_seconds": 0.262,
+    "exit_code": 0,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "pid": 35070,
+    "process_exit_verified": true,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null
+  },
+  "failure_stage": "Both completed portrait and four rest views, then exceeded the unchanged2GiB RSS cap on the first denoised720px animation pose; neither has a completed finish report or source.blend.",
+  "model_calls": 0,
+  "native_calls_by_this_diagnosis": 0,
+  "native_jobs": {
+    "v1": {
+      "elapsed_seconds": 29.799,
+      "exit_code": -15,
+      "failure": "resident-memory budget exceeded",
+      "pid": 32524,
+      "process_exit_verified": true,
+      "sampled_peak_rss_bytes": 2292908032
+    },
+    "v2": {
+      "elapsed_seconds": 31.32,
+      "exit_code": -15,
+      "failure": "resident-memory budget exceeded",
+      "pid": 34262,
+      "process_exit_verified": true,
+      "sampled_peak_rss_bytes": 2338013184
+    }
+  },
+  "next_changed_hypothesis": {
+    "not_authorized_here": "No third native attempt, no cap increase, no failed-native reuse, no repeated unchanged buffer-free experiment. Any staged proof needs its own explicit root release and immutable outputs.",
+    "preserve": "Same fur, atlas resolution, geometry, rig, actions, camera, samples and denoising; do not reduce quality to pass the resource limit.",
+    "proposal": "Plan a staged native pipeline that seals an intermediate scene before rendering and runs the identical camera/fur/pose/render settings in a fresh bounded renderer process; measure setup/export and first-denoiser lifetimes separately.",
+    "why": "The first denoised pose overlaps retained setup/export allocations. Installed exporter cache decorators retain settings/results after export; current evidence does not attribute retained bytes or prove the denoiser alone is responsible."
+  },
+  "no_owned_running_jobs": true,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 21:23:36 PST",
+  "schema_version": 1,
+  "source_bindings": {
+    "v1": {
+      "finish-config.json": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v1/finish-config.json",
+        "sha256": "4ab29ccce8b00b74d9e3fadc75c247ad22aa7877e2a8eb65aecb006a8caafc7d"
+      },
+      "job.json": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v1/job.json",
+        "sha256": "988fe48d4786bc2493ca5a9a2a734169ce8071647b41d99650314f68be42e4d5"
+      },
+      "manifest.json": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v1/manifest.json",
+        "sha256": "0f5ca73a93480ee2930e0bfef5bc6f186c864576af0863065dca31b3f1f1efb6"
+      },
+      "model.glb": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v1/model.glb",
+        "sha256": "af387843524ba560f2b8f0dd9d5c75f5d923e8f2e8f0ed7db62d60f1dcdf9026"
+      },
+      "sources/blender_edge_fringe.py": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v1/sources/blender_edge_fringe.py",
+        "sha256": "9dc57f6b8fb7c75828a642bec3d0eabfa219964c4569b635b2d2f7b6296b0e4f"
+      },
+      "sources/blender_finish_generated.py": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v1/sources/blender_finish_generated.py",
+        "sha256": "b2fbd0d2d66f42a02531676dd2e7cd53b20e3ab46e7b210cba62ac87a88596d4"
+      }
+    },
+    "v2": {
+      "finish-config.json": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v2/finish-config.json",
+        "sha256": "4ab29ccce8b00b74d9e3fadc75c247ad22aa7877e2a8eb65aecb006a8caafc7d"
+      },
+      "job.json": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v2/job.json",
+        "sha256": "c9e483dd7c5c88eda8c7e571ff906001e36c3601ffdd569f54f6b8eb48631ba6"
+      },
+      "manifest.json": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v2/manifest.json",
+        "sha256": "d0e25ee87fd4004e4ba887ca5b8592529e496f6580a2544f161d2e9f3156809b"
+      },
+      "model.glb": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v2/model.glb",
+        "sha256": "f37da3330d282a19a39db358cc61aab50c6922d0cf61b78ffb05fe41d44cf560"
+      },
+      "phase-memory.jsonl": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v2/phase-memory.jsonl",
+        "sha256": "cff1e32e93a96e56fd371d0e49196959db13913d7441100da7cb9e744438fcf4"
+      },
+      "sources/blender_edge_fringe.py": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v2/sources/blender_edge_fringe.py",
+        "sha256": "4d7f0ef49bc1b471b5ec3f205ba1a1d6e21353799e9ac7d7597bef51d21be2e8"
+      },
+      "sources/blender_finish_generated.py": {
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-fringe-finish-v2/sources/blender_finish_generated.py",
+        "sha256": "4dea9c23bebe0d3df8a3856d4371f31832fa4b834ff7c8929532a22d86812ffa"
+      }
+    }
+  },
+  "status": "memory_experiment_failed_both_native_attempts_rejected",
+  "v2_memory_observations": {
+    "atlas_handoff_rss_delta_bytes": 149504000,
+    "hidden_buffer_release_rss_delta_bytes": 0,
+    "measurement_limit": "Instantaneous phase RSS and0.25s direct-child samples, not allocator attribution. The lifetime change did not establish memory savings or complete a pack.",
+    "phase_samples": [
+      {
+        "error": null,
+        "monotonic_seconds": 2127000.087426,
+        "phase": "atlas_handoff_before",
+        "pid": 34262,
+        "rss_bytes": 1078919168,
+        "schema_version": 1,
+        "scope": "Instantaneous current-process RSS; not a peak or measured savings",
+        "status": "measured"
+      },
+      {
+        "error": null,
+        "monotonic_seconds": 2127000.252837,
+        "phase": "atlas_handoff_after",
+        "pid": 34262,
+        "rss_bytes": 1228423168,
+        "schema_version": 1,
+        "scope": "Instantaneous current-process RSS; not a peak or measured savings",
+        "status": "measured"
+      },
+      {
+        "error": null,
+        "monotonic_seconds": 2127006.47977,
+        "phase": "after_export",
+        "pid": 34262,
+        "rss_bytes": 1404616704,
+        "schema_version": 1,
+        "scope": "Instantaneous current-process RSS; not a peak or measured savings",
+        "status": "measured"
+      },
+      {
+        "error": null,
+        "monotonic_seconds": 2127006.509493,
+        "phase": "hidden_fringe_release_before",
+        "pid": 34262,
+        "rss_bytes": 1404616704,
+        "schema_version": 1,
+        "scope": "Instantaneous current-process RSS; not a peak or measured savings",
+        "status": "measured"
+      },
+      {
+        "error": null,
+        "monotonic_seconds": 2127006.53826,
+        "phase": "hidden_fringe_release_after",
+        "pid": 34262,
+        "rss_bytes": 1404616704,
+        "schema_version": 1,
+        "scope": "Instantaneous current-process RSS; not a peak or measured savings",
+        "status": "measured"
+      },
+      {
+        "error": null,
+        "monotonic_seconds": 2127021.909045,
+        "phase": "before_pose_dance_flight_0",
+        "pid": 34262,
+        "rss_bytes": 1739685888,
+        "schema_version": 1,
+        "scope": "Instantaneous current-process RSS; not a peak or measured savings",
+        "status": "measured"
+      }
+    ],
+    "v2_minus_v1_sampled_peak_bytes": 45105152,
+    "v2_peak_over_cap_bytes": 190529536
+  }
+}

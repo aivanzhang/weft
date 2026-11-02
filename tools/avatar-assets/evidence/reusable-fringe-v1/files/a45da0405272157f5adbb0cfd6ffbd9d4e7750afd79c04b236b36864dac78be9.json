@@ -1,0 +1,80 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1375,
+      "path": "execute_cpu.py",
+      "sha256": "3a21333fc3f72c8a5849c513d70e4418dc685f956894f953931c804ed17fb7b8"
+    },
+    {
+      "bytes": 1278,
+      "path": "job.json",
+      "sha256": "e51729ae5f00dcf34714aebb20de97f037f1eba1a95b5115a83aad6b853be2e6"
+    },
+    {
+      "bytes": 3568,
+      "path": "prepared.json",
+      "sha256": "a5b852cd07bae55a7fa1227b5948bd0b7b1e9860863be8bb8e76c1a37e12edd1"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 13676,
+      "path": "sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 13362,
+      "path": "sources/tests/test_fringe_export.py",
+      "sha256": "073a6bd6c40e0790a50d59cfd1fa1e8c37679ca5b2373eb34c1811a88e305992"
+    },
+    {
+      "bytes": 9803,
+      "path": "sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 419,
+      "path": "tests-handle.json",
+      "sha256": "9b4c9722d5b0f1041dfdc5620c3ca12d87bfec78638666f1facabc5bab6300fb"
+    },
+    {
+      "bytes": 1154,
+      "path": "tests-monitor.json",
+      "sha256": "bfbe57cdc2d80896dd75f4c05cc802f6cf31c4b21ca926ac92e9a812d23686c5"
+    },
+    {
+      "bytes": 1572,
+      "path": "tests.log",
+      "sha256": "46e823efe236601a43328dc70e893f6d05382727d4e76149d5028393bcc752e4"
+    }
+  ],
+  "inputs_unchanged": true,
+  "native_calls": 0,
+  "passed": true,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1
+}
