@@ -1,5 +1,39 @@
 # Combined Weft implementation handoff
 
+## Retained depth alternatives — November 2, 2026, 2:25 AM PST
+
+`camera-body --partial-depth-branches` adds a separate, explicit geometric
+stage after unchanged v2 image fitting. It retains every original ray, depth
+root, rejection and nearest supported temporal anchor. Upper axes/root/shape/
+ground/forces and complete fits remain fixed. **234 distinct focused Python
+cases /74 mocked UI checks pass**, including positive native selections across
+two, three and four cameras and recording/export/exact replay.
+
+The frozen original-source test **selects none**: 24 attempted limb poses,
+70 rays, 52 alternatives, 44 missed ray/sphere intersections. Fifteen poses
+lack bracketing anchors, nine have no qualified branch; all 50 multi-view
+branches worsen aggregate image agreement, and frame84's two alternatives
+worsen the temporal assumption. Body/image/floor results remain exactly v2:
+1/47 source +2/111 grid failures, worst penetration .0493395683. Do not loosen
+the selector or claim this resolves depth/contact reconstruction.
+
+Independent saved-only audit verifies 768 source/candidate/prior-audit members,
+46 identical source/settings files, 163 complete fits, 259 v2 trial losses,
+all 52 alternatives and 6,768 image slots. Actual 39-action/one-reset/41-state
+recording replays exactly; immutable run and lifecycle pass after close.
+All root jobs are terminal/reaped. No acquisition, source decode, inference,
+API/key/ledger access, browser/server or deployment. The audit's first control
+attempt stopped on an unnecessary video-module import before writing output;
+the isolated JSON/math verifier passed without changing source/runtime/gates.
+
+[Detailed handoff](distal-depth-branches.md) contains exact runtime, source,
+test, artifact and recording identities. Publication receipt:
+`.local/aspset-depth-branches-publication-01.json` after push. Preserve the
+separate avatar session's renderer/tests and `tools/avatar-assets/` work.
+The complete goal remains active. Next qualify a distinct, noise-aware joint
+geometry hypothesis; do not repeat this unchanged branch study. Coupled
+control, independent learning/accuracy and unfamiliar-video coverage remain.
+
 ## Explicit image uncertainty — November 2, 2026, PST
 
 The optional v2 distal fit accepts declared image/angle uncertainty through

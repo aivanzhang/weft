@@ -1724,6 +1724,9 @@
             if (scene.human.partial_pixels.uncertainty) {
               text($("world-description"), $("world-description").textContent + ` Assumed image-error scale: ${(100 * scene.human.partial_pixels.uncertainty.image_std_fraction).toFixed(2)}% of the larger image dimension. ${scene.human.partial_pixels.weak_image_group_poses} limb poses have at least one direction constrained more by the pose assumption than by the images. These are not measured confidence levels.`);
             }
+            if (scene.human.depth_branches) {
+              text($("world-description"), $("world-description").textContent + ` ${scene.human.depth_branches.selected_group_poses} depth hypotheses selected using an assumed smooth path between supported poses. Alternative depths and rejected branches are retained; selected depth is still inferred. These geometric proposals are separate from the small local angle fit.`);
+            }
           }
         }
       }

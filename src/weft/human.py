@@ -428,6 +428,8 @@ class HumanEnv(gym.Env):
                         self.scene['human']['mobility']['root_depth'] = f'{view_label} hip midpoint; fixed-length source-position angle proposals, not measured anatomy or contact'
                     if 'partial_pixels' in spec['reconstruction_coverage']['two_view_body']:
                         self.scene['human']['partial_pixels'] = deepcopy(spec['reconstruction_coverage']['two_view_body']['partial_pixels'])
+                    if 'depth_branches' in spec['reconstruction_coverage']['two_view_body']:
+                        self.scene['human']['depth_branches'] = deepcopy(spec['reconstruction_coverage']['two_view_body']['depth_branches'])
                 if 'ground' in spec['camera_reference']:
                     ground = spec['camera_reference']['ground']
                     self.scene['human']['mobility'].update(

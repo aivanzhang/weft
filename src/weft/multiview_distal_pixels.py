@@ -121,10 +121,10 @@ def apply_distal_pixels(candidate, original, predictions, sources, audits, prepa
     return report
 
 
-def validate_pixel_binding(spec, parent, *, multi):
+def validate_pixel_binding(spec, parent, *, multi, branch_inputs=None):
     binding = spec['camera_reference']['body_refinement']
     views = spec['camera_reference']['root_refinement']['views']
-    uncertain = spec['camera_reference']['method'] == UNCERTAINTY_METHOD
+    uncertain = 'partial_pixel_uncertainty' in binding
     if (binding['partial_pixel_contract'] != dict(UNCERTAINTY_CONTRACT if uncertain else CONTRACT)
             or binding['partial_pixel_camera_sha256'] != [v['camera_sha256'] for v in views]):
         raise ValueError('Partial pixels require their fixed contract and original calibrated view identities')
@@ -135,7 +135,7 @@ def validate_pixel_binding(spec, parent, *, multi):
                 or summary.get('uncertainty') != settings or summary.get('uncertainty_sha256') != canonical_hash(settings)
                 or summary.get('uncertainty_calibrated') is not False):
             raise ValueError('Partial image uncertainty must preserve its explicit uncalibrated assumptions')
-    for meta, reference, prior in zip(spec['reference_evidence'], spec['reference'], parent['reference'], strict=True):
+    for i, (meta, reference, prior) in enumerate(zip(spec['reference_evidence'], spec['reference'], parent['reference'], strict=True)):
         fits = meta.get('geometry_partial_pixels')
         expected = {name for name, source in meta['geometry_sources'].items() if source == pixel_status(multi)}
         if not isinstance(fits, dict) or set(fits) != expected:
@@ -160,8 +160,10 @@ def validate_pixel_binding(spec, parent, *, multi):
             names = (group+'_twist', group+'_lateral', group)
             distal = group.rsplit('_', 1)[0]+('_knee' if group.endswith('hip') else '_elbow')
             expected_rotation = rotation_zyx(old[:3]) @ rotation_zyx([delta[0], 0., 0.])
-            actual = rotation_zyx([reference['joints'][name] for name in names])
+            intermediate = (branch_inputs or {}).get(i, {}).get(group)
+            actual = rotation_zyx(intermediate[:3] if intermediate is not None else [reference['joints'][name] for name in names])
+            actual_bend = intermediate[3] if intermediate is not None else reference['joints'][distal]
             if (old[3] != prior['joints'][distal] or not np.allclose(actual, expected_rotation, atol=1e-10, rtol=0)
-                    or abs(reference['joints'][distal]-old[3]-delta[1]) > 1e-12
+                    or abs(actual_bend-old[3]-delta[1]) > 1e-12
                     or meta['joint_confidence'].get(distal) != 0.):
                 raise ValueError('Partial pixels cannot change the supported upper axis or promote inferred bend')

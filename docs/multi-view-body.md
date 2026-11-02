@@ -2,7 +2,8 @@
 
 Optional [fixed-length fitting](#optional-fixed-length-angle-fit),
 [partial directions](#optional-partial-limb-directions) and
-[distal image constraints](#optional-distal-image-constraints) provide separate
+[distal image constraints](#optional-distal-image-constraints), with
+[retained depth alternatives](#optional-depth-alternatives), provide separate
 saved comparisons. None passes every floor check or replaces the default.
 
 Weft can now use **two or more supporting cameras per joint** from three or four
@@ -300,3 +301,50 @@ successful exercise reconstruction.
 213 scoped Python cases /73 mocked UI checks pass. Actual 39-action/one-reset
 recording replays all 41 states and frames exactly; immutable run and lifecycle
 metadata stay unchanged after closing. No new inference or paid API call.
+
+## Optional depth alternatives
+
+Add `--partial-depth-branches` to the v2 construction command above. Keep
+`--partial-pixel-uncertainty`, `--fit-partial-pixels`, `--fit-limbs`,
+`--partial-segments` and `--body-view directions` or `both`.
+
+An image can place an ankle along a ray without identifying its depth. This
+stage saves possible ankle/wrist positions where each ray meets the fixed-length
+limb, including missing intersections and rejected alternatives. It can select
+a position only when agreement with **all** available images improves, nearby
+supported poses favor it, and another depth is not similarly plausible.
+That smooth-motion assumption does not make depth measured.
+
+This is a separate geometric stage after the unchanged small local fit. It can
+rotate around the upper bone by up to pi radians and retains the existing
+0–2.6-radian knee/elbow range. Root, upper-bone direction, limb lengths, ground
+and complete-limb fits stay fixed. It never selects a depth to pass a floor check.
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/aspset-depth-branches-body-lab-01
+```
+
+Use `controls`, `action`, `step`, `record start`, `record stop`, and `files`.
+Use `lab --resume` instead of `lab-console --resume` to start the visual lab
+yourself. No learned policy is available for this candidate.
+
+**This source case remains unresolved.** All 24 partial-limb poses abstain:
+15 lack nearby supported observations on both sides; nine have no qualified
+alternative. All 52 alternatives and 44 missed ray/limb intersections remain
+saved. Body positions and image errors are identical to v2; floor failures stay
+1/47 source poses and 2/111 interpolated poses, worst penetration 0.049340 model
+units. No default, learned-policy or physical-accuracy promotion occurs.
+
+- [All depth alternatives and reasons](../artifacts/aspset-depth-branches-body-lab-01/run/two-view-body.json).
+- [Independent saved-data audit](../artifacts/aspset-depth-branches-audit-01/report.json)
+  and [all source-image slots](../artifacts/aspset-depth-branches-audit-01/source-images.json).
+- [Manual replay](../artifacts/aspset-depth-branches-body-lab-01/sessions/session-7a63eab3930f/replay.html)
+  and [video](../artifacts/aspset-depth-branches-body-lab-01/sessions/session-7a63eab3930f/video.mp4).
+- [Exact bounds, tests, failures and next work](handoffs/distal-depth-branches.md).
+
+234 focused Python cases /74 mocked UI checks pass, including selected depths
+on controlled two-, three- and four-camera geometry. Actual 39-action/one-reset
+recording replays all 41 states and video frames exactly. Construction took
+1.688 s /151.5 MB peak RSS; interaction/export/replay 1.047 s /162.1 MB. These
+verify the manual workflow, not source accuracy or browser responsiveness.

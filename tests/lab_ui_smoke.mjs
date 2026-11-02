@@ -189,12 +189,13 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     }
   }
   if (partialPixels) {
-    scene.human.root_method=partialPixels==='uncertainty'?'camera-body-partial-pixels-v2':'camera-body-partial-pixels-v1';
+    scene.human.root_method=partialPixels==='branches'?'camera-body-depth-branches-v1':partialPixels==='uncertainty'?'camera-body-partial-pixels-v2':'camera-body-partial-pixels-v1';
     scene.human.partial_pixels={fitted_group_poses:10,changed_group_poses:10,depth_measured:false};
-    if (partialPixels==='uncertainty') Object.assign(scene.human.partial_pixels, {
+    if (partialPixels==='uncertainty'||partialPixels==='branches') Object.assign(scene.human.partial_pixels, {
       uncertainty:{image_std_fraction:.0025,angle_prior_std_rad:.3,temporal_prior_std_rad:.45},
       weak_image_group_poses:4,uncertainty_calibrated:false
     });
+    if (partialPixels==='branches') scene.human.depth_branches={selected_group_poses:1,depth_measured:false};
     const prefix=multiView?'multi_view':'two_view';
     scene.human.geometry_coverage.left_shoulder[prefix+'_proximal_monocular_distal_and_twist']=32;
     scene.human.geometry_coverage.left_shoulder[prefix+'_proximal_image_constrained_distal']=10;
@@ -965,6 +966,17 @@ async function imageUncertaintyIsAnAssumptionNotMeasuredConfidence() {
   assert(!ui.requests.some(request=>/two-view-(body|triangulation)/.test(request.path)));
 }
 checks.push(imageUncertaintyIsAnAssumptionNotMeasuredConfidence);
+
+async function selectedDepthBranchesRemainExplicitHypotheses() {
+  const ui = fixture('exercise',{mobile:true,cameraBody:true,suppliedGround:true,geometryMode:'both',partialSegments:true,multiView:true,limbFit:true,partialPixels:'branches'}); await ui.ready();
+  assert.match(ui.ids.get('world-description').textContent,/1 depth hypotheses selected using an assumed smooth path/);
+  assert.match(ui.ids.get('world-description').textContent,/Alternative depths and rejected branches are retained/);
+  assert.match(ui.ids.get('world-description').textContent,/selected depth is still inferred/);
+  assert.match(ui.ids.get('world-description').textContent,/separate from the small local angle fit/);
+  assert.equal(ui.ids.get('policy').disabled,true);
+  assert(!ui.requests.some(request=>/two-view-(body|triangulation)/.test(request.path)));
+}
+checks.push(selectedDepthBranchesRemainExplicitHypotheses);
 
 
 async function upperSegmentCorrectionDoesNotClaimObservedWristsOrAnkles() {

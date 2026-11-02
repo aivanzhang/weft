@@ -18,6 +18,8 @@ from weft.multiview_distal_pixels import (METHOD as PARTIAL_PIXEL_METHOD, CONTRA
     pixel_status, pixel_components, prepare_pixel_views, apply_distal_pixels, validate_pixel_binding)
 from weft.multiview_distal_pixels import (UNCERTAINTY_METHOD as PARTIAL_UNCERTAINTY_METHOD,
     UNCERTAINTY_CONTRACT as PARTIAL_UNCERTAINTY_CONTRACT, validate_uncertainty)
+from weft.multiview_depth_branches import (METHOD as DEPTH_BRANCH_METHOD, CONTRACT as DEPTH_BRANCH_CONTRACT,
+    apply_depth_branches, validate_depth_binding)
 from weft.spatial_pose import LIMB_ENDPOINTS, SPATIAL_JOINT_NAMES, _limb_rotation, rotation_to_zyx, rotation_zyx
 
 
@@ -26,7 +28,7 @@ MULTI_METHOD = 'multi-view-body-v1'
 LIMB_FIT_METHOD = 'camera-body-length-fit-v1'
 LIMB_FIT_SEGMENT_METHOD = 'camera-body-length-fit-v2'
 METHODS = (METHOD, SEGMENT_METHOD, MULTI_METHOD, LIMB_FIT_METHOD, MULTI_SEGMENT_METHOD, LIMB_FIT_SEGMENT_METHOD,
-           PARTIAL_PIXEL_METHOD, PARTIAL_UNCERTAINTY_METHOD)
+           PARTIAL_PIXEL_METHOD, PARTIAL_UNCERTAINTY_METHOD, DEPTH_BRANCH_METHOD)
 SCALE_ASSUMPTION = 'supplied_camera_scale_with_explicit_monocular_body_priors'
 CONTRACT = MappingProxyType({'method': METHOD, 'minimum_dimension_frames': 5,
     'maximum_reference_poses': 900, 'dimensions': 'Median available segment lengths; shared left/right lengths remain an authored symmetry assumption',
@@ -57,7 +59,8 @@ def validate_body_binding(spec):
     fields = {'schema_version', 'mode', 'input_body', 'input_body_sha256', 'triangulation_sha256',
               'output_lengths_sha256', 'output_evidence_sha256', 'audit_sha256'}
     method = spec['camera_reference']['method']
-    uncertain = method == PARTIAL_UNCERTAINTY_METHOD
+    branches = method == DEPTH_BRANCH_METHOD
+    uncertain = method == PARTIAL_UNCERTAINTY_METHOD or branches
     pixels = method == PARTIAL_PIXEL_METHOD or uncertain
     partial = method in (SEGMENT_METHOD, MULTI_SEGMENT_METHOD, LIMB_FIT_SEGMENT_METHOD) or pixels
     fitted = method in (LIMB_FIT_METHOD, LIMB_FIT_SEGMENT_METHOD) or pixels
@@ -73,6 +76,8 @@ def validate_body_binding(spec):
         fields.update(('partial_pixel_contract', 'partial_pixel_camera_sha256'))
     if uncertain:
         fields.update(('partial_pixel_uncertainty', 'partial_pixel_uncertainty_sha256'))
+    if branches:
+        fields.update(('depth_branch_contract', 'depth_branch_reference_sha256'))
     if (not isinstance(value, dict) or set(value) != fields or type(value['schema_version']) is not int
             or value['schema_version'] != 1 or value['mode'] not in MODES
             or not isinstance(value['input_body'], dict)
@@ -167,7 +172,8 @@ def validate_body_binding(spec):
                         or any(meta['joint_confidence'].get(group+suffix) != 0. for suffix in ('_twist', '_lateral', ''))):
                     raise ValueError('Partial directions cannot promote unknown twist/bend or change the distal prior')
     if pixels:
-        validate_pixel_binding(spec, parent, multi=multi)
+        branch_inputs = validate_depth_binding(spec) if branches else None
+        validate_pixel_binding(spec, parent, multi=multi, branch_inputs=branch_inputs)
 
 
 def _confidence(frame, indices, sources, prediction=None):
@@ -211,7 +217,8 @@ def _torso_rotation(points):
 
 
 def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mode='both', partial_segments=False,
-                      additional_evidence=(), limb_fit=False, partial_pixel_fit=False, pixel_cameras=(), pixel_uncertainty=None):
+                      additional_evidence=(), limb_fit=False, partial_pixel_fit=False, pixel_cameras=(), pixel_uncertainty=None,
+                      partial_depth_branches=False):
     from weft.human import LENGTH_BOUNDS, validate_human
 
     original = validate_human(spec)
@@ -232,7 +239,9 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
             or not partial_pixel_fit and (pixel_cameras or pixel_uncertainty is not None)):
         raise ValueError('Partial pixel fitting requires explicit length fitting, partial segments and original cameras')
     uncertainty = validate_uncertainty(pixel_uncertainty) if pixel_uncertainty is not None else None
-    method = (PARTIAL_UNCERTAINTY_METHOD if uncertainty is not None else PARTIAL_PIXEL_METHOD if partial_pixel_fit else LIMB_FIT_SEGMENT_METHOD if limb_fit and partial_segments else LIMB_FIT_METHOD if limb_fit else
+    if type(partial_depth_branches) is not bool or partial_depth_branches and not (partial_pixel_fit and uncertainty is not None):
+        raise ValueError('Depth branches require the explicit uncertainty-qualified partial pixel fit')
+    method = (DEPTH_BRANCH_METHOD if partial_depth_branches else PARTIAL_UNCERTAINTY_METHOD if uncertainty is not None else PARTIAL_PIXEL_METHOD if partial_pixel_fit else LIMB_FIT_SEGMENT_METHOD if limb_fit and partial_segments else LIMB_FIT_METHOD if limb_fit else
               MULTI_SEGMENT_METHOD if multi and partial_segments else MULTI_METHOD if multi else
               SEGMENT_METHOD if partial_segments else METHOD)
     segment_contract = MULTI_SEGMENT_CONTRACT if multi else SEGMENT_CONTRACT
@@ -352,6 +361,7 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
         segment_report = apply_partial_segments(candidate, original, predictions, sources, audits, multi=multi, method=method)
     pixel_report = (apply_distal_pixels(candidate, original, predictions, sources, audits, pixel_views, multi=multi, uncertainty=uncertainty)
                     if partial_pixel_fit else None)
+    depth_report = apply_depth_branches(candidate, audits, pixel_views) if partial_depth_branches else None
     by_frame = {row['frame']: row for row in audits}
     slots = [{'frame': row['frame'], 'time_s': row['time_s'], 'retained_body_pose': row['frame'] in by_frame,
               'groups': by_frame[row['frame']]['groups'] if row['frame'] in by_frame else None,
@@ -378,6 +388,10 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
         audit['contract']['partial_pixels'] = dict(PARTIAL_UNCERTAINTY_CONTRACT if uncertainty is not None else PARTIAL_PIXEL_CONTRACT)
         audit['partial_pixels'] = pixel_report
         audit['scope'] = 'Fixed complete-limb position fits and pixel-constrained distal priors; no measured depth or contact'
+    if depth_report is not None:
+        audit['contract']['depth_branches'] = dict(DEPTH_BRANCH_CONTRACT)
+        audit['depth_branches'] = depth_report
+        audit['scope'] = 'Temporal selection among retained image-ray depth hypotheses; not observed depth or verified contact'
     candidate['camera_reference'].update(method=method, scale_assumption=SCALE_ASSUMPTION,
         angular_reference_sha256=canonical_hash(candidate['reference']), body_refinement={
             'schema_version': 1, 'mode': mode, 'input_body': original, 'input_body_sha256': canonical_hash(original),
@@ -395,6 +409,9 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
     if uncertainty is not None:
         candidate['camera_reference']['body_refinement'].update(partial_pixel_uncertainty=uncertainty,
             partial_pixel_uncertainty_sha256=canonical_hash(uncertainty))
+    if depth_report is not None:
+        candidate['camera_reference']['body_refinement'].update(depth_branch_contract=dict(DEPTH_BRANCH_CONTRACT),
+            depth_branch_reference_sha256=depth_report['before_branch_reference_sha256'])
     candidate['assumptions'] = [v for v in candidate['assumptions'] if not v.startswith(
         'Body shape, joint angles, muscle illustrations and motor forces remain')]
     candidate['assumptions'].extend([
@@ -415,9 +432,13 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
         candidate['assumptions'].append('Available distal images constrain partial-limb bend/twist without changing the supported upper axis; missing 3D endpoints remain inferred, not observed')
     if uncertainty is not None:
         candidate['assumptions'].append('Image and angle error scales are explicit assumptions, not calibrated noise or depth confidence; pose confidence supplies heuristic weights')
+    if depth_report is not None:
+        candidate['assumptions'].append('Depth branches use explicit smooth-motion assumptions between complete source-supported limbs; both depths and rejected alternatives remain saved, not observed depth or contact')
     candidate['reconstruction_coverage']['two_view_body'] = {'method': method, 'mode': mode, 'group_coverage': audit['group_coverage']}
     if limb_fit:
         candidate['reconstruction_coverage']['two_view_body']['limb_position_fit'] = deepcopy(audit['limb_position_fit'])
     if partial_pixel_fit:
         candidate['reconstruction_coverage']['two_view_body']['partial_pixels'] = deepcopy(pixel_report)
+    if depth_report is not None:
+        candidate['reconstruction_coverage']['two_view_body']['depth_branches'] = deepcopy(depth_report)
     return validate_human(candidate), audit
