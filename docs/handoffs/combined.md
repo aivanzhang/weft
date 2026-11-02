@@ -1,5 +1,53 @@
 # Combined Weft implementation handoff
 
+## Automatic-equipment play verified — November 1, 2026, 5:15 PM PST
+
+The full goal remains active. Previous turn and this turn made concrete progress,
+not merely status checks. Latest published main/origin is
+**`2525c58963f69475128ad2650f7b15318455ebd8`**: fixed root-only negative study,
+four-source access findings and current notes. Remote independently verified;
+receipt `.local/equipment-root-pair-publication-01.json`, SHA
+`679af56b457fc88ced8831950b446d3715066d82cb6d16016335ecee8a960b26`.
+Standing merge/push approval remains; exact owned paths only. Independent avatar
+edits preserved; no stashes or live native handles.
+
+The [new automatic-frame terminal workflow](automatic-equipment-console.md)
+now passes actual interaction → recording/export → exact replay → saved receipt →
+fresh resume, beyond earlier metadata-only startup. Same public console entrypoint,
+56 commands, 263 actions (3 manual/3 coast/257 authored), one exact seeded reset, 265 exported
+frames. All original 254 post-reset authored controls complete. Unavailable learned
+mode is explicitly rejected; no old-world policy attached. One exporter-owned
+physics replay verifies every action/state/outcome; no second replay or media read
+in root's audit. The canonical 404-file lab and 299-file trusted runtime stay exact.
+
+**Task success remains false:** all body gates and `sam-3` pass, all four `sam-2`
+stability terms fail. This is usable/verified simulation-recording, not successful
+exercise learning, recovered contact, unfamiliar-video coverage or physical accuracy.
+Saved replay: `artifacts/auto-equipment-console-01/lab/sessions/session-0f8f6d170f69/replay.html`.
+User command (omit `--console` for user-started graphical lab):
+
+```sh
+.venv-lab/bin/python scripts/play_sandbox.py --example auto-equipment --console
+```
+
+End-to-end 9.087094 seconds /418,496,512 B;420 files /73,221,641 B. Actual 59 models,
+3 data allocations, 7 resets, 540 forwards, 526 controls/8,416 substeps. PID 1626 reaped; process receipt
+SHA `620054797cadc5bb47bb1f0e4beaf428e699eea7195adb14fec6a844773ce674`.
+Independent cached metadata audit: 125,375 B, all 13 original gate terms,counts/custody
+joins; SHA `c549eb875cff9a3ce881987176339156d39bc10897ebe8e6770866ca3386120d`.
+Backend journaled control batches median 20.863 ms/max 22.497 ms, not browser/sustained QA.
+No paid API/key/ledger/deployment/server/browser/external message. The blocked
+platform sysctl importprobe is retained. A failed unnecessary scene-size pre-read
+was removed before physics; no application bound changed. Parallel agents remain
+at usage limits; root reviewed this harness, no peer review claim.
+
+Root owns publication of this four-document acceptance milestone; identity in
+`.local/auto-equipment-console-publication-01.json`. Preserve all local artifacts
+and independent avatar work. Next substantive work remains source-qualified
+reconstruction/contact accuracy and meaningful full-task learning under the original
+gates. Do not rerun completed acceptance or the failed controller signs merely to
+refresh status; change the evidence-backed hypothesis before new experiments.
+
 ## Fixed root-only study closed — November 1, 2026, 5:03 PM PST
 
 The full goal remains active. Latest published main/origin checkpoint is

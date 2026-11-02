@@ -318,7 +318,12 @@ Add `--console` for terminal controls, or `--check` to verify metadata without
 starting anything. The actual metadata check passed in 0.35 seconds; it does not
 replace the complete source/task checks when you open the sandbox. Enter `controls`
 to inspect available actions, then `record start`, `mode reference`, `step 6`,
-`record stop` and `files` to inspect a short recorded interaction. Reference mode
+`record stop` and `files` to inspect a short recorded interaction. The actual
+terminal workflow recorded 263 actions and one reset, exported 265 frames,
+replayed every action/state exactly, and reopened the recording in 9.09 seconds.
+[See the replay and verification](handoffs/automatic-equipment-console.md).
+The full authored exercise still fails equipment stability; there is no trained
+policy or physical-accuracy claim. Reference mode
 is authored following, not learning; this example has no trained policy attached.
 Manual controls and the three explicit root-assistance channels remain available.
 The launcher uses a fixed trusted Git runtime, so unrelated development edits do
