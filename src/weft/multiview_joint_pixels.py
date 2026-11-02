@@ -7,7 +7,7 @@ import time
 import numpy as np
 
 from weft.io import canonical_hash
-from weft.joint_pixel_trajectory import CONTRACT, STATUSES, fit_joint_trajectory, validate_uncertainty
+from weft.joint_pixel_trajectory import CONTRACT, STATUSES, fit_joint_trajectory, trajectory_contract, validate_uncertainty
 from weft.multiview_distal_pixels import OBSERVATION_STATUSES
 from weft.multiview_pose import _observation
 from weft.spatial_pose import LIMB_ENDPOINTS, SPATIAL_JOINT_NAMES, rotation_zyx
@@ -24,11 +24,12 @@ def _names(group):
 
 def refine_joint_pixels(body, audit, predictions, sources, prepared, uncertainty):
     settings = validate_uncertainty(uncertainty)
+    contract = trajectory_contract(settings)
     if body['camera_reference']['method'] != INPUT_METHOD:
         raise ValueError('Joint-image fitting requires the original fixed-length/partial-direction constructor')
     candidate, result = deepcopy(body), deepcopy(audit)
     binding = candidate['camera_reference']['body_refinement']
-    pin = {'contract': dict(CONTRACT), 'uncertainty': settings, 'input_method': INPUT_METHOD,
+    pin = {'contract': dict(contract), 'uncertainty': settings, 'input_method': INPUT_METHOD,
            'input_reference_sha256': canonical_hash(body['reference']),
            'input_evidence_sha256': binding['output_evidence_sha256'], 'input_audit_sha256': binding['audit_sha256']}
     frames = [int(row['evidence_id'].rsplit(':', 1)[1]) for row in body['reference_evidence']]
@@ -97,20 +98,25 @@ def refine_joint_pixels(body, audit, predictions, sources, prepared, uncertainty
                 candidate['reference'][i]['joints'][name] = old+correction
                 if altered: meta['joint_confidence'][name] = 0.
     fitted = [row['fit'] for row in trajectories.values() if row['fit'] is not None]
-    summary = {'method': CONTRACT['method'], 'fitted_trajectories': len(fitted), 'unavailable_trajectories': 4-len(fitted),
+    summary = {'method': contract['method'], 'fitted_trajectories': len(fitted), 'unavailable_trajectories': 4-len(fitted),
         'changed_group_poses': changed, 'source_image_constraints': constraints, 'weak_image_group_poses': weak,
         'maximum_angle_change_rad': max((f['maximum_angle_change_rad'] for f in fitted), default=0.),
         'image_chi2_before': sum(f['before']['image_chi2'] for f in fitted),
         'image_chi2_after': sum(f['after']['image_chi2'] for f in fitted),
         'uncertainty': settings, 'uncertainty_sha256': canonical_hash(settings), 'uncertainty_calibrated': False,
         'depth_measured': False, 'scope': CONTRACT['scope']}
+    if settings['schema_version'] == 2:
+        summary.update({f'motion_acceleration_chi2_{key}': sum(f[key]['motion_acceleration_chi2'] for f in fitted)
+                        for key in ('before', 'after')})
     result['joint_pixel_trajectories'] = trajectories; result['joint_pixels'] = summary
-    result['contract']['method'] = METHOD; result['contract']['joint_pixels'] = dict(CONTRACT)
+    result['contract']['method'] = METHOD; result['contract']['joint_pixels'] = dict(contract)
     result['scope'] = 'Joint-image trajectory hypotheses with original positions and priors retained; not physical accuracy'
     binding.update(joint_pixel_fit=pin, output_evidence_sha256=canonical_hash(candidate['reference_evidence']), audit_sha256=canonical_hash(result))
     candidate['camera_reference'].update(method=METHOD, angular_reference_sha256=canonical_hash(candidate['reference']))
     candidate['reconstruction_coverage']['two_view_body'].update(method=METHOD, joint_pixels=summary)
     candidate['assumptions'].append('Joint-image corrections allow uncertain knee/elbow directions; explicit noise/correction-speed assumptions do not measure depth, contact or physical motion')
+    if settings['schema_version'] == 2:
+        candidate['assumptions'].append('An authored angular-acceleration prior favors smoother source-time motion; it is not measured acceleration or a motor-force guarantee')
     return candidate, result
 
 
@@ -118,11 +124,12 @@ def restore_joint_pixel_input(spec):
     """Validate every correction before restoring the prior constructor for its original checks."""
     binding = spec['camera_reference']['body_refinement']; pin = binding.get('joint_pixel_fit')
     required = {'contract', 'uncertainty', 'input_method', 'input_reference_sha256', 'input_evidence_sha256', 'input_audit_sha256'}
-    if (not isinstance(pin, dict) or set(pin) != required or pin['contract'] != dict(CONTRACT) or pin['input_method'] != INPUT_METHOD
+    if (not isinstance(pin, dict) or set(pin) != required or pin['input_method'] != INPUT_METHOD
             or canonical_hash(spec['reference_evidence']) != binding['output_evidence_sha256']):
         raise ValueError('Joint images require their fixed contract and original constructor binding')
     settings = validate_uncertainty(pin['uncertainty']); summary = spec['reconstruction_coverage']['two_view_body'].get('joint_pixels', {})
-    if (summary.get('method') != CONTRACT['method'] or summary.get('uncertainty') != settings
+    contract = trajectory_contract(settings)
+    if (pin['contract'] != dict(contract) or summary.get('method') != contract['method'] or summary.get('uncertainty') != settings
             or summary.get('uncertainty_sha256') != canonical_hash(settings) or summary.get('uncertainty_calibrated') is not False
             or summary.get('depth_measured') is not False):
         raise ValueError('Joint-image uncertainty must remain explicit and uncalibrated')

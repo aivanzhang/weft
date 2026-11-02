@@ -431,3 +431,21 @@ with 19 joint motors and explicitly enabled body-position assistance. Its
 190 recorded actions replay exactly. This is a separate optional lab, not a
 learned policy or validated real-world contact. All three cameras, original
 body estimates, uncertainties and source slots remain preserved.
+
+### Optional motion smoothing
+
+The same `--fit-joint-pixels` option also accepts
+[`examples/joint-motion-uncertainty.json`](../examples/joint-motion-uncertainty.json).
+Schema 2 adds an explicit angular-acceleration assumption over original source
+time. It keeps image observations, camera/ground, root, lengths and correction
+bounds unchanged; missing images and long gaps break the temporal links. This
+is not measured acceleration, recovered contact or guaranteed force feasibility.
+Schema 1 and existing defaults remain unchanged.
+
+On one development clip, this optional fit improves original-task tracking but
+worsens image loss versus schema 1 by 8.37% and introduces small floor
+penetrations during control. Its image guard compares with the **pre-fit
+constructor**, not the previous schema-1 fit. Keep those tradeoffs visible.
+Use the [tested console command and saved replay](handoffs/joint-motion-prior.md#try-the-saved-body)
+to inspect it. The replayed comparison uses authored manual commands, not a
+learned policy; the new body's console uses its own reference target.

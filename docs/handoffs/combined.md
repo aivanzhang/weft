@@ -1,5 +1,29 @@
 # Combined Weft implementation handoff
 
+## Optional motion prior verified — November 2, 2026, 9:18 AM PST
+
+The bounded source-image motion proposal is implemented and checked through the
+existing constructor, coupled lab, original-task comparisons and recording.
+**91 distinct Python cases and two focused UI checks pass**; three v1 outputs
+retain exact byte parity. The 900-frame/four-view fit takes 2.090 s /53.4 MB.
+
+Across four matched starts, original-target angular RMSE improves
+.214421→.183876 rad. Both controls pass 4/4; small floor penetrations appear and
+source image loss worsens 8.37% versus the previous fit. Forces remain beyond
+caps at many probes. **No default, learned policy or physical-accuracy claim.**
+All 184 recorded actions replay exactly; the new body's terminal sandbox accepts
+controls. A separate post-freeze development-reference assessment improves
+156.583→125.352 mm on 479 matched slots, with accuracy/ground/contact unverified.
+
+[Playable command, full results, seals, bounds and next work](joint-motion-prior.md).
+Preserve the parent study's redundant-replay cap, absent ordinary UI receipt and
+two malformed first audit seals; new saved-only recovery bundles retain the
+originals. All jobs are terminal/reaped; no server, inference, API/key/ledger
+access or deployment. Keep separate avatar edits untouched. Publication receipt:
+`.local/joint-motion-prior-publication-01.json` after push. Both tracks and the
+complete goal remain active: broader subjects/viewpoints, force/contact accuracy,
+full-task learning and fresh independent evaluation remain required.
+
 ## Source motion exceeds force budgets — November 2, 2026, PST
 
 The source-only native diagnostic is complete: 23/45 constraint-free interval

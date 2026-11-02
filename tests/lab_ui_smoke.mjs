@@ -203,6 +203,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   if (jointPixels) {
     scene.human.root_method='camera-body-joint-pixels-v1';
     scene.human.joint_pixels={changed_group_poses:27,uncertainty_calibrated:false,depth_measured:false};
+    if (jointPixels==='motion') scene.human.joint_pixels.uncertainty={schema_version:2,motion_acceleration_std_rad_s2:60};
   }
   if (initialFailure) {state.terminated=true;state.simulation_failure={reason:'Synthetic nonfinite dynamics',scope:'Last valid state shown'};}
   const exerciseTask = sharedExercise ? {profile:'shared-exercise-task-v1',control:{root_assistance:rootAssistance?'explicit_3_axis':'disabled',object_forces:'forbidden'},
@@ -994,6 +995,16 @@ async function jointImageTrajectoriesKeepPriorFitsAndUnknownDepthVisible() {
   assert(!ui.requests.some(request=>/two-view-(body|triangulation)/.test(request.path)));
 }
 checks.push(jointImageTrajectoriesKeepPriorFitsAndUnknownDepthVisible);
+
+async function jointMotionPriorNamesItsAssumptionWithoutClaimingFeasibleForces() {
+  const ui = fixture('exercise',{mobile:true,cameraBody:true,suppliedGround:true,geometryMode:'both',partialSegments:true,multiView:true,limbFit:true,jointPixels:'motion'}); await ui.ready();
+  const text = ui.ids.get('world-description').textContent;
+  assert.match(text,/authored acceleration prior/);
+  assert.match(text,/without increasing the original image-fit loss/);
+  assert.match(text,/does not guarantee feasible forces or physical accuracy/);
+  assert.match(ui.ids.get('training-caption').textContent,/Not trained/);
+}
+checks.push(jointMotionPriorNamesItsAssumptionWithoutClaimingFeasibleForces);
 
 
 async function upperSegmentCorrectionDoesNotClaimObservedWristsOrAnkles() {

@@ -1730,6 +1730,9 @@
           }
           if (scene.human?.joint_pixels) {
             text($("world-description"), $("world-description").textContent + ` Knee/elbow and ankle/wrist images jointly adjust ${scene.human.joint_pixels.changed_group_poses} limb poses. Nearby corrections are linked by source time, using explicit uncalibrated noise assumptions. Body position, lengths and ground stay fixed; depth and contact are not measured.`);
+            if (scene.human.joint_pixels.uncertainty?.schema_version === 2) {
+              text($("world-description"), $("world-description").textContent + " A separate authored acceleration prior favors smoother movement without increasing the original image-fit loss. It does not guarantee feasible forces or physical accuracy.");
+            }
             text($("training-caption"), "Not trained · two-view-body.json keeps every original view, missing observation, prior fit, correction and image regression. Muscles remain illustrative.");
           }
         }

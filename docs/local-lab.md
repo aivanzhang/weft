@@ -15,6 +15,11 @@ For an experimental body built from three supplied cameras, see the
 [multi-view sandbox](multi-view-body.md). It supports manual interaction and
 recording, but its saved exercise candidate still fails floor consistency.
 
+For the newer optional motion-refined example, use the
+[tested terminal command and recorded comparison](handoffs/joint-motion-prior.md#try-the-saved-body).
+It supports full-body controls and recording; improved tracking still trades
+against image fit and floor penetration. It is not the default or a learned policy.
+
 - **Play with a ready exercise:** [launch the exercise sandbox](#recommended-exercise-sandbox).
 - **Try your own video:** [build a person-only 3D environment](#build-from-your-person-only-exercise-video).
 - **Combine a saved body and equipment:** [prepare the shared-world setup](#prepare-a-body-and-equipment-setup).
