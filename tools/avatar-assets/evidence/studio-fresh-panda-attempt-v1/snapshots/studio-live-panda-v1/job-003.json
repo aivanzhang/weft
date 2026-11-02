@@ -1,0 +1,95 @@
+{
+  "id": "2fa07fbb61ef4da4bc8f7f70",
+  "title": "An original friendly upright panda-like character with compact rounded proportio",
+  "status": "running",
+  "created_at": "2026-11-02T10:36:26.072234-08:00",
+  "updated_at": "2026-11-02T10:47:41.198788-08:00",
+  "elapsed_seconds": 190.85,
+  "request": {
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass.",
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "reference_selected": false,
+    "reuse_model_selected": false
+  },
+  "operation": "execute",
+  "queued": false,
+  "cancel_requested": false,
+  "stages": [
+    {
+      "id": "planner",
+      "stage": "planner",
+      "label": "Planner",
+      "status": "ready",
+      "detail": "",
+      "attempt": null,
+      "elapsed_seconds": 0.003
+    },
+    {
+      "id": "geometry",
+      "stage": "geometry",
+      "label": "Geometry",
+      "status": "complete",
+      "detail": "Generated source saved; rig, motion and quality review are pending.",
+      "attempt": null,
+      "elapsed_seconds": 190.066
+    },
+    {
+      "id": "inspection",
+      "stage": "inspection",
+      "label": "Inspection",
+      "status": "running",
+      "detail": "",
+      "attempt": null
+    }
+  ],
+  "plan_id": "9c2f9d62e6dfc883088a897970b15639f89229311cb2d3c548fac5c0da7bc425",
+  "plan": {
+    "id": "9c2f9d62e6dfc883088a897970b15639f89229311cb2d3c548fac5c0da7bc425",
+    "summary": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears and eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail.",
+    "estimate": {
+      "credits": 35,
+      "amount": null,
+      "currency": "USD",
+      "note": "Account dollar price and agent usage price are unknown. No paid retries or allowance changes."
+    },
+    "authorization": {
+      "can_start": true,
+      "estimated_credits": 35,
+      "reason": "Existing canonical allowance covers this exact job; Start requests execution without a grant or purchase.",
+      "execution_gate": "canonical_ledger_and_explicit_start",
+      "remaining_base_credits": 8,
+      "remaining_job_credits": 0
+    },
+    "warnings": [
+      "Height, unseen surfaces and rig structure are authored assumptions; no reference image was supplied.",
+      "The brief requests geometry and movement; no generated asset or animation has been inspected or validated.",
+      "The dance uses authored articulation and bounded travel, without simulated balance, physical contact or fur dynamics.",
+      "Preserve the requested short-fur appearance without an additional appearance-polishing pass."
+    ]
+  },
+  "capabilities": {
+    "plan": false,
+    "start": false,
+    "cancel": true,
+    "resume": false,
+    "session_required": true,
+    "execution_gate": "canonical_ledger_and_explicit_start"
+  },
+  "previews": [],
+  "reviews": [],
+  "result": null,
+  "error": null,
+  "storage": {
+    "retained_bytes_measured": 2233531,
+    "pipeline_bytes_measured": 2109812,
+    "measured_at": "2026-11-02T10:47:41.198783-08:00",
+    "total_limit_bytes": 8589934592,
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false
+  },
+  "provenance": "actual_pipeline"
+}

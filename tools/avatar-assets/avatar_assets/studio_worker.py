@@ -20,7 +20,7 @@ WALL_SECONDS = 5400
 CONTROLLER_RSS_MB = 1024
 CONTROL_OUTPUT_MB = 64
 PIPELINE_OUTPUT_BYTES = 2*1024**3
-PIPELINE_LIMITS = {'max_repairs':1,'max_agent_calls':10,'agent_timeout':240,'agent_model':None}
+PIPELINE_LIMITS = {'max_repairs':1,'max_agent_calls':5,'agent_timeout':240,'agent_model':None}
 MEDIA_SPECS = {
     'draft':{'size':256,'portrait':512,'seconds':2,'samples':4},
     'preview':{'size':720,'portrait':1600,'seconds':4,'samples':8},

@@ -1,0 +1,22 @@
+{
+  "provenance": "analytic_fixtures_not_generated_assets",
+  "tests_run": 15,
+  "failures": 0,
+  "errors": 0,
+  "elapsed_seconds": 0.1584763745777309,
+  "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "server_started": false,
+  "browser_started": false,
+  "provider_calls": 0,
+  "agent_calls": 0,
+  "browser_syntax": {
+    "command": [
+      "/opt/homebrew/bin/node",
+      "--check",
+      "browser/tests/studio-live.mjs"
+    ],
+    "exit_code": 0,
+    "output": "",
+    "executed_browser": false
+  }
+}

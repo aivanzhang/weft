@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "recorded_local": "2026-11-02T10:43:13.185932-08:00",
+  "scope": "Read-only fresh/reused Studio inspection and browser-verifier syntax; no end-to-end fresh generation or appearance acceptance.",
+  "analytic_tests": {
+    "provenance": "analytic_fixtures_not_generated_assets",
+    "tests_run": 15,
+    "failures": 0,
+    "errors": 0,
+    "elapsed_seconds": 0.1584763745777309,
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "server_started": false,
+    "browser_started": false,
+    "provider_calls": 0,
+    "agent_calls": 0,
+    "browser_syntax": {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "browser/tests/studio-live.mjs"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "executed_browser": false
+    }
+  },
+  "actual_inspection": {
+    "job": "2fa07fbb61ef4da4bc8f7f70",
+    "plan_id": "9c2f9d62e6dfc883088a897970b15639f89229311cb2d3c548fac5c0da7bc425",
+    "status": "awaiting_authorization",
+    "generation_mode": "new_meshy_generation",
+    "active_lease_job": null,
+    "queued_jobs": [],
+    "authorization_checked": false
+  },
+  "provider_calls": 0,
+  "agent_calls": 0,
+  "native_jobs": 0,
+  "servers_started": 0,
+  "browsers_started": 0,
+  "source_pins_unchanged": true,
+  "rejected_test_attempts": [],
+  "next_action": "Parent may run the separately user-authorized, plan-pinned Studio UI Start. Canonical authorization remains action-time checked."
+}

@@ -1,0 +1,33 @@
+{
+  "approval_sha256": "2247829087b9d3a4ba92df37ccd40b9a4037f18108ad08b473f08b8f5bc0dc25",
+  "browser_evidence_mib": 64,
+  "browser_seconds": 1800,
+  "browser_server_sampled_memory_gib": 3,
+  "command": [
+    "node",
+    "browser/tests/studio-live.mjs",
+    "outputs/studio-live-panda-v1",
+    "2fa07fbb61ef4da4bc8f7f70",
+    "--start",
+    "--plan-id",
+    "9c2f9d62e6dfc883088a897970b15639f89229311cb2d3c548fac5c0da7bc425",
+    "--max-seconds",
+    "1800"
+  ],
+  "generation_worker_bounds_separate": true,
+  "job_id": "2fa07fbb61ef4da4bc8f7f70",
+  "maximum_ui_start_posts": 1,
+  "meshy_scoped_grant": 35,
+  "no_retries_or_credit_purchase": true,
+  "plan_id": "9c2f9d62e6dfc883088a897970b15639f89229311cb2d3c548fac5c0da7bc425",
+  "recorded": "2026-11-02 10:44:27 PST",
+  "schema_version": 1,
+  "source_pins": {
+    "avatar_assets/studio_worker.py": "b09cdea70a4c285bd69c2070b035f2199256b315fe7a6214fa58ccff35a9298e",
+    "browser/tests/studio-live.mjs": "de02e4558f63451cd1595cbf67e185c0ed950817447ffeec6eb0fda352137b39",
+    "outputs/studio-fresh-inspection-tests-v1/manifest.json": "4474ae1a89232298f171bf752e354b7b220e9f773c118668a75cbee58762aa75",
+    "scripts/verify_studio_live.py": "1b69029d5e2e694e01578e152e448a5dd62094c543f32e34bb8d44b2c7aefc81"
+  },
+  "status": "approved_prepared_not_started",
+  "total_AI_roles_including_planner": 5
+}

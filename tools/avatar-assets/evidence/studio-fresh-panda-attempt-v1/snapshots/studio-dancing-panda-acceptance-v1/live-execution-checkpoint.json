@@ -1,0 +1,23 @@
+{
+  "AI_calls_completed": 1,
+  "browser_output": "outputs/studio-live-panda-v1",
+  "browser_tool_session": 8993,
+  "instruction": "Observe same job; never send another Start or reset grants/calls. Temporary browser cleanup must not kill detached worker.",
+  "job_id": "2fa07fbb61ef4da4bc8f7f70",
+  "maximum_AI_calls": 5,
+  "maximum_meshy_credits": 35,
+  "owned_handles": {
+    "owner.json": {
+      "pid": 11057,
+      "start_identity": "darwin-start:1793645071:949216"
+    },
+    "worker-handle.json": {
+      "pid": 11058
+    }
+  },
+  "recorded": "2026-11-02 10:45:59 PST",
+  "schema_version": 1,
+  "status": "running_geometry",
+  "user_approved_browser_and_paid_scope": true,
+  "worker_invocation": ".local/studio/jobs/2fa07fbb61ef4da4bc8f7f70/run-0002"
+}

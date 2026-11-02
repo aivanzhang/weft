@@ -1,0 +1,48 @@
+{
+  "agent_calls": 0,
+  "approval_received": false,
+  "browser_or_server_calls": 0,
+  "canonical_databases_unchanged": true,
+  "current_hard_cap": 5,
+  "estimated_meshy_credits": 35,
+  "expected_agent_calls": 3,
+  "job_created": false,
+  "max_local_repairs": 1,
+  "native_calls": 0,
+  "new_job_grant_required": 35,
+  "notes": [
+    "Read-only facts preserve the original ten-call source snapshot; the verified narrow correction is separately bound here.",
+    "No key, balance or pricing network query was made; account dollar cost is unknown.",
+    "No pending105-credit/15-call proposal approval is inferred."
+  ],
+  "preserved_preparation_failure": "outputs/studio-call-cap-tests-v1/bootstrap-failure.json",
+  "previous_base_remaining": 8,
+  "prior_study_calls_used": 13,
+  "production_change": {
+    "from_max_agent_calls": 10,
+    "path": "avatar_assets/studio_worker.py",
+    "sha256": "b09cdea70a4c285bd69c2070b035f2199256b315fe7a6214fa58ccff35a9298e",
+    "to_max_agent_calls": 5
+  },
+  "provider_calls": 0,
+  "recorded_local": "2026-11-02T10:34:54.802128-08:00",
+  "request_character_counts": {
+    "custom_actions": [
+      424
+    ],
+    "prompt": 515,
+    "style": 321
+  },
+  "request_sha256": "8b34405de3cb9a6ae3e200cbdaf595d6c118fb36e0a0f7cd6938c440e8d10667",
+  "schema_version": 1,
+  "status": "proposal_ready_no_job_created",
+  "test_evidence": {
+    "manifest": "outputs/studio-call-cap-tests-v2/manifest.json",
+    "methods": 29,
+    "sha256": "98c106db3366b68c21750627a8e66744e82fd07b5f2f7d38637ec6311b31ce8e"
+  },
+  "test_source": {
+    "path": "tests/test_studio_jobs.py",
+    "sha256": "d35199634cafd17bbbf9fa995e0ccd88449659714268daf961fb6ba6ddd1753f"
+  }
+}

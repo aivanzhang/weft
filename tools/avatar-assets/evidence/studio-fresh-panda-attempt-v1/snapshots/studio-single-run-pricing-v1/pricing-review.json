@@ -1,0 +1,184 @@
+{
+  "ai_roles": {
+    "call_timeout_seconds": 240,
+    "configured_runner_call_cap": 10,
+    "distinction": "One planner plus atmosttwoauthors andtwocritics. Five is the flow-derived maximum, not the current generic runnercap; earlyfailures mayusefewer.",
+    "expected_distinct_calls": 3,
+    "max_repairs_in_current_studio_worker": 1,
+    "maximum_distinct_role_calls_for_this_flow": 5,
+    "model_override": null,
+    "pricing": "Existing authenticated localCLI account-specific usage/cost unknown; no rolecalls performed.",
+    "roles": [
+      "planner",
+      "author",
+      "independent critic"
+    ]
+  },
+  "authorization_snapshot": {
+    "allowance_changed": false,
+    "canonical_cap_credits": 210,
+    "fresh_job_credits": 35,
+    "minimum_shortfall_credits": 27,
+    "minimum_total_cap_to_cover_one_fresh_job": 237,
+    "remaining_credits": 8,
+    "reserved_or_used_credits": 202,
+    "source": "Parent-provided snapshot; this review didnotopen ledger/account/credentialfiles.",
+    "spend_authorized_by_this_review": false
+  },
+  "checked_at": "2026-11-02T10:25:16.682685-08:00",
+  "checked_local": "2026-11-02 10:25:16 AM PST",
+  "cost": {
+    "aggregate_meshy_credits": 35,
+    "automatic_paid_retries": 0,
+    "local_rig_fur_actions_rendering": "Local bounded computation, not Meshy rig/motion endpoints.",
+    "mesh_standard_credits": 20,
+    "paid_generation_submissions": 2,
+    "recurring_hosted_services": 0,
+    "refine_4k_credits": 10,
+    "status_reads_downloads": "Separate guarded polling/download requests occur; they are not additional generation submissions. No separate status-read price is listed in the reviewed API pricing table.",
+    "ultra_4k_surcharge_credits": 5,
+    "usd_cost": null,
+    "usd_reason": "No account credit purchase/contract conversion was read or is established by these credit-priced API docs."
+  },
+  "credential_reads": 0,
+  "implementation": {
+    "generation_mode": "text",
+    "line_refs": {
+      "avatar_assets/meshy.py": [
+        "19: MODEL",
+        "60: estimate formula",
+        "145: stage_request",
+        "218: submit/reserve/uncertain handling",
+        "329: finite two-stage run"
+      ],
+      "avatar_assets/pipeline.py": [
+        "290: aggregate estimate",
+        "439: fresh source configuration",
+        "425: planner",
+        "879: bounded author attempts",
+        "977: independent critic"
+      ],
+      "avatar_assets/studio_worker.py": [
+        "23: fixed one-repair/ten-call limits"
+      ]
+    },
+    "model": "meshy-7.1",
+    "new_review_date_does_not_mutate_source": true,
+    "no_separate_provider_calls_for": [
+      "remesh",
+      "rig",
+      "motion",
+      "animation",
+      "image_generation"
+    ],
+    "source_creation_rig": "none",
+    "source_creation_states": [],
+    "source_pins": [
+      {
+        "bytes": 22815,
+        "path": "avatar_assets/meshy.py",
+        "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+      },
+      {
+        "bytes": 75760,
+        "path": "avatar_assets/pipeline.py",
+        "sha256": "009225b66737619e8b8c95fb247b5192db3fa0f545a3a284369d2f531df3e179"
+      },
+      {
+        "bytes": 13680,
+        "path": "avatar_assets/studio_worker.py",
+        "sha256": "494263e6c960bd382c95769eaa9f590c7d9ac1a66995be869a25a6060a75fd69"
+      }
+    ],
+    "source_pricing_checked_literal": "2026-10-31",
+    "stage_requests": [
+      {
+        "body_template": {
+          "ai_model": "meshy-7.1",
+          "geometry_resolution": "4k",
+          "mode": "preview",
+          "model_type": "standard",
+          "pose_mode": "",
+          "prompt": "<validated planner generation_prompt, at most800characters>",
+          "should_remesh": true,
+          "target_formats": [
+            "glb"
+          ],
+          "target_polycount": 35000,
+          "topology": "triangle"
+        },
+        "credits": 25,
+        "endpoint": "/openapi/v2/text-to-3d",
+        "method": "POST",
+        "stage": "mesh"
+      },
+      {
+        "body_template": {
+          "ai_model": "meshy-7.1",
+          "enable_pbr": true,
+          "mode": "refine",
+          "preview_task_id": "<successful saved mesh taskID>",
+          "target_formats": [
+            "glb"
+          ],
+          "texture_prompt": "<validated planner style, at most800characters>",
+          "texture_resolution": "4k"
+        },
+        "credits": 10,
+        "endpoint": "/openapi/v2/text-to-3d",
+        "method": "POST",
+        "stage": "texture"
+      }
+    ]
+  },
+  "kind": "official_docs_and_local_source_review",
+  "new_ai_role_calls": 0,
+  "new_paid_calls": 0,
+  "new_provider_api_calls": 0,
+  "official_sources": [
+    {
+      "checked_local": "2026-11-02 10:25:16 AM PST",
+      "direct_quote": "Text to 3D Preview and Refine are separate requests, and Meshy bills them separately.",
+      "findings": [
+        "meshy-7.1 Text to3D Preview costs20credits.",
+        "Ultra2K/4K geometry adds5credits.",
+        "Text to3D Refine2K/4K costs10credits; preview/refine billed separately.",
+        "API uses prepaid credits; custom volume/contracts available. Account-specific dollars percredit are not given."
+      ],
+      "title": "Meshy API Pricing",
+      "url": "https://docs.meshy.ai/en/api/pricing"
+    },
+    {
+      "checked_local": "2026-11-02 10:25:16 AM PST",
+      "findings": [
+        "API supports standard meshy-7.1 preview and refine.",
+        "geometry_resolution4k is preview-only and supported by meshy-7.1.",
+        "Refine consumes successful preview_task_id;4k textures are supported.",
+        "enable_pbr adds metallic/roughness/normal maps; meshy-7.1 doesnotproduce emission.",
+        "target_formats glb, triangular remesh and35000 targetfaces are supported; target count is not an exact output guarantee."
+      ],
+      "scope": "Use API docs for API availability; web-app wording is not substituted.",
+      "title": "Text to3D API",
+      "url": "https://docs.meshy.ai/en/api/text-to-3d"
+    },
+    {
+      "checked_local": "2026-11-02 10:25:16 AM PST",
+      "findings": [
+        "September2026 production medians list75seconds for meshy-7.1 text preview and80seconds for2K/4K refine; actual Ultra/PBR/queue time can be longer.",
+        "Provider task may continue after caller stops waiting; resume the same savedtaskID.",
+        "Published times are not completion guarantees or timeout recommendations."
+      ],
+      "title": "Task Lifecycle",
+      "url": "https://docs.meshy.ai/en/api/task-lifecycle"
+    }
+  ],
+  "scenario": "One fresh text-only textured panda with local rig/fur/actions, no selected image and no source-model reuse.",
+  "schema_version": 1,
+  "scope_limits": [
+    "Price/settings verification is not generation success or outputquality acceptance.",
+    "No provider balance oraccount-specific subscription/creditprice was queried.",
+    "No new allowance/account/subscription is created."
+  ],
+  "source_edits": 0,
+  "status": "pricing_verified_no_execution"
+}

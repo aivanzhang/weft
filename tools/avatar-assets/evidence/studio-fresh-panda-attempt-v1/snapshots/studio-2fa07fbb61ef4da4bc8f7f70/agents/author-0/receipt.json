@@ -1,0 +1,79 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2306,
+      "path": "agent-process.json",
+      "sha256": "31f583f99021b65cf3c757959a6704a95dff8609018269f0c04528c6fffd6e6b"
+    },
+    {
+      "bytes": 681,
+      "path": "agent.jsonl",
+      "sha256": "6469f2ef8e75e23847b12712da7f9cd5be8eb80659fb3a105ea394fe6a12e201"
+    },
+    {
+      "bytes": 29,
+      "path": "agent.stderr",
+      "sha256": "3e75d28a6681c31400a3f0fcb564c7613fd42796fb83294e4d53fea86bcbd401"
+    },
+    {
+      "bytes": 289158,
+      "path": "image-00.png",
+      "sha256": "0cb578b511819ef51c6b31995eac9cdccb0480355913002ffa0dfb5cb4f00c9d"
+    },
+    {
+      "bytes": 249759,
+      "path": "image-01.png",
+      "sha256": "2618a66248f46988cd73ee84292cbd03f934f7f3cb2145181b85d7b82979c37c"
+    },
+    {
+      "bytes": 211947,
+      "path": "image-02.png",
+      "sha256": "332e1d87a11a4717bde597678e9779bd27dafe63fa2760f6ca267d31dca3e7e1"
+    },
+    {
+      "bytes": 3068,
+      "path": "invocation.json",
+      "sha256": "24b9390f3cac0a98300fc2d4fc1e394a13f8cb27852b446026a7fbc42b2a44fa"
+    },
+    {
+      "bytes": 49752,
+      "path": "invocation.txt",
+      "sha256": "bd0b12093b18e03cf4c8e21960f1a3879d055db8189f2a9d0cb5c5a43da024fd"
+    },
+    {
+      "bytes": 49271,
+      "path": "prompt.txt",
+      "sha256": "05229fcb56696f90d4559210e5818a83ae69483b7420af179b6bfb76b358b0d1"
+    },
+    {
+      "bytes": 850,
+      "path": "request.json",
+      "sha256": "8a2228306c2f5f25a8dba3218007d06bd84a2f180eed9d5935df066196cb99af"
+    },
+    {
+      "bytes": 352,
+      "path": "schema.json",
+      "sha256": "767a4f3871c3b4fdac31a4e10bd19a5763d41cd6df83098aaa6478d22c021886"
+    },
+    {
+      "bytes": 504,
+      "path": "version-process.json",
+      "sha256": "872108c099b3b801ab11641bcc104eb310dc218afa5a9c506e6820d7c6ebe2bd"
+    },
+    {
+      "bytes": 18,
+      "path": "version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c"
+    },
+    {
+      "bytes": 0,
+      "path": "version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "automatic_resubmission_allowed": false,
+  "error": "Agent process failed; inspect preserved stderr and process receipt",
+  "execution_kind": "codex_cli",
+  "schema_version": 1,
+  "status": "failed_or_uncertain"
+}

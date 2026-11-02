@@ -1,0 +1,39 @@
+{
+  "execution_sources": {
+    "meshy.py": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+    "meshy_access.py": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+  },
+  "observed": "2026-11-02T10:47:41.563581-08:00",
+  "task": {
+    "consumed_credits": 10,
+    "created_at": 1793645215594,
+    "finished_at": 1793645259482,
+    "hd_texture": true,
+    "id": "01a19d95-f2f1-71ed-bad5-59229032e6d3",
+    "mode": "refine",
+    "model_type": "standard",
+    "model_urls": {
+      "glb": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a19d95-f2f1-71ed-bad5-59229032e6d3/output/model.glb"
+    },
+    "name": "",
+    "progress": 100,
+    "prompt": "One original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears and eye patches, black arms and legs, warm glossy brown eyes, a short muzzle and a small black tail. Cute stylized 3D appearance with rounded features and clean simple color boundaries. Short tidy soft fur with real short fibers over a clean continuous undercoat surface retaining the silhouette and markings; no carved fur or mesh spikes. Relaxed neutral articulation-ready pose, arms slightly away from torso, hands clear of legs, feet separated, with distinct appendages and space at intended joints. One character only; no clothes, accessories, props, pedestal, lettering or scenery.",
+    "seed": 1919229500,
+    "started_at": 1793645215687,
+    "status": "SUCCEEDED",
+    "task_error": null,
+    "texture_image_url": "",
+    "texture_prompt": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass.",
+    "texture_resolution": "4k",
+    "texture_urls": [
+      {
+        "base_color": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a19d95-f2f1-71ed-bad5-59229032e6d3/output/texture_0.png",
+        "metallic": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a19d95-f2f1-71ed-bad5-59229032e6d3/output/texture_0_metallic.png",
+        "normal": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a19d95-f2f1-71ed-bad5-59229032e6d3/output/texture_0_normal.png",
+        "roughness": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a19d95-f2f1-71ed-bad5-59229032e6d3/output/texture_0_roughness.png"
+      }
+    ],
+    "thumbnail_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a19d95-f2f1-71ed-bad5-59229032e6d3/output/preview.png",
+    "type": "text-to-3d-refine"
+  }
+}

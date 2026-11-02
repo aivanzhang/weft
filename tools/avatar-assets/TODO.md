@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-02 10:14:19 PST. Previous checkpoint `62b6d80` is privately pushed (v16 receipt unchanged). Current automatic attachment increment is implemented and verified on analytic fixtures plus the actual saved fox: 1,164,000 root-pose checks pass,1.151203e-7m maximum per-coordinate separation. Native4480/CPU4478 and audit4940/controller4939 exited. No browser/server or provider/AI-role job was started. Current gate evidence is sealed; its preservation comparison passed. Root owns avatar-only save; contracts prepares one concrete Studio run and runner verifies current official Meshy pricing, both read-only with no paid calls. No new paid work; read-only ledger remains202/210credits (16successful submissions),13prior AI study calls consumed. Next safe action: save the verified gate checkpoint, finish the single-run Studio request/estimate, and obtain any required finite spending allowance before executing that real run. The user now accepts the prior appearance: stop appearance-upgrade experiments; focus fully hands-off completion. Do not repeat unchanged builds or claim the component is a Studio delivery.
+- Recorded: 2026-11-02 10:52:57 PST. Attachment checkpoint58e6ac9privately pushed. User accepts priorappearance; STOP polish experiments. Approved fresh Studio job2fa07fbb61ef4da4bc8f7f70 now stopped needs_inspection: Meshy geometry/textureSUCCEEDED35credits, actual authorCLI exited1 with ACCOUNT USAGE LIMIT before any rig/actionanswer. One planner success+one failed author attempt conservatively consumes2of5approvedAIcalls;3remain but account unavailable. No retry/newaccount/purchase. Browser8993terminal:oneStart,201.601s, browser/serverexited. Generated texturedGLB14,902,088B preserved under outputs/studio-2fa07fbb61ef4da4bc8f7f70/generation/stages/texture/downloads/model.glb. Root owns save; contracts audits processcustody for public inspection-release, noDBedits. No hands-offdelivery/rig/danceyet. Next safe action: finish custody audit/releasefailedjob, save current code+generatedsource+receipts; future recovery must reuse paidgeometry and retain oldfailure/callcounts, after actual accountavailability returns. Do not route around quota or restart failedagent folder. Ledger237used/reserved/245authorized (18submissions), prior13studyAIcallsunchanged.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -22,6 +22,46 @@ Keep real rig/action/attachment gates and truthful failures. Prior approved mode
 are not a substitute for a fresh automatic result. The pending105-credit/15-role
 three-job request is not granted; prepare a smaller concrete first run rather
 than spending against that pending proposal.
+
+### Approved single-run Studio acceptance — stopped at account usage limit
+
+- Latest outcome supersedes the launch details below: two Meshy submissions
+  succeeded (35credits). Author-0 returned an explicit AI-account usage-limit error
+  after2.72s, without an answer; no rig, dance or delivery was produced. Browser
+  test sent oneStart and closed cleanly at201.601s. Generated14.9MB texturedGLB
+  is preserved; no regeneration, paidretry or purchase.2of5AIattempts consumed
+  conservatively; no further call until real accountavailability returns.
+- Exact case: `outputs/studio-completion-preparation-v1/proposed-request.json`.
+  One fresh short-fur panda-like dancer, no companion/props/reference/reused mesh.
+  Existing appearance standard accepted; preserve requested fur and meaningful
+  independent arm/head/leg motion, but do not start new polish experiments.
+- Approved scope:35Meshy credits, max5AIroles (3expected,onepossiblelocalrepair),
+  temporary local browser verification. No paid Meshy retry or credit purchase.
+  `outputs/studio-dancing-panda-acceptance-v1/approval.json` SHA
+  `2247829087b9d3a4ba92df37ccd40b9a4037f18108ad08b473f08b8f5bc0dc25`.
+- Canonical actual job `2fa07fbb61ef4da4bc8f7f70`; output
+  `outputs/studio-2fa07fbb61ef4da4bc8f7f70`. Created by actual StudioJobs.create,
+  planner launched by public lifecycle, not a fixture. Planner retains exact
+  dance text and accepted short-fur look, explicit roles and authored0.8mheight.
+  PlanID `9c2f9d62e6dfc883088a897970b15639f89229311cb2d3c548fac5c0da7bc425`.
+  No rig/config/agentanswer was manually replaced.
+- Planner phase25.441s/64,929,792B sampled workerRSS, worker10248 exited0;
+  supervisor10244 completed and releasedlease. Study1/5AIcalls, zeroMeshy yet.
+  Public Meshy authorize appended only35 for `studio-2fa07fbb61ef4da4bc8f7f70-mesh`.
+  Total ledger202/245; aggregate105job grants means70old+35new, not approval of
+  the older105credit three-job proposal. Do not reset any old counter.
+- Studio new-job hardcap is now5, one repair,240s perrole;29focused lifecycle
+  checks pass at `outputs/studio-call-cap-tests-v2`. Completed historical10-call
+  jobs remain read-only; unfinished oldjobs aren't rewritten. Preparationv1's
+  missingnamespace-init inventory failure was before any test and is preserved.
+- Officialpricing confirmed November2,2026PST:
+  `outputs/studio-single-run-pricing-v1` (35credits=25geometry+10textures;
+  two text-to-3D submissions, no provider rig/motion). Account dollars unknown.
+- Actual single pinned UIStart has now launched execute supervisor11057; browser
+  observer tool8993 remains live. Observe the same ownedjob through
+  terminal delivery or truthful failure. Browser observer lifetime/resource bounds
+  do not stop/restart detached generation; preserve handles and inspect rather
+  than repeatStart. No deployment or persistentserver is authorized.
 
 ## Active: hands-off quality and local creation studio — incomplete
 
@@ -2284,3 +2324,5 @@ Run relevant tests after changes, not repeatedly against unchanged inputs:
 Git now belongs to the parent Weft repository. The user authorized committing and pushing this migration directly to main. Do not recreate a nested repository, discard failed attempts or open files automatically. See [migration record](docs/relocation.md) for tracked versus local-only artifacts.
 
 Historical core completion gate: reusable local workflow and two distinct real examples work end to end; 3D loading/skin/motion and explicit consumer mapping are verified at the stated scope; references, failures, costs and unsupported cases remain truthful and resumable. The recorded evidence satisfied that local milestone without claiming completed Weft runtime integration. The active hands-off quality/studio completion gate above remains open.
+
+Fresh Studio attempt evidence: `evidence/studio-fresh-panda-attempt-v1`,261origins/212exact snapshots/39,272,732B, manifest `3c0a018d18edfa3894a1130e6d6945d298f7ebecabb40331e4e4d7d8202985ab`. Both original generated GLBs are included for recovery; no rig/dance/delivery is claimed. The account-limit failure and one-Start browser cleanup remain preserved.

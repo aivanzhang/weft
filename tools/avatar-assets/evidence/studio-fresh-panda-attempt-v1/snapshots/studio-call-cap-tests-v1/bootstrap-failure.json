@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "status": "preparation_failed_before_test_launch",
+  "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -B outputs/studio-call-cap-tests-v1/execute.py",
+  "failure": "FileNotFoundError: tests/__init__.py does not exist; tests is a namespace package.",
+  "test_methods_executed": 0,
+  "bounded_child_started": false,
+  "agent_calls": 0,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "next_hypothesis": "New v2 preparation omits the nonexistent source-inventory entry; production and test source remain unchanged."
+}

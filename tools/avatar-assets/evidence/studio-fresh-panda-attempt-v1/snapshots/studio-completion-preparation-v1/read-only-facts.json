@@ -1,0 +1,199 @@
+{
+  "agent_calls": 0,
+  "canonical_registry": {
+    "schema_version": 1,
+    "state_dir": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.local/studio"
+  },
+  "database_pins": [
+    {
+      "bytes": 36864,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.local/studio/jobs.sqlite3",
+      "sha256": "6a852625e3bce568d347c8e7a2e8f312bc8bcbd2c46931ba4e305442e407cd8f"
+    },
+    {
+      "bytes": 106496,
+      "path": "/Users/ivan/kintsugi/weft/.local/meshy/ledger.sqlite3",
+      "sha256": "2a4c90d5f4ea9767cbe2eb4a8464fae840eaee11da085b94207fac185662e58b"
+    }
+  ],
+  "elapsed_seconds": 0.015800499822944403,
+  "historical_ai_study": {
+    "authority": "Parent task plus TODO.md rejected-trial handoff; not a new billing/API query.",
+    "consumed_calls": 13,
+    "input_tokens_recorded": 358211,
+    "output_tokens_recorded": 13885,
+    "remaining_calls": 0
+  },
+  "job_created": false,
+  "meshy": {
+    "base_allowance": 140,
+    "base_used": 132,
+    "job_grants": [
+      {
+        "credits": 35,
+        "job": "emerald-dragon-meshy-v1",
+        "plan_hash": "85484392f515baaadc82940628afa13334c99ce10e7a5293cd2c49b0328c61e2"
+      },
+      {
+        "credits": 35,
+        "job": "muse-panda-smooth-base-v2",
+        "plan_hash": "9efb539e54482b6cbf76e3ab4b2ae89bfdae292ad9ceb95f45b5360af0b9dea6"
+      }
+    ],
+    "new_paid_submissions": 2,
+    "new_text_job_estimate": 35,
+    "no_balance_key_account_or_network_access": true,
+    "remaining_base": 8,
+    "required_new_job_grant": 35,
+    "states": [
+      {
+        "calls": 16,
+        "credits": 202,
+        "state": "SUCCEEDED"
+      }
+    ],
+    "total_authorized": 210,
+    "used_or_reserved": 202
+  },
+  "mutations_outside_this_folder": false,
+  "native_calls": 0,
+  "proposed_call_flow": {
+    "automatic_retries": 0,
+    "current_studio_persisted_max_agent_calls": 10,
+    "expected": [
+      "planner",
+      "author-0",
+      "reviewer-0"
+    ],
+    "max_repairs": 1,
+    "maximum": [
+      "planner",
+      "author-0",
+      "reviewer-0",
+      "author-1",
+      "reviewer-1"
+    ],
+    "requested_new_hard_cap": 5
+  },
+  "provider_calls": 0,
+  "recorded_local": "2026-11-02T10:25:42.910428-08:00",
+  "schema_version": 1,
+  "scope": "Read-only immutable local metadata; no StudioJobs/Ledger constructor, no pipeline or provider call.",
+  "server_browser_calls": 0,
+  "sources": [
+    {
+      "bytes": 43771,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/studio_jobs.py",
+      "sha256": "a42c1f68138ed13a07efd558cce16c57a8fb56c8cfdf56b5c3a520b4d3f75799"
+    },
+    {
+      "bytes": 13680,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/studio_worker.py",
+      "sha256": "494263e6c960bd382c95769eaa9f590c7d9ac1a66995be869a25a6060a75fd69"
+    },
+    {
+      "bytes": 18169,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/studio.py",
+      "sha256": "ca7fb3ab29e42186b79b77e3b7a1f7b23de0443e7b755ad99da8c12e92131405"
+    },
+    {
+      "bytes": 75760,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline.py",
+      "sha256": "009225b66737619e8b8c95fb247b5192db3fa0f545a3a284369d2f531df3e179"
+    },
+    {
+      "bytes": 25864,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1"
+    },
+    {
+      "bytes": 22815,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    },
+    {
+      "bytes": 15225,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+    },
+    {
+      "bytes": 13491,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393"
+    },
+    {
+      "bytes": 51765,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/pipeline_prompts.py",
+      "sha256": "a60542edf838ec06c93b3675136c7c3520e84e2b8f3ebe80fbfa7965d667dab0"
+    },
+    {
+      "bytes": 19139,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/docs/fresh-avatar-acceptance-plan.md",
+      "sha256": "8ad02a14f2e06bf27ebd98450ee10c5509ff79edd7ccc786f4323340e135424c"
+    },
+    {
+      "bytes": 104,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.local/studio-registry.json",
+      "sha256": "a1d9eb8716e6b7b90803c978f70bc708cde0c2668510e9a6d61f95b681d46b5a"
+    }
+  ],
+  "studio": {
+    "active_lease_jobs": [],
+    "cached_capacity_fits_one_new_job": true,
+    "cached_retained_bytes": 1050856884,
+    "jobs": [
+      {
+        "ended": 1793569164.300996,
+        "id": "a7909fcea90e4df8940850ef",
+        "invocations": 1,
+        "operation": "plan",
+        "output": "studio-a7909fcea90e4df8940850ef",
+        "output_bytes_cached": 23304252,
+        "owner_pid_recorded": 55050,
+        "provenance": "actual_pipeline",
+        "retained_bytes_cached": 23361076,
+        "status": "cancelled"
+      },
+      {
+        "ended": 1793570889.5105321,
+        "id": "8a7e0d76b8b8427f93f52157",
+        "invocations": 2,
+        "operation": "execute",
+        "output": "studio-8a7e0d76b8b8427f93f52157",
+        "output_bytes_cached": 382622259,
+        "owner_pid_recorded": 61650,
+        "provenance": "actual_pipeline",
+        "retained_bytes_cached": 382737130,
+        "status": "failed"
+      },
+      {
+        "ended": 1793573587.7944262,
+        "id": "c9ac0f48bd8044458a8390d4",
+        "invocations": 2,
+        "operation": "execute",
+        "output": "studio-c9ac0f48bd8044458a8390d4",
+        "output_bytes_cached": 249459373,
+        "owner_pid_recorded": 74024,
+        "provenance": "actual_pipeline",
+        "retained_bytes_cached": 249585254,
+        "status": "unsupported"
+      },
+      {
+        "ended": 1793574979.886401,
+        "id": "b184afa00c2f4c2d853de705",
+        "invocations": 2,
+        "operation": "execute",
+        "output": "studio-b184afa00c2f4c2d853de705",
+        "output_bytes_cached": 395047022,
+        "owner_pid_recorded": 78267,
+        "provenance": "actual_pipeline",
+        "retained_bytes_cached": 395173424,
+        "status": "unsupported"
+      }
+    ],
+    "new_active_reservation_bytes": 2214592512,
+    "queued_jobs": [],
+    "scope": "Saved registry state and cached storage, not an OS process or fresh filesystem census.",
+    "storage_limit_bytes": 8589934592
+  }
+}

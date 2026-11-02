@@ -1,0 +1,102 @@
+{
+  "change": "New Studio pipeline requests pin five agent calls, with one repair and240-second per-call deadline unchanged.",
+  "command": [
+    "/usr/bin/env",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "TMPDIR=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-call-cap-tests-v2/tmp",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-call-cap-tests-v2/run_tests.py"
+  ],
+  "compatibility": "Completed ten-call fixture remains readable without replay; unfinished ten-call request is rejected, never rewritten.",
+  "equivalent_test_command": ".venv/bin/python -B -m unittest -v tests.test_studio_jobs",
+  "expected_unique_methods": 29,
+  "inputs": [
+    {
+      "bytes": 96,
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 43771,
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "a42c1f68138ed13a07efd558cce16c57a8fb56c8cfdf56b5c3a520b4d3f75799",
+      "snapshot": "sources/avatar_assets/studio_jobs.py"
+    },
+    {
+      "bytes": 13679,
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "b09cdea70a4c285bd69c2070b035f2199256b315fe7a6214fa58ccff35a9298e",
+      "snapshot": "sources/avatar_assets/studio_worker.py"
+    },
+    {
+      "bytes": 18169,
+      "path": "avatar_assets/studio.py",
+      "sha256": "ca7fb3ab29e42186b79b77e3b7a1f7b23de0443e7b755ad99da8c12e92131405",
+      "snapshot": "sources/avatar_assets/studio.py"
+    },
+    {
+      "bytes": 27764,
+      "path": "avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d",
+      "snapshot": "sources/avatar_assets/gallery.py"
+    },
+    {
+      "bytes": 22815,
+      "path": "avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+      "snapshot": "sources/avatar_assets/meshy.py"
+    },
+    {
+      "bytes": 15225,
+      "path": "avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df",
+      "snapshot": "sources/avatar_assets/meshy_access.py"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 34479,
+      "path": "tests/test_studio_jobs.py",
+      "sha256": "d35199634cafd17bbbf9fa995e0ccd88449659714268daf961fb6ba6ddd1753f",
+      "snapshot": "sources/tests/test_studio_jobs.py"
+    },
+    {
+      "bytes": 276,
+      "path": "requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448",
+      "snapshot": "sources/requirements.lock"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "recorded_local": "2026-11-02T10:30:09.330866-08:00",
+  "schema_version": 1,
+  "scripts": [
+    {
+      "path": "execute.py",
+      "sha256": "532912a99870b727de57a0f1f4a1431c397921eda9084e0fc7eee01abd1c4fd3"
+    },
+    {
+      "path": "run_tests.py",
+      "sha256": "237bb7e933c9fda98e8c8f0dbbce07e6c0d4164d5ebf98b4935226b2c5c04d68"
+    }
+  ]
+}

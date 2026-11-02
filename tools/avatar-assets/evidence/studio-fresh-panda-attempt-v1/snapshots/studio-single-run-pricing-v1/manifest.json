@@ -1,0 +1,35 @@
+{
+  "artifact_bytes": 120917,
+  "artifact_count": 5,
+  "artifacts": [
+    {
+      "bytes": 6968,
+      "path": "pricing-review.json",
+      "sha256": "49e66dcbbc6c17552808aae312ca689672d27d1b785cfa3e0cff8c92a32cafa0"
+    },
+    {
+      "bytes": 1694,
+      "path": "review.md",
+      "sha256": "c9233bc6fed4a2a503d6a9545c702f6b614adcfaf1fb328671bbcd8de007b510"
+    },
+    {
+      "bytes": 22815,
+      "path": "sources/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    },
+    {
+      "bytes": 75760,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "009225b66737619e8b8c95fb247b5192db3fa0f545a3a284369d2f531df3e179"
+    },
+    {
+      "bytes": 13680,
+      "path": "sources/avatar_assets/studio_worker.py",
+      "sha256": "494263e6c960bd382c95769eaa9f590c7d9ac1a66995be869a25a6060a75fd69"
+    }
+  ],
+  "kind": "official_pricing_source_review",
+  "schema_version": 1,
+  "self_excluded": true,
+  "status": "pricing_verified_no_execution"
+}

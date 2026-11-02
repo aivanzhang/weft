@@ -16,7 +16,7 @@ from unittest.mock import Mock
 
 from avatar_assets.studio_jobs import (ACTIVE_RESERVATION_BYTES, STORED_BYTES_LIMIT, StudioJobs,
                                       _digest, _write_private, process_identity)
-from avatar_assets.studio_worker import run_child, supervise
+from avatar_assets.studio_worker import PIPELINE_LIMITS, run_child, supervise
 
 
 def write(path,value):
@@ -46,7 +46,7 @@ class FixturePipeline:
               'preview':{'size':720,'portrait':1600,'seconds':4,'samples':8},
               'muse':{'size':720,'portrait':1600,'seconds':8,'samples':8}}[settings['preset']]
         request={'schema_version':1,'id':output.name,'prompt':prompt,'style':'','custom_actions':[],
-                 'states':[],'max_repairs':1,'max_agent_calls':10,'agent_timeout':240,'agent_model':None,
+                 'states':[],'max_repairs':1,'max_agent_calls':5,'agent_timeout':240,'agent_model':None,
                  **settings,'media_spec':spec,'created':'2026-11-01T12:00:00-08:00'}
         for field,name in (('reference','reference'),('reuse_model','source-model')):
             original=settings.get(field)
@@ -197,6 +197,52 @@ class StudioJobsTests(unittest.TestCase):
         self.assertEqual(complete['status'],'complete')
         self.assertEqual(hashlib.sha256(ledger.read_bytes()).hexdigest(),before)
 
+    def test_new_studio_plan_pins_five_calls_and_one_repair(self):
+        job=self.create(reuse=False);self.jobs.plan(job['id']);planned=self.finish_fixture()
+        request=json.loads((self.jobs.resolve_job(job['id'])/'request.json').read_text())
+        self.assertEqual(planned['status'],'awaiting_authorization')
+        self.assertEqual(request['max_agent_calls'],5)
+        self.assertEqual(request['max_repairs'],1)
+        self.assertEqual(request['agent_timeout'],240)
+        self.assertEqual(self.pipeline.prepared[0][1]['max_agent_calls'],5)
+        self.assertEqual(len(self.pipeline.calls),1)
+        self.assertFalse((self.project/'.local/meshy/ledger.sqlite3').exists())
+
+    def test_historical_ten_call_delivery_remains_readable_without_replay(self):
+        with patch('avatar_assets.studio_worker.PIPELINE_LIMITS',{**PIPELINE_LIMITS,'max_agent_calls':10}):
+            job=self.create();self.jobs.plan(job['id']);planned=self.finish_fixture()
+            self.jobs.start(job['id'],planned['plan_id']);self.finish_fixture()
+        folder=self.jobs.resolve_job(job['id'])
+        before={str(p.relative_to(folder)):hashlib.sha256(p.read_bytes()).hexdigest()
+                for p in folder.rglob('*') if p.is_file()}
+        binding=self.jobs.jobs_dir/job['id']/'pipeline-request.json';binding_bytes=binding.read_bytes()
+        self.assertEqual(json.loads((folder/'request.json').read_text())['max_agent_calls'],10)
+        launches,calls=len(self.executor.calls),len(self.pipeline.calls)
+        with patch('avatar_assets.studio_worker._validate_prepared_request',side_effect=AssertionError('must not execute')):
+            restored=StudioJobs(self.root,executor=self.executor)
+            self.assertEqual(restored.get(job['id'])['status'],'complete')
+            self.assertTrue(restored.get(job['id'])['result']['videos'])
+            self.assertEqual(restored.start(job['id'],planned['plan_id'])['status'],'complete')
+        self.assertEqual((len(self.executor.calls),len(self.pipeline.calls)),(launches,calls))
+        self.assertEqual(binding.read_bytes(),binding_bytes)
+        self.assertEqual({str(p.relative_to(folder)):hashlib.sha256(p.read_bytes()).hexdigest()
+                          for p in folder.rglob('*') if p.is_file()},before)
+
+    def test_unfinished_ten_call_request_rejects_without_rewriting_history(self):
+        with patch('avatar_assets.studio_worker.PIPELINE_LIMITS',{**PIPELINE_LIMITS,'max_agent_calls':10}):
+            job=self.create();self.jobs.plan(job['id']);planned=self.finish_fixture()
+        folder=self.jobs.resolve_job(job['id'])
+        request=(folder/'request.json').read_bytes()
+        binding=self.jobs.jobs_dir/job['id']/'pipeline-request.json';binding_bytes=binding.read_bytes()
+        self.jobs.start(job['id'],planned['plan_id']);invocation,row,data=self.active()
+        self.jobs._worker_claim(row['id'],invocation['token'],data['owner_pid'],data['owner_identity'])
+        with patch('avatar_assets.meshy.run') as provider,self.assertRaisesRegex(ValueError,'max_agent_calls'):
+            run_child(self.jobs,row['id'],invocation['token'],pipeline_module=self.pipeline)
+        provider.assert_not_called()
+        self.assertEqual(len(self.pipeline.calls),1)
+        self.assertEqual((folder/'request.json').read_bytes(),request)
+        self.assertEqual(binding.read_bytes(),binding_bytes)
+
     def test_allowance_counts_prior_reservations_and_exact_scoped_grant(self):
         job=self.create(reuse=False);self.jobs.plan(job['id']);planned=self.finish_fixture()
         ledger=self.ledger(limit=40,used=32)
@@ -293,7 +339,8 @@ class StudioJobsTests(unittest.TestCase):
         cases=[('schema_version',2),('id','another-job'),('prompt','Another prompt'),('style','Another style'),
                ('custom_actions',['Fly away']),('states',['different']),('preset','muse'),
                ('media_spec',{**original['media_spec'],'seconds':30}),('max_credits',35),
-               ('max_repairs',2),('max_repairs',True),('max_agent_calls',12),('agent_timeout',600),
+               ('max_repairs',2),('max_repairs',True),('max_agent_calls',10),('max_agent_calls',5.0),
+               ('max_agent_calls',True),('agent_timeout',600),
                ('agent_model','another-model'),('reference',None),('reuse_model',None)]
         for field in ('reference','reuse_model'):
             for key,value in [('original_path',str(self.source.parent/'another.glb')),

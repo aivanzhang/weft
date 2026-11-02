@@ -1,0 +1,42 @@
+test_bounded_json_and_database_rows_reject_before_large_parse (test_studio_live_verifier.StudioInspectionTests.test_bounded_json_and_database_rows_reject_before_large_parse) ... ok
+test_canonical_digest_and_saved_request_mismatches_reject (test_studio_live_verifier.StudioInspectionTests.test_canonical_digest_and_saved_request_mismatches_reject) ... ok
+test_changed_copied_and_current_source_pins_reject (test_studio_live_verifier.StudioInspectionTests.test_changed_copied_and_current_source_pins_reject) ... ok
+test_changed_model_estimate_retry_policy_and_frozen_plan_reject (test_studio_live_verifier.StudioInspectionTests.test_changed_model_estimate_retry_policy_and_frozen_plan_reject) ... ok
+test_fresh_admission_is_read_only_and_grants_no_authority (test_studio_live_verifier.StudioInspectionTests.test_fresh_admission_is_read_only_and_grants_no_authority) ... ok
+test_generation_config_plan_and_receipt_mismatches_reject (test_studio_live_verifier.StudioInspectionTests.test_generation_config_plan_and_receipt_mismatches_reject) ... ok
+test_historical_reuse_keeps_source_shape_and_prior_limits (test_studio_live_verifier.StudioInspectionTests.test_historical_reuse_keeps_source_shape_and_prior_limits) ... ok
+test_input_and_canonical_pipeline_request_hashes_are_required (test_studio_live_verifier.StudioInspectionTests.test_input_and_canonical_pipeline_request_hashes_are_required) ... ok
+test_job_output_and_registry_paths_reject_traversal_or_symlinks (test_studio_live_verifier.StudioInspectionTests.test_job_output_and_registry_paths_reject_traversal_or_symlinks) ... ok
+test_planner_custom_action_binding_is_validated (test_studio_live_verifier.StudioInspectionTests.test_planner_custom_action_binding_is_validated) ... ok
+test_prepared_identity_actions_limits_and_selection_are_bound (test_studio_live_verifier.StudioInspectionTests.test_prepared_identity_actions_limits_and_selection_are_bound) ... ok
+test_queue_and_foreign_lease_still_block_server_before_creation (test_studio_live_verifier.StudioInspectionTests.test_queue_and_foreign_lease_still_block_server_before_creation) ... ok
+test_reuse_hash_and_traversal_reject (test_studio_live_verifier.StudioInspectionTests.test_reuse_hash_and_traversal_reject) ... ok
+test_self_consistent_generation_cannot_change_planner_or_profile (test_studio_live_verifier.StudioInspectionTests.test_self_consistent_generation_cannot_change_planner_or_profile) ... ok
+test_source_inventory_paths_and_duplicate_pins_reject (test_studio_live_verifier.StudioInspectionTests.test_source_inventory_paths_and_duplicate_pins_reject) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.100s
+
+OK
+{
+  "provenance": "analytic_fixtures_not_generated_assets",
+  "tests_run": 15,
+  "failures": 0,
+  "errors": 0,
+  "elapsed_seconds": 0.1584763745777309,
+  "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "server_started": false,
+  "browser_started": false,
+  "provider_calls": 0,
+  "agent_calls": 0,
+  "browser_syntax": {
+    "command": [
+      "/opt/homebrew/bin/node",
+      "--check",
+      "browser/tests/studio-live.mjs"
+    ],
+    "exit_code": 0,
+    "output": "",
+    "executed_browser": false
+  }
+}

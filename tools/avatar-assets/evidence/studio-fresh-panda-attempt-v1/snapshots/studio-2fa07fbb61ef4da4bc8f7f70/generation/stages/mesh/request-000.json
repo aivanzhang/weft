@@ -1,0 +1,30 @@
+{
+  "balance_before": {
+    "balance": 3098,
+    "monthly_credits": 2898,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "4k",
+    "mode": "preview",
+    "model_type": "standard",
+    "pose_mode": "",
+    "prompt": "One original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears and eye patches, black arms and legs, warm glossy brown eyes, a short muzzle and a small black tail. Cute stylized 3D appearance with rounded features and clean simple color boundaries. Short tidy soft fur with real short fibers over a clean continuous undercoat surface retaining the silhouette and markings; no carved fur or mesh spikes. Relaxed neutral articulation-ready pose, arms slightly away from torso, hands clear of legs, feet separated, with distinct appendages and space at intended joints. One character only; no clothes, accessories, props, pedestal, lettering or scenery.",
+    "should_remesh": true,
+    "target_formats": [
+      "glb"
+    ],
+    "target_polycount": 35000,
+    "topology": "triangle"
+  },
+  "created": "2026-11-02T10:44:32.433594-08:00",
+  "endpoint": "/openapi/v2/text-to-3d",
+  "estimated_credits": 25,
+  "execution_sources": {
+    "meshy.py": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+    "meshy_access.py": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+  },
+  "request_sha256": "9a1cd57c35f8160b378454e9a6918207c6018a487ff3ac238ce3f542032115e7"
+}

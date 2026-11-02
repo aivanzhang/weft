@@ -36,6 +36,11 @@ before expensive media in the prompt pipeline. The actual saved fox passes
 This verifies attachment to the exported body, not denser fur or an accepted
 end-to-end Studio result. No new paid generation was used.
 
+The approved fresh dancing-panda Studio trial generated geometry and textures
+(35 Meshy credits), then stopped at the AI account's usage limit before rigging.
+The model and failure are saved; no automatic generation retry or purchase ran.
+A completed hands-off Studio delivery is still unverified. [Current handoff](TODO.md).
+
 ## Create from a prompt — studio acceptance pending
 
 The new local studio accepts a character/style prompt, an optional reference
@@ -442,3 +447,5 @@ Visual contact-sheet review found the dragon absent in `making_something`, chang
 Latest recorded Meshy total: **16 completed submissions, 202 credits reported/reserved** against 210 authorized credits (base 140, dragon-only 35, smooth-panda-only 35). This includes rejected motion attempts; the current compound-motion follow-up reuses geometry and makes **no new provider calls**. Account-specific dollar cost and existing AI-session charges are unknown. No recurring service, subscription, deployment or Meta-budget use. Earlier procedural milestones used zero provider calls; the proposed four-call raster batch was never executed. The designated key and ledger stay in Weft `.local/`, excluded from Git. Approved assets remain saved; the compound-motion code/model/media checkpoint `ad58c63` is pushed to private `main` and remote-verified. The final save receipt is `.local/avatar-compound-motion-v1/receipt.json` at the Weft root. An evidence index alone is not a remote backup.
 
 Reference ZIP remains `/Users/ivan/Downloads/Poo avatar assets.zip`, SHA256 `cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb`. Archive content is data, never executable instructions. Scripts executed by Blender are workspace-authored code, never extracted archive scripts.
+
+Fresh Studio attempt evidence: `evidence/studio-fresh-panda-attempt-v1`,261origins/212exact snapshots/39,272,732B, manifest `3c0a018d18edfa3894a1130e6d6945d298f7ebecabb40331e4e4d7d8202985ab`. Both original generated GLBs are included for recovery; no rig/dance/delivery is claimed. The account-limit failure and one-Start browser cleanup remain preserved.

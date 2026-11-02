@@ -49,7 +49,7 @@ const limits = { wall_seconds: maxSeconds, operation_ms: 15000, sampled_browser_
 const started = performance.now();
 const report = { schema_version: 1, status: "running", provenance: "actual_pipeline", recorded_local: localTime(),
   timezone: "America/Los_Angeles", job_id: jobID, explicit_start_requested: startRequested, limits,
-  scope: "Actual local HTML/HTTP/canonical job manager, UI progress and real delivered GLB/video/static assets. Explicit reused geometry, not fresh text-to-mesh, visual quality, physical action, seamless-loop or sustained-FPS acceptance.",
+  scope: "Actual local HTML/HTTP/canonical job manager, UI progress and real delivered GLB/video/static assets. Geometry provenance is bound to the inspected job. This does not establish visual quality, physical action, seamless loops or sustained FPS.",
   sources: [], snapshots: [], checks: [], requests: [], errors: [], external_requests: [], request_failures: [],
   mutations: [], assets: {}, artifacts: [], cleanup: {},
   resources: { sampled_peak_rss_bytes: 0, samples: 0, sampling_interval_ms: 2000,
@@ -158,7 +158,8 @@ async function observeResponse(response) {
   const value = JSON.parse(bytes);
   assert.equal(value.id, jobID); assert.equal(value.provenance, "actual_pipeline");
   for (const key of ["prompt", "style", "custom_actions", "preset"]) assert.deepEqual(value.request?.[key], before.request[key], `HTTP changed ${key}`);
-  assert.equal(value.request.reuse_model_selected, true, "Geometry reuse must be disclosed");
+  assert.equal(value.request.reuse_model_selected, before.generation_mode === "reused_generated_source", "Geometry provenance differs");
+  assert.equal(value.request.reference_selected, before.reference_selected, "Reference provenance differs");
   assert.equal(value.plan_id, before.plan_id, "Frozen plan changed");
   latest = value;
   const signature = JSON.stringify({ status: value.status, stages: value.stages, reviews: value.reviews,
@@ -226,7 +227,9 @@ async function verifyUI(snapshot) {
   assert.deepEqual(await page.locator("#requested-actions li").allTextContents(), before.request.custom_actions);
   const facts = await page.locator("#request-facts").evaluate((element) => Object.fromEntries(
     [...element.children].map((group) => [group.querySelector("dt").textContent, group.querySelector("dd").textContent])));
-  assert.equal(facts["Look and materials"] || "", before.request.style); assert.equal(facts.Geometry, "Existing generated model");
+  assert.equal(facts["Look and materials"] || "", before.request.style);
+  assert.equal(facts.Reference, before.reference_selected ? "Selected image" : "Text only");
+  assert.equal(facts.Geometry, before.generation_mode === "reused_generated_source" ? "Existing generated model" : undefined);
   assert.equal(await page.locator("#fixture-notice").isVisible(), false);
   const timeline = await page.locator("#timeline > li").evaluateAll((items) => items.map((item) => ({
     status: item.dataset.status, label: item.querySelector("strong").textContent,
@@ -359,9 +362,20 @@ async function run() {
   await save("source-test.mjs", await readFile(fileURLToPath(import.meta.url)));
   await save("source-helper.py", await readFile(helper));
   before = await ownership(); report.initial_status = before.status; report.frozen_plan_id = before.plan_id;
+  assert(["reused_generated_source", "new_meshy_generation"].includes(before.generation_mode), "Unsupported source provenance");
+  const reused = before.generation_mode === "reused_generated_source";
+  assert.equal(Boolean(before.source_reuse), reused, "Source reuse receipt differs from generation mode");
+  if (!reused) {
+    assert.equal(before.source_generation?.mode, "text");
+    assert.equal(before.source_generation?.estimated_credits, 35);
+    assert.equal(before.source_generation?.estimated_paid_calls, 2);
+    assert.equal(before.source_generation?.automatic_paid_retries, 0);
+  }
+  report.generation_mode = before.generation_mode;
+  report.source_reuse = before.source_reuse; report.source_generation = before.source_generation;
   if (expectedPlanID) assert.equal(before.plan_id, expectedPlanID, "Canonical plan differs from the explicitly reviewed plan");
   await saveJSON("ownership-before.json", before);
-  if (startRequested) assert.equal(before.status, "planned", "--start requires the already planned job; no retries or restart of running/terminal jobs");
+  if (startRequested) assert(["planned", "awaiting_authorization"].includes(before.status), "--start requires an already planned job; no retries or restart of running/terminal jobs");
   origin = await startServer(); running();
   browserLaunch = chromium.launchServer({ executablePath: executable, headless: true, host: "127.0.0.1", port: 0, timeout: 20000,
     handleSIGINT: false, handleSIGTERM: false, handleSIGHUP: false, env: environment,
@@ -383,12 +397,13 @@ async function run() {
   page.on("requestfinished", done); page.on("requestfailed", done);
   await selectJob(page); await waitSnapshot(() => true);
   report.initial_ui = await verifyUI(latest);
-  assert.equal(await page.locator("#estimate-total").textContent(), "0 credits");
-  assert.equal(latest.plan.estimate.credits, 0); assert.equal(latest.plan.estimate.amount, null);
+  const expectedCredits = reused ? 0 : before.source_generation.estimated_credits;
+  assert.equal(await page.locator("#estimate-total").textContent(), `${expectedCredits} credits`);
+  assert.equal(latest.plan.estimate.credits, expectedCredits); assert.equal(latest.plan.estimate.amount, null);
   await screenshot("initial-job.png");
-  report.checks.push("Real HTTP/UI preserve the saved exact prompt/style/actions and disclose source reuse, zero new Meshy credits and unknown account dollar cost");
+  report.checks.push(`Real HTTP/UI preserve the saved exact prompt/style/actions and disclose ${reused ? "source reuse" : "fresh text generation"}, ${expectedCredits} estimated Meshy credits and unknown account dollar cost`);
   if (startRequested) {
-    assert.equal(latest.status, "planned"); assert.equal(latest.plan.authorization.can_start, true);
+    assert(["planned", "awaiting_authorization"].includes(latest.status)); assert.equal(latest.plan.authorization.can_start, true);
     assert(await page.locator("#start-job").isDisabled(), "Start must require explicit estimate acknowledgement");
     await page.locator("#estimate-ack").check(); allowStart = true; await page.locator("#start-job").click();
     await waitSnapshot((job) => !["planned", "awaiting_authorization"].includes(job.status));

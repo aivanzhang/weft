@@ -1,0 +1,107 @@
+{
+  "canonical_registry_or_ledger_mutated": false,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "OPENBLAS_NUM_THREADS=1",
+      "OMP_NUM_THREADS=1",
+      "TMPDIR=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-call-cap-tests-v2/tmp",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-call-cap-tests-v2/run_tests.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.77,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 206736,
+    "last_rss_sample_elapsed_seconds": 0.511,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 8944,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 2,
+    "sampled_max_output_bytes": 206736,
+    "sampled_peak_rss_bytes": 43139072,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_agent_calls": 0,
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_server_or_browser_calls": 0,
+  "schema_version": 1,
+  "scope": "Software cap/custody compatibility only, not a completed actual Studio job.",
+  "source_unchanged": [
+    {
+      "path": "avatar_assets/__init__.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/studio.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/gallery.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/meshy.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/meshy_access.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "unchanged": true
+    },
+    {
+      "path": "tests/test_studio_jobs.py",
+      "unchanged": true
+    },
+    {
+      "path": "requirements.lock",
+      "unchanged": true
+    }
+  ],
+  "status": "passed",
+  "test_result": {
+    "elapsed_seconds": 0.4796630418859422,
+    "errors": 0,
+    "failures": 0,
+    "passed": true,
+    "scope": "Analytic temporary Studio lifecycle fixtures; no AI, native, provider, server or browser calls.",
+    "self_peak_rss_bytes": 43155456,
+    "tests_run": 29
+  }
+}

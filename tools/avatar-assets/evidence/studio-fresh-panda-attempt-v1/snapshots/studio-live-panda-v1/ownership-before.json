@@ -1,0 +1,89 @@
+{
+  "files": [
+    {
+      "path": "outputs/studio-2fa07fbb61ef4da4bc8f7f70/request.json",
+      "sha256": "0414e6b59af45ea88a2e73c76ee45d008921298bd5c249b62ff0e3107954d29a"
+    },
+    {
+      "path": "outputs/studio-2fa07fbb61ef4da4bc8f7f70/plan.json",
+      "sha256": "4c5504d54615cd68bd5307096ae6a74dc64e7d02380b7996483cb55e3667bcc9"
+    },
+    {
+      "path": "outputs/studio-2fa07fbb61ef4da4bc8f7f70/input-receipt.json",
+      "sha256": "4a9faf3753dae3ba4fb1222b96b720cd2eb10e2adab5bd6ff8ef8abee4bb54ec"
+    },
+    {
+      "path": ".local/studio/jobs/2fa07fbb61ef4da4bc8f7f70/pipeline-request.json",
+      "sha256": "4ea8735dbcc7ed0eabb1af4281b2b0f9810d4b53574c6abfacc64f53cde5f2d7"
+    },
+    {
+      "path": "outputs/studio-2fa07fbb61ef4da4bc8f7f70/generation-config.json",
+      "sha256": "930e480138d201e70ab592ee72cbc96374eb0527f523808de4da0fbd2ac761a8"
+    },
+    {
+      "path": "outputs/studio-2fa07fbb61ef4da4bc8f7f70/generation/inputs/config.json",
+      "sha256": "930e480138d201e70ab592ee72cbc96374eb0527f523808de4da0fbd2ac761a8"
+    },
+    {
+      "path": "outputs/studio-2fa07fbb61ef4da4bc8f7f70/generation/plan.json",
+      "sha256": "0a464426135090f8be9b1d8f64757e0f898b8c214c3f3b2081fd1da9894fde92"
+    },
+    {
+      "path": "outputs/studio-2fa07fbb61ef4da4bc8f7f70/generation-receipt.json",
+      "sha256": "22f801f80503073a5916a400133f300184c85d6289ec62958441f0a21781ea3e"
+    }
+  ],
+  "generation_mode": "new_meshy_generation",
+  "id": "2fa07fbb61ef4da4bc8f7f70",
+  "output": "outputs/studio-2fa07fbb61ef4da4bc8f7f70",
+  "owner": {
+    "active_lease_job": null,
+    "cancel_requested": false,
+    "ended_local": "2026-11-02T10:37:34.747802-08:00",
+    "heartbeat_local": "2026-11-02T10:37:34.747802-08:00",
+    "identity_verified_live": false,
+    "invocation_dir": "jobs/2fa07fbb61ef4da4bc8f7f70/run-0001",
+    "invocations": 1,
+    "operation": "plan",
+    "owner_identity": "darwin-start:1793644629:256921",
+    "owner_pid": 10244,
+    "queued_jobs": []
+  },
+  "ownership_scope": "Read-only canonical registry and selected PID identity; no dispatch, cancellation or signal",
+  "plan_id": "9c2f9d62e6dfc883088a897970b15639f89229311cb2d3c548fac5c0da7bc425",
+  "provenance": "actual_pipeline",
+  "recorded_local": "2026-11-02T10:44:29.425934-08:00",
+  "reference_selected": false,
+  "request": {
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass."
+  },
+  "schema_version": 1,
+  "source_generation": {
+    "authorization_checked": false,
+    "automatic_paid_retries": 0,
+    "config_sha256": "930e480138d201e70ab592ee72cbc96374eb0527f523808de4da0fbd2ac761a8",
+    "estimated_credits": 35,
+    "estimated_paid_calls": 2,
+    "execution_gate": "canonical_ledger_and_explicit_start",
+    "maximum_agent_calls": 5,
+    "mode": "text",
+    "model": "meshy-7.1",
+    "plan_sha256": "0a464426135090f8be9b1d8f64757e0f898b8c214c3f3b2081fd1da9894fde92",
+    "settings": {
+      "geometry_resolution": "4k",
+      "mode": "text",
+      "pose_mode": "",
+      "target_polycount": 35000,
+      "texture_resolution": "4k"
+    },
+    "usd_cost": null
+  },
+  "source_reuse": null,
+  "state_dir": ".local/studio",
+  "status": "awaiting_authorization"
+}

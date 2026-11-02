@@ -41,6 +41,11 @@ cancel_requested=callback)` in the detached child. It cannot submit fresh Meshy
 generation. Execution uses `execute=True, plan_only=False`. Both keep the existing
 pipeline/agent/native bounds and exact source pins.
 
+New Studio jobs pin five AI calls, one local repair and240seconds per call
+(expected planner/author/critic:three). The generic CLI default remains separate.
+Completed historical ten-call jobs remain readable; unfinished old requests
+are not rewritten. Exact typed request validation rejects altered ceilings.
+
 The35-credit preparation ceiling is not a grant. Start requires the exact current
 plan ID when supplied and reads the canonical Meshy SQLite ledger in read-only
 mode. It checks existing base reservations, job-scoped grants and uncertain calls,

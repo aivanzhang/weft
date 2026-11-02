@@ -1,0 +1,27 @@
+{
+  "balance_before": {
+    "balance": 3073,
+    "monthly_credits": 2873,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "ai_model": "meshy-7.1",
+    "enable_pbr": true,
+    "mode": "refine",
+    "preview_task_id": "01a19d93-d093-7703-8cd3-57de771c5a70",
+    "target_formats": [
+      "glb"
+    ],
+    "texture_prompt": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass.",
+    "texture_resolution": "4k"
+  },
+  "created": "2026-11-02T10:46:52.317616-08:00",
+  "endpoint": "/openapi/v2/text-to-3d",
+  "estimated_credits": 10,
+  "execution_sources": {
+    "meshy.py": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+    "meshy_access.py": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+  },
+  "request_sha256": "cf040c1caf720f8bbbce5287496105c46c99ef20a214323700d67714baf5f617"
+}
