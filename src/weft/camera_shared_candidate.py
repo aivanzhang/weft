@@ -19,6 +19,7 @@ from weft.camera_shared_contract import (
     BODY_RUNTIME_FILES, CALIBRATION_STATUS, LENGTH_UNIT, MASS_UNIT, build_camera_coupling, validate_camera_coupling,
 )
 from weft.io import canonical_hash, local_time
+from weft.camera_shared_receipt import body_runtime_files
 from weft.multiview_pose import CONTRACT as RAY_CONTRACT, MULTI_CONTRACT as MULTI_RAY_CONTRACT, _view
 from weft.multiview_root import METHOD as ROOT_METHOD, MULTI_METHOD as MULTI_ROOT_METHOD
 from weft.observations import adapt_exercise, validate_observations
@@ -34,7 +35,7 @@ MAX_MEMBER_BYTES, MAX_PACKAGE_BYTES, MAX_FILES = 8 << 20, 128 << 20, 80
 RESERVE_BYTES = 256 << 10
 RUNTIME_ROOT = Path(__file__).parent
 RUNTIME_FILES = (
-    "__init__.py", "camera_shared_candidate.py", "camera_shared_contract.py", "camera_body.py",
+    "__init__.py", "camera_shared_candidate.py", "camera_shared_contract.py", "camera_shared_receipt.py", "camera_body.py",
     "camera_ground.py", "camera_pose.py", "multiview_root.py", "multiview_body.py", "multiview_pose.py",
     "observations.py", "world_evidence.py", "shared_world_evidence.py", "shared_world_packaging.py",
     "source_equivalence.py", "shared_world.py", "shared_world_observation.py", "human.py", "mobile_human.py",
@@ -428,6 +429,18 @@ def prepare_camera_shared_candidate(source_run, out, *, max_seconds=MAX_SECONDS)
                 required.extend(_extension_members(_json(raw)))
         _require(all(name in inputs for name in required), "reconstruction source members are missing")
         body, coupling, evidence, views, slots = _qualified_inputs(inputs, deadline)
+        # Archive the optional validator without changing legacy native runtime lists.
+        for name in body_runtime_files(body):
+            if name in RUNTIME_FILES:
+                continue
+            _check(deadline)
+            member = "candidate-implementation/" + name
+            raw = read_package_file(_path(RUNTIME_ROOT), name, max_bytes=2 << 20)
+            _require(sum(map(len, runtime.values())) + len(raw) <= MAX_RUNTIME_BYTES,
+                     "optional construction runtime exceeds its bound")
+            runtime[member] = raw
+            runtime_pins[member] = sha256(raw).hexdigest()
+            _write(target, {member: raw}, pins, sizes, deadline)
         source_data = _json(inputs["source.json"])
         media = source_data.get("artifact")
         _require(type(media) is str and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,159}", media)

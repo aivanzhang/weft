@@ -34,14 +34,14 @@ STATUSES = frozenset(('unchanged_exact_images', 'unchanged_no_observations', 'it
 def validate_uncertainty(value):
     fields = {'schema_version', 'image_std_fraction', 'angle_prior_std_rad', 'correction_speed_std_rad_s', 'provenance'}
     version = value.get('schema_version') if isinstance(value, dict) else None
-    if version == 2: fields.add('motion_acceleration_std_rad_s2')
+    if version in (2, 3): fields.add('motion_acceleration_std_rad_s2')
     if (not isinstance(value, dict) or set(value) != fields or type(value['schema_version']) is not int
-            or version not in (1, 2) or not isinstance(value['provenance'], str)
+            or version not in (1, 2, 3) or not isinstance(value['provenance'], str)
             or not 1 <= len(value['provenance'].strip()) <= 2000):
         raise ValueError('Joint images require explicit uncertainty assumptions and provenance')
     bounds = [('image_std_fraction', 1e-4, .05), ('angle_prior_std_rad', .01, 1.),
               ('correction_speed_std_rad_s', .01, 100.)]
-    if version == 2: bounds.append(('motion_acceleration_std_rad_s2', 1., 1e4))
+    if version in (2, 3): bounds.append(('motion_acceleration_std_rad_s2', 1., 1e4))
     for key, low, high in bounds:
         if type(value[key]) not in (int, float) or not math.isfinite(value[key]) or not low <= value[key] <= high:
             raise ValueError('Invalid joint-image uncertainty '+key)
@@ -49,6 +49,16 @@ def validate_uncertainty(value):
 
 
 def trajectory_contract(settings):
+    if settings['schema_version'] == 3:
+        from weft.limb_twist_gauge import CONTRACT as GAUGE_CONTRACT
+
+        return MappingProxyType({**ACCELERATION_CONTRACT, 'method': 'time-coupled-joint-pixels-v3',
+            'maximum_angle_change_rad': None, 'initial_fit_maximum_angle_change_rad': .30,
+            'maximum_iterations': 28, 'maximum_backtracks': 6, 'maximum_update_rad': None,
+            'maximum_trajectory_seconds': 20.,
+            'objective': 'Original joint pixels and actual angular acceleration, followed by a source/geometry-bounded axial gauge',
+            'initial_fit_contract': dict(ACCELERATION_CONTRACT), 'axial_gauge_contract': dict(GAUGE_CONTRACT),
+            'bounds': 'Initial corrections retain .30 rad; subsequent axial rotations preserve proximal geometry and constrain original distal geometry/images'})
     return ACCELERATION_CONTRACT if settings['schema_version'] == 2 else CONTRACT
 
 
@@ -102,6 +112,8 @@ def solve_blocks(diagonal, edge_weights, rhs):
 
 def fit_joint_trajectory(angles, lengths, origins, parent_rotations, times, observations, bend_sign, uncertainty):
     settings = validate_uncertainty(uncertainty)
+    if settings['schema_version'] == 3:
+        return _fit_gauged_trajectory(angles, lengths, origins, parent_rotations, times, observations, bend_sign, settings)
     contract = trajectory_contract(settings); motion = settings['schema_version'] == 2
     if not isinstance(observations, (list, tuple)) or not 2 <= len(observations) <= CONTRACT['maximum_frames']:
         raise ValueError('Joint image trajectories require two to 900 reference poses')
@@ -230,3 +242,30 @@ def fit_joint_trajectory(angles, lengths, origins, parent_rotations, times, obse
         'maximum_angle_change_rad': float(np.max(abs(delta))), 'depth_measured': False, 'observations_modified': False}
     if motion: result['motion_acceleration_stencil'] = stencil.tolist()
     return result
+
+
+def _fit_gauged_trajectory(angles, lengths, origins, parent_rotations, times, observations, bend_sign, settings):
+    from weft.limb_twist_gauge import fit_limb_twist_gauge
+
+    initial = fit_joint_trajectory(angles, lengths, origins, parent_rotations, times, observations, bend_sign,
+                                  dict(settings, schema_version=2))
+    gauge = fit_limb_twist_gauge(initial['output_angles_rad'], lengths, origins, parent_rotations, times, observations,
+        bend_sign, image_std_fraction=settings['image_std_fraction'],
+        motion_acceleration_std_rad_s2=settings['motion_acceleration_std_rad_s2'], provenance=settings['provenance'])
+    output = np.asarray(gauge['output_angles_rad']); correction = output-np.asarray(initial['input_angles_rad'])
+    stencil = np.asarray(initial['motion_acceleration_stencil']).reshape(-1, 3); n = len(output)
+    motion = sum(stencil[:, j, None]*output[j:n-2+j] for j in range(3))
+    before = {key: initial['before'][key] for key in ('image_chi2', 'motion_acceleration_chi2', 'points_world_m', 'errors_px')}
+    before.update(gauge_prior_chi2=0., objective=.5*(before['image_chi2']+before['motion_acceleration_chi2']))
+    after = {key: gauge['after'][key] for key in ('image_chi2', 'gauge_prior_chi2', 'points_world_m', 'errors_px')}
+    after['motion_acceleration_chi2'] = float(np.sum(motion*motion))
+    after['objective'] = .5*sum(after[key] for key in ('image_chi2', 'motion_acceleration_chi2', 'gauge_prior_chi2'))
+    if after['image_chi2'] > before['image_chi2']+1e-10 or after['objective'] > before['objective']+1e-10:
+        raise ValueError('Staged axial gauge cannot regress its complete source/motion objective')
+    changed = any(value != 0. for value in gauge['axial_rotation_rad'])
+    return {**initial, 'method': trajectory_contract(settings)['method'], 'uncertainty': settings,
+        'status': gauge['status'] if changed else initial['status'],
+        'output_angles_rad': output.tolist(), 'correction_rad': correction.tolist(),
+        'maximum_angle_change_rad': float(np.max(abs(correction))), 'before': before, 'after': after,
+        'iterations': [], 'stage_order': ['initial_motion_fit', 'axial_gauge_fit'],
+        'initial_motion_fit': initial, 'axial_gauge_fit': gauge}

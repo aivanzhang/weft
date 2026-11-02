@@ -1,0 +1,8 @@
+{
+  "schema_version": 3,
+  "image_std_fraction": 0.0025,
+  "angle_prior_std_rad": 0.3,
+  "correction_speed_std_rad_s": 4.5,
+  "motion_acceleration_std_rad_s2": 60.0,
+  "provenance": "Frozen source-only two-stage construction: retain original v2 noise/correction/acceleration assumptions, then apply the fixed axial gauge contract with original image-loss nonregression and 20 mm geometry bound. Not calibrated noise, measured acceleration or force feasibility."
+}

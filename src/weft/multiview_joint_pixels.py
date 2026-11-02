@@ -93,6 +93,9 @@ def refine_joint_pixels(body, audit, predictions, sources, prepared, uncertainty
             record = {'input_angles_rad': angles[i], 'correction_rad': delta, 'input_joint_confidence': old_confidence,
                       'status': fit['status'] if fit else 'unavailable_projection',
                       'view_indices': detail['view_indices'], 'observation_statuses': detail['observation_statuses']}
+            if settings['schema_version'] == 3:
+                record.update(initial_motion_correction_rad=fit['initial_motion_fit']['correction_rad'][i] if fit else [0.]*4,
+                              axial_rotation_rad=fit['axial_gauge_fit']['axial_rotation_rad'][i] if fit else 0.)
             meta['geometry_joint_pixels'][group] = record
             for name, old, correction in zip(names, angles[i], delta, strict=True):
                 candidate['reference'][i]['joints'][name] = old+correction
@@ -105,9 +108,16 @@ def refine_joint_pixels(body, audit, predictions, sources, prepared, uncertainty
         'image_chi2_after': sum(f['after']['image_chi2'] for f in fitted),
         'uncertainty': settings, 'uncertainty_sha256': canonical_hash(settings), 'uncertainty_calibrated': False,
         'depth_measured': False, 'scope': CONTRACT['scope']}
-    if settings['schema_version'] == 2:
+    if settings['schema_version'] in (2, 3):
         summary.update({f'motion_acceleration_chi2_{key}': sum(f[key]['motion_acceleration_chi2'] for f in fitted)
                         for key in ('before', 'after')})
+    if settings['schema_version'] == 3:
+        summary['axial_gauge'] = {
+            'changed_group_poses': sum(sum(value != 0. for value in f['axial_gauge_fit']['axial_rotation_rad']) for f in fitted),
+            'image_chi2_before': sum(f['axial_gauge_fit']['before']['image_chi2'] for f in fitted),
+            'image_chi2_after': sum(f['axial_gauge_fit']['after']['image_chi2'] for f in fitted),
+            'maximum_distal_displacement_m': max((f['axial_gauge_fit']['maximum_distal_displacement_m'] for f in fitted), default=0.),
+            'force_feasibility': 'unverified'}
     result['joint_pixel_trajectories'] = trajectories; result['joint_pixels'] = summary
     result['contract']['method'] = METHOD; result['contract']['joint_pixels'] = dict(contract)
     result['scope'] = 'Joint-image trajectory hypotheses with original positions and priors retained; not physical accuracy'
@@ -115,8 +125,10 @@ def refine_joint_pixels(body, audit, predictions, sources, prepared, uncertainty
     candidate['camera_reference'].update(method=METHOD, angular_reference_sha256=canonical_hash(candidate['reference']))
     candidate['reconstruction_coverage']['two_view_body'].update(method=METHOD, joint_pixels=summary)
     candidate['assumptions'].append('Joint-image corrections allow uncertain knee/elbow directions; explicit noise/correction-speed assumptions do not measure depth, contact or physical motion')
-    if settings['schema_version'] == 2:
+    if settings['schema_version'] in (2, 3):
         candidate['assumptions'].append('An authored angular-acceleration prior favors smoother source-time motion; it is not measured acceleration or a motor-force guarantee')
+    if settings['schema_version'] == 3:
+        candidate['assumptions'].append('A bounded axial-orientation proposal preserves the motion-fit proximal geometry and hinge bend; up to 20 mm distal displacement and explicit source-image guards do not establish anatomy or force feasibility')
     return candidate, result
 
 
@@ -134,7 +146,16 @@ def restore_joint_pixel_input(spec):
             or summary.get('depth_measured') is not False):
         raise ValueError('Joint-image uncertainty must remain explicit and uncalibrated')
     restored = deepcopy(spec); count = len(spec['camera_reference']['root_refinement']['views']); changed = constraints = 0
-    maximum = 0.
+    maximum = 0.; gauge_changed = 0; gauge_distance = 0.
+    if settings['schema_version'] == 3:
+        axial = summary.get('axial_gauge')
+        if (not isinstance(axial, dict) or set(axial) != {'changed_group_poses', 'image_chi2_before', 'image_chi2_after',
+                'maximum_distal_displacement_m', 'force_feasibility'} or axial['force_feasibility'] != 'unverified'
+                or type(axial['changed_group_poses']) is not int or axial['changed_group_poses'] < 0
+                or any(type(axial[key]) not in (int, float) or not math.isfinite(axial[key]) or axial[key] < 0
+                       for key in ('image_chi2_before', 'image_chi2_after', 'maximum_distal_displacement_m'))
+                or axial['image_chi2_after'] > axial['image_chi2_before']+1e-10):
+            raise ValueError('Axial gauge requires its original image guards and unverified force label')
     for reference, meta in zip(restored['reference'], restored['reference_evidence'], strict=True):
         records = meta.pop('geometry_joint_pixels', None)
         if meta.get('geometry_method') != METHOD or not isinstance(records, dict) or set(records) != set(LIMB_ENDPOINTS):
@@ -142,15 +163,21 @@ def restore_joint_pixel_input(spec):
         meta['geometry_method'] = INPUT_METHOD
         for group, record in records.items():
             fields = {'input_angles_rad', 'correction_rad', 'input_joint_confidence', 'status', 'view_indices', 'observation_statuses'}
+            if settings['schema_version'] == 3:
+                fields |= {'initial_motion_correction_rad', 'axial_rotation_rad'}
             if not isinstance(record, dict) or set(record) != fields:
                 raise ValueError('Joint-image correction schema differs')
             old, delta, confidence = [record[k] for k in ('input_angles_rad', 'correction_rad', 'input_joint_confidence')]
             if (any(not isinstance(row, list) or len(row) != 4 for row in (old, delta, confidence))
                     or any(type(v) not in (int, float) or not math.isfinite(v) for v in old+delta+confidence)
-                    or any(abs(v) > math.tau for v in old) or not 0 <= old[3] <= 2.6 or any(abs(v) > .30 for v in delta)
+                    or any(abs(v) > math.tau for v in old) or not 0 <= old[3] <= 2.6
+                    or any(abs(v) > (2*math.tau if settings['schema_version'] == 3 else .30) for v in delta)
                     or any(not 0 <= v <= 1 for v in confidence) or not isinstance(record['status'], str)
                     or record['status'] not in STATUSES | {'unavailable_projection'}):
                 raise ValueError('Joint-image corrections must preserve bounded input angles and source confidence')
+            if settings['schema_version'] == 3:
+                gauge_distance = max(gauge_distance, _validate_axial_record(record, spec['lengths'], group))
+                gauge_changed += record['axial_rotation_rad'] != 0.
             keys = {str(j) for j in LIMB_ENDPOINTS[group][1:]}; views, statuses = record['view_indices'], record['observation_statuses']
             if not isinstance(views, dict) or not isinstance(statuses, dict) or set(views) != keys or set(statuses) != keys:
                 raise ValueError('Joint-image provenance must retain both endpoints and every view')
@@ -162,6 +189,9 @@ def restore_joint_pixel_input(spec):
                         or views[key] != [i for i, s in enumerate(statuses[key]) if s == 'available']):
                     raise ValueError('Joint-image contributors differ from original observation availability')
                 used += len(views[key])
+            if settings['schema_version'] == 3 and not used and (record['axial_rotation_rad'] != 0.
+                    or any(value != 0. for value in record['initial_motion_correction_rad'])):
+                raise ValueError('Axial gauge cannot change any unobserved limb stage')
             altered = any(v != 0. for v in delta); changed += altered; constraints += used
             maximum = max(maximum, max(abs(v) for v in delta))
             if altered and (not used or record['status'] in ('unavailable_projection', 'unchanged_no_observations', 'unchanged_exact_images')):
@@ -171,6 +201,9 @@ def restore_joint_pixel_input(spec):
                         or meta['joint_confidence'].get(name) != (0. if altered else prior)):
                     raise ValueError('Joint-image angles or inferred-only confidence changed')
                 reference['joints'][name] = angle; meta['joint_confidence'][name] = prior
+    if settings['schema_version'] == 3 and (axial['changed_group_poses'] != gauge_changed
+            or abs(axial['maximum_distal_displacement_m']-gauge_distance) > 1e-10):
+        raise ValueError('Axial gauge changed its retained geometry/correction summary')
     if (canonical_hash(restored['reference']) != pin['input_reference_sha256']
             or canonical_hash(restored['reference_evidence']) != pin['input_evidence_sha256']
             or summary.get('changed_group_poses') != changed or summary.get('source_image_constraints') != constraints
@@ -182,3 +215,28 @@ def restore_joint_pixel_input(spec):
     restored['reconstruction_coverage']['two_view_body'].pop('joint_pixels')
     restored['reconstruction_coverage']['two_view_body']['method'] = INPUT_METHOD
     return restored
+
+
+def _validate_axial_record(record, lengths, group):
+    from weft.limb_position_fit import limb_geometry
+    from weft.limb_twist_gauge import CONTRACT as GAUGE_CONTRACT, axial_gauge
+
+    change, theta = record['initial_motion_correction_rad'], record['axial_rotation_rad']
+    if (not isinstance(change, list) or len(change) != 4
+            or any(type(value) not in (int, float) or not math.isfinite(value) or abs(value) > .30 for value in change)
+            or type(theta) not in (int, float) or not math.isfinite(theta)
+            or abs(theta) > GAUGE_CONTRACT['maximum_axial_rotation_rad']):
+        raise ValueError('Axial gauge must retain bounded initial corrections and local rotation')
+    old = np.asarray(record['input_angles_rad']); initial = old+change; final = old+record['correction_rad']
+    if np.max(abs(initial[:3])) > math.tau or not 0 <= initial[3] <= 2.6:
+        raise ValueError('Axial gauge initial motion angles exceed the original domain')
+    expected, _, _ = axial_gauge(initial, theta)
+    if not np.allclose(final, expected, atol=1e-12, rtol=0):
+        raise ValueError('Axial gauge changed its fixed proximal orientation or hinge bend')
+    leg = group.endswith('hip'); size = [lengths[key] for key in (('thigh', 'shin') if leg else ('upper_arm', 'forearm'))]
+    before, _ = limb_geometry(initial, size, -1 if leg else 1)
+    after, _ = limb_geometry(final, size, -1 if leg else 1)
+    if (np.linalg.norm(after[0]-before[0]) > 1e-10
+            or np.linalg.norm(after[1]-before[1]) > GAUGE_CONTRACT['maximum_distal_displacement_m']+1e-10):
+        raise ValueError('Axial gauge exceeded its fixed original geometry envelope')
+    return float(np.linalg.norm(after[1]-before[1]))

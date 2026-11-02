@@ -15,6 +15,12 @@ For an experimental body built from three supplied cameras, see the
 [multi-view sandbox](multi-view-body.md). It supports manual interaction and
 recording, but its saved exercise candidate still fails floor consistency.
 
+For the optional source-constrained axial-motion candidate, use the
+[verified shared sandbox command](handoffs/limb-twist-gauge.md#root-integration-and-playable-shared-sandbox).
+It improves visible endpoint tracking but worsens angular error/reward; it is not
+a new default or learned policy. Manual/reference/coast controls and exact
+recording are verified.
+
 For the newer optional motion-refined example, use the
 [tested terminal command and recorded comparison](handoffs/joint-motion-prior.md#try-the-saved-body).
 It supports full-body controls and recording; improved tracking still trades

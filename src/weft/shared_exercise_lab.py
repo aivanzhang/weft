@@ -65,8 +65,8 @@ def runtime_files(scene):
     """Extra evaluator dependencies are pinned only for the profiles that execute them."""
     if scene["profile"] == CAMERA_PROFILE:
         if "body_reconstruction" in scene["camera_coupling"]:
-            from weft.camera_shared_contract import BODY_RUNTIME_FILES
-            return (*RUNTIME_FILES, *CAMERA_RUNTIME_FILES, *BODY_RUNTIME_FILES)
+            from weft.camera_shared_receipt import body_runtime_files
+            return (*RUNTIME_FILES, *CAMERA_RUNTIME_FILES, *body_runtime_files(scene.get("human_spec")))
         return (*RUNTIME_FILES, *CAMERA_RUNTIME_FILES)
     if scene["profile"] == FEET_PROFILE:
         inventory = ("person_inventory.py",) if _base_profile(scene) == HUMAN_ONLY_PROFILE else ()

@@ -1,22 +1,38 @@
 # Combined Weft implementation handoff
 
-## Parallel reconstruction fixes active — November 2, 2026, PST
+## Parallel reconstruction integrated — November 2, 2026, PST
 
-The user explicitly prioritized substantive reconstruction/contact fixes and
-requested parallel agents. Three lanes are running: `/root/force_feasible_reconstruction`
-(new `limb_twist_gauge.py` and tests), `/root/ground_equipment_reconstruction`
-(new `equipment_temporal_silhouette.py`, tests/study/handoff), and
-`/root/unfamiliar_exercise_input` (bounded new source acquisition only). Root owns
-integration and complete-interval verification. Coordinate shared-file edits;
-no task/gate/force changes, assessed-coordinate fitting, paid requests or UI polish.
-Do not duplicate live work or stage these unfinished lanes with other checkpoints.
+The delegated lanes completed substantive source-motion/equipment methods and a
+new-video trial. Root integrated the [axial-motion candidate](limb-twist-gauge.md#root-integration-and-playable-shared-sandbox)
+into the normal shared-world lab, fixing its optional runtime/receipt closure.
+**321 scoped checks pass.** The ready lab accepts reference/manual/coast controls,
+records and exactly replays six actions; all fourteen evidence categories load.
+Actual journey7.595s/386MB; all jobs terminal/reaped, no inference/API/deployment.
 
-The [normal motion-force CLI](motion-forces-cli.md) is verified: 75 checks,
-actual .937-second CLI, 92 inverse calls/zero physics steps. It reproduces the
-previous diagnostic exactly; all source/scored artifacts remain unchanged.
-This checkpoint exposes failures, not a reconstruction fix. Its native worker
-is terminal/reaped. Preserve separate avatar work. Publication receipt is
-`.local/motion-forces-cli-publication-01.json` once pushed. Full goal remains active.
+Original-task comparison reused four saved baselines: endpoint error improves
+4.28%, angular error worsens3.04%, reward worsens, success stays4/4. All184actions
+replay exactly and the ordinary receipt is available. Source image/force demand
+improve, but42/42 interior probes still exceed caps. **Optional research method,
+not default/policy promotion or physical accuracy.** Independent audit verifies
+1,200members/736actions; ready-lab audit verifies867members/317runtime files.
+
+[Equipment temporal geometry](equipment-temporal-silhouette.md) is implemented
+and tested, but the fixed cached-source study rejects unresolved identity. No
+actual geometry/contact improvement is claimed. [New exercise trial](unfamiliar-exercise-input-20261102-01.md)
+retains1,107native frames and554local pose calls;63.72%usable is below65%, with
+competing hypotheses and moving camera. No body admitted. It also exposes
+0.200636s nominal-clock drift; native/decoder tables retain their exact7ms offset.
+
+No live agents remain. Further delegation hit the usage limit; root continues
+locally. No `source_clock.py` was produced. Next implement the coordinated native
+clock binding described in the source handoff, while preserving the actual
+clip's failed quality/identity gates. Then resolve source-qualified motion,
+ground/equipment identity/contact and full-task learning; the full goal is active.
+No additional UI polish, paid calls, browser/server or deployment is scheduled.
+
+Publication receipt: `.local/parallel-reconstruction-publication-01.json` once
+pushed. Commit only owned verified paths, preserving separate avatar changes;
+no blanket Git cleanup. Prior `motion-forces` checkpoint59afbcf is published.
 
 ## Camera evidence reader restored — November 2, 2026, PST
 

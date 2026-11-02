@@ -22,10 +22,23 @@ RUNTIME_REQUIRED = frozenset({
 }) | IMPLEMENTATIONS
 
 
+def body_runtime_files(body):
+    # Optional source refinements must not invalidate older reconstruction receipts.
+    value = body
+    for name in ("camera_reference", "body_refinement", "joint_pixel_fit"):
+        value = value.get(name, {}) if isinstance(value, dict) else {}
+    if not isinstance(value, dict):
+        value = {}
+    uncertainty, contract = value.get("uncertainty"), value.get("contract")
+    gauge = (isinstance(uncertainty, dict) and uncertainty.get("schema_version") == 3
+             or isinstance(contract, dict) and contract.get("method") == "time-coupled-joint-pixels-v3")
+    return (*BODY_RUNTIME_FILES, "limb_twist_gauge.py") if gauge else BODY_RUNTIME_FILES
+
+
 def runtime_required(scene):
     # Saved receipts must pin reconstruction validators without importing native code.
     coupling = scene.get("camera_coupling")
-    extra = BODY_RUNTIME_FILES if isinstance(coupling, dict) and coupling.get("profile") == "camera-shared-coupling-v2" else ()
+    extra = body_runtime_files(scene.get("human_spec")) if isinstance(coupling, dict) and coupling.get("profile") == "camera-shared-coupling-v2" else ()
     return RUNTIME_REQUIRED | frozenset(extra)
 
 

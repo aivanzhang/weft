@@ -108,23 +108,27 @@ class SilhouetteEvidence:
 
 
 def prepare_silhouette_evidence(scene, *, source_documents, segmentation_evidence: bytes, mask_document: bytes,
-                                raster_documents, source_equivalences=()):
+                                raster_documents, source_equivalences=(), binary_raster_documents=None):
     """Verify complete clocks/source custody once; saved PNG decoding performs no inference or video work."""
     deadline = time.monotonic() + CONTRACT["maximum_seconds"]
     base = validate_shared_world(scene)
     binding = base["source_binding"]
     if binding["mode"] != "source_qualified":
         raise ValueError("Silhouette proposals require a complete source-qualified base")
+    binaries = {} if binary_raster_documents is None else binary_raster_documents
     if (not isinstance(source_equivalences, (tuple, list)) or len(source_equivalences) > 7
             or any(not isinstance(item, SourceEquivalence) for item in source_equivalences)
             or not isinstance(source_documents, Mapping) or not 1 <= len(source_documents) <= 8
             or any(type(raw) is not bytes for raw in source_documents.values())
             or not isinstance(raster_documents, Mapping) or len(raster_documents) > MAX_RASTERS
-            or any(type(raw) is not bytes for raw in raster_documents.values())):
+            or any(type(raw) is not bytes for raw in raster_documents.values())
+            or not isinstance(binaries, Mapping) or len(raster_documents) + len(binaries) > MAX_RASTERS
+            or set(raster_documents) & set(binaries) or any(type(raw) is not bytes for raw in binaries.values())):
         raise ValueError("Use bounded exact source documents and saved raster bytes")
     seg = _json_bytes(segmentation_evidence, "Segmentation evidence", MAX_DOCUMENT_BYTES)
     masks = _json_bytes(mask_document, "Mask evidence", MAX_DOCUMENT_BYTES)
-    size = len(segmentation_evidence) + len(mask_document) + sum(map(len, source_documents.values())) + sum(map(len, raster_documents.values()))
+    size = (len(segmentation_evidence) + len(mask_document) + sum(map(len, source_documents.values()))
+            + sum(map(len, raster_documents.values())) + sum(map(len, binaries.values())))
     if size + sum(item.total_input_bytes for item in source_equivalences) > MAX_INPUT_BYTES:
         raise ValueError("Prepared silhouette inputs exceed 64 MiB")
     refs = {row["world_entity_id"]: None if row["provenance_mode"] == "authored_addition" else
@@ -215,13 +219,28 @@ def prepare_silhouette_evidence(scene, *, source_documents, segmentation_evidenc
             paths[name] = row
         elif row["mask_status"] not in ("not_returned", "decode_failed"):
             raise ValueError("Unsupported mask availability state")
-    if not set(raster_documents) <= set(paths):
+    if not set(raster_documents) | set(binaries) <= set(paths):
         raise ValueError("Raster bytes contain an unknown or unavailable source slot")
     rasters, pixels = {}, 0
     for name, raw in raster_documents.items():
         _deadline(deadline)
         rasters[name] = _read_raster(raw, paths[name])
         pixels += math.prod(rasters[name][0])
+        if pixels > MAX_PREPARED_PIXELS:
+            raise ValueError("Prepared native mask rasters exceed their aggregate bound")
+    for name, raw in binaries.items():
+        _deadline(deadline)
+        row, shape = paths[name], paths[name].get("raster_dimensions")
+        if (not isinstance(shape, list) or len(shape) != 2
+                or any(type(n) is not int or not 1 <= n <= 4096 for n in shape)
+                or math.prod(shape) > MAX_MASK_PIXELS or len(raw) != math.prod(shape)):
+            raise ValueError("Saved binary mask dimensions exceed or differ from the native-cell bound")
+        if raw.count(b"\0") + raw.count(b"\1") != len(raw) or _sha(raw) != row.get("raster_sha256"):
+            raise ValueError("Saved binary raster differs from its decoded-mask SHA256 or binary values")
+        if not isinstance(row.get("silhouette"), dict) or row["silhouette"].get("foreground_pixels") != raw.count(b"\1"):
+            raise ValueError("Saved binary mask foreground accounting differs")
+        rasters[name] = (tuple(shape), raw, _sha(raw))
+        pixels += len(raw)
         if pixels > MAX_PREPARED_PIXELS:
             raise ValueError("Prepared native mask rasters exceed their aggregate bound")
     result = object.__new__(SilhouetteEvidence)
@@ -232,7 +251,9 @@ def prepare_silhouette_evidence(scene, *, source_documents, segmentation_evidenc
                   "segmentation_file_sha256": _sha(segmentation_evidence), "segmentation_canonical_sha256": canonical_hash(seg),
                   "mask_document_sha256": _sha(mask_document), "construction_sha256": _sha(construction_raw),
                   "source_mapping_manifests": [item.manifest_sha256 for item in source_equivalences],
-                  "raster_files": {name: value[2] for name, value in rasters.items()}})}
+                  "raster_files": {name: value[2] for name, value in rasters.items()},
+                  **({"raster_input_kinds": {name: "cached_binary" if name in binaries else "png"
+                                             for name in rasters}} if binary_raster_documents is not None else {})})}
     for name, value in values.items():
         object.__setattr__(result, name, value)
     _deadline(deadline)
