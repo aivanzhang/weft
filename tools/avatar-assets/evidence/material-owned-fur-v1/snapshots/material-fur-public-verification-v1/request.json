@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/usr/bin/env",
+    "-i",
+    "PATH=/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONPATH=/Users/ivan/kintsugi/weft/tools/avatar-assets",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "avatar_assets",
+    "verify",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-fur-finish-v1"
+  ],
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "seconds": 30
+  },
+  "pack_manifest_sha256": "8bbad9c6db6263d4fae88b3f8548704af4b8e7f7f0b7caff643d18e6541e055d",
+  "purpose": "Verify actual new public finish inventory and rig through the documented verify CLI; no native or provider execution.",
+  "schema_version": 1
+}

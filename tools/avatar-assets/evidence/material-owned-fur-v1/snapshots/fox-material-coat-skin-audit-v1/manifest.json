@@ -1,0 +1,80 @@
+{
+  "failed_result_preserved": true,
+  "files": [
+    {
+      "bytes": 242,
+      "path": "audit-handle.json",
+      "sha256": "dd0d90771e81d87f68336f7ea9b6071af96e227c2e0b076783fc06888f6ad743"
+    },
+    {
+      "bytes": 1027,
+      "path": "audit-monitor.json",
+      "sha256": "829291798011d260aff77b3bb7532ff94fc677114f4ae6d8a09a93cad4a01c32"
+    },
+    {
+      "bytes": 411,
+      "path": "audit.log",
+      "sha256": "84c0a5ea5713f6ec78db61011eed4e0cb31ad3bb30f5cf6e3d26c13bcb82fb3e"
+    },
+    {
+      "bytes": 13906,
+      "path": "audit.py",
+      "sha256": "f3b4dda7589be0bf77f47f35b18bd5d4b2cd20c28a19bad70fd29ffc1235bc59"
+    },
+    {
+      "bytes": 995,
+      "path": "execution-inputs.json",
+      "sha256": "49ab511013686892709bcc79085a09126f08be36d2180b8c74b1c9f76b5abfd2"
+    },
+    {
+      "bytes": 1121,
+      "path": "job.json",
+      "sha256": "c895fa72afaeebe7f3190c12fd7b240c83f8c40a737f3745aea6776cbb0f5666"
+    },
+    {
+      "bytes": 51205,
+      "path": "motion.json",
+      "sha256": "c8c03d4b7e23f7c808bb443722eefac7e44da9f88bb2b3d75e97c6d69006040f"
+    },
+    {
+      "bytes": 2993,
+      "path": "prepared.json",
+      "sha256": "63c61ef827af9a80554e6a679aa968e6a78e7af2029d5931dc342f4de444e97e"
+    },
+    {
+      "bytes": 1306,
+      "path": "result.json",
+      "sha256": "26725e9fcb5c17cfcb06125c06309b8cd08d248c54d4d5f395c9442d30d9934c"
+    },
+    {
+      "bytes": 3785,
+      "path": "review.json",
+      "sha256": "15d0e3c20655c96f0e8704272a3f5d75e9e5dc592b1a1a0a6acfee661366fb58"
+    },
+    {
+      "bytes": 322056,
+      "path": "roots.json",
+      "sha256": "18b9e6a74fe3d5783dcf95589cd2e92d5608a411e8ae843d5e8ed88cdc369752"
+    },
+    {
+      "bytes": 368351,
+      "path": "sampled-motion.npz",
+      "sha256": "870de2bdbc5ffec27c13341188690a31382a9921495e7f034b069685ba6c3b65"
+    },
+    {
+      "bytes": 23637,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ],
+  "large_inputs": "Exact hashes in prepared.json; original GLBs are not duplicated",
+  "original_assets_modified": false,
+  "schema_version": 1,
+  "status": "failed_sampled_source_surface_attachment",
+  "total_bytes": 826358
+}

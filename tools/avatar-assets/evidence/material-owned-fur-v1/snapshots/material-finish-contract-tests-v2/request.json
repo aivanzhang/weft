@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/env",
+    "-i",
+    "PATH=/usr/bin:/bin",
+    "PYTHONPATH=/Users/ivan/kintsugi/weft/tools/avatar-assets/tests:/Users/ivan/kintsugi/weft/tools/avatar-assets",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "test_material_finish_config",
+    "test_generated_workflow",
+    "-v"
+  ],
+  "hypothesis": "Expose the repository tests directory for its existing bare test_three_d import; test updated preserve-normal profile. Do not rerun the unchanged passing lazy sampling suite.",
+  "schema_version": 1
+}

@@ -1,0 +1,148 @@
+{
+  "approved_assets_replaced": false,
+  "fresh_studio_acceptance": false,
+  "fresh_text_generation": false,
+  "full_motion_or_loop_verified": false,
+  "kind": "human_visible_component_review",
+  "model_sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb",
+  "muse_equivalence": false,
+  "native_exported_appearance_equivalent": false,
+  "native_portrait": {
+    "observations": [
+      "Orange coat, cream face/chest/tail, dark paws, teal scarf and drawing props remain recognizable.",
+      "Short plush detail is visible but dense Muse-style strands are not established.",
+      "Tail color boundary remains angular; visual continuity is not a newly repaired surface."
+    ],
+    "resolution": [
+      720,
+      720
+    ]
+  },
+  "native_root_texture_sampling_independently_verified": false,
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "portable_views": {
+    "count": 4,
+    "observations": [
+      "Colors and accessories remain coherent across front, three-quarter, side and back.",
+      "Short textured pile and isolated silhouette bristles are visible, not dense native hair.",
+      "Angular tail-tip border and abrupt lower-leg dark patches remain visible.",
+      "The full rest subject fits all four views. These static views do not prove continuous motion framing."
+    ],
+    "resolution": [
+      720,
+      720
+    ]
+  },
+  "quality_approved": false,
+  "recorded": "2026-11-02 05:45:49 PST",
+  "retained_deformation_warning": {
+    "max_reported_excess_length_m": 0.03300863053828105,
+    "max_reported_stretch_ratio": 2.543063124449477,
+    "sample_second": 2,
+    "scope": "Existing-source motion diagnostic, not a new accepted rig or permission to relax the quality gate.",
+    "state": "milestone_level_up"
+  },
+  "review_method": "Assistant visually inspected each recorded original image through the local image viewer; no browser or generated critique call.",
+  "reviewed_images": [
+    {
+      "bytes": 421684,
+      "path": "outputs/fox-material-fur-export-preview-v1/front.png",
+      "sha256": "4ed878e15283116968bb95f38dcb8b562c03353c134d1120a2a0be9eacc553d0"
+    },
+    {
+      "bytes": 407661,
+      "path": "outputs/fox-material-fur-export-preview-v1/three-quarter.png",
+      "sha256": "a5764dbffb61e888b657d00878e7f6706d187f165853d48a5596dee1299e1af4"
+    },
+    {
+      "bytes": 372429,
+      "path": "outputs/fox-material-fur-export-preview-v1/side.png",
+      "sha256": "e0e1e4f9d0ad88b8fbf4617b5c665c1f393c638451ad924a9c3a72fa5908b48f"
+    },
+    {
+      "bytes": 415800,
+      "path": "outputs/fox-material-fur-export-preview-v1/back.png",
+      "sha256": "15693f3a483bb23b1c858c21fe55d1de8f2fe974825defbf935b06c0d0b401f0"
+    },
+    {
+      "bytes": 469180,
+      "path": "outputs/fox-material-fur-finish-v1/portrait.png",
+      "sha256": "09924c4c5024d9439fa30d60902df1d8f6f102788a9a87034cdb3f005f5056aa"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-material-fur-finish-v1/renders/idle/0000.png",
+      "sha256": "8f9def37b735ae273620c049a4d2ef162489d8093c9865f54a3e08d87069a4ff"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-material-fur-finish-v1/renders/idle/0002.png",
+      "sha256": "090e00a353b603e00f415966eb1b007b0bda9ff457f22bfc17e0da3dac8892c3"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-material-fur-finish-v1/renders/idle/0004.png",
+      "sha256": "eaefa13d78cfc58da6d63d5574a5e18b53fcbaf84007ade6d4efcfd2e3c3333c"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-material-fur-finish-v1/renders/making_something/0000.png",
+      "sha256": "bf53d768fb6e1a83b58b2600a4b5b4e5913c07740c4afdcc04e578e7f76cc7c8"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-material-fur-finish-v1/renders/making_something/0002.png",
+      "sha256": "4d6bef8908ebbed421be61698f4ed2afe5fb011d17efbafed0115330399b0d9d"
+    },
+    {
+      "bytes": 69460,
+      "path": "outputs/fox-material-fur-finish-v1/renders/making_something/0003.png",
+      "sha256": "df65ed6794f1472abb46b2dce2aabb7809bf3b2627d3fc1adcee030d6f2817e2"
+    },
+    {
+      "bytes": 69536,
+      "path": "outputs/fox-material-fur-finish-v1/renders/milestone_level_up/0000.png",
+      "sha256": "72310a9998ad6adc4f02aec3dd29f722347f9a474d525c13cceaedcc5fe6fde1"
+    },
+    {
+      "bytes": 71748,
+      "path": "outputs/fox-material-fur-finish-v1/renders/milestone_level_up/0002.png",
+      "sha256": "a52cf32ba3a3b71eb1d864d45a945fab12a61a96887e291b312cfdc9e20fafc8"
+    },
+    {
+      "bytes": 72351,
+      "path": "outputs/fox-material-fur-finish-v1/renders/milestone_level_up/0003.png",
+      "sha256": "b1350851aeba1188775569e269a4052572af604b2c0eeee045229ff1fc758638"
+    },
+    {
+      "bytes": 69282,
+      "path": "outputs/fox-material-fur-finish-v1/renders/working/0000.png",
+      "sha256": "28d233be4381c2648794ec061b80aa6d355ffe7e45cac54ee05bc67243c79e41"
+    },
+    {
+      "bytes": 69386,
+      "path": "outputs/fox-material-fur-finish-v1/renders/working/0002.png",
+      "sha256": "844f8d1f8940b59cd8ea63cc716990e15915d4e8ea08ec5732daea5403acd6e3"
+    },
+    {
+      "bytes": 68998,
+      "path": "outputs/fox-material-fur-finish-v1/renders/working/0003.png",
+      "sha256": "a63571ff2132bbbc205fa543189aba5a2216437092e7c87785d9372c01b55cbd"
+    }
+  ],
+  "schema_version": 1,
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "state_review": {
+    "evidence_scope": "12 draft frames, not final-HD media, continuous animation or a new semantic acceptance.",
+    "idle": "Small pose differences only; not enough to establish all requested ear/tail/breathing detail.",
+    "making_something": "Sketchbook/pencil remain in hand; sparse stills do not establish readable drawing strokes.",
+    "milestone_level_up": "Both hands and props visibly rise above shoulders at2seconds and return downward at3seconds. Hop/continuous deformation quality is not certified.",
+    "resolution": [
+      256,
+      256
+    ],
+    "working": "Book is held toward the face with head/pose differences; a deliberate page scan is not established by these samples."
+  },
+  "status": "component_viewed_not_quality_accepted"
+}

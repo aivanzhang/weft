@@ -1,0 +1,643 @@
+{
+  "animation_verified": false,
+  "artifacts": [
+    {
+      "bytes": 415800,
+      "path": "back.png",
+      "sha256": "15693f3a483bb23b1c858c21fe55d1de8f2fe974825defbf935b06c0d0b401f0"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "153d964247384e4df7c38b30ea73ca46032f1809afe1ff466342fe5ad59e9a5e"
+    },
+    {
+      "bytes": 421684,
+      "path": "front.png",
+      "sha256": "4ed878e15283116968bb95f38dcb8b562c03353c134d1120a2a0be9eacc553d0"
+    },
+    {
+      "bytes": 1571,
+      "path": "job.json",
+      "sha256": "2d3493579c41efa685652f9863c2bad28277e1d1658dc3f13173e013457268e1"
+    },
+    {
+      "bytes": 633,
+      "path": "native-handle.json",
+      "sha256": "a7b713739a6a03a30f5615274f620dec3d85dedede12209a07d309cecac3547b"
+    },
+    {
+      "bytes": 11401,
+      "path": "native-inspection.json",
+      "sha256": "a33a0f8972a130b89134a497f359643a865a55d3cd8ccb3cf73de0c4206a74fc"
+    },
+    {
+      "bytes": 1425,
+      "path": "native-monitor.json",
+      "sha256": "d741269b548072825d08bdedf7a85174a2c0d8e0e862609c3f948c39f9c8173e"
+    },
+    {
+      "bytes": 1655,
+      "path": "native.log",
+      "sha256": "6f3dc7396ee5f3991abc87d6b8f3a1f293cbff13b066f3e23e53145c6166659a"
+    },
+    {
+      "bytes": 27527176,
+      "path": "original.glb",
+      "sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb"
+    },
+    {
+      "bytes": 372429,
+      "path": "side.png",
+      "sha256": "e0e1e4f9d0ad88b8fbf4617b5c665c1f393c638451ad924a9c3a72fa5908b48f"
+    },
+    {
+      "bytes": 33447311,
+      "path": "source.blend",
+      "sha256": "b184bd117fca687558ddd868a6d20bf18ddff3fa6689eb64d7b3f6d9edf249b8"
+    },
+    {
+      "bytes": 37922,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "28d7e5001003085031c1c9065f80820239395246d3ad2a03776de00082af54ad"
+    },
+    {
+      "bytes": 13587,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 983,
+      "path": "started.json",
+      "sha256": "5e86f07a4f64afd2371e3cb55149c302711c5b86ef09b3a379d9f7f48f4c98fb"
+    },
+    {
+      "bytes": 407661,
+      "path": "three-quarter.png",
+      "sha256": "a5764dbffb61e888b657d00878e7f6706d187f165853d48a5596dee1299e1af4"
+    }
+  ],
+  "controller_elapsed_seconds": 2.446,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-fur-export-preview-v1/sources/blender_provider_preview.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-fur-export-preview-v1/original.glb",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-fur-export-preview-v1",
+      "720",
+      "16",
+      "false"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 2.345,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 62677971,
+    "last_rss_sample_elapsed_seconds": 2.084,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "native-monitor.json",
+    "monitor_errors": [],
+    "pid": 87603,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 8,
+    "sampled_max_output_bytes": 62677971,
+    "sampled_peak_rss_bytes": 709033984,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "material_fur_export_preview",
+  "limits": {
+    "native_sampled_rss_mib": 2048,
+    "native_seconds": 120,
+    "output_mib": 128,
+    "resolution": 720,
+    "samples": 16,
+    "views": 4
+  },
+  "measurement_scope": "Native wall time and sampled direct-child RSS; controller overhead is separate",
+  "native": {
+    "actions": [
+      "idle",
+      "making_something",
+      "milestone_level_up",
+      "working"
+    ],
+    "animation_verified": false,
+    "assumptions": [
+      "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+      "Raw generated units are not a calibrated physical measurement",
+      "Hidden geometry is generated, not recovered"
+    ],
+    "blender_version": "4.5.13 LTS",
+    "bounds_blender_z_up": {
+      "max": [
+        1.0762461423873901,
+        0.5571174621582031,
+        2.6500000953674316
+      ],
+      "min": [
+        -0.6681618690490723,
+        -0.6330000162124634,
+        0.008227045647799969
+      ]
+    },
+    "material_count": 19,
+    "meshes": [
+      {
+        "faces": 47776,
+        "materials": [
+          {
+            "faces": 11200,
+            "name": "coat",
+            "slot": 0
+          },
+          {
+            "faces": 6496,
+            "name": "cream",
+            "slot": 1
+          },
+          {
+            "faces": 3824,
+            "name": "nose",
+            "slot": 2
+          },
+          {
+            "faces": 5024,
+            "name": "eye_white",
+            "slot": 3
+          },
+          {
+            "faces": 2432,
+            "name": "iris",
+            "slot": 4
+          },
+          {
+            "faces": 2432,
+            "name": "pupil",
+            "slot": 5
+          },
+          {
+            "faces": 320,
+            "name": "ear_inner",
+            "slot": 6
+          },
+          {
+            "faces": 11520,
+            "name": "dark",
+            "slot": 7
+          },
+          {
+            "faces": 2320,
+            "name": "scarf",
+            "slot": 8
+          },
+          {
+            "faces": 612,
+            "name": "scarf_seam",
+            "slot": 9
+          },
+          {
+            "faces": 296,
+            "name": "book",
+            "slot": 10
+          },
+          {
+            "faces": 188,
+            "name": "paper",
+            "slot": 11
+          },
+          {
+            "faces": 84,
+            "name": "page_edge",
+            "slot": 12
+          },
+          {
+            "faces": 952,
+            "name": "gold",
+            "slot": 13
+          },
+          {
+            "faces": 46,
+            "name": "pencil_wood",
+            "slot": 14
+          },
+          {
+            "faces": 30,
+            "name": "graphite",
+            "slot": 15
+          }
+        ],
+        "name": "fox-hd-v3_skinned_mesh",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 30420
+      },
+      {
+        "faces": 8068,
+        "materials": [
+          {
+            "faces": 8068,
+            "name": "PortableCoat_0_cutout_fur",
+            "slot": 0
+          }
+        ],
+        "name": "PortableCoat_0",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 21643
+      },
+      {
+        "faces": 2108,
+        "materials": [
+          {
+            "faces": 2108,
+            "name": "PortableCoat_0.001_cutout_fur",
+            "slot": 0
+          }
+        ],
+        "name": "PortableCoat_0.001",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 5662
+      },
+      {
+        "faces": 1824,
+        "materials": [
+          {
+            "faces": 1824,
+            "name": "PortableCoat_0.002_cutout_fur",
+            "slot": 0
+          }
+        ],
+        "name": "PortableCoat_0.002",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 4893
+      }
+    ],
+    "render_engine": "BLENDER_EEVEE_NEXT",
+    "render_policy": {
+      "engine": "BLENDER_EEVEE_NEXT",
+      "engine_fallback": false,
+      "policy": "gltf-single-sided-culling-eevee-next-v1",
+      "reason": "Respect imported glTF single-sided culling and authored-normal semantics",
+      "sample_control": "scene.eevee.taa_render_samples",
+      "samples_actual": 16,
+      "samples_requested": 16,
+      "scope": "Exported GLB review only; native hair/portrait renderers are separate"
+    },
+    "renders": [
+      {
+        "path": "front.png",
+        "sha256": "4ed878e15283116968bb95f38dcb8b562c03353c134d1120a2a0be9eacc553d0",
+        "view": "front"
+      },
+      {
+        "path": "three-quarter.png",
+        "sha256": "a5764dbffb61e888b657d00878e7f6706d187f165853d48a5596dee1299e1af4",
+        "view": "three-quarter"
+      },
+      {
+        "path": "back.png",
+        "sha256": "15693f3a483bb23b1c858c21fe55d1de8f2fe974825defbf935b06c0d0b401f0",
+        "view": "back"
+      },
+      {
+        "path": "side.png",
+        "sha256": "e0e1e4f9d0ad88b8fbf4617b5c665c1f393c638451ad924a9c3a72fa5908b48f",
+        "view": "side"
+      }
+    ],
+    "rigs": [
+      {
+        "bones": [
+          {
+            "head": [
+              0.0,
+              0.0,
+              0.05999999865889549
+            ],
+            "name": "root",
+            "parent": null,
+            "tail": [
+              0.0,
+              2.3275408267409148e-08,
+              0.7399999499320984
+            ]
+          },
+          {
+            "head": [
+              -8.602677739462764e-23,
+              2.327540649105231e-08,
+              0.7399998903274536
+            ],
+            "name": "torso",
+            "parent": "root",
+            "tail": [
+              -8.602677739462764e-23,
+              3.2318482112714264e-08,
+              1.0041967630386353
+            ]
+          },
+          {
+            "head": [
+              -8.602677739462764e-23,
+              5.442338135708269e-08,
+              1.6499998569488525
+            ],
+            "name": "head",
+            "parent": "torso",
+            "tail": [
+              1.6984167716343694e-22,
+              7.510263344556734e-08,
+              2.254152297973633
+            ]
+          },
+          {
+            "head": [
+              -0.28999999165534973,
+              6.263822882601744e-08,
+              2.179999828338623
+            ],
+            "name": "ear_left",
+            "parent": "head",
+            "tail": [
+              -0.28999999165534973,
+              8.331748801992944e-08,
+              2.7841522693634033
+            ]
+          },
+          {
+            "head": [
+              0.28999999165534973,
+              8.249079286315464e-08,
+              2.179999828338623
+            ],
+            "name": "ear_right",
+            "parent": "head",
+            "tail": [
+              0.28999999165534973,
+              1.0317005205706664e-07,
+              2.7841522693634033
+            ]
+          },
+          {
+            "head": [
+              -4.44089315729181e-16,
+              0.18000002205371857,
+              0.9799999594688416
+            ],
+            "name": "tail",
+            "parent": "torso",
+            "tail": [
+              -4.44089315729181e-16,
+              0.18000003695487976,
+              1.244196891784668
+            ]
+          },
+          {
+            "head": [
+              -0.38999995589256287,
+              3.593996211748163e-08,
+              1.499999761581421
+            ],
+            "name": "upper_arm_left",
+            "parent": "torso",
+            "tail": [
+              -0.38999995589256287,
+              4.728195790448808e-08,
+              1.8313605785369873
+            ]
+          },
+          {
+            "head": [
+              -0.5399999618530273,
+              -0.1199999451637268,
+              1.2299997806549072
+            ],
+            "name": "forearm_left",
+            "parent": "upper_arm_left",
+            "tail": [
+              -0.5399999618530273,
+              -0.11999993026256561,
+              1.6153568029403687
+            ]
+          },
+          {
+            "head": [
+              -0.2799999713897705,
+              -0.3999999165534973,
+              1.1799997091293335
+            ],
+            "name": "hand_left",
+            "parent": "forearm_left",
+            "tail": [
+              -0.2799999713897705,
+              -0.3999999165534973,
+              1.3415546417236328
+            ]
+          },
+          {
+            "head": [
+              -0.15999996662139893,
+              -0.4899999499320984,
+              1.1199997663497925
+            ],
+            "name": "sketchbook",
+            "parent": "hand_left",
+            "tail": [
+              -0.15999996662139893,
+              -0.4899999499320984,
+              1.2815546989440918
+            ]
+          },
+          {
+            "head": [
+              -0.23000000417232513,
+              3.475371102013014e-08,
+              0.869999885559082
+            ],
+            "name": "thigh_left",
+            "parent": "torso",
+            "tail": [
+              -0.23000000417232513,
+              4.8107231975791365e-08,
+              1.260128140449524
+            ]
+          },
+          {
+            "head": [
+              -0.23000000417232513,
+              -0.009999997913837433,
+              0.4799998700618744
+            ],
+            "name": "shin_left",
+            "parent": "thigh_left",
+            "tail": [
+              -0.23000000417232513,
+              -0.009999987669289112,
+              0.7806658148765564
+            ]
+          },
+          {
+            "head": [
+              -0.23000000417232513,
+              -0.030000003054738045,
+              0.17999988794326782
+            ],
+            "name": "foot_left",
+            "parent": "shin_left",
+            "tail": [
+              -0.23000000417232513,
+              -0.0299999937415123,
+              0.48066583275794983
+            ]
+          },
+          {
+            "head": [
+              0.38999995589256287,
+              6.263822882601744e-08,
+              1.499999761581421
+            ],
+            "name": "upper_arm_right",
+            "parent": "torso",
+            "tail": [
+              0.38999995589256287,
+              7.398022461302389e-08,
+              1.8313605785369873
+            ]
+          },
+          {
+            "head": [
+              0.5399999618530273,
+              -0.11999990791082382,
+              1.2299997806549072
+            ],
+            "name": "forearm_right",
+            "parent": "upper_arm_right",
+            "tail": [
+              0.5399999618530273,
+              -0.11999989300966263,
+              1.613275170326233
+            ]
+          },
+          {
+            "head": [
+              0.27999991178512573,
+              -0.39999985694885254,
+              1.2599997520446777
+            ],
+            "name": "hand_right",
+            "parent": "forearm_right",
+            "tail": [
+              0.27999991178512573,
+              -0.39999985694885254,
+              1.3387398719787598
+            ]
+          },
+          {
+            "head": [
+              0.28999990224838257,
+              -0.4499998390674591,
+              1.3199998140335083
+            ],
+            "name": "pencil",
+            "parent": "hand_right",
+            "tail": [
+              0.28999990224838257,
+              -0.4499998390674591,
+              1.3987399339675903
+            ]
+          },
+          {
+            "head": [
+              0.23000000417232513,
+              2.0696523606034134e-08,
+              0.869999885559082
+            ],
+            "name": "thigh_right",
+            "parent": "torso",
+            "tail": [
+              0.23000000417232513,
+              3.405004278533852e-08,
+              1.260128140449524
+            ]
+          },
+          {
+            "head": [
+              0.23000000417232513,
+              -0.010000011883676052,
+              0.4799998700618744
+            ],
+            "name": "shin_right",
+            "parent": "thigh_right",
+            "tail": [
+              0.23000000417232513,
+              -0.010000001639127731,
+              0.7806657552719116
+            ]
+          },
+          {
+            "head": [
+              0.23000000417232513,
+              -0.030000001192092896,
+              0.1799999177455902
+            ],
+            "name": "foot_right",
+            "parent": "shin_right",
+            "tail": [
+              0.23000000417232513,
+              -0.02999999187886715,
+              0.48066583275794983
+            ]
+          }
+        ],
+        "name": "AvatarRig"
+      }
+    ],
+    "schema_version": 1,
+    "source_is_untextured": false,
+    "source_sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb",
+    "source_unchanged": true
+  },
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "prepared_sha256": "21b3922a93f400fcbddc66436ba0606ac28cd80fa0e0b616471555e6c9a8b2e3",
+  "quality_approved": false,
+  "rig_created": false,
+  "schema_version": 1,
+  "source_sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb",
+  "status": "needs_visual_review"
+}

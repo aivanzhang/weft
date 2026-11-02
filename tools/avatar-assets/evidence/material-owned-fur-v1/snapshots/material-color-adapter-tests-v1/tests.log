@@ -1,0 +1,13 @@
+test_aggregate_16mp_is_rejected_in_description_before_any_pixel_allocation (tests.test_material_color_adapter.MaterialColorAdapterTests.test_aggregate_16mp_is_rejected_in_description_before_any_pixel_allocation) ... ok
+test_constant_only_source_needs_no_uv_or_pixel_buffer (tests.test_material_color_adapter.MaterialColorAdapterTests.test_constant_only_source_needs_no_uv_or_pixel_buffer) ... ok
+test_differing_material_and_textured_uv_vertex_ownership_reject_before_pixels (tests.test_material_color_adapter.MaterialColorAdapterTests.test_differing_material_and_textured_uv_vertex_ownership_reject_before_pixels) ... ok
+test_distinct_images_and_constant_faces_keep_owned_colors_and_source_graph (tests.test_material_color_adapter.MaterialColorAdapterTests.test_distinct_images_and_constant_faces_keep_owned_colors_and_source_graph) ... ok
+test_same_image_is_read_once_even_with_different_material_objects (tests.test_material_color_adapter.MaterialColorAdapterTests.test_same_image_is_read_once_even_with_different_material_objects) ... ok
+test_transparent_emitted_surfaces_and_missing_used_materials_reject_before_pixels (tests.test_material_color_adapter.MaterialColorAdapterTests.test_transparent_emitted_surfaces_and_missing_used_materials_reject_before_pixels) ... ok
+test_used_nonemitter_is_colored_but_unused_invalid_slots_are_ignored (tests.test_material_color_adapter.MaterialColorAdapterTests.test_used_nonemitter_is_colored_but_unused_invalid_slots_are_ignored) ... ok
+test_wrong_graph_filter_wrap_color_space_and_uv_are_rejected_before_pixel_reads (tests.test_material_color_adapter.MaterialColorAdapterTests.test_wrong_graph_filter_wrap_color_space_and_uv_are_rejected_before_pixel_reads) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.007s
+
+OK

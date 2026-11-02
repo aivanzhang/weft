@@ -65,7 +65,7 @@ def build_quality_policy(request, plan, inspection=None):
                              + (["measured_non_fur_masks"] if mixed_coat else []),
         "fur_requested": fibers, "mixed_coat": mixed_coat,
         "portable_coat_routes": {"default": "portable_fur/combed-v1" if fibers else None,
-                                 "optional": ["portable_fringe/edge-fringe-v1"] if fibers else [],
+                                 "optional": ["portable_fringe/edge-fringe-v1", "material_fur/v1+portable_fur/tuft-v1"] if fibers else [],
                                  "automatic_fringe_selection": False, "visual_acceptance": False},
         "review": {"minimum_side": 720, "portrait_minimum_side":
                    512 if request.get("preset") == "draft" else 1600 if request.get("preset") == "muse" else 720,
@@ -78,6 +78,7 @@ def build_quality_policy(request, plan, inspection=None):
             "For fur/hair, preserve silhouette, patch colors and directional length changes; inspect native strands and exported coat geometry independently.",
             "Portable fringe is an opt-in source-colored edge-fin alternative, not the default, dense fur or Muse parity; it shares flow direction only, with uniform fin length and lean.",
             "Fringe-specific excluded materials do not mask native hair; mixed surfaces still need measured native exclusions or explicit part masks.",
+            "Opt-in material_fur selects exact observed fur materials for both representations, preserves source normals/colors, and uses tuft-v1 portable cards; its budgets are shared across materials, not multiplied.",
             "Only diagnose-and-repair color, normals or geometry with their bounded controls; retained textures or high counts are not added detail.",
             "A departing fused part needs a separately reviewed geometry derivative; hidden separation/cap repair is not automatic.",
         ],
@@ -90,8 +91,16 @@ def build_quality_policy(request, plan, inspection=None):
 def evaluate_finish_policy(config, policy):
     """Structural prerequisites cannot prove coat density, likeness or material appearance."""
     require(isinstance(config, dict) and isinstance(policy, dict) and policy.get("mode") == "high_quality", "Invalid finishing policy input")
-    require(all(field not in config or isinstance(config[field], dict) for field in ("groom", "groom_flow", "portable_fur", "portable_fringe")),
+    require(all(field not in config or isinstance(config[field], dict) for field in ("groom", "groom_flow", "portable_fur", "portable_fringe", "material_fur")),
             "Finishing policy requires validated finishing fields")
+    material_fur = config.get("material_fur")
+    if "material_fur" in config:
+        require(set(material_fur) == {"version", "materials"} and type(material_fur["version"]) is int
+                and material_fur["version"] == 1, "Invalid material-owned fur selector")
+        names = material_fur["materials"]
+        require(isinstance(names, list) and 1 <= len(names) <= 32
+                and all(isinstance(name, str) and 0 < len(name) <= 128 for name in names)
+                and len(set(names)) == len(names), "Invalid material-owned fur names")
     if "portable_fringe" in config:
         from avatar_assets.portable_fringe import validate_fringe
         validate_fringe(config["portable_fringe"])
@@ -115,11 +124,12 @@ def evaluate_finish_policy(config, policy):
         if config.get("groom") and config["groom"].get("parents", 0) * (config["groom"].get("children", 0)+1) < 1000:
             failures.append("Sparse diagnostic groom cannot stand in for the required coat")
         settings = config.get("portable_fur", {}).get("settings", {})
-        if config.get("portable_fur") and (settings.get("sample_root_color") is not True or settings.get("profile") != "combed-v1"):
-            failures.append("Portable fur needs source-colored combed cards; inspect their actual fidelity separately")
-        if policy["mixed_coat"] and not (config.get("groom_exclusions") or config.get("groom_excluded_parts")):
-            failures.append("Mixed furry/non-furry surfaces need measured exclusions or exact part masks")
-    elif config.get("groom") or config.get("portable_fur") or config.get("portable_fringe"):
+        profile = "tuft-v1" if material_fur else "combed-v1"
+        if config.get("portable_fur") and (settings.get("sample_root_color") is not True or settings.get("profile") != profile):
+            failures.append("Portable fur needs source-colored " + profile + " cards; inspect their actual fidelity separately")
+        if policy["mixed_coat"] and not (config.get("groom_exclusions") or config.get("groom_excluded_parts") or material_fur):
+            failures.append("Mixed furry/non-furry surfaces need measured exclusions, exact part masks or material-owned fur")
+    elif config.get("groom") or config.get("portable_fur") or config.get("portable_fringe") or material_fur:
         failures.append("Finishing added fibers absent from the intended materials")
     return {"passed": not failures, "failures": failures, "visual_acceptance": False,
             "scope": "Structural material/representation prerequisites only; appearance still needs full-resolution review."}

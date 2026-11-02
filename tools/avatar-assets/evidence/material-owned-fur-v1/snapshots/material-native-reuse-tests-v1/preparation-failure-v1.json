@@ -1,0 +1,11 @@
+{
+  "bounded_child_started": false,
+  "changed_hypothesis": "The test directory is a namespace package. Omit the nonexistent __init__.py metadata input; verify already copied snapshots byte-for-byte without overwriting.",
+  "failure": "AssertionError while snapshotting nonexistent tests/__init__.py",
+  "native_jobs": 0,
+  "old_preparer_sha256": "ddafe4906f8441e9fc2ccf08aae9e2333770554f86084c91456a0326cc9e9f24",
+  "provider_calls": 0,
+  "status": "preparation_failed_before_child",
+  "tests_run": 0,
+  "traceback": "execute.py line 36: assert source.is_file() and not source.is_symlink() and source.stat().st_size <= 8*1024**2; AssertionError"
+}

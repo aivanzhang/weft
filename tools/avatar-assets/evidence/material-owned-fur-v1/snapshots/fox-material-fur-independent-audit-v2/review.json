@@ -1,0 +1,148 @@
+{
+  "checks": {
+    "body_materials_and_active_image_bytes": 16,
+    "body_triangles": 47776,
+    "cards_by_material": {
+      "coat": 2017,
+      "cream": 527,
+      "dark": 456
+    },
+    "clips": 4,
+    "embedded_active_body_image_hashes_equal": true,
+    "exported_root_center_max_error_m": 1.115644328031351e-07,
+    "exported_root_rgb_max_error": 1.5706505629431433e-07,
+    "final_body_vertices_after_export_seams": 30420,
+    "independent_sampled_root_colors": 384,
+    "named_joints": 20,
+    "named_weights_max": 0.0,
+    "native_part_face_and_loop_memberships_exact": true,
+    "native_source_P_face_loop_UV_material_signatures_exact": true,
+    "normal_uv_guard_receipt": "supported",
+    "oriented_body_triangle_multisets_equal": true,
+    "portable_cards": 3000,
+    "positions_max_m": 0.0,
+    "reported_native_parents": 5000,
+    "reported_parents_by_material": {
+      "coat": 3347,
+      "cream": 885,
+      "dark": 768
+    },
+    "rest_world_max_component_error": 2.384185795456517e-07,
+    "root_linear_rgb_max_error": 1.327794265648663e-07,
+    "sample_times_per_clip": 9,
+    "sampled_all_body_skin_max_component_error_m": 3.433050115297931e-07,
+    "source_vertices": 30418,
+    "uv_max": 0.0
+  },
+  "cost": {
+    "new_AI_role_calls": 0,
+    "new_Meshy_calls": 0,
+    "new_native_calls": 0
+  },
+  "historical_source_binding": [
+    {
+      "equals_prelaunch": true,
+      "historical_source": "outputs/fox-material-fur-finish-v1/sources/finish_generated.py",
+      "prelaunch_sha256": "5b81523da8e79e595b90eeea78e278647d74c8dc63ebfe43816c89f3c3316497",
+      "sha256": "5b81523da8e79e595b90eeea78e278647d74c8dc63ebfe43816c89f3c3316497"
+    },
+    {
+      "equals_prelaunch": true,
+      "historical_source": "outputs/fox-material-fur-finish-v1/sources/blender_finish_generated.py",
+      "prelaunch_sha256": "71a9e62b1cb7bf3f4bdbe3698096ae60a5672f6be55a673af46c2a43d0d77938",
+      "sha256": "71a9e62b1cb7bf3f4bdbe3698096ae60a5672f6be55a673af46c2a43d0d77938"
+    },
+    {
+      "equals_prelaunch": true,
+      "historical_source": "outputs/fox-material-fur-finish-v1/sources/blender_material_colors.py",
+      "prelaunch_sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "equals_prelaunch": true,
+      "historical_source": "outputs/fox-material-fur-finish-v1/sources/blender_material_coat.py",
+      "prelaunch_sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "equals_prelaunch": true,
+      "historical_source": "outputs/fox-material-fur-finish-v1/sources/blender_material_groom.py",
+      "prelaunch_sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    }
+  ],
+  "model_sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb",
+  "prior_checker_failure": {
+    "correction": "Only COLOR_0 VEC3/VEC4 admission changed; RGB gates and all other checks unchanged.",
+    "manifest_sha256": "5cf1a9171d38893b74b0a60eccc83a231639cf351b5ad5ce99c115b720b07891",
+    "path": "outputs/fox-material-fur-independent-audit-v1"
+  },
+  "quality_approved": false,
+  "recorded_local": "2026-11-02T05:54:30.462977-08:00",
+  "retained_motion_limits": {
+    "interpretation": "Source-motion fidelity passed; this is not a motion repair. The milestone edge stretch remains a producer-reported defect, consistent with preserved source motion. No loop/physics/appearance claim.",
+    "producer_sampled_outliers": [
+      {
+        "count": 0,
+        "id": "idle",
+        "loop_verified": false,
+        "maximum_excess_m": null,
+        "maximum_stretch_ratio": null,
+        "seconds": []
+      },
+      {
+        "count": 0,
+        "id": "making_something",
+        "loop_verified": false,
+        "maximum_excess_m": null,
+        "maximum_stretch_ratio": null,
+        "seconds": []
+      },
+      {
+        "count": 4,
+        "id": "milestone_level_up",
+        "loop_verified": false,
+        "maximum_excess_m": 0.03300863053828105,
+        "maximum_stretch_ratio": 2.543063124449477,
+        "seconds": [
+          2.0
+        ]
+      },
+      {
+        "count": 0,
+        "id": "working",
+        "loop_verified": false,
+        "maximum_excess_m": null,
+        "maximum_stretch_ratio": null,
+        "seconds": []
+      }
+    ]
+  },
+  "runtime": {
+    "audit_elapsed_seconds": 2.935665958095342,
+    "exit_code": 0,
+    "pid": 89140,
+    "process_exit_verified": true,
+    "process_high_water_RSS_bytes": 340688896,
+    "runner_wall_seconds": 3.123,
+    "sampled_direct_child_peak_RSS_bytes": 337477632
+  },
+  "schema_version": 1,
+  "shading_limits": {
+    "exact_normal_or_tangent_equivalence": false,
+    "normal_min_candidate_max_component_error": 0.0003999173641204834,
+    "note": "Normal/tangent metrics are lower bounds where source candidates differ. This is not a full shading-frame preservation pass.",
+    "tangent_min_candidate_max_component_error": 0.00039999932050704956,
+    "vertices_with_ambiguous_source_normal_identity": 2075
+  },
+  "source_kind": "Existing locally authored procedural fox, not fresh neural generation or Studio completion",
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "passed_declared_CPU_fidelity_and_sampled_root_color_checks",
+  "unverified": [
+    "Native particle-hair root texture sampling",
+    "All 3000 root colors: only384 fixed recorded samples independently checked",
+    "GPU filtering or screen-space appearance",
+    "New portable coat weighted deformation",
+    "Muse quality, complete Studio generation, Weft integration"
+  ]
+}

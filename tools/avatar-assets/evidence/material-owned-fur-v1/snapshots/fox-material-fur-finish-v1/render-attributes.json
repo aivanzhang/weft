@@ -1,0 +1,264 @@
+{
+  "checks": [
+    "finite normals/UV0/UV1/UV2/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "selected normal-map UV0/UV1/UV2 binding"
+  ],
+  "decoded_scalar_values": 563562,
+  "limitations": [
+    "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+    "This HD check does not change Weft's diffuse UV0-only contract; normal maps and extra UV sets remain unsupported there."
+  ],
+  "limits": {
+    "decoded_global_values": 2000000,
+    "decoded_surface_values": 1100000,
+    "file_bytes": 67108864,
+    "normal_map_uv_indices": [
+      0,
+      1,
+      2
+    ],
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "coat",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.133239880297566e-07,
+      "normal_tangent_dot_error": 0.0003181611995015654,
+      "tangent_squared_length_error": 0.00015659801807288432,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 7079
+    },
+    {
+      "material": "cream",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.004848775882806e-07,
+      "normal_tangent_dot_error": 0.00021994152109519214,
+      "tangent_squared_length_error": 0.00013788349807697386,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 3876
+    },
+    {
+      "material": "nose",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.811164134224441e-07,
+      "normal_tangent_dot_error": 0.0001908715621361523,
+      "tangent_squared_length_error": 0.0001315131582300122,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 2212
+    },
+    {
+      "material": "eye_white",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8649664212944117e-07,
+      "normal_tangent_dot_error": 0.00011014837630396457,
+      "tangent_squared_length_error": 0.0001235975477991147,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 2812
+    },
+    {
+      "material": "iris",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.7156809861695876e-07,
+      "normal_tangent_dot_error": 9.794229744825543e-05,
+      "tangent_squared_length_error": 0.00010091643434506636,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 1382
+    },
+    {
+      "material": "pupil",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.6028638794018946e-07,
+      "normal_tangent_dot_error": 8.674173296085996e-05,
+      "tangent_squared_length_error": 0.00011423708917457365,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 1382
+    },
+    {
+      "material": "ear_inner",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.849501138906362e-07,
+      "normal_tangent_dot_error": 9.628949132789444e-05,
+      "tangent_squared_length_error": 0.0001238863020525116,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 256
+    },
+    {
+      "material": "dark",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 1.9531507522430047e-07,
+      "normal_tangent_dot_error": 0.00010320174970335216,
+      "tangent_squared_length_error": 0.00011974039056372732,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 6774
+    },
+    {
+      "material": "scarf",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 1.904166051502898e-07,
+      "normal_tangent_dot_error": 0.00011350295116940856,
+      "tangent_squared_length_error": 0.00012424333763139117,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 1433
+    },
+    {
+      "material": "scarf_seam",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8593610384698422e-07,
+      "normal_tangent_dot_error": 0.0009307761208937615,
+      "tangent_squared_length_error": 0.00012147218156854933,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 523
+    },
+    {
+      "material": "book",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8593948780676328e-07,
+      "normal_tangent_dot_error": 0.00011032006473365996,
+      "tangent_squared_length_error": 0.00013222605737928106,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 864
+    },
+    {
+      "material": "paper",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8258300560347607e-07,
+      "normal_tangent_dot_error": 0.00010791890579908703,
+      "tangent_squared_length_error": 0.00012390622788505112,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 552
+    },
+    {
+      "material": "page_edge",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 9.664481481763687e-08,
+      "normal_tangent_dot_error": 3.867094932674675e-05,
+      "tangent_squared_length_error": 2.00753763246464e-05,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 168
+    },
+    {
+      "material": "gold",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.1031538244287162e-07,
+      "normal_tangent_dot_error": 0.00012913716095031003,
+      "tangent_squared_length_error": 0.00012958732085821545,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 1025
+    },
+    {
+      "material": "pencil_wood",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.3331646986358692e-07,
+      "normal_tangent_dot_error": 8.945484167099949e-05,
+      "tangent_squared_length_error": 0.00011373594050367863,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 49
+    },
+    {
+      "material": "graphite",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.733051364638527e-07,
+      "normal_tangent_dot_error": 9.693991890724618e-05,
+      "tangent_squared_length_error": 0.00011733491035514909,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 33
+    },
+    {
+      "material": "PortableCoat_0_cutout_fur",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.1645124537172933e-07,
+      "normal_tangent_dot_error": 0.0001328206688902627,
+      "tangent_squared_length_error": 0.00013591850539640404,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 21643
+    },
+    {
+      "material": "PortableCoat_0.001_cutout_fur",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.2477871386428205e-07,
+      "normal_tangent_dot_error": 0.0001241433422480842,
+      "tangent_squared_length_error": 0.0001328866501000281,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 5662
+    },
+    {
+      "material": "PortableCoat_0.002_cutout_fur",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.9175221099843043e-07,
+      "normal_tangent_dot_error": 0.00012950371830910967,
+      "tangent_squared_length_error": 0.00013926178314216386,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 4893
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb",
+  "status": "validated_render_attributes",
+  "tangent_uv_derivation_verified": false,
+  "vertices": 62618,
+  "weft_runtime_verified": false
+}

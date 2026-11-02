@@ -1,0 +1,122 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1266,
+      "path": "job.json",
+      "sha256": "6aa000070d820e2212027a7d1073c08d16475e94748136e6fa6061b87423b855"
+    },
+    {
+      "bytes": 492,
+      "path": "request.json",
+      "sha256": "07c11f90aa40fcae2d8ce73bb1023485a5868a9d73fb95e5a397de1aeb632b4a"
+    },
+    {
+      "bytes": 34936,
+      "path": "sources/avatar_assets/finish_generated.py",
+      "sha256": "9aee35449e2706c4547b37263ce974fae9e5a3746fd34a67e0f6ae26491cce19"
+    },
+    {
+      "bytes": 57110,
+      "path": "sources/scripts/blender_finish_generated.py",
+      "sha256": "6002d495a75063d717d09851ec15269372f023f12b95ffbe35f37972e26bc45f"
+    },
+    {
+      "bytes": 5450,
+      "path": "sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 8894,
+      "path": "sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 31282,
+      "path": "sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 9487,
+      "path": "sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 11033,
+      "path": "sources/tests/test_generated_workflow.py",
+      "sha256": "3189cfd82e998261c646a0379add419dbc5820be20d2ba932feda28434c36d4d"
+    },
+    {
+      "bytes": 10914,
+      "path": "sources/tests/test_lazy_source_color_sampling.py",
+      "sha256": "9028031212294e00f1d72bf8a465366195b7fde248df98b50e604f2158564298"
+    },
+    {
+      "bytes": 3821,
+      "path": "sources/tests/test_material_finish_config.py",
+      "sha256": "91f824eefb60323804d3c38b2e1f644e5e578a37d91493058973016ab24dd098"
+    },
+    {
+      "bytes": 352,
+      "path": "tests-handle.json",
+      "sha256": "c426690437d7ad8d008b8859427ae8c15a69e795367c5353c0aeb6a1a4b0bd94"
+    },
+    {
+      "bytes": 1136,
+      "path": "tests-monitor.json",
+      "sha256": "c9221848dfae6ebc8a50f99eada5029528d03f793ba5034f5068ae09dd8db619"
+    },
+    {
+      "bytes": 3965,
+      "path": "tests.log",
+      "sha256": "25e8571381208ece02abe0cb5fe4030af942792ecc96377d0e8d752d7e8f2123"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "-i",
+      "PATH=/usr/bin:/bin",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "tests.test_material_finish_config",
+      "tests.test_lazy_source_color_sampling",
+      "tests.test_generated_workflow",
+      "-v"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.784,
+    "exit_code": 1,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 178758,
+    "last_rss_sample_elapsed_seconds": 0.522,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 86604,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 2,
+    "sampled_max_output_bytes": 178758,
+    "sampled_peak_rss_bytes": 62455808,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "status": "failed"
+}

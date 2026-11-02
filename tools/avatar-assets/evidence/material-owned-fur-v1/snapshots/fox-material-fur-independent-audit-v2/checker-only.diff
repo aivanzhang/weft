@@ -1,0 +1,13 @@
+--- v1/audit.py
++++ v2/audit.py
+@@ -136,7 +136,9 @@
+         card_faces = h.arrays(final, primitive['indices'], 'SCALAR', (5121, 5123, 5125), indices=True).reshape(-1, 3).astype(int)
+         card_points = h.arrays(final, attrs['POSITION'], 'VEC3', (5126,))[:, [0, 2, 1]].copy()
+         card_points[:, 1] *= -1
+-        card_colors = h.arrays(final, attrs['COLOR_0'], 'VEC4', (5121, 5123, 5126))
++        color_kind = final.doc['accessors'][attrs['COLOR_0']]['type']
++        require(color_kind in ('VEC3', 'VEC4'), 'COLOR_0 must contain RGB or RGBA')
++        card_colors = h.arrays(final, attrs['COLOR_0'], color_kind, (5121, 5123, 5126))
+         color_type = final.doc['accessors'][attrs['COLOR_0']]['componentType']
+         color_tolerance = gates['root_linear_rgb'] + {5121: .5/255, 5123: .5/65535, 5126: 0}[color_type]
+         require(len(card_faces) == report['cards']*4, 'Portable triangle/card count mismatch')

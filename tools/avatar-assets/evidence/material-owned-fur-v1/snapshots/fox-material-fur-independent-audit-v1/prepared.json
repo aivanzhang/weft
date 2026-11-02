@@ -1,0 +1,99 @@
+{
+  "expected_counts": {
+    "cards": 3000,
+    "clips": 4,
+    "joints": 20,
+    "native_parents": 5000,
+    "sampled_roots": 384,
+    "source_body_triangles": 47776,
+    "source_body_vertices": 30418
+  },
+  "final": "outputs/fox-material-fur-finish-v1/model.glb",
+  "gates": {
+    "named_skin_weights": 1e-06,
+    "native_source_ID_signature": "exact where compared",
+    "positions_m": 1e-06,
+    "root_linear_rgb": 2e-06,
+    "root_position_m": 1e-06,
+    "sampled_pose_m": 1e-05,
+    "uv": 1e-06
+  },
+  "historical_execution_source": "Final pack sources bind the code used by the actual finisher. No current-wrapper equivalence is claimed.",
+  "inputs": [
+    {
+      "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+      "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/model.glb",
+      "sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/finish-report.json",
+      "sha256": "76038d0a72f8da820e9a039ae8e12bc7f23152a7ff594a26aa76fa9b834373eb"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/report.json",
+      "sha256": "8eccf2b1e43c64c9beb06b5fd30ad91579e8a62596d13b906595d93ff24827f8"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/correspondence.npz",
+      "sha256": "8b7b59269e10cbe83eb146cc30168f9acc6c8a85e0ccde94316c416f90b78d13"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/manifest.json",
+      "sha256": "8bbad9c6db6263d4fae88b3f8548704af4b8e7f7f0b7caff643d18e6541e055d"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/finish-config.json",
+      "sha256": "abf5eeb4141c1a24438554a7a50280c0ee5cdd58ff76ba1205aa7c7b0df8dcab"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-coat.json",
+      "sha256": "aea9260208da5fd1700c525eb576a7d9252e754cfb51268372930c070fd538cb"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "outputs/multi-material-lamp-audit-v1/audit.py",
+      "sha256": "84b053d876e3533f67af2bd5ea5e2201daa87914bd09d869f1999ace524f1e3e"
+    },
+    {
+      "path": "outputs/material-fur-fox-preparation-v2/prepared.json",
+      "sha256": "0ef38b24b9fdc66f9bfe533546bfca382469112d4e9b51d2ccbaa9a343c88893"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/sources/finish_generated.py",
+      "sha256": "5b81523da8e79e595b90eeea78e278647d74c8dc63ebfe43816c89f3c3316497"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_finish_generated.py",
+      "sha256": "71a9e62b1cb7bf3f4bdbe3698096ae60a5672f6be55a673af46c2a43d0d77938"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    }
+  ],
+  "limits": {
+    "output_mib": 16,
+    "rss_mib": 512,
+    "seconds": 30
+  },
+  "pack": "outputs/fox-material-fur-finish-v1",
+  "released_once_by_parent": true,
+  "schema_version": 1,
+  "scope": "Body custody/sample motion and independent root-color checks; no renderer/appearance acceptance",
+  "source": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+  "source_kind": "Existing locally authored fox; no fresh neural/Studio acceptance"
+}

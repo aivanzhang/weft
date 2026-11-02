@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "coat_equals_embedded": true,
+    "coat_policy_matches": true,
+    "correspondence_hash_matches": true,
+    "correspondence_path_matches": true,
+    "groom_equals_embedded": true,
+    "groom_status_matches": true,
+    "original_body_unchanged_claim_present": true
+  },
+  "inputs": [
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/report.json",
+      "sha256": "8eccf2b1e43c64c9beb06b5fd30ad91579e8a62596d13b906595d93ff24827f8"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/correspondence.npz",
+      "sha256": "8b7b59269e10cbe83eb146cc30168f9acc6c8a85e0ccde94316c416f90b78d13"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-coat.json",
+      "sha256": "aea9260208da5fd1700c525eb576a7d9252e754cfb51268372930c070fd538cb"
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/finish-report.json",
+      "sha256": "76038d0a72f8da820e9a039ae8e12bc7f23152a7ff594a26aa76fa9b834373eb"
+    }
+  ],
+  "passed": true,
+  "scope": "One read-only receipt consistency check; no native reuse, render, skin or appearance revalidation.",
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-fur-finish-v1"
+}

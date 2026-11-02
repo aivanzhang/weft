@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-fur-independent-audit-v1/audit.py", line 273, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-fur-independent-audit-v1/audit.py", line 268, in main
+    raise ValueError('Independent fox audit recorded failures')
+ValueError: Independent fox audit recorded failures

@@ -1,0 +1,88 @@
+{
+  "final": "outputs/fox-material-fur-finish-v1/model.glb",
+  "gates": {
+    "named_weights": 1e-06,
+    "rest_root_m": 1e-06,
+    "sampled_motion_m": 1e-05,
+    "source_surface_attachment_m": 1e-05
+  },
+  "inputs": [
+    {
+      "bytes": 27708644,
+      "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+      "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+    },
+    {
+      "bytes": 27527176,
+      "path": "outputs/fox-material-fur-finish-v1/model.glb",
+      "sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb"
+    },
+    {
+      "bytes": 527752,
+      "path": "outputs/fox-material-fur-finish-v1/finish-report.json",
+      "sha256": "76038d0a72f8da820e9a039ae8e12bc7f23152a7ff594a26aa76fa9b834373eb"
+    },
+    {
+      "bytes": 28714,
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/report.json",
+      "sha256": "8eccf2b1e43c64c9beb06b5fd30ad91579e8a62596d13b906595d93ff24827f8"
+    },
+    {
+      "bytes": 2980,
+      "path": "outputs/fox-material-fur-independent-audit-v2/manifest.json",
+      "sha256": "2fe038fb9bbc65e2959ea6835ae9ced13e5847ce3b7f9e749abd441a6bf8680e"
+    },
+    {
+      "bytes": 943,
+      "path": "outputs/fox-material-fur-independent-audit-v2/result.json",
+      "sha256": "325b7de50c033e9c40285a56f9fe0b40d57f7e6781e4787b898dff0ca6de210b"
+    },
+    {
+      "bytes": 1051,
+      "path": "outputs/fox-material-fur-independent-audit-v2/native-source-identity.json",
+      "sha256": "44e541e5b847c4579f66b78872e7cbcc95edd04f0e01006ea3a219eb393a92e6"
+    },
+    {
+      "bytes": 1607,
+      "path": "outputs/fox-material-fur-independent-audit-v2/roots.json",
+      "sha256": "2fb05296bd255b634cfa8dac05822c0463621fff10bef1d26a6c0556b4afb7ba"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 23637,
+      "path": "outputs/fox-material-fur-finish-v1/sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    }
+  ],
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "native_provider_or_AI_calls": 0,
+  "pack": "outputs/fox-material-fur-finish-v1",
+  "prior_audit": "outputs/fox-material-fur-independent-audit-v2",
+  "sample_seconds": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0
+  ],
+  "schema_version": 1,
+  "scope": "384 existing material-owned tuft samples only. Separates declared barycentric top4 skin equivalence from actual deformed source-surface attachment, subtracting only the declared rest inset. No appearance acceptance.",
+  "source": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb"
+}

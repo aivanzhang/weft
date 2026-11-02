@@ -1,0 +1,41 @@
+{
+  "appearance_accepted": false,
+  "elapsed_seconds": 2.8534212079830468,
+  "exception": {
+    "message": "Independent fox audit recorded failures",
+    "type": "ValueError"
+  },
+  "excluded_new_coat_meshes": [
+    {
+      "mesh": 1,
+      "name": "PortableCoat_0",
+      "node": 22
+    },
+    {
+      "mesh": 2,
+      "name": "PortableCoat_0.001",
+      "node": 23
+    },
+    {
+      "mesh": 3,
+      "name": "PortableCoat_0.002",
+      "node": 24
+    }
+  ],
+  "failures": [
+    "Root audit failed: Accessor must be VEC4"
+  ],
+  "final_body_triangles": 47776,
+  "final_body_vertices": 30420,
+  "final_sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb",
+  "native_hair_texture_sampling_verified": false,
+  "native_provider_role_calls": 0,
+  "normal_tangent_byte_equivalence_claimed": false,
+  "portable_motion_verified": false,
+  "process_high_water_rss_bytes": 323010560,
+  "schema_version": 1,
+  "source_body_triangles": 47776,
+  "source_body_vertices": 30418,
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "failed"
+}

@@ -25,10 +25,24 @@ For a furry character, read [fur workflow](../../docs/fur-workflow.md). Separate
 Finishing without color-consuming controls skips the source-color selection sampler;
 it can retain different base-color images and constant materials. Read the actual
 `source_color_sampling` report: skipped sampling is not skipped importer/exporter
-validation. Fur, color corrections and other color-consuming controls retain the
+validation. Legacy fur, color corrections and other color-consuming controls retain the
 strict shared-image/UV requirements. The mixed-material lamp proof in the
 [current quality handoff](../../docs/quality-next-step.md) is an existing authored
 object, not fresh generation or a heterogeneous-fur adapter.
+
+For different source color images or constant colors, read [material-owned fur](../../docs/material-owned-fur.md).
+The opt-in `material_fur` selector uses exact observed material names, opaque direct
+image/constant routes and unique vertex/UV ownership. It preserves normal strength,
+uses shared native/portable flow, and allocates one global fiber/tuft budget across
+materials. Unsupported shader graphs, seams and combined repair controls must stop;
+do not flatten colors, invent material names or multiply budgets to proceed. Preserve
+material-groom correspondence and material-coat receipts through reuse. The existing
+fox check is local source integration, not fresh generation, dense hair, action
+acceptance or Muse parity; the default combed-card path is unchanged.
+Its declared skin weights pass, but 21 of 384 sampled tuft roots separate from
+the moving source surface by more than the attachment limit (up to 2.50 mm).
+Do not equate correct weight export with attached fur or promote this candidate;
+preserve the failed coat-skin audit and test a different attachment policy first.
 
 For optional short-pile lighting detail, read [adaptive undercoat](../../docs/adaptive-undercoat.md). Preserve source UV1 and linked material-response maps; use an authored UV2 only when needed. Export corrections must match the saved bake policy, exact clone name, face count, UV index and PNG hash—not every material using UV1. Rebuild textures and tangents together after a policy change, preserve raw exports, and never treat this component as dense fur, geometry repair, Muse parity or Weft compatibility. Native and independently loaded appearance still require review; the tested panda component is not promoted. The pre-export guard admits only coherent UV0 or receipt-bound authored UV1/UV2 normal maps; other live nonzero routes are unsupported. Preserve `normal-uv-export.json` and its manifest binding. Do not drop a normal map or rebake unreviewed faces merely to pass; the [actual-source control](../../docs/source-uv-control.md) passes this component but fails appearance.
 

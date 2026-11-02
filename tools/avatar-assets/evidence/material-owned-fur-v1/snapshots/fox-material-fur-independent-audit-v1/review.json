@@ -1,0 +1,21 @@
+{
+  "actual_asset_failure_inferred": false,
+  "appearance_or_Muse_or_Studio_acceptance": false,
+  "completed_checks": {
+    "body_materials": 16,
+    "native_source_id_signatures_exact": true,
+    "oriented_body_triangles": 47776,
+    "positions_uv_named_weights_max": 0,
+    "sampled_source_pose_max_component_error_m": 3.433050115297931e-07
+  },
+  "failure": "Checker requested VEC4 COLOR_0, actual export has valid float32 VEC3. Root color audit incomplete.",
+  "native_hair_texture_sampling_verified": false,
+  "no_new_native_provider_role_calls": true,
+  "shading_limits": {
+    "ambiguous_identity_lower_bound_only": true,
+    "exact_normal_tangent_equivalence": false,
+    "normal_min_candidate_max_component_error": 0.0003999173641204834,
+    "tangent_min_candidate_max_component_error": 0.00039999932050704956
+  },
+  "status": "checker_failure_preserved"
+}

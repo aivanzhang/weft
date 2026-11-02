@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "artifacts": [
+    {
+      "path": "job.json",
+      "bytes": 1044,
+      "sha256": "f495ccb1ca8d118ce428ab50fd146dc049109f3e161775ea71f0837c69cfc132"
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 1129,
+      "sha256": "0ff9ca434087898150049bea79b3c0257ee7e6df15fbe39c08146d254d03cb2a"
+    },
+    {
+      "path": "source-verification.json",
+      "bytes": 33,
+      "sha256": "65ea830eb800c2de26c17d7bf7dd202743730803d3f9b48539d3b0b5f835214f"
+    },
+    {
+      "path": "sources/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "sources/scripts/blender_material_colors.py",
+      "bytes": 8894,
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "path": "sources/scripts/material_fur.py",
+      "bytes": 9487,
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "path": "sources/tests/test_material_color_adapter.py",
+      "bytes": 15840,
+      "sha256": "16cb63ec7461b5839ffe555aa267ff9b29ea74dbc9c4691950118c5691c6b654"
+    },
+    {
+      "path": "tests-handle.json",
+      "bytes": 205,
+      "sha256": "23f70d5a6801b60c0c887e2ff1ed8fc09bc02bec420d7809b3022934d84082a2"
+    },
+    {
+      "path": "tests-monitor.json",
+      "bytes": 940,
+      "sha256": "f6c13c1f045dbf5b9016698ae2cac1dd4b63ab128a4652a1151c01e93303fea1"
+    },
+    {
+      "path": "tests.log",
+      "bytes": 1808,
+      "sha256": "39f365495eccd4cb5f87fce6aca637ec2765ca5705339f95ee23051e32548054"
+    }
+  ],
+  "self_excluded": true
+}

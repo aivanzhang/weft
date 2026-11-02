@@ -32,7 +32,9 @@ PIPELINE_SOURCES = ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py',
 PIPELINE_SCRIPT_SOURCES = ('motion_samples.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py',
                           'edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py',
                           'fur_root_sampling.py', 'blender_finish_generated.py', 'native_render_tasks.py',
-                          'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py')
+                          'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py',
+                          'material_fur.py', 'blender_material_colors.py', 'blender_material_coat.py',
+                          'blender_material_groom.py')
 
 
 class InterruptedStage(ValueError):

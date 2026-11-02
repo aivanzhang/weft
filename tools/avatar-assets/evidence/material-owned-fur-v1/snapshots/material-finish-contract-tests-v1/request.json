@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/env",
+    "-i",
+    "PATH=/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_material_finish_config",
+    "tests.test_lazy_source_color_sampling",
+    "tests.test_generated_workflow",
+    "-v"
+  ],
+  "schema_version": 1,
+  "scope": "Material-fur config plus unchanged lazy/legacy workflow contracts; analytic fixtures, not native quality"
+}

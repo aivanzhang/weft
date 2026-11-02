@@ -1,0 +1,37 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-fur-independent-audit-v1/audit.py"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "limits": {
+    "output_mib": 16,
+    "rss_mib": 512,
+    "seconds": 30
+  },
+  "mode": "single CPU-only independent actual-asset audit",
+  "native_provider_role_calls": 0,
+  "source_pins": [
+    {
+      "path": "outputs/fox-material-fur-independent-audit-v1/audit.py",
+      "sha256": "172ff88b3ed1928c13aca6e335942a83e544abbd8a588e26000dde4ed5762ff3"
+    },
+    {
+      "path": "outputs/fox-material-fur-independent-audit-v1/lamp_helpers.py",
+      "sha256": "84b053d876e3533f67af2bd5ea5e2201daa87914bd09d869f1999ace524f1e3e"
+    },
+    {
+      "path": "outputs/fox-material-fur-independent-audit-v1/prepared.json",
+      "sha256": "5a844c04323c4f2bf9e6289215e1719591b21152540d4a884aeedf82b0b80eab"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    }
+  ]
+}

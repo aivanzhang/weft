@@ -18,6 +18,12 @@ avatar or a Muse-quality result.
 The new [separate-source composer](docs/multipart-sources.md) preserves complete
 character parts, materials and textures in one unrigged GLB. It is tested on the
 saved robot and dragon; automatic multipart generation and animation remain separate work.
+The opt-in [material-owned fur profile](docs/material-owned-fur.md) now finishes
+an existing three-texture fox without sharing one color image across its coat.
+Its native portrait and exported views are verified locally; the coat still
+reads as short plush, not dense Muse fur or a fresh accepted Studio delivery.
+The independent motion check also finds up to 2.50 mm of fur-root separation
+from the body, so this new fox coat is not accepted for animated delivery.
 
 ## Create from a prompt — studio acceptance pending
 

@@ -77,6 +77,11 @@ def source_color_samples(obj, config):
     if not controls:
         report['reason'] = 'No enabled control consumes source-color samples or their derived mask.'
         return None, None, report
+    if config.get('material_fur'):
+        from blender_material_colors import context_for_source
+        source, colors, sampled = context_for_source(obj, config)
+        sampled['required_by'] = controls
+        return source, colors, sampled
     node = shared_color_texture(obj.data.materials)
     portable = config.get('portable_fur', {}).get('settings', {})
     if portable.get('sample_root_color') and node.image.colorspace_settings.name != 'sRGB':
@@ -355,16 +360,31 @@ def tuft_sampling_context(obj, image, triangles, groom, flow):
     }
 
 
-def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, native_groom=None, groom_flow=None):
+def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, native_groom=None, groom_flow=None,
+                  tuft_source=None):
     from blender_fur_cards import card_geometry, attach_fur_material
     obj.data.calc_loop_triangles()
     tuft = config['settings'].get('profile') == 'tuft-v1'
     sampler, prepared_flow, sampling_report = None, None, None
     if tuft:
-        if tuft_image is None or native_groom is None or groom_flow is None or config['settings'].get('sample_root_color') is not True:
+        if (tuft_image is None and tuft_source is None) or native_groom is None or groom_flow is None or config['settings'].get('sample_root_color') is not True:
             raise ValueError('Tuft coat requires source image, exact root sampling and shared native regional flow')
         triangle_rows = [t for t in obj.data.loop_triangles if all(mask[i] for i in t.vertices)]
-        sampler, prepared_flow, sampling_report = tuft_sampling_context(obj, tuft_image, triangle_rows, native_groom, groom_flow)
+        if tuft_source is not None and tuft_source['kind'] == 'constant':
+            from groom_flow import prepare_flow
+            from material_fur import ConstantRootSampler
+            local = np.asarray([tuple(v.co) for v in obj.data.vertices])
+            sampler = ConstantRootSampler(tuft_source['linear_rgb'], len(triangle_rows))
+            prepared_flow = prepare_flow(local.min(axis=0), np.ptp(local, axis=0),
+                                         native_groom['direction'], native_groom['comb'], groom_flow)
+            sampling_report = {'policy': 'constant-material-linear-roots-v1',
+                               'source_material': tuft_source['material_name'],
+                               'linear_rgb': tuft_source['linear_rgb'], 'sampling_triangles': len(triangle_rows),
+                               'flow_bounds_scope': 'Entire rest emitter, identical to native material-owned copies',
+                               'borrowed_pixel_buffer_bytes': 0, 'image_or_uv_sampling': False}
+        else:
+            sampler, prepared_flow, sampling_report = tuft_sampling_context(
+                obj, tuft_image if tuft_source is None else tuft_source['image'], triangle_rows, native_groom, groom_flow)
         triangles = [tuple(t.vertices) for t in triangle_rows]
     else:
         triangles = [tuple(t.vertices) for t in obj.data.loop_triangles if all(mask[i] for i in t.vertices)]
@@ -394,6 +414,9 @@ def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, nativ
         if not tuft:
             data = card_geometry(vertices, selected, weights, settings, normals,
                                  profile=settings.get('profile', 'legacy'), colors=sampled)
+        if tuft_source is not None:
+            for sample in data['root_samples']:
+                sample['root_linear_rgb'] = list(data['colors'][sample['root_index']*6])
         mesh = bpy.data.meshes.new('PortableCoat_'+str(index))
         mesh.from_pydata(data['vertices'], [], data['faces'])
         mesh.update()
@@ -423,6 +446,8 @@ def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, nativ
             links.new(mix.outputs[2], bsdf.inputs['Base Color'])
             report['root_color'] = ('Exact sampled triangle UV, sRGB texels decoded before bilinear interpolation; linear constant per tuft'
                                     if tuft else 'Barycentric source sRGB converted to linear vertex color; constant per ribbon')
+            if tuft_source is not None and tuft_source['kind'] == 'constant':
+                report['root_color'] = 'Exact constant source-material linear RGB per tuft; no image or UV sampling'
         mesh.materials.append(material)
         cards = bpy.data.objects.new(mesh.name, mesh)
         bpy.context.scene.collection.objects.link(cards)
@@ -538,6 +563,9 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
     mask = ~frame_mask(points, low, high-low, cfg.get('groom_exclusions', []))
     if colors is not None:
         mask &= colors.max(axis=1)-colors.min(axis=1) < cfg.get('fur_max_chroma', 1)
+    if cfg.get('material_fur'):
+        from blender_material_colors import owned_vertex_mask
+        mask &= owned_vertex_mask(obj, cfg['material_fur']['materials'])
     excluded_part_vertices = set()
     if cfg.get('groom_excluded_parts'):
         materials = {name for part in cfg['part_rigs'] if part['name'] in cfg['groom_excluded_parts']
@@ -561,7 +589,10 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
     for material in obj.data.materials:
         for node in material.node_tree.nodes:
             if node.type == "NORMAL_MAP":
-                node.inputs["Strength"].default_value = cfg["normal_strength"]
+                if cfg['normal_strength'] != 'preserve':
+                    if cfg.get('material_fur') and node.inputs['Strength'].default_value != float(np.float32(cfg['normal_strength'])):
+                        raise ValueError('Material-owned fur cannot change an existing source normal-map strength')
+                    node.inputs["Strength"].default_value = cfg["normal_strength"]
     surface_profiles = None
     if cfg.get('surface_profiles'):
         from blender_surface_profiles import apply_surface_profiles
@@ -633,7 +664,13 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
                                 cfg['groom']['direction'], cfg['groom']['comb'], cfg['groom_flow'])
         report['fur_undercoat'] = apply_undercoat(obj, mask, prepared, cfg['fur_undercoat'], out,
             export_vertex_budget=cfg.get('undercoat_export_budget'))
-    if tuft:
+    if cfg.get('material_fur') and cfg.get('portable_fur'):
+        from blender_material_coat import add_material_coat
+        cards, report['portable_fur'], report['material_coat'] = add_material_coat(
+            obj, rig, mask, colors, cfg, color_node['sources'], out, portable_coat)
+        report['portable_fur_export_budget'] = json.loads((out/'tuft-export-budget.json').read_text())
+        report['portable_fur_build_order'] = 'Material-owned tuft groups and sequential source buffers completed before native grooming'
+    elif tuft:
         cards, report['portable_fur'] = portable_coat(obj, rig, mask, colors, cfg['portable_fur'], out,
             tuft_image=color_node.image, native_groom=cfg['groom'], groom_flow=cfg['groom_flow'])
         report['portable_fur_export_budget'] = json.loads((out/'tuft-export-budget.json').read_text())
@@ -646,7 +683,10 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
             undercoat_report=report.get('fur_undercoat'))
         report['portable_fringe'] = report['portable_fur'][0]
         report['portable_fur_build_order'] = 'Edge fins and borrowed source buffers completed before native grooming'
-    if cfg.get("groom"):
+    if cfg.get('material_fur'):
+        from blender_material_groom import add_material_grooms
+        _, report['groom'] = add_material_grooms(obj, rig, cfg, mask, color_node['sources'], out)
+    elif cfg.get("groom"):
         if int(mask.sum()) < 1000:
             raise ValueError("Fur mask selected too few source vertices")
         settings = {k: v for k, v in cfg["groom"].items() if k not in ("direction", "comb")}
@@ -682,7 +722,7 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
             groom_report['render_children_override_after_comb'] = cfg['native_render_children']
             groom_report['render_fiber_upper_bound'] = cfg['groom']['parents']*(cfg['native_render_children']+1)
             groom_report['native_parameters']['render_children'] = cfg['native_render_children']
-    if cfg.get('portable_fur') and not tuft:
+    if cfg.get('portable_fur') and not tuft and not cfg.get('material_fur'):
         cards, report['portable_fur'] = portable_coat(obj, rig, mask, colors, cfg['portable_fur'], out)
     if cfg.get('authored_actions'):
         author_actions(rig, cfg['authored_actions'])

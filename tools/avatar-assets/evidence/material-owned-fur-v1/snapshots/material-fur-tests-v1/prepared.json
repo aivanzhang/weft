@@ -1,0 +1,38 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_material_fur",
+    "-v"
+  ],
+  "sources": [
+    {
+      "path": "scripts/material_fur.py",
+      "bytes": 9487,
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "path": "tests/test_material_fur.py",
+      "bytes": 10944,
+      "sha256": "8d2969b49960b3c84da24e5fa811b02fc163a4439081ca59d6f1cf877782267b"
+    },
+    {
+      "path": "scripts/fur_root_sampling.py",
+      "bytes": 4687,
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    }
+  ],
+  "bounds": {
+    "seconds": 30,
+    "memory_mib": 256,
+    "output_mib": 8
+  },
+  "provenance": "Analytic allocation/material ownership/color fixtures only; no native, provider, AI-role or avatar-generation calls"
+}

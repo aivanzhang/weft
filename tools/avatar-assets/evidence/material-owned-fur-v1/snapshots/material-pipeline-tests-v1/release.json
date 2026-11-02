@@ -1,0 +1,340 @@
+{
+  "changed_sources": [
+    {
+      "bytes": 65985,
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "890d65ad5c7e602d530abdd7cde8a34f44da97f1aa95312989a0f06298998edc"
+    },
+    {
+      "bytes": 50263,
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "96b28351a18fd655e633d522456f93a0b51f4444e1333540530a16d422cd1b19"
+    },
+    {
+      "bytes": 13491,
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393"
+    },
+    {
+      "bytes": 14389,
+      "path": "tests/test_material_pipeline.py",
+      "sha256": "01f0e6c87c85b515dfac32325ccd1008ba93c589863cde0d0b30b7a0d1bf1f0b"
+    }
+  ],
+  "diff_check": {
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      "tools/avatar-assets/avatar_assets/pipeline.py",
+      "tools/avatar-assets/avatar_assets/pipeline_prompts.py",
+      "tools/avatar-assets/avatar_assets/quality_policy.py",
+      "tools/avatar-assets/tests/test_material_pipeline.py"
+    ],
+    "exit_code": 0
+  },
+  "job": {
+    "elapsed_seconds": 0.262,
+    "exit_code": 0,
+    "pid": 87884,
+    "process_exit_verified": true,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null
+  },
+  "production_ownership_released": [
+    "avatar_assets/pipeline.py",
+    "avatar_assets/pipeline_prompts.py",
+    "avatar_assets/quality_policy.py",
+    "tests/test_material_pipeline.py"
+  ],
+  "recorded_local": "2026-11-02T05:42:39.267533-08:00",
+  "schema_version": 1,
+  "scope": "Opt-in authoring/custody admission only. No native, provider or AI-role calls; no avatar or Muse-quality acceptance.",
+  "source_checks": [
+    {
+      "current_matches": true,
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/finish_generated.py",
+      "sha256": "5b81523da8e79e595b90eeea78e278647d74c8dc63ebfe43816c89f3c3316497",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "890d65ad5c7e602d530abdd7cde8a34f44da97f1aa95312989a0f06298998edc",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "96b28351a18fd655e633d522456f93a0b51f4444e1333540530a16d422cd1b19",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "71a9e62b1cb7bf3f4bdbe3698096ae60a5672f6be55a673af46c2a43d0d77938",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_material_pipeline.py",
+      "sha256": "01f0e6c87c85b515dfac32325ccd1008ba93c589863cde0d0b30b7a0d1bf1f0b",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_pipeline.py",
+      "sha256": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545",
+      "snapshot_matches": true
+    },
+    {
+      "current_matches": true,
+      "path": "tests/test_quality_policy.py",
+      "sha256": "3696f6b2d4b1223a15e0571ecf70dfefa291d76e76dfafa7d1a3f8ddaf578988",
+      "snapshot_matches": true
+    }
+  ],
+  "status": "passed_analytic_software_checks",
+  "tests": {
+    "elapsed_seconds": 0.17088649980723858,
+    "errors": 0,
+    "failures": 0,
+    "generated_asset_quality_verified": false,
+    "kind": "analytic_software_tests",
+    "native_calls": 0,
+    "passed": true,
+    "provider_calls": 0,
+    "role_calls": 0,
+    "skipped": 0,
+    "tests_run": 40
+  }
+}

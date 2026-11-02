@@ -1,0 +1,100 @@
+{
+  "files": [
+    {
+      "bytes": 248,
+      "path": "audit-handle.json",
+      "sha256": "560d82aa4f55d9718d8e59661523e06588b5ef1f1d1448318d698eb316752cb5"
+    },
+    {
+      "bytes": 1034,
+      "path": "audit-monitor.json",
+      "sha256": "0b228f5e76573b3222cfbbd23c6c916a32aafdda6b6f39e314428755841807b2"
+    },
+    {
+      "bytes": 0,
+      "path": "audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 17417,
+      "path": "audit.py",
+      "sha256": "4c0335872a838532beef86713459ec6ec4d862de617a642724d97ed71f7d4674"
+    },
+    {
+      "bytes": 924,
+      "path": "checker-only.diff",
+      "sha256": "77c527b0584207379caeee77e009572dbd039758f87dfd33575103b22a34964d"
+    },
+    {
+      "bytes": 1242,
+      "path": "execution-inputs.json",
+      "sha256": "716de62bd174f3028e7543d2f8dcb8c226b4bb3f94526d5b8a47e4b4767cd374"
+    },
+    {
+      "bytes": 7937,
+      "path": "geometry.json",
+      "sha256": "771ad27dcd30346690f13178e72e8c496f1827083017e9bc0c3d55581be734ed"
+    },
+    {
+      "bytes": 1128,
+      "path": "job.json",
+      "sha256": "a70afcd4e442ba3d70052089b3adb0d389baefc4a7b23787431b5bc41bac1272"
+    },
+    {
+      "bytes": 18327,
+      "path": "lamp_helpers.py",
+      "sha256": "84b053d876e3533f67af2bd5ea5e2201daa87914bd09d869f1999ace524f1e3e"
+    },
+    {
+      "bytes": 23575,
+      "path": "materials.json",
+      "sha256": "b98cce575298018fc1182f73e30fbc0465cd8a2de296e94eadb93ba7fb1e1c34"
+    },
+    {
+      "bytes": 4315,
+      "path": "motion.json",
+      "sha256": "b3c4dfe3a90539fefc8ada5adcd5da866ba2f37e8b40bbd675d5b60e92f691d9"
+    },
+    {
+      "bytes": 1051,
+      "path": "native-source-identity.json",
+      "sha256": "44e541e5b847c4579f66b78872e7cbcc95edd04f0e01006ea3a219eb393a92e6"
+    },
+    {
+      "bytes": 4182,
+      "path": "prepared.json",
+      "sha256": "809eb98011430a26b7065ecfea0234ec420ad005b9cf5e5b56e4741976ecf220"
+    },
+    {
+      "bytes": 943,
+      "path": "result.json",
+      "sha256": "325b7de50c033e9c40285a56f9fe0b40d57f7e6781e4787b898dff0ca6de210b"
+    },
+    {
+      "bytes": 5843,
+      "path": "review.json",
+      "sha256": "15d21fdbdc97924dfdfce2b21c410c9af8b0568ceaabd40a746077952491f789"
+    },
+    {
+      "bytes": 2586,
+      "path": "rig.json",
+      "sha256": "8f19ec209953efaa1ae1ec423a283cd918a2160f87b2aaedaa18f10c01536831"
+    },
+    {
+      "bytes": 1607,
+      "path": "roots.json",
+      "sha256": "2fb05296bd255b634cfa8dac05822c0463621fff10bef1d26a6c0556b4afb7ba"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ],
+  "large_assets": "Bound by exact hashes in prepared.json; no model duplication",
+  "original_assets_modified": false,
+  "prior_failed_attempt_preserved": true,
+  "schema_version": 1,
+  "status": "passed_declared_CPU_fidelity_and_sampled_root_color_checks",
+  "total_bytes": 127682
+}

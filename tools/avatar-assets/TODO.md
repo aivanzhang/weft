@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-02 04:36 PST. [Multipart source composition](docs/multipart-sources.md) is implemented and verified: 14 analytic tests, actual robot/dragon public CLI + independent full-array/material audit, 4 inspected 720px native views. Model `a2bdca06…4127`; all jobs exited (composition81487, verifier81772, audit81725, native82014). This is unrigged source preparation, not fresh generation, the panda shoulder dragon or Studio acceptance. Root owns checkpoint/private push preparation; agents released their lanes. No new provider/pipeline-role calls; 8 Meshy credits remain and the fresh-case allowance is pending. Prior checkpoint `3b2f1d3` is privately pushed. Preserve unrelated Weft work and all approved/rejected assets. Next local action is component/action ownership + finisher integration; do not rerun sealed successful checks or stopped fur/contact experiments.
+- Recorded: 2026-11-02 06:07:28 PST. Opt-in material-owned fur is implemented and tested on the existing fox; legacy behavior and approved assets are unchanged. Native finish26.123s/1,553,629,184B and independent four-view load2.345s/709,033,984B passed. Independent body/material/weight/motion and384root-color checks pass, but new-coat surface attachment is rejected:21/384roots exceed1e-5m, maximum distance2.495361mm. Preserve this distinction; correct exported skin is not attached fur or quality acceptance. Seventeen images show short plush and retained surface/motion defects, not Muse parity. All listed current jobs/agent lanes have exited. [Material-owned fur handoff](docs/material-owned-fur.md), evidence `evidence/material-owned-fur-v1` (manifest12704910e5e41ad3c144fa2c9c0c2d3efb6ddb8781d921a8a23c7009e269dda9). Private save receipt target `.local/avatar-quality-publication-v15/receipt.json`; previous confirmed checkpoint f54ed0f. No provider/pipeline-role calls or allowance grant; eight Meshy credits remain and fresh-case approval is pending. Next: a different bounded root-attachment policy, not another unchanged fur run or wider gate.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -19,6 +19,46 @@ tracks real work through finished output. A form, a passing fixture or another
 hand-authored panda recipe does not complete this goal. Preserve the approved
 fur panda, standalone dragon, completed dance/flight preview and all failures.
 [Acceptance criteria and integration record](docs/hands-off-studio.md).
+
+### Latest material-owned fur increment — attachment still rejected
+
+- Exact source/material ownership now supports multiple source color images or
+  constants for native hair and portable tufts. Counts are global, not multiplied
+  by regions. Four new helpers are pinned by public finishing and the agent
+  pipeline; an opt-in author selector keeps normal strength unchanged.
+- Actual existing fox: `outputs/fox-material-fur-finish-v1/model.glb`, SHA
+  `5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb`.
+  62,618 vertices /20bones /four existing4s clips;5000native parents and3000tufts.
+  This is local authored-source integration, not fresh text/Meshy generation.
+- Independent audit v2 preserves16source material/image bindings,47,776oriented
+  body triangles, positions/UVs/named weights and sampled existing motion
+  (maximum0.343micrometers).384sampled root colors and triangle ownership pass.
+  Full shading identity/native-strand sampling are not verified. Preserve v1's
+  valid-VEC3 checker mismatch; only the checker changed for v2.
+- Separate new-coat skin audit proves declared weights and skin motion but finds
+  true surface separation:21of384roots fail, per-axis maximum2.142180mm and
+  maximum total distance2.495361mm. Exact witnesses are in
+  `outputs/fox-material-coat-skin-audit-v1`; PID89764 exited1/reaped in0.783s.
+  No retry, relaxed tolerance or model change. Existing raised-arm source motion
+  also retains33.009mm excess edge length /2.543xstretch. No motion-quality pass.
+- Software checks pass:14kernel,8adapter,5config,10lazy-color,16generated-workflow,
+  40pipeline/policy and17reuse-custody cases. Preserve the initial harness import
+  and missing namespace-metadata preparer failures. Reuse now rejects null/wrong
+  policy coat receipts and preserves groom/correspondence/coat evidence. The
+  receipts-only analytic tests are not a native rebuild.
+- Finished handles: controller2954, exported-preview15291, native87042/87603,
+  CPU87037/89018, independent audits88915/89140/89764, reuse89398, packaging89950.
+  Evidence contains441origin records /293exact snapshots /7,693,029B. Large
+  GLB/Blend/NPZ files remain local by hash; compact evidence is not their remote
+  backup. Original archive and approved panda dance model hashes still match.
+- No new provider or generation-pipeline role calls. The202/210Meshy ledger and
+  exhausted13-call AI study are unchanged; the105credit/max15-role fresh-case
+  proposal remains pending. No Studio/browser/server or generation job is live.
+- Next safe action: screen a different source-vertex-bound or equally explicit
+  root attachment method against the retained21witnesses before any new native
+  render. Preserve source texture/skin/pose fidelity and existing bounds. Do not
+  repeat this unchanged experiment, loosen the attachment gate or promote the
+  candidate. Fresh action/HD media/Studio acceptance remains separate.
 
 ### Earlier local diagnosis — contour component improves, quality still rejected
 

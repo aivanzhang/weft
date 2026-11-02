@@ -1,0 +1,633 @@
+{
+  "calls": {
+    "ai_roles": 0,
+    "browser": 0,
+    "native": 0,
+    "provider": 0
+  },
+  "evidence_scope": {
+    "current_reads": "Named saved JSON and bounded GLB JSON headers only; no accessor arrays, image pixels, native runs or full inventory repeated.",
+    "no_new_model": true,
+    "no_new_tests_or_inventory_job": true,
+    "no_raster_decode": true,
+    "no_source_mutation": true,
+    "no_visual_quality_acceptance": true,
+    "source_hashes": "Reused exact immutable hashes from existing pinned census/baseline proof; current file sizes and header bindings inspected, not a new whole-file hash sweep. Revalidate hashes before future model execution."
+  },
+  "input_pins": [
+    {
+      "bytes": 28582,
+      "path": "outputs/quality-next-action-audit-v1/model-inventory.json",
+      "sha256": "4b198d29596085104d08c464fe4d84bb6140636738f5ca45ffff172a468b4ea4",
+      "snapshot": "inputs/prior-model-inventory.json"
+    },
+    {
+      "bytes": 6847,
+      "path": "outputs/fringe-integration-review-v1/fox-census.json",
+      "sha256": "0a08412c5e62825c27adbd565dbad32d401b891d2e75a183a387dc659bf20a95",
+      "snapshot": "inputs/prior-fox-census.json"
+    },
+    {
+      "bytes": 2031,
+      "path": "outputs/fox-fringe-component-preparation-v2/baseline-proof.json",
+      "sha256": "8e650dc1d7a22bcec7c9174443eb6c966860a7ace203f1b4a50b7b3f512942ba",
+      "snapshot": "inputs/baseline-proof.json"
+    },
+    {
+      "bytes": 5231,
+      "path": "outputs/fox-hd-build-v2/rig-contract.json",
+      "sha256": "0531418eaa7462238097e51ce121dd2b94f2b990fd6159f77f7518059e0f0b7a",
+      "snapshot": "inputs/original-rig-contract.json"
+    }
+  ],
+  "live_jobs": [],
+  "native_material_emitter_requirements": [
+    "Positive fur selection only coat/cream/dark; exclude all face/inner-ear/accessory/tool/cloth materials.",
+    "Preserve existing source skin and exact joint-slot-to-node mapping on any material-owned emitter copies; slot does not equal node ID.",
+    "Route each selected emitter to its own source image/factor/UV0 with REPEAT and per-material normal semantics; no texture transforms are present here.",
+    "Count parents/children/fibers across all emitters as one aggregate budget. The historical fox upper bound was5000*(1+30)=155000 fibers total, not per material.",
+    "Unused legacy card material/image/accessor definitions remain in the source; do not classify them as live emitters or redecode them for color sampling.",
+    "Keep source body material/geometry, accessories and action bindings unchanged; no positive constant-colored furry material exists in this source. Constants prove preservation/exclusion only.",
+    "This selection is not proof that the full material-aware native groom runs or fits its2GiB bound; any future actual proof must be separately bounded and visually reviewed."
+  ],
+  "other_candidates": {
+    "generated_raw_panda": {
+      "attribute_vertices_including_primitive_duplication": 50004,
+      "base_normal_MR_routes_all_UV0": true,
+      "bytes": 25557832,
+      "clips": [],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "Material_0"
+        }
+      ],
+      "meshes": 1,
+      "native_fur_selection_requires": "Explicit body-only mask; shoulder companion is not fur.",
+      "no_new_source_skin_validation": true,
+      "path": "outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+      "primitives": 1,
+      "role": "Single-image generated furry control only; one UV0 basecolor image1, normal image0 and MR image2, white factor. Not the multi-image proof.",
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "skin_bones": [],
+      "skins": 0,
+      "triangles_from_index_counts": 62117
+    },
+    "rigged_panda_fur_demo": {
+      "bytes": 29952112,
+      "meshes": 3,
+      "path": "outputs/muse-panda-smooth-fur-v3/model.glb",
+      "sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77",
+      "status": "Not selected: already-coated three-mesh output violates the one-mesh source condition without a separately authorized derivative.",
+      "vertices": 74600
+    },
+    "uv_repaired_panda": {
+      "bytes": 28080560,
+      "meshes": 1,
+      "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+      "status": "Not selected: six materials still share one basecolor image and retain known contact-surface/normal-UV complications; not an independent multi-image fur test.",
+      "vertices": 51376
+    }
+  },
+  "recommendation": {
+    "actions": [
+      "idle",
+      "making_something",
+      "milestone_level_up",
+      "working"
+    ],
+    "active_material_routes": [
+      {
+        "base_color_factor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "base_color_image": 1,
+        "base_color_uv": 0,
+        "material": 0,
+        "name": "coat"
+      },
+      {
+        "base_color_factor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "base_color_image": 4,
+        "base_color_uv": 0,
+        "material": 2,
+        "name": "cream"
+      },
+      {
+        "base_color_factor": [
+          0.03071344457566738,
+          0.015208514407277107,
+          0.01850022003054619,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 4,
+        "name": "nose"
+      },
+      {
+        "base_color_factor": [
+          1,
+          0.9559733271598816,
+          0.8307698965072632,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 5,
+        "name": "eye_white"
+      },
+      {
+        "base_color_factor": [
+          0.34191441535949707,
+          0.10702310502529144,
+          0.021219009533524513,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 6,
+        "name": "iris"
+      },
+      {
+        "base_color_factor": [
+          0.006995410192757845,
+          0.006512090563774109,
+          0.01032982300966978,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 7,
+        "name": "pupil"
+      },
+      {
+        "base_color_factor": [
+          0.6795424818992615,
+          0.35640013217926025,
+          0.25015828013420105,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 8,
+        "name": "ear_inner"
+      },
+      {
+        "base_color_factor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "base_color_image": 7,
+        "base_color_uv": 0,
+        "material": 9,
+        "name": "dark"
+      },
+      {
+        "base_color_factor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "base_color_image": 10,
+        "base_color_uv": 0,
+        "material": 11,
+        "name": "scarf"
+      },
+      {
+        "base_color_factor": [
+          0.11953842639923096,
+          0.38642942905426025,
+          0.35153260827064514,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 12,
+        "name": "scarf_seam"
+      },
+      {
+        "base_color_factor": [
+          0.01850022003054619,
+          0.04373503103852272,
+          0.09989872574806213,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 13,
+        "name": "book"
+      },
+      {
+        "base_color_factor": [
+          0.8796223998069763,
+          0.7758222222328186,
+          0.5906188488006592,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 14,
+        "name": "paper"
+      },
+      {
+        "base_color_factor": [
+          0.5088813304901123,
+          0.4019777774810791,
+          0.24228112399578094,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 15,
+        "name": "page_edge"
+      },
+      {
+        "base_color_factor": [
+          0.7230551242828369,
+          0.47353148460388184,
+          0.10702310502529144,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 16,
+        "name": "gold"
+      },
+      {
+        "base_color_factor": [
+          0.68668532371521,
+          0.46207699179649353,
+          0.2158605009317398,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 17,
+        "name": "pencil_wood"
+      },
+      {
+        "base_color_factor": [
+          0.02955683507025242,
+          0.03433980792760849,
+          0.04666508734226227,
+          1
+        ],
+        "base_color_image": null,
+        "base_color_uv": null,
+        "material": 18,
+        "name": "graphite"
+      }
+    ],
+    "all_used_primitives_declare_JOINTS_0_WEIGHTS_0": true,
+    "bytes": 27708644,
+    "joint_count": 20,
+    "kind": "Existing agent-authored procedural furry fox, not neural generation or analytic geometry fixture",
+    "legacy_card_material_ids_retained_unused": [
+      1,
+      3,
+      10
+    ],
+    "legacy_card_primitives_removed_from_original": [
+      1,
+      3,
+      10
+    ],
+    "material_definitions_retained": 19,
+    "mesh_count": 1,
+    "original_BIN_preserved_by_existing_baseline_proof": true,
+    "original_bytes": 27709020,
+    "original_path": "outputs/fox-hd-build-v2/model.glb",
+    "original_sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+    "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+    "referenced_vertices": 30418,
+    "selected_furry_materials": [
+      {
+        "alpha": "OPAQUE",
+        "base_color_factor_present": false,
+        "basecolor_image": 1,
+        "basecolor_image_mode": "RGBA",
+        "basecolor_image_sha256": "0c2d113cf0b6415d2c5430cdfcd0c615412fbb7ef1bbfd07e11103cddc0b88eb",
+        "basecolor_image_size": [
+          2048,
+          2048
+        ],
+        "basecolor_uv": 0,
+        "baseline_primitive": 0,
+        "double_sided": true,
+        "effective_base_color_factor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "extensions": null,
+        "material_id": 0,
+        "material_name": "coat",
+        "metallic": 0,
+        "normal_image": 0,
+        "normal_scale": 1,
+        "normal_uv": 0,
+        "original_primitive": 0,
+        "roughness": 0.8299999833106995,
+        "sampler": {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS_default": 10497,
+          "wrapT_default": 10497
+        },
+        "texture_transforms": null,
+        "triangles": 11200,
+        "uv_max_from_prior_census": [
+          1.0071512460708618,
+          1.0
+        ],
+        "uv_min_from_prior_census": [
+          -0.1530475616455078,
+          -0.0690382719039917
+        ],
+        "vertices": 7079
+      },
+      {
+        "alpha": "OPAQUE",
+        "base_color_factor_present": false,
+        "basecolor_image": 4,
+        "basecolor_image_mode": "RGBA",
+        "basecolor_image_sha256": "a5ee4c924d75cde4cad64a59cf885ce8cf16b9c84a648627807df8eff37c0150",
+        "basecolor_image_size": [
+          2048,
+          2048
+        ],
+        "basecolor_uv": 0,
+        "baseline_primitive": 1,
+        "double_sided": true,
+        "effective_base_color_factor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "extensions": null,
+        "material_id": 2,
+        "material_name": "cream",
+        "metallic": 0,
+        "normal_image": 3,
+        "normal_scale": 1,
+        "normal_uv": 0,
+        "original_primitive": 2,
+        "roughness": 0.8799999952316284,
+        "sampler": {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS_default": 10497,
+          "wrapT_default": 10497
+        },
+        "texture_transforms": null,
+        "triangles": 6496,
+        "uv_max_from_prior_census": [
+          1.0,
+          1.0
+        ],
+        "uv_min_from_prior_census": [
+          -0.1505824625492096,
+          0.0
+        ],
+        "vertices": 3876
+      },
+      {
+        "alpha": "OPAQUE",
+        "base_color_factor_present": false,
+        "basecolor_image": 7,
+        "basecolor_image_mode": "RGBA",
+        "basecolor_image_sha256": "98c7207a2367b34d509165250cfa9820e901fef64e691ed6b669edfd777c2e91",
+        "basecolor_image_size": [
+          1024,
+          1024
+        ],
+        "basecolor_uv": 0,
+        "baseline_primitive": 7,
+        "double_sided": true,
+        "effective_base_color_factor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "extensions": null,
+        "material_id": 9,
+        "material_name": "dark",
+        "metallic": 0,
+        "normal_image": 6,
+        "normal_scale": 1,
+        "normal_uv": 0,
+        "original_primitive": 9,
+        "roughness": 0.75,
+        "sampler": {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS_default": 10497,
+          "wrapT_default": 10497
+        },
+        "texture_transforms": null,
+        "triangles": 11520,
+        "uv_max_from_prior_census": [
+          1.0,
+          0.9999999403953552
+        ],
+        "uv_min_from_prior_census": [
+          0.0,
+          0.0
+        ],
+        "vertices": 6774
+      }
+    ],
+    "selected_unique_basecolor_pixels": 9437184,
+    "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+    "skin_count": 1,
+    "triangles": 47776,
+    "used_materials": 16
+  },
+  "recorded_at": "2026-11-02T04:56:09.461644-08:00",
+  "rig_header_observation": {
+    "Weft_mapping_verified": false,
+    "axes": {
+      "forward": "+Z",
+      "handedness": "right",
+      "up": "+Y"
+    },
+    "inverse_bind_accessor": 132,
+    "joint_node_order": [
+      19,
+      18,
+      2,
+      0,
+      1,
+      3,
+      7,
+      6,
+      5,
+      4,
+      10,
+      9,
+      8,
+      14,
+      13,
+      12,
+      11,
+      17,
+      16,
+      15
+    ],
+    "joint_slot_map": [
+      {
+        "name": "root",
+        "node": 19,
+        "slot": 0
+      },
+      {
+        "name": "torso",
+        "node": 18,
+        "slot": 1
+      },
+      {
+        "name": "head",
+        "node": 2,
+        "slot": 2
+      },
+      {
+        "name": "ear_left",
+        "node": 0,
+        "slot": 3
+      },
+      {
+        "name": "ear_right",
+        "node": 1,
+        "slot": 4
+      },
+      {
+        "name": "tail",
+        "node": 3,
+        "slot": 5
+      },
+      {
+        "name": "upper_arm_left",
+        "node": 7,
+        "slot": 6
+      },
+      {
+        "name": "forearm_left",
+        "node": 6,
+        "slot": 7
+      },
+      {
+        "name": "hand_left",
+        "node": 5,
+        "slot": 8
+      },
+      {
+        "name": "sketchbook",
+        "node": 4,
+        "slot": 9
+      },
+      {
+        "name": "thigh_left",
+        "node": 10,
+        "slot": 10
+      },
+      {
+        "name": "shin_left",
+        "node": 9,
+        "slot": 11
+      },
+      {
+        "name": "foot_left",
+        "node": 8,
+        "slot": 12
+      },
+      {
+        "name": "upper_arm_right",
+        "node": 14,
+        "slot": 13
+      },
+      {
+        "name": "forearm_right",
+        "node": 13,
+        "slot": 14
+      },
+      {
+        "name": "hand_right",
+        "node": 12,
+        "slot": 15
+      },
+      {
+        "name": "pencil",
+        "node": 11,
+        "slot": 16
+      },
+      {
+        "name": "thigh_right",
+        "node": 17,
+        "slot": 17
+      },
+      {
+        "name": "shin_right",
+        "node": 16,
+        "slot": 18
+      },
+      {
+        "name": "foot_right",
+        "node": 15,
+        "slot": 19
+      }
+    ],
+    "mesh_and_parent_transform": "omitted glTF identity defaults",
+    "mesh_node": 20,
+    "mesh_node_skin": 0,
+    "mesh_parent": 21,
+    "mesh_parent_name": "AvatarRig",
+    "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+    "skin": 0,
+    "source_assumptions": [
+      "This is a new authored 3D interpretation of the existing original fox design, not recovered geometry or a neural text-to-3D result.",
+      "Complete hidden surfaces and twenty-bone rest layout are authored; the original fox left/right bone names are preserved as identifiers.",
+      "The continuous arm and leg lofts use explicit multi-bone skin blends around elbows and knees; they are not muscle or cloth simulations.",
+      "The shoulder roots are rounded and buried within the torso, with torso/arm weight blending; skin is not a single watertight anatomical retopology.",
+      "The scarf, eyelids, fingers and face are sculpted fixed geometry without independent expressions or cloth dynamics.",
+      "The book drawings and pencil strokes remain authored gestures: no new ink or page simulation is claimed.",
+      "This PBR browser-quality variant is separate from Weft's restricted diffuse-only importer profile.",
+      "The preserved four skeletal actions are authored animation, not learned behavior or Weft physics.",
+      "The fox iris remains its original glossy colored geometry: a radial iris map is not applied to an incompatible latitude/longitude UV sphere.",
+      "HD textures are seeded, locally authored procedural patterns at native1024/2048 resolution, not neural output, reference-extracted texture maps or evidence of photorealism. Studio floor and exposure are render settings, not simulation geometry.",
+      "Plush browser fur remains5,000 six-vertex alpha-masked skinned hair cards; the separately configured native Blender groom has5,000 parents and30 children, a155,000-fiber upper bound, not an exported GLB strand count.",
+      "The native groom length is1.6times the v1 length capped at0.035m, and browser ribbons are1.4times longer and1.25times wider. No hair dynamics, recovered real groom or measured animal anatomy is claimed.",
+      "Only the same twenty furry coat/cream/dark skin surfaces receive hair. Inner ears, eyes, nose, accessories and tools remain bare; no separate forelock geometry is invented.",
+      "The plush studio changes render lighting and contrast only. Its floor stays at the previous authored rest height; it is not collision geometry or a physical contact solver.",
+      "Native hair is authored into directional rest-space curves, retaining the emitter skin; there is no dynamic hair simulation. The GLB contains its separate masked-card coat."
+    ],
+    "units": "meters"
+  },
+  "schema_version": 1,
+  "status": "source_selected_read_only"
+}

@@ -1,0 +1,19 @@
+test_exact_largest_remainders_minima_and_stable_ties (tests.test_material_fur.AllocationTests.test_exact_largest_remainders_minima_and_stable_ties) ... ok
+test_invalid_weights_counts_and_insufficient_minimum_reject (tests.test_material_fur.AllocationTests.test_invalid_weights_counts_and_insufficient_minimum_reject) ... ok
+test_varied_bounded_groups_preserve_global_budget_and_inputs (tests.test_material_fur.AllocationTests.test_varied_bounded_groups_preserve_global_budget_and_inputs) ... ok
+test_constant_root_addresses_follow_existing_triangle_barycentric_contract (tests.test_material_fur.ConstantColorTests.test_constant_root_addresses_follow_existing_triangle_barycentric_contract) ... ok
+test_constant_selection_is_encoded_but_root_color_stays_linear (tests.test_material_fur.ConstantColorTests.test_constant_selection_is_encoded_but_root_color_stays_linear) ... ok
+test_16mi_pixel_validation_borrows_image_and_uses_only_chunk_scratch (tests.test_material_fur.SelectionColorTests.test_16mi_pixel_validation_borrows_image_and_uses_only_chunk_scratch) ... ok
+test_all_rgb_rows_are_validated_even_when_queries_do_not_sample_them (tests.test_material_fur.SelectionColorTests.test_all_rgb_rows_are_validated_even_when_queries_do_not_sample_them) ... ok
+test_factor_is_linear_not_an_encoded_rgb_multiply (tests.test_material_fur.SelectionColorTests.test_factor_is_linear_not_an_encoded_rgb_multiply) ... ok
+test_nearest_repeat_wrap_and_row_orientation_preserve_legacy_samples (tests.test_material_fur.SelectionColorTests.test_nearest_repeat_wrap_and_row_orientation_preserve_legacy_samples) ... ok
+test_cross_material_vertex_rejects_even_when_both_materials_are_constant (tests.test_material_fur.VertexOwnershipTests.test_cross_material_vertex_rejects_even_when_both_materials_are_constant) ... ok
+test_first_loop_is_admitted_only_after_material_and_textured_seam_proof (tests.test_material_fur.VertexOwnershipTests.test_first_loop_is_admitted_only_after_material_and_textured_seam_proof) ... ok
+test_malformed_unreferenced_or_oversized_ownership_rejects (tests.test_material_fur.VertexOwnershipTests.test_malformed_unreferenced_or_oversized_ownership_rejects) ... ok
+test_maximum_vertex_loop_bound_has_deterministic_linear_work (tests.test_material_fur.VertexOwnershipTests.test_maximum_vertex_loop_bound_has_deterministic_linear_work) ... ok
+test_textured_uvs_need_exact_bytes_not_wrapped_or_epsilon_equivalence (tests.test_material_fur.VertexOwnershipTests.test_textured_uvs_need_exact_bytes_not_wrapped_or_epsilon_equivalence) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.183s
+
+OK

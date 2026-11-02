@@ -1,0 +1,239 @@
+{
+  "ai_role_calls": 0,
+  "bounded_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "OPENBLAS_NUM_THREADS=1",
+      "OMP_NUM_THREADS=1",
+      "TMPDIR=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/material-native-reuse-tests-v1/tmp",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/material-native-reuse-tests-v1/run_tests.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.522,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 3952881,
+    "last_rss_sample_elapsed_seconds": 0.261,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 89398,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 3952881,
+    "sampled_peak_rss_bytes": 46268416,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "limitations": [
+    "Analytic placeholder model/image bytes are never parsed or rendered.",
+    "Actual fox comparison checks receipt consistency only, not animation or visual quality.",
+    "Resealed negatives exercise dedicated custody guards independently of generic manifest tamper detection."
+  ],
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_unchanged": [
+    {
+      "path": "avatar_assets/__init__.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/assemble_generated.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/color_corrections.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/finish_generated.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/normal_continuity.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/part_rigs.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/provider_model.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/surface_profiles.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/surface_smoothing_config.py",
+      "unchanged": true
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/finish-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-coat.json",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/correspondence.npz",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/fox-material-fur-finish-v1/material-groom/report.json",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_color_corrections.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_comb_groom.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_creature_rig.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_finish_generated.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_fur_cards.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_material_coat.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_material_colors.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_material_groom.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_native_groom.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_normal_continuity.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_normal_uv_export.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_part_rigs.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_surface_profiles.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/blender_verify.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/creature_rig_math.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/deformation_diagnostics.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/fur_root_sampling.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/groom_flow.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/material_fur.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/motion_samples.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/native_render_tasks.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/normal_uv_export.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/surface_integrity.py",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/surface_smoothing.py",
+      "unchanged": true
+    },
+    {
+      "path": "tests/test_material_native_reuse.py",
+      "unchanged": true
+    }
+  ],
+  "status": "passed",
+  "test_result": {
+    "actual_read_only_receipt_checks": 1,
+    "actual_receipts_passed": true,
+    "ai_role_calls": 0,
+    "elapsed_seconds": 0.3963904590345919,
+    "errors": 0,
+    "failures": 0,
+    "native_jobs": 0,
+    "passed": true,
+    "provider_calls": 0,
+    "rss_scope": "Direct-child getrusage high-water RSS, separate from monitor samples",
+    "self_peak_rss_bytes": 47710208,
+    "skipped": 0,
+    "test_failures": [],
+    "tests_run": 17
+  }
+}

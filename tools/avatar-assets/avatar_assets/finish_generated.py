@@ -34,15 +34,34 @@ def validate(config):
                 'weight_constraints', 'portable_fur', 'authored_actions', 'portrait_denoise', 'native_render_children',
                 'authored_rig', 'camera_view', 'camera_fit', 'surface_profiles', 'surface_smoothing', 'groom_shader', 'groom_flow',
                 'color_corrections', 'part_rigs', 'groom_excluded_parts', 'normal_continuity',
-                'pose_resolution', 'review_views', 'fur_undercoat', 'portable_fringe'}
+                'pose_resolution', 'review_views', 'fur_undercoat', 'portable_fringe', 'material_fur'}
     require(isinstance(config, dict) and required <= set(config) <= required|optional
             and config['schema_version'] == 1, 'Invalid generated finishing config')
     slug(config['id'])
     for field in ('subject', 'style', 'rights', 'prompt', 'source', 'source_sha256'):
         require(isinstance(config[field], str) and 0 < len(config[field]) <= 4000, 'Invalid '+field)
     for field, low, high in (('normal_strength', 0, 1), ('resolution', 128, 1600), ('samples', 1, 64)):
-        number(config[field], low, high)
+        if field == 'normal_strength' and config[field] == 'preserve':
+            require(config.get('material_fur'), 'Preserved normal maps require the explicit material-owned profile')
+        else:
+            number(config[field], low, high)
     require(type(config['resolution']) is int and type(config['samples']) is int, 'Integer render settings required')
+    if 'material_fur' in config:
+        material_fur = config['material_fur']
+        require(isinstance(material_fur, dict) and set(material_fur) == {'version', 'materials'}
+                and type(material_fur['version']) is int and material_fur['version'] == 1,
+                'Material-owned fur requires version1 and explicit source materials')
+        names = material_fur['materials']
+        require(isinstance(names, list) and 1 <= len(names) <= 32
+                and all(isinstance(name, str) and 0 < len(name) <= 128 for name in names)
+                and len(set(names)) == len(names), 'Invalid material-owned fur names')
+        require(config.get('groom') and config.get('groom_flow'),
+                'Material-owned fur requires a native groom and shared regional flow')
+        require(not any(config.get(name) for name in ('surface_profiles', 'color_corrections', 'fur_undercoat',
+                    'normal_continuity', 'attachment', 'portable_fringe', 'smoothing', 'surface_smoothing', 'weight_constraints')),
+                'Material-owned fur does not yet support material/topology/normal repair controls')
+        require(not config.get('portable_fur') or config['portable_fur'].get('settings', {}).get('profile') == 'tuft-v1',
+                'Material-owned portable fur requires exact-root tuft-v1')
     require(type(config.get('pose_resolution', 384)) is int and 128 <= config.get('pose_resolution', 384) <= 1024,
             'Pose resolution must be an integer from128 to1024')
     require(type(config.get('review_views', False)) is bool, 'Invalid review views flag')
@@ -133,6 +152,11 @@ def validate(config):
         value = config['native_render_children']
         require(groom and type(value) is int and 0 <= value <= 90
                 and groom['parents']*(value+1) <= 600000, 'Dense native profile exceeds 600000 configured fibers')
+    if config.get('material_fur'):
+        require(groom['parents'] >= 16*len(config['material_fur']['materials']),
+                'Material-owned groom needs at least16 parents per requested material')
+        require(groom['parents']*(config.get('native_render_children', groom['children'])+1) <= 240000,
+                'Material-owned groom exceeds the aggregate240000-fiber limit')
     if config.get('smoothing'):
         smooth = config['smoothing']
         require(set(smooth) == {'iterations', 'strength'} and type(smooth['iterations']) is int, 'Invalid smoothing')
@@ -296,6 +320,10 @@ def reuse_native(folder, out, cfg):
                     'Portable fringe backend changed; rebuild required')
         require(sha256(root/'sources/portable_fringe.py') == sha256(ROOT/'avatar_assets/portable_fringe.py'),
                 'Portable fringe config changed; rebuild required')
+    if cfg.get('material_fur'):
+        for name in ('material_fur.py', 'blender_material_colors.py', 'blender_material_coat.py', 'blender_material_groom.py'):
+            require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name),
+                    'Material-owned fur backend changed; rebuild required')
     if cfg.get('fur_undercoat'):
         require(sha256(root/'sources/blender_fur_undercoat.py') == sha256(ROOT/'scripts/blender_fur_undercoat.py'),
                 'Undercoat baker changed; rebuild required')
@@ -314,6 +342,24 @@ def reuse_native(folder, out, cfg):
             'Normal continuity helper changed; rebuild required')
     normal_uv = root/'normal-uv-export.json'
     finish_report = read_json(root/'finish-report.json')
+    if cfg.get('material_fur'):
+        groom_report = read_json(root/'material-groom/report.json')
+        require(groom_report == finish_report.get('groom') and groom_report.get('original_body_unchanged') is True
+                and groom_report.get('status') == 'native_grooms_pending_render_review',
+                'Material-owned native custody differs; rebuild required')
+        correspondence = groom_report.get('correspondence', {})
+        require(correspondence.get('path') == 'material-groom/correspondence.npz'
+                and sha256(local_file(root/correspondence['path'], 8*1024**2)) == correspondence.get('sha256'),
+                'Material-owned correspondence is missing or changed; rebuild required')
+        (out/'material-groom').mkdir()
+        for name in ('report.json', 'correspondence.npz'):
+            shutil.copyfile(root/'material-groom'/name, out/'material-groom'/name)
+        if cfg.get('portable_fur'):
+            coat = read_json(root/'material-coat.json')
+            require(isinstance(coat, dict) and coat.get('policy') == 'material-owned-tufts-v1'
+                    and coat == finish_report.get('material_coat'),
+                    'Material-owned coat receipt differs; rebuild required')
+            shutil.copyfile(root/'material-coat.json', out/'material-coat.json')
     if cfg.get('export_model') or normal_uv.exists() or 'normal_uv_export' in finish_report:
         receipt = read_json(local_file(normal_uv, 512*1024))
         require(isinstance(receipt, dict) and receipt == finish_report.get('normal_uv_export')
@@ -405,6 +451,9 @@ def finish(config_path, output, reuse=None):
         if tuft_budget is not None:
             write_json(out/'tuft-export-budget.json', tuft_budget)
             shutil.copyfile(ROOT/'scripts/fur_root_sampling.py', out/'sources/fur_root_sampling.py')
+        if cfg.get('material_fur'):
+            for name in ('material_fur.py', 'blender_material_colors.py', 'blender_material_coat.py', 'blender_material_groom.py'):
+                shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
         if fringe_budget is not None:
             write_json(out/'fringe-export-budget.json', fringe_budget)
             for name in ('edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py', 'fur_root_sampling.py'):

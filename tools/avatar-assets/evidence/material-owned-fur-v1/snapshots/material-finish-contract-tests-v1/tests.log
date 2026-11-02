@@ -1,0 +1,33 @@
+test_explicit_material_names_and_global_minimum_are_admitted (tests.test_material_finish_config.MaterialFinishConfigTests.test_explicit_material_names_and_global_minimum_are_admitted) ... ok
+test_material_mutations_cannot_silently_invalidate_color_ownership (tests.test_material_finish_config.MaterialFinishConfigTests.test_material_mutations_cannot_silently_invalidate_color_ownership) ... ok
+test_missing_duplicate_or_unversioned_material_ownership_rejects (tests.test_material_finish_config.MaterialFinishConfigTests.test_missing_duplicate_or_unversioned_material_ownership_rejects) ... ok
+test_native_flow_and_exact_portable_roots_are_required (tests.test_material_finish_config.MaterialFinishConfigTests.test_native_flow_and_exact_portable_roots_are_required) ... ok
+test_parent_minimum_and_render_override_are_global_not_per_region (tests.test_material_finish_config.MaterialFinishConfigTests.test_parent_minimum_and_render_override_are_global_not_per_region) ... ok
+test_actual_selection_block_preserves_distinct_textures_and_constant_material (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_actual_selection_block_preserves_distinct_textures_and_constant_material) ... ok
+test_combined_consumers_share_one_sampling_call_and_retain_chroma_mask (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_combined_consumers_share_one_sampling_call_and_retain_chroma_mask) ... ok
+test_disabled_optional_controls_do_not_require_sampling (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_disabled_optional_controls_do_not_require_sampling) ... ok
+test_each_consumer_retains_constant_color_rejection_without_fallback (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_each_consumer_retains_constant_color_rejection_without_fallback) ... ok
+test_each_consumer_retains_heterogeneous_image_rejection_before_decode (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_each_consumer_retains_heterogeneous_image_rejection_before_decode) ... ok
+test_every_color_consumer_samples_actual_shared_texture_once (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_every_color_consumer_samples_actual_shared_texture_once) ... ok
+test_fringe_retains_exact_root_contract_and_texture_size_bound (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_fringe_retains_exact_root_contract_and_texture_size_bound) ... ok
+test_geometry_only_controls_skip_all_object_and_image_access (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_geometry_only_controls_skip_all_object_and_image_access) ... ok
+test_required_sampling_does_not_admit_custom_uv_routes (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_required_sampling_does_not_admit_custom_uv_routes) ... ok
+test_root_colored_tuft_retains_srgb_and_exact_root_contract (tests.test_lazy_source_color_sampling.LazySourceColorSamplingTests.test_root_colored_tuft_retains_srgb_and_exact_root_contract) ... ok
+test_generated_workflow (unittest.loader._FailedTest.test_generated_workflow) ... ERROR
+
+======================================================================
+ERROR: test_generated_workflow (unittest.loader._FailedTest.test_generated_workflow)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_generated_workflow
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 141, in loadTestsFromName
+    module = __import__(module_name)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_generated_workflow.py", line 19, in <module>
+    from test_three_d import analytic_rig, glb_bytes
+ModuleNotFoundError: No module named 'test_three_d'
+
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.015s
+
+FAILED (errors=1)

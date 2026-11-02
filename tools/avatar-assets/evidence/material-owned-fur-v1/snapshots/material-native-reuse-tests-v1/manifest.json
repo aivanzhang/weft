@@ -1,0 +1,277 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1226,
+      "path": "actual-receipt-comparison.json",
+      "sha256": "7fadf45a4d98e2b796bd166f7473949f09ee275c5da9796db4a475fa486e601a"
+    },
+    {
+      "bytes": 428,
+      "path": "cpu-handle.json",
+      "sha256": "32d01dd7fe1999034df35a97f8ebf2aa88851e49e90a290add58122ee3f5f87c"
+    },
+    {
+      "bytes": 1324,
+      "path": "cpu-job.json",
+      "sha256": "712c888e4161ed7eca88deab512df9e4ddcdba461834e71e404f21ce46d084d7"
+    },
+    {
+      "bytes": 1214,
+      "path": "cpu-monitor.json",
+      "sha256": "c8b68d7fc7b0768105dfe6d97218ffdcaf16f611153f10010f54fd76fbe4a635"
+    },
+    {
+      "bytes": 3440,
+      "path": "cpu.log",
+      "sha256": "415874400e1cc583d6fd70002f81da2729cc2051c5f28708f1250e8484710342"
+    },
+    {
+      "bytes": 5227,
+      "path": "execute-v2.py",
+      "sha256": "b946ef14aa1e5e89b85786853f8ee26fc03995f86b24a36ee6d9f64b2796ae56"
+    },
+    {
+      "bytes": 5067,
+      "path": "execute.py",
+      "sha256": "ddafe4906f8441e9fc2ccf08aae9e2333770554f86084c91456a0326cc9e9f24"
+    },
+    {
+      "bytes": 649,
+      "path": "preparation-failure-v1.json",
+      "sha256": "e9cfcce3541970522099f4d228752e27276af7416ba7dbeaf149351335dcf862"
+    },
+    {
+      "bytes": 11559,
+      "path": "prepared.json",
+      "sha256": "5469c4b0d5efcbc83b8a8ac70ddd995cc366b86a7fb6ebc8ff191c27de81a2c9"
+    },
+    {
+      "bytes": 6040,
+      "path": "receipt.json",
+      "sha256": "231391dae587f6a11f346a8fc435311154daf778e2e460d95717d2ebf05bc495"
+    },
+    {
+      "bytes": 2666,
+      "path": "run_tests.py",
+      "sha256": "9f6fead85c4bfe67eb1808721c784eac57c60a77c253c9d3a70ca5beff6a43f1"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 6862,
+      "path": "sources/avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a"
+    },
+    {
+      "bytes": 8351,
+      "path": "sources/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2"
+    },
+    {
+      "bytes": 36462,
+      "path": "sources/avatar_assets/finish_generated.py",
+      "sha256": "1a2e03a2a6708e7d36e6be39f19e044f6521cbf6b5734b04a50bd461e9d644f1"
+    },
+    {
+      "bytes": 17295,
+      "path": "sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 6665,
+      "path": "sources/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 2675,
+      "path": "sources/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 1792,
+      "path": "sources/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 527752,
+      "path": "sources/outputs/fox-material-fur-finish-v1/finish-report.json",
+      "sha256": "76038d0a72f8da820e9a039ae8e12bc7f23152a7ff594a26aa76fa9b834373eb"
+    },
+    {
+      "bytes": 593815,
+      "path": "sources/outputs/fox-material-fur-finish-v1/manifest.json",
+      "sha256": "8bbad9c6db6263d4fae88b3f8548704af4b8e7f7f0b7caff643d18e6541e055d"
+    },
+    {
+      "bytes": 1221,
+      "path": "sources/outputs/fox-material-fur-finish-v1/material-coat.json",
+      "sha256": "aea9260208da5fd1700c525eb576a7d9252e754cfb51268372930c070fd538cb"
+    },
+    {
+      "bytes": 2311210,
+      "path": "sources/outputs/fox-material-fur-finish-v1/material-groom/correspondence.npz",
+      "sha256": "8b7b59269e10cbe83eb146cc30168f9acc6c8a85e0ccde94316c416f90b78d13"
+    },
+    {
+      "bytes": 28714,
+      "path": "sources/outputs/fox-material-fur-finish-v1/material-groom/report.json",
+      "sha256": "8eccf2b1e43c64c9beb06b5fd30ad91579e8a62596d13b906595d93ff24827f8"
+    },
+    {
+      "bytes": 6582,
+      "path": "sources/scripts/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4"
+    },
+    {
+      "bytes": 23994,
+      "path": "sources/scripts/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd"
+    },
+    {
+      "bytes": 2710,
+      "path": "sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 57179,
+      "path": "sources/scripts/blender_finish_generated.py",
+      "sha256": "71a9e62b1cb7bf3f4bdbe3698096ae60a5672f6be55a673af46c2a43d0d77938"
+    },
+    {
+      "bytes": 23637,
+      "path": "sources/scripts/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 5450,
+      "path": "sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 8894,
+      "path": "sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 31282,
+      "path": "sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 6885,
+      "path": "sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 10304,
+      "path": "sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 5789,
+      "path": "sources/scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e"
+    },
+    {
+      "bytes": 12009,
+      "path": "sources/scripts/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 5399,
+      "path": "sources/scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 6870,
+      "path": "sources/scripts/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7"
+    },
+    {
+      "bytes": 4687,
+      "path": "sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 9487,
+      "path": "sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 6129,
+      "path": "sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 9560,
+      "path": "sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 6843,
+      "path": "sources/scripts/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0"
+    },
+    {
+      "bytes": 7538,
+      "path": "sources/scripts/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a"
+    },
+    {
+      "bytes": 13045,
+      "path": "sources/tests/test_material_native_reuse.py",
+      "sha256": "e5bd4ec698786aec38a067e5505b98fba35c68a20591c5d617553d8ca226e365"
+    },
+    {
+      "bytes": 413,
+      "path": "test-result.json",
+      "sha256": "7cab2c8a6af76c25dd2096a62e9893208ca2cd6a6a4012142c00db503b2b4bce"
+    }
+  ],
+  "kind": "material_native_reuse_test_evidence",
+  "schema_version": 1,
+  "status": "passed"
+}

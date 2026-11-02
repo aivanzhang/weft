@@ -1,0 +1,290 @@
+{
+  "animations": [
+    "idle",
+    "making_something",
+    "milestone_level_up",
+    "working"
+  ],
+  "elapsed_seconds": 0.07380641670897603,
+  "generation": {
+    "local_compute": "CPU, up to 4 threads; resource usage in job.json",
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "recurring_service_cost_usd": 0
+  },
+  "joints": 20,
+  "kind": "read_only_existing_authored_fox_census",
+  "limits": [
+    "Indexed-edge lengths only; not full allocator eligibility or selected fin count.",
+    "No pixel decode, new model, native render, visual acceptance, or provider call.",
+    "Fox is an authored existing character, not a fresh Meshy generation."
+  ],
+  "mesh_nodes": [
+    {
+      "mesh": 0,
+      "name": "fox-hd-v3_skinned_mesh",
+      "skin": 0
+    }
+  ],
+  "origin": "Agent-authored procedural geometry and skeletal keyframes; not neural reconstruction or an analytic fixture",
+  "primitives": [
+    {
+      "coincident_shared_aliases": 0,
+      "edge_length_quantiles_m": [
+        0.000732985651919276,
+        0.02436785123016067,
+        0.03678287945124513,
+        0.05457963926746233,
+        0.2953654291793484
+      ],
+      "image_index": 1,
+      "image_mode": "RGBA",
+      "image_sha256": "0c2d113cf0b6415d2c5430cdfcd0c615412fbb7ef1bbfd07e11103cddc0b88eb",
+      "image_size": [
+        2048,
+        2048
+      ],
+      "material": "coat",
+      "mode": "OPAQUE",
+      "normal_length_range": [
+        0.9999998807907104,
+        1.0000001192092896
+      ],
+      "primitive": 0,
+      "sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987
+      },
+      "shared_indexed_edges": 15643,
+      "span_8_5_to_10_mm": 130,
+      "span_8_5_to_20_mm": 1950,
+      "span_8_5_to_20_mm_without_alias": 1950,
+      "texture_coord": 0,
+      "triangles": 11200,
+      "uv_max": [
+        1.0071512460708618,
+        1.0
+      ],
+      "uv_min": [
+        -0.1530475616455078,
+        -0.0690382719039917
+      ],
+      "vertices": 7079
+    },
+    {
+      "material": "coat_cutout_fur",
+      "mode": "MASK",
+      "primitive": 1,
+      "triangles": 13604,
+      "vertices": 20406
+    },
+    {
+      "coincident_shared_aliases": 0,
+      "edge_length_quantiles_m": [
+        0.001413114494758143,
+        0.020841879615465558,
+        0.028484305192496496,
+        0.03696838802785523,
+        0.24650539151182216
+      ],
+      "image_index": 4,
+      "image_mode": "RGBA",
+      "image_sha256": "a5ee4c924d75cde4cad64a59cf885ce8cf16b9c84a648627807df8eff37c0150",
+      "image_size": [
+        2048,
+        2048
+      ],
+      "material": "cream",
+      "mode": "OPAQUE",
+      "normal_length_range": [
+        0.9999999403953552,
+        1.0000001192092896
+      ],
+      "primitive": 2,
+      "sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987
+      },
+      "shared_indexed_edges": 9218,
+      "span_8_5_to_10_mm": 130,
+      "span_8_5_to_20_mm": 1430,
+      "span_8_5_to_20_mm_without_alias": 1430,
+      "texture_coord": 0,
+      "triangles": 6496,
+      "uv_max": [
+        1.0,
+        1.0
+      ],
+      "uv_min": [
+        -0.1505824625492096,
+        0.0
+      ],
+      "vertices": 3876
+    },
+    {
+      "material": "cream_cutout_fur",
+      "mode": "MASK",
+      "primitive": 3,
+      "triangles": 4500,
+      "vertices": 6750
+    },
+    {
+      "material": "nose",
+      "mode": "OPAQUE",
+      "primitive": 4,
+      "triangles": 3824,
+      "vertices": 2212
+    },
+    {
+      "material": "eye_white",
+      "mode": "OPAQUE",
+      "primitive": 5,
+      "triangles": 5024,
+      "vertices": 2812
+    },
+    {
+      "material": "iris",
+      "mode": "OPAQUE",
+      "primitive": 6,
+      "triangles": 2432,
+      "vertices": 1382
+    },
+    {
+      "material": "pupil",
+      "mode": "OPAQUE",
+      "primitive": 7,
+      "triangles": 2432,
+      "vertices": 1382
+    },
+    {
+      "material": "ear_inner",
+      "mode": "OPAQUE",
+      "primitive": 8,
+      "triangles": 320,
+      "vertices": 256
+    },
+    {
+      "coincident_shared_aliases": 0,
+      "edge_length_quantiles_m": [
+        0.003017890747207432,
+        0.015185520074521355,
+        0.020407019128923943,
+        0.026850360189945924,
+        0.05106096909043587
+      ],
+      "image_index": 7,
+      "image_mode": "RGBA",
+      "image_sha256": "98c7207a2367b34d509165250cfa9820e901fef64e691ed6b669edfd777c2e91",
+      "image_size": [
+        1024,
+        1024
+      ],
+      "material": "dark",
+      "mode": "OPAQUE",
+      "normal_length_range": [
+        0.9999999403953552,
+        1.0000001192092896
+      ],
+      "primitive": 9,
+      "sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987
+      },
+      "shared_indexed_edges": 16284,
+      "span_8_5_to_10_mm": 292,
+      "span_8_5_to_20_mm": 6676,
+      "span_8_5_to_20_mm_without_alias": 6676,
+      "texture_coord": 0,
+      "triangles": 11520,
+      "uv_max": [
+        1.0,
+        0.9999999403953552
+      ],
+      "uv_min": [
+        0.0,
+        0.0
+      ],
+      "vertices": 6774
+    },
+    {
+      "material": "dark_cutout_fur",
+      "mode": "MASK",
+      "primitive": 10,
+      "triangles": 1896,
+      "vertices": 2844
+    },
+    {
+      "material": "scarf",
+      "mode": "OPAQUE",
+      "primitive": 11,
+      "triangles": 2320,
+      "vertices": 1433
+    },
+    {
+      "material": "scarf_seam",
+      "mode": "OPAQUE",
+      "primitive": 12,
+      "triangles": 612,
+      "vertices": 523
+    },
+    {
+      "material": "book",
+      "mode": "OPAQUE",
+      "primitive": 13,
+      "triangles": 296,
+      "vertices": 864
+    },
+    {
+      "material": "paper",
+      "mode": "OPAQUE",
+      "primitive": 14,
+      "triangles": 188,
+      "vertices": 551
+    },
+    {
+      "material": "page_edge",
+      "mode": "OPAQUE",
+      "primitive": 15,
+      "triangles": 84,
+      "vertices": 168
+    },
+    {
+      "material": "gold",
+      "mode": "OPAQUE",
+      "primitive": 16,
+      "triangles": 952,
+      "vertices": 1024
+    },
+    {
+      "material": "pencil_wood",
+      "mode": "OPAQUE",
+      "primitive": 17,
+      "triangles": 46,
+      "vertices": 49
+    },
+    {
+      "material": "graphite",
+      "mode": "OPAQUE",
+      "primitive": 18,
+      "triangles": 30,
+      "vertices": 33
+    }
+  ],
+  "prospective_card_removal": {
+    "derivative_created": false,
+    "excluded_materials": [
+      "coat_cutout_fur",
+      "cream_cutout_fur",
+      "dark_cutout_fur"
+    ],
+    "max_fins_by_triangle_budget": 4800,
+    "max_fins_by_vertex_budget": 4800,
+    "retained_triangles": 47776,
+    "retained_vertices": 30418
+  },
+  "skins": 1,
+  "source": "outputs/fox-hd-build-v2/model.glb",
+  "source_bytes": 27709020,
+  "source_sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+  "source_subject": "A small red fox craftsperson with a sea-green scarf, a blue sketchbook and a golden pencil."
+}

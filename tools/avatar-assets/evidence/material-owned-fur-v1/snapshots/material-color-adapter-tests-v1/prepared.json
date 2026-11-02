@@ -1,0 +1,39 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_material_color_adapter",
+    "-v"
+  ],
+  "sources": [
+    {
+      "path": "scripts/blender_material_colors.py",
+      "bytes": 8894,
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "path": "scripts/material_fur.py",
+      "bytes": 9487,
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "path": "tests/test_material_color_adapter.py",
+      "bytes": 15840,
+      "sha256": "16cb63ec7461b5839ffe555aa267ff9b29ea74dbc9c4691950118c5691c6b654"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    }
+  ],
+  "bounds": {
+    "seconds": 30,
+    "memory_mib": 256,
+    "output_mib": 8
+  },
+  "provenance": "Bounded fake Blender interfaces executing actual Python adapter functions; analytic pixel buffers, not native/renderer/asset-quality evidence",
+  "kernel_suite_rerun": false
+}

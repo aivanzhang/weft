@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "artifacts": [
+    {
+      "path": "job.json",
+      "bytes": 1082,
+      "sha256": "494a9ae57ad3608f275e5a38467974bbe80f7d32bf49c5fc6e8925444248c6df"
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 1046,
+      "sha256": "14100e98480f82eb62f76e823442dfa1a698330648a1b2a0a18a5450b5280f21"
+    },
+    {
+      "path": "source-verification.json",
+      "bytes": 33,
+      "sha256": "65ea830eb800c2de26c17d7bf7dd202743730803d3f9b48539d3b0b5f835214f"
+    },
+    {
+      "path": "sources/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "sources/scripts/fur_root_sampling.py",
+      "bytes": 4687,
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "path": "sources/scripts/material_fur.py",
+      "bytes": 9487,
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "path": "sources/tests/test_material_fur.py",
+      "bytes": 10944,
+      "sha256": "8d2969b49960b3c84da24e5fa811b02fc163a4439081ca59d6f1cf877782267b"
+    },
+    {
+      "path": "tests-handle.json",
+      "bytes": 195,
+      "sha256": "912d77306dfa4f741cd6dfa19af9297952ffa0004d806979c12097e06b609b1f"
+    },
+    {
+      "path": "tests-monitor.json",
+      "bytes": 976,
+      "sha256": "3801c1271c9054cf269abd1c04df715b158617df8ffc513598822829e71351d4"
+    },
+    {
+      "path": "tests.log",
+      "bytes": 2640,
+      "sha256": "90d093e691032718569ba79d4a98e50dad145094bb11ddaffa1d46ba070dd7b0"
+    }
+  ],
+  "self_excluded": true
+}

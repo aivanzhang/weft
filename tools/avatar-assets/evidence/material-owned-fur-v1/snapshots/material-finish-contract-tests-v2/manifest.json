@@ -1,0 +1,101 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1277,
+      "path": "job.json",
+      "sha256": "3d32e137d425451f65235bb0282a838e3e016a9c148e90039cd2b2cb7596f971"
+    },
+    {
+      "bytes": 626,
+      "path": "request.json",
+      "sha256": "9f200031395738b416055b9eee17f6a3d0a7f9e03562325438292c7a9533cd61"
+    },
+    {
+      "bytes": 36343,
+      "path": "sources/avatar_assets/finish_generated.py",
+      "sha256": "5b81523da8e79e595b90eeea78e278647d74c8dc63ebfe43816c89f3c3316497"
+    },
+    {
+      "bytes": 57179,
+      "path": "sources/scripts/blender_finish_generated.py",
+      "sha256": "71a9e62b1cb7bf3f4bdbe3698096ae60a5672f6be55a673af46c2a43d0d77938"
+    },
+    {
+      "bytes": 11033,
+      "path": "sources/tests/test_generated_workflow.py",
+      "sha256": "3189cfd82e998261c646a0379add419dbc5820be20d2ba932feda28434c36d4d"
+    },
+    {
+      "bytes": 4017,
+      "path": "sources/tests/test_material_finish_config.py",
+      "sha256": "f9b9f01b4a5350ee1b6c97453719b3fd15eb7193d71ab11f0831daa58a4e47e1"
+    },
+    {
+      "bytes": 9803,
+      "path": "sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 411,
+      "path": "tests-handle.json",
+      "sha256": "4338fd201415f4644d79bbc881244b2146021620bf29586bb725c138bd3de7dd"
+    },
+    {
+      "bytes": 1149,
+      "path": "tests-monitor.json",
+      "sha256": "323ccd91aa36cda55562a65010d2c0e7d4fb6c2d88600a0bb42acec16b9de449"
+    },
+    {
+      "bytes": 3421,
+      "path": "tests.log",
+      "sha256": "352386c963e9f4fa5500c22271156b0f32ac0b07acaf7351703c24df1faad08a"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "-i",
+      "PATH=/usr/bin:/bin",
+      "PYTHONPATH=/Users/ivan/kintsugi/weft/tools/avatar-assets/tests:/Users/ivan/kintsugi/weft/tools/avatar-assets",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "test_material_finish_config",
+      "test_generated_workflow",
+      "-v"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.262,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 123914,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 86700,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 123914,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "status": "passed"
+}

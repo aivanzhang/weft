@@ -1,0 +1,25 @@
+{
+  "clips": 4,
+  "elapsed_seconds": 0.5540793328545988,
+  "exception": {
+    "message": "Coat skin addon recorded failures",
+    "traceback": "Traceback (most recent call last):\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-coat-skin-audit-v1/audit.py\", line 221, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-coat-skin-audit-v1/audit.py\", line 216, in main\n    raise ValueError('Coat skin addon recorded failures')\nValueError: Coat skin addon recorded failures\n",
+    "type": "ValueError"
+  },
+  "failures": [
+    "Sampled coat roots drift from the deformed source triangle beyond the declared inset"
+  ],
+  "final_sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb",
+  "max_declared_skin_motion_error_m": 3.8622649012332033e-07,
+  "max_named_weight_error": 6.067610569537862e-08,
+  "max_rest_root_error_m": 1.115644328031351e-07,
+  "max_source_surface_attachment_error_m": 0.002142179512126141,
+  "native_provider_AI_calls": 0,
+  "process_high_water_rss_bytes": 183549952,
+  "quality_approved": false,
+  "samples": 384,
+  "schema_version": 1,
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "failed",
+  "times_per_clip": 9
+}

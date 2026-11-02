@@ -1,0 +1,70 @@
+{
+  "external_references": [
+    {
+      "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+      "role": "existing_authored_fox_source",
+      "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+    },
+    {
+      "path": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "role": "unchanged_approved_panda",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67"
+    },
+    {
+      "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "role": "unchanged_original_reference",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb"
+    }
+  ],
+  "folders": [
+    "multipart-source-publication-v1",
+    "material-fur-tests-v1",
+    "material-color-adapter-tests-v1",
+    "material-finish-contract-tests-v1",
+    "material-finish-contract-tests-v2",
+    "material-pipeline-tests-v1",
+    "material-native-reuse-tests-v1",
+    "furry-material-source-review-v1",
+    "material-fur-fox-preparation-v1",
+    "material-fur-fox-preparation-v2",
+    "fox-material-fur-finish-v1",
+    "material-fur-fox-export-preview-preparation-v1",
+    "fox-material-fur-export-preview-v1",
+    "material-fur-fox-appearance-review-v1",
+    "fox-material-fur-independent-audit-v1",
+    "fox-material-fur-independent-audit-v2",
+    "material-fur-public-verification-v1",
+    "fox-material-coat-skin-audit-v1"
+  ],
+  "limits": {
+    "selected_bytes": 25165824,
+    "selected_files": 900,
+    "single_file_bytes": 4194304
+  },
+  "output": "evidence/material-owned-fur-v1",
+  "schema_version": 1,
+  "status": "material_owned_fur_export_verified_surface_attachment_rejected",
+  "verification": {
+    "actual_public_finish": true,
+    "actual_public_verify": true,
+    "attachment_failed_roots": 21,
+    "coat_skin_addon_status": "attachment_rejected_declared_weights_passed",
+    "full_native_root_texture_sampling_verified": false,
+    "independent_original_body_material_motion_audit": true,
+    "max_attachment_distance_m": 0.002495361,
+    "native_four_view_load": true,
+    "new_studio_delivery": false,
+    "reviewed_original_images": 17,
+    "sampled_coat_roots": 384,
+    "sampled_tuft_root_color_audit": true,
+    "software_checks_by_suite": {
+      "generated_workflow": 16,
+      "lazy_color_sampling": 10,
+      "material_color_adapter": 8,
+      "material_finish_config": 5,
+      "material_kernels": 14,
+      "material_native_reuse": 17,
+      "pipeline_policy_custody": 40
+    }
+  }
+}

@@ -74,7 +74,7 @@ CRITIC_SCHEMA = _object({
 
 AUTHOR_FIELDS = frozenset({
     "authored_rig", "authored_actions", "action_bindings", "part_rigs", "normal_continuity", "smoothing", "weight_constraints", "attachment", "groom",
-    "groom_exclusions", "groom_excluded_parts", "fur_max_chroma", "fur_clump", "portable_fur", "portable_fringe", "camera_view", "camera_fit", "surface_profiles", "surface_smoothing", "groom_shader", "groom_flow", "color_corrections", "pose_resolution", "review_views", "fur_undercoat",
+    "groom_exclusions", "groom_excluded_parts", "fur_max_chroma", "fur_clump", "portable_fur", "portable_fringe", "camera_view", "camera_fit", "surface_profiles", "surface_smoothing", "groom_shader", "groom_flow", "color_corrections", "pose_resolution", "review_views", "fur_undercoat", "material_fur",
 })
 
 
@@ -187,7 +187,7 @@ _DESIGN_GUIDE = """
 Return AUTHOR_SCHEMA with status, reason and design_json. design_json is a JSON object of ONLY these optional fields:
 authored_rig, authored_actions, action_bindings, part_rigs, normal_continuity, smoothing, weight_constraints, attachment, groom, groom_exclusions, groom_excluded_parts,
 fur_max_chroma, fur_clump, portable_fur, portable_fringe, camera_view, camera_fit, surface_profiles, surface_smoothing, groom_shader, groom_flow, color_corrections,
-pose_resolution, review_views, fur_undercoat. authored_actions is mandatory for ready.
+pose_resolution, review_views, fur_undercoat, material_fur. authored_actions is mandatory for ready.
 Never include identity, source paths/hashes, states, IDs, execution, resolution, samples or paid-operation fields.
 Render settings are coordinator-owned by the supplied quality policy. Clips run from0 to4seconds; shorter media presets retime the full curves.
 Consistent-quality review requires pose_resolution:720 and review_views:true; a large contact sheet of small tiles is insufficient.
@@ -325,6 +325,21 @@ portable_fur:{settings:{seed:0..2147483643 integer,length:0.001..0.04,width:0.00
 bands:[{brightness:[low,high],color:[r,g,b,a],count:integer}]} with1–4 bands,0<=low<high<=1.01,
 Optional card settings profile:"combed-v1" reduces upright ribbon flecks; sample_root_color:true inherits source coat color.
 color channels0..1,each count1..5000,total count<=5000. Cards can add12 exported corners each; keep total under100k vertices.
+Optional material_fur:{version:1,materials:[exact_source_material_name]} selects1–32 unique observed source material names
+for a material-owned coat. Do not invent names or infer ownership from species/color. Unlisted source materials receive no
+hair/cards, so an explicit measured selector can exclude eyes, claws, glass and other non-fur materials without guessed regions.
+This profile requires groom and groom_flow; portable_fur, when supplied, must use profile:"tuft-v1", sample_root_color:true
+and the same direction as groom. The high-quality fur policy still requires BOTH native and portable fibers and shared flow.
+The coordinator sets normal_strength:"preserve" for this profile; do not include normal_strength in design_json.
+Use only opaque constant-color materials or direct sRGB image Color-to-BaseColor routes with Linear/REPEAT sampling,
+coherent active/render UV0, and unambiguous per-vertex material/UV ownership. Complex shaders, mapped/alternate UV routes,
+transparent emitted faces and UV-seam collapse are unsupported. Actual adapter inspection, not the material name, admits them.
+Budgets are AGGREGATE across materials/bands: parents<=10000, at least16parents/selected material,
+parents*(children+1)<=240000, cards<=5000, whole exported model<=100000vertices, and unique source images<=16Mi pixels.
+Do not multiply budgets by material count. Preserve source colors; texture and constant roots retain their actual owning material.
+Do not combine material_fur with weight_constraints, attachment, surface_profiles, color_corrections, fur_undercoat,
+normal_continuity, portable_fringe, smoothing or surface_smoothing. These repair routes are not supported by this profile.
+Material ownership and tuft-v1 are opt-in compatibility choices, not denser fur, Muse quality or visual acceptance.
 Keep source-colored combed portable_fur as the existing default. The following is an OPT-IN alternative, never an automatic
 upgrade or substitute for appearance review; do not select it merely because the user asks for higher quality.
 Do NOT propose portable_fringe: actual avatar normal/weight fidelity and memory checks failed, so finishing currently returns unsupported before native execution. The schema below is experimental documentation, not an enabled alternative.
@@ -417,6 +432,8 @@ def finish_config(response, request, plan, source, iteration, *, quality_policy=
         settings.update(quality_policy["candidate_settings"])
         require(set(settings) == {"normal_strength", "resolution", "samples", "pose_resolution", "review_views"},
                 "Quality policy cannot override identity or bounds")
+    if "material_fur" in design:
+        settings["normal_strength"] = "preserve"
     config = {"schema_version": 1, "id": slug(request["id"] + "-attempt-" + str(iteration)),
               "subject": plan["subject"], "style": plan["style"], "prompt": request["prompt"],
               "rights": "User-described subject with optional selected references. Generated hidden surfaces and agent-authored rig, scale and motion are assumptions. Source provenance is retained by the pipeline; commercial rights are not independently verified.",

@@ -1,0 +1,32 @@
+{
+  "authorized_runs": 1,
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-coat-skin-audit-v1/audit.py"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "source_pins": [
+    {
+      "path": "outputs/fox-material-coat-skin-audit-v1/audit.py",
+      "sha256": "f3b4dda7589be0bf77f47f35b18bd5d4b2cd20c28a19bad70fd29ffc1235bc59"
+    },
+    {
+      "path": "outputs/fox-material-coat-skin-audit-v1/prepared.json",
+      "sha256": "63c61ef827af9a80554e6a679aa968e6a78e7af2029d5931dc342f4de444e97e"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    }
+  ]
+}

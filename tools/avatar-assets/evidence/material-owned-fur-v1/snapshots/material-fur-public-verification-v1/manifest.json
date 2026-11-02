@@ -1,0 +1,100 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1304,
+      "path": "job.json",
+      "sha256": "1d1fd9053283f8fee3d2bd27f10c7185dd0f1efd3cbf170b93ed3f93aaebb6a5"
+    },
+    {
+      "bytes": 716,
+      "path": "request.json",
+      "sha256": "ae07f74242023b1e36202b4a0f0b4da23e01eb66b57d69afb70bc23829c1ef83"
+    },
+    {
+      "bytes": 11789,
+      "path": "sources/cli.py",
+      "sha256": "5972c5de8957387d826d70e814e3b78f5f3d39dccff0d5998ba66771ad972a37"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 395,
+      "path": "verify-handle.json",
+      "sha256": "5d94fe2580fd0de3549b74192f7a7d94508fd69b4b25b2401d19b4274003408d"
+    },
+    {
+      "bytes": 1178,
+      "path": "verify-monitor.json",
+      "sha256": "d816ae171108dce343b848a9ba53c3b7bf61f28ddd40c2b9d4700b3ac0563361"
+    },
+    {
+      "bytes": 6920,
+      "path": "verify.log",
+      "sha256": "4d6a51004e29e1fd785c8132594fd138dbe4d6a27228d16b69e7dc70d4bb15be"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "-i",
+      "PATH=/usr/bin:/bin",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "PYTHONPATH=/Users/ivan/kintsugi/weft/tools/avatar-assets",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-m",
+      "avatar_assets",
+      "verify",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-fur-finish-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.522,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 71388,
+    "last_rss_sample_elapsed_seconds": 0.261,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "verify-monitor.json",
+    "monitor_errors": [],
+    "pid": 89018,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 71388,
+    "sampled_peak_rss_bytes": 142409728,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "actual_public_pack_verification",
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "schema_version": 1,
+  "status": "passed",
+  "visual_quality_verified": false
+}

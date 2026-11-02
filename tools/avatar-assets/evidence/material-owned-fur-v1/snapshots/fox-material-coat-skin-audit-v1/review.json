@@ -1,0 +1,95 @@
+{
+  "actual_model_sha256": "5f944c6d5a3c63b2b9ccbd6d965651e6367805f64aa37e82ff54ea3e0a71c7fb",
+  "checks": {
+    "declared_skin_motion_pass": true,
+    "discarded_top4_source_weight_max": 0.0,
+    "duplicate_root_vertices_separate": false,
+    "max_declared_skin_motion_component_error_m": 3.8622649012332033e-07,
+    "max_named_weight_error": 6.067610569537862e-08,
+    "max_rest_root_component_error_m": 1.115644328031351e-07,
+    "max_source_surface_component_gap_m": 0.002142179512126141,
+    "max_source_surface_euclidean_gap_m": 0.002495361260086028,
+    "rest_root_anchor_pass": true,
+    "source_barycentric_top4_normalized_named_weights_pass": true,
+    "source_surface_attachment_pass": false,
+    "unique_roots_over_gate": 21
+  },
+  "gate_policy": {
+    "named_weights": 1e-06,
+    "rest_root_m": 1e-06,
+    "sampled_motion_m": 1e-05,
+    "source_surface_attachment_m": 1e-05
+  },
+  "interpretation": "The export preserves the intended weights and expected skin transform. That does not guarantee a sampled root follows the original triangle: interpolating vertex weights onto a root and then applying linear skinning is generally different from barycentrically interpolating already-skinned source vertices. No sampled source influence was lost by top4 selection. The measured residual remains after compensating only the authored root inset.",
+  "native_provider_AI_calls": 0,
+  "per_clip": [
+    {
+      "id": "idle",
+      "max_component_gap_m": 1.5993699431504638e-07,
+      "max_euclidean_gap_m": 1.7264829901436912e-07,
+      "root_time_samples_over_gate": 0,
+      "unique_roots_over_1e_5m_gate": 0,
+      "worst_material": "coat",
+      "worst_root_index": 1587,
+      "worst_second": 1.0,
+      "worst_source_polygon": 9146
+    },
+    {
+      "id": "making_something",
+      "max_component_gap_m": 0.0003289967255417636,
+      "max_euclidean_gap_m": 0.00034305403848824864,
+      "root_time_samples_over_gate": 63,
+      "unique_roots_over_1e_5m_gate": 7,
+      "worst_material": "coat",
+      "worst_root_index": 1794,
+      "worst_second": 0.5,
+      "worst_source_polygon": 10600
+    },
+    {
+      "id": "milestone_level_up",
+      "max_component_gap_m": 0.002142179512126141,
+      "max_euclidean_gap_m": 0.002495361260086028,
+      "root_time_samples_over_gate": 117,
+      "unique_roots_over_1e_5m_gate": 17,
+      "worst_material": "coat",
+      "worst_root_index": 556,
+      "worst_second": 1.5,
+      "worst_source_polygon": 3415
+    },
+    {
+      "id": "working",
+      "max_component_gap_m": 0.0007701246818394569,
+      "max_euclidean_gap_m": 0.000840437993025741,
+      "root_time_samples_over_gate": 90,
+      "unique_roots_over_1e_5m_gate": 10,
+      "worst_material": "coat",
+      "worst_root_index": 587,
+      "worst_second": 0.0,
+      "worst_source_polygon": 3622
+    }
+  ],
+  "quality_approved": false,
+  "recorded_local": "2026-11-02T06:03:07.292252-08:00",
+  "root_time_samples": 13824,
+  "runtime": {
+    "audit_seconds": 0.5540793328545988,
+    "exit_code": 1,
+    "pid": 89764,
+    "process_exit_verified": true,
+    "process_high_water_RSS_bytes": 183549952,
+    "runner_seconds": 0.783,
+    "sampled_peak_RSS_bytes": 181223424
+  },
+  "sampled_clip_times": 36,
+  "sampled_roots": 384,
+  "schema_version": 1,
+  "scope_limits": [
+    "Only384 sealed sample roots; not every tuft",
+    "Four clips at nine times each, not continuous motion or loop verification",
+    "No native hair/GPU/appearance/physics claim",
+    "No production/model changes or automatic repair",
+    "Prior body/material/color audit remains valid; this addon closes a different test and fails its attachment gate"
+  ],
+  "source_sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3",
+  "status": "failed_sampled_source_surface_attachment"
+}

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-coat-skin-audit-v1/audit.py", line 221, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-material-coat-skin-audit-v1/audit.py", line 216, in main
+    raise ValueError('Coat skin addon recorded failures')
+ValueError: Coat skin addon recorded failures
