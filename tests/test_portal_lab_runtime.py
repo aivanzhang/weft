@@ -234,12 +234,13 @@ def test_policy_only_runtime_difference_selects_matching_release(tmp_path, monke
         package = tmp_path / commit / 'src/weft'
         package.mkdir(parents=True)
         (package / 'human.py').write_bytes(physics_raw)
-        (package / 'shared_exercise_learning.py').write_bytes(b'wrong policy runtime' if index == 0 else b'old policy runtime')
+        (package / 'shared_exercise_learning.py').write_bytes(
+            b'old policy runtime' if index == len(runtime.TRUSTED_RELEASES) - 1 else b'wrong policy runtime')
         saved[commit] = package.parent.parent
     monkeypatch.setattr(runtime, '_exporter', lambda project: exporter)
     calls = []
     monkeypatch.setattr(runtime, 'prepare_runtime', lambda project, trusted_commit: calls.append(trusted_commit) or saved[trusted_commit])
-    assert runtime.compatible_runtime(root, tmp_path) == saved[runtime.TRUSTED_RELEASES[1]]
+    assert runtime.compatible_runtime(root, tmp_path) == saved[runtime.TRUSTED_RELEASES[-1]]
     assert calls == list(runtime.TRUSTED_RELEASES)
 
 

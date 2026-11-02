@@ -493,7 +493,8 @@ def validate_body_source_files(files, *, deadline=None):
     return human, observations
 
 
-def _finish(target, options, source_name, input_kind, input_manifest, pins, implementation, started, deadline, progress):
+def _finish(target, options, source_name, input_kind, input_manifest, pins, implementation, started, deadline, progress,
+            *, native_capture_performed=False):
     source_sha = _sha(_read(target / source_name, deadline))
     pose_names = set(POSE_FILES)
     native = (target / "native-clock.json").exists()
@@ -546,7 +547,7 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
         "source_clock": {"basis": clock["nominal_basis"], "status": "assumed",
                          "native_scope": clock["native_scope"], "sampled_slots": len(clock["samples"]),
                          "total_decoded_slots": clock["decoded_frames"]},
-        "work": {"video_decodes": int(input_kind == "local_video") * (2 if captured else 1),
+        "work": {"video_decodes": int(input_kind == "local_video") + int(native_capture_performed),
                  "inference_calls": len(evidence["frames"]) if input_kind == "local_video" else 0,
                  "floor_forward_calls": 1, "physics_steps": 0, "training_episodes": 0,
                  "simulation_renders": 0, "api_calls": 0,
@@ -652,7 +653,8 @@ def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", p
             _write(target, {"native-clock.json": _bytes(binding), "native-clock-capture.json": _bytes(capture),
                             "native-clock-decode.log": log}, deadline)
         return _finish(target, options, source_name, "local_video", None,
-                       [(video, source_sha), (model, model_sha)], implementation, started, deadline, progress)
+                       [(video, source_sha), (model, model_sha)], implementation, started, deadline, progress,
+                       native_capture_performed=native_timing)
     except Exception as error:
         if native_timing and decoder_rows and not (target / "decoder-clock.json").exists():
             try:
@@ -665,8 +667,23 @@ def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", p
         raise
 
 
-def prepare_exercise_body_source_from_evidence(pose_source, out, *, native_clock=None, max_seconds=30, progress=None):
-    """Reuse a sealed original pose run with inherited options; no media decode or inference."""
+def prepare_exercise_body_source_from_evidence(pose_source, out, *, native_clock=None, max_seconds=30, progress=None,
+                                               native_timing=False, decoder_clock_rows=None):
+    """Reuse sealed poses without inference; optionally capture native timing for verified crop recovery."""
+    if type(native_timing) is not bool:
+        raise ValueError("Native timing must be explicitly enabled or disabled")
+    if native_timing and native_clock is not None:
+        raise ValueError("Choose native capture or an existing native_clock binding, not both")
+    if not native_timing and decoder_clock_rows is not None:
+        raise ValueError("Original decoder rows require explicit native timing capture")
+    if native_timing:
+        if (not isinstance(decoder_clock_rows, list) or not 2 <= len(decoder_clock_rows) <= 1800
+                or any(not isinstance(row, dict) or set(row) != {"frame", "decoder_timestamp_s"}
+                       or type(row["frame"]) is not int or row["frame"] != i
+                       or type(row["decoder_timestamp_s"]) not in (int, float)
+                       for i, row in enumerate(decoder_clock_rows))):
+            raise ValueError("Native crop capture requires complete original decoder callback rows")
+        decoder_clock_rows = _json(_bytes({"rows": decoder_clock_rows}))["rows"]
     source = _path(pose_source)
     clock_path = _path(native_clock) if native_clock is not None else None
     run = _path(source / "run") if (source / "run" / "manifest.json").is_file() else source
@@ -674,6 +691,8 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, native_clock
     try:
         manifest_raw, declared = read_package_manifest(run)
         manifest = _json(manifest_raw)
+        if native_timing and manifest.get("profile") != "exercise-pose-recovery-v1":
+            raise ValueError("Saved automatic native capture requires verified selective-crop recovery")
         if "native-clock.json" in declared and clock_path is None:
             raise ValueError("Native-timed sources require an explicit native_clock input; timing cannot silently revert")
         if (manifest.get("status") in REJECTED or "failure.json" in declared
@@ -727,12 +746,30 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, native_clock
             recovery_implementation = (*recovery_implementation, "source_clock.py")
             if CAPTURE_FILES & kept.keys():
                 recovery_implementation = (*recovery_implementation, "source_clock_capture.py")
+        if native_timing:
+            if CAPTURE_FILES & kept.keys():
+                raise ValueError("Native crop capture cannot replace inherited capture evidence")
+            recovery_implementation = (*recovery_implementation, "source_clock.py", "source_clock_capture.py")
         snapshots, implementation = _implementation(deadline, recovery_implementation)
         _write(target, {**kept, "inputs/source-manifest.json": manifest_raw,
                         "implementation.json": _bytes(implementation),
                         **{"implementation-source/" + name: raw for name, raw in snapshots.items()}}, deadline)
+        if native_timing:
+            from weft.source_clock_capture import collect_native_clock
+
+            source_sha = source_meta["sha256"]
+            _write(target, {"decoder-clock.json": _bytes({"schema_version": 1, "source_sha256": source_sha,
+                "complete": True, "rows": decoder_clock_rows})}, deadline)
+            # Native capture cannot admit poses that fail the unchanged crop derivation and quality gates.
+            _validated_pose(kept, options, source_sha, deadline=deadline)
+            if progress:
+                progress("native_clock", {"message": "Verifying original presentation times for selected crop poses"})
+            binding, capture, log = collect_native_clock(target / source_name, kept["evidence.json"],
+                decoder_clock_rows, max_seconds=min(20, max(.01, deadline - time.monotonic())))
+            _write(target, {"native-clock.json": _bytes(binding), "native-clock-capture.json": _bytes(capture),
+                            "native-clock-decode.log": log}, deadline)
         return _finish(target, options, source_name, "sealed_pose_evidence", _sha(manifest_raw), pins,
-                       implementation, started, deadline, progress)
+                       implementation, started, deadline, progress, native_capture_performed=native_timing)
     except Exception as error:
         _failure(target, error, started)
         raise

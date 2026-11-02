@@ -130,6 +130,18 @@ def _timeline(scene, human, decoded, exercise_task):
         offset, steps = task.get('start_offset_s'), task.get('horizon_steps')
         if finite(offset) and type(steps) is int and 1 <= steps <= 100000:
             start, duration = times[0] + offset, steps * dt
+            if 'native_interval' in task:
+                from weft.native_interval import validate_interval
+                try:
+                    marker = validate_interval(scene)
+                except (KeyError, TypeError, ValueError):
+                    return result
+                if marker != task['native_interval']:
+                    return result
+                duration = marker['duration_s']
+                result['terminal_control_duration_s'] = marker['terminal_duration_s']
+                result['native_source_clock'] = 'declared_native_presentation_binding'
+                result['scope'] = 'Retained native presentation interval; camera capture timing and synchronized video playback remain unverified.'
             if duration <= 3600 and start + duration <= times[-1] + 1e-9:
                 result.update(task_window_s=[start, start + duration], task_duration_s=duration, task_steps=steps)
     return result

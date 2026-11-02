@@ -98,6 +98,11 @@ def _sample(context, entity, frame, camera, lower, upper, deadline):
              and not selected["identity"].get("gap_seen", False)
              and selected["identity"].get("unresolved_group_id") is None,
              "unresolved target identity cannot join a static shape")
+    return _sample_selected(context, selected, frame, camera, lower, upper, deadline)
+
+
+def _sample_selected(context, selected, frame, camera, lower, upper, deadline):
+    # Callers retain distinct identity contracts; shared image math never changes identities.
     target = _raster(context, selected)
     _require(target.any(), "an empty mask cannot supply exterior evidence")
     box = np.asarray(selected["box"]["box_xyxy_halfopen"], dtype=float)
@@ -141,6 +146,13 @@ def propose_temporal_equipment_geometry(context, object_id, *, construction_fram
                                         static_prior, conditional_exterior=False,
                                         max_parts=8, max_seconds=20.):
     """Return one fixed-envelope candidate; admission and task evaluation stay separate."""
+    return _propose_temporal_geometry(context, object_id, construction_frames=construction_frames,
+        static_prior=static_prior, conditional_exterior=conditional_exterior, max_parts=max_parts,
+        max_seconds=max_seconds, sample_builder=_sample)
+
+
+def _propose_temporal_geometry(context, object_id, *, construction_frames, static_prior,
+                               conditional_exterior, max_parts, max_seconds, sample_builder):
     _require(isinstance(context, SilhouetteEvidence), "use a verified SilhouetteEvidence context")
     _require(type(static_prior) is dict and set(static_prior) == {"mode", "provenance"}
              and static_prior["mode"] == "fixed_camera_static_rigid"
@@ -192,7 +204,7 @@ def propose_temporal_equipment_geometry(context, object_id, *, construction_fram
     samples, pixel_count = [], 0
     for frame in construction_frames:
         _deadline(deadline)
-        sample = _sample(context, entity, frame, camera, lower, upper, deadline)
+        sample = sample_builder(context, entity, frame, camera, lower, upper, deadline)
         pixel_count += sample["target"].size
         _require(pixel_count <= CONTRACT["maximum_pixels"], "selected native pixels exceed the aggregate work bound")
         samples.append(sample)

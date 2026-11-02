@@ -137,9 +137,15 @@ it as a hosted product. See the [implementation handoff](handoffs/portal-api.md)
 
 Existing exercise projects retain their original simulation and scoring versions.
 If the current runtime differs, the portal can use the verified released runtime
-`5819ba4` or `64f4bef` in an isolated local worker, without changing recordings or scores.
+`5819ba4`, `64f4bef` or `b0917e7` in an isolated local worker, without changing recordings or scores.
 Unsupported versions still show an explicit error; saved project code is never
 executed. [Automatic native timing](handoffs/portal-native-and-repair.md) now captures every
 decoded exercise frame before reconstruction while retaining original detector
 timestamps. Failed projects show pose coverage, uncertain intervals and a diagnostic
 download when adequate evidence exists; they are not silently retried.
+
+[Native endpoint handling](handoffs/native-interval-and-association.md) preserves
+the full retained reference for supported person-only clips whose last timestamp
+falls between control steps. Interactive replay follows recorded times; exported
+MP4/GIF files remain labeled constant-rate previews. This does not recover missing
+poses, qualify ground contact or extend non-grid support to equipment scenes.

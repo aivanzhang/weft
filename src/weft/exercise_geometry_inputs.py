@@ -139,6 +139,10 @@ def _read_geometry_resume_inputs(run, *, expected_manifest_sha256, deadline):
     limit = min(deadline, time.monotonic() + MAX_SECONDS)
     reader = _Reader(root, limit)
     manifest, files = reader.manifest("manifest.json", expected_manifest_sha256)
+    if manifest.get("profile") == "conditional-association-geometry-admission-v1":
+        from weft.association_geometry_inputs import read_association_geometry_inputs
+        return read_association_geometry_inputs(root,
+            expected_manifest_sha256=sha256(reader.raw["manifest.json"]).hexdigest(), deadline=limit)
     _require(manifest.get("status") == "completed", "Geometry resume requires a completed silhouette study, not a partial or failed run")
 
     def member(name):

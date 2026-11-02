@@ -62,6 +62,8 @@ def _runtime_hashes(scene=None):
         names = (*names, "shared_support_task.py")
     if scene is not None and "native_clock" in scene.get("human_spec", {}):
         names = (*names, "source_clock.py")
+    if scene is not None and "native_interval" in scene.get("task", {}):
+        names = (*names, "native_interval.py")
     return {name: digest(package / name) for name in names}
 
 

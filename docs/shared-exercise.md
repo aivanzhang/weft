@@ -6,6 +6,12 @@ This is a simulated test, not recovered anatomy, a complete exercise definition 
 
 **Human-controlled is not necessarily equipment-free.** Existing task-v1 labs below control the human while equipment stays passive. The new explicit [`--person-only` path](equipment-proposals.md#person-only-video-without-equipment-files) uses the same engine with no rigid objects and task-v2: equipment/contact gates are not applicable, never free successes or stability reward. It retains the full reference interval, human tracking/floor gates and exact recorded replay.
 
+Verified native-clock person-only scenes can now end between normal control
+steps: a shorter final action preserves the exact retained reference instead of
+clipping or retiming it. [Playable example and timing limits](handoffs/native-interval-and-association.md)
+include exact recording replay; MP4/GIF remain constant-rate previews. This does
+not extend non-grid timing to the equipment task-v1/v2 examples below.
+
 ## Try it
 
 From the repository root, start the current full-reference lab:

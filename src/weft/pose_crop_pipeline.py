@@ -213,8 +213,10 @@ def _failure(target, maximum, error, started, work):
 
 
 def prepare_pose_crop_proposals(video, out, *, pose_model, source_note=SOURCE_NOTE,
-                               max_seconds=180, deadline=None, progress=None):
+                               max_seconds=180, deadline=None, progress=None, decoder_clock_sink=None):
     """Generate one fixed Full/IMAGE/raw proposal package; body admission remains separate."""
+    if decoder_clock_sink is not None and not callable(decoder_clock_sink):
+        raise ValueError("Decoder clock sink must be callable")
     if (type(max_seconds) not in (int, float) or not math.isfinite(max_seconds)
             or not 1 <= max_seconds <= MAX_SECONDS):
         raise ValueError("Native pose proposals require a 1–180 second bound")
@@ -276,7 +278,8 @@ def prepare_pose_crop_proposals(video, out, *, pose_model, source_note=SOURCE_NO
         work["video_decodes"] += 1
         try:
             baseline = exercise_vision.inspect_exercise(video, whole.root, model, report,
-                pose_mode="image", pose_identity="raw", artifact_sink=whole, max_preview_frames=MAX_PREVIEWS)
+                pose_mode="image", pose_identity="raw", artifact_sink=whole, max_preview_frames=MAX_PREVIEWS,
+                **({"decoder_clock_sink": decoder_clock_sink} if decoder_clock_sink is not None else {}))
         except UnsupportedVideo:
             baseline = _json(_read(whole.root / "evidence.json", deadline))
             if baseline.get("quality", {}).get("passes") is not False:

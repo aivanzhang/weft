@@ -98,6 +98,10 @@ def _prefix_scope(scene, identifiers):
             "grasp_supported": False, "source_contact_verified": False}
 
 
+def _interval(scene):
+    return {key: deepcopy(scene["task"][key]) for key in ("start_offset_s", "horizon_steps", "native_interval") if key in scene["task"]}
+
+
 def build_shared_exercise_task(scene, *, root_assistance=False, equipment_ids=None, contact_requirements=(), support_requirements=None):
     scene = validate_shared_world(scene)
     if scene["profile"] == STATIC_SUPPORT_PROFILE:
@@ -117,7 +121,7 @@ def build_shared_exercise_task(scene, *, root_assistance=False, equipment_ids=No
     profile = HUMAN_ONLY_TASK_PROFILE if scene["profile"] == HUMAN_ONLY_PROFILE else PROFILE
     task = {"schema_version": 1, "profile": profile, "scene_sha256": canonical_hash(scene),
             "gate_profile": GATE_PROFILE, "gates_sha256": GATES_SHA256,
-            "interval": {key: scene["task"][key] for key in ("start_offset_s", "horizon_steps")},
+            "interval": _interval(scene),
             "control": {"root_assistance": "explicit_3_axis" if root_assistance else "disabled",
                         "object_forces": "forbidden"},
             "equipment_ids": selected, "contact_requirements": deepcopy(list(contact_requirements)),
@@ -148,7 +152,7 @@ def validate_shared_exercise_task(task, scene):
         raise ValueError("Exercise tasks require human control with passive dynamic equipment")
     if np.linalg.norm(scene["gravity"]) <= 1e-9:
         raise ValueError("Exercise force criteria require nonzero declared gravity")
-    expected_interval = {key: scene["task"][key] for key in ("start_offset_s", "horizon_steps")}
+    expected_interval = _interval(scene)
     interval = task["interval"]
     if (not isinstance(interval, dict) or set(interval) != set(expected_interval)
             or type(interval["horizon_steps"]) is not int or type(interval["start_offset_s"]) not in (int, float)
@@ -203,6 +207,10 @@ class _ExerciseMetrics:
         self.dt, self.substeps = scene["dt"], scene["substeps"]
         self.horizon = task["interval"]["horizon_steps"]
         self.duration = self.dt * self.horizon
+        self.terminal_duration = self.dt
+        if "native_interval" in scene["task"]:
+            self.duration = scene["task"]["native_interval"]["duration_s"]
+            self.terminal_duration = scene["task"]["native_interval"]["terminal_duration_s"]
         gravity = np.asarray(scene["gravity"], dtype=float)
         self.weight = float(human_mass * np.linalg.norm(gravity))
         if self.weight <= 1e-9:
@@ -268,8 +276,9 @@ class _ExerciseMetrics:
         if not aligned:
             self.fail("incomplete_or_misaligned_substep_observation")
         if sample.interval_end_s is not None:
+            expected_duration = (self.terminal_duration if expected_step == self.horizon - 1 else self.dt) / self.substeps
             if (not math.isfinite(sample.interval_end_s) or
-                    not math.isclose(sample.interval_end_s - sample.interval_start_s, self.dt / self.substeps, rel_tol=0, abs_tol=1e-9)):
+                    not math.isclose(sample.interval_end_s - sample.interval_start_s, expected_duration, rel_tol=0, abs_tol=1e-9)):
                 self.fail("invalid_substep_duration")
                 self.clock_status = "invalid_substep_clock"
                 return
@@ -625,6 +634,11 @@ def prepare_shared_exercise_snapshot_validator(scene, task):
             "failed_gates", "observed_substeps", "valid_substeps", "equipment", "contact_requirements", "evaluator_sha256", "clock_status", "reset_protocol"}
     duration = task["interval"]["horizon_steps"] * scene["dt"]
     tick = scene["dt"] / scene["substeps"]
+    elapsed = lambda count: count * tick
+    if "native_interval" in scene["task"]:
+        from weft.native_interval import elapsed_substeps
+        duration = scene["task"]["native_interval"]["duration_s"]
+        elapsed = lambda count: elapsed_substeps(scene, count)
     maximum = task["interval"]["horizon_steps"] * scene["substeps"]
 
     def validate(snapshot):
@@ -673,8 +687,8 @@ def prepare_shared_exercise_snapshot_validator(scene, task):
         observed, valid = metrics["observed_substeps"], metrics["valid_substeps"]
         if (type(observed) is not int or type(valid) is not int or not 0 <= valid <= observed <= maximum
                 or not math.isclose(metrics["declared_duration_s"], duration, rel_tol=0, abs_tol=1e-9)
-                or not math.isclose(metrics["valid_observed_duration_s"], valid * tick, rel_tol=0, abs_tol=1e-8)
-                or not valid * tick - 1e-8 <= metrics["simulated_duration_s"] <= observed * tick + 1e-8):
+                or not math.isclose(metrics["valid_observed_duration_s"], elapsed(valid), rel_tol=0, abs_tol=1e-8)
+                or not elapsed(valid) - 1e-8 <= metrics["simulated_duration_s"] <= elapsed(observed) + 1e-8):
             raise ValueError("Exercise duration/substep accounting differs")
         failure = metrics["failure"]
         if failure is not None and (not isinstance(failure, str) or not 1 <= len(failure) <= 240):

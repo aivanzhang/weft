@@ -1,12 +1,39 @@
 import hashlib
 import json
 from pathlib import Path
+from copy import deepcopy
 
 import pytest
 
 from weft import lab_inspection
 from weft.io import canonical_hash
 from weft.lab import Lab
+
+
+def test_native_interval_timeline_preserves_short_terminal_step():
+    from test_native_nongrid import native_scene
+    from weft.shared_exercise_task import build_shared_exercise_task
+    scene = native_scene()
+    result = lab_inspection._timeline(scene, scene['human_spec'], 10, build_shared_exercise_task(scene))
+    assert result['task_window_s'] == [0., .075]
+    assert result['task_steps'] == 3 and result['task_duration_s'] == .075
+    assert result['terminal_control_duration_s'] == pytest.approx(1 / 120)
+    assert result['native_source_clock'] == 'declared_native_presentation_binding'
+    assert result['media_sync_verified'] is False
+
+
+def test_native_interval_timeline_rejects_mismatched_task_marker():
+    from test_native_nongrid import native_scene
+    from weft.shared_exercise_task import build_shared_exercise_task
+    scene = native_scene()
+    task = build_shared_exercise_task(scene)
+    task['interval']['native_interval']['duration_s'] = .1
+    result = lab_inspection._timeline(scene, scene['human_spec'], 10, task)
+    assert result['task_window_s'] is None
+    broken = deepcopy(scene)
+    broken['task']['native_interval']['terminal_duration_s'] = .1
+    result = lab_inspection._timeline(broken, broken['human_spec'], 10, None)
+    assert result['task_window_s'] is None
 
 
 def digest(raw):

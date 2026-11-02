@@ -134,6 +134,10 @@ def read_person_body_source_identity(body_source, *, max_seconds=5, deadline=Non
 def _scene(human, observations, inventory, binding, scale):
     if human.get("native_clock") != observations["source"].get("native_clock_summary"):
         raise ValueError("Body and observations must retain the same native source clock")
+    interval = None
+    if "native_clock" in human:
+        from weft.native_interval import native_interval
+        interval = native_interval(human, 1 / 30)
     # This is the existing body-scale placement prior, without the legacy ball/table scaffold.
     roots = np.asarray([row["translation"] for row in human["root_reference"]], dtype=float) * scale
     span = np.maximum(.4, np.ptp(roots[:, :2], axis=0))
@@ -164,7 +168,8 @@ def _scene(human, observations, inventory, binding, scale):
         "source_binding": binding, "inventory": inventory, "human_spec": human, "objects": [],
         "controlled_id": "human", "target": None,
         "task": {"type": "human_motion_v1", "authored_addition": True, "start_offset_s": 0.,
-                 "horizon_steps": full_reference_horizon(human["reference"], 1 / 30),
+                 "horizon_steps": interval["full_control_steps"] + 1 if interval else full_reference_horizon(human["reference"], 1 / 30),
+                 **({"native_interval": interval} if interval else {}),
                  "human_limits": dict(SUCCESS_LIMITS), "object_goal": None},
         "assumptions": [
             "Person-only scope is an explicit user declaration, not verified absence of equipment or obstacles.",
@@ -220,6 +225,7 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
     implementation_names = list(IMPLEMENTATION_FILES)
     if "native-clock.json" in inputs:
         implementation_names.append("source_clock.py")
+        implementation_names.append("native_interval.py")
     if exercise_body_source.CAPTURE_FILES & inputs.keys():
         implementation_names.append("source_clock_capture.py")
     proof_names = set()
@@ -298,6 +304,7 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
         interval = {"mode": "complete_reference", "selected": {key: scene["task"][key] for key in ("start_offset_s", "horizon_steps")},
             "first_reference_time_s": human["reference"][0]["time_s"], "last_reference_time_s": human["reference"][-1]["time_s"],
             "dt": scene["dt"], "substeps": scene["substeps"],
+            **({"native_interval": scene["task"]["native_interval"]} if "native_interval" in scene["task"] else {}),
             "scope": "Complete retained reference interval; missing source observations remain missing, with no native-clock accuracy claim."}
         report = {"schema_version": 1, "profile": PROFILE, "status": status, "created_at": local_time(),
             "mode": "source_person_only", "physical_validation": "unverified", "lab_status": "not_created",

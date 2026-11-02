@@ -742,12 +742,43 @@ def render_snapshot(snapshot, scene, width=640):
     return np.asarray(image)
 
 
+def _native_export_timing(scene, events):
+    world = scene.get("engine_scene", scene)
+    marker = world.get("task", {}).get("native_interval")
+    if marker is None:
+        return None
+    previous, intervals = 0., []
+    for event in events:
+        state = event["snapshot"]
+        current = state["task_metrics"]["simulated_duration_s"] if "task_metrics" in state else state["time_s"]
+        if event["type"] == "step":
+            if current < previous:
+                raise ValueError("Native recording step clocks cannot move backward")
+            intervals.append(current - previous)
+        previous = current
+    return {"schema_version": 1, "profile": "native-interval-recording-timing-v1",
+            "video_frame_timing": "constant_rate_event_frames", "nominal_video_fps": 1 / scene["dt"],
+            "nominal_video_duration_s": len(events) * scene["dt"],
+            "recorded_simulated_duration_s": math.fsum(intervals),
+            "reference_interval_duration_s": marker["duration_s"],
+            "terminal_control_duration_s": marker["terminal_duration_s"],
+            "scope": "MP4/GIF are constant-rate event previews; exact simulation clocks remain in the journal."}
+
+
 def _replay_html(scene, events):
     if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
-        data = _encoded(_exercise_recording_adapter(scene).replay_view(scene, events)).replace("<", "\\u003c")
+        view = _exercise_recording_adapter(scene).replay_view(scene, events)
+        timing = _native_export_timing(scene, events)
+        if timing is not None:
+            view["export_timing"] = timing
+        data = _encoded(view).replace("<", "\\u003c")
         template = Path(__file__).parent / "assets/shared-world-replay.html"
         return template.read_text().replace("__WEFT_DATA__", data)
-    data = _encoded({"scene": scene, "events": events}).replace("<", "\\u003c")
+    view = {"scene": scene, "events": events}
+    timing = _native_export_timing(scene, events)
+    if timing is not None:
+        view["export_timing"] = timing
+    data = _encoded(view).replace("<", "\\u003c")
     if scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
         template = Path(__file__).parent / "assets/shared-world-replay.html"
         return template.read_text().replace("__WEFT_DATA__", data)
@@ -893,6 +924,9 @@ def export_recording(root, *, deadline=None, max_output_bytes=None):
         if any(manifest["files"][name] != value for name, value in action_replay["source_sha256"].items()):
             raise ValueError("Spatial recording changed during export; partial files are preserved")
         manifest["action_replay"] = action_replay
+    timing = _native_export_timing(scene, events)
+    if timing is not None:
+        manifest["export_timing"] = timing
     _atomic_json(root / "manifest.json", manifest)
     return verify_recording(root, deadline=deadline)
 
@@ -912,6 +946,10 @@ def verify_recording(root, *, deadline=None):
     data = load_recording(root, deadline=deadline)
     if manifest.get("video_frames") != len(data["events"]):
         raise ValueError("Recording frame count does not match the journal")
+    timing = _native_export_timing(data["scene"], data["events"])
+    if (manifest.get("export_timing") != timing
+            or timing is not None and canonical_hash(manifest.get("export_timing")) != canonical_hash(timing)):
+        raise ValueError("Recording export timing differs from its exact event clocks")
     proof = manifest.get("action_replay")
     if proof is not None:
         from weft.spatial_recording import validate_replay_result
@@ -932,6 +970,7 @@ def verify_recording(root, *, deadline=None):
             "video_frames": manifest["video_frames"], "manifest_sha256": digest(root / "manifest.json"),
             "replay": str(root / "replay.html"), "video": str(root / "video.mp4"),
             **({"action_replay": proof} if proof is not None else {}),
+            **({"export_timing": timing} if timing is not None else {}),
             "scope": "File integrity and complete recorded-state replay; not physical validation"}
 
 

@@ -382,7 +382,7 @@ def main():
     exercise_build.add_argument("--pose-model", help="Raw video only: pinned local pose model; no download or upload")
     exercise_build.add_argument("--pose-mode", choices=("video", "image"), help="Raw video only; default video")
     exercise_build.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw video only; default raw")
-    exercise_build.add_argument("--native-timing", action="store_true", help="Raw video only: use captured native presentation timing; not supported with selective-crop recovery")
+    exercise_build.add_argument("--native-timing", action="store_true", help="Raw video only: use captured native presentation timing, including selective-crop recovery")
     exercise_build.add_argument("--pose-recovery", choices=("selective-crop",),
         help="Raw video only: explicit Full/IMAGE/raw baseline and bounded source-only crops; requires the local Full model")
     exercise_build.add_argument("--source-note", help="Raw video provenance; default rights not independently verified")
@@ -832,8 +832,6 @@ def main():
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             if args.native_timing and args.video is None:
                 raise ValueError("--native-timing requires --video; saved bodies and worlds retain their own clocks")
-            if args.native_timing and args.pose_recovery is not None:
-                raise ValueError("--native-timing with --pose-recovery is not yet supported")
             if args.geometry_run is not None:
                 overrides = [name for name in ("evidence_run", "config", "human_run", "video", "pose_model", "pose_mode",
                     "pose_identity", "pose_recovery", "source_note", "body_scale", "static_supports", "training_seed",

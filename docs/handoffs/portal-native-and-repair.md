@@ -1,5 +1,10 @@
 # Portal timing, candidate testing and reconstruction diagnostics
 
+**Follow-up:** [Native endpoints and conditional equipment reconstruction](native-interval-and-association.md)
+adds selective-crop native capture, shorter terminal actions for person-only scenes,
+exact replay timing and a third trusted portal runtime. The unsupported statement
+below records this earlier checkpoint, not the current person-only capability.
+
 ## Verified checkpoint — November 2, 2026 (PST)
 
 Three parallel lanes are integrated: automatic native timing in raw exercise
@@ -163,8 +168,9 @@ claimed; the previously documented decoder allowlist/refinement limitation remai
 
 - [ ] Reconstruct unfamiliar motion, ground, equipment and contact from adequate
   evidence; diagnostic abstention is not reconstructed geometry.
-- [ ] Qualify non-grid source intervals and selective-crop native capture without
-  retiming or shortening protected tasks.
+- [x] Follow-up qualifies selective-crop native capture and person-only non-grid
+  intervals without retiming or shortening protected tasks; [evidence and remaining
+  mixed-scene limitation](native-interval-and-association.md).
 - [ ] Extend meaningful repair beyond bounded controller sensitivity; qualify
   source-backed geometry/contact candidates with unchanged independent scoring.
 - [ ] Demonstrate improved learned control and broader unseen-source/seed coverage;

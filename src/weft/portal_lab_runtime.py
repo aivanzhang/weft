@@ -16,7 +16,8 @@ import uuid
 
 
 TRUSTED_COMMIT = "5819ba452aa65b492cdf586b53dc827045d0d5ba"
-TRUSTED_RELEASES = ("64f4bef5d721100edc2a3a347d386dfbbea35c28", TRUSTED_COMMIT)
+TRUSTED_RELEASES = ("b0917e7500be2fa4ad3699fe922f92fcfe402e5f",
+                    "64f4bef5d721100edc2a3a347d386dfbbea35c28", TRUSTED_COMMIT)
 MAX_REQUEST = 8192
 MAX_RESPONSE = 8 << 20
 METHODS = frozenset({"summary", "control", "exercise_coverage", "inspection", "recording_inspection",

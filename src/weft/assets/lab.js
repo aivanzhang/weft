@@ -85,7 +85,9 @@
     windowText("window-coverage", slots && [slots.with_reference, slots.without_reference, slots.leading_without_reference, slots.trailing_without_reference].every(Number.isInteger)
       ? `Source slots: ${slots.with_reference} with a retained body reference; ${slots.without_reference} without one, including ${slots.leading_without_reference} leading and ${slots.trailing_without_reference} trailing slots. These are reference-coverage counts, not detection or visibility labels; gaps are not filled.`
       : "Source-to-reference slot coverage unavailable here. Pose counts alone do not identify missing source frames.");
-    windowText("window-clocks", timeline?.alignment_method === "pose_frame_index_over_fps_prior_v1"
+    windowText("window-clocks", timeline?.native_source_clock === "declared_native_presentation_binding"
+      ? `Reference times retain the native presentation interval. The final control lasts ${number(timeline.terminal_control_duration_s, 6)}s. Camera capture timing is unverified; video, reference and simulation play independently.`
+      : timeline?.alignment_method === "pose_frame_index_over_fps_prior_v1"
       ? "Reference times use an authored frame-index / FPS prior. Native source timestamps are not read by this summary. Video, kinematic reference and live simulation are not synchronized."
       : "Reference times use the saved declared clock; its mapping to native source timestamps is unavailable here. Video, kinematic reference and live simulation are not synchronized.");
     if (cameraWorld()) {
@@ -771,7 +773,7 @@
         && exerciseTask.contact_requirements.length === 0 && scene.objects.length === 0 && scene.target === null));
     $("exercise-task-card").hidden = $("exercise-results").hidden = $("mode-coast").hidden = false;
     if (staticSupport()) configureSupportLabels();
-    const duration = exerciseTask?.interval?.horizon_steps * scene.dt;
+    const duration = exerciseTask?.interval?.native_interval?.duration_s ?? exerciseTask?.interval?.horizon_steps * scene.dt;
     text($("exercise-task-scope"), exerciseContractReady
       ? staticSupport() ? `Track the body reference and meet the authored segment/load requirements over ${number(duration, 2)} seconds (${exerciseTask.interval.horizon_steps} control steps). Supports stay fixed; equipment-drift scoring does not apply. This is a simulated task, not recovered physical contact.`
         : personOnly() ? `Track the body reference over ${number(duration, 2)} seconds (${exerciseTask.interval.horizon_steps} control steps). Only human and ground are modeled; equipment and contact-requirement checks do not apply. Unsampled source motion remains unknown.`

@@ -51,19 +51,20 @@ def native_stages(monkeypatch, out, calls, *, fail_body=False):
     monkeypatch.setattr(inputs, "recheck_exercise_scene_inputs", lambda *a, **k: None)
 
 
-@pytest.mark.parametrize("train", [False, True])
-def test_native_recovery_uses_one_body_world_and_final_lab_with_explicit_budgets(tmp_path, monkeypatch, train):
+@pytest.mark.parametrize("train,native_timing", [(False, False), (True, False), (False, True)])
+def test_native_recovery_uses_one_body_world_and_final_lab_with_explicit_budgets(tmp_path, monkeypatch, train, native_timing):
     out = tmp_path / "build"
     calls = _fake_stages(monkeypatch)
     native_stages(monkeypatch, out, calls)
     if train:
         fake_learning(monkeypatch, calls)
     result = pipeline.prepare_exercise_scene(None, "equipment", "config", out, video="input.webm",
-        pose_model="full.task", pose_recovery="selective-crop", full_reference=True,
+        pose_model="full.task", pose_recovery="selective-crop", full_reference=True, native_timing=native_timing,
         train_settings={"evaluation_seed": 51021} if train else None)
     assert result["status"] == "ready"
     by_name = dict(calls)
     assert by_name["preflight"]["pose_recovery"] == "selective-crop"
+    assert by_name["body"].get("native_timing", False) is native_timing
     assert by_name["shared_world"]["full_reference"] is True
     assert [name for name, _ in calls].count("body_seed") == 1
     assert result["lab_directory"] == str(out / ("learning_workflow/lab" if train else "lab"))
@@ -193,7 +194,8 @@ def test_native_proposal_cli_remains_source_only_and_forwards_progress(monkeypat
     assert "Observe selected image crops" in output.err
 
 
-def test_shared_build_cli_carries_explicit_recipe_without_starting_another_lab(monkeypatch, capsys):
+@pytest.mark.parametrize("native_timing", [False, True])
+def test_shared_build_cli_carries_explicit_recipe_without_starting_another_lab(monkeypatch, capsys, native_timing):
     received = {}
 
     def build(*args, **options):
@@ -202,8 +204,10 @@ def test_shared_build_cli_carries_explicit_recipe_without_starting_another_lab(m
 
     monkeypatch.setattr(pipeline, "prepare_exercise_scene", build)
     monkeypatch.setattr(sys, "argv", ["weft", "shared-exercise-build", "--video", "new.webm", "--pose-model", "full.task",
-        "--pose-recovery", "selective-crop", "--evidence-run", "equipment", "--config", "config", "--out", "build"])
+        "--pose-recovery", "selective-crop", "--evidence-run", "equipment", "--config", "config", "--out", "build",
+        *(["--native-timing"] if native_timing else [])])
     cli.main()
     assert received["pose_recovery"] == "selective-crop"
+    assert received.get("native_timing", False) is native_timing
     assert received["pose_mode"] is None and received["pose_identity"] is None
     assert json.loads(capsys.readouterr().out)["status"] == "ready"

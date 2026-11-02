@@ -206,14 +206,19 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
     if (jointPixels==='motion') scene.human.joint_pixels.uncertainty={schema_version:2,motion_acceleration_std_rad_s2:60};
   }
   if (initialFailure) {state.terminated=true;state.simulation_failure={reason:'Synthetic nonfinite dynamics',scope:'Last valid state shown'};}
-  const exerciseTask = sharedExercise ? {profile:'shared-exercise-task-v1',control:{root_assistance:rootAssistance?'explicit_3_axis':'disabled',object_forces:'forbidden'},
-    interval:exerciseInterval || {horizon_steps:6,start_offset_s:0},equipment_ids:['block','companion'],contact_requirements:[]} : null;
+  if (shared && sharedProfile === 'shared-world-v3') {
+    scene.objects=[];scene.target=null;scene.task.object_goal=null;
+    state.objects=[];state.target=null;
+  }
+  const exerciseTask = sharedExercise ? {profile:sharedProfile==='shared-world-v3'?'shared-exercise-task-v2':'shared-exercise-task-v1',control:{root_assistance:rootAssistance?'explicit_3_axis':'disabled',object_forces:'forbidden'},
+    interval:exerciseInterval || {horizon_steps:6,start_offset_s:0},equipment_ids:sharedProfile==='shared-world-v3'?[]:['block','companion'],contact_requirements:[]} : null;
   const exerciseActionContract = sharedExercise ? {names:scene.action_contract.names.slice(0,rootAssistance?22:19),
     root_assistance:exerciseTask.control.root_assistance,object_force_channels:[]} : null;
-  const freshExerciseMetrics = () => ({profile:'shared-exercise-task-v1',simulated_duration_s:0,declared_duration_s:exerciseTask?exerciseTask.interval.horizon_steps/30:.2,clock_status:'observed',
+  const freshExerciseMetrics = () => ({profile:exerciseTask?.profile||'shared-exercise-task-v1',simulated_duration_s:0,declared_duration_s:exerciseTask?(exerciseTask.interval.native_interval?.duration_s??exerciseTask.interval.horizon_steps/30):.2,clock_status:'observed',
     observed_substeps:0,valid_substeps:0,completed_interval:false,success:false,failure:null,failed_gates:[],
     angular_rmse_rad:null,peak_angular_rmse_rad:0,root_rmse_model_units:null,peak_root_rmse_model_units:0,max_floor_penetration_model_units:0,
-    equipment:['block','companion'].map(object_id=>({object_id,displacement_model_units:0,orientation_rad:0,speed_model_units_s:0,angular_speed_rad_s:0,within_limits:true})),
+    equipment:(sharedProfile==='shared-world-v3'?[]:['block','companion']).map(object_id=>({object_id,displacement_model_units:0,orientation_rad:0,speed_model_units_s:0,angular_speed_rad_s:0,within_limits:true})),
+    ...(sharedProfile==='shared-world-v3'?{reward_profile:'human_tracking_effort_v1',gate_applicability:{human_tracking:'applied',equipment_stability:'not_applicable',contact_requirements:'not_applicable'}}:{}),
     contact_requirements:[],gates_sha256:'f'.repeat(64)});
   let exerciseMetrics = {...freshExerciseMetrics(),...exerciseInitialMetrics};
   let lastExerciseAction = Array(rootAssistance?22:19).fill(0);
@@ -419,7 +424,7 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
     action(value) { (select('[data-action]').find(element => !element.hidden && element.dataset.action === String(value)) || select('[data-action]').find(element => element.dataset.action === String(value))).click(); },
     async nextTimer() { const entry = [...timers].sort((a,b)=>a[1].at-b[1].at)[0]; assert(entry, 'Expected scheduled timer'); timers.delete(entry[0]); now=entry[1].at; entry[1].callback(); await drain(); },
     async ready() { await drain(); assert.match(ids.get('status').textContent,/running/); backendReady=true; await this.nextTimer(); await drain();
-      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract); assert.equal(ids.get('objects').children.length,rigidObjects?.length ?? ((profile==='spatial-rigid'||shared||multiObject)?3:1));
+      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract); assert.equal(ids.get('objects').children.length,rigidObjects?.length ?? (sharedProfile==='shared-world-v3'?0:(profile==='spatial-rigid'||shared||multiObject)?3:1));
       if(!sharedExercise)assert.equal(ids.get('scores').children.length,noPolicy?0:(wholeBody||spatialTrained||sharedTrained)?4:2); this.stage('play'); }
   };
 }
@@ -1864,7 +1869,7 @@ checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistanc
   sharedWorldShowsBodyObjectsAndContactsInAllThreeViews,sharedWorldRoutesHumanMotorVectorsAndSelectedObjectActions,
   sharedWorldPolicyAvailabilityAndControllerPayloadsStayExplicit,sharedWorldRecordingLocksActorAndSerializesReset,
   sharedWorldKinematicScrubbingCannotAdvanceLivePhysics);
-export {Element, html, script, fixture, drain};
+export {Element, html, script, fixture, drain, inspectionFixture};
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const requestedChecks = new Set(process.argv.slice(2));
   const selectedChecks = requestedChecks.size ? checks.filter(check => requestedChecks.has(check.name)) : checks;

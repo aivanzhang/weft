@@ -64,6 +64,8 @@ def runtime_hashes(scene):
     names = (*POLICY_RUNTIME_FILES, "person_inventory.py") if scene["profile"] == HUMAN_ONLY_PROFILE else POLICY_RUNTIME_FILES
     if "native_clock" in scene.get("human_spec", {}):
         names = (*names, "source_clock.py")
+    if "native_interval" in scene.get("task", {}):
+        names = (*names, "native_interval.py")
     return {name: digest(Path(__file__).with_name(name)) for name in names}
 
 

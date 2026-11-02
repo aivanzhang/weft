@@ -156,8 +156,6 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         raise ValueError("Native timing must be explicitly enabled or disabled")
     if native_timing and video is None:
         raise ValueError("Native timing capture requires raw video; saved bodies and worlds retain their own clocks")
-    if native_timing and pose_recovery is not None:
-        raise ValueError("Native timing capture with selective-crop recovery is not yet supported")
     if geometry_run is not None:
         if (any(value is not None for value in (base_run, evidence_run, config_path, human_run, body_scale, video,
                 pose_model, pose_mode, pose_identity, source_note, pose_recovery, train_settings, static_supports))

@@ -1,6 +1,7 @@
 """Coupled 3D articulated-human and rigid-object simulation in one MuJoCo world."""
 
 from copy import deepcopy
+from contextlib import nullcontext
 import json
 import math
 from pathlib import PurePosixPath
@@ -348,6 +349,8 @@ def add_feet_to_shared_world(scene, reference_bytes):
     result = validate_shared_world(scene)
     if result["profile"] not in (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE):
         raise ValueError("Feet require an unextended complete-reference shared world")
+    if "native_interval" in result["task"]:
+        raise ValueError("Native terminal intervals are not qualified for added feet")
     result.update(base_profile=result["profile"], profile=FEET_PROFILE,
                   foot_extension=build_foot_extension(result["human_spec"], reference_bytes),
                   learned_policy_available=False)
@@ -360,6 +363,8 @@ def validate_shared_world(scene):
     if isinstance(scene, dict) and scene.get("profile") == FEET_PROFILE:
         from weft.shared_world_feet import validate_foot_extension
 
+        if isinstance(scene.get("task"), dict) and "native_interval" in scene["task"]:
+            raise ValueError("Native terminal intervals are not qualified for added feet")
         if scene.get("base_profile") not in (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE):
             raise ValueError("Shared-world feet require an explicit full-reference base profile")
         if scene.get("learned_policy_available", False) is not False:
@@ -769,14 +774,17 @@ def validate_shared_world(scene):
             raise ValueError("Target lies outside shared-world bounds")
 
     task = result["task"]
-    if not isinstance(task, dict) or set(task) != {
+    task_fields = {
         "type",
         "authored_addition",
         "start_offset_s",
         "horizon_steps",
         "human_limits",
         "object_goal",
-    }:
+    }
+    if isinstance(task, dict) and "native_interval" in task:
+        task_fields.add("native_interval")
+    if not isinstance(task, dict) or set(task) != task_fields:
         raise ValueError("shared-world-v1 task fields differ from contract")
     task_type = ("camera_human_motion_v1" if camera_world else "human_support_v1" if static_support
                  else "human_motion_v1" if human_only else "coupled_human_object_v1")
@@ -787,11 +795,15 @@ def validate_shared_world(scene):
     if type(task["horizon_steps"]) is not int or not 1 <= task["horizon_steps"] <= maximum:
         raise ValueError(f"{result['profile']} horizon_steps must be an integer in 1–{maximum}")
     ref_times = [row["time_s"] for row in human_spec["reference"]]
-    if result["profile"] in FULLSPAN_PROFILES:
+    if "native_interval" in task:
+        from weft.native_interval import validate_interval
+        validate_interval(result)
+    elif result["profile"] in FULLSPAN_PROFILES:
         horizon = full_reference_horizon(human_spec["reference"], result["dt"])
         if task["start_offset_s"] != 0 or task["horizon_steps"] != horizon:
             raise ValueError(f"{result['profile']} must preserve the complete original reference interval without offsets or clipping")
-    if ref_times[0] + task["start_offset_s"] + task["horizon_steps"] * result["dt"] > ref_times[-1] + 1e-9:
+    interval_duration = task["native_interval"]["duration_s"] if "native_interval" in task else task["horizon_steps"] * result["dt"]
+    if ref_times[0] + task["start_offset_s"] + interval_duration > ref_times[-1] + 1e-9:
         raise ValueError("shared-world-v1 task window exceeds the available human reference trajectory")
     if task["human_limits"] != SUCCESS_LIMITS:
         raise ValueError("shared-world-v1 task.human_limits must match unmodified whole-body SUCCESS_LIMITS")
@@ -2003,35 +2015,40 @@ class SharedWorldEnv(gym.Env):
             self.data.xfrc_applied[self._object_body_ids[obj["id"]], :3] = f_vec
 
         self._last_action_substeps = 0
-        for _ in range(self.substeps):
-            start_s = float(self.data.time) if self._substep_observer is not None else None
-            mujoco.mj_step(self.model, self.data)
-            self._last_action_substeps += 1
-            self._failure = self._instability()
-            if self._failure == "nonfinite_dynamics":
-                if self._substep_observer is not None:
+        timing = nullcontext()
+        if "native_interval" in self.scene["task"]:
+            from weft.native_interval import action_timestep
+            timing = action_timestep(self.model, self.scene, self.steps)
+        with timing:
+            for _ in range(self.substeps):
+                start_s = float(self.data.time) if self._substep_observer is not None else None
+                mujoco.mj_step(self.model, self.data)
+                self._last_action_substeps += 1
+                self._failure = self._instability()
+                if self._failure == "nonfinite_dynamics":
+                    if self._substep_observer is not None:
+                        self._observe_substep(start_s, None, values)
+                    break
+                try:
+                    c_now = self._current_contacts()
+                except Exception as exc:
+                    if self._substep_observer is None:
+                        raise
+                    self._failure = "contact_observation_failed"
                     self._observe_substep(start_s, None, values)
-                break
-            try:
-                c_now = self._current_contacts()
-            except Exception as exc:
-                if self._substep_observer is None:
-                    raise
-                self._failure = "contact_observation_failed"
-                self._observe_substep(start_s, None, values)
-                self.steps += 1
-                self._last_action = values
-                self._done, self.terminated = True, True
-                raise RuntimeError("Shared-world contact observation failed after physics advanced") from exc
-            self._max_penetration = max(self._max_penetration, c_now["max_human_floor_penetration_model_units"])
-            self._max_human_object_force = max(self._max_human_object_force, c_now["max_human_object_force"])
-            self._human_goal_object_contacts += c_now["human_goal_object_contacts"]
-            for kind, cnt in c_now["counts"].items():
-                self._cumulative_contacts[kind] += cnt
-            if self._substep_observer is not None:
-                self._observe_substep(start_s, c_now, values)
-            if self._failure is not None:
-                break
+                    self.steps += 1
+                    self._last_action = values
+                    self._done, self.terminated = True, True
+                    raise RuntimeError("Shared-world contact observation failed after physics advanced") from exc
+                self._max_penetration = max(self._max_penetration, c_now["max_human_floor_penetration_model_units"])
+                self._max_human_object_force = max(self._max_human_object_force, c_now["max_human_object_force"])
+                self._human_goal_object_contacts += c_now["human_goal_object_contacts"]
+                for kind, cnt in c_now["counts"].items():
+                    self._cumulative_contacts[kind] += cnt
+                if self._substep_observer is not None:
+                    self._observe_substep(start_s, c_now, values)
+                if self._failure is not None:
+                    break
 
         self.steps += 1
         self._last_action = values
@@ -2286,6 +2303,9 @@ class SharedWorldEnv(gym.Env):
         }
         if self._camera_identity is not None:
             state["camera_coupling_sha256"] = self._camera_identity
+        if "native_interval" in self.scene["task"]:
+            state["time_s"] = float(self.data.time)
+            state["source_time_s"] = float(self.source_start + self.data.time)
         if self._failure is not None and 0 < self._last_action_substeps < self.substeps:
             # A failed action consumes only the physics substeps that actually ran.
             state["time_s"] = float(self.data.time)
@@ -2515,6 +2535,11 @@ def _validate_shared_snapshot(state, validated_scene, foot_hold=None, *, camera_
     if type(state.get("steps")) is not int or not 0 <= state["steps"] <= maximum_steps:
         raise ValueError("Recorded shared-world step index exceeds bounds")
     expected_time = state["steps"] * validated_scene["dt"]
+    native_elapsed = None
+    if "native_interval" in validated_scene["task"] and not human.get("reference"):
+        from weft.native_interval import elapsed_substeps
+        native_elapsed = lambda count: elapsed_substeps(validated_scene, count)
+        expected_time = native_elapsed(state["steps"] * validated_scene["substeps"])
     if "partial_action" in state:
         partial = state["partial_action"]
         metrics = state.get("coupled_metrics")
@@ -2542,6 +2567,8 @@ def _validate_shared_snapshot(state, validated_scene, foot_hold=None, *, camera_
         ):
             raise ValueError("Partial actions require a terminated runtime failure and a bounded substep count")
         expected_time = ((state["steps"] - 1) + partial["completed_substeps"] / partial["requested_substeps"]) * validated_scene["dt"]
+        if native_elapsed is not None:
+            expected_time = native_elapsed((state["steps"] - 1) * partial["requested_substeps"] + partial["completed_substeps"])
         expected_source = validated_scene["human_spec"]["reference"][0]["time_s"] + validated_scene["task"]["start_offset_s"] + expected_time
         if not math.isclose(
             _number(state.get("source_time_s"), "partial source_time_s", 0.0, 3600.0),

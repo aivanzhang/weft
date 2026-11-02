@@ -520,8 +520,6 @@ def prepare_exercise_scene_body(inputs, out, *, pose_proposals_out=None, recover
     if type(native_timing) is not bool:
         raise ValueError("Native timing must be explicitly enabled or disabled")
     recovering = inputs.pose_recovery == RECOVERY_METHOD
-    if recovering and native_timing:
-        raise ValueError("Native timing capture with selective-crop recovery is not yet supported")
     deadline = _deadline(max_seconds, MAX_RECOVERY_BODY_SECONDS if recovering else MAX_BODY_SECONDS, deadline)
     target = _path(out)
     sources = tuple(path for path in (inputs.video, inputs.pose_model, inputs.evidence_run, inputs.config_path,
@@ -541,7 +539,8 @@ def prepare_exercise_scene_body(inputs, out, *, pose_proposals_out=None, recover
         raise ValueError("Body output must be new and outside every input")
     _recheck(inputs, deadline)
     if recovering:
-        return _prepare_recovered_body(inputs, target, outputs[1], outputs[2], deadline, progress)
+        return _prepare_recovered_body(inputs, target, outputs[1], outputs[2], deadline, progress,
+                                       native_timing=native_timing)
     remaining = deadline - time.monotonic()
     if remaining < 1:
         raise TimeoutError("Raw body preparation has no remaining shared time budget")
@@ -553,10 +552,16 @@ def prepare_exercise_scene_body(inputs, out, *, pose_proposals_out=None, recover
     return body
 
 
-def _prepare_recovered_body(inputs, target, proposals, recovered, deadline, progress):
+def _prepare_recovered_body(inputs, target, proposals, recovered, deadline, progress, *, native_timing=False):
     from weft import pose_crop_pipeline, pose_source_recovery
 
     pins = []
+    decoder_rows = []
+
+    def capture_decoder(row):
+        if len(decoder_rows) >= 1800:
+            raise ValueError("Native decoder capture exceeds the 1800-frame bound")
+        decoder_rows.append(dict(row))
 
     def guard(*, complete=False):
         _recheck(inputs, deadline)
@@ -596,7 +601,8 @@ def _prepare_recovered_body(inputs, target, proposals, recovered, deadline, prog
     emit("pose_proposals", "running", "Estimate original Full IMAGE poses and one bounded selective-crop pass")
     result = pose_crop_pipeline.prepare_pose_crop_proposals(inputs.video, proposals,
         pose_model=inputs.pose_model, source_note=inputs.source_note,
-        max_seconds=proposal_seconds, deadline=deadline, progress=updates("pose_proposals"))
+        max_seconds=proposal_seconds, deadline=deadline, progress=updates("pose_proposals"),
+        **({"decoder_clock_sink": capture_decoder} if native_timing else {}))
     seal = keep(result, proposals, pose_crop_pipeline.PROFILE, "source_evidence_only")
     emit("pose_proposals", "ready", "Original poses, crop candidates and unchanged selection decisions are sealed",
          manifest_sha256=seal)
@@ -610,7 +616,8 @@ def _prepare_recovered_body(inputs, target, proposals, recovered, deadline, prog
 
     emit("body_source", "running", "Apply the existing body and movement gates to the verified source poses")
     result = exercise_body_source.prepare_exercise_body_source_from_evidence(recovered, target,
-        max_seconds=remaining(RECOVERY_STAGE_SECONDS), progress=updates("body_source"))
+        max_seconds=remaining(RECOVERY_STAGE_SECONDS), progress=updates("body_source"),
+        **({"native_timing": True, "decoder_clock_rows": decoder_rows} if native_timing else {}))
     seal = keep(result, target, exercise_body_source.PROFILE, "construction_only")
     emit("body_source", "ready", "One construction-only body is sealed; no world, task or intermediate lab was created",
          manifest_sha256=seal)

@@ -69,6 +69,8 @@ def _metrics(metrics, scene, task, policy, reset, *, initial=False):
     if not isinstance(metrics, dict) or set(metrics) != keys or any(metrics[key] != value for key, value in fixed.items()):
         raise ValueError("Selection metrics changed task, reset, evaluator or gate identities")
     duration = task["interval"]["horizon_steps"] * scene["dt"]
+    if "native_interval" in scene["task"]:
+        duration = scene["task"]["native_interval"]["duration_s"]
     maximum = task["interval"]["horizon_steps"] * scene["substeps"]
     observed, valid = metrics["observed_substeps"], metrics["valid_substeps"]
     _integer(observed, "observed substeps", 0, maximum)
@@ -77,8 +79,12 @@ def _metrics(metrics, scene, task, policy, reset, *, initial=False):
         _finite(metrics[name], name)
     _same_number(metrics["declared_duration_s"], duration, "declared duration")
     tick = scene["dt"] / scene["substeps"]
-    _same_number(metrics["valid_observed_duration_s"], valid * tick, "valid duration", 1e-8)
-    if not valid * tick - 1e-8 <= metrics["simulated_duration_s"] <= observed * tick + 1e-8:
+    elapsed = lambda count: count * tick
+    if "native_interval" in scene["task"]:
+        from weft.native_interval import elapsed_substeps
+        elapsed = lambda count: elapsed_substeps(scene, count)
+    _same_number(metrics["valid_observed_duration_s"], elapsed(valid), "valid duration", 1e-8)
+    if not elapsed(valid) - 1e-8 <= metrics["simulated_duration_s"] <= elapsed(observed) + 1e-8:
         raise ValueError("Selection elapsed time differs from observed substeps")
     failure = metrics["failure"]
     if failure is not None and (not isinstance(failure, str) or not 1 <= len(failure) <= 240):
@@ -153,7 +159,7 @@ def _metrics(metrics, scene, task, policy, reset, *, initial=False):
     if task["control"]["root_assistance"] == "disabled" and metrics["root_assistance_mean_squared"] != 0:
         raise ValueError("Selection cannot admit forbidden root effort")
     _same_number(metrics["mean_reward"], metrics["reward_integral"] / duration, "mean reward")
-    if not -.03 * valid * tick + penalty * scene["dt"] - 1e-8 <= metrics["reward_integral"] <= valid * tick + penalty * scene["dt"] + 1e-8:
+    if not -.03 * elapsed(valid) + penalty * scene["dt"] - 1e-8 <= metrics["reward_integral"] <= elapsed(valid) + penalty * scene["dt"] + 1e-8:
         raise ValueError("Selection reward exceeds the unchanged task's possible range")
     if initial and (observed != 0 or valid != 0 or failure is not None or metrics["clock_status"] != "observed"
                     or any(metrics[name] != 0 for name in ("reward_integral", "joint_effort_mean_squared", "root_assistance_mean_squared"))):
