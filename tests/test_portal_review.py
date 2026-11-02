@@ -4,7 +4,7 @@ import pytest
 
 from weft.io import digest, write_json
 from weft.meta_access import access_status, configure_access
-from weft.portal_review import construction_input, execute_review
+from weft.portal_review import construction_input, execute_review, review_input
 from weft import scene_advisor
 from test_scene_advisor import run, reply, proposal
 
@@ -90,7 +90,7 @@ def test_wrong_provider_model_keeps_usage_but_rejects_proposal(job, tmp_path, mo
     assert budget["committed_usd"] > 0 and budget["unsettled_count"] == 0
 
 
-def test_support_child_review_is_explicitly_original_body_only(job, tmp_path, monkeypatch):
+def exercise_job(job):
     source = job / "body_source"
     (job / "planar/run").rename(source)
     evidence = json.loads((source / "evidence.json").read_text())
@@ -105,25 +105,63 @@ def test_support_child_review_is_explicitly_original_body_only(job, tmp_path, mo
     write_json(job / "job.json", {**config, "kind": "support_experiment", "body_source_directory": "body_source"})
     write_json(job / "status.json", {"status": "ready", "route": "exercise"})
     write_json(job / "support-priors.json", {"marker": "DO_NOT_EXPOSE_CHILD_SUPPORT"})
+    return job
+
+
+def test_legacy_support_binding_remains_explicitly_original_body_only(job):
+    exercise_job(job)
     _, binding = construction_input(job)
     assert binding["review_scope"] == "original_body_only"
     assert "Added supports, load windows and child-world control settings are not reviewed" in binding["scope"]
     assert set(binding["input_sha256"]) == {"evidence.json", "human.json", "source.mp4"}
-    before = {p.name: digest(p) for p in source.iterdir()}
+
+
+def test_new_world_review_sends_authored_geometry_not_results(job, tmp_path, monkeypatch):
+    from test_portal_scene_context import make_job
+    from weft.portal_checks import inputs
+
+    exercise_job(job)
+    make_job(job, source_sha256=json.loads((job / "job.json").read_bytes())["source_sha256"])
+    source, binding, world = review_input(job)
+    before = {p.relative_to(job).as_posix(): digest(p) for p in job.rglob("*") if p.is_file()}
     sent = []
     def respond(request):
-        sent.append(request)
-        assert b"DO_NOT_EXPOSE" not in request.data
-        assert "original body evidence only" in json.loads((job / "muse/status.json").read_text())["message"]
-        context = scene_advisor.prepare_context(source)
+        payload = json.loads(request.data)
+        context = json.loads(payload["messages"][1]["content"][0]["text"])
+        assert context["simulation_world"] == world
+        assert "DO_NOT_READ" not in request.data.decode() and "DO_NOT_EXPOSE" not in request.data.decode()
+        assert {"world:human", "world:" + world["objects"][0]["id"]} <= {o["id"] for o in context["objects"]}
         advice = proposal(context)
-        advice["hypotheses"][0]["object_ids"] = ["person"]
+        advice["hypotheses"][0]["object_ids"] = ["world:" + world["objects"][0]["id"]]
+        sent.append(request)
         return reply(context, choices=[{"finish_reason": "stop", "message": {"content": json.dumps(advice)}}])
     monkeypatch.setattr(scene_advisor, "_open", respond)
     assert execute_review(job, project=tmp_path) == 0
     assert len(sent) == 1
-    status = json.loads((job / "muse/status.json").read_text())
-    assert "were not reviewed" in status["message"]
-    assert "Original-body review ready" in status["message"]
-    assert json.loads((job / "muse/binding.json").read_text()) == binding
-    assert before == {p.name: digest(p) for p in source.iterdir()}
+    assert json.loads((job / "muse/status.json").read_bytes())["review_scope"] == "coupled_world_assumptions"
+    assert json.loads((job / "muse/binding.json").read_bytes()) == binding
+    assert before == {name: digest(job / name) for name in before}
+    inputs(job)
+    context_path = job / "muse/advice/context.json"
+    context = json.loads(context_path.read_bytes())
+    context["simulation_world"]["objects"][0]["position"][0] += .1
+    write_json(context_path, context)
+    with pytest.raises(ValueError, match="Reviewed world context"):
+        inputs(job)
+
+
+def test_world_changed_during_review_retains_charge_but_rejects_result(job, tmp_path, monkeypatch):
+    from test_portal_scene_context import make_job
+
+    exercise_job(job)
+    make_job(job, source_sha256=json.loads((job / "job.json").read_bytes())["source_sha256"])
+    def respond(request):
+        context = json.loads(json.loads(request.data)["messages"][1]["content"][0]["text"])
+        advice = proposal(context)
+        advice["hypotheses"][0]["object_ids"] = ["person"]
+        (job / "lab/run/scene.json").write_text('{}')
+        return reply(context, choices=[{"finish_reason": "stop", "message": {"content": json.dumps(advice)}}])
+    monkeypatch.setattr(scene_advisor, "_open", respond)
+    assert execute_review(job, project=tmp_path) == 1
+    assert access_status(tmp_path)["committed_usd"] > 0
+    assert json.loads((job / "muse/status.json").read_bytes())["status"] == "failed"

@@ -65,7 +65,11 @@
     $("muse-review").hidden = job.status !== "ready" && !job.muse;
     $("review-muse").hidden = !!job.muse;
     $("review-muse").disabled = !museAvailable || reviewing;
-    $("muse-scope").hidden = job.kind !== "support_experiment";
+    const legacyBodyReview = job.kind === "support_experiment" && job.muse?.status === "proposed" && job.muse.review_scope !== "coupled_world_assumptions";
+    $("muse-scope").hidden = job.route !== "exercise" && job.kind !== "support_experiment";
+    $("muse-scope").textContent = legacyBodyReview
+      ? "This saved review covers reused body evidence only, not the authored boxes or load requirements."
+      : "New exercise reviews include the saved world's geometry, supports and control assumptions. Authored settings remain separate from observed video evidence; scores and learned policies are not sent.";
     $("muse-status").textContent = job.muse ? (job.muse.message || job.muse.error || job.muse.status) : museAvailable ? "One bounded request, charged to the Meta allowance shown above." : "Meta key or remaining allowance is unavailable. Your simulation remains usable.";
     const advice = job.muse?.proposal?.advice;
     $("muse-summary").textContent = advice?.summary || "";

@@ -11,7 +11,7 @@ import numpy as np
 
 from weft.io import canonical_hash, digest, local_time, write_json
 from weft.lab_worker import atomic_json
-from weft.portal_review import construction_input
+from weft.portal_review import construction_input, review_input
 from weft.scene_advisor import validate_advice
 
 TERMINAL = {"complete", "failed", "cancelled", "interrupted"}
@@ -30,12 +30,18 @@ def read_json(path, maximum=4 * 1024**2):
 
 def inputs(root):
     root = Path(root).resolve()
-    _, binding = construction_input(root)
     stored, _ = read_json(root / "muse/binding.json")
+    if "simulation_world" in stored:
+        _, binding, world = review_input(root)
+    else:
+        _, binding = construction_input(root)
+        world = None
     if binding != stored:
         raise ValueError("Construction changed since Muse review")
     proposal, proposal_sha = read_json(root / "muse/advice/hypotheses.json", 140_000)
     context, context_sha = read_json(root / "muse/advice/context.json", 32_000)
+    if context.get("simulation_world") != world:
+        raise ValueError("Reviewed world context differs from the current bound construction")
     response, response_sha = read_json(root / "muse/advice/response.json", 140_000)
     if proposal.get("accepted") is not False or proposal.get("source") != "model_proposal":
         raise ValueError("Checks require an unaccepted model proposal")

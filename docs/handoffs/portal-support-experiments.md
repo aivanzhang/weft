@@ -2,6 +2,11 @@
 
 ## Verified locally — November 2, 2026 (PST)
 
+**Later update:** [coupled-world Muse context](portal-world-review.md) is now
+live-verified. New reviews include authored support geometry/load/control inputs;
+the original body-only scope below describes this support-feature checkpoint.
+Existing reviews are not rewritten or automatically resubmitted.
+
 Completed exercise projects can create a separate authored-static-support world,
 optionally train, and use the existing lab's controls and recording. This does
 **not** reconstruct equipment/contact or complete the generalizable video goal.
@@ -104,8 +109,8 @@ with `git pull --ff-only` (already current); concurrent avatar checkpoint
 
 ## Remaining work and next safe action
 
-- [ ] Supply validated authored support context to Muse, clearly separated from
-  recovered evidence; until then retain the explicit body-only review scope.
+- [x] Supply validated authored support context to new Muse reviews, clearly
+  separated from recovered evidence. [Live verification](portal-world-review.md).
 - [ ] Execute typed Muse proposals as bounded candidate changes and independent
   comparisons, preserving original task/scorer/source and rejected proposals.
 - [ ] Finish source-derived ground/equipment, native clock and unfamiliar-video

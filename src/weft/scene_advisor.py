@@ -37,6 +37,8 @@ SYSTEM = (
     "the same motion can have multiple forces, supports, and materials. Separate gravity from camera axes. "
     "Do not infer muscle activation, physiological force, or an anatomical diagnosis from ordinary video. "
     "Body models and actuator settings are authored assumptions unless independently measured. "
+    "When simulation_world is supplied, distinguish that world's explicit assumptions from video observations; "
+    "world object IDs identify simulator entities, not proof of observed identity or contact. "
     "Return at most three concise hypotheses, each with status hypothesis or unknown, alternatives, "
     "a test that could falsify it, and evidence references. Empty evidence references mean a prior, not an observation. "
     "Recommend additional observations when evidence is insufficient. Confidence is model self-assessment, not calibrated probability. "
@@ -130,7 +132,7 @@ def validate_advice(value, evidence_ids, object_ids):
     return value
 
 
-def prepare_context(run, questions=None):
+def prepare_context(run, questions=None, *, scene_context=None):
     """Expose construction observations, never audit episodes, scores, or policies."""
     run = Path(run)
     evidence = _load(run / "evidence.json")
@@ -189,6 +191,17 @@ def prepare_context(run, questions=None):
                 'root_forces': 'authored simulator motor commands, not measured human forces'}
         context["limits"] = [line for line in context["limits"]
                              if "simplified anchored eight-hinge skeleton" not in line]
+    if scene_context is not None:
+        from weft.portal_scene_context import validate_context
+
+        validate_context(scene_context, source_sha256=source_hash)
+        context["simulation_world"] = scene_context
+        context["objects"].append({"id": "world:human", "simulation_id": "human", "kind": "simulated body",
+                                   "status": "reconstructed and authored assumptions, not measured anatomy"})
+        context["objects"].extend({"id": "world:" + item["id"], "simulation_id": item["id"],
+                                   "kind": "simulated " + item["shape"],
+                                   "status": "construction assumption, not verified observed contact"}
+                                  for item in scene_context["objects"])
     encoded = json.dumps(context, allow_nan=False)
     if len(encoded.encode()) > 20_000:
         raise ValueError("Advisor context exceeds 20 KB")
@@ -243,12 +256,12 @@ def _cost(usage):
     return (counts[0] * PRICING["input_per_million_usd"] + counts[1] * PRICING["output_per_million_usd"]) / 1e6
 
 
-def advise_run(run, out, questions=None, *, execute=False, max_cost_usd=None, project_root=None):
+def advise_run(run, out, questions=None, *, execute=False, max_cost_usd=None, project_root=None, scene_context=None):
     """Prepare a reviewable request; explicit execute makes one bounded Meta call."""
     run, out = Path(run).resolve(), Path(out).resolve()
     if out == run or run in out.parents:
         raise ValueError("Advisor output must be separate from immutable run artifacts")
-    context = prepare_context(run, questions)
+    context = prepare_context(run, questions, scene_context=scene_context)
     frames = _frames(run, context)
     content = [{"type": "text", "text": json.dumps(context, sort_keys=True, allow_nan=False)}]
     for frame in frames:
@@ -278,6 +291,8 @@ def advise_run(run, out, questions=None, *, execute=False, max_cost_usd=None, pr
               "output_token_limit": OUTPUT_TOKEN_LIMIT, "budget_is_provider_hard_cap": False,
               "applied": False, "independent_verification": "not performed", "live_access_verified": False,
               "reasoning_effort": "low", "schema_validated": False, "finish_reason": None}
+    if scene_context is not None:
+        record["simulation_world_sha256"] = canonical_hash(scene_context)
     write_json(out / "advisor-call.json", record)
     if not execute:
         return record

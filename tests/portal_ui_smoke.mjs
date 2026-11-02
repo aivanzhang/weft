@@ -39,8 +39,17 @@ function setup(jobs=[]) {
   assert.equal(body.priors.objects[0].provenance.source_contact_verified,false);assert.equal(body.priors.support_requirements[0].minimum_load_body_weight_fraction,.05);
   assert.equal(e.get("source-download").hidden,true);assert.equal(e.get("experiment-note").hidden,false);
   assert.equal(e.get("muse-scope").hidden,false);
+  assert.match(e.get("muse-scope").textContent,/New exercise reviews include/);
   assert.match(e.get("experiment-note").textContent,/not a scored repair/);assert.equal(e.get("support-editor").hidden,true);
   console.log("PASS explicit authored support inputs create a distinct experiment without claiming recovered contact");
+}
+{
+  const id="9".repeat(32), f=setup([{id,name:"support.webm",kind:"support_experiment",route:"exercise",status:"ready",events:[],muse:{status:"proposed"}}]);await tick();
+  assert.match(f.elements.get("muse-scope").textContent,/saved review covers reused body evidence only/);
+  f.info.jobs[0].muse.review_scope="coupled_world_assumptions";
+  await f.elements.get("refresh").onclick();await tick();
+  assert.match(f.elements.get("muse-scope").textContent,/geometry, supports and control assumptions/);
+  console.log("PASS saved body-only review scope stays distinct from new coupled-world review");
 }
 {
   const id="d".repeat(32), f=setup([{id,name:"exercise.webm",status:"ready",stage:"ready",events:[],sandbox:`/labs/${id}/`}]);await tick();

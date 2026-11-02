@@ -9,6 +9,7 @@ from weft.lab_worker import atomic_json
 from weft.meta_access import access_status
 from weft.scene_advisor import ESTIMATE, MODEL, advise_run
 from weft.portal_supports import body_path
+from weft.portal_scene_context import construction_context
 
 TERMINAL = {"proposed", "failed", "cancelled", "interrupted"}
 
@@ -56,6 +57,15 @@ def construction_input(root):
     return source, binding
 
 
+def review_input(root):
+    source, binding = construction_input(root)
+    world, world_binding = construction_context(root)
+    if world is not None:
+        binding.update(review_scope="coupled_world_assumptions", simulation_world=world_binding,
+                       scope="Source observations plus current coupled-world construction assumptions; authored supports are not recovered evidence. No scores, policies or final evaluation.")
+    return source, binding, world
+
+
 def execute_review(root, *, project):
     root = Path(root)
     folder = root / "muse"
@@ -66,19 +76,25 @@ def execute_review(root, *, project):
         if saved.get("status") in TERMINAL:
             return 0 if saved["status"] == "proposed" else 1
     try:
-        source, binding = construction_input(root)
+        source, binding, world = review_input(root)
         write_json(folder / "binding.json", binding)
-        body_only = binding.get("review_scope") == "original_body_only"
+        coupled = world is not None
         if (folder / "cancel-request.json").exists():
             atomic_json(folder / "status.json", {"status": "cancelled", "message": "Cancelled before any Muse request"})
             return 0
         atomic_json(folder / "status.json", {"status": "running", "message":
-            "Muse is reviewing original body evidence only, not added supports, load windows or child-world control settings."
-            if body_only else "Muse is reviewing construction evidence and proposing tests"})
-        receipt = advise_run(source, folder / "advice", execute=True, max_cost_usd=ESTIMATE, project_root=project)
+            "Muse is reviewing source observations and current world assumptions, including authored supports where present."
+            if coupled else "Muse is reviewing construction evidence and proposing tests",
+            "review_scope": binding.get("review_scope", "construction_observations")})
+        receipt = advise_run(source, folder / "advice", execute=True, max_cost_usd=ESTIMATE, project_root=project,
+                             **({"scene_context": world} if coupled else {}))
+        _, after, _ = review_input(root)
+        if after != binding:
+            raise ValueError("Construction inputs changed during Muse review")
         atomic_json(folder / "status.json", {"status": "proposed", "message":
-            "Original-body review ready. Added supports, load windows and child-world control settings were not reviewed. Proposals have not been tested or applied."
-            if body_only else "Review ready. These proposals have not been tested or applied.",
+            "World review ready. Authored supports and control assumptions are not physical observations. Proposals have not been tested or applied."
+            if coupled else "Review ready. These proposals have not been tested or applied.",
+            "review_scope": binding.get("review_scope", "construction_observations"),
             "seconds": time.monotonic() - started, "cost_usd": receipt["cost_usd"], "completed_at": local_time()})
         return 0
     except Exception as error:

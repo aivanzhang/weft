@@ -6,7 +6,7 @@
 
 **Related local experiments:** fixed control comparisons run under the original task, with bounded background work, full traces and exact replay. Muse's requested physical measurements remain unresolved. Diagnostics do not apply repairs or change scorers. [Verification](handoffs/portal-checks.md).
 
-**Authored support variants:** the portal can reuse a sealed body to build a separate coupled support world, optionally train, and record/replay. Explicit box/load assumptions define a new task, not a repaired parent score. No AI or pose inference is repeated. Muse scope is body-only for these variants. [Verified workflow and limits](handoffs/portal-support-experiments.md).
+**Authored support variants:** the portal can reuse a sealed body to build a separate coupled support world, optionally train, and record/replay. Explicit box/load assumptions define a new task, not a repaired parent score. Construction repeats no AI or pose inference. New [Muse reviews include the actual world assumptions](handoffs/portal-world-review.md); existing body-only reviews keep their original scope. [Verified workflow and limits](handoffs/portal-support-experiments.md).
 
 For the full product target and physics-grounded evaluation design, read [goal.md](../goal.md). For the first product milestone, read [v1.md](../v1.md). This document maps those targets to the current implementation contracts and limitations.
 

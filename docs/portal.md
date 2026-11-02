@@ -43,8 +43,10 @@ The user starts/manages this server. No browser opens automatically. Use
 
 Support experiments are advanced, manual assumptions—not automatic equipment
 reconstruction or a measured correction. Their new task cannot establish an
-improvement against the parent's different task. Muse reviews their reused body
-evidence only, **not the added supports or load requirements**. Custom avatars
+improvement against the parent's different task. New Muse reviews include the
+saved world's geometry, authored supports, load requirements and control assumptions,
+separately from video observations. Older body-only reviews retain their narrower
+scope. Custom avatars
 are not yet qualified for this support-world profile. See the
 [support guide](static-support.md) and [verified example](handoffs/portal-support-experiments.md).
 
@@ -89,7 +91,10 @@ This is an application allowance, not a provider-account hard cap.
 Muse Spark is the physical-scene proposer/critic, not the avatar feature. The
 portal now exposes the existing [Meta advisor](meta-advisor.md) on completed
 exercise and object projects. It receives construction observations and authored
-body assumptions, never evaluation scores or policies. Evidence IDs, alternative
+body assumptions, never evaluation scores or policies. New exercise reviews also
+receive the [exact current world assumptions](handoffs/portal-world-review.md),
+including static supports where present; these are not measured contact or anatomy.
+Evidence IDs, alternative
 explanations, required tests, the exact request/response and usage receipt are saved
 under each project's `muse/` directory, outside immutable runs.
 
