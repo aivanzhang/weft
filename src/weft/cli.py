@@ -301,6 +301,8 @@ def main():
                              help='Bounded angle fit to supported joint positions; preserves fixed lengths/root/ground, requires --body-view directions or both')
     camera_body.add_argument('--fit-partial-pixels', action='store_true',
                              help='Constrain unseen wrists/ankles from available images; depth remains inferred, requires --fit-limbs and --partial-segments')
+    camera_body.add_argument('--partial-pixel-uncertainty',
+                             help='Explicit assumed image/angle error JSON for the opt-in v2 fit; requires --fit-partial-pixels')
     camera_body.add_argument('--out', required=True, help='New candidate lab; no server or training is started')
     spatial_fixture = commands.add_parser("spatial-fixture", help="Write a verified analytic spatial-rigid-v1 fixture run; no API calls")
     spatial_fixture.add_argument("--out", required=True, help="New sealed 3D scene directory")
@@ -735,7 +737,8 @@ def main():
             from weft.camera_body_lab import prepare_camera_body_lab
             result = prepare_camera_body_lab(args.run, args.camera, args.out, ground_path=args.ground,
                 root_view_path=args.root_view, body_view=args.body_view, partial_segments=args.partial_segments,
-                additional_view_paths=args.additional_view, limb_fit=args.fit_limbs, partial_pixel_fit=args.fit_partial_pixels)
+                additional_view_paths=args.additional_view, limb_fit=args.fit_limbs, partial_pixel_fit=args.fit_partial_pixels,
+                pixel_uncertainty_path=args.partial_pixel_uncertainty)
         elif args.command == "spatial-fixture":
             from weft.spatial_lab import write_sealed_spatial_fixture
             result = write_sealed_spatial_fixture(args.out)

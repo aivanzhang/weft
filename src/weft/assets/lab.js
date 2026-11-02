@@ -1721,6 +1721,9 @@
           if (scene.human?.partial_pixels) {
             text($("world-description"), $("world-description").textContent + " Available wrist/ankle images constrain small bend and twist changes in incomplete limbs. The upper-bone direction stays fixed; depth is still inferred.");
             text($("training-caption"), "Not trained · two-view-body.json retains every image constraint, excluded view and rejected proposal. A fitted endpoint is not an observed 3D joint or verified contact.");
+            if (scene.human.partial_pixels.uncertainty) {
+              text($("world-description"), $("world-description").textContent + ` Assumed image-error scale: ${(100 * scene.human.partial_pixels.uncertainty.image_std_fraction).toFixed(2)}% of the larger image dimension. ${scene.human.partial_pixels.weak_image_group_poses} limb poses have at least one direction constrained more by the pose assumption than by the images. These are not measured confidence levels.`);
+            }
           }
         }
       }

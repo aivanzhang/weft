@@ -32,9 +32,10 @@ def package(tmp_path):
     return source, camera, ground, config, extra
 
 
-@pytest.mark.parametrize('mode,limb_fit,partial,pixels', [(None, False, False, False), ('both', False, False, False),
-    ('both', True, False, False), ('both', False, True, False), ('both', True, True, False), ('both', True, True, True)])
-def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path, monkeypatch, mode, limb_fit, partial, pixels):
+@pytest.mark.parametrize('mode,limb_fit,partial,pixels,uncertainty', [(None, False, False, False, False), ('both', False, False, False, False),
+    ('both', True, False, False, False), ('both', False, True, False, False), ('both', True, True, False, False),
+    ('both', True, True, True, False), ('both', True, True, True, True)])
+def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path, monkeypatch, mode, limb_fit, partial, pixels, uncertainty):
     source, camera, ground, config, extra = package(tmp_path)
     if pixels:
         for name in ('second-evidence.json', 'third-evidence.json'):
@@ -54,11 +55,16 @@ def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path,
         args += ['--partial-segments']
     if pixels:
         args += ['--fit-partial-pixels']
+    if uncertainty:
+        assumed = {'schema_version': 1, 'image_std_fraction': .0025, 'angle_prior_std_rad': .3,
+                   'temporal_prior_std_rad': .45, 'provenance': 'Explicit synthetic-test assumptions'}
+        write_json(tmp_path/'uncertainty.json', assumed)
+        args += ['--partial-pixel-uncertainty', str(tmp_path/'uncertainty.json')]
     monkeypatch.setattr(sys, 'argv', args)
     main()
     run = out/'run'; verified = verify_artifacts(run)
     body = json.loads((run/'human.json').read_text())
-    assert body['camera_reference']['method'] == ('camera-body-partial-pixels-v1' if pixels else 'camera-body-length-fit-v2' if limb_fit and partial else
+    assert body['camera_reference']['method'] == ('camera-body-partial-pixels-v2' if uncertainty else 'camera-body-partial-pixels-v1' if pixels else 'camera-body-length-fit-v2' if limb_fit and partial else
         'camera-body-length-fit-v1' if limb_fit else 'multi-view-body-v2' if partial else
         'multi-view-body-v1' if mode else 'multi-view-root-body-v1')
     assert (run/'ground.json').read_bytes() == ground.read_bytes()
@@ -69,6 +75,10 @@ def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path,
     assert ('partial_pixels' in scene['human']) is pixels
     if pixels:
         assert scene['human']['partial_pixels']['fitted_group_poses'] == 20
+    if uncertainty:
+        assert (run/'partial-pixel-uncertainty.json').read_bytes() == (tmp_path/'uncertainty.json').read_bytes()
+        assert json.loads((run/'camera-provenance.json').read_text())['partial_pixel_uncertainty_file_sha256'] == digest(tmp_path/'uncertainty.json')
+        assert scene['human']['partial_pixels']['uncertainty'] == assumed
     assert 'Multi-view' in scene['human']['mobility']['root_depth']
     assert not scene['learned_policy_available'] and not (run/'policy.json').exists()
     for name, original in [('config.json', extra), ('evidence.json', tmp_path/'third-evidence.json'),

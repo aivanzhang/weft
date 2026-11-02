@@ -22,8 +22,29 @@ CONTRACT = MappingProxyType({
     'fixed': 'Upper-bone origin/direction, torso, root, lengths, ground, forces, complete-limb fits and source observations',
     'scope': 'Pixel-constrained bend/twist prior; distal depth remains inferred, not measured anatomy or contact',
 })
+UNCERTAINTY_CONTRACT = MappingProxyType({
+    **{k: v for k, v in CONTRACT.items() if k not in ('original_angle_regularization', 'correction_temporal_regularization')},
+    'method': 'fixed-upper-bone-distal-pixels-v2',
+    'uncertainty_schema_version': 1,
+    'regularization': 'Squared ratio of assumed normalized image standard deviation to angle/temporal standard deviation',
+    'image_strength': 'Local image derivative relative to the assumed angle prior; fixed geometry/calibration, not a depth confidence interval',
+    'uncertainty_calibrated': False,
+})
 STATUSES = frozenset(('unchanged_exact_targets', 'iteration_limit', 'nonfinite_step_rejected',
                       'step_tolerance', 'no_descent', 'source_pixel_regression_rejected'))
+
+
+def validate_uncertainty(value):
+    fields = {'schema_version', 'image_std_fraction', 'angle_prior_std_rad', 'temporal_prior_std_rad', 'provenance'}
+    if (not isinstance(value, dict) or set(value) != fields or type(value['schema_version']) is not int
+            or value['schema_version'] != 1
+            or any(type(value[k]) not in (int, float) or not math.isfinite(value[k])
+                   or not low <= value[k] <= high for k, low, high in (
+                       ('image_std_fraction', 1e-4, .05), ('angle_prior_std_rad', .01, 1.),
+                       ('temporal_prior_std_rad', .01, 1.)))
+            or not isinstance(value['provenance'], str) or not 1 <= len(value['provenance'].strip()) <= 2000):
+        raise ValueError('Distal uncertainty needs explicit bounded image/angle scales and their assumption provenance')
+    return dict(value)
 
 
 def distal_geometry(delta, rotation, bend, length, knee, sign):
@@ -35,7 +56,8 @@ def distal_geometry(delta, rotation, bend, length, knee, sign):
     return knee+rotation @ local, rotation @ derivatives
 
 
-def fit_distal_pixels(rotation, bend, length, knee, cameras, pixels, confidence, sign, *, previous=None):
+def fit_distal_pixels(rotation, bend, length, knee, cameras, pixels, confidence, sign, *, previous=None, uncertainty=None):
+    settings = validate_uncertainty(uncertainty) if uncertainty is not None else None
     orientation = _array(rotation, (3, 3), 1.00001, 'limb rotation')
     origin = _array(knee, (3,), 2000., 'world knee/elbow')
     if (not np.allclose(orientation.T @ orientation, np.eye(3), atol=1e-8, rtol=0)
@@ -55,6 +77,9 @@ def fit_distal_pixels(rotation, bend, length, knee, cameras, pixels, confidence,
     scales = np.array([math.sqrt(w)/max(c['width'], c['height']) for w, c in zip(weights, views, strict=True)])
     regularization = CONTRACT['original_angle_regularization']
     temporal = 0. if prior is None else CONTRACT['correction_temporal_regularization']
+    if settings is not None:
+        regularization = (settings['image_std_fraction']/settings['angle_prior_std_rad'])**2
+        temporal = 0. if prior is None else (settings['image_std_fraction']/settings['temporal_prior_std_rad'])**2
 
     def evaluate(delta):
         point, geometry = distal_geometry(delta, orientation, bend, length, origin, sign)
@@ -102,7 +127,7 @@ def fit_distal_pixels(rotation, bend, length, knee, cameras, pixels, confidence,
     final = evaluate(delta)
     if final[1] > initial[1] or not math.isfinite(final[0]):
         status = 'source_pixel_regression_rejected'; delta = np.zeros(2); final = initial
-    return {'method': CONTRACT['method'], 'status': status, 'input_rotation_world': orientation.tolist(),
+    result = {'method': (UNCERTAINTY_CONTRACT if settings is not None else CONTRACT)['method'], 'status': status, 'input_rotation_world': orientation.tolist(),
         'input_bend_rad': bend, 'fixed_distal_length_m': length, 'fixed_knee_world_m': origin.tolist(),
         'bend_sign': sign, 'correction_rad': delta.tolist(), 'maximum_angle_change_rad': float(np.max(abs(delta))),
         'output_rotation_world': (orientation @ rotation_zyx([delta[0], 0., 0.])).tolist(),
@@ -114,3 +139,9 @@ def fit_distal_pixels(rotation, bend, length, knee, cameras, pixels, confidence,
         'previous_correction_rad': None if prior is None else prior.tolist(),
         'iterations': history, 'trial_evaluations': sum(len(r['trials']) for r in history),
         'observations_modified': False, 'depth_measured': False, 'physical_validation': 'unverified'}
+    if settings is not None:
+        strength = np.maximum(np.linalg.eigvalsh(initial[3].T @ initial[3]), 0.)/regularization
+        result.update(uncertainty=settings, original_angle_regularization=regularization,
+            correction_temporal_regularization=temporal, initial_image_to_prior_eigenvalues=strength.tolist(),
+            weak_image_directions=int(np.count_nonzero(strength <= 1.)), uncertainty_calibrated=False)
+    return result

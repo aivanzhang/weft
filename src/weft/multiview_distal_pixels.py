@@ -7,7 +7,7 @@ import time
 import numpy as np
 
 from weft.camera_pose import validate_camera
-from weft.distal_pixel_fit import CONTRACT, STATUSES, fit_distal_pixels
+from weft.distal_pixel_fit import CONTRACT, UNCERTAINTY_CONTRACT, STATUSES, fit_distal_pixels, validate_uncertainty
 from weft.io import canonical_hash
 from weft.multiview_pose import _observation
 from weft.multiview_segments import COMPONENTS, MULTI_COMPONENTS, PARTIAL_STATUS, MULTI_PARTIAL_STATUS
@@ -15,6 +15,7 @@ from weft.spatial_pose import LIMB_ENDPOINTS, SPATIAL_JOINT_NAMES, rotation_to_z
 
 
 METHOD = 'camera-body-partial-pixels-v1'
+UNCERTAINTY_METHOD = 'camera-body-partial-pixels-v2'
 OBSERVATION_STATUSES = frozenset(('pose_not_sampled', 'pose_unavailable_or_competing',
     'unsupported_pose_status', 'invalid_landmarks', 'invalid_landmark', 'outside_image', 'low_confidence', 'available'))
 
@@ -38,14 +39,15 @@ def prepare_pixel_views(cameras, evidence, predictions):
             for camera, source in zip(cameras, evidence, strict=True)]
 
 
-def apply_distal_pixels(candidate, original, predictions, sources, audits, prepared, *, multi):
+def apply_distal_pixels(candidate, original, predictions, sources, audits, prepared, *, multi, uncertainty=None):
+    settings = validate_uncertainty(uncertainty) if uncertainty is not None else None
     before = canonical_hash(candidate['reference']); previous = {}; fits = []
     deadline = time.monotonic()+CONTRACT['maximum_body_fit_seconds']
     lengths = candidate['lengths']; anchor = np.asarray(candidate['body_frame']['rotation'])
     partial_status = MULTI_PARTIAL_STATUS if multi else PARTIAL_STATUS
     for i, row in enumerate(audits):
         frame = row['frame']; meta = candidate['reference_evidence'][i]; meta['geometry_partial_pixels'] = {}
-        joints = candidate['reference'][i]['joints']; meta['geometry_method'] = METHOD
+        joints = candidate['reference'][i]['joints']; meta['geometry_method'] = UNCERTAINTY_METHOD if settings is not None else METHOD
         torso = anchor @ rotation_zyx([joints[name] for name in SPATIAL_JOINT_NAMES[:3]])
         root = np.asarray(candidate['camera_reference']['origin_world_m'])+original['root_reference'][i]['translation']
         for group, indices in LIMB_ENDPOINTS.items():
@@ -90,7 +92,7 @@ def apply_distal_pixels(candidate, original, predictions, sources, audits, prepa
             correction = earlier[1] if earlier and 0 < meta['time_s']-earlier[0] <= CONTRACT['maximum_temporal_gap_s'] else None
             try:
                 fit = fit_distal_pixels(world, old[3], lengths['shin' if leg else 'forearm'], knee,
-                    cameras, pixels, confidence, -1 if leg else 1, previous=correction)
+                    cameras, pixels, confidence, -1 if leg else 1, previous=correction, uncertainty=settings)
             except ValueError as error:
                 attempt['reason'] = str(error); previous.pop(group, None); continue
             angles, singular = (rotation_to_zyx(local @ rotation_zyx([fit['correction_rad'][0], 0., 0.]), old[:3])
@@ -107,20 +109,32 @@ def apply_distal_pixels(candidate, original, predictions, sources, audits, prepa
                 'status': fit['status'], 'pixel_sse_before': fit['pixel_sse_before'], 'pixel_sse_after': fit['pixel_sse_after'],
                 'view_indices': available, 'observation_statuses': statuses}
             previous[group] = (meta['time_s'], fit['correction_rad']); fits.append(fit)
-    return {'method': CONTRACT['method'], 'partial_reference_sha256': before, 'fitted_group_poses': len(fits),
+    report = {'method': (UNCERTAINTY_CONTRACT if settings is not None else CONTRACT)['method'], 'partial_reference_sha256': before, 'fitted_group_poses': len(fits),
         'changed_group_poses': sum(f['maximum_angle_change_rad'] > 0 for f in fits),
         'status_counts': dict(Counter(f['status'] for f in fits)),
         'maximum_angle_change_rad': max((f['maximum_angle_change_rad'] for f in fits), default=0.),
         'source_image_constraints': sum(len(f['source_pixels']) for f in fits),
         'scope': CONTRACT['scope'], 'depth_measured': False}
+    if settings is not None:
+        report.update(uncertainty=settings, uncertainty_sha256=canonical_hash(settings), uncertainty_calibrated=False,
+            weak_image_group_poses=sum(f['weak_image_directions'] > 0 for f in fits))
+    return report
 
 
 def validate_pixel_binding(spec, parent, *, multi):
     binding = spec['camera_reference']['body_refinement']
     views = spec['camera_reference']['root_refinement']['views']
-    if (binding['partial_pixel_contract'] != dict(CONTRACT)
+    uncertain = spec['camera_reference']['method'] == UNCERTAINTY_METHOD
+    if (binding['partial_pixel_contract'] != dict(UNCERTAINTY_CONTRACT if uncertain else CONTRACT)
             or binding['partial_pixel_camera_sha256'] != [v['camera_sha256'] for v in views]):
         raise ValueError('Partial pixels require their fixed contract and original calibrated view identities')
+    if uncertain:
+        settings = validate_uncertainty(binding['partial_pixel_uncertainty'])
+        summary = spec['reconstruction_coverage']['two_view_body']['partial_pixels']
+        if (binding['partial_pixel_uncertainty_sha256'] != canonical_hash(settings)
+                or summary.get('uncertainty') != settings or summary.get('uncertainty_sha256') != canonical_hash(settings)
+                or summary.get('uncertainty_calibrated') is not False):
+            raise ValueError('Partial image uncertainty must preserve its explicit uncalibrated assumptions')
     for meta, reference, prior in zip(spec['reference_evidence'], spec['reference'], parent['reference'], strict=True):
         fits = meta.get('geometry_partial_pixels')
         expected = {name for name, source in meta['geometry_sources'].items() if source == pixel_status(multi)}

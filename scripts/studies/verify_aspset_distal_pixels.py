@@ -40,23 +40,41 @@ def project(point, camera, frame, rotation=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__); parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--uncertainty', action='store_true', help='Audit the separately frozen v2 candidate against v1')
     args = parser.parse_args()
     if args.out.exists() or args.out.parent.resolve() != Path('artifacts').resolve():
         raise ValueError('Use a new artifact directory')
     started = time.monotonic()
     baseline = Path('artifacts/aspset-partial-limb-body-lab-01/run')
-    candidate = Path('artifacts/aspset-distal-pixel-body-lab-01/run')
+    candidate = Path('artifacts/aspset-distal-uncertainty-body-lab-01/run' if args.uncertainty else
+                     'artifacts/aspset-distal-pixel-body-lab-01/run')
+    comparison = Path('artifacts/aspset-distal-pixel-body-lab-01/run') if args.uncertainty else baseline
     verified = [verify_artifacts(p) for p in (baseline, candidate)]
     assert [v['manifest_sha256'] for v in verified] == [
         '0254ca5f0bf4e97b7ec3d220170bfbd13f61c2076a14a55b93a15b2e1fc1b945',
+        '672234299b8645616a8fb2b4787591774aa4bea9e9623d3af7a6915bc5bdf449' if args.uncertainty else
         'da5aca806abd17cf9e8c09cc895e0134151cc4530a900e72ba0f25656cbe0909']
+    settings = None; regularization = 1e-3; temporal = 5e-4
+    if args.uncertainty:
+        verified.append(verify_artifacts(comparison))
+        assert verified[-1]['manifest_sha256'] == 'da5aca806abd17cf9e8c09cc895e0134151cc4530a900e72ba0f25656cbe0909'
+        assert digest(candidate/'partial-pixel-uncertainty.json') == '6644c04918654879fd4f9e4261451f864bdd052b5cdc6e4c2a2aa0ab50d48057'
+        settings = read(candidate/'partial-pixel-uncertainty.json')
+        assert [settings[k] for k in ('image_std_fraction', 'angle_prior_std_rad', 'temporal_prior_std_rad')] == [.0025, .3, .45]
+        regularization = (.0025/.3)**2; temporal = (.0025/.45)**2
     source_files = ['evidence.json', 'source.json', 'camera.json', 'ground.json', 'camera-reference.json',
                     'two-view-triangulation.json', 'two-view-root.json']
     source_files += [str(p.relative_to(candidate)) for p in (candidate/'inputs').rglob('*') if p.is_file()]
     for name in source_files:
         assert (baseline/name).read_bytes() == (candidate/name).read_bytes(), name
+        assert (comparison/name).read_bytes() == (candidate/name).read_bytes(), name
     old, new = [read(p/'human.json') for p in (baseline, candidate)]
     old_audit, audit = [read(p/'two-view-body.json') for p in (baseline, candidate)]
+    if args.uncertainty:
+        assert audit['partial_pixels']['method'] == 'fixed-upper-bone-distal-pixels-v2'
+        assert audit['partial_pixels']['uncertainty'] == settings
+        assert audit['partial_pixels']['uncertainty_sha256'] == canonical_hash(settings)
+        assert audit['partial_pixels']['uncertainty_calibrated'] is False
     for key in ('lengths', 'mobility', 'body_frame', 'root_reference', 'motor_limits'):
         assert old[key] == new[key], key
     for key in ('ground', 'root_refinement'):
@@ -64,6 +82,7 @@ def main():
     assert old_audit['dimensions'] == audit['dimensions'] and old_audit['limb_position_fit'] == audit['limb_position_fit']
     assert audit['partial_pixels']['partial_reference_sha256'] == canonical_hash(old['reference'])
     before, after = [read(p/'human-reference.json')['frames'] for p in (baseline, candidate)]
+    comparison_before = read(comparison/'human-reference.json')['frames'] if args.uncertainty else before
     assert len(before) == len(after) == len(new['reference']) == 47
     predictions = read(candidate/'two-view-triangulation.json')
     assert len(predictions['frames']) == len(audit['frames']) == 188
@@ -124,10 +143,24 @@ def main():
                 errors = [float(np.linalg.norm(project(point, cameras[v['view_index']], frame, v['solver_rotation'])-v['pixel'])) for v in attempt['views']]
                 sse = sum(v['confidence']*(error/max(cameras[v['view_index']]['width'], cameras[v['view_index']]['height']))**2
                           for v, error in zip(attempt['views'], errors, strict=True))
-                cost = .5*sse+.5*1e-3*float(delta @ delta)
-                if prior is not None: cost += .5*5e-4*float((delta-prior) @ (delta-prior))
+                cost = .5*sse+.5*regularization*float(delta @ delta)
+                if prior is not None: cost += .5*temporal*float((delta-prior) @ (delta-prior))
                 return point, errors, sse, cost
 
+            if args.uncertainty:
+                assert fit['uncertainty'] == settings and fit['uncertainty_calibrated'] is False
+                assert fit['original_angle_regularization'] == regularization
+                assert fit['correction_temporal_regularization'] == (0. if prior is None else temporal)
+                columns = []
+                for axis in np.eye(2)*1e-6:
+                    points = [evaluate(delta)[0] for delta in (axis, -axis)]
+                    columns.append(np.concatenate([np.sqrt(v['confidence'])/max(cameras[v['view_index']]['width'], cameras[v['view_index']]['height'])*(
+                        project(points[0], cameras[v['view_index']], frame, v['solver_rotation'])-
+                        project(points[1], cameras[v['view_index']], frame, v['solver_rotation']))/2e-6 for v in attempt['views']]))
+                derivative = np.array(columns).T
+                strength = np.maximum(np.linalg.eigvalsh(derivative.T @ derivative), 0.)/regularization
+                np.testing.assert_allclose(strength, fit['initial_image_to_prior_eigenvalues'], atol=1e-6, rtol=1e-5)
+                assert fit['weak_image_directions'] == int(np.count_nonzero(strength <= 1.))
             current = np.zeros(2)
             for iteration in fit['iterations']:
                 assert 1 <= iteration['iteration'] <= 12 and len(iteration['trials']) <= 4
@@ -167,13 +200,13 @@ def main():
                 row['status'] = 'body_reference_unavailable'
                 if frame not in by_frame: continue
                 index = by_frame[frame]; target = np.array([point['x']*camera['width'], point['y']*camera['height']])
-                for label, snapshots in [('before_px', before), ('after_px', after)]:
+                for label, snapshots in [('before_px', comparison_before), ('after_px', after)]:
                     world = np.array(snapshots[index]['human']['joints'][name])+offset
                     row[label] = float(np.linalg.norm(project(world, camera, frame)-target))
                 row['status'] = 'compared'; known.append(row)
         image_summary[view] = {'before': summary([r['before_px'] for r in known]), 'after': summary([r['after_px'] for r in known]),
             'regressed_points': sum(r['after_px'] > r['before_px']+1e-8 for r in known)}
-    floors = [read(p/'reference-feasibility.json') for p in (baseline, candidate)]
+    floors = [read(p/'reference-feasibility.json') for p in (comparison, candidate)]
     assert floors[0]['contract'] == floors[1]['contract']
     for a, b in zip(floors[0]['checks'], floors[1]['checks'], strict=True):
         for key in ('kind', 'time_s', 'source_evidence_ids', 'bracketing_reference_indices'): assert a[key] == b[key]
@@ -190,6 +223,20 @@ def main():
         'root_floor_shape_forces_unchanged': True, 'source_observations_unchanged': True, 'source_candidate_promoted': False,
         'physical_validation': 'unverified', 'scope': 'Construction pixel fit and fixed sampled-floor consistency; not recovered distal depth or physical accuracy',
         'new_inference_solve_physics_api_calls': 0, 'seconds': time.monotonic()-started}
+    if args.uncertainty:
+        previous_audit = read(comparison/'two-view-body.json')
+        previous_fits = [g['distal_pixel_attempt']['fit'] for f in previous_audit['frames'] if f['groups']
+                        for g in f['groups'].values() if g.get('distal_pixel_attempt', {}).get('applied')]
+        current_fits = [g['distal_pixel_attempt']['fit'] for f in audit['frames'] if f['groups']
+                       for g in f['groups'].values() if g.get('distal_pixel_attempt', {}).get('applied')]
+        assert len(previous_fits) == len(current_fits) == len(rows)
+        weak = sum(f['weak_image_directions'] > 0 for f in current_fits)
+        assert weak == audit['partial_pixels']['weak_image_group_poses']
+        report.update(uncertainty=settings, uncertainty_calibrated=False, weak_image_group_poses=weak,
+            fits_at_correction_bound=sum(f['maximum_angle_change_rad'] == .3 for f in current_fits),
+            comparison_pixel_sse={'before': sum(f['pixel_sse_after'] for f in previous_fits),
+                                  'after': sum(f['pixel_sse_after'] for f in current_fits)},
+            scope='Construction fit under explicit assumed error scales; image/floor comparison against v1, not measured depth uncertainty or physical accuracy')
     args.out.mkdir()
     for name, value in [('report.json', report), ('pixel-fits.json', rows), ('source-images.json', images)]: write_json(args.out/name, value)
     (args.out/'worker.py').write_bytes(Path(__file__).read_bytes())

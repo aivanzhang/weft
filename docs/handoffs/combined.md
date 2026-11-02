@@ -1,5 +1,35 @@
 # Combined Weft implementation handoff
 
+## Explicit image uncertainty — November 2, 2026, PST
+
+The optional v2 distal fit accepts declared image/angle uncertainty through
+`--partial-pixel-uncertainty`, retaining original source bytes, uncertainty
+labels, fixed geometry and v1 behavior. **213 Python cases /73 mocked UI checks
+pass**, including resized images, near/far/weak directions, legacy/current CLI
+recording and input mutation. No default, learned-policy or physical promotion.
+
+One frozen source candidate reduces grid floor failures 3→2/111 and worst
+penetration .072313→.049340; 1/47 source poses still fails. Left image mean
+improves, middle/right worsen; all 39 regressed comparisons are retained.
+The saved audit checks 1,139 members /259 trial losses /6,768 image slots.
+Actual 39-action/one-reset/41-state recording replays exactly, with immutable
+run/lifecycle verified after close. [Handoff](distal-pixel-uncertainty.md)
+records settings, seals, limits, commands and the next geometry hypothesis.
+
+Both root children are terminal/reaped. Frozen runtime is `dbdd7e2` plus six
+owned overlays; preserve the separate avatar session's files. No acquisition,
+source decode, inference, API/key/ledger access, server/browser or deployment.
+Publication identity: `.local/aspset-distal-uncertainty-publication-01.json`.
+The previous checkpoint `012b54d` was independently remote-verified.
+
+Next is geometric ambiguity, not another penalty sweep. All 70 saved source
+rays were retained: 44 have no exact intersection with their fixed-knee/length
+sphere, and frame84 has two depth branches outside the current local correction
+bounds. This is not a physical impossibility claim under noisy observations.
+Qualify branch-aware, temporally supported articulated hypotheses without floor
+selection or changing existing contracts. Coupled contact/control, independent
+learning/accuracy and unfamiliar-video coverage remain in the full active goal.
+
 ## Distal image constraints — November 2, 2026, 1:06 AM PST
 
 `camera-body --fit-partial-pixels --fit-limbs --partial-segments` integrates

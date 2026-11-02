@@ -264,3 +264,39 @@ recording replays all 41 states and video frames exactly.
 took 1.654 s /151.4 MB peak RSS; interaction/export/replay 1.035 s /161.9 MB.
 No paid API call, original-video decode or new inference was used. Browser
 painting and sustained responsiveness are not established by these measurements.
+
+## Explicit image and pose uncertainty
+
+The optional v2 fit replaces the fixed image-versus-pose penalty with declared
+error scales. Add `--partial-pixel-uncertainty examples/partial-pixel-uncertainty.json`
+to the construction command with `--fit-partial-pixels --fit-limbs --partial-segments`.
+The [example settings](../examples/partial-pixel-uncertainty.json) assume image
+error of 0.25% of the larger image dimension and pose/adjacent-correction scales
+of 0.30/0.45 radians. **These are assumptions, not measured confidence.**
+Image resizing preserves the fit; a more distant, smaller image motion has less
+influence. All source views and the original .30-rad correction bound remain.
+
+Try the separately saved candidate:
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/aspset-distal-uncertainty-body-lab-01
+```
+
+The lab identifies weak image directions and keeps depth inferred. Compared
+with v1, failing interpolated poses fall from 3/111 to 2/111, but 1/47 source
+poses still fails. Worst floor penetration falls from 0.072313 to 0.049340
+model units. Mean left-camera agreement improves; middle/right worsen, with
+39 individual regressions retained. This is not a replacement default or a
+successful exercise reconstruction.
+
+- [Manual replay](../artifacts/aspset-distal-uncertainty-body-lab-01/sessions/session-c5c1fedf9c4f/replay.html)
+  and [video](../artifacts/aspset-distal-uncertainty-body-lab-01/sessions/session-c5c1fedf9c4f/video.mp4).
+- [Independent comparison](../artifacts/aspset-distal-uncertainty-audit-01/report.json),
+  [all image slots](../artifacts/aspset-distal-uncertainty-audit-01/source-images.json),
+  and [settings/proposals](../artifacts/aspset-distal-uncertainty-body-lab-01/run/two-view-body.json).
+- [Verification and remaining geometric ambiguity](handoffs/distal-pixel-uncertainty.md).
+
+213 scoped Python cases /73 mocked UI checks pass. Actual 39-action/one-reset
+recording replays all 41 states and frames exactly; immutable run and lifecycle
+metadata stay unchanged after closing. No new inference or paid API call.

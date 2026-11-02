@@ -16,6 +16,8 @@ from weft.multiview_segments import (MULTI_METHOD as MULTI_SEGMENT_METHOD, MULTI
                                     MULTI_COMPONENTS, MULTI_PARTIAL_STATUS)
 from weft.multiview_distal_pixels import (METHOD as PARTIAL_PIXEL_METHOD, CONTRACT as PARTIAL_PIXEL_CONTRACT,
     pixel_status, pixel_components, prepare_pixel_views, apply_distal_pixels, validate_pixel_binding)
+from weft.multiview_distal_pixels import (UNCERTAINTY_METHOD as PARTIAL_UNCERTAINTY_METHOD,
+    UNCERTAINTY_CONTRACT as PARTIAL_UNCERTAINTY_CONTRACT, validate_uncertainty)
 from weft.spatial_pose import LIMB_ENDPOINTS, SPATIAL_JOINT_NAMES, _limb_rotation, rotation_to_zyx, rotation_zyx
 
 
@@ -23,7 +25,8 @@ METHOD = 'two-view-body-v1'
 MULTI_METHOD = 'multi-view-body-v1'
 LIMB_FIT_METHOD = 'camera-body-length-fit-v1'
 LIMB_FIT_SEGMENT_METHOD = 'camera-body-length-fit-v2'
-METHODS = (METHOD, SEGMENT_METHOD, MULTI_METHOD, LIMB_FIT_METHOD, MULTI_SEGMENT_METHOD, LIMB_FIT_SEGMENT_METHOD, PARTIAL_PIXEL_METHOD)
+METHODS = (METHOD, SEGMENT_METHOD, MULTI_METHOD, LIMB_FIT_METHOD, MULTI_SEGMENT_METHOD, LIMB_FIT_SEGMENT_METHOD,
+           PARTIAL_PIXEL_METHOD, PARTIAL_UNCERTAINTY_METHOD)
 SCALE_ASSUMPTION = 'supplied_camera_scale_with_explicit_monocular_body_priors'
 CONTRACT = MappingProxyType({'method': METHOD, 'minimum_dimension_frames': 5,
     'maximum_reference_poses': 900, 'dimensions': 'Median available segment lengths; shared left/right lengths remain an authored symmetry assumption',
@@ -54,7 +57,8 @@ def validate_body_binding(spec):
     fields = {'schema_version', 'mode', 'input_body', 'input_body_sha256', 'triangulation_sha256',
               'output_lengths_sha256', 'output_evidence_sha256', 'audit_sha256'}
     method = spec['camera_reference']['method']
-    pixels = method == PARTIAL_PIXEL_METHOD
+    uncertain = method == PARTIAL_UNCERTAINTY_METHOD
+    pixels = method == PARTIAL_PIXEL_METHOD or uncertain
     partial = method in (SEGMENT_METHOD, MULTI_SEGMENT_METHOD, LIMB_FIT_SEGMENT_METHOD) or pixels
     fitted = method in (LIMB_FIT_METHOD, LIMB_FIT_SEGMENT_METHOD) or pixels
     multi = (method in (MULTI_METHOD, MULTI_SEGMENT_METHOD) or fitted
@@ -67,6 +71,8 @@ def validate_body_binding(spec):
         fields.add('limb_fit_contract')
     if pixels:
         fields.update(('partial_pixel_contract', 'partial_pixel_camera_sha256'))
+    if uncertain:
+        fields.update(('partial_pixel_uncertainty', 'partial_pixel_uncertainty_sha256'))
     if (not isinstance(value, dict) or set(value) != fields or type(value['schema_version']) is not int
             or value['schema_version'] != 1 or value['mode'] not in MODES
             or not isinstance(value['input_body'], dict)
@@ -205,7 +211,7 @@ def _torso_rotation(points):
 
 
 def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mode='both', partial_segments=False,
-                      additional_evidence=(), limb_fit=False, partial_pixel_fit=False, pixel_cameras=()):
+                      additional_evidence=(), limb_fit=False, partial_pixel_fit=False, pixel_cameras=(), pixel_uncertainty=None):
     from weft.human import LENGTH_BOUNDS, validate_human
 
     original = validate_human(spec)
@@ -223,9 +229,10 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
     if type(limb_fit) is not bool or limb_fit and mode not in ('directions', 'both'):
         raise ValueError('Fixed-length limb fitting requires directions/both')
     if (type(partial_pixel_fit) is not bool or partial_pixel_fit and not (limb_fit and partial_segments)
-            or not partial_pixel_fit and pixel_cameras):
+            or not partial_pixel_fit and (pixel_cameras or pixel_uncertainty is not None)):
         raise ValueError('Partial pixel fitting requires explicit length fitting, partial segments and original cameras')
-    method = (PARTIAL_PIXEL_METHOD if partial_pixel_fit else LIMB_FIT_SEGMENT_METHOD if limb_fit and partial_segments else LIMB_FIT_METHOD if limb_fit else
+    uncertainty = validate_uncertainty(pixel_uncertainty) if pixel_uncertainty is not None else None
+    method = (PARTIAL_UNCERTAINTY_METHOD if uncertainty is not None else PARTIAL_PIXEL_METHOD if partial_pixel_fit else LIMB_FIT_SEGMENT_METHOD if limb_fit and partial_segments else LIMB_FIT_METHOD if limb_fit else
               MULTI_SEGMENT_METHOD if multi and partial_segments else MULTI_METHOD if multi else
               SEGMENT_METHOD if partial_segments else METHOD)
     segment_contract = MULTI_SEGMENT_CONTRACT if multi else SEGMENT_CONTRACT
@@ -343,7 +350,7 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
     if partial_segments:
         from weft.multiview_segments import apply_partial_segments
         segment_report = apply_partial_segments(candidate, original, predictions, sources, audits, multi=multi, method=method)
-    pixel_report = (apply_distal_pixels(candidate, original, predictions, sources, audits, pixel_views, multi=multi)
+    pixel_report = (apply_distal_pixels(candidate, original, predictions, sources, audits, pixel_views, multi=multi, uncertainty=uncertainty)
                     if partial_pixel_fit else None)
     by_frame = {row['frame']: row for row in audits}
     slots = [{'frame': row['frame'], 'time_s': row['time_s'], 'retained_body_pose': row['frame'] in by_frame,
@@ -368,7 +375,7 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
             'status_counts': dict(Counter(fit['status'] for fit in fits)),
             'maximum_angle_change_rad': max((fit['maximum_angle_change_rad'] for fit in fits), default=0.)}
     if pixel_report is not None:
-        audit['contract']['partial_pixels'] = dict(PARTIAL_PIXEL_CONTRACT)
+        audit['contract']['partial_pixels'] = dict(PARTIAL_UNCERTAINTY_CONTRACT if uncertainty is not None else PARTIAL_PIXEL_CONTRACT)
         audit['partial_pixels'] = pixel_report
         audit['scope'] = 'Fixed complete-limb position fits and pixel-constrained distal priors; no measured depth or contact'
     candidate['camera_reference'].update(method=method, scale_assumption=SCALE_ASSUMPTION,
@@ -382,8 +389,12 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
     if limb_fit:
         candidate['camera_reference']['body_refinement']['limb_fit_contract'] = dict(LIMB_FIT_CONTRACT)
     if partial_pixel_fit:
-        candidate['camera_reference']['body_refinement'].update(partial_pixel_contract=dict(PARTIAL_PIXEL_CONTRACT),
+        candidate['camera_reference']['body_refinement'].update(partial_pixel_contract=dict(
+            PARTIAL_UNCERTAINTY_CONTRACT if uncertainty is not None else PARTIAL_PIXEL_CONTRACT),
             partial_pixel_camera_sha256=[v['camera_sha256'] for v in views])
+    if uncertainty is not None:
+        candidate['camera_reference']['body_refinement'].update(partial_pixel_uncertainty=uncertainty,
+            partial_pixel_uncertainty_sha256=canonical_hash(uncertainty))
     candidate['assumptions'] = [v for v in candidate['assumptions'] if not v.startswith(
         'Body shape, joint angles, muscle illustrations and motor forces remain')]
     candidate['assumptions'].extend([
@@ -402,6 +413,8 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
         candidate['assumptions'].append('Supported limb angles fit source-derived positions with fixed lengths; corrections and temporal priors are inferred, not measured anatomy or contact')
     if partial_pixel_fit:
         candidate['assumptions'].append('Available distal images constrain partial-limb bend/twist without changing the supported upper axis; missing 3D endpoints remain inferred, not observed')
+    if uncertainty is not None:
+        candidate['assumptions'].append('Image and angle error scales are explicit assumptions, not calibrated noise or depth confidence; pose confidence supplies heuristic weights')
     candidate['reconstruction_coverage']['two_view_body'] = {'method': method, 'mode': mode, 'group_coverage': audit['group_coverage']}
     if limb_fit:
         candidate['reconstruction_coverage']['two_view_body']['limb_position_fit'] = deepcopy(audit['limb_position_fit'])
