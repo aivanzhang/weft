@@ -150,7 +150,7 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
                            video=None, pose_model=None, pose_mode=None, pose_identity=None, source_note=None,
                            pose_recovery=None, train_settings=None, max_seconds=None, progress=None,
                            scene_scope="person_and_equipment", static_supports=None,
-                           geometry_run=None, geometry_manifest_sha256=None, native_timing=False):
+                           geometry_run=None, geometry_manifest_sha256=None, native_timing=False, auto_context_path=None):
     """Reuse the standard stages once; unsupported evidence stops before simulation is exposed."""
     if type(native_timing) is not bool:
         raise ValueError("Native timing must be explicitly enabled or disabled")
@@ -158,7 +158,7 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         raise ValueError("Native timing capture requires raw video; saved bodies and worlds retain their own clocks")
     if geometry_run is not None:
         if (any(value is not None for value in (base_run, evidence_run, config_path, human_run, body_scale, video,
-                pose_model, pose_mode, pose_identity, source_note, pose_recovery, train_settings, static_supports))
+                pose_model, pose_mode, pose_identity, source_note, pose_recovery, train_settings, static_supports, auto_context_path))
                 or source_mappings or root_assistance is not False or full_reference is not False
                 or scene_scope != "person_and_equipment"):
             raise ValueError("Saved geometry owns its body, source, camera, equipment and task; construction, control and training overrides are not allowed")
@@ -172,6 +172,8 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         raise ValueError("Scene scope requires equipment, person-only or explicit static-support assumptions")
     person_only = scene_scope == "human_only"
     static_support = scene_scope == "human_static_supports"
+    if auto_context_path is not None and (person_only or static_support):
+        raise ValueError("Automatic equipment role context requires the equipment construction route")
     support, support_raw, support_path = None, None, None
     if static_support:
         if (base_run is not None or evidence_run is not None or config_path is not None or source_mappings
@@ -230,6 +232,8 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
     target = Path(out).absolute()
     inputs = [path for path in (source, evidence, config, support_path, *(Path(value).absolute() for value in source_mappings))
               if path is not None]
+    if auto_context_path is not None:
+        inputs.append(Path(auto_context_path).absolute())
     if pose_model is not None:
         inputs.append(Path(pose_model).absolute())
     if target.exists() or any(target.resolve().is_relative_to(path.resolve())
@@ -488,7 +492,8 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
                 recheck_exercise_scene_inputs(raw_inputs, deadline=deadline)
             stage("equipment_priors", "running")
             proposal = prepare_equipment_proposal(source, evidence, config, target / "proposal",
-                source_mappings=source_mappings, max_seconds=min(30, remaining()))
+                source_mappings=source_mappings, max_seconds=min(30, remaining()),
+                **({"auto_context_path": auto_context_path} if auto_context_path is not None else {}))
             stage("equipment_priors", proposal["status"], manifest_sha256=proposal["manifest_sha256"])
             if proposal["status"] != "proposal_ready":
                 return finish(proposal["status"], reasons=proposal["reasons"])

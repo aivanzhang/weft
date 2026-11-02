@@ -30,7 +30,13 @@ def construction_input(root):
     route = status.get("route")
     if route not in {"exercise", "objects"}:
         raise ValueError("This project's construction format is not supported by Muse review")
-    source = body_path(root, config) if route == "exercise" else root / "planar/run"
+    attachment = None
+    if config.get("kind") == "imported_lab":
+        from weft.portal_evidence_attachment import validate_attachment
+
+        source, attachment = validate_attachment(root)
+    else:
+        source = body_path(root, config) if route == "exercise" else root / "planar/run"
     names = ["evidence.json", config["source_file"]] + (["human.json"] if route == "exercise" else [])
     manifest_path = source / "manifest.json"
     if any(p.is_symlink() for p in (manifest_path, *manifest_path.parents)) or manifest_path.stat().st_size > 1_000_000:
@@ -51,6 +57,8 @@ def construction_input(root):
     binding = {"construction_directory": source.relative_to(root).as_posix(),
                "manifest_sha256": digest(manifest_path), "input_sha256": pins,
                "scope": "Construction observations and authored body assumptions only; no scores, policies or final evaluation"}
+    if attachment is not None:
+        binding["imported_attachment"] = attachment
     if config.get("kind") == "support_experiment":
         binding.update(review_scope="original_body_only",
                        scope="Original body construction evidence only. Added supports, load windows and child-world control settings are not reviewed; no scores, policies or final evaluation.")

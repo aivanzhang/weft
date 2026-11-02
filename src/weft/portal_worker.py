@@ -8,11 +8,18 @@ import threading
 import time
 
 
+def _limit(kind, requested):
+    # A supervisor can impose a tighter ceiling; workers must never widen it.
+    inherited = resource.getrlimit(kind)
+    limit = min([requested, *(value for value in inherited if value != resource.RLIM_INFINITY)])
+    resource.setrlimit(kind, (limit, limit))
+
+
 def main():
     repairs = len(sys.argv) == 4 and sys.argv[3] == "repairs"
     cpu_limit = 65 if repairs else 360
-    resource.setrlimit(resource.RLIMIT_CPU, (cpu_limit, cpu_limit))
-    resource.setrlimit(resource.RLIMIT_FSIZE, (512 * 1024**2, 512 * 1024**2))
+    _limit(resource.RLIMIT_CPU, cpu_limit)
+    _limit(resource.RLIMIT_FSIZE, 512 * 1024**2)
     from weft.lab_worker import atomic_json
     root = Path(sys.argv[1])
     review = len(sys.argv) == 4 and sys.argv[3] == "review"

@@ -201,3 +201,15 @@ function setup(jobs=[]) {
   assert.equal(e.get("sandbox").hidden,false);
   console.log("PASS imported coupled worlds stay distinct from legacy undeclared person-only labs");
 }
+{
+  const id="5".repeat(32), f=setup([{id,name:"equipment.webm",kind:"imported_lab",route:"exercise",status:"ready",events:[],review_attachment:{available:true,prepared:true}}]);await tick();
+  const e=f.elements;assert.equal(e.get("muse-review").hidden,false);
+  assert.match(e.get("muse-scope").textContent,/current equipment world's assumptions/);
+  assert.match(e.get("attachment-request-download").href,/review-evidence\/prepared\/request.json\?token=test-owner-token$/);
+  assert.equal(e.get("attachment-receipt-download").hidden,false);
+  f.info.jobs[0].muse={status:"proposed",repair_availability:{available:true}};
+  await e.get("refresh").onclick();await tick();
+  assert.equal(e.get("run-checks").hidden,true);assert.equal(e.get("repair-comparison").hidden,true);
+  assert.ok(!f.calls.some(c=>c.path.includes("prepared/request")));
+  console.log("PASS imported evidence enables review and inspectable preparation without enabling repairs or eager downloads");
+}

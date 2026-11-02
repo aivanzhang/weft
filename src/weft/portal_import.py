@@ -166,3 +166,132 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
         raise
     finally:
         os.close(lease)
+
+
+def attach_existing_import(root, project_id, body_source, *, project=PROJECT_ROOT, max_seconds=30):
+    """Attach an explicit sealed source beside the imported run while the portal is stopped."""
+    from weft.lab_worker import atomic_json
+    from weft.portal_evidence_attachment import DIRECTORY, _body_files, _join, _receipt, _validate_body, validate_attachment
+
+    if (type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 0 < max_seconds <= 30
+            or not isinstance(project_id, str) or not re.fullmatch(r"[a-f0-9]{32}", project_id)):
+        raise ValueError("Attachment needs a project ID and a positive deadline of at most 30 seconds")
+    started = time.monotonic()
+    deadline = started + max_seconds
+    root, source = _directory(root), _directory(body_source)
+    folder = _directory(root / project_id)
+    if source == folder or source.is_relative_to(folder):
+        raise ValueError("Attach an explicit external sealed body source, not nested imported files")
+    lease = os.open(root / "portal.lock", os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+    stage = None
+    try:
+        try:
+            fcntl.flock(lease, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            raise ValueError("Stop the portal before attaching evidence; active work must not be interrupted") from None
+        job = bounded_json(folder / "job.json")
+        if job.get("kind") != "imported_lab" or bounded_json(folder / "status.json").get("status") != "ready":
+            raise ValueError("Attachment requires a ready imported exercise lab")
+        if (folder / DIRECTORY).exists() or "review_attachment_sha256" in job:
+            if "review_attachment_sha256" not in job:
+                raise ValueError("Unregistered attachment preserved after interrupted publication; inspect it before recovery")
+            validate_attachment(folder, project=project, max_seconds=max_seconds)
+            return {"id": project_id, "status": "already_attached", "api_calls": 0}
+        if (folder / "muse").exists():
+            raise ValueError("Existing review history must not be rebound to different construction evidence")
+        manifest, files = _body_files(source, deadline)
+        human, observations, validation = _validate_body(source, files, project=project, deadline=deadline)
+        world, document = _join(folder, files, human, observations, deadline)
+        receipt = _receipt(manifest, human, world, document, validation)
+        total = len(manifest) + sum(map(len, files.values()))
+        def check():
+            if time.monotonic() >= deadline:
+                raise TimeoutError("Construction attachment exceeded its deadline")
+        pending = sum(bounded_json(path / "status.json").get("status") not in TERMINAL
+                      for path in root.iterdir() if re.fullmatch(r"[a-f0-9]{32}", path.name))
+        if (_storage(root, check) + total + 65536 + pending * MAX_JOB_BYTES > MAX_STORAGE
+                or _storage(folder, check) + total + 65536 > MAX_JOB_BYTES):
+            raise ValueError("Construction attachment exceeds reserved portal storage")
+        stage = folder / (".attachment-" + uuid4().hex)
+        (stage / "body").mkdir(mode=0o700, parents=True)
+        write_package_files(stage / "body", {**files, "manifest.json": manifest})
+        receipt_raw = (json.dumps(receipt, sort_keys=True, indent=2, allow_nan=False) + "\n").encode()
+        write_package_files(stage, {"receipt.json": receipt_raw})
+        if read_package_file(source, "manifest.json", max_bytes=1 << 20) != manifest:
+            raise ValueError("Original source seal changed during attachment")
+        # Recheck the current world before publishing; no task or lab artifacts are edited.
+        after, after_document = _join(folder, files, human, observations, deadline)
+        if after != world or after_document != document:
+            raise ValueError("Imported world changed during attachment")
+        check()
+        stage.rename(folder / DIRECTORY)
+        job["review_attachment_sha256"] = sha256(receipt_raw).hexdigest()
+        atomic_json(folder / "job.json", job)
+        return {"id": project_id, "status": "attached", "receipt": str(folder / DIRECTORY / "receipt.json"),
+                "body_manifest_sha256": receipt["body_manifest_sha256"], "scene_sha256": world["input_sha256"]["scene.json"],
+                "copied_files": len(files) + 1, "copied_bytes": total, "api_calls": 0,
+                "seconds": time.monotonic() - started, "repair_qualified": False}
+    except Exception as error:
+        if stage is not None and stage.is_dir():
+            write_json(stage / "attachment-failure.json", {"published": False, "error_type": type(error).__name__, "api_calls": 0})
+        raise
+    finally:
+        os.close(lease)
+
+
+def register_prepared_review(root, project_id, *, expected_files):
+    """Pin existing prepared bytes after explicit offline preparation; never decode or send them."""
+    from weft.lab_worker import atomic_json
+    from weft.portal_evidence_attachment import (DIRECTORY, PREPARATION_PROFILE, PREPARED_FILES,
+        attachment_artifact, _json)
+    from weft.io import canonical_hash
+
+    if (not isinstance(project_id, str) or not re.fullmatch(r"[a-f0-9]{32}", project_id)
+            or not isinstance(expected_files, dict) or set(expected_files) != set(PREPARED_FILES)
+            or any(not isinstance(pin, str) or not re.fullmatch(r"[a-f0-9]{64}", pin) for pin in expected_files.values())):
+        raise ValueError("Preparation registration requires exact pre-recorded hashes for its three files")
+    root = _directory(root)
+    folder = _directory(root / project_id)
+    lease = os.open(root / "portal.lock", os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+    try:
+        try:
+            fcntl.flock(lease, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            raise ValueError("Stop the portal before registering prepared snapshots") from None
+        job = bounded_json(folder / "job.json")
+        attachment_artifact(folder, job, DIRECTORY + "/receipt.json")
+        prepared = folder / DIRECTORY / "prepared"
+        values = {name: _json(read_package_file(prepared, name, max_bytes=maximum, expected_sha256=expected_files[name]))
+                  for name, maximum in PREPARED_FILES.items()}
+        context, request, call = (values[n] for n in ("context.json", "request.json", "advisor-call.json"))
+        from weft.portal_scene_context import construction_context
+
+        world, world_binding = construction_context(folder)
+        attached = _json(read_package_file(folder, DIRECTORY + "/receipt.json", max_bytes=32 << 10,
+                                          expected_sha256=job["review_attachment_sha256"]))
+        try:
+            text = _json(request["messages"][1]["content"][0]["text"].encode())
+        except (KeyError, IndexError, TypeError, AttributeError) as error:
+            raise ValueError("Prepared review requires its exact context payload") from error
+        if (text != context or call.get("status") != "prepared" or type(call.get("request_count")) is not int
+                or call["request_count"] != 0 or call.get("request_sha256") != canonical_hash(request)
+                or call.get("source_sha256") != job["source_sha256"] or context.get("source_sha256") != job["source_sha256"]
+                or request.get("model") != call.get("model")
+                or context.get("simulation_world") != world or attached["world"] != world_binding
+                or call.get("simulation_world_sha256") != canonical_hash(context.get("simulation_world"))):
+            raise ValueError("Prepared review request, context or source identity differs")
+        manifest = {"schema_version": 1, "profile": PREPARATION_PROFILE,
+            "attachment_receipt_sha256": job["review_attachment_sha256"], "source_sha256": job["source_sha256"],
+            "files": dict(expected_files)}
+        raw = (json.dumps(manifest, sort_keys=True, indent=2) + "\n").encode()
+        if (prepared / "manifest.json").exists():
+            if read_package_file(prepared, "manifest.json", max_bytes=8192) != raw:
+                raise ValueError("A different prepared snapshot is already preserved")
+        else:
+            write_package_files(prepared, {"manifest.json": raw})
+        job["review_preparation_sha256"] = sha256(raw).hexdigest()
+        atomic_json(folder / "job.json", job)
+        return {"id": project_id, "status": "prepared_snapshot_registered", "manifest_sha256": sha256(raw).hexdigest(),
+                "files": expected_files, "api_calls": 0, "decodes": 0}
+    finally:
+        os.close(lease)

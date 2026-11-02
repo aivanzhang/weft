@@ -145,21 +145,27 @@ def prepare_context(run, questions=None, *, scene_context=None):
     rows = evidence.get("generation", evidence.get("reference", []))
     if not rows:
         raise ValueError("No construction observations available")
+    source_rows = rows
+    available_observations = len(rows)
     rows = _sample(rows, 12)
-    observations = []
-    for row in rows:
-        ref = row.get("id", row.get("evidence_id"))
-        if not isinstance(ref, str) or not ref.startswith(source_hash + ":frame:"):
-            raise ValueError("Observation identity does not match the source")
-        selected = {key: row[key] for key in (
-            "frame", "object_id", "time_s", "x", "y", "x_px", "y_px", "radius_px",
-            "width_px", "height_px", "status", "pose_status", "joints", "joint_confidence",
-            "identity_status", "identity_derivation_id") if key in row}
-        selected["id"] = ref
-        selected["frame"] = int(ref.split(":frame:", 1)[1].split(":", 1)[0])
-        if not 0 <= selected["frame"] < 1800:
-            raise ValueError("Advisor frame exceeds the decode envelope")
-        observations.append(selected)
+    def project_observations(rows):
+        observations = []
+        for row in rows:
+            ref = row.get("id", row.get("evidence_id"))
+            if not isinstance(ref, str) or not ref.startswith(source_hash + ":frame:"):
+                raise ValueError("Observation identity does not match the source")
+            selected = {key: row[key] for key in (
+                "frame", "object_id", "time_s", "x", "y", "x_px", "y_px", "radius_px",
+                "width_px", "height_px", "status", "pose_status", "joints", "joint_confidence",
+                "identity_status", "identity_derivation_id") if key in row}
+            selected["id"] = ref
+            selected["frame"] = int(ref.split(":frame:", 1)[1].split(":", 1)[0])
+            if not 0 <= selected["frame"] < 1800:
+                raise ValueError("Advisor frame exceeds the decode envelope")
+            observations.append(selected)
+        return observations
+
+    observations = project_observations(rows)
     if "reference" in evidence:
         objects = [{"id": "person", "kind": "person", "status": "pose_estimate"}]
         profile = "exercise"
@@ -203,6 +209,16 @@ def prepare_context(run, questions=None, *, scene_context=None):
                                    "status": "construction assumption, not verified observed contact"}
                                   for item in scene_context["objects"])
     encoded = json.dumps(context, allow_nan=False)
+    if scene_context is not None and len(encoded.encode()) > 20_000:
+        # Keep the complete world assumptions; reduce only the evenly spaced source sample.
+        for count in (8, 4, 3):
+            context["observations"] = project_observations(_sample(source_rows, count))
+            context["observation_sampling"] = {"available": available_observations,
+                "selected": len(context["observations"]), "method": "evenly_spaced_source_order_including_endpoints",
+                "scope": "Request sample only; complete original construction evidence remains unchanged"}
+            encoded = json.dumps(context, allow_nan=False)
+            if len(encoded.encode()) <= 20_000:
+                break
     if len(encoded.encode()) > 20_000:
         raise ValueError("Advisor context exceeds 20 KB")
     return context

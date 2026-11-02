@@ -39,9 +39,21 @@ def _exporter(project):
 
 def prepare_runtime(project, *, trusted_commit=TRUSTED_COMMIT):
     """Reuse the trusted export's no-follow reads, Git isolation and exclusive publication."""
-    project = Path(project).absolute()
     if trusted_commit not in TRUSTED_RELEASES:
         raise ValueError("Portal runtime must be a fixed trusted release")
+    return _prepare_runtime(project, trusted_commit)
+
+
+VALIDATION_COMMIT = "0658b6c67d398ac563f25783b42b8d9b24aba0db"
+
+
+def prepare_validation_runtime(project):
+    """Historical crop-proof validation only; never an interactive lab release."""
+    return _prepare_runtime(project, VALIDATION_COMMIT)
+
+
+def _prepare_runtime(project, trusted_commit):
+    project = Path(project).absolute()
     exporter = _exporter(project)
     raw = exporter._git(project, "ls-tree", "-rz", "--long", trusted_commit, "--",
                         "src/weft", "pyproject.toml", "requirements-lab.lock", limit=256 << 10)

@@ -150,3 +150,29 @@ def test_nonexercise_and_nonready_paths_are_explicit(tmp_path):
     assert construction_context(root) == (None, None)
     write_json(root / "status.json", {"status": "running", "route": "exercise"})
     with pytest.raises(ValueError, match="ready"): construction_context(root)
+
+
+def test_large_coupled_request_uniformly_samples_observations_without_dropping_world(job,tmp_path):
+    from weft.scene_advisor import prepare_context, _sample
+    world,_=construction_context(job)
+    source=tmp_path/'advisor';source.mkdir()
+    rows=[{'id':f"{'a'*64}:frame:{i}",'time_s':i/30,'joints':{'joint-'+str(n):i/100 for n in range(70)},
+           'joint_confidence':{'joint-'+str(n):.75 for n in range(70)}} for i in range(121)]
+    write_json(source/'evidence.json',{'source_sha256':'a'*64,'reference':rows,'assumptions':['unverified'],'audit':[{'secret':'DO_NOT_SEND'}]})
+    before=(source/'evidence.json').read_bytes()
+    context=prepare_context(source,scene_context=world)
+    count=context['observation_sampling']['selected']
+    assert count in {8,4,3} and context['observation_sampling']['available']==121
+    assert [row['id'] for row in context['observations']]==[row['id'] for row in _sample(rows,count)]
+    assert context['observations'][0]['frame']==0 and context['observations'][-1]['frame']==120
+    assert context['simulation_world']==world and len(json.dumps(context).encode())<=20000
+    assert 'DO_NOT_SEND' not in json.dumps(context) and (source/'evidence.json').read_bytes()==before
+    assert prepare_context(source,scene_context=world)==context
+
+
+def test_world_is_not_truncated_when_minimum_observation_sample_still_overflows(job,tmp_path):
+    from weft.scene_advisor import prepare_context
+    world,_=construction_context(job)
+    source=tmp_path/'oversized';source.mkdir()
+    write_json(source/'evidence.json',{'source_sha256':'a'*64,'reference':[{'id':f"{'a'*64}:frame:{i}",'joints':{'large': 'x'*8000}} for i in range(12)]})
+    with pytest.raises(ValueError,match='20 KB'):prepare_context(source,scene_context=world)

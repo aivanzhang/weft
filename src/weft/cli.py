@@ -45,6 +45,11 @@ def main():
     portal_import.add_argument("--lab", required=True)
     portal_import.add_argument("--root", default=".local/portal")
     portal_import.add_argument("--name", help="Project filename with the original video extension")
+    portal_attach = commands.add_parser("portal-attach-evidence", help="Verify original body evidence for an imported portal world's Muse review")
+    portal_attach.add_argument("--root", default=".local/portal")
+    portal_attach.add_argument("--project-id", required=True)
+    portal_attach.add_argument("--body-source", required=True, help="Exact sealed body package used by the imported world")
+    portal_attach.add_argument("--max-seconds", type=float, default=30)
     openai_setup = commands.add_parser("openai-budget", help="Set a lifetime portal API allowance without resetting charges")
     openai_setup.add_argument("--total-usd", type=float, required=True)
     interact = commands.add_parser("interact", help="Step the Python simulator manually")
@@ -376,6 +381,12 @@ def main():
     exercise_config.add_argument("--manifest-sha256", help="Optional exact prior configuration-package seal; requires --resume")
     exercise_config.add_argument("--out", required=True, help="New immutable setup package and offline page")
     exercise_config.add_argument("--max-seconds", type=float, default=30., help="Cooperative saved-input preparation limit; no inference or physics")
+    exercise_auto = commands.add_parser("shared-exercise-auto-build", help="Propose equipment roles from saved evidence and build a conditional world; abstain on ambiguity")
+    exercise_auto.add_argument("--run", required=True, help="Sealed source-qualified shared-world base")
+    exercise_auto.add_argument("--evidence-run", required=True, help="Sealed equipment observation export")
+    exercise_auto.add_argument("--source-mapping", action="append", default=[])
+    exercise_auto.add_argument("--out", required=True, help="New output directory outside the inputs")
+    exercise_auto.add_argument("--max-seconds", type=float, default=90)
     exercise_build = commands.add_parser("shared-exercise-build", help="Build one exercise world and lab from video or saved body evidence")
     exercise_source = exercise_build.add_mutually_exclusive_group(required=True)
     exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
@@ -832,6 +843,10 @@ def main():
                 source_mappings=args.source_mapping, resume=args.resume, request=args.request,
                 expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds,
                 progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
+        elif args.command == "shared-exercise-auto-build":
+            from weft.equipment_autoproposal import prepare_automatic_equipment_scene
+            result = prepare_automatic_equipment_scene(args.run, args.evidence_run, args.out,
+                source_mappings=args.source_mapping, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             if args.native_timing and args.video is None:
@@ -989,6 +1004,9 @@ def main():
         elif args.command == "portal-import":
             from weft.portal_import import import_lab
             result = import_lab(args.lab, args.root, name=args.name)
+        elif args.command == "portal-attach-evidence":
+            from weft.portal_import import attach_existing_import
+            result = attach_existing_import(args.root, args.project_id, args.body_source, max_seconds=args.max_seconds)
         elif args.command == "openai-budget":
             from weft.openai_access import OpenAIBudget
             result = OpenAIBudget().configure(args.total_usd, note="Administrator explicitly configured the portal lifetime allowance through the CLI")
@@ -1134,7 +1152,7 @@ def main():
             print(f"Saved motion force report: {result['report_path']}", file=sys.stderr)
         if args.command == "lab-console" and result.get("recording", {}).get("export") == "failed":
             parser.exit(1, "weft: recording export failed; actions are preserved and recovery guidance is printed above\n")
-        if args.command == "shared-exercise-build" and result.get("status") != "ready":
+        if args.command in {"shared-exercise-build", "shared-exercise-auto-build"} and result.get("status") != "ready":
             parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
         if args.command == "shared-exercise-config":
             pin = result.get("manifest_sha256")

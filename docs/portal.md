@@ -92,9 +92,34 @@ original evidence/task/policy bytes and starts separate recordings. It does not
 copy old recording sessions, infer poses, train or call an AI provider. A running
 portal's exclusive lock prevents import from interfering with active work.
 Unsupported runtime/source packages fail explicitly and retain private partial
-evidence. Imported labs cannot request Muse review or its comparisons until a
-verified body-evidence attachment is supported; ordinary video projects keep
-their existing Muse workflow. [Verification and remaining work](handoffs/portal-inventory-and-import.md).
+evidence. Imported labs require an explicit exact original body package before
+Muse review becomes available. With the portal stopped:
+
+```sh
+.venv-lab/bin/python -m weft portal-attach-evidence \
+  --project-id 47dcca08e7a6461295993941fb9162bc \
+  --body-source artifacts/pose-source-recovery-acceptance-01/kettlebell-pushup/body
+```
+
+The attachment is now present for this example. It preserves the original run,
+checks the body/source/world correspondence and copies the sealed construction
+package beside the run. Review revalidates it before sending anything to Meta.
+The portal exposes the attachment receipt and exact request/context. Imported
+local comparisons and repairs remain unavailable; an evidence attachment does
+not qualify a repair. Ordinary video projects retain their existing Muse workflow.
+
+### Propose equipment roles from saved evidence
+
+For development, `shared-exercise-auto-build --run BASE_WORLD --evidence-run
+OBJECT_EVIDENCE --out NEW_DIRECTORY` derives conditional body/equipment roles
+and invokes the ordinary strict world/lab builder. Add `--source-mapping` for
+each verified derivative mapping. It requires an existing source-qualified body
+world and complete object observations, not just a video. Ambiguous identities
+stop assembly with a saved explanation and exit code 1. Geometry, depth, mass,
+floor support and task intent remain explicitly authored assumptions. This is
+not automatic mixed-video upload support.
+
+[Verification and remaining work](handoffs/parallel-reconstruction-and-muse.md).
 
 ## API configuration and spending
 

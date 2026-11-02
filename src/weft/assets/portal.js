@@ -88,12 +88,18 @@
     $("experiment-note").hidden = job.kind !== "support_experiment";
     $("experiment-note").textContent = job.kind === "support_experiment" ? "Authored support experiment: source-bound body, user-specified box and load task. Equipment/contact are not recovered. This is a new task, not a scored repair of the parent project." : "";
     artifactLink("support-priors-download", job, "support-priors.json", job.kind === "support_experiment");
-    $("muse-review").hidden = imported || (job.status !== "ready" && !job.muse);
+    const importedReviewReady = imported && job.review_attachment?.available;
+    artifactLink("attachment-receipt-download", job, "review-evidence/receipt.json", importedReviewReady);
+    artifactLink("attachment-context-download", job, "review-evidence/prepared/context.json", importedReviewReady && job.review_attachment.prepared);
+    artifactLink("attachment-request-download", job, "review-evidence/prepared/request.json", importedReviewReady && job.review_attachment.prepared);
+    $("muse-review").hidden = (imported && !importedReviewReady) || (job.status !== "ready" && !job.muse);
     $("review-muse").hidden = !!job.muse;
-    $("review-muse").disabled = imported || !museAvailable || reviewing;
+    $("review-muse").disabled = (imported && !importedReviewReady) || !museAvailable || reviewing;
     const legacyBodyReview = job.kind === "support_experiment" && job.muse?.status === "proposed" && job.muse.review_scope !== "coupled_world_assumptions";
     $("muse-scope").hidden = job.route !== "exercise" && job.kind !== "support_experiment";
-    $("muse-scope").textContent = legacyBodyReview
+    $("muse-scope").textContent = importedReviewReady
+      ? "Verified attached body observations and the current equipment world's assumptions are reviewed together. Physical accuracy is unverified. Imported local checks and repairs remain unavailable."
+      : legacyBodyReview
       ? "This saved review covers reused body evidence only, not the authored boxes or load requirements."
       : "New exercise reviews include the saved world's geometry, supports and control assumptions. Authored settings remain separate from observed video evidence; scores and learned policies are not sent.";
     $("muse-status").textContent = job.muse ? (job.muse.message || job.muse.error || job.muse.status) : museAvailable ? "One bounded request, charged to the Meta allowance shown above." : "Meta key or remaining allowance is unavailable. Your simulation remains usable.";
@@ -114,9 +120,9 @@
     artifactLink("muse-context-download", job, "muse/advice/context.json", !!job.muse?.receipt);
     artifactLink("muse-receipt-download", job, "muse/advice/advisor-call.json", !!job.muse?.receipt);
     const checks = job.muse?.checks, report = checks?.report;
-    $("run-checks").hidden = job.muse?.status !== "proposed" || !!checks;
+    $("run-checks").hidden = imported || job.muse?.status !== "proposed" || !!checks;
     $("run-checks").disabled = checking;
-    $("checks-help").hidden = job.muse?.status !== "proposed";
+    $("checks-help").hidden = imported || job.muse?.status !== "proposed";
     $("checks-status").textContent = checks?.message || checks?.status || "";
     const controls = {authored:"Authored controller",root_unforced:"Controller without root assistance",coast:"No control",positive_x:"Push right",negative_x:"Push left"};
     $("checks-results").replaceChildren(...(report?.trials || []).map(trial => {
@@ -128,7 +134,7 @@
       a.href = fileURL(job.id, "muse/checks/" + trial.trace); a.download = trial.trace; return a;
     }));
     const repairs = job.muse?.repairs, repairReport = repairs?.report, repairAvailability = job.muse?.repair_availability;
-    $("repair-comparison").hidden = job.muse?.status !== "proposed" && !repairs;
+    $("repair-comparison").hidden = imported || (job.muse?.status !== "proposed" && !repairs);
     $("run-repairs").hidden = !repairAvailability?.available || !!repairs;
     $("run-repairs").disabled = repairing;
     $("repairs-status").textContent = repairs?.message || repairs?.error || repairs?.status || repairAvailability?.reason || "A supported evidence-linked control or articulation hypothesis is required.";

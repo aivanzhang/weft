@@ -114,7 +114,11 @@ class Portal:
             result["kind"] = config.get("kind", "video")
             result["exercise_intent"] = config.get("exercise_intent")
             if result["kind"] == "imported_lab":
-                result["review_unavailable_reason"] = "Muse review of imported labs needs a verified body-evidence attachment"
+                from weft.portal_evidence_attachment import attachment_summary
+
+                attachment = attachment_summary(folder, config)
+                result["review_attachment"] = attachment
+                result["review_unavailable_reason"] = None if attachment["available"] else attachment["reason"]
                 result["learned_policy_available"] = config.get("learned_policy_available", False)
             if "inventory" in config:
                 result["inventory"] = config["inventory"]
@@ -346,7 +350,7 @@ class Portal:
     def repair(self, identity):
         with self.lock:
             root = self._folder(identity)
-            self._require_review_body(identity)
+            self._require_review_body(identity, action="repairs")
             folder = root / "muse/repairs"
             if folder.exists():
                 return self.summary(identity)
@@ -364,7 +368,7 @@ class Portal:
     def check(self, identity):
         with self.lock:
             folder = self._folder(identity) / "muse/checks"
-            self._require_review_body(identity)
+            self._require_review_body(identity, action="checks")
             if folder.exists():
                 return self.summary(identity)
             if self._status(identity)["status"] != "ready" or self._review_status(identity).get("status") != "proposed":
@@ -393,9 +397,15 @@ class Portal:
             self.wake.set()
             return self.summary(identity)
 
-    def _require_review_body(self, identity):
+    def _require_review_body(self, identity, *, action="review"):
         if self.jobs[identity].get("kind") == "imported_lab":
-            raise ValueError("Muse review of imported labs needs a verified body-evidence attachment")
+            from weft.portal_evidence_attachment import attachment_summary
+
+            attached = attachment_summary(self._folder(identity), self.jobs[identity])
+            if not attached["available"]:
+                raise ValueError(attached["reason"])
+            if action != "review":
+                raise ValueError("Imported construction attachments enable Muse review only; local checks and repairs are not qualified")
 
     def _run(self, identity, *, review=False, checks=False, repairs=False):
         folder = self._folder(identity)
@@ -521,6 +531,10 @@ class Portal:
 
     def artifact(self, identity, name):
         folder = self._folder(identity)
+        if name.startswith("review-evidence/"):
+            from weft.portal_evidence_attachment import attachment_artifact
+
+            return attachment_artifact(folder, self.jobs[identity], name)
         file = (folder / name).resolve()
         if not file.is_relative_to(folder) or not file.is_file():
             raise ValueError("Artifact is outside this project")
