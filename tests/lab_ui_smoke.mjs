@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -167,6 +167,11 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   if (geometryMode) scene.human = {root_method:'two-view-body-v1',geometry_mode:geometryMode,geometry_coverage:{
     left_shoulder:{two_view_estimate:59,monocular_prior_missing_points:53},right_shoulder:{monocular_prior_missing_points:112},
     left_hip:{two_view_estimate:90,monocular_prior_missing_points:22},right_hip:{two_view_estimate:80,monocular_prior_missing_points:32}}};
+  if (multiView) {
+    scene.human.root_method = 'multi-view-body-v1';
+    scene.human.camera_view_count = 3;
+    scene.human.geometry_coverage.left_shoulder = {multi_view_estimate:104,monocular_prior_missing_points:8};
+  }
   if (partialSegments) {
     scene.human.root_method='two-view-body-v2';
     scene.human.geometry_coverage.left_shoulder={two_view_estimate:59,two_view_proximal_monocular_distal_and_twist:42,monocular_prior_missing_points:11};
@@ -877,6 +882,19 @@ async function partialTwoViewBodyDisclosesMissingLimbsWithoutExtraRequests() {
   assert(!ui.requests.some(request=>/two-view-(body|triangulation)/.test(request.path)));
 }
 checks.push(partialTwoViewBodyDisclosesMissingLimbsWithoutExtraRequests);
+
+async function multiViewBodyCountsSupportedLimbsWithoutExtraRequests() {
+  const ui = fixture('exercise', {mobile:true,cameraBody:true,suppliedGround:true,geometryMode:'both',multiView:true}); await ui.ready();
+  assert.match(ui.ids.get('world-description').textContent,/3 views set position/);
+  assert.match(ui.ids.get('world-description').textContent,/left arm 104\/112/);
+  assert.match(ui.ids.get('world-description').textContent,/right arm 0\/112/);
+  assert.match(ui.ids.get('world-description').textContent,/single-view estimates/);
+  assert.match(ui.ids.get('training-caption').textContent,/multiple views/);
+  assert.equal(ui.ids.get('policy').disabled,true);
+  assert(!ui.requests.some(request=>/two-view-(body|triangulation)/.test(request.path)));
+}
+checks.push(multiViewBodyCountsSupportedLimbsWithoutExtraRequests);
+
 async function upperSegmentCorrectionDoesNotClaimObservedWristsOrAnkles() {
   const ui = fixture('exercise', {mobile:true,cameraBody:true,suppliedGround:true,geometryMode:'both',partialSegments:true}); await ui.ready();
   assert.match(ui.ids.get('world-description').textContent,/left arm 59 complete \+ 42 upper-only \/ 112/);

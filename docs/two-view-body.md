@@ -1,5 +1,7 @@
 # Partial two-view body geometry
 
+For three or four supplied cameras, use the [multi-view extension](multi-view-body.md). It preserves this two-view path and reports missing/conflicting observations explicitly.
+
 The manual sandbox can now use two camera views for body dimensions and available joint directions, not just body position. Missing limb directions remain explicitly labeled single-view estimates. **Agreement improves in some respects and regresses in others; this is not validated anatomy, contact, muscle activation or learned exercise behavior.**
 
 The later [upper-segment v2 experiment](two-view-segments.md) uses supported hip/knee or shoulder/elbow pairs when distal endpoints are missing. It improves aggregate agreement but worsens individual poses; this page preserves the original v1 candidates and results.

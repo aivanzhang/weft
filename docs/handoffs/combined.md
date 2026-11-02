@@ -1,5 +1,34 @@
 # Combined Weft implementation handoff
 
+## Three-camera body and actual recording — November 1, 2026, PST
+
+The [multi-view lab](../multi-view-body.md) now reuses the existing bounded pixel
+solver for three/four supplied calibrated views. Every contributing camera and
+source slot is retained; conflicts are not discarded. The two-view path and
+shared-world/learning admission guards remain unchanged. **163 distinct Python
+checks and 69 mocked UI checks pass.**
+
+ASPset's third source was acquired/inferred once under explicit bounds. The
+frozen-ground lab retains 47 poses /188 source slots. Left-arm support improves
+26→47 and left-leg 19→22, but floor consistency regresses: source failures 1→4,
+grid failures 3→7, max penetration .066662→.092148. It is unpromoted. The saved
+audit verifies 776 members, 6,204 joint slots and 4,247 projections. Actual manual
+interaction records 39 actions /one reset /41 frames with exact state/reward/flag
+replay; no browser/server starts. No paid request or default change.
+
+Use `.venv-lab/bin/python -m weft lab-console --resume artifacts/aspset-third-camera-body-lab-01`
+to inspect/control/record this candidate. The existing equipment lab remains
+unchanged. [Full resumable context](aspset-third-view.md) records source/runtime
+pins, native bounds, test correction, seals and reproduction commands. No root
+jobs remain live; preserve independent avatar work. Publication identity is in
+`.local/aspset-third-view-publication-01.json` once publication is verified.
+
+Next: explain the source-image versus fixed-body geometry discrepancy, not
+another unchanged controller/floor sweep. Frame80 model ankles differ from
+supported image estimates by .112/.140 m. Both are estimates; independent ground,
+contact, biomechanics and full-task learning remain open. This checkpoint does
+not complete the generalized-video goal.
+
 ## Conditional stereo ground and body — November 1, 2026, PST
 
 The [manual stereo-ground workflow](aspset-ground-construction.md) is verified:

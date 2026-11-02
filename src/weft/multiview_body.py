@@ -8,13 +8,14 @@ from types import MappingProxyType
 import numpy as np
 
 from weft.io import canonical_hash
-from weft.multiview_root import METHOD as ROOT_METHOD
+from weft.multiview_root import METHOD as ROOT_METHOD, MULTI_METHOD as MULTI_ROOT_METHOD
 from weft.multiview_segments import METHOD as SEGMENT_METHOD, CONTRACT as SEGMENT_CONTRACT, COMPONENTS, PARTIAL_STATUS
 from weft.spatial_pose import LIMB_ENDPOINTS, SPATIAL_JOINT_NAMES, _limb_rotation, rotation_to_zyx, rotation_zyx
 
 
 METHOD = 'two-view-body-v1'
-METHODS = (METHOD, SEGMENT_METHOD)
+MULTI_METHOD = 'multi-view-body-v1'
+METHODS = (METHOD, SEGMENT_METHOD, MULTI_METHOD)
 SCALE_ASSUMPTION = 'supplied_camera_scale_with_explicit_monocular_body_priors'
 CONTRACT = MappingProxyType({'method': METHOD, 'minimum_dimension_frames': 5,
     'maximum_reference_poses': 900, 'dimensions': 'Median available segment lengths; shared left/right lengths remain an authored symmetry assumption',
@@ -45,13 +46,14 @@ def validate_body_binding(spec):
     fields = {'schema_version', 'mode', 'input_body', 'input_body_sha256', 'triangulation_sha256',
               'output_lengths_sha256', 'output_evidence_sha256', 'audit_sha256'}
     partial = spec['camera_reference']['method'] == SEGMENT_METHOD
+    multi = spec['camera_reference']['method'] == MULTI_METHOD
     if partial:
         fields.add('segment_contract')
     if (not isinstance(value, dict) or set(value) != fields or type(value['schema_version']) is not int
             or value['schema_version'] != 1 or value['mode'] not in MODES
             or not isinstance(value['input_body'], dict)
             or not isinstance(value['input_body'].get('camera_reference'), dict)
-            or value['input_body'].get('camera_reference', {}).get('method') != ROOT_METHOD):
+            or value['input_body'].get('camera_reference', {}).get('method') != (MULTI_ROOT_METHOD if multi else ROOT_METHOD)):
         raise ValueError('Two-view body needs one original root-only parent and an explicit geometry mode')
     # Only a root-only parent is allowed, preventing recursive candidate chains.
     parent = validate_human(value['input_body'])
@@ -67,6 +69,22 @@ def validate_body_binding(spec):
     if value['mode'] == 'dimensions' and (spec['reference'] != parent['reference']
                                         or spec['reference_evidence'] != parent['reference_evidence']):
         raise ValueError('Dimension-only body must preserve original angles and their provenance')
+    if multi and value['mode'] in ('directions', 'both'):
+        view_count = len(spec['camera_reference']['root_refinement']['views'])
+        for meta in spec['reference_evidence']:
+            sources, contributors = meta.get('geometry_sources'), meta.get('geometry_view_indices')
+            if (meta.get('geometry_method') != MULTI_METHOD or not isinstance(sources, dict) or set(sources) != set(GROUPS)
+                    or not isinstance(contributors, dict)
+                    or set(contributors) != {name for name, source in sources.items() if source == 'multi_view_estimate'}):
+                raise ValueError('Multi-view body must identify the contributors to every applied geometry group')
+            for group, joints in contributors.items():
+                if not isinstance(joints, dict) or set(joints) != {str(i) for i in GROUPS[group]}:
+                    raise ValueError('Multi-view group contributor joints differ from the geometry contract')
+                for indices in joints.values():
+                    if (not isinstance(indices, list) or not 2 <= len(indices) <= view_count
+                            or any(type(i) is not int or not 0 <= i < view_count for i in indices)
+                            or indices != sorted(set(indices))):
+                        raise ValueError('Multi-view body joints require at least two distinct source views')
     if partial:
         if value['segment_contract'] != dict(SEGMENT_CONTRACT) or value['mode'] not in ('directions', 'both'):
             raise ValueError('Partial segments require their explicit direction/uncertainty contract')
@@ -84,13 +102,17 @@ def validate_body_binding(spec):
                     raise ValueError('Partial directions cannot promote unknown twist/bend or change the distal prior')
 
 
-def _confidence(frame, indices, sources):
+def _confidence(frame, indices, sources, prediction=None):
     values = []
-    for poses in sources:
-        pose = poses.get(frame)
-        if pose is None or pose.get('pose_count') != 1:
-            raise ValueError('Estimated two-view geometry requires both original image observations')
-        for index in indices:
+    for index in indices:
+        contributors = prediction['joints'][index]['contributing_view_indices'] if prediction is not None else range(len(sources))
+        if (not 2 <= len(contributors) <= len(sources) or len(set(contributors)) != len(contributors)
+                or any(type(i) is not int or not 0 <= i < len(sources) for i in contributors)):
+            raise ValueError('Estimated geometry needs at least two valid original image contributors')
+        for contributor in contributors:
+            pose = sources[contributor].get(frame)
+            if pose is None or pose.get('pose_count') != 1:
+                raise ValueError('Estimated geometry requires every declared original image observation')
             point = pose['landmarks'][index]
             values.extend(point[key] for key in ('visibility', 'presence'))
     if any(type(v) not in (int, float) or not math.isfinite(v) or not .5 <= v <= 1 for v in values):
@@ -120,22 +142,31 @@ def _torso_rotation(points):
     return np.column_stack((right, np.cross(up, right), up))
 
 
-def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mode='both', partial_segments=False):
+def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mode='both', partial_segments=False, additional_evidence=()):
     from weft.human import LENGTH_BOUNDS, validate_human
 
     original = validate_human(spec)
     binding = original.get('camera_reference', {})
-    if mode not in MODES or binding.get('method') != ROOT_METHOD:
+    if not isinstance(additional_evidence, (list, tuple)) or len(additional_evidence) > 2:
+        raise ValueError('At most two additional body evidence streams are supported')
+    multi = bool(additional_evidence)
+    label = 'Multi-view' if multi else 'Two-view'
+    estimate_status = 'multi_view_estimate' if multi else 'two_view_estimate'
+    dimension_status = 'multi_view_symmetric_estimate' if multi else 'two_view_symmetric_estimate'
+    if mode not in MODES or binding.get('method') != (MULTI_ROOT_METHOD if multi else ROOT_METHOD):
         raise ValueError('Two-view body requires an original root-only candidate and explicit geometry mode')
     if type(partial_segments) is not bool or partial_segments and mode not in ('directions', 'both'):
         raise ValueError('Partial segments require an explicit boolean and direction-enabled mode')
-    method = SEGMENT_METHOD if partial_segments else METHOD
+    if multi and partial_segments:
+        raise ValueError('Partial-segment transport is not qualified for multi-view bodies')
+    method = MULTI_METHOD if multi else SEGMENT_METHOD if partial_segments else METHOD
     if canonical_hash(predictions) != binding['root_refinement']['triangulation_sha256']:
         raise ValueError('Two-view body predictions differ from the root construction')
     views = predictions['views']
-    if [canonical_hash(v) for v in (first_evidence, second_evidence)] != [v['evidence_sha256'] for v in views]:
+    evidence_streams = [first_evidence, second_evidence, *additional_evidence]
+    if [canonical_hash(v) for v in evidence_streams] != [v['evidence_sha256'] for v in views]:
         raise ValueError('Two-view body image inputs differ from the pinned reconstruction')
-    sources = [{row['frame']: row for row in evidence['frames']} for evidence in (first_evidence, second_evidence)]
+    sources = [{row['frame']: row for row in evidence['frames']} for evidence in evidence_streams]
     indices = [int(row['evidence_id'].rsplit(':', 1)[1]) for row in original['reference_evidence']]
     if not 2 <= len(indices) <= CONTRACT['maximum_reference_poses']:
         raise ValueError('Two-view body reference count exceeds its bound')
@@ -149,13 +180,13 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
                 if points is None: continue
                 distance = float(np.linalg.norm(points[:len(start)].mean(axis=0)-points[len(start):].mean(axis=0)))
                 samples.append({'frame': frame, 'indices': [list(start), list(end)], 'length_m': distance,
-                                'image_confidence': _confidence(frame, (*start, *end), sources)})
+                                'image_confidence': _confidence(frame, (*start, *end), sources, predictions['frames'][frame] if multi else None)})
         count = len({row['frame'] for row in samples})
         value = float(np.median([row['length_m'] for row in samples])) if samples else None
         status = ('monocular_prior_insufficient_frames' if count < CONTRACT['minimum_dimension_frames'] else
                   'monocular_prior_outside_length_bounds' if not LENGTH_BOUNDS[name][0] <= value <= LENGTH_BOUNDS[name][1]
-                  else 'two_view_symmetric_estimate')
-        applied = mode in ('dimensions', 'both') and status == 'two_view_symmetric_estimate'
+                  else dimension_status)
+        applied = mode in ('dimensions', 'both') and status == dimension_status
         if applied: candidate['lengths'][name] = value
         dimensions[name] = {'status': status, 'applied': applied, 'original_length': original['lengths'][name],
                             'output_length': candidate['lengths'][name], 'median_observed_length': value,
@@ -179,7 +210,9 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
                       'applied': False, 'image_confidence': None, 'assumed_twist': False,
                       'chart_singular': False, 'flexion_clamped': False, 'chart_wrap': False}
             if points is not None:
-                detail['image_confidence'] = _confidence(frame, required, sources)
+                detail['image_confidence'] = _confidence(frame, required, sources, pose if multi else None)
+                if multi:
+                    detail['joint_view_indices'] = {str(j): deepcopy(pose['joints'][j]['contributing_view_indices']) for j in required}
                 try:
                     if group == 'torso':
                         target_torso = _torso_rotation(points)
@@ -191,7 +224,7 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
                     prior = previous.get(group, [original_joints[name] for name in names[:3]])
                     angles, singular = rotation_to_zyx(rotation, prior)
                     values = angles.tolist()+([] if group == 'torso' else [min(flexion, CONTRACT['maximum_flexion_rad'])])
-                    detail.update(status='two_view_estimate', assumed_twist=assumed, chart_singular=singular,
+                    detail.update(status=estimate_status, assumed_twist=assumed, chart_singular=singular,
                                   flexion_clamped=flexion is not None and flexion > CONTRACT['maximum_flexion_rad'],
                                   chart_wrap=bool(np.max(np.abs(angles-prior)) > math.pi))
                     if mode in ('directions', 'both'):
@@ -208,7 +241,9 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
             groups[group] = detail
         if mode in ('directions', 'both'):
             meta['geometry_sources'] = {group: detail['status'] for group, detail in groups.items()}
-            meta['geometry_method'] = METHOD
+            meta['geometry_method'] = MULTI_METHOD if multi else METHOD
+            if multi:
+                meta['geometry_view_indices'] = {group: detail['joint_view_indices'] for group, detail in groups.items() if detail['applied']}
         audits.append({'frame': frame, 'evidence_id': meta['evidence_id'], 'time_s': meta['time_s'], 'groups': groups})
     segment_report = None
     if partial_segments:
@@ -218,11 +253,11 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
     slots = [{'frame': row['frame'], 'time_s': row['time_s'], 'retained_body_pose': row['frame'] in by_frame,
               'groups': by_frame[row['frame']]['groups'] if row['frame'] in by_frame else None,
               'source_evidence_ids': row['source_evidence_ids']} for row in predictions['frames']]
-    audit = {'schema_version': 1, 'contract': dict(CONTRACT), 'mode': mode,
+    audit = {'schema_version': 1, 'contract': dict(CONTRACT) | {'method': method}, 'mode': mode,
              'input_body_sha256': canonical_hash(original), 'triangulation_sha256': canonical_hash(predictions),
              'dimensions': dimensions, 'frames': slots,
              'group_coverage': {group: dict(Counter(row['groups'][group]['status'] for row in audits)) for group in GROUPS},
-             'scope': 'Partial two-view estimated geometry; missing local limb angles retain explicit monocular priors',
+             'scope': f'Partial {label.lower()} estimated geometry; missing local limb angles retain explicit monocular priors',
              'root_and_ground_unchanged': True, 'physical_validation': 'unverified', 'paid_requests': 0}
     if segment_report is not None:
         audit['contract'] = dict(CONTRACT) | {'method': method, 'partial_segments': dict(SEGMENT_CONTRACT)}
@@ -239,8 +274,8 @@ def make_two_view_body(spec, predictions, first_evidence, second_evidence, *, mo
     candidate['assumptions'] = [v for v in candidate['assumptions'] if not v.startswith(
         'Body shape, joint angles, muscle illustrations and motor forces remain')]
     candidate['assumptions'].extend([
-        f'Two-view body geometry mode: {mode}; supplied camera scale and alignment remain uncertain',
-        'Only available two-view geometry is applied; missing local limb angles remain original monocular priors',
+        f'{label} body geometry mode: {mode}; supplied camera scale and alignment remain uncertain',
+        f'Only available {label.lower()} geometry is applied; missing local limb angles remain original monocular priors',
         'Shared left/right dimensions are an authored symmetry assumption, including limbs hidden in the images',
         'Root, ground, motor limits and support gains are unchanged; dimension changes also alter authored mass/inertia',
         'Muscle bands remain illustrative motor-command proxies, not measured anatomy or muscle activity',

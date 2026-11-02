@@ -8,6 +8,7 @@ import numpy as np
 
 from weft.camera_pose import _undistort, validate_camera
 from weft.io import canonical_hash
+from weft.multiray_pose import CONTRACT as PIXEL_CONTRACT, triangulate_pixels
 
 
 CONTRACT = MappingProxyType({
@@ -16,6 +17,14 @@ CONTRACT = MappingProxyType({
     'depth_bounds_m': (.2, 100.), 'maximum_source_frames': 1800, 'maximum_pose_samples': 900,
     'clock': 'Caller-declared aligned packaged frame indices; exact frame clocks, no interpolation or clock fitting',
     'scope': 'Calibrated two-view image estimates, not independently measured anatomy or physical validation',
+})
+MULTI_CONTRACT = MappingProxyType(dict(CONTRACT) | {
+    'method': 'calibrated-multiray-pose-v1', 'maximum_views': 4,
+    'minimum_views_per_joint': 2,
+    'ray_fit': dict(PIXEL_CONTRACT),
+    'ray_angle': 'Largest acute pair angle among contributing views',
+    'rotation_preparation': 'Nearest proper solver rotation within 1e-5 per element; retain original calibration and every derived rotation, no image/refitting input',
+    'scope': 'Supplied-camera multi-view image estimates with explicit contributors; not measured anatomy or physical validation',
 })
 
 
@@ -144,6 +153,54 @@ def triangulate_pair(first, second):
         frames.append({'frame': frame, 'time_s': frame/first['camera']['fps'],
                        'source_evidence_ids': [pose['id'] if pose else None for pose in poses], 'joints': joints})
     return {'schema_version': 1, 'contract': dict(CONTRACT), 'source_frames': len(frames), 'joint_slots': len(frames)*33,
+            'views': [{'name': view['name'], 'source_sha256': view['camera']['source_sha256'],
+                       'camera_sha256': canonical_hash(view['camera']), 'evidence_sha256': canonical_hash(view['evidence']),
+                       'calibration_quality': view['camera']['quality'], 'clock_provenance': view['clock_provenance']} for view in views],
+            'frames': frames, 'joint_status_counts': dict(counts), 'physical_validation': 'unverified',
+            'monocular_world_landmarks_used': False, 'reference_body_or_contacts_used': False}
+
+
+def triangulate_views(views):
+    if not isinstance(views, (list, tuple)) or not 2 <= len(views) <= MULTI_CONTRACT['maximum_views']:
+        raise ValueError('Supply two to four identified calibrated views')
+    if len(views) == 2:
+        return triangulate_pair(*views)
+    prepared = [_view(view) for view in views]
+    if (len({view['name'] for view in views}) != len(views)
+            or len({view['camera']['source_sha256'] for view in views}) != len(views)):
+        raise ValueError('Multi-view geometry requires distinct view and source identities')
+    if any(view['camera'][key] != views[0]['camera'][key] for view in views for key in ('fps', 'frame_count')):
+        raise ValueError('Multi-view geometry requires aligned complete source clocks; no retiming is performed')
+    frames, counts = [], Counter()
+    for frame in range(views[0]['camera']['frame_count']):
+        poses = [value[0].get(frame) for value in prepared]
+        cameras = [value[1][frame] for value in prepared]
+        pixel_cameras, rotations = [], []
+        for camera in cameras:
+            value = dict(zip(('matrix', 'radial', 'rotation', 'translation', 'width', 'height'), camera[:6]))
+            # Published decimal rotations need explicit roundoff repair before the strict pixel solver.
+            u, _, v = np.linalg.svd(value['rotation'])
+            proper = u @ v
+            change = float(np.max(np.abs(proper-value['rotation'])))
+            if np.linalg.det(proper) <= 0 or change > 1e-5:
+                raise ValueError('Multi-view solver rotation exceeds the declared precision correction')
+            value['rotation'] = proper
+            pixel_cameras.append(value)
+            rotations.append({'R': proper.tolist(), 'maximum_element_change': change})
+        joints = []
+        for joint in range(33):
+            observations = [_observation(pose, joint, camera[4], camera[5]) for pose, camera in zip(poses, cameras, strict=True)]
+            available = [i for i, value in enumerate(observations) if value[0] is not None]
+            estimate = (triangulate_pixels([observations[i][0] for i in available], [pixel_cameras[i] for i in available])
+                        if len(available) >= MULTI_CONTRACT['minimum_views_per_joint'] else
+                        {'status': 'image_evidence_unavailable', 'world_point_m': None, 'ray_angle_degrees': None,
+                         'ray_separation_m': None, 'reprojection_px': None})
+            estimate['observation_statuses'] = [value[1] for value in observations]
+            estimate['contributing_view_indices'] = available
+            joints.append(estimate); counts[estimate['status']] += 1
+        frames.append({'frame': frame, 'time_s': frame/views[0]['camera']['fps'], 'solver_rotations': rotations,
+                       'source_evidence_ids': [pose['id'] if pose else None for pose in poses], 'joints': joints})
+    return {'schema_version': 1, 'contract': dict(MULTI_CONTRACT), 'source_frames': len(frames), 'joint_slots': len(frames)*33,
             'views': [{'name': view['name'], 'source_sha256': view['camera']['source_sha256'],
                        'camera_sha256': canonical_hash(view['camera']), 'evidence_sha256': canonical_hash(view['evidence']),
                        'calibration_quality': view['camera']['quality'], 'clock_provenance': view['clock_provenance']} for view in views],

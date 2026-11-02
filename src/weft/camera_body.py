@@ -16,11 +16,11 @@ SCALE_ASSUMPTION = 'fixed_pose_model_metres_not_independently_measured'
 
 
 def validate_camera_binding(spec):
-    from weft.multiview_root import METHOD as TWO_VIEW_METHOD, SCALE_ASSUMPTION as TWO_VIEW_SCALE, validate_root_binding
+    from weft.multiview_root import METHODS as ROOT_METHODS, SCALE_ASSUMPTION as TWO_VIEW_SCALE, validate_root_binding
     from weft.multiview_body import METHODS as BODY_METHODS, SCALE_ASSUMPTION as BODY_SCALE, validate_body_binding
 
     binding = spec.get('camera_reference')
-    two_view = isinstance(binding, dict) and binding.get('method') == TWO_VIEW_METHOD
+    two_view = isinstance(binding, dict) and binding.get('method') in ROOT_METHODS
     body_view = isinstance(binding, dict) and binding.get('method') in BODY_METHODS
     fields = {'schema_version', 'method', 'source_sha256', 'calibration_sha256', 'pose_evidence_sha256',
               'root_reference_sha256', 'angular_reference_sha256', 'body_rotation_sha256', 'world_axes',
@@ -29,7 +29,7 @@ def validate_camera_binding(spec):
         fields.add('root_refinement')
     if body_view:
         fields.add('body_refinement')
-    method = binding['method'] if body_view else TWO_VIEW_METHOD if two_view else METHOD
+    method = binding['method'] if body_view or two_view else METHOD
     scale = BODY_SCALE if body_view else TWO_VIEW_SCALE if two_view else SCALE_ASSUMPTION
     if (not isinstance(binding, dict) or set(binding)-{'ground'} != fields or type(binding['schema_version']) is not int
             or binding['schema_version'] != 1 or binding['method'] != method

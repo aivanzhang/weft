@@ -1695,8 +1695,9 @@
         text($("learning-boundary"), "Manual controls use an authored joint-target task. Follow video is programmed feedback, not learned exercise behavior.");
         text($("training-caption"), "Not trained · inspect camera-reference.json for every estimated, missing and unsampled source frame.");
         if (data.ground_clearance) text($("world-description"), "Supplied cameras and ground height share one coordinate system. The view follows the body without changing its world position. Gaps above the ground remain visible; no contact or body-height correction is applied.");
-        if (scene.human?.root_method === "two-view-root-body-v1") {
-          text($("world-description"), "Two camera views set body position; limb shape and joint angles still come from the single-view model. Ground height is supplied, not fitted. The view follows the body without hiding gaps or intersections.");
+        const cameraViews = scene.human?.camera_view_count || 2;
+        if (["two-view-root-body-v1", "multi-view-root-body-v1"].includes(scene.human?.root_method)) {
+          text($("world-description"), `${cameraViews > 2 ? cameraViews : "Two"} camera views set body position; limb shape and joint angles still come from the single-view model. Ground height is supplied, not fitted. The view follows the body without hiding gaps or intersections.`);
           text($("training-caption"), "Not trained · inspect two-view-root.json for position sources and missing frames. camera-reference.json keeps the original single-view estimates.");
         }
         if (scene.human?.geometry_mode) {
@@ -1705,11 +1706,11 @@
           const partialSegments = scene.human.root_method === "two-view-body-v2";
           const counts = Object.entries({left_shoulder: "left arm", right_shoulder: "right arm", left_hip: "left leg", right_hip: "right leg"}).map(([key, label]) => {
             const values = coverage[key] || {}, total = Object.values(values).reduce((a, b) => a + b, 0);
-            return partialSegments ? `${label} ${values.two_view_estimate || 0} complete + ${values.two_view_proximal_monocular_distal_and_twist || 0} upper-only / ${total}` : `${label} ${values.two_view_estimate || 0}/${total}`;
+            return partialSegments ? `${label} ${values.two_view_estimate || 0} complete + ${values.two_view_proximal_monocular_distal_and_twist || 0} upper-only / ${total}` : `${label} ${(values.multi_view_estimate || 0) + (values.two_view_estimate || 0)}/${total}`;
           });
           const sourceDescription = partialSegments ? "Upper-only limbs use the supported shoulder-to-elbow or hip-to-knee direction; the missing endpoint, bend and twist around the bone remain single-view estimates." : "Missing limb directions retain single-view estimates.";
-          text($("world-description"), `Two views set position and ${modes[scene.human.geometry_mode]}. ${sourceDescription} Left/right lengths share a symmetry assumption. Ground and contact are not fitted. Available ${partialSegments ? "limb" : "complete limb"} estimates: ${counts.join("; ")}.`);
-          text($("training-caption"), "Not trained · two-view-body.json shows which geometry uses two views and which retains single-view estimates. Muscles remain illustrative.");
+          text($("world-description"), `${cameraViews > 2 ? cameraViews : "Two"} views set position and ${modes[scene.human.geometry_mode]}. ${sourceDescription} Left/right lengths share a symmetry assumption. Ground and contact are not fitted. Available ${partialSegments ? "limb" : "complete limb"} estimates: ${counts.join("; ")}.`);
+          text($("training-caption"), `Not trained · two-view-body.json shows which geometry uses ${cameraViews > 2 ? "multiple" : "two"} views and which retains single-view estimates. Muscles remain illustrative.`);
         }
       }
       $("human-controls").hidden = false; $("human-reference-controls").hidden = false;

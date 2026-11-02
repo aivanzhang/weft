@@ -13,7 +13,7 @@ from weft.pipeline import _implementation_files, verify_artifacts
 from weft.whole_body_feasibility import audit_reference_feasibility
 
 
-def _root_view_inputs(config_path, out):
+def _root_view_inputs(config_path, out, *, additional=False):
     inputs = {}
 
     def read(path, name, limit):
@@ -33,21 +33,25 @@ def _root_view_inputs(config_path, out):
 
     config_path = Path(config_path).resolve()
     config = read(config_path, 'config.json', 64*1024)
-    fields = {'schema_version', 'first_name', 'second_name', 'second_evidence', 'second_camera',
-              'clock_provenance', 'world_provenance'}
+    fields = ({'schema_version', 'name', 'evidence', 'camera', 'clock_provenance'} if additional else
+              {'schema_version', 'first_name', 'second_name', 'second_evidence', 'second_camera',
+               'clock_provenance', 'world_provenance'})
     if (set(config) != fields or type(config['schema_version']) is not int or config['schema_version'] != 1
             or any(not isinstance(config[name], str) or not 1 <= len(config[name].strip()) <= 2000
                    for name in fields-{'schema_version'})):
         raise ValueError('Second-view config must explicitly identify inputs, shared world and aligned clocks')
-    second = {'name': config['second_name'], 'clock_provenance': config['clock_provenance'],
-              'evidence': read(config_path.parent/config['second_evidence'], 'evidence.json', 32*1024*1024),
-              'camera': read(config_path.parent/config['second_camera'], 'camera.json', 8*1024*1024)}
+    second = {'name': config['name' if additional else 'second_name'], 'clock_provenance': config['clock_provenance'],
+              'evidence': read(config_path.parent/config['evidence' if additional else 'second_evidence'], 'evidence.json', 32*1024*1024),
+              'camera': read(config_path.parent/config['camera' if additional else 'second_camera'], 'camera.json', 8*1024*1024)}
     return config, second, inputs
 
 
-def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, root_view_path=None, body_view=None, partial_segments=False):
+def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, root_view_path=None, body_view=None, partial_segments=False, additional_view_paths=()):
     started = time.monotonic()
     source_run, camera_path, out = (Path(value).resolve() for value in (source_run, camera_path, out))
+    if (not isinstance(additional_view_paths, (list, tuple)) or len(additional_view_paths) > 2
+            or additional_view_paths and (root_view_path is None or partial_segments)):
+        raise ValueError('At most two additional views require --root-view; partial-segment transport is not qualified')
     if body_view is not None and (body_view not in ('directions', 'dimensions', 'both') or root_view_path is None):
         raise ValueError('Partial two-view body geometry requires --root-view and an explicit supported mode')
     if type(partial_segments) is not bool or partial_segments and (body_view not in ('directions', 'both') or root_view_path is None):
@@ -108,11 +112,15 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         ground_bytes = ground_path.read_bytes()
         if len(ground_bytes) > 64*1024:
             raise ValueError('Ground JSON changed beyond its byte bound')
-    root_inputs = {}
+    root_inputs, additional_views = {}, []
     if root_view_path is not None:
         if ground_bytes is None:
             raise ValueError('Two-view root requires explicit supplied ground, not a first-pose floor fit')
         root_config, second, root_inputs = _root_view_inputs(root_view_path, out)
+        for index, path in enumerate(additional_view_paths):
+            _, view, inputs = _root_view_inputs(path, out, additional=True)
+            additional_views.append(view)
+            root_inputs.update({f'extra-{index}/{name}': item for name, item in inputs.items()})
     implementation = _implementation_files()
     implementation_hashes = {name: digest(path) for name, path in implementation.items()}
     spec, estimate = make_camera_body(evidence, camera, original)
@@ -126,12 +134,12 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         first = {'name': root_config['first_name'], 'evidence': evidence, 'camera': camera,
                  'clock_provenance': root_config['clock_provenance']}
         spec, root_report, triangulation = make_two_view_root(spec, first, second,
-                                                            world_provenance=root_config['world_provenance'])
+            world_provenance=root_config['world_provenance'], additional_views=additional_views)
     root_only_spec = spec
     if body_view is not None:
         from weft.multiview_body import make_two_view_body
         spec, body_report = make_two_view_body(spec, triangulation, evidence, second['evidence'],
-                                             mode=body_view, partial_segments=partial_segments)
+            mode=body_view, partial_segments=partial_segments, additional_evidence=[view['evidence'] for view in additional_views])
     if ground_bytes is not None:
         ground_audit = audit_ground_clearance(spec)
     feasibility = audit_reference_feasibility(spec)
@@ -214,10 +222,12 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         report['ground_clearance'] = {key: ground_audit[key] for key in ('status', 'scope', 'summary')}
     if root_report is not None:
         report['two_view_root'] = {key: root_report[key] for key in ('method', 'coverage', 'scope')}
-        report['scope'] = 'Manual two-view-root candidate; monocular shape and authored forces, not recovered anatomy'
+        report['scope'] = ('Manual multi-view-root candidate; monocular shape and authored forces, not recovered anatomy' if additional_views
+                           else 'Manual two-view-root candidate; monocular shape and authored forces, not recovered anatomy')
     if body_report is not None:
         report['two_view_body'] = {key: body_report[key] for key in ('contract', 'mode', 'group_coverage', 'scope')}
-        report['scope'] = 'Manual partial two-view body candidate; explicit monocular priors and authored dynamics, not recovered anatomy'
+        report['scope'] = ('Manual partial multi-view body candidate; explicit monocular priors and authored dynamics, not recovered anatomy' if additional_views
+                           else 'Manual partial two-view body candidate; explicit monocular priors and authored dynamics, not recovered anatomy')
     write_json(run/'report.json', report)
     write_json(run/'manifest.json', {'schema': 1, 'created_at': local_time(),
                'files': {str(path.relative_to(run)): digest(path) for path in sorted(run.rglob('*')) if path.is_file()}})

@@ -410,11 +410,15 @@ class HumanEnv(gym.Env):
                     travel_limits=list(spec['mobility']['slide_limits']))
                 self.scene['learned_policy_available'] = False
                 if 'root_refinement' in spec['camera_reference']:
+                    view_count = len(spec['camera_reference']['root_refinement']['views'])
+                    view_label = 'Multi-view' if view_count > 2 else 'Two-view'
+                    if view_count > 2:
+                        self.scene['human']['camera_view_count'] = view_count
                     self.scene['human']['mobility']['root_depth'] = (
-                        'Two-view hip midpoint using supplied cameras and declared alignment; body shape remains monocular, not measured')
+                        f'{view_label} hip midpoint using supplied cameras and declared alignment; body shape remains monocular, not measured')
                 if 'body_refinement' in spec['camera_reference']:
                     self.scene['human']['mobility']['root_depth'] = (
-                        'Two-view hip midpoint; partial two-view body geometry with explicit monocular priors, not measured')
+                        f'{view_label} hip midpoint; partial {view_label.lower()} body geometry with explicit monocular priors, not measured')
                     self.scene['human']['geometry_mode'] = spec['camera_reference']['body_refinement']['mode']
                     self.scene['human']['geometry_coverage'] = deepcopy(spec['reconstruction_coverage']['two_view_body']['group_coverage'])
                 if 'ground' in spec['camera_reference']:

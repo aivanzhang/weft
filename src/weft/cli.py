@@ -291,6 +291,8 @@ def main():
     camera_body.add_argument('--camera', required=True, help='Source-pinned camera JSON with one transform per original frame')
     camera_body.add_argument('--ground', help='Optional source/calibration-pinned horizontal ground JSON; no pose-based floor fit')
     camera_body.add_argument('--root-view', help='Optional second-view config for hip-midpoint root; requires --ground, preserves monocular shape')
+    camera_body.add_argument('--additional-view', action='append', default=[],
+                             help='Third/fourth calibrated view config; requires --root-view, retains per-joint contributors and conflicts')
     camera_body.add_argument('--body-view', choices=['directions', 'dimensions', 'both'],
                              help='Optional partial two-view body geometry; requires --root-view, retains explicit priors for missing limbs')
     camera_body.add_argument('--partial-segments', action='store_true',
@@ -728,7 +730,8 @@ def main():
         elif args.command == 'camera-body':
             from weft.camera_body_lab import prepare_camera_body_lab
             result = prepare_camera_body_lab(args.run, args.camera, args.out, ground_path=args.ground,
-                                             root_view_path=args.root_view, body_view=args.body_view, partial_segments=args.partial_segments)
+                root_view_path=args.root_view, body_view=args.body_view, partial_segments=args.partial_segments,
+                additional_view_paths=args.additional_view)
         elif args.command == "spatial-fixture":
             from weft.spatial_lab import write_sealed_spatial_fixture
             result = write_sealed_spatial_fixture(args.out)

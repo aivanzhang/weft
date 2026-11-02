@@ -8,10 +8,12 @@ import re
 import numpy as np
 
 from weft.io import canonical_hash
-from weft.multiview_pose import triangulate_pair
+from weft.multiview_pose import triangulate_pair, triangulate_views
 
 
 METHOD = 'two-view-root-body-v1'
+MULTI_METHOD = 'multi-view-root-body-v1'
+METHODS = (METHOD, MULTI_METHOD)
 SCALE_ASSUMPTION = 'supplied_camera_scale_for_root_monocular_scale_for_shape'
 
 
@@ -37,9 +39,12 @@ def _point(value):
 
 def validate_root_binding(spec):
     binding = spec['camera_reference']
+    multi = binding['method'] == MULTI_METHOD
     value = binding.get('root_refinement')
     fields = {'schema_version', 'input_body_sha256', 'original_root_reference_sha256', 'unchanged_shape_sha256',
               'triangulation_sha256', 'world_provenance', 'views', 'fps', 'source_frames', 'roots'}
+    if multi:
+        fields.add('roots_sha256')
     if (not isinstance(value, dict) or set(value) != fields or type(value['schema_version']) is not int
             or value['schema_version'] != 1 or 'ground' not in binding
             or not _text(value['world_provenance'])
@@ -50,15 +55,15 @@ def validate_root_binding(spec):
         raise ValueError('Two-view root requires pinned inputs, unchanged body shape and explicit world/clock provenance')
     views = value['views']
     view_fields = {'name', 'source_sha256', 'camera_sha256', 'evidence_sha256', 'calibration_quality', 'clock_provenance'}
-    if (not isinstance(views, list) or len(views) != 2
+    if (not isinstance(views, list) or not (3 <= len(views) <= 4 if multi else len(views) == 2)
             or any(not isinstance(view, dict) or set(view) != view_fields for view in views)):
-        raise ValueError('Two-view root requires exactly two identified views')
+        raise ValueError('Root view count differs from its two-view or multi-view method')
     for view in views:
         if (not _text(view['name'], 64) or not _text(view['clock_provenance'])
                 or any(not _hash(view[key]) for key in view_fields if key.endswith('_sha256'))
                 or view['calibration_quality'] not in ('reconstructed', 'measured', 'authored')):
             raise ValueError('Two-view root has invalid view provenance')
-    if (views[0]['name'] == views[1]['name'] or views[0]['source_sha256'] == views[1]['source_sha256']
+    if (len({view['name'] for view in views}) != len(views) or len({view['source_sha256'] for view in views}) != len(views)
             or views[0]['source_sha256'] != binding['source_sha256']
             or views[0]['camera_sha256'] != binding['calibration_sha256']
             or views[0]['evidence_sha256'] != binding['pose_evidence_sha256']
@@ -67,7 +72,11 @@ def validate_root_binding(spec):
     rows, references = value['roots'], spec['reference_evidence']
     if not isinstance(rows, list) or len(rows) != len(references) or len(rows) != len(spec['root_reference']):
         raise ValueError('Two-view roots must retain every original body pose')
+    if multi and canonical_hash(rows) != value['roots_sha256']:
+        raise ValueError('Multi-view root observations or contributors changed after construction')
     row_fields = {'frame', 'time_s', 'source_evidence_ids', 'hip_world_m', 'root_world_m'}
+    if multi:
+        row_fields.add('hip_view_indices')
     previous = -1
     for row, reference, root in zip(rows, references, spec['root_reference'], strict=True):
         if not isinstance(row, dict) or set(row) != row_fields:
@@ -76,12 +85,22 @@ def validate_root_binding(spec):
         if (type(frame) is not int or not previous < frame < value['source_frames']
                 or type(stamp) not in (int, float) or not math.isfinite(stamp)
                 or abs(stamp-frame/value['fps']) > 1e-7 or stamp != reference.get('time_s') or stamp != root.get('time_s')
-                or row['source_evidence_ids'] != [f"{view['source_sha256']}:frame:{frame}" for view in views]
+                or not isinstance(row['source_evidence_ids'], list) or len(row['source_evidence_ids']) != len(views)
+                or any(identity != f"{view['source_sha256']}:frame:{frame}" and not (multi and i > 0 and identity is None)
+                       for i, (identity, view) in enumerate(zip(row['source_evidence_ids'], views, strict=True)))
                 or reference.get('evidence_id') != row['source_evidence_ids'][0]
                 or not _point(row['root_world_m']) or not isinstance(row['hip_world_m'], list)
                 or len(row['hip_world_m']) != 2 or not all(_point(p) for p in row['hip_world_m'])
                 or not _point(root.get('translation'))):
             raise ValueError('Two-view root must preserve exact source identities, times and finite hips')
+        if multi:
+            contributors = row['hip_view_indices']
+            if (not isinstance(contributors, list) or len(contributors) != 2
+                    or any(not isinstance(indices, list) or not 2 <= len(indices) <= len(views)
+                           or any(type(i) is not int or not 0 <= i < len(views) for i in indices)
+                           or len(set(indices)) != len(indices) or indices != sorted(indices)
+                           or any(row['source_evidence_ids'][i] is None for i in indices) for indices in contributors)):
+                raise ValueError('Multi-view hips require at least two exact retained source contributors each')
         midpoint = np.mean(row['hip_world_m'], axis=0)
         expected = np.asarray(row['root_world_m'])-binding['origin_world_m']
         if (not np.allclose(midpoint, row['root_world_m'], atol=1e-10, rtol=0)
@@ -92,7 +111,7 @@ def validate_root_binding(spec):
         raise ValueError('Two-view root origin must be the first retained hip midpoint')
 
 
-def make_two_view_root(spec, first, second, *, world_provenance):
+def make_two_view_root(spec, first, second, *, world_provenance, additional_views=()):
     from weft.camera_body import METHOD as MONOCULAR_METHOD, ROOT_LIMIT
     from weft.human import validate_human
 
@@ -102,7 +121,12 @@ def make_two_view_root(spec, first, second, *, world_provenance):
         raise ValueError('Two-view root requires an original camera body with supplied ground; no repeated refinement')
     if not _text(world_provenance):
         raise ValueError('Shared camera-world coordinates require explicit provenance')
-    predictions = triangulate_pair(first, second)
+    if not isinstance(additional_views, (list, tuple)) or len(additional_views) > 2:
+        raise ValueError('At most two additional calibrated root views are supported')
+    multi = bool(additional_views)
+    method = MULTI_METHOD if multi else METHOD
+    label = 'Multi-view' if multi else 'Two-view'
+    predictions = triangulate_views([first, second, *additional_views]) if multi else triangulate_pair(first, second)
     primary = predictions['views'][0]
     if (primary['source_sha256'] != binding['source_sha256']
             or primary['camera_sha256'] != binding['calibration_sha256']
@@ -123,6 +147,8 @@ def make_two_view_root(spec, first, second, *, world_provenance):
         points = [joint['world_point_m'] for joint in hips]
         rows.append({'frame': frame, 'time_s': reference['time_s'], 'source_evidence_ids': pose['source_evidence_ids'],
                      'hip_world_m': points, 'root_world_m': np.mean(points, axis=0).tolist()})
+        if multi:
+            rows[-1]['hip_view_indices'] = [deepcopy(joint['contributing_view_indices']) for joint in hips]
     origin = rows[0]['root_world_m']
     roots = [{'time_s': row['time_s'], 'translation': (np.asarray(row['root_world_m'])-origin).tolist()} for row in rows]
     if any(abs(v) > ROOT_LIMIT for row in roots for v in row['translation']):
@@ -133,16 +159,18 @@ def make_two_view_root(spec, first, second, *, world_provenance):
     result = deepcopy(original)
     result['root_reference'] = roots
     result['mobility']['base_height'] = height
-    result['camera_reference'].update(method=METHOD, scale_assumption=SCALE_ASSUMPTION, origin_world_m=origin,
+    result['camera_reference'].update(method=method, scale_assumption=SCALE_ASSUMPTION, origin_world_m=origin,
         root_reference_sha256=canonical_hash(roots), root_refinement={
             'schema_version': 1, 'input_body_sha256': canonical_hash(original),
             'original_root_reference_sha256': canonical_hash(original['root_reference']),
             'unchanged_shape_sha256': shape_hash(original), 'triangulation_sha256': canonical_hash(predictions),
             'world_provenance': world_provenance, 'views': predictions['views'], 'fps': first['camera']['fps'],
             'source_frames': predictions['source_frames'], 'roots': rows})
+    if multi:
+        result['camera_reference']['root_refinement']['roots_sha256'] = canonical_hash(rows)
     result['assumptions'] = [v for v in result['assumptions'] if not v.startswith('Camera-world candidate uses supplied')]
     result['assumptions'].extend([
-        'Two-view hip midpoint sets root position using supplied camera scale and declared cross-view alignment',
+        f'{label} hip midpoint sets root position using supplied camera scale and declared cross-view alignment',
         'Body shape, joint angles, muscle illustrations and motor forces remain the original monocular estimates/authored model',
         'Every original body pose requires both hip estimates; no missing-pose filling, root fallback or floor fitting',
     ])
@@ -153,9 +181,9 @@ def make_two_view_root(spec, first, second, *, world_provenance):
                   'primary_pose_not_sampled' if pose['source_evidence_ids'][0] is None else 'primary_body_pose_unavailable')
         slots.append({'frame': pose['frame'], 'time_s': pose['time_s'], 'status': status,
                       'hip_statuses': [pose['joints'][joint]['status'] for joint in (23, 24)]})
-    report = {'method': METHOD, 'source_frames': predictions['source_frames'], 'source_slots': slots,
+    report = {'method': method, 'source_frames': predictions['source_frames'], 'source_slots': slots,
               'coverage': dict(Counter(row['status'] for row in slots)), 'binding': result['camera_reference']['root_refinement'],
-              'scope': 'Two-view root only; original monocular shape, supplied ground and authored forces unchanged',
+              'scope': f'{label} root only; original monocular shape, supplied ground and authored forces unchanged',
               'physical_validation': 'unverified', 'new_inference': False, 'paid_requests': 0}
     result['reconstruction_coverage']['two_view_root'] = {key: report[key] for key in ('method', 'source_frames', 'coverage', 'scope')}
     return validate_human(result), report, predictions

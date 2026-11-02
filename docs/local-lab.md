@@ -11,6 +11,10 @@ For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide
 
 ## Start here
 
+For an experimental body built from three supplied cameras, see the
+[multi-view sandbox](multi-view-body.md). It supports manual interaction and
+recording, but its saved exercise candidate still fails floor consistency.
+
 - **Play with a ready exercise:** [launch the exercise sandbox](#recommended-exercise-sandbox).
 - **Try your own video:** [build a person-only 3D environment](#build-from-your-person-only-exercise-video).
 - **Combine a saved body and equipment:** [prepare the shared-world setup](#prepare-a-body-and-equipment-setup).
