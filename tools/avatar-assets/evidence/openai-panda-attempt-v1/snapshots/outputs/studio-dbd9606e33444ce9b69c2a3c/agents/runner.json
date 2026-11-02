@@ -1,0 +1,32 @@
+{
+  "automatic_retries": 0,
+  "execution_kind": "openai_responses_api",
+  "implementation_sha256": "4b014e0829c4593fd9a676658f479a9a4aee6476f67c5ef2c24f15030e3955ff",
+  "job_digest": "7e0f496449a27ade1243ca0903a103946c098f23666153beec214022773cf731",
+  "job_id": "studio-dbd9606e33444ce9b69c2a3c",
+  "max_calls": 3,
+  "max_output_tokens": 16384,
+  "model": "gpt-5.4-2026-03-05",
+  "pricing": {
+    "checked": "2026-11-02",
+    "context_tokens": 1050000,
+    "input_microdollars_per_token": 2.5,
+    "long_context_threshold": 272000,
+    "long_input_multiplier": 2,
+    "long_output_multiplier": 1.5,
+    "model": "gpt-5.4-2026-03-05",
+    "output_microdollars_per_token": 15,
+    "source": "https://developers.openai.com/api/docs/models/gpt-5.4"
+  },
+  "reasoning": {
+    "effort": "none"
+  },
+  "reservation_microdollars_per_call": 5618640,
+  "reservation_policy": "Full1.05Mcontext at long-context rates plus maximum output; reservations never reopen allowance.",
+  "schema_version": 1,
+  "service_tier": "default",
+  "store": false,
+  "timeout": 240,
+  "tools": [],
+  "truncation": "disabled"
+}

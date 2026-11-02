@@ -91,7 +91,7 @@ try {
       if (!idempotency.has(id)) {
         const body = request.postDataJSON(); assert.equal(body.reference_id, "reference-fixture");
         const job = { id: `fixture-${jobs.size + 1}`, title: body.prompt, status: "created", request: { ...body, reference_selected: true },
-          elapsed_seconds: 0, stages: [], plan: null, reviews: [], result: null, error: null, provenance: "analytic_fixture" };
+          capabilities: { plan: true }, elapsed_seconds: 0, stages: [], plan: null, reviews: [], result: null, error: null, provenance: "analytic_fixture" };
         jobs.set(job.id, job); idempotency.set(id, job.id);
       }
       if (createFailure) { createFailure = false; return route.abort("failed"); }
@@ -106,7 +106,13 @@ try {
         return json(job);
       }
       if (match[2] === "plan") {
-        plans++; Object.assign(job, { status: "awaiting_authorization", plan_id: "fixed-plan-1", plan: { summary: "Two requested actions, one character and saved editable sources.",
+        plans++;
+        if (plans === 1) {
+          Object.assign(job, { status: "awaiting_authorization", capabilities: { plan: true },
+            error: { message: "An administrator OpenAI dollar grant is required before planning." } });
+          return json(job);
+        }
+        Object.assign(job, { capabilities: { plan: false }, error: null, status: "awaiting_authorization", plan_id: "fixed-plan-1", plan: { summary: "Two requested actions, one character and saved editable sources.",
           estimate: { credits: 35, amount: null, currency: "USD", note: "No automatic paid retry.", breakdown: [{ label: "Geometry", credits: 25 }, { label: "Texture", credits: 10 }] },
           authorization: { can_start: false, reason: "Only 8 credits remain in the existing allowance. Starting requires a separate authorized budget decision." }, warnings: [] } });
       } else if (match[2] === "start") {
@@ -134,7 +140,14 @@ try {
   assert.equal(await page.evaluate(() => window.injected), undefined); assert.equal(await page.locator("#job-title img").count(), 0);
   check("Ambiguous create response retained its idempotency ID; upload was not repeated; titles use text, not HTML");
   assert.equal(plans, 0); assert.equal(starts, 0);
+  await page.locator("#prepare-plan").click();
+  await page.waitForFunction(() => document.getElementById("job-problem").textContent.includes("OpenAI dollar grant"));
+  assert.equal(await page.locator("#prepare-plan").isVisible(), true);
+  assert.equal(await page.locator("#prepare-plan").isDisabled(), false);
+  assert.equal(plans, 1); assert.equal(starts, 0);
+  check("Missing API grant keeps explicit Prepare available without automatic retry or Start");
   await page.locator("#prepare-plan").click(); await page.waitForFunction(() => document.getElementById("estimate-total").textContent === "35 credits");
+  assert.equal(await page.locator("#prepare-plan").isVisible(), false);
   assert.equal(await page.locator("#start-job").isDisabled(), true); assert.equal(await page.locator("#estimate-ack").isDisabled(), true);
   await page.evaluate(() => document.getElementById("start-job").dispatchEvent(new MouseEvent("click")));
   assert.equal(starts, 0); assert.match(await page.locator("#authorization").textContent(), /8 credits/);

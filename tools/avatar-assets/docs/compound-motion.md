@@ -11,7 +11,7 @@ HD media, independent review and real browser playback pass. It is not polished
 final quality or Muse parity. Cheek scuffs, mottled shoulder shading and a small
 bright fleck remain; browser coat also shows colored flecks. The native video
 is the fuller fur representation, not a promise of matching browser hair.
-[Current handoff and save status](../TODO.md#active-shoulder-dragon-flight-and-panda-dance).
+[Current handoff and save status](../TODO-history-2026-11-02.md#active-shoulder-dragon-flight-and-panda-dance).
 
 | Item | Immutable path or result |
 | --- | --- |

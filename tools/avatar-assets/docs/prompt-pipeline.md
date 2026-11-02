@@ -247,7 +247,7 @@ server exited after 103.481s without signalling the worker. Eight of the ten
 aggregate development AI calls are used; two remain. It reused the prior
 generated mesh, not a fresh model. Accepted output and real UI-to-download
 verification remain pending.
-[Exact job, usage and recovery evidence](../TODO.md#second-development-attempt--failed-inspected-and-released-no-final-acceptance).
+[Exact job, usage and recovery evidence](../TODO-history-2026-11-02.md#second-development-attempt--failed-inspected-and-released-no-final-acceptance).
 No tuft/undercoat candidate is promoted by these contract or custody checks.
 
 Three fresh requests and their aggregate estimate are saved under

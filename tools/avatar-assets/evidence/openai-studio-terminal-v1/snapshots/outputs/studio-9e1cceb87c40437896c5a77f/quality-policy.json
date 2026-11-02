@@ -1,0 +1,107 @@
+{
+  "authoring_rules": [
+    "Choose masks, bone locations and coat directions from actual source geometry and coordinate guides; no subject templates.",
+    "Use clean neutral geometry with space around moving parts; coarse carved fur and fused contacts are not solved by denser grooming.",
+    "Keep scale relief, metal highlights, glass and mechanical creases; do not add fibers or globally smooth every subject.",
+    "For fur/hair, preserve silhouette, patch colors and directional length changes; inspect native strands and exported coat geometry independently.",
+    "Portable fringe is an opt-in source-colored edge-fin alternative, not the default, dense fur or Muse parity; it shares flow direction only, with uniform fin length and lean.",
+    "Fringe-specific excluded materials do not mask native hair; mixed surfaces still need measured native exclusions or explicit part masks.",
+    "Opt-in material_fur selects exact observed fur materials for both representations, preserves source normals/colors, and uses tuft-v1 portable cards; its budgets are shared across materials, not multiplied.",
+    "Only diagnose-and-repair color, normals or geometry with their bounded controls; retained textures or high counts are not added detail.",
+    "A departing fused part needs a separately reviewed geometry derivative; hidden separation/cap repair is not automatic."
+  ],
+  "candidate_settings": {
+    "normal_strength": 0.3,
+    "pose_resolution": 720,
+    "resolution": 720,
+    "review_views": true,
+    "samples": 16
+  },
+  "fur_requested": true,
+  "inspection": {
+    "bounds_blender_z_up": {
+      "max": [
+        0.5749289989471436,
+        0.4936639666557312,
+        0.9502120018005371
+      ],
+      "min": [
+        -0.5757449865341187,
+        -0.4917299747467041,
+        -0.9512320160865784
+      ]
+    },
+    "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+    "status": "observed"
+  },
+  "limitations": [
+    "Necessary finishing/evidence coverage, not a visual quality guarantee or human approval.",
+    "Long hair, cloth dynamics, arbitrary prop interaction and facial performance remain unsupported by this backend.",
+    "No new provider call, paid retry, native size limit or repair allowance is authorized by this policy."
+  ],
+  "mixed_coat": true,
+  "mode": "high_quality",
+  "portable_coat_routes": {
+    "automatic_fringe_selection": false,
+    "default": "portable_fur/combed-v1",
+    "optional": [
+      "portable_fringe/edge-fringe-v1",
+      "material_fur/v1+portable_fur/tuft-v1"
+    ],
+    "visual_acceptance": false
+  },
+  "required_features": [
+    "native_groom",
+    "portable_fiber_geometry",
+    "regional_groom_flow",
+    "source_colored_portable_geometry",
+    "measured_non_fur_masks"
+  ],
+  "review": {
+    "full_motion_audit_required": true,
+    "minimum_side": 720,
+    "portrait_minimum_side": 720,
+    "representations": [
+      "native",
+      "exported"
+    ],
+    "state_ids": [
+      "dance"
+    ],
+    "state_pose_minimum_side": 720,
+    "views": [
+      "front",
+      "side",
+      "back",
+      "three_quarter"
+    ]
+  },
+  "schema_version": 1,
+  "surface_intent": [
+    {
+      "finish": "Short soft tidy black fur with clean silhouette and simple stylized shading",
+      "material": "fur",
+      "region": "ears, eye patches, arms and legs"
+    },
+    {
+      "finish": "Short soft tidy ivory fur with smooth continuous undercoat surface and clean color boundaries",
+      "material": "fur",
+      "region": "face and belly"
+    },
+    {
+      "finish": "Warm glossy brown eyes with clear catchlights",
+      "material": "glass",
+      "region": "eyes"
+    },
+    {
+      "finish": "Small dark smooth nose with subtle soft highlight",
+      "material": "skin",
+      "region": "nose"
+    },
+    {
+      "finish": "Short soft dark fur, compact and rounded",
+      "material": "fur",
+      "region": "tail"
+    }
+  ]
+}

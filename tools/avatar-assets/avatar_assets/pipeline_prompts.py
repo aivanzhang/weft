@@ -19,13 +19,14 @@ def _strings(limit=16):
     return {"type": "array", "items": {"type": "string"}, "maxItems": limit}
 
 
-_ROLE_SCHEMA = _object({"id": {"type": "string"}, "description": {"type": "string"}})
+_ID_SCHEMA = {"type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-z][a-z0-9_-]{0,63}$"}
+_ROLE_SCHEMA = _object({"id": deepcopy(_ID_SCHEMA), "description": {"type": "string"}})
 _REQUIREMENT_SCHEMA = _object({
-    "id": {"type": "string"}, "kind": {"type": "string", "enum": list(KINDS)},
-    "role": {"type": "string"}, "description": {"type": "string"},
+    "id": deepcopy(_ID_SCHEMA), "kind": {"type": "string", "enum": list(KINDS)},
+    "role": deepcopy(_ID_SCHEMA), "description": {"type": "string"},
 })
 _STATE_SCHEMA = _object({
-    "id": {"type": "string"}, "meaning": {"type": "string"}, "user_request": {"type": "string"},
+    "id": deepcopy(_ID_SCHEMA), "meaning": {"type": "string"}, "user_request": {"type": "string"},
     "roles": {"type": "array", "items": _ROLE_SCHEMA, "minItems": 1, "maxItems": 4},
     "requirements": {"type": "array", "items": _REQUIREMENT_SCHEMA, "minItems": 1, "maxItems": 8},
 })
@@ -126,6 +127,10 @@ For furry subjects, request a clean continuous undercoat surface with the intend
 or separate mesh spikes; local grooming supplies strands afterward. Preserve genuine ears, horns and other structural details.
 In image mode, text controls texture rather than replacing the supplied geometry guide; disclose a poor guide instead of
 promising this sentence will reshape it. A separate reference edit is not automatically performed by this planner.
+Every state ID, role ID, requirement ID and requirement role reference must be 1–64 ASCII characters matching
+^[a-z][a-z0-9_-]{0,63}$: start with a lowercase letter; use only lowercase letters, digits, underscores or hyphens.
+No spaces, periods, other punctuation, uppercase or non-ASCII characters. IDs are short labels, not copied action sentences.
+For example, use dance for a dance state and left_arm for a role; keep full wording in meaning and user_request.
 If requested state IDs exist, preserve their exact order and names; otherwise choose exactly four safe lowercase IDs.
 Exception: custom_actions contains the user's exact one-to-eight requested actions. Create exactly one state per request,
 in the same order, with user_request copied byte-for-byte as a string (including punctuation/spacing), never paraphrased.

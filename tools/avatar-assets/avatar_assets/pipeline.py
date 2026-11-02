@@ -25,7 +25,7 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
-PIPELINE_SOURCES = ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py',
+PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
@@ -239,7 +239,7 @@ def _image(path):
 
 
 def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='preview', reference=None, reuse_model=None,
-            max_credits=0, max_repairs=1, max_agent_calls=10, agent_timeout=240, agent_model=None):
+            max_credits=0, max_repairs=1, max_agent_calls=10, agent_timeout=240, agent_model=None, agent_backend=None):
     from avatar_assets.action_intent import validate_custom_actions
     _text(prompt, 4000, 'prompt')
     _text(style, 800, 'style', empty=True)
@@ -256,6 +256,11 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
     require(type(agent_timeout) is int and 30 <= agent_timeout <= 600, 'Agent deadline must be30–600s')
     if agent_model is not None:
         _text(agent_model, 100, 'agent model')
+    if agent_backend is not None:
+        from avatar_assets.agent_backend import validate_settings, pipeline_limits
+        agent_backend = validate_settings(agent_backend)
+        require(pipeline_limits(agent_backend) == {'max_repairs': max_repairs, 'max_agent_calls': max_agent_calls,
+                'agent_timeout': agent_timeout, 'agent_model': agent_model}, 'API settings differ from pipeline limits')
     output = Path(output)
     require(output.resolve().is_relative_to(ROOT/'outputs'), 'Pipeline jobs must stay under this tool outputs/')
     identifier = slug(output.name)
@@ -274,6 +279,8 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
                'media_spec': PRESETS[preset], 'max_credits': max_credits,
                'max_repairs': max_repairs, 'max_agent_calls': max_agent_calls, 'agent_timeout': agent_timeout,
                'agent_model': agent_model, 'reference': None, 'reuse_model': None, 'created': now()}
+    if agent_backend is not None:
+        request['agent_backend'] = agent_backend
     for original, name, field in ((ref, 'reference', 'reference'), (source, 'source-model', 'reuse_model')):
         if original:
             target = out/'inputs'/(name+original.suffix.lower())
@@ -299,6 +306,17 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
         'deadline_scope': 'No new stage after this invocation deadline; resume opens another watch window, not another call/repair allowance. Each in-flight stage retains its bounded deadline.',
         'recurring_services': 0, 'new_meta_calls': 0,
     })
+    if agent_backend is not None:
+        from avatar_assets.openai_runner import reserve_microdollars
+        estimate = read_json(out/'estimate.json')
+        reservation = reserve_microdollars(agent_backend['max_output_tokens'])
+        estimate.update(agent_billing='OpenAI Responses API, billed separately from Meshy credits. Explicit administrator dollar grant required; no CLI fallback.',
+                        agent_provider='openai', agent_model=agent_backend['model'],
+                        reservation_microdollars_per_call=reservation,
+                        maximum_reservation_microdollars=reservation * max_agent_calls,
+                        reservation_policy='Full context at long-context rates plus maximum output; conservative ceiling, not expected spend. Reservations never reopen allowance.',
+                        maximum_output_tokens_per_call=agent_backend['max_output_tokens'])
+        _atomic(out/'estimate.json', estimate)
     return {'status': 'prepared', 'out': str(out), 'estimate': read_json(out/'estimate.json')}
 
 
@@ -321,24 +339,42 @@ class Pipeline:
         require(sha256(self.root/'request.json') == receipt['request_sha256'], 'Pipeline request changed')
         sealed_delivery = (self.root/'delivery-receipt.json').is_file() and (self.root/'delivery.json').is_file()
         sources = _pipeline_sources()
+        self.runtime_revision = None
+        if not sealed_delivery and (self.root/'runtime-revision.json').exists():
+            from avatar_assets.pipeline_recovery import verify_runtime_revision
+            self.runtime_revision = verify_runtime_revision(self.root,sources)
         names = [source['path'] for source in receipt['sources']]
         require(names and len(names) == len(set(names)) and set(names) <= set(sources),
                 'Invalid pipeline source inventory')
-        require(sealed_delivery or set(names) == set(sources),
+        require(sealed_delivery or self.runtime_revision or set(names) == set(sources),
                 'Pipeline backend changed; this unfinished job lacks current source pins')
         for source in receipt['sources']:
             require(sha256(self.root/'sources'/source['path']) == source['sha256']
-                    and (sealed_delivery or sha256(sources[source['path']]) == source['sha256']),
+                    and (sealed_delivery or self.runtime_revision or sha256(sources[source['path']]) == source['sha256']),
                     'Pipeline backend changed; preserve this job and prepare a new one')
         for field in ('reference', 'reuse_model'):
             item = self.request[field]
             if item:
                 path = local_file(self.root/item['path'])
                 require(path.is_relative_to(self.root/'inputs') and sha256(path) == item['sha256'], 'Prepared input changed')
-        if agents is None:
-            from avatar_assets.agent_runner import AgentRunner
-            agents = AgentRunner(self.root/'agents', max_calls=self.request['max_agent_calls'],
-                                 timeout=self.request['agent_timeout'], model=self.request['agent_model'])
+        # Reading sealed results never needs a live credential or remaining allowance.
+        if agents is None and not sealed_delivery:
+            backend = self.request.get('agent_backend')
+            if backend is not None:
+                from avatar_assets.agent_backend import readiness, validate_settings, pipeline_limits
+                from avatar_assets.openai_runner import OpenAIRunner, OpenAILedger
+                backend = validate_settings(backend)
+                require(all(self.request[key] == value for key, value in pipeline_limits(backend).items()),
+                        'API settings differ from pipeline limits')
+                ready = readiness(ROOT, job_id=self.root.name, job_digest=receipt['request_sha256'], settings=backend)
+                require(ready['can_run'], ready['reason'])
+                agents = OpenAIRunner(self.root/'agents', job_id=self.root.name, job_digest=receipt['request_sha256'],
+                    ledger=OpenAILedger(ROOT/'.local/openai'), max_calls=backend['max_calls'],
+                    timeout=backend['timeout'], model=backend['model'], max_output_tokens=backend['max_output_tokens'])
+            else:
+                from avatar_assets.agent_runner import AgentRunner
+                agents = AgentRunner(self.root/'agents', max_calls=self.request['max_agent_calls'],
+                                     timeout=self.request['agent_timeout'], model=self.request['agent_model'])
         self.agents = agents
         self.started = time.monotonic()
         self.cancel_requested = None
@@ -426,7 +462,11 @@ class Pipeline:
         self.guard()
         self.event('planner', 'running')
         images = [self.root/self.request['reference']['path']] if self.request['reference'] else []
-        answer = self.agents.call('planner', plan_prompt(self.request), PLAN_SCHEMA, images=images)
+        if self.runtime_revision:
+            from avatar_assets.pipeline_recovery import cached_planner_answer
+            answer = cached_planner_answer(self.root,self.runtime_revision)
+        else:
+            answer = self.agents.call('planner', plan_prompt(self.request), PLAN_SCHEMA, images=images)
         plan = validate_plan(answer, self.request)
         path = self.root/'plan.json'
         if path.exists():

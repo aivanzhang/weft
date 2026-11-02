@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "avatar_assets/pipeline_recovery.py",
+      "bytes": 10345,
+      "sha256": "9160986edd98978c7e5f2c0080e2248f12919be37e1633111de5e4fb54b6e791"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "bytes": 78988,
+      "sha256": "b730f8da7f6b8623e5691dd4798970c335322834857d6c2805f478c9ed4e8a34"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "bytes": 49194,
+      "sha256": "c027063aad223ee7d5d06f10ca1cf5ffd724c463c27813a7618b7af23ca03262"
+    },
+    {
+      "path": "avatar_assets/studio_inspection.py",
+      "bytes": 39653,
+      "sha256": "c4711556663d9309a10a1c2c402dc1e02f9d435ae97b4682b9ed7fc479e9676d"
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "bytes": 15821,
+      "sha256": "88d2d0f176b7eaac99fdfa6ea82ad9a73b4884cbb4c100645a9aa589ca7a864b"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "bytes": 52342,
+      "sha256": "ffb98cd037fa6a83b300c2f4d05790e63a6ee2850a33f039fa5237be511ba087"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "bytes": 25184,
+      "sha256": "54a9f962a2ddbb376043a91406fb381c311cfc0cef9552db59da067de63730ef"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "bytes": 7536,
+      "sha256": "b0012775e6e675dcdebf5540da1c9a2b464c4964b0ee051ace809da2fecf86aa"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "bytes": 14653,
+      "sha256": "5cd795328e13f53c952faffa693bbc3e398c2b8e067892f6ef148471e3c36ea8"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "tests/test_pipeline_recovery.py",
+      "bytes": 7947,
+      "sha256": "440640acc88675dec7478847dbbd6578bd1ac5dc397a05532d8118a49b25424e"
+    },
+    {
+      "path": "tests/test_pipeline.py",
+      "bytes": 16304,
+      "sha256": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47"
+    },
+    {
+      "path": "tests/test_studio_api_release.py",
+      "bytes": 15065,
+      "sha256": "a2e86127543f5a50f61937f8557c486299aa75bf423feb51bb1b3bedbe3d0ace"
+    },
+    {
+      "path": "tests/test_studio_jobs.py",
+      "bytes": 34479,
+      "sha256": "d35199634cafd17bbbf9fa995e0ccd88449659714268daf961fb6ba6ddd1753f"
+    }
+  ],
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_pipeline_recovery",
+    "tests.test_pipeline"
+  ],
+  "limits": {
+    "seconds": 30,
+    "memory_mb": 512,
+    "output_mb": 16
+  },
+  "provenance": "Analytic API/custody/runtime fixtures only; transport/key mocked and semantic validator stubbed for recovery plumbing; no paid/native calls"
+}

@@ -1,5 +1,6 @@
 """Analytic registry/receipt fixtures only; no server, agent or provider execution."""
 
+from contextlib import closing
 from copy import deepcopy
 import hashlib
 import importlib.util
@@ -119,7 +120,7 @@ class StudioInspectionTests(unittest.TestCase):
         self.plan_id = _digest({"request": _digest(self.request), "plan": self.plan, "generation": self.generation})
         self.data = {"plan_id": self.plan_id, "owner_pid": None, "operation": "plan", "invocations": 1,
                      "ended": 1793635200, "provenance": "analytic_fixture"}
-        with sqlite3.connect(self.database) as db:
+        with closing(sqlite3.connect(self.database)) as db, db:
             db.execute("CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,request TEXT,data TEXT,request_digest TEXT,output TEXT,status TEXT,queued_at REAL)")
             db.execute("CREATE TABLE IF NOT EXISTS active(id INTEGER PRIMARY KEY,job TEXT)")
             db.execute("INSERT OR REPLACE INTO jobs VALUES(?,?,?,?,?,?,?)", (JOB, json.dumps(self.request), json.dumps(self.data),
@@ -132,7 +133,7 @@ class StudioInspectionTests(unittest.TestCase):
         write(self.output / "generation-receipt.json", {"plan_sha256": digest(self.output / "generation/plan.json")})
 
     def update_row(self, **values):
-        with sqlite3.connect(self.database) as db:
+        with closing(sqlite3.connect(self.database)) as db, db:
             for key, value in values.items():
                 db.execute("UPDATE jobs SET " + key + "=? WHERE id=?", (value, JOB))
 
@@ -305,6 +306,99 @@ class StudioInspectionTests(unittest.TestCase):
             with patch.object(verifier, "read_json", return_value=binding):
                 with self.assertRaisesRegex(ValueError, "row exceeds"):
                     verifier.inspect(JOB)
+
+    def api_fixture(self, reuse):
+        from avatar_assets.agent_backend import DEFAULT, pipeline_limits
+        self.make_fixture(reuse=reuse)
+        settings = {**DEFAULT, "max_calls": 3, "max_repairs": 0}
+        self.prepared.update(agent_backend=settings, **pipeline_limits(settings))
+        write(self.output / "request.json", self.prepared)
+        write(self.output / "input-receipt.json", {"request_sha256": digest(self.output / "request.json"),
+                                                  "sources": self.pins(self.output / "sources")})
+        write(self.job / "pipeline-request.json", {"schema_version": 1, "studio_request_digest": _digest(self.request),
+                                                  "pipeline_request_sha256": digest(self.output / "request.json")})
+
+    def test_api_reuse_three_calls_zero_repairs_is_inspection_only(self):
+        self.api_fixture(reuse=True)
+        with patch("avatar_assets.openai_runner.OpenAILedger.__init__", side_effect=AssertionError("No ledger creation")), \
+             patch("avatar_assets.openai_runner.read_api_key", side_effect=AssertionError("No key access")):
+            result = verifier.inspect(JOB)
+        self.assertEqual(result["generation_mode"], "reused_generated_source")
+        self.assertEqual(result["agent_backend"]["max_calls"], 3)
+        self.assertEqual(result["agent_backend"]["max_repairs"], 0)
+        self.assertEqual(result["agent_backend"]["maximum_reservation_microdollars"], 16855920)
+        self.assertFalse(result["agent_backend"]["authorization_checked"])
+        self.assertFalse((self.root / ".local/openai").exists())
+
+    def test_api_fresh_job_keeps_independent_meshy_credit_estimate(self):
+        self.api_fixture(reuse=False)
+        result = verifier.inspect(JOB)
+        self.assertEqual(result["source_generation"]["maximum_agent_calls"], 3)
+        self.assertEqual(result["source_generation"]["estimated_credits"], 35)
+        self.assertEqual(result["agent_backend"]["currency"], "USD")
+
+    def test_api_reuse_requires_bound_request_and_exact_limits(self):
+        self.api_fixture(reuse=True)
+        binding = self.job / "pipeline-request.json"
+        original = verifier.read_json(binding)
+        write(binding, {**original, "pipeline_request_sha256": "0" * 64})
+        with self.assertRaisesRegex(ValueError, "API request is not bound"):
+            verifier.inspect(JOB)
+        write(binding, original)
+        self.prepared["max_agent_calls"] = 5
+        write(self.output / "request.json", self.prepared)
+        with self.assertRaisesRegex(ValueError, "max_agent_calls"):
+            verifier.inspect(JOB)
+
+    def test_api_runtime_revision_delegates_custody_and_hashes_its_evidence(self):
+        self.api_fixture(reuse=True)
+        pointer = self.output / "runtime-revision.json"
+        manifest = self.root / "outputs/analytic-runtime-revision/manifest.json"
+        write(pointer, {"provenance": "analytic_fixture"})
+        write(manifest, {"provenance": "analytic_fixture"})
+        verify = Mock(return_value={"sources": self.pins(self.output / "analytic-effective-sources"),
+                                    "plan": self.plan, "revision_path": manifest})
+        with patch.dict(sys.modules, {"avatar_assets.pipeline_recovery": SimpleNamespace(verify_runtime_revision=verify)}):
+            result = verifier.inspect(JOB)
+        verify.assert_called_once_with(self.output, self.sources)
+        evidence = {item["path"]: item["sha256"] for item in result["files"]}
+        self.assertEqual(evidence[str(pointer.relative_to(self.root))], digest(pointer))
+        self.assertEqual(evidence[str(manifest.relative_to(self.root))], digest(manifest))
+
+    def test_runtime_revision_manifest_must_match_sibling_policy(self):
+        self.api_fixture(reuse=True)
+        write(self.output / "runtime-revision.json", {"provenance": "analytic_fixture"})
+        for manifest in (self.output / "revision/manifest.json", self.root / "outside/manifest.json",
+                         self.root / "outputs/revision/not-manifest.json"):
+            write(manifest, {"provenance": "analytic_fixture"})
+            verify = Mock(return_value={"revision_path": manifest})
+            with self.subTest(manifest=manifest), \
+                 patch.dict(sys.modules, {"avatar_assets.pipeline_recovery": SimpleNamespace(verify_runtime_revision=verify)}), \
+                 self.assertRaisesRegex(ValueError, "sibling output folder"):
+                verifier.inspect(JOB)
+
+    def test_runtime_revision_failure_never_falls_back_to_original_pins(self):
+        self.api_fixture(reuse=True)
+        write(self.output / "runtime-revision.json", {"provenance": "analytic_fixture"})
+        verify = Mock(side_effect=ValueError("Revision custody differs"))
+        with patch.dict(sys.modules, {"avatar_assets.pipeline_recovery": SimpleNamespace(verify_runtime_revision=verify)}), \
+             self.assertRaisesRegex(ValueError, "Revision custody differs"):
+            verifier.inspect(JOB)
+        verify.assert_called_once()
+
+    def test_sealed_revision_readback_retains_original_snapshot_policy(self):
+        self.api_fixture(reuse=True)
+        write(self.output / "runtime-revision.json", {"provenance": "analytic_fixture"})
+        write(self.output / "delivery.json", {"provenance": "analytic_fixture"})
+        write(self.output / "delivery-receipt.json", {"provenance": "analytic_fixture"})
+        verify = Mock(side_effect=AssertionError("Historical readback must not require current runtime"))
+        with patch.dict(sys.modules, {"avatar_assets.pipeline_recovery": SimpleNamespace(verify_runtime_revision=verify)}):
+            result = verifier.inspect(JOB)
+        self.assertEqual(result["agent_backend"]["max_calls"], 3)
+        verify.assert_not_called()
+        (self.output / "sources/meshy.py").write_bytes(b"changed snapshot")
+        with self.assertRaisesRegex(ValueError, "source pin changed"):
+            verifier.inspect(JOB)
 
     def test_queue_and_foreign_lease_still_block_server_before_creation(self):
         create_server = Mock(side_effect=AssertionError("Server must not start"))

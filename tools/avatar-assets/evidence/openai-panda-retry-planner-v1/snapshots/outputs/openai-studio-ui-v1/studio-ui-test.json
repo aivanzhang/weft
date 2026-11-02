@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "provenance": "analytic_fixture",
+  "status": "failed",
+  "scope": "Mock API and mock model-viewer UI test. No generation, real GLB/video validation, provider call, or live-server proof.",
+  "limits": {
+    "wall_seconds": 120,
+    "requests": 200,
+    "output_bytes": 12582912,
+    "operation_ms": 10000
+  },
+  "sources": {
+    "studio.html": "46933ca84219aefb1f20a514861ead8c407aff7d148635f931e9ec9d5d3a8642",
+    "studio.css": "7c14ae8ba8fc041dd404dfe5a4d0655f16522997b23d19281d769b01818e6a04",
+    "studio.js": "548fcf50daf2b1b1720c8ba030840b7c1f456ffda4d3c4e4e59da434c60f0cd2"
+  },
+  "checks": [
+    "More than eight actions rejected before a request",
+    "Ambiguous create response retained its idempotency ID; upload was not repeated; titles use text, not HTML",
+    "Missing API grant keeps explicit Prepare available without automatic retry or Start"
+  ],
+  "errors": [
+    "page.waitForFunction: Timeout 10000ms exceeded.\n    at /Users/ivan/kintsugi/weft/tools/avatar-assets/browser/tests/studio-ui.mjs:149:59"
+  ],
+  "external_requests": [],
+  "artifacts": [],
+  "cleanup": {
+    "owned_browser_exited": true,
+    "server_started": false
+  }
+}

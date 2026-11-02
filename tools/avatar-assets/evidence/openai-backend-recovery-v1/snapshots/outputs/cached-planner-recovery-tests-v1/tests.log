@@ -1,0 +1,81 @@
+test_adoption_and_plan_use_zero_agent_calls_and_preserve_original_evidence_and_grant (tests.test_pipeline_recovery.PipelineRecoveryTests.test_adoption_and_plan_use_zero_agent_calls_and_preserve_original_evidence_and_grant) ... {"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+ok
+test_adoption_is_explicit_single_use_and_changed_revision_is_rejected (tests.test_pipeline_recovery.PipelineRecoveryTests.test_adoption_is_explicit_single_use_and_changed_revision_is_rejected) ... ok
+test_current_runtime_drift_or_changed_old_snapshot_cannot_bypass_pins (tests.test_pipeline_recovery.PipelineRecoveryTests.test_current_runtime_drift_or_changed_old_snapshot_cannot_bypass_pins) ... /Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py:180: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b30f100>
+  row = self.db.execute('SELECT * FROM jobs WHERE id=?', (job_id,)).fetchone()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py:180: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b30e980>
+  row = self.db.execute('SELECT * FROM jobs WHERE id=?', (job_id,)).fetchone()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py:180: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b30e890>
+  row = self.db.execute('SELECT * FROM jobs WHERE id=?', (job_id,)).fetchone()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py:180: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b69cb80>
+  row = self.db.execute('SELECT * FROM jobs WHERE id=?', (job_id,)).fetchone()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_missing_cache_after_constructor_never_falls_back_to_a_paid_planner (tests.test_pipeline_recovery.PipelineRecoveryTests.test_missing_cache_after_constructor_never_falls_back_to_a_paid_planner) ... {"stage": "planner", "status": "running"}
+ok
+test_original_cache_or_failure_events_cannot_be_rewritten (tests.test_pipeline_recovery.PipelineRecoveryTests.test_original_cache_or_failure_events_cannot_be_rewritten) ... /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2191: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b30f100>
+  if getattr(self, "_mock_methods", None) is not None:
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2191: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b30e980>
+  if getattr(self, "_mock_methods", None) is not None:
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2191: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b69c5e0>
+  if getattr(self, "_mock_methods", None) is not None:
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2191: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b69d4e0>
+  if getattr(self, "_mock_methods", None) is not None:
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2191: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b69c130>
+  if getattr(self, "_mock_methods", None) is not None:
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2191: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b69d030>
+  if getattr(self, "_mock_methods", None) is not None:
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_pointer_without_public_studio_adoption_cannot_enable_runtime (tests.test_pipeline_recovery.PipelineRecoveryTests.test_pointer_without_public_studio_adoption_cannot_enable_runtime) ... ok
+test_uncertain_planner_or_changed_original_grant_blocks_recovery (tests.test_pipeline_recovery.PipelineRecoveryTests.test_uncertain_planner_or_changed_original_grant_blocks_recovery) ... /Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py:196: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10a943010>
+  count, spent = self.db.execute('SELECT COUNT(*),COALESCE(SUM(reserved),0) FROM calls WHERE job=?', (job_id,)).fetchone()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py:196: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10a942f20>
+  count, spent = self.db.execute('SELECT COUNT(*),COALESCE(SUM(reserved),0) FROM calls WHERE job=?', (job_id,)).fetchone()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py:196: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b69d030>
+  count, spent = self.db.execute('SELECT COUNT(*),COALESCE(SUM(reserved),0) FROM calls WHERE job=?', (job_id,)).fetchone()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_unrelated_live_source_change_is_not_admitted_even_if_requested (tests.test_pipeline_recovery.PipelineRecoveryTests.test_unrelated_live_source_change_is_not_admitted_even_if_requested) ... ok
+test_wrong_expected_change_or_request_digest_is_rejected_before_output (tests.test_pipeline_recovery.PipelineRecoveryTests.test_wrong_expected_change_or_request_digest_is_rejected_before_output) ... /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:330: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b30e890>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:330: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b30e110>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:330: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b30e020>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:330: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b69c130>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_pipeline (unittest.loader._FailedTest.test_pipeline) ... ERROR
+
+======================================================================
+ERROR: test_pipeline (unittest.loader._FailedTest.test_pipeline)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_pipeline
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 141, in loadTestsFromName
+    module = __import__(module_name)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline.py", line 15, in <module>
+    from test_pipeline_prompts import plan
+ModuleNotFoundError: No module named 'test_pipeline_prompts'
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.328s
+
+FAILED (errors=1)

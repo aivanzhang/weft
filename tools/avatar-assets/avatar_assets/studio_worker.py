@@ -63,12 +63,18 @@ def _current(jobs,job_id,token):
     return row,request,data
 
 
-def _validate_prepared_request(prepared,request,output):
+def _validate_prepared_request(prepared,request,output,*,agent_backend=None):
     # A self-consistent pipeline receipt does not bind it to the request shown in Studio.
+    limits = PIPELINE_LIMITS
+    if agent_backend is not None:
+        from avatar_assets.agent_backend import pipeline_limits
+        limits = pipeline_limits(agent_backend)
     expected={'schema_version':1,'id':output.name,'prompt':request['prompt'],'style':request['style'],
               'custom_actions':request['custom_actions'],'states':[],'preset':request['preset'],
               'media_spec':MEDIA_SPECS[request['preset']],
-              'max_credits':0 if request['reuse_model'] else 35,**PIPELINE_LIMITS}
+              'max_credits':0 if request['reuse_model'] else 35,**limits}
+    if agent_backend is not None:
+        expected['agent_backend'] = agent_backend
     _require(isinstance(prepared,dict) and set(prepared)==set(expected)|{'reference','reuse_model','created'},
              'Prepared pipeline request fields differ from the Studio contract')
     for field,value in expected.items():
@@ -97,6 +103,12 @@ def run_child(jobs,job_id,token,*,pipeline_module=None):
     else:
         provenance='analytic_fixture'
     row,request,data=_current(jobs,job_id,token)
+    backend = None
+    limits = PIPELINE_LIMITS
+    if provenance == 'actual_pipeline':
+        from avatar_assets.agent_backend import server_settings, pipeline_limits
+        backend = server_settings(jobs.root)
+        limits = {**pipeline_limits(backend), 'agent_backend': backend}
     invocation=jobs.state_dir/data['invocation_dir']
     cancel_path=invocation/'cancel.json'
 
@@ -123,15 +135,23 @@ def run_child(jobs,job_id,token,*,pipeline_module=None):
         pipeline_module.prepare(request['prompt'],output,style=request['style'],custom_actions=request['custom_actions'],
             preset=request['preset'],reference=request['reference']['path'] if request['reference'] else None,
             reuse_model=request['reuse_model']['path'] if request['reuse_model'] else None,
-            states=[],max_credits=0 if request['reuse_model'] else 35,**PIPELINE_LIMITS)
+            states=[],max_credits=0 if request['reuse_model'] else 35,**limits)
         verify_selected()
     prepared=_json(output/'request.json')
-    _validate_prepared_request(prepared,request,output)
+    _validate_prepared_request(prepared,request,output,agent_backend=backend)
     request_sha=hashlib.sha256((output/'request.json').read_bytes()).hexdigest()
     binding={'schema_version':1,'studio_request_digest':row['request_digest'],'pipeline_request_sha256':request_sha}
     binding_path=jobs.jobs_dir/job_id/'pipeline-request.json'
     if binding_path.exists():
         _require(_json(binding_path)==binding,'Prepared pipeline request changed after its Studio binding')
+    if not binding_path.exists():
+        _write_private(binding_path,binding)
+    if backend is not None:
+        from avatar_assets.agent_backend import readiness
+        ready = readiness(jobs.root, job_id=output.name, job_digest=request_sha, settings=backend)
+        if not ready['can_run']:
+            return {'status':'awaiting_authorization','safe_to_release':True,'provenance':provenance,
+                    'reason':ready['reason'],'pipeline_request_sha256':request_sha}
     if data['operation']=='execute':
         _require(data.get('expected_plan_id')==jobs._plan_id(row),'Prepared plan changed after Start was requested')
         authorization=jobs._authorization(row)
@@ -142,8 +162,6 @@ def run_child(jobs,job_id,token,*,pipeline_module=None):
     _require(_digest(pipeline.request)==_digest(prepared)
              and hashlib.sha256((output/'request.json').read_bytes()).hexdigest()==request_sha,
              'Prepared pipeline request changed during Studio validation')
-    if not binding_path.exists():
-        _write_private(binding_path,binding)
     result=pipeline.run(execute=data['operation']=='execute',
         plan_only=data['operation']=='plan',cancel_requested=cancelled)
     _require(isinstance(result,dict),'Pipeline returned no structured result')

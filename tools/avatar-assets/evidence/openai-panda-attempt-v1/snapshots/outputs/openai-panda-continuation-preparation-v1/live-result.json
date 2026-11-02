@@ -1,0 +1,41 @@
+{
+  "actual_usd_upper_estimate": 0.022918,
+  "answer_sha256": "5d68b30aff6bc953858821afae33c665844c74367341589cf53eb50adfa7c2f6",
+  "api_transport": "succeeded",
+  "automatic_retry": false,
+  "calls": [
+    {
+      "actual": 22918,
+      "job": "studio-dbd9606e33444ce9b69c2a3c",
+      "reserved": 5618640,
+      "response_id": "resp_099c6b3891a90faf016ae8e11ec1c887d0bc38f53005107746",
+      "role": "planner",
+      "state": "settled",
+      "usage": "{\"input_tokens\":2099,\"input_tokens_details\":{\"cache_write_tokens\":0,\"cached_tokens\":0},\"output_tokens\":1178,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":3277}"
+    }
+  ],
+  "delivered_rig_or_motion": false,
+  "elapsed_seconds": 20.805491166654974,
+  "failure": "Planner state ID exceeds the existing lowercase safe slug contract (maximum64characters). Structured schema omitted those constraints.",
+  "job_id": "dbd9606e33444ce9b69c2a3c",
+  "model": "gpt-5.4-2026-03-05",
+  "new_meshy_calls": 0,
+  "next_action": "Fix the generic ID schema and local validation; preserve this failed request and release its exited settled-API lease through a reviewed guard. New paid planner attempt requires explicit retry authorization.",
+  "remaining_calls_under_current_approval": 2,
+  "request_sha256": "7e0f496449a27ade1243ca0903a103946c098f23666153beec214022773cf731",
+  "response_id": "resp_099c6b3891a90faf016ae8e11ec1c887d0bc38f53005107746",
+  "schema_version": 1,
+  "status": "needs_inspection",
+  "usage": {
+    "input_tokens": 2099,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 1178,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 3277
+  }
+}

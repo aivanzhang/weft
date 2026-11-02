@@ -356,7 +356,7 @@ async function verifyAssets(snapshot) {
 async function run() {
   const sourceNames = ["browser/tests/studio-live.mjs", "scripts/verify_studio_live.py", "browser/studio.html", "browser/studio.js", "browser/studio.css",
     "avatar_assets/studio.py", "avatar_assets/studio_jobs.py", "avatar_assets/studio_worker.py", "avatar_assets/pipeline.py",
-    "avatar_assets/pipeline_prompts.py", "avatar_assets/agent_runner.py", "avatar_assets/action_intent.py", "avatar_assets/action_audit.py",
+    "avatar_assets/pipeline_prompts.py", "avatar_assets/agent_runner.py", "avatar_assets/openai_runner.py", "avatar_assets/agent_backend.py", "avatar_assets/action_intent.py", "avatar_assets/action_audit.py",
     "avatar_assets/quality_policy.py", "avatar_assets/pipeline_evidence.py"];
   for (const name of sourceNames) { const bytes = await readFile(path.join(root, name)); sourceFiles.set(name, digest(bytes)); report.sources.push({ path: name, sha256: digest(bytes) }); }
   await save("source-test.mjs", await readFile(fileURLToPath(import.meta.url)));
@@ -373,6 +373,15 @@ async function run() {
   }
   report.generation_mode = before.generation_mode;
   report.source_reuse = before.source_reuse; report.source_generation = before.source_generation;
+  report.agent_backend = before.agent_backend;
+  if (before.agent_backend) {
+    assert.equal(before.agent_backend.provider, "openai");
+    assert.equal(before.agent_backend.currency, "USD");
+    assert(Number.isInteger(before.agent_backend.max_calls) && before.agent_backend.max_calls >= 3 && before.agent_backend.max_calls <= 12);
+    assert(Number.isInteger(before.agent_backend.max_repairs) && before.agent_backend.max_repairs >= 0 && before.agent_backend.max_repairs <= 2);
+    assert.equal(before.agent_backend.automatic_paid_retries, 0);
+    report.checks.push(`Saved OpenAI backend is pinned to ${before.agent_backend.max_calls} calls and ${before.agent_backend.max_repairs} repairs; dollar authorization remains an action-time worker check`);
+  }
   if (expectedPlanID) assert.equal(before.plan_id, expectedPlanID, "Canonical plan differs from the explicitly reviewed plan");
   await saveJSON("ownership-before.json", before);
   if (startRequested) assert(["planned", "awaiting_authorization"].includes(before.status), "--start requires an already planned job; no retries or restart of running/terminal jobs");
@@ -401,7 +410,8 @@ async function run() {
   assert.equal(await page.locator("#estimate-total").textContent(), `${expectedCredits} credits`);
   assert.equal(latest.plan.estimate.credits, expectedCredits); assert.equal(latest.plan.estimate.amount, null);
   await screenshot("initial-job.png");
-  report.checks.push(`Real HTTP/UI preserve the saved exact prompt/style/actions and disclose ${reused ? "source reuse" : "fresh text generation"}, ${expectedCredits} estimated Meshy credits and unknown account dollar cost`);
+  report.checks.push(`Real HTTP/UI preserve the saved exact prompt/style/actions and disclose ${reused ? "source reuse" : "fresh text generation"}, ${expectedCredits} estimated Meshy credits and unknown Meshy account dollar conversion`);
+  if (before.agent_backend) report.checks.push("OpenAI dollar reservation is recorded separately from Meshy generation credits; this verifier creates no API allowance");
   if (startRequested) {
     assert(["planned", "awaiting_authorization"].includes(latest.status)); assert.equal(latest.plan.authorization.can_start, true);
     assert(await page.locator("#start-job").isDisabled(), "Start must require explicit estimate acknowledgement");

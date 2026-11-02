@@ -1,0 +1,10 @@
+test_completed_paid_sources_release_failed_without_mutating_outputs_ledger_or_calls (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_completed_paid_sources_release_failed_without_mutating_outputs_ledger_or_calls) ... <frozen importlib._bootstrap_external>:511: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x1068fde40>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_live_prior_planner_is_checked_before_releasing_completed_remote_tasks (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_live_prior_planner_is_checked_before_releasing_completed_remote_tasks) ... ok
+test_prior_planner_custody_must_be_present_closed_and_same_request (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_prior_planner_custody_must_be_present_closed_and_same_request) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.103s
+
+OK

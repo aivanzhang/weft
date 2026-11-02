@@ -1,0 +1,126 @@
+{
+  "artifacts": [
+    {
+      "bytes": 25864,
+      "path": "source-snapshot/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1"
+    },
+    {
+      "bytes": 20876,
+      "path": "source-snapshot/avatar_assets/openai_runner.py",
+      "sha256": "4b014e0829c4593fd9a676658f479a9a4aee6476f67c5ef2c24f15030e3955ff"
+    },
+    {
+      "bytes": 3759,
+      "path": "source-snapshot/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 15018,
+      "path": "source-snapshot/tests/test_openai_runner.py",
+      "sha256": "cb353ab7533b0d3f0564f0ee5a398638c87c3cda1dd9aad2556897d758a4bc1c"
+    },
+    {
+      "bytes": 735,
+      "path": "sources.json",
+      "sha256": "af704635d1cce32f36515e2e4e2a9fc008a5dae73e1ce7a265876294fe8c8d5e"
+    },
+    {
+      "bytes": 220,
+      "path": "tests-handle.json",
+      "sha256": "7709ef6c728ed2adf48d69b38fa48757d80d5abb46ae0a97774d4855daf5eeb3"
+    },
+    {
+      "bytes": 954,
+      "path": "tests-monitor.json",
+      "sha256": "7e465e0d876cadcf95c9f2cf3abf540e84fde2905004e469edb303cd41a8d091"
+    },
+    {
+      "bytes": 3037,
+      "path": "tests.log",
+      "sha256": "7d708cdafbbdf0b513f5763392ba0830deb4f86ff26f5cebd5a0d8fdb4ec5e92"
+    }
+  ],
+  "bounded_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_openai_runner.py",
+      "-v"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.257,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 4882,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 17265,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 4882,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "classification": "analytic fixtures; not a live OpenAI API validation",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_openai_runner.py",
+    "-v"
+  ],
+  "limitations": [
+    "Synthetic transport responses do not establish actual provider compatibility.",
+    "No RSS sample was captured before this short process exited.",
+    "Stdlib DNS needs the owning worker hard wall-time limit.",
+    "Full-context reservation is a maximum allowance hold, not expected cost; holds never reopen allowance in v1."
+  ],
+  "paid_cost_usd": 0,
+  "pricing_documentation_note": "Official URLs and interpretation are recorded; these are not archived page snapshots.",
+  "pricing_documentation_urls": [
+    "https://developers.openai.com/api/docs/models/gpt-5.4",
+    "https://developers.openai.com/api/docs/guides/structured-outputs",
+    "https://developers.openai.com/api/docs/guides/images-vision"
+  ],
+  "provider_calls": 0,
+  "real_credentials_read": false,
+  "schema_version": 1,
+  "sealed_at": "2026-11-02T11:08:24.138766-08:00",
+  "source_hashes": {
+    "avatar_assets/agent_runner.py": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+    "avatar_assets/openai_runner.py": "4b014e0829c4593fd9a676658f479a9a4aee6476f67c5ef2c24f15030e3955ff",
+    "avatar_assets/safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "tests/test_openai_runner.py": "cb353ab7533b0d3f0564f0ee5a398638c87c3cda1dd9aad2556897d758a4bc1c"
+  },
+  "source_snapshot": "source-snapshot",
+  "status": "passed",
+  "test_elapsed_seconds": 0.07,
+  "tests": 20,
+  "working_directory": "/Users/ivan/kintsugi/weft/tools/avatar-assets"
+}

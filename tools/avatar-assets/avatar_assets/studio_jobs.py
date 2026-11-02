@@ -394,7 +394,8 @@ class StudioJobs:
 
     def release_inspected(self,job_id,*,expected_pid,expected_identity,reason):
         """Seal exact failed-owner custody and release its lease; never restart or dispatch work."""
-        from avatar_assets.studio_inspection import collect,custody_locks,recheck
+        from avatar_assets.studio_inspection import (collect,custody_locks,recheck,collect_generation,
+            recheck_generation,include_previous_plans,collect_api_planning,recheck_api_planning)
         _require(type(expected_pid) is int and expected_pid>0 and isinstance(expected_identity,str)
                  and 0<len(expected_identity)<=256,'Explicit prior process identity is required')
         reason=_safe_text(reason,800)
@@ -407,7 +408,9 @@ class StudioJobs:
             _require(data.get('owner_pid')==expected_pid and data.get('owner_identity')==expected_identity,
                      'Retained worker identity changed')
             _require(active and tuple(active)==(job_id,data.get('token')),'Exact old lease is no longer held')
-            _require(request.get('reuse_model') is not None,'Remote-generation custody needs separate inspection')
+            if request.get('reuse_model') is None:
+                _require((self.root/'outputs'/row['output']/'generation').is_dir(),
+                         'Remote-generation custody requires its preserved generation folder')
             _require(_digest(request)==row['request_digest'] and _json(self.jobs_dir/job_id/'request.json')==request,
                      'Immutable Studio request receipt changed')
             _require(not db.execute("SELECT 1 FROM jobs WHERE status='queued' LIMIT 1").fetchone(),
@@ -416,7 +419,13 @@ class StudioJobs:
 
         with self._db() as db:row,data,request=owned(db)
         folder=self.root/'outputs'/row['output']
-        _require(not (folder/'generation').exists(),'Remote-generation artifacts need separate inspection')
+        fresh=request.get('reuse_model') is None
+        prepared=_json(folder/'request.json',{})
+        runner=_json(folder/'agents/runner.json',{})
+        api_planning=not fresh and (isinstance(prepared,dict) and 'agent_backend' in prepared
+                      or isinstance(runner,dict) and runner.get('execution_kind')=='openai_responses_api')
+        if not fresh:
+            _require(not (folder/'generation').exists(),'Remote-generation artifacts need separate inspection')
         invocation=self.state_dir/data['invocation_dir']
         _require(invocation.resolve()==invocation and invocation.is_relative_to(self.jobs_dir/job_id),
                  'Retained invocation path is unsafe')
@@ -426,14 +435,32 @@ class StudioJobs:
         _require(isinstance(meta,dict) and meta.get('job_id')==job_id and meta.get('request_digest')==row['request_digest'],
                  'Invocation request binding changed')
         locks=[self.state_dir/'worker.lock',self.jobs_dir/job_id/'worker.lock',folder/'pipeline.lock']
+        if fresh:
+            locks.append(folder/'generation/job.lock')
+        if api_planning:
+            locks.append(folder/'agents/runner.lock')
         with custody_locks(locks):
-            proof=collect(self.root,folder,invocation,expected_pid,expected_identity)
+            proof=collect(self.root,folder,invocation,expected_pid,expected_identity,
+                          **({'operation':'plan'} if api_planning else {}))
             proof['locks']=[str(path.relative_to(self.root)) for path in locks]
+            if fresh:
+                proof=include_previous_plans(self.root,invocation,proof,row['request_digest'])
+                proof['generation']=collect_generation(self.root,folder,request)
+                proof['scope']='Exited local owners plus separately bound successful remote downloads; no replay or acceptance.'
+            if api_planning:
+                _require(not fresh,'API fresh-source release requires separate remote-task inspection')
+                proof=include_previous_plans(self.root,invocation,proof,row['request_digest'])
+                proof['api_planning']=collect_api_planning(self.root,folder,request,self.jobs_dir/job_id/'pipeline-request.json')
+                proof['scope']='Exited local owners plus one settled API planner; rejected semantics preserved, no replay or acceptance.'
             with self._db(True) as db:
                 current,current_data,current_request=owned(db)
                 _require(current['request_digest']==row['request_digest'] and current_request==request
                          and current_data.get('invocation_dir')==data['invocation_dir'],'Inspected request/invocation changed')
                 proof['final_process_check']=recheck(self.root,proof)
+                if fresh:
+                    recheck_generation(proof['generation'])
+                if api_planning:
+                    recheck_api_planning(proof['api_planning'])
                 record={'schema_version':1,'job_id':job_id,'previous_status':'needs_inspection',
                         'requested_transition':'failed_and_release_exact_lease',
                         'expected_pid':expected_pid,'expected_identity':expected_identity,'reason':reason,
@@ -453,6 +480,52 @@ class StudioJobs:
                 db.execute('DELETE FROM active WHERE id=1 AND job=? AND token=?',(job_id,data['token']))
         return {'status':'failed','job_id':job_id,'lease_released':True,'receipt':relative,
                 'sha256':checksum,'no_dispatch':True,'no_cost_reset':True}
+
+    def adopt_cached_planner_revision(self,job_id,revision,*,expected_revision_sha256):
+        """Explicit local adoption after custody release; Start remains a separate action."""
+        from avatar_assets.pipeline import _pipeline_sources
+        from avatar_assets.pipeline_recovery import verify_runtime_revision
+        from avatar_assets.studio_inspection import custody_locks
+        from avatar_assets.safety import sha256,write_json
+        revision=Path(revision)
+        _require(revision.resolve()==revision and revision.parent==self.root/'outputs'
+                 and sha256(revision/'manifest.json')==expected_revision_sha256,'Reviewed runtime revision changed')
+
+        def released(db):
+            row=self._row(db,job_id);data=json.loads(row['data'])
+            _require(row['status']=='failed' and not db.execute('SELECT 1 FROM active').fetchone()
+                     and not db.execute("SELECT 1 FROM jobs WHERE status='queued'").fetchone(),
+                     'Cached recovery requires an explicitly released failed job and a free worker lane')
+            receipt=data.get('inspection_release')
+            _require(isinstance(receipt,dict),'Failed job lacks a custody release')
+            path=self.state_dir/receipt['path']
+            _require(path.resolve()==path and path.is_relative_to(self.jobs_dir/job_id)
+                     and sha256(path)==receipt['sha256'],'Failed-job release receipt changed')
+            proof=_json(path)
+            _require(proof.get('job_id')==job_id and proof.get('request_digest')==row['request_digest']
+                     and proof.get('requested_transition')=='failed_and_release_exact_lease'
+                     and proof.get('proof',{}).get('api_planning',{}).get('policy')=='completed-api-planning-custody-v1',
+                     'This job has no settled API planner custody release')
+            return row,data
+
+        with self._db() as db:row,data=released(db)
+        output=self.root/'outputs'/row['output']
+        locks=[self.state_dir/'worker.lock',self.jobs_dir/job_id/'worker.lock',output/'pipeline.lock',output/'agents/runner.lock']
+        with custody_locks(locks),self._db(True) as db:
+            current,current_data=released(db)
+            _require(current['request_digest']==row['request_digest'] and current_data==data,'Failed job changed during local review')
+            verified=verify_runtime_revision(output,_pipeline_sources(),revision=revision)
+            _require(not (output/'runtime-revision.json').exists() and not (output/'plan.json').exists(),
+                     'Runtime adoption is append-only; no overwrite or automatic repeat')
+            pointer={'schema_version':1,'path':str(revision.relative_to(self.root)),'sha256':expected_revision_sha256}
+            write_json(output/'runtime-revision.json',pointer)
+            write_json(output/'plan.json',verified['plan'])
+            current_data.update(runtime_revision=pointer,error=None,plan_id=self._plan_id(current))
+            self._update(db,current,current_data,'planned')
+            self._journal(db,job_id,{'status':'planned','action':'cached_planner_runtime_revision',
+                                    'revision':pointer,'new_planner_calls':0,'no_dispatch':True,'no_cost_reset':True})
+        return {'status':'planned','job_id':job_id,'plan_id':self._plan_id(current),'revision':pointer,
+                'new_planner_calls':0,'no_dispatch':True,'no_cost_reset':True}
 
     def _dispatch(self):
         with self._db(True) as db:
@@ -478,7 +551,7 @@ class StudioJobs:
                        'invocation_dir':str(invocation),'request_digest':row['request_digest']}
             snapshots=_private_directory(invocation/'sources')
             payload['sources']=[]
-            for name in ('studio_jobs.py','studio_worker.py'):
+            for name in ('studio_jobs.py','studio_worker.py','agent_backend.py','openai_runner.py'):
                 source=Path(__file__).parent/name;target=snapshots/name
                 shutil.copyfile(source,target);target.chmod(0o600)
                 payload['sources'].append({'path':'sources/'+name,'sha256':hashlib.sha256(target.read_bytes()).hexdigest()})
@@ -638,7 +711,8 @@ class StudioJobs:
                     'estimate':{'credits':authorization['estimated_credits'],'amount':None,'currency':'USD',
                                 'note':'Account dollar price and agent usage price are unknown. No paid retries or allowance changes.'},
                     'authorization':authorization,'warnings':[_safe_text(s,600) for s in plan.get('limitations',[])[:20]]} if isinstance(plan,dict) else None,
-            'capabilities':{'plan':status in ('created','cancelled'),'start':can_resume and authorization['can_start'],
+            'capabilities':{'plan':status in ('created','cancelled') or status=='awaiting_authorization' and plan_id is None,
+                            'start':can_resume and authorization['can_start'],
                             'cancel':status in ('created','queued','planning','running','launching','cancel_requested'),
                             'resume':can_resume,'session_required':True,'execution_gate':'canonical_ledger_and_explicit_start'},
             'previews':list({p['path']:p for p in previews}.values()),'reviews':reviews,'result':result,'error':{'message':_safe_text(error,800)} if error else None,

@@ -1,0 +1,127 @@
+test_api_agent_custody_cannot_use_legacy_process_release (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_api_agent_custody_cannot_use_legacy_process_release) ... <frozen importlib._bootstrap_external>:511: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10888a020>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_approved_canonical_plan_and_exact_full_grant_are_required (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_approved_canonical_plan_and_exact_full_grant_are_required) ... ok
+test_canonical_approval_and_charge_are_not_inferred_from_downloads (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_canonical_approval_and_charge_are_not_inferred_from_downloads) ... ok
+test_completed_paid_sources_release_failed_without_mutating_outputs_ledger_or_calls (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_completed_paid_sources_release_failed_without_mutating_outputs_ledger_or_calls) ... ok
+test_download_manifest_is_bound_to_task_plan_and_complete_inventory (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_download_manifest_is_bound_to_task_plan_and_complete_inventory) ... ok
+test_extra_paid_attempt_and_terminal_history_are_rejected (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_extra_paid_attempt_and_terminal_history_are_rejected) ... ok
+test_live_local_owner_still_blocks_completed_remote_tasks (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_live_local_owner_still_blocks_completed_remote_tasks) ... ok
+test_mismatched_task_or_final_status_is_not_a_success_receipt (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_mismatched_task_or_final_status_is_not_a_success_receipt) ... ok
+test_missing_download_and_changed_download_bytes_keep_lease (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_missing_download_and_changed_download_bytes_keep_lease) ... /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x1089956c0>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108a745e0>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10888a200>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1300>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb0f40>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1120>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb16c0>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb0d60>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1210>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb24d0>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb2200>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb14e0>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:341: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb2020>
+  @property
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_new_invocations_pin_server_backend_sources_without_rewriting_prior_receipts (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_new_invocations_pin_server_backend_sources_without_rewriting_prior_receipts) ... ok
+test_new_server_gate_allows_only_explicit_plan_retry_before_any_plan (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_new_server_gate_allows_only_explicit_plan_retry_before_any_plan) ... ok
+test_remote_evidence_race_blocks_commit_and_preserves_old_owner (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_remote_evidence_race_blocks_commit_and_preserves_old_owner) ... ok
+test_request_cost_or_completed_delivery_cannot_be_reinterpreted (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_request_cost_or_completed_delivery_cannot_be_reinterpreted) ... ok
+test_source_receipts_and_snapshot_bytes_are_bound (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_source_receipts_and_snapshot_bytes_are_bound) ... ok
+test_submitted_body_must_match_the_approved_generation_plan (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_submitted_body_must_match_the_approved_generation_plan) ... ok
+test_symlink_extra_files_and_ledger_journal_fail_closed (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_symlink_extra_files_and_ledger_journal_fail_closed) ... ok
+test_uncertain_failed_or_running_remote_tasks_never_release (tests.test_studio_fresh_release.StudioFreshReleaseTests.test_uncertain_failed_or_running_remote_tasks_never_release) ... /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10888a200>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1a80>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1300>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x1089956c0>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1030>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1d50>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1210>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1990>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb1f30>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb15d0>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb16c0>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb23e0>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb26b0>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb27a0>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py:635: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x108bb2200>
+  return object.__new__(cls)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_controller_signal_unverified_or_unfinished_exit_is_not_sufficient (tests.test_studio_inspection.StudioInspectionTests.test_controller_signal_unverified_or_unfinished_exit_is_not_sufficient) ... ok
+test_existing_pipeline_and_supervisor_locks_must_be_free (tests.test_studio_inspection.StudioInspectionTests.test_existing_pipeline_and_supervisor_locks_must_be_free) ... ok
+test_failed_transaction_leaves_audit_receipt_but_never_releases_or_resets (tests.test_studio_inspection.StudioInspectionTests.test_failed_transaction_leaves_audit_receipt_but_never_releases_or_resets) ... ok
+test_hash_race_after_initial_inventory_preserves_lease (tests.test_studio_inspection.StudioInspectionTests.test_hash_race_after_initial_inventory_preserves_lease) ... ok
+test_identity_lease_and_invocation_binding_are_exact (tests.test_studio_inspection.StudioInspectionTests.test_identity_lease_and_invocation_binding_are_exact) ... ok
+test_immutable_request_and_generation_artifacts_are_not_reinterpreted (tests.test_studio_inspection.StudioInspectionTests.test_immutable_request_and_generation_artifacts_are_not_reinterpreted) ... ok
+test_inventory_and_receipt_limits_are_enforced (tests.test_studio_inspection.StudioInspectionTests.test_inventory_and_receipt_limits_are_enforced) ... ok
+test_live_owner_child_or_process_group_is_not_released (tests.test_studio_inspection.StudioInspectionTests.test_live_owner_child_or_process_group_is_not_released) ... /Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/studio_inspection.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10888a5c0>
+  for stream in reversed(streams):stream.close()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_missing_or_unsealed_terminal_results_fail_closed (tests.test_studio_inspection.StudioInspectionTests.test_missing_or_unsealed_terminal_results_fail_closed) ... ok
+test_owner_race_under_database_lock_preserves_replacement_lease (tests.test_studio_inspection.StudioInspectionTests.test_owner_race_under_database_lock_preserves_replacement_lease) ... ok
+test_release_is_hash_bound_private_preserves_outputs_costs_history_and_never_dispatches (tests.test_studio_inspection.StudioInspectionTests.test_release_is_hash_bound_private_preserves_outputs_costs_history_and_never_dispatches) ... ok
+test_remote_request_and_queued_work_need_separate_inspection (tests.test_studio_inspection.StudioInspectionTests.test_remote_request_and_queued_work_need_separate_inspection) ... ok
+test_reused_pid_cannot_close_a_different_handle_or_omit_native_exit_verification (tests.test_studio_inspection.StudioInspectionTests.test_reused_pid_cannot_close_a_different_handle_or_omit_native_exit_verification) ... ok
+test_second_process_check_blocks_newly_present_owner (tests.test_studio_inspection.StudioInspectionTests.test_second_process_check_blocks_newly_present_owner) ... ok
+test_symlinks_and_oversized_receipts_cannot_bypass_custody_bounds (tests.test_studio_inspection.StudioInspectionTests.test_symlinks_and_oversized_receipts_cannot_bypass_custody_bounds) ... ok
+test_unclosed_handle_and_uncertain_agent_receipt_block_release (tests.test_studio_inspection.StudioInspectionTests.test_unclosed_handle_and_uncertain_agent_receipt_block_release) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.794s
+
+OK

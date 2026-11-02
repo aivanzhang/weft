@@ -1,0 +1,122 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1323,
+      "path": "execute.py",
+      "sha256": "5b5e5f1251025ed656f201dde462b034aa9f292ff5b6d799449417b0dc999bbb"
+    },
+    {
+      "bytes": 1122,
+      "path": "job.json",
+      "sha256": "9e55b36f7c8e8b9b70e7433ce17e2fda058e650717bb1ff219c154b6a1e15515"
+    },
+    {
+      "bytes": 3044,
+      "path": "prepared.json",
+      "sha256": "e5d26f4b0e33122d259b45176823245bf0844e2ef7fa7c71264f306da7d1e298"
+    },
+    {
+      "bytes": 1326,
+      "path": "result.json",
+      "sha256": "5f0f15a10905422b00fea8796520021bdadbb0d2920e0e88b11a0d7ac2421a2c"
+    },
+    {
+      "bytes": 185,
+      "path": "smoke.py",
+      "sha256": "ac38bc6c5fafb22b361ea38917d03434a03a01e11bc426a8883ef80c3b30182e"
+    },
+    {
+      "bytes": 15821,
+      "path": "sources/avatar_assets/action_intent.py",
+      "sha256": "88d2d0f176b7eaac99fdfa6ea82ad9a73b4884cbb4c100645a9aa589ca7a864b"
+    },
+    {
+      "bytes": 7536,
+      "path": "sources/avatar_assets/agent_backend.py",
+      "sha256": "b0012775e6e675dcdebf5540da1c9a2b464c4964b0ee051ace809da2fecf86aa"
+    },
+    {
+      "bytes": 25184,
+      "path": "sources/avatar_assets/openai_runner.py",
+      "sha256": "54a9f962a2ddbb376043a91406fb381c311cfc0cef9552db59da067de63730ef"
+    },
+    {
+      "bytes": 78988,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "b730f8da7f6b8623e5691dd4798970c335322834857d6c2805f478c9ed4e8a34"
+    },
+    {
+      "bytes": 52342,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "ffb98cd037fa6a83b300c2f4d05790e63a6ee2850a33f039fa5237be511ba087"
+    },
+    {
+      "bytes": 10345,
+      "path": "sources/avatar_assets/pipeline_recovery.py",
+      "sha256": "9160986edd98978c7e5f2c0080e2248f12919be37e1633111de5e4fb54b6e791"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 39653,
+      "path": "sources/avatar_assets/studio_inspection.py",
+      "sha256": "c4711556663d9309a10a1c2c402dc1e02f9d435ae97b4682b9ed7fc479e9676d"
+    },
+    {
+      "bytes": 49194,
+      "path": "sources/avatar_assets/studio_jobs.py",
+      "sha256": "c027063aad223ee7d5d06f10ca1cf5ffd724c463c27813a7618b7af23ca03262"
+    },
+    {
+      "bytes": 14653,
+      "path": "sources/avatar_assets/studio_worker.py",
+      "sha256": "5cd795328e13f53c952faffa693bbc3e398c2b8e067892f6ef148471e3c36ea8"
+    },
+    {
+      "bytes": 16304,
+      "path": "sources/tests/test_pipeline.py",
+      "sha256": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47"
+    },
+    {
+      "bytes": 7947,
+      "path": "sources/tests/test_pipeline_recovery.py",
+      "sha256": "440640acc88675dec7478847dbbd6578bd1ac5dc397a05532d8118a49b25424e"
+    },
+    {
+      "bytes": 15065,
+      "path": "sources/tests/test_studio_api_release.py",
+      "sha256": "a2e86127543f5a50f61937f8557c486299aa75bf423feb51bb1b3bedbe3d0ace"
+    },
+    {
+      "bytes": 34479,
+      "path": "sources/tests/test_studio_jobs.py",
+      "sha256": "d35199634cafd17bbbf9fa995e0ccd88449659714268daf961fb6ba6ddd1753f"
+    },
+    {
+      "bytes": 243,
+      "path": "tests-handle.json",
+      "sha256": "45b19bb0765542f072161cc7af3221c0afc4b664942015447af5508d705f07f7"
+    },
+    {
+      "bytes": 1028,
+      "path": "tests-monitor.json",
+      "sha256": "43164ba6d8b76592dc501199cc3bf171e98aca16d53114553bb12929a80a1e94"
+    },
+    {
+      "bytes": 4069,
+      "path": "tests.log",
+      "sha256": "0664796b7aa02040e6a150649a7fd86141b6d0d5c5167bcba2cf6940b4d9718d"
+    }
+  ],
+  "kind": "cached_planner_runtime_recovery_tests",
+  "schema_version": 1,
+  "status": "passed"
+}

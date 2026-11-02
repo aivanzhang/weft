@@ -1,6 +1,7 @@
 """Serve the real Studio temporarily, or read its canonical ownership without dispatch."""
 
 import argparse
+from contextlib import closing
 from datetime import datetime
 import hashlib
 import json
@@ -100,6 +101,24 @@ def pinned_sources(root, entries, expected, *, check_current=True):
     require(names == set(expected) or not check_current, "Prepared job lacks current source pins")
 
 
+def prepared_sources(output, entries, live_sources, *, sealed=False):
+    pointer = output / "runtime-revision.json"
+    if sealed or (not pointer.exists() and not pointer.is_symlink()):
+        pinned_sources(output / "sources", entries, live_sources, check_current=not sealed)
+        return []
+    from avatar_assets.pipeline_recovery import verify_runtime_revision
+
+    # The shared verifier authenticates original snapshots and the effective current inventory.
+    revision = verify_runtime_revision(output, live_sources)
+    require(isinstance(revision, dict), "Runtime revision was not verified")
+    manifest = Path(revision["revision_path"])
+    require(manifest.name == "manifest.json" and manifest.parent.parent == output.parent
+            and manifest.parent != output, "Runtime revision must use a sibling output folder")
+    regular(pointer, MAX_JSON)
+    regular(manifest, MAX_JSON)
+    return [pointer, manifest]
+
+
 def fresh_generation(state, job_id, output, request, prepared, plan, request_digest):
     from avatar_assets import meshy
     from avatar_assets.pipeline import _pipeline_sources
@@ -108,7 +127,7 @@ def fresh_generation(state, job_id, output, request, prepared, plan, request_dig
 
     require(request["reference"] is None and prepared.get("reference") is None,
             "Fresh inspection currently admits text-only jobs")
-    _validate_prepared_request(prepared, request, output)
+    _validate_prepared_request(prepared, request, output, agent_backend=prepared.get("agent_backend"))
     require(validate_plan(plan, prepared)["status"] == "ready", "Fresh generation needs a ready planner result")
     request_hash = sha(output / "request.json", MAX_JSON)
     receipt = read_json(output / "input-receipt.json")
@@ -119,7 +138,7 @@ def fresh_generation(state, job_id, output, request, prepared, plan, request_dig
                                       "pipeline_request_sha256": request_hash},
             "Prepared request is not bound to the canonical Studio request")
     sealed = (output / "delivery-receipt.json").is_file() and (output / "delivery.json").is_file()
-    pinned_sources(output / "sources", receipt["sources"], _pipeline_sources(), check_current=not sealed)
+    revision_files = prepared_sources(output, receipt["sources"], _pipeline_sources(), sealed=sealed)
     config_path, generation_path = output / "generation-config.json", output / "generation/plan.json"
     config, generation = read_json(config_path), read_json(generation_path)
     estimate = meshy.validate_config(config)
@@ -146,12 +165,40 @@ def fresh_generation(state, job_id, output, request, prepared, plan, request_dig
                    {name: Path(meshy.__file__).parent / name for name in ("meshy.py", "meshy_access.py")},
                    check_current=not sealed)
     files = [output / "input-receipt.json", binding_path, config_path, output / "generation/inputs/config.json",
-             generation_path, output / "generation-receipt.json"]
+             generation_path, output / "generation-receipt.json", *revision_files]
     return generation, {"model": generation["model"], "mode": "text", "settings": config["generation"],
                         "estimated_credits": estimate, "estimated_paid_calls": 2, "automatic_paid_retries": 0,
                         "usd_cost": None, "config_sha256": sha(config_path, MAX_JSON),
                         "plan_sha256": generation_hash, "maximum_agent_calls": prepared["max_agent_calls"],
                         "authorization_checked": False, "execution_gate": "canonical_ledger_and_explicit_start"}, files
+
+
+def api_backend(state, job_id, output, request, prepared, plan, request_digest):
+    from avatar_assets.agent_backend import validate_settings
+    from avatar_assets.openai_runner import reserve_microdollars
+    from avatar_assets.pipeline import _pipeline_sources
+    from avatar_assets.pipeline_prompts import validate_plan
+    from avatar_assets.studio_worker import _validate_prepared_request
+
+    settings = validate_settings(prepared["agent_backend"])
+    _validate_prepared_request(prepared, request, output, agent_backend=settings)
+    require(validate_plan(plan, prepared)["status"] == "ready", "API inspection needs a ready planner result")
+    request_hash = sha(output / "request.json", MAX_JSON)
+    receipt_path = output / "input-receipt.json"
+    receipt = read_json(receipt_path)
+    require(isinstance(receipt, dict) and set(receipt) == {"request_sha256", "sources"}
+            and receipt["request_sha256"] == request_hash, "Prepared API request hash differs")
+    binding_path = state / "jobs" / job_id / "pipeline-request.json"
+    require(read_json(binding_path) == {"schema_version": 1, "studio_request_digest": request_digest,
+                                      "pipeline_request_sha256": request_hash},
+            "Prepared API request is not bound to the canonical Studio request")
+    sealed = (output / "delivery-receipt.json").is_file() and (output / "delivery.json").is_file()
+    revision_files = prepared_sources(output, receipt["sources"], _pipeline_sources(), sealed=sealed)
+    reservation = reserve_microdollars(settings["max_output_tokens"])
+    return {**settings, "currency": "USD", "reservation_microdollars_per_call": reservation,
+            "maximum_reservation_microdollars": reservation * settings["max_calls"],
+            "automatic_paid_retries": 0, "authorization_checked": False,
+            "execution_gate": "exact_request_dollar_grant_and_explicit_start"}, [receipt_path, binding_path, *revision_files]
 
 
 def reused_source(output, request, prepared):
@@ -186,7 +233,7 @@ def inspect(job_id):
         raise ValueError("Canonical Studio registry escapes the workspace")
     database = state / "jobs.sqlite3"
     regular(database, MAX_FILE)
-    with sqlite3.connect(database.as_uri() + "?mode=ro", uri=True, timeout=1) as db:
+    with closing(sqlite3.connect(database.as_uri() + "?mode=ro", uri=True, timeout=1)) as db:
         db.row_factory = sqlite3.Row
         lengths = db.execute("SELECT length(CAST(request AS BLOB)),length(CAST(data AS BLOB)),length(output),length(status) FROM jobs WHERE id=?", (job_id,)).fetchone()
         require(lengths is not None, "Selected job is absent from the canonical registry")
@@ -215,7 +262,10 @@ def inspect(job_id):
         if prepared.get(key) != request.get(key):
             raise ValueError("Prepared request differs from the Studio input: " + key)
     files = [prepared_path, plan_path]
-    source_reuse, source_generation = None, None
+    source_reuse, source_generation, backend = None, None, None
+    if "agent_backend" in prepared:
+        backend, extra = api_backend(state, job_id, output, request, prepared, plan, row["request_digest"])
+        files.extend(extra)
     if request["reuse_model"] is not None:
         source_reuse = reused_source(output, request, prepared)
         generation_path = output / "generation/plan.json"
@@ -245,8 +295,8 @@ def inspect(job_id):
             "output": str(output.relative_to(ROOT)), "plan_id": plan_id, "owner": owner,
             "request": {key: request[key] for key in ("prompt", "style", "custom_actions", "preset")},
             "generation_mode": mode, "reference_selected": request["reference"] is not None,
-            "source_reuse": source_reuse, "source_generation": source_generation,
-            "files": [{"path": str(p.relative_to(ROOT)), "sha256": sha(p, MAX_JSON)} for p in files],
+            "source_reuse": source_reuse, "source_generation": source_generation, "agent_backend": backend,
+            "files": [{"path": str(p.relative_to(ROOT)), "sha256": sha(p, MAX_JSON)} for p in dict.fromkeys(files)],
             "recorded_local": datetime.now(ZoneInfo("America/Los_Angeles")).isoformat(),
             "ownership_scope": "Read-only canonical registry and selected PID identity; no dispatch, cancellation or signal"}
 

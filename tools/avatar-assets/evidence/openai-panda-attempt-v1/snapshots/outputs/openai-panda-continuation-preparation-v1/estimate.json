@@ -1,0 +1,28 @@
+{
+  "AI_calls_previously_attempted": 2,
+  "AI_calls_remaining": 3,
+  "API_approval_pending": true,
+  "aggregate_reservation_usd": 16.85592,
+  "automatic_retries": 0,
+  "expected_cost_note": "Actual cost depends on image/text/output tokens. Prior successful planner15983input/1019output would be~$0.05524 at this price; two50kinput/8koutput author/reviewer assumptions add~$0.49. Illustrative total~$0.55, not measured API spend or guarantee. Worst-case fullmodelcontext reservations enforce the larger ceiling.",
+  "hosted_deployment": false,
+  "key_present_owner_only_verified_without_read": true,
+  "max_reservation_per_call_usd": 5.61864,
+  "model": "gpt-5.4-2026-03-05",
+  "new_meshy_credits": 0,
+  "new_meshy_submissions": 0,
+  "original_study_cap": 5,
+  "output_token_limit_per_call": 16384,
+  "parent_job": "2fa07fbb61ef4da4bc8f7f70",
+  "proposed_project_and_job_ceiling_usd": 17,
+  "recurring_services": 0,
+  "repairs": 0,
+  "request_sha256": "a5d0cc2e1360af992c2c0248b023b56654ab665584840b544255cf011261a8a8",
+  "reuse_model_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+  "schema_version": 1,
+  "scope": "Sameoriginalprompt/style/dance, exactpaidGLBreuse. ThreeAPIrolesplanner/author/reviewer, noCLIloginfallback; parentfailureandcallcountsretained.",
+  "sources": [
+    "https://developers.openai.com/api/docs/models/gpt-5.4"
+  ],
+  "status": "prepared_no_grant_no_call"
+}

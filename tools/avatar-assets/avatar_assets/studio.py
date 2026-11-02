@@ -309,16 +309,19 @@ class StudioServer(gallery._Server):
         self.token = secrets.token_urlsafe(32)
         self.references = References(root, manager.state_dir)
         self._slots = threading.BoundedSemaphore(gallery.MAX_REQUESTS)
-        self.session = {'csrf_token': self.token,
+        from avatar_assets.agent_backend import readiness
+        backend = readiness(root)
+        self.session = {'csrf_token': self.token, 'agent_backend': backend,
             'presets': [{'id': 'preview', 'label': 'HD preview', 'description': '1600px portrait and 720px action videos'},
                         {'id': 'draft', 'label': 'Quick draft', 'description': 'Small previews for early review'},
                         {'id': 'muse', 'label': 'Long HD clips', 'description': 'Eight-second clips; not a quality guarantee'}],
             'limits': {'subject_chars': 4000, 'style_chars': 800, 'actions': 8, 'action_chars': 600,
                        'reference_bytes': MAX_REFERENCE},
             'capabilities': {'reference_upload': True},
-            'planning_cost_note': 'Preparing a plan uses the existing AI login. Dollar cost depends on your account. '
-                'A job is limited to ten AI calls by default. Planning makes no Meshy generation call. '
-                'Generation requires a reviewed estimate and sufficient existing authorization; this screen does not buy credits or raise allowances.'}
+            'planning_cost_note': 'Planning, rigging instructions and review use the server OpenAI API, not a personal AI login. '
+                'Saving a prompt is free. Planning requires an explicit administrator dollar grant for the saved request. '
+                'Meshy generation credits are separate from OpenAI dollars. No automatic retries, credit purchases or allowance increases. '
+                + backend['reason']}
         HTTPServer.__init__(self, ('127.0.0.1', port), StudioHandler)
 
 

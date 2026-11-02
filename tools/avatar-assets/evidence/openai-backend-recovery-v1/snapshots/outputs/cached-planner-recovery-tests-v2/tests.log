@@ -1,0 +1,42 @@
+test_action_review_cannot_borrow_a_different_states_motion (tests.test_pipeline.PipelineTests.test_action_review_cannot_borrow_a_different_states_motion) ... ok
+test_cancellation_preserves_plan_without_starting_generation (tests.test_pipeline.PipelineTests.test_cancellation_preserves_plan_without_starting_generation) ... {"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "pipeline", "status": "cancelled"}
+ok
+test_changed_generation_plan_cannot_expand_spend (tests.test_pipeline.PipelineTests.test_changed_generation_plan_cannot_expand_spend) ... {"stage": "geometry", "status": "awaiting_generation_authorization"}
+ok
+test_custom_actions_are_exact_and_bounded_before_creation (tests.test_pipeline.PipelineTests.test_custom_actions_are_exact_and_bounded_before_creation) ... ok
+test_failed_native_pack_is_not_automatically_replayed (tests.test_pipeline.PipelineTests.test_failed_native_pack_is_not_automatically_replayed) ... ok
+test_interrupted_old_status_temp_does_not_break_checkpoint (tests.test_pipeline.PipelineTests.test_interrupted_old_status_temp_does_not_break_checkpoint) ... {"stage": "fixture", "status": "checked"}
+ok
+test_invalid_requests_fail_before_creating_output (tests.test_pipeline.PipelineTests.test_invalid_requests_fail_before_creating_output) ... ok
+test_montage_does_not_collide_with_requested_state_names (tests.test_pipeline.PipelineTests.test_montage_does_not_collide_with_requested_state_names) ... ok
+test_no_execution_or_insufficient_cap_never_submits (tests.test_pipeline.PipelineTests.test_no_execution_or_insufficient_cap_never_submits) ... {"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+ok
+test_nonowner_cannot_write_lifecycle_events (tests.test_pipeline.PipelineTests.test_nonowner_cannot_write_lifecycle_events) ... ok
+test_numeric_citations_cannot_replace_images_or_cross_states (tests.test_pipeline.PipelineTests.test_numeric_citations_cannot_replace_images_or_cross_states) ... ok
+test_plan_only_reuse_does_not_start_native_or_paid_work (tests.test_pipeline.PipelineTests.test_plan_only_reuse_does_not_start_native_or_paid_work) ... {"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "reused_generated_source"}
+{"stage": "pipeline", "status": "planned"}
+ok
+test_prepare_is_free_bounded_and_preserves_request (tests.test_pipeline.PipelineTests.test_prepare_is_free_bounded_and_preserves_request) ... ok
+test_prepare_only_resume_cannot_make_calls (tests.test_pipeline.PipelineTests.test_prepare_only_resume_cannot_make_calls) ... ok
+test_repair_keeps_failed_state_measurements_and_key_pose_images (tests.test_pipeline.PipelineTests.test_repair_keeps_failed_state_measurements_and_key_pose_images) ... ok
+test_repair_receives_surface_failure_before_rendering (tests.test_pipeline.PipelineTests.test_repair_receives_surface_failure_before_rendering) ... ok
+test_request_and_backend_tampering_block_resume (tests.test_pipeline.PipelineTests.test_request_and_backend_tampering_block_resume) ... ok
+test_resumed_failed_stage_preserves_exact_repair_reason (tests.test_pipeline.PipelineTests.test_resumed_failed_stage_preserves_exact_repair_reason) ... ok
+test_sealed_delivery_is_read_only_after_backend_upgrade (tests.test_pipeline.PipelineTests.test_sealed_delivery_is_read_only_after_backend_upgrade) ... {"stage": "pipeline", "status": "checkpointed_error"}
+ok
+test_unsealed_stage_is_interrupted_not_a_repair_candidate (tests.test_pipeline.PipelineTests.test_unsealed_stage_is_interrupted_not_a_repair_candidate) ... ok
+test_unsupported_plan_does_not_claim_artifact_or_call_provider (tests.test_pipeline.PipelineTests.test_unsupported_plan_does_not_claim_artifact_or_call_provider) ... {"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "unsupported"}
+{"stage": "planner", "status": "unsupported"}
+ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.558s
+
+OK

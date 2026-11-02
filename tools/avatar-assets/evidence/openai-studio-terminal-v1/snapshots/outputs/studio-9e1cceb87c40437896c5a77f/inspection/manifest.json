@@ -1,0 +1,612 @@
+{
+  "aggregate_elapsed_seconds": 2.865,
+  "artifacts": [
+    {
+      "bytes": 204208,
+      "path": "back.png",
+      "sha256": "e105e591680faae2d370892b8b75130a99be634931c4d898f6278c88e5d0d6cf"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "01fd2091989d6418160af446f56ea7589e29a9fafb3546fc1ab2f08c0160b10c"
+    },
+    {
+      "bytes": 216600,
+      "path": "front.png",
+      "sha256": "a3635331454de10b88e043954556a136ac21fa9ca26918072946924231858453"
+    },
+    {
+      "bytes": 382,
+      "path": "guide-annotation-handle.json",
+      "sha256": "8dfa14a29019976ad394b3405d012c969aedec334d3cab192647b9cd51701f65"
+    },
+    {
+      "bytes": 1218,
+      "path": "guide-annotation-job.json",
+      "sha256": "ce3863540c890b1023ce9a06fa02d681c007928105388e80d1fd9b554565f08c"
+    },
+    {
+      "bytes": 1126,
+      "path": "guide-annotation-monitor.json",
+      "sha256": "f0cf9ca43f82a281122d08b6a1148c4afd9cd591ebd818bc94d169eba1f596c9"
+    },
+    {
+      "bytes": 72,
+      "path": "guide-annotation.log",
+      "sha256": "09555e0c5ea70717354d350806dd8cb33b521e52a3733018fb144f5de97ae45c"
+    },
+    {
+      "bytes": 329872,
+      "path": "guide-front-raw.png",
+      "sha256": "e24d6f29d291d2367d28b406c5c1c4b2710e29eab8fea8349ab54f0f3e249df9"
+    },
+    {
+      "bytes": 289158,
+      "path": "guide-front.png",
+      "sha256": "0cb578b511819ef51c6b31995eac9cdccb0480355913002ffa0dfb5cb4f00c9d"
+    },
+    {
+      "bytes": 293104,
+      "path": "guide-side-raw.png",
+      "sha256": "064e13341502b007448792493a1965fad4042fd372dfc4d6a7e02c603e75c243"
+    },
+    {
+      "bytes": 249759,
+      "path": "guide-side.png",
+      "sha256": "2618a66248f46988cd73ee84292cbd03f934f7f3cb2145181b85d7b82979c37c"
+    },
+    {
+      "bytes": 1609,
+      "path": "job.json",
+      "sha256": "98a47da27fd56657f9f93656f4dbceefda1dc7b2b03465d5e7fae8f5c3cbe46e"
+    },
+    {
+      "bytes": 10351,
+      "path": "native-inspection.json",
+      "sha256": "4e476266a30a6872b05600a7cdce8a5a3b785261ad684a1f7f4e3e6726425ef2"
+    },
+    {
+      "bytes": 14902088,
+      "path": "original.glb",
+      "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+    },
+    {
+      "bytes": 651,
+      "path": "preflight.json",
+      "sha256": "5d8cc29d2ddf07290b182d0adf692946d560a744fef4e30126e00e8c4aa46974"
+    },
+    {
+      "bytes": 656,
+      "path": "preview-handle.json",
+      "sha256": "29f982090c652533ebf9c4cf944489a18066d7a52814fd063ecd5b26946d204f"
+    },
+    {
+      "bytes": 1463,
+      "path": "preview-monitor.json",
+      "sha256": "56729a14ac075a2d0fea25b3f49428319b87941108976cc3900bc81cf2451dae"
+    },
+    {
+      "bytes": 2094,
+      "path": "preview.log",
+      "sha256": "854258e1ec112ccf5e3672c4dc5b6202953e0121fd9c2eb65fb371edb25e6d8e"
+    },
+    {
+      "bytes": 2489,
+      "path": "rig-guide-annotations.json",
+      "sha256": "68291a6e997d7f1aeb090ea9c7eddfd3bc968e38f63e8e096de278abb9704137"
+    },
+    {
+      "bytes": 192044,
+      "path": "side.png",
+      "sha256": "39e8dcd4d6853bc17d6251835270293ae881416b2fcd9f6f549b6d6f5fad384a"
+    },
+    {
+      "bytes": 17484875,
+      "path": "source.blend",
+      "sha256": "3e3db5b77492373e8ad7969bef20e3ec0bf4945c5930b63f9ca030d15bed100d"
+    },
+    {
+      "bytes": 37930,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "25b160818e448f2888e463fc95c63c9803e4b8be8f5a13f84cff63a837385a77"
+    },
+    {
+      "bytes": 14995,
+      "path": "sources/__pycache__/rig_guide_annotations.cpython-311.pyc",
+      "sha256": "444134b72ff6f1c176b13ba5bba6a981e08564c308ea1a9da1d32b8cb28acc21"
+    },
+    {
+      "bytes": 13587,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 7911,
+      "path": "sources/rig_guide_annotations.py",
+      "sha256": "77bad5fc52ada588be692861f0f4f6f6fb79205b08405ab2a457418ee6da38b1"
+    },
+    {
+      "bytes": 211947,
+      "path": "three-quarter.png",
+      "sha256": "5ea5b3f4a6f089e6417edaebc5b5d7a60d89aa2c24a62113b2a946cb4b4e5a9d"
+    }
+  ],
+  "kind": "generated_geometry_preview",
+  "native": {
+    "actions": [],
+    "animation_verified": false,
+    "assumptions": [
+      "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+      "Raw generated units are not a calibrated physical measurement",
+      "Hidden geometry is generated, not recovered"
+    ],
+    "blender_version": "4.5.13 LTS",
+    "bounds_blender_z_up": {
+      "max": [
+        0.5749289989471436,
+        0.4936639666557312,
+        0.9502120018005371
+      ],
+      "min": [
+        -0.5757449865341187,
+        -0.4917299747467041,
+        -0.9512320160865784
+      ]
+    },
+    "material_count": 1,
+    "meshes": [
+      {
+        "faces": 36124,
+        "materials": [
+          {
+            "faces": 36124,
+            "name": "Material_0",
+            "slot": 0
+          }
+        ],
+        "name": "Mesh_0",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 26957
+      }
+    ],
+    "render_engine": "BLENDER_EEVEE_NEXT",
+    "render_policy": {
+      "engine": "BLENDER_EEVEE_NEXT",
+      "engine_fallback": false,
+      "policy": "gltf-single-sided-culling-eevee-next-v1",
+      "reason": "Respect imported glTF single-sided culling and authored-normal semantics",
+      "sample_control": "scene.eevee.taa_render_samples",
+      "samples_actual": 8,
+      "samples_requested": 8,
+      "scope": "Exported GLB review only; native hair/portrait renderers are separate"
+    },
+    "renders": [
+      {
+        "path": "front.png",
+        "sha256": "a3635331454de10b88e043954556a136ac21fa9ca26918072946924231858453",
+        "view": "front"
+      },
+      {
+        "path": "three-quarter.png",
+        "sha256": "5ea5b3f4a6f089e6417edaebc5b5d7a60d89aa2c24a62113b2a946cb4b4e5a9d",
+        "view": "three-quarter"
+      },
+      {
+        "path": "back.png",
+        "sha256": "e105e591680faae2d370892b8b75130a99be634931c4d898f6278c88e5d0d6cf",
+        "view": "back"
+      },
+      {
+        "path": "side.png",
+        "sha256": "39e8dcd4d6853bc17d6251835270293ae881416b2fcd9f6f549b6d6f5fad384a",
+        "view": "side"
+      }
+    ],
+    "rig_guides": {
+      "bounds_blender_z_up": {
+        "max": [
+          0.5749289989471436,
+          0.4936639666557312,
+          0.9502120018005371
+        ],
+        "min": [
+          -0.5757449865341187,
+          -0.4917299747467041,
+          -0.9512320160865784
+        ]
+      },
+      "bounds_method": "Exact raw mesh vertices transformed by object world matrices, not transformed bounding-box corners",
+      "rest_pose": "Imported mesh coordinates with armatures set to REST; no authored bones inferred",
+      "schema_version": 1,
+      "scope": "Union of inspected imported meshes; matches single-mesh authored_rig normalization after uniform calibration",
+      "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+      "space": "normalized_bounds_blender_z_up",
+      "views": [
+        {
+          "camera_world_matrix_row_major": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.00040799379348754883
+            ],
+            [
+              0.0,
+              -1.6292068494294654e-07,
+              -1.0,
+              -5.703364849090576
+            ],
+            [
+              0.0,
+              1.0,
+              -1.6292068494294654e-07,
+              -0.0005100071430206299
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "native_projection_anchors": [
+            {
+              "normalized": [
+                0,
+                0.5,
+                0
+              ],
+              "raw_pixel": [
+                155.8893585205078,
+                591.1867141723633
+              ]
+            },
+            {
+              "normalized": [
+                1,
+                0.5,
+                1
+              ],
+              "raw_pixel": [
+                484.1106414794922,
+                48.813819885253906
+              ]
+            },
+            {
+              "normalized": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "raw_pixel": [
+                320.0,
+                320.0002670288086
+              ]
+            }
+          ],
+          "path": "guide-front.png",
+          "projection": {
+            "bounds_blender_z_up": {
+              "max": [
+                0.5749289989471436,
+                0.4936639666557312,
+                0.9502120018005371
+              ],
+              "min": [
+                -0.5757449865341187,
+                -0.4917299747467041,
+                -0.9512320160865784
+              ]
+            },
+            "camera_target_blender_world": [
+              -0.00040799379348754883,
+              0.0009669959545135498,
+              -0.0005100071430206299
+            ],
+            "canvas_pixels": [
+              768,
+              768
+            ],
+            "hidden_axis": "Y",
+            "horizontal_axis": "X",
+            "horizontal_index": 0,
+            "normalization": "(world_position - mesh_bounds.min) / (mesh_bounds.max - mesh_bounds.min), per axis",
+            "normalized_ticks": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "ortho_scale": 2.243703941106796,
+            "pixel_convention": "Continuous image-edge coordinates; origin top-left, X right and Y down",
+            "positive_horizontal": "right",
+            "positive_vertical": "up",
+            "projection_bounds_blender_world": {
+              "horizontal_max": 1.1214439767599105,
+              "horizontal_min": -1.1222599643468856,
+              "vertical_max": 1.1213419634103774,
+              "vertical_min": -1.1223619776964187
+            },
+            "raw_image_offset_pixels": [
+              64,
+              64
+            ],
+            "raw_image_pixels": [
+              640,
+              640
+            ],
+            "vertical_axis": "Z",
+            "view": "front"
+          },
+          "projection_error_max_pixels": 0.00027349439710633305,
+          "raw_path": "guide-front-raw.png",
+          "raw_sha256": "e24d6f29d291d2367d28b406c5c1c4b2710e29eab8fea8349ab54f0f3e249df9",
+          "view": "front",
+          "world_to_camera_matrix_row_major": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.00040799379348754883
+            ],
+            [
+              -0.0,
+              -1.6292068494294654e-07,
+              1.0,
+              0.0005090779741294682
+            ],
+            [
+              0.0,
+              -1.0,
+              -1.6292068494294654e-07,
+              -5.703364849090576
+            ],
+            [
+              -0.0,
+              0.0,
+              -0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "camera_world_matrix_row_major": [
+            [
+              -4.371138828673793e-08,
+              4.371138828673793e-08,
+              1.0,
+              5.70392370223999
+            ],
+            [
+              1.0,
+              1.910685676922942e-15,
+              4.371138828673793e-08,
+              0.0009669959545135498
+            ],
+            [
+              0.0,
+              1.0,
+              -4.371138828673793e-08,
+              -0.0005100071430206299
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "native_projection_anchors": [
+            {
+              "normalized": [
+                0.5,
+                0,
+                0
+              ],
+              "raw_pixel": [
+                179.4618797302246,
+                591.1865282058716
+              ]
+            },
+            {
+              "normalized": [
+                0.5,
+                1,
+                1
+              ],
+              "raw_pixel": [
+                460.5382537841797,
+                48.813629150390625
+              ]
+            },
+            {
+              "normalized": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "raw_pixel": [
+                320.0000762939453,
+                320.0000762939453
+              ]
+            }
+          ],
+          "path": "guide-side.png",
+          "projection": {
+            "bounds_blender_z_up": {
+              "max": [
+                0.5749289989471436,
+                0.4936639666557312,
+                0.9502120018005371
+              ],
+              "min": [
+                -0.5757449865341187,
+                -0.4917299747467041,
+                -0.9512320160865784
+              ]
+            },
+            "camera_target_blender_world": [
+              -0.00040799379348754883,
+              0.0009669959545135498,
+              -0.0005100071430206299
+            ],
+            "canvas_pixels": [
+              768,
+              768
+            ],
+            "hidden_axis": "X",
+            "horizontal_axis": "Y",
+            "horizontal_index": 1,
+            "normalization": "(world_position - mesh_bounds.min) / (mesh_bounds.max - mesh_bounds.min), per axis",
+            "normalized_ticks": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "ortho_scale": 2.243703941106796,
+            "pixel_convention": "Continuous image-edge coordinates; origin top-left, X right and Y down",
+            "positive_horizontal": "right",
+            "positive_vertical": "up",
+            "projection_bounds_blender_world": {
+              "horizontal_max": 1.1228189665079116,
+              "horizontal_min": -1.1208849745988845,
+              "vertical_max": 1.1213419634103774,
+              "vertical_min": -1.1223619776964187
+            },
+            "raw_image_offset_pixels": [
+              64,
+              64
+            ],
+            "raw_image_pixels": [
+              640,
+              640
+            ],
+            "vertical_axis": "Z",
+            "view": "side"
+          },
+          "projection_error_max_pixels": 8.75279054071143e-05,
+          "raw_path": "guide-side-raw.png",
+          "raw_sha256": "064e13341502b007448792493a1965fad4042fd372dfc4d6a7e02c603e75c243",
+          "view": "side",
+          "world_to_camera_matrix_row_major": [
+            [
+              -4.371138828673793e-08,
+              1.0,
+              -2.117582368135751e-22,
+              -0.0009667466511018574
+            ],
+            [
+              4.371138828673793e-08,
+              1.910685465164705e-15,
+              1.0,
+              0.0005097578396089375
+            ],
+            [
+              1.0,
+              4.371138828673793e-08,
+              -4.371138828673793e-08,
+              -5.70392370223999
+            ],
+            [
+              -0.0,
+              -0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      ]
+    },
+    "rigs": [],
+    "schema_version": 1,
+    "source_is_untextured": false,
+    "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+    "source_unchanged": true
+  },
+  "new_provider_cost_usd": 0,
+  "preflight": {
+    "animations": 0,
+    "attributes": [
+      [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ]
+    ],
+    "schema_version": 1,
+    "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+    "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+    "skins": 0,
+    "source_unchanged": true,
+    "textures": [
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 2048,
+        "width": 2048
+      },
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      }
+    ],
+    "triangles": 36124,
+    "vertices": 26957
+  },
+  "provider_calls": 0,
+  "rig_guide_annotation_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-9e1cceb87c40437896c5a77f/inspection/sources/rig_guide_annotations.py",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-9e1cceb87c40437896c5a77f/inspection"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.258,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 34487268,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 256,
+      "rss_mb": 2048,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "guide-annotation-monitor.json",
+    "monitor_errors": [],
+    "pid": 22908,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 34487268,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "source_glb_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+  "status": "needs_visual_review"
+}

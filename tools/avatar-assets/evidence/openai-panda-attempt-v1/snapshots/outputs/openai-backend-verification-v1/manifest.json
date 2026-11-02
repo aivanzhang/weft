@@ -1,0 +1,114 @@
+{
+  "artifacts": [
+    {
+      "bytes": 6445,
+      "path": "sources/avatar_assets/agent_backend.py",
+      "sha256": "2ede62b105db633a14e8b43a8897988772b17fba23c7db4af9df000387bbb393"
+    },
+    {
+      "bytes": 26360,
+      "path": "sources/avatar_assets/agent_runner.py",
+      "sha256": "b55276971a218d5c4cc11a2cb08b11924a60633143e6ee533b87d047be1c428a"
+    },
+    {
+      "bytes": 20876,
+      "path": "sources/avatar_assets/openai_runner.py",
+      "sha256": "4b014e0829c4593fd9a676658f479a9a4aee6476f67c5ef2c24f15030e3955ff"
+    },
+    {
+      "bytes": 78431,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "c73ad9c77d38873ce187b1cff8e60a41dac53c38b917fdfec5883f468c01f994"
+    },
+    {
+      "bytes": 52342,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "ffb98cd037fa6a83b300c2f4d05790e63a6ee2850a33f039fa5237be511ba087"
+    },
+    {
+      "bytes": 18344,
+      "path": "sources/avatar_assets/studio.py",
+      "sha256": "5c7623e0d11a688993b3eaa3e07667d86788a624b33d779ddcbd811b7ad9a177"
+    },
+    {
+      "bytes": 14653,
+      "path": "sources/avatar_assets/studio_worker.py",
+      "sha256": "5cd795328e13f53c952faffa693bbc3e398c2b8e067892f6ef148471e3c36ea8"
+    },
+    {
+      "bytes": 15018,
+      "path": "sources/tests/test_openai_runner.py",
+      "sha256": "cb353ab7533b0d3f0564f0ee5a398638c87c3cda1dd9aad2556897d758a4bc1c"
+    },
+    {
+      "bytes": 13616,
+      "path": "sources/tests/test_openai_studio_integration.py",
+      "sha256": "a21ebf1135197ef1ddc8c2d8d710750ebda4b77aa19e1d5776697d5cb2c51627"
+    },
+    {
+      "bytes": 4499,
+      "path": "sources/tests/test_plan_identifiers.py",
+      "sha256": "dfca87d8c5ef814b4e2fc7fb4e8e11df26f0c0e4bf7b5cc6c7641a3a588ffa09"
+    },
+    {
+      "bytes": 21775,
+      "path": "sources/tests/test_studio_live_verifier.py",
+      "sha256": "5f537e32dbaf9e3c7ccf9785627c3b1d66eb9f599bce6c470acd3d4df2718557"
+    },
+    {
+      "bytes": 443,
+      "path": "tests-handle.json",
+      "sha256": "1d74e0e2021cbba74d9389ef5348bb5bcc24775811ac7e051b76771c1f36540b"
+    },
+    {
+      "bytes": 1227,
+      "path": "tests-monitor.json",
+      "sha256": "948dcef02fbb774ad93b7b7001bec23d7779ab24130ed6c513ed8d899112df54"
+    },
+    {
+      "bytes": 9387,
+      "path": "tests.log",
+      "sha256": "9772f2059d68e02887d285ed33b2a953252593b4dc2a9eee1f743ede814a9b51"
+    }
+  ],
+  "classification": "local fixtures and preserved-response regression; no new provider calls",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-c",
+      "import sys,unittest;sys.path[:0]=['.','tests'];s=unittest.defaultTestLoader.loadTestsFromNames(['test_openai_runner','test_openai_studio_integration','test_plan_identifiers','test_studio_live_verifier']);r=unittest.TextTestRunner(verbosity=2).run(s);raise SystemExit(not r.wasSuccessful())"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.775,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 283302,
+    "last_rss_sample_elapsed_seconds": 0.514,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 19432,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 2,
+    "sampled_max_output_bytes": 283302,
+    "sampled_peak_rss_bytes": 82345984,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "schema_version": 1
+}

@@ -126,7 +126,7 @@ export async function bootStudio() {
     const job = state.job;
     $("save-request").disabled = state.busy || !state.session;
     $("save-request").textContent = state.busy && !state.selected ? "Saving request…" : "Save request →";
-    $("prepare-plan").disabled = state.busy || !state.session || job?.status !== "created" || job?.capabilities?.plan === false;
+    $("prepare-plan").disabled = state.busy || !state.session || job?.capabilities?.plan !== true;
     $("start-job").disabled = state.busy || !state.session || !canStart(job) || !$("estimate-ack").checked;
     $("cancel-job").disabled = state.busy || job?.status === "cancel_requested" || job?.capabilities?.cancel === false;
     $("estimate-ack").disabled = state.busy || !canStart(job);
@@ -204,7 +204,7 @@ export async function bootStudio() {
       : "Your request is saved. Prepare a plan to see the proposed assets and estimated work.");
     $("planning-cost-note").textContent = text(state.session?.planning_cost_note, 2000) || "Planning uses the configured AI service. Account-specific dollar cost is unavailable. Model generation requires a separate reviewed estimate.";
     $("planning-cost-note").hidden = Boolean(plan);
-    $("prepare-plan").hidden = job.status !== "created";
+    $("prepare-plan").hidden = job.capabilities?.plan !== true;
     $("plan-warnings").replaceChildren(...(Array.isArray(plan?.warnings) ? plan.warnings : []).slice(0, 16).map((warning) => node("li", text(warning))));
     $("plan-warnings").hidden = !$("plan-warnings").children.length;
     $("estimate").hidden = !estimate;
@@ -512,7 +512,7 @@ export async function bootStudio() {
     });
   });
   $("prepare-plan").addEventListener("click", () => {
-    const id = state.selected; if (!id || state.job?.status !== "created") return;
+    const id = state.selected; if (!id || state.job?.capabilities?.plan !== true) return;
     mutate(async (signal) => { const job = unwrapJob(await request(apiPath(id, "/plan"), { method: "POST", body: {}, signal })); if (state.selected === id) renderJob(job); });
   });
   $("start-job").addEventListener("click", () => {

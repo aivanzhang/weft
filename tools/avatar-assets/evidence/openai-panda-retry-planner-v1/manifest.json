@@ -1,0 +1,504 @@
+{
+  "credentials_included": false,
+  "files": [
+    {
+      "bytes": 493,
+      "path": "outputs/openai-panda-retry-preparation-v1/approval.json",
+      "sha256": "a7ab97cfd9ba155308d575ce9adf4a8f4eddbd3f82f9a742e96266338e50ea8a",
+      "snapshot": "snapshots/outputs/openai-panda-retry-preparation-v1/approval.json"
+    },
+    {
+      "bytes": 660,
+      "path": "outputs/openai-panda-retry-preparation-v1/job-grant.json",
+      "sha256": "a2b0a87e0e691e13abf4c5e29aa67d57bc92bb1ef89765cba4eb93755027ba3f",
+      "snapshot": "snapshots/outputs/openai-panda-retry-preparation-v1/job-grant.json"
+    },
+    {
+      "bytes": 1077,
+      "path": "outputs/openai-panda-retry-preparation-v1/planner-result.json",
+      "sha256": "7152b3cb82d586da4daf3da8e5ec812e9be968332a9a04a40acdb498626f07ed",
+      "snapshot": "snapshots/outputs/openai-panda-retry-preparation-v1/planner-result.json"
+    },
+    {
+      "bytes": 690,
+      "path": "outputs/openai-panda-retry-preparation-v1/proposal.json",
+      "sha256": "f1634bd7dbfc5fa44cd1720fa0fb9d1fd0adf09fb62c986745a3b9017ad87de6",
+      "snapshot": "snapshots/outputs/openai-panda-retry-preparation-v1/proposal.json"
+    },
+    {
+      "bytes": 1524,
+      "path": "outputs/openai-panda-retry-preparation-v1/request.json",
+      "sha256": "a5d0cc2e1360af992c2c0248b023b56654ab665584840b544255cf011261a8a8",
+      "snapshot": "snapshots/outputs/openai-panda-retry-preparation-v1/request.json"
+    },
+    {
+      "bytes": 6241,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/answer.json",
+      "sha256": "c40be64fa975ee1a7126bb54585eaff627ef1994c8f99a4e932c582f45985aa0",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/answer.json"
+    },
+    {
+      "bytes": 659,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/payload-metadata.json",
+      "sha256": "6f417880be62154b1e79715c92fc7aba8d9ed172a312bf5aea126bb76968c6a8",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/payload-metadata.json"
+    },
+    {
+      "bytes": 8421,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/prompt.txt",
+      "sha256": "91968ee70818a4e65cb0b6abaf46f183aa151ec720b875df674345456a88338f",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/prompt.txt"
+    },
+    {
+      "bytes": 1603,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/receipt.json",
+      "sha256": "7de29ce4ec891435ced781f53372d3c10a329a06e879715115e1941d05b36618",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/receipt.json"
+    },
+    {
+      "bytes": 303,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/request.json",
+      "sha256": "1992a45d8825d013a0e827e5f8c35422bb940187b863ae609db3a3d612bb04de",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/request.json"
+    },
+    {
+      "bytes": 13664,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/response.json",
+      "sha256": "03e184ea7ec7ef9f28e6262b14a3eeffeb418470073de21b6808c433854f0d99",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/response.json"
+    },
+    {
+      "bytes": 4250,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/schema.json",
+      "sha256": "1aaa2c2c8cc534650172de10ccb24f8c13292d161a4a0f1bfcd6aeaad32d3128",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/planner/schema.json"
+    },
+    {
+      "bytes": 1124,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/agents/runner.json",
+      "sha256": "ace6432bf5d555f58e68361e7fd562eefbb0fd06d0354ca3a53ef6c27ec13ef0",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/runner.json"
+    },
+    {
+      "bytes": 0,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/agents/runner.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/agents/runner.lock"
+    },
+    {
+      "bytes": 1487,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/estimate.json",
+      "sha256": "30f8afbda0f1fbd264a6d65ecf935bedfca9cc68566ffb318edb9510d166e2d1",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/estimate.json"
+    },
+    {
+      "bytes": 121,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/events/0000.json",
+      "sha256": "a4566ec55b587a350c8adbffc91868d8f5693ff478a5ad9dc7524e40f7a25e75",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/events/0000.json"
+    },
+    {
+      "bytes": 232,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/events/0001.json",
+      "sha256": "c925ff31fd2d75c72fa27e23b21ca772b4b82446370a662fa74e0e94033b4bfa",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/events/0001.json"
+    },
+    {
+      "bytes": 243,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/events/0002.json",
+      "sha256": "d3e1f7372835025595337b481462818c4e2200632e344bb287687e50491bd7ef",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/events/0002.json"
+    },
+    {
+      "bytes": 6155,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/input-receipt.json",
+      "sha256": "0eafed1d71557557a3ffc8ffdf6d26065af2f5879574b462fdc555f08847b914",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/input-receipt.json"
+    },
+    {
+      "bytes": 14902088,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/inputs/source-model.glb",
+      "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+      "snapshot": null
+    },
+    {
+      "bytes": 0,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/pipeline.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/pipeline.lock"
+    },
+    {
+      "bytes": 2230,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/request.json",
+      "sha256": "33b52028712558645839c3b2642303eae83202154fa348c82e84496f5e9fb55f",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/request.json"
+    },
+    {
+      "bytes": 34271,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/action_intent.py"
+    },
+    {
+      "bytes": 7536,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/agent_backend.py",
+      "sha256": "b0012775e6e675dcdebf5540da1c9a2b464c4964b0ee051ace809da2fecf86aa",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/agent_backend.py"
+    },
+    {
+      "bytes": 26360,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/agent_runner.py",
+      "sha256": "b55276971a218d5c4cc11a2cb08b11924a60633143e6ee533b87d047be1c428a",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/agent_runner.py"
+    },
+    {
+      "bytes": 16614,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/deformation_gate.py"
+    },
+    {
+      "bytes": 38146,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/fringe_export.py"
+    },
+    {
+      "bytes": 40332,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/fur_attachment.py"
+    },
+    {
+      "bytes": 19539,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/fur_bindings.py"
+    },
+    {
+      "bytes": 16931,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/generated_tangents.py"
+    },
+    {
+      "bytes": 17295,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/normal_continuity.py"
+    },
+    {
+      "bytes": 25184,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/openai_runner.py",
+      "sha256": "54a9f962a2ddbb376043a91406fb381c311cfc0cef9552db59da067de63730ef",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/openai_runner.py"
+    },
+    {
+      "bytes": 78431,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/pipeline.py",
+      "sha256": "c73ad9c77d38873ce187b1cff8e60a41dac53c38b917fdfec5883f468c01f994",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/pipeline_evidence.py"
+    },
+    {
+      "bytes": 52342,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/pipeline_prompts.py",
+      "sha256": "ffb98cd037fa6a83b300c2f4d05790e63a6ee2850a33f039fa5237be511ba087",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/portable_fringe.py"
+    },
+    {
+      "bytes": 13491,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/quality_policy.py",
+      "sha256": "c9bd05ffe80fb2b8d51f0a35bc4f13e5277ddbe92698bbe452d739a168eac393",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/quality_policy.py"
+    },
+    {
+      "bytes": 20746,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 58228,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_finish_generated.py",
+      "sha256": "fb4ccc68da44786052049297ab4fef07bb33f8d5aeda889a7cf21c484922130d",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 26295,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 6657,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_fur_identity.py"
+    },
+    {
+      "bytes": 40912,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 5450,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_material_coat.py"
+    },
+    {
+      "bytes": 8894,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_material_colors.py"
+    },
+    {
+      "bytes": 31282,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_material_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 17397,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 4687,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 8834,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/fur_skin_roots.py"
+    },
+    {
+      "bytes": 6002,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/fur_vertex_roots.py"
+    },
+    {
+      "bytes": 9487,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/material_fur.py"
+    },
+    {
+      "bytes": 5273,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 9560,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 14944,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 35323,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/sources/three_d.py"
+    },
+    {
+      "bytes": 243,
+      "path": "outputs/studio-9e1cceb87c40437896c5a77f/status.json",
+      "sha256": "d3e1f7372835025595337b481462818c4e2200632e344bb287687e50491bd7ef",
+      "snapshot": "snapshots/outputs/studio-9e1cceb87c40437896c5a77f/status.json"
+    },
+    {
+      "bytes": 3911,
+      "path": "outputs/openai-backend-verification-v2/manifest.json",
+      "sha256": "4ccfd57f0acb02498347f24f67e0bd7ae8522fa98b4d709e6dd9e22a0b2e8794",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/manifest.json"
+    },
+    {
+      "bytes": 7536,
+      "path": "outputs/openai-backend-verification-v2/sources/avatar_assets/agent_backend.py",
+      "sha256": "b0012775e6e675dcdebf5540da1c9a2b464c4964b0ee051ace809da2fecf86aa",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/avatar_assets/agent_backend.py"
+    },
+    {
+      "bytes": 26360,
+      "path": "outputs/openai-backend-verification-v2/sources/avatar_assets/agent_runner.py",
+      "sha256": "b55276971a218d5c4cc11a2cb08b11924a60633143e6ee533b87d047be1c428a",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 25184,
+      "path": "outputs/openai-backend-verification-v2/sources/avatar_assets/openai_runner.py",
+      "sha256": "54a9f962a2ddbb376043a91406fb381c311cfc0cef9552db59da067de63730ef",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/avatar_assets/openai_runner.py"
+    },
+    {
+      "bytes": 78431,
+      "path": "outputs/openai-backend-verification-v2/sources/avatar_assets/pipeline.py",
+      "sha256": "c73ad9c77d38873ce187b1cff8e60a41dac53c38b917fdfec5883f468c01f994",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 52342,
+      "path": "outputs/openai-backend-verification-v2/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "ffb98cd037fa6a83b300c2f4d05790e63a6ee2850a33f039fa5237be511ba087",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 18344,
+      "path": "outputs/openai-backend-verification-v2/sources/avatar_assets/studio.py",
+      "sha256": "5c7623e0d11a688993b3eaa3e07667d86788a624b33d779ddcbd811b7ad9a177",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/avatar_assets/studio.py"
+    },
+    {
+      "bytes": 14653,
+      "path": "outputs/openai-backend-verification-v2/sources/avatar_assets/studio_worker.py",
+      "sha256": "5cd795328e13f53c952faffa693bbc3e398c2b8e067892f6ef148471e3c36ea8",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/avatar_assets/studio_worker.py"
+    },
+    {
+      "bytes": 20532,
+      "path": "outputs/openai-backend-verification-v2/sources/tests/test_openai_runner.py",
+      "sha256": "583caae736535b29ed16037a53252297f3beb6098c3853c7c786a57d31b25e11",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/tests/test_openai_runner.py"
+    },
+    {
+      "bytes": 17838,
+      "path": "outputs/openai-backend-verification-v2/sources/tests/test_openai_studio_integration.py",
+      "sha256": "0cc038c12e046bdfd81694bbb8b7c87ba59539317f952e3d9c873713e66e24a2",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/tests/test_openai_studio_integration.py"
+    },
+    {
+      "bytes": 4499,
+      "path": "outputs/openai-backend-verification-v2/sources/tests/test_plan_identifiers.py",
+      "sha256": "dfca87d8c5ef814b4e2fc7fb4e8e11df26f0c0e4bf7b5cc6c7641a3a588ffa09",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/tests/test_plan_identifiers.py"
+    },
+    {
+      "bytes": 21775,
+      "path": "outputs/openai-backend-verification-v2/sources/tests/test_studio_live_verifier.py",
+      "sha256": "5f537e32dbaf9e3c7ccf9785627c3b1d66eb9f599bce6c470acd3d4df2718557",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/sources/tests/test_studio_live_verifier.py"
+    },
+    {
+      "bytes": 443,
+      "path": "outputs/openai-backend-verification-v2/tests-handle.json",
+      "sha256": "17e38cdaec995af4659cc106aea4f1dfb37991f514b0f441c8e19ef4f6353c4e",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/tests-handle.json"
+    },
+    {
+      "bytes": 1227,
+      "path": "outputs/openai-backend-verification-v2/tests-monitor.json",
+      "sha256": "d191cfb76dd21b387cc4a295328f66820ae0d1727c2f7466cb71bfca5dba2b0b",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/tests-monitor.json"
+    },
+    {
+      "bytes": 10758,
+      "path": "outputs/openai-backend-verification-v2/tests.log",
+      "sha256": "89227c64ac06feace638a23d2e716c554a8606f3a684ce640cc83639dd2990c6",
+      "snapshot": "snapshots/outputs/openai-backend-verification-v2/tests.log"
+    },
+    {
+      "bytes": 1184,
+      "path": "outputs/openai-studio-ui-v1/studio-ui-test.json",
+      "sha256": "6d46da44a2eb24dc6bd3a2242f130335fc039a6a7ab8958c5613ecdce3d7897e",
+      "snapshot": "snapshots/outputs/openai-studio-ui-v1/studio-ui-test.json"
+    },
+    {
+      "bytes": 122850,
+      "path": "outputs/openai-studio-ui-v2/studio-cost-gate.png",
+      "sha256": "b63aa0128116eb42318dc57dd5a2639885c3875d3d57577ce46d90eef10e8226",
+      "snapshot": "snapshots/outputs/openai-studio-ui-v2/studio-cost-gate.png"
+    },
+    {
+      "bytes": 97677,
+      "path": "outputs/openai-studio-ui-v2/studio-mobile-fixture.png",
+      "sha256": "a10781e54f6d2bf0ce942b42f2d9048254905e7f5e1a5d03645dd3d6dcb9941e",
+      "snapshot": "snapshots/outputs/openai-studio-ui-v2/studio-mobile-fixture.png"
+    },
+    {
+      "bytes": 151961,
+      "path": "outputs/openai-studio-ui-v2/studio-ready-fixture.png",
+      "sha256": "718fb1614d1ec10412915516aab941798152f36d1bd6b6102cd73ea91ed39794",
+      "snapshot": "snapshots/outputs/openai-studio-ui-v2/studio-ready-fixture.png"
+    },
+    {
+      "bytes": 2315,
+      "path": "outputs/openai-studio-ui-v2/studio-ui-test.json",
+      "sha256": "2585f9351c2ee2b72abb5d638f05aaba98eb1aaac3e1cfb98d04e8a9023b53f1",
+      "snapshot": "snapshots/outputs/openai-studio-ui-v2/studio-ui-test.json"
+    },
+    {
+      "bytes": 322,
+      "path": "outputs/openai-panda-retry-custody-release-v1/release-result.json",
+      "sha256": "366756f3260b74a418127930fbb58d86e13e633ff495e779568c110df5d96d5e",
+      "snapshot": "snapshots/outputs/openai-panda-retry-custody-release-v1/release-result.json"
+    }
+  ],
+  "job_id": "9e1cceb87c40437896c5a77f",
+  "model_reference": "Exact paid panda already backed up in46ced180; GLB hash retained, no duplicate.",
+  "private_invocation_tokens_included": false,
+  "schema_version": 1,
+  "scope": "Second actual planner succeeded with valid ID; local stationary-language false positive stopped it. Includes mocked browser regression failure/fix, not actual avatar playback.",
+  "snapshot_bytes": 1506828,
+  "status": "preserved_before_local_validator_recovery"
+}

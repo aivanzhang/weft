@@ -1,0 +1,14 @@
+{
+  "classification": "analytic fixtures; no API calls or real key reads",
+  "sources": {
+    "avatar_assets/openai_runner.py": "4b014e0829c4593fd9a676658f479a9a4aee6476f67c5ef2c24f15030e3955ff",
+    "tests/test_openai_runner.py": "cb353ab7533b0d3f0564f0ee5a398638c87c3cda1dd9aad2556897d758a4bc1c",
+    "avatar_assets/agent_runner.py": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+    "avatar_assets/safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+  },
+  "pricing_sources": [
+    "https://developers.openai.com/api/docs/models/gpt-5.4",
+    "https://developers.openai.com/api/docs/guides/structured-outputs",
+    "https://developers.openai.com/api/docs/guides/images-vision"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "agent_billing": "OpenAI Responses API, billed separately from Meshy credits. Explicit administrator dollar grant required; no CLI fallback.",
+  "agent_model": "gpt-5.4-2026-03-05",
+  "agent_provider": "openai",
+  "automatic_paid_retries": 0,
+  "deadline_scope": "No new stage after this invocation deadline; resume opens another watch window, not another call/repair allowance. Each in-flight stage retains its bounded deadline.",
+  "expected_agent_calls": 3,
+  "local_compute": "No hosted compute. Preview/native media use4CPU threads/2GiB sampled child RSS.",
+  "maximum_agent_calls": 3,
+  "maximum_local_repairs": 0,
+  "maximum_output_tokens_per_call": 16384,
+  "maximum_reservation_microdollars": 16855920,
+  "new_meshy_credits": 0,
+  "new_meshy_paid_calls": 0,
+  "new_meta_calls": 0,
+  "per_invocation_stage_start_deadline_seconds": 3600,
+  "planning_token_estimate": {
+    "input_per_call": "Budget assumption50000 input tokens/call, informed by observed15814\u201342341 tokens including selected evidence; not an enforced token cap. Up to8 selected images.",
+    "output_per_call": "typically1000\u20138000 tokens; transport bytes/deadline are bounded"
+  },
+  "recurring_services": 0,
+  "reservation_microdollars_per_call": 5618640,
+  "reservation_policy": "Full context at long-context rates plus maximum output; conservative ceiling, not expected spend. Reservations never reopen allowance.",
+  "schema_version": 1,
+  "total_output_bytes": 2147483648,
+  "usd_cost": null
+}

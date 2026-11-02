@@ -45,16 +45,37 @@ def required_kinds(text):
     return kinds
 
 
+def _negated_stationary_phrase(prefix, suffix):
+    # Correlative "not only ... but also" affirms the first requirement.
+    if re.search(r"\bnot\s+(?:only|just)\s*$", prefix) and re.search(r"\bbut\b", suffix):
+        return False
+    return bool(re.search(
+        r"\b(?:not|never|don't|doesn't|do not|does not|rather\s+than|instead\s+of|without|avoid(?:s|ing)?)\s+"
+        r"(?:(?:just|merely|only|simply|ever|always)\s+)*"
+        r"(?:(?:the|its|their|both|your|his|her|a|an)\s+\w+(?:\s+\w+)?\s+)?$", prefix))
+
+
 def _stationary_language(text):
-    """Only explicit hold/stay clauses; 'steady rhythm' and upright travel are not stillness."""
+    """Explicit affirmative holds; negated alternatives are not stillness requirements."""
     text = text.casefold()
-    if re.search(r"\b(?:keep|keeps|keeping|remain|remains|remaining|stay|stays|staying|hold|holds|holding)\b"
-                 r"[^.;]{0,100}\b(?:still|stationary|motionless|planted|"
-                 r"steady(?!\s+(?:rhythm|pace|tempo|speed|beat|motion|wave|cadence))|"
-                 r"fixed(?!\s+(?:rate|pace|tempo|speed|direction)))\b", text):
-        return True
-    return bool(re.search(r"\b(?:do not|does not|don't|doesn't|without)\s+mov(?:e|ing)\s+"
-                          r"(?:(?:the|its|their|both|either|your)\s+)?(?:feet|foot|torso|body|base|pedestal|legs)\b", text))
+    hold = r"\b(?:keep|keeps|keeping|remain|remains|remaining|stay|stays|staying|hold|holds|holding)\b"
+    still = (r"\b(?:still|stationary|motionless|planted|"
+             r"steady(?!\s+(?:rhythm|pace|tempo|speed|beat|motion|wave|cadence))|"
+             r"fixed(?!\s+(?:rate|pace|tempo|speed|direction)))\b")
+    # Overlapping matches preserve an affirmative inner hold after a negated outer verb.
+    for match in re.finditer(r"(?=(" + hold + r"[^.;]{0,100}?(?P<still>" + still + r")))", text):
+        start, end = match.span(1)
+        clause_start = max(text.rfind(".", 0, start), text.rfind(";", 0, start)) + 1
+        clause_end = re.search(r"[.;]", text[end:])
+        suffix = text[end:end + clause_end.start()] if clause_end else text[end:]
+        if not (_negated_stationary_phrase(text[clause_start:start], suffix)
+                or _negated_stationary_phrase(text[start:match.start('still')], suffix)):
+            return True
+    for match in re.finditer(r"\b(?:do not|does not|don't|doesn't|without)\s+mov(?:e|ing)\s+"
+                             r"(?:(?:the|its|their|both|either|your)\s+)?(?:feet|foot|torso|body|base|pedestal|legs)\b", text):
+        if not _negated_stationary_phrase(text[:match.start()], text[match.end():]):
+            return True
+    return False
 
 
 def validate_requirements(value, roles):

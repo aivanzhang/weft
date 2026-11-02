@@ -1,0 +1,24 @@
+{
+  "actual_cost_upper_estimate_usd_total": 0.141219,
+  "api_calls_this_job": 2,
+  "api_calls_total_this_continuation": 3,
+  "author_answer_sha256": "e2a6df03b6bb86de397365b877bc5fc9ed91aecd0541b3c122a4bd3d65b71728",
+  "author_receipt_sha256": "1295190abe7ca147c90a3d27ecb8747a5dc41af7a490bdcab644b4f1aa09ee7e",
+  "automatic_retry": false,
+  "browser_cleanup": {
+    "browser_exit_verified": true,
+    "server_exit_verified": true,
+    "worker_cancel_requested": false,
+    "worker_signalled": false
+  },
+  "browser_elapsed_seconds": 51.598217915999996,
+  "browser_start_requests": 1,
+  "job_id": "9e1cceb87c40437896c5a77f",
+  "new_meshy_calls": 0,
+  "next_action": "Fix generic author response contract locally; preserve unsupported result. Any paid repair needs explicit authorization, not reuse of the reviewer slot.",
+  "reason": "Author outer structured response succeeded, but nested design_json was malformed: expected comma delimiter at EOF(position8043). No native rig/motion build or critic call.",
+  "schema_version": 1,
+  "status": "unsupported",
+  "unsupported_sha256": "3e8d60d39181931ee000ab263b96c0719910cc5145aca3145c2ae91dec0c118f",
+  "unused_reviewer_call": 1
+}

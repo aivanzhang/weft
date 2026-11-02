@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "provenance": "analytic_fixture",
+  "status": "passed",
+  "scope": "Mock API and mock model-viewer UI test. No generation, real GLB/video validation, provider call, or live-server proof.",
+  "limits": {
+    "wall_seconds": 120,
+    "requests": 200,
+    "output_bytes": 12582912,
+    "operation_ms": 10000
+  },
+  "sources": {
+    "studio.html": "46933ca84219aefb1f20a514861ead8c407aff7d148635f931e9ec9d5d3a8642",
+    "studio.css": "7c14ae8ba8fc041dd404dfe5a4d0655f16522997b23d19281d769b01818e6a04",
+    "studio.js": "17f35cb1c93205269d51e1e88acccd394683935a94f69ba0c6dcb0b87dd7d761"
+  },
+  "checks": [
+    "More than eight actions rejected before a request",
+    "Ambiguous create response retained its idempotency ID; upload was not repeated; titles use text, not HTML",
+    "Missing API grant keeps explicit Prepare available without automatic retry or Start",
+    "Concrete cost and insufficient allowance block start; UI does not grant spending approval",
+    "Launching continues polling with a stale planned list and reaches the actual running response",
+    "Explicit start echoes the frozen plan; review failure is visible; no invented overall percentage",
+    "Hidden-page polling pauses; stop remains a request rather than instant cancellation",
+    "Fixture model controls, reduced-motion portrait, invalid-video static fallback, and safe downloads work",
+    "Fixture model failure falls back to portrait",
+    "390px layout has no horizontal document overflow"
+  ],
+  "errors": [],
+  "external_requests": [],
+  "artifacts": [
+    {
+      "path": "studio-cost-gate.png",
+      "bytes": 122850,
+      "sha256": "b63aa0128116eb42318dc57dd5a2639885c3875d3d57577ce46d90eef10e8226"
+    },
+    {
+      "path": "studio-ready-fixture.png",
+      "bytes": 151961,
+      "sha256": "718fb1614d1ec10412915516aab941798152f36d1bd6b6102cd73ea91ed39794"
+    },
+    {
+      "path": "studio-mobile-fixture.png",
+      "bytes": 97677,
+      "sha256": "a10781e54f6d2bf0ce942b42f2d9048254905e7f5e1a5d03645dd3d6dcb9941e"
+    }
+  ],
+  "cleanup": {
+    "owned_browser_exited": true,
+    "server_started": false
+  },
+  "requests": 39,
+  "api": {
+    "create_attempts": 2,
+    "unique_jobs_created": 1,
+    "uploads": 1,
+    "plans": 2,
+    "starts": 1,
+    "cancels": 1,
+    "launching_reads": 2
+  }
+}

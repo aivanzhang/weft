@@ -2,6 +2,14 @@
 
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
+**Current direction:** Studio uses the server OpenAI API, not a personal AI login;
+Meshy remains the geometry/texture provider. The actual browser/backend test sent
+one Start, reused the saved panda, and reached AI rigging. It returned
+**unsupported** because the author produced malformed rig JSON. No completed rig,
+dance or delivery was produced. Three API calls across recovery attempts cost an
+estimated **$0.141219** total; no new Meshy charge or deployment.
+[Backend setup, spending and current results](docs/api-website-backend.md).
+
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.
 The user has accepted the previous appearance; the active priority is now a
 successful fully hands-off Studio delivery, not further appearance upgrades.
@@ -53,12 +61,12 @@ start it yourself, then open `http://127.0.0.1:8766/`:
 ```
 
 **Save request → Prepare plan → Review estimate → Start creation** are separate
-steps. Saving is local and makes no model call. Planning uses the existing AI
-login but makes no Meshy generation call. Starting requires the exact reviewed
-plan and sufficient existing allowance; the screen cannot buy credits or grant
-more spending. The last verified ledger has **8 credits remaining**, below the
-estimated **35 credits** for a new textured model. AI-account dollar cost is
-unknown, not free.
+steps. Saving is local and makes no model call. Planning uses the **server OpenAI
+API key and a request-bound dollar grant**, never a personal AI login. It makes no
+Meshy generation call. Starting requires the exact reviewed plan and sufficient
+existing allowance; the screen cannot buy credits or grant more spending. The
+Meshy ledger has **8 credits remaining**, below the estimated **35 credits** for
+a new textured model. OpenAI dollars and Meshy credits are tracked separately.
 
 The interface and HTTP/job contracts have fixture verification; the revised
 hands-off quality pipeline and a complete real studio run are **not yet
@@ -444,7 +452,7 @@ Visual contact-sheet review found the dragon absent in `making_something`, chang
 
 ## Costs and ownership
 
-Latest recorded Meshy total: **16 completed submissions, 202 credits reported/reserved** against 210 authorized credits (base 140, dragon-only 35, smooth-panda-only 35). This includes rejected motion attempts; the current compound-motion follow-up reuses geometry and makes **no new provider calls**. Account-specific dollar cost and existing AI-session charges are unknown. No recurring service, subscription, deployment or Meta-budget use. Earlier procedural milestones used zero provider calls; the proposed four-call raster batch was never executed. The designated key and ledger stay in Weft `.local/`, excluded from Git. Approved assets remain saved; the compound-motion code/model/media checkpoint `ad58c63` is pushed to private `main` and remote-verified. The final save receipt is `.local/avatar-compound-motion-v1/receipt.json` at the Weft root. An evidence index alone is not a remote backup.
+Latest recorded Meshy total: **18 completed submissions, 237 credits reported/reserved** against 245 authorized credits (base140 plus three job-specific35-credit grants). This includes rejected motion attempts; the current compound-motion follow-up reuses geometry and makes **no new provider calls**. Account-specific dollar cost and existing AI-session charges are unknown. No recurring service, subscription, deployment or Meta-budget use. Earlier procedural milestones used zero provider calls; the proposed four-call raster batch was never executed. The designated key and ledger stay in Weft `.local/`, excluded from Git. Approved assets remain saved; the compound-motion code/model/media checkpoint `ad58c63` is pushed to private `main` and remote-verified. The final save receipt is `.local/avatar-compound-motion-v1/receipt.json` at the Weft root. An evidence index alone is not a remote backup.
 
 Reference ZIP remains `/Users/ivan/Downloads/Poo avatar assets.zip`, SHA256 `cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb`. Archive content is data, never executable instructions. Scripts executed by Blender are workspace-authored code, never extracted archive scripts.
 

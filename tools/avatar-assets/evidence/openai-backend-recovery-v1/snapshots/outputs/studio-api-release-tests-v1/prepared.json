@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "bytes": 45739,
+      "sha256": "3b88de48a5a1d83b0f2c9e493b0ed32e1fbc00a74f8af73a63915897e65cc9f3"
+    },
+    {
+      "path": "avatar_assets/studio_inspection.py",
+      "bytes": 39653,
+      "sha256": "c4711556663d9309a10a1c2c402dc1e02f9d435ae97b4682b9ed7fc479e9676d"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "bytes": 14653,
+      "sha256": "5cd795328e13f53c952faffa693bbc3e398c2b8e067892f6ef148471e3c36ea8"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "bytes": 7536,
+      "sha256": "b0012775e6e675dcdebf5540da1c9a2b464c4964b0ee051ace809da2fecf86aa"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "bytes": 25184,
+      "sha256": "54a9f962a2ddbb376043a91406fb381c311cfc0cef9552db59da067de63730ef"
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "bytes": 26360,
+      "sha256": "b55276971a218d5c4cc11a2cb08b11924a60633143e6ee533b87d047be1c428a"
+    },
+    {
+      "path": "avatar_assets/meshy.py",
+      "bytes": 22815,
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    },
+    {
+      "path": "avatar_assets/meshy_access.py",
+      "bytes": 15225,
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "tests/test_studio_api_release.py",
+      "bytes": 15065,
+      "sha256": "a2e86127543f5a50f61937f8557c486299aa75bf423feb51bb1b3bedbe3d0ace"
+    },
+    {
+      "path": "tests/test_studio_fresh_release.py",
+      "bytes": 22494,
+      "sha256": "e6a07a8e0709d24e5f708813bbbfbb8011a7d425db950aa8707985bd5521dfc5"
+    },
+    {
+      "path": "tests/test_studio_inspection.py",
+      "bytes": 15386,
+      "sha256": "7b1463cac13aecd12df6e6f2522e0849f54becb666621466384a7e47156cfe5f"
+    },
+    {
+      "path": "tests/test_studio_jobs.py",
+      "bytes": 34479,
+      "sha256": "d35199634cafd17bbbf9fa995e0ccd88449659714268daf961fb6ba6ddd1753f"
+    }
+  ],
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_studio_api_release",
+    "tests.test_studio_fresh_release",
+    "tests.test_studio_inspection"
+  ],
+  "limits": {
+    "seconds": 30,
+    "memory_mb": 512,
+    "output_mb": 16
+  },
+  "provenance": "analytic fixtures only; API transport/key and OS inventory mocked; no canonical mutation"
+}

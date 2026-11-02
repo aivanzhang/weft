@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "bytes": 44687,
+      "sha256": "27d15d2ef102217196659e6aa0b5fa9414b9bc424bbd9433b08525acce071d2f"
+    },
+    {
+      "path": "avatar_assets/studio_inspection.py",
+      "bytes": 26601,
+      "sha256": "90374fde935ef9741abd5c15a3e2f4de29214e7431a431d0855b84d5ae2b4a17"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "bytes": 14653,
+      "sha256": "5cd795328e13f53c952faffa693bbc3e398c2b8e067892f6ef148471e3c36ea8"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "bytes": 6445,
+      "sha256": "2ede62b105db633a14e8b43a8897988772b17fba23c7db4af9df000387bbb393"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "bytes": 20876,
+      "sha256": "4b014e0829c4593fd9a676658f479a9a4aee6476f67c5ef2c24f15030e3955ff"
+    },
+    {
+      "path": "avatar_assets/meshy.py",
+      "bytes": 22815,
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    },
+    {
+      "path": "avatar_assets/meshy_access.py",
+      "bytes": 15225,
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "tests/test_studio_fresh_release.py",
+      "bytes": 22494,
+      "sha256": "e6a07a8e0709d24e5f708813bbbfbb8011a7d425db950aa8707985bd5521dfc5"
+    },
+    {
+      "path": "tests/test_studio_inspection.py",
+      "bytes": 15386,
+      "sha256": "7b1463cac13aecd12df6e6f2522e0849f54becb666621466384a7e47156cfe5f"
+    },
+    {
+      "path": "tests/test_studio_jobs.py",
+      "bytes": 34479,
+      "sha256": "d35199634cafd17bbbf9fa995e0ccd88449659714268daf961fb6ba6ddd1753f"
+    }
+  ],
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_studio_fresh_release.StudioFreshReleaseTests.test_completed_paid_sources_release_failed_without_mutating_outputs_ledger_or_calls",
+    "tests.test_studio_fresh_release.StudioFreshReleaseTests.test_live_prior_planner_is_checked_before_releasing_completed_remote_tasks",
+    "tests.test_studio_fresh_release.StudioFreshReleaseTests.test_prior_planner_custody_must_be_present_closed_and_same_request"
+  ],
+  "limits": {
+    "seconds": 30,
+    "memory_mb": 512,
+    "output_mb": 16
+  },
+  "provenance": "analytic fixtures, including non-media download bytes; OS process inventory is mocked; no provider/native/agent calls or canonical job changes",
+  "changed_hypothesis": "Fresh-only prior planning invocation receipts and process IDs are added to final custody; reuse branch and remote checks unchanged."
+}
