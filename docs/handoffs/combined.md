@@ -1,5 +1,49 @@
 # Combined Weft implementation handoff
 
+## Equipment-feedback pilot complete — November 1, 2026, 4:14 PM PST
+
+The full goal remains active. Standing approval covers merging/pushing relevant
+verified changes without another checkpoint question. Latest independently
+verified remote checkpoint is **`e5c9676d59f9b7d184802d11a757e0db99a10f7b`**:
+automatic equipment selection, complete lab assembly and offline inspection.
+Publication receipt `.local/equipment-frame-build-publication-01.json`, SHA
+`e3839eb2b113429f7bf556afc330a0024e70de66590b9c579a6f50f681de26da`.
+The ready lab and user launch command below remain usable; do not start a server
+on the user's behalf.
+
+The separate [equipment-feedback trainer](equipment-feedback-learning.md) has
+38 passing mocked checks and closed independent review. Its first
+[native training pilot](equipment-feedback-training-native.md) completed all
+eight full 254-control trials: **2,032 controls / 32,512 physics substeps**.
+All eight fail equipment stability for `sam-2`; body gates and `sam-3` pass.
+No candidate passes all original task limits. The selected candidate is the
+unchanged controller; all 508 anchor actions are byte-exact. A higher-reward
+candidate violates the task limits more severely and is correctly rejected.
+This is a verified training/recording implementation, not improved control,
+independent evaluation, physical accuracy or default promotion.
+
+The pilot uses the **old frozen construction**, not the new automatic-frame
+scene. Do not transfer its policy to that different scene. Execution took
+8.495484 seconds with 313,229,312 B child high-water memory; PID88067 is reaped.
+The worker checked all saved action arithmetic and the complete output map once.
+The independent saved interpretation read only 175,778 B of terminal metadata
+and recomputed all 26 gate terms per candidate and the selected rank. Receipt
+`.local/equipment-feedback-training-native-01/saved-interpretation-01.json`, SHA
+`6e50f1e1456e4403625b318e1d2e034ba37d6712bf9f97d14753a6793bb90319`.
+No repeated physics, raw-journal pass or source proof occurred. The contact agent
+owns the current native handoff/release; root owns the exact-path checkpoint.
+Publication identity belongs in
+`.local/equipment-feedback-training-publication-01.json`. Do not repeat or
+expand the failed search without a changed, evidence-backed hypothesis.
+
+In parallel, the reconstruction agent owns the opt-in correlated support-region
+constraint and its separate tests/handoff. The review agent is checking those
+changes independently; no native/source acquisition is authorized by that pure
+implementation lane. Preserve its unfinished files and independent avatar work.
+No API/key/ledger operation, deployment, browser, server or external submission
+occurred. Full-task learning, unfamiliar-video reconstruction and independent
+ground/equipment-contact accuracy remain unfinished.
+
 ## Automatic-frame build ready — November 1, 2026, 3:45 PM PST
 
 The combined goal remains active. This turn made implementation and integrated
