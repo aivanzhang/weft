@@ -1,5 +1,30 @@
 # Combined Weft implementation handoff
 
+## Automatic-frame silhouette result — November 1, 2026, 6:44 PM PST
+
+Previous turn published/remote-verified `bb4649d` and its reference-overlap
+diagnostic. This turn tests a genuinely changed source input: automatic frame
+28, not the old manual frame 8, with the existing conditional shape fitter.
+The [completed screen and saved audit](automatic-silhouette-screen.md) find
+**no qualified improvement**: all eight bands remain frozen under occlusion,
+conditional outline IoU stays 0.55, and no geometry configuration is emitted.
+Do not install it or run another controller/physics comparison for this shape.
+The body's 52/121 reference overlaps with `sam-2` remain unresolved.
+
+Actual acceptance: 0.842237 s /165,281,792 B child high-water RSS, three files /
+367,413 B at `artifacts/automatic-silhouette-03`. Independent saved arithmetic
+and identity audit verifies both sealed members, all 771 mask slots /257 frames,
+separate source clocks and all eight bands. Two original mass-validation model
+compilations and 20 quaternion conversions; zero simulation, video inference or
+API calls. The two earlier guard failures remain; no gates were bypassed.
+All three children are terminal/reaped; no live job or paid work remains.
+
+Root owns this three-document checkpoint only; preserve the independent avatar
+edits. Standing publication approval applies; exact remote result will be in
+`.local/automatic-silhouette-publication-01.json`. Full goal stays active.
+Next work needs a new source-qualified body/equipment hypothesis or calibrated
+input, not another unchanged mask, arm-fit, depth guess or controller sweep.
+
 ## Reference-overlap inspection verified — November 1, 2026, 6:13 PM PST
 
 This turn makes concrete progress: the [integrated offline diagnostic](reference-equipment-overlap.md)
