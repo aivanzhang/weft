@@ -1,0 +1,199 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "authored_rig": null,
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "camera_back_shift_m": 0.0,
+    "clip_end": 1000.0,
+    "fit": "motion",
+    "fur_margin_m": 0,
+    "location": [
+      -0.021719887852668762,
+      -3.600000328510512,
+      0.6480000987549465
+    ],
+    "motion_envelope": {
+      "elapsed_seconds": 0.06660945806652308,
+      "sample_seconds": {
+        "greeting": [
+          0,
+          0.3,
+          0.6,
+          0.8500000000000001,
+          1.1,
+          1.375,
+          1.65,
+          1.925,
+          2.2,
+          2.475,
+          2.75,
+          3.075,
+          3.4,
+          3.7,
+          4
+        ]
+      },
+      "scope": "Base skin at every authored key and midpoint, plus explicit fur margin; not continuous bounds or physics",
+      "world_bounds_m": {
+        "max": [
+          0.3701401352882385,
+          0.22820012271404266,
+          1.2000001668930054
+        ],
+        "min": [
+          -0.4135799705982208,
+          -0.22820012271404266,
+          -1.1024466317621773e-07
+        ]
+      }
+    },
+    "orthographic_scale": 1.4471741242072202,
+    "sampled_depth_max_m": 3.836499498752961,
+    "sampled_depth_min_m": 3.3641411952089717,
+    "view": "front"
+  },
+  "color_corrections": null,
+  "deformation_measurement": {
+    "bone_names": [
+      "Hips",
+      "Spine02",
+      "Spine01",
+      "Spine",
+      "neck",
+      "Head",
+      "head_end",
+      "headfront",
+      "LeftShoulder",
+      "LeftArm",
+      "LeftForeArm",
+      "LeftHand",
+      "RightShoulder",
+      "RightArm",
+      "RightForeArm",
+      "RightHand",
+      "LeftUpLeg",
+      "LeftLeg",
+      "LeftFoot",
+      "LeftToeBase",
+      "RightUpLeg",
+      "RightLeg",
+      "RightFoot",
+      "RightToeBase"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 93680,
+    "edges_sha256": "5cfca559e67a8531672b321ae10ca39684af2dc9ad12b3a465a35a3c5a856ad6",
+    "pose_samples_measured": 8,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 1.2000001493988108,
+      "height_basis": "z_span",
+      "max": [
+        0.3701401948928833,
+        0.22820013761520386,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.3701401352882385,
+        -0.22820012271404266,
+        -1.0171509501333276e-07
+      ]
+    },
+    "rest_sha256": "01413e2e425c53cb533d6b5fa9c92128a19a929c5874d016b5bdfe6df1116318",
+    "rig_route": "source_skin",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 45386
+  },
+  "emitter_scale_applied": true,
+  "groom": null,
+  "groom_excluded_parts": {
+    "names": [],
+    "vertices": 0
+  },
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_continuity": null,
+  "normal_strength": 0.6,
+  "part_rigs": null,
+  "review_views": [
+    {
+      "path": "views/front.png",
+      "resolution": 720,
+      "sha256": "1a1590fcfb90396019db9ecdadfe96bd37ce6e7ca5c624e9dd584007df397b6d",
+      "view": "front"
+    },
+    {
+      "path": "views/side.png",
+      "resolution": 720,
+      "sha256": "2195d15e4406fe2abf7d943440b632d2575b46e0d28e0361a156c84382e21408",
+      "view": "side"
+    },
+    {
+      "path": "views/back.png",
+      "resolution": 720,
+      "sha256": "ab125c768e137098045ad9cc9070f59508a1dfc7b647b5095ae5eab7543630ce",
+      "view": "back"
+    },
+    {
+      "path": "views/three_quarter.png",
+      "resolution": 720,
+      "sha256": "4c5acd78abc56a83cb07e5bc5c038da6266c56e7a0bbe1c9c77cae006caa9b71",
+      "view": "three_quarter"
+    }
+  ],
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.3701401948928833,
+      0.22820013761520386,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.3701401352882385,
+      -0.22820012271404266,
+      -1.0171509501333276e-07
+    ]
+  },
+  "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+  "source_unchanged": true,
+  "states": [
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "deformation_rest_sha256": "01413e2e425c53cb533d6b5fa9c92128a19a929c5874d016b5bdfe6df1116318",
+      "deformation_samples_measured": 8,
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        14.399999999999999,
+        26.400000000000002,
+        39.599999999999994,
+        52.800000000000004,
+        66.0,
+        81.6,
+        96.0
+      ],
+      "id": "greeting",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.6,
+        1.1,
+        1.65,
+        2.2,
+        2.75,
+        3.4,
+        4.0
+      ]
+    }
+  ],
+  "surface_profiles": null,
+  "weft_runtime_verified": false,
+  "world_rest_position_max_error": 0.0
+}

@@ -1,0 +1,38 @@
+{
+  "all_preexisting_evidence_metrics_requirements_sample_times_and_role_details_unchanged": true,
+  "artifacts": [
+    {
+      "bytes": 496,
+      "path": "audit-handle.json",
+      "sha256": "d5c57087dd09f46de13d87b4141a0f6a659c1a941f4e213b14f2e71d02f4001e"
+    },
+    {
+      "bytes": 1232,
+      "path": "audit-monitor.json",
+      "sha256": "4b3b1d423ddb6a3b26559490ebf0a099ce5c8d2f8b4fb9c80f51163fbde59c6d"
+    },
+    {
+      "bytes": 93,
+      "path": "audit.log",
+      "sha256": "5213faf8bf4fd3efe907bcc191282244d648e923d4ff2b0d6d0a4ce22a0a6fae"
+    },
+    {
+      "bytes": 1336,
+      "path": "job.json",
+      "sha256": "59997adb496a577dccd424126b3e983a1c56bee54b0b7ad878871defb275d05a"
+    },
+    {
+      "bytes": 23487,
+      "path": "report.json",
+      "sha256": "0d054356c2f62178b3c4b284d488e2adf21ecb484a771f9dba3dbba41ef0af34"
+    }
+  ],
+  "implementation_sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+  "intent_sha256": "679323728c3cdc66459e5a7005f466b1bc5938e919944d3b906752709ce5a59e",
+  "new_paid_calls": 0,
+  "prior_report_sha256": "97c5cd6c0f8bbbcc3250a6ebad53595ef669413453e7c1452cd215f094738bfc",
+  "schema_version": 1,
+  "source_model_sha256": "e7ac914757897ab9155e933cd5889afeed3e6c89d422a2b56db42b38ba712cd2",
+  "status": "same_failed_action_with_precise_diagnostics",
+  "still_rejected": true
+}

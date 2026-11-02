@@ -1,0 +1,51 @@
+{
+  "actual_failure": {
+    "elapsed_seconds": 2.343,
+    "exit_code": 1,
+    "job_sha256": "0ae495e00131321fca925cc24aa2b256bee3bbd168213887cf0551c1c0426542",
+    "manifest_sha256": "da882bd3a530f28a905a487e96b3b0cdaca7d056ffb1308d0bbae8c743c9d9cb",
+    "native_pid": 70286,
+    "output_bytes": 3090719,
+    "pack": "outputs/panda-portable-undercoat-v1",
+    "partial_texture_or_model": false,
+    "peak_rss_bytes": 429162496,
+    "process_exit_verified": true,
+    "reason": "Combined native shape/index/UV/position correspondence predicate failed before texture bake; individual deltas were not preserved."
+  },
+  "cpu_analytic_result": {
+    "max_joint_matrix_identity_difference": 3.5762786865234375e-07,
+    "max_position_change_m": 2.384185791015625e-07,
+    "method": "Float32 source glTF rest world matrices times stored inverse-bind matrices; sum four weighted joint transforms on every original body vertex. Not an observed native position dump.",
+    "position_threshold_m": 2e-07,
+    "vertices_over_threshold_by_primitive": [
+      2485,
+      0,
+      1,
+      0,
+      0
+    ]
+  },
+  "hypothesis": "The position threshold is below demonstrated float32 rest-skin arithmetic variation. Exact failure component remains unconfirmed without a native dump.",
+  "installed_importer": {
+    "behavior": "Skins each converted position using float32 bind matrices and inverse binds, normalized by weight sum.",
+    "function": "skin_into_bind_pose, line673",
+    "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/imp/mesh.py",
+    "sha256": "7524c816b6c293e47548e6efc351b6964d0fffac35e5b35156edb178b1b92c8b"
+  },
+  "kind": "read_only_import_correspondence_failure_analysis",
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "proposed_changed_probe": {
+    "new_sibling": "outputs/panda-portable-undercoat-v2",
+    "position_tolerance_m": 1e-06,
+    "requires_new_shared_slot_release": true,
+    "save_individual_correspondence_metrics_before_gate": true,
+    "source_GLB_position_bytes": "Remain byte-identical in append-only material patch",
+    "triangle_indices": "Require exact equality",
+    "uv_tolerance": 2e-07
+  },
+  "recorded": "2026-11-01T14:40:01.576069-08:00",
+  "schema_version": 1,
+  "source_glb_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "visual_quality_claim": false
+}

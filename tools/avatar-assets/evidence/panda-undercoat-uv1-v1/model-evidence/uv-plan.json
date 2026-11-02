@@ -1,0 +1,82 @@
+{
+  "additional_export_vertices": 230,
+  "atlas_regions": [
+    2
+  ],
+  "elapsed_seconds": 0.708317,
+  "hd_only": true,
+  "limitations": [
+    "Normal UV1 and selected tangents are authored, not recovered.",
+    "Weft rejects normal maps and TEXCOORD_1; no importer change is implied.",
+    "This plan establishes no visible softness or animation quality."
+  ],
+  "normal_texture_policy": "One normal image per selected material region",
+  "original_uv0_unchanged": true,
+  "pitch_m": 0.004,
+  "projected_export_vertex_ceiling": 79644,
+  "raster_candidates": 4265761,
+  "regions": [
+    {
+      "conflicting_surface_samples": 0,
+      "covered_texels": 1589593,
+      "degenerate_uv_faces": 0,
+      "effective_meters_per_unique_texel": 0.0012944525012761727,
+      "effective_texels_per_pitch": 3.090109522023007,
+      "material_split_extra_vertices": 230,
+      "method": "keep_uv0",
+      "raster_candidates": 4228961,
+      "reasons": [],
+      "region_id": 0,
+      "selected_faces": 31353,
+      "selection_sha256": "85c1734fa106d688def6e0a1e3c5825d8c640f2326a027293524afa874cb4a3e",
+      "source_material_name": "body_surface",
+      "subpixel_faces": 329,
+      "surface_area_m2": 2.663533599953452,
+      "unique_conflicting_texels": 0,
+      "uv1_extra_vertices": 0
+    },
+    {
+      "atlas": {
+        "authored_not_recovered": true,
+        "cell_pixels": 51,
+        "columns": 20,
+        "faces": 368,
+        "geometry_changed": false,
+        "layout": "One ordered longest-edge local triangle per padded grid cell; no shared chart texels",
+        "max_meters_per_texel": 0.0017930356757159358,
+        "median_meters_per_texel": 0.0003438801148261733,
+        "padding_px": 2,
+        "resolution": 1024,
+        "tangent_sha256": "d5cd6726cff0e4ccb2d0ff1ca8dc0890bc9363933c47d2d20fa95fbdcd104766",
+        "uv0_changed": false,
+        "uv1_float32_sha256": "11559f240134d00a2226e7d476e742ca855361d310d98fc7fa767105f4157ab4"
+      },
+      "conflicting_surface_samples": 19785,
+      "covered_texels": 375,
+      "degenerate_uv_faces": 0,
+      "effective_meters_per_unique_texel": 0.008868555482604215,
+      "effective_texels_per_pitch": 0.4510317388041436,
+      "material_split_extra_vertices": 0,
+      "method": "authored_uv1",
+      "raster_candidates": 36800,
+      "reasons": [
+        "different_surface_uv_aliases",
+        "under_two_effective_texels_per_pile_pitch"
+      ],
+      "region_id": 2,
+      "selected_faces": 368,
+      "selection_sha256": "fa5cdb034d99bd1db9e3376586422b3e559a957e683deae608c856619b166e13",
+      "source_material_name": "body_cap",
+      "subpixel_faces": 0,
+      "surface_area_m2": 0.029494228630510988,
+      "unique_conflicting_texels": 265,
+      "uv1_extra_vertices": 0
+    }
+  ],
+  "reserve_vertices": 4096,
+  "resolution": 2048,
+  "schema_version": 1,
+  "scope": "Per-material alias/density measurements; not visual quality or recovered fur",
+  "source_export_vertices": 75318,
+  "weft_appearance_compatible": false
+}

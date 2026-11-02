@@ -1,0 +1,120 @@
+{
+  "ai_cost_note": "Existing authenticated AI account. Account-specific token/image usage prices are unknown, not zero. The expanded call estimate is a finite development work bound, not a user-approved dollar cap or a new Meshy credit grant.",
+  "ai_usd_cost": null,
+  "already_paid_rig": {
+    "credits": 5,
+    "included_in_prior_meshy_total_credits": 202,
+    "status": "SUCCEEDED",
+    "task_id": "01a1932f-00fe-7455-bb70-c6a3b335a554"
+  },
+  "automatic_paid_meshy_retries": 0,
+  "call_accounting": "One planner plus at most two author/critic pairs under one local repair. Failed/unsupported calls remain consumed. Do not reset or replay old jobs.",
+  "cap_distinction": "The existing Studio transport cap is 10 per job; the current one-repair coordinator structurally permits at most five role calls. The recorded study envelope is 13 including eight already consumed calls. No code/counter changed by this preparation.",
+  "configured_studio_pipeline_limits": {
+    "agent_model": null,
+    "agent_timeout": 240,
+    "max_agent_calls": 10,
+    "max_repairs": 1
+  },
+  "created_local": "2026-11-01T15:04:31.701372-08:00",
+  "expected_new_ai_calls": 3,
+  "expected_total_study_calls": 11,
+  "fresh_105_credit_acceptance_request": "Separate and still pending; this estimate does not authorize or fund those fresh generations.",
+  "hypothesis": "Preserve the existing Meshy skeleton and skin route instead of constructing a new rig on the unrigged robot. Exact prompt, style, custom action and preset are unchanged.",
+  "local_bounds": {
+    "agent_timeout_seconds": 240,
+    "browser_sampled_process_rss_bytes": 3221225472,
+    "browser_verifier_output_bytes": 67108864,
+    "browser_verifier_seconds": 900,
+    "controller_seconds": 5400,
+    "heavy_workers": 1,
+    "maximum_model_attempts": 2,
+    "native_cpu_threads": 4,
+    "native_sampled_child_rss_bytes": 2147483648,
+    "pipeline_output_bytes": 2147483648,
+    "resource_scope_note": "Existing per-job/process monitors; browser monitor excludes detached worker. Not a single machine-wide peak-RSS guarantee."
+  },
+  "maximum_new_ai_calls": 5,
+  "maximum_total_study_calls": 13,
+  "new_accounts_or_purchases": 0,
+  "new_meshy_credits": 0,
+  "new_meshy_submissions": 0,
+  "new_meta_calls": 0,
+  "preparation_side_effects": {
+    "browser_jobs": 0,
+    "native_jobs": 0,
+    "pipeline_source_prepared": false,
+    "planner_calls": 0,
+    "provider_calls": 0,
+    "studio_job_created": false
+  },
+  "previous_study_ai_call_cap": 10,
+  "prior_actual_agent_calls": 8,
+  "prior_actual_agent_usage": {
+    "input_tokens": 196763,
+    "output_tokens": 10061,
+    "reasoning_output_tokens": 657
+  },
+  "prior_call_receipts": [
+    {
+      "bytes": 4938,
+      "path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/receipt.json",
+      "sha256": "c299ad9f07c08044257ae62867901220870c85473cafe4c551411f40ac73196e"
+    },
+    {
+      "bytes": 5816,
+      "path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/author-0/receipt.json",
+      "sha256": "819cef6a1ea798227f582ce9cc354685124d4a8d91dab6df77f5cfe0edf690b4"
+    },
+    {
+      "bytes": 6104,
+      "path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/author-1/receipt.json",
+      "sha256": "69f091f8807728aef93832e1875aa11f5fbc45de3b85796b914cf2fe7076b88e"
+    },
+    {
+      "bytes": 4938,
+      "path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/receipt.json",
+      "sha256": "082bfdb6a8ca9169edc42c970408f171555fb2549ab6d57b68a29f306c616d29"
+    },
+    {
+      "bytes": 6121,
+      "path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/reviewer-1/receipt.json",
+      "sha256": "54a5b6eec90f4233ad867143ed13e8318780fd59de24f59c73fa0b8385fe99c7"
+    },
+    {
+      "bytes": 5814,
+      "path": "outputs/studio-c9ac0f48bd8044458a8390d4/agents/author-0/receipt.json",
+      "sha256": "1e1ad65010eabc0d0c5c60638dbbdebe65ac6c825654b2dc5632a089302d82a4"
+    },
+    {
+      "bytes": 6106,
+      "path": "outputs/studio-c9ac0f48bd8044458a8390d4/agents/author-1/receipt.json",
+      "sha256": "5ad00039ce9d455613c0f0cc9e4afabf9e40af10caf37026d098128ee790341a"
+    },
+    {
+      "bytes": 4937,
+      "path": "outputs/studio-c9ac0f48bd8044458a8390d4/agents/planner/receipt.json",
+      "sha256": "77716111d2a201c2a7e466ab5a707e544426930ae4f4806058bd9194c8657ad5"
+    }
+  ],
+  "prior_unsupported_job": "c9ac0f48bd8044458a8390d4",
+  "readiness": "Do not create, prepare, plan or start until parent confirms source freeze and native heavy-slot release. Then use a new canonical Studio job, inspect the exact plan and use one explicit pinned-plan UI Start.",
+  "recurring_services": 0,
+  "remaining_study_calls_before_trial": 5,
+  "schema_version": 1,
+  "scope": "One distinct already-provider-rigged source trial; not fresh text-to-mesh acceptance and not unrigged local-rig success.",
+  "source": {
+    "bytes": 24513040,
+    "path": "outputs/workshop-robot-meshy-v1/stages/rig/downloads/model.glb",
+    "sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7"
+  },
+  "status": "prepared_only_no_studio_job_or_plan",
+  "study_total_ai_call_cap": 13,
+  "token_estimate": {
+    "conservative_five_call_scenario_input_tokens": 250000,
+    "conservative_five_call_scenario_output_tokens": 40000,
+    "note": "Planning estimates only, not enforced token caps. Actual prior calls ranged 15814–38085 input tokens, including supplied evidence; image accounting and a new rig context can vary. Preserve actual receipts.",
+    "representative_success_path_input_tokens": 80000,
+    "representative_success_path_output_tokens": 3600
+  }
+}

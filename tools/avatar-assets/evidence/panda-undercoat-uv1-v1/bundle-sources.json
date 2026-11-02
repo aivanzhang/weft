@@ -1,0 +1,372 @@
+{
+  "retained": [
+    {
+      "byte_preserving_copy": true,
+      "bytes": 732,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/actual-model-audit.json",
+      "path": "model-evidence/actual-model-audit.json",
+      "sha256": "4fdba09747b249226d3965bad47263c9aba7c61b61bfcd0fd7f829c6e6ba2dc9"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 735,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/analytic-uv1-patch-test.json",
+      "path": "model-evidence/analytic-uv1-patch-test.json",
+      "sha256": "956778c39a7ef9ed7407d007234e396126e2d0037a83266066ff1c3eecc515ed"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 30202,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/authored-normal-atlases.npz",
+      "path": "model-evidence/authored-normal-atlases.npz",
+      "sha256": "52e16bf962fa651cd506d1c776a37bb7cbbf326de89338b932f17f4ffefee4c9"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 344,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/cpu-handle.json",
+      "path": "model-evidence/cpu-handle.json",
+      "sha256": "663d60ffaebf5e714f7179cf2e7ef235181ba765c10d987675eaf3a9a763821d"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1136,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/cpu-monitor.json",
+      "path": "model-evidence/cpu-monitor.json",
+      "sha256": "81c0f521f714661fe1fdc77734b523432ac920eba2fb6b2371f6e26ffd8033c8"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1528,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/cpu.log",
+      "path": "model-evidence/cpu.log",
+      "sha256": "e71f383a76ef8fa93989c2eea39cf7447a9f517910a90b4cf23a282f2b821bd2"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 2332,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/diagnostic-config.json",
+      "path": "model-evidence/diagnostic-config.json",
+      "sha256": "3a89b99feabac035321725cbc0f4bdffb8f6aed294ab0149c5c873ace37011fe"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 7591,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/diagnostic-report.json",
+      "path": "model-evidence/diagnostic-report.json",
+      "sha256": "4ccd4fe54b8fc6e1ca209c98c75eb84b61d272887ec9ba2dcc3aa0653da165e0"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1230,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/job.json",
+      "path": "model-evidence/job.json",
+      "sha256": "029cbfbf2d5ec854183271c94a52b77e3e615a4ab54673b51240b365599604da"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 3528,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/normal-bake-report.json",
+      "path": "model-evidence/normal-bake-report.json",
+      "sha256": "bc14669250b0abc70ea9aef07d7fc959cd211765aab36bc351bb945066c62a07"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 3275,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/prepared-job.json",
+      "path": "model-evidence/prepared-job.json",
+      "sha256": "ae363968fabae20dec3be6fb3a254714f40b98c794322b6f18c816c82ae0ed0c"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 62709,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/selected-triangles.npy",
+      "path": "model-evidence/selected-triangles.npy",
+      "sha256": "ebc58f9ce6779ab49c7a9152586d5ef822256db52678f354d35f0c05dbec3eb8"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 4487873,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/source-body.npz",
+      "path": "model-evidence/source-body.npz",
+      "sha256": "1970a593f24180921c3641d33fe319e12e2ea43946412c7b5c5ba67d9e1378e7"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 39202,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/sources/accepted-finish-design.json",
+      "path": "model-evidence/sources/accepted-finish-design.json",
+      "sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 16677,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/sources/blender_fur_undercoat.py",
+      "path": "model-evidence/sources/blender_fur_undercoat.py",
+      "sha256": "688f000018557ff18233edd1d514d8f268e46dbe14101daba8bb71ecc7f53d34"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 7179,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/sources/groom_flow.py",
+      "path": "model-evidence/sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 10142,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/sources/patch_uv1.py",
+      "path": "model-evidence/sources/patch_uv1.py",
+      "sha256": "eca5370e28e27f2e51503e092cef7fa5cc39e987502114f77ac586c5a2996754"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 8575,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/sources/previous_patch_reference.py",
+      "path": "model-evidence/sources/previous_patch_reference.py",
+      "sha256": "6dc002ee36d26707cfb75f9bd93f569c30d96da296e646c00eeb7cb1d47782ff"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 6787,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/sources/run_cpu_diagnostic.py",
+      "path": "model-evidence/sources/run_cpu_diagnostic.py",
+      "sha256": "68453fb9b7cd9a2f5cdecf0ff87244e069bec177f887151fb4073e749b51c6cc"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 14546,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/sources/undercoat_uv_atlas.py",
+      "path": "model-evidence/sources/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 2590107,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/textures/normal-region-00.png",
+      "path": "model-evidence/textures/normal-region-00.png",
+      "sha256": "7dc552e91456efa843110204724dea14af8cef51c51f3be01cc227f3c6f1f523"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 153465,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/textures/normal-region-02.png",
+      "path": "model-evidence/textures/normal-region-02.png",
+      "sha256": "0431fe0fe28dd4950b61883fc99f7b4acd74356f9ab48ed1dfd4ef78eaacff15"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 2993,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/uv-plan.json",
+      "path": "model-evidence/uv-plan.json",
+      "sha256": "0ac9d7bbb0f793b2aa5848f052921a22c2d920edcc9db961778e13c7db148f66"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 14844,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1/manifest.json",
+      "path": "model-evidence/parent-manifest.json",
+      "sha256": "0fb49e1f0f631ef872aa8155fc3db1e299ce76e675a737aa5c6f4723dc34a90a"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 499169,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/front.png",
+      "path": "reviewed-images/front.png",
+      "sha256": "ceb6e0cc0b8276e6bfa53e7d65048e6d518ff92eac4c8e050eb588291e819fff"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1724,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/job.json",
+      "path": "preview-evidence/job.json",
+      "sha256": "37d87dff8d6287f7ec9072c4cd41efeda6dba4214bb70e028cd31d0faf2c4694"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 146,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/motion-states.json",
+      "path": "preview-evidence/motion-states.json",
+      "sha256": "edbea41aff7ea24efd011c2725e14158c0394a9721e5fdb426eee9af4ca90335"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 11119,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/native-inspection.json",
+      "path": "preview-evidence/native-inspection.json",
+      "sha256": "fcbfe81cafcb658a49cd7aa7b96a6d3e8aedd049fa5479382f1ccd6ccf2c710b"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 2030,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/preflight.json",
+      "path": "preview-evidence/preflight.json",
+      "sha256": "114683754c7231263bfff465a29955efd58080a3cab1278004558806ff5a61d7"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 765,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/preview-handle.json",
+      "path": "preview-evidence/preview-handle.json",
+      "sha256": "2b022967d73396a34ceebfba51a533e14351adfeb84e420ebf2066f8a76256e0"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1574,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/preview-monitor.json",
+      "path": "preview-evidence/preview-monitor.json",
+      "sha256": "73c85b3a5583bd1eaa440f851593e49c8fd77d1c85990a67e6f0c0a22c1f1bb9"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 79646,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/preview.log",
+      "path": "preview-evidence/preview.log",
+      "sha256": "f92aa840583c745a3284f42da43555b24e90088d74490768564776f50b82f0a2"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 461743,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0003.png",
+      "path": "reviewed-images/dance_flight-1.36s.png",
+      "sha256": "3a28571086c64ef84a5375fb678b7fa7f882df61ba2bd2bfd22072bdc0043e91"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 455230,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/side.png",
+      "path": "reviewed-images/side.png",
+      "sha256": "5dd8eaba6f51e2f311d027a12b8ed48fd44b55b4c5fe19ecb7e166ef8de42b5f"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 12033,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/sources/blender_provider_preview.py",
+      "path": "preview-evidence/sources/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 18248,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/sources/blender_verify.py",
+      "path": "preview-evidence/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 18553,
+      "origin": "outputs/panda-portable-undercoat-uv1-preview-v1/manifest.json",
+      "path": "preview-evidence/parent-manifest.json",
+      "sha256": "4167dbafe78458621fb6de00d41c92a566aa0c47d8e61ce049f62e8bfeb45e59"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1598,
+      "origin": "outputs/panda-portable-undercoat-uv1-review-v1.json",
+      "path": "review/independent-review.json",
+      "sha256": "da243960c3520a3b498711131f932a211254e2e7896cab85d72db27cc1c30f9b"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 5972,
+      "origin": "outputs/panda-portable-undercoat-uv1-v1.context.json",
+      "path": "review/comparison-context.json",
+      "sha256": "b2773de34ebff2b1f3e7e1450b74dc1fd1b7b4e1d981ea445251ea048d168db0"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 5975,
+      "origin": "tests/test_undercoat_uv_atlas.py",
+      "path": "tests/test_undercoat_uv_atlas.py",
+      "sha256": "3b7e5a163a9894bae7562262b68a8d709060976b32dfefa90884fc1222c9fff7"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 6842,
+      "origin": "tests/test_fur_undercoat.py",
+      "path": "tests/test_fur_undercoat.py",
+      "sha256": "edd182848a80d2d97c0f49bec5f3071b691e8202f6f9eeea645a2aa5d5190815"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 27364,
+      "origin": "docs/tuft-profile.md",
+      "path": "docs/tuft-profile.md",
+      "sha256": "2a567a9c2d653b6af1ac5dd2335d2db7f90307487a19b0f7e1958489cc8d8ccb"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1975,
+      "origin": "outputs/panda-portable-tuft-review-v1.json",
+      "path": "history/panda-portable-tuft-review-v1.json",
+      "sha256": "e730cba8046f68fd4e749f29600d3f19f4501086f76dc1f384d2db48daa45ac3"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 2377,
+      "origin": "outputs/panda-undercoat-import-audit-v1.json",
+      "path": "history/panda-undercoat-import-audit-v1.json",
+      "sha256": "e91c787e9c370dcf08e06ae6aa844ebf814bb802eaec9b834edc190a5e731bb9"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 3745,
+      "origin": "outputs/panda-portable-undercoat-v1/manifest.json",
+      "path": "history/panda-portable-undercoat-v1/manifest.json",
+      "sha256": "da882bd3a530f28a905a487e96b3b0cdaca7d056ffb1308d0bbae8c743c9d9cb"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1515,
+      "origin": "outputs/panda-portable-undercoat-v1/job.json",
+      "path": "history/panda-portable-undercoat-v1/job.json",
+      "sha256": "0ae495e00131321fca925cc24aa2b256bee3bbd168213887cf0551c1c0426542"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1177,
+      "origin": "outputs/panda-portable-undercoat-v1/native.log",
+      "path": "history/panda-portable-undercoat-v1/native.log",
+      "sha256": "7ac2322fb47638408679c0c996daf9695b0270e3db61ca57f9f26990665ed986"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 3691,
+      "origin": "outputs/panda-portable-undercoat-v2/manifest.json",
+      "path": "history/panda-portable-undercoat-v2/manifest.json",
+      "sha256": "080f53b97ba1d9c82e1a62b377067d88d3a2fbed85794aab2ecedee3e0894df0"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 1516,
+      "origin": "outputs/panda-portable-undercoat-v2/job.json",
+      "path": "history/panda-portable-undercoat-v2/job.json",
+      "sha256": "c2bd0790be55390e28088d3a24cacd4e3ef9cc9734fb0bdcbcc39af36990d213"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 2147,
+      "origin": "outputs/panda-portable-undercoat-v2/native.log",
+      "path": "history/panda-portable-undercoat-v2/native.log",
+      "sha256": "cdcc4d66fcc38cd8015640b3e9193ee7354e36a7f66389d46ddccd324a536b7e"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 3309,
+      "origin": "outputs/panda-portable-undercoat-v2/import-correspondence.json",
+      "path": "history/panda-portable-undercoat-v2/import-correspondence.json",
+      "sha256": "1dcab6ef26af8cbc316f7c63f4501a0f4106125496beaa6dd9089f0470b03f1e"
+    },
+    {
+      "byte_preserving_copy": true,
+      "bytes": 2668,
+      "origin": "outputs/panda-undercoat-uv-audit-v1/report.json",
+      "path": "history/uv-overlap-attribution.json",
+      "sha256": "8c3f88b4c9ca7768c42494e955790e7a33e399ac41615a78714683467f3d1100"
+    }
+  ],
+  "schema_version": 1,
+  "source_model_manifest_sha256": "0fb49e1f0f631ef872aa8155fc3db1e299ce76e675a737aa5c6f4723dc34a90a",
+  "source_preview_manifest_sha256": "4167dbafe78458621fb6de00d41c92a566aa0c47d8e61ce049f62e8bfeb45e59",
+  "source_review_sha256": "da243960c3520a3b498711131f932a211254e2e7896cab85d72db27cc1c30f9b"
+}

@@ -1,0 +1,74 @@
+{
+  "authoring_rules": [
+    "Choose masks, bone locations and coat directions from actual source geometry and coordinate guides; no subject templates.",
+    "Use clean neutral geometry with space around moving parts; coarse carved fur and fused contacts are not solved by denser grooming.",
+    "Keep scale relief, metal highlights, glass and mechanical creases; do not add fibers or globally smooth every subject.",
+    "For fur/hair, preserve silhouette, patch colors and directional length changes; inspect native strands and exported cards independently.",
+    "Only diagnose-and-repair color, normals or geometry with their bounded controls; retained textures or high counts are not added detail.",
+    "A departing fused part needs a separately reviewed geometry derivative; hidden separation/cap repair is not automatic."
+  ],
+  "candidate_settings": {
+    "normal_strength": 0.6,
+    "pose_resolution": 720,
+    "resolution": 720,
+    "review_views": true,
+    "samples": 16
+  },
+  "fur_requested": false,
+  "inspection": {
+    "bounds_blender_z_up": {
+      "max": [
+        0.3701401948928833,
+        0.22820013761520386,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.3701401352882385,
+        -0.22820012271404266,
+        -1.0171509501333276e-07
+      ]
+    },
+    "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+    "status": "observed"
+  },
+  "limitations": [
+    "Necessary finishing/evidence coverage, not a visual quality guarantee or human approval.",
+    "Long hair, cloth dynamics, arbitrary prop interaction and facial performance remain unsupported by this backend.",
+    "No new provider call, paid retry, native size limit or repair allowance is authorized by this policy."
+  ],
+  "mixed_coat": false,
+  "mode": "high_quality",
+  "required_features": [],
+  "review": {
+    "full_motion_audit_required": true,
+    "minimum_side": 720,
+    "portrait_minimum_side": 720,
+    "representations": [
+      "native",
+      "exported"
+    ],
+    "state_ids": [
+      "greeting"
+    ],
+    "state_pose_minimum_side": 720,
+    "views": [
+      "front",
+      "side",
+      "back",
+      "three_quarter"
+    ]
+  },
+  "schema_version": 1,
+  "surface_intent": [
+    {
+      "finish": "Polished blue-and-cream hard-surface panels with intentional highlights and readable seams.",
+      "material": "metal",
+      "region": "Main body, arms and feet"
+    },
+    {
+      "finish": "Visible copper coloration with warm metallic highlights; preserve existing placement and small details.",
+      "material": "metal",
+      "region": "Copper accents and mechanical trim"
+    }
+  ]
+}

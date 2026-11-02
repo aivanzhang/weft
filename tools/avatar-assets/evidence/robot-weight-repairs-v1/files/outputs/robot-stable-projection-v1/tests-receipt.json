@@ -1,0 +1,9 @@
+{
+  "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest discover -s tests -p test_stable_role_projection.py -v",
+  "elapsed_seconds": 0.016,
+  "helper_sha256": "3977fdca42d7bcee4db66866f5209f347eeb41149478733ebf05672219f3ae82",
+  "scope": "Analytic pure helper tests only; no render or generated-asset quality approval. Observed test output recorded from the completed focused invocation.",
+  "status": "passed",
+  "test_file_sha256": "ec4188f3cc47c6f90c3a715a12d17d0b68128787b0f77fe25ab64c4f687359f9",
+  "tests": 13
+}

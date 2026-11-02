@@ -1,0 +1,2484 @@
+{
+  "blender_version": "4.5.13 LTS",
+  "bone_names": [
+    "Head",
+    "Hips",
+    "LeftArm",
+    "LeftFoot",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftLeg",
+    "LeftShoulder",
+    "LeftToeBase",
+    "LeftUpLeg",
+    "RightArm",
+    "RightFoot",
+    "RightForeArm",
+    "RightHand",
+    "RightLeg",
+    "RightShoulder",
+    "RightToeBase",
+    "RightUpLeg",
+    "Spine",
+    "Spine01",
+    "Spine02",
+    "head_end",
+    "headfront",
+    "neck"
+  ],
+  "coordinate_space": "Actual imported mesh world coordinates, Blender XYZ +Z up, meters",
+  "edges": 93680,
+  "edges_sha256": "5cfca559e67a8531672b321ae10ca39684af2dc9ad12b3a465a35a3c5a856ad6",
+  "elapsed_seconds": 15.5891879578121,
+  "hash_encodings": {
+    "rest": "little-endian float64 XYZ world meters",
+    "topology": "little-endian int32"
+  },
+  "index_space": "Native imported mesh vertex/edge indices; not exported indices or recovered anatomy",
+  "limitations": [
+    "Every eligible edge is checked only at the eight listed authored-key times, not all time.",
+    "No severe sampled spike is not a silhouette, joint, identity or visual-quality approval.",
+    "Multi-bone protected subsets are not independently certified co-rigid.",
+    "No collision, ground-contact, physics, Weft or seamless-loop claim."
+  ],
+  "limits": {
+    "action_samples": 8,
+    "cpu_threads": 4,
+    "edges": 300000,
+    "output_mib": 256,
+    "rss_mib": 2048,
+    "triangles": 100000,
+    "vertices": 100000,
+    "wall_seconds": 600
+  },
+  "loop_indices_sha256": "880de7cd821e939192c968e861524ebe9811047a39836fd01ed1e7dd7bbfa4bd",
+  "measured_rest_bounds": {
+    "height_basis": "z_span",
+    "height_m": 1.2000001878606323,
+    "max": [
+      0.3701402962921492,
+      0.2282002016559197,
+      1.200000125765797
+    ],
+    "min": [
+      -0.370140334439121,
+      -0.2282001253619761,
+      -6.209483533344364e-08
+    ]
+  },
+  "measurement_import": "Independent fresh import of the identical pinned GLB after unmodified preview rendering",
+  "motion_states_sha256": "d94bd470086900e1d3de4ac708de8e05f8087458561b05d76da31bf5cef60fb7",
+  "native_mesh": {
+    "armature": "Armature",
+    "materials": [
+      "Material_0"
+    ],
+    "name": "char1",
+    "polygons": 51320,
+    "unweighted_vertices": 0,
+    "vertices": 45386,
+    "weighted_vertices": 45386
+  },
+  "original_design_sha256": "081e5c043d6ebbc9367a118d16c5e5055ad0c66c55c6bed8fcacbe27511d7564",
+  "passed": false,
+  "physics_verified": false,
+  "polygon_loop_starts_sha256": "1be3c7d62e4ebcf7dc6050ba0900b6ca9ddea678062de8990ec065d290651529",
+  "rest_pose": "Actual imported armature set to REST; NLA/actions disabled before evaluated baseline",
+  "rest_sha256": "6e9f272af16caebe3b6849f660e0d17a7a94b815e48fdfab2abbc27c13ffe6cc",
+  "schema_version": 1,
+  "source_deformation_report_reused": false,
+  "source_sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b",
+  "states": [
+    {
+      "action_owners": [
+        {
+          "name": "Armature",
+          "slot": "OBArmature"
+        }
+      ],
+      "id": "greeting",
+      "passed": false,
+      "samples": [
+        {
+          "deformation_outliers": [],
+          "eligible_edges": 93680,
+          "frame": 0,
+          "ignored_tiny_rest_edges": 0,
+          "maximum_eligible_excess_m": 1.9660886953383472e-07,
+          "passed_no_sampled_severe_spike": true,
+          "pose_sha256": "6611562cd0d60299946b821321995444d3a1da7094a0846ebd54127e8990434b",
+          "render": "renders/greeting/0000.png",
+          "render_sha256": "09c9cfe96d5f93ca70e899c6fa78f03b6d663b6a5ce50ce52343d9b889ef78f4",
+          "second": 0,
+          "severe_edge_count": 0,
+          "severe_edges": [],
+          "unchanged_topology": true
+        },
+        {
+          "deformation_outliers": [
+            {
+              "endpoint_indices": [
+                33611,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8419618606567383
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1580381542444229
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.042557319097079035,
+              "posed_length": 0.05344172172040108,
+              "rest_length": 0.010884402623322045,
+              "rest_normalized_bounds": [
+                [
+                  0.25549542299080186,
+                  0.49786070889715833,
+                  0.47807292738883217
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.909936132451709
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.04217783657999743,
+              "posed_length": 0.0530879813852891,
+              "rest_length": 0.010910144805291672,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 4.86592821018656
+            },
+            {
+              "endpoint_indices": [
+                33625,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8193682432174683
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1762910932302475
+                  },
+                  {
+                    "bone": "RightHand",
+                    "weight": 0.00434069661423564
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.04183576565641224,
+              "posed_length": 0.05206978293747544,
+              "rest_length": 0.0102340172810632,
+              "rest_normalized_bounds": [
+                [
+                  0.2598181810967559,
+                  0.4739450346118327,
+                  0.48013343574822986
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 5.0879123522513705
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.04004354323820456,
+              "posed_length": 0.05042513641842153,
+              "rest_length": 0.010381593180216966,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.857167444637596
+            }
+          ],
+          "eligible_edges": 93680,
+          "frame": 14.399999999999999,
+          "ignored_tiny_rest_edges": 0,
+          "maximum_eligible_excess_m": 0.042557319097079035,
+          "passed_no_sampled_severe_spike": false,
+          "pose_sha256": "272830045aab71646c5b91eb69f3fe81e5daa44c915be3da20b1fee70de9fee7",
+          "render": "renders/greeting/0001.png",
+          "render_sha256": "16a16777ddde3be3c2bed4eebb16b5e7721b9c7fddb4dc837d15f6590c7140e3",
+          "second": 0.6,
+          "severe_edge_count": 3,
+          "severe_edges": [
+            {
+              "edge_index": 51968,
+              "endpoint_indices": [
+                33638,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039369375314101986,
+              "posed_length": 0.0443048966925856,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.976740914492355
+            },
+            {
+              "edge_index": 75458,
+              "endpoint_indices": [
+                33639,
+                33644
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039369375314101986,
+              "posed_length": 0.0443048966925856,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.976740914492355
+            },
+            {
+              "edge_index": 51999,
+              "endpoint_indices": [
+                33646,
+                33659
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7512884736061096
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.2487115114927292
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5893557071685791
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.18099883198738098
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.14427390694618225
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.08537162840366364
+                  }
+                ]
+              ],
+              "excess_length": 0.03615318444446443,
+              "posed_length": 0.038445947966610224,
+              "rest_length": 0.0022927635221457925,
+              "rest_normalized_bounds": [
+                [
+                  0.2615893073966301,
+                  0.5009448652330313,
+                  0.487716702875046
+                ],
+                [
+                  0.2623920998094766,
+                  0.49610642511946623,
+                  0.4878540001629018
+                ]
+              ],
+              "stretch_ratio": 16.768387840813492
+            }
+          ],
+          "unchanged_topology": true
+        },
+        {
+          "deformation_outliers": [
+            {
+              "endpoint_indices": [
+                33611,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8419618606567383
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1580381542444229
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.04261548070977125,
+              "posed_length": 0.053499883333093294,
+              "rest_length": 0.010884402623322045,
+              "rest_normalized_bounds": [
+                [
+                  0.25549542299080186,
+                  0.49786070889715833,
+                  0.47807292738883217
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.91527970661972
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.042236900756141046,
+              "posed_length": 0.05314704556143272,
+              "rest_length": 0.010910144805291672,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 4.871341903331583
+            },
+            {
+              "endpoint_indices": [
+                33625,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8193682432174683
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1762910932302475
+                  },
+                  {
+                    "bone": "RightHand",
+                    "weight": 0.00434069661423564
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.04204626179478897,
+              "posed_length": 0.05228027907585217,
+              "rest_length": 0.0102340172810632,
+              "rest_normalized_bounds": [
+                [
+                  0.2598181810967559,
+                  0.4739450346118327,
+                  0.48013343574822986
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 5.108480632780487
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.040101042894112926,
+              "posed_length": 0.050482636074329894,
+              "rest_length": 0.010381593180216966,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.8627060604271195
+            }
+          ],
+          "eligible_edges": 93680,
+          "frame": 26.400000000000002,
+          "ignored_tiny_rest_edges": 0,
+          "maximum_eligible_excess_m": 0.04261548070977125,
+          "passed_no_sampled_severe_spike": false,
+          "pose_sha256": "61fb93d3f8888f044e3feb66ccf5b5ef536d571897a7a36550b24dcc3a0c1889",
+          "render": "renders/greeting/0002.png",
+          "render_sha256": "179007ee170b4c383ca618c1080058ca2e6ad9d6f89b5817276f1f26d401fc39",
+          "second": 1.1,
+          "severe_edge_count": 3,
+          "severe_edges": [
+            {
+              "edge_index": 51968,
+              "endpoint_indices": [
+                33638,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039420482617164916,
+              "posed_length": 0.044356003995648534,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.987095910275725
+            },
+            {
+              "edge_index": 75458,
+              "endpoint_indices": [
+                33639,
+                33644
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039420482617164916,
+              "posed_length": 0.044356003995648534,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.987095910275725
+            },
+            {
+              "edge_index": 51999,
+              "endpoint_indices": [
+                33646,
+                33659
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7512884736061096
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.2487115114927292
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5893557071685791
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.18099883198738098
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.14427390694618225
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.08537162840366364
+                  }
+                ]
+              ],
+              "excess_length": 0.03619915726824134,
+              "posed_length": 0.03849192079038714,
+              "rest_length": 0.0022927635221457925,
+              "rest_normalized_bounds": [
+                [
+                  0.2615893073966301,
+                  0.5009448652330313,
+                  0.487716702875046
+                ],
+                [
+                  0.2623920998094766,
+                  0.49610642511946623,
+                  0.4878540001629018
+                ]
+              ],
+              "stretch_ratio": 16.788439112273835
+            }
+          ],
+          "unchanged_topology": true
+        },
+        {
+          "deformation_outliers": [
+            {
+              "endpoint_indices": [
+                33611,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8419618606567383
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1580381542444229
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.04261548070977125,
+              "posed_length": 0.053499883333093294,
+              "rest_length": 0.010884402623322045,
+              "rest_normalized_bounds": [
+                [
+                  0.25549542299080186,
+                  0.49786070889715833,
+                  0.47807292738883217
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.91527970661972
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.042236900756141046,
+              "posed_length": 0.05314704556143272,
+              "rest_length": 0.010910144805291672,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 4.871341903331583
+            },
+            {
+              "endpoint_indices": [
+                33625,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8193682432174683
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1762910932302475
+                  },
+                  {
+                    "bone": "RightHand",
+                    "weight": 0.00434069661423564
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.04189430591316823,
+              "posed_length": 0.05212832319423143,
+              "rest_length": 0.0102340172810632,
+              "rest_normalized_bounds": [
+                [
+                  0.2598181810967559,
+                  0.4739450346118327,
+                  0.48013343574822986
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 5.0936325162053935
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.040101042894112926,
+              "posed_length": 0.050482636074329894,
+              "rest_length": 0.010381593180216966,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.8627060604271195
+            }
+          ],
+          "eligible_edges": 93680,
+          "frame": 39.599999999999994,
+          "ignored_tiny_rest_edges": 0,
+          "maximum_eligible_excess_m": 0.04261548070977125,
+          "passed_no_sampled_severe_spike": false,
+          "pose_sha256": "d80e8cde25d85805f5110fe5549493703e1717c202e2038c0c8a1711e71a0a24",
+          "render": "renders/greeting/0003.png",
+          "render_sha256": "269685f6739dc295f62ad02adbcce44cd8c3786ef68a763b3139f8c47820a855",
+          "second": 1.65,
+          "severe_edge_count": 3,
+          "severe_edges": [
+            {
+              "edge_index": 51968,
+              "endpoint_indices": [
+                33638,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039420482617164916,
+              "posed_length": 0.044356003995648534,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.987095910275725
+            },
+            {
+              "edge_index": 75458,
+              "endpoint_indices": [
+                33639,
+                33644
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039420482617164916,
+              "posed_length": 0.044356003995648534,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.987095910275725
+            },
+            {
+              "edge_index": 51999,
+              "endpoint_indices": [
+                33646,
+                33659
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7512884736061096
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.2487115114927292
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5893557071685791
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.18099883198738098
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.14427390694618225
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.08537162840366364
+                  }
+                ]
+              ],
+              "excess_length": 0.03619915726824134,
+              "posed_length": 0.03849192079038714,
+              "rest_length": 0.0022927635221457925,
+              "rest_normalized_bounds": [
+                [
+                  0.2615893073966301,
+                  0.5009448652330313,
+                  0.487716702875046
+                ],
+                [
+                  0.2623920998094766,
+                  0.49610642511946623,
+                  0.4878540001629018
+                ]
+              ],
+              "stretch_ratio": 16.788439112273835
+            }
+          ],
+          "unchanged_topology": true
+        },
+        {
+          "deformation_outliers": [
+            {
+              "endpoint_indices": [
+                33611,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8419618606567383
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1580381542444229
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.04261548070977125,
+              "posed_length": 0.053499883333093294,
+              "rest_length": 0.010884402623322045,
+              "rest_normalized_bounds": [
+                [
+                  0.25549542299080186,
+                  0.49786070889715833,
+                  0.47807292738883217
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.91527970661972
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.042236900756141046,
+              "posed_length": 0.05314704556143272,
+              "rest_length": 0.010910144805291672,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 4.871341903331583
+            },
+            {
+              "endpoint_indices": [
+                33625,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8193682432174683
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1762910932302475
+                  },
+                  {
+                    "bone": "RightHand",
+                    "weight": 0.00434069661423564
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.04204677020719176,
+              "posed_length": 0.05228078748825496,
+              "rest_length": 0.0102340172810632,
+              "rest_normalized_bounds": [
+                [
+                  0.2598181810967559,
+                  0.4739450346118327,
+                  0.48013343574822986
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 5.108530311453956
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.040101042894112926,
+              "posed_length": 0.050482636074329894,
+              "rest_length": 0.010381593180216966,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.8627060604271195
+            }
+          ],
+          "eligible_edges": 93680,
+          "frame": 52.800000000000004,
+          "ignored_tiny_rest_edges": 0,
+          "maximum_eligible_excess_m": 0.04261548070977125,
+          "passed_no_sampled_severe_spike": false,
+          "pose_sha256": "e25905ed2088c093ffc04ac66e537022d9b2a60f2e6cc7130a19b8588c49746f",
+          "render": "renders/greeting/0004.png",
+          "render_sha256": "ccb62eca0d9183cff47f85cb2cf2fd7ba11679e9c797e2e7bfb905de1b6a244b",
+          "second": 2.2,
+          "severe_edge_count": 3,
+          "severe_edges": [
+            {
+              "edge_index": 51968,
+              "endpoint_indices": [
+                33638,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039420482617164916,
+              "posed_length": 0.044356003995648534,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.987095910275725
+            },
+            {
+              "edge_index": 75458,
+              "endpoint_indices": [
+                33639,
+                33644
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039420482617164916,
+              "posed_length": 0.044356003995648534,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.987095910275725
+            },
+            {
+              "edge_index": 51999,
+              "endpoint_indices": [
+                33646,
+                33659
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7512884736061096
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.2487115114927292
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5893557071685791
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.18099883198738098
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.14427390694618225
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.08537162840366364
+                  }
+                ]
+              ],
+              "excess_length": 0.03619915726824134,
+              "posed_length": 0.03849192079038714,
+              "rest_length": 0.0022927635221457925,
+              "rest_normalized_bounds": [
+                [
+                  0.2615893073966301,
+                  0.5009448652330313,
+                  0.487716702875046
+                ],
+                [
+                  0.2623920998094766,
+                  0.49610642511946623,
+                  0.4878540001629018
+                ]
+              ],
+              "stretch_ratio": 16.788439112273835
+            }
+          ],
+          "unchanged_topology": true
+        },
+        {
+          "deformation_outliers": [
+            {
+              "endpoint_indices": [
+                33611,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8419618606567383
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1580381542444229
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.04261548070977125,
+              "posed_length": 0.053499883333093294,
+              "rest_length": 0.010884402623322045,
+              "rest_normalized_bounds": [
+                [
+                  0.25549542299080186,
+                  0.49786070889715833,
+                  0.47807292738883217
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.91527970661972
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.042236900756141046,
+              "posed_length": 0.05314704556143272,
+              "rest_length": 0.010910144805291672,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 4.871341903331583
+            },
+            {
+              "endpoint_indices": [
+                33625,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8193682432174683
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1762910932302475
+                  },
+                  {
+                    "bone": "RightHand",
+                    "weight": 0.00434069661423564
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.04189440733365407,
+              "posed_length": 0.05212842461471727,
+              "rest_length": 0.0102340172810632,
+              "rest_normalized_bounds": [
+                [
+                  0.2598181810967559,
+                  0.4739450346118327,
+                  0.48013343574822986
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 5.093642426339709
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.040101042894112926,
+              "posed_length": 0.050482636074329894,
+              "rest_length": 0.010381593180216966,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.8627060604271195
+            }
+          ],
+          "eligible_edges": 93680,
+          "frame": 66.0,
+          "ignored_tiny_rest_edges": 0,
+          "maximum_eligible_excess_m": 0.04261548070977125,
+          "passed_no_sampled_severe_spike": false,
+          "pose_sha256": "e555fba1a053ea6e370c3c390d66753f175e53c2d74b40b506c230f76fb5abd7",
+          "render": "renders/greeting/0005.png",
+          "render_sha256": "346aa01c6e90e13437c3a2752fc3350bd8fa1bcb1cc2d60189b7dcf65d8c56de",
+          "second": 2.75,
+          "severe_edge_count": 3,
+          "severe_edges": [
+            {
+              "edge_index": 51968,
+              "endpoint_indices": [
+                33638,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039420482617164916,
+              "posed_length": 0.044356003995648534,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.987095910275725
+            },
+            {
+              "edge_index": 75458,
+              "endpoint_indices": [
+                33639,
+                33644
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039420482617164916,
+              "posed_length": 0.044356003995648534,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.987095910275725
+            },
+            {
+              "edge_index": 51999,
+              "endpoint_indices": [
+                33646,
+                33659
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7512884736061096
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.2487115114927292
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5893557071685791
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.18099883198738098
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.14427390694618225
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.08537162840366364
+                  }
+                ]
+              ],
+              "excess_length": 0.03619915726824134,
+              "posed_length": 0.03849192079038714,
+              "rest_length": 0.0022927635221457925,
+              "rest_normalized_bounds": [
+                [
+                  0.2615893073966301,
+                  0.5009448652330313,
+                  0.487716702875046
+                ],
+                [
+                  0.2623920998094766,
+                  0.49610642511946623,
+                  0.4878540001629018
+                ]
+              ],
+              "stretch_ratio": 16.788439112273835
+            }
+          ],
+          "unchanged_topology": true
+        },
+        {
+          "deformation_outliers": [
+            {
+              "endpoint_indices": [
+                33611,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8419618606567383
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1580381542444229
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.042557344068228184,
+              "posed_length": 0.05344174669155023,
+              "rest_length": 0.010884402623322045,
+              "rest_normalized_bounds": [
+                [
+                  0.25549542299080186,
+                  0.49786070889715833,
+                  0.47807292738883217
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.909938426665734
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.04217786231761639,
+              "posed_length": 0.05308800712290806,
+              "rest_length": 0.010910144805291672,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 4.865930569240397
+            },
+            {
+              "endpoint_indices": [
+                33625,
+                33665
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8193682432174683
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1762910932302475
+                  },
+                  {
+                    "bone": "RightHand",
+                    "weight": 0.00434069661423564
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5584257245063782
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.1871187835931778
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15467944741249084
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.09977603703737259
+                  }
+                ]
+              ],
+              "excess_length": 0.04198795519035587,
+              "posed_length": 0.05222197247141907,
+              "rest_length": 0.0102340172810632,
+              "rest_normalized_bounds": [
+                [
+                  0.2598181810967559,
+                  0.4739450346118327,
+                  0.48013343574822986
+                ],
+                [
+                  0.2653146475785624,
+                  0.48009813482211733,
+                  0.4876006089423649
+                ]
+              ],
+              "stretch_ratio": 5.1027832997750995
+            },
+            {
+              "endpoint_indices": [
+                33632,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.8266340494155884
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.17336595058441162
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.04004356816043105,
+              "posed_length": 0.05042516134064802,
+              "rest_length": 0.010381593180216966,
+              "rest_normalized_bounds": [
+                [
+                  0.25896339449015104,
+                  0.4818883545648996,
+                  0.4794246969122156
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 4.857169845254346
+            }
+          ],
+          "eligible_edges": 93680,
+          "frame": 81.6,
+          "ignored_tiny_rest_edges": 0,
+          "maximum_eligible_excess_m": 0.042557344068228184,
+          "passed_no_sampled_severe_spike": false,
+          "pose_sha256": "46e77b3b77c469ebc8ed491405840685f8eaa5278a2dcb6061e7ea7f288ed48b",
+          "render": "renders/greeting/0006.png",
+          "render_sha256": "633f29ca0eba8d82c2e83f12bce8fb476fd2c0ed6b12f3b1ffa002947ebbc86a",
+          "second": 3.4,
+          "severe_edge_count": 3,
+          "severe_edges": [
+            {
+              "edge_index": 51968,
+              "endpoint_indices": [
+                33638,
+                33643
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039369375314101986,
+              "posed_length": 0.0443048966925856,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.976740914492355
+            },
+            {
+              "edge_index": 75458,
+              "endpoint_indices": [
+                33639,
+                33644
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7717387676239014
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.22826120257377625
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5846418142318726
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.16494469344615936
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.15118436515331268
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.0992291122674942
+                  }
+                ]
+              ],
+              "excess_length": 0.039369375314101986,
+              "posed_length": 0.0443048966925856,
+              "rest_length": 0.004935521378483619,
+              "rest_normalized_bounds": [
+                [
+                  0.2605588535883182,
+                  0.5056215535898958,
+                  0.4851613647905351
+                ],
+                [
+                  0.2629401773563689,
+                  0.4956847901533576,
+                  0.4858506804631134
+                ]
+              ],
+              "stretch_ratio": 8.976740914492355
+            },
+            {
+              "edge_index": 51999,
+              "endpoint_indices": [
+                33646,
+                33659
+              ],
+              "endpoint_influences": [
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.7512884736061096
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.2487115114927292
+                  }
+                ],
+                [
+                  {
+                    "bone": "RightForeArm",
+                    "weight": 0.5893557071685791
+                  },
+                  {
+                    "bone": "RightArm",
+                    "weight": 0.18099883198738098
+                  },
+                  {
+                    "bone": "RightUpLeg",
+                    "weight": 0.14427390694618225
+                  },
+                  {
+                    "bone": "Hips",
+                    "weight": 0.08537162840366364
+                  }
+                ]
+              ],
+              "excess_length": 0.03615320610498562,
+              "posed_length": 0.03844596962713141,
+              "rest_length": 0.0022927635221457925,
+              "rest_normalized_bounds": [
+                [
+                  0.2615893073966301,
+                  0.5009448652330313,
+                  0.487716702875046
+                ],
+                [
+                  0.2623920998094766,
+                  0.49610642511946623,
+                  0.4878540001629018
+                ]
+              ],
+              "stretch_ratio": 16.768397288155523
+            }
+          ],
+          "unchanged_topology": true
+        },
+        {
+          "deformation_outliers": [],
+          "eligible_edges": 93680,
+          "frame": 96,
+          "ignored_tiny_rest_edges": 0,
+          "maximum_eligible_excess_m": 1.9660886953383472e-07,
+          "passed_no_sampled_severe_spike": true,
+          "pose_sha256": "6611562cd0d60299946b821321995444d3a1da7094a0846ebd54127e8990434b",
+          "render": "renders/greeting/0007.png",
+          "render_sha256": "615340a409323c675b6e23186d1e79b9c35fb28e7eca84eb9e5c561464a27f3c",
+          "second": 4,
+          "severe_edge_count": 0,
+          "severe_edges": [],
+          "unchanged_topology": true
+        }
+      ],
+      "seconds": [
+        0,
+        0.6,
+        1.1,
+        1.65,
+        2.2,
+        2.75,
+        3.4,
+        4
+      ]
+    }
+  ],
+  "status": "sampled_severe_spike_present",
+  "thresholds": {
+    "actual_excess_limit_m": 0.03600000563581897,
+    "excess_height_ratio_strictly_greater_than": 0.03,
+    "ratio_strictly_greater_than": 8.0,
+    "tiny_rest_edge_exclusion_m": 1.2000001878606324e-06
+  },
+  "triangles": 51320,
+  "vertices": 45386,
+  "visual_quality_approved": false,
+  "wrapper_sha256": "9edd32aa84826fa907b836f70794c4b891771701b67391bb213b5c16009ccdab"
+}

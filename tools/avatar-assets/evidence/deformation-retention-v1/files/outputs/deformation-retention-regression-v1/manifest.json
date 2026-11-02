@@ -1,0 +1,153 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "0de674f51677e2ff3c19c468d538e3363a59131459716f3942141470a33ada0e"
+    },
+    {
+      "bytes": 2793,
+      "path": "execute_prepared.py",
+      "sha256": "885464c27819106b40b5f4469a5096184d366beea2af9a016d71e9f77d3a6646"
+    },
+    {
+      "bytes": 468,
+      "path": "execution-started.json",
+      "sha256": "3d83a2908903abddf9639f30d0b4bea5de7f649b4d9b9b1e2c99f3187f2b62bd"
+    },
+    {
+      "bytes": 24462804,
+      "path": "inputs/model.glb",
+      "sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b"
+    },
+    {
+      "bytes": 4108,
+      "path": "inputs/original-finish.json",
+      "sha256": "081e5c043d6ebbc9367a118d16c5e5055ad0c66c55c6bed8fcacbe27511d7564"
+    },
+    {
+      "bytes": 77779,
+      "path": "inputs/original-native-deformation.json",
+      "sha256": "997cadbcc486e130de09386e8eb057d9e20c45a832b6d0a15865f283acc3afc2"
+    },
+    {
+      "bytes": 394,
+      "path": "native-job-handle.json",
+      "sha256": "c44f419002766b83aa6298379abe490cae6f3902cef76b6942943cfe2c65d547"
+    },
+    {
+      "bytes": 1200,
+      "path": "native-job-monitor.json",
+      "sha256": "2347ae7d090688364a0448d6889ff5b5f6a1aa601b036084c35a9845a0180e92"
+    },
+    {
+      "bytes": 1322,
+      "path": "native-job.json",
+      "sha256": "cc8333d9d6d8ed25c90f87678b59c4ed85369919ccc11a87792e81e16e3e8f48"
+    },
+    {
+      "bytes": 1042,
+      "path": "native-job.log",
+      "sha256": "0f13b780569aa9f369c6b9b843afff57825f4298134dc638b498b7dde8ab87c9"
+    },
+    {
+      "bytes": 35564,
+      "path": "native-replay.json",
+      "sha256": "ddc2c573c718c86814fcd3419e85955f3012a3042550dee5ec2ce4bb65c189e6"
+    },
+    {
+      "bytes": 7534,
+      "path": "native_replay.py",
+      "sha256": "23be58c043d2bfacc40067c710f375ed00a645ff2071aba748019c84e59fe362"
+    },
+    {
+      "bytes": 588,
+      "path": "prepare-receipt.json",
+      "sha256": "0c092cf8ae7f7756490e8dcb63685d52ee0ed8e1a6c73aca084de4444793922c"
+    },
+    {
+      "bytes": 4839,
+      "path": "prepared.json",
+      "sha256": "5e981f1ee7e3bb460b1908cb56768bb272d5cb374b576af987dde4c80973b4c5"
+    },
+    {
+      "bytes": 8281,
+      "path": "read-only-retention-replay.json",
+      "sha256": "54a8b4ab0087b3ee9a669c0779d565f583c10a68ba5a5a23cd6469afdf12b0f3"
+    },
+    {
+      "bytes": 367,
+      "path": "result.json",
+      "sha256": "9ed5af6b0dcc7a7f7c54dfd35d9508daacdc434cfceb677d0baf20d01350ba72"
+    },
+    {
+      "bytes": 47327,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "04c45685c4b95fb7395e87e95ba68073178990719be0cb0cb3a3eeb5ee3d71ec"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 37930,
+      "path": "sources/native/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "2ee2c7733ec210427688963eb0083605a69d403441283f66affd999362338a70"
+    },
+    {
+      "bytes": 4184,
+      "path": "sources/native/__pycache__/capture.cpython-311.pyc",
+      "sha256": "0b32734cdf2cb9811b37271ff77b073eed869fa7ecff79da7d4a6ed6f7ad8079"
+    },
+    {
+      "bytes": 12253,
+      "path": "sources/native/__pycache__/deformation_diagnostics.cpython-311.pyc",
+      "sha256": "350c5040f3b116a8d587b229fd5d44b20dad42a71a550f9ae62e2b47523e1aee"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/native/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 1786,
+      "path": "sources/native/capture.py",
+      "sha256": "90f0726d7614eafcceb7467dd9045a847f4bfb69df71dd25745597894afa8631"
+    },
+    {
+      "bytes": 6870,
+      "path": "sources/native/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7"
+    },
+    {
+      "bytes": 8028,
+      "path": "sources/tests/test_deformation_diagnostics.py",
+      "sha256": "709c4d846731b7774fb8356573ba287e0fc37b3c8156dac11d34c937a338c6c3"
+    },
+    {
+      "bytes": 1068,
+      "path": "tests-receipt.json",
+      "sha256": "e52193154f7c787b93114c2a7a5de6750d82514f4e04c46a17733f5455f2948e"
+    }
+  ],
+  "elapsed_seconds": 1.918224458117038,
+  "job": "native-job.json",
+  "model_quality_approved": false,
+  "new_paid_calls": 0,
+  "new_renders": 0,
+  "passed_retention_regression": true,
+  "schema_version": 1,
+  "source_sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b",
+  "status": "native_numeric_regression_passed_asset_still_rejected"
+}

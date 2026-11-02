@@ -1,0 +1,31 @@
+{
+  "artifacts": [
+    {
+      "bytes": 632,
+      "path": "outputs/studio-rigged-robot-preparation-v1/request.json",
+      "sha256": "85f3eae6185a858a4608cf2547fe0f047db820bf6a19eeebca942bd91d2c67cd"
+    },
+    {
+      "bytes": 5583,
+      "path": "outputs/studio-rigged-robot-preparation-v1/estimate.json",
+      "sha256": "0ffd51e5abe16a14808a3f5950a52c119270c679b18035f647803a1c22044fc0"
+    },
+    {
+      "bytes": 8930,
+      "path": "outputs/studio-rigged-robot-preparation-v1/route-assessment.json",
+      "sha256": "4be2cf655b782d0524669016f0967e4e9a6cb33d9c635a8a7dc1554ede754996"
+    }
+  ],
+  "changed_request_field": "reuse_model",
+  "created_local": "2026-11-01T15:04:31.701372-08:00",
+  "preparation_scope": "Standalone JSON evidence only; no canonical job or pipeline source snapshot created.",
+  "request_fields_unchanged": [
+    "prompt",
+    "style",
+    "custom_actions",
+    "preset"
+  ],
+  "schema_version": 1,
+  "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+  "status": "prepared_no_calls"
+}

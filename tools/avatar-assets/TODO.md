@@ -4,12 +4,12 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 14:56 PST, after robot-v3's terminal unsupported receipt. Current follow-up is below; earlier sections are historical checkpoints.
+- Recorded: 2026-11-01 15:58 PST. The rejected rigid-part correction and verified severe-witness fix are saved as separate evidence. All native jobs ended; publication of this checkpoint is the final local action. Current follow-up is below; earlier sections are historical checkpoints.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
 - Current Meshy work: **16 completed submissions / 202 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used 0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
-- Resume guard: preserve original ZIP and every prior output. Job `8a7e0d76b8b8427f93f52157` is **failed/released**; new job `c9ac0f48bd8044458a8390d4` is **unsupported**, with verifier **12931 ended**, no active lease and no queued work. Do not send another Start, restart old jobs, directly edit SQLite or reset costs. Root/contracts own read-only failure diagnosis; the separately prepared UV1-undercoat diagnostic is agent-runner-owned. Source changes/new jobs require coordination, not automatic replay.
+- Resume guard: preserve original ZIP and every prior output. Job `8a7e0d76b8b8427f93f52157` is **failed/released**; jobs `c9ac0f48bd8044458a8390d4` and `b184afa00c2f4c2d853de705` are **unsupported**, with verifiers **12931 and 88829 ended**. Their terminal receipt shows no active lease/queued work, and the owned browser/server exited. Do not send another Start, restart old jobs, directly edit SQLite or reset costs. `outputs/rigged-robot-weight-repair-probe-v1` is sealed/rejected; AI **35178** and native **69825** ended. All 13 study calls are consumed. The pure hard-surface correction is rejected after native **50143** ended. The severe-witness retention fix passes 646 software tests and actual numeric-only replay **6026**, also ended. No native or Studio job is active; do not restart terminal jobs.
 
 ## Active: hands-off quality and local creation studio — incomplete
 
@@ -87,8 +87,24 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   `2abddef62981a62ce97d2f658a38657cbae2ca6fd7acdc178108e6f788a8fc32`.
   Source/artifact hashes match. This is camera-fit evidence, not an avatar,
   animation or quality pass; do not rerender it unchanged.
-- [x] The frozen integrated Python suite passes **619 tests in 14.771 s**:
-  `outputs/studio-integration-v1/full-tests-v4.txt`, SHA
+- [x] The final integrated Python suite passes **646 tests in 15.331 s**:
+  `outputs/studio-integration-v1/full-tests-v7.txt`, SHA
+  `10833e7bf7cfd4764e3f4159b42bbbf900b8965f0634c88e829de988da251bea`.
+  Its prelaunch source inventory binds 140 files, all unchanged after the run.
+  This includes the severe-witness retention fix and revised usage estimate.
+  The preceding checkpoint passed **642 tests in 15.466 s**:
+  `outputs/studio-integration-v1/full-tests-v6.txt`, SHA
+  `a0e8217e33a6b6a8cf14834b93c95a04aeb53a7a83ed670bcb4a1133f367d088`.
+  `full-tests-v6-sources.json` binds 140 prelaunch source files; its final receipt
+  verifies all unchanged. The subsequent estimate-wording-only change passes
+  **21 targeted tests / 0.328 s**, with the actual updated `pipeline.py` hash in
+  `estimate-revision-tests-v1.json`. These software checks are not visual acceptance.
+  The preceding checkpoint passed **629 tests in 15.418 s**:
+  `outputs/studio-integration-v1/full-tests-v5.txt`, SHA
+  `c2fc4c1772954118f25ddfbf4a550439dc538b31fc61ef13d5d61d739c4676e8`.
+  `full-tests-v5-sources.json` binds 138 source files, SHA
+  `0d8041ec1aa2b8cc288b0d67f90fd7f5c284885e45ca13bb422fd99f0284aa41`.
+  The prior **619 / 14.771 s** pass remains in `full-tests-v4.txt`, SHA
   `a8c97ea107a3688cf62a9320eca0574e49e75f5f9163469abfacdd33c707f782`.
   `full-tests-v4-sources.json` binds 136 source files, SHA
   `d9e681756b0ac7e5497b38a84c403887bc02509f5da7e15074cc86e8c8b69f5b`.
@@ -102,6 +118,13 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   `outputs/studio-integration-v1/full-tests-before-upload-fix.txt` (12.379 s) and
   `upload-regression-after-fix.txt` (one test, 0.045 s). These tests are contract
   and analytic evidence, not proof of generated quality or real UI completion.
+- [x] Actual stable-role diagnostic replay `outputs/robot-stability-diagnostic-v1`
+  adds worst violating vertex/weight/time detail without changing existing
+  metrics, thresholds, requirements or sample times. The same saved robot still
+  fails torso stability. Bounded replay: **0.262 s**, exit 0/owned exit verified;
+  **zero RSS samples**, so peak memory is unknown, not zero. Manifest SHA
+  `9ed5d1749bf481b7d11faf6e133f5fbc6686d56186211ba711572c0f752ae3b2`.
+  No new AI/provider call or model build; this is diagnostic evidence, not repair.
 - [x] [Portable-fur diagnosis](docs/portable-fur-diagnosis.md) records actual
   sparse coverage, minification, missing regional card flow and contact defects.
   Opt-in `tuft-v1` helper/integration tests pass, but the actual candidate
@@ -111,8 +134,14 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   **visually rejected** for conspicuous dashes/blocks and a spiky crest over a
   plastic-looking base. Undercoat v1 and v2 also failed before producing a
   texture/model: first import correspondence, then aliased normal-map UVs on
-  the authored repair cap. A bounded separate UV1-atlas diagnostic is being
-  prepared only; no overlap rule is relaxed, live adapter changed or coat promoted.
+  the authored repair cap. A separate UV1-atlas diagnostic now has actual front,
+  side and flight-pose review: softer, less glossy black regions and short-pile
+  detail improve, but white areas remain smooth, the silhouette lacks dense fur,
+  and cheek/shoulder marks remain. It is a **partial matte-undercoat component**,
+  not accepted dense fur, Muse parity or Weft compatibility. No automatic quality
+  policy/default or approved asset is replaced. Review:
+  `outputs/panda-portable-undercoat-uv1-review-v1.json`, SHA
+  `da243960c3520a3b498711131f932a211254e2e7896cab85d72db27cc1c30f9b`.
   [Exact trials/limitations](docs/tuft-profile.md); no Muse parity is established.
 
 ### First actual development attempt — cancelled after planning
@@ -261,8 +290,8 @@ registry, not a new worker registry.
   `28e9f3f5d88d2fecf64c55a67cf9a7997776be79d4201041b7491b44201817cb`.
 - At the subsequent UI-start checkpoint, the study had **six calls used /
   four remaining**. This run then used two authors, no critic: 24,262/1,753 and
-  31,408/1,732 input/output tokens respectively. The development study now has
-  **eight actual calls / two remaining**, totaling **196,763 input / 10,061
+  31,408/1,732 input/output tokens respectively. At that terminal checkpoint the
+  then-ten-call study had **eight actual calls / two remaining**, totaling **196,763 input / 10,061
   output tokens**. Reported reasoning-output 657 is separate, not extra output.
   No allowance/counter reset, new Meshy credit/grant or dollar-cost claim.
 - Actual browser verifier **12931 ended exit 1**, output
@@ -281,13 +310,172 @@ registry, not a new worker registry.
   `dc4dd054942aa26fb8b5a772e7bd3114caa234795cbdfb33b3c88a84ee89dba1`;
   `action-audit-1/report.json` SHA
   `97c5cd6c0f8bbbcc3250a6ebad53595ef669413453e7c1452cd215f094738bfc`.
-  All original attempts remain saved; read-only diagnosis is ongoing.
+  All original attempts remain saved. The diagnostic-only replay above preserves
+  this rejection and all prior numeric gates.
 
 Exact completed command (do not repeat):
 
 ```sh
 node browser/tests/studio-live.mjs outputs/studio-live-robot-v3 c9ac0f48bd8044458a8390d4 --start --plan-id fdd2ed52afacb230548aa3aa780e3aa31d4f6fb029b909b2a992ec3b75feeec6 --max-seconds 900
 ```
+
+### Fourth development attempt — existing provider rig; unsupported greeting
+
+- New canonical job **`b184afa00c2f4c2d853de705`**, output
+  `outputs/studio-b184afa00c2f4c2d853de705`. Exact prompt/style/action/preset are
+  unchanged; only the source changes to the already-paid rigged robot:
+  `outputs/workshop-robot-meshy-v1/stages/rig/downloads/model.glb`, SHA
+  `ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7`.
+  Its 24-joint skeleton/skin is a distinct hypothesis from the failed locally
+  authored weights. The source's static clip is not animation; a real wave and
+  stable torso/feet must still pass all unchanged gates. This is neither fresh
+  text-to-mesh generation nor unrigged local-rig success.
+- No-call preparation: `outputs/studio-rigged-robot-preparation-v1/request.json`,
+  SHA `85f3eae6185a858a4608cf2547fe0f047db820bf6a19eeebca942bd91d2c67cd`;
+  `route-assessment.json` preserves source bone IDs and prior verification limits.
+  `estimate.json`, SHA
+  `0ffd51e5abe16a14808a3f5950a52c119270c679b18035f647803a1c22044fc0`,
+  explicitly expands the finite development estimate from **10 to 13 total AI
+  calls**, preserving eight prior calls and allowing **three expected / five
+  maximum new calls**, including one repair. This is not a new user AI-dollar
+  approval, Meshy allowance or counter reset; actual AI dollar cost is unknown.
+  The source rig's five Meshy credits are already included in the prior 202.
+- `created-job.json` and `planner-start.json` in that preparation folder record
+  the subsequent canonical creation/launch. Planner succeeded: **15,901 input /
+  767 output tokens, 24.630 s**; receipt SHA
+  `52c2da41e5ec3ecf7da615df3677e6f787370c90bce8c633ebe3cd18250f747a`.
+  At the UI-start checkpoint the study had **nine actual calls / four remaining**.
+  Plan file SHA `e32b281f757d803f258cf77c2913b3c83601038ee33abdbb319846184c2ac478`.
+- Parent launched actual UI verifier **88829**, output
+  `outputs/studio-live-rigged-robot-v1`, with one explicit pinned-plan Start.
+  It ended **unsupported after 255.693 s / 216 requests** at **15:16:21 PST**.
+  Zero browser errors/external requests; owned Chrome/server exit verified,
+  detached worker not cancelled or signalled. The terminal ownership snapshot
+  has no active lease or queued jobs. Receipt SHA
+  `c7296fb17d1a5ddf5970f9f0043d75df79d1c8d33f9cb2025f0b0855e8a9cdd0`.
+- Attempt 1 passed the unchanged gross-deformation and weighted-action checks.
+  Full media actually rendered in **124.046 s / 1,192,706,048 B sampled
+  direct-child RSS**, exit 0/owned exit verified: 1600px portrait and one opaque
+  720px/24fps/4s clip, 96 frames/96 distinct decoded thumbnails, static fallback;
+  no certified loop. Preserve `media-1` and `media-portable-1` even though no
+  delivery was accepted. Media manifest SHA
+  `8fed0cabd4e1c18c737830c8bb93452a36860a7a1df20562c5f71e1bf4018601`.
+- The actual independent critic returned **repair**, not accept: the low,
+  edge-on wrist swivel does not clearly communicate a greeting. Sampled
+  identity/material/framing/deformation and torso/feet stability passed; exact
+  source-appearance preservation was not separately evidenced to this critic.
+  Its required repair is a visibly presented palm and clear lateral wave while
+  keeping torso/feet fixed. Review SHA
+  `60815548b66cf3e9996d9e495938aa1b4d2ea0aa2e38e5772a422ff0dbf5b55f`.
+  The one-repair budget was exhausted; `unsupported.json` SHA
+  `84ceeea81ae88fd471cc1d4d4c8ad1f1eb933967ca5026181f7de3b0f0e5eddc`.
+- This job used **four real AI calls**: one planner, two authors and one critic,
+  119,107 input / 2,837 output tokens. Recomputed across all four development
+  jobs: **12 calls / 315,870 input / 12,898 output tokens**, with reasoning-output
+  1,057 reported separately, not added again. At this terminal checkpoint
+  **one of 13 calls remained**; the separate diagnostic below subsequently used it.
+  Zero new Meshy/Meta calls; no spending-history reset, extra envelope or fresh
+  credit grant. This run proves actual review/rejection flow, not final UI-download
+  acceptance or the requested greeting.
+
+Exact completed command (record only; do not repeat):
+
+```sh
+node browser/tests/studio-live.mjs outputs/studio-live-rigged-robot-v1 b184afa00c2f4c2d853de705 --start --plan-id 00c316b457c9ea129d3bd35d07b2cba1f71bf551d122a407dd0325fe2a452df5 --max-seconds 900
+```
+
+### Compact rejected-trial evidence and final diagnostic
+
+- Sealed [rigged-robot evidence bundle](evidence/studio-rigged-robot-v1/manifest.json):
+  **367 files / 15,846,053 B**, below the 16 MiB bound; manifest SHA
+  `cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2`.
+  It preserves all four actual agent image inputs, exact prompts/answers/schemas/
+  receipts, request/plan/source/finish/audit/review records, the rejected 4s MP4,
+  portrait/static fallback and two individual 720px key poses. The stable-vertex
+  diagnostic, actual unsupported UI/cleanup evidence and both test logs are included.
+  All **509 original job files / 395,047,022 B** hash identically before/after;
+  198 omitted large GLB/BLEND/full-frame/other original files remain hash-bound,
+  not remotely backed up by this compact copy. No model/native/browser call or
+  Git action was made to assemble it. Do not call it an accepted or resumable pack.
+- The bundle includes the **629-test/15.418 s** suite/source bindings and the
+  **42 weight-contract tests / 0.036 s** log. The latter source receipt is
+  explicitly a **post-check snapshot**, not a prelaunch pin:
+  `outputs/studio-integration-v1/weight-repair-contract-tests-v1-sources.json`.
+  Its four source copies match the recorded hashes. These are software checks,
+  not new visual acceptance or a new complete full-suite result after clarification.
+- Root clarified that preserving an existing skeleton does not prohibit bounded,
+  explicitly recorded `weight_constraints`, including exact ellipsoid falloff
+  and fallback behavior. The separate actual diagnostic is
+  `outputs/rigged-robot-weight-repair-probe-v1`. Parent last reported AI **35178
+  ended ready** and native **69825 ended successfully**, but the actual result is
+  **rejected**. The gross-spike gate passed; torso displacement was 35.527883 mm,
+  and root's pose review found a lifted chest-side wedge. Hand motion and feet
+  stability passed. No exported preview, full media or critic followed.
+  The call used 42,341 input / 987 output tokens in 27.393 s; native build 22.758 s.
+  **13 of 13 calls used**, aggregate **358,211 input / 13,885 output tokens**.
+  Exact sealed manifest SHA
+  `c0174a3e174e4e51ad246e880d3b363822c82dfbf4de6533d65ca83e05effdd5`.
+  No final quality acceptance or completed Studio run is claimed.
+- This diagnostic remains **excluded from the earlier sealed bundle**; its own
+  manifest/review now preserve the result. The local-only opt-in hard-surface
+  projection below freezes original majority-weighted roles and removes foreign
+  influence without changing geometry, bones, actions or thresholds. Its exported
+  result is rejected, not promoted or applied to organic skin. No new Studio job,
+  restart, budget expansion, Meshy/Meta call or additional study AI call is
+  authorized here. Keep skeleton identity, requested action and numeric thresholds
+  unchanged; disclose actual weight changes and preserve rejected alternatives.
+
+### Rigid-role correction — numeric improvement, exported result rejected
+
+- `avatar_assets/stable_role_projection.py` is an explicit hard-surface-only
+  diagnostic helper, not an automatic finishing default. Thirteen focused tests
+  pass. The 100,000-vertex / 64-bone / 32-role analytic maximum took 0.2103 s;
+  that fixture is not a generated avatar or a real motion-quality result.
+- CPU derivative `outputs/robot-stable-projection-v1/diagnostic-model.glb`, SHA
+  `78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b`,
+  preserves every non-weight byte: geometry, UVs/textures, 24 bones, rest pose
+  and curves. All direct >=0.5 role memberships remain exact after float32
+  serialization/reload. Exactly 55 weak hand-fringe memberships are removed,
+  all inside the original fixed-part memberships; exact indices are recorded.
+  Torso/foot displacement becomes zero while hand motion remains. CPU child:
+  1.042 s / 373,604,352 B sampled RSS. This does not establish correct joints.
+- Actual exported native proof: `outputs/robot-stable-projection-native-v1`,
+  manifest SHA `8f0bc27ce911621a37cd5f6aed2c07493f62462224ac8ea45539a762e8856a78`.
+  Tool **50143 ended**, native **16.307 s / 1,152,794,624 B** sampled direct-child
+  RSS / **60,411,889 B** output; exit verified. Four rest views plus eight original
+  action-key poses are actual opaque 720px PNGs, not a completed animation pack.
+  Bounds remained 600 s / 2 GiB / 256 MiB / four CPU threads.
+- **Rejected:** an independent fresh import found three severely stretched
+  edges at six of eight poses. One edge stretches 8.9871x with 39.4205 mm excess
+  against unchanged >8x and >36.0000 mm thresholds. Direct image review of the
+  rest/front and raised pose finds a conspicuous distorted chest-side flap.
+  Root review: `outputs/robot-stable-projection-review-v1.json`, SHA
+  `22a1324dc62c081cdf90fbba8f8d3ceee99141f77e1df2a05a880d8852a7a351`.
+- The existing four-largest-extension report omitted all three severe edges;
+  larger absolute extensions had lower stretch ratios. The narrow fix now
+  retains severe witnesses before truncation at both the per-pose and cross-pose
+  stages, with unchanged thresholds and four-row output bound. Ten diagnostics
+  tests plus all 17 unchanged gate tests pass; the full suite above also passes.
+  Actual numeric-only native replay: `outputs/deformation-retention-regression-v1`,
+  manifest SHA `013604be797dd87f7a403c445e0b230ede31958e6e2c6354e4e8c76220a0a637`.
+  All eight fresh pose/topology hashes match the old proof; all three severe
+  witnesses survive both stages. Tool **6026 ended**, **1.820 s / 325,517,312 B**
+  sampled direct-child RSS / **24,760,367 B** output including the input copy.
+  Exit verified; no renders or model/provider calls. This verifies detection,
+  not a complete finisher rebuild or acceptance of the still-defective avatar.
+  Do not automatically integrate the rejected weight correction, restart an old
+  job, spend another pipeline role call or rerender unchanged images.
+- Sealed rejected-weight/native evidence:
+  `evidence/robot-weight-repairs-v1/manifest.json`, SHA
+  `a814c62747fe2c5bd7ce3cd62692814a538fb4fe210d77e68a29ecd33a3f39db`;
+  **101 files / 3,195,947 B**. All 186 original files remain unchanged. Forty-five
+  exact prior-bundle references avoid duplicate copies; 39 omitted originals
+  remain hash-bound. The subsequent fixed-detector proof is a separate bundle,
+  `evidence/deformation-retention-v1`, not a rewrite of the original rejection:
+  **29 files / 288,019 B**, manifest SHA
+  `f5673411fe42050b5785bf349589061366f41b492a40879e42a15a350194b72c`.
+  All 29 replay originals are unchanged; five omitted model/cache files remain
+  hash-bound. Fixed source snapshots match the final 140-source test inventory.
 
 ### Fresh examples — prepared estimate, authorization pending
 
@@ -305,7 +493,14 @@ node browser/tests/studio-live.mjs outputs/studio-live-robot-v3 c9ac0f48bd804445
 - `allowance-request.json` is **pending_actual_user_reply**. The question has
   been asked, but there is **no reply, grant or authorization to execute** these
   jobs yet. These prepared requests/estimates made no generation or AI calls.
-  This separate proposed envelope does not expand the current ten-call robot study.
+  This separate proposed envelope does not expand the current 13-call robot study.
+- A linked, append-only usage correction is
+  `outputs/fresh-acceptance-estimate-v2/estimate.json`. Actual development calls
+  used 15,814–42,341 input tokens with selected evidence, exceeding the earlier
+  24,000-text-token assumption. The current planning assumption is 50,000 input
+  tokens/call: 450,000 for nine calls or 750,000 for fifteen. These are estimates,
+  not enforced token caps. Meshy credits, call count, unknown dollar cost and
+  pending authorization are unchanged; the original estimate was not rewritten.
 
 ### Ownership, cost and next safe work
 
@@ -313,7 +508,12 @@ node browser/tests/studio-live.mjs outputs/studio-live-robot-v3 c9ac0f48bd804445
   `docs/hands-off-studio.md`. Event-only `pipeline.py` changes are released back
   to root for its deformation/evidence fixes. Scoped recovery code/tests in
   `studio_jobs.py`, `studio_inspection.py` and `test_studio_inspection.py` are
-  frozen and released to root; robot-v3's pipeline/verifier ended. The stage is
+  frozen and released to root; both robot-v3 and the provider-rigged robot have
+  ended unsupported, and verifier 88829 ended. The separate weight diagnostic
+  and rigid-role derivative are sealed/rejected. Native handles 50143 and 6026
+  ended; the severe-witness fix and its numeric replay pass. All production
+  sources are released to root. No new expensive job is active.
+  The stage is
   “Check skin stretching”; completed numeric checks do not imply visual approval.
   This handoff does not transfer unrelated Weft files or its goal.
 - Renderer handle 51559 ended; fixture-browser handle 19047 ended. Do not rerun
@@ -321,34 +521,47 @@ node browser/tests/studio-live.mjs outputs/studio-live-robot-v3 c9ac0f48bd804445
   before starting another expensive operation. The fixture-v2 browser handle
   77182, failed live-verifier 84327 and observer 62323 also ended. No persistent
   development server remains. Verifier 12931 also ended with owned HTTP/Chrome
-  exits verified. Do not interfere with the separately owned UV1 diagnostic to
-  free resources; root/contracts are diagnosing the robot failure read-only.
+  exits verified. Verifier 88829 likewise verified its browser/server exits and
+  left the detached worker unsignalled; its terminal snapshot has no lease or
+  queue. The UV1 review above is a partial component result; coordinate new work
+  with the sole heavy owner.
 - Last verified Meshy ledger: 16 completed submissions / 202 credits against 210
   authorized; **8 remain, less than the 35-credit fresh-model estimate**. No new
   Meshy submission, credit purchase, paid retry, account or Meta-budget use in
   this implementation pass. AI usage dollars remain unknown. Aggregate fresh
   example costs must be prepared before any additional spending decision.
-- Prior periodic checkpoint `87f224f` is pushed to the private remote; root's
-  publication receipt is `.local/avatar-studio-checkpoint-v1/receipt.json` at
-  the Weft root. New recovery/quality fixes are not included in that old checkpoint.
+- Previous private pushed checkpoint: **`3a7a0ec`**. This save includes the new
+  terminal outcomes, compact bundles, diagnostics and severe-witness fix.
+  Its exact revision and remote confirmation are written after publication to
+  tool-local `.local/avatar-quality-publication-v3/receipt.json`. Prior `87f224f`
+  and its root-local
+  `.local/avatar-studio-checkpoint-v1/receipt.json` remain historical evidence;
+  no Git mutation or remote verification was performed by this documentation pass.
 
 1. [ ] Complete real-request stability/articulation acceptance using the newly
    implemented world-space gates and actual weighted vertices. Distinguish root
    travel from articulation. Reject
    both unwanted movement and static/weak substitutes for requested actions.
    Preserve the rejected plan and test its exact contradictory requirement.
-2. [ ] Verify full-resolution native/exported views and decoded final media reach
-   the independent critic with exact source/model/attempt hashes. Visible defects
-   must fail even when structural tests and motion counts pass.
-3. [ ] Fix deformation gating and numeric/image citation semantics, then use a
-   new bounded job only within the remaining aggregate allowance. The exact old
+2. [x] Full-resolution native/exported views and decoded final media reached
+   the actual independent critic for the provider-rigged robot, bound to exact
+   model/attempt hashes. The critic rejected action meaning despite passing
+   structural/numeric checks. This verifies the review path, not avatar acceptance
+   or fresh-generation quality; keep rejecting visible defects and weak substitutes.
+3. [ ] Complete meaningful greeting acceptance through the unchanged
+   deformation, action and visual gates. The exact old
    lease is now safely released through the tested API; never restart either
    old job or reset usage. Preserve actual failures and
    source/media/reviewer bindings. Reuse is not a fresh text-to-mesh test and
    cannot prove arbitrary prompt quality. The integrated source freeze now
-   passes 619 tests, but unchanged-text robot-v3 ended unsupported for torso
-   stability. Diagnose the measured boundary error without weakening the action;
-   only two of ten development AI calls remain and no new run is authorized here.
+   passes 646 tests, but unchanged-text robot-v3 ended unsupported for torso
+   stability. The existing-rig trial also ended unsupported: numeric checks
+   passed, but its low wrist swivel failed the critic's greeting check. Twelve
+   completed Studio calls used the first 12 of the 13-call estimate; the separate
+   weight-repair diagnostic used the last call and also failed torso stability
+   and root visual inspection. Its own result is sealed and preserved.
+   No study AI calls remain. This diagnostic is not a complete new Studio attempt.
+   Do not weaken the action, duplicate a Start or reset prior usage.
 4. [ ] Obtain the pending actual allowance reply, then bind and run the prepared
    fresh furry-character, flying-creature and articulated-object jobs. The
    aggregate 105-credit/15-maximum-AI estimate is saved above. Execute only within
@@ -358,7 +571,8 @@ node browser/tests/studio-live.mjs outputs/studio-live-robot-v3 c9ac0f48bd804445
 5. [ ] Follow at least one actual authorized job through the user-facing studio
    to its real downloads, checking refresh/restart, identity, playback, static
    fallback and no duplicate generation. Keep browser/API fixtures separate.
-6. [ ] Verify the separately prepared UV1-undercoat diagnostic after the retained
+6. [ ] Build on the sampled UV1 matte-undercoat improvement only within a new
+   bounded candidate; it is not yet dense or accepted fur. Preserve the retained
    tuft/correspondence/overlap failures. Do not repeat unchanged failed builds,
    relax overlap checks or raise limits. Require
    actual native/exported appearance, source-color,
@@ -389,7 +603,7 @@ Periodic incomplete-goal evidence checkpoint:
 `a081a1841af18f8b53844837ba45176bf63e67c8d12c98aa8a91f116935dfa78`.
 It preserves both planner histories, the 552-test pass, fixture evidence and the
 failed tuft receipts. It is not a completed studio delivery or an artifact of
-the still-running execution; no Git publication result is inferred from it.
+the later terminal trials; no Git publication result is inferred from it.
 
 ## Completed checkpoint: shoulder-dragon flight and panda dance
 

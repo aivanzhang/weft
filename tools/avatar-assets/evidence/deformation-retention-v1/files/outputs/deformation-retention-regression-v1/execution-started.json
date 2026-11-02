@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/deformation-retention-regression-v1/native_replay.py"
+  ],
+  "prepared_sha256": "5e981f1ee7e3bb460b1908cb56768bb272d5cb374b576af987dde4c80973b4c5"
+}

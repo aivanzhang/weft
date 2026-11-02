@@ -1,0 +1,140 @@
+{
+  "artifacts": [
+    {
+      "bytes": 16082,
+      "path": "action-audit.json",
+      "sha256": "6be00e312a642039ea9beb22245c16beea285978a6e5492747f9b43e2d2a8a37"
+    },
+    {
+      "bytes": 2202,
+      "path": "action-intent.json",
+      "sha256": "00985c1145a0b2ca4cc30aa3fa10554375ebae75d088293e8e3e5a8d02bf23c6"
+    },
+    {
+      "bytes": 42583,
+      "path": "attribute-inventory-after.json",
+      "sha256": "11cbed39e8348058f6c4aaefc0b4e1b158248ccd93e3e627d9cf157eff816e99"
+    },
+    {
+      "bytes": 42583,
+      "path": "attribute-inventory-before.json",
+      "sha256": "7ea5a98c92b76719ff6914f42514c1d02eb02fad157915d70a4961a786e5a9f3"
+    },
+    {
+      "bytes": 242,
+      "path": "cpu-job-handle.json",
+      "sha256": "7b3297f6a58da5dca4b3facea175195248afe1c9aa3d7e106344f4d9fad553fe"
+    },
+    {
+      "bytes": 914,
+      "path": "cpu-job-monitor.json",
+      "sha256": "6e54cbb20d6ce4e58cbdd896978f635d482369307c181f713b1cdf498c975533"
+    },
+    {
+      "bytes": 0,
+      "path": "cpu-job.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1780,
+      "path": "derived-roles.json",
+      "sha256": "a6eaf1bf746be16ebb54a105dc30aed6149f28ab5f3d4cf2226c2a6a56c21b36"
+    },
+    {
+      "bytes": 24462804,
+      "path": "diagnostic-model.glb",
+      "sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b"
+    },
+    {
+      "bytes": 24666,
+      "path": "original-evidence/action-audit.json",
+      "sha256": "c3da0bc5677abbac10459fe510fa86e05240b7e0122cf36cdd9187a7d7d67f10"
+    },
+    {
+      "bytes": 2202,
+      "path": "original-evidence/action-intent.json",
+      "sha256": "4c6d99fc510a0650993bb62dec6c8052624712290a3b911ea0f5be8e4fcf9579"
+    },
+    {
+      "bytes": 3380,
+      "path": "original-evidence/deformation-gate.json",
+      "sha256": "e60adc7b5b1c43bb88c6430fa3163eab501f10b9712e0758d0938efc561c0330"
+    },
+    {
+      "bytes": 1234,
+      "path": "original-evidence/diagnostic-review.json",
+      "sha256": "c844b30b663e3f2bbf3c0e03362d4e9d8ecf641a34b4198424f4fc251b1ff09d"
+    },
+    {
+      "bytes": 4108,
+      "path": "original-evidence/finish-config.json",
+      "sha256": "081e5c043d6ebbc9367a118d16c5e5055ad0c66c55c6bed8fcacbe27511d7564"
+    },
+    {
+      "bytes": 26522,
+      "path": "original-evidence/finish-manifest.json",
+      "sha256": "9f37bad2d9a22f23afbf510fd6bba4d3a2abaac8fefc71a670a69d40d5c509a4"
+    },
+    {
+      "bytes": 151727,
+      "path": "preservation-proof.json",
+      "sha256": "29af3a65ce5620a47143c3dba35417fc3e2b83d598cfbfe3555435c89d04748c"
+    },
+    {
+      "bytes": 6957,
+      "path": "projection-report.json",
+      "sha256": "532949d730fef3e39e45aed15880f6e3d02c6dc237c5eca1bf00c6e84b589059"
+    },
+    {
+      "bytes": 12958,
+      "path": "run_diagnostic.py",
+      "sha256": "7f1bbbb040a2940797c1011947e345c7e761b8f330ee070591df8a7242f8a9a7"
+    },
+    {
+      "bytes": 1556,
+      "path": "settings.json",
+      "sha256": "a62e9b1a703a4769285deef48dd44408b578b654abc71ca286a0d4b44128edeb"
+    },
+    {
+      "bytes": 34271,
+      "path": "source-snapshot/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a"
+    },
+    {
+      "bytes": 14601,
+      "path": "source-snapshot/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65"
+    },
+    {
+      "bytes": 11421,
+      "path": "source-snapshot/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "source-snapshot/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 12314,
+      "path": "source-snapshot/avatar_assets/stable_role_projection.py",
+      "sha256": "3977fdca42d7bcee4db66866f5209f347eeb41149478733ebf05672219f3ae82"
+    },
+    {
+      "bytes": 33690,
+      "path": "source-snapshot/avatar_assets/three_d.py",
+      "sha256": "8f983891ea5f50b9b533baedbd3627d87560d2042ba96d94a08e30bba97b5693"
+    },
+    {
+      "bytes": 10181,
+      "path": "source-snapshot/tests/test_stable_role_projection.py",
+      "sha256": "ec4188f3cc47c6f90c3a715a12d17d0b68128787b0f77fe25ab64c4f687359f9"
+    },
+    {
+      "bytes": 575,
+      "path": "tests-receipt.json",
+      "sha256": "bd4399ed6db79de77a8df72d67e80f2d193a2f62c1c09dba90cf39bfdd7e9e85"
+    }
+  ],
+  "schema_version": 1
+}

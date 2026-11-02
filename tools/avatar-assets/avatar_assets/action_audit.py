@@ -27,9 +27,10 @@ MAX_TOTAL_FRAMES = 776
 MAX_FULL_FRAMES = 8
 MAX_SECONDS = 50
 MAX_REPORT_BYTES = 4*1024*1024
+MAX_STABILITY_OUTLIERS = 4
 WEIGHT_FLOOR = .05
 RESERVED_SURFACES = ("PortableCoat_", "NativeGroom_")
-VERSION = "weighted-glb-action-audit-v2"
+VERSION = "weighted-glb-action-audit-v3"
 
 
 def _deadline(start):
@@ -117,7 +118,7 @@ def _load_geometry(glb, nodes, reachable, start):
                     and abs(np.linalg.det(matrix[:3, :3])) > 1e-12, "Invalid inverse-bind matrix")
             inverse.append(matrix)
         palettes.extend(joints)
-    positions, weights, indices, excluded, primitive_ids = [], [], [], [], []
+    positions, weights, source_weights, indices, excluded, primitive_ids = [], [], [], [], [], []
     total, primitives = 0, 0
     for node_index, node in enumerate(nodes):
         if "mesh" not in node:
@@ -159,6 +160,7 @@ def _load_geometry(glb, nodes, reachable, start):
             require(len(xyz) == len(joint_array) == len(weight_array) and np.all(weight_array >= 0)
                     and np.all(np.abs(weight_array.sum(axis=1)-1) <= .001), "Invalid skin weight coverage")
             sum_error = float(np.abs(weight_array.sum(axis=1)-1).max())
+            source_weights.append(weight_array.copy())
             # Normalize tolerated encoding error so rigid travel cannot leak into articulation.
             weight_array /= weight_array.sum(axis=1, keepdims=True)
             if "indices" in primitive:
@@ -174,7 +176,8 @@ def _load_geometry(glb, nodes, reachable, start):
                                   "anatomical_start_index": anatomical_start, "max_input_weight_sum_error": sum_error})
     require(positions, "No anatomical skinned surface remains after coat exclusion")
     return (np.concatenate(positions), np.concatenate(weights), np.concatenate(indices),
-            np.asarray(palettes, dtype=np.int32), np.asarray(inverse), excluded, primitive_ids, total)
+            np.asarray(palettes, dtype=np.int32), np.asarray(inverse), excluded, primitive_ids, total,
+            np.concatenate(source_weights))
 
 
 def _skin(world, points, weights, joints, palette, inverse):
@@ -203,6 +206,50 @@ def _select_probes(ids, rest, coverage, limit=PROBES_PER_CONTROL):
         selected.append(chosen)
         distance = np.minimum(distance, np.sum((cloud-rest[chosen])**2, axis=1))
     return np.asarray(selected, dtype=np.int32)
+
+
+def _stability_diagnostics(item, threshold, requirement_ids, times, full_frames, worlds,
+                           rest, points, source_weights, weights, joint_slots, palette, inverse,
+                           nodes, primitives, rest_low, rest_span):
+    ids, peaks = item['ids'], item['full_vertex_world_peaks']
+    violating = np.flatnonzero(peaks > threshold)
+    order = np.lexsort((ids[violating], -peaks[violating]))[:MAX_STABILITY_OUTLIERS]
+    rows = []
+    for offset in violating[order]:
+        vertex = int(ids[offset])
+        frame = int(item['full_vertex_peak_frames'][offset])
+        peak = _skin(worlds[frame], points[vertex:vertex+1], weights[vertex:vertex+1],
+                     joint_slots[vertex:vertex+1], palette, inverse)[0]
+        blender_rest = rest[vertex, [0, 2, 1]]*np.array([1, -1, 1])
+        normalized = (blender_rest-rest_low)/np.where(rest_span > 0, rest_span, 1)
+        primitive = next(row for row in primitives if row['anatomical_start_index'] <= vertex
+                         < row['anatomical_start_index']+row['vertices'])
+        influences = []
+        for slot in range(4):
+            if source_weights[vertex, slot] > 0:
+                joint = int(palette[joint_slots[vertex, slot]])
+                influences.append({'slot': slot, 'bone': nodes[joint]['name'], 'node_index': joint,
+                                   'source_weight': float(source_weights[vertex, slot]),
+                                   'audit_weight': float(weights[vertex, slot])})
+        rows.append({'exported_vertex_index': vertex, 'node_index': primitive['node'],
+                     'primitive_index': primitive['primitive'],
+                     'primitive_vertex_index': vertex-primitive['anatomical_start_index'],
+                     'rest_world_gltf_m': rest[vertex].tolist(),
+                     'initial_world_gltf_m': item['full_baseline_world'][offset].tolist(),
+                     'peak_world_gltf_m': peak.tolist(),
+                     'rest_normalized_blender_z_up': normalized.tolist(), 'influences': influences,
+                     'max_world_displacement_m': float(peaks[offset]), 'peak_second': times[frame]})
+    return {'schema_version': 1, 'requirement_ids': requirement_ids, 'threshold_m': threshold,
+            'selection': 'direct_target_bone_weight_sum_at_least_0.5',
+            'selected_exported_vertices': len(ids), 'violating_exported_vertices': len(violating),
+            'examined_seconds': [times[frame] for frame in sorted(full_frames)], 'maximum_rows': MAX_STABILITY_OUTLIERS,
+            'rest_bounds_blender_z_up_m': {'min': rest_low.tolist(), 'max': (rest_low+rest_span).tolist()},
+            'index_space': 'Concatenated audited exported body primitives; node/primitive/local indices identify GLB accessor rows. Coincident seam copies remain separate, not distinct physical points.',
+            'coordinate_space': 'World vectors are glTF +Y-up meters. Normalized rest positions use Blender XYZ = glTF X,-Z,Y and whole audited body bounds, excluding reserved coat/groom surfaces.',
+            'weight_scope': 'Original decoded nonzero WEIGHTS_0 slots, plus the normalized weights used by this audit; no weight mutation.',
+            'coverage': 'Worst violating vertices at the listed full-skin samples; not every vertex at every frame or continuous-time coverage.',
+            'layer_matches': None, 'layer_match_scope': 'No authored layer design is bound by this audit intent.',
+            'vertices': rows}
 
 
 def _reversals(values, tolerance):
@@ -251,9 +298,11 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
     glb = three_d._GLB(model_path)
     nodes, parents, names, reachable, joint_nodes, bone_parents = _hierarchy(glb)
     validate_action_bindings(action_bindings, states, bone_parents)
-    points, weights, joint_slots, palette, inverse, excluded, primitives, total = _load_geometry(glb, nodes, reachable, start)
+    points, weights, joint_slots, palette, inverse, excluded, primitives, total, source_weights = _load_geometry(glb, nodes, reachable, start)
     rest_world = np.asarray([_matrix(matrix) for matrix in three_d._world_matrices(nodes, parents)])
     rest = _skin(rest_world, points, weights, joint_slots, palette, inverse)
+    rest_blender = rest[:, [0, 2, 1]]*np.array([1, -1, 1])
+    rest_low, rest_span = rest_blender.min(axis=0), np.ptp(rest_blender, axis=0)
     influence_nodes = palette[joint_slots]
     target_names = sorted({bone for action in action_bindings for role in action["roles"] for bone in role["bones"]})
     stable_roles = {(state["id"], requirement["role"]) for state in states for requirement in state["requirements"]
@@ -314,6 +363,7 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
                          "probes": MAX_PROBES, "probes_per_control": PROBES_PER_CONTROL,
                          "frames_per_state": MAX_FRAMES_PER_STATE, "total_frames": MAX_TOTAL_FRAMES,
                          "full_skin_frames_per_state": MAX_FULL_FRAMES, "seconds": MAX_SECONDS,
+                         "stability_outliers_per_role": MAX_STABILITY_OUTLIERS,
                          "report_bytes": MAX_REPORT_BYTES, "file_bytes": three_d.MAX_FILE_BYTES},
               "scope": "Actual GLB linear-blend skinning. Travel uses bound root origin; articulation removes animated root transform; stability measures world displacement.",
               "limitations": ["No semantic, visual, collision, physical, Weft or seamless-loop approval.",
@@ -348,6 +398,9 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
                 "stable": stable is not None, "root_positions": [], "relative": [], "world_displacement": [],
                 "full_world_max": 0., "own_max": {name: 0. for name in role["bones"]},
                 "moving": np.zeros(len(ids), dtype=bool)}
+            if stable is not None:
+                role_data[role['id']].update(full_vertex_world_peaks=np.zeros(len(ids)),
+                                             full_vertex_peak_frames=np.zeros(len(ids), dtype=np.int16))
         worlds, own_baseline = [], {}
         for second in times:
             _deadline(start)
@@ -395,7 +448,12 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
                     item["full_baseline_world"] = posed[ids].copy()
                 shift = np.linalg.norm((current_local-item["full_baseline_local"]) @ worlds[0][root, :3, :3].T, axis=1)
                 item["moving"] |= shift > max(1e-5, .001*item["scale"])
-                item["full_world_max"] = max(item["full_world_max"], float(np.linalg.norm(posed[ids]-item["full_baseline_world"], axis=1).max(initial=0)))
+                world_shift = np.linalg.norm(posed[ids]-item["full_baseline_world"], axis=1)
+                item["full_world_max"] = max(item["full_world_max"], float(world_shift.max(initial=0)))
+                if item['stable']:
+                    higher = world_shift > item['full_vertex_world_peaks']
+                    item['full_vertex_world_peaks'][higher] = world_shift[higher]
+                    item['full_vertex_peak_frames'][higher] = frame
         metrics, detail = {}, {}
         for identifier, item in role_data.items():
             scale, relative = item["scale"], item["relative"]
@@ -422,6 +480,15 @@ def _audit_glb(model_path, states, action_bindings, height_meters, start):
                     "min": rest[item["ids"]].min(axis=0).tolist(), "max": rest[item["ids"]].max(axis=0).tolist()}}
         evidence = {"state_id": state["id"], "evidence_id": "action-audit-"+state["id"], "roles": metrics}
         result = evaluate_action_evidence(state["requirements"], evidence, height_meters)
+        for identifier, item in role_data.items():
+            if item['stable']:
+                requirements = [row for row in result['requirements'] if row['role'] == identifier and row['kind'] == 'stability']
+                thresholds = {row['maximum_displacement_m'] for row in requirements}
+                require(len(thresholds) == 1, 'Stability diagnostic requires one unchanged bound threshold')
+                detail[identifier]['stability_diagnostics'] = _stability_diagnostics(
+                    item, thresholds.pop(), [row['id'] for row in requirements], times, full_frames, worlds,
+                    rest, points, source_weights, weights, joint_slots, palette, inverse,
+                    nodes, primitives, rest_low, rest_span)
         report["states"].append({"id": state["id"], "evidence": evidence, "requirement_results": result,
                                  "sample_seconds": times, "full_skin_sample_seconds": [times[frame] for frame in sorted(full_frames)],
                                  "role_details": detail})

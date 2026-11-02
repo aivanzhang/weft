@@ -1,0 +1,309 @@
+{
+  "approved_assets_replaced": false,
+  "artifacts": [
+    {
+      "bytes": 3242,
+      "path": "README.md",
+      "sha256": "e504ffc32be9ec12c9401319c4646638e8499db42111cd4e26e025bc614afb1b"
+    },
+    {
+      "bytes": 15244,
+      "path": "bundle-sources.json",
+      "sha256": "17fd053a8a67d77b01ec8c87944c6942abd7e1100b1585ba84c4a36eceff6fd3"
+    },
+    {
+      "bytes": 27364,
+      "path": "docs/tuft-profile.md",
+      "sha256": "2a567a9c2d653b6af1ac5dd2335d2db7f90307487a19b0f7e1958489cc8d8ccb"
+    },
+    {
+      "bytes": 1975,
+      "path": "history/panda-portable-tuft-review-v1.json",
+      "sha256": "e730cba8046f68fd4e749f29600d3f19f4501086f76dc1f384d2db48daa45ac3"
+    },
+    {
+      "bytes": 1515,
+      "path": "history/panda-portable-undercoat-v1/job.json",
+      "sha256": "0ae495e00131321fca925cc24aa2b256bee3bbd168213887cf0551c1c0426542"
+    },
+    {
+      "bytes": 3745,
+      "path": "history/panda-portable-undercoat-v1/manifest.json",
+      "sha256": "da882bd3a530f28a905a487e96b3b0cdaca7d056ffb1308d0bbae8c743c9d9cb"
+    },
+    {
+      "bytes": 1177,
+      "path": "history/panda-portable-undercoat-v1/native.log",
+      "sha256": "7ac2322fb47638408679c0c996daf9695b0270e3db61ca57f9f26990665ed986"
+    },
+    {
+      "bytes": 3309,
+      "path": "history/panda-portable-undercoat-v2/import-correspondence.json",
+      "sha256": "1dcab6ef26af8cbc316f7c63f4501a0f4106125496beaa6dd9089f0470b03f1e"
+    },
+    {
+      "bytes": 1516,
+      "path": "history/panda-portable-undercoat-v2/job.json",
+      "sha256": "c2bd0790be55390e28088d3a24cacd4e3ef9cc9734fb0bdcbcc39af36990d213"
+    },
+    {
+      "bytes": 3691,
+      "path": "history/panda-portable-undercoat-v2/manifest.json",
+      "sha256": "080f53b97ba1d9c82e1a62b377067d88d3a2fbed85794aab2ecedee3e0894df0"
+    },
+    {
+      "bytes": 2147,
+      "path": "history/panda-portable-undercoat-v2/native.log",
+      "sha256": "cdcc4d66fcc38cd8015640b3e9193ee7354e36a7f66389d46ddccd324a536b7e"
+    },
+    {
+      "bytes": 2377,
+      "path": "history/panda-undercoat-import-audit-v1.json",
+      "sha256": "e91c787e9c370dcf08e06ae6aa844ebf814bb802eaec9b834edc190a5e731bb9"
+    },
+    {
+      "bytes": 2668,
+      "path": "history/uv-overlap-attribution.json",
+      "sha256": "8c3f88b4c9ca7768c42494e955790e7a33e399ac41615a78714683467f3d1100"
+    },
+    {
+      "bytes": 732,
+      "path": "model-evidence/actual-model-audit.json",
+      "sha256": "4fdba09747b249226d3965bad47263c9aba7c61b61bfcd0fd7f829c6e6ba2dc9"
+    },
+    {
+      "bytes": 735,
+      "path": "model-evidence/analytic-uv1-patch-test.json",
+      "sha256": "956778c39a7ef9ed7407d007234e396126e2d0037a83266066ff1c3eecc515ed"
+    },
+    {
+      "bytes": 30202,
+      "path": "model-evidence/authored-normal-atlases.npz",
+      "sha256": "52e16bf962fa651cd506d1c776a37bb7cbbf326de89338b932f17f4ffefee4c9"
+    },
+    {
+      "bytes": 344,
+      "path": "model-evidence/cpu-handle.json",
+      "sha256": "663d60ffaebf5e714f7179cf2e7ef235181ba765c10d987675eaf3a9a763821d"
+    },
+    {
+      "bytes": 1136,
+      "path": "model-evidence/cpu-monitor.json",
+      "sha256": "81c0f521f714661fe1fdc77734b523432ac920eba2fb6b2371f6e26ffd8033c8"
+    },
+    {
+      "bytes": 1528,
+      "path": "model-evidence/cpu.log",
+      "sha256": "e71f383a76ef8fa93989c2eea39cf7447a9f517910a90b4cf23a282f2b821bd2"
+    },
+    {
+      "bytes": 2332,
+      "path": "model-evidence/diagnostic-config.json",
+      "sha256": "3a89b99feabac035321725cbc0f4bdffb8f6aed294ab0149c5c873ace37011fe"
+    },
+    {
+      "bytes": 7591,
+      "path": "model-evidence/diagnostic-report.json",
+      "sha256": "4ccd4fe54b8fc6e1ca209c98c75eb84b61d272887ec9ba2dcc3aa0653da165e0"
+    },
+    {
+      "bytes": 1230,
+      "path": "model-evidence/job.json",
+      "sha256": "029cbfbf2d5ec854183271c94a52b77e3e615a4ab54673b51240b365599604da"
+    },
+    {
+      "bytes": 3528,
+      "path": "model-evidence/normal-bake-report.json",
+      "sha256": "bc14669250b0abc70ea9aef07d7fc959cd211765aab36bc351bb945066c62a07"
+    },
+    {
+      "bytes": 14844,
+      "path": "model-evidence/parent-manifest.json",
+      "sha256": "0fb49e1f0f631ef872aa8155fc3db1e299ce76e675a737aa5c6f4723dc34a90a"
+    },
+    {
+      "bytes": 3275,
+      "path": "model-evidence/prepared-job.json",
+      "sha256": "ae363968fabae20dec3be6fb3a254714f40b98c794322b6f18c816c82ae0ed0c"
+    },
+    {
+      "bytes": 62709,
+      "path": "model-evidence/selected-triangles.npy",
+      "sha256": "ebc58f9ce6779ab49c7a9152586d5ef822256db52678f354d35f0c05dbec3eb8"
+    },
+    {
+      "bytes": 4487873,
+      "path": "model-evidence/source-body.npz",
+      "sha256": "1970a593f24180921c3641d33fe319e12e2ea43946412c7b5c5ba67d9e1378e7"
+    },
+    {
+      "bytes": 39202,
+      "path": "model-evidence/sources/accepted-finish-design.json",
+      "sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909"
+    },
+    {
+      "bytes": 16677,
+      "path": "model-evidence/sources/blender_fur_undercoat.py",
+      "sha256": "688f000018557ff18233edd1d514d8f268e46dbe14101daba8bb71ecc7f53d34"
+    },
+    {
+      "bytes": 7179,
+      "path": "model-evidence/sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 10142,
+      "path": "model-evidence/sources/patch_uv1.py",
+      "sha256": "eca5370e28e27f2e51503e092cef7fa5cc39e987502114f77ac586c5a2996754"
+    },
+    {
+      "bytes": 8575,
+      "path": "model-evidence/sources/previous_patch_reference.py",
+      "sha256": "6dc002ee36d26707cfb75f9bd93f569c30d96da296e646c00eeb7cb1d47782ff"
+    },
+    {
+      "bytes": 6787,
+      "path": "model-evidence/sources/run_cpu_diagnostic.py",
+      "sha256": "68453fb9b7cd9a2f5cdecf0ff87244e069bec177f887151fb4073e749b51c6cc"
+    },
+    {
+      "bytes": 14546,
+      "path": "model-evidence/sources/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "bytes": 2590107,
+      "path": "model-evidence/textures/normal-region-00.png",
+      "sha256": "7dc552e91456efa843110204724dea14af8cef51c51f3be01cc227f3c6f1f523"
+    },
+    {
+      "bytes": 153465,
+      "path": "model-evidence/textures/normal-region-02.png",
+      "sha256": "0431fe0fe28dd4950b61883fc99f7b4acd74356f9ab48ed1dfd4ef78eaacff15"
+    },
+    {
+      "bytes": 2993,
+      "path": "model-evidence/uv-plan.json",
+      "sha256": "0ac9d7bbb0f793b2aa5848f052921a22c2d920edcc9db961778e13c7db148f66"
+    },
+    {
+      "bytes": 7106,
+      "path": "omitted-original-artifacts.json",
+      "sha256": "0c5d42c67e99ff1094b110861adaad7f045b4f8a84462fe76cc1960c45ed3d9e"
+    },
+    {
+      "bytes": 1724,
+      "path": "preview-evidence/job.json",
+      "sha256": "37d87dff8d6287f7ec9072c4cd41efeda6dba4214bb70e028cd31d0faf2c4694"
+    },
+    {
+      "bytes": 146,
+      "path": "preview-evidence/motion-states.json",
+      "sha256": "edbea41aff7ea24efd011c2725e14158c0394a9721e5fdb426eee9af4ca90335"
+    },
+    {
+      "bytes": 11119,
+      "path": "preview-evidence/native-inspection.json",
+      "sha256": "fcbfe81cafcb658a49cd7aa7b96a6d3e8aedd049fa5479382f1ccd6ccf2c710b"
+    },
+    {
+      "bytes": 18553,
+      "path": "preview-evidence/parent-manifest.json",
+      "sha256": "4167dbafe78458621fb6de00d41c92a566aa0c47d8e61ce049f62e8bfeb45e59"
+    },
+    {
+      "bytes": 2030,
+      "path": "preview-evidence/preflight.json",
+      "sha256": "114683754c7231263bfff465a29955efd58080a3cab1278004558806ff5a61d7"
+    },
+    {
+      "bytes": 765,
+      "path": "preview-evidence/preview-handle.json",
+      "sha256": "2b022967d73396a34ceebfba51a533e14351adfeb84e420ebf2066f8a76256e0"
+    },
+    {
+      "bytes": 1574,
+      "path": "preview-evidence/preview-monitor.json",
+      "sha256": "73c85b3a5583bd1eaa440f851593e49c8fd77d1c85990a67e6f0c0a22c1f1bb9"
+    },
+    {
+      "bytes": 79646,
+      "path": "preview-evidence/preview.log",
+      "sha256": "f92aa840583c745a3284f42da43555b24e90088d74490768564776f50b82f0a2"
+    },
+    {
+      "bytes": 12033,
+      "path": "preview-evidence/sources/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 18248,
+      "path": "preview-evidence/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 5972,
+      "path": "review/comparison-context.json",
+      "sha256": "b2773de34ebff2b1f3e7e1450b74dc1fd1b7b4e1d981ea445251ea048d168db0"
+    },
+    {
+      "bytes": 1598,
+      "path": "review/independent-review.json",
+      "sha256": "da243960c3520a3b498711131f932a211254e2e7896cab85d72db27cc1c30f9b"
+    },
+    {
+      "bytes": 461743,
+      "path": "reviewed-images/dance_flight-1.36s.png",
+      "sha256": "3a28571086c64ef84a5375fb678b7fa7f882df61ba2bd2bfd22072bdc0043e91"
+    },
+    {
+      "bytes": 499169,
+      "path": "reviewed-images/front.png",
+      "sha256": "ceb6e0cc0b8276e6bfa53e7d65048e6d518ff92eac4c8e050eb588291e819fff"
+    },
+    {
+      "bytes": 455230,
+      "path": "reviewed-images/side.png",
+      "sha256": "5dd8eaba6f51e2f311d027a12b8ed48fd44b55b4c5fe19ecb7e166ef8de42b5f"
+    },
+    {
+      "bytes": 1266,
+      "path": "test-receipt.json",
+      "sha256": "03a64713797eb3ae60a2f9dc831e8e5b3ba7a27356ba2b4a094cb6e158bce497"
+    },
+    {
+      "bytes": 6842,
+      "path": "tests/test_fur_undercoat.py",
+      "sha256": "edd182848a80d2d97c0f49bec5f3071b691e8202f6f9eeea645a2aa5d5190815"
+    },
+    {
+      "bytes": 5975,
+      "path": "tests/test_undercoat_uv_atlas.py",
+      "sha256": "3b7e5a163a9894bae7562262b68a8d709060976b32dfefa90884fc1222c9fff7"
+    },
+    {
+      "bytes": 2147,
+      "path": "verify_evidence.py",
+      "sha256": "337204dd1b015e502675e60caa685b52bf1570ca5076d0d6195f9b678d9b68d2"
+    }
+  ],
+  "automatic_fur_quality_policy_promoted": false,
+  "complete_avatar_pack": false,
+  "copied_origin_mapping": "bundle-sources.json",
+  "kind": "compact_exact_undercoat_component_evidence",
+  "live_adapters_or_validator_changed": false,
+  "muse_quality_equivalence": false,
+  "new_model_calls": 0,
+  "new_provider_calls": 0,
+  "new_provider_cost_usd": 0,
+  "omitted_original_inventory": "omitted-original-artifacts.json",
+  "recorded_local": "2026-11-01 15:14:16 PST",
+  "retained_payload_bytes": 9130588,
+  "retention_limit_bytes": 10485760,
+  "reviewer": "root_independent_visual_inspection",
+  "schema_version": 1,
+  "standalone_recreation_of_omitted_binaries": false,
+  "status": "optional_surface_detail_component_only",
+  "verification_command": ".venv/bin/python outputs/panda-undercoat-uv1-evidence-v1/verify_evidence.py",
+  "weft_compatible": false
+}

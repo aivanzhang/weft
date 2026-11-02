@@ -1,0 +1,10 @@
+{
+  "authoritative_completed_inventory": "manifest.json",
+  "cpu_artifacts_scope": "Intermediate inventory captured inside the child before its final log write and monitor completion; not the sealed final index.",
+  "prior_outputs_modified": false,
+  "schema_version": 1,
+  "transient_entries_changed_at_normal_job_exit": [
+    "cpu-job-monitor.json",
+    "cpu-job.log"
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "answer_sha256": "1518c84eab24b50bf8efad68f0144678a78c112428eb19d572d2f6340fd32d35",
+  "artifacts": [
+    {
+      "bytes": 2438,
+      "path": "agent-process.json",
+      "sha256": "18c53046a37e24e6c7a9828483597dea37b87fb11d504119345d2b996cd0bcae"
+    },
+    {
+      "bytes": 2128,
+      "path": "agent.jsonl",
+      "sha256": "11383199d40feb9cb882ea7dd56ee63009944138de3af3710a59f52e5f0c2559"
+    },
+    {
+      "bytes": 29,
+      "path": "agent.stderr",
+      "sha256": "3e75d28a6681c31400a3f0fcb564c7613fd42796fb83294e4d53fea86bcbd401"
+    },
+    {
+      "bytes": 1291,
+      "path": "answer.json",
+      "sha256": "1518c84eab24b50bf8efad68f0144678a78c112428eb19d572d2f6340fd32d35"
+    },
+    {
+      "bytes": 327222,
+      "path": "image-00.png",
+      "sha256": "61fc9b6934142b945cf9822cd9c699c35e1804d870f064452ed349bd46da50a5"
+    },
+    {
+      "bytes": 291828,
+      "path": "image-01.png",
+      "sha256": "00229b541bba4705288f2d039aa79e49ae398925b1483d9699ffa76902b9320d"
+    },
+    {
+      "bytes": 245555,
+      "path": "image-02.png",
+      "sha256": "e22aca448dea287080614b66029dcbc6ba3f6f84d65a712df0e251a6c1bff956"
+    },
+    {
+      "bytes": 1087449,
+      "path": "image-03.png",
+      "sha256": "47927f634f596675a984dbd36e95862fa53a2951ded0504a0e25566f64dd7cc3"
+    },
+    {
+      "bytes": 3205,
+      "path": "invocation.json",
+      "sha256": "45c190340eac288b2a644b026b5ee9ce5ad93dd2452e40e20388767ab09a7343"
+    },
+    {
+      "bytes": 66686,
+      "path": "invocation.txt",
+      "sha256": "9f4fc7b8dfc726d6d302636b0991ab6aa52124533c3ae090ea08b740216a55a0"
+    },
+    {
+      "bytes": 66205,
+      "path": "prompt.txt",
+      "sha256": "a8dc16fd9e2c3a1096392609728d25e09761d4b950e0508c9c695abfa2c75efe"
+    },
+    {
+      "bytes": 994,
+      "path": "request.json",
+      "sha256": "cee962dd44c8a791b8cc5be630cd2e6ccf31199db4a8e90ff98316329511b377"
+    },
+    {
+      "bytes": 352,
+      "path": "schema.json",
+      "sha256": "767a4f3871c3b4fdac31a4e10bd19a5763d41cd6df83098aaa6478d22c021886"
+    },
+    {
+      "bytes": 504,
+      "path": "version-process.json",
+      "sha256": "45ba2c7dbaa387ea066b28585abebbae6baa1038177805fc0d4c29f83f850ed1"
+    },
+    {
+      "bytes": 18,
+      "path": "version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c"
+    },
+    {
+      "bytes": 0,
+      "path": "version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "bootstrap_warnings": [
+    "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+  ],
+  "cli_version": "codex-cli 0.166.0",
+  "event_count": 5,
+  "execution_kind": "codex_cli",
+  "process": {
+    "cleanup": [],
+    "command": [
+      "/Users/ivan/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/bin/codex",
+      "exec",
+      "--ignore-user-config",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--sandbox",
+      "read-only",
+      "--json",
+      "--color",
+      "never",
+      "--cd",
+      "/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/avatar-data-agent-6p240qfg",
+      "--config",
+      "approval_policy=\"never\"",
+      "--config",
+      "web_search=\"disabled\"",
+      "--config",
+      "project_doc_max_bytes=0",
+      "--config",
+      "mcp_servers={}",
+      "--config",
+      "suppress_unstable_features_warning=true",
+      "--enable",
+      "skip_host_skill_discovery",
+      "--enable",
+      "omit_skill_descriptions",
+      "--output-schema",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/agents/author-1/schema.json",
+      "--output-last-message",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/agents/author-1/answer.json",
+      "--disable",
+      "shell_tool",
+      "--disable",
+      "apps",
+      "--disable",
+      "plugins",
+      "--disable",
+      "hooks",
+      "--disable",
+      "browser_use",
+      "--disable",
+      "browser_use_external",
+      "--disable",
+      "computer_use",
+      "--disable",
+      "in_app_browser",
+      "--disable",
+      "image_generation",
+      "--disable",
+      "multi_agent",
+      "--disable",
+      "view_image",
+      "--disable",
+      "sleep_tool",
+      "--disable",
+      "skill_search",
+      "--disable",
+      "workspace_dependencies",
+      "--disable",
+      "memories",
+      "--disable",
+      "request_permissions_tool",
+      "--disable",
+      "unbounded_connection_retries",
+      "--disable",
+      "code_mode_host",
+      "--disable",
+      "code_mode",
+      "--disable",
+      "in_app_local_automation",
+      "--disable",
+      "shell_snapshot",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/agents/author-1/image-00.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/agents/author-1/image-01.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/agents/author-1/image-02.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/agents/author-1/image-03.png",
+      "-"
+    ],
+    "descendant_rss_measured": false,
+    "elapsed_seconds": 15.457,
+    "exit_code": 0,
+    "failure": null,
+    "limits": {
+      "answer_bytes": 1048576,
+      "cleanup_seconds": 4,
+      "output_bytes": 50331648,
+      "rss_bytes": 1073741824,
+      "stream_bytes_each": 4194304,
+      "wall_seconds": 240.0
+    },
+    "manual_stop_required": false,
+    "pid": 78453,
+    "rss_samples": 51,
+    "sampled_peak_rss_bytes": 239960064,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "status": "succeeded",
+  "thread_id": "01a19963-1922-7f02-a713-951dc1296ad0",
+  "tool_activity": false,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 36229,
+    "output_tokens": 555,
+    "reasoning_output_tokens": 181
+  }
+}

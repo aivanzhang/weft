@@ -1,0 +1,160 @@
+{
+  "authored_actions": [
+    {
+      "id": "greeting",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "RightArm": [
+              0,
+              55,
+              0
+            ],
+            "RightForeArm": [
+              0,
+              35,
+              0
+            ],
+            "RightHand": [
+              0,
+              -25,
+              0
+            ]
+          },
+          "second": 0.6
+        },
+        {
+          "rotations": {
+            "RightArm": [
+              0,
+              55,
+              0
+            ],
+            "RightForeArm": [
+              0,
+              35,
+              0
+            ],
+            "RightHand": [
+              0,
+              30,
+              0
+            ]
+          },
+          "second": 1.1
+        },
+        {
+          "rotations": {
+            "RightArm": [
+              0,
+              55,
+              0
+            ],
+            "RightForeArm": [
+              0,
+              35,
+              0
+            ],
+            "RightHand": [
+              0,
+              -25,
+              0
+            ]
+          },
+          "second": 1.65
+        },
+        {
+          "rotations": {
+            "RightArm": [
+              0,
+              55,
+              0
+            ],
+            "RightForeArm": [
+              0,
+              35,
+              0
+            ],
+            "RightHand": [
+              0,
+              30,
+              0
+            ]
+          },
+          "second": 2.2
+        },
+        {
+          "rotations": {
+            "RightArm": [
+              0,
+              55,
+              0
+            ],
+            "RightForeArm": [
+              0,
+              35,
+              0
+            ],
+            "RightHand": [
+              0,
+              -25,
+              0
+            ]
+          },
+          "second": 2.75
+        },
+        {
+          "rotations": {
+            "RightArm": [
+              0,
+              55,
+              0
+            ],
+            "RightForeArm": [
+              0,
+              35,
+              0
+            ],
+            "RightHand": [
+              0,
+              30,
+              0
+            ]
+          },
+          "second": 3.4
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    }
+  ],
+  "camera_fit": "motion",
+  "camera_view": "three_quarter",
+  "export_model": true,
+  "id": "studio-b184afa00c2f4c2d853de705-attempt-0",
+  "normal_strength": 0.6,
+  "pose_resolution": 720,
+  "prompt": "A friendly blue and cream workshop robot with copper accents, a rounded torso, two arms and two feet. Preserve the supplied generated robot identity and small mechanical details.",
+  "resolution": 720,
+  "review_views": true,
+  "rights": "User-described subject with optional selected references. Generated hidden surfaces and agent-authored rig, scale and motion are assumptions. Source provenance is retained by the pipeline; commercial rights are not independently verified.",
+  "sample_states": true,
+  "samples": 16,
+  "schema_version": 1,
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/inputs/source-model.glb",
+  "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+  "states": [
+    {
+      "id": "greeting",
+      "meaning": "The robot waves its right hand side to side in greeting while its torso and feet remain steady throughout."
+    }
+  ],
+  "style": "Polished stylized 3D toy with clean hard-surface panels, visible copper accents and the original blue-and-cream palette.",
+  "subject": "A friendly blue-and-cream workshop robot with copper accents, a rounded torso, two arms and two feet, preserving the supplied generated identity and small mechanical details."
+}

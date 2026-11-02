@@ -1,0 +1,709 @@
+{
+  "artifacts": [
+    {
+      "bytes": 476175,
+      "path": "back.png",
+      "sha256": "2988618671e346bb2f52dcd26afa65d2f4b60cfad541004e5ec7da143265355b"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "7045e6c44aff8b7ef68c7d3a757580bdac358c0e7f770817ad0bf18905065f28"
+    },
+    {
+      "bytes": 499169,
+      "path": "front.png",
+      "sha256": "ceb6e0cc0b8276e6bfa53e7d65048e6d518ff92eac4c8e050eb588291e819fff"
+    },
+    {
+      "bytes": 1724,
+      "path": "job.json",
+      "sha256": "37d87dff8d6287f7ec9072c4cd41efeda6dba4214bb70e028cd31d0faf2c4694"
+    },
+    {
+      "bytes": 146,
+      "path": "motion-states.json",
+      "sha256": "edbea41aff7ea24efd011c2725e14158c0394a9721e5fdb426eee9af4ca90335"
+    },
+    {
+      "bytes": 11119,
+      "path": "native-inspection.json",
+      "sha256": "fcbfe81cafcb658a49cd7aa7b96a6d3e8aedd049fa5479382f1ccd6ccf2c710b"
+    },
+    {
+      "bytes": 34693412,
+      "path": "original.glb",
+      "sha256": "784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185"
+    },
+    {
+      "bytes": 2030,
+      "path": "preflight.json",
+      "sha256": "114683754c7231263bfff465a29955efd58080a3cab1278004558806ff5a61d7"
+    },
+    {
+      "bytes": 765,
+      "path": "preview-handle.json",
+      "sha256": "2b022967d73396a34ceebfba51a533e14351adfeb84e420ebf2066f8a76256e0"
+    },
+    {
+      "bytes": 1574,
+      "path": "preview-monitor.json",
+      "sha256": "73c85b3a5583bd1eaa440f851593e49c8fd77d1c85990a67e6f0c0a22c1f1bb9"
+    },
+    {
+      "bytes": 79646,
+      "path": "preview.log",
+      "sha256": "f92aa840583c745a3284f42da43555b24e90088d74490768564776f50b82f0a2"
+    },
+    {
+      "bytes": 454602,
+      "path": "renders/dance_flight/0000.png",
+      "sha256": "c927e02fae50c9acc829c7cc43aaee03c31e672505d8e32ba133ab2e344fb755"
+    },
+    {
+      "bytes": 461071,
+      "path": "renders/dance_flight/0001.png",
+      "sha256": "9cc8176f3c1417528467d9014a4bf24c7ccfd9ac58005b87db4b532ba68dd999"
+    },
+    {
+      "bytes": 460070,
+      "path": "renders/dance_flight/0002.png",
+      "sha256": "3a11ff05117b194bc87be7f4ab43828c7ef21da343d440ef9aa3d0337a33fb7e"
+    },
+    {
+      "bytes": 461743,
+      "path": "renders/dance_flight/0003.png",
+      "sha256": "3a28571086c64ef84a5375fb678b7fa7f882df61ba2bd2bfd22072bdc0043e91"
+    },
+    {
+      "bytes": 459258,
+      "path": "renders/dance_flight/0004.png",
+      "sha256": "91a112ee25658d3e422eb26335ad4c66aba8bd6e85ad3f4abee4777db346f429"
+    },
+    {
+      "bytes": 459100,
+      "path": "renders/dance_flight/0005.png",
+      "sha256": "f45ca116a7a21e9c26d21071e172d6173e8785fca17a9844913c4d29bf0cebcc"
+    },
+    {
+      "bytes": 459161,
+      "path": "renders/dance_flight/0006.png",
+      "sha256": "c91e80b5b6b4da9716d8e516e38ad0c54621341c161e325e3316582a7f9ac0e5"
+    },
+    {
+      "bytes": 454602,
+      "path": "renders/dance_flight/0007.png",
+      "sha256": "489b65965b58f0acdf98bbbd05da63ecab2604f35d2830f064c7f2944446e5f0"
+    },
+    {
+      "bytes": 455230,
+      "path": "side.png",
+      "sha256": "5dd8eaba6f51e2f311d027a12b8ed48fd44b55b4c5fe19ecb7e166ef8de42b5f"
+    },
+    {
+      "bytes": 41166990,
+      "path": "source.blend",
+      "sha256": "80728eab0bb6bc95f0b44a285e574068e712582b5e1736d7a9c1f99ce4dde929"
+    },
+    {
+      "bytes": 37927,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "27a0538897a4bff6bb1bf5ad174e12d5d1feb264091d1b93452bd8d3f3345f6c"
+    },
+    {
+      "bytes": 12033,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 491308,
+      "path": "three-quarter.png",
+      "sha256": "2dcdb6a9b3516369f9809ed2ccf01480eddc57fbe2eed600465099db0e530d6a"
+    }
+  ],
+  "kind": "generated_geometry_preview",
+  "native": {
+    "actions": [
+      "dance_flight"
+    ],
+    "animation_verified": false,
+    "assumptions": [
+      "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+      "Raw generated units are not a calibrated physical measurement",
+      "Hidden geometry is generated, not recovered"
+    ],
+    "blender_version": "4.5.13 LTS",
+    "bounds_blender_z_up": {
+      "max": [
+        0.4572315216064453,
+        0.39253947138786316,
+        1.2026453018188477
+      ],
+      "min": [
+        -0.45410776138305664,
+        -0.38847076892852783,
+        -0.007307969965040684
+      ]
+    },
+    "material_count": 9,
+    "meshes": [
+      {
+        "faces": 62581,
+        "materials": [
+          {
+            "faces": 2603,
+            "name": "body_surface",
+            "slot": 0
+          },
+          {
+            "faces": 31353,
+            "name": "body_surface__short_pile_v1",
+            "slot": 1
+          },
+          {
+            "faces": 27205,
+            "name": "companion_surface",
+            "slot": 2
+          },
+          {
+            "faces": 1,
+            "name": "body_cap",
+            "slot": 3
+          },
+          {
+            "faces": 368,
+            "name": "body_cap__short_pile_v1",
+            "slot": 4
+          },
+          {
+            "faces": 313,
+            "name": "companion_cap",
+            "slot": 5
+          },
+          {
+            "faces": 738,
+            "name": "body_surface__color_rear-tail-base",
+            "slot": 6
+          }
+        ],
+        "name": "PartitionedBodyAndPart",
+        "uv_layers": [
+          "UVMap",
+          "UVMap.001"
+        ],
+        "vertices": 51367
+      },
+      {
+        "faces": 5280,
+        "materials": [
+          {
+            "faces": 5280,
+            "name": "PortableCoat_0_cutout_fur",
+            "slot": 0
+          }
+        ],
+        "name": "PortableCoat_0",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 13226
+      },
+      {
+        "faces": 4320,
+        "materials": [
+          {
+            "faces": 4320,
+            "name": "PortableCoat_1_cutout_fur",
+            "slot": 0
+          }
+        ],
+        "name": "PortableCoat_1",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 10955
+      }
+    ],
+    "motion_states": [
+      {
+        "id": "dance_flight",
+        "poses": [
+          {
+            "path": "renders/dance_flight/0000.png",
+            "second": 0,
+            "sha256": "c927e02fae50c9acc829c7cc43aaee03c31e672505d8e32ba133ab2e344fb755"
+          },
+          {
+            "path": "renders/dance_flight/0001.png",
+            "second": 1,
+            "sha256": "9cc8176f3c1417528467d9014a4bf24c7ccfd9ac58005b87db4b532ba68dd999"
+          },
+          {
+            "path": "renders/dance_flight/0002.png",
+            "second": 1.18,
+            "sha256": "3a11ff05117b194bc87be7f4ab43828c7ef21da343d440ef9aa3d0337a33fb7e"
+          },
+          {
+            "path": "renders/dance_flight/0003.png",
+            "second": 1.36,
+            "sha256": "3a28571086c64ef84a5375fb678b7fa7f882df61ba2bd2bfd22072bdc0043e91"
+          },
+          {
+            "path": "renders/dance_flight/0004.png",
+            "second": 2.36,
+            "sha256": "91a112ee25658d3e422eb26335ad4c66aba8bd6e85ad3f4abee4777db346f429"
+          },
+          {
+            "path": "renders/dance_flight/0005.png",
+            "second": 2.55,
+            "sha256": "f45ca116a7a21e9c26d21071e172d6173e8785fca17a9844913c4d29bf0cebcc"
+          },
+          {
+            "path": "renders/dance_flight/0006.png",
+            "second": 2.8,
+            "sha256": "c91e80b5b6b4da9716d8e516e38ad0c54621341c161e325e3316582a7f9ac0e5"
+          },
+          {
+            "path": "renders/dance_flight/0007.png",
+            "second": 4,
+            "sha256": "489b65965b58f0acdf98bbbd05da63ecab2604f35d2830f064c7f2944446e5f0"
+          }
+        ],
+        "resolution": 720
+      }
+    ],
+    "renders": [
+      {
+        "path": "front.png",
+        "sha256": "ceb6e0cc0b8276e6bfa53e7d65048e6d518ff92eac4c8e050eb588291e819fff",
+        "view": "front"
+      },
+      {
+        "path": "three-quarter.png",
+        "sha256": "2dcdb6a9b3516369f9809ed2ccf01480eddc57fbe2eed600465099db0e530d6a",
+        "view": "three-quarter"
+      },
+      {
+        "path": "back.png",
+        "sha256": "2988618671e346bb2f52dcd26afa65d2f4b60cfad541004e5ec7da143265355b",
+        "view": "back"
+      },
+      {
+        "path": "side.png",
+        "sha256": "5dd8eaba6f51e2f311d027a12b8ed48fd44b55b4c5fe19ecb7e166ef8de42b5f",
+        "view": "side"
+      }
+    ],
+    "rigs": [
+      {
+        "bones": [
+          {
+            "head": [
+              0.036328621208667755,
+              0.046616487205028534,
+              0.041999999433755875
+            ],
+            "name": "Root",
+            "parent": null,
+            "tail": [
+              0.036328621208667755,
+              0.04661649465560913,
+              0.21617339551448822
+            ]
+          },
+          {
+            "head": [
+              0.036328621208667755,
+              0.05438590422272682,
+              0.2160000056028366
+            ],
+            "name": "Pelvis",
+            "parent": "Root",
+            "tail": [
+              0.036328621208667755,
+              0.046616487205028534,
+              0.3720000386238098
+            ]
+          },
+          {
+            "head": [
+              0.036328621208667755,
+              0.046616505831480026,
+              0.3720000088214874
+            ],
+            "name": "Torso",
+            "parent": "Pelvis",
+            "tail": [
+              0.036328621208667755,
+              0.023308292031288147,
+              0.623999834060669
+            ]
+          },
+          {
+            "head": [
+              0.036328624933958054,
+              0.023308278992772102,
+              0.623999834060669
+            ],
+            "name": "Neck",
+            "parent": "Torso",
+            "tail": [
+              0.04541078209877014,
+              -0.007769376039505005,
+              0.7079998254776001
+            ]
+          },
+          {
+            "head": [
+              0.04541077837347984,
+              -0.007769363466650248,
+              0.7079998254776001
+            ],
+            "name": "Head",
+            "parent": "Neck",
+            "tail": [
+              0.04541077837347984,
+              -0.00576000427827239,
+              0.7980012893676758
+            ]
+          },
+          {
+            "head": [
+              -0.09990371018648148,
+              0.01553884893655777,
+              0.5999999642372131
+            ],
+            "name": "RightShoulder",
+            "parent": "Torso",
+            "tail": [
+              -0.2270539104938507,
+              -0.031077660620212555,
+              0.5879999399185181
+            ]
+          },
+          {
+            "head": [
+              -0.2270539104938507,
+              -0.03107762709259987,
+              0.5879999399185181
+            ],
+            "name": "RightUpperArm",
+            "parent": "RightShoulder",
+            "tail": [
+              -0.27246469259262085,
+              -0.09323294460773468,
+              0.4559999406337738
+            ]
+          },
+          {
+            "head": [
+              -0.2724646329879761,
+              -0.09323298931121826,
+              0.4559999406337738
+            ],
+            "name": "RightForearm",
+            "parent": "RightUpperArm",
+            "tail": [
+              -0.16347873210906982,
+              -0.2253130078315735,
+              0.37199997901916504
+            ]
+          },
+          {
+            "head": [
+              -0.16347873210906982,
+              -0.2253129929304123,
+              0.37199994921684265
+            ],
+            "name": "RightHand",
+            "parent": "RightForearm",
+            "tail": [
+              -0.008563965559005737,
+              -0.3199723958969116,
+              0.3135186433792114
+            ]
+          },
+          {
+            "head": [
+              0.1725609004497528,
+              0.0233082864433527,
+              0.5999999642372131
+            ],
+            "name": "LeftShoulder",
+            "parent": "Torso",
+            "tail": [
+              0.27246469259262085,
+              0.023308277130126953,
+              0.5879999399185181
+            ]
+          },
+          {
+            "head": [
+              0.27246466279029846,
+              0.023308271542191505,
+              0.5879999399185181
+            ],
+            "name": "LeftUpperArm",
+            "parent": "LeftShoulder",
+            "tail": [
+              0.34512197971343994,
+              -0.015538835898041725,
+              0.44399988651275635
+            ]
+          },
+          {
+            "head": [
+              0.34512192010879517,
+              -0.015538814477622509,
+              0.44399991631507874
+            ],
+            "name": "LeftForearm",
+            "parent": "LeftUpperArm",
+            "tail": [
+              0.37236836552619934,
+              -0.007769408170133829,
+              0.31200000643730164
+            ]
+          },
+          {
+            "head": [
+              0.37236836552619934,
+              -0.00776942353695631,
+              0.31200000643730164
+            ],
+            "name": "LeftHand",
+            "parent": "LeftForearm",
+            "tail": [
+              0.4053933024406433,
+              -0.007769434712827206,
+              0.18109522759914398
+            ]
+          },
+          {
+            "head": [
+              -0.09082154184579849,
+              0.2563907206058502,
+              0.26399996876716614
+            ],
+            "name": "Tail",
+            "parent": "Pelvis",
+            "tail": [
+              -0.2333589494228363,
+              0.3202613890171051,
+              0.26399996876716614
+            ]
+          },
+          {
+            "head": [
+              -0.13623234629631042,
+              0.04661649093031883,
+              0.17999997735023499
+            ],
+            "name": "RightFoot",
+            "parent": "Root",
+            "tail": [
+              -0.13623234629631042,
+              -0.09536947309970856,
+              0.07912202924489975
+            ]
+          },
+          {
+            "head": [
+              0.1725609302520752,
+              0.04661649838089943,
+              0.1799999624490738
+            ],
+            "name": "LeftFoot",
+            "parent": "Root",
+            "tail": [
+              0.17919516563415527,
+              -0.0952664166688919,
+              0.07919519394636154
+            ]
+          },
+          {
+            "head": [
+              -0.3087932765483856,
+              -0.16315768659114838,
+              0.6359999179840088
+            ],
+            "name": "CompanionRoot",
+            "parent": "Root",
+            "tail": [
+              -0.3087932765483856,
+              -0.16315768659114838,
+              0.7255145907402039
+            ]
+          },
+          {
+            "head": [
+              -0.34512192010879517,
+              -0.12431062757968903,
+              0.7080000042915344
+            ],
+            "name": "DragonWingRight",
+            "parent": "CompanionRoot",
+            "tail": [
+              -0.41315168142318726,
+              -0.16865096986293793,
+              0.6703335642814636
+            ]
+          },
+          {
+            "head": [
+              -0.28154680132865906,
+              -0.10488707572221756,
+              0.7200000286102295
+            ],
+            "name": "DragonWingLeft",
+            "parent": "CompanionRoot",
+            "tail": [
+              -0.2500695586204529,
+              -0.028592519462108612,
+              0.6853416562080383
+            ]
+          }
+        ],
+        "name": "CreatureRig"
+      }
+    ],
+    "schema_version": 1,
+    "source_is_untextured": false,
+    "source_sha256": "784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185",
+    "source_unchanged": true
+  },
+  "new_provider_cost_usd": 0,
+  "preflight": {
+    "animations": 1,
+    "attributes": [
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ],
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ],
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ],
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ],
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "TEXCOORD_1",
+        "WEIGHTS_0"
+      ],
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ],
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ],
+      [
+        "COLOR_0",
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ],
+      [
+        "COLOR_0",
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ]
+    ],
+    "schema_version": 1,
+    "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+    "sha256": "784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185",
+    "skins": 1,
+    "source_unchanged": true,
+    "textures": [
+      {
+        "format": "PNG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 2048,
+        "width": 2048
+      },
+      {
+        "format": "PNG",
+        "height": 1024,
+        "width": 1024
+      },
+      {
+        "format": "PNG",
+        "height": 1024,
+        "width": 1024
+      },
+      {
+        "format": "PNG",
+        "height": 2048,
+        "width": 2048
+      },
+      {
+        "format": "PNG",
+        "height": 1024,
+        "width": 1024
+      }
+    ],
+    "triangles": 72181,
+    "vertices": 75548
+  },
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_glb_sha256": "784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185",
+  "status": "needs_visual_review"
+}

@@ -1,0 +1,109 @@
+{
+  "authored_data": [
+    "UV1 and associated tangents on measured aliased region",
+    "per-material short-pile normal PNGs and declared roughness"
+  ],
+  "cpu_bounds": {
+    "memory_mb": 512,
+    "output_mb": 128,
+    "threads": 1,
+    "timeout_seconds": 120
+  },
+  "new_model_calls": 0,
+  "new_provider_calls": 0,
+  "new_provider_cost_usd": 0,
+  "original_position_normal_uv0_basecolor_skin_motion_preservation_required": true,
+  "preview_bounds": {
+    "memory_mb": 2048,
+    "motion_states": [
+      {
+        "id": "dance_flight",
+        "seconds": [
+          0,
+          1,
+          1.18,
+          1.36,
+          2.36,
+          2.55,
+          2.8,
+          4
+        ]
+      }
+    ],
+    "output_mb": 256,
+    "resolution": 720,
+    "samples": 16,
+    "threads": 4,
+    "timeout_seconds": 600
+  },
+  "schema_version": 1,
+  "source_model_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "sources": [
+    {
+      "bytes": 735,
+      "path": "analytic-uv1-patch-test.json",
+      "sha256": "956778c39a7ef9ed7407d007234e396126e2d0037a83266066ff1c3eecc515ed"
+    },
+    {
+      "bytes": 30202,
+      "path": "authored-normal-atlases.npz",
+      "sha256": "52e16bf962fa651cd506d1c776a37bb7cbbf326de89338b932f17f4ffefee4c9"
+    },
+    {
+      "bytes": 2332,
+      "path": "diagnostic-config.json",
+      "sha256": "3a89b99feabac035321725cbc0f4bdffb8f6aed294ab0149c5c873ace37011fe"
+    },
+    {
+      "bytes": 4487873,
+      "path": "source-body.npz",
+      "sha256": "1970a593f24180921c3641d33fe319e12e2ea43946412c7b5c5ba67d9e1378e7"
+    },
+    {
+      "bytes": 39202,
+      "path": "sources/accepted-finish-design.json",
+      "sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909"
+    },
+    {
+      "bytes": 16677,
+      "path": "sources/blender_fur_undercoat.py",
+      "sha256": "688f000018557ff18233edd1d514d8f268e46dbe14101daba8bb71ecc7f53d34"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 10142,
+      "path": "sources/patch_uv1.py",
+      "sha256": "eca5370e28e27f2e51503e092cef7fa5cc39e987502114f77ac586c5a2996754"
+    },
+    {
+      "bytes": 8575,
+      "path": "sources/previous_patch_reference.py",
+      "sha256": "6dc002ee36d26707cfb75f9bd93f569c30d96da296e646c00eeb7cb1d47782ff"
+    },
+    {
+      "bytes": 6787,
+      "path": "sources/run_cpu_diagnostic.py",
+      "sha256": "68453fb9b7cd9a2f5cdecf0ff87244e069bec177f887151fb4073e749b51c6cc"
+    },
+    {
+      "bytes": 14546,
+      "path": "sources/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "bytes": 2993,
+      "path": "uv-plan.json",
+      "sha256": "0ac9d7bbb0f793b2aa5848f052921a22c2d920edcc9db961778e13c7db148f66"
+    }
+  ],
+  "status": "prepared_for_authorized_cpu_patch_and_one_native_preview",
+  "tests": {
+    "focused": "6pure tests passed in0.523s",
+    "patch_fixture": "Actual source plus analytic neutral normals:75,548vertices/72,181triangles; exact prefix/skin/motions/portable primitives; UV1binding and nonalignedPNGpadding verified. Not appearance evidence."
+  },
+  "weft_appearance_compatible": false
+}

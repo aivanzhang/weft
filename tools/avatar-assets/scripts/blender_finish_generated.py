@@ -150,7 +150,7 @@ def constrain_weights(obj, rig, points, low, span, config):
         group = obj.vertex_groups.new(name=name)
         for index, weight in values:
             group.add([index], weight, 'REPLACE')
-    return {'changed_vertices': int(changed), 'config': config, 'method': 'Bound provider bone weights to authored ellipsoids; transfer removed weight to torso',
+    return {'changed_vertices': int(changed), 'config': config, 'method': 'Bound provider bone weights to authored ellipsoids; transfer removed weight to the configured fallback bone',
             'authored_not_recovered': True}
 
 
@@ -549,7 +549,7 @@ def finish(config, output):
     cards = []
     diagnostic_rest, diagnostic_edges = None, None
     if cfg.get('sample_states'):
-        from deformation_diagnostics import diagnose_stretched_edges
+        from deformation_diagnostics import diagnose_stretched_edges, retain_stretched_edges
         diagnostic_rest, diagnostic_edges, report['deformation_measurement'] = deformation_baseline(
             obj, rig, 'authored' if cfg.get('authored_rig') else 'source_skin')
     if cfg.get('fur_undercoat'):
@@ -737,7 +737,7 @@ def finish(config, output):
             folder.mkdir(parents=True)
             sampling = sample_action(authored.get(action.name), (start, end),
                                      scene.render.fps/scene.render.fps_base)
-            outliers = {}
+            outliers = []
             for index, frame in enumerate(sampling['frames']):
                 set_frame(frame)
                 if diagnostic_rest is not None:
@@ -760,15 +760,13 @@ def finish(config, output):
                                 {obj.vertex_groups[g.group].name: float(g.weight)
                                  for g in obj.data.vertices[v].groups if g.weight > 1e-6}
                                 for v in row['endpoint_indices']]
-                            key = tuple(row['endpoint_indices'])
-                            if key not in outliers or row['stretch_ratio'] > outliers[key]['stretch_ratio']:
-                                outliers[key] = row
+                            outliers.append(row)
                         report['deformation_measurement']['pose_samples_measured'] += 1
                     finally:
                         evaluated.to_mesh_clear()
                 scene.render.filepath = str(folder/f'{index:04d}.png')
                 bpy.ops.render.render(write_still=True)
-            worst = sorted(outliers.values(), key=lambda row: row['posed_length']-row['rest_length'], reverse=True)[:4]
+            worst = retain_stretched_edges(outliers, report['deformation_measurement']['rest_bounds']['height'])
             report['states'].append({'id': action.name, **sampling,
                 'duration_seconds': (end-start)/(scene.render.fps/scene.render.fps_base), 'loop_verified': False,
                 'deformation_outliers': worst,

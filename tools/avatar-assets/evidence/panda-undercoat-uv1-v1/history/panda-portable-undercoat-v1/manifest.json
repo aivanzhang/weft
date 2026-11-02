@@ -1,0 +1,118 @@
+{
+  "artifacts": [
+    {
+      "bytes": 756,
+      "path": "analytic-patch-test.json",
+      "sha256": "96556560942b5fcea13b301c04f04cf19f18e39e9e11621c437dffb99bf8e61e"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "1975fca5e940478087e28b577f0d16f577eb8eeed56d2dd5c5fd9887baa1757a"
+    },
+    {
+      "bytes": 1738,
+      "path": "diagnostic-config.json",
+      "sha256": "54098ee75cbb0255d66f16ec5f0c73350bffcf1d36ba3d3b1d08b713208babc5"
+    },
+    {
+      "bytes": 1515,
+      "path": "job.json",
+      "sha256": "0ae495e00131321fca925cc24aa2b256bee3bbd168213887cf0551c1c0426542"
+    },
+    {
+      "bytes": 591,
+      "path": "native-handle.json",
+      "sha256": "3a6fe13af549f7fcd56961d5f85f70c581a9579cc24b44bbfc894807264b858b"
+    },
+    {
+      "bytes": 1381,
+      "path": "native-monitor.json",
+      "sha256": "07be72796ac9b6aac278ba79f8df7992d49d3664ce944cfe8721047c0eac3b48"
+    },
+    {
+      "bytes": 1177,
+      "path": "native.log",
+      "sha256": "7ac2322fb47638408679c0c996daf9695b0270e3db61ca57f9f26990665ed986"
+    },
+    {
+      "bytes": 3061,
+      "path": "prepared-job.json",
+      "sha256": "81fa0492e20804a9a8352a8ccae1dcb84af197f9ca250a208d73a8b16c098560"
+    },
+    {
+      "bytes": 219,
+      "path": "source-body-receipt.json",
+      "sha256": "25f05553bf1586dda6236f325c1e01815978a9d806161968a899dd67a0c8f5c6"
+    },
+    {
+      "bytes": 2867306,
+      "path": "source-body.npz",
+      "sha256": "f438438c8b3b2ca83eefc110882c6440f53572ab025307d17c47782816d7335d"
+    },
+    {
+      "bytes": 15942,
+      "path": "sources/__pycache__/bake_diagnostic.cpython-314.pyc",
+      "sha256": "73f7e3ef173f5481c35910dce3f9d1257e0a0879bed9561821c4f68633ed24ab"
+    },
+    {
+      "bytes": 32319,
+      "path": "sources/__pycache__/blender_fur_undercoat.cpython-311.pyc",
+      "sha256": "e4e3895530c79f1a376012c709621c1f66eee83ae993a7bf6bc7fb7146339028"
+    },
+    {
+      "bytes": 37915,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "a24d75d5fa0a09d4ec10efd319fe2a4e61f40619a2165e0b013f5e193d053c68"
+    },
+    {
+      "bytes": 13307,
+      "path": "sources/__pycache__/groom_flow.cpython-311.pyc",
+      "sha256": "f13a39757a7391f1e3c3f980606f56901b4fc07f75e1c7fb3b98ec239a2a5d1a"
+    },
+    {
+      "bytes": 16445,
+      "path": "sources/__pycache__/patch_materials.cpython-314.pyc",
+      "sha256": "09ccc278fdf409107939e40ed273575f8aaa8a7017eccaa2e3985dd8dcc7d051"
+    },
+    {
+      "bytes": 39202,
+      "path": "sources/accepted-finish-design.json",
+      "sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909"
+    },
+    {
+      "bytes": 8548,
+      "path": "sources/bake_diagnostic.py",
+      "sha256": "940c92347f7245995de255666f7109fd77e8a6b10ecc608db8e4207d7eddcbac"
+    },
+    {
+      "bytes": 16753,
+      "path": "sources/blender_fur_undercoat.py",
+      "sha256": "0121bb04a8f17ba00378b1c12920d80dff6a530a829d5d6f8f79ce1713cd8e3a"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 8575,
+      "path": "sources/patch_materials.py",
+      "sha256": "6dc002ee36d26707cfb75f9bd93f569c30d96da296e646c00eeb7cb1d47782ff"
+    }
+  ],
+  "error": "Undercoat bake failed; inspect immutable native/job evidence",
+  "rejected_attempts": [
+    {
+      "preserved": true,
+      "reason": "Undercoat bake failed; inspect immutable native/job evidence"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed"
+}

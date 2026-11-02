@@ -1,11 +1,16 @@
 """Bounded stretched-edge evidence, not a visibility, quality or physics verdict."""
 
+import math
+
 import numpy as np
 
 
 MAX_VERTICES = 100000
 MAX_EDGES = 300000
 MAX_ROWS = 4
+MAX_CANDIDATE_ROWS = 8*MAX_ROWS
+SEVERE_RATIO = 8.0
+SEVERE_HEIGHT_FRACTION = .03
 
 
 def _matrix(value, columns, limit, name, kinds):
@@ -33,8 +38,49 @@ def _lengths(points, edges):
     return np.hypot.reduce(points[edges[:, 1]]-points[edges[:, 0]], axis=1)
 
 
+def _severe(ratio, excess, height):
+    return (ratio > SEVERE_RATIO) & (excess > SEVERE_HEIGHT_FRACTION*height)
+
+
+def retain_stretched_edges(rows, height):
+    """Keep four distinct edges across at most eight poses, retaining severe witnesses first."""
+    if not isinstance(rows, (list, tuple)) or len(rows) > MAX_CANDIDATE_ROWS:
+        raise ValueError('Deformation retention exceeds eight poses of four rows')
+    if type(height) not in (int, float) or not math.isfinite(height) or height <= 0:
+        raise ValueError('Deformation retention requires a finite measured rest height')
+    scored = []
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError('Invalid deformation retention row')
+        endpoints = row.get('endpoint_indices')
+        if not isinstance(endpoints, list) or len(endpoints) != 2 or any(
+                type(index) is not int or not 0 <= index < MAX_VERTICES for index in endpoints):
+            raise ValueError('Invalid deformation retention endpoints')
+        values = [row.get(key) for key in ('rest_length', 'posed_length', 'stretch_ratio', 'excess_length')]
+        if any(type(value) not in (int, float) or not math.isfinite(value) or value < 0 for value in values):
+            raise ValueError('Invalid deformation retention measurement')
+        rest, posed, ratio, excess = values
+        if rest <= 0 or not math.isclose(posed/rest, ratio, rel_tol=1e-8, abs_tol=1e-10) or not math.isclose(
+                posed-rest, excess, rel_tol=1e-8, abs_tol=1e-10):
+            raise ValueError('Inconsistent deformation retention measurement')
+        second = row.get('second', 0.)
+        if type(second) not in (int, float) or not math.isfinite(second):
+            raise ValueError('Invalid deformation retention time')
+        identity = tuple(sorted(endpoints))
+        scored.append(((not _severe(ratio, excess, height), -excess, -ratio, identity, second), row))
+    result, seen = [], set()
+    for key, row in sorted(scored, key=lambda item: item[0]):
+        identity = key[3]
+        if identity not in seen:
+            seen.add(identity)
+            result.append(row)
+        if len(result) == MAX_ROWS:
+            break
+    return result
+
+
 def diagnose_stretched_edges(rest_points, posed_points, edges):
-    """Return at most four edge outliers, ordered by extension then stretch ratio.
+    """Return four distinct edges: severe witnesses first, then extension and ratio.
 
     Coordinates use Blender Z-up rest bounds; flat-Z meshes use their largest
     span as the height proxy. Camera occlusion and skin correctness are unknown.
@@ -68,7 +114,9 @@ def diagnose_stretched_edges(rest_points, posed_points, edges):
             candidates = np.flatnonzero(valid)
             ratios = deformed[candidates]/original[candidates]
             candidates, ratios = candidates[ratios > 1.5], ratios[ratios > 1.5]
-            order = np.lexsort((candidates, -ratios, -excess[candidates]))
+            # A larger moderate stretch must not hide a smaller gate-failing spike.
+            severe = _severe(ratios, excess[candidates], height)
+            order = np.lexsort((candidates, -ratios, -excess[candidates], ~severe))
             rows, seen = [], set()
             for offset in order:
                 index = int(candidates[offset])

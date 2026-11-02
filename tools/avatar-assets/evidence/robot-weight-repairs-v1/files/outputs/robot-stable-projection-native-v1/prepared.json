@@ -1,0 +1,145 @@
+{
+  "ai_calls": 0,
+  "blender_executable": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_executable_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "expected_bones": 24,
+  "frozen_files": [
+    {
+      "bytes": 768,
+      "path": "analytic-tests.txt",
+      "sha256": "896c3e54bf3542a46ee67d5449a5b667b43c6dbe84596d7ff2916a73212e9761"
+    },
+    {
+      "bytes": 5429,
+      "path": "execute_prepared.py",
+      "sha256": "c841b7da0a8671a7e0d6e2e2690ce56a38e9f266f6524f1132f611224d638d37"
+    },
+    {
+      "bytes": 2202,
+      "path": "inputs/action-intent.json",
+      "sha256": "00985c1145a0b2ca4cc30aa3fa10554375ebae75d088293e8e3e5a8d02bf23c6"
+    },
+    {
+      "bytes": 151727,
+      "path": "inputs/cpu-preservation-proof.json",
+      "sha256": "29af3a65ce5620a47143c3dba35417fc3e2b83d598cfbfe3555435c89d04748c"
+    },
+    {
+      "bytes": 24462804,
+      "path": "inputs/model.glb",
+      "sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b"
+    },
+    {
+      "bytes": 142,
+      "path": "inputs/motion-states.json",
+      "sha256": "d94bd470086900e1d3de4ac708de8e05f8087458561b05d76da31bf5cef60fb7"
+    },
+    {
+      "bytes": 4108,
+      "path": "inputs/original-finish.json",
+      "sha256": "081e5c043d6ebbc9367a118d16c5e5055ad0c66c55c6bed8fcacbe27511d7564"
+    },
+    {
+      "bytes": 13865,
+      "path": "native_inspection.py",
+      "sha256": "9edd32aa84826fa907b836f70794c4b891771701b67391bb213b5c16009ccdab"
+    },
+    {
+      "bytes": 705,
+      "path": "preflight.json",
+      "sha256": "cb6ac8fd33d7007d2425266ac50a8455ef01d9e90714c1dcb52f313524ac76c2"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 12033,
+      "path": "sources/native/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/native/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 4392,
+      "path": "sources/native/deformation_diagnostics.py",
+      "sha256": "284848acb6d1352d12511c8f0d0de7c486bae125921f4d4edba4721e0e29d393"
+    },
+    {
+      "bytes": 3313,
+      "path": "test_native_edge_contract.py",
+      "sha256": "35646d85f6ce8e64b506fb19a9b6f4afd5b40ee773bfe52a6d99a160a0efb891"
+    }
+  ],
+  "id": "robot-stable-projection-native-v1",
+  "limits": {
+    "cpu_threads": 4,
+    "output_mib": 256,
+    "rss_mib": 2048,
+    "wall_seconds": 600
+  },
+  "model_sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b",
+  "motion_times_source": "Exact original authored greeting keys, preserved without editing actions.",
+  "native_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-stable-projection-native-v1/native_inspection.py"
+  ],
+  "native_jobs_started": 0,
+  "original_inputs": [
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-stable-projection-v1/diagnostic-model.glb",
+      "sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/finish.json",
+      "sha256": "081e5c043d6ebbc9367a118d16c5e5055ad0c66c55c6bed8fcacbe27511d7564"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-stable-projection-v1/action-intent.json",
+      "sha256": "00985c1145a0b2ca4cc30aa3fa10554375ebae75d088293e8e3e5a8d02bf23c6"
+    }
+  ],
+  "planned_output_bytes": "Up to256MiB total, including pinned input and source.blend; no actual native output measured yet.",
+  "projected_additional_paid_cost_usd": 0,
+  "provider_calls": 0,
+  "quality_promotion": false,
+  "recorded_local_time": "2026-11-01 15:48:13 PST",
+  "release_requirement": "Parent owns the native slot. Preparation does not authorize this child to execute.",
+  "render_views": [
+    "front",
+    "three-quarter",
+    "back",
+    "side"
+  ],
+  "resolution": 720,
+  "samples": 8,
+  "schema_version": 1,
+  "scope": "Fresh imported GLB diagnostic: existing provider preview plus every eligible edge at the same8 original key times. Stronger sampled edge coverage than the finisher top-four report, not all-frame or visual acceptance.",
+  "status": "prepared_not_executed",
+  "thresholds": {
+    "excess_fraction_of_measured_rest_height_strictly_greater_than": 0.03,
+    "ratio_strictly_greater_than": 8
+  }
+}

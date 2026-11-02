@@ -1,0 +1,89 @@
+{
+  "kind": "actual_procedural_short_pile_normals",
+  "new_model_calls": 0,
+  "new_provider_calls": 0,
+  "not_recovered_hair": true,
+  "regions": [
+    {
+      "bake": {
+        "array_memory_bound_bytes": 176160768,
+        "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+        "covered_texels": 1589593,
+        "elapsed_seconds": 1.691373,
+        "excluded_triangles": 31228,
+        "geometry_displaced": false,
+        "maximum_normal_tilt_degrees": 19.99134652874681,
+        "normal_float32_sha256": "4976fed2d9d0a9667ddfaaedc569c77582f64cc20ea54ba77e8ba356ceea52bd",
+        "original_uvs_changed": false,
+        "overlap_limit_fraction": 0.01,
+        "overlapping_different_surface_samples": 0,
+        "palette_changed": false,
+        "profile": "short-pile-v1",
+        "raster_candidate_pixels": 4228961,
+        "selected_faces_sha256": "85c1734fa106d688def6e0a1e3c5825d8c640f2326a027293524afa874cb4a3e",
+        "selected_triangles": 31353,
+        "settings": {
+          "max_faces": 40000,
+          "min_faces": 1,
+          "pitch_m": 0.004,
+          "profile": "short-pile-v1",
+          "resolution": 2048,
+          "roughness": 0.92,
+          "seed": 4517,
+          "strength": 0.22
+        },
+        "subpixel_faces": 329,
+        "total_triangles": 62581
+      },
+      "encoding": "RGB8 PNG, linear normal components; bottom-up math rows flipped to PNG top-down",
+      "method": "keep_uv0",
+      "normal_texcoord": 0,
+      "region_id": 0,
+      "texture_path": "textures/normal-region-00.png",
+      "texture_sha256": "7dc552e91456efa843110204724dea14af8cef51c51f3be01cc227f3c6f1f523"
+    },
+    {
+      "bake": {
+        "array_memory_bound_bytes": 62914560,
+        "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+        "covered_texels": 118073,
+        "elapsed_seconds": 0.312159,
+        "excluded_triangles": 62213,
+        "geometry_displaced": false,
+        "maximum_normal_tilt_degrees": 18.511084902901402,
+        "normal_float32_sha256": "b477ea60a9ef4cacaf7731fdced7e12a3e28b69c5ad83d0140a199186880bfa2",
+        "original_uvs_changed": false,
+        "overlap_limit_fraction": 0.01,
+        "overlapping_different_surface_samples": 0,
+        "palette_changed": false,
+        "profile": "short-pile-v1",
+        "raster_candidate_pixels": 231522,
+        "selected_faces_sha256": "fa5cdb034d99bd1db9e3376586422b3e559a957e683deae608c856619b166e13",
+        "selected_triangles": 368,
+        "settings": {
+          "max_faces": 40000,
+          "min_faces": 1,
+          "pitch_m": 0.004,
+          "profile": "short-pile-v1",
+          "resolution": 1024,
+          "roughness": 0.92,
+          "seed": 4517,
+          "strength": 0.22
+        },
+        "subpixel_faces": 0,
+        "total_triangles": 62581
+      },
+      "encoding": "RGB8 PNG, linear normal components; bottom-up math rows flipped to PNG top-down",
+      "method": "authored_uv1",
+      "normal_texcoord": 1,
+      "region_id": 2,
+      "texture_path": "textures/normal-region-02.png",
+      "texture_sha256": "0431fe0fe28dd4950b61883fc99f7b4acd74356f9ab48ed1dfd4ef78eaacff15"
+    }
+  ],
+  "schema_version": 1,
+  "selected_triangle_mask_sha256": "ebc58f9ce6779ab49c7a9152586d5ef822256db52678f354d35f0c05dbec3eb8",
+  "source_color_texture_bytes_changed": false,
+  "source_glb_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "status": "baked_not_visually_accepted"
+}

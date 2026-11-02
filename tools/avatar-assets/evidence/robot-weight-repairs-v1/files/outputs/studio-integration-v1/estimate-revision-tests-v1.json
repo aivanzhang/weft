@@ -1,0 +1,18 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_pipeline.py",
+    "-q"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 0.441,
+  "pipeline_sha256": "a2306e92a84b279118f7991c685e92181153c3dc4e3a875b1b3b72b2e226a12d",
+  "source_unchanged": true,
+  "log_sha256": "6345a448452ed1460b25017e58978871e2345d0e665158af7b53295a866d4199"
+}

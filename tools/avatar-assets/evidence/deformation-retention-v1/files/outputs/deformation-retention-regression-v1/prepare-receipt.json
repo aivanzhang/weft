@@ -1,0 +1,13 @@
+{
+  "analytic_tests_passed": 27,
+  "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python outputs/deformation-retention-regression-v1/execute_prepared.py",
+  "cross_pose_severe_witnesses_retained": 3,
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "native_jobs_started": 0,
+  "new_paid_calls": 0,
+  "new_renders": 0,
+  "prepared_sha256": "5e981f1ee7e3bb460b1908cb56768bb272d5cb374b576af987dde4c80973b4c5",
+  "read_only_retention_replay": "read-only-retention-replay.json",
+  "schema_version": 1,
+  "status": "prepared_not_executed"
+}

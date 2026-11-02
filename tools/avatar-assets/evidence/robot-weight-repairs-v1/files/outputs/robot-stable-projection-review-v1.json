@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01T15:51:08.491707-08:00",
+  "status": "rejected_not_for_automatic_promotion",
+  "source_sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b",
+  "reviewer": "root_direct_image_inspection",
+  "inspected_images": [
+    {
+      "path": "outputs/robot-stable-projection-native-v1/front.png",
+      "bytes": 500839,
+      "sha256": "4e0f49ac5a149a13f0af0559f08db550791602831d6ea85a8dc85574cf111ac2"
+    },
+    {
+      "path": "outputs/robot-stable-projection-native-v1/renders/greeting/0003.png",
+      "bytes": 502060,
+      "sha256": "269685f6739dc295f62ad02adbcce44cd8c3786ef68a763b3139f8c47820a855"
+    }
+  ],
+  "native_manifest": {
+    "path": "outputs/robot-stable-projection-native-v1/manifest.json",
+    "bytes": 7567,
+    "sha256": "8f0bc27ce911621a37cd5f6aed2c07493f62462224ac8ea45539a762e8856a78"
+  },
+  "cpu_motion_result": "Fixed original torso/foot cores; requested hand motion remains. This is insufficient for acceptance.",
+  "visual_findings": [
+    "Identity, colors and framing remain recognizable in the viewed rest and raised-arm pose.",
+    "The raised pose has a conspicuous protruding/creased chest-side surface beneath the raised arm. It is not an acceptable rigid shell.",
+    "No full-clip visual acceptance, independent pipeline critic or final delivery follows."
+  ],
+  "native_numeric_findings": {
+    "measured_edges_per_pose": 93680,
+    "sampled_poses": 8,
+    "poses_with_severe_stretch": 6,
+    "severe_edges_per_failed_pose": 3,
+    "example_stretch_ratio": 8.987095910275725,
+    "example_excess_m": 0.039420482617164916,
+    "unchanged_thresholds": {
+      "actual_excess_limit_m": 0.03600000563581897,
+      "excess_height_ratio_strictly_greater_than": 0.03,
+      "ratio_strictly_greater_than": 8.0,
+      "tiny_rest_edge_exclusion_m": 1.2000001878606324e-06
+    },
+    "existing_four_witness_gate_would_miss_all_severe_poses": true
+  },
+  "native_job": {
+    "elapsed_seconds": 16.307,
+    "sampled_peak_rss_bytes": 1152794624,
+    "final_output_bytes": 60411889,
+    "process_exit_verified": true
+  },
+  "completed_tool_handle": 50143,
+  "new_meshy_calls": 0,
+  "new_pipeline_agent_calls": 0,
+  "study_pipeline_role_calls_consumed": 13,
+  "study_pipeline_role_call_cap": 13,
+  "projection_integrated_into_pipeline": false,
+  "quality_approved": false,
+  "next_safe_action": "Preserve this rejection. Fix bounded severe-witness retention at both per-pose and cross-pose truncation, without relaxing thresholds; verify on analytic regression and fresh numeric-only import of this same derivative. No repeated generation or quality promotion."
+}

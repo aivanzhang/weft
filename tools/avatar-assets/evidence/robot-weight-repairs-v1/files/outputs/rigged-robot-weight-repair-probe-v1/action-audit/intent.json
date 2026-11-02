@@ -1,0 +1,82 @@
+{
+  "action_bindings": [
+    {
+      "roles": [
+        {
+          "bones": [
+            "RightArm",
+            "RightForeArm",
+            "RightHand"
+          ],
+          "id": "right-hand",
+          "root_bone": "Spine"
+        },
+        {
+          "bones": [
+            "Hips",
+            "Spine02",
+            "Spine01",
+            "Spine"
+          ],
+          "id": "torso",
+          "root_bone": "Hips"
+        },
+        {
+          "bones": [
+            "LeftFoot",
+            "LeftToeBase",
+            "RightFoot",
+            "RightToeBase"
+          ],
+          "id": "feet",
+          "root_bone": "Hips"
+        }
+      ],
+      "state_id": "greeting"
+    }
+  ],
+  "height_meters": 1.2,
+  "schema_version": 1,
+  "source_sha256": "2213048e76c841d1460c50e118ade6ae2ec3a229086a7039beff9d3d919ff820",
+  "states": [
+    {
+      "id": "greeting",
+      "meaning": "The robot waves its right hand side to side in greeting while its torso and feet remain steady throughout.",
+      "requirements": [
+        {
+          "description": "The right hand visibly alternates side to side in a clear, readable greeting wave.",
+          "id": "right-hand-wave",
+          "kind": "articulation",
+          "role": "right-hand"
+        },
+        {
+          "description": "The torso retains its position and orientation throughout the clip.",
+          "id": "steady-torso",
+          "kind": "stability",
+          "role": "torso"
+        },
+        {
+          "description": "Both feet remain planted in their original positions and orientations throughout the clip.",
+          "id": "planted-feet",
+          "kind": "stability",
+          "role": "feet"
+        }
+      ],
+      "roles": [
+        {
+          "description": "The robot's right hand and wrist performing the greeting.",
+          "id": "right-hand"
+        },
+        {
+          "description": "The rounded torso held steady.",
+          "id": "torso"
+        },
+        {
+          "description": "Both supporting feet held in place.",
+          "id": "feet"
+        }
+      ],
+      "user_request": "Wave the right hand side to side in a clear greeting while keeping the torso and feet steady."
+    }
+  ]
+}

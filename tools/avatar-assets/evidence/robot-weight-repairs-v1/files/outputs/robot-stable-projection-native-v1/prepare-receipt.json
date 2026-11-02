@@ -1,0 +1,23 @@
+{
+  "analytic_tests": {
+    "count": 4,
+    "elapsed_seconds": 0.001,
+    "output": "analytic-tests.txt",
+    "status": "passed"
+  },
+  "command": [
+    "/usr/bin/env",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/robot-stable-projection-native-v1/execute_prepared.py"
+  ],
+  "inputs_unchanged": true,
+  "model_sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b",
+  "next_safe_action": "Parent may execute this exact prepared command once after releasing the native slot; this child must not execute it.",
+  "prepared_sha256": "5afb17482b1de4206f64c965d159e3aa3f78250a36deea5acf2862c6e5a0c058",
+  "schema_version": 1,
+  "status": "ready_not_executed",
+  "syntax_check": "All 9 frozen Python files compile; no bpy imported or native binary launched."
+}

@@ -1,11 +1,22 @@
 """Analytic edge diagnostics do not establish visual or physical validity."""
 
+from copy import deepcopy
 import unittest
 from unittest.mock import patch
 
 import numpy as np
 
-from scripts.deformation_diagnostics import diagnose_stretched_edges
+from scripts.deformation_diagnostics import (MAX_CANDIDATE_ROWS, MAX_ROWS, SEVERE_HEIGHT_FRACTION,
+                                            SEVERE_RATIO, diagnose_stretched_edges, retain_stretched_edges)
+
+
+def crowded_edges():
+    rest, posed = [[0., 0., 1.]], [[0., 0., 1.]]
+    for index in range(5):
+        start = [index*2., 0., 0.]
+        rest.extend([start, [start[0]+(.1 if index < 4 else .001), 0., 0.]])
+        posed.extend([start, [start[0]+(.7 if index < 4 else .051), 0., 0.]])
+    return np.asarray(rest), np.asarray(posed), np.arange(1, 11).reshape(5, 2)
 
 
 class DeformationDiagnosticTests(unittest.TestCase):
@@ -57,6 +68,63 @@ class DeformationDiagnosticTests(unittest.TestCase):
         np.testing.assert_allclose(rows[0]['rest_normalized_bounds'], [[.5, 0, 0], [.51, 0, 0]])
         self.assertEqual(diagnose_stretched_edges(rest, posed, []), [])
         self.assertEqual(diagnose_stretched_edges(np.zeros((2, 3)), np.ones((2, 3)), [[0, 1]]), [])
+
+    def test_severe_fifth_edge_is_retained_before_larger_moderate_extensions(self):
+        rest, posed, edges = crowded_edges()
+        rows = diagnose_stretched_edges(rest, posed, edges)
+        self.assertEqual(len(rows), 4)
+        self.assertEqual(rows[0]['endpoint_indices'], [9, 10])
+        self.assertGreater(rows[0]['stretch_ratio'], 8)
+        self.assertGreater(rows[0]['excess_length'], .03)
+        self.assertLess(rows[0]['excess_length'], rows[1]['excess_length'])
+
+    def test_severe_witness_survives_cross_pose_aggregation_and_deduplication(self):
+        rest, first, edges = crowded_edges()
+        second = first.copy()
+        second[10] = rest[10]
+        rows = []
+        for time, posed in ((.6, first), (1.1, second)):
+            for row in diagnose_stretched_edges(rest, posed, edges):
+                rows.append({**row, 'second': time, 'endpoint_influences': [{'Body': 1.}, {'Arm': 1.}]})
+        duplicate = deepcopy(rows[0])
+        duplicate['endpoint_indices'].reverse()
+        duplicate['second'] = 2.2
+        rows.append(duplicate)
+        saved = deepcopy(rows)
+        retained = retain_stretched_edges(rows, 1.)
+        self.assertEqual(len(retained), 4)
+        self.assertEqual(retained[0]['endpoint_indices'], [9, 10])
+        self.assertEqual(retained[0]['second'], .6)
+        self.assertEqual(len({tuple(sorted(row['endpoint_indices'])) for row in retained}), 4)
+        self.assertEqual(rows, saved)
+
+    def test_priority_uses_unchanged_strict_gate_thresholds_and_row_caps(self):
+        from avatar_assets import deformation_gate
+        self.assertEqual((SEVERE_RATIO, SEVERE_HEIGHT_FRACTION, MAX_ROWS),
+                         (deformation_gate.SEVERE_RATIO, deformation_gate.SEVERE_HEIGHT_FRACTION, deformation_gate.MAX_ROWS))
+        self.assertEqual((SEVERE_RATIO, SEVERE_HEIGHT_FRACTION, MAX_ROWS, MAX_CANDIDATE_ROWS), (8., .03, 4, 32))
+        def row(index, rest, excess):
+            return {'endpoint_indices': [index*2, index*2+1], 'rest_length': rest, 'posed_length': rest+excess,
+                    'excess_length': excess, 'stretch_ratio': (rest+excess)/rest}
+        rows = [row(0, 1., 7.), row(1, .001, .03), row(2, .001, .031), row(3, 1., 6.), row(4, 1., 5.)]
+        retained = retain_stretched_edges(rows, 1.)
+        self.assertEqual(retained[0]['endpoint_indices'], [4, 5])
+        self.assertEqual(retained[1]['endpoint_indices'], [0, 1])
+        self.assertEqual(retained[1]['stretch_ratio'], 8.)
+
+    def test_retention_rejects_oversized_nonfinite_and_inconsistent_measurements(self):
+        rest, posed, edges = crowded_edges()
+        row = diagnose_stretched_edges(rest, posed, edges)[0]
+        invalid = [([row]*33, 1.), ([row], 0.), ([row], True), ([row], float('nan')),
+                   ([{**row, 'stretch_ratio': float('inf')}], 1.),
+                   ([{**row, 'stretch_ratio': True}], 1.),
+                   ([{**row, 'excess_length': row['excess_length']+1}], 1.),
+                   ([{**row, 'endpoint_indices': [0, 100000]}], 1.),
+                   ([{**row, 'second': float('inf')}], 1.)]
+        for arguments in invalid:
+            with self.subTest(arguments=arguments), self.assertRaises(ValueError):
+                retain_stretched_edges(*arguments)
+        self.assertEqual(retain_stretched_edges([], 1.), [])
 
     def test_invalid_and_oversized_inputs_fail_before_edge_geometry(self):
         points = np.array([[0., 0., 0.], [0., 0., 1.]])

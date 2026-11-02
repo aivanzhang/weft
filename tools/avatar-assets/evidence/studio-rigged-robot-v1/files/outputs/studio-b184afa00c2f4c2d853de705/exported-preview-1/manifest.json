@@ -1,0 +1,631 @@
+{
+  "artifacts": [
+    {
+      "bytes": 483569,
+      "path": "back.png",
+      "sha256": "9d9a0f8e85b934ec9c4fe8b5f9d75d27ab4c21ff844034aa481ac95c6a60a6b7"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "d674661a9aeb3ea38868ed3ca9426f9b85d91f4d50fcee8e4acc07c16ca7e528"
+    },
+    {
+      "bytes": 502828,
+      "path": "front.png",
+      "sha256": "08c0c2981af5bbbea455cca68b90461c85c0d21ddde87a401bba2d35e292a644"
+    },
+    {
+      "bytes": 1768,
+      "path": "job.json",
+      "sha256": "2fc62e7a8ec155a834387be18484e6f15d5265862775bfc1a38e7513dc01866c"
+    },
+    {
+      "bytes": 146,
+      "path": "motion-states.json",
+      "sha256": "69238648d76c248b12773cf780bab988e3df521918b742d1ff0207209260d6b1"
+    },
+    {
+      "bytes": 11327,
+      "path": "native-inspection.json",
+      "sha256": "012ad45caec516f1dfefa7c7ecc0bc4cb297080072b1a1e5df5007ab830f0a16"
+    },
+    {
+      "bytes": 24459752,
+      "path": "original.glb",
+      "sha256": "78f7a8e41809ab873aa1463c7a78f637c52426a1368ba6f32b404074651f7cd8"
+    },
+    {
+      "bytes": 705,
+      "path": "preflight.json",
+      "sha256": "9aa6526c2ca1655e84146930688fa3e29d0ebdffbfd572eb9d3cc3b33e500d47"
+    },
+    {
+      "bytes": 809,
+      "path": "preview-handle.json",
+      "sha256": "bf61a2f92b87f089ca509b4b9bc03e4b6b356c309258464d800642e34e4167f1"
+    },
+    {
+      "bytes": 1618,
+      "path": "preview-monitor.json",
+      "sha256": "2759b743773ce47b56d9e966112fed69cf76331f2efba6f814f9111765233e3e"
+    },
+    {
+      "bytes": 69819,
+      "path": "preview.log",
+      "sha256": "ace391ecddbf37ce5b6edcab9defe9f09815e90f0f825de510c30be11066c25b"
+    },
+    {
+      "bytes": 504398,
+      "path": "renders/greeting/0000.png",
+      "sha256": "8c601846aff11640023507fdec920b702a4f210017218c703713c35bbb0fa51a"
+    },
+    {
+      "bytes": 504018,
+      "path": "renders/greeting/0001.png",
+      "sha256": "4d82610f31e6e5e9ef2d52d5790a97ff110b1a1ca79bfd99d3908ef50a107bf5"
+    },
+    {
+      "bytes": 503460,
+      "path": "renders/greeting/0002.png",
+      "sha256": "05e9804c3d4a49ab1d90b2181ed723202a6614dae80ff610e6c1cc5d9bc0670f"
+    },
+    {
+      "bytes": 504145,
+      "path": "renders/greeting/0003.png",
+      "sha256": "58b81379068a2ae9c63d7126f25cce36cc182f6189607b6610396185731eb27c"
+    },
+    {
+      "bytes": 503501,
+      "path": "renders/greeting/0004.png",
+      "sha256": "5aec1a3a907538c075611a921a9efc73781053f0f65c716fd32e81a1c88d7190"
+    },
+    {
+      "bytes": 503783,
+      "path": "renders/greeting/0005.png",
+      "sha256": "36e86c928cd27af331694c8c11f6c2aade1c77401e6a10cadece76c1f3ed795e"
+    },
+    {
+      "bytes": 503355,
+      "path": "renders/greeting/0006.png",
+      "sha256": "17a4bff2ddad53f3fb2589df8c82a87e8b10b3473263885342fe88205a730969"
+    },
+    {
+      "bytes": 504398,
+      "path": "renders/greeting/0007.png",
+      "sha256": "d28aa40964b04b7a8bd99c79b31bd6d7e48e713de3df2c8c74a2e49715eee707"
+    },
+    {
+      "bytes": 467088,
+      "path": "side.png",
+      "sha256": "e5270690a3634f1b470f9c84553793b6afdbd8568e9961b8c8c96580cdd6a310"
+    },
+    {
+      "bytes": 29504344,
+      "path": "source.blend",
+      "sha256": "c49eae194e78419e3d871f8efab3f233ffe2cda08c23d07ab1590f32612c30e9"
+    },
+    {
+      "bytes": 37938,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "d25900507d606b5ae81bce6488c2463f53ef0cbd6a1d645b7b25c06317f5cbd5"
+    },
+    {
+      "bytes": 12033,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 499480,
+      "path": "three-quarter.png",
+      "sha256": "6030c57983ddf1419acdd0b8a91d20e4134f8fee4a02e02894e25e7e3ae9c3b2"
+    }
+  ],
+  "kind": "generated_geometry_preview",
+  "native": {
+    "actions": [
+      "greeting"
+    ],
+    "animation_verified": false,
+    "assumptions": [
+      "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+      "Raw generated units are not a calibrated physical measurement",
+      "Hidden geometry is generated, not recovered"
+    ],
+    "blender_version": "4.5.13 LTS",
+    "bounds_blender_z_up": {
+      "max": [
+        0.37014028429985046,
+        0.22820019721984863,
+        1.2000001668930054
+      ],
+      "min": [
+        -0.37014034390449524,
+        -0.22820012271404266,
+        -6.209485547969962e-08
+      ]
+    },
+    "material_count": 1,
+    "meshes": [
+      {
+        "faces": 51320,
+        "materials": [
+          {
+            "faces": 51320,
+            "name": "Material_0",
+            "slot": 0
+          }
+        ],
+        "name": "char1",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 45386
+      }
+    ],
+    "motion_states": [
+      {
+        "id": "greeting",
+        "poses": [
+          {
+            "path": "renders/greeting/0000.png",
+            "second": 0.0,
+            "sha256": "8c601846aff11640023507fdec920b702a4f210017218c703713c35bbb0fa51a"
+          },
+          {
+            "path": "renders/greeting/0001.png",
+            "second": 0.6,
+            "sha256": "4d82610f31e6e5e9ef2d52d5790a97ff110b1a1ca79bfd99d3908ef50a107bf5"
+          },
+          {
+            "path": "renders/greeting/0002.png",
+            "second": 1.1,
+            "sha256": "05e9804c3d4a49ab1d90b2181ed723202a6614dae80ff610e6c1cc5d9bc0670f"
+          },
+          {
+            "path": "renders/greeting/0003.png",
+            "second": 1.65,
+            "sha256": "58b81379068a2ae9c63d7126f25cce36cc182f6189607b6610396185731eb27c"
+          },
+          {
+            "path": "renders/greeting/0004.png",
+            "second": 2.2,
+            "sha256": "5aec1a3a907538c075611a921a9efc73781053f0f65c716fd32e81a1c88d7190"
+          },
+          {
+            "path": "renders/greeting/0005.png",
+            "second": 2.75,
+            "sha256": "36e86c928cd27af331694c8c11f6c2aade1c77401e6a10cadece76c1f3ed795e"
+          },
+          {
+            "path": "renders/greeting/0006.png",
+            "second": 3.4,
+            "sha256": "17a4bff2ddad53f3fb2589df8c82a87e8b10b3473263885342fe88205a730969"
+          },
+          {
+            "path": "renders/greeting/0007.png",
+            "second": 4.0,
+            "sha256": "d28aa40964b04b7a8bd99c79b31bd6d7e48e713de3df2c8c74a2e49715eee707"
+          }
+        ],
+        "resolution": 720
+      }
+    ],
+    "renders": [
+      {
+        "path": "front.png",
+        "sha256": "08c0c2981af5bbbea455cca68b90461c85c0d21ddde87a401bba2d35e292a644",
+        "view": "front"
+      },
+      {
+        "path": "three-quarter.png",
+        "sha256": "6030c57983ddf1419acdd0b8a91d20e4134f8fee4a02e02894e25e7e3ae9c3b2",
+        "view": "three-quarter"
+      },
+      {
+        "path": "back.png",
+        "sha256": "9d9a0f8e85b934ec9c4fe8b5f9d75d27ab4c21ff844034aa481ac95c6a60a6b7",
+        "view": "back"
+      },
+      {
+        "path": "side.png",
+        "sha256": "e5270690a3634f1b470f9c84553793b6afdbd8568e9961b8c8c96580cdd6a310",
+        "view": "side"
+      }
+    ],
+    "rigs": [
+      {
+        "bones": [
+          {
+            "head": [
+              -0.2588689923286438,
+              -1.3914693593978882,
+              51.87107467651367
+            ],
+            "name": "Hips",
+            "parent": null,
+            "tail": [
+              8.283577919006348,
+              4.022897243499756,
+              685.71875
+            ]
+          },
+          {
+            "head": [
+              -0.1734432876110077,
+              -1.3373258113861084,
+              58.20954895019531
+            ],
+            "name": "Spine02",
+            "parent": "Hips",
+            "tail": [
+              8.369108200073242,
+              4.077113151550293,
+              692.0656127929688
+            ]
+          },
+          {
+            "head": [
+              -0.08801702409982681,
+              -1.2831822633743286,
+              64.54811096191406
+            ],
+            "name": "Spine01",
+            "parent": "Spine02",
+            "tail": [
+              8.713432312011719,
+              4.295327186584473,
+              717.6090698242188
+            ]
+          },
+          {
+            "head": [
+              -4.769821771333227e-06,
+              -1.2273974418640137,
+              71.07872009277344
+            ],
+            "name": "Spine",
+            "parent": "Spine01",
+            "tail": [
+              7.899580955505371,
+              0.9240117073059082,
+              322.28253173828125
+            ]
+          },
+          {
+            "head": [
+              0.10791856050491333,
+              -1.1980048418045044,
+              74.51068115234375
+            ],
+            "name": "neck",
+            "parent": "Spine",
+            "tail": [
+              15.202332496643066,
+              2.9128785133361816,
+              554.5074462890625
+            ]
+          },
+          {
+            "head": [
+              0.25886228680610657,
+              -1.1568958759307861,
+              79.3106460571289
+            ],
+            "name": "Head",
+            "parent": "neck",
+            "tail": [
+              43.50950241088867,
+              -74.79077911376953,
+              1435.031494140625
+            ]
+          },
+          {
+            "head": [
+              1.5246025323867798,
+              -3.311814785003662,
+              118.98617553710938
+            ],
+            "name": "head_end",
+            "parent": "Head",
+            "tail": [
+              44.77536392211914,
+              -76.94569396972656,
+              1474.70703125
+            ]
+          },
+          {
+            "head": [
+              0.25885912775993347,
+              -14.740972518920898,
+              79.31077575683594
+            ],
+            "name": "headfront",
+            "parent": "Head",
+            "tail": [
+              0.258818656206131,
+              -1373.1485595703125,
+              79.31077575683594
+            ]
+          },
+          {
+            "head": [
+              2.105630397796631,
+              -1.2066609859466553,
+              73.202880859375
+            ],
+            "name": "LeftShoulder",
+            "parent": "Spine",
+            "tail": [
+              801.1669921875,
+              147.26791381835938,
+              73.202880859375
+            ]
+          },
+          {
+            "head": [
+              10.096233367919922,
+              0.2781306207180023,
+              73.2028579711914
+            ],
+            "name": "LeftArm",
+            "parent": "LeftShoulder",
+            "tail": [
+              786.75390625,
+              -28.037363052368164,
+              -988.2169189453125
+            ]
+          },
+          {
+            "head": [
+              17.86270523071289,
+              -0.005079418420791626,
+              62.58858871459961
+            ],
+            "name": "LeftForeArm",
+            "parent": "LeftArm",
+            "tail": [
+              898.0684204101562,
+              -284.2855224609375,
+              -765.843994140625
+            ]
+          },
+          {
+            "head": [
+              26.664770126342773,
+              -2.8478121757507324,
+              54.30425262451172
+            ],
+            "name": "LeftHand",
+            "parent": "LeftForeArm",
+            "tail": [
+              748.2022094726562,
+              -601.6903076171875,
+              -759.7285766601562
+            ]
+          },
+          {
+            "head": [
+              -1.9329626560211182,
+              -1.216115117073059,
+              72.68514251708984
+            ],
+            "name": "RightShoulder",
+            "parent": "Spine",
+            "tail": [
+              -818.2644653320312,
+              162.31822204589844,
+              72.68514251708984
+            ]
+          },
+          {
+            "head": [
+              -10.096275329589844,
+              0.41922715306282043,
+              72.68512725830078
+            ],
+            "name": "RightArm",
+            "parent": "RightShoulder",
+            "tail": [
+              -890.3013305664062,
+              -64.55404663085938,
+              -962.8517456054688
+            ]
+          },
+          {
+            "head": [
+              -18.898454666137695,
+              -0.23043563961982727,
+              62.329864501953125
+            ],
+            "name": "RightForeArm",
+            "parent": "RightArm",
+            "tail": [
+              -847.3265380859375,
+              -262.95831298828125,
+              -791.985595703125
+            ]
+          },
+          {
+            "head": [
+              -27.182785034179688,
+              -2.8576736450195312,
+              53.786746978759766
+            ],
+            "name": "RightHand",
+            "parent": "RightForeArm",
+            "tail": [
+              -703.8578491210938,
+              -569.4352416992188,
+              -786.6148681640625
+            ]
+          },
+          {
+            "head": [
+              7.813971042633057,
+              -1.3914686441421509,
+              47.07643508911133
+            ],
+            "name": "LeftUpLeg",
+            "parent": "Hips",
+            "tail": [
+              469.0709533691406,
+              -4.588273525238037,
+              -1870.7789306640625
+            ]
+          },
+          {
+            "head": [
+              12.426386833190918,
+              -1.4234309196472168,
+              27.897851943969727
+            ],
+            "name": "LeftLeg",
+            "parent": "LeftUpLeg",
+            "tail": [
+              271.3079528808594,
+              -21.73161506652832,
+              -1758.4166259765625
+            ]
+          },
+          {
+            "head": [
+              15.015236854553223,
+              -1.6265138387680054,
+              10.034716606140137
+            ],
+            "name": "LeftFoot",
+            "parent": "LeftLeg",
+            "tail": [
+              264.7117004394531,
+              -659.2866821289062,
+              -602.0967407226562
+            ]
+          },
+          {
+            "head": [
+              17.512224197387695,
+              -8.203152656555176,
+              3.9134554862976074
+            ],
+            "name": "LeftToeBase",
+            "parent": "LeftFoot",
+            "tail": [
+              310.7847900390625,
+              -893.39306640625,
+              3.913900136947632
+            ]
+          },
+          {
+            "head": [
+              -8.23758316040039,
+              -1.3914697170257568,
+              46.9728889465332
+            ],
+            "name": "RightUpLeg",
+            "parent": "Hips",
+            "tail": [
+              -453.02789306640625,
+              -4.588470458984375,
+              -1912.3394775390625
+            ]
+          },
+          {
+            "head": [
+              -12.685503959655762,
+              -1.4234309196472168,
+              27.379776000976562
+            ],
+            "name": "RightLeg",
+            "parent": "RightUpLeg",
+            "tail": [
+              -297.453369140625,
+              -21.73133087158203,
+              -1707.13134765625
+            ]
+          },
+          {
+            "head": [
+              -15.533170700073242,
+              -1.6265184879302979,
+              10.034671783447266
+            ],
+            "name": "RightFoot",
+            "parent": "RightLeg",
+            "tail": [
+              -236.45603942871094,
+              -660.1294555664062,
+              -604.3475952148438
+            ]
+          },
+          {
+            "head": [
+              -17.742353439331055,
+              -8.2116060256958,
+              3.890897750854492
+            ],
+            "name": "RightToeBase",
+            "parent": "RightFoot",
+            "tail": [
+              -278.22027587890625,
+              -898.1834106445312,
+              3.890897750854492
+            ]
+          }
+        ],
+        "name": "Armature"
+      }
+    ],
+    "schema_version": 1,
+    "source_is_untextured": false,
+    "source_sha256": "78f7a8e41809ab873aa1463c7a78f637c52426a1368ba6f32b404074651f7cd8",
+    "source_unchanged": true
+  },
+  "new_provider_cost_usd": 0,
+  "preflight": {
+    "animations": 1,
+    "attributes": [
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ]
+    ],
+    "schema_version": 1,
+    "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+    "sha256": "78f7a8e41809ab873aa1463c7a78f637c52426a1368ba6f32b404074651f7cd8",
+    "skins": 1,
+    "source_unchanged": true,
+    "textures": [
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 2048,
+        "width": 2048
+      }
+    ],
+    "triangles": 51320,
+    "vertices": 45386
+  },
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_glb_sha256": "78f7a8e41809ab873aa1463c7a78f637c52426a1368ba6f32b404074651f7cd8",
+  "status": "needs_visual_review"
+}

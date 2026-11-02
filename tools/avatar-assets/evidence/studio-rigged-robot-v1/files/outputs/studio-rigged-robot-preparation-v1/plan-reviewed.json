@@ -1,0 +1,26 @@
+{
+  "aggregate_study_calls_used": 9,
+  "aggregate_study_cap": 13,
+  "ai_usd_cost": null,
+  "checks": [
+    "Exact action preserved",
+    "Right-hand articulation separated from stationary torso and feet",
+    "Mechanical surface intent, no fur added",
+    "Existing skeleton will be preserved; new wave still requires allgates"
+  ],
+  "job_id": "b184afa00c2f4c2d853de705",
+  "new_meshy_credits": 0,
+  "plan_id": "00c316b457c9ea129d3bd35d07b2cba1f71bf551d122a407dd0325fe2a452df5",
+  "plan_sha256": "e32b281f757d803f258cf77c2913b3c83601038ee33abdbb319846184c2ac478",
+  "planner_receipt_sha256": "52c2da41e5ec3ecf7da615df3677e6f787370c90bce8c633ebe3cd18250f747a",
+  "planner_seconds": 24.63,
+  "planner_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 15901,
+    "output_tokens": 767,
+    "reasoning_output_tokens": 0
+  },
+  "schema_version": 1,
+  "status": "semantics_checked_ready_for_one_pinned_ui_start"
+}

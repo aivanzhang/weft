@@ -1,0 +1,363 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "authored_rig": null,
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "camera_back_shift_m": 0.0,
+    "clip_end": 1000.0,
+    "fit": "motion",
+    "fur_margin_m": 0,
+    "location": [
+      -0.0626893937587738,
+      -3.600000328510512,
+      0.6480000987549465
+    ],
+    "motion_envelope": {
+      "elapsed_seconds": 0.06577437510713935,
+      "sample_seconds": {
+        "greeting": [
+          0,
+          0.3,
+          0.6,
+          0.8500000000000001,
+          1.1,
+          1.375,
+          1.65,
+          1.925,
+          2.2,
+          2.475,
+          2.75,
+          3.075,
+          3.4,
+          3.7,
+          4
+        ]
+      },
+      "scope": "Base skin at every authored key and midpoint, plus explicit fur margin; not continuous bounds or physics",
+      "world_bounds_m": {
+        "max": [
+          0.3701401352882385,
+          0.22820012271404266,
+          1.2000001668930054
+        ],
+        "min": [
+          -0.4955189824104309,
+          -0.22820012271404266,
+          -1.1024466317621773e-07
+        ]
+      }
+    },
+    "orthographic_scale": 1.4471741242072202,
+    "sampled_depth_max_m": 3.836499498752961,
+    "sampled_depth_min_m": 3.3641411952089717,
+    "view": "front"
+  },
+  "color_corrections": null,
+  "deformation_measurement": {
+    "bone_names": [
+      "Hips",
+      "Spine02",
+      "Spine01",
+      "Spine",
+      "neck",
+      "Head",
+      "head_end",
+      "headfront",
+      "LeftShoulder",
+      "LeftArm",
+      "LeftForeArm",
+      "LeftHand",
+      "RightShoulder",
+      "RightArm",
+      "RightForeArm",
+      "RightHand",
+      "LeftUpLeg",
+      "LeftLeg",
+      "LeftFoot",
+      "LeftToeBase",
+      "RightUpLeg",
+      "RightLeg",
+      "RightFoot",
+      "RightToeBase"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 93680,
+    "edges_sha256": "5cfca559e67a8531672b321ae10ca39684af2dc9ad12b3a465a35a3c5a856ad6",
+    "pose_samples_measured": 8,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 1.2000001493988108,
+      "height_basis": "z_span",
+      "max": [
+        0.3701401948928833,
+        0.22820013761520386,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.3701401352882385,
+        -0.22820012271404266,
+        -1.0171509501333276e-07
+      ]
+    },
+    "rest_sha256": "01413e2e425c53cb533d6b5fa9c92128a19a929c5874d016b5bdfe6df1116318",
+    "rig_route": "source_skin",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 45386
+  },
+  "emitter_scale_applied": true,
+  "groom": null,
+  "groom_excluded_parts": {
+    "names": [],
+    "vertices": 0
+  },
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_continuity": null,
+  "normal_strength": 0.6,
+  "part_rigs": null,
+  "review_views": [
+    {
+      "path": "views/front.png",
+      "resolution": 720,
+      "sha256": "f32aa82f63d85a2031ac2324531108821ab0948ac829572478bade647732eff8",
+      "view": "front"
+    },
+    {
+      "path": "views/side.png",
+      "resolution": 720,
+      "sha256": "1953c642031b9cac21f6a9b6b84847ac043ca41a74fb44c35d3ae9aecbda85a9",
+      "view": "side"
+    },
+    {
+      "path": "views/back.png",
+      "resolution": 720,
+      "sha256": "5560d66f8a4e2e60acfb15e6ae8a4534318f9961a98801238c8b000e7c5496ba",
+      "view": "back"
+    },
+    {
+      "path": "views/three_quarter.png",
+      "resolution": 720,
+      "sha256": "6dbb4d42eccf7c96762cffcf205b7435ecee8e4052dce3fcd2ad8d574cabda76",
+      "view": "three_quarter"
+    }
+  ],
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.3701401948928833,
+      0.22820013761520386,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.3701401352882385,
+      -0.22820012271404266,
+      -1.0171509501333276e-07
+    ]
+  },
+  "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+  "source_unchanged": true,
+  "states": [
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            33611,
+            33643
+          ],
+          "endpoint_influences": [
+            {
+              "RightArm": 0.1580381542444229,
+              "RightForeArm": 0.8419618606567383
+            },
+            {
+              "Hips": 0.0992291122674942,
+              "RightArm": 0.16494469344615936,
+              "RightForeArm": 0.5846418142318726,
+              "RightUpLeg": 0.15118436515331268
+            }
+          ],
+          "excess_length": 0.042615666076131535,
+          "posed_length": 0.05350009773998514,
+          "rest_length": 0.010884431663853604,
+          "rest_normalized_bounds": [
+            [
+              0.25549537945044876,
+              0.49786072696831607,
+              0.4780729367439031
+            ],
+            [
+              0.26294005890412625,
+              0.49568478797755805,
+              0.4858507458723143
+            ]
+          ],
+          "second": 0.6,
+          "stretch_ratio": 4.915286290753703
+        },
+        {
+          "endpoint_indices": [
+            33632,
+            33665
+          ],
+          "endpoint_influences": [
+            {
+              "RightArm": 0.17336595058441162,
+              "RightForeArm": 0.8266340494155884
+            },
+            {
+              "Hips": 0.09977603703737259,
+              "RightArm": 0.1871187835931778,
+              "RightForeArm": 0.5584257245063782,
+              "RightUpLeg": 0.15467944741249084
+            }
+          ],
+          "excess_length": 0.04223714071594557,
+          "posed_length": 0.053147277471582384,
+          "rest_length": 0.010910136755636814,
+          "rest_normalized_bounds": [
+            [
+              0.25896333794235565,
+              0.4818883716745804,
+              0.4794247202485759
+            ],
+            [
+              0.26531454544151645,
+              0.48009813155086295,
+              0.48760063868398523
+            ]
+          ],
+          "second": 0.6,
+          "stretch_ratio": 4.871366753869826
+        },
+        {
+          "endpoint_indices": [
+            33625,
+            33665
+          ],
+          "endpoint_influences": [
+            {
+              "RightArm": 0.1762910932302475,
+              "RightForeArm": 0.8193682432174683,
+              "RightHand": 0.00434069661423564
+            },
+            {
+              "Hips": 0.09977603703737259,
+              "RightArm": 0.1871187835931778,
+              "RightForeArm": 0.5584257245063782,
+              "RightUpLeg": 0.15467944741249084
+            }
+          ],
+          "excess_length": 0.04204782567294511,
+          "posed_length": 0.05228181758941775,
+          "rest_length": 0.010233991916472637,
+          "rest_normalized_bounds": [
+            [
+              0.25981813940804244,
+              0.4739450537298542,
+              0.4801334690572541
+            ],
+            [
+              0.26531454544151645,
+              0.48009813155086295,
+              0.48760063868398523
+            ]
+          ],
+          "second": 1.1,
+          "stretch_ratio": 5.1086436276410305
+        },
+        {
+          "endpoint_indices": [
+            33632,
+            33643
+          ],
+          "endpoint_influences": [
+            {
+              "RightArm": 0.17336595058441162,
+              "RightForeArm": 0.8266340494155884
+            },
+            {
+              "Hips": 0.0992291122674942,
+              "RightArm": 0.16494469344615936,
+              "RightForeArm": 0.5846418142318726,
+              "RightUpLeg": 0.15118436515331268
+            }
+          ],
+          "excess_length": 0.040101316577454665,
+          "posed_length": 0.05048292784433765,
+          "rest_length": 0.010381611266882983,
+          "rest_normalized_bounds": [
+            [
+              0.25896333794235565,
+              0.4818883716745804,
+              0.4794247202485759
+            ],
+            [
+              0.26294005890412625,
+              0.49568478797755805,
+              0.4858507458723143
+            ]
+          ],
+          "second": 0.6,
+          "stretch_ratio": 4.862725693204928
+        }
+      ],
+      "deformation_rest_sha256": "01413e2e425c53cb533d6b5fa9c92128a19a929c5874d016b5bdfe6df1116318",
+      "deformation_samples_measured": 8,
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        14.399999999999999,
+        26.400000000000002,
+        39.599999999999994,
+        52.800000000000004,
+        66.0,
+        81.6,
+        96.0
+      ],
+      "id": "greeting",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.6,
+        1.1,
+        1.65,
+        2.2,
+        2.75,
+        3.4,
+        4.0
+      ]
+    }
+  ],
+  "surface_profiles": null,
+  "weft_runtime_verified": false,
+  "weight_constraints": {
+    "authored_not_recovered": true,
+    "changed_vertices": 5884,
+    "config": {
+      "fallback_bone": "Spine02",
+      "regions": {
+        "RightArm": {
+          "center": [
+            0.275,
+            0.5,
+            0.575
+          ],
+          "radius": [
+            0.115,
+            0.42,
+            0.16
+          ]
+        }
+      }
+    },
+    "method": "Bound provider bone weights to authored ellipsoids; transfer removed weight to the configured fallback bone"
+  },
+  "world_rest_position_max_error": 0.0
+}

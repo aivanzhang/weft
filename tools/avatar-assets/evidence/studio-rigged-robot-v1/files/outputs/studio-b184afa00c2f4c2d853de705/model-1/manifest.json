@@ -1,0 +1,696 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "c72e1b33e226aae787a69c06415cb72496ff6ae2738396c9bf4cd21a62444559"
+    },
+    {
+      "bytes": 11712,
+      "path": "exported-nodes.json",
+      "sha256": "9301d1052186ef83f4b080018968976e56a132272333348403a8aa7ed694288d"
+    },
+    {
+      "bytes": 2744,
+      "path": "finish-config.json",
+      "sha256": "31d02349e7d07dcd9cc313f003dd338b3f703fbbca39d2f5736d70707bf14414"
+    },
+    {
+      "bytes": 632,
+      "path": "finish-handle.json",
+      "sha256": "61bc55b5a9a7745270d68f783e787f8110c5f27f5a93846bbc267906936437f9"
+    },
+    {
+      "bytes": 1428,
+      "path": "finish-monitor.json",
+      "sha256": "08635dffc4ee4c73ee9732f9f035cea3330ab14f5042bce55a7d1a2ddc7030f9"
+    },
+    {
+      "bytes": 5090,
+      "path": "finish-report.json",
+      "sha256": "31b2215c9c527a41d1d1d6e31f31200e9a50b2445b5207788e9f63e1e228325e"
+    },
+    {
+      "bytes": 79314,
+      "path": "finish.log",
+      "sha256": "bdfe5ec21fab1832b54f1efdbae861e585988ec8a7a5632c91d5706a8b088195"
+    },
+    {
+      "bytes": 1562,
+      "path": "job.json",
+      "sha256": "8329ebaf41191a431bd18e18af05eceff250ed3c1cc44134539593b4d54b1882"
+    },
+    {
+      "bytes": 24459752,
+      "path": "model-native-export.glb",
+      "sha256": "78f7a8e41809ab873aa1463c7a78f637c52426a1368ba6f32b404074651f7cd8"
+    },
+    {
+      "bytes": 24459752,
+      "path": "model.glb",
+      "sha256": "78f7a8e41809ab873aa1463c7a78f637c52426a1368ba6f32b404074651f7cd8"
+    },
+    {
+      "bytes": 469238,
+      "path": "portrait.png",
+      "sha256": "928aabfd8cec25b01d091658a11ed0a0fb94fd04160db31de0f63d78b7286e9c"
+    },
+    {
+      "bytes": 877,
+      "path": "render-attributes.json",
+      "sha256": "43163137a9c5fe8d72ce116e5d94007684daaa372ee2e6a43c68d444150005c9"
+    },
+    {
+      "bytes": 469087,
+      "path": "renders/greeting/0000.png",
+      "sha256": "f6a85c2ce4f227f910798b5814f03b97bc893ccb9bd5c577697b85dce1ec0ae5"
+    },
+    {
+      "bytes": 469078,
+      "path": "renders/greeting/0001.png",
+      "sha256": "bbdd9faf9cb1730d8e716c61a40fff562eb54414c75ee038a5398a1722abb3b6"
+    },
+    {
+      "bytes": 469444,
+      "path": "renders/greeting/0002.png",
+      "sha256": "7d5b43f6bb75f6978e04fe7de0b1af8476a8b3d710ae36b5804d00e7197295e3"
+    },
+    {
+      "bytes": 469078,
+      "path": "renders/greeting/0003.png",
+      "sha256": "416337b85ecbbff1934e39230a268cb3a074ce47b193868831f1d2a465bbeb76"
+    },
+    {
+      "bytes": 469444,
+      "path": "renders/greeting/0004.png",
+      "sha256": "7e8c54babce7253e00f17e2beaaeb8cc3995711f9869120a5cb2580664c8d116"
+    },
+    {
+      "bytes": 469078,
+      "path": "renders/greeting/0005.png",
+      "sha256": "322595ef47fa832199e92e09c28aec85c7ca893bdf0dae3c735aa208f47834a3"
+    },
+    {
+      "bytes": 469444,
+      "path": "renders/greeting/0006.png",
+      "sha256": "9c879ae6d4de1dfa077ef1a3d9a7bb7431f4159363db44406b792e17a3768bdf"
+    },
+    {
+      "bytes": 469087,
+      "path": "renders/greeting/0007.png",
+      "sha256": "4fc1253a651923e968f78ce5c04bbf3e9bf5a860d1db9f91b6fae34b692c2af9"
+    },
+    {
+      "bytes": 1664,
+      "path": "rig-contract.json",
+      "sha256": "3c0ab28a8e7ceb542d920e2e07ff0052140ddcd7ffe2bb6cdb64298401f481ae"
+    },
+    {
+      "bytes": 3451,
+      "path": "rig-verification.json",
+      "sha256": "4e6b086fc460bd708160cf2a582b9565d38f75b2fbe059c323ee9901219e6fbf"
+    },
+    {
+      "bytes": 29479292,
+      "path": "source.blend",
+      "sha256": "dc6f784fda5f9c4b19e84b103ba98fe2288361954a6c3c092a57c9e00184f38e"
+    },
+    {
+      "bytes": 44387,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "a6a611a27ebe13e8bafc61977f4852eb6e386db27f238beba13a9ec8b46dce7f"
+    },
+    {
+      "bytes": 37927,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "842e325f0ea556953ef69a51ad0a06704e451e81efcb5cfed8c21b8d9cd6c80f"
+    },
+    {
+      "bytes": 7695,
+      "path": "sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+      "sha256": "015bbf2ccda65e661a2e686fdc10f07fcfe1f9a40a26bf89c1f896cf3b9bba54"
+    },
+    {
+      "bytes": 9470,
+      "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "15c3142dda5e8ef231e3178bdb5f0eeb3152653cd66d1f82cb4244b5ccae8c76"
+    },
+    {
+      "bytes": 6582,
+      "path": "sources/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4"
+    },
+    {
+      "bytes": 23994,
+      "path": "sources/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd"
+    },
+    {
+      "bytes": 2710,
+      "path": "sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 47464,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "434458e3cc0d6f2f9acc4dbf5c945efce2af704a58bc57c026677ea74bdec506"
+    },
+    {
+      "bytes": 23637,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 6839,
+      "path": "sources/blender_normal_continuity.py",
+      "sha256": "1640b08c1adc1b9c5d0b5994dd5623982ec816dfa02f6bd30bb43bf64a55e9be"
+    },
+    {
+      "bytes": 5789,
+      "path": "sources/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e"
+    },
+    {
+      "bytes": 12009,
+      "path": "sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 8351,
+      "path": "sources/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2"
+    },
+    {
+      "bytes": 5399,
+      "path": "sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 4392,
+      "path": "sources/deformation_diagnostics.py",
+      "sha256": "284848acb6d1352d12511c8f0d0de7c486bae125921f4d4edba4721e0e29d393"
+    },
+    {
+      "bytes": 2695,
+      "path": "sources/finish-design.json",
+      "sha256": "64a421026fa1f2444a57f22c8573670980b9b59cbf30be95c21b707362f03a2f"
+    },
+    {
+      "bytes": 23816,
+      "path": "sources/finish_generated.py",
+      "sha256": "a87d5944f6df373fcfc76069f8a195959d785573149c4b0cc019213517333916"
+    },
+    {
+      "bytes": 2738,
+      "path": "sources/generated_tangents.py",
+      "sha256": "e460ce6efdf17c9788ae16fc13438ea8f3ca01d1b19617427ffdef75d69da40c"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 13937,
+      "path": "sources/normal_continuity.py",
+      "sha256": "6719fb8c7cfb47b240d34848b91838021b678abc806e32f0286d1b1115813d2a"
+    },
+    {
+      "bytes": 6665,
+      "path": "sources/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 6843,
+      "path": "sources/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0"
+    },
+    {
+      "bytes": 2675,
+      "path": "sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 7538,
+      "path": "sources/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a"
+    },
+    {
+      "bytes": 1792,
+      "path": "sources/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    },
+    {
+      "bytes": 487,
+      "path": "tangent-repair.json",
+      "sha256": "f6fa1d9319bd01f76b0170f9a7cdac84f0dfdf251c3287be5441a613b341e001"
+    },
+    {
+      "bytes": 458373,
+      "path": "views/back.png",
+      "sha256": "ab125c768e137098045ad9cc9070f59508a1dfc7b647b5095ae5eab7543630ce"
+    },
+    {
+      "bytes": 474328,
+      "path": "views/front.png",
+      "sha256": "1a1590fcfb90396019db9ecdadfe96bd37ce6e7ca5c624e9dd584007df397b6d"
+    },
+    {
+      "bytes": 434761,
+      "path": "views/side.png",
+      "sha256": "2195d15e4406fe2abf7d943440b632d2575b46e0d28e0361a156c84382e21408"
+    },
+    {
+      "bytes": 472857,
+      "path": "views/three_quarter.png",
+      "sha256": "4c5acd78abc56a83cb07e5bc5c038da6266c56e7a0bbe1c9c77cae006caa9b71"
+    }
+  ],
+  "finish": {
+    "animation_verified": false,
+    "attachment": null,
+    "authored_rig": null,
+    "blender_version": "4.5.13 LTS",
+    "camera": {
+      "camera_back_shift_m": 0.0,
+      "clip_end": 1000.0,
+      "fit": "motion",
+      "fur_margin_m": 0,
+      "location": [
+        -0.021719887852668762,
+        -3.600000328510512,
+        0.6480000987549465
+      ],
+      "motion_envelope": {
+        "elapsed_seconds": 0.06660945806652308,
+        "sample_seconds": {
+          "greeting": [
+            0,
+            0.3,
+            0.6,
+            0.8500000000000001,
+            1.1,
+            1.375,
+            1.65,
+            1.925,
+            2.2,
+            2.475,
+            2.75,
+            3.075,
+            3.4,
+            3.7,
+            4
+          ]
+        },
+        "scope": "Base skin at every authored key and midpoint, plus explicit fur margin; not continuous bounds or physics",
+        "world_bounds_m": {
+          "max": [
+            0.3701401352882385,
+            0.22820012271404266,
+            1.2000001668930054
+          ],
+          "min": [
+            -0.4135799705982208,
+            -0.22820012271404266,
+            -1.1024466317621773e-07
+          ]
+        }
+      },
+      "orthographic_scale": 1.4471741242072202,
+      "sampled_depth_max_m": 3.836499498752961,
+      "sampled_depth_min_m": 3.3641411952089717,
+      "view": "front"
+    },
+    "color_corrections": null,
+    "deformation_measurement": {
+      "bone_names": [
+        "Hips",
+        "Spine02",
+        "Spine01",
+        "Spine",
+        "neck",
+        "Head",
+        "head_end",
+        "headfront",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "LeftUpLeg",
+        "LeftLeg",
+        "LeftFoot",
+        "LeftToeBase",
+        "RightUpLeg",
+        "RightLeg",
+        "RightFoot",
+        "RightToeBase"
+      ],
+      "coordinate_space": "mesh_local_after_world_transform_applied",
+      "edge_array_encoding": "little-endian int32 pairs",
+      "edges": 93680,
+      "edges_sha256": "5cfca559e67a8531672b321ae10ca39684af2dc9ad12b3a465a35a3c5a856ad6",
+      "pose_samples_measured": 8,
+      "rest_array_encoding": "little-endian float64 XYZ",
+      "rest_bounds": {
+        "height": 1.2000001493988108,
+        "height_basis": "z_span",
+        "max": [
+          0.3701401948928833,
+          0.22820013761520386,
+          1.2000000476837158
+        ],
+        "min": [
+          -0.3701401352882385,
+          -0.22820012271404266,
+          -1.0171509501333276e-07
+        ]
+      },
+      "rest_sha256": "01413e2e425c53cb533d6b5fa9c92128a19a929c5874d016b5bdfe6df1116318",
+      "rig_route": "source_skin",
+      "schema_version": 1,
+      "status": "measured",
+      "unchanged_topology_required": true,
+      "units": "meters",
+      "vertices": 45386
+    },
+    "emitter_scale_applied": true,
+    "groom": null,
+    "groom_excluded_parts": {
+      "names": [],
+      "vertices": 0
+    },
+    "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+    "normal_continuity": null,
+    "normal_strength": 0.6,
+    "part_rigs": null,
+    "review_views": [
+      {
+        "path": "views/front.png",
+        "resolution": 720,
+        "sha256": "1a1590fcfb90396019db9ecdadfe96bd37ce6e7ca5c624e9dd584007df397b6d",
+        "view": "front"
+      },
+      {
+        "path": "views/side.png",
+        "resolution": 720,
+        "sha256": "2195d15e4406fe2abf7d943440b632d2575b46e0d28e0361a156c84382e21408",
+        "view": "side"
+      },
+      {
+        "path": "views/back.png",
+        "resolution": 720,
+        "sha256": "ab125c768e137098045ad9cc9070f59508a1dfc7b647b5095ae5eab7543630ce",
+        "view": "back"
+      },
+      {
+        "path": "views/three_quarter.png",
+        "resolution": 720,
+        "sha256": "4c5acd78abc56a83cb07e5bc5c038da6266c56e7a0bbe1c9c77cae006caa9b71",
+        "view": "three_quarter"
+      }
+    ],
+    "schema_version": 1,
+    "smoothing": null,
+    "source_bounds_blender_z_up": {
+      "max": [
+        0.3701401948928833,
+        0.22820013761520386,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.3701401352882385,
+        -0.22820012271404266,
+        -1.0171509501333276e-07
+      ]
+    },
+    "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+    "source_unchanged": true,
+    "states": [
+      {
+        "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+        "deformation_outliers": [],
+        "deformation_rest_sha256": "01413e2e425c53cb533d6b5fa9c92128a19a929c5874d016b5bdfe6df1116318",
+        "deformation_samples_measured": 8,
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          14.399999999999999,
+          26.400000000000002,
+          39.599999999999994,
+          52.800000000000004,
+          66.0,
+          81.6,
+          96.0
+        ],
+        "id": "greeting",
+        "loop_verified": false,
+        "sampling_method": "authored_keyframes",
+        "seconds": [
+          0.0,
+          0.6,
+          1.1,
+          1.65,
+          2.2,
+          2.75,
+          3.4,
+          4.0
+        ]
+      }
+    ],
+    "surface_profiles": null,
+    "weft_runtime_verified": false,
+    "world_rest_position_max_error": 0.0
+  },
+  "has_transparency": false,
+  "id": "studio-b184afa00c2f4c2d853de705-attempt-1",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/sources/blender_finish_generated.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/finish-config.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 21.194,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 60462250,
+    "last_rss_sample_elapsed_seconds": 20.933,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 600
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "finish-monitor.json",
+    "monitor_errors": [],
+    "pid": 78481,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 81,
+    "sampled_max_output_bytes": 60462250,
+    "sampled_peak_rss_bytes": 1541849088,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "generated_3d_avatar",
+  "new_provider_calls": 0,
+  "quality_equivalence_verified": false,
+  "reduced_motion": "portrait.png and renders/STATE/0000.png; no autoplay",
+  "representations": {
+    "browser": "Skinned alpha-masked cards if configured; not native strands",
+    "native": "Editable hair if configured"
+  },
+  "rig_verification": {
+    "attachments": [],
+    "authored_assumptions": [
+      "Hidden surfaces and humanoid skeleton are generated assumptions"
+    ],
+    "axes": {
+      "forward": "+Z",
+      "handedness": "right",
+      "up": "+Y"
+    },
+    "bone_to_simulated_joint": {
+      "Head": "Head",
+      "Hips": "Hips",
+      "LeftArm": "LeftArm",
+      "LeftFoot": "LeftFoot",
+      "LeftForeArm": "LeftForeArm",
+      "LeftHand": "LeftHand",
+      "LeftLeg": "LeftLeg",
+      "LeftShoulder": "LeftShoulder",
+      "LeftToeBase": "LeftToeBase",
+      "LeftUpLeg": "LeftUpLeg",
+      "RightArm": "RightArm",
+      "RightFoot": "RightFoot",
+      "RightForeArm": "RightForeArm",
+      "RightHand": "RightHand",
+      "RightLeg": "RightLeg",
+      "RightShoulder": "RightShoulder",
+      "RightToeBase": "RightToeBase",
+      "RightUpLeg": "RightUpLeg",
+      "Spine": "Spine",
+      "Spine01": "Spine01",
+      "Spine02": "Spine02",
+      "head_end": "head_end",
+      "headfront": "headfront",
+      "neck": "neck"
+    },
+    "bones": [
+      "head_end",
+      "headfront",
+      "Head",
+      "neck",
+      "LeftHand",
+      "LeftForeArm",
+      "LeftArm",
+      "LeftShoulder",
+      "RightHand",
+      "RightForeArm",
+      "RightArm",
+      "RightShoulder",
+      "Spine",
+      "Spine01",
+      "Spine02",
+      "LeftToeBase",
+      "LeftFoot",
+      "LeftLeg",
+      "LeftUpLeg",
+      "RightToeBase",
+      "RightFoot",
+      "RightLeg",
+      "RightUpLeg",
+      "Hips"
+    ],
+    "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+    "limits": {
+      "accessor_values": 2000000,
+      "file_bytes": 67108864,
+      "motion_probe_vertices": 128,
+      "nodes": 256,
+      "triangle_index_elements_per_accessor": 300000,
+      "vertices": 100000
+    },
+    "loading_verified": true,
+    "material_count": 1,
+    "mesh_vertices": 45386,
+    "motion": {
+      "animation_verified": true,
+      "animations": [
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.09581346013789789,
+          "motion_observed": true,
+          "name": "greeting",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        }
+      ],
+      "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+      "probe_vertices": 128
+    },
+    "primitive_count": 1,
+    "rest_pose": "Default exported node transforms and inverse bind matrices; generated, not recovered anatomy",
+    "schema_version": 1,
+    "sha256": "78f7a8e41809ab873aa1463c7a78f637c52426a1368ba6f32b404074651f7cd8",
+    "skeleton_roots": [
+      {
+        "name": "Hips",
+        "node": 23,
+        "source": "derived_common_ancestor"
+      }
+    ],
+    "skin_count": 1,
+    "status": "validated_local_structure",
+    "units": "meters",
+    "visual_review": "required; materials/textures are not rendered by this validator",
+    "weft_runtime_verified": false
+  },
+  "rights": "User-described subject with optional selected references. Generated hidden surfaces and agent-authored rig, scale and motion are assumptions. Source provenance is retained by the pipeline; commercial rights are not independently verified.",
+  "schema_version": 1,
+  "source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/inputs/source-model.glb",
+  "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+  "states": [
+    {
+      "duration_seconds": 4.0,
+      "id": "greeting",
+      "loop_verified": false,
+      "meaning": "The robot waves its right hand side to side in greeting while its torso and feet remain steady throughout."
+    }
+  ],
+  "status": "needs_visual_review",
+  "style": "Polished stylized 3D toy with clean hard-surface panels, visible copper accents and the original blue-and-cream palette.",
+  "subject": "A friendly blue-and-cream workshop robot with copper accents, a rounded torso, two arms and two feet, preserving the supplied generated identity and small mechanical details.",
+  "weft_runtime_verified": false
+}

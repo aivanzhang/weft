@@ -1,0 +1,269 @@
+{
+  "created_local": "2026-11-01T15:04:31.701372-08:00",
+  "current_support_and_guards": [
+    "Source preflight and finish require exactly one existing skin when no authored_rig is supplied. A replacement authored_rig on this skinned source is rejected.",
+    "Native preview exposes exact bone names/hierarchy; authored actions bind to those observed names.",
+    "Source world-rest transform error must remain at most1e-6.",
+    "Source-skin deformation measurements use actual source height, rest/edge hashes and topology, then independent GLB reload.",
+    "Weighted articulation/stability audit remains unchanged; motion images and final media precede independent critic.",
+    "No manual per-character recipe, relaxed threshold, ignored failure or retry of the unsupported old job.",
+    "If the agent introduces optional weight edits, record them explicitly; do not call the result an untouched-provider-weight test."
+  ],
+  "evidence": [
+    {
+      "bytes": 24513040,
+      "path": "outputs/workshop-robot-meshy-v1/stages/rig/downloads/model.glb",
+      "sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7"
+    },
+    {
+      "bytes": 1147,
+      "path": "outputs/studio-c9ac0f48bd8044458a8390d4/request.json",
+      "sha256": "a86ee457573cd7fdebb0666c694298e951a42267cb55ad1393e19542e4f1070a"
+    },
+    {
+      "bytes": 2054,
+      "path": "outputs/workshop-robot-meshy-v1/stages/rig/status-000.json",
+      "sha256": "27d646ff7e404bbf137e32cc847d08e8d483276f568700589e8f9a81927b144f"
+    },
+    {
+      "bytes": 2828,
+      "path": "outputs/workshop-robot-meshy-rigproof-v1/verification.json",
+      "sha256": "7e7c83866eab380c2a404e110f9f455dca6a243eaebefd514c7a963aa1933695"
+    },
+    {
+      "bytes": 1722,
+      "path": "outputs/workshop-robot-meshy-rigproof-v1/contract.json",
+      "sha256": "699f959b7844777aa3543470766e6a78d01bb5d8890a845918a3376d6576092d"
+    },
+    {
+      "bytes": 19619,
+      "path": "outputs/workshop-robot-meshy-refined-v2/manifest.json",
+      "sha256": "34a28dad95433290314ac711f33aad31eab21cbec3eeca8322db6d29dbc77fc8"
+    },
+    {
+      "bytes": 6390,
+      "path": "outputs/workshop-robot-meshy-refined-v2/rig-verification.json",
+      "sha256": "36ed09529dc420a4624e58907681efaf912eb749d886ee12e2e77ff823e8f647"
+    },
+    {
+      "bytes": 1556,
+      "path": "outputs/workshop-robot-meshy-refined-v2/finish-report.json",
+      "sha256": "a41e8fc9734f09469024c3aff54629b7cd575c6b82d40c15395af1a97c133442"
+    },
+    {
+      "bytes": 8455,
+      "path": "outputs/workshop-robot-meshy-refined-v2/sources/finish-design.json",
+      "sha256": "7f52f5c9ca446242a77d90c0e708afbb69d2d0740fa99a87308db8dfb2817ca0"
+    },
+    {
+      "bytes": 3442,
+      "path": "outputs/workshop-robot-meshy-reload-v1/manifest.json",
+      "sha256": "b097060e516292c1cb54287dd78c8e502fb120eb3ec7977c69025b0591a99a47"
+    },
+    {
+      "bytes": 4343,
+      "path": "outputs/meshy-integration-review-v1/visual-review-v3.json",
+      "sha256": "fc1b8b95f3bbaed33a18e5bbc650d3d474e8988d42b0455b25a9ffbd502888cd"
+    },
+    {
+      "bytes": 395490,
+      "path": "outputs/meshy-integration-review-v1/robot-state-contact.png",
+      "sha256": "af1cdccbbbd9f96771cef2feb6296bc43b02b5886d11c71e8dd55b0a5f3a0fcc"
+    },
+    {
+      "bytes": 14454,
+      "path": "outputs/studio-c9ac0f48bd8044458a8390d4/unsupported.json",
+      "sha256": "dc4dd054942aa26fb8b5a772e7bd3114caa234795cbdfb33b3c88a84ee89dba1"
+    }
+  ],
+  "identity_comparison": {
+    "geometry_byte_identity_claimed": false,
+    "note": "Rigging adds/splits vertices and authored rest transforms. Final exported node IDs must be read from that derivative, not copied from these raw IDs.",
+    "old_unrigged_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+    "same_embedded_texture_byte_hash_set": true,
+    "source_vertex_delta": 305,
+    "texture_sequence_order_same": false
+  },
+  "known_failures_and_limits": [
+    "Raw provider rig clip is static and is not completed animation.",
+    "Earlier refined-v1 failed action owner/slot binding, then refined-v2 passed; that was not evidence of bad robot weights.",
+    "Inspected older visual review rejects crafting/working state meaning and calls celebration weak; quality_target_met is false.",
+    "The severe provider skin failure in the older report is the panda, not this robot. No inspected evidence establishes that the robot will pass current stronger gates.",
+    "Old refined-v2 has no modern gross-deformation measurements and no exact current torso/feet stability proof.",
+    "No independent fingers, recovered anatomy, Muse quality, physics or Weft joint mapping claim. Source exceeds frozen Weft20k-vertex appearance profile."
+  ],
+  "native_source_facts": {
+    "attributes": [
+      "JOINTS_0",
+      "NORMAL",
+      "POSITION",
+      "TANGENT",
+      "TEXCOORD_0",
+      "WEIGHTS_0"
+    ],
+    "authored_height_meters": 1.2,
+    "joints": 24,
+    "raw_clip": "Armature|clip0|baselayer",
+    "raw_clip_max_sampled_displacement_m": 0.0,
+    "raw_clip_motion_observed": false,
+    "skins": 1,
+    "triangles": 51320,
+    "unit": "meters",
+    "vertices": 45386,
+    "weight_rows_invalid_sum_over_1e_5": 0,
+    "weight_sum_max": 1.0000001303851604,
+    "weight_sum_min": 0.9999998575076461
+  },
+  "prior_success": {
+    "browser_checks_previously_passed": true,
+    "cpu_motion_verified": true,
+    "independent_native_reload_passed": true,
+    "model_sha256": "47576c7f64cf16fd2f6b704307fe76a3cd9aa7541ab50a530885449b2beea8bb",
+    "pack": "outputs/workshop-robot-meshy-refined-v2",
+    "real_local_authored_motion": true,
+    "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+    "visual_scope": "Viewed existing low-resolution robot contact montage. Restrained gestures preserve recognizable blue/copper/cream robot; no conspicuous spike seen at montage scale. Not a strong-wave or strict torso-stability test.",
+    "weight_constraints_present": false
+  },
+  "readiness_gates": [
+    "Current core/contracts freeze and integrated checks confirmed by parent.",
+    "Native heavy slot released.",
+    "Fresh canonical Studio job; exact prompt/style/action/preset equal prior request, only source changes.",
+    "Planner semantics checked before explicit pinned-plan UI Start.",
+    "Count every new agent call against five remaining in the13-call study envelope; no automatic restart."
+  ],
+  "recommendation": "Sensible distinct bounded hypothesis, conditional on unchanged numeric and visual acceptance gates.",
+  "schema_version": 1,
+  "source": {
+    "bytes": 24513040,
+    "path": "outputs/workshop-robot-meshy-v1/stages/rig/downloads/model.glb",
+    "sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7"
+  },
+  "source_bones": [
+    {
+      "name": "head_end",
+      "node": 0,
+      "parent": "Head"
+    },
+    {
+      "name": "headfront",
+      "node": 1,
+      "parent": "Head"
+    },
+    {
+      "name": "Head",
+      "node": 2,
+      "parent": "neck"
+    },
+    {
+      "name": "neck",
+      "node": 3,
+      "parent": "Spine"
+    },
+    {
+      "name": "LeftHand",
+      "node": 4,
+      "parent": "LeftForeArm"
+    },
+    {
+      "name": "LeftForeArm",
+      "node": 5,
+      "parent": "LeftArm"
+    },
+    {
+      "name": "LeftArm",
+      "node": 6,
+      "parent": "LeftShoulder"
+    },
+    {
+      "name": "LeftShoulder",
+      "node": 7,
+      "parent": "Spine"
+    },
+    {
+      "name": "RightHand",
+      "node": 8,
+      "parent": "RightForeArm"
+    },
+    {
+      "name": "RightForeArm",
+      "node": 9,
+      "parent": "RightArm"
+    },
+    {
+      "name": "RightArm",
+      "node": 10,
+      "parent": "RightShoulder"
+    },
+    {
+      "name": "RightShoulder",
+      "node": 11,
+      "parent": "Spine"
+    },
+    {
+      "name": "Spine",
+      "node": 12,
+      "parent": "Spine01"
+    },
+    {
+      "name": "Spine01",
+      "node": 13,
+      "parent": "Spine02"
+    },
+    {
+      "name": "Spine02",
+      "node": 14,
+      "parent": "Hips"
+    },
+    {
+      "name": "LeftToeBase",
+      "node": 15,
+      "parent": "LeftFoot"
+    },
+    {
+      "name": "LeftFoot",
+      "node": 16,
+      "parent": "LeftLeg"
+    },
+    {
+      "name": "LeftLeg",
+      "node": 17,
+      "parent": "LeftUpLeg"
+    },
+    {
+      "name": "LeftUpLeg",
+      "node": 18,
+      "parent": "Hips"
+    },
+    {
+      "name": "RightToeBase",
+      "node": 19,
+      "parent": "RightFoot"
+    },
+    {
+      "name": "RightFoot",
+      "node": 20,
+      "parent": "RightLeg"
+    },
+    {
+      "name": "RightLeg",
+      "node": 21,
+      "parent": "RightUpLeg"
+    },
+    {
+      "name": "RightUpLeg",
+      "node": 22,
+      "parent": "Hips"
+    },
+    {
+      "name": "Hips",
+      "node": 23,
+      "parent": null
+    }
+  ],
+  "source_other_nodes": {
+    "Armature": 25,
+    "char1": 24
+  },
+  "status": "read_only_assessment_not_motion_or_quality_acceptance"
+}

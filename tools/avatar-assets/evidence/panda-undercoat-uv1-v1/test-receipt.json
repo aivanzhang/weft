@@ -1,0 +1,27 @@
+{
+  "actual_model_preservation_audit": "model-evidence/actual-model-audit.json",
+  "analytic_patch_fixture": "model-evidence/analytic-uv1-patch-test.json",
+  "focused_uv1": {
+    "command": ".venv/bin/python -m unittest tests.test_undercoat_uv_atlas -v",
+    "elapsed_seconds": 0.523,
+    "helper_sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c",
+    "status": "passed",
+    "test_sha256": "3b7e5a163a9894bae7562262b68a8d709060976b32dfefa90884fc1222c9fff7",
+    "tests": 6
+  },
+  "kind": "observed_test_receipt_not_a_new_test_run",
+  "limitations": [
+    "Analytic fixture tests are not generated avatar or appearance proof.",
+    "No unchanged test suite was rerun merely to create this receipt.",
+    "Independent visual review is separate and accepts only an optional surface-detail component."
+  ],
+  "recorded_local": "2026-11-01 15:13:10 PST",
+  "schema_version": 1,
+  "undercoat_and_adapter_contracts": {
+    "command": ".venv/bin/python -m unittest tests.test_fur_undercoat tests.test_finish_quality_contracts -q",
+    "elapsed_seconds": 1.892,
+    "scope": "Observed earlier run after package-import identity fix; adapter tests are not duplicated into this compact component bundle",
+    "status": "passed",
+    "tests": 28
+  }
+}

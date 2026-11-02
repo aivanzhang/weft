@@ -1,0 +1,108 @@
+{
+  "bindings": {
+    "authored_height_m": null,
+    "design_sha256": "7a2dcb77357d2ded89c88fc459105608b080c1a8b25d2ecfc8d0ea65ddf97f41",
+    "exported_model_sha256": "d1d44096229e5ff89bd3a3a9cccce9a108f120801fde321bf2f0521a7193d4b9",
+    "finish_report_sha256": "e88f49c9c98c4636e5316dbf13d03d59a8d191a18400d9620eab5016adcc5a49",
+    "manifest_sha256": "bce036ee2f2190f44c1379cf00d2842e274f961d2a02238755c3394ce5458e35",
+    "requested_height_m": 1.2,
+    "rig_verification_sha256": "854aba32f42f4ea2d7ccd1f7c3bd85278aee086e0552353ed178267589cfab9d",
+    "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+    "state_ids": [
+      "greeting"
+    ]
+  },
+  "implementation_sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+  "measurement": {
+    "bone_names": [
+      "Hips",
+      "Spine02",
+      "Spine01",
+      "Spine",
+      "neck",
+      "Head",
+      "head_end",
+      "headfront",
+      "LeftShoulder",
+      "LeftArm",
+      "LeftForeArm",
+      "LeftHand",
+      "RightShoulder",
+      "RightArm",
+      "RightForeArm",
+      "RightHand",
+      "LeftUpLeg",
+      "LeftLeg",
+      "LeftFoot",
+      "LeftToeBase",
+      "RightUpLeg",
+      "RightLeg",
+      "RightFoot",
+      "RightToeBase"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 93680,
+    "edges_sha256": "5cfca559e67a8531672b321ae10ca39684af2dc9ad12b3a465a35a3c5a856ad6",
+    "pose_samples_measured": 8,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 1.2000001493988108,
+      "height_basis": "z_span",
+      "max": [
+        0.3701401948928833,
+        0.22820013761520386,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.3701401352882385,
+        -0.22820012271404266,
+        -1.0171509501333276e-07
+      ]
+    },
+    "rest_sha256": "01413e2e425c53cb533d6b5fa9c92128a19a929c5874d016b5bdfe6df1116318",
+    "rig_route": "source_skin",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 45386
+  },
+  "measurement_scope": "bound_native_rest_and_pose_samples",
+  "passed": true,
+  "physics_verified": false,
+  "rig_route": "source_skin",
+  "sampling_implementation_sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+  "schema_version": 1,
+  "scope": "Conservative gross-spike rejection of at most four retained edges per sampled pose set; not exhaustive edge/frame coverage, skin correctness or visual acceptance.",
+  "states": [
+    {
+      "id": "greeting",
+      "max_reported_excess_m": 0.042615666076131535,
+      "max_reported_stretch_ratio": 5.108141067283326,
+      "offending_outliers": [],
+      "passed": true,
+      "reported_outliers": 4,
+      "sample_seconds": [
+        0.0,
+        0.6,
+        1.1,
+        1.65,
+        2.2,
+        2.75,
+        3.4,
+        4.0
+      ]
+    }
+  ],
+  "status": "no_reported_severe_spike",
+  "thresholds": {
+    "excess_height_fraction_strictly_greater_than": 0.03,
+    "excess_m_strictly_greater_than": 0.036000004481964325,
+    "height_m": 1.2000001493988108,
+    "height_source": "native_measured_rest",
+    "stretch_ratio_strictly_greater_than": 8.0
+  },
+  "version": "sampled-deformation-gate-v2",
+  "visual_approval": false
+}

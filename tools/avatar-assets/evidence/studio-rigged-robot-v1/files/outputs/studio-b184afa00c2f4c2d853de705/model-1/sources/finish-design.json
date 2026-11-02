@@ -1,0 +1,98 @@
+{
+  "authored_actions": [
+    {
+      "id": "greeting",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              -40,
+              0
+            ]
+          },
+          "second": 0.6
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              45,
+              0
+            ]
+          },
+          "second": 1.1
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              -40,
+              0
+            ]
+          },
+          "second": 1.65
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              45,
+              0
+            ]
+          },
+          "second": 2.2
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              -40,
+              0
+            ]
+          },
+          "second": 2.75
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              45,
+              0
+            ]
+          },
+          "second": 3.4
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    }
+  ],
+  "camera_fit": "motion",
+  "camera_view": "front",
+  "id": "studio-b184afa00c2f4c2d853de705-attempt-1",
+  "normal_strength": 0.6,
+  "pose_resolution": 720,
+  "prompt": "A friendly blue and cream workshop robot with copper accents, a rounded torso, two arms and two feet. Preserve the supplied generated robot identity and small mechanical details.",
+  "resolution": 720,
+  "review_views": true,
+  "rights": "User-described subject with optional selected references. Generated hidden surfaces and agent-authored rig, scale and motion are assumptions. Source provenance is retained by the pipeline; commercial rights are not independently verified.",
+  "samples": 16,
+  "schema_version": 1,
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/inputs/source-model.glb",
+  "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+  "states": [
+    {
+      "id": "greeting",
+      "meaning": "The robot waves its right hand side to side in greeting while its torso and feet remain steady throughout."
+    }
+  ],
+  "style": "Polished stylized 3D toy with clean hard-surface panels, visible copper accents and the original blue-and-cream palette.",
+  "subject": "A friendly blue-and-cream workshop robot with copper accents, a rounded torso, two arms and two feet, preserving the supplied generated identity and small mechanical details."
+}

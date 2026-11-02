@@ -134,7 +134,7 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
         'schema_version': 1, 'new_meshy_credits': 0 if source else 35,
         'new_meshy_paid_calls': 0 if source else (1 if ref else 2), 'automatic_paid_retries': 0,
         'maximum_agent_calls': max_agent_calls, 'expected_agent_calls': 3,
-        'planning_token_estimate': {'input_per_call': 'up to approximately24000 text tokens plus up to8 selected images',
+        'planning_token_estimate': {'input_per_call': 'Budget assumption50000 input tokens/call, informed by observed15814–42341 tokens including selected evidence; not an enforced token cap. Up to8 selected images.',
                                     'output_per_call': 'typically1000–8000 tokens; transport bytes/deadline are bounded'},
         'agent_billing': 'Existing authenticated local Codex CLI; account-specific usage/price unknown. No account/key creation or purchase.',
         'usd_cost': None, 'local_compute': 'No hosted compute. Preview/native media use4CPU threads/2GiB sampled child RSS.',

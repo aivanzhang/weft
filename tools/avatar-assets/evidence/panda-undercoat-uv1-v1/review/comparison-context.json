@@ -1,0 +1,172 @@
+{
+  "all_model_and_preview_artifact_hashes_verified": true,
+  "animation_preservation": {
+    "channels": 57,
+    "seconds": [
+      0,
+      1,
+      1.18,
+      1.36,
+      2.36,
+      2.55,
+      2.8,
+      4
+    ],
+    "source_binary_prefix_and_animation_JSON_exact": true,
+    "state": "dance_flight"
+  },
+  "appearance_accepted": false,
+  "authored_changes": [
+    "Short-pile normal PNG on31,353UV0body faces",
+    "Separate1024pxnormalUV1 and tangent frames for368aliased faces/1104vertices",
+    "Declared roughness0.92 and metallic0 on selected faces"
+  ],
+  "human_approval": false,
+  "images": [
+    {
+      "bytes": 476175,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/back.png",
+      "sha256": "2988618671e346bb2f52dcd26afa65d2f4b60cfad541004e5ec7da143265355b",
+      "width": 720
+    },
+    {
+      "bytes": 499169,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/front.png",
+      "sha256": "ceb6e0cc0b8276e6bfa53e7d65048e6d518ff92eac4c8e050eb588291e819fff",
+      "width": 720
+    },
+    {
+      "bytes": 454602,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0000.png",
+      "sha256": "c927e02fae50c9acc829c7cc43aaee03c31e672505d8e32ba133ab2e344fb755",
+      "width": 720
+    },
+    {
+      "bytes": 461071,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "9cc8176f3c1417528467d9014a4bf24c7ccfd9ac58005b87db4b532ba68dd999",
+      "width": 720
+    },
+    {
+      "bytes": 460070,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0002.png",
+      "sha256": "3a11ff05117b194bc87be7f4ab43828c7ef21da343d440ef9aa3d0337a33fb7e",
+      "width": 720
+    },
+    {
+      "bytes": 461743,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0003.png",
+      "sha256": "3a28571086c64ef84a5375fb678b7fa7f882df61ba2bd2bfd22072bdc0043e91",
+      "width": 720
+    },
+    {
+      "bytes": 459258,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0004.png",
+      "sha256": "91a112ee25658d3e422eb26335ad4c66aba8bd6e85ad3f4abee4777db346f429",
+      "width": 720
+    },
+    {
+      "bytes": 459100,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0005.png",
+      "sha256": "f45ca116a7a21e9c26d21071e172d6173e8785fca17a9844913c4d29bf0cebcc",
+      "width": 720
+    },
+    {
+      "bytes": 459161,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0006.png",
+      "sha256": "c91e80b5b6b4da9716d8e516e38ad0c54621341c161e325e3316582a7f9ac0e5",
+      "width": 720
+    },
+    {
+      "bytes": 454602,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0007.png",
+      "sha256": "489b65965b58f0acdf98bbbd05da63ecab2604f35d2830f064c7f2944446e5f0",
+      "width": 720
+    },
+    {
+      "bytes": 455230,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/side.png",
+      "sha256": "5dd8eaba6f51e2f311d027a12b8ed48fd44b55b4c5fe19ecb7e166ef8de42b5f",
+      "width": 720
+    },
+    {
+      "bytes": 491308,
+      "height": 720,
+      "mode": "RGB",
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/three-quarter.png",
+      "sha256": "2dcdb6a9b3516369f9809ed2ccf01480eddc57fbe2eed600465099db0e530d6a",
+      "width": 720
+    }
+  ],
+  "jobs": {
+    "cpu": {
+      "elapsed_seconds": 2.864,
+      "exit_code": 0,
+      "failure": null,
+      "final_output_bytes": 42208088,
+      "pid": 76758,
+      "process_exit_verified": true,
+      "sampled_peak_rss_bytes": 382320640
+    },
+    "native_preview": {
+      "elapsed_seconds": 22.254,
+      "exit_code": 0,
+      "failure": null,
+      "final_output_bytes": 81615435,
+      "pid": 77024,
+      "process_exit_verified": true,
+      "sampled_peak_rss_bytes": 1284325376
+    }
+  },
+  "kind": "actual_hd_uv1_undercoat_comparison_context",
+  "limitations": [
+    "Diagnostic HD-only derivative, not a complete finish or approved avatar.",
+    "Normal detail changes lighting, not geometry or recovered hair density.",
+    "Four real rest views and eight real skinned poses, not full video, physics or browser-performance verification.",
+    "Existing validator and pipeline adapter have not integrated UV1 support; no Weft importer changes."
+  ],
+  "loop_verified": false,
+  "model_audit_sha256": "4fdba09747b249226d3965bad47263c9aba7c61b61bfcd0fd7f829c6e6ba2dc9",
+  "model_manifest_sha256": "0fb49e1f0f631ef872aa8155fc3db1e299ce76e675a737aa5c6f4723dc34a90a",
+  "model_pack": "outputs/panda-portable-undercoat-uv1-v1",
+  "model_sha256": "784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185",
+  "muse_quality_equivalence_verified": false,
+  "new_model_calls": 0,
+  "new_provider_calls": 0,
+  "new_provider_cost_usd": 0,
+  "original_position_normal_uv0_basecolor_skin_portable_fibers_unchanged": true,
+  "preview_manifest_sha256": "4167dbafe78458621fb6de00d41c92a566aa0c47d8e61ce049f62e8bfeb45e59",
+  "preview_pack": "outputs/panda-portable-undercoat-uv1-preview-v1",
+  "prior_failures_preserved": [
+    "outputs/panda-portable-tuft-v1",
+    "outputs/panda-portable-undercoat-v1",
+    "outputs/panda-portable-undercoat-v2"
+  ],
+  "recorded_local": "2026-11-01 15:07:22 PST",
+  "schema_version": 1,
+  "source_model_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "status": "preview_complete_awaiting_independent_visual_review",
+  "weft_appearance_compatible": false
+}

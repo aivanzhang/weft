@@ -1,0 +1,45 @@
+{
+  "expected_bones": 24,
+  "intent": "outputs/rigged-robot-weight-repair-probe-v1/action-audit/intent.json",
+  "intent_sha256": "4c6d99fc510a0650993bb62dec6c8052624712290a3b911ea0f5be8e4fcf9579",
+  "limits": {
+    "output_mb": 128,
+    "rss_mb": 768,
+    "wall_seconds": 120
+  },
+  "new_paid_calls": 0,
+  "schema_version": 1,
+  "source": "outputs/rigged-robot-weight-repair-probe-v1/model/model.glb",
+  "source_files": [
+    {
+      "path": "avatar_assets/stable_role_projection.py",
+      "sha256": "3977fdca42d7bcee4db66866f5209f347eeb41149478733ebf05672219f3ae82"
+    },
+    {
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a"
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "8f983891ea5f50b9b533baedbd3627d87560d2042ba96d94a08e30bba97b5693"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "tests/test_stable_role_projection.py",
+      "sha256": "ec4188f3cc47c6f90c3a715a12d17d0b68128787b0f77fe25ab64c4f687359f9"
+    }
+  ],
+  "source_sha256": "2213048e76c841d1460c50e118ade6ae2ec3a229086a7039beff9d3d919ff820",
+  "surface_kind": "rigid_hard_surface"
+}

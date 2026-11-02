@@ -1,0 +1,237 @@
+{
+  "artifacts": [
+    {
+      "bytes": 675282,
+      "path": "delivered-portrait.webp",
+      "sha256": "507f7f5064a186adc6b3ad461c0dce5cf5aed540d47678ef9863323820bf43bc"
+    },
+    {
+      "bytes": 1217417,
+      "path": "exported-views.png",
+      "sha256": "e0957854d70fd39453c444bb2c499c7859c9601e234007b32a7c4493c9478ac8"
+    },
+    {
+      "bytes": 503501,
+      "path": "isolated-exported-greeting.png",
+      "sha256": "5aec1a3a907538c075611a921a9efc73781053f0f65c716fd32e81a1c88d7190"
+    },
+    {
+      "bytes": 469444,
+      "path": "isolated-native-greeting.png",
+      "sha256": "7e8c54babce7253e00f17e2beaaeb8cc3995711f9869120a5cb2580664c8d116"
+    },
+    {
+      "bytes": 2750180,
+      "path": "motion-00.png",
+      "sha256": "baf1230e22d9d9a9012356ecffdc9a840fc3dce8e2c08dd51e43e577e56cdd21"
+    },
+    {
+      "bytes": 1134187,
+      "path": "native-views.png",
+      "sha256": "64284df68bb79798db9b730e842dd57a6eb5f0f626849406937896bcbbf044f2"
+    }
+  ],
+  "coverage": [
+    {
+      "height": 720,
+      "id": "evidence-native-views-front",
+      "kind": "view",
+      "representation": "native",
+      "view": "front",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-side",
+      "kind": "view",
+      "representation": "native",
+      "view": "side",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-back",
+      "kind": "view",
+      "representation": "native",
+      "view": "back",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-three_quarter",
+      "kind": "view",
+      "representation": "native",
+      "view": "three_quarter",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-front",
+      "kind": "view",
+      "representation": "exported",
+      "view": "front",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-side",
+      "kind": "view",
+      "representation": "exported",
+      "view": "side",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-back",
+      "kind": "view",
+      "representation": "exported",
+      "view": "back",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-three_quarter",
+      "kind": "view",
+      "representation": "exported",
+      "view": "three_quarter",
+      "width": 720
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00-native",
+      "kind": "state",
+      "pose_height": 720,
+      "pose_width": 720,
+      "representation": "native",
+      "state_ids": [
+        "greeting"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00-exported",
+      "kind": "state",
+      "pose_height": 720,
+      "pose_width": 720,
+      "representation": "exported",
+      "state_ids": [
+        "greeting"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "portrait",
+      "representation": "native",
+      "width": 1600
+    }
+  ],
+  "exported_manifest_sha256": "7d0a44925f871851992b34841c5560a00cefced6feb1cf860bc8c6bc3604d519",
+  "images": [
+    {
+      "height": 1496,
+      "id": "evidence-native-views",
+      "kind": "multiview",
+      "path": "native-views.png",
+      "sha256": "64284df68bb79798db9b730e842dd57a6eb5f0f626849406937896bcbbf044f2",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 1496,
+      "id": "evidence-exported-views",
+      "kind": "multiview",
+      "path": "exported-views.png",
+      "sha256": "e0957854d70fd39453c444bb2c499c7859c9601e234007b32a7c4493c9478ac8",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00",
+      "kind": "native_exported_and_delivered_motion",
+      "path": "motion-00.png",
+      "sha256": "baf1230e22d9d9a9012356ecffdc9a840fc3dce8e2c08dd51e43e577e56cdd21",
+      "state_ids": [
+        "greeting"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "delivered_portrait",
+      "path": "delivered-portrait.webp",
+      "sha256": "507f7f5064a186adc6b3ad461c0dce5cf5aed540d47678ef9863323820bf43bc",
+      "state_ids": [],
+      "width": 1600
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-native-greeting",
+      "kind": "isolated_motion_pose",
+      "path": "isolated-native-greeting.png",
+      "representation": "native",
+      "sample_index": 4,
+      "second": 2.2,
+      "selection": "middle_sequence_sample",
+      "sha256": "7e8c54babce7253e00f17e2beaaeb8cc3995711f9869120a5cb2580664c8d116",
+      "state_ids": [
+        "greeting"
+      ],
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-exported-greeting",
+      "kind": "isolated_motion_pose",
+      "path": "isolated-exported-greeting.png",
+      "representation": "exported",
+      "sample_index": 4,
+      "second": 2.2,
+      "selection": "middle_sequence_sample",
+      "sha256": "5aec1a3a907538c075611a921a9efc73781053f0f65c716fd32e81a1c88d7190",
+      "state_ids": [
+        "greeting"
+      ],
+      "width": 720
+    }
+  ],
+  "kind": "full_resolution_review_evidence",
+  "media_manifest_sha256": "8fed0cabd4e1c18c737830c8bb93452a36860a7a1df20562c5f71e1bf4018601",
+  "model_manifest_sha256": "bde7eb4635d48f4f9ccd863baadcb025b59d558607128fc398d7c8e638009c41",
+  "quality_equivalence_verified": false,
+  "schema_version": 1,
+  "scope": "Up to eight actual poses per representation for one to four states; four selected poses for five to eight states. One-state jobs also include two unchanged individual pose images. Four decoded delivered video samples per state. Not all-frame visual, physics or loop certification.",
+  "sources": {
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/back.png": "9d9a0f8e85b934ec9c4fe8b5f9d75d27ab4c21ff844034aa481ac95c6a60a6b7",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/front.png": "08c0c2981af5bbbea455cca68b90461c85c0d21ddde87a401bba2d35e292a644",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/renders/greeting/0000.png": "8c601846aff11640023507fdec920b702a4f210017218c703713c35bbb0fa51a",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/renders/greeting/0001.png": "4d82610f31e6e5e9ef2d52d5790a97ff110b1a1ca79bfd99d3908ef50a107bf5",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/renders/greeting/0002.png": "05e9804c3d4a49ab1d90b2181ed723202a6614dae80ff610e6c1cc5d9bc0670f",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/renders/greeting/0003.png": "58b81379068a2ae9c63d7126f25cce36cc182f6189607b6610396185731eb27c",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/renders/greeting/0004.png": "5aec1a3a907538c075611a921a9efc73781053f0f65c716fd32e81a1c88d7190",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/renders/greeting/0005.png": "36e86c928cd27af331694c8c11f6c2aade1c77401e6a10cadece76c1f3ed795e",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/renders/greeting/0006.png": "17a4bff2ddad53f3fb2589df8c82a87e8b10b3473263885342fe88205a730969",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/renders/greeting/0007.png": "d28aa40964b04b7a8bd99c79b31bd6d7e48e713de3df2c8c74a2e49715eee707",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/side.png": "e5270690a3634f1b470f9c84553793b6afdbd8568e9961b8c8c96580cdd6a310",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/three-quarter.png": "6030c57983ddf1419acdd0b8a91d20e4134f8fee4a02e02894e25e7e3ae9c3b2",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/media-1/animations/greeting.mp4": "2100ced5c251bcd90fa5ea5bd7326dc06f8fb0c3ff0ed2835bb6b77b084e5b3e",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/media-1/portrait.webp": "507f7f5064a186adc6b3ad461c0dce5cf5aed540d47678ef9863323820bf43bc",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/renders/greeting/0000.png": "f6a85c2ce4f227f910798b5814f03b97bc893ccb9bd5c577697b85dce1ec0ae5",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/renders/greeting/0001.png": "bbdd9faf9cb1730d8e716c61a40fff562eb54414c75ee038a5398a1722abb3b6",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/renders/greeting/0002.png": "7d5b43f6bb75f6978e04fe7de0b1af8476a8b3d710ae36b5804d00e7197295e3",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/renders/greeting/0003.png": "416337b85ecbbff1934e39230a268cb3a074ce47b193868831f1d2a465bbeb76",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/renders/greeting/0004.png": "7e8c54babce7253e00f17e2beaaeb8cc3995711f9869120a5cb2580664c8d116",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/renders/greeting/0005.png": "322595ef47fa832199e92e09c28aec85c7ca893bdf0dae3c735aa208f47834a3",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/renders/greeting/0006.png": "9c879ae6d4de1dfa077ef1a3d9a7bb7431f4159363db44406b792e17a3768bdf",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/renders/greeting/0007.png": "4fc1253a651923e968f78ce5c04bbf3e9bf5a860d1db9f91b6fae34b692c2af9",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/views/back.png": "ab125c768e137098045ad9cc9070f59508a1dfc7b647b5095ae5eab7543630ce",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/views/front.png": "1a1590fcfb90396019db9ecdadfe96bd37ce6e7ca5c624e9dd584007df397b6d",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/views/side.png": "2195d15e4406fe2abf7d943440b632d2575b46e0d28e0361a156c84382e21408",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/model-1/views/three_quarter.png": "4c5acd78abc56a83cb07e5bc5c038da6266c56e7a0bbe1c9c77cae006caa9b71"
+  },
+  "status": "prepared_for_review"
+}

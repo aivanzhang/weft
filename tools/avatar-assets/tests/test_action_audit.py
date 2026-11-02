@@ -16,7 +16,8 @@ from avatar_assets.three_d import _local_matrix
 from test_three_d import glb_bytes
 
 
-def fixture(*, travel=True, flap=True, rotate_root=False, constant_wing=False, coat=False, body_triangles=4, scale=(1, 1, 1)):
+def fixture(*, travel=True, flap=True, rotate_root=False, constant_wing=False, coat=False, body_triangles=4,
+            scale=(1, 1, 1), body_wing_weight=0., weight_scale=1., uv_seams=False):
     binary, views, accessors = bytearray(), [], []
 
     def add(rows, kind, component=5126):
@@ -38,8 +39,10 @@ def fixture(*, travel=True, flap=True, rotate_root=False, constant_wing=False, c
              (.3, .7, 0), (.7, .85, 0), (.45, .9, -.05), (.3, .7, 0), (.45, .9, -.05), (.4, .75, -.1),
              (.3, .7, 0), (.4, .75, -.1), (.6, .7, .05))]
     positions = add(body+wing, "VEC3")
-    joints = add([(0, 0, 0, 0)]*len(body)+[(1, 0, 0, 0)]*len(wing), "VEC4", 5123)
-    weights = add([(1, 0, 0, 0)]*(len(body)+len(wing)), "VEC4")
+    joints = add([(0, 1, 0, 0)]*len(body)+[(1, 0, 0, 0)]*len(wing), "VEC4", 5123)
+    rows = [(1-body_wing_weight, body_wing_weight, 0, 0)]*len(body)+[(1, 0, 0, 0)]*len(wing)
+    weights = add([tuple(value*weight_scale for value in row) for row in rows], "VEC4")
+    uv = add([(index % 2, (index//2) % 2) for index in range(len(body)+len(wing))], 'VEC2') if uv_seams else None
     root = {"name": "Root", "children": [2], "scale": list(scale)}
     wing_node = {"name": "Wing", "translation": [.3, .7, 0]}
     root_matrix = np.asarray(_local_matrix(root)).reshape(4, 4, order="F")
@@ -55,6 +58,8 @@ def fixture(*, travel=True, flap=True, rotate_root=False, constant_wing=False, c
     root_angles = [.3*math.sin(index*math.pi/2) if rotate_root else 0 for index in range(9)]
     root_rotated = add([(0, 0, math.sin(angle/2), math.cos(angle/2)) for angle in root_angles], "VEC4")
     primitive = {"attributes": {"POSITION": positions, "JOINTS_0": joints, "WEIGHTS_0": weights}, "material": 0}
+    if uv is not None:
+        primitive['attributes']['TEXCOORD_0'] = uv
     primitives = [primitive]
     materials = [{"name": "AnatomicalSurface", "pbrMetallicRoughness": {"baseColorFactor": [.4, .6, .3, 1]}}]
     if coat:
@@ -153,6 +158,92 @@ class ActionAuditTests(unittest.TestCase):
         bindings[0]["roles"][0]["bones"] = ["Root"]
         with self.assertRaisesRegex(ValueError, "eight predominantly weighted direct target vertices"):
             audit_glb(self.path, states, bindings, 1.)
+
+    def test_stability_witnesses_keep_selection_threshold_and_original_weights(self):
+        self.save(*fixture(travel=False, body_wing_weight=.2, weight_scale=.99995))
+        states, bindings = intent(('stability',))
+        bindings[0]['roles'][0]['bones'] = ['Root']
+        result = audit_glb(self.path, states, bindings, 1.)
+        state = result['states'][0]
+        evidence = state['role_details']['subject']['stability_diagnostics']
+        self.assertFalse(result['passed'])
+        self.assertEqual(evidence['selected_exported_vertices'], 12)
+        self.assertEqual(evidence['threshold_m'], state['requirement_results']['requirements'][0]['maximum_displacement_m'])
+        self.assertEqual(len(evidence['vertices']), 4)
+        self.assertGreaterEqual(evidence['violating_exported_vertices'], 4)
+        self.assertIsNone(evidence['layer_matches'])
+        for row in evidence['vertices']:
+            self.assertLess(row['exported_vertex_index'], 12)
+            self.assertEqual(row['node_index'], 0)
+            self.assertEqual(row['primitive_index'], 0)
+            self.assertEqual(row['primitive_vertex_index'], row['exported_vertex_index'])
+            self.assertEqual([w['bone'] for w in row['influences']], ['Root', 'Wing'])
+            self.assertEqual([w['slot'] for w in row['influences']], [0, 1])
+            self.assertAlmostEqual(sum(w['source_weight'] for w in row['influences']), .99995, places=6)
+            self.assertAlmostEqual(sum(w['audit_weight'] for w in row['influences']), 1., places=12)
+            measured = np.linalg.norm(np.array(row['peak_world_gltf_m'])-row['initial_world_gltf_m'])
+            self.assertAlmostEqual(measured, row['max_world_displacement_m'], places=12)
+            self.assertGreater(measured, evidence['threshold_m'])
+            self.assertIn(row['peak_second'], evidence['examined_seconds'])
+
+    def test_stability_witness_peak_time_order_and_uv_seam_copies(self):
+        doc, binary = fixture(travel=False, uv_seams=True)
+        accessor = doc['accessors'][doc['animations'][0]['samplers'][1]['output']]
+        view = doc['bufferViews'][accessor['bufferView']]
+        for index, angle in enumerate((0, .2, 0, .6, 0, .2, 0, .1, 0)):
+            struct.pack_into('<ffff', binary, view['byteOffset']+index*16, 0, 0, math.sin(angle/2), math.cos(angle/2))
+        self.save(doc, binary)
+        before = sha256(self.path)
+        result = audit_glb(self.path, *intent(('stability',)), 1.)
+        evidence = result['states'][0]['role_details']['subject']['stability_diagnostics']
+        rows = evidence['vertices']
+        self.assertEqual([row['exported_vertex_index'] for row in rows[:2]], [14, 16])
+        self.assertEqual(rows[0]['rest_world_gltf_m'], rows[1]['rest_world_gltf_m'])
+        self.assertEqual(rows[0]['influences'], rows[1]['influences'])
+        self.assertEqual([row['peak_second'] for row in rows], [1.5]*len(rows))
+        self.assertEqual(rows, sorted(rows, key=lambda row: (-row['max_world_displacement_m'], row['exported_vertex_index'])))
+        self.assertIn('not distinct physical points', evidence['index_space'])
+        self.assertEqual(sha256(self.path), before)
+
+    def test_stability_witness_coordinates_convert_asymmetric_bounds_to_blender(self):
+        doc, binary = fixture(travel=False)
+        accessor = doc['accessors'][0]; view = doc['bufferViews'][accessor['bufferView']]
+        positions = []
+        for index in range(accessor['count']):
+            offset = view['byteOffset']+index*12
+            x, y, z = struct.unpack_from('<fff', binary, offset)
+            struct.pack_into('<fff', binary, offset, x, y, z*2+.35)
+            positions.append(struct.unpack_from('<fff', binary, offset))
+        self.save(doc, binary)
+        result = audit_glb(self.path, *intent(('stability',)), 1.)
+        evidence = result['states'][0]['role_details']['subject']['stability_diagnostics']
+        blender = np.array(positions)[:, [0, 2, 1]]*np.array([1, -1, 1])
+        low, span = blender.min(axis=0), np.ptp(blender, axis=0)
+        np.testing.assert_allclose(evidence['rest_bounds_blender_z_up_m']['min'], low, atol=1e-7)
+        np.testing.assert_allclose(evidence['rest_bounds_blender_z_up_m']['max'], low+span, atol=1e-7)
+        differs_from_unconverted = False
+        gltf = np.array(positions)
+        for row in evidence['vertices']:
+            world = np.array(row['rest_world_gltf_m'])
+            expected = (world[[0, 2, 1]]*np.array([1, -1, 1])-low)/span
+            np.testing.assert_allclose(row['rest_normalized_blender_z_up'], expected, atol=1e-7)
+            wrong = (world-gltf.min(axis=0))/np.ptp(gltf, axis=0)
+            differs_from_unconverted |= abs(expected[1]-wrong[2]) > .1
+        self.assertTrue(differs_from_unconverted)
+        self.assertIn('glTF X,-Z,Y', evidence['coordinate_space'])
+
+    def test_stability_witness_rows_are_empty_when_fixed_and_bounded_when_large(self):
+        result = self.audit(('stability',), travel=False, flap=False)
+        evidence = result['states'][0]['role_details']['subject']['stability_diagnostics']
+        self.assertEqual(evidence['vertices'], [])
+        self.assertEqual(evidence['violating_exported_vertices'], 0)
+        result = self.audit(('stability',), body=True, travel=True, flap=False, body_triangles=1000)
+        evidence = result['states'][0]['role_details']['subject']['stability_diagnostics']
+        self.assertEqual(evidence['selected_exported_vertices'], 3012)
+        self.assertGreater(evidence['violating_exported_vertices'], 3000)
+        self.assertEqual(evidence['maximum_rows'], 4)
+        self.assertEqual(len(evidence['vertices']), 4)
+        self.assertEqual(evidence['examined_seconds'], result['states'][0]['full_skin_sample_seconds'])
 
     def test_rigid_global_translation_rotation_scale_do_not_become_flapping(self):
         result = self.audit(flap=False, rotate_root=True, scale=(2, 1.2, .8))

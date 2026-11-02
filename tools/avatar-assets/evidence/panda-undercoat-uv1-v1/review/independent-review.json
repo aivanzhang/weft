@@ -1,0 +1,32 @@
+{
+  "automatic_quality_policy_promoted": false,
+  "baseline": "outputs/studio-exported-motion-proof-v1/front.png",
+  "baseline_sha256": "059bd0d9807b424b27d034d1b71c8c9b5314356ce3baeab7b2b271c1e73f3e2f",
+  "component_result": "Visible improvement in matte short-pile surface detail; not accepted as complete fur or Muse parity",
+  "context_sha256": "b2773de34ebff2b1f3e7e1450b74dc1fd1b7b4e1d981ea445251ea048d168db0",
+  "inspected": [
+    {
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/front.png",
+      "sha256": "ceb6e0cc0b8276e6bfa53e7d65048e6d518ff92eac4c8e050eb588291e819fff"
+    },
+    {
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/side.png",
+      "sha256": "5dd8eaba6f51e2f311d027a12b8ed48fd44b55b4c5fe19ecb7e166ef8de42b5f"
+    },
+    {
+      "path": "outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0003.png",
+      "sha256": "3a28571086c64ef84a5375fb678b7fa7f882df61ba2bd2bfd22072bdc0043e91"
+    }
+  ],
+  "new_ai_calls": 0,
+  "new_provider_calls": 0,
+  "observations": [
+    "Black body/ears appear softer and less glossy than baseline; original identity, palette and detached dragon persist.",
+    "White regions remain smooth at this size, silhouette still lacks a dense coat, and original cheek/shoulder separation marks remain visible in flight.",
+    "This texture-only diagnostic does not fix geometry defects, add recovered hairs or establish every-frame visual quality."
+  ],
+  "prior_accepted_assets_replaced": false,
+  "reviewer": "root_independent_visual_inspection",
+  "schema_version": 1,
+  "weft_compatible": false
+}

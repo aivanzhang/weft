@@ -1,0 +1,526 @@
+{
+  "actual_bone_parents": {
+    "Head": "neck",
+    "Hips": null,
+    "LeftArm": "LeftShoulder",
+    "LeftFoot": "LeftLeg",
+    "LeftForeArm": "LeftArm",
+    "LeftHand": "LeftForeArm",
+    "LeftLeg": "LeftUpLeg",
+    "LeftShoulder": "Spine",
+    "LeftToeBase": "LeftFoot",
+    "LeftUpLeg": "Hips",
+    "RightArm": "RightShoulder",
+    "RightFoot": "RightLeg",
+    "RightForeArm": "RightArm",
+    "RightHand": "RightForeArm",
+    "RightLeg": "RightUpLeg",
+    "RightShoulder": "Spine",
+    "RightToeBase": "RightFoot",
+    "RightUpLeg": "Hips",
+    "Spine": "Spine01",
+    "Spine01": "Spine02",
+    "Spine02": "Hips",
+    "head_end": "Head",
+    "headfront": "Head",
+    "neck": "Spine"
+  },
+  "aggregate_vertices": 45386,
+  "anatomical_primitives": [
+    {
+      "anatomical_start_index": 0,
+      "max_input_weight_sum_error": 1.424923539161682e-07,
+      "node": 25,
+      "primitive": 0,
+      "vertices": 45386
+    }
+  ],
+  "anatomical_vertices": 45386,
+  "audit_version": "weighted-glb-action-audit-v3",
+  "control_probe_limit_used": 8,
+  "elapsed_seconds": 0.17643450014293194,
+  "excluded_surfaces": [],
+  "fps": 24,
+  "implementation_sha256": {
+    "action_audit.py": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+    "action_intent.py": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+    "three_d.py": "8f983891ea5f50b9b533baedbd3627d87560d2042ba96d94a08e30bba97b5693"
+  },
+  "input_contract_sha256": "7835c2a6b62e368126bb41dc0337a57c32efbe331ad68435f806feaa602c99e8",
+  "intent_sha256": "00985c1145a0b2ca4cc30aa3fa10554375ebae75d088293e8e3e5a8d02bf23c6",
+  "limitations": [
+    "No semantic, visual, collision, physical, Weft or seamless-loop approval.",
+    "24fps joint-targeted probes are sampled evidence, not all vertices at every time.",
+    "Moving-vertex counts are exact conservative counts at listed full-skin frames, never extrapolated from probes.",
+    "Roles include target-joint descendants with at least 0.05 cumulative weight; UV-seam vertices remain separate.",
+    "Stability instead selects direct target-bone surfaces with at least0.5 summed weight, excluding unrelated descendants.",
+    "Stability is sampled world-space stillness, not ground contact, balance or a continuous-time upper bound.",
+    "Input weight-sum encoding errors up to 0.001 are reported and normalized for CPU skinning.",
+    "Reserved coat/groom surfaces are excluded; source mesh naming outside those prefixes is retained.",
+    "Travel/rise/descent use glTF meter coordinates and +Y up, not ground/contact measurements."
+  ],
+  "limits": {
+    "file_bytes": 67108864,
+    "frames_per_state": 97,
+    "full_skin_frames_per_state": 8,
+    "joints": 64,
+    "probes": 1024,
+    "probes_per_control": 16,
+    "report_bytes": 4194304,
+    "seconds": 50,
+    "stability_outliers_per_role": 4,
+    "states": 8,
+    "total_frames": 776,
+    "vertices": 100000
+  },
+  "model_sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b",
+  "numpy_version": "2.5.4",
+  "passed": true,
+  "physics_verified": false,
+  "probe_count": 77,
+  "probe_index_space": "Concatenated anatomical primitives in anatomical_primitives order",
+  "probe_vertex_ids": [
+    99,
+    999,
+    1866,
+    7524,
+    8195,
+    10029,
+    18363,
+    19088,
+    19175,
+    19208,
+    19462,
+    19466,
+    19692,
+    19790,
+    19826,
+    19833,
+    19907,
+    19972,
+    20445,
+    24007,
+    25434,
+    26007,
+    26483,
+    28913,
+    28956,
+    31287,
+    31883,
+    31892,
+    31927,
+    31987,
+    32023,
+    32186,
+    32225,
+    32239,
+    32349,
+    32467,
+    32579,
+    32876,
+    32885,
+    32924,
+    32947,
+    33168,
+    33360,
+    33419,
+    33466,
+    33536,
+    34122,
+    34471,
+    34888,
+    34891,
+    34959,
+    35786,
+    36952,
+    37113,
+    37523,
+    38268,
+    38393,
+    39695,
+    39825,
+    43479,
+    43931,
+    43970,
+    43988,
+    44042,
+    44155,
+    44238,
+    44239,
+    44243,
+    44244,
+    44384,
+    44642,
+    44659,
+    44771,
+    44966,
+    45122,
+    45204,
+    45352
+  ],
+  "sampled_frames": 97,
+  "schema_version": 1,
+  "scope": "Actual GLB linear-blend skinning. Travel uses bound root origin; articulation removes animated root transform; stability measures world displacement.",
+  "semantic_approval": false,
+  "source_unchanged": true,
+  "states": [
+    {
+      "evidence": {
+        "evidence_id": "action-audit-greeting",
+        "roles": {
+          "feet": {
+            "active_control_count": 0,
+            "descent_from_peak_m": 0.0,
+            "max_root_relative_displacement_m": 0.0,
+            "max_travel_m": 0.0,
+            "max_vertical_rise_m": 0.0,
+            "max_world_displacement_m": 0.0,
+            "moving_vertices": 0,
+            "rhythmic_reversals": 0,
+            "scale_m": 0.43524828091934764,
+            "weighted_vertices": 2643
+          },
+          "right-hand": {
+            "active_control_count": 3,
+            "descent_from_peak_m": 0.0,
+            "max_root_relative_displacement_m": 0.5278453945692165,
+            "max_travel_m": 0.0,
+            "max_vertical_rise_m": 0.0,
+            "max_world_displacement_m": 0.5366117001656017,
+            "moving_vertices": 5706,
+            "rhythmic_reversals": 7,
+            "scale_m": 0.32086021351254423,
+            "weighted_vertices": 5706
+          },
+          "torso": {
+            "active_control_count": 0,
+            "descent_from_peak_m": 0.0,
+            "max_root_relative_displacement_m": 0.0,
+            "max_travel_m": 0.0,
+            "max_vertical_rise_m": 0.0,
+            "max_world_displacement_m": 0.0,
+            "moving_vertices": 0,
+            "rhythmic_reversals": 0,
+            "scale_m": 0.27761298291678965,
+            "weighted_vertices": 1804
+          }
+        },
+        "state_id": "greeting"
+      },
+      "full_skin_sample_seconds": [
+        0.0,
+        2.0,
+        2.2083333333333335,
+        4.0
+      ],
+      "id": "greeting",
+      "requirement_results": {
+        "passed": true,
+        "physics_verified": false,
+        "requirements": [
+          {
+            "evidence_ids": [
+              "action-audit-greeting"
+            ],
+            "id": "right-hand-wave",
+            "kind": "articulation",
+            "reason": "Root-relative skin displacement and meaningful weighted coverage",
+            "role": "right-hand",
+            "status": "passed"
+          },
+          {
+            "evidence_ids": [
+              "action-audit-greeting"
+            ],
+            "id": "steady-torso",
+            "kind": "stability",
+            "maximum_displacement_m": 0.0013880649145839483,
+            "reason": "World-space weighted-surface displacement at most 0.5% of measured role scale, capped at 5mm; not ground-contact proof",
+            "role": "torso",
+            "status": "passed"
+          },
+          {
+            "evidence_ids": [
+              "action-audit-greeting"
+            ],
+            "id": "planted-feet",
+            "kind": "stability",
+            "maximum_displacement_m": 0.0021762414045967383,
+            "reason": "World-space weighted-surface displacement at most 0.5% of measured role scale, capped at 5mm; not ground-contact proof",
+            "role": "feet",
+            "status": "passed"
+          }
+        ],
+        "schema_version": 1,
+        "scope": "Necessary bounded motion measurements, not sufficient evidence of action meaning or visual quality.",
+        "semantic_approval": false,
+        "state_id": "greeting"
+      },
+      "role_details": {
+        "feet": {
+          "bones": [
+            "LeftFoot",
+            "LeftToeBase",
+            "RightFoot",
+            "RightToeBase"
+          ],
+          "moving_vertex_threshold_m": 0.00043524828091934763,
+          "own_control_displacement_m": {
+            "LeftFoot": 0.0,
+            "LeftToeBase": 0.0,
+            "RightFoot": 0.0,
+            "RightToeBase": 0.0
+          },
+          "probe_count": 16,
+          "rest_world_bounds_m": {
+            "max": [
+              0.21763502264930148,
+              0.12116462891561827,
+              0.16077623069715918
+            ],
+            "min": [
+              -0.21761325827004618,
+              -1.517748736285283e-07,
+              -0.05773993876251598
+            ]
+          },
+          "root_bone": "Hips",
+          "selected_vertices": 2643,
+          "stability_diagnostics": {
+            "coordinate_space": "World vectors are glTF +Y-up meters. Normalized rest positions use Blender XYZ = glTF X,-Z,Y and whole audited body bounds, excluding reserved coat/groom surfaces.",
+            "coverage": "Worst violating vertices at the listed full-skin samples; not every vertex at every frame or continuous-time coverage.",
+            "examined_seconds": [
+              0.0,
+              2.0,
+              2.2083333333333335,
+              4.0
+            ],
+            "index_space": "Concatenated audited exported body primitives; node/primitive/local indices identify GLB accessor rows. Coincident seam copies remain separate, not distinct physical points.",
+            "layer_match_scope": "No authored layer design is bound by this audit intent.",
+            "layer_matches": null,
+            "maximum_rows": 4,
+            "requirement_ids": [
+              "planted-feet"
+            ],
+            "rest_bounds_blender_z_up_m": {
+              "max": [
+                0.3701401475395943,
+                0.22820015286342568,
+                1.1999999347524526
+              ],
+              "min": [
+                -0.37014019504511225,
+                -0.2282001091220827,
+                -1.517748736285283e-07
+              ]
+            },
+            "schema_version": 1,
+            "selected_exported_vertices": 2643,
+            "selection": "direct_target_bone_weight_sum_at_least_0.5",
+            "threshold_m": 0.0021762414045967383,
+            "vertices": [],
+            "violating_exported_vertices": 0,
+            "weight_scope": "Original decoded nonzero WEIGHTS_0 slots, plus the normalized weights used by this audit; no weight mutation."
+          },
+          "surface_selection": "direct_target_bone_weight_sum_at_least_0.5"
+        },
+        "right-hand": {
+          "bones": [
+            "RightArm",
+            "RightForeArm",
+            "RightHand"
+          ],
+          "moving_vertex_threshold_m": 0.00032086021351254425,
+          "own_control_displacement_m": {
+            "RightArm": 0.36466950923873875,
+            "RightForeArm": 0.15575800228763964,
+            "RightHand": 0.12338510027748598
+          },
+          "probe_count": 17,
+          "rest_world_bounds_m": {
+            "max": [
+              -0.08518556518143991,
+              0.7436287258866772,
+              0.1267767136483273
+            ],
+            "min": [
+              -0.37014019504511225,
+              0.42276851237413293,
+              -0.05440866839947032
+            ]
+          },
+          "root_bone": "Spine",
+          "selected_vertices": 5706,
+          "surface_selection": "target_and_descendant_weight_sum_at_least_0.05"
+        },
+        "torso": {
+          "bones": [
+            "Hips",
+            "Spine02",
+            "Spine01",
+            "Spine"
+          ],
+          "moving_vertex_threshold_m": 0.0002776129829167897,
+          "own_control_displacement_m": {
+            "Hips": 0.0,
+            "Spine": 0.0,
+            "Spine01": 0.0,
+            "Spine02": 0.0
+          },
+          "probe_count": 16,
+          "rest_world_bounds_m": {
+            "max": [
+              0.10860565651878099,
+              0.7102457183236729,
+              0.1374392885163278
+            ],
+            "min": [
+              -0.12437023014249529,
+              0.4788623104416555,
+              -0.14017369440046185
+            ]
+          },
+          "root_bone": "Hips",
+          "selected_vertices": 1804,
+          "stability_diagnostics": {
+            "coordinate_space": "World vectors are glTF +Y-up meters. Normalized rest positions use Blender XYZ = glTF X,-Z,Y and whole audited body bounds, excluding reserved coat/groom surfaces.",
+            "coverage": "Worst violating vertices at the listed full-skin samples; not every vertex at every frame or continuous-time coverage.",
+            "examined_seconds": [
+              0.0,
+              2.0,
+              2.2083333333333335,
+              4.0
+            ],
+            "index_space": "Concatenated audited exported body primitives; node/primitive/local indices identify GLB accessor rows. Coincident seam copies remain separate, not distinct physical points.",
+            "layer_match_scope": "No authored layer design is bound by this audit intent.",
+            "layer_matches": null,
+            "maximum_rows": 4,
+            "requirement_ids": [
+              "steady-torso"
+            ],
+            "rest_bounds_blender_z_up_m": {
+              "max": [
+                0.3701401475395943,
+                0.22820015286342568,
+                1.1999999347524526
+              ],
+              "min": [
+                -0.37014019504511225,
+                -0.2282001091220827,
+                -1.517748736285283e-07
+              ]
+            },
+            "schema_version": 1,
+            "selected_exported_vertices": 1804,
+            "selection": "direct_target_bone_weight_sum_at_least_0.5",
+            "threshold_m": 0.0013880649145839483,
+            "vertices": [],
+            "violating_exported_vertices": 0,
+            "weight_scope": "Original decoded nonzero WEIGHTS_0 slots, plus the normalized weights used by this audit; no weight mutation."
+          },
+          "surface_selection": "direct_target_bone_weight_sum_at_least_0.5"
+        }
+      },
+      "sample_seconds": [
+        0.0,
+        0.041666666666666664,
+        0.08333333333333333,
+        0.125,
+        0.16666666666666666,
+        0.20833333333333334,
+        0.25,
+        0.2916666666666667,
+        0.3333333333333333,
+        0.375,
+        0.4166666666666667,
+        0.4583333333333333,
+        0.5,
+        0.5416666666666666,
+        0.5833333333333334,
+        0.625,
+        0.6666666666666666,
+        0.7083333333333334,
+        0.75,
+        0.7916666666666666,
+        0.8333333333333334,
+        0.875,
+        0.9166666666666666,
+        0.9583333333333334,
+        1.0,
+        1.0416666666666667,
+        1.0833333333333333,
+        1.125,
+        1.1666666666666667,
+        1.2083333333333333,
+        1.25,
+        1.2916666666666667,
+        1.3333333333333333,
+        1.375,
+        1.4166666666666667,
+        1.4583333333333333,
+        1.5,
+        1.5416666666666667,
+        1.5833333333333333,
+        1.625,
+        1.6666666666666667,
+        1.7083333333333333,
+        1.75,
+        1.7916666666666667,
+        1.8333333333333333,
+        1.875,
+        1.9166666666666667,
+        1.9583333333333333,
+        2.0,
+        2.0416666666666665,
+        2.0833333333333335,
+        2.125,
+        2.1666666666666665,
+        2.2083333333333335,
+        2.25,
+        2.2916666666666665,
+        2.3333333333333335,
+        2.375,
+        2.4166666666666665,
+        2.4583333333333335,
+        2.5,
+        2.5416666666666665,
+        2.5833333333333335,
+        2.625,
+        2.6666666666666665,
+        2.7083333333333335,
+        2.75,
+        2.7916666666666665,
+        2.8333333333333335,
+        2.875,
+        2.9166666666666665,
+        2.9583333333333335,
+        3.0,
+        3.0416666666666665,
+        3.0833333333333335,
+        3.125,
+        3.1666666666666665,
+        3.2083333333333335,
+        3.25,
+        3.2916666666666665,
+        3.3333333333333335,
+        3.375,
+        3.4166666666666665,
+        3.4583333333333335,
+        3.5,
+        3.5416666666666665,
+        3.5833333333333335,
+        3.625,
+        3.6666666666666665,
+        3.7083333333333335,
+        3.75,
+        3.7916666666666665,
+        3.8333333333333335,
+        3.875,
+        3.9166666666666665,
+        3.9583333333333335,
+        4.0
+      ]
+    }
+  ],
+  "status": "measured"
+}

@@ -1,0 +1,66 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["evidence-native-views", "evidence-exported-views"],
+      "name": "identity",
+      "passed": true,
+      "reason": "Both representations show the same rounded robot, cream eye mask, circular blue eyes, copper fittings and small panel details."
+    },
+    {
+      "evidence_ids": ["evidence-native-views", "evidence-exported-views", "evidence-delivered-portrait"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Blue-and-cream panels and copper trim retain the polished toy appearance. Metallic highlights are appropriate; no fur is requested."
+    },
+    {
+      "evidence_ids": ["evidence-native-views", "evidence-exported-views", "evidence-motion-00"],
+      "name": "framing",
+      "passed": true,
+      "reason": "The full body, both hands, feet and head fittings remain visible with margins in the supplied views and motion samples."
+    },
+    {
+      "evidence_ids": ["evidence-isolated-native-greeting", "evidence-isolated-exported-greeting", "evidence-motion-00"],
+      "name": "deformation",
+      "passed": true,
+      "reason": "The sampled wrist poses retain connected silhouettes without conspicuous stretching, spikes or body intersections."
+    }
+  ],
+  "limitations": [
+    "The original source appearance is not separately pictured, so exact preservation against that source cannot be established.",
+    "Sampled images do not establish every-frame collision freedom, physical support or seamless motion."
+  ],
+  "required_repairs": [
+    "Repose the right forearm and hand so the palm is visibly presented toward the viewer, then animate a clear lateral greeting wave rather than the current low wrist swivel. Keep the torso and feet fixed and provide updated native, exported and delivered motion evidence."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": ["evidence-motion-00", "evidence-isolated-native-greeting", "evidence-isolated-exported-greeting", "action-audit-greeting"],
+      "id": "greeting",
+      "meaning_passed": false,
+      "motion_passed": true,
+      "reason": "The right hand visibly changes pose repeatedly, but remains low beside the waist and rotates between hanging and sideways orientations. This reads as wrist swiveling rather than a clear greeting wave.",
+      "requirement_reviews": [
+        {
+          "evidence_ids": ["evidence-motion-00", "evidence-isolated-native-greeting", "evidence-isolated-exported-greeting", "action-audit-greeting"],
+          "id": "right-hand-wave",
+          "passed": false,
+          "reason": "Actual articulation is visible and measured, but the low, edge-on hand presentation does not clearly communicate the requested side-to-side greeting."
+        },
+        {
+          "evidence_ids": ["evidence-motion-00", "action-audit-greeting"],
+          "id": "steady-torso",
+          "passed": true,
+          "reason": "The torso maintains its visible position and orientation across samples; the supplied audit also reports zero sampled world displacement."
+        },
+        {
+          "evidence_ids": ["evidence-motion-00", "action-audit-greeting"],
+          "id": "planted-feet",
+          "passed": true,
+          "reason": "Both soles remain aligned at the same positions and orientations across samples, consistent with the supplied zero world-displacement measurements. Physical ground contact remains unverified."
+        }
+      ]
+    }
+  ],
+  "summary": "Appearance and sampled stability pass, but the wrist-only motion needs a clearer greeting pose.",
+  "verdict": "repair"
+}

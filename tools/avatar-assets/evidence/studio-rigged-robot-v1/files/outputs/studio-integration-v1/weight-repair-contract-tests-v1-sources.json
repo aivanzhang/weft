@@ -1,0 +1,28 @@
+{
+  "command": ".venv/bin/python -m unittest tests.test_pipeline_prompts tests.test_finish_quality_contracts -q",
+  "log_sha256": "5f7bf0c9b252fd0413040a994d60ac0e0bbad6e2638d376e8e287b50fc597dd8",
+  "recorded_local": "2026-11-01T15:24:22.862396-08:00",
+  "result": "passed",
+  "schema_version": 1,
+  "scope": "Post-check snapshot; root-owned prompt/report-label changes were made before the42-test run and have not changed since. Not a source snapshot taken before test launch.",
+  "seconds": 0.036,
+  "sources": [
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "0373f51391cc32a17faec256b4c63c2a0f50cab3bab6a0f28f41140a282b2dda"
+    },
+    {
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "31dfd42ae4928a2901e6dfd0500eae3f58e9f8fa878bde017d335893e9dfe239"
+    },
+    {
+      "path": "tests/test_pipeline_prompts.py",
+      "sha256": "cff6a414f7f224a9df2b5b9dd13e4bf015570c54c6cf5b1654a6a4a73b217277"
+    },
+    {
+      "path": "tests/test_finish_quality_contracts.py",
+      "sha256": "07239ccceddb07067018b73a6a49b81b870700652ec8800ce1b5f48c4054c197"
+    }
+  ],
+  "tests": 42
+}

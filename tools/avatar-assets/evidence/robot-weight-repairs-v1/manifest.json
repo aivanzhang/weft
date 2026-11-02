@@ -1,0 +1,1456 @@
+{
+  "actual_results": {
+    "ai_weight_probe": "rejected_torso_instability_and_visible_chest_wedge",
+    "cpu_projection": "numeric_stability_pass_only",
+    "native_elapsed_seconds": 16.307,
+    "native_measured_edges_per_pose": 93680,
+    "native_process_exit_verified": true,
+    "native_projection": "sampled_severe_spike_present",
+    "native_sampled_peak_rss_bytes": 1152794624,
+    "native_sampled_poses": 8,
+    "no_new_quality_acceptance": true,
+    "poses_with_severe_edges": 6,
+    "production_severe_witness_retention_bug": "known_unresolved_at_this_checkpoint; future_fix_and_validation_excluded",
+    "root_visual_review": "rejected_conspicuous_chest_side_flap",
+    "severe_edges_per_failed_pose": 3
+  },
+  "ancillary_files": [
+    {
+      "bytes": 3670,
+      "path": "README.md",
+      "sha256": "8145dc2e5b5060854398add334b8efc34a05f60bae818b71e12047ec41d92c92"
+    },
+    {
+      "bytes": 1672,
+      "path": "README-STAGED.md",
+      "sha256": "405391259b892e2b33ca51935696193d0e781578b75b9769486d1a7ed0cee0f2"
+    },
+    {
+      "bytes": 57171,
+      "path": "STAGED.json",
+      "sha256": "1ebb09a575ed27355aa1e25e93512b29b9f897b6b7713662839654970948de5f"
+    }
+  ],
+  "automatic_promotion": false,
+  "bounds": {
+    "hash_chunk_bytes": 1048576,
+    "maximum_bundle_bytes": 12582912,
+    "native_original_bytes_limit": 134217728,
+    "native_original_inventory_max_files": 1000
+  },
+  "copied_bytes": 3059951,
+  "costs": {
+    "ai_usd": null,
+    "fresh_estimate": "Append-only105-credit/15-call estimate remains pending;50000input-token per-call planning assumption is not a token cap or grant.",
+    "new_meshy_calls": 0,
+    "new_meta_calls": 0,
+    "snapshot_generation_calls": 0,
+    "study_ai_calls": 13,
+    "study_call_cap": 13,
+    "study_usage": {
+      "input_tokens": 358211,
+      "output_tokens": 13885,
+      "reasoning_output_tokens": 1453
+    }
+  },
+  "dependency": {
+    "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+    "note": "Exact previously bundled bytes are referenced instead of recopied; retain that immutable bundle alongside this one.",
+    "path": "evidence/studio-rigged-robot-v1"
+  },
+  "excluded_work": "In-progress production severe-witness retention fix and future proof; preserve it in a new versioned bundle when complete.",
+  "files": [
+    {
+      "bytes": 50753,
+      "saved_path": "files/avatar_assets/pipeline.py",
+      "sha256": "a2306e92a84b279118f7991c685e92181153c3dc4e3a875b1b3b72b2e226a12d",
+      "source_path": "avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 1200,
+      "saved_path": "files/outputs/fresh-acceptance-estimate-v2/estimate.json",
+      "sha256": "bba7d25d71eeb9752d083e8ec0858b1783311b3ff0b371bb3d935a5fac09fca5",
+      "source_path": "outputs/fresh-acceptance-estimate-v2/estimate.json"
+    },
+    {
+      "bytes": 519,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/action-audit/audit-handle.json",
+      "sha256": "5da1e7d2cfba04ed36f73eba28cc9a7189c9778881e375dbdbe4dde52e3ef16a",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/action-audit/audit-handle.json"
+    },
+    {
+      "bytes": 1302,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/action-audit/audit-monitor.json",
+      "sha256": "11dc31b81084dc77d47c2897c6a52be501d2c464b32bc1efa23eeb6ab1b8ce45",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/action-audit/audit-monitor.json"
+    },
+    {
+      "bytes": 93,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/action-audit/audit.log",
+      "sha256": "045e51bff43a4a209bbaedb951e06da075122e24742eb9be6235387e2defdcc5",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/action-audit/audit.log"
+    },
+    {
+      "bytes": 2202,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/action-audit/intent.json",
+      "sha256": "4c6d99fc510a0650993bb62dec6c8052624712290a3b911ea0f5be8e4fcf9579",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/action-audit/intent.json"
+    },
+    {
+      "bytes": 1408,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/action-audit/job.json",
+      "sha256": "162734b4c7a063fba947754a036ed2f0292b99702dc68f451f94c7f74ef2119a",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/action-audit/job.json"
+    },
+    {
+      "bytes": 1169,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/action-audit/manifest.json",
+      "sha256": "837a4ef6d0116ea2adfb70d7fc5dc1fb5e343a4f220c89027b0011b90e5ec135",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/action-audit/manifest.json"
+    },
+    {
+      "bytes": 24666,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/action-audit/report.json",
+      "sha256": "c3da0bc5677abbac10459fe510fa86e05240b7e0122cf36cdd9187a7d7d67f10",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/action-audit/report.json"
+    },
+    {
+      "bytes": 2969,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/agent-process.json",
+      "sha256": "b47157758dc1d60a7118046c0bef369041e663a8ec804cb509777601f499ec66",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/agent-process.json"
+    },
+    {
+      "bytes": 2844,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/agent.jsonl",
+      "sha256": "37bb4d6b53e8e37e6434f8fb74df93d5d1ef3d205c0323074867fc25215a9558",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/agent.jsonl"
+    },
+    {
+      "bytes": 29,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/author-0/agent.stderr"
+      },
+      "sha256": "3e75d28a6681c31400a3f0fcb564c7613fd42796fb83294e4d53fea86bcbd401",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/agent.stderr"
+    },
+    {
+      "bytes": 1931,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/answer.json",
+      "sha256": "6807595b3dca18aac011f3aa09791306f6d1fbd5a2736eedaecd7c5dbf1e1835",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/answer.json"
+    },
+    {
+      "bytes": 327222,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/author-0/image-00.png"
+      },
+      "sha256": "61fc9b6934142b945cf9822cd9c699c35e1804d870f064452ed349bd46da50a5",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-00.png"
+    },
+    {
+      "bytes": 291828,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/author-0/image-01.png"
+      },
+      "sha256": "00229b541bba4705288f2d039aa79e49ae398925b1483d9699ffa76902b9320d",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-01.png"
+    },
+    {
+      "bytes": 245555,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/author-0/image-02.png"
+      },
+      "sha256": "e22aca448dea287080614b66029dcbc6ba3f6f84d65a712df0e251a6c1bff956",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-02.png"
+    },
+    {
+      "bytes": 1087449,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/author-1/image-03.png"
+      },
+      "sha256": "47927f634f596675a984dbd36e95862fa53a2951ded0504a0e25566f64dd7cc3",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-03.png"
+    },
+    {
+      "bytes": 467001,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-04.png",
+      "sha256": "e8dd957d78ad5bff4c1caa755572ba0a456cdd8ad9360c93fbc16a14136f8f12",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-04.png"
+    },
+    {
+      "bytes": 469444,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/reviewer-1/image-04.png"
+      },
+      "sha256": "7e8c54babce7253e00f17e2beaaeb8cc3995711f9869120a5cb2580664c8d116",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-05.png"
+    },
+    {
+      "bytes": 2750180,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/reviewer-1/image-02.png"
+      },
+      "sha256": "baf1230e22d9d9a9012356ecffdc9a840fc3dce8e2c08dd51e43e577e56cdd21",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-06.png"
+    },
+    {
+      "bytes": 3773,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/invocation.json",
+      "sha256": "9c2790af6c9c74d35a4ea64f0d751f01bd903d71120a610deac6f4349f84a72e",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/invocation.json"
+    },
+    {
+      "bytes": 81460,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/invocation.txt",
+      "sha256": "7ee9d44b90450301813082c2ae8081c1a82f39f5d0558f988f7eeb5a65bc5072",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/invocation.txt"
+    },
+    {
+      "bytes": 80979,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/prompt.txt",
+      "sha256": "0ad5147df14fd912773ad0525cebfa73593d98ae8cea7557772daaa09e744d8f",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/prompt.txt"
+    },
+    {
+      "bytes": 7121,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/receipt.json",
+      "sha256": "441fce9f91568aaca9ca42999e25fcabddf1e222aaa2585aa87b1aa91eda6659",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/receipt.json"
+    },
+    {
+      "bytes": 1436,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/request.json",
+      "sha256": "e269c2f949d2376a7000b0d44e958b22b89e9318c427adfa327c1da2a798436b",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/request.json"
+    },
+    {
+      "bytes": 352,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/author-0/schema.json"
+      },
+      "sha256": "767a4f3871c3b4fdac31a4e10bd19a5763d41cd6df83098aaa6478d22c021886",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/schema.json"
+    },
+    {
+      "bytes": 503,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/version-process.json",
+      "sha256": "dd97bde7aaf3a81276a2567b7c1fbb09418b45113f32dbbe20c24fe62f84a7a6",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/version-process.json"
+    },
+    {
+      "bytes": 18,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/author-0/version.jsonl"
+      },
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/version.jsonl"
+    },
+    {
+      "bytes": 0,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/author-0/version.stderr"
+      },
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/version.stderr"
+    },
+    {
+      "bytes": 339,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/runner.json",
+      "sha256": "467b6d3fe25dc825eb099ac3c39854944d992fbccd37bcaa34e42b9d69b656ef",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/runner.json"
+    },
+    {
+      "bytes": 1945,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/answer.json",
+      "sha256": "f5c355ba82518652c6b3d4c91a5d9c29573b50ff450ccf9c62997ed56aa116f5",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/answer.json"
+    },
+    {
+      "bytes": 155,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/build-result.json",
+      "sha256": "0c6def4704391ecd502b6223ccecf3175f0826f98cde87050c2f7546ee0b04f9",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/build-result.json"
+    },
+    {
+      "bytes": 3380,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/deformation-gate.json",
+      "sha256": "e60adc7b5b1c43bb88c6430fa3163eab501f10b9712e0758d0938efc561c0330",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/deformation-gate.json"
+    },
+    {
+      "bytes": 1234,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/diagnostic-review.json",
+      "sha256": "c844b30b663e3f2bbf3c0e03362d4e9d8ecf641a34b4198424f4fc251b1ff09d",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/diagnostic-review.json"
+    },
+    {
+      "bytes": 4108,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/finish.json",
+      "sha256": "081e5c043d6ebbc9367a118d16c5e5055ad0c66c55c6bed8fcacbe27511d7564",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/finish.json"
+    },
+    {
+      "bytes": 17079,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/manifest.json",
+      "sha256": "c0174a3e174e4e51ad246e880d3b363822c82dfbf4de6533d65ca83e05effdd5",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/manifest.json"
+    },
+    {
+      "bytes": 11712,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/exported-nodes.json"
+      },
+      "sha256": "9301d1052186ef83f4b080018968976e56a132272333348403a8aa7ed694288d",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/exported-nodes.json"
+    },
+    {
+      "bytes": 4157,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/finish-config.json",
+      "sha256": "243da4f17a4ebe94925df43b527f8e9fe21c26d0aadedde82f991be709f91138",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/finish-config.json"
+    },
+    {
+      "bytes": 638,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/finish-handle.json",
+      "sha256": "71b7ea243e5cbb853f50fe4e2d05d19297c480f85e3b692620cde325ef8bd1c9",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/finish-handle.json"
+    },
+    {
+      "bytes": 1434,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/finish-monitor.json",
+      "sha256": "4d1dc9c674e68e7c1c5223669f1712735f5546f5528bf80d98d03140f3ba9fa8",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/finish-monitor.json"
+    },
+    {
+      "bytes": 9725,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/finish-report.json",
+      "sha256": "bbd014034f2e90c655cd34c36fa0d078769b4377cd34f70e8627748231cc9a3d",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/finish-report.json"
+    },
+    {
+      "bytes": 79224,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/finish.log",
+      "sha256": "ac0ecb1f4a7ae1549964f8c93db44b1255b23ee79375e63c6ee0dcf5304fe55c",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/finish.log"
+    },
+    {
+      "bytes": 1568,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/job.json",
+      "sha256": "1e64a8ca4b348d27e2e6962adfc64fc8a12a471e2ce8bc7df627967e0127b87e",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/job.json"
+    },
+    {
+      "bytes": 26522,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/manifest.json",
+      "sha256": "9f37bad2d9a22f23afbf510fd6bba4d3a2abaac8fefc71a670a69d40d5c509a4",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/manifest.json"
+    },
+    {
+      "bytes": 877,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/render-attributes.json",
+      "sha256": "fd278d8626f63b5ecd3839081b65439673adb4c5418bc37850596190e9bd03aa",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/render-attributes.json"
+    },
+    {
+      "bytes": 472304,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/renders/greeting/0003.png",
+      "sha256": "891045ae1a7e3a8e9ab36a30c551dea69c2cae3160d5aba7f858509f10f5db82",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/renders/greeting/0003.png"
+    },
+    {
+      "bytes": 1664,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/rig-contract.json"
+      },
+      "sha256": "3c0ab28a8e7ceb542d920e2e07ff0052140ddcd7ffe2bb6cdb64298401f481ae",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/rig-contract.json"
+    },
+    {
+      "bytes": 3450,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/rig-verification.json",
+      "sha256": "e9d623073c93e9b0bbf67c10729f9e5aaaa662c9afa79c6f9640509853150158",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/rig-verification.json"
+    },
+    {
+      "bytes": 6582,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/blender_color_corrections.py"
+      },
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_color_corrections.py"
+    },
+    {
+      "bytes": 23994,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/blender_comb_groom.py"
+      },
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_comb_groom.py"
+    },
+    {
+      "bytes": 2710,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/blender_creature_rig.py"
+      },
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_creature_rig.py"
+    },
+    {
+      "bytes": 47487,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/scripts/blender_finish_generated.py"
+      },
+      "sha256": "31dfd42ae4928a2901e6dfd0500eae3f58e9f8fa878bde017d335893e9dfe239",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_finish_generated.py"
+    },
+    {
+      "bytes": 23637,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/blender_fur_cards.py"
+      },
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_fur_cards.py"
+    },
+    {
+      "bytes": 24601,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/blender_native_groom.py"
+      },
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_native_groom.py"
+    },
+    {
+      "bytes": 6839,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/blender_normal_continuity.py"
+      },
+      "sha256": "1640b08c1adc1b9c5d0b5994dd5623982ec816dfa02f6bd30bb43bf64a55e9be",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 5789,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/blender_part_rigs.py"
+      },
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_part_rigs.py"
+    },
+    {
+      "bytes": 12009,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/blender_surface_profiles.py"
+      },
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_surface_profiles.py"
+    },
+    {
+      "bytes": 18248,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/sources/blender_verify.py"
+      },
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/blender_verify.py"
+    },
+    {
+      "bytes": 8351,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/color_corrections.py"
+      },
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/color_corrections.py"
+    },
+    {
+      "bytes": 5399,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/creature_rig_math.py"
+      },
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/creature_rig_math.py"
+    },
+    {
+      "bytes": 4392,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/deformation_diagnostics.py"
+      },
+      "sha256": "284848acb6d1352d12511c8f0d0de7c486bae125921f4d4edba4721e0e29d393",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 4108,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/finish.json",
+      "sha256": "081e5c043d6ebbc9367a118d16c5e5055ad0c66c55c6bed8fcacbe27511d7564",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/finish-design.json"
+    },
+    {
+      "bytes": 23816,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/finish_generated.py"
+      },
+      "sha256": "a87d5944f6df373fcfc76069f8a195959d785573149c4b0cc019213517333916",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/finish_generated.py"
+    },
+    {
+      "bytes": 2738,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/generated_tangents.py"
+      },
+      "sha256": "e460ce6efdf17c9788ae16fc13438ea8f3ca01d1b19617427ffdef75d69da40c",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/generated_tangents.py"
+    },
+    {
+      "bytes": 7179,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/groom_flow.py"
+      },
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/groom_flow.py"
+    },
+    {
+      "bytes": 5273,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/motion_samples.py"
+      },
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/motion_samples.py"
+    },
+    {
+      "bytes": 13937,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/normal_continuity.py"
+      },
+      "sha256": "6719fb8c7cfb47b240d34848b91838021b678abc806e32f0286d1b1115813d2a",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/normal_continuity.py"
+    },
+    {
+      "bytes": 6665,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/part_rigs.py"
+      },
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/part_rigs.py"
+    },
+    {
+      "bytes": 6843,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/surface_integrity.py"
+      },
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/surface_integrity.py"
+    },
+    {
+      "bytes": 2675,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/surface_profiles.py"
+      },
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/surface_profiles.py"
+    },
+    {
+      "bytes": 7538,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/surface_smoothing.py"
+      },
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/surface_smoothing.py"
+    },
+    {
+      "bytes": 1792,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/surface_smoothing_config.py"
+      },
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 487,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/tangent-repair.json",
+      "sha256": "9e9ee7c2700d941b71f5951e22cda4b416e3dd980584772036925db71d186e09",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/tangent-repair.json"
+    },
+    {
+      "bytes": 65049,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/prepared.json",
+      "sha256": "704002aa81cabdf4b9fadfa897620cecd4ef710d29664445c4035fb56bbd55ac",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/prepared.json"
+    },
+    {
+      "bytes": 80979,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/prompt.txt",
+      "sha256": "0ad5147df14fd912773ad0525cebfa73593d98ae8cea7557772daaa09e744d8f",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/prompt.txt"
+    },
+    {
+      "bytes": 352,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/agents/author-0/schema.json"
+      },
+      "sha256": "767a4f3871c3b4fdac31a4e10bd19a5763d41cd6df83098aaa6478d22c021886",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/schema.json"
+    },
+    {
+      "bytes": 34271,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/sources/action_audit.py"
+      },
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/sources/action_audit.py"
+    },
+    {
+      "bytes": 25864,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/sources/agent_runner.py"
+      },
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/sources/agent_runner.py"
+    },
+    {
+      "bytes": 47487,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/scripts/blender_finish_generated.py"
+      },
+      "sha256": "31dfd42ae4928a2901e6dfd0500eae3f58e9f8fa878bde017d335893e9dfe239",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/sources/blender_finish_generated.py"
+    },
+    {
+      "bytes": 42879,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/avatar_assets/pipeline_prompts.py"
+      },
+      "sha256": "0373f51391cc32a17faec256b4c63c2a0f50cab3bab6a0f28f41140a282b2dda",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/sources/pipeline_prompts.py"
+    },
+    {
+      "bytes": 658,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/validation-before-native.json",
+      "sha256": "d01de8eb84390027a92729bd015671e9879ce22f8d45b71075a85368347e9bc8",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/validation-before-native.json"
+    },
+    {
+      "bytes": 16082,
+      "saved_path": "files/outputs/robot-stable-projection-v1/action-audit.json",
+      "sha256": "6be00e312a642039ea9beb22245c16beea285978a6e5492747f9b43e2d2a8a37",
+      "source_path": "outputs/robot-stable-projection-v1/action-audit.json"
+    },
+    {
+      "bytes": 2202,
+      "saved_path": "files/outputs/robot-stable-projection-v1/action-intent.json",
+      "sha256": "00985c1145a0b2ca4cc30aa3fa10554375ebae75d088293e8e3e5a8d02bf23c6",
+      "source_path": "outputs/robot-stable-projection-v1/action-intent.json"
+    },
+    {
+      "bytes": 42583,
+      "saved_path": "files/outputs/robot-stable-projection-v1/attribute-inventory-after.json",
+      "sha256": "11cbed39e8348058f6c4aaefc0b4e1b158248ccd93e3e627d9cf157eff816e99",
+      "source_path": "outputs/robot-stable-projection-v1/attribute-inventory-after.json"
+    },
+    {
+      "bytes": 42583,
+      "saved_path": "files/outputs/robot-stable-projection-v1/attribute-inventory-before.json",
+      "sha256": "7ea5a98c92b76719ff6914f42514c1d02eb02fad157915d70a4961a786e5a9f3",
+      "source_path": "outputs/robot-stable-projection-v1/attribute-inventory-before.json"
+    },
+    {
+      "bytes": 450,
+      "saved_path": "files/outputs/robot-stable-projection-v1/benchmark-helper.json",
+      "sha256": "ef476278d08614246f03d94abd3fe76eb2dd269242b836e532867c32e355e057",
+      "source_path": "outputs/robot-stable-projection-v1/benchmark-helper.json"
+    },
+    {
+      "bytes": 250,
+      "saved_path": "files/outputs/robot-stable-projection-v1/benchmark-job-handle.json",
+      "sha256": "0b555f2617c8b53fcbb459176e7f02c488cc58e99a1e4169fc5ddb04963cdb63",
+      "source_path": "outputs/robot-stable-projection-v1/benchmark-job-handle.json"
+    },
+    {
+      "bytes": 1040,
+      "saved_path": "files/outputs/robot-stable-projection-v1/benchmark-job-monitor.json",
+      "sha256": "549cd00efa20d5c0846eb0fe12dba631c140dd4b18c87107a56ed30133880038",
+      "source_path": "outputs/robot-stable-projection-v1/benchmark-job-monitor.json"
+    },
+    {
+      "bytes": 1130,
+      "saved_path": "files/outputs/robot-stable-projection-v1/benchmark-job.json",
+      "sha256": "ef7160b545d93428db3936da658e19eb3ca5a356aa628304a3fa441eeaa15f41",
+      "source_path": "outputs/robot-stable-projection-v1/benchmark-job.json"
+    },
+    {
+      "bytes": 422,
+      "saved_path": "files/outputs/robot-stable-projection-v1/benchmark-job.log",
+      "sha256": "1dab820895f1974ecd49cdbe65caa9ce4811f23265f951cc9ec1a100224bdd52",
+      "source_path": "outputs/robot-stable-projection-v1/benchmark-job.log"
+    },
+    {
+      "bytes": 1914,
+      "saved_path": "files/outputs/robot-stable-projection-v1/benchmark_helper.py",
+      "sha256": "70aec5da53cb972ef68e09e0cce621fb5f1f20f40a5bfb5823975eddc292f98b",
+      "source_path": "outputs/robot-stable-projection-v1/benchmark_helper.py"
+    },
+    {
+      "bytes": 4521,
+      "saved_path": "files/outputs/robot-stable-projection-v1/cpu-artifacts.json",
+      "sha256": "ffa4c9907d5ab3b03edb6669a358227dbd15ce5b5b0b425d3db08782613c4373",
+      "source_path": "outputs/robot-stable-projection-v1/cpu-artifacts.json"
+    },
+    {
+      "bytes": 242,
+      "saved_path": "files/outputs/robot-stable-projection-v1/cpu-job-handle.json",
+      "sha256": "7b3297f6a58da5dca4b3facea175195248afe1c9aa3d7e106344f4d9fad553fe",
+      "source_path": "outputs/robot-stable-projection-v1/cpu-job-handle.json"
+    },
+    {
+      "bytes": 1033,
+      "saved_path": "files/outputs/robot-stable-projection-v1/cpu-job-monitor.json",
+      "sha256": "f6934778fa5c14ee5a161eae207b25bda0760993bcf3c844e0c5af7bbe957685",
+      "source_path": "outputs/robot-stable-projection-v1/cpu-job-monitor.json"
+    },
+    {
+      "bytes": 1123,
+      "saved_path": "files/outputs/robot-stable-projection-v1/cpu-job.json",
+      "sha256": "02c0891fcf152d78c73213ac48be9c775c66064cbeb75b81a4968d947c0e0eed",
+      "source_path": "outputs/robot-stable-projection-v1/cpu-job.json"
+    },
+    {
+      "bytes": 241,
+      "saved_path": "files/outputs/robot-stable-projection-v1/cpu-job.log",
+      "sha256": "dba70e0e69908ff7bb46db70d2ebe8f381ff2193df361eea3ac07b1c37a91ac7",
+      "source_path": "outputs/robot-stable-projection-v1/cpu-job.log"
+    },
+    {
+      "bytes": 1780,
+      "saved_path": "files/outputs/robot-stable-projection-v1/derived-roles.json",
+      "sha256": "a6eaf1bf746be16ebb54a105dc30aed6149f28ab5f3d4cf2226c2a6a56c21b36",
+      "source_path": "outputs/robot-stable-projection-v1/derived-roles.json"
+    },
+    {
+      "bytes": 12424,
+      "saved_path": "files/outputs/robot-stable-projection-v1/final-source-snapshot/avatar_assets/stable_role_projection.py",
+      "sha256": "b5df2934c1416c45fb21073aadcb675456845dc4c714f1f7f4d12011b2aac5bd",
+      "source_path": "outputs/robot-stable-projection-v1/final-source-snapshot/avatar_assets/stable_role_projection.py"
+    },
+    {
+      "bytes": 10276,
+      "saved_path": "files/outputs/robot-stable-projection-v1/final-source-snapshot/tests/test_stable_role_projection.py",
+      "sha256": "359b9622aa9a701db126abc9462cece553e83a414ee045ca6997d185577f7509",
+      "source_path": "outputs/robot-stable-projection-v1/final-source-snapshot/tests/test_stable_role_projection.py"
+    },
+    {
+      "bytes": 2514,
+      "saved_path": "files/outputs/robot-stable-projection-v1/final-tests.txt",
+      "sha256": "3054ca8b9e86bf391d6a38d60187c68604bda845c314b41d6cd82d24758ad30e",
+      "source_path": "outputs/robot-stable-projection-v1/final-tests.txt"
+    },
+    {
+      "bytes": 4228,
+      "saved_path": "files/outputs/robot-stable-projection-v1/handoff.json",
+      "sha256": "d6435e745eebaf9f8014d17f86baf59714df467e96f9aaeb0385cb9c56a21bd0",
+      "source_path": "outputs/robot-stable-projection-v1/handoff.json"
+    },
+    {
+      "bytes": 376,
+      "saved_path": "files/outputs/robot-stable-projection-v1/inventory-scope.json",
+      "sha256": "e5a22413322d37943ef11f1ab23b85c448531d1df9389ea314fa791e6b2491c5",
+      "source_path": "outputs/robot-stable-projection-v1/inventory-scope.json"
+    },
+    {
+      "bytes": 7061,
+      "saved_path": "files/outputs/robot-stable-projection-v1/manifest.json",
+      "sha256": "b6887036bfd081e75a7a6244f6b305f4abc81fea777fa8af614d8c90f13b8bd5",
+      "source_path": "outputs/robot-stable-projection-v1/manifest.json"
+    },
+    {
+      "bytes": 24666,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/action-audit/report.json",
+      "sha256": "c3da0bc5677abbac10459fe510fa86e05240b7e0122cf36cdd9187a7d7d67f10",
+      "source_path": "outputs/robot-stable-projection-v1/original-evidence/action-audit.json"
+    },
+    {
+      "bytes": 2202,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/action-audit/intent.json",
+      "sha256": "4c6d99fc510a0650993bb62dec6c8052624712290a3b911ea0f5be8e4fcf9579",
+      "source_path": "outputs/robot-stable-projection-v1/original-evidence/action-intent.json"
+    },
+    {
+      "bytes": 3380,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/deformation-gate.json",
+      "sha256": "e60adc7b5b1c43bb88c6430fa3163eab501f10b9712e0758d0938efc561c0330",
+      "source_path": "outputs/robot-stable-projection-v1/original-evidence/deformation-gate.json"
+    },
+    {
+      "bytes": 1234,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/diagnostic-review.json",
+      "sha256": "c844b30b663e3f2bbf3c0e03362d4e9d8ecf641a34b4198424f4fc251b1ff09d",
+      "source_path": "outputs/robot-stable-projection-v1/original-evidence/diagnostic-review.json"
+    },
+    {
+      "bytes": 4108,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/finish.json",
+      "sha256": "081e5c043d6ebbc9367a118d16c5e5055ad0c66c55c6bed8fcacbe27511d7564",
+      "source_path": "outputs/robot-stable-projection-v1/original-evidence/finish-config.json"
+    },
+    {
+      "bytes": 26522,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/model/manifest.json",
+      "sha256": "9f37bad2d9a22f23afbf510fd6bba4d3a2abaac8fefc71a670a69d40d5c509a4",
+      "source_path": "outputs/robot-stable-projection-v1/original-evidence/finish-manifest.json"
+    },
+    {
+      "bytes": 151727,
+      "saved_path": "files/outputs/robot-stable-projection-v1/preservation-proof.json",
+      "sha256": "29af3a65ce5620a47143c3dba35417fc3e2b83d598cfbfe3555435c89d04748c",
+      "source_path": "outputs/robot-stable-projection-v1/preservation-proof.json"
+    },
+    {
+      "bytes": 6957,
+      "saved_path": "files/outputs/robot-stable-projection-v1/projection-report.json",
+      "sha256": "532949d730fef3e39e45aed15880f6e3d02c6dc237c5eca1bf00c6e84b589059",
+      "source_path": "outputs/robot-stable-projection-v1/projection-report.json"
+    },
+    {
+      "bytes": 12958,
+      "saved_path": "files/outputs/robot-stable-projection-v1/run_diagnostic.py",
+      "sha256": "7f1bbbb040a2940797c1011947e345c7e761b8f330ee070591df8a7242f8a9a7",
+      "source_path": "outputs/robot-stable-projection-v1/run_diagnostic.py"
+    },
+    {
+      "bytes": 1556,
+      "saved_path": "files/outputs/robot-stable-projection-v1/settings.json",
+      "sha256": "a62e9b1a703a4769285deef48dd44408b578b654abc71ca286a0d4b44128edeb",
+      "source_path": "outputs/robot-stable-projection-v1/settings.json"
+    },
+    {
+      "bytes": 34271,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/sources/action_audit.py"
+      },
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "source_path": "outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/sources/action_intent.py"
+      },
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "source_path": "outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 11421,
+      "saved_path": "files/outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "source_path": "outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "saved_path": "files/outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "source_path": "outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 12314,
+      "saved_path": "files/outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/stable_role_projection.py",
+      "sha256": "3977fdca42d7bcee4db66866f5209f347eeb41149478733ebf05672219f3ae82",
+      "source_path": "outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/stable_role_projection.py"
+    },
+    {
+      "bytes": 33690,
+      "saved_path": "files/outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/three_d.py",
+      "sha256": "8f983891ea5f50b9b533baedbd3627d87560d2042ba96d94a08e30bba97b5693",
+      "source_path": "outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 10181,
+      "saved_path": "files/outputs/robot-stable-projection-v1/source-snapshot/tests/test_stable_role_projection.py",
+      "sha256": "ec4188f3cc47c6f90c3a715a12d17d0b68128787b0f77fe25ab64c4f687359f9",
+      "source_path": "outputs/robot-stable-projection-v1/source-snapshot/tests/test_stable_role_projection.py"
+    },
+    {
+      "bytes": 575,
+      "saved_path": "files/outputs/robot-stable-projection-v1/tests-receipt.json",
+      "sha256": "bd4399ed6db79de77a8df72d67e80f2d193a2f62c1c09dba90cf39bfdd7e9e85",
+      "source_path": "outputs/robot-stable-projection-v1/tests-receipt.json"
+    },
+    {
+      "bytes": 401,
+      "saved_path": "files/outputs/studio-integration-v1/estimate-revision-tests-v1.json",
+      "sha256": "b60f8ce36eb973090774e26338ff595d77e73f705c6f0f6a9b73131b1be9334d",
+      "source_path": "outputs/studio-integration-v1/estimate-revision-tests-v1.json"
+    },
+    {
+      "bytes": 859,
+      "saved_path": "files/outputs/studio-integration-v1/estimate-revision-tests-v1.txt",
+      "sha256": "6345a448452ed1460b25017e58978871e2345d0e665158af7b53295a866d4199",
+      "source_path": "outputs/studio-integration-v1/estimate-revision-tests-v1.txt"
+    },
+    {
+      "bytes": 185,
+      "saved_path": "files/outputs/studio-integration-v1/full-tests-v6-receipt.json",
+      "sha256": "0712bb7a4c9334af7cdc4b4259c057ce3a1b3ea28163c6180c2ef8a71397f3c0",
+      "source_path": "outputs/studio-integration-v1/full-tests-v6-receipt.json"
+    },
+    {
+      "bytes": 20276,
+      "saved_path": "files/outputs/studio-integration-v1/full-tests-v6-sources.json",
+      "sha256": "804879d8c72d4e4c052c3498d0b00d9cc475994dd71070c39e14f0877eeae8ce",
+      "source_path": "outputs/studio-integration-v1/full-tests-v6-sources.json"
+    },
+    {
+      "bytes": 3228,
+      "saved_path": "files/outputs/studio-integration-v1/full-tests-v6.txt",
+      "sha256": "a0e8217e33a6b6a8cf14834b93c95a04aeb53a7a83ed670bcb4a1133f367d088",
+      "source_path": "outputs/studio-integration-v1/full-tests-v6.txt"
+    },
+    {
+      "bytes": 768,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/analytic-tests.txt",
+      "sha256": "896c3e54bf3542a46ee67d5449a5b667b43c6dbe84596d7ff2916a73212e9761",
+      "source_path": "outputs/robot-stable-projection-native-v1/analytic-tests.txt"
+    },
+    {
+      "bytes": 5429,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/execute_prepared.py",
+      "sha256": "c841b7da0a8671a7e0d6e2e2690ce56a38e9f266f6524f1132f611224d638d37",
+      "source_path": "outputs/robot-stable-projection-native-v1/execute_prepared.py"
+    },
+    {
+      "bytes": 516,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/execution-started.json",
+      "sha256": "68d5728a52a26b19380b7aaf12ed3b0b709000f77dfc03600bb76c0b505cd992",
+      "source_path": "outputs/robot-stable-projection-native-v1/execution-started.json"
+    },
+    {
+      "bytes": 500839,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/front.png",
+      "sha256": "4e0f49ac5a149a13f0af0559f08db550791602831d6ea85a8dc85574cf111ac2",
+      "source_path": "outputs/robot-stable-projection-native-v1/front.png"
+    },
+    {
+      "bytes": 2202,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/robot-stable-projection-v1/action-intent.json",
+      "sha256": "00985c1145a0b2ca4cc30aa3fa10554375ebae75d088293e8e3e5a8d02bf23c6",
+      "source_path": "outputs/robot-stable-projection-native-v1/inputs/action-intent.json"
+    },
+    {
+      "bytes": 151727,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/robot-stable-projection-v1/preservation-proof.json",
+      "sha256": "29af3a65ce5620a47143c3dba35417fc3e2b83d598cfbfe3555435c89d04748c",
+      "source_path": "outputs/robot-stable-projection-native-v1/inputs/cpu-preservation-proof.json"
+    },
+    {
+      "bytes": 142,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/inputs/motion-states.json",
+      "sha256": "d94bd470086900e1d3de4ac708de8e05f8087458561b05d76da31bf5cef60fb7",
+      "source_path": "outputs/robot-stable-projection-native-v1/inputs/motion-states.json"
+    },
+    {
+      "bytes": 4108,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/rigged-robot-weight-repair-probe-v1/finish.json",
+      "sha256": "081e5c043d6ebbc9367a118d16c5e5055ad0c66c55c6bed8fcacbe27511d7564",
+      "source_path": "outputs/robot-stable-projection-native-v1/inputs/original-finish.json"
+    },
+    {
+      "bytes": 7567,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/manifest.json",
+      "sha256": "8f0bc27ce911621a37cd5f6aed2c07493f62462224ac8ea45539a762e8856a78",
+      "source_path": "outputs/robot-stable-projection-native-v1/manifest.json"
+    },
+    {
+      "bytes": 77779,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/native-deformation.json",
+      "sha256": "997cadbcc486e130de09386e8eb057d9e20c45a832b6d0a15865f283acc3afc2",
+      "source_path": "outputs/robot-stable-projection-native-v1/native-deformation.json"
+    },
+    {
+      "bytes": 11323,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/native-inspection.json",
+      "sha256": "1a4c8ecd57341921433fb749011418b8cd0b7b4dfea39c1803cff60af0fd1db9",
+      "source_path": "outputs/robot-stable-projection-native-v1/native-inspection.json"
+    },
+    {
+      "bytes": 396,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/native-job-handle.json",
+      "sha256": "f508bbafd98da90352e1f619603861b64d09f4cd1015dcdd49a7bd20c3a5fb79",
+      "source_path": "outputs/robot-stable-projection-native-v1/native-job-handle.json"
+    },
+    {
+      "bytes": 1206,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/native-job-monitor.json",
+      "sha256": "6272a60389f787851ab5aec6661a1c579c2f468d44f5143bd5730ed13626a14e",
+      "source_path": "outputs/robot-stable-projection-native-v1/native-job-monitor.json"
+    },
+    {
+      "bytes": 1328,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/native-job.json",
+      "sha256": "be6950034e8ebe30183fdd24d8e4386462b80ba4d664c783a39aee5a347bbec4",
+      "source_path": "outputs/robot-stable-projection-native-v1/native-job.json"
+    },
+    {
+      "bytes": 70944,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/native-job.log",
+      "sha256": "9345471d2d21cdc72ba6389f1bce2344ad5605b63ee4e19697870ccf8f10e5a1",
+      "source_path": "outputs/robot-stable-projection-native-v1/native-job.log"
+    },
+    {
+      "bytes": 13865,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/native_inspection.py",
+      "sha256": "9edd32aa84826fa907b836f70794c4b891771701b67391bb213b5c16009ccdab",
+      "source_path": "outputs/robot-stable-projection-native-v1/native_inspection.py"
+    },
+    {
+      "bytes": 705,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/preflight.json",
+      "sha256": "cb6ac8fd33d7007d2425266ac50a8455ef01d9e90714c1dcb52f313524ac76c2",
+      "source_path": "outputs/robot-stable-projection-native-v1/preflight.json"
+    },
+    {
+      "bytes": 948,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/prepare-receipt.json",
+      "sha256": "7bde0bb6db2d4112e9ab4349cb2e6a28b28ed9fbed63ef8299395f69dd71ec3f",
+      "source_path": "outputs/robot-stable-projection-native-v1/prepare-receipt.json"
+    },
+    {
+      "bytes": 5254,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/prepared.json",
+      "sha256": "5afb17482b1de4206f64c965d159e3aa3f78250a36deea5acf2862c6e5a0c058",
+      "source_path": "outputs/robot-stable-projection-native-v1/prepared.json"
+    },
+    {
+      "bytes": 502060,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/renders/greeting/0003.png",
+      "sha256": "269685f6739dc295f62ad02adbcce44cd8c3786ef68a763b3139f8c47820a855",
+      "source_path": "outputs/robot-stable-projection-native-v1/renders/greeting/0003.png"
+    },
+    {
+      "bytes": 592,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/result.json",
+      "sha256": "bcdc474fe441e3c1d046565f0945577afa71c5f2b897897ab7ab57180df7a407",
+      "source_path": "outputs/robot-stable-projection-native-v1/result.json"
+    },
+    {
+      "bytes": 96,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "source_path": "outputs/robot-stable-projection-native-v1/sources/host/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 11421,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "source_path": "outputs/robot-stable-projection-native-v1/sources/host/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "duplicate_bytes_saved_once": true,
+      "saved_path": "files/outputs/robot-stable-projection-v1/source-snapshot/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "source_path": "outputs/robot-stable-projection-native-v1/sources/host/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 12033,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/sources/blender_provider_preview.py"
+      },
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3",
+      "source_path": "outputs/robot-stable-projection-native-v1/sources/native/blender_provider_preview.py"
+    },
+    {
+      "bytes": 18248,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/exported-preview-1/sources/blender_verify.py"
+      },
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "source_path": "outputs/robot-stable-projection-native-v1/sources/native/blender_verify.py"
+    },
+    {
+      "bytes": 4392,
+      "prior_bundle_reference": {
+        "bundle_path": "evidence/studio-rigged-robot-v1",
+        "manifest_sha256": "cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2",
+        "saved_path": "files/outputs/studio-b184afa00c2f4c2d853de705/model-0/sources/deformation_diagnostics.py"
+      },
+      "sha256": "284848acb6d1352d12511c8f0d0de7c486bae125921f4d4edba4721e0e29d393",
+      "source_path": "outputs/robot-stable-projection-native-v1/sources/native/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 3313,
+      "saved_path": "files/outputs/robot-stable-projection-native-v1/test_native_edge_contract.py",
+      "sha256": "35646d85f6ce8e64b506fb19a9b6f4afd5b40ee773bfe52a6d99a160a0efb891",
+      "source_path": "outputs/robot-stable-projection-native-v1/test_native_edge_contract.py"
+    },
+    {
+      "bytes": 2657,
+      "saved_path": "files/outputs/robot-stable-projection-review-v1.json",
+      "sha256": "22a1324dc62c081cdf90fbba8f8d3ceee99141f77e1df2a05a880d8852a7a351",
+      "source_path": "outputs/robot-stable-projection-review-v1.json"
+    }
+  ],
+  "omitted_originals": [
+    {
+      "bytes": 0,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/agents/runner.lock"
+    },
+    {
+      "bytes": 24513040,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/inputs/source-model.glb"
+    },
+    {
+      "bytes": 121,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "6f4814e7271394478126ae1ce45eecfa2b33e393d2094232c8468336ab9e017d",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/blender-extensions/.cache/compat.dat"
+    },
+    {
+      "bytes": 24462804,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "2213048e76c841d1460c50e118ade6ae2ec3a229086a7039beff9d3d919ff820",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/model-native-export.glb"
+    },
+    {
+      "bytes": 24462804,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "2213048e76c841d1460c50e118ade6ae2ec3a229086a7039beff9d3d919ff820",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/model.glb"
+    },
+    {
+      "bytes": 469289,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "7eec97f2ef9de913ef1ffd716c3288d2713ab57d11656a56b1f432f2f051e00f",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/portrait.png"
+    },
+    {
+      "bytes": 469340,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "363765316384fe750edc42a1efe91067dfc1aa5686b6019af57f8a7a535e2c1d",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/renders/greeting/0000.png"
+    },
+    {
+      "bytes": 472304,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "63aed277610279fb82c55df562478be7e9074a2e9deca5f2756515d5f7ba3c28",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/renders/greeting/0001.png"
+    },
+    {
+      "bytes": 473412,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "185bfe36bdfcbb32e5abbde3390ecc0ed2a1f2c0418acb0c4e63d940b293b072",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/renders/greeting/0002.png"
+    },
+    {
+      "bytes": 473412,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "e60a979044e19049143febaa760ac012c7816bf28f7ddc6470659fee57cb7adc",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/renders/greeting/0004.png"
+    },
+    {
+      "bytes": 472304,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "1a2aa80db2874b046032eec06c9fe3dfeec9d5c0c732cb93023afd5ef9c62e27",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/renders/greeting/0005.png"
+    },
+    {
+      "bytes": 473412,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "0c5e8910629a416d2f8d820c90380ec2c9eba5a438d13570416e8523ceb33fa3",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/renders/greeting/0006.png"
+    },
+    {
+      "bytes": 469340,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "87494e736c4270f30746b2b4a3fa36e03ed40509a6a7d7b58e2e92418c82615d",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/renders/greeting/0007.png"
+    },
+    {
+      "bytes": 29544532,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "2206cd95ab1ee5bb2b310f7f827c9933c57ea6e8c2a6bd9e5178327676f741f9",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/source.blend"
+    },
+    {
+      "bytes": 44389,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "f190a94eb6014567b4b5f8b84fb90aa1c14bc47af8ca362397c2cc88d1a6ae0e",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/__pycache__/blender_native_groom.cpython-311.pyc"
+    },
+    {
+      "bytes": 37929,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "4473867a3fdf42433feb61622b6ddd81eb24578b1e0e7412ccec4fde8114a80c",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/__pycache__/blender_verify.cpython-311.pyc"
+    },
+    {
+      "bytes": 7697,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "f9966d30e61b98277a9bc599b32779f381d852ea2d4c7e287c83888134e0673e",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/__pycache__/deformation_diagnostics.cpython-311.pyc"
+    },
+    {
+      "bytes": 9472,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "42f2e8c13f922516234cdbcb432dd7130de407f64a663d580428e45c2418a1ea",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/sources/__pycache__/motion_samples.cpython-311.pyc"
+    },
+    {
+      "bytes": 458202,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "5560d66f8a4e2e60acfb15e6ae8a4534318f9961a98801238c8b000e7c5496ba",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/views/back.png"
+    },
+    {
+      "bytes": 474376,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "f32aa82f63d85a2031ac2324531108821ab0948ac829572478bade647732eff8",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/views/front.png"
+    },
+    {
+      "bytes": 434862,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "1953c642031b9cac21f6a9b6b84847ac043ca41a74fb44c35d3ae9aecbda85a9",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/views/side.png"
+    },
+    {
+      "bytes": 472469,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "6dbb4d42eccf7c96762cffcf205b7435ecee8e4052dce3fcd2ad8d574cabda76",
+      "source_path": "outputs/rigged-robot-weight-repair-probe-v1/model/views/three_quarter.png"
+    },
+    {
+      "bytes": 24462804,
+      "reason": "Original model/editable source/full frames/cache remains local, not copied",
+      "sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b",
+      "source_path": "outputs/robot-stable-projection-v1/diagnostic-model.glb"
+    },
+    {
+      "bytes": 481241,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "c7a439663c143989756e72f4b7721f63b3363145ff1a89efc43999709b2b9cbb",
+      "source_path": "outputs/robot-stable-projection-native-v1/back.png"
+    },
+    {
+      "bytes": 121,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "1813e127841841b5220a118dcac8794b35954e37c834223aab7cddf12fe5c90d",
+      "source_path": "outputs/robot-stable-projection-native-v1/blender-extensions/.cache/compat.dat"
+    },
+    {
+      "bytes": 24462804,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b",
+      "source_path": "outputs/robot-stable-projection-native-v1/inputs/model.glb"
+    },
+    {
+      "bytes": 501538,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "09c9cfe96d5f93ca70e899c6fa78f03b6d663b6a5ce50ce52343d9b889ef78f4",
+      "source_path": "outputs/robot-stable-projection-native-v1/renders/greeting/0000.png"
+    },
+    {
+      "bytes": 502212,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "16a16777ddde3be3c2bed4eebb16b5e7721b9c7fddb4dc837d15f6590c7140e3",
+      "source_path": "outputs/robot-stable-projection-native-v1/renders/greeting/0001.png"
+    },
+    {
+      "bytes": 501182,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "179007ee170b4c383ca618c1080058ca2e6ad9d6f89b5817276f1f26d401fc39",
+      "source_path": "outputs/robot-stable-projection-native-v1/renders/greeting/0002.png"
+    },
+    {
+      "bytes": 501123,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "ccb62eca0d9183cff47f85cb2cf2fd7ba11679e9c797e2e7bfb905de1b6a244b",
+      "source_path": "outputs/robot-stable-projection-native-v1/renders/greeting/0004.png"
+    },
+    {
+      "bytes": 502340,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "346aa01c6e90e13437c3a2752fc3350bd8fa1bcb1cc2d60189b7dcf65d8c56de",
+      "source_path": "outputs/robot-stable-projection-native-v1/renders/greeting/0005.png"
+    },
+    {
+      "bytes": 501030,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "633f29ca0eba8d82c2e83f12bce8fb476fd2c0ed6b12f3b1ffa002947ebbc86a",
+      "source_path": "outputs/robot-stable-projection-native-v1/renders/greeting/0006.png"
+    },
+    {
+      "bytes": 501538,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "615340a409323c675b6e23186d1e79b9c35fb28e7eca84eb9e5c561464a27f3c",
+      "source_path": "outputs/robot-stable-projection-native-v1/renders/greeting/0007.png"
+    },
+    {
+      "bytes": 466474,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "b6e376f5b5c95540040a616287f0f021e459d699a3b728f7101c33a734d1e6d6",
+      "source_path": "outputs/robot-stable-projection-native-v1/side.png"
+    },
+    {
+      "bytes": 29517720,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "84bf88fbd596ce925c77e78dfa098377ae573dd3d0d92f44cbe119464374a65a",
+      "source_path": "outputs/robot-stable-projection-native-v1/source.blend"
+    },
+    {
+      "bytes": 26107,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "607fb03002f95b0e3976fe171064535a60894cd0fb3db4d570b2a040d607e540",
+      "source_path": "outputs/robot-stable-projection-native-v1/sources/native/__pycache__/blender_provider_preview.cpython-311.pyc"
+    },
+    {
+      "bytes": 37928,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "4a74f114225c9a8a05ebd2ede290ec30787a664f420df99d0e84c1f95d554413",
+      "source_path": "outputs/robot-stable-projection-native-v1/sources/native/__pycache__/blender_verify.cpython-311.pyc"
+    },
+    {
+      "bytes": 7696,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "cba3f04de2c261c399df6ad6d17a8c9745b4a887e69bd45efd7ab906e848350d",
+      "source_path": "outputs/robot-stable-projection-native-v1/sources/native/__pycache__/deformation_diagnostics.cpython-311.pyc"
+    },
+    {
+      "bytes": 497427,
+      "reason": "Original GLB/editable Blender/full views and frames/cache remain local; selected reviewed views are included",
+      "sha256": "b806047e9ead6bd13722118fa9901572a13def7aa3c9516c945f4af029167a44",
+      "source_path": "outputs/robot-stable-projection-native-v1/three-quarter.png"
+    }
+  ],
+  "original_bytes_verified_unchanged": 201155948,
+  "original_files_verified_unchanged": 186,
+  "original_roots": [
+    "outputs/rigged-robot-weight-repair-probe-v1",
+    "outputs/robot-stable-projection-v1",
+    "outputs/robot-stable-projection-native-v1"
+  ],
+  "physical_copied_files": 97,
+  "prior_bundle_references": 45,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01T15:53:00.070471-08:00",
+  "review": {
+    "path": "outputs/robot-stable-projection-review-v1.json",
+    "sha256": "22a1324dc62c081cdf90fbba8f8d3ceee99141f77e1df2a05a880d8852a7a351",
+    "status": "rejected_not_for_automatic_promotion"
+  },
+  "schema_version": 1,
+  "seal_elapsed_seconds": 0.152494,
+  "selected_original_records": 155,
+  "status": "sealed_rejected_repair_evidence",
+  "test_binding_scope": {
+    "full_suite": "642tests15.466s; wrapper15.861s;140source binding retained unchanged",
+    "later_estimate_only_change": "21targetedtests0.328s; wrapper0.441s; currentpipeline.py bound to targeted receipt, not misrepresented as the full-suite snapshot"
+  },
+  "verification": {
+    "all_local_and_prior_reference_hashes_checked": true,
+    "current_live_implementation_not_snapshotted_again": true,
+    "frozen_original_output_hashes_checked": true,
+    "json_parsed": true,
+    "new_calls_or_jobs": 0,
+    "new_native_original_hashes_before_after_checked": true,
+    "secret_patterns": "passed"
+  }
+}

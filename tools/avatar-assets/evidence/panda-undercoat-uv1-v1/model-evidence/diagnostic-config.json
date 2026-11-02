@@ -1,0 +1,63 @@
+{
+  "authored_atlases_sha256": "52e16bf962fa651cd506d1c776a37bb7cbbf326de89338b932f17f4ffefee4c9",
+  "body_mesh_index": 0,
+  "body_mesh_name": "PartitionedMesh",
+  "bounds": {
+    "memory_mb": 512,
+    "output_mb": 128,
+    "threads": 1,
+    "timeout_seconds": 120
+  },
+  "design": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-uv1-v1/sources/accepted-finish-design.json",
+  "design_sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909",
+  "kind": "uv1_undercoat_only_diagnostic",
+  "new_model_calls": 0,
+  "new_provider_calls": 0,
+  "new_provider_cost_usd": 0,
+  "preview": {
+    "memory_mb": 2048,
+    "motion_states": [
+      {
+        "id": "dance_flight",
+        "seconds": [
+          0,
+          1,
+          1.18,
+          1.36,
+          2.36,
+          2.55,
+          2.8,
+          4
+        ]
+      }
+    ],
+    "output_mb": 256,
+    "resolution": 720,
+    "samples": 16,
+    "threads": 4,
+    "timeout_seconds": 600
+  },
+  "prior_mask_evidence": {
+    "import_correspondence_sha256": "1dcab6ef26af8cbc316f7c63f4501a0f4106125496beaa6dd9089f0470b03f1e",
+    "manifest_sha256": "080f53b97ba1d9c82e1a62b377067d88d3a2fbed85794aab2ecedee3e0894df0",
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-v2",
+    "selected_mask_sha256": "ebc58f9ce6779ab49c7a9152586d5ef822256db52678f354d35f0c05dbec3eb8",
+    "source_blend_sha256": "3537d88b09c6b9ef59ee0e77d89378ecae8b9961a182b2551d4e63383822727e"
+  },
+  "schema_version": 1,
+  "scope": "Only per-material authored normal/roughness and selected UV1/tangent attributes; original geometry/NORMAL/UV0/skin/motion/basecolor and portable fibers remain exact. HD-only; not Weft-compatible.",
+  "settings": {
+    "max_faces": 40000,
+    "min_faces": 1,
+    "pitch_m": 0.004,
+    "profile": "short-pile-v1",
+    "resolution": 2048,
+    "roughness": 0.92,
+    "seed": 4517,
+    "strength": 0.22
+  },
+  "source_body_sha256": "1970a593f24180921c3641d33fe319e12e2ea43946412c7b5c5ba67d9e1378e7",
+  "source_model": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/model.glb",
+  "source_model_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "uv_plan_sha256": "0ac9d7bbb0f793b2aa5848f052921a22c2d920edcc9db961778e13c7db148f66"
+}

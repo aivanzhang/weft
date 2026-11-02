@@ -122,7 +122,7 @@ purchase or auto-recharge change is included.
 | Normal first attempts | 9 AI calls: planner + author + post-media critic for each case |
 | Current route with one repair per case | At most 15 AI calls: 3 planners + 6 authors + 6 post-media critics; no separate pre-critic exists in this version |
 | Configured call ceilings | 15 calls total, each at most 240 seconds; failed/uncertain calls retain their consumed allowance |
-| Token/image planning envelope | At the 15-call cap, approximately 360,000 input text tokens and 15,000–120,000 output tokens using the estimator's per-call assumptions; up to 120 selected image inputs. These are planning estimates, not tokenizer-enforced token limits or measured usage |
+| Token/image planning envelope | Revised after measured development calls: budget approximately 750,000 input tokens and 15,000–120,000 output tokens at the 15-call cap; up to 120 selected image inputs. These are planning assumptions, not tokenizer-enforced limits or measured future usage |
 | AI account cost | Existing authenticated CLI; account-specific billing/remaining quota unknown. Not zero-cost simply because no API key is supplied |
 | Native builds and exported-view renders | At most 6 of each; each stage has a 600-second / 2 GiB sampled direct-child RSS limit. Initial inspections are up to 300 seconds each |
 | Final video rendering | Up to 6 attempts at 1,200 seconds each; an eligible wall-time failure may have one 600-second hash-bound frame continuation, not a new Meshy attempt |
@@ -131,11 +131,14 @@ purchase or auto-recharge change is included.
 | Disk retention | 2 GiB per-job aggregate stage-start allowance, or 6 GiB nominal across the three; retain failed attempts, logs, downloads, source snapshots, editable Blender files, renders, media and compact copies. This guard is not an atomic disk quota; reserve additional local headroom before execution and measure actual output |
 | New hosted compute/storage/services | None; no recurring cloud charge introduced. Local electricity, disk occupancy and AI account usage are not priced here |
 
-The estimator assumes up to roughly 24,000 text input tokens and typically
-1,000–8,000 output tokens per call. Actual safeguards bound bytes, image sizes,
-runtime and calls; receipts must record actual model identifiers/usage. Images
-add account-dependent usage. No unpriced retries or switch to another paid
-provider is included.
+The revised estimator budgets 50,000 input tokens per call: actual development
+receipts ranged from 15,814 to 42,341 with selected evidence, exceeding the old
+24,000-text-token assumption. Image accounting and prompt size still vary.
+Output remains an assumed 1,000–8,000 tokens per call. Actual safeguards bound
+bytes, image sizes, runtime and calls, not tokens. Preserve actual model/usage
+receipts. The original sealed estimate remains unchanged; a linked revision
+records the larger usage assumption. No new calls, credit grants, unpriced
+retries or switch to another paid provider follow from this correction.
 
 Run **one expensive pipeline/native stage at a time** on this workstation while
 the fresh cases are measured; do not overlap the current robot job. Independent

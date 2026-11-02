@@ -1,0 +1,34 @@
+{
+  "action_audit_passed": false,
+  "aggregate_study_actual_calls": 13,
+  "aggregate_study_cap": 13,
+  "ai_calls_this_probe": 1,
+  "ai_usage_this_probe": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 42341,
+    "output_tokens": 987,
+    "reasoning_output_tokens": 396
+  },
+  "ai_usd_cost": null,
+  "deformation_gate_passed": true,
+  "final_media_or_critic": false,
+  "independent_exported_preview": false,
+  "native_process": {
+    "elapsed_seconds": 22.758,
+    "exit_code": 0,
+    "failure": null,
+    "process_exit_verified": true,
+    "sampled_peak_rss_bytes": 1541423104
+  },
+  "new_meshy_credits": 0,
+  "next_safe_action": "Pure opt-in rigid-role weight projection diagnostic; no further AI call within this exhausted study envelope.",
+  "observed_torso_maximum_world_displacement_m": 0.035527883227427344,
+  "root_visual_review": {
+    "image": "model/renders/greeting/0003.png",
+    "observation": "Raised arm presents a wave-like gesture, but the torso side visibly lifts into a blue wedge below the shoulder; not accepted.",
+    "sha256": "891045ae1a7e3a8e9ab36a30c551dea69c2cae3160d5aba7f858509f10f5db82"
+  },
+  "schema_version": 1,
+  "status": "rejected_diagnostic_not_delivery"
+}

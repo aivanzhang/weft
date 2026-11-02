@@ -327,3 +327,122 @@ sample count. Every evaluated pose must retain vertex count, edge count and
 exact edge endpoint ordering. Unsupported/missing evidence cannot become an
 empty-list success. Two focused analytic tests cover the actual capture helper;
 this undercoat diagnostic does not execute or verify a pre-rigged motion job.
+
+### Second diagnostic: UV aliasing identified
+
+[Undercoat v2](../outputs/panda-portable-undercoat-v2/manifest.json) preserved
+v1 and measured the correspondence before proceeding: exact62,581 triangle
+indices, exact UV arrays, maximum position difference2.4027400e-7m, no point
+beyond the1e-6m import-rounding bound. Session68176/nativePID71965 then exited1
+and was reaped in4.687s, with491,585,536bytes sampled peak RSS and3,127,655output
+bytes. It stopped before saving a texture/model because the original strict
+baker found19,884 conflicting surface samples across1,589,869 covered texels.
+No appearance preview or automatic retry followed.
+
+The bounded [UV audit](../outputs/panda-undercoat-uv-audit-v1/report.json) took
+1.043s/134,430,720bytes in Python. All conflicts involved the authored closure
+material:19,135 closure-to-closure and749 closure-to-original surface samples.
+Only314 distinct texels were reused many times; that is not a reason to pass the
+gate. Tiny repeated color-palette UVs cannot describe spatially distinct normal
+detail. The original body surface has no self-overlap. The actual selected mask
+is31,721 triangles (31,353 original body plus368 closure);30,860 remain excluded.
+
+An integrated-suite-only failure also exposed two imports of `groom_flow` with
+different `PreparedFlow` class identities. The baker now uses package-relative
+imports when packaged and the standalone import only inside native snapshots.
+The regression deliberately installs a foreign top-level class.28focused tests
+pass in1.892s; the parent subsequently reported619 integrated tests passing in
+14.771s. Frozen v1/v2 snapshots retain their original imports and failure evidence.
+
+### Separate normal UV1 plan
+
+The new pure helper `scripts/undercoat_uv_atlas.py` analyzes each selected source
+material/primitive region independently. It selects a separate atlas only from
+measured aliasing, subpixel coverage or fewer than two effective texels per
+configured pile pitch. It has no material-name or species branch. The repair
+uses longest-edge triangle-local projections in deterministic padded cells,
+with at most2,048 repaired faces per region/four regions and a100k aggregate
+export-vertex gate. It preserves input position, normal, UV0 and skin arrays;
+new UV1 and its tangent frames are explicitly authored data. Six analytic tests
+pass in0.523s, covering immutable inputs, measured selection, padding, handedness,
+determinism, budget/deadline limits and malformed inputs.
+
+Core glTF permits a normal texture to select `TEXCOORD_1`; this is standard data,
+not a custom extension. See the primary [texture-coordinate schema](https://raw.githubusercontent.com/KhronosGroup/glTF/main/specification/2.0/schema/textureInfo.schema.json)
+and [normal-texture schema](https://raw.githubusercontent.com/KhronosGroup/glTF/main/specification/2.0/schema/material.normalTextureInfo.schema.json).
+The installed Blender exporter supports named UV-map selection. **This remains
+HD-only:** Weft's frozen importer rejects normal maps and additional UV attributes,
+and the local finish validator currently verifies normal maps on UV0 only.
+Do not change either contract or claim a completed compatible pack merely because
+the diagnostic preview loads. No live adapter/validator integration is authorized
+before independent appearance review.
+
+[The new UV1 diagnostic](../outputs/panda-portable-undercoat-uv1-v1/prepared-job.json)
+keeps all existing portable fibers. The measured plan keeps31,353 original
+surface triangles on UV0 and gives only368 aliased triangles a1024px UV1 atlas.
+Those triangles already have unshared corners, so the atlas adds no geometry;
+material ownership adds230 vertices. Predicted total:75,548 vertices/72,181
+triangles (79,644 vertices including reserve). The body normal image remains
+2048px; seed4517/4mm pitch/0.22 strength/0.92 roughness are unchanged. Actual
+source POSITION/NORMAL/UV0/basecolor/skin/motion bytes and portable primitives
+must remain exact in the append-only patch. A separate analytic patch fixture
+verified UV1 binding and binary alignment even with non-four-byte-sized PNGs;
+it is not appearance evidence.
+
+The authorized CPU stage is bounded to120s/512MiB/128MiB output. Only after its
+actual preservation and tangent audits pass may one native720px/16sample,
+four-view/eight-pose preview run under600s/2GiB/4threads/256MiB. No stock texture,
+new model/provider call, paid retry, native finish rerun or render-memory change
+is part of this experiment. Source snapshots, configuration, measured plan and
+rejected attempts stay in their separate folders.
+
+### UV1 actual diagnostic reviewed: optional component only
+
+The data-only CPU bake/patch passed in2.864s with382,320,640bytes sampled peak
+RSS and42,208,088output bytes. It produced the predicted75,548 vertices and
+72,181 triangles. The actual-model audit verifies all62,581 original body
+triangle position/normal/UV0/color/skin rows exactly, the original binary prefix,
+original57 animation channels, nodes/skin and portable primitives. Only1,104
+vertices receive authored UV1/tangents; those frames pass unit-length,
+orthogonality and handedness checks. Both real procedural normal bakes pass the
+unchanged overlap gate in their own UV spaces.
+
+The separate native preview then passed in22.254s with1,284,325,376bytes sampled
+peak RSS and81,615,435output bytes. Four views and eight real `dance_flight`
+poses are720×720 RGB at16samples. All27 model-pack and25 preview artifacts
+match their inventories. CPU PID76758/session76384 and native PID77024/session8191
+exited and were reaped. No live worker, retry, promotion or new paid call remains.
+This does **not** repair or test the earlier full native-finisher memory failure.
+
+- [Actual model audit](../outputs/panda-portable-undercoat-uv1-v1/actual-model-audit.json).
+- [Preview front](../outputs/panda-portable-undercoat-uv1-preview-v1/front.png)
+  and [1.36-second flight pose](../outputs/panda-portable-undercoat-uv1-preview-v1/renders/dance_flight/0003.png).
+- [Immutable comparison context](../outputs/panda-portable-undercoat-uv1-v1.context.json),
+  SHA256 `b2773de34ebff2b1f3e7e1450b74dc1fd1b7b4e1d981ea445251ea048d168db0`.
+- Actual model SHA256
+  `784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185`.
+- Model manifest SHA256
+  `0fb49e1f0f631ef872aa8155fc3db1e299ce76e675a737aa5c6f4723dc34a90a`.
+- Preview manifest SHA256
+  `4167dbafe78458621fb6de00d41c92a566aa0c47d8e61ce049f62e8bfeb45e59`.
+
+The parent independently compared the actual front against the baseline and
+inspected the side and1.36-second flight pose. Its
+[hash-bound review](../outputs/panda-portable-undercoat-uv1-review-v1.json) accepts
+this as a **promising optional surface-detail component only**: the black body
+and ears look softer and less glossy. White regions still look smooth, the
+silhouette lacks a dense coat, and existing cheek/shoulder separation marks remain
+visible in flight. The texture-only change does not fix geometry defects or prove
+every-frame quality, complete fur, recovered hairs or Muse parity.
+
+The automatic fur-quality policy is not promoted and no accepted asset is
+replaced. Keep live adapters and the validator unchanged for the next robot run;
+this diagnostic remains HD-only and is not Weft-compatible. A separate approved
+integration or fiber experiment must preserve this component-only verdict and
+all earlier rejected attempts.
+
+The compact [evidence bundle](../outputs/panda-undercoat-uv1-evidence-v1/README.md)
+retains exact scripts, masks/atlas data, normal PNGs, test evidence, parent
+manifests, context/review and the three inspected candidate images. Large GLB and
+Blender files remain in their original hash-bound folders. It is not a complete
+avatar pack or a standalone recreation of the omitted binaries.

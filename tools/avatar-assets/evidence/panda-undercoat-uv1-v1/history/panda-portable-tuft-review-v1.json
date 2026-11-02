@@ -1,0 +1,45 @@
+{
+  "decision": "Preserve failed experiment without promotion or unchanged rerun. Next hypothesis is a short-pile undercoat normal texture plus subtle silhouette fibers.",
+  "diagnostic_context": {
+    "path": "outputs/panda-portable-tuft-diagnostic-v1.context.json",
+    "sha256": "072efce6fdd6ea9673c85f3e37bcc5539f5ded336adf6200543f47c45353ea27"
+  },
+  "findings": [
+    "Larger tufts produce conspicuous dash/block speckling.",
+    "The head silhouette has a spiky crest.",
+    "The body still reads as plastic rather than a dense soft coat."
+  ],
+  "images": [
+    {
+      "bytes": 515555,
+      "height": 720,
+      "path": "outputs/panda-portable-tuft-diagnostic-v1/front.png",
+      "sha256": "2b92ef377206717a20be5bbb48b770205a976cc51f1285d7dc64b6a8d2de6424",
+      "width": 720
+    },
+    {
+      "bytes": 473735,
+      "height": 720,
+      "path": "outputs/panda-portable-tuft-diagnostic-v1/renders/dance_flight/0003.png",
+      "sha256": "3a52c4612c9aa4105dced82bdc3dc080669787677fc0d86cb2ecc92332b1518d",
+      "width": 720
+    }
+  ],
+  "kind": "independent_sampled_visual_review",
+  "limitations": [
+    "Sampled independent agent review, not user approval or full turntable/video inspection.",
+    "Parent native finish remains incomplete because of its recorded2GiB memory-bound failure.",
+    "No Muse-quality equivalence, watertight, physics, loop or final avatar claim."
+  ],
+  "new_model_calls": 0,
+  "new_provider_calls": 0,
+  "new_provider_cost_usd": 0,
+  "original_outputs_changed": false,
+  "preview_manifest_sha256": "f1cdfb829f4927d59a69f7684d67eefa46aa23c036e43c756d5b83a021f8cd01",
+  "raw_glb_sha256": "3da9e96520c6fd47ee19f5160db6e24385217da2b999d63d3e1fc0362fcaa6da",
+  "recorded": "2026-11-01T14:20:32.449257-08:00",
+  "review_source": "Actual exported front and dance_flight sample0003 at1.36seconds, not math tests or native hidden-card renders",
+  "reviewer": "parent agent /root",
+  "schema_version": 1,
+  "status": "rejected_appearance"
+}

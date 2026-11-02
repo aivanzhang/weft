@@ -1,0 +1,171 @@
+{
+  "evidence": [
+    {
+      "height": 1496,
+      "id": "evidence-native-views",
+      "kind": "multiview",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/final-evidence-1/native-views.png",
+      "sha256": "64284df68bb79798db9b730e842dd57a6eb5f0f626849406937896bcbbf044f2",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 1496,
+      "id": "evidence-exported-views",
+      "kind": "multiview",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/final-evidence-1/exported-views.png",
+      "sha256": "e0957854d70fd39453c444bb2c499c7859c9601e234007b32a7c4493c9478ac8",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00",
+      "kind": "native_exported_and_delivered_motion",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/final-evidence-1/motion-00.png",
+      "sha256": "baf1230e22d9d9a9012356ecffdc9a840fc3dce8e2c08dd51e43e577e56cdd21",
+      "state_ids": [
+        "greeting"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "delivered_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/final-evidence-1/delivered-portrait.webp",
+      "sha256": "507f7f5064a186adc6b3ad461c0dce5cf5aed540d47678ef9863323820bf43bc",
+      "state_ids": [],
+      "width": 1600
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-native-greeting",
+      "kind": "isolated_motion_pose",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/final-evidence-1/isolated-native-greeting.png",
+      "representation": "native",
+      "sample_index": 4,
+      "second": 2.2,
+      "selection": "middle_sequence_sample",
+      "sha256": "7e8c54babce7253e00f17e2beaaeb8cc3995711f9869120a5cb2580664c8d116",
+      "state_ids": [
+        "greeting"
+      ],
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-exported-greeting",
+      "kind": "isolated_motion_pose",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/final-evidence-1/isolated-exported-greeting.png",
+      "representation": "exported",
+      "sample_index": 4,
+      "second": 2.2,
+      "selection": "middle_sequence_sample",
+      "sha256": "5aec1a3a907538c075611a921a9efc73781053f0f65c716fd32e81a1c88d7190",
+      "state_ids": [
+        "greeting"
+      ],
+      "width": 720
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "bde7eb4635d48f4f9ccd863baadcb025b59d558607128fc398d7c8e638009c41",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Both representations show the same rounded robot, cream eye mask, circular blue eyes, copper fittings and small panel details."
+      },
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-delivered-portrait"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Blue-and-cream panels and copper trim retain the polished toy appearance. Metallic highlights are appropriate; no fur is requested."
+      },
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-motion-00"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "The full body, both hands, feet and head fittings remain visible with margins in the supplied views and motion samples."
+      },
+      {
+        "evidence_ids": [
+          "evidence-isolated-native-greeting",
+          "evidence-isolated-exported-greeting",
+          "evidence-motion-00"
+        ],
+        "name": "deformation",
+        "passed": true,
+        "reason": "The sampled wrist poses retain connected silhouettes without conspicuous stretching, spikes or body intersections."
+      }
+    ],
+    "limitations": [
+      "The original source appearance is not separately pictured, so exact preservation against that source cannot be established.",
+      "Sampled images do not establish every-frame collision freedom, physical support or seamless motion."
+    ],
+    "required_repairs": [
+      "Repose the right forearm and hand so the palm is visibly presented toward the viewer, then animate a clear lateral greeting wave rather than the current low wrist swivel. Keep the torso and feet fixed and provide updated native, exported and delivered motion evidence."
+    ],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "evidence-motion-00",
+          "evidence-isolated-native-greeting",
+          "evidence-isolated-exported-greeting",
+          "action-audit-greeting"
+        ],
+        "id": "greeting",
+        "meaning_passed": false,
+        "motion_passed": true,
+        "reason": "The right hand visibly changes pose repeatedly, but remains low beside the waist and rotates between hanging and sideways orientations. This reads as wrist swiveling rather than a clear greeting wave.",
+        "requirement_reviews": [
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "evidence-isolated-native-greeting",
+              "evidence-isolated-exported-greeting",
+              "action-audit-greeting"
+            ],
+            "id": "right-hand-wave",
+            "passed": false,
+            "reason": "Actual articulation is visible and measured, but the low, edge-on hand presentation does not clearly communicate the requested side-to-side greeting."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-greeting"
+            ],
+            "id": "steady-torso",
+            "passed": true,
+            "reason": "The torso maintains its visible position and orientation across samples; the supplied audit also reports zero sampled world displacement."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-greeting"
+            ],
+            "id": "planted-feet",
+            "passed": true,
+            "reason": "Both soles remain aligned at the same positions and orientations across samples, consistent with the supplied zero world-displacement measurements. Physical ground contact remains unverified."
+          }
+        ]
+      }
+    ],
+    "summary": "Appearance and sampled stability pass, but the wrist-only motion needs a clearer greeting pose.",
+    "verdict": "repair"
+  }
+}

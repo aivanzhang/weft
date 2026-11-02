@@ -1,0 +1,39 @@
+{
+  "artifacts": [
+    {
+      "bytes": 513,
+      "path": "audit-handle.json",
+      "sha256": "d0086e27e81a912beafbcbbfed3cfb272425d50bd856450ccafcec479519b7b0"
+    },
+    {
+      "bytes": 1296,
+      "path": "audit-monitor.json",
+      "sha256": "3025c6159350d12f2c5358e45175f6b80f17863b6aaaac3a6038341b16022f61"
+    },
+    {
+      "bytes": 92,
+      "path": "audit.log",
+      "sha256": "09db30bcaef149cb598bd72e1383b1f996bfa1a8d5df4a427520e16fdd19c12b"
+    },
+    {
+      "bytes": 2202,
+      "path": "intent.json",
+      "sha256": "3864691b2cf0415133ab23e4dfc6817e3345796225e6f10d80d1f39902927cc6"
+    },
+    {
+      "bytes": 1402,
+      "path": "job.json",
+      "sha256": "a2c5595ce2037e23a72d22bbfe2182d61505f4b743b77ea5f0ca6d0652f69b11"
+    },
+    {
+      "bytes": 24650,
+      "path": "report.json",
+      "sha256": "80fad9c02df07e0d96581957db81d393670812c4a11670163371328604abd858"
+    }
+  ],
+  "implementation_sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+  "kind": "weighted_action_audit",
+  "model_sha256": "d1d44096229e5ff89bd3a3a9cccce9a108f120801fde321bf2f0521a7193d4b9",
+  "schema_version": 1,
+  "status": "measured"
+}

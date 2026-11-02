@@ -1,0 +1,84 @@
+{
+  "actual_changed_bytes": 44015,
+  "changed_serialized_vertices": 3525,
+  "cpu_job": "cpu-job.json",
+  "final_helper_sha256": "b5df2934c1416c45fb21073aadcb675456845dc4c714f1f7f4d12011b2aac5bd",
+  "final_test_sha256": "359b9622aa9a701db126abc9462cece553e83a414ee045ca6997d185577f7509",
+  "focused_tests": {
+    "count": 13,
+    "output": "final-tests.txt",
+    "status": "passed"
+  },
+  "limitations": [
+    "Authored hard-surface opt-in, never inferred from color or silently applied to organic skin.",
+    "Multi-bone targets retain their ratios; co-rigidity is not established.",
+    "Existing majority assignments can be wrong; new joint discontinuities remain possible.",
+    "Inherited root motion is unchanged. Independent action, deformation and visual checks remain required."
+  ],
+  "live_child_jobs": [],
+  "max_size_receipts": [
+    "benchmark-helper.json",
+    "benchmark-job.json"
+  ],
+  "model": "diagnostic-model.glb",
+  "model_sha256": "78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b",
+  "native_deformation_passed": null,
+  "native_jobs": 0,
+  "new_paid_calls": 0,
+  "next_safe_action": "Parent may release a new bounded native deformation/visual probe bound to this derivative hash. Do not reuse the source deformation report or promote from CPU action evidence alone.",
+  "numeric_action_audit_passed": true,
+  "numeric_threshold_scope": "The independent audit uses the unchanged fixed scale-based formula. Computed role scale can differ at sub-nanometer floating precision after weight serialization; no action threshold override was introduced.",
+  "parent_review_dependency": "Connected shoulder boundaries can still stretch after projected weights; actual independent deformation and visual review remain required.",
+  "post_probe_source_change": "One extra dtype guard rejects huge Python integers converted to object arrays; valid numerical projection is unchanged. Original executed helper is retained in source-snapshot; final helper and tests are retained separately.",
+  "provider_calls": 0,
+  "recorded_local_time": "2026-11-01 15:40:20 PST",
+  "role_counts": [
+    {
+      "core_vertices_after": 5438,
+      "core_vertices_before": 5438,
+      "fringe_vertices_after": 5706,
+      "fringe_vertices_before": 5761,
+      "lost_fringe_count": 55,
+      "lost_fringe_indices_sha256": "b62d4a42f913dc58deb21570846d1e4ad0d5d68c9bb047322e0b76a9f9d64daf",
+      "role_id": "right-hand"
+    },
+    {
+      "core_vertices_after": 1804,
+      "core_vertices_before": 1804,
+      "fringe_vertices_after": 45386,
+      "fringe_vertices_before": 45386,
+      "lost_fringe_count": 0,
+      "lost_fringe_indices_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role_id": "torso"
+    },
+    {
+      "core_vertices_after": 2643,
+      "core_vertices_before": 2643,
+      "fringe_vertices_after": 3252,
+      "fringe_vertices_before": 3252,
+      "lost_fringe_count": 0,
+      "lost_fringe_indices_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role_id": "feet"
+    }
+  ],
+  "schema_version": 1,
+  "serialization_checks": "Encoded float32 core/fringe memberships exactly match projected memberships; reparsed weights exactly equal the encoded array. No membership tolerance is used. Original skin sum encoding tolerance remains 0.001.",
+  "source": "outputs/rigged-robot-weight-repair-probe-v1/model/model.glb",
+  "source_helper_at_derivative_sha256": "3977fdca42d7bcee4db66866f5209f347eeb41149478733ebf05672219f3ae82",
+  "source_sha256": "2213048e76c841d1460c50e118ade6ae2ec3a229086a7039beff9d3d919ff820",
+  "status": "cpu_diagnostic_ready_native_not_started",
+  "surface_opt_in": "rigid_hard_surface; diagnostic declaration, not recovered material truth",
+  "unchanged": {
+    "all_24_bone_node_ids": true,
+    "all_animation_accessors_and_channels": true,
+    "all_direct_half_weight_core_memberships": true,
+    "exact_action_states_and_bindings": true,
+    "glb_json": true,
+    "inverse_bind_and_rest_node_transforms": true,
+    "materials_textures": true,
+    "positions_normals_uv_joints_indices": true,
+    "source_file": true,
+    "unselected_weight_rows_bit_exact": true
+  },
+  "visual_quality_approved": false
+}

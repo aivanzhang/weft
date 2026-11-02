@@ -1,0 +1,226 @@
+{
+  "answer_sha256": "6807595b3dca18aac011f3aa09791306f6d1fbd5a2736eedaecd7c5dbf1e1835",
+  "artifacts": [
+    {
+      "bytes": 2969,
+      "path": "agent-process.json",
+      "sha256": "b47157758dc1d60a7118046c0bef369041e663a8ec804cb509777601f499ec66"
+    },
+    {
+      "bytes": 2844,
+      "path": "agent.jsonl",
+      "sha256": "37bb4d6b53e8e37e6434f8fb74df93d5d1ef3d205c0323074867fc25215a9558"
+    },
+    {
+      "bytes": 29,
+      "path": "agent.stderr",
+      "sha256": "3e75d28a6681c31400a3f0fcb564c7613fd42796fb83294e4d53fea86bcbd401"
+    },
+    {
+      "bytes": 1931,
+      "path": "answer.json",
+      "sha256": "6807595b3dca18aac011f3aa09791306f6d1fbd5a2736eedaecd7c5dbf1e1835"
+    },
+    {
+      "bytes": 327222,
+      "path": "image-00.png",
+      "sha256": "61fc9b6934142b945cf9822cd9c699c35e1804d870f064452ed349bd46da50a5"
+    },
+    {
+      "bytes": 291828,
+      "path": "image-01.png",
+      "sha256": "00229b541bba4705288f2d039aa79e49ae398925b1483d9699ffa76902b9320d"
+    },
+    {
+      "bytes": 245555,
+      "path": "image-02.png",
+      "sha256": "e22aca448dea287080614b66029dcbc6ba3f6f84d65a712df0e251a6c1bff956"
+    },
+    {
+      "bytes": 1087449,
+      "path": "image-03.png",
+      "sha256": "47927f634f596675a984dbd36e95862fa53a2951ded0504a0e25566f64dd7cc3"
+    },
+    {
+      "bytes": 467001,
+      "path": "image-04.png",
+      "sha256": "e8dd957d78ad5bff4c1caa755572ba0a456cdd8ad9360c93fbc16a14136f8f12"
+    },
+    {
+      "bytes": 469444,
+      "path": "image-05.png",
+      "sha256": "7e8c54babce7253e00f17e2beaaeb8cc3995711f9869120a5cb2580664c8d116"
+    },
+    {
+      "bytes": 2750180,
+      "path": "image-06.png",
+      "sha256": "baf1230e22d9d9a9012356ecffdc9a840fc3dce8e2c08dd51e43e577e56cdd21"
+    },
+    {
+      "bytes": 3773,
+      "path": "invocation.json",
+      "sha256": "9c2790af6c9c74d35a4ea64f0d751f01bd903d71120a610deac6f4349f84a72e"
+    },
+    {
+      "bytes": 81460,
+      "path": "invocation.txt",
+      "sha256": "7ee9d44b90450301813082c2ae8081c1a82f39f5d0558f988f7eeb5a65bc5072"
+    },
+    {
+      "bytes": 80979,
+      "path": "prompt.txt",
+      "sha256": "0ad5147df14fd912773ad0525cebfa73593d98ae8cea7557772daaa09e744d8f"
+    },
+    {
+      "bytes": 1436,
+      "path": "request.json",
+      "sha256": "e269c2f949d2376a7000b0d44e958b22b89e9318c427adfa327c1da2a798436b"
+    },
+    {
+      "bytes": 352,
+      "path": "schema.json",
+      "sha256": "767a4f3871c3b4fdac31a4e10bd19a5763d41cd6df83098aaa6478d22c021886"
+    },
+    {
+      "bytes": 503,
+      "path": "version-process.json",
+      "sha256": "dd97bde7aaf3a81276a2567b7c1fbb09418b45113f32dbbe20c24fe62f84a7a6"
+    },
+    {
+      "bytes": 18,
+      "path": "version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c"
+    },
+    {
+      "bytes": 0,
+      "path": "version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "bootstrap_warnings": [
+    "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+  ],
+  "cli_version": "codex-cli 0.166.0",
+  "event_count": 5,
+  "execution_kind": "codex_cli",
+  "process": {
+    "cleanup": [],
+    "command": [
+      "/Users/ivan/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/bin/codex",
+      "exec",
+      "--ignore-user-config",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--sandbox",
+      "read-only",
+      "--json",
+      "--color",
+      "never",
+      "--cd",
+      "/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/avatar-data-agent-h89prh9f",
+      "--config",
+      "approval_policy=\"never\"",
+      "--config",
+      "web_search=\"disabled\"",
+      "--config",
+      "project_doc_max_bytes=0",
+      "--config",
+      "mcp_servers={}",
+      "--config",
+      "suppress_unstable_features_warning=true",
+      "--enable",
+      "skip_host_skill_discovery",
+      "--enable",
+      "omit_skill_descriptions",
+      "--output-schema",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/schema.json",
+      "--output-last-message",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/answer.json",
+      "--disable",
+      "shell_tool",
+      "--disable",
+      "apps",
+      "--disable",
+      "plugins",
+      "--disable",
+      "hooks",
+      "--disable",
+      "browser_use",
+      "--disable",
+      "browser_use_external",
+      "--disable",
+      "computer_use",
+      "--disable",
+      "in_app_browser",
+      "--disable",
+      "image_generation",
+      "--disable",
+      "multi_agent",
+      "--disable",
+      "view_image",
+      "--disable",
+      "sleep_tool",
+      "--disable",
+      "skill_search",
+      "--disable",
+      "workspace_dependencies",
+      "--disable",
+      "memories",
+      "--disable",
+      "request_permissions_tool",
+      "--disable",
+      "unbounded_connection_retries",
+      "--disable",
+      "code_mode_host",
+      "--disable",
+      "code_mode",
+      "--disable",
+      "in_app_local_automation",
+      "--disable",
+      "shell_snapshot",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-00.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-01.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-02.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-03.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-04.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-05.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/image-06.png",
+      "-"
+    ],
+    "descendant_rss_measured": false,
+    "elapsed_seconds": 27.393,
+    "exit_code": 0,
+    "failure": null,
+    "limits": {
+      "answer_bytes": 1048576,
+      "cleanup_seconds": 4,
+      "output_bytes": 50331648,
+      "rss_bytes": 1073741824,
+      "stream_bytes_each": 4194304,
+      "wall_seconds": 240.0
+    },
+    "manual_stop_required": false,
+    "pid": 80186,
+    "rss_samples": 90,
+    "sampled_peak_rss_bytes": 370524160,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "status": "succeeded",
+  "thread_id": "01a1996b-07af-74b3-95c1-956e83b0e86d",
+  "tool_activity": false,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 42341,
+    "output_tokens": 987,
+    "reasoning_output_tokens": 396
+  }
+}

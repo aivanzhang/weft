@@ -1,0 +1,177 @@
+{
+  "answer_sha256": "ee29fe8e3100407e74779494aa7faa76acd1dbab49c3073143e9c90562d7e932",
+  "artifacts": [
+    {
+      "bytes": 1919,
+      "path": "agent-process.json",
+      "sha256": "a5089f28edfdd324f62328afec42085e96080cd9737b84a17e88191b0b6428ef"
+    },
+    {
+      "bytes": 4473,
+      "path": "agent.jsonl",
+      "sha256": "5fc0547d1f97a12e1f9d9eb0b7918a8b91523d05fb29c617ed60b0c4aefaa603"
+    },
+    {
+      "bytes": 0,
+      "path": "agent.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3668,
+      "path": "answer.json",
+      "sha256": "ee29fe8e3100407e74779494aa7faa76acd1dbab49c3073143e9c90562d7e932"
+    },
+    {
+      "bytes": 2656,
+      "path": "invocation.json",
+      "sha256": "82efe73b14965eec8e23ff53421d374f903379a143d4dbbdd614b34f88411e65"
+    },
+    {
+      "bytes": 7333,
+      "path": "invocation.txt",
+      "sha256": "1a301b222c0ed7ba5242a4aaa1792a8dabbee049f2792198a9236160850769ac"
+    },
+    {
+      "bytes": 6852,
+      "path": "prompt.txt",
+      "sha256": "38aca636c11ab9427924fad6eac64d9963c3afa7e1face0cd6829ee645254f17"
+    },
+    {
+      "bytes": 418,
+      "path": "request.json",
+      "sha256": "547b3737af3845d6f31e8a4f7ce5a0ded4f24ac1d148c9402c51414d6ceeaf7c"
+    },
+    {
+      "bytes": 3768,
+      "path": "schema.json",
+      "sha256": "f6635ab8e7880084adf25d55f992cd553ba4c1a5836a63a8dd859779f153d67e"
+    },
+    {
+      "bytes": 505,
+      "path": "version-process.json",
+      "sha256": "f16fe5ff93c9d04a08890a5a2239a1fba92ec5c74ad659dc5571c94f9b1b0577"
+    },
+    {
+      "bytes": 18,
+      "path": "version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c"
+    },
+    {
+      "bytes": 0,
+      "path": "version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "bootstrap_warnings": [
+    "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+  ],
+  "cli_version": "codex-cli 0.166.0",
+  "event_count": 5,
+  "execution_kind": "codex_cli",
+  "process": {
+    "cleanup": [],
+    "command": [
+      "/Users/ivan/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/bin/codex",
+      "exec",
+      "--ignore-user-config",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--sandbox",
+      "read-only",
+      "--json",
+      "--color",
+      "never",
+      "--cd",
+      "/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/avatar-data-agent-_qwy73de",
+      "--config",
+      "approval_policy=\"never\"",
+      "--config",
+      "web_search=\"disabled\"",
+      "--config",
+      "project_doc_max_bytes=0",
+      "--config",
+      "mcp_servers={}",
+      "--config",
+      "suppress_unstable_features_warning=true",
+      "--enable",
+      "skip_host_skill_discovery",
+      "--enable",
+      "omit_skill_descriptions",
+      "--output-schema",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/agents/planner/schema.json",
+      "--output-last-message",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-b184afa00c2f4c2d853de705/agents/planner/answer.json",
+      "--disable",
+      "shell_tool",
+      "--disable",
+      "apps",
+      "--disable",
+      "plugins",
+      "--disable",
+      "hooks",
+      "--disable",
+      "browser_use",
+      "--disable",
+      "browser_use_external",
+      "--disable",
+      "computer_use",
+      "--disable",
+      "in_app_browser",
+      "--disable",
+      "image_generation",
+      "--disable",
+      "multi_agent",
+      "--disable",
+      "view_image",
+      "--disable",
+      "sleep_tool",
+      "--disable",
+      "skill_search",
+      "--disable",
+      "workspace_dependencies",
+      "--disable",
+      "memories",
+      "--disable",
+      "request_permissions_tool",
+      "--disable",
+      "unbounded_connection_retries",
+      "--disable",
+      "code_mode_host",
+      "--disable",
+      "code_mode",
+      "--disable",
+      "in_app_local_automation",
+      "--disable",
+      "shell_snapshot",
+      "-"
+    ],
+    "descendant_rss_measured": false,
+    "elapsed_seconds": 24.63,
+    "exit_code": 0,
+    "failure": null,
+    "limits": {
+      "answer_bytes": 1048576,
+      "cleanup_seconds": 4,
+      "output_bytes": 50331648,
+      "rss_bytes": 1073741824,
+      "stream_bytes_each": 4194304,
+      "wall_seconds": 240.0
+    },
+    "manual_stop_required": false,
+    "pid": 77881,
+    "rss_samples": 80,
+    "sampled_peak_rss_bytes": 122716160,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "status": "succeeded",
+  "thread_id": "01a19961-4dd7-7510-97ab-7ffbed1bde8c",
+  "tool_activity": false,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 15901,
+    "output_tokens": 767,
+    "reasoning_output_tokens": 0
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "scope": "Observed completed focused test output; unchanged gate tests verify fixed threshold behavior.",
+  "source_hashes": {
+    "avatar_assets/deformation_gate.py": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+    "scripts/blender_finish_generated.py": "04c45685c4b95fb7395e87e95ba68073178990719be0cb0cb3a3eeb5ee3d71ec",
+    "scripts/deformation_diagnostics.py": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+    "tests/test_deformation_diagnostics.py": "709c4d846731b7774fb8356573ba287e0fc37b3c8156dac11d34c937a338c6c3"
+  },
+  "tests": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest discover -s tests -p test_deformation_diagnostics.py -v",
+      "passed": 10,
+      "seconds": 0.014
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest discover -s tests -p test_deformation_gate.py -v",
+      "passed": 17,
+      "seconds": 0.044
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "answer_sha256": "c412c4151d279fb32a72ccf3deaa4746a232ba585538c0937781a5e894be1d2d",
+  "artifacts": [
+    {
+      "bytes": 2310,
+      "path": "agent-process.json",
+      "sha256": "59c0a3ac150b4a82468297e8aeb1ef4468e2450be43ff8111a27319505484606"
+    },
+    {
+      "bytes": 5846,
+      "path": "agent.jsonl",
+      "sha256": "ff7c0b0a3db6b3d00c19c96b48f7ce9c9b2f255f238aab6a5fa38759ae1a8989"
+    },
+    {
+      "bytes": 29,
+      "path": "agent.stderr",
+      "sha256": "3e75d28a6681c31400a3f0fcb564c7613fd42796fb83294e4d53fea86bcbd401"
+    },
+    {
+      "bytes": 4352,
+      "path": "answer.json",
+      "sha256": "c412c4151d279fb32a72ccf3deaa4746a232ba585538c0937781a5e894be1d2d"
+    },
+    {
+      "bytes": 327192,
+      "path": "image-00.png",
+      "sha256": "c669901630a2cf475110c87fb3f430c54499e3d23b01dfaffc65e353d8991157"
+    },
+    {
+      "bytes": 291831,
+      "path": "image-01.png",
+      "sha256": "898cba2ed5e304ff9f8c176e796fb24f38ebfe81f156a3ff54be9757c61ea1aa"
+    },
+    {
+      "bytes": 245678,
+      "path": "image-02.png",
+      "sha256": "89e200fc3fc504f587997ac68f51c025faa28b7fd6a7d40bdc67f04c05896e0f"
+    },
+    {
+      "bytes": 3068,
+      "path": "invocation.json",
+      "sha256": "3905bb67185b975d164952a89c60f6a2c0b9239ab3d148d6f4366e04cca44cce"
+    },
+    {
+      "bytes": 34749,
+      "path": "invocation.txt",
+      "sha256": "1f30adb17a33d1573da0fb4cbcb8d31006c1281e327ce4387d8297d021933369"
+    },
+    {
+      "bytes": 34268,
+      "path": "prompt.txt",
+      "sha256": "ea71d4a5938e5480cdf1ebd03661c37b915e5eb3c6f6e02184f0e8ab609dc3ea"
+    },
+    {
+      "bytes": 850,
+      "path": "request.json",
+      "sha256": "2cf698773924334d879e0328ebbf79d22741b6121fac4a71fa1ee1ddceafed4f"
+    },
+    {
+      "bytes": 352,
+      "path": "schema.json",
+      "sha256": "767a4f3871c3b4fdac31a4e10bd19a5763d41cd6df83098aaa6478d22c021886"
+    },
+    {
+      "bytes": 504,
+      "path": "version-process.json",
+      "sha256": "013e359e2b052e6f01f729e18404cfc2c4088762c6d6cb8e502da70902ebe857"
+    },
+    {
+      "bytes": 18,
+      "path": "version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c"
+    },
+    {
+      "bytes": 0,
+      "path": "version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "bootstrap_warnings": [
+    "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+  ],
+  "cli_version": "codex-cli 0.166.0",
+  "event_count": 5,
+  "execution_kind": "codex_cli",
+  "process": {
+    "cleanup": [],
+    "command": [
+      "/Users/ivan/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/bin/codex",
+      "exec",
+      "--ignore-user-config",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--sandbox",
+      "read-only",
+      "--json",
+      "--color",
+      "never",
+      "--cd",
+      "/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/avatar-data-agent-uqh4o93o",
+      "--config",
+      "approval_policy=\"never\"",
+      "--config",
+      "web_search=\"disabled\"",
+      "--config",
+      "project_doc_max_bytes=0",
+      "--config",
+      "mcp_servers={}",
+      "--config",
+      "suppress_unstable_features_warning=true",
+      "--enable",
+      "skip_host_skill_discovery",
+      "--enable",
+      "omit_skill_descriptions",
+      "--output-schema",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/author-0/schema.json",
+      "--output-last-message",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/author-0/answer.json",
+      "--disable",
+      "shell_tool",
+      "--disable",
+      "apps",
+      "--disable",
+      "plugins",
+      "--disable",
+      "hooks",
+      "--disable",
+      "browser_use",
+      "--disable",
+      "browser_use_external",
+      "--disable",
+      "computer_use",
+      "--disable",
+      "in_app_browser",
+      "--disable",
+      "image_generation",
+      "--disable",
+      "multi_agent",
+      "--disable",
+      "view_image",
+      "--disable",
+      "sleep_tool",
+      "--disable",
+      "skill_search",
+      "--disable",
+      "workspace_dependencies",
+      "--disable",
+      "memories",
+      "--disable",
+      "request_permissions_tool",
+      "--disable",
+      "unbounded_connection_retries",
+      "--disable",
+      "code_mode_host",
+      "--disable",
+      "code_mode",
+      "--disable",
+      "in_app_local_automation",
+      "--disable",
+      "shell_snapshot",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/author-0/image-00.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/author-0/image-01.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/author-0/image-02.png",
+      "-"
+    ],
+    "descendant_rss_measured": false,
+    "elapsed_seconds": 30.258,
+    "exit_code": 0,
+    "failure": null,
+    "limits": {
+      "answer_bytes": 1048576,
+      "cleanup_seconds": 4,
+      "output_bytes": 50331648,
+      "rss_bytes": 1073741824,
+      "stream_bytes_each": 4194304,
+      "wall_seconds": 240.0
+    },
+    "manual_stop_required": false,
+    "pid": 61676,
+    "rss_samples": 100,
+    "sampled_peak_rss_bytes": 132481024,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "status": "succeeded",
+  "thread_id": "01a19923-c7c8-7ed0-808f-1ea9212f1406",
+  "tool_activity": false,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 24141,
+    "output_tokens": 1884,
+    "reasoning_output_tokens": 185
+  }
+}

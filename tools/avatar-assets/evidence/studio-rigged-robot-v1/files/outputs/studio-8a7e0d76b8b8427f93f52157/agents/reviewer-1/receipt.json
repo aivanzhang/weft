@@ -1,0 +1,205 @@
+{
+  "answer_sha256": "7b7410f1258c256a43f755f8771f824064c2fc5d24ca70f4992202b6844b31b6",
+  "artifacts": [
+    {
+      "bytes": 2451,
+      "path": "agent-process.json",
+      "sha256": "e660e53de4d43a57397658fbf81569b3237f3557666dfaa3e557aa91e8661149"
+    },
+    {
+      "bytes": 4448,
+      "path": "agent.jsonl",
+      "sha256": "37fec4a57e93beef7da9e4e8c1b13fe66c527dd522adda4782462647f8d9d2db"
+    },
+    {
+      "bytes": 29,
+      "path": "agent.stderr",
+      "sha256": "3e75d28a6681c31400a3f0fcb564c7613fd42796fb83294e4d53fea86bcbd401"
+    },
+    {
+      "bytes": 3643,
+      "path": "answer.json",
+      "sha256": "7b7410f1258c256a43f755f8771f824064c2fc5d24ca70f4992202b6844b31b6"
+    },
+    {
+      "bytes": 1134331,
+      "path": "image-00.png",
+      "sha256": "3386cea89938b1f197e4831f97de22e1ce342dab1a16a37204055f49e9fe71fc"
+    },
+    {
+      "bytes": 1217206,
+      "path": "image-01.png",
+      "sha256": "e0fb9fb984d9f5712cea0d3f023bd25d366b28f57eb5891e9afa6c01889d6e11"
+    },
+    {
+      "bytes": 3141119,
+      "path": "image-02.png",
+      "sha256": "6a3aa5e107f595cb93ac29d961f9e4f09a1940392af7f4df9047b545f511a062"
+    },
+    {
+      "bytes": 655154,
+      "path": "image-03.webp",
+      "sha256": "1c7d4691611916bcc239afc8931a79ece50289a0af61952e5ec378bea2846add"
+    },
+    {
+      "bytes": 3218,
+      "path": "invocation.json",
+      "sha256": "c8a0cccb69dc791fc12a375a5ff6ddbb6c4a9e7a9ba1bbe9f132f6564cd81d33"
+    },
+    {
+      "bytes": 49377,
+      "path": "invocation.txt",
+      "sha256": "2143ee1a2f5939b66239328229699f71160560153141306f0f0fa669e502e326"
+    },
+    {
+      "bytes": 48896,
+      "path": "prompt.txt",
+      "sha256": "971f54246c9618859ff2f366fa9035f0bf4e9ee74cd31735bca71b682051cf4b"
+    },
+    {
+      "bytes": 999,
+      "path": "request.json",
+      "sha256": "8a8f0a51443ff9727cf4c26f7ff968b4f25eb4fb6c3c3886d84228e0c1e655c5"
+    },
+    {
+      "bytes": 3116,
+      "path": "schema.json",
+      "sha256": "b4165f02a68994702a4a9cf4c0b7806b5ba384016f7ca46a4d0dbe723c2f2139"
+    },
+    {
+      "bytes": 504,
+      "path": "version-process.json",
+      "sha256": "2c3f9c632d18c3795adc12b5a8ba7ddbf54e3ed066beda0f239ab15ad7a735e1"
+    },
+    {
+      "bytes": 18,
+      "path": "version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c"
+    },
+    {
+      "bytes": 0,
+      "path": "version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "bootstrap_warnings": [
+    "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+  ],
+  "cli_version": "codex-cli 0.166.0",
+  "event_count": 5,
+  "execution_kind": "codex_cli",
+  "process": {
+    "cleanup": [],
+    "command": [
+      "/Users/ivan/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/bin/codex",
+      "exec",
+      "--ignore-user-config",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--sandbox",
+      "read-only",
+      "--json",
+      "--color",
+      "never",
+      "--cd",
+      "/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/avatar-data-agent-zo7ccx9g",
+      "--config",
+      "approval_policy=\"never\"",
+      "--config",
+      "web_search=\"disabled\"",
+      "--config",
+      "project_doc_max_bytes=0",
+      "--config",
+      "mcp_servers={}",
+      "--config",
+      "suppress_unstable_features_warning=true",
+      "--enable",
+      "skip_host_skill_discovery",
+      "--enable",
+      "omit_skill_descriptions",
+      "--output-schema",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/reviewer-1/schema.json",
+      "--output-last-message",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/reviewer-1/answer.json",
+      "--disable",
+      "shell_tool",
+      "--disable",
+      "apps",
+      "--disable",
+      "plugins",
+      "--disable",
+      "hooks",
+      "--disable",
+      "browser_use",
+      "--disable",
+      "browser_use_external",
+      "--disable",
+      "computer_use",
+      "--disable",
+      "in_app_browser",
+      "--disable",
+      "image_generation",
+      "--disable",
+      "multi_agent",
+      "--disable",
+      "view_image",
+      "--disable",
+      "sleep_tool",
+      "--disable",
+      "skill_search",
+      "--disable",
+      "workspace_dependencies",
+      "--disable",
+      "memories",
+      "--disable",
+      "request_permissions_tool",
+      "--disable",
+      "unbounded_connection_retries",
+      "--disable",
+      "code_mode_host",
+      "--disable",
+      "code_mode",
+      "--disable",
+      "in_app_local_automation",
+      "--disable",
+      "shell_snapshot",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/reviewer-1/image-00.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/reviewer-1/image-01.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/reviewer-1/image-02.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/agents/reviewer-1/image-03.webp",
+      "-"
+    ],
+    "descendant_rss_measured": false,
+    "elapsed_seconds": 20.674,
+    "exit_code": 0,
+    "failure": null,
+    "limits": {
+      "answer_bytes": 1048576,
+      "cleanup_seconds": 4,
+      "output_bytes": 50331648,
+      "rss_bytes": 1073741824,
+      "stream_bytes_each": 4194304,
+      "wall_seconds": 240.0
+    },
+    "manual_stop_required": false,
+    "pid": 62769,
+    "rss_samples": 68,
+    "sampled_peak_rss_bytes": 336396288,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "status": "succeeded",
+  "thread_id": "01a19927-8d78-77a0-ab44-9fc2309d1be1",
+  "tool_activity": false,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 38085,
+    "output_tokens": 857,
+    "reasoning_output_tokens": 70
+  }
+}

@@ -30,19 +30,32 @@ review of final media before delivery. No universal prompt success or Muse-level
 finish is promised. [Active goal and acceptance gates](docs/hands-off-studio.md),
 [commands and bounds](docs/prompt-pipeline.md), [current handoff](TODO.md).
 
-Checkpoint **November 1, 2026**: the integrated suite passes **619 tests in
-14.771s**, with nine browser fixture checks also preserved. The previous robot
+Checkpoint **November 1, 2026**: the integrated suite passes **646 tests in
+15.331s**, with nine browser fixture checks also preserved. The previous robot
 run remains rejected for arm stretching; its reviewed recovery preserved all
 480 files and spending history. Evidence corruption now halts instead of buying
 another repair call. The new unchanged-text robot run ended **unsupported**:
 its repair passed the gross-stretch gate but still moved part of the torso beyond
 the requested stability limit. The actual UI verifier recorded that failure and
-exited cleanly; no critic, full media or accepted delivery followed. Eight of the
-ten development AI calls are used, with zero new Meshy credits. The three
-fresh-example estimate requests 105 additional Meshy credits
-and up to 15 AI calls, but the allowance reply/grants remain pending. Tuft and
-undercoat trials are not promoted. Exact receipts, ownership and remaining
-quality/UI acceptance are in the [handoff](TODO.md).
+exited cleanly; no critic, full media or accepted delivery followed. The separate
+already-paid-rig trial also ended **unsupported**: its repaired model passed
+numeric motion/stability checks and rendered full media, but the critic rejected
+the low wrist swivel as an unclear greeting. Its browser/server exited cleanly;
+there is no accepted Studio delivery. The finite development estimate allows
+**13 total AI calls**, now fully consumed. The separate last-call weight repair
+also failed torso stability and visual review; it is not a delivered avatar.
+Dollar cost remains unknown and no new Meshy credits are used. The three
+fresh-example estimate requests 105 additional Meshy credits and up to 15 AI
+calls, but the allowance reply/grants remain pending.
+A separate UV1 texture diagnostic improves matte short-pile detail in sampled
+views, not dense fur or Muse parity; no coat/default is promoted. Exact receipts,
+ownership and remaining quality/UI acceptance are in the [handoff](TODO.md).
+Private checkpoint `3a7a0ec` is preserved. This checkpoint adds the diagnostic
+code and compact evidence; its exact commit/push confirmation is recorded in
+`.local/avatar-quality-publication-v3/receipt.json`. A local-only rigid-part correction
+passed stability measurements but failed the exported deformation/visual check;
+it is not promoted. That trial also exposed a severe-stretch reporting gap now
+fixed and verified on the same exported poses without new AI/provider calls.
 
 The studio is a local single-user workflow, not a hosted service. No server,
 browser or generation job starts merely by reading this repository. The

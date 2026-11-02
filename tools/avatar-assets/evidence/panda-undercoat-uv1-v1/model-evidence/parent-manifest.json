@@ -1,0 +1,443 @@
+{
+  "actual_model_audit": {
+    "appearance_accepted": false,
+    "authored_uv1_tangent_vertices": 1104,
+    "body_triangles_verified": 62581,
+    "hd_only": true,
+    "kind": "actual_append_only_uv1_model_audit",
+    "model_sha256": "784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185",
+    "new_provider_calls": 0,
+    "original_binary_prefix_unchanged": true,
+    "position_normal_uv0_color_skin_triangle_multiset_exact": true,
+    "schema_version": 1,
+    "skin_animation_and_portable_primitives_unchanged": true,
+    "source_model_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+    "status": "passed_format_and_preservation_not_quality",
+    "uv1_tangent_unit_orthogonal_handedness_checks": true,
+    "weft_appearance_compatible": false
+  },
+  "artifacts": [
+    {
+      "bytes": 732,
+      "path": "actual-model-audit.json",
+      "sha256": "4fdba09747b249226d3965bad47263c9aba7c61b61bfcd0fd7f829c6e6ba2dc9"
+    },
+    {
+      "bytes": 735,
+      "path": "analytic-uv1-patch-test.json",
+      "sha256": "956778c39a7ef9ed7407d007234e396126e2d0037a83266066ff1c3eecc515ed"
+    },
+    {
+      "bytes": 30202,
+      "path": "authored-normal-atlases.npz",
+      "sha256": "52e16bf962fa651cd506d1c776a37bb7cbbf326de89338b932f17f4ffefee4c9"
+    },
+    {
+      "bytes": 344,
+      "path": "cpu-handle.json",
+      "sha256": "663d60ffaebf5e714f7179cf2e7ef235181ba765c10d987675eaf3a9a763821d"
+    },
+    {
+      "bytes": 1136,
+      "path": "cpu-monitor.json",
+      "sha256": "81c0f521f714661fe1fdc77734b523432ac920eba2fb6b2371f6e26ffd8033c8"
+    },
+    {
+      "bytes": 1528,
+      "path": "cpu.log",
+      "sha256": "e71f383a76ef8fa93989c2eea39cf7447a9f517910a90b4cf23a282f2b821bd2"
+    },
+    {
+      "bytes": 2332,
+      "path": "diagnostic-config.json",
+      "sha256": "3a89b99feabac035321725cbc0f4bdffb8f6aed294ab0149c5c873ace37011fe"
+    },
+    {
+      "bytes": 7591,
+      "path": "diagnostic-report.json",
+      "sha256": "4ccd4fe54b8fc6e1ca209c98c75eb84b61d272887ec9ba2dcc3aa0653da165e0"
+    },
+    {
+      "bytes": 1230,
+      "path": "job.json",
+      "sha256": "029cbfbf2d5ec854183271c94a52b77e3e615a4ab54673b51240b365599604da"
+    },
+    {
+      "bytes": 34693412,
+      "path": "model.glb",
+      "sha256": "784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185"
+    },
+    {
+      "bytes": 3528,
+      "path": "normal-bake-report.json",
+      "sha256": "bc14669250b0abc70ea9aef07d7fc959cd211765aab36bc351bb945066c62a07"
+    },
+    {
+      "bytes": 3275,
+      "path": "prepared-job.json",
+      "sha256": "ae363968fabae20dec3be6fb3a254714f40b98c794322b6f18c816c82ae0ed0c"
+    },
+    {
+      "bytes": 62709,
+      "path": "selected-triangles.npy",
+      "sha256": "ebc58f9ce6779ab49c7a9152586d5ef822256db52678f354d35f0c05dbec3eb8"
+    },
+    {
+      "bytes": 4487873,
+      "path": "source-body.npz",
+      "sha256": "1970a593f24180921c3641d33fe319e12e2ea43946412c7b5c5ba67d9e1378e7"
+    },
+    {
+      "bytes": 30658,
+      "path": "sources/__pycache__/blender_fur_undercoat.cpython-314.pyc",
+      "sha256": "6a46d95d8d30345df3ff13f1d65a9a56c23715ddbc5c6777cea5b1e7c4ffde1f"
+    },
+    {
+      "bytes": 13580,
+      "path": "sources/__pycache__/groom_flow.cpython-314.pyc",
+      "sha256": "bac317132ae52271c5071a0a039d5203652938deb4875b62c5d14257f02af05f"
+    },
+    {
+      "bytes": 18847,
+      "path": "sources/__pycache__/patch_uv1.cpython-314.pyc",
+      "sha256": "b053ae3e319e7a26cd72731f43714bcd024c4c3eea132c1352a2f1212ba3725b"
+    },
+    {
+      "bytes": 39202,
+      "path": "sources/accepted-finish-design.json",
+      "sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909"
+    },
+    {
+      "bytes": 16677,
+      "path": "sources/blender_fur_undercoat.py",
+      "sha256": "688f000018557ff18233edd1d514d8f268e46dbe14101daba8bb71ecc7f53d34"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 10142,
+      "path": "sources/patch_uv1.py",
+      "sha256": "eca5370e28e27f2e51503e092cef7fa5cc39e987502114f77ac586c5a2996754"
+    },
+    {
+      "bytes": 8575,
+      "path": "sources/previous_patch_reference.py",
+      "sha256": "6dc002ee36d26707cfb75f9bd93f569c30d96da296e646c00eeb7cb1d47782ff"
+    },
+    {
+      "bytes": 6787,
+      "path": "sources/run_cpu_diagnostic.py",
+      "sha256": "68453fb9b7cd9a2f5cdecf0ff87244e069bec177f887151fb4073e749b51c6cc"
+    },
+    {
+      "bytes": 14546,
+      "path": "sources/undercoat_uv_atlas.py",
+      "sha256": "69526190221e62401d46e266b5540cd5d5dacf84b4fb62c9cc33e7ca721a8f1c"
+    },
+    {
+      "bytes": 2590107,
+      "path": "textures/normal-region-00.png",
+      "sha256": "7dc552e91456efa843110204724dea14af8cef51c51f3be01cc227f3c6f1f523"
+    },
+    {
+      "bytes": 153465,
+      "path": "textures/normal-region-02.png",
+      "sha256": "0431fe0fe28dd4950b61883fc99f7b4acd74356f9ab48ed1dfd4ef78eaacff15"
+    },
+    {
+      "bytes": 2993,
+      "path": "uv-plan.json",
+      "sha256": "0ac9d7bbb0f793b2aa5848f052921a22c2d920edcc9db961778e13c7db148f66"
+    }
+  ],
+  "diagnostic": {
+    "authored_uv1_regions": [
+      2
+    ],
+    "basecolor_images_json_sha256": "7b014e24d24086b72a6352270427bcfed3ed26bd15d1123f6262fd33d24b14a3",
+    "body_material_boundary_may_duplicate_vertices": true,
+    "excluded_triangles": 30860,
+    "hd_only": true,
+    "model_sha256": "784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185",
+    "new_provider_calls": 0,
+    "new_provider_cost_usd": 0,
+    "original_binary_prefix_bytes": 29971416,
+    "original_binary_prefix_sha256": "c062c772de8894e6e5de69847180d156a811ee77ff8b96b748483e4e880a1a9a",
+    "original_binary_prefix_unchanged": true,
+    "portable_meshes_json_sha256": "7c3dd55891e60808ec4465e649f93e84d69d626bcae3f0137521c65b86423c86",
+    "preflight": {
+      "animations": 1,
+      "attributes": [
+        [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TANGENT",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TANGENT",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TANGENT",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TANGENT",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TANGENT",
+          "TEXCOORD_0",
+          "TEXCOORD_1",
+          "WEIGHTS_0"
+        ],
+        [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TANGENT",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TANGENT",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        [
+          "COLOR_0",
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TANGENT",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        [
+          "COLOR_0",
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TANGENT",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ]
+      ],
+      "schema_version": 1,
+      "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+      "sha256": "784f002ed35561593d7f6a03a7bcb2d7164bf7333cd843dbbdf5ce5f62a18185",
+      "skins": 1,
+      "source_unchanged": true,
+      "textures": [
+        {
+          "format": "PNG",
+          "height": 4096,
+          "width": 4096
+        },
+        {
+          "format": "JPEG",
+          "height": 4096,
+          "width": 4096
+        },
+        {
+          "format": "JPEG",
+          "height": 2048,
+          "width": 2048
+        },
+        {
+          "format": "PNG",
+          "height": 1024,
+          "width": 1024
+        },
+        {
+          "format": "PNG",
+          "height": 1024,
+          "width": 1024
+        },
+        {
+          "format": "PNG",
+          "height": 2048,
+          "width": 2048
+        },
+        {
+          "format": "PNG",
+          "height": 1024,
+          "width": 1024
+        }
+      ],
+      "triangles": 72181,
+      "vertices": 75548
+    },
+    "procedural_bake": {
+      "kind": "actual_procedural_short_pile_normals",
+      "new_model_calls": 0,
+      "new_provider_calls": 0,
+      "not_recovered_hair": true,
+      "regions": [
+        {
+          "bake": {
+            "array_memory_bound_bytes": 176160768,
+            "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+            "covered_texels": 1589593,
+            "elapsed_seconds": 1.691373,
+            "excluded_triangles": 31228,
+            "geometry_displaced": false,
+            "maximum_normal_tilt_degrees": 19.99134652874681,
+            "normal_float32_sha256": "4976fed2d9d0a9667ddfaaedc569c77582f64cc20ea54ba77e8ba356ceea52bd",
+            "original_uvs_changed": false,
+            "overlap_limit_fraction": 0.01,
+            "overlapping_different_surface_samples": 0,
+            "palette_changed": false,
+            "profile": "short-pile-v1",
+            "raster_candidate_pixels": 4228961,
+            "selected_faces_sha256": "85c1734fa106d688def6e0a1e3c5825d8c640f2326a027293524afa874cb4a3e",
+            "selected_triangles": 31353,
+            "settings": {
+              "max_faces": 40000,
+              "min_faces": 1,
+              "pitch_m": 0.004,
+              "profile": "short-pile-v1",
+              "resolution": 2048,
+              "roughness": 0.92,
+              "seed": 4517,
+              "strength": 0.22
+            },
+            "subpixel_faces": 329,
+            "total_triangles": 62581
+          },
+          "encoding": "RGB8 PNG, linear normal components; bottom-up math rows flipped to PNG top-down",
+          "method": "keep_uv0",
+          "normal_texcoord": 0,
+          "region_id": 0,
+          "texture_path": "textures/normal-region-00.png",
+          "texture_sha256": "7dc552e91456efa843110204724dea14af8cef51c51f3be01cc227f3c6f1f523"
+        },
+        {
+          "bake": {
+            "array_memory_bound_bytes": 62914560,
+            "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+            "covered_texels": 118073,
+            "elapsed_seconds": 0.312159,
+            "excluded_triangles": 62213,
+            "geometry_displaced": false,
+            "maximum_normal_tilt_degrees": 18.511084902901402,
+            "normal_float32_sha256": "b477ea60a9ef4cacaf7731fdced7e12a3e28b69c5ad83d0140a199186880bfa2",
+            "original_uvs_changed": false,
+            "overlap_limit_fraction": 0.01,
+            "overlapping_different_surface_samples": 0,
+            "palette_changed": false,
+            "profile": "short-pile-v1",
+            "raster_candidate_pixels": 231522,
+            "selected_faces_sha256": "fa5cdb034d99bd1db9e3376586422b3e559a957e683deae608c856619b166e13",
+            "selected_triangles": 368,
+            "settings": {
+              "max_faces": 40000,
+              "min_faces": 1,
+              "pitch_m": 0.004,
+              "profile": "short-pile-v1",
+              "resolution": 1024,
+              "roughness": 0.92,
+              "seed": 4517,
+              "strength": 0.22
+            },
+            "subpixel_faces": 0,
+            "total_triangles": 62581
+          },
+          "encoding": "RGB8 PNG, linear normal components; bottom-up math rows flipped to PNG top-down",
+          "method": "authored_uv1",
+          "normal_texcoord": 1,
+          "region_id": 2,
+          "texture_path": "textures/normal-region-02.png",
+          "texture_sha256": "0431fe0fe28dd4950b61883fc99f7b4acd74356f9ab48ed1dfd4ef78eaacff15"
+        }
+      ],
+      "schema_version": 1,
+      "selected_triangle_mask_sha256": "ebc58f9ce6779ab49c7a9152586d5ef822256db52678f354d35f0c05dbec3eb8",
+      "source_color_texture_bytes_changed": false,
+      "source_glb_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+      "status": "baked_not_visually_accepted"
+    },
+    "schema_version": 1,
+    "scope": "Copied base-body face ownership, cloned normal/roughness materials, per-region normal PNGs and selected authored UV1/tangents differ. Original position/NORMAL/UV0/basecolor/skin/portable-fiber/motion rows remain exact.",
+    "selected_triangles": 31721,
+    "selected_uv1_tangent_rows_are_authored": true,
+    "skin_animation_json_sha256": "c2ac16ffe378f14235e4482d34f6c6436b031582fa0db2f5e3f5580a16233891",
+    "source_basecolor_images_unchanged": true,
+    "source_portable_primitives_unchanged": true,
+    "source_position_normal_uv0_skin_rows_unchanged": true,
+    "source_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+    "source_skin_and_animation_arrays_unchanged": true,
+    "source_uv_accessor_rows_unchanged": true,
+    "status": "patched_awaiting_visual_review",
+    "visual_approval": false,
+    "weft_appearance_compatible": false
+  },
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-uv1-v1/sources/run_cpu_diagnostic.py",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-uv1-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 2.864,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 42208088,
+    "last_rss_sample_elapsed_seconds": 2.603,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 512,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 76758,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 10,
+    "sampled_max_output_bytes": 42208088,
+    "sampled_peak_rss_bytes": 382320640,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "hd_undercoat_uv1_material_diagnostic",
+  "new_provider_cost_usd": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_glb_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "status": "needs_visual_review",
+  "weft_appearance_compatible": false
+}

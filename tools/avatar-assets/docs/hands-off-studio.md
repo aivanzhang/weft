@@ -193,8 +193,69 @@ media or delivery followed; this is not an accepted UI-to-output example.
 no external requests/browser errors, and verified browser/server exit without
 signalling the generation worker. The worker exited and released its lease;
 there is no active or queued Studio work. Tool12931 is terminal.
-The study now totals8 AI calls /196,763 input /10,061 output tokens, with2 calls
-left under its unchanged10-call envelope. No Meshy credits were spent.
+At that checkpoint the study totaled8 AI calls /196,763 input /10,061 output
+tokens, with2 calls left under its then-current10-call envelope. No Meshy credits
+were spent. The following different-route study explicitly expanded that finite
+development estimate; old calls were never reset.
+
+### Existing provider rig and weight-repair diagnostic
+
+`outputs/studio-rigged-robot-preparation-v1` preserves a different hypothesis:
+the exact same prompt/style/action on the already-paid24-joint robot skeleton,
+source SHA256 `ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7`.
+Its estimate records8 prior calls plus at most5 new ones,13 aggregate, with
+unknown account-specific AI dollars and zero new Meshy/Meta calls. This is not
+a new user-approved dollar cap or a fresh text-to-mesh example.
+
+Actual Studio job `b184afa00c2f4c2d853de705` ended **unsupported**. One automatic
+repair passed the unchanged numeric skin/action/stability checks and produced
+full media (124.046s render), but the real critic rejected the low wrist swivel
+as an unclear greeting. The browser followed one pinned Start for255.693s;
+owned browser/server and worker exited, and its lease was released. Tool88829
+is terminal. No accepted delivery is claimed. Exact evidence, including the
+rejected clip, is preserved in `evidence/studio-rigged-robot-v1/manifest.json`,
+SHA256 `cca42b76aa88c1bf9e85a47cc65c457112ef73fb4ce444b16556b553fd2efaa2`.
+
+The author guide now distinguishes preserving an existing skeleton from keeping
+faulty skin weights, and documents the existing ellipsoid/fallback control.
+It explicitly forbids substituting a different action merely to pass numeric
+checks.42 relevant contract tests pass in0.036s; the preceding integration
+checkpoint passes629 tests in15.418s. Their source snapshots distinguish the
+full-suite version from the subsequent prompt/report-label clarification.
+
+The single remaining study call was used only for
+`outputs/rigged-robot-weight-repair-probe-v1`, not to resume a terminal Studio job.
+It proposed a bounded weight constraint and restored a raised gesture. One
+22.758s local build passed the gross-spike gate but still failed torso stability
+(35.527883mm), and independent image review found a raised chest-side wedge.
+No exported preview, full media, critic or delivery followed. All13 calls are
+now consumed:358,211 input /13,885 output tokens, unknown AI dollars, zero new
+Meshy credits. No further AI call fits this study envelope. A separate opt-in
+rigid-part weight-projection experiment is local-only and not automatic promotion.
+
+The exact derivative SHA256
+`78513a47f4232aaa5c5df3d2d520c4465f09a5d9bb772528f6b59f96607eff1b`
+preserves all non-weight bytes and original majority role memberships. Its CPU
+audit holds the torso/feet still, but the actual exported native check rejects
+it: three severe edges at six of eight original action-key times, plus a visibly
+distorted chest side under the raised arm. Native work completed in16.307s with
+1,152,794,624B sampled direct-child RSS; tool50143 ended. Four rest views and
+eight720px poses are preserved, not delivered as a completed animation pack.
+See `outputs/robot-stable-projection-native-v1/manifest.json` and
+`outputs/robot-stable-projection-review-v1.json`.
+
+This exposed a diagnostic truncation defect: four longer extensions below the
+8x ratio limit hid three shorter edges exceeding both severe thresholds.
+The verified narrow fix prioritizes severe witnesses before both per-pose and
+cross-pose truncation. The >8x and >3%-of-height limits and four-row cap stay
+unchanged. All646 software tests pass in15.331s. Fresh numeric-only native replay
+matches all eight prior pose/topology hashes and retains the three severe
+witnesses across poses:1.820s /325,517,312B sampled direct-child RSS, verified
+exit, no renders or new model/provider calls. Exact proof is
+`outputs/deformation-retention-regression-v1/manifest.json`, SHA256
+`013604be797dd87f7a403c445e0b230ede31958e6e2c6354e4e8c76220a0a637`.
+This is detection proof, not a complete finisher rebuild or an accepted avatar.
+The rejected projection remains outside automatic finishing.
 
 The actual saved rejected media was rebuilt as HD review evidence in
 `outputs/studio-hd-review-proof-v1/evidence`: six images, including unchanged
@@ -265,9 +326,19 @@ checkpoint, not a playable release or a quality pass.
 105-credit /15-maximum-AI-call estimate. An actual user allowance question is
 pending; no grants or fresh jobs/calls have been made. The original8-credit
 remainder is unchanged. Execution also requires the local fixes to pass.
+The append-only `outputs/fresh-acceptance-estimate-v2/estimate.json` revises the
+input-token planning assumption to50,000 per call (750,000 at15calls), based on
+measured15,814–42,341-token calls with selected evidence. These are estimates,
+not token caps or known dollar costs; the old sealed estimate is preserved.
 
 Use development failures to improve general code, not to hand-author final
 recipes. Portable fur needs a real appearance improvement, not merely denser
 numbers or a weaker reviewer. Fresh furry-dance, flying-creature and different
 object examples plus actual UI-to-output acceptance remain required. Prepare
 their concrete plans and aggregate credits before requesting added allowance.
+
+The current save includes three separate compact rejected/component bundles and
+`evidence/deformation-retention-v1` for the verified detection fix. Its exact
+commit and private remote confirmation are recorded in tool-local
+`.local/avatar-quality-publication-v3/receipt.json` after publication. This save
+does not establish a successful Studio delivery or consistent Muse-quality output.
