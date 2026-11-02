@@ -90,6 +90,14 @@ SOURCE_VIEWS = frozenset({
 })
 
 NATIVE_SOURCE_VIEWS = frozenset({"evidence.json", "source-clock.json", "native-clock.json", "reconstruction-evidence.json"})
+NATIVE_CAPTURE_VIEWS = frozenset({"decoder-clock.json", "native-clock-capture.json", "native-clock-decode.log"})
+
+
+def native_source_input_names(scene):
+    documents = scene.get("source_binding", {}).get("evidence_documents", {})
+    if not isinstance(documents, dict) or len(documents) > 8:
+        raise ValueError("Native source proof requires a bounded observation document set")
+    return NATIVE_SOURCE_VIEWS | NATIVE_CAPTURE_VIEWS | {"body-source.json", *documents.values()}
 
 
 def native_source_views(files, scene):
@@ -106,7 +114,36 @@ def native_source_views(files, scene):
     if (validate_derived_evidence(derived) != clock or derived != derive_evidence(evidence, clock)
             or clock_summary(clock) != scene["human_spec"]["native_clock"]):
         raise ValueError("Native exercise source differs from its original evidence or body clock")
-    return {name: files[name] for name in NATIVE_SOURCE_VIEWS}
+    marker = _json(files["body-source.json"]) if "body-source.json" in files else {}
+    if not isinstance(marker, dict) or not isinstance(marker.get("construction", {}), dict):
+        raise ValueError("Native capture marker must declare its construction fields")
+    declared_capture = marker.get("construction", {}).get("native_clock_capture")
+    expected_pins = {}
+    for sha, name in scene.get("source_binding", {}).get("evidence_documents", {}).items():
+        if name not in files or _sha(files[name]) != sha:
+            raise ValueError("Native capture custody requires its pinned observation proof")
+        pins = _json(files[name]).get("provenance", {}).get("input_artifacts", {})
+        if not isinstance(pins, dict):
+            raise ValueError("Native capture observation proof requires named artifact hashes")
+        if NATIVE_CAPTURE_VIEWS & pins.keys():
+            if not NATIVE_CAPTURE_VIEWS <= pins.keys():
+                raise ValueError("Native observation proof has an incomplete capture chain")
+            for key in NATIVE_CAPTURE_VIEWS:
+                if key in expected_pins and expected_pins[key] != pins[key]:
+                    raise ValueError("Native capture observation proofs disagree")
+                expected_pins[key] = pins[key]
+    captured = bool(NATIVE_CAPTURE_VIEWS & files.keys() or declared_capture or expected_pins)
+    kept = set(NATIVE_SOURCE_VIEWS)
+    if captured:
+        if (not NATIVE_CAPTURE_VIEWS <= files.keys() or declared_capture != "native-clock-capture.json"
+                or any(marker.get("artifacts", {}).get(name) != _sha(files[name]) for name in NATIVE_CAPTURE_VIEWS)
+                or any(name not in files or _sha(files[name]) != pin for name, pin in expected_pins.items())):
+            raise ValueError("Native capture chain is missing or differs from its pinned identities")
+        from weft.exercise_body_source import _validate_capture_files
+
+        _validate_capture_files(files, clock["source_sha256"])
+        kept |= NATIVE_CAPTURE_VIEWS | {"body-source.json"}
+    return {name: files[name] for name in kept}
 
 
 def _json(raw):
@@ -151,7 +188,7 @@ def _verified_inputs(directory, *, deadline, maximum_files=MAX_INPUT_FILES, maxi
     files, total = {}, len(manifest_raw)
     for name, expected in hashes.items():
         _deadline(deadline)
-        required_log = re.fullmatch(r"(?:(?:source-run|learning-run|policy-evaluation-run|policy-evidence-run|imported-training)/)*source-mappings/[0-9a-f]{64}/[^/]+\.log", name)
+        required_log = re.fullmatch(r"(?:(?:source-run|learning-run|policy-evaluation-run|policy-evidence-run|imported-training)/)*(?:source-mappings/[0-9a-f]{64}/[^/]+\.log|native-clock-decode\.log)", name)
         if (any(part.startswith(".") or part == "__pycache__" for part in Path(name).parts)
                 or name.endswith(".pyc") or name.endswith(".log") and not required_log):
             raise ValueError("Exercise lab inputs must exclude hidden files, caches and logs")
@@ -758,6 +795,7 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
     if not required <= set(files):
         raise ValueError("Exercise lab is missing its pinned scene, task or source identity")
     scene = _json(files["scene.json"])
+    native_source_views(files, scene)
     if scene["profile"] == FEET_PROFILE and len(files["exercise-task.json"]) > 128 * 1024:
         raise ValueError("Coupled-feet task exceeds its 128 KiB document bound")
     task = _json(files["exercise-task.json"])

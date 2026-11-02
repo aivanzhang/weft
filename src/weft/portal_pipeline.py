@@ -233,6 +233,60 @@ def object_localization(plan, frames, video):
         cap.release()
 
 
+def save_reconstruction_readiness(root, source_sha256):
+    """Run only in the job worker; requests read the small saved summary."""
+    from weft.exercise_reconstruction_readiness import diagnose_reconstruction, MAX_INPUT_BYTES
+    from weft.shared_world_packaging import read_package_file
+
+    root = Path(root)
+    analysis = root / "analysis"
+    if any((analysis / name).exists() for name in ("reconstruction-readiness-summary.json", "reconstruction-readiness-error.json")):
+        return
+    if not (root / "build/body_source/evidence.json").exists():
+        return
+    try:
+        evidence = read_package_file(root, "build/body_source/evidence.json", max_bytes=MAX_INPUT_BYTES)
+        native = None
+        if (root / "build/body_source/native-clock.json").exists():
+            native = json.loads(read_package_file(root, "build/body_source/native-clock.json", max_bytes=512 * 1024))
+        report = diagnose_reconstruction(evidence, native_clock=native, max_seconds=5.)
+        if report["source_sha256"] != source_sha256:
+            raise ValueError("Reconstruction diagnostic belongs to another video")
+        crop, quality = report["selective_crop"], report["source_quality"]
+        competing = len(report["identity"]["competing_samples"])
+        reasons = []
+        if quality["passes"]:
+            reasons.append("Pose quality passed; the original construction error identifies a later check.")
+        if not crop["could_clear_visibility_gate"]:
+            reasons.append(f"Even perfect supported crop retries reach at most {crop['optimistic_usable_ceiling']} usable samples; {crop['minimum_required_usable_samples']} are needed.")
+        if competing:
+            reasons.append(f"{competing} sampled frames contain competing pose hypotheses that existing recovery does not resolve.")
+        if not reasons:
+            reasons.append("Source-supported recovery requires a separate checked attempt; no automatic retry was run.")
+        gap = max(report["unusable_spans"], key=lambda row: row["observed_span_s"], default=None)
+        report_path = analysis / "reconstruction-readiness.json"
+        atomic_json(report_path, report)
+        summary = {"schema_version": 1, "profile": "portal-reconstruction-readiness-summary-v1",
+            "source_sha256": source_sha256, "evidence_sha256": report["evidence_sha256"],
+            "report_sha256": digest(report_path), "report_artifact": "analysis/reconstruction-readiness.json",
+            "quality_passes": quality["passes"], "usable_samples": quality["tracked_frames"],
+            "sampled_frames": quality["sampled_frames"], "usable_fraction": quality["tracked_fraction"],
+            "minimum_usable_fraction": quality["minimum_tracked_fraction"],
+            "decoded_frames": report["coverage"]["decoded_frames"], "competing_samples": competing,
+            "time_basis": "native_pts_elapsed_time" if native is not None else "frame_index_divided_by_fps",
+            "longest_gap": {key: gap[key] for key in ("first_time_s", "last_time_s", "sample_count")} if gap else None,
+            "retry_reason": " ".join(reasons), "automatic_retry_performed": False,
+            "scope": "Pose visibility and confidence, not physical accuracy. Ground, equipment contact and camera geometry remain unverified."}
+        atomic_json(analysis / "reconstruction-readiness-summary.json", summary)
+    except Exception as error:
+        # Optional diagnostics cannot replace the construction failure or its preserved evidence.
+        try:
+            atomic_json(analysis / "reconstruction-readiness-error.json", {
+                "status": "unavailable", "type": type(error).__name__, "message": str(error)[:500]})
+        except OSError:
+            pass
+
+
 def execute_job(root, *, project=PROJECT_ROOT, transport=post_response):
     from weft.lab import prepare_lab
     from weft.lab_worker import execute
@@ -240,6 +294,7 @@ def execute_job(root, *, project=PROJECT_ROOT, transport=post_response):
     config = json.loads((root / "job.json").read_text())
     events = []
     started = time.monotonic()
+    exercise_construction_started = False
 
     def progress(stage, message, **extra):
         events.append({"stage": stage, "message": message, "time": local_time(), "elapsed_seconds": round(time.monotonic() - started, 2)})
@@ -271,11 +326,14 @@ def execute_job(root, *, project=PROJECT_ROOT, transport=post_response):
         if route == "exercise":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             model = Path(project) / ".local/models/pose_landmarker_lite.task"
+            progress("reconstruct", "Preserving detector timestamps and capturing native video timing for reconstruction")
             def body_progress(row):
                 stage = "train" if row["stage"].startswith("learning") else "reconstruct"
-                progress(stage, row["stage"].replace("_", " ") + ": " + row["status"].replace("_", " "))
+                message = row.get("detail", {}).get("message")
+                progress(stage, message or row["stage"].replace("_", " ") + ": " + row["status"].replace("_", " "))
+            exercise_construction_started = True
             built = prepare_exercise_scene(None, None, None, root / "build", video=video, pose_model=model,
-                pose_mode="video", pose_identity="raw", source_note=source_note, scene_scope="human_only",
+                pose_mode="video", pose_identity="raw", source_note=source_note, scene_scope="human_only", native_timing=True,
                 root_assistance=True, full_reference=True, max_seconds=300,
                 train_settings={"training_seed":1729, "evaluation_seed":938401, "generations":2, "population":4,
                                 "trials":3, "jitter_scale":.1}, progress=body_progress)
@@ -320,6 +378,11 @@ def execute_job(root, *, project=PROJECT_ROOT, transport=post_response):
     except Exception as error:
         message = str(error)[:1500]
         write_json(root / "failure.json", {"type": type(error).__name__, "message": message, "time": local_time()})
+        if exercise_construction_started:
+            try:
+                save_reconstruction_readiness(root, config["source_sha256"])
+            except Exception:
+                pass
         events.append({"stage": "failed", "message": message, "time": local_time()})
         atomic_json(root / "status.json", {"status": "failed", "stage": "failed", "events": events, "error": message})
         return 1

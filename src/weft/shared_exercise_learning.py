@@ -217,13 +217,13 @@ def _package(out, scene_raw, task_raw, manifest, proof, *, extra=None):
 
 
 def _native_source_views(source, manifest, scene):
-    from weft.shared_exercise_lab import NATIVE_SOURCE_VIEWS, native_source_views
+    from weft.shared_exercise_lab import native_source_input_names, native_source_views
 
     if "native_clock" not in scene.get("human_spec", {}):
         return {}
     hashes = _json(manifest)["files"]
     files = {name: read_package_file(source, name, max_bytes=64 * 1024 * 1024, expected_sha256=hashes[name])
-             for name in NATIVE_SOURCE_VIEWS if name in hashes}
+             for name in native_source_input_names(scene) if name in hashes}
     return native_source_views(files, scene)
 
 

@@ -107,7 +107,9 @@ def main():
     body_input = body_source.add_mutually_exclusive_group(required=True)
     body_input.add_argument("--video", help="Local exercise video, at most 64 MiB and 60 seconds")
     body_input.add_argument("--evidence-run", help="Sealed pose run; reuse exact source/model/options without inference")
-    body_source.add_argument("--native-clock", help="With --evidence-run: exact source-native-clock-v1 JSON; preserve raw detector times")
+    body_clock = body_source.add_mutually_exclusive_group()
+    body_clock.add_argument("--native-clock", help="With --evidence-run: exact source-native-clock-v1 JSON; preserve raw detector times")
+    body_clock.add_argument("--native-timing", action="store_true", help="With --video: capture native presentation timing while preserving detector timestamps")
     body_source.add_argument("--pose-model", help="Required with --video: local pinned pose model")
     body_source.add_argument("--pose-mode", choices=("video", "image"), help="Raw-video inference mode; default video")
     body_source.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw-video anatomy handling; default raw")
@@ -380,6 +382,7 @@ def main():
     exercise_build.add_argument("--pose-model", help="Raw video only: pinned local pose model; no download or upload")
     exercise_build.add_argument("--pose-mode", choices=("video", "image"), help="Raw video only; default video")
     exercise_build.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw video only; default raw")
+    exercise_build.add_argument("--native-timing", action="store_true", help="Raw video only: use captured native presentation timing; not supported with selective-crop recovery")
     exercise_build.add_argument("--pose-recovery", choices=("selective-crop",),
         help="Raw video only: explicit Full/IMAGE/raw baseline and bounded source-only crops; requires the local Full model")
     exercise_build.add_argument("--source-note", help="Raw video provenance; default rights not independently verified")
@@ -827,6 +830,10 @@ def main():
                 progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
+            if args.native_timing and args.video is None:
+                raise ValueError("--native-timing requires --video; saved bodies and worlds retain their own clocks")
+            if args.native_timing and args.pose_recovery is not None:
+                raise ValueError("--native-timing with --pose-recovery is not yet supported")
             if args.geometry_run is not None:
                 overrides = [name for name in ("evidence_run", "config", "human_run", "video", "pose_model", "pose_mode",
                     "pose_identity", "pose_recovery", "source_note", "body_scale", "static_supports", "training_seed",
@@ -870,6 +877,7 @@ def main():
                 human_run=args.human_run, body_scale=args.body_scale,
                 video=args.video, pose_model=args.pose_model, pose_mode=args.pose_mode,
                 pose_identity=args.pose_identity, source_note=args.source_note, pose_recovery=args.pose_recovery,
+                **({"native_timing": True} if args.native_timing else {}),
                 train_settings=train_options if args.train else None,
                 source_mappings=args.source_mapping, root_assistance=args.root_assistance,
                 full_reference=args.full_reference,
@@ -1071,6 +1079,8 @@ def main():
                     message += f" — {detail['decoded_frames']} decoded frames, {detail['sampled_frames']} sampled"
                 print(message, file=sys.stderr, flush=True)
             if args.evidence_run:
+                if args.native_timing:
+                    raise ValueError("--native-timing requires --video; use --native-clock to bind saved evidence")
                 if any(getattr(args, key) is not None for key in ("pose_model", "pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region")):
                     raise ValueError("Saved body evidence inherits its exact source/model/options; overrides are not supported")
                 destination = prepare_exercise_body_source_from_evidence(args.evidence_run, args.out,
@@ -1078,11 +1088,13 @@ def main():
                     **({"native_clock": args.native_clock} if args.native_clock is not None else {}))
             else:
                 if args.native_clock is not None:
-                    raise ValueError("--native-clock requires --evidence-run; live detector clock collection is not yet integrated")
+                    raise ValueError("--native-clock requires --evidence-run; use --native-timing to capture raw video timing")
                 if not args.pose_model:
                     raise ValueError("--video requires --pose-model; fetch-pose-model can prepare the pinned local model")
                 options = {key: getattr(args, key) for key in ("pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region")
                            if getattr(args, key) is not None}
+                if args.native_timing:
+                    options["native_timing"] = True
                 destination = prepare_exercise_body_source(args.video, args.out, pose_model=args.pose_model,
                     max_seconds=180 if args.max_seconds is None else args.max_seconds, progress=body_progress, **options)
             result = {"profile": "exercise-body-source-v1", "status": "construction_only",

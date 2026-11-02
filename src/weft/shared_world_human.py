@@ -204,7 +204,8 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
     inputs, total = {}, len(manifest_raw)
     for name, expected in declared.items():
         _check(deadline)
-        if any(part.startswith(".") or part == "__pycache__" for part in Path(name).parts) or name.endswith((".pyc", ".log")):
+        if (any(part.startswith(".") or part == "__pycache__" for part in Path(name).parts)
+                or name.endswith(".pyc") or name.endswith(".log") and name != "native-clock-decode.log"):
             raise ValueError("Body-source inputs must exclude hidden files, caches and logs")
         raw = read_package_file(source, name, max_bytes=min(MAX_FILE_BYTES, max(1, MAX_INPUT_BYTES - total)),
                                 expected_sha256=expected)
@@ -219,6 +220,8 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
     implementation_names = list(IMPLEMENTATION_FILES)
     if "native-clock.json" in inputs:
         implementation_names.append("source_clock.py")
+    if exercise_body_source.CAPTURE_FILES & inputs.keys():
+        implementation_names.append("source_clock_capture.py")
     proof_names = set()
     if "pose-recovery.json" in declared:
         from weft.pose_source_recovery import IMPLEMENTATION_FILES as RECOVERY_IMPLEMENTATION, PROOF_FILES
@@ -245,6 +248,8 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
         marker["source_artifact"], "inputs/source-manifest.json"}
     if "native_clock" in human:
         required |= {"native-clock.json", "reconstruction-evidence.json"}
+        if marker.get("construction", {}).get("native_clock_capture"):
+            required |= exercise_body_source.CAPTURE_FILES
     kept = {name: raw for name, raw in inputs.items() if name in required | _OPTIONAL or name.startswith("implementation-source/")}
     files = {**kept, "inputs/body-source-manifest.json": manifest_raw,
         binding["evidence_documents"][observation_sha]: observation_raw,

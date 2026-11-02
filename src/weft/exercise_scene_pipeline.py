@@ -150,8 +150,14 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
                            video=None, pose_model=None, pose_mode=None, pose_identity=None, source_note=None,
                            pose_recovery=None, train_settings=None, max_seconds=None, progress=None,
                            scene_scope="person_and_equipment", static_supports=None,
-                           geometry_run=None, geometry_manifest_sha256=None):
+                           geometry_run=None, geometry_manifest_sha256=None, native_timing=False):
     """Reuse the standard stages once; unsupported evidence stops before simulation is exposed."""
+    if type(native_timing) is not bool:
+        raise ValueError("Native timing must be explicitly enabled or disabled")
+    if native_timing and video is None:
+        raise ValueError("Native timing capture requires raw video; saved bodies and worlds retain their own clocks")
+    if native_timing and pose_recovery is not None:
+        raise ValueError("Native timing capture with selective-crop recovery is not yet supported")
     if geometry_run is not None:
         if (any(value is not None for value in (base_run, evidence_run, config_path, human_run, body_scale, video,
                 pose_model, pose_mode, pose_identity, source_note, pose_recovery, train_settings, static_supports))
@@ -290,6 +296,7 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         "human_run": str(source) if human_run is not None else None,
         "video": str(source) if video is not None else None,
         "pose_recovery": pose_recovery,
+        **({"native_timing": True, "reconstruction_clock": "source-native-clock-v1"} if native_timing else {}),
         "body_scale": float(resolved_scale) if human_run is not None or video is not None else None,
         "body_scale_scope": "Explicit body-height-to-world prior; not measured scale" if human_run is not None or video is not None else None,
         "evidence_run": str(evidence) if evidence is not None else None,
@@ -404,6 +411,8 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
             _reserve_stage(target, "body_source", deadline, limits=limits, allowance=body_allowance)
             stage("body_source", "running")
             extra = {"pose_proposals_out": target / "pose_proposals", "recovered_pose_out": target / "recovered_poses"} if pose_recovery is not None else {}
+            if native_timing:
+                extra["native_timing"] = True
             source = prepare_exercise_scene_body(raw_inputs, target / "body_source", deadline=deadline,
                 max_seconds=min(240 if pose_recovery is not None else 180, remaining()), progress=body_progress, **extra)
             if (person_only or static_support) and pose_recovery is None:

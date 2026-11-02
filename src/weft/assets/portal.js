@@ -6,10 +6,11 @@
   history.replaceState(null, "", location.pathname);
   let selected = null, timer = null, pending = false, uploading = false, lastProjects = "", lastDetail = "";
   let museAvailable = false, reviewing = false;
-  let checking = false;
+  let checking = false, repairing = false;
   let creatingSupport = false, selectedJob = null;
   const reviewActive = job => ["queued", "running", "cancelling"].includes(job.muse?.status);
   const checkActive = job => ["queued", "running", "cancelling"].includes(job.muse?.checks?.status);
+  const repairActive = job => ["queued", "running", "cancelling"].includes(job.muse?.repairs?.status);
   const terminal = new Set(["ready", "failed", "cancelled", "interrupted"]);
   const labels = {queued:"Queued",uploading:"Uploading",running:"Processing",ready:"Ready to explore",failed:"Needs attention",cancelled:"Cancelled",interrupted:"Interrupted"};
   const error = message => { $("error").textContent = message; $("error").hidden = false; };
@@ -28,7 +29,7 @@
     if (!job) return;
     selected = job.id;
     selectedJob = job;
-    const signature = JSON.stringify([job, museAvailable, reviewing, checking]);
+    const signature = JSON.stringify([job, museAvailable, reviewing, checking, repairing]);
     if (lastDetail === signature) return;
     lastDetail = signature;
     $("project").hidden = false;
@@ -36,8 +37,18 @@
     $("project-status").textContent = labels[job.status] || job.status;
     $("project-error").hidden = !job.error;
     $("project-error").textContent = job.error || "";
-    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job) && !checkActive(job);
-    $("cancel").textContent = checkActive(job) ? "Cancel local checks" : reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
+    const readiness = job.status === "failed" ? job.reconstruction_readiness : null;
+    $("reconstruction-readiness").hidden = !readiness;
+    if (readiness) {
+      $("readiness-coverage").textContent = `${readiness.usable_samples} of ${readiness.sampled_frames} sampled poses usable (${(readiness.usable_fraction * 100).toFixed(1)}%); ${(readiness.minimum_usable_fraction * 100).toFixed(0)}% required. ${readiness.competing_samples} frames have competing pose hypotheses.`;
+      const gap = readiness.longest_gap;
+      const clock = readiness.time_basis === "native_pts_elapsed_time" ? "native video time" : "estimated frame-rate time, not native timestamps";
+      $("readiness-gap").textContent = gap ? `Longest unclear interval: ${gap.first_time_s.toFixed(2)}–${gap.last_time_s.toFixed(2)} seconds (${clock}); ${gap.sample_count} sampled poses. Missing poses were not filled in.` : `No unusable pose interval found (${clock}); inspect the original construction error.`;
+      $("readiness-retry").textContent = readiness.retry_reason;
+    }
+    artifactLink("readiness-download", job, "analysis/reconstruction-readiness.json", !!readiness);
+    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job) && !checkActive(job) && !repairActive(job);
+    $("cancel").textContent = repairActive(job) ? "Cancel suggestion tests" : checkActive(job) ? "Cancel local checks" : reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
     const stage = {source:"reconstruct",observe:"reconstruct",world:"reconstruct",repair:"reconstruct",evaluate:"reconstruct",render:"train",starting:"analyze",queued:"upload"}[job.stage] || job.stage;
     const names = ["upload", "analyze", "reconstruct", "train", "ready"], current = names.indexOf(stage);
     document.querySelectorAll("#steps li").forEach(node => {
@@ -101,6 +112,24 @@
       const a = document.createElement("a"); a.textContent = `${controls[trial.condition] || trial.condition} actions and states`; a.className = "text-link";
       a.href = fileURL(job.id, "muse/checks/" + trial.trace); a.download = trial.trace; return a;
     }));
+    const repairs = job.muse?.repairs, repairReport = repairs?.report, repairAvailability = job.muse?.repair_availability;
+    $("repair-comparison").hidden = job.muse?.status !== "proposed" && !repairs;
+    $("run-repairs").hidden = !repairAvailability?.available || !!repairs;
+    $("run-repairs").disabled = repairing;
+    $("repairs-status").textContent = repairs?.message || repairs?.error || repairs?.status || repairAvailability?.reason || "A supported evidence-linked control or articulation hypothesis is required.";
+    $("repairs-outcome").textContent = repairReport ? (repairReport.accepted_in_simulation
+      ? `Candidate ${repairReport.selected_candidate} improved the fixed simulator score. Nothing was applied.`
+      : "No candidate improved enough. The original controller remains unchanged.") : "";
+    const score = value => Number.isFinite(value) ? value.toFixed(4) : "not available";
+    $("repairs-results").replaceChildren(...(repairReport?.candidates || []).slice(0, 3).map(candidate => {
+      const li = document.createElement("li");
+      li.textContent = `${candidate.id}: score ${score(candidate.candidate_score)} vs original ${score(candidate.baseline_score)} · original task gates: ${candidate.all_original_gates_passed ? "passed" : "not passed"} · ${candidate.accepted_in_simulation ? "improved in simulation, not applied" : "rejected"}. ${candidate.reason || ""}`;
+      return li;
+    }));
+    artifactLink("repairs-report-download", job, "muse/repairs/run/report.json", !!repairReport);
+    artifactLink("repairs-plan-download", job, "muse/repairs/run/plan.json", !!repairReport);
+    artifactLink("repairs-runtime-download", job, "muse/repairs/run/runtime-source.json", !!repairReport);
+    artifactLink("repairs-manifest-download", job, "muse/repairs/run/manifest.json", !!repairReport);
     if (job.plan && $("frame-previews").dataset.job !== job.id) {
       $("frame-previews").dataset.job = job.id;
       $("frame-previews").replaceChildren();
@@ -144,7 +173,7 @@
       if (!selected && data.jobs.length) selected = data.jobs[0].id;
       await show(data.jobs.find(job => job.id === selected));
       $("create").disabled = uploading;
-      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job));
+      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job));
       timer = setTimeout(refresh, active ? 1500 : 12000);
     } catch (e) { error(e.message); $("connection").textContent = "Connection needs attention"; timer = setTimeout(refresh, 12000); }
     finally { pending = false; }
@@ -191,6 +220,16 @@
       if (selected === identity) await show(job);
     } catch (e) { error(e.message); }
     finally { checking = false; lastDetail = ""; refresh(); }
+  };
+  $("run-repairs").onclick = async () => {
+    if (!selected || repairing || !selectedJob?.muse?.repair_availability?.available || selectedJob?.muse?.repairs) return;
+    repairing = true; $("run-repairs").disabled = true;
+    const identity = selected;
+    try {
+      const job = await request(`/api/projects/${identity}/muse/repairs`, {method:"POST"});
+      if (selected === identity) await show(job);
+    } catch (e) { error(`${e.message}. Existing comparison evidence will not be retried or overwritten.`); }
+    finally { repairing = false; lastDetail = ""; refresh(); }
   };
   $("support-form").onsubmit = async event => {
     event.preventDefault();

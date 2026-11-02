@@ -78,6 +78,18 @@ def test_saved_native_clock_is_explicit_and_forwarded(calls, monkeypatch):
     assert calls == [("saved", "saved", "body", {"max_seconds": 30, "native_clock": "clock.json"})]
 
 
+def test_raw_native_timing_is_explicit_and_forwarded(calls, monkeypatch):
+    invoke(monkeypatch, ["--video", "video.mp4", "--pose-model", "pose.task", "--native-timing", "--out", "body"])
+    assert calls == [("raw", "video.mp4", "body", {"pose_model": "pose.task", "max_seconds": 180, "native_timing": True})]
+
+
+@pytest.mark.parametrize("options", [["--native-timing"], ["--native-timing", "--native-clock", "clock.json"]])
+def test_saved_capture_or_conflicting_clock_options_fail_before_preparation(calls, monkeypatch, options):
+    with pytest.raises(SystemExit):
+        invoke(monkeypatch, ["--evidence-run", "saved", "--out", "body", *options])
+    assert not calls
+
+
 def test_raw_clock_without_complete_decode_is_rejected(calls, monkeypatch):
     with pytest.raises(SystemExit) as error:
         invoke(monkeypatch, ["--video", "video.mp4", "--pose-model", "pose.task",

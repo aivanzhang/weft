@@ -21,6 +21,7 @@ from weft.lab_worker import atomic_json
 from weft.openai_access import MODEL, PROJECT_ROOT, OpenAIBudget, credential_status
 from weft.portal_review import TERMINAL as REVIEW_TERMINAL, availability as muse_availability
 from weft.portal_checks import TERMINAL as CHECK_TERMINAL
+from weft.portal_repair_jobs import TERMINAL as REPAIR_TERMINAL, availability as repair_availability, read_small_report
 from weft.portal_supports import body_path
 from weft.portal_lab_runtime import open_portal_lab
 
@@ -85,6 +86,9 @@ class Portal:
                 checks = folder / "muse/checks/status.json"
                 if checks.is_file() and bounded_json(checks)["status"] not in CHECK_TERMINAL:
                     atomic_json(checks, {"status": "interrupted", "message": "Portal restarted during local checks; partial traces preserved."})
+                repairs = folder / "muse/repairs/status.json"
+                if repairs.is_file() and bounded_json(repairs)["status"] not in REPAIR_TERMINAL:
+                    atomic_json(repairs, {"status": "interrupted", "message": "Portal restarted during candidate testing; partial results preserved, no automatic retry.", "applied": False})
             self.thread = threading.Thread(target=self._work, name="weft-portal-queue", daemon=True) if start else None
             if self.thread:
                 self.thread.start()
@@ -123,12 +127,22 @@ class Portal:
                 path = folder / "analysis" / (name + ".json")
                 if path.is_file():
                     result[name] = bounded_json(path)
+            if status["status"] == "failed":
+                path = folder / "analysis/reconstruction-readiness-summary.json"
+                try:
+                    summary = bounded_json(path, maximum=8192)
+                    if (summary.get("profile") == "portal-reconstruction-readiness-summary-v1"
+                            and summary.get("source_sha256") == config["source_sha256"]):
+                        result["reconstruction_readiness"] = summary
+                except (OSError, ValueError, AttributeError):
+                    pass
             result["sandbox"] = f"/labs/{identity}/" if status["status"] == "ready" else None
             result["support_experiment_available"] = (status["status"] == "ready" and status.get("route") == "exercise"
                 and result["kind"] == "video" and (body_path(folder, config) / "manifest.json").is_file())
             review = folder / "muse/status.json"
             if review.is_file():
                 result["muse"] = bounded_json(review)
+                result["muse"]["repair_availability"] = repair_availability(folder)
                 for field, name in (("receipt", "advisor-call"), ("proposal", "hypotheses")):
                     path = folder / "muse/advice" / (name + ".json")
                     if path.is_file():
@@ -143,6 +157,11 @@ class Portal:
                     report = folder / "muse/checks/report.json"
                     if result["muse"]["checks"]["status"] == "complete":
                         result["muse"]["checks"]["report"] = bounded_json(report, maximum=256_000)
+                repairs = folder / "muse/repairs/status.json"
+                if repairs.is_file():
+                    result["muse"]["repairs"] = bounded_json(repairs)
+                    if result["muse"]["repairs"]["status"] == "complete":
+                        result["muse"]["repairs"]["report"] = read_small_report(folder)
             return result
 
     def info(self):
@@ -215,21 +234,26 @@ class Portal:
                 identity = next((i for i in self.jobs if self._status(i)["status"] == "queued"), None)
                 review = False
                 checks = False
+                repairs = False
                 if identity is None:
                     identity = next((i for i in self.jobs if self._review_status(i).get("status") == "queued"), None)
                     review = identity is not None
                 if identity is None:
                     identity = next((i for i in self.jobs if self._check_status(i).get("status") == "queued"), None)
                     checks = identity is not None
+                if identity is None:
+                    identity = next((i for i in self.jobs if self._repair_status(i).get("status") == "queued"), None)
+                    repairs = identity is not None
                 if identity:
                     self.active = identity
-                    target = self._folder(identity) / ("muse/checks/status.json" if checks else "muse/status.json" if review else "status.json")
-                    atomic_json(target, {"status": "running", "stage": "starting", "events": []})
+                    target = self._folder(identity) / ("muse/repairs/status.json" if repairs else "muse/checks/status.json" if checks else "muse/status.json" if review else "status.json")
+                    if not repairs:
+                        atomic_json(target, {"status": "running", "stage": "starting", "events": []})
             if identity is None:
                 self.wake.wait(1)
                 self.wake.clear()
                 continue
-            self._run(identity, review=review, checks=checks)
+            self._run(identity, review=review, checks=checks, **({"repairs": True} if repairs else {}))
             with self.lock:
                 self.active, self.process = None, None
 
@@ -293,6 +317,27 @@ class Portal:
         path = self._folder(identity) / "muse/checks/status.json"
         return bounded_json(path) if path.is_file() else {}
 
+    def _repair_status(self, identity):
+        path = self._folder(identity) / "muse/repairs/status.json"
+        return bounded_json(path) if path.is_file() else {}
+
+    def repair(self, identity):
+        with self.lock:
+            root = self._folder(identity)
+            folder = root / "muse/repairs"
+            if folder.exists():
+                return self.summary(identity)
+            available = repair_availability(root)
+            if not available["available"]:
+                raise ValueError(available["reason"])
+            if sum(self._repair_status(i).get("status") in {"queued", "running"} for i in self.jobs) >= 4:
+                raise ValueError("Candidate comparison queue is full")
+            folder.mkdir(mode=0o700)
+            atomic_json(folder / "status.json", {"status": "queued", "message": "Waiting to test bounded suggestions; no new AI request and no automatic application.",
+                "requested_at": local_time(), "applied": False})
+            self.wake.set()
+            return self.summary(identity)
+
     def check(self, identity):
         with self.lock:
             folder = self._folder(identity) / "muse/checks"
@@ -323,15 +368,15 @@ class Portal:
             self.wake.set()
             return self.summary(identity)
 
-    def _run(self, identity, *, review=False, checks=False):
+    def _run(self, identity, *, review=False, checks=False, repairs=False):
         folder = self._folder(identity)
-        work = folder / "muse/checks" if checks else folder / "muse" if review else folder
-        terminal = CHECK_TERMINAL if checks else REVIEW_TERMINAL if review else TERMINAL
+        work = folder / "muse/repairs" if repairs else folder / "muse/checks" if checks else folder / "muse" if review else folder
+        terminal = REPAIR_TERMINAL if repairs else CHECK_TERMINAL if checks else REVIEW_TERMINAL if review else TERMINAL
         env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "PYTHONPATH": str(Path(__file__).resolve().parent.parent),
                "PYTHONUNBUFFERED": "1", "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1",
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MPLCONFIGDIR": str(folder / "runtime/matplotlib")}
-        support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks)
-        if not (review or checks or support) and os.environ.get("OPENAI_API_KEY"):
+        support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks or repairs)
+        if not (review or checks or repairs or support) and os.environ.get("OPENAI_API_KEY"):
             env["OPENAI_API_KEY"] = os.environ["OPENAI_API_KEY"]
         if review:
             for name in ("META_API_KEY", "MODEL_API_KEY"):
@@ -341,12 +386,12 @@ class Portal:
         reason = None
         try:
             with (work / "worker.log").open("xb") as log:
-                mode = ["checks"] if checks else ["review"] if review else ["supports"] if support else []
+                mode = ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else []
                 process = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.portal_worker", str(folder), str(self.project), *mode],
                                            stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, env=env)
                 with self.lock:
                     self.process = process
-                deadline = time.monotonic() + (60 if checks else 90 if review else 420)
+                deadline = time.monotonic() + (65 if repairs else 60 if checks else 90 if review else 420)
                 next_inventory = 0
                 while process.poll() is None:
                     if self.stopping.wait(.5):
@@ -390,6 +435,17 @@ class Portal:
 
     def cancel(self, identity):
         with self.lock:
+            repairs = self._repair_status(identity)
+            queued_repair_next = (repairs.get("status") == "queued"
+                and self._check_status(identity).get("status") not in {"queued", "running", "cancelling"}
+                and self._review_status(identity).get("status") in REVIEW_TERMINAL)
+            if repairs.get("status") in {"running", "cancelling"} or queued_repair_next:
+                folder = self._folder(identity) / "muse/repairs"
+                atomic_json(folder / "cancel-request.json", {"requested_at": local_time()})
+                atomic_json(folder / "status.json", {**repairs,
+                    "status": "cancelling" if repairs["status"] in {"running", "cancelling"} else "cancelled",
+                    "message": "Candidate testing cancelled; original simulation and partial results preserved.", "applied": False})
+                return self.summary(identity)
             checks = self._check_status(identity)
             if checks and checks["status"] not in CHECK_TERMINAL:
                 folder = self._folder(identity) / "muse/checks"
@@ -440,7 +496,7 @@ class Portal:
         if not file.is_relative_to(folder) or not file.is_file():
             raise ValueError("Artifact is outside this project")
         relative = file.relative_to(folder).as_posix()
-        if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity]["source_file"], "failure.json", "worker.log", "muse/binding.json", "support-priors.json", "body-reuse.json"}:
+        if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "muse/repairs/run/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity]["source_file"], "failure.json", "worker.log", "muse/binding.json", "support-priors.json", "body-reuse.json"}:
             raise ValueError("File is not a public project artifact")
         return file
 
@@ -541,6 +597,11 @@ class PortalHandler(LabHandler):
                 if int(self.headers.get("Content-Length", "0")) != 0:
                     raise ValueError("Local checks take no arguments")
                 return self.reply(self.server.portal.check(match[1]), 202)
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/muse/repairs", path)
+            if match:
+                if int(self.headers.get("Content-Length", "0")) != 0:
+                    raise ValueError("Candidate testing takes no arguments")
+                return self.reply(self.server.portal.repair(match[1]), 202)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/supports", path)
             if match:
                 length = int(self.headers.get("Content-Length", "0"))

@@ -9,15 +9,16 @@ import time
 
 
 def main():
-    resource.setrlimit(resource.RLIMIT_CPU, (360, 360))
+    repairs = len(sys.argv) == 4 and sys.argv[3] == "repairs"
+    cpu_limit = 65 if repairs else 360
+    resource.setrlimit(resource.RLIMIT_CPU, (cpu_limit, cpu_limit))
     resource.setrlimit(resource.RLIMIT_FSIZE, (512 * 1024**2, 512 * 1024**2))
-    from weft.portal_pipeline import execute_job
     from weft.lab_worker import atomic_json
     root = Path(sys.argv[1])
     review = len(sys.argv) == 4 and sys.argv[3] == "review"
     checks = len(sys.argv) == 4 and sys.argv[3] == "checks"
     supports = len(sys.argv) == 4 and sys.argv[3] == "supports"
-    work = root / "muse/checks" if checks else root / "muse" if review else root
+    work = root / "muse/repairs" if repairs else root / "muse/checks" if checks else root / "muse" if review else root
     stopped = threading.Event()
     started = time.monotonic()
 
@@ -32,7 +33,10 @@ def main():
                 os._exit(74)
 
     threading.Thread(target=monitor, name="weft-resource-limit", daemon=True).start()
-    if supports:
+    if repairs:
+        from weft.portal_repair_jobs import execute_repair_job
+        result = execute_repair_job(root)
+    elif supports:
         from weft.portal_supports import execute_support_job
         result = execute_support_job(root)
     elif checks:
@@ -42,6 +46,7 @@ def main():
         from weft.portal_review import execute_review
         result = execute_review(root, project=Path(sys.argv[2]))
     else:
+        from weft.portal_pipeline import execute_job
         result = execute_job(root, project=Path(sys.argv[2]))
     stopped.set()
     atomic_json(work / "worker-receipt.json", {"exit_code": result, "seconds": time.monotonic() - started,

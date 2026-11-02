@@ -8,7 +8,7 @@ import time
 import numpy as np
 
 from weft.io import canonical_hash, digest, local_time
-from weft.shared_exercise_lab import NATIVE_SOURCE_VIEWS, _json, _runtime_versions, _verified_inputs, native_source_views
+from weft.shared_exercise_lab import _json, _runtime_versions, _verified_inputs, native_source_input_names, native_source_views
 from weft.shared_exercise_learning import (
     POLICY_RUNTIME_FILES as BASE_RUNTIME_FILES,
     _bytes, _context, _integer, _output_path, _package, _score, _seconds, _seed_plan, _sha, _source, _write,
@@ -180,7 +180,7 @@ def _terminal_manifest(raw):
 def source_view_names(scene=None):
     names = SOURCE_VIEWS
     if scene is not None and "native_clock" in scene.get("human_spec", {}):
-        names |= NATIVE_SOURCE_VIEWS
+        names |= native_source_input_names(scene)
     if scene is not None and scene["profile"] == HUMAN_ONLY_PROFILE:
         return names | {"inventory.json", "source-clock.json"}
     if scene is not None and scene["profile"] == STATIC_SUPPORT_PROFILE:
@@ -198,7 +198,10 @@ def _source_views(source, manifest, scene=None):
     if {"support-config.json", "inputs/support-config.json"} <= files.keys() and files["support-config.json"] != files["inputs/support-config.json"]:
         raise ValueError("Static-support configuration views differ")
     if scene is not None:
-        native_source_views(files, scene)
+        native = native_source_views(files, scene)
+        proof_names = set(scene.get("source_binding", {}).get("evidence_documents", {}).values())
+        files = {name: raw for name, raw in files.items() if name not in proof_names}
+        files.update(native)
     return files
 
 

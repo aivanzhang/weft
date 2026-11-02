@@ -9,7 +9,7 @@ import time
 import numpy as np
 
 from weft.io import canonical_hash, local_time
-from weft.shared_exercise_lab import _json, _validate_policy_package, _verified_inputs
+from weft.shared_exercise_lab import _json, _validate_policy_package, _verified_inputs, native_source_views
 from weft.shared_exercise_policies import selection_kind
 from weft.shared_exercise_residual_learning import (
     ALGORITHM, BASIS_PROFILE, MAX_CONTROL_STEPS, MAX_OUTPUT_BYTES, MAX_OUTPUT_FILES, RESIDUAL_BOUND,
@@ -212,6 +212,17 @@ def _trial(row, scene, task, policy, seed, reset):
             raise ValueError("Selection equipment maxima cannot decrease from reset")
 
 
+def _source_view_hashes(files, scene):
+    views = {name: files[name] for name in sorted(source_view_names(scene) & files.keys())}
+    if "native_clock" in scene.get("human_spec", {}):
+        native = native_source_views(views, scene)
+        proofs = set(scene.get("source_binding", {}).get("evidence_documents", {}).values())
+        # The generator seals observation proofs separately from its displayed source views.
+        views = {name: raw for name, raw in views.items() if name not in proofs}
+        views.update(native)
+    return {name: _sha(raw) for name, raw in views.items()}
+
+
 def _history(files, scene, task, policy, deadline):
     settings, training = _json(files["settings.json"]), _json(files["training.json"])
     generations, population = settings.get("generations"), settings.get("population")
@@ -236,7 +247,7 @@ def _history(files, scene, task, policy, deadline):
         "candidate_anchors": ["zero_residual_authored", "previous_best_after_first_generation"],
         "action_accounting": "All anchors and candidates are in population; identical cached trials issue zero new actions; no retries",
         "source_scope": task["source_scope"], "scope": SCOPE,
-        "source_views_sha256": {name: _sha(files[name]) for name in sorted(source_view_names(scene) & set(files))}}
+        "source_views_sha256": _source_view_hashes(files, scene)}
     if set(settings) != set(expected) | {"created_at", "generations", "population", "max_seconds"} or any(settings.get(k) != v for k, v in expected.items()):
         raise ValueError("Selection input search settings differ from the frozen generator contract")
     for name, value in expected.items():

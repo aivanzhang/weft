@@ -23,6 +23,7 @@
 <div class="section-heading"><div><p class="eyebrow">CURRENT PROJECT</p><h2 id="project-heading"></h2></div><button id="cancel" class="secondary" type="button" hidden>Cancel processing</button></div>
 <ol id="steps" class="steps"><li data-stage="upload">1. Upload</li><li data-stage="analyze">2. Understand</li><li data-stage="reconstruct">3. Build &amp; check</li><li data-stage="train">4. Learn</li><li data-stage="ready">5. Interact &amp; record</li></ol>
 <p id="project-status" role="status"></p><p id="project-error" class="notice" hidden></p>
+<section id="reconstruction-readiness" aria-labelledby="readiness-heading" hidden><h3 id="readiness-heading">What prevented reconstruction</h3><p id="readiness-coverage"></p><p id="readiness-gap"></p><p id="readiness-retry"></p><p class="hint">These counts describe visible, confident pose estimates—not physical accuracy. Ground, equipment contact and camera geometry remain unverified. No automatic retry was run.</p><a id="readiness-download" class="text-link" hidden>Download full reconstruction diagnostic</a></section>
 <div id="analysis" hidden><h3>What AI identified</h3><p id="analysis-summary"></p><ul id="analysis-warnings"></ul><div id="frame-previews" class="previews"></div><p class="hint">Sampled frames guide a proposal. They are not verified 3D geometry, calibrated contact, or measured muscle activity.</p></div>
 <div class="actions"><a id="sandbox" class="button" hidden>Open interactive sandbox →</a><a id="source-download" class="text-link" hidden>Original video</a><a id="plan-download" class="text-link" hidden>Scene analysis</a><a id="receipt-download" class="text-link" hidden>API usage receipt</a><a id="failure-download" class="text-link" hidden>Failure details</a></div>
 <p id="sandbox-help" class="hint" hidden>In the sandbox: inspect the original and tracked video, rotate the 3D view, switch controls, then start a recording. Saved actions, replay and exports remain with this project.</p>
@@ -48,6 +49,12 @@
 <div class="actions"><a id="muse-proposal-download" class="text-link" hidden>Full proposals</a><a id="muse-context-download" class="text-link" hidden>Evidence sent to Muse</a><a id="muse-receipt-download" class="text-link" hidden>Meta API receipt</a></div>
 <button id="run-checks" type="button" class="secondary" hidden>Run local comparisons · no API charge</button><p id="checks-status" role="status"></p><ul id="checks-results"></ul><a id="checks-report-download" class="text-link" hidden>Comparison report</a><div id="checks-traces" class="actions"></div>
 <p id="checks-help" class="hint" hidden>These are fixed simulation experiments under the original task, not model-generated code or execution of Muse’s requested physical measurements. They do not apply repairs, establish real contact, or prove biomechanics.</p>
+<section id="repair-comparison" hidden aria-labelledby="repair-heading"><h4 id="repair-heading">Test Muse suggestions</h4>
+<p class="hint">Compare up to three locally authored controller settings prompted by Muse’s review. At most one minute, no API charge. The world, task and original policy stay unchanged.</p>
+<button id="run-repairs" type="button" class="secondary" hidden>Test Muse suggestions · no API charge</button>
+<p id="repairs-status" role="status"></p><p id="repairs-outcome"></p><ul id="repairs-results"></ul>
+<div class="actions"><a id="repairs-report-download" class="text-link" hidden>Candidate comparison</a><a id="repairs-plan-download" class="text-link" hidden>Frozen test plan</a><a id="repairs-runtime-download" class="text-link" hidden>Saved runtime source</a><a id="repairs-manifest-download" class="text-link" hidden>Artifact manifest</a></div>
+<p class="hint">A better simulator score does not verify Muse’s physical claims, recover equipment contact or apply a new controller.</p></section>
 <p class="hint">Proposals are untested and not applied. Suggested experiments are not results; no physical accuracy or measured muscle activity is established by this review.</p></section>
 <details><summary>Processing log</summary><ol id="events" class="events"></ol></details>
 </section>

@@ -1,7 +1,8 @@
 """Offline trusted-export and isolated-pipe tests; no Git process or physical simulation."""
 
 from concurrent.futures import ThreadPoolExecutor
-from hashlib import sha1
+from hashlib import sha1, sha256
+import json
 from pathlib import Path
 import textwrap
 
@@ -55,7 +56,7 @@ def fake_exporter(monkeypatch, files):
     def git(project, *args, limit, data=None):
         calls.append(args)
         if args[0] == 'ls-tree':
-            assert args[3] == runtime.TRUSTED_COMMIT
+            assert args[3] in runtime.TRUSTED_RELEASES
             return b''.join(entries)
         assert args == ('cat-file', '--batch') and len(data) <= 12 << 10
         return b''.join(oid + b' blob ' + str(len(blobs[oid.decode()])).encode() + b'\n'
@@ -175,7 +176,7 @@ def test_request_and_response_bounds_are_enforced(archive):
         lab.close()
 
 
-@pytest.mark.parametrize('error', [None, 'corrupt evidence', runtime.RUNTIME_MISMATCH])
+@pytest.mark.parametrize('error', [None, 'corrupt evidence', *runtime.COMPATIBILITY_ERRORS])
 def test_factory_falls_back_only_for_exact_runtime_mismatch(tmp_path, monkeypatch, error):
     from weft import lab as current
     calls = []
@@ -185,7 +186,7 @@ def test_factory_falls_back_only_for_exact_runtime_mismatch(tmp_path, monkeypatc
             if error: raise ValueError(error)
         def close(self): calls.append('closed')
     monkeypatch.setattr(current, 'Lab', Local)
-    monkeypatch.setattr(runtime, 'prepare_runtime', lambda project: calls.append('trusted') or project)
+    monkeypatch.setattr(runtime, 'compatible_runtime', lambda root, project: calls.append('trusted') or project)
     monkeypatch.setattr(runtime, 'ArchivedLab', lambda root, saved: calls.append('archived') or 'proxy')
     if error == 'corrupt evidence':
         with pytest.raises(ValueError, match=error): runtime.open_portal_lab(tmp_path, project=tmp_path)
@@ -196,3 +197,95 @@ def test_factory_falls_back_only_for_exact_runtime_mismatch(tmp_path, monkeypatc
     else:
         assert isinstance(runtime.open_portal_lab(tmp_path, project=tmp_path), Local)
         assert calls == ['current']
+
+
+def sealed_selection(root, physics, policy):
+    def encode(value): return (json.dumps(value, sort_keys=True) + '\n').encode()
+    (root / 'run').mkdir(parents=True, exist_ok=True)
+    contract = {'runtime_sha256': physics, 'implementation_sha256': physics,
+                'learned_policy_available': policy is not None, 'scene_sha256': 'a' * 64, 'task_sha256': 'b' * 64}
+    files = {'lab-implementation/' + name: pin for name, pin in physics.items()}
+    config = {'control_profile': 'shared_exercise', **{key: contract[key] for key in
+              ('scene_sha256', 'task_sha256', 'learned_policy_available')}}
+    if policy is not None:
+        raw = encode({'runtime_sha256': policy})
+        (root / 'run/policy.json').write_bytes(raw)
+        files['policy.json'] = sha256(raw).hexdigest()
+        contract.update(policy_runtime_sha256=policy, policy_sha256=files['policy.json'])
+        config['policy_sha256'] = files['policy.json']
+    raw = encode(contract)
+    (root / 'run/exercise-lab.json').write_bytes(raw)
+    files['exercise-lab.json'] = sha256(raw).hexdigest()
+    raw = encode({'status': 'ready', 'control_profile': 'shared_exercise', 'files': files})
+    (root / 'run/manifest.json').write_bytes(raw)
+    config['manifest_sha256'] = sha256(raw).hexdigest()
+    (root / 'lab-config.json').write_bytes(encode(config))
+
+
+def test_policy_only_runtime_difference_selects_matching_release(tmp_path, monkeypatch):
+    exporter = runtime._exporter(Path(__file__).parents[1])
+    physics_raw = (Path(runtime.__file__).parent / 'human.py').read_bytes()
+    physics = {'human.py': sha256(physics_raw).hexdigest()}
+    policy = {**physics, 'shared_exercise_learning.py': sha256(b'old policy runtime').hexdigest()}
+    root = tmp_path / 'lab'
+    sealed_selection(root, physics, policy)
+    saved = {}
+    for index, commit in enumerate(runtime.TRUSTED_RELEASES):
+        package = tmp_path / commit / 'src/weft'
+        package.mkdir(parents=True)
+        (package / 'human.py').write_bytes(physics_raw)
+        (package / 'shared_exercise_learning.py').write_bytes(b'wrong policy runtime' if index == 0 else b'old policy runtime')
+        saved[commit] = package.parent.parent
+    monkeypatch.setattr(runtime, '_exporter', lambda project: exporter)
+    calls = []
+    monkeypatch.setattr(runtime, 'prepare_runtime', lambda project, trusted_commit: calls.append(trusted_commit) or saved[trusted_commit])
+    assert runtime.compatible_runtime(root, tmp_path) == saved[runtime.TRUSTED_RELEASES[1]]
+    assert calls == list(runtime.TRUSTED_RELEASES)
+
+
+@pytest.mark.parametrize('change', ['unsealed_policy', 'manifest', 'overlap', 'path', 'unknown'])
+def test_invalid_or_unknown_sealed_runtime_cannot_select_code(tmp_path, monkeypatch, change):
+    physics = {'human.py': 'a' * 64}
+    policy = {**physics, 'shared_exercise_learning.py': 'b' * 64}
+    if change == 'overlap': policy['human.py'] = 'c' * 64
+    if change == 'path': policy['../escape.py'] = 'b' * 64
+    root = tmp_path / 'lab'
+    sealed_selection(root, physics, policy)
+    if change == 'unsealed_policy': (root / 'run/policy.json').write_text('{}')
+    if change == 'manifest': (root / 'run/manifest.json').write_text('{}')
+    calls = []
+    def export(project, trusted_commit):
+        calls.append(trusted_commit)
+        package = tmp_path / trusted_commit / 'src/weft'
+        package.mkdir(parents=True)
+        (package / 'human.py').write_bytes(b'unknown runtime')
+        return package.parent.parent
+    monkeypatch.setattr(runtime, 'prepare_runtime', export)
+    with pytest.raises(ValueError):
+        runtime.compatible_runtime(root, Path(__file__).parents[1])
+    assert bool(calls) is (change == 'unknown')
+
+
+def test_matching_current_runtime_cannot_hide_invalid_evidence(tmp_path, monkeypatch):
+    raw = (Path(runtime.__file__).parent / 'human.py').read_bytes()
+    sealed_selection(tmp_path / 'lab', {'human.py': sha256(raw).hexdigest()}, None)
+    monkeypatch.setattr(runtime, 'prepare_runtime', lambda *args, **kw: pytest.fail('No archived export needed'))
+    with pytest.raises(ValueError, match='already match current'):
+        runtime.compatible_runtime(tmp_path / 'lab', Path(__file__).parents[1])
+
+
+def test_second_fixed_release_exports_and_reports_selected_commit(tmp_path, monkeypatch):
+    files = {'src/weft/__init__.py': b'', 'src/weft/lab.py': LAB,
+             'src/weft/shared_exercise_lab.py': b'', 'pyproject.toml': b'', 'requirements-lab.lock': b''}
+    fake_exporter(monkeypatch, files)
+    selected = runtime.TRUSTED_RELEASES[0]
+    saved = runtime.prepare_runtime(tmp_path, trusted_commit=selected)
+    root = tmp_path / 'lab'
+    root.mkdir()
+    lab = runtime.ArchivedLab(root, saved)
+    try:
+        assert lab.summary()['execution_runtime']['git_commit'] == selected
+    finally:
+        lab.close()
+    with pytest.raises(ValueError, match='fixed trusted'):
+        runtime.prepare_runtime(tmp_path, trusted_commit='a' * 40)

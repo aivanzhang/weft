@@ -1,6 +1,7 @@
-"""Run incompatible saved labs in one fixed release, never in artifact-supplied code."""
+"""Run incompatible saved labs in fixed trusted releases, never artifact-supplied code."""
 
 import argparse
+import hashlib
 import importlib.util
 import json
 import os
@@ -15,11 +16,15 @@ import uuid
 
 
 TRUSTED_COMMIT = "5819ba452aa65b492cdf586b53dc827045d0d5ba"
+TRUSTED_RELEASES = ("64f4bef5d721100edc2a3a347d386dfbbea35c28", TRUSTED_COMMIT)
 MAX_REQUEST = 8192
 MAX_RESPONSE = 8 << 20
 METHODS = frozenset({"summary", "control", "exercise_coverage", "inspection", "recording_inspection",
                      "recording_evidence", "state", "close"})
 RUNTIME_MISMATCH = "Exercise physics/evaluator runtime differs; use the pinned implementation or prepare a new lab"
+COMPATIBILITY_ERRORS = frozenset({RUNTIME_MISMATCH,
+    "Exercise residual policy task, scene, evaluator or runtime differs",
+    "Feedback residual source, task, gates or runtime differs"})
 
 
 def _exporter(project):
@@ -30,11 +35,13 @@ def _exporter(project):
     return module
 
 
-def prepare_runtime(project):
+def prepare_runtime(project, *, trusted_commit=TRUSTED_COMMIT):
     """Reuse the trusted export's no-follow reads, Git isolation and exclusive publication."""
     project = Path(project).absolute()
+    if trusted_commit not in TRUSTED_RELEASES:
+        raise ValueError("Portal runtime must be a fixed trusted release")
     exporter = _exporter(project)
-    raw = exporter._git(project, "ls-tree", "-rz", "--long", TRUSTED_COMMIT, "--",
+    raw = exporter._git(project, "ls-tree", "-rz", "--long", trusted_commit, "--",
                         "src/weft", "pyproject.toml", "requirements-lab.lock", limit=256 << 10)
     rows, total = {}, 0
     for entry in raw.split(b"\0"):
@@ -57,10 +64,10 @@ def prepare_runtime(project):
         raise ValueError("Trusted portal runtime lacks required files")
     parent = project / ".local/portal-lab-runtime"
     directory = exporter._directory(parent, create=True)
-    runtime = parent / TRUSTED_COMMIT
+    runtime = parent / trusted_commit
     try:
         try:
-            os.stat(TRUSTED_COMMIT, dir_fd=directory, follow_symlinks=False)
+            os.stat(trusted_commit, dir_fd=directory, follow_symlinks=False)
         except FileNotFoundError:
             entries = list(rows.values())
             data = b"".join(exporter._git(project, "cat-file", "--batch",
@@ -86,11 +93,87 @@ def prepare_runtime(project):
             if offset != len(data):
                 raise ValueError("Trusted portal runtime export contains trailing bytes")
             exporter._verify_cache(parent / staged, rows)
-            exporter._publish(directory, staged, TRUSTED_COMMIT)
+            exporter._publish(directory, staged, trusted_commit)
         exporter._verify_cache(runtime, rows)
     finally:
         os.close(directory)
     return runtime
+
+
+def _sealed_runtime_pins(root, exporter):
+    """Metadata selects a release; its unchanged validator still admits the complete lab."""
+    root = Path(root).absolute()
+    config = exporter._json(exporter._read(root, "lab-config.json", 64 << 10))
+    manifest_raw = exporter._read(root, "run/manifest.json", 512 << 10)
+    manifest = exporter._json(manifest_raw)
+    sealed = manifest.get("files")
+    if (config.get("manifest_sha256") != hashlib.sha256(manifest_raw).hexdigest()
+            or config.get("control_profile") != "shared_exercise"
+            or manifest.get("status") != "ready" or manifest.get("control_profile") != "shared_exercise"
+            or not isinstance(sealed, dict) or not 1 <= len(sealed) <= 2048):
+        raise ValueError("Archived runtime selection requires an exact sealed exercise lab")
+
+    def document(name, limit):
+        raw = exporter._read(root, "run/" + name, limit)
+        if hashlib.sha256(raw).hexdigest() != sealed.get(name):
+            raise ValueError("Archived runtime selection metadata differs from its seal")
+        return exporter._json(raw)
+
+    def pins(value):
+        if (not isinstance(value, dict) or not 1 <= len(value) <= 128
+                or any(not isinstance(name, str) or not re.fullmatch(r"[a-z][a-z0-9_]*\.py", name)
+                       or not isinstance(pin, str) or not re.fullmatch(r"[a-f0-9]{64}", pin)
+                       for name, pin in value.items())):
+            raise ValueError("Archived runtime selection requires bounded module hashes")
+        return value
+
+    contract = document("exercise-lab.json", 128 << 10)
+    selected = dict(pins(contract.get("runtime_sha256")))
+    implementation = contract.get("implementation_sha256")
+    if (not isinstance(implementation, dict) or any(implementation.get(name) != pin
+            or sealed.get("lab-implementation/" + name) != pin for name, pin in selected.items())
+            or any(config.get(key) != contract.get(key) for key in ("scene_sha256", "task_sha256", "learned_policy_available"))
+            or type(contract.get("learned_policy_available")) is not bool):
+        raise ValueError("Archived runtime selection contract pins conflict")
+    if contract["learned_policy_available"]:
+        policy = document("policy.json", 64 << 10)
+        policy_pins = pins(policy.get("runtime_sha256"))
+        if (policy_pins != contract.get("policy_runtime_sha256")
+                or contract.get("policy_sha256") != sealed.get("policy.json")
+                or config.get("policy_sha256") != sealed.get("policy.json")
+                or any(name in selected and selected[name] != pin for name, pin in policy_pins.items())):
+            raise ValueError("Archived runtime selection policy pins conflict")
+        selected.update(policy_pins)
+    elif "policy.json" in sealed or "policy_runtime_sha256" in contract:
+        raise ValueError("Untrained archived lab cannot carry policy pins")
+    return selected
+
+
+def _matching_runtime(package, pins, exporter):
+    total = 0
+    for name, expected in pins.items():
+        try:
+            raw = exporter._read(package, name, 2 << 20)
+        except FileNotFoundError:
+            return False
+        total += len(raw)
+        if total > 16 << 20:
+            raise ValueError("Archived runtime comparison exceeds its byte bound")
+        if hashlib.sha256(raw).hexdigest() != expected:
+            return False
+    return True
+
+
+def compatible_runtime(root, project):
+    exporter = _exporter(project)
+    pins = _sealed_runtime_pins(root, exporter)
+    if _matching_runtime(Path(__file__).parent, pins, exporter):
+        raise ValueError("Saved runtime pins already match current code; compatibility cannot repair invalid evidence")
+    for commit in TRUSTED_RELEASES:
+        saved = prepare_runtime(project, trusted_commit=commit)
+        if _matching_runtime(saved / "src/weft", pins, exporter):
+            return saved
+    raise ValueError("Saved lab runtime and policy pins match no supported trusted release")
 
 
 def child_environment(runtime, root):
@@ -117,6 +200,9 @@ class ArchivedLab:
 
     def __init__(self, root, runtime, *, python=sys.executable, startup_seconds=45, request_seconds=15):
         self.root = Path(root).resolve()
+        self.runtime_commit = Path(runtime).name
+        if self.runtime_commit not in TRUSTED_RELEASES:
+            raise ValueError("Archived lab requires a fixed trusted release cache")
         self.lock = threading.RLock()
         self.token = ""
         self.avatars = _NoAvatars()
@@ -197,7 +283,7 @@ class ArchivedLab:
 
     def summary(self):
         return {**self._rpc("summary"), "execution_runtime": {
-            "mode": "preserved_release", "git_commit": TRUSTED_COMMIT,
+            "mode": "preserved_release", "git_commit": self.runtime_commit,
             "scope": "Original simulation and scoring runtime; saved results are not migrated."}}
     def control(self, path, data): return self._rpc("control", path, data)
     def exercise_coverage(self): return self._rpc("exercise_coverage")
@@ -234,12 +320,12 @@ def open_portal_lab(root, *, project):
         return current
     except ValueError as error:
         current.close()
-        if str(error) != RUNTIME_MISMATCH:
+        if str(error) not in COMPATIBILITY_ERRORS:
             raise
     except BaseException:
         current.close()
         raise
-    return ArchivedLab(root, prepare_runtime(project))
+    return ArchivedLab(root, compatible_runtime(root, project))
 
 
 def _worker(root, runtime):

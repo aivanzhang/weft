@@ -389,7 +389,10 @@ def _quality(evidence):
 
 
 def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video", pose_identity="raw",
-                     artifact_sink=None, max_preview_frames=None, max_pose_hypotheses=2, person_region=None):
+                     artifact_sink=None, max_preview_frames=None, max_pose_hypotheses=2, person_region=None,
+                     decoder_clock_sink=None):
+    if decoder_clock_sink is not None and not callable(decoder_clock_sink):
+        raise ValueError("Decoder clock sink must be callable")
     if pose_mode not in {"video", "image"}:
         raise ValueError("Pose mode must be video or image")
     if pose_identity not in {"raw", "temporal"}:
@@ -468,6 +471,10 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
                 if not ok:
                     break
                 decoded += 1
+                if decoder_clock_sink is not None:
+                    decoder_time = float(cap.get(cv2.CAP_PROP_POS_MSEC)) / 1000
+                    decoder_clock_sink({"frame": frame_index,
+                                        "decoder_timestamp_s": decoder_time if math.isfinite(decoder_time) else None})
                 if decoded > 1800 or decoded / fps > 60:
                     raise ValueError("Decoded exercise video exceeds the frame/duration envelope")
                 if frame.shape[:2] != (height, width):

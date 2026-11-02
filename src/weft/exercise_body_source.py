@@ -31,8 +31,9 @@ REJECTED = {"failed", "error", "rejected", "cancelled", "canceled", "unsupported
 SUFFIXES = {".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv"}
 POSE_FILES = {"evidence.json", "pose-landmarks.json", "identity-audit.json", "model.json",
               "source.json", "run-config.json"}
+CAPTURE_FILES = {"decoder-clock.json", "native-clock-capture.json", "native-clock-decode.log"}
 OPTIONAL_FILES = {"joint-angles.json", "pose-quality.json", "background.jpg", "tracks.gif",
-                  "tracks-contact-sheet.png"}
+                  "tracks-contact-sheet.png"} | CAPTURE_FILES
 IMPLEMENTATION_FILES = ("exercise_body_source.py", "exercise_vision.py", "exercise_source.py",
                         "human.py", "mobile_human.py", "root_motion.py", "body_frame.py",
                         "spatial_pose.py", "pose_identity.py", "observations.py", "video_io.py",
@@ -399,7 +400,27 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
     observations["provenance"]["input_artifacts"] = {"evidence.json": _sha(raw_files["evidence.json"])}
     if "native-clock.json" in raw_files:
         observations["provenance"]["input_artifacts"]["native-clock.json"] = _sha(raw_files["native-clock.json"])
+    for name in CAPTURE_FILES & raw_files.keys():
+        observations["provenance"]["input_artifacts"][name] = _sha(raw_files[name])
     return evidence, observations, clock
+
+
+def _validate_capture_files(files, source_sha):
+    if not CAPTURE_FILES & files.keys():
+        return False
+    if not CAPTURE_FILES <= files.keys() or "native-clock.json" not in files:
+        raise ValueError("Native timestamp capture requires its complete decoder and presentation receipts")
+    from weft.source_clock_capture import validate_capture
+
+    decoder = _json(files["decoder-clock.json"])
+    if (set(decoder) != {"schema_version", "source_sha256", "complete", "rows"}
+            or type(decoder["schema_version"]) is not int or decoder["schema_version"] != 1
+            or decoder["source_sha256"] != source_sha or decoder["complete"] is not True):
+        raise ValueError("Native decoder clock capture is incomplete or belongs to another source")
+    validate_capture(_json(files["native-clock.json"]), _json(files["native-clock-capture.json"]),
+                     files["native-clock-decode.log"], decoder["rows"], source_sha256=source_sha,
+                     evidence_sha256=_sha(files["evidence.json"]))
+    return True
 
 
 def validate_body_source_files(files, *, deadline=None):
@@ -407,6 +428,8 @@ def validate_body_source_files(files, *, deadline=None):
     required = POSE_FILES | {"body-source.json", "human.json", "observations.json", "source-clock.json",
                             "implementation.json"}
     native = "native-clock.json" in files
+    if CAPTURE_FILES & files.keys():
+        required |= CAPTURE_FILES
     if native:
         required |= {"native-clock.json", "reconstruction-evidence.json"}
     elif "reconstruction-evidence.json" in files:
@@ -443,6 +466,9 @@ def validate_body_source_files(files, *, deadline=None):
             or _sha(files[source_name]) != source_sha
             or _json(files["source.json"]).get("artifact") != source_name):
         raise ValueError("Body source original video identity is missing or conflicting")
+    captured = _validate_capture_files(files, source_sha)
+    if captured != (construction.get("native_clock_capture") == "native-clock-capture.json"):
+        raise ValueError("Body source native timestamp capture differs from its declared receipts")
     evidence, observations, clock = _validated_pose(files, options, source_sha, deadline=deadline)
     if native and (files["reconstruction-evidence.json"] != _bytes(evidence)
                    or construction.get("clock_profile") != "source-native-clock-v1"):
@@ -471,8 +497,11 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
     source_sha = _sha(_read(target / source_name, deadline))
     pose_names = set(POSE_FILES)
     native = (target / "native-clock.json").exists()
+    captured = (target / "native-clock-capture.json").exists()
     if native:
         pose_names.add("native-clock.json")
+    if captured:
+        pose_names |= CAPTURE_FILES
     if (target / "pose-recovery.json").exists():
         from weft.pose_source_recovery import PROOF_FILES
         pose_names |= PROOF_FILES | {source_name}
@@ -517,7 +546,7 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
         "source_clock": {"basis": clock["nominal_basis"], "status": "assumed",
                          "native_scope": clock["native_scope"], "sampled_slots": len(clock["samples"]),
                          "total_decoded_slots": clock["decoded_frames"]},
-        "work": {"video_decodes": int(input_kind == "local_video"),
+        "work": {"video_decodes": int(input_kind == "local_video") * (2 if captured else 1),
                  "inference_calls": len(evidence["frames"]) if input_kind == "local_video" else 0,
                  "floor_forward_calls": 1, "physics_steps": 0, "training_episodes": 0,
                  "simulation_renders": 0, "api_calls": 0,
@@ -536,6 +565,8 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
         receipt["construction"]["clock_profile"] = "source-native-clock-v1"
         receipt["source_clock"] = clock_summary(validate_derived_evidence(evidence))
         receipt["limits"].append("Native elapsed presentation times drive derived reconstruction; original detector timestamps and nominal pose records remain unchanged. Capture timing is unverified.")
+    if captured:
+        receipt["construction"]["native_clock_capture"] = "native-clock-capture.json"
     _write(target, {"body-source.json": _bytes(receipt)}, deadline)
     validate_body_source_files({name: _read(target / name, deadline) for name in
                                {*receipt["artifacts"], "body-source.json", source_name}}, deadline=deadline)
@@ -551,9 +582,12 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
 
 def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", pose_identity="raw",
                                  source_note="Rights not independently verified; user-provided local video",
-                                 max_seconds=180, progress=None, max_pose_hypotheses=2, person_region=None):
+                                 max_seconds=180, progress=None, max_pose_hypotheses=2, person_region=None,
+                                 native_timing=False):
     """Decode/infer once and seal mobile construction inputs; no learned task or dynamics."""
     options = _options(pose_mode, pose_identity, max_pose_hypotheses, person_region)
+    if type(native_timing) is not bool:
+        raise ValueError("Native timing must be explicitly enabled or disabled")
     if not isinstance(source_note, str) or len(source_note) > 4000:
         raise ValueError("Source provenance note must be at most 4000 characters")
     video, model = _path(video), _path(pose_model)
@@ -563,6 +597,7 @@ def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", p
         if not path.is_file() or path.stat().st_size > MAX_FILE_BYTES:
             raise ValueError("Body-source inputs must fit the downstream 64-MiB per-file bound")
     target, started, deadline = _start(out, (video, model), max_seconds)
+    decoder_rows, source_sha = [], None
     try:
         video_raw, model_raw = _read(video, deadline), _read(model, deadline)
         source_sha, model_sha = _sha(video_raw), _sha(model_raw)
@@ -574,10 +609,12 @@ def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", p
         source = describe_source(source_sha) or {"original_name": video.name, "rights": source_note}
         source = {**source, "sha256": source_sha, "artifact": source_name,
                   "derived_overlays": "Pose annotations are adaptations; retain source attribution/license"}
-        snapshots, implementation = _implementation(deadline)
+        snapshots, implementation = (_implementation(deadline, ("source_clock.py", "source_clock_capture.py"))
+                                     if native_timing else _implementation(deadline))
         files = {source_name: video_raw, "source.json": _bytes(source),
             "run-config.json": _bytes({"schema_version": 1, "profile": "exercise", "body_model": "mobile",
-                "video": str(video), "pose_model": str(model), "source_note": source_note, **options}),
+                "video": str(video), "pose_model": str(model), "source_note": source_note, **options,
+                **({"native_timing": True} if native_timing else {})}),
             "implementation.json": _bytes(implementation),
             **{"implementation-source/" + name: raw for name, raw in snapshots.items()}}
         _write(target, files, deadline)
@@ -588,17 +625,42 @@ def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", p
             if progress:
                 progress(stage, detail)
 
+        def capture_decoder(row):
+            if len(decoder_rows) >= 1800:
+                raise ValueError("Native decoder capture exceeds the 1800-frame bound")
+            decoder_rows.append(dict(row))
+
         evidence = exercise_vision.inspect_exercise(target / source_name, target, model, progress=report,
-            artifact_sink=BodyArtifactSink(target, deadline=deadline), **options)
+            artifact_sink=BodyArtifactSink(target, deadline=deadline), **options,
+            **({"decoder_clock_sink": capture_decoder} if native_timing else {}))
         _deadline(deadline)
         if evidence.get("model", {}).get("sha256") != model_sha:
             raise ValueError("Returned pose evidence used a different model than the pinned input")
         _write(target, {"model.json": _bytes(evidence["model"]), "pose-quality.json": _bytes(evidence["quality"])}, deadline)
         if evidence != _json(_read(target / "evidence.json", deadline)):
             raise ValueError("Returned pose evidence differs from its preserved artifact")
+        if native_timing:
+            from weft.source_clock_capture import collect_native_clock
+
+            _write(target, {"decoder-clock.json": _bytes({"schema_version": 1, "source_sha256": source_sha,
+                "complete": True, "rows": decoder_rows})}, deadline)
+            raw_pose = {name: _read(target / name, deadline) for name in POSE_FILES}
+            _validated_pose(raw_pose, options, source_sha, deadline=deadline)
+            report("native_clock", {"message": "Verifying every frame's presentation time before body reconstruction"})
+            binding, capture, log = collect_native_clock(target / source_name, raw_pose["evidence.json"],
+                decoder_rows, max_seconds=min(20, max(.01, deadline - time.monotonic())))
+            _write(target, {"native-clock.json": _bytes(binding), "native-clock-capture.json": _bytes(capture),
+                            "native-clock-decode.log": log}, deadline)
         return _finish(target, options, source_name, "local_video", None,
                        [(video, source_sha), (model, model_sha)], implementation, started, deadline, progress)
     except Exception as error:
+        if native_timing and decoder_rows and not (target / "decoder-clock.json").exists():
+            try:
+                # Reserved failure metadata retains partial timing even after the work deadline.
+                write_package_files(target, {"decoder-clock.json": _bytes({"schema_version": 1,
+                    "source_sha256": source_sha, "complete": False, "rows": decoder_rows})})
+            except (ValueError, OSError):
+                pass
         _failure(target, error, started)
         raise
 
@@ -663,6 +725,8 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, native_clock
             kept["native-clock.json"] = clock_raw
             pins.append((clock_path, _sha(clock_raw)))
             recovery_implementation = (*recovery_implementation, "source_clock.py")
+            if CAPTURE_FILES & kept.keys():
+                recovery_implementation = (*recovery_implementation, "source_clock_capture.py")
         snapshots, implementation = _implementation(deadline, recovery_implementation)
         _write(target, {**kept, "inputs/source-manifest.json": manifest_raw,
                         "implementation.json": _bytes(implementation),

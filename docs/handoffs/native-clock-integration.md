@@ -75,7 +75,9 @@ Try the saved trained lab (user starts the server):
 This local artifact is not included in Git and requires the matching runtime.
 For a new saved pose package, supply a verified `source-native-clock-v1` table to
 `exercise-body`, then use the ordinary `shared-exercise-build --human-run` route.
-Automatic clock collection in ordinary portal uploads is **not yet implemented**.
+Automatic clock collection in ordinary portal uploads is now verified in the
+[subsequent integrated checkpoint](portal-native-and-repair.md); the results below
+remain historical evidence for this saved-input milestone.
 
 ### Existing portal projects preserved
 
@@ -122,8 +124,8 @@ closed; their reviewed runtime pins were not weakened.
 
 ## Remaining work and next safe action
 
-- [ ] Integrate complete-frame native capture into ordinary video ingestion and
-  portal jobs, with exact source/decoder verification and no raw detector rewrite.
+- [x] Integrate complete-frame native capture into ordinary portal exercise uploads;
+  see the subsequent integrated checkpoint. Selective-crop capture remains pending.
 - [ ] Qualify reference-input decoder changes independently, then support native
   refinement derivations without bypassing original custody/runtime gates.
 - [ ] Verify broader unfamiliar-video perception, ground/equipment geometry and

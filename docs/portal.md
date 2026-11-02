@@ -108,9 +108,12 @@ completed simulation. The reviewed price was unchanged on November 2, 2026.
 
 OpenAI currently provides initial scene planning; Muse provides inspectable
 physical reasoning. An OpenAI-only run does not demonstrate Meta use. The full
-Muse → bounded repair → independent test/acceptance loop remains unfinished:
-displayed tests are suggestions, not executed experiments. The live review does
-not by itself establish hackathon readiness or physical correctness. Avatar
+world-repair loop remains unfinished. **Test Muse suggestions** now runs up to
+three locally authored controller candidates tied to supported Muse hypotheses,
+compares them against the unchanged task and records every acceptance/rejection.
+It reuses the saved review, costs no new API call and never applies a controller.
+Geometry/contact repairs and requested physical measurements remain unimplemented;
+this does not establish hackathon readiness or physical correctness. Avatar
 generation is separate; selecting a skin must not alter physics or task behavior.
 
 ## What the result means
@@ -134,8 +137,9 @@ it as a hosted product. See the [implementation handoff](handoffs/portal-api.md)
 
 Existing exercise projects retain their original simulation and scoring versions.
 If the current runtime differs, the portal can use the verified released runtime
-`5819ba4` in an isolated local worker, without changing recordings or scores.
+`5819ba4` or `64f4bef` in an isolated local worker, without changing recordings or scores.
 Unsupported versions still show an explicit error; saved project code is never
-executed. The [native-clock milestone](handoffs/native-clock-integration.md)
-provides a tested saved-evidence CLI path; normal portal uploads do not yet collect
-the complete native clock automatically.
+executed. [Automatic native timing](handoffs/portal-native-and-repair.md) now captures every
+decoded exercise frame before reconstruction while retaining original detector
+timestamps. Failed projects show pose coverage, uncertain intervals and a diagnostic
+download when adequate evidence exists; they are not silently retried.

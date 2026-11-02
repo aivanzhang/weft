@@ -12,19 +12,41 @@ function setup(jobs=[]) {
     const attrs = Object.fromEntries([...match[2].matchAll(/([\w-]+)(?:="([^"]*)")?/g)].map(m=>[m[1],m[2]??""]));
     if(attrs.id) elements.set(attrs.id,new Element(match[1],attrs));
   }
-  const timers=new Map(), calls=[], listeners=new Map(); let next=1;
+  const timers=new Map(), delays=new Map(), calls=[], listeners=new Map(); let next=1;
   const document={hidden:false,getElementById:id=>elements.get(id),createElement:tag=>new Element(tag),querySelectorAll:()=>[],addEventListener:(name,fn)=>listeners.set(name,fn)};
   const info={credential:{configured:true},budget:{configured:true,remaining_usd:5,total_usd:5,calls:0,unsettled_calls:0,reservation_usd:.3135},muse:{available:true,budget_configured:true,remaining_usd:4.7,total_budget_usd:5,unsettled_count:0,estimated_one_call_usd:.058368},jobs};
   const context={document,location:{hash:"#token=test-owner-token",pathname:"/"},history:{replaceState(){}},sessionStorage:{getItem(){return null;},setItem(){}},URLSearchParams,AbortSignal,crypto:{randomUUID:()=>"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"},
-    setTimeout:fn=>{const id=next++;timers.set(id,fn);return id;},clearTimeout:id=>timers.delete(id),window:{addEventListener(){}},
+    setTimeout:(fn,delay)=>{const id=next++;timers.set(id,fn);delays.set(id,delay);return id;},clearTimeout:id=>{timers.delete(id);delays.delete(id);},window:{addEventListener(){}},
     fetch:async(path,options={})=>{calls.push({path,options});if(path==="/api/portal")return {ok:true,json:async()=>structuredClone(info)};
       if(path.startsWith("/api/projects?"))return {ok:true,json:async()=>({id:"b".repeat(32),name:"clip.webm",status:"queued",stage:"queued",events:[]})};
       if(path.endsWith("/muse")){info.jobs[0].muse={status:"queued",message:"Waiting"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/muse/checks")){info.jobs[0].muse.checks={status:"queued",message:"Waiting for local comparisons"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/muse/repairs")){info.jobs[0].muse.repairs={status:"queued",message:"Waiting for suggestion tests",applied:false};info.jobs[0].muse.repair_availability.available=false;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/supports")){const child={id:"e".repeat(32),name:info.jobs[0].name,kind:"support_experiment",parent_id:info.jobs[0].id,status:"queued",stage:"queued",events:[],source_available:false};info.jobs.unshift(child);return {ok:true,json:async()=>structuredClone(child)};}
       return {ok:true,json:async()=>({frames:[]})};},console};
   vm.runInNewContext(code,context);
-  return {elements,calls,timers,document,listeners,info};
+  return {elements,calls,timers,delays,document,listeners,info};
+}
+{
+  const id="8".repeat(32), readiness={usable_samples:353,sampled_frames:554,usable_fraction:353/554,minimum_usable_fraction:.65,competing_samples:2,
+    time_basis:"native_pts_elapsed_time",longest_gap:{first_time_s:26.118,last_time_s:32.156,sample_count:91},retry_reason:"Five supported retries cannot reach the unchanged visibility requirement."};
+  const f=setup([{id,name:"unfamiliar.webm",status:"failed",stage:"failed",error:"Original source rejection",events:[],reconstruction_readiness:readiness}]);await tick();
+  const e=f.elements;assert.equal(e.get("reconstruction-readiness").hidden,false);
+  assert.match(e.get("readiness-coverage").textContent,/353 of 554.*63.7%.*65% required.*2 frames/);
+  assert.match(e.get("readiness-gap").textContent,/26.12–32.16.*native video time.*91/);
+  assert.equal(e.get("readiness-retry").textContent,readiness.retry_reason);
+  assert.equal(e.get("project-error").textContent,"Original source rejection");assert.equal(e.get("sandbox").hidden,true);
+  assert.match(e.get("readiness-download").href,/analysis\/reconstruction-readiness.json\?token=test-owner-token$/);
+  assert.ok(!f.calls.some(call=>call.path.includes("reconstruction-readiness.json")));
+  f.info.jobs[0].reconstruction_readiness.time_basis="frame_index_divided_by_fps";
+  f.info.jobs[0].reconstruction_readiness.retry_reason="<script>untrusted diagnostic text</script>";
+  await e.get("refresh").onclick();await tick();
+  assert.match(e.get("readiness-gap").textContent,/estimated frame-rate time, not native timestamps/);
+  assert.equal(e.get("readiness-retry").textContent,"<script>untrusted diagnostic text</script>");
+  f.info.jobs[0].status="ready";f.info.jobs[0].sandbox=`/labs/${id}/`;
+  await e.get("refresh").onclick();await tick();
+  assert.equal(e.get("reconstruction-readiness").hidden,true);assert.equal(e.get("readiness-download").hidden,true);
+  console.log("PASS rejected reconstruction coverage, honest clocks, safe diagnostic text and report download without eager fetch");
 }
 {
   const id="f".repeat(32), f=setup([{id,name:"body.webm",status:"ready",stage:"ready",events:[],source_sha256:"a".repeat(64),support_experiment_available:true}]);await tick();
@@ -99,4 +121,41 @@ function setup(jobs=[]) {
   await e.get("upload-form").onsubmit({preventDefault(){}});
   assert.ok(!f.calls.some(c=>c.options.method==="POST"));assert.match(e.get("error").textContent,/Choose exercise or objects/);
   console.log("PASS local mode needs an explicit builder, not a silent AI fallback");
+}
+{
+  const id="7".repeat(32), f=setup([{id,name:"exercise.webm",route:"exercise",status:"ready",events:[],sandbox:`/labs/${id}/`,
+    muse:{status:"proposed",repair_availability:{available:true,reason:"Up to three local candidates; no API charge"}}}]);await tick();
+  const e=f.elements;assert.equal(e.get("repair-comparison").hidden,false);assert.equal(e.get("run-repairs").hidden,false);
+  await Promise.all([e.get("run-repairs").onclick(),e.get("run-repairs").onclick()]);await tick();
+  const calls=f.calls.filter(call=>call.path.endsWith("/muse/repairs"));assert.equal(calls.length,1);
+  assert.equal(calls[0].options.method,"POST");assert.equal(calls[0].options.body,undefined);
+  assert.equal(calls[0].options.headers.Authorization,"Bearer test-owner-token");
+  assert.equal(e.get("cancel").hidden,false);assert.equal(e.get("cancel").textContent,"Cancel suggestion tests");
+  assert.equal(e.get("sandbox").hidden,false);assert.equal([...f.delays.values()].at(-1),1500);
+  await e.get("run-repairs").onclick();assert.equal(f.calls.filter(call=>call.path.endsWith("/muse/repairs")).length,1);
+  f.info.jobs[0].muse.repairs={status:"complete",message:"All candidates rejected",applied:false,report:{accepted_in_simulation:false,selected_candidate:null,
+    candidates:[{id:"feedback-1",candidate_score:.9148,baseline_score:.9166,all_original_gates_passed:true,accepted_in_simulation:false,reason:"<script>untrusted reason</script>"}]}};
+  await e.get("refresh").onclick();await tick();
+  assert.match(e.get("repairs-outcome").textContent,/No candidate improved enough.*unchanged/);
+  assert.match(e.get("repairs-results").children[0].textContent,/0.9148 vs original 0.9166.*gates: passed.*rejected/);
+  assert.ok(e.get("repairs-results").children[0].textContent.includes("<script>untrusted reason</script>"));
+  assert.equal(e.get("run-repairs").hidden,true);assert.equal(e.get("cancel").hidden,true);
+  for(const [name,file] of [["report","report.json"],["plan","plan.json"],["runtime","runtime-source.json"],["manifest","manifest.json"]]) {
+    const link=e.get(`repairs-${name}-download`);assert.equal(link.hidden,false);assert.equal(link.href,`/api/projects/${id}/files/muse/repairs/run/${file}?token=test-owner-token`);
+  }
+  assert.ok(!f.calls.some(call=>call.path.includes("/files/muse/repairs/")));
+  f.info.jobs[0].muse.repairs.report.accepted_in_simulation=true;
+  f.info.jobs[0].muse.repairs.report.selected_candidate="feedback-2";
+  await e.get("refresh").onclick();await tick();
+  assert.match(e.get("repairs-outcome").textContent,/improved the fixed simulator score.*Nothing was applied/);
+  f.document.hidden=true;f.listeners.get("visibilitychange")();assert.equal(f.timers.size,0);
+  console.log("PASS one authenticated repair request, active polling/cancellation, honest candidate scores, safe text and lazy artifact links");
+}
+{
+  const id="6".repeat(32), f=setup([{id,name:"support.webm",route:"exercise",status:"ready",events:[],muse:{status:"proposed",
+    repair_availability:{available:false,reason:"Physical measurements cannot be replaced by simulation."}}}]);await tick();
+  const e=f.elements;assert.equal(e.get("run-repairs").hidden,true);
+  assert.match(e.get("repairs-status").textContent,/Physical measurements/);
+  await e.get("run-repairs").onclick();assert.ok(!f.calls.some(call=>call.path.endsWith("/muse/repairs")));
+  console.log("PASS unsupported Muse hypotheses remain explicit and cannot launch candidate tests");
 }

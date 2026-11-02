@@ -513,11 +513,15 @@ def _recheck_generated(pins, deadline, *, complete=False):
 
 
 def prepare_exercise_scene_body(inputs, out, *, pose_proposals_out=None, recovered_pose_out=None,
-                                max_seconds=180, deadline=None, progress=None):
+                                max_seconds=180, deadline=None, progress=None, native_timing=False):
     """Prepare one existing body source; changed inputs stop the enclosing scene assembly."""
     if not isinstance(inputs, RawExerciseInputs):
         raise ValueError("Raw body preparation requires verified scene inputs")
+    if type(native_timing) is not bool:
+        raise ValueError("Native timing must be explicitly enabled or disabled")
     recovering = inputs.pose_recovery == RECOVERY_METHOD
+    if recovering and native_timing:
+        raise ValueError("Native timing capture with selective-crop recovery is not yet supported")
     deadline = _deadline(max_seconds, MAX_RECOVERY_BODY_SECONDS if recovering else MAX_BODY_SECONDS, deadline)
     target = _path(out)
     sources = tuple(path for path in (inputs.video, inputs.pose_model, inputs.evidence_run, inputs.config_path,
@@ -543,7 +547,8 @@ def prepare_exercise_scene_body(inputs, out, *, pose_proposals_out=None, recover
         raise TimeoutError("Raw body preparation has no remaining shared time budget")
     body = exercise_body_source.prepare_exercise_body_source(inputs.video, target,
         pose_model=inputs.pose_model, pose_mode=inputs.pose_mode, pose_identity=inputs.pose_identity,
-        source_note=inputs.source_note, max_seconds=min(MAX_BODY_SECONDS, remaining), progress=progress)
+        source_note=inputs.source_note, max_seconds=min(MAX_BODY_SECONDS, remaining), progress=progress,
+        **({"native_timing": True} if native_timing else {}))
     _recheck(inputs, deadline)
     return body
 
