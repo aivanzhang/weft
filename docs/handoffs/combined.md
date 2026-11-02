@@ -1,5 +1,29 @@
 # Combined Weft implementation handoff
 
+## Source motion exceeds force budgets — November 2, 2026, PST
+
+The source-only native diagnostic is complete: 23/45 constraint-free interval
+midpoints exceed the unchanged motor limits, up to **4.095×**. All 43/43
+constraint-free 20 ms pose-transition probes exceed a limit, up to **10.560×**.
+The latter are explicitly finite-window probes of velocity jumps, not exact
+derivatives or actual executed transitions. Contact-constrained extremes are
+reported separately; authored dynamics remain unverified physical assumptions.
+
+**41 distinct checks pass.** Independent saved arithmetic verifies 448 members,
+92 native samples and 2,024 axis samples. Actual native job: .569 s /117,882,880 B,
+three model compilations, two data allocations, 92 inverse calls, zero physics
+steps. Published-reference data is excluded; source/task/force limits remain
+unchanged. First attempt stopped before inverse calculation because the guard
+confused the tighter runtime root-force cap with the wider engine clamp; both
+attempts are retained and terminal/reaped. No API/key/ledger access or deployment.
+
+[Readable report, source-only command, seals and next repair](aspset-reference-dynamics.md).
+Next qualify a source-image/uncertainty-constrained temporal reconstruction;
+keep the original target/scorer for comparison, rather than optimizing against
+a newly smoothed target alone. No controller is promoted. Preserve independent
+avatar edits; both tracks and the full goal remain active. Publication receipt:
+`.local/aspset-next-dynamics-publication-01.json` once pushed.
+
 ## Published-reference gap — November 2, 2026, PST
 
 The different-motion candidate and its recording are now compared with the

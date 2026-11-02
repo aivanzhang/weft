@@ -621,6 +621,14 @@ recorded motion** (RMSE, which gives larger mistakes more weight). No alignment
 was fitted. This separate reference has its own unverified accuracy; it does not
 certify ground/contact or biomechanics. [Evidence and next repair work](handoffs/aspset-reference-assessment.md).
 
+The [motion-force diagnostic](../artifacts/aspset-next-dynamics-report-01/index.html)
+explains part of that gap: at 23 of 45 sampled positions without active contact
+or joint constraints, the unchanged movement requires more force than the
+model's motors allow. Rapid pose changes also exceed the budget in explicit
+20 ms transition probes. These are model calculations, not measured human
+forces; no target, controller or score was changed. The report exposes every
+sample, force term and assumption. [Method and source-only command](handoffs/aspset-reference-dynamics.md).
+
 The saved jogging candidate is already available at
 `artifacts/camera-shared-admission-jog-01/candidate`; do not rebuild it merely to
 inspect it. Its body geometry passes the source/grid check but floats above the
