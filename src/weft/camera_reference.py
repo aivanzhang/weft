@@ -17,6 +17,64 @@ CONTRACT = {
     'scope': 'Descriptive reference agreement; does not certify reference accuracy, anatomy, absolute root motion or dynamics',
 }
 
+WORLD_CONTRACT = {
+    'method': 'named-world-joint-comparison-v1',
+    'units': 'Input metres; reported distances millimetres',
+    'absolute': 'Original shared coordinates, without fitted alignment',
+    'root_relative': 'Each pose separately subtracts its own hip midpoint; reported separately from absolute error',
+    'alignment': 'No fitted scale, rotation, reflection, timing offset or identity reassignment',
+    'scope': 'Descriptive published-reference agreement, not certified anatomy, ground support or contact',
+}
+
+
+def compare_world_frame(prediction, reference):
+    """Compare twelve named joints in one declared metric frame without fitting alignment."""
+    if not isinstance(prediction, dict) or not isinstance(reference, dict) or set(prediction) != set(JOINTS) or set(reference) != set(JOINTS):
+        raise ValueError('World comparison requires all twelve named joint slots')
+
+    def point(value):
+        if value is None:
+            return None
+        if isinstance(value, (list, tuple)) and any(isinstance(v, (bool, np.bool_)) for v in value):
+            raise ValueError('Joint positions cannot contain booleans')
+        array = np.asarray(value)
+        if array.shape != (3,) or array.dtype.kind not in 'iuf':
+            raise ValueError('Joint positions require three numeric metre coordinates or null')
+        if not np.isfinite(array).all():
+            return None
+        array = array.astype(float)
+        if np.max(np.abs(array)) > 1e6:
+            raise ValueError('Joint position exceeds the metric comparison envelope')
+        return array
+
+    predicted = {k: point(v) for k, v in prediction.items()}
+    expected = {k: point(v) for k, v in reference.items()}
+
+    def root(points):
+        hips = [points[k] for k in ('left_hip', 'right_hip')]
+        return None if any(v is None for v in hips) else (hips[0]+hips[1])/2
+
+    predicted_root, reference_root = root(predicted), root(expected)
+    rows = {}
+    for name in JOINTS:
+        value, target = predicted[name], expected[name]
+        status = ('prediction_unavailable' if value is None else
+                  'reference_unavailable' if target is None else 'compared')
+        row = {'absolute_status': status, 'absolute_distance_mm': None,
+               'root_relative_status': status, 'root_relative_distance_mm': None}
+        if status == 'compared':
+            row['absolute_distance_mm'] = float(np.linalg.norm(value-target)*1000)
+            if predicted_root is None:
+                row['root_relative_status'] = 'prediction_root_unavailable'
+            elif reference_root is None:
+                row['root_relative_status'] = 'reference_root_unavailable'
+            else:
+                row['root_relative_distance_mm'] = float(np.linalg.norm((value-predicted_root)-(target-reference_root))*1000)
+        rows[name] = row
+    root_error = (None if predicted_root is None or reference_root is None else
+                  float(np.linalg.norm(predicted_root-reference_root)*1000))
+    return {'joints': rows, 'hip_midpoint_distance_mm': root_error}
+
 
 def project_world(points, rotation, translation, intrinsics, radial_k1=0.):
     points = np.asarray(points, dtype=float)

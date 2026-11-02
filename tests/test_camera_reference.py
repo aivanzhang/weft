@@ -4,7 +4,57 @@ import json
 import numpy as np
 import pytest
 
-from weft.camera_reference import JOINTS, compare_frame, project_world
+from weft.camera_reference import JOINTS, compare_frame, compare_world_frame, project_world
+
+
+def test_world_comparison_separates_absolute_root_and_shape_errors():
+    _, reference, _ = fixture()
+    shifted = {k: v+[3., 0., 0.] for k, v in reference.items()}
+    before = deepcopy(shifted)
+    result = compare_world_frame(shifted, reference)
+    assert result['hip_midpoint_distance_mm'] == pytest.approx(3000)
+    for name, row in result['joints'].items():
+        assert row['absolute_distance_mm'] == pytest.approx(3000)
+        assert row['root_relative_distance_mm'] == pytest.approx(0, abs=1e-10)
+        np.testing.assert_array_equal(shifted[name], before[name])
+    shifted['left_wrist'] += [0., .25, 0.]
+    result = compare_world_frame(shifted, reference)
+    assert result['joints']['left_wrist']['root_relative_distance_mm'] == pytest.approx(250)
+
+
+@pytest.mark.parametrize('side', ['prediction', 'reference'])
+def test_world_missing_hip_keeps_available_absolute_comparisons(side):
+    _, reference, _ = fixture(); prediction = deepcopy(reference)
+    (prediction if side == 'prediction' else reference)['left_hip'] = None
+    result = compare_world_frame(prediction, reference)
+    assert len(result['joints']) == 12 and result['hip_midpoint_distance_mm'] is None
+    assert result['joints']['left_hip']['absolute_status'] == side+'_unavailable'
+    wrist = result['joints']['left_wrist']
+    assert wrist['absolute_distance_mm'] == 0 and wrist['root_relative_distance_mm'] is None
+    assert wrist['root_relative_status'] == side+'_root_unavailable'
+    json.dumps(result, allow_nan=False)
+
+
+def test_world_nonfinite_reference_stays_missing_and_scale_is_not_fitted():
+    _, reference, _ = fixture(); prediction = {k: v*2 for k, v in reference.items()}
+    reference['left_wrist'] = [float('nan'), 0., 0.]
+    result = compare_world_frame(prediction, reference)
+    assert result['joints']['left_wrist']['absolute_status'] == 'reference_unavailable'
+    assert result['joints']['right_wrist']['root_relative_distance_mm'] > 0
+    json.dumps(result, allow_nan=False)
+
+
+@pytest.mark.parametrize('value', [[True, False, True], [1., True, 2.], ['1', '2', '3'], [1., 2.],
+                                 [1e7, 0., 0.], [-(2**63), 0, 0]])
+def test_world_invalid_coordinate_rejected(value):
+    _, reference, _ = fixture(); prediction = deepcopy(reference); prediction['left_wrist'] = value
+    with pytest.raises(ValueError): compare_world_frame(prediction, reference)
+
+
+def test_world_joint_name_remapping_is_not_silent():
+    _, reference, _ = fixture(); prediction = deepcopy(reference)
+    prediction['wrist'] = prediction.pop('left_wrist')
+    with pytest.raises(ValueError, match='twelve named'): compare_world_frame(prediction, reference)
 
 
 def fixture():

@@ -1,5 +1,31 @@
 # Combined Weft implementation handoff
 
+## Published-reference gap — November 2, 2026, PST
+
+The different-motion candidate and its recording are now compared with the
+separate published `04ac-0006` joint reference, parsed from an existing cached
+archive prefix. No new download, model call, physics, fitted alignment or source
+mutation. **42 distinct checks pass**; independent saved arithmetic verifies
+all 6,660 joint slots and 479 matched comparisons.
+
+On those matched points, constructed-body error is **69.433 mm RMSE**, versus
+**156.583 mm** in the recorded assisted simulation. Its existing task pass did
+not establish motion accuracy. Reference accuracy/joint definitions remain
+unverified. Missing source poses remain missing; the 185-frame recording is not
+compared with 47 reconstructed frames as if coverage were equal.
+
+Reset endpoints match exactly. Tracking subsequently drifts while several arm/
+hip motors saturate; the target asks for rotations up to 29.69 rad/s. A local
+equivalent-chart check offers only one small improvement, not a qualified fix.
+Next diagnose source-target feasibility versus feedback lag under unchanged
+force/gate limits, without using published coordinates for fitting/selection.
+Independent ground/contact and broader subject/camera coverage remain open.
+
+[Readable report, exact artifacts, commands and next action](aspset-reference-assessment.md).
+All jobs are terminal/reaped, no API/key/ledger access or server/deployment.
+Preserve avatar changes; the complete goal remains active. Publication receipt:
+`.local/aspset-next-assessment-publication-01.json` once pushed.
+
 ## Different-motion end to end — November 2, 2026, PST
 
 ASPset `04ac-0006` now runs through frozen pose/geometry construction, shared

@@ -614,6 +614,13 @@ remain explicit. Most reconstructed poses float above the assumed floor;
 contact, physical accuracy and new-subject/camera generalization are unverified.
 [Input assumptions, artifacts and reproduction](handoffs/aspset-next-clip.md).
 
+The [published-reference comparison](../artifacts/aspset-next-reference-report-01/index.html)
+shows what the simulator's success flag does not measure. On the same 479 joint
+points, position error is about **69 mm for the body poses and 157 mm during
+recorded motion** (RMSE, which gives larger mistakes more weight). No alignment
+was fitted. This separate reference has its own unverified accuracy; it does not
+certify ground/contact or biomechanics. [Evidence and next repair work](handoffs/aspset-reference-assessment.md).
+
 The saved jogging candidate is already available at
 `artifacts/camera-shared-admission-jog-01/candidate`; do not rebuild it merely to
 inspect it. Its body geometry passes the source/grid check but floats above the

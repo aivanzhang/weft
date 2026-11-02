@@ -153,10 +153,10 @@ seal correction receipt. Calculations were not rerun or results changed.
 - Git base is `9002c79`; scoped publication receipt will be
   `.local/aspset-next-publication-01.json`. Stashes were empty; avatar edits stay
   with their owner. Refresh Git/ownership before the next mutation.
-- Next acquire the matching published 0006 joint reference in a bounded,
-  **assessment-only** package, using existing source rights/index machinery.
-  Freeze joint/clock mapping and score this unchanged candidate without pose,
-  scale, floor or camera alignment fitting. Never feed those coordinates into
-  construction; inspected results become exposed development, not fresh final.
+- The subsequent [published-joint assessment](aspset-reference-assessment.md)
+  now preserves the matching 0006 reference and compares this unchanged body and
+  recording without fitted alignment. On 479 matched points, body RMSE is
+  69.433 mm versus 156.583 mm for assisted simulated motion. Its tracking gap
+  remains open; assessment coordinates must stay outside fitting/selection.
 - Then qualify unfamiliar subjects/cameras and independently supported ground/
   equipment contacts. This same-camera, assisted case does not complete them.
