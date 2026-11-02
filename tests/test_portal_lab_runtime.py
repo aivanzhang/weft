@@ -5,6 +5,7 @@ from hashlib import sha1, sha256
 import json
 from pathlib import Path
 import textwrap
+import threading
 
 import pytest
 
@@ -117,7 +118,8 @@ def test_proxy_routes_same_root_serially_without_credentials_and_closes_recordin
         with ThreadPoolExecutor(max_workers=4) as pool:
             results = list(pool.map(lambda _: lab.control('/step', {}), range(12)))
         assert sorted(item['count'] for item in results) == list(range(1, 13))
-        assert lab.inspection() == {'inspection': True}
+        assert lab.inspection()['status'] in {'loading', 'unavailable'}
+        assert lab._inspection_future.result()['status'] == 'unavailable'
         assert lab.exercise_coverage() == {'coverage': True}
         assert lab.recording_inspection('a') == {'name': 'a'}
         assert lab.recording_evidence('a') == {'name': 'a'}
@@ -130,6 +132,39 @@ def test_proxy_routes_same_root_serially_without_credentials_and_closes_recordin
         lab.close()
     assert (root / 'closed.json').read_text() == '{"recording": true}'
     assert lab._process.poll() is not None
+
+
+def test_inspection_uses_one_current_offthread_reader_not_archived_rpc(archive, monkeypatch):
+    from weft import lab_inspection
+
+    root, saved, _ = archive
+    entered, release = threading.Event(), threading.Event()
+    calls = []
+    def inspect(run, *, profile):
+        calls.append((run, profile, threading.current_thread().ident))
+        entered.set()
+        assert release.wait(3)
+        return {'status': 'available', 'actors': [{'id': 'authored_support'}]}
+    monkeypatch.setattr(lab_inspection, 'load_inspection', inspect)
+    lab = runtime.ArchivedLab(root, saved)
+    try:
+        assert lab.inspection() == {'status': 'loading'}
+        assert entered.wait(3)
+        for _ in range(5):
+            assert lab.inspection() == {'status': 'loading'}
+        assert len(calls) == 1 and calls[0] == (root / 'run', 'shared-world', calls[0][2])
+        assert calls[0][2] != threading.current_thread().ident
+        assert lab.summary()['count'] == 0
+        release.set()
+        assert lab._inspection_future.result(timeout=3)['status'] == 'available'
+        assert lab.inspection() == {'status': 'available', 'actors': [{'id': 'authored_support'}]}
+        assert len(calls) == 1
+    finally:
+        release.set()
+        lab.close()
+    assert lab._inspection_executor is None
+    with pytest.raises(RuntimeError, match='closed'):
+        lab.inspection()
 
 
 def test_operation_errors_do_not_discard_worker_but_unknown_rpc_is_blocked(archive):

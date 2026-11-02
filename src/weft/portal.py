@@ -24,12 +24,13 @@ from weft.portal_checks import TERMINAL as CHECK_TERMINAL
 from weft.portal_repair_jobs import TERMINAL as REPAIR_TERMINAL, availability as repair_availability, read_small_report
 from weft.portal_supports import body_path
 from weft.portal_lab_runtime import open_portal_lab
+from weft.portal_inventory import exercise_intent
 
 MAX_UPLOAD = 100_000_000
 MAX_JOBS = 50
 MAX_STORAGE = 2_000_000_000
 MAX_JOB_BYTES = 650_000_000
-TERMINAL = {"ready", "failed", "cancelled", "interrupted"}
+TERMINAL = {"ready", "preview", "needs_input", "failed", "cancelled", "interrupted"}
 ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.css"}
 
 
@@ -111,10 +112,27 @@ class Portal:
             folder = self._folder(identity)
             result = {k: config[k] for k in ("id", "name", "created_at", "ai", "mode", "source_sha256")}
             result["kind"] = config.get("kind", "video")
+            result["exercise_intent"] = config.get("exercise_intent")
+            if result["kind"] == "imported_lab":
+                result["review_unavailable_reason"] = "Muse review of imported labs needs a verified body-evidence attachment"
+                result["learned_policy_available"] = config.get("learned_policy_available", False)
+            if "inventory" in config:
+                result["inventory"] = config["inventory"]
             result["parent_id"] = config.get("parent_id")
             result["source_available"] = (folder / config["source_file"]).is_file()
             status = self._status(identity)
             result.update(status)
+            inventory_path = folder / "analysis/scene-inventory.json"
+            if inventory_path.is_file():
+                inventory = bounded_json(inventory_path, maximum=8192)
+                if inventory.get("source_sha256") == config["source_sha256"]:
+                    result["scene_inventory"] = inventory
+            if status["status"] == "preview":
+                result["body_preview"] = {"body": "build/body_source/human.json", "model": "build/body_source/human.xml",
+                    "evidence": "build/body_source/evidence.json", "clock": "build/body_source/native-clock.json",
+                    "manifest": "build/body_source/manifest.json",
+                    "image": next(("build/body_source/" + name for name in ("tracks.gif", "tracks-contact-sheet.png")
+                                   if (folder / "build/body_source" / name).is_file()), None)}
             if status["status"] == "running":
                 for name in ("lab", "planar"):
                     path = folder / name / "status.json"
@@ -173,10 +191,13 @@ class Portal:
                 "jobs": [self.summary(identity) for identity in reversed(ids)],
                 "limits": "60-second videos, 1,800 frames, one processing job at a time; failed reconstructions remain inspectable"}
 
-    def upload(self, stream, size, *, name, mode, ai, request_id):
+    def upload(self, stream, size, *, name, mode, ai, request_id, exercise_inventory=None, exercise_output=None):
         if (type(size) is not int or not 1 <= size <= MAX_UPLOAD or type(ai) is not bool
                 or mode not in ("auto", "exercise", "objects") or (mode == "auto" and not ai)):
             raise ValueError("Choose a supported scene type and a video up to 100 MB; auto mode needs AI")
+        intent = exercise_intent(exercise_inventory, exercise_output)
+        if mode == "objects" and (exercise_inventory is not None or exercise_output is not None):
+            raise ValueError("Exercise inventory applies only to exercise or automatic scene selection")
         if (not re.fullmatch(r"[a-f0-9]{32}", request_id) or not isinstance(name, str)
                 or not 1 <= len(name) <= 180 or Path(name).name != name or any(ord(c) < 32 for c in name)
                 or Path(name).suffix.lower() not in {".mp4", ".mov", ".webm", ".m4v", ".mkv", ".avi"}):
@@ -200,7 +221,8 @@ class Portal:
             folder.mkdir(mode=0o700)
             filename = "source" + Path(name).suffix.lower()
             config = {"id": identity, "request_id": request_id, "name": name, "source_file": filename,
-                      "source_sha256": None, "created_at": local_time(), "ai": ai, "mode": mode, "episodes": 300}
+                      "source_sha256": None, "created_at": local_time(), "ai": ai, "mode": mode, "episodes": 300,
+                      **({"exercise_intent": intent} if mode != "objects" else {})}
             self.jobs[identity] = config
             write_json(folder / "job.json", config)
             atomic_json(folder / "status.json", {"status": "uploading", "stage": "upload", "events": []})
@@ -324,6 +346,7 @@ class Portal:
     def repair(self, identity):
         with self.lock:
             root = self._folder(identity)
+            self._require_review_body(identity)
             folder = root / "muse/repairs"
             if folder.exists():
                 return self.summary(identity)
@@ -341,6 +364,7 @@ class Portal:
     def check(self, identity):
         with self.lock:
             folder = self._folder(identity) / "muse/checks"
+            self._require_review_body(identity)
             if folder.exists():
                 return self.summary(identity)
             if self._status(identity)["status"] != "ready" or self._review_status(identity).get("status") != "proposed":
@@ -355,6 +379,7 @@ class Portal:
     def review(self, identity):
         with self.lock:
             folder = self._folder(identity)
+            self._require_review_body(identity)
             if (folder / "muse").exists():
                 return self.summary(identity)
             if self._status(identity)["status"] != "ready":
@@ -367,6 +392,10 @@ class Portal:
             atomic_json(folder / "muse/status.json", {"status": "queued", "message": "Waiting for the shared processing slot", "requested_at": local_time()})
             self.wake.set()
             return self.summary(identity)
+
+    def _require_review_body(self, identity):
+        if self.jobs[identity].get("kind") == "imported_lab":
+            raise ValueError("Muse review of imported labs needs a verified body-evidence attachment")
 
     def _run(self, identity, *, review=False, checks=False, repairs=False):
         folder = self._folder(identity)
@@ -575,12 +604,15 @@ class PortalHandler(LabHandler):
                 raise ValueError("Use a fixed-length upload")
             if path == "/api/projects":
                 query = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
-                if set(query) != {"name", "mode", "ai", "request_id"} or any(len(v) != 1 for v in query.values()) or query["ai"][0] not in {"true", "false"}:
+                if (not {"name", "mode", "ai", "request_id"} <= query.keys()
+                        or query.keys() - {"name", "mode", "ai", "request_id", "exercise_inventory", "exercise_output"}
+                        or any(len(v) != 1 for v in query.values()) or query["ai"][0] not in {"true", "false"}):
                     raise ValueError("Invalid upload options")
                 length = int(self.headers.get("Content-Length", "0"))
                 self.connection.settimeout(30)
                 result = self.server.portal.upload(self.rfile, length, name=query["name"][0], mode=query["mode"][0],
-                    ai=query["ai"][0] == "true", request_id=query["request_id"][0])
+                    ai=query["ai"][0] == "true", request_id=query["request_id"][0],
+                    exercise_inventory=query.get("exercise_inventory", [None])[0], exercise_output=query.get("exercise_output", [None])[0])
                 return self.reply(result, 202)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/cancel", path)
             if match:

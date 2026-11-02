@@ -41,6 +41,10 @@ def main():
     portal = commands.add_parser("portal", help="Open the local video-to-simulation web portal")
     portal.add_argument("--root", default=".local/portal", help="Persistent private project and recording directory")
     portal.add_argument("--port", type=int, default=8765)
+    portal_import = commands.add_parser("portal-import", help="Copy a verified exercise lab into the stopped portal")
+    portal_import.add_argument("--lab", required=True)
+    portal_import.add_argument("--root", default=".local/portal")
+    portal_import.add_argument("--name", help="Project filename with the original video extension")
     openai_setup = commands.add_parser("openai-budget", help="Set a lifetime portal API allowance without resetting charges")
     openai_setup.add_argument("--total-usd", type=float, required=True)
     interact = commands.add_parser("interact", help="Step the Python simulator manually")
@@ -982,6 +986,9 @@ def main():
         elif args.command == "portal":
             from weft.portal import launch_portal
             result = launch_portal(args)
+        elif args.command == "portal-import":
+            from weft.portal_import import import_lab
+            result = import_lab(args.lab, args.root, name=args.name)
         elif args.command == "openai-budget":
             from weft.openai_access import OpenAIBudget
             result = OpenAIBudget().configure(args.total_usd, note="Administrator explicitly configured the portal lifetime allowance through the CLI")

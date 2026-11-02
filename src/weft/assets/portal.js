@@ -11,8 +11,8 @@
   const reviewActive = job => ["queued", "running", "cancelling"].includes(job.muse?.status);
   const checkActive = job => ["queued", "running", "cancelling"].includes(job.muse?.checks?.status);
   const repairActive = job => ["queued", "running", "cancelling"].includes(job.muse?.repairs?.status);
-  const terminal = new Set(["ready", "failed", "cancelled", "interrupted"]);
-  const labels = {queued:"Queued",uploading:"Uploading",running:"Processing",ready:"Ready to explore",failed:"Needs attention",cancelled:"Cancelled",interrupted:"Interrupted"};
+  const terminal = new Set(["ready", "preview", "needs_input", "failed", "cancelled", "interrupted"]);
+  const labels = {queued:"Queued",uploading:"Uploading",running:"Processing",ready:"Ready to explore",preview:"Body evidence ready · no physics",needs_input:"Scene inputs needed",failed:"Needs attention",cancelled:"Cancelled",interrupted:"Interrupted"};
   const error = message => { $("error").textContent = message; $("error").hidden = false; };
   const fileURL = (id, name) => `/api/projects/${id}/files/${name.split("/").map(encodeURIComponent).join("/")}?token=${encodeURIComponent(token)}`;
   async function request(path, options = {}) {
@@ -37,6 +37,21 @@
     $("project-status").textContent = labels[job.status] || job.status;
     $("project-error").hidden = !job.error;
     $("project-error").textContent = job.error || "";
+    const inventory = job.scene_inventory, imported = job.kind === "imported_lab";
+    const legacyScope = !inventory && !imported && job.kind !== "support_experiment" && job.status === "ready" && job.route === "exercise";
+    $("scene-inventory").hidden = !inventory && !imported && !legacyScope;
+    $("inventory-summary").textContent = inventory?.message || (imported
+      ? `Imported source-bound simulation candidate, not automatic equipment reconstruction. Task success and physical/contact accuracy are not established. ${job.review_unavailable_reason || ""}`
+      : legacyScope ? "Legacy person-only simulation: this upload did not record an explicit equipment declaration. Its saved world is unchanged; do not treat it as a full-scene reconstruction or verified equipment absence." : "");
+    $("inventory-next-steps").replaceChildren(...(inventory?.next_steps || []).map(value => {const li=document.createElement("li");li.textContent=value;return li;}));
+    artifactLink("inventory-download", job, "analysis/scene-inventory.json", !!inventory);
+    const preview = job.status === "preview" ? job.body_preview : null;
+    $("body-preview").hidden = !preview;
+    $("body-preview-image").hidden = !preview?.image;
+    $("body-preview-image-note").hidden = !preview || !!preview.image;
+    if (preview?.image) $("body-preview-image").src = fileURL(job.id, preview.image);
+    for (const [id,key] of [["model","model"],["data","body"],["evidence","evidence"],["clock","clock"],["manifest","manifest"]])
+      artifactLink(`body-preview-${id}`, job, preview?.[key] || "", !!preview?.[key]);
     const readiness = job.status === "failed" ? job.reconstruction_readiness : null;
     $("reconstruction-readiness").hidden = !readiness;
     if (readiness) {
@@ -73,9 +88,9 @@
     $("experiment-note").hidden = job.kind !== "support_experiment";
     $("experiment-note").textContent = job.kind === "support_experiment" ? "Authored support experiment: source-bound body, user-specified box and load task. Equipment/contact are not recovered. This is a new task, not a scored repair of the parent project." : "";
     artifactLink("support-priors-download", job, "support-priors.json", job.kind === "support_experiment");
-    $("muse-review").hidden = job.status !== "ready" && !job.muse;
+    $("muse-review").hidden = imported || (job.status !== "ready" && !job.muse);
     $("review-muse").hidden = !!job.muse;
-    $("review-muse").disabled = !museAvailable || reviewing;
+    $("review-muse").disabled = imported || !museAvailable || reviewing;
     const legacyBodyReview = job.kind === "support_experiment" && job.muse?.status === "proposed" && job.muse.review_scope !== "coupled_world_assumptions";
     $("muse-scope").hidden = job.route !== "exercise" && job.kind !== "support_experiment";
     $("muse-scope").textContent = legacyBodyReview
@@ -189,11 +204,16 @@
     const requestId = crypto.randomUUID().replaceAll("-", "");
     try {
       const query = new URLSearchParams({name:video.name,mode,ai:String(ai),request_id:requestId});
+      if (mode !== "objects") {
+        query.set("exercise_inventory", $("exercise-inventory").value);
+        query.set("exercise_output", $("exercise-output").value);
+      }
       const job = await request(`/api/projects?${query}`, {method:"POST",body:video,headers:{"Content-Type":"application/octet-stream"},signal:AbortSignal.timeout(120000)});
       selected = job.id; $("upload-status").textContent = "Video saved. Processing continues in the background."; await show(job);
     } catch (e) { error(`${e.message}. Refresh the project list before submitting again; an upload may already have been accepted.`); $("upload-status").textContent = "Upload did not finish normally."; }
     finally { uploading = false; $("create").disabled = false; refresh(); }
   };
+  $("mode").onchange = () => { $("exercise-options").hidden = $("mode").value === "objects"; };
   $("cancel").onclick = async () => {
     if (!selected) return;
     $("cancel").disabled = true;

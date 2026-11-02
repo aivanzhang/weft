@@ -12,6 +12,7 @@ function setup(jobs=[]) {
     const attrs = Object.fromEntries([...match[2].matchAll(/([\w-]+)(?:="([^"]*)")?/g)].map(m=>[m[1],m[2]??""]));
     if(attrs.id) elements.set(attrs.id,new Element(match[1],attrs));
   }
+  elements.get("exercise-inventory").value="unknown"; elements.get("exercise-output").value="body_preview";
   const timers=new Map(), delays=new Map(), calls=[], listeners=new Map(); let next=1;
   const document={hidden:false,getElementById:id=>elements.get(id),createElement:tag=>new Element(tag),querySelectorAll:()=>[],addEventListener:(name,fn)=>listeners.set(name,fn)};
   const info={credential:{configured:true},budget:{configured:true,remaining_usd:5,total_usd:5,calls:0,unsettled_calls:0,reservation_usd:.3135},muse:{available:true,budget_configured:true,remaining_usd:4.7,total_budget_usd:5,unsettled_count:0,estimated_one_call_usd:.058368},jobs};
@@ -158,4 +159,45 @@ function setup(jobs=[]) {
   assert.match(e.get("repairs-status").textContent,/Physical measurements/);
   await e.get("run-repairs").onclick();assert.ok(!f.calls.some(call=>call.path.endsWith("/muse/repairs")));
   console.log("PASS unsupported Muse hypotheses remain explicit and cannot launch candidate tests");
+}
+{
+  const id="5".repeat(32), f=setup([{id,name:"equipment.webm",route:"exercise",status:"preview",events:[],
+    scene_inventory:{message:"Body evidence only; equipment remains unresolved.",next_steps:[]},
+    body_preview:{image:"build/body_source/tracks.gif",body:"build/body_source/human.json",model:"build/body_source/human.xml",evidence:"build/body_source/evidence.json",clock:"build/body_source/native-clock.json",manifest:"build/body_source/manifest.json"}}]);await tick();
+  const e=f.elements;
+  assert.equal(e.get("body-preview").hidden,false);assert.equal(e.get("body-preview-image").hidden,false);
+  assert.match(e.get("body-preview-image").src,/tracks.gif\?token=test-owner-token$/);
+  assert.match(e.get("body-preview-model").href,/human.xml\?token=test-owner-token$/);
+  assert.match(e.get("project-status").textContent,/no physics/);
+  assert.equal(e.get("sandbox").hidden,true);assert.equal(e.get("muse-review").hidden,true);assert.equal(e.get("cancel").hidden,true);
+  assert.equal(e.get("inventory-summary").textContent,"Body evidence only; equipment remains unresolved.");
+  assert.ok(!f.calls.some(c=>c.path.includes("/files/")));
+  f.info.jobs[0]={id,name:"mixed.webm",status:"needs_input",route:"exercise",events:[],scene_inventory:{message:"Explicit equipment inputs needed",next_steps:["<script>unsafe</script>"]}};
+  await e.get("refresh").onclick();await tick();
+  assert.equal(e.get("body-preview").hidden,true);assert.equal(e.get("cancel").hidden,true);
+  assert.equal(e.get("inventory-next-steps").children[0].textContent,"<script>unsafe</script>");
+  console.log("PASS real pose-preview artifact links, no physics/sandbox claims and terminal mixed-scene input guidance");
+}
+{
+  const f=setup();await tick();const e=f.elements;
+  e.get("video").files=[{name:"clip.webm",size:500}];e.get("rights").checked=true;e.get("use-ai").checked=false;e.get("mode").value="exercise";
+  e.get("exercise-inventory").value="equipment_or_obstacles";e.get("exercise-output").value="body_preview";
+  await e.get("upload-form").onsubmit({preventDefault(){}});await tick();
+  const call=f.calls.find(c=>c.path.startsWith("/api/projects?")),query=new URLSearchParams(call.path.split("?")[1]);
+  assert.equal(query.get("exercise_inventory"),"equipment_or_obstacles");assert.equal(query.get("exercise_output"),"body_preview");
+  e.get("mode").value="objects";e.get("mode").onchange();assert.equal(e.get("exercise-options").hidden,true);
+  console.log("PASS uploader scene declaration and output choice survive the authenticated request");
+}
+{
+  const id="4".repeat(32), f=setup([{id,name:"imported.webm",kind:"imported_lab",route:"exercise",status:"ready",events:[],sandbox:`/labs/${id}/`,
+    inventory:{method:"saved_world"},review_unavailable_reason:"Muse review of imported labs needs a verified body-evidence attachment"}]);await tick();
+  const e=f.elements;assert.equal(e.get("sandbox").hidden,false);assert.equal(e.get("muse-review").hidden,true);assert.equal(e.get("support-editor").hidden,true);
+  assert.match(e.get("inventory-summary").textContent,/Imported source-bound simulation candidate/);
+  assert.match(e.get("inventory-summary").textContent,/verified body-evidence attachment/);
+  assert.ok(!e.get("inventory-summary").textContent.includes("Legacy person-only"));
+  f.info.jobs[0]={id,name:"old.webm",route:"exercise",status:"ready",events:[],sandbox:`/labs/${id}/`};
+  await e.get("refresh").onclick();await tick();
+  assert.match(e.get("inventory-summary").textContent,/did not record an explicit equipment declaration/);
+  assert.equal(e.get("sandbox").hidden,false);
+  console.log("PASS imported coupled worlds stay distinct from legacy undeclared person-only labs");
 }

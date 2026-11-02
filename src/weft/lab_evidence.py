@@ -63,14 +63,21 @@ def _shared_exercise(summary, scene, task, contract, policy, files, *, camera_ad
              and contract.get("control_profile") == "shared_exercise", "exercise contract")
     scene_sha = summary.get("scene_sha256")
     camera = scene.get("profile") == "shared-world-v6"
-    _require(scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v6")
+    support = scene.get("profile") == "shared-world-v4"
+    _require(scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4", "shared-world-v6")
              and scene_sha is not None and contract.get("scene_sha256") == scene_sha, "exercise scene binding")
     task_sha = canonical_hash(task)
     expected_profile = ("camera-shared-task-v1" if camera else
+                        "shared-support-task-v1" if support else
                         "shared-exercise-task-v2" if scene["profile"] == "shared-world-v3" else "shared-exercise-task-v1")
     _require(type(task.get("schema_version")) is int and task["schema_version"] == 1
              and task.get("profile") == expected_profile and task.get("scene_sha256") == scene_sha
              and contract.get("task_sha256") == task_sha, "exercise task binding")
+    if support:
+        # This pure contract checks authored support scope and fixed gates, not native or physical validity.
+        from weft.shared_support_task import validate_shared_support_task
+
+        validate_shared_support_task(task, scene)
     summary["task_sha256"] = task_sha
     control = task.get("control")
     _require(isinstance(control, dict) and control.get("root_assistance") in ("disabled", "explicit_3_axis"),
@@ -83,12 +90,15 @@ def _shared_exercise(summary, scene, task, contract, policy, files, *, camera_ad
         _require(compact is None, "unavailable policy has evaluation metadata")
         return
     policy_sha = _hash(files.get("policy.json"), "policy")
+    profiles = {"camera-shared-policy-v1"} if camera else {"shared-support-policy-v1"} if support else _POLICIES
     _require(isinstance(compact, dict) and type(policy.get("schema_version")) is int
-             and policy["schema_version"] == 1 and policy.get("profile") in ({"camera-shared-policy-v1"} if camera else _POLICIES)
+             and policy["schema_version"] == 1 and policy.get("profile") in profiles
              and compact.get("profile") == policy["profile"]
              and contract.get("policy_sha256") == compact.get("policy_sha256") == policy_sha
              and policy.get("scene_sha256") == scene_sha and policy.get("task_sha256") == task_sha,
              "exercise policy binding")
+    if support:
+        _require(policy.get("gates_sha256") == task["gates_sha256"], "support policy gates")
     if camera:
         _camera_policy(scene, task, contract, compact, files, camera_admission, policy_document)
     counts = compact.get("evaluation_successes")

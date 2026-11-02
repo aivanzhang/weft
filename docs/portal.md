@@ -20,9 +20,15 @@ The user starts/manages this server. No browser opens automatically. Use
    applies its own reconstruction and package limits.
 2. Leave **Analyze with OpenAI** on and choose **Let AI identify the scene**.
    Confirm permission to process the video and send its sampled frames.
-3. Watch **Understand → Build & check → Learn**. The original, sampled frames,
+   For exercise, declare whether equipment/obstacles are present and choose an
+   output. **Body evidence preview — no physics** is the default: it shows
+   annotated source poses and downloadable body/joint models, not an interactive
+   simulation. **Ground only** plus **Interactive scene simulation** enables the
+   person-only sandbox; this is your scope declaration, not verified absence.
+   Automatic mixed equipment reconstruction is not available from an upload.
+3. Watch the processing stages. The original, sampled frames,
    scene proposal, API receipt, failure reasons and processing log are inspectable.
-4. Select **Open interactive sandbox**. Inspect the source, tracks and geometry;
+4. For a completed simulation, select **Open interactive sandbox**. Inspect the source, tracks and geometry;
    rotate the view; choose manual, authored reference or learned controls where
    available; then **Record & start → Stop & save**.
 5. Select **Send evidence to Muse for review** in the project. Inspect alternative
@@ -62,6 +68,33 @@ An additional authored-support experiment is ready: its deliberately distant box
 cannot supply the requested forearm load, so its task fails even though the lab
 can be played and recorded. Training retained the authored controller; it did
 not discover a successful support policy.
+
+**Equipment candidate.webm** is also ready in this workspace: a source-bound
+person and two equipment proxies share one world. Open it to inspect all three
+actors, interact and record. Its original equipment-stability test still fails;
+this is a playable candidate, not successful physical reconstruction. Six newly
+recorded actions replay exactly. Its imported run and original task are unchanged.
+
+### Import an existing verified exercise lab
+
+With the portal stopped, copy a sealed lab into its project list:
+
+```sh
+.venv-lab/bin/python -m weft portal-import \
+  --lab .local/working-equipment-cell-admission-01/lab \
+  --name 'Equipment candidate.webm'
+.venv-lab/bin/python -m weft portal
+```
+
+The example is already imported here; repeating the command returns that project.
+Import validates the complete copied lab through the ordinary loader, preserves
+original evidence/task/policy bytes and starts separate recordings. It does not
+copy old recording sessions, infer poses, train or call an AI provider. A running
+portal's exclusive lock prevents import from interfering with active work.
+Unsupported runtime/source packages fail explicitly and retain private partial
+evidence. Imported labs cannot request Muse review or its comparisons until a
+verified body-evidence attachment is supported; ordinary video projects keep
+their existing Muse workflow. [Verification and remaining work](handoffs/portal-inventory-and-import.md).
 
 ## API configuration and spending
 
@@ -118,9 +151,11 @@ generation is separate; selecting a skin must not alter physics or task behavior
 
 ## What the result means
 
-- **Exercise:** the existing full-body shared-world workflow, assumed ground and
+- **Exercise simulation:** after an explicit ground-only declaration, the existing full-body shared-world workflow, assumed ground and
   explicit virtual root assistance, bounded training and separate changed-start
   evaluation. Muscles are illustrative; anatomy and contact are not measured.
+- **Exercise preview:** annotated pose estimates and body/model files only; no
+  dynamics, training, equipment reconstruction or interactive 3D renderer.
 - **Objects:** source-pixel color localization when qualified, otherwise bounded
   AI-region hypotheses subject to appearance/reconstruction gates. The 3D world
   retains front-plane evidence; depth, materials and parking controls are authored.

@@ -13,6 +13,7 @@ from weft import portal_pipeline as pipeline
 from weft import exercise_reconstruction_readiness as readiness
 from weft.io import write_json
 from weft.portal import Portal
+from weft.portal_inventory import exercise_intent
 
 
 @pytest.fixture
@@ -30,7 +31,7 @@ def job(root, pose_bytes, monkeypatch, *, native=False, ready=False):
     root.mkdir()
     (root / "source.webm").write_bytes(video)
     write_json(root / "job.json", {"id": "a" * 32, "source_file": "source.webm",
-        "source_sha256": hashlib.sha256(video).hexdigest(), "ai": False, "mode": "exercise"})
+        "source_sha256": hashlib.sha256(video).hexdigest(), "ai": False, "mode": "exercise", "exercise_intent": exercise_intent("ground_only", "simulation")})
     def samples(video, out):
         out.mkdir()
         return {}

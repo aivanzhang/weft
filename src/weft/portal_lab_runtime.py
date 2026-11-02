@@ -1,6 +1,7 @@
 """Run incompatible saved labs in fixed trusted releases, never artifact-supplied code."""
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import importlib.util
 import json
@@ -211,6 +212,8 @@ class ArchivedLab:
         self._request_seconds = request_seconds
         self._sequence = 0
         self._closed = False
+        self._inspection_executor = None
+        self._inspection_future = None
         self._buffer = bytearray()
         self._process = subprocess.Popen([str(python), "-P", "-B", str(Path(__file__).absolute()),
             "--worker", str(self.root), "--runtime", str(Path(runtime).absolute())],
@@ -288,12 +291,26 @@ class ArchivedLab:
             "scope": "Original simulation and scoring runtime; saved results are not migrated."}}
     def control(self, path, data): return self._rpc("control", path, data)
     def exercise_coverage(self): return self._rpc("exercise_coverage")
-    def inspection(self): return self._rpc("inspection")
+    def inspection(self):
+        # Current pure metadata readers do not change the archived physics or evaluator.
+        from weft.lab_inspection import load_inspection
+
+        with self.lock:
+            if self._closed:
+                raise RuntimeError("Archived lab worker is closed")
+            if self._inspection_future is None:
+                self._inspection_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="weft-inspection")
+                self._inspection_future = self._inspection_executor.submit(
+                    load_inspection, self.root / "run", profile="shared-world")
+            return self._inspection_future.result() if self._inspection_future.done() else {"status": "loading"}
     def recording_inspection(self, name): return self._rpc("recording_inspection", name)
     def recording_evidence(self, name): return self._rpc("recording_evidence", name)
 
     def _terminate(self):
         self._closed = True
+        if self._inspection_executor is not None:
+            self._inspection_executor.shutdown(wait=True, cancel_futures=True)
+            self._inspection_executor = None
         if self._process.poll() is None:
             self._process.terminate()
             try:
