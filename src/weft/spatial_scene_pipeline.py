@@ -19,7 +19,11 @@ from weft.spatial_scene_inputs import (
 
 
 PROFILE = "spatial-scene-construction-v1"
-MAX_INPUT_BYTES = 64 << 20
+# Appearance-profile planar runs legitimately carry ~30 MiB of source, previews and
+# implementation snapshots, and every member is read once plus recheck-reserved; the
+# aggregate allowance must hold such a package with margin while staying far under the
+# worker memory cap.
+MAX_INPUT_BYTES = 192 << 20
 MAX_OUTPUT_BYTES = 64 << 20
 MAX_OUTPUT_FILES = MAX_SOURCE_FILES + 64
 MAX_METADATA_BYTES = 1 << 20

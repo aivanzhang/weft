@@ -36,7 +36,7 @@ playback and programmed reference controllers are different modes, not learned p
 
 | Area | Available | Not yet established |
 | --- | --- | --- |
-| Video intake | Uploads, processing stages, evidence inspection and failure reports; transient competing pose hypotheses are screened instead of rejecting the clip | Multi-person videos (refused with reasons); reliable reconstruction across arbitrary videos |
+| Video intake | Any decodable video takes a principled route: over-length clips get an explicit bounded window, person scenes go to the exercise flow and its prompts, object scenes try color regions then AI/motion appearance intervals on a shrinking ladder, and every attempt is preserved | Fast small objects and moving-camera footage can exhaust the tracker ladder; multi-person admission needs the explicit person-region flow |
 | Simulation | Rolling, planar, rigid-object and articulated-body profiles; shared MuJoCo worlds | Accurate recovery of hidden depth, materials, grasp/contact and unassisted balance |
 | Interaction | Manual controls, explicit tasks, reset, recording and action replay; disclosed root assistance | Physical accuracy of changed-action predictions |
 | Learning | Bounded training, baselines and evaluation on supported profiles | Consistent improvement over simple controllers |
@@ -71,6 +71,13 @@ not an external benchmark or a guarantee for new inputs.
   continuous 456-step recording with a mid-take avatar swap, task success true,
   video/replay export — runs in about 14 seconds.
   Evidence: `.local/portal-unfamiliar-source-acceptance-02/continue-result-02.json`.
+- Generalized-route diversity over six real clips (long billiards, hands with pucks,
+  hand-cranked toy van, handheld elastic pendulum, broadcast carom, multi-person
+  dance): the pendulum runs the **complete generalized chain live** — appearance
+  interval, 3D spatial hypothesis, trained policy, interactive lab, recorded and
+  exported session in 11 seconds; both person/mixed scenes reach the exercise flow's
+  interactive inventory prompt; the three fast-ball clips exhaust the tracking ladder
+  with every attempt preserved. Evidence: `.local/portal-generalized-05/result.json`.
 - A real Muse-selected controller candidate was tested and rejected under the
   unchanged scoring rules. No accepted physical repair was demonstrated.
 - Three bounded Studio-panda weight-space repairs failed, but a Blender bone-heat

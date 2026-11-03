@@ -71,6 +71,151 @@ def validate_plan(plan, *, analysis_profile=None, frames=None):
     return plan
 
 
+def bounded_source_window(video, out):
+    """Derive a supported-length preview window from an over-length video.
+
+    A decodable video longer than the 60-second/1,800-frame envelope no longer refuses:
+    its first supported window is re-encoded as an explicit derivation, and the rest of
+    the pipeline runs on that window. The original upload stays untouched beside it.
+    Returns (path, provenance) where provenance is None when no window was needed.
+    """
+    import cv2
+    cv2.setNumThreads(1)
+    video, out = Path(video), Path(out)
+    cap = cv2.VideoCapture(str(video))
+    try:
+        fps, reported, width, height = [cap.get(k) for k in
+            (cv2.CAP_PROP_FPS, cv2.CAP_PROP_FRAME_COUNT, cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT)]
+        if (not cap.isOpened() or not all(math.isfinite(n) for n in (fps, reported, width, height))
+                or not 1 <= fps <= 240 or reported < 12 or not 64 <= width <= 4096 or not 64 <= height <= 2160):
+            raise ValueError("Use a decodable video of at least 12 frames up to 4096×2160 pixels and 240 fps")
+        if fps <= 120 and reported <= 1800 and reported / fps <= 60:
+            return video, None
+        limit = min(1740, int(fps * 58))
+        if limit < 12:
+            raise ValueError("Video frame rate leaves no supported preview window")
+        out.mkdir(exist_ok=True)
+        target = out / "source-window.mp4"
+        if target.exists():
+            raise FileExistsError("Preview window already exists; use a new job directory")
+        writer = cv2.VideoWriter(str(target), cv2.VideoWriter_fourcc(*"mp4v"),
+                                 min(fps, 120.0), (int(width), int(height)))
+        if not writer.isOpened():
+            raise RuntimeError("Preview window encoder unavailable")
+        started = time.monotonic()
+        written = 0
+        try:
+            while written < limit:
+                ok, frame = cap.read()
+                if not ok:
+                    break
+                writer.write(frame)
+                written += 1
+                if time.monotonic() - started > 120:
+                    raise TimeoutError("Preview window derivation exceeded 120 seconds")
+        finally:
+            writer.release()
+        if written < 12:
+            raise ValueError("Could not decode a supported preview window from this video")
+        provenance = {"schema_version": 1, "profile": "portal-source-window-v1",
+            "original_sha256": digest(video), "window_sha256": digest(target),
+            "original_reported_frames": int(reported), "original_fps": fps,
+            "window_frames": written, "window_fps": min(fps, 120.0), "artifact": target.name,
+            "scope": ("First supported interval only, re-encoded; later content is unobserved, "
+                      "not absent. Re-encoding changes pixels and timing granularity; the "
+                      "untouched original remains the provenance source.")}
+        write_json(out / "source-window.json", provenance)
+        return target, provenance
+    finally:
+        cap.release()
+
+
+def motion_region(video, *, maximum_samples=120):
+    """Dominant moving region and its onset frame: a deterministic last-resort track target.
+
+    The box comes from the first sampled frame whose difference against the start exceeds
+    the threshold, so the template covers the object where it first moves rather than its
+    whole path; the accumulated path box is the fallback for immediately moving scenes.
+    """
+    import cv2
+    cv2.setNumThreads(1)
+
+    def boxes_of(delta):
+        blurred = cv2.GaussianBlur(delta, (9, 9), 0)
+        _, mask = cv2.threshold(blurred, 40, 255, cv2.THRESH_BINARY)
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        return [b for b in map(cv2.boundingRect, contours) if b[2] >= 12 and b[3] >= 12]
+
+    cap = cv2.VideoCapture(str(video))
+    try:
+        ok, first = cap.read()
+        if not ok:
+            raise ValueError("Could not decode the first frame for motion analysis")
+        count = max(1, int(cap.get(cv2.CAP_PROP_FRAME_COUNT)))
+        stride = max(1, count // maximum_samples)
+        reference = cv2.cvtColor(first, cv2.COLOR_BGR2GRAY)
+        accumulated = None
+        onset = None
+        index = 0
+        while True:
+            ok, frame = cap.read()
+            if not ok:
+                break
+            index += 1
+            if index % stride:
+                continue
+            delta = cv2.absdiff(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), reference)
+            accumulated = delta if accumulated is None else cv2.max(accumulated, delta)
+            if onset is None:
+                candidates = boxes_of(delta)
+                if candidates:
+                    x, y, w, h = max(candidates, key=lambda b: b[2] * b[3])
+                    onset = {"frame": index, "box_xywh": [int(x), int(y), int(w), int(h)]}
+        if accumulated is None:
+            raise ValueError("Video has no frames beyond the first; nothing moves to simulate")
+        if onset is None:
+            raise ValueError("No sustained moving region was observed; a static scene has nothing to simulate")
+        return {"box_xywh": onset["box_xywh"], "first_motion_frame": onset["frame"],
+                "provenance": "Frame-difference region at motion onset across sampled frames; "
+                              "an image-plane attention box, not object identity or physics"}
+    finally:
+        cap.release()
+
+
+def degraded_appearance_config(plan, frames, video, *, span=None):
+    """Appearance-tracking fallback for scenes outside the supported exact routes.
+
+    Arbitrary footage rarely keeps one template trackable across a whole clip, so the
+    authored interval starts at motion onset and covers a bounded span; the caller may
+    shrink the span and retry when matching coverage fails.
+    """
+    last = frames["decoded_frame_count"] - 1
+    usable = []
+    for obj in plan.get("objects", []):
+        x0, y0, x1, y1 = obj["box_xyxy"]
+        if round((x1 - x0) * frames["width"]) >= 12 and round((y1 - y0) * frames["height"]) >= 12:
+            usable.append(obj)
+    if any(obj["role"] == "movable" for obj in usable):
+        config = appearance_config({**plan, "objects": usable}, frames)
+        # AI boxes are first-image regions, so the interval must start at frame zero.
+        config["tracking"]["end_frame"] = last if span is None else min(last, span)
+        return config, "ai_regions"
+    region = motion_region(video)
+    start = max(0, region["first_motion_frame"] - 2)
+    end = last if span is None else min(last, start + span)
+    if end - start < 10:
+        start = max(0, end - 10)
+    objects = [{"id": "object_1", "label": "dominant moving region", "shape": "box", "role": "active",
+                "box_xywh": region["box_xywh"], "provenance": region["provenance"]}]
+    config = {"tracking": {"schema_version": 1, "source_sha256": frames["source_sha256"],
+                           "start_frame": start, "end_frame": end, "initialization_frame": start,
+                           "objects": objects},
+              "world": {"controlled_id": "object_1", "target": [.75, frames["height"] / frames["width"] * .5],
+                        "gravity": [0, 0], "damping": .98, "restitution": .5},
+              "source_label": "User upload; motion-difference attention region; zero gravity and parking task are authored"}
+    return config, "motion_region"
+
+
 def sample_video(video, out):
     import cv2
     cv2.setNumThreads(1)
@@ -320,6 +465,11 @@ def execute_job(root, *, project=PROJECT_ROOT, transport=post_response):
         video = root / config["source_file"]
         if digest(video) != config["source_sha256"]:
             raise ValueError("Uploaded source changed")
+        video, window = bounded_source_window(video, root)
+        if window is not None:
+            progress("analyze", f"Video exceeds the supported envelope; analyzing its first "
+                     f"{window['window_frames']} frames as an explicit re-encoded window. "
+                     "Later content is unobserved, not absent.")
         def needs_input(report):
             (root / "analysis").mkdir(exist_ok=True)
             atomic_json(root / "analysis/scene-inventory.json", report)
@@ -333,18 +483,36 @@ def execute_job(root, *, project=PROJECT_ROOT, transport=post_response):
                 return needs_input(inventory)
         progress("analyze", "Reading video and preserving the exact frames used for AI analysis")
         frames = sample_video(video, root / "analysis")
+        degraded = None
         if config["ai"]:
             progress("analyze", "OpenAI is proposing a scene from six or fewer sampled frames")
             plan = analyze_frames(frames, root / "analysis", identity=config["id"], project=project, transport=transport)
-            route = plan["route"]
-            if config["mode"] != "auto" and config["mode"] != route:
-                raise ValueError("AI scene proposal conflicts with your selected scene type; inspect the saved analysis")
-            if route == "unsupported" or plan["camera"] != "fixed" or plan["people"] != (1 if route == "exercise" else 0):
-                raise ValueError("This video needs reconstruction work before simulation: " + plan["summary"])
+            proposed = plan["route"]
+            supported = (proposed in ("exercise", "objects") and plan["camera"] == "fixed"
+                         and plan["people"] == (1 if proposed == "exercise" else 0))
+            if config["mode"] == "exercise" or (config["mode"] == "auto" and proposed == "exercise"):
+                # Person scenes belong to the exercise flow even when people or camera
+                # disagree: its own gates, needs-input prompt and person-region recovery
+                # decide admission, with the AI proposal retained as advisory context.
+                route = "exercise"
+            elif supported and config["mode"] in ("auto", proposed):
+                route = proposed
+            else:
+                # General scenes degrade to appearance tracking instead of refusing.
+                route = "objects"
+                degraded = {"proposed_route": proposed, "camera": plan["camera"], "people": plan["people"],
+                            "summary": plan["summary"], "warnings": plan.get("warnings", [])}
         else:
             route = config["mode"]
             plan = {"route": route, "summary": "User selected the local builder; no external AI call was made", "warnings": []}
             write_json(root / "analysis/plan.json", plan)
+            if route == "auto":
+                # Local automatic selection is objects-family only; the pose route needs an
+                # explicit exercise request or an AI proposal.
+                route = "objects"
+                degraded = {"proposed_route": "local_auto", "camera": "unverified", "people": None,
+                            "summary": "Local automatic selection without AI; appearance fallback when "
+                                       "color regions are not distinct", "warnings": []}
         if route not in ("exercise", "objects"):
             raise ValueError("Automatic scene selection requires OpenAI")
         if route == "exercise":
@@ -388,15 +556,80 @@ def execute_job(root, *, project=PROJECT_ROOT, transport=post_response):
         else:
             path = None
             profile = "planar"
-            if config["ai"]:
-                path = root / "appearance-config.json"
-                profile, settings, localization = object_localization(plan, frames, video)
-                write_json(path, settings)
-                write_json(root / "analysis/localization.json", localization)
-                progress("reconstruct", localization["reason"])
-            prepare_lab(video, lab, profile=profile, config=path, no_train=True,
-                        source_note=source_note)
-        if route == "objects" and execute(lab) != 0:
+            if degraded is None and config["ai"]:
+                try:
+                    path = root / "appearance-config.json"
+                    profile, settings, localization = object_localization(plan, frames, video)
+                    write_json(path, settings)
+                    write_json(root / "analysis/localization.json", localization)
+                    progress("reconstruct", localization["reason"])
+                except ValueError as error:
+                    # No proposed controllable region is a reason to degrade, not to refuse.
+                    degraded = {"proposed_route": plan.get("route"), "camera": plan.get("camera"),
+                                "people": plan.get("people"), "summary": plan.get("summary", ""),
+                                "warnings": plan.get("warnings", []), "localization_error": str(error)[:300]}
+                    path = None
+                    profile = "planar"
+            if degraded is None:
+                prepare_lab(video, lab, profile=profile, config=path, no_train=True,
+                            source_note=source_note)
+            else:
+                progress("reconstruct", "General scene: tracking the dominant proposed or moving region "
+                         "in an authored planar world. Identity, camera motion, depth and physics stay "
+                         "unverified hypotheses; refusals now require an undecodable or untrackable video.")
+                regions = None
+                try:
+                    import cv2
+                    from weft.scene_vision import _discover
+                    cap = cv2.VideoCapture(str(video))
+                    ok, frame = cap.read()
+                    cap.release()
+                    if ok:
+                        regions = _discover(frame, cv2.cvtColor(frame, cv2.COLOR_BGR2HSV))
+                except ValueError:
+                    regions = None
+                attempts = []
+
+                def attempt(label, attempt_profile, attempt_config):
+                    # Preparation is cheap; the tracking gates live in the worker run, so an
+                    # attempt only counts once its whole build passes.
+                    candidate = root / f"planar-attempt-{len(attempts) + 1}"
+                    try:
+                        prepare_lab(video, candidate, profile=attempt_profile, config=attempt_config,
+                                    no_train=True, source_note=source_note)
+                        if execute(candidate) != 0:
+                            saved = json.loads((candidate / "status.json").read_text())
+                            raise RuntimeError(saved.get("error", {}).get("message", "Reconstruction failed its checks"))
+                        return candidate
+                    except (ValueError, RuntimeError) as error:
+                        attempts.append({"attempt": label, "error": str(error)[:300]})
+                        return None
+
+                chosen = None
+                if regions:
+                    chosen = attempt("color_regions", "planar", None)
+                    if chosen is not None:
+                        degraded["region_source"] = "color_regions"
+                if chosen is None:
+                    # One template rarely survives a whole arbitrary clip; shrink the
+                    # authored interval until matching coverage holds or options run out.
+                    for span in (240, 96, 36):
+                        settings, source_kind = degraded_appearance_config(plan, frames, video, span=span)
+                        path = root / f"appearance-config-{span}.json"
+                        write_json(path, settings)
+                        chosen = attempt(f"appearance_span_{span}", "appearance", path)
+                        if chosen is not None:
+                            degraded["region_source"] = source_kind
+                            degraded["tracking_interval"] = [settings["tracking"]["start_frame"],
+                                                             settings["tracking"]["end_frame"]]
+                            break
+                degraded["attempts"] = attempts
+                write_json(root / "analysis/degraded-route.json", degraded)
+                if chosen is None:
+                    raise ValueError("No continuously trackable interval was found; attempts preserved: "
+                                     + "; ".join(row["error"] for row in attempts[-2:]))
+                chosen.rename(lab)
+        if route == "objects" and degraded is None and execute(lab) != 0:
             failure = json.loads((lab / "status.json").read_text())
             raise ValueError(failure.get("error", {}).get("message", "Reconstruction failed its checks"))
         if route == "objects":

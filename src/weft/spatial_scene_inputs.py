@@ -15,8 +15,11 @@ from weft.shared_world_packaging import read_package_file, validate_package_layo
 
 
 PROFILE = "planar-to-spatial-hypothesis-v1"
-MAX_INPUT_BYTES = 64 << 20
-MAX_FILE_BYTES = 16 << 20
+# Every sealed member is read and recheck-reserved at twice its size; appearance-profile
+# runs legitimately carry ~30 MiB of source, previews and implementation snapshots, so the
+# aggregate budget must hold a full package twice while staying far under the worker cap.
+MAX_INPUT_BYTES = 192 << 20
+MAX_FILE_BYTES = 64 << 20
 MAX_MANIFEST_BYTES = 128 << 10
 MAX_SCENE_BYTES = 250_000
 MAX_CONFIG_BYTES = 64 << 10
