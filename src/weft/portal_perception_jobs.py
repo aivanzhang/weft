@@ -58,10 +58,14 @@ def _context(root):
     return root, job, _path(root/name)
 
 
-def _contract():
-    from weft.portal_pipeline import INSTRUCTIONS, SCHEMA
-    return canonical_hash({'model': MODEL, 'instructions': INSTRUCTIONS, 'schema': SCHEMA,
-                           'max_output_tokens': MAX_OUTPUT_TOKENS})
+def _contract(profile=None):
+    from weft.equipment_analysis_contract import LEGACY_PROFILE, SAMPLED_PROFILE, analysis_contract
+    contract = analysis_contract(SAMPLED_PROFILE if profile is None else profile)
+    value = {'model': MODEL, 'instructions': contract['instructions'], 'schema': contract['schema'],
+             'max_output_tokens': MAX_OUTPUT_TOKENS}
+    if contract['profile'] != LEGACY_PROFILE:
+        value.update(profile=contract['profile'], format_name=contract['format_name'])
+    return canonical_hash(value)
 
 
 def _quote(root):
@@ -237,11 +241,14 @@ def _validate_request(payload, quote, pin):
 
 
 def _validate_quote(root, quote, job):
+    from weft.equipment_analysis_contract import LEGACY_PROFILE, SAMPLED_PROFILE
+    profile = quote.get('analysis_profile', LEGACY_PROFILE)
+    contract_hash = _contract() if profile == SAMPLED_PROFILE else _contract(profile)
     n = quote.get('frame_count')
     if (quote.get('profile') != 'portal-perception-quote-v1' or quote.get('schema_version') != 1
             or quote.get('source_sha256') != job['source_sha256'] or type(n) is not int or not 12 <= n <= 500
             or quote.get('openai_model') != MODEL or quote.get('meta_model') != 'sam-3.1'
-            or quote.get('analysis_contract_sha256') != _contract()
+            or quote.get('analysis_contract_sha256') != contract_hash
             or quote.get('openai_max_usd') != RESERVATION_MICROUSD/1e6
             or quote.get('meta_max_usd') != max(.15, max(50, n)*4/5000)
             or quote.get('maximum_requests') != {'openai': 1, 'meta': 1}):
@@ -329,9 +336,10 @@ def execute_perception_job(root, *, project=PROJECT_ROOT):
                 max_seconds=210, anchor_profile=VISIBLE_ANCHOR_PROFILE, **options)
             check()
             n = prepared['metadata']['frame_count']
+            from weft.equipment_analysis_contract import SAMPLED_PROFILE
             quote = {'schema_version': 1, 'profile': 'portal-perception-quote-v1', 'source_sha256': job['source_sha256'],
                 'frame_count': n, 'preflight_manifest_sha256': prepared['manifest_sha256'],
-                'analysis_contract_sha256': _contract(), 'openai_model': MODEL, 'meta_model': 'sam-3.1',
+                'analysis_profile': SAMPLED_PROFILE, 'analysis_contract_sha256': _contract(), 'openai_model': MODEL, 'meta_model': 'sam-3.1',
                 'openai_max_usd': RESERVATION_MICROUSD/1e6, 'meta_max_usd': max(.15, max(50, n)*4/5000),
                 'maximum_requests': {'openai': 1, 'meta': 1}, 'scope': SCOPE,
                 'message': 'OpenAI receives up to six sampled images; Meta receives the original video and inferred tracking regions. Reservations are separate lifetime-budget bounds, not guaranteed provider hard caps.'}
@@ -364,7 +372,9 @@ def execute_perception_job(root, *, project=PROJECT_ROOT):
         if deadline-time.monotonic() < 190:
             raise TimeoutError('Insufficient time for bounded analysis and tracking; analysis not sent')
         _budget_guard(project, quote)
-        analyze_frames(frames, work/'analysis', identity=request['analysis_call_id'], project=project)
+        from weft.equipment_analysis_contract import LEGACY_PROFILE
+        analyze_frames(frames, work/'analysis', identity=request['analysis_call_id'], project=project,
+                       analysis_profile=quote.get('analysis_profile', LEGACY_PROFILE))
         check()
         progress('preparing_tracking', 'Validating the source-bound AI regions before any Meta video request.')
         def bridge_progress(row):

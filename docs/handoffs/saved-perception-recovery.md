@@ -1,5 +1,7 @@
 # Saved perception recovery and equipment initialization
 
+**Continuation:** [Clearer-frame initialization](sampled-equipment-initialization.md) is now implemented and real-API verified. It reaches two rejected geometry proposals; saved torso-scale diagnosis is the next dependency, not another provider retry.
+
 ## Verified recovery — November 2, 2026 (PST)
 
 The original paid preparation is recovered without repeating either provider or

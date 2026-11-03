@@ -183,6 +183,9 @@ portal and reuse it without repeating pose inference:
 This creates a new child and preserves the failed parent. Start the portal again
 to run its local checks. It does not make paid calls or guarantee a valid world.
 Keep the returned child ID; it appears as a separate project.
+This also accepts a completed equipment refusal with no selectable world. It
+preserves that refusal; active, partial or already selected projects cannot use
+this path to restart or replace their work.
 
 Choose **Exercise**, **Equipment/obstacles** or **Unsure**, and **Interactive scene
 simulation**. In the unresolved project, select **Check video locally**. Inspect
@@ -195,6 +198,14 @@ OpenAI receives sampled images; Meta tracking receives the whole original video
 and inferred regions. This tracking call is separate from the later **Muse review**
 of a completed world. Old upload consent does not authorize a new Meta upload.
 Duplicates, cancellation and restarts do not automatically repeat paid requests.
+
+New equipment analysis can choose a clearer supplied image for each object,
+rather than requiring equipment to be visible in the first image. The selected
+original frame and image are retained. Tracking still receives the complete
+video; earlier returned or missing slots keep their original labels. Existing
+first-image requests remain readable and are not silently changed or retried.
+This improves initialization options, not a guarantee of correct tracking or
+reconstruction. [Actual result and current limits](handoffs/sampled-equipment-initialization.md).
 
 The current path requires an MP4 ≤37 MB/500 frames/60 seconds and a usable initial
 person pose, with at most three equipment objects. Missing/uncertain regions,

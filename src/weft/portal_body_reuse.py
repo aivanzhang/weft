@@ -19,8 +19,11 @@ PROFILE = 'portal-sealed-body-reuse-v1'
 BODY = 'body-reuse/body-source'
 RECEIPT = 'body-reuse/receipt.json'
 MAX_BODY_BYTES = 128 << 20
+EQUIPMENT_METADATA = ('equipment/status.json', 'equipment/candidates.json',
+                      'equipment/source-validation.json', 'equipment/request.json')
 PARENT_METADATA = ('job.json', 'status.json', 'perception/status.json', 'perception/failure.json',
-                   'failure.json', 'perception/preflight/failure.json', 'perception/preflight/body_source/failure.json')
+                   'failure.json', 'perception/preflight/failure.json', 'perception/preflight/body_source/failure.json',
+                   *EQUIPMENT_METADATA)
 FIELDS = {'schema_version', 'profile', 'child_id', 'parent_id', 'parent_files', 'source_file', 'source_sha256',
           'body_manifest_sha256', 'reuse_identity', 'api_calls', 'inference_calls'}
 
@@ -37,6 +40,31 @@ def _read(root, name, maximum=64 << 10, expected=None):
 def _identity(receipt):
     return canonical_hash({key: receipt[key] for key in ('parent_id', 'parent_files', 'source_file',
                                                        'source_sha256', 'body_manifest_sha256')})
+
+
+def _declined_equipment(snapshots, source_sha):
+    """Parent eligibility only: completed refusal is not new source or physics qualification."""
+    from weft.portal_equipment_candidates import PROFILE as EQUIPMENT_PROFILE, MAX_CANDIDATES
+    present = set(EQUIPMENT_METADATA) & snapshots.keys()
+    if not present:
+        return
+    if present != set(EQUIPMENT_METADATA):
+        raise ValueError('Equipment parent needs complete terminal refusal metadata')
+    status, report, proof, request = (_json(snapshots[name]) for name in EQUIPMENT_METADATA)
+    candidates = report.get('candidates')
+    if (status.get('status') != 'complete'
+            or status.get('report_sha256') != sha256(snapshots['equipment/candidates.json']).hexdigest()
+            or report.get('profile') != EQUIPMENT_PROFILE or type(report.get('schema_version')) is not int
+            or report['schema_version'] != 1 or report.get('source_sha256') != source_sha
+            or report.get('assembly_status') not in {'abstained', 'rejected', 'unsupported', 'unsupported_input'}
+            or report.get('request_sha256') != sha256(snapshots['equipment/request.json']).hexdigest()
+            or report.get('source_validation') != proof or proof.get('source_sha256') != source_sha
+            or request.get('profile') != EQUIPMENT_PROFILE or request.get('source_sha256') != source_sha
+            or not isinstance(candidates, list) or len(candidates) > MAX_CANDIDATES
+            or any(not isinstance(row, dict) or row.get('selectable') is not False or row.get('lab')
+                   or row.get('status') not in {'abstained', 'rejected', 'unsupported', 'unsupported_input',
+                                              'failed', 'deferred', 'not_attempted'} for row in candidates)):
+        raise ValueError('Equipment parent must have a pinned completed refusal with no selectable world')
 
 
 def _body(source, pin, source_sha, deadline):
@@ -90,8 +118,9 @@ def _metadata(root):
             or any(not isinstance(pin, str) or not re.fullmatch('[a-f0-9]{64}', pin) for pin in receipt['parent_files'].values())
             or receipt.get('reuse_identity') != _identity(receipt) or job.get('reuse_identity') != receipt['reuse_identity']):
         raise ValueError('Body reuse child, original source or parent receipt differs')
-    for name, pin in receipt['parent_files'].items():
-        _read(root, 'body-reuse/parent/' + name, expected=pin)
+    snapshots = {name: _read(root, 'body-reuse/parent/' + name, expected=pin)
+                 for name, pin in receipt['parent_files'].items()}
+    _declined_equipment(snapshots, receipt['source_sha256'])
     parent_job = _json(_read(root, 'body-reuse/parent/job.json'))
     if (parent_job.get('id') != receipt['parent_id'] or parent_job.get('source_sha256') != receipt['source_sha256']
             or parent_job.get('kind', 'video') != 'video'):
@@ -165,12 +194,20 @@ def reuse_body(root, parent_project, body_source, body_manifest_sha256, *, proje
         job, status = (_json(snapshots[name]) for name in ('job.json', 'status.json'))
         if (job.get('id') != parent_project or job.get('kind', 'video') != 'video' or job.get('mode') != 'exercise'
                 or status.get('status') not in TERMINAL or status.get('lab') or status.get('equipment_candidate_id')
-                or read_status(parent).get('status') in ACTIVE or (parent/'equipment').exists()
+                or read_status(parent).get('status') in ACTIVE
+                or any((parent/name).exists() or (parent/name).is_symlink() for name in ('lab', 'equipment/selection.json'))
                 or job.get('source_file') != 'source.mp4'):
             raise ValueError('Reuse requires an unresolved inactive exercise MP4 parent, not an active or selected world')
         source_sha = job.get('source_sha256')
         if not isinstance(source_sha, str) or not re.fullmatch('[a-f0-9]{64}', source_sha):
             raise ValueError('Parent source identity is missing')
+        if (parent/'equipment').exists() or (parent/'equipment').is_symlink():
+            _directory(parent/'equipment')
+            if not set(EQUIPMENT_METADATA) <= snapshots.keys():
+                raise ValueError('Equipment parent needs complete terminal refusal metadata')
+            if status.get('status') != 'needs_input' or status.get('route') != 'exercise':
+                raise ValueError('Completed equipment refusal must remain an unresolved exercise parent')
+            _declined_equipment(snapshots, source_sha)
         video = _read(parent, 'source.mp4', 37_000_000, source_sha)
         _read(source, 'manifest.json', 1 << 20, body_manifest_sha256)
         receipt = {'schema_version': 1, 'profile': PROFILE, 'child_id': uuid4().hex, 'parent_id': parent_project,
@@ -219,6 +256,8 @@ def reuse_body(root, parent_project, body_source, body_manifest_sha256, *, proje
         queue_preflight(stage)
         for name, pin in receipt['parent_files'].items():
             _read(parent, name, expected=pin)
+        if any((parent/name).exists() or (parent/name).is_symlink() for name in ('lab', 'equipment/selection.json')):
+            raise ValueError('Parent gained a selected world during body reuse')
         _read(parent, 'source.mp4', 37_000_000, source_sha)
         _read(source, 'manifest.json', 1 << 20, body_manifest_sha256)
         if (source/'failure.json').exists() or (source/'failure.json').is_symlink():

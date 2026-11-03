@@ -193,3 +193,75 @@ def test_cli_routes_exact_manifest_pin_without_running_work(inputs, monkeypatch,
     cli.main()
     assert seen == [(str(root), parent.name, str(body), pin)]
     assert 'queued_preflight' in capsys.readouterr().out
+
+
+def declined_equipment(inputs, candidates=None):
+    from weft.portal_equipment_candidates import PROFILE
+    _, parent, _ = inputs
+    source_sha = digest(parent/'source.mp4')
+    work = parent/'equipment'; work.mkdir()
+    request = {'profile': PROFILE, 'source_kind': 'perception', 'source_sha256': source_sha,
+               'descriptor_sha256': 'c'*64}
+    proof = {'source_sha256': source_sha, 'scope': 'Analytical metadata-only parent refusal fixture'}
+    write_json(work/'request.json', request)
+    write_json(work/'source-validation.json', proof)
+    report = {'schema_version': 1, 'profile': PROFILE, 'source_sha256': source_sha,
+              'assembly_status': 'abstained', 'candidates': candidates or [], 'source_validation': proof,
+              'request_sha256': digest(work/'request.json')}
+    write_json(work/'candidates.json', report)
+    write_json(work/'status.json', {'status': 'complete', 'report_sha256': digest(work/'candidates.json')})
+    return work
+
+
+@pytest.mark.parametrize('rows', [[], [{'id': 'conditional-1', 'status': 'rejected', 'selectable': False,
+                                       'reasons': ['Retained original geometry refusal']}]] )
+def test_completed_equipment_refusal_can_parent_new_child_with_pinned_history(inputs, rows, monkeypatch):
+    _, parent, body = inputs
+    declined_equipment(inputs, rows)
+    before, body_before = files(parent), files(body)
+    result = create(inputs)
+    child = Path(result['directory'])
+    assert result['status'] == 'queued_preflight' and child != parent
+    receipt = json.loads((child/reuse.RECEIPT).read_bytes())
+    for name in reuse.EQUIPMENT_METADATA:
+        assert receipt['parent_files'][name] == digest(parent/name)
+        assert (child/'body-reuse/parent'/name).read_bytes() == before[name]
+    assert reuse.validate_pending_reuse(child)
+    assert files(parent) == before and files(body) == body_before
+    monkeypatch.setattr(reuse, '_body', lambda *_a, **_k: pytest.fail('Repeated request must deduplicate'))
+    assert create(inputs)['id'] == child.name
+
+
+@pytest.mark.parametrize('damage', ['active', 'failed_partial', 'interrupted', 'selectable', 'ready', 'lab',
+                                  'selected', 'root_lab', 'partial', 'source', 'request', 'proof', 'report_hash', 'bool_selectable'])
+def test_equipment_parent_never_bypasses_active_selected_or_incomplete_world(inputs, damage):
+    _, parent, _ = inputs
+    work = declined_equipment(inputs)
+    report = json.loads((work/'candidates.json').read_bytes())
+    state = json.loads((work/'status.json').read_bytes())
+    if damage in {'active', 'failed_partial', 'interrupted'}:
+        state['status'] = {'active': 'running', 'failed_partial': 'failed', 'interrupted': 'interrupted'}[damage]
+    elif damage in {'selectable', 'ready', 'lab', 'bool_selectable'}:
+        report['candidates'] = [{'id': 'candidate', 'status': 'ready' if damage == 'ready' else 'rejected',
+                                 'selectable': True if damage == 'selectable' else 0 if damage == 'bool_selectable' else False}]
+        if damage == 'lab': report['candidates'][0]['lab'] = 'equipment/run/lab'
+    elif damage == 'selected': write_json(work/'selection.json', {'candidate_id': 'candidate'})
+    elif damage == 'root_lab': (parent/'lab').mkdir()
+    elif damage == 'partial': (work/'source-validation.json').rename(work/'retained-proof.json')
+    elif damage == 'source': report['source_sha256'] = 'f'*64
+    elif damage == 'request': report['request_sha256'] = 'f'*64
+    elif damage == 'proof': report['source_validation'] = {'source_sha256': 'f'*64}
+    write_json(work/'candidates.json', report)
+    state['report_sha256'] = 'f'*64 if damage == 'report_hash' else digest(work/'candidates.json')
+    write_json(work/'status.json', state)
+    before = files(parent)
+    with pytest.raises(ValueError): create(inputs)
+    assert files(parent) == before
+
+
+def test_copied_equipment_parent_metadata_tamper_refuses_queued_child(inputs):
+    declined_equipment(inputs)
+    child = Path(create(inputs)['directory'])
+    (child/'body-reuse/parent/equipment/candidates.json').write_bytes(b'{}')
+    assert not reuse.validate_pending_reuse(child)
+    with pytest.raises(ValueError): reuse.validate_queued_body(child, deadline=time.monotonic()+5)

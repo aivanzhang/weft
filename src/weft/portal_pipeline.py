@@ -35,7 +35,10 @@ For objects propose at most four regions; for equipment_or_obstacles exercise sc
 This is a scene proposal, not verified tracking, measured physics, recovered 3D or a guarantee of reconstruction. Do not claim to see motion between the sampled images. The application independently validates every generated environment."""
 
 
-def validate_plan(plan):
+def validate_plan(plan, *, analysis_profile=None, frames=None):
+    from weft.equipment_analysis_contract import LEGACY_PROFILE, SAMPLED_PROFILE, analysis_contract, validate_selected_frames
+    profile = LEGACY_PROFILE if analysis_profile is None else analysis_profile
+    schema = analysis_contract(profile)['schema']
     def check(value, schema):
         kind = schema["type"]
         if kind == "object":
@@ -58,11 +61,13 @@ def validate_plan(plan):
         if "enum" in schema and value not in schema["enum"]:
             raise ValueError("AI scene choice is unsupported")
     # Old saved proposals have no inventory; they cannot supply an absence declaration.
-    check({"exercise_inventory": "unknown", **plan} if type(plan) is dict else plan, SCHEMA)
+    check({"exercise_inventory": "unknown", **plan} if type(plan) is dict and profile == LEGACY_PROFILE else plan, schema)
     for obj in plan["objects"]:
         x0, y0, x1, y1 = obj["box_xyxy"]
         if x0 >= x1 or y0 >= y1:
             raise ValueError("AI proposed an empty or reversed object region")
+    if profile == SAMPLED_PROFILE:
+        validate_selected_frames(plan, frames)
     return plan
 
 
@@ -116,7 +121,12 @@ def sample_video(video, out):
         cap.release()
 
 
-def analyze_frames(frames, folder, *, identity, project=PROJECT_ROOT, transport=post_response):
+def analyze_frames(frames, folder, *, identity, project=PROJECT_ROOT, transport=post_response, analysis_profile=None):
+    from weft.equipment_analysis_contract import LEGACY_PROFILE, SAMPLED_PROFILE, analysis_contract, sampled_frames
+    profile = LEGACY_PROFILE if analysis_profile is None else analysis_profile
+    contract = analysis_contract(profile)
+    if profile == SAMPLED_PROFILE:
+        sampled_frames(frames)
     folder = Path(folder)
     content = [{"type": "input_text", "text": json.dumps({"video": {k: frames[k] for k in
         ("width", "height", "fps", "decoded_frame_count")}, "frames": [
@@ -127,10 +137,10 @@ def analyze_frames(frames, folder, *, identity, project=PROJECT_ROOT, transport=
             raise ValueError("Analysis frame changed or exceeds its byte bound")
         content.append({"type": "input_image", "detail": "high",
                         "image_url": "data:image/jpeg;base64," + base64.b64encode(raw).decode()})
-    payload = {"model": MODEL, "instructions": INSTRUCTIONS, "store": False,
+    payload = {"model": MODEL, "instructions": contract['instructions'], "store": False,
                "input": [{"role": "user", "content": content}], "reasoning": {"effort": "none"},
                "max_output_tokens": MAX_OUTPUT_TOKENS,
-               "text": {"format": {"type": "json_schema", "name": "weft_scene_plan", "strict": True, "schema": SCHEMA}}}
+               "text": {"format": {"type": "json_schema", "name": contract['format_name'], "strict": True, "schema": contract['schema']}}}
     request_hash = canonical_hash(payload)
     write_json(folder / "request.json", {**payload, "input": [{"role": "user", "content": content[:1]}],
                "images": frames["frames"], "request_sha256": request_hash,
@@ -157,7 +167,7 @@ def analyze_frames(frames, folder, *, identity, project=PROJECT_ROOT, transport=
              for part in item.get("content", []) if part.get("type") == "output_text"]
     if len(parts) != 1 or len(parts[0]) > 12_000:
         raise ValueError("OpenAI did not return one bounded scene plan")
-    plan = validate_plan(json.loads(parts[0]))
+    plan = validate_plan(json.loads(parts[0]), analysis_profile=profile, frames=frames)
     write_json(folder / "plan.json", plan)
     if cached is None:
         budget.remember_response(identity, frames["source_sha256"], response)

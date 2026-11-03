@@ -19,6 +19,8 @@ SCOPE = "AI-proposed equipment regions and inferred poses/masks; inventory, iden
 PREFLIGHT_PROFILE = "exercise-perception-preflight-v1"
 LEGACY_ANCHOR_PROFILE = "sealed-pose-tracking-anchor-v1"
 VISIBLE_ANCHOR_PROFILE = "sealed-pose-visible-chain-tracking-anchor-v2"
+# This published producer has identical preflight/body/anchor semantics; never execute its snapshot.
+REVIEWED_PREFLIGHT_PRODUCERS = frozenset({'75434812f8b7727e79ba64b82d33bfb2e31fb752e18b8d99208865dfaea1479d'})
 
 
 def _check_deadline(deadline):
@@ -181,7 +183,8 @@ def validate_perception_preflight(video, preflight, *, deadline):
             or set(manifest.get("children", {})) not in ({"body_seed"}, {"body_seed", "body_source"})):
         raise ValueError("Preflight seal differs from the closed local preparation contract")
     files = {name: read_package_file(preflight, name, max_bytes=(1 << 20), expected_sha256=pin) for name, pin in declared.items()}
-    if files["implementation/exercise_perception_pipeline.py"] != Path(__file__).read_bytes():
+    producer = files["implementation/exercise_perception_pipeline.py"]
+    if producer != Path(__file__).read_bytes() and sha256(producer).hexdigest() not in REVIEWED_PREFLIGHT_PRODUCERS:
         raise ValueError("Preflight implementation differs from this reviewed runtime; explicit compatibility is required")
     if (anchor_profile == VISIBLE_ANCHOR_PROFILE
             and files["implementation/person_tracking_anchor.py"] != Path(__file__).with_name("person_tracking_anchor.py").read_bytes()):
@@ -294,15 +297,18 @@ def body_tracking_anchor(seed, scene, proposal, *, anchor_profile=LEGACY_ANCHOR_
 
 def read_equipment_analysis(analysis):
     """Reconstruct the original bounded provider payload before trusting its region coordinates."""
+    from weft.equipment_analysis_contract import LEGACY_PROFILE, SAMPLED_PROFILE, analysis_contract, request_profile
     analysis = _path(analysis)
     limits = {"frames.json": 32 << 10, "plan.json": 16 << 10, "request.json": 64 << 10,
               "response.json": 128 << 10, "receipt.json": 32 << 10}
     files = {name: read_package_file(analysis, name, max_bytes=limit) for name, limit in limits.items()}
     frames, plan, request, response, receipt = (_json(files[name]) for name in limits)
-    validate_plan(plan)
+    profile = request_profile(request)
+    contract = analysis_contract(profile)
+    validate_plan(plan, analysis_profile=profile, frames=frames)
     if (plan["route"] != "exercise" or plan["camera"] != "fixed" or plan["people"] != 1
             or plan.get("exercise_inventory") != "equipment_or_obstacles" or not plan["objects"]):
-        raise ValueError("Saved analysis must propose one fixed-camera person and explicit first-frame equipment regions")
+        raise ValueError("Saved analysis must propose one fixed-camera person and explicit source-image equipment regions")
     if (not isinstance(frames.get("source_sha256"), str) or not re.fullmatch(r"[a-f0-9]{64}", frames["source_sha256"])
             or not isinstance(frames.get("frames"), list) or not 1 <= len(frames["frames"]) <= 6
             or frames["frames"][0].get("frame") != 0
@@ -312,10 +318,13 @@ def read_equipment_analysis(analysis):
             or not 16 <= frames["width"] <= 4096 or not 16 <= frames["height"] <= 4096):
         raise ValueError("Equipment tracking needs original first-frame analysis within 500 decoded frames")
     payload = {k: v for k, v in request.items() if k not in {"images", "request_sha256", "scope"}}
+    if profile == SAMPLED_PROFILE and (set(payload) != {'model', 'instructions', 'store', 'input', 'reasoning', 'max_output_tokens', 'text'}
+            or payload.get('reasoning') != {'effort': 'none'}):
+        raise ValueError('Sampled equipment analysis differs from its closed request envelope')
     if (request.get("images") != frames["frames"] or payload.get("store") is not False
-            or payload.get("model") != MODEL or payload.get("instructions") != INSTRUCTIONS
+            or payload.get("model") != MODEL or payload.get("instructions") != contract['instructions']
             or payload.get("max_output_tokens") != MAX_OUTPUT_TOKENS
-            or payload.get("text") != {"format": {"type": "json_schema", "name": "weft_scene_plan", "strict": True, "schema": SCHEMA}}
+            or payload.get("text") != {"format": {"type": "json_schema", "name": contract['format_name'], "strict": True, "schema": contract['schema']}}
             or not isinstance(payload.get("input"), list) or len(payload["input"]) != 1
             or payload["input"][0].get("role") != "user"):
         raise ValueError("Analysis payload does not bind its sampled source frames")
@@ -331,6 +340,8 @@ def read_equipment_analysis(analysis):
         name = row.get("artifact")
         if not isinstance(name, str) or not re.fullmatch(r"frame-\d{5}\.jpg", name) or name in files:
             raise ValueError("Analysis frame path is invalid or duplicated")
+        if profile == SAMPLED_PROFILE and name != f"frame-{row['frame']:05d}.jpg":
+            raise ValueError('Sampled equipment image must retain its original frame artifact identity')
         files[name] = read_package_file(analysis, name, max_bytes=300_000, expected_sha256=row["sha256"])
         content.append({"type": "input_image", "detail": "high", "image_url":
                         "data:image/jpeg;base64," + base64.b64encode(files[name]).decode()})
@@ -350,12 +361,20 @@ def read_equipment_analysis(analysis):
         left, top, right, bottom = math.floor(x0 * width), math.floor(y0 * height), math.ceil(x1 * width), math.ceil(y1 * height)
         if min(right-left, bottom-top) < 8:
             raise ValueError("AI equipment region is too small for the tracking contract")
-        boxes.append([index, 0, left, top, right-left, bottom-top])
-    return {"source_sha256": frames["source_sha256"], "width": width, "height": height,
+        boxes.append([index, obj['source_frame'] if profile == SAMPLED_PROFILE else 0, left, top, right-left, bottom-top])
+    proposal = {"source_sha256": frames["source_sha256"], "width": width, "height": height,
             "frame_count": frames["decoded_frame_count"], "boxes": boxes, "objects": plan["objects"],
-            "request_sha256": request_hash, "region_basis": "AI first-image localization, not verified identity",
+            "request_sha256": request_hash, "region_basis": ("AI first-image localization, not verified identity" if profile == LEGACY_PROFILE else
+                "AI selected-sampled-image localization; source initialization frame retained, not verified identity or earlier motion"),
             "coordinate_conversion": "normalized endpoints to source pixels with outward rounding; no padding",
-            "input_sha256": {name: sha256(raw).hexdigest() for name, raw in files.items()}}, files
+            "input_sha256": {name: sha256(raw).hexdigest() for name, raw in files.items()}}
+    if profile == SAMPLED_PROFILE:
+        proposal['analysis_profile'] = profile
+        proposal['selected_samples'] = [{'object_id': index, 'source_frame': obj['source_frame'],
+            'artifact': next(row['artifact'] for row in frames['frames'] if row['frame'] == obj['source_frame']),
+            'sha256': next(row['sha256'] for row in frames['frames'] if row['frame'] == obj['source_frame'])}
+            for index, obj in enumerate(plan['objects'], 1)]
+    return proposal, files
 
 
 def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_source=None,
@@ -529,6 +548,10 @@ def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_s
         write_package_files(out, {"implementation/exercise_perception_pipeline.py": Path(__file__).read_bytes()})
         names = ["plan.json", "result.json", "implementation/exercise_perception_pipeline.py",
                  *("analysis/"+name for name in analysis_files)]
+        if 'analysis_profile' in proposal:
+            helper = 'implementation/equipment_analysis_contract.py'
+            write_package_files(out, {helper: Path(__file__).with_name('equipment_analysis_contract.py').read_bytes()})
+            names.append(helper)
         if (out / "body-anchor.json").is_file():
             names.append("body-anchor.json")
         if prepared is not None:
