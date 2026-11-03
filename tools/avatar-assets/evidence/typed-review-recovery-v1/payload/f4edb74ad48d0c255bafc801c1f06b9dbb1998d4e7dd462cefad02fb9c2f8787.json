@@ -1,0 +1,39 @@
+{
+  "actual_invalid_review": {
+    "bytes": 6883,
+    "check_names": [
+      "identity",
+      "appearance",
+      "appearance",
+      "framing"
+    ],
+    "path": "outputs/studio-d8795ec6c273489da37954ab/agents/reviewer-2/answer.json",
+    "rejections": {
+      "legacy_validation": "Duplicate review check",
+      "typed_decoder": "Invalid typed review fields",
+      "typed_decoder_no_array_fallback": "Agent response has wrong schema type"
+    },
+    "sha256": "ca1eed63fefd596cc7c8149d28cecc2aa114fbe77d0ab661d6d5c0bd8ba4dc42",
+    "source_unchanged": true
+  },
+  "actual_prompt": {
+    "directive_allowance": 1024,
+    "full_prompt_limit": 131072,
+    "new_bytes": 58619,
+    "old_bytes": 57920,
+    "payload_unchanged": true,
+    "schema_bytes": 3903,
+    "schema_limit": 65536
+  },
+  "errors": 0,
+  "failures": 0,
+  "legacy_function_asts_unchanged": [
+    "critic_prompt",
+    "critic_schema",
+    "review_citations",
+    "validate_review"
+  ],
+  "legacy_source_sha256": "db92c5b07f9edb5f42c68e2294115b7d4fa67c4610f51240ba93f621ef197204",
+  "passed": true,
+  "tests_run": 15
+}

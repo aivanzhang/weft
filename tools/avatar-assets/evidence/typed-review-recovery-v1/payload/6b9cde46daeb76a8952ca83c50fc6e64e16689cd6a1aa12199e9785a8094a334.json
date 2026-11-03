@@ -1,0 +1,57 @@
+{
+  "api": [
+    "typed_critic_schema(evidence, action_audit=None)",
+    "typed_critic_prompt(request, plan, config, proofs, evidence)",
+    "decode_typed_review(raw) -> unchanged canonical review object"
+  ],
+  "observations": "observations.json",
+  "resources": {
+    "elapsed_seconds": 0.254,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "process_exit_verified": true,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null
+  },
+  "schema_version": 1,
+  "scope": [
+    "15 analytic tests plus read-only actual malformed-review negative admission and prompt reconstruction.",
+    "Existing canonical review validator and historical critic functions unchanged, confirmed by AST comparison to source-pinned d879 job.",
+    "Raw reviewer answers/receipts must remain immutable; caller validates decoded canonical review and independently binds evidence.",
+    "No provider, native, browser, source-model, ledger or historical artifact mutation; no acceptance claim."
+  ],
+  "source_pins": {
+    "avatar_assets/pipeline_prompts.py": {
+      "bytes": 69258,
+      "sha256": "00efb4808be3ca82a25b346cae78dd4ac705da66a099a85ea0ee60075e0da935"
+    },
+    "tests/test_pipeline_prompts.py": {
+      "bytes": 22274,
+      "sha256": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+    },
+    "tests/test_typed_critic_contract.py": {
+      "bytes": 9196,
+      "sha256": "867b43cded3ed8896d2942f1f28b186c493ad0c222846f6326fec5bf395b9907"
+    }
+  },
+  "status": "passed",
+  "tests": {
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/typed-critic-contract-tests-v1/check.py",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/typed-critic-contract-tests-v1"
+    ],
+    "errors": 0,
+    "failures": 0,
+    "log": "tests.log",
+    "unique_methods": 15
+  },
+  "wire_policy": "schema_version2, exactly four required named check objects; no legacy decoder fallback or synthesized missing category"
+}

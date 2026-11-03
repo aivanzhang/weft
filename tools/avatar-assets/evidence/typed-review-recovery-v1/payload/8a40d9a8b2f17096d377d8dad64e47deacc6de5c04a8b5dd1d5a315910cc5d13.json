@@ -1,0 +1,51 @@
+{
+  "agent_backend": {
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "model": "gpt-5.2-2025-12-11",
+    "provider": "openai",
+    "reasoning_effort": "medium",
+    "timeout": 600
+  },
+  "agent_model": "gpt-5.2-2025-12-11",
+  "agent_timeout": 600,
+  "continuation": {
+    "parent": "outputs/studio-d8795ec6c273489da37954ab",
+    "policy": "terminal-native-repair-continuation-v1",
+    "receipt": "continuation/receipt.json",
+    "schema_version": 1,
+    "sha256": "b7f7f67d0ff83a97831ba3165e902c5eb1ade158697cd68c3bf13abb5750a8dd"
+  },
+  "created": "2026-11-02T17:11:48.296075-08:00",
+  "custom_actions": [
+    "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+  ],
+  "id": "rejected-review-image-consumer-proof-v1",
+  "max_agent_calls": 7,
+  "max_credits": 0,
+  "max_repairs": 2,
+  "media_spec": {
+    "portrait": 1600,
+    "samples": 8,
+    "seconds": 4,
+    "size": 720
+  },
+  "preset": "preview",
+  "prompt": "Create an editable, rigged avatar from this previously generated Muse-style panda and its small green shoulder dragon. Preserve the selected source character, proportions, black eye patches, black-and-ivory palette, and companion. Keep the dragon perched and attached to the shoulder during this run; do not separate it or make it fly. Do not add props, clothing, text, a pedestal or scenery.",
+  "reference": {
+    "bytes": 1051974,
+    "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-fur-v3/portrait.png",
+    "path": "inputs/reference.png",
+    "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+  },
+  "reuse_model": {
+    "bytes": 25557832,
+    "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+    "path": "inputs/source-model.glb",
+    "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+  },
+  "schema_version": 1,
+  "states": [],
+  "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look."
+}

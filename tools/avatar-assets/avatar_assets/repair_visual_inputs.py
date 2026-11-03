@@ -1,4 +1,4 @@
-"""Select existing critic-cited images; never generate images or follow freeform repair paths."""
+"""Select authenticated review images; never follow freeform repair paths."""
 from pathlib import Path
 
 from avatar_assets.safety import local_file, read_json, require, sha256
@@ -85,8 +85,16 @@ def _review_evidence(folder,source_sha,attempt,review,evidence,pins=None):
     paid=load(f'agents/reviewer-{attempt}/receipt.json')
     answer_path=(f'agents/reviewer-{attempt}/answer.json')
     answer=load(answer_path);paid_request=load(f'agents/reviewer-{attempt}/request.json')
+    from avatar_assets.pipeline_prompts import decode_typed_review
+    canonical=decode_typed_review(answer) if answer.get('schema_version')==2 else answer
     require(paid.get('status')=='succeeded' and paid.get('answer_sha256')==sha256(folder/answer_path)
-            and answer==review,'Repair image custody: paid answer mismatch')
+            and canonical==review,'Repair image custody: paid answer mismatch')
+    return _image_evidence(folder,attempt,model_sha,evidence,paid_request,pins)
+
+
+def _image_evidence(folder,attempt,model_sha,evidence,paid_request,pins):
+    def load(name,maximum=1024**2):
+        return read_json(_bound(folder,pins,name,maximum) if pins is not None else _file(folder,name,maximum))
     proof=load(f'final-evidence-{attempt}/manifest.json',4*1024**2)
     require(proof['model_manifest_sha256']==model_sha,'Repair image custody: image model mismatch')
     expected=[{**row,'path':str(folder/f'final-evidence-{attempt}'/row['path'])} for row in proof['images']]
@@ -118,10 +126,14 @@ def _selected(review,records,base_images):
                   else 2 if name=='evidence-native-views' else 3 if name.startswith('evidence-isolated-native-')
                   else 4 if name.startswith('evidence-motion-') else 5)
         return priority,name
+    candidates=sorted((row for row in records if row['id'] in cited),key=rank)
+    return _select_images(candidates,base_images)
+
+
+def _select_images(candidates,base_images, *, rejected=False):
     require(len(base_images) in (3,4),'Repair image inputs require three source guides and optional reference')
     capacity=min(5,8-len(base_images))
     base=_image_inputs(base_images)
-    candidates=sorted((row for row in records if row['id'] in cited),key=rank)
     chosen=[];seen={row['sha256'] for row in base}
     for row in candidates:
         if row['sha256'] not in seen:chosen.append(row);seen.add(row['sha256'])
@@ -130,10 +142,53 @@ def _selected(review,records,base_images):
     inputs=_image_inputs([*base_images,*[Path(row['path']) for row in chosen]])
     require(sum(row['bytes'] for row in inputs)<=MAX_IMAGE_TOTAL_BYTES,'Repair images exceed total byte bound')
     motion=sum(row['id'].startswith(('evidence-motion-','evidence-isolated-')) for row in chosen)
-    return {'status':'available','reason':'Bound critic failure images; static-only evidence does not establish motion.' if not motion
+    result={'status':'available','reason':'Bound critic failure images; static-only evidence does not establish motion.' if not motion
             else 'Bound critic failure images, including sampled pose or motion evidence.',
             'images':chosen,'motion_images':motion,'total_agent_images':len(inputs),
             'total_agent_image_bytes':sum(row['bytes'] for row in inputs)}
+    if rejected:
+        result['reason']='Authenticated images from a rejected review; independently reassess them. Invalid votes are not selection criteria or approval.'
+        result['review_status']='invalid_untrusted'
+    return result
+
+
+def _from_rejected(root,child,request,summary,base_images):
+    require(isinstance(summary,dict) and summary.get('status')=='invalid_untrusted',
+            'Repair image custody: rejected review status differs')
+    parent,pins,parent_request=_lineage_inventory(root,child,request,summary['parent_output'])
+    source_sha=request['reuse_model']['sha256']
+    require(parent_request['reuse_model']['sha256']==summary['source_sha256']==source_sha,
+            'Repair image custody: rejected source differs')
+    attempt=summary['attempt']
+    require(type(attempt) is int and 0<=attempt<=2 and summary['role']==f'reviewer-{attempt}',
+            'Repair image custody: rejected attempt differs')
+    def load(name,maximum=1024**2):return read_json(_bound(parent,pins,name,maximum))
+    role=summary['role'];answer_name=f'agents/{role}/answer.json'
+    for name,key in ((answer_name,'answer_sha256'),(f'agents/{role}/receipt.json','receipt_sha256'),
+                     (f'model-{attempt}/manifest.json','model_manifest_sha256')):
+        require(sha256(_bound(parent,pins,name,4*1024**2))==summary[key],
+                'Repair image custody: rejected reference changed')
+    answer=load(answer_name);paid=load(f'agents/{role}/receipt.json');terminal=load('unsupported.json')
+    model=load(f'model-{attempt}/manifest.json',4*1024**2)
+    require(paid.get('status')=='succeeded' and paid.get('answer_sha256')==summary['answer_sha256']
+            and answer==summary['raw_answer'] and model.get('source_sha256')==source_sha
+            and terminal.get('stage')=='reviewer' and terminal.get('failure_kind')=='review_contract'
+            and terminal.get('attempt')==attempt and terminal.get('reason')==summary['reason'],
+            'Repair image custody: rejected answer/source/terminal differs')
+    proof=load(f'final-evidence-{attempt}/manifest.json',4*1024**2)
+    evidence=[{**row,'path':str(parent/f'final-evidence-{attempt}'/row['path'])} for row in proof['images']]
+    records=_image_evidence(parent,attempt,summary['model_manifest_sha256'],evidence,
+                            load(f'agents/{role}/request.json'),pins)
+    require(summary['evidence']==[{'id':r['id'],'path':str(Path(r['path']).relative_to(parent)),
+                                  'sha256':r['sha256'],'bytes':r['bytes']} for r in records],
+            'Repair image custody: rejected evidence differs')
+    def rank(row):
+        name=row['id']
+        return (0 if name=='evidence-exported-views' else 1 if name=='evidence-native-views'
+                else 2 if name.startswith('evidence-motion-') else 3 if name.startswith('evidence-isolated-exported-')
+                else 4 if name.startswith('evidence-isolated-native-') else 5),name
+    # A malformed verdict cannot choose its own evidence or suppress the motion view.
+    return _select_images(sorted(records,key=rank),base_images,rejected=True)
 
 
 def from_continuation(root,child,request,context,base_images):
@@ -141,6 +196,9 @@ def from_continuation(root,child,request,context,base_images):
     from avatar_assets.pipeline_continuation import _read_context
     _,saved_context=_read_context(Path(child),request)
     require(context==saved_context,'Repair image custody: continuation context differs')
+    rejected=(context or {}).get('findings',{}).get('rejected_review')
+    if rejected is not None:
+        return _from_rejected(Path(root),Path(child),request,rejected,base_images)
     history=(context or {}).get('findings',{}).get('historical_visual_reviews',[])
     require(isinstance(history,list) and len(history)<=8,'Repair visual history bound')
     if not history:return {'status':'unavailable','reason':'No authenticated prior visual review.','images':[]}

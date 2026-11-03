@@ -1,0 +1,326 @@
+{
+  "available_bones": [
+    "arm_l_lower",
+    "arm_l_upper",
+    "arm_r_lower",
+    "arm_r_upper",
+    "chest",
+    "dragon_body",
+    "dragon_head",
+    "dragon_root",
+    "dragon_tail1",
+    "dragon_tail2",
+    "dragon_wing_l",
+    "dragon_wing_r",
+    "ear_l",
+    "ear_r",
+    "foot_l",
+    "foot_r",
+    "hand_l",
+    "hand_r",
+    "head",
+    "leg_l_lower",
+    "leg_l_upper",
+    "leg_r_lower",
+    "leg_r_upper",
+    "neck",
+    "root",
+    "spine",
+    "tail"
+  ],
+  "failures": [],
+  "geometry": {
+    "agreement": "Exact native source hash, vertex/face counts and world bounds",
+    "axis_conversion": "glTF (x,y,z) -> Blender (x,-z,y)",
+    "bounds_blender_z_up": {
+      "max": [
+        0.7209079265594482,
+        0.6167859435081482,
+        0.950253963470459
+      ],
+      "min": [
+        -0.7186660170555115,
+        -0.6147109270095825,
+        -0.9518150091171265
+      ]
+    },
+    "faces": 62117,
+    "profile": "single-identity-node-unrigged-triangles",
+    "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+    "vertices": 50004
+  },
+  "layers": [
+    {
+      "bones": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l",
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r",
+        "tail",
+        "dragon_root",
+        "dragon_body",
+        "dragon_head",
+        "dragon_tail1",
+        "dragon_tail2",
+        "dragon_wing_l",
+        "dragon_wing_r",
+        "ear_l",
+        "ear_r"
+      ],
+      "feather": 0.2,
+      "layer_index": 0,
+      "max": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "min": [
+        -0.2,
+        -0.2,
+        -0.2
+      ],
+      "min_vertices": 8000,
+      "passes": true,
+      "selected_vertices": 50004
+    },
+    {
+      "bones": [
+        "root",
+        "spine",
+        "chest"
+      ],
+      "feather": 0.12,
+      "layer_index": 1,
+      "max": [
+        0.82,
+        1.05,
+        0.8
+      ],
+      "min": [
+        0.18,
+        0.25,
+        0.06
+      ],
+      "min_vertices": 9000,
+      "passes": true,
+      "selected_vertices": 9761
+    },
+    {
+      "bones": [
+        "neck",
+        "head"
+      ],
+      "feather": 0.1,
+      "layer_index": 2,
+      "max": [
+        0.88,
+        0.7,
+        1.15
+      ],
+      "min": [
+        0.12,
+        0.05,
+        0.66
+      ],
+      "min_vertices": 6000,
+      "passes": true,
+      "selected_vertices": 13178
+    },
+    {
+      "bones": [
+        "ear_l"
+      ],
+      "feather": 0.08,
+      "layer_index": 3,
+      "max": [
+        0.42,
+        0.7,
+        1.15
+      ],
+      "min": [
+        0.12,
+        0.2,
+        0.82
+      ],
+      "min_vertices": 400,
+      "passes": true,
+      "selected_vertices": 1717
+    },
+    {
+      "bones": [
+        "ear_r"
+      ],
+      "feather": 0.08,
+      "layer_index": 4,
+      "max": [
+        0.88,
+        0.7,
+        1.15
+      ],
+      "min": [
+        0.58,
+        0.2,
+        0.82
+      ],
+      "min_vertices": 400,
+      "passes": true,
+      "selected_vertices": 2129
+    },
+    {
+      "bones": [
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l"
+      ],
+      "feather": 0.1,
+      "layer_index": 5,
+      "max": [
+        0.5,
+        0.72,
+        0.8
+      ],
+      "min": [
+        -0.1,
+        0.08,
+        0.18
+      ],
+      "min_vertices": 2500,
+      "passes": true,
+      "selected_vertices": 31372
+    },
+    {
+      "bones": [
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r"
+      ],
+      "feather": 0.1,
+      "layer_index": 6,
+      "max": [
+        1.1,
+        0.72,
+        0.8
+      ],
+      "min": [
+        0.5,
+        0.08,
+        0.18
+      ],
+      "min_vertices": 2500,
+      "passes": true,
+      "selected_vertices": 5638
+    },
+    {
+      "bones": [
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l"
+      ],
+      "feather": 0.08,
+      "layer_index": 7,
+      "max": [
+        0.6,
+        1.1,
+        0.34
+      ],
+      "min": [
+        0.12,
+        0.22,
+        -0.1
+      ],
+      "min_vertices": 2200,
+      "passes": true,
+      "selected_vertices": 3291
+    },
+    {
+      "bones": [
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r"
+      ],
+      "feather": 0.08,
+      "layer_index": 8,
+      "max": [
+        0.88,
+        1.1,
+        0.34
+      ],
+      "min": [
+        0.4,
+        0.22,
+        -0.1
+      ],
+      "min_vertices": 2200,
+      "passes": true,
+      "selected_vertices": 3411
+    },
+    {
+      "bones": [
+        "tail"
+      ],
+      "feather": 0.08,
+      "layer_index": 9,
+      "max": [
+        0.75,
+        1.25,
+        0.42
+      ],
+      "min": [
+        0.25,
+        0.7,
+        0.1
+      ],
+      "min_vertices": 500,
+      "passes": true,
+      "selected_vertices": 994
+    },
+    {
+      "bones": [
+        "dragon_root",
+        "dragon_body",
+        "dragon_head",
+        "dragon_tail1",
+        "dragon_tail2",
+        "dragon_wing_l",
+        "dragon_wing_r"
+      ],
+      "feather": 0.08,
+      "layer_index": 10,
+      "max": [
+        0.52,
+        0.62,
+        0.88
+      ],
+      "min": [
+        -0.05,
+        0.02,
+        0.42
+      ],
+      "min_vertices": 1500,
+      "passes": true,
+      "selected_vertices": 29325
+    }
+  ],
+  "limits": {
+    "layers": 32,
+    "vertices": 100000
+  },
+  "schema_version": 1,
+  "scope": "Authored role references and region occupancy only; not skin quality or animation acceptance",
+  "status": "available",
+  "unknown_bone_references": [],
+  "version": "author-geometry-diagnostics-v1"
+}

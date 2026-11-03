@@ -1,0 +1,5773 @@
+{
+  "schema_version": 1,
+  "status": "unsupported",
+  "provenance": "actual_pipeline",
+  "recorded_local": "11/02/2026, 17:12:12 PST",
+  "timezone": "America/Los_Angeles",
+  "job_id": "d8795ec6c273489da37954ab",
+  "explicit_start_requested": true,
+  "limits": {
+    "wall_seconds": 1800,
+    "operation_ms": 15000,
+    "sampled_browser_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "server_log_bytes": 1048576,
+    "json_bytes": 1048576,
+    "requests": 2056,
+    "snapshots": 128,
+    "events": 4096,
+    "event_bytes": 1048576
+  },
+  "scope": "Actual local HTML/HTTP/canonical job manager, UI progress and real delivered GLB/video/static assets. Geometry provenance is bound to the inspected job. This does not establish visual quality, physical action, seamless loops or sustained FPS.",
+  "sources": [
+    {
+      "path": "browser/tests/studio-live.mjs",
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "scripts/verify_studio_live.py",
+      "sha256": "57f575f69a2cf7388b40ab8ece65fe9679e87d576febefb5ebdec15ae7671389"
+    },
+    {
+      "path": "browser/studio.html",
+      "sha256": "cc6d2ef78f748138c422d15ad01bdb013e2ef7dd8927c55550e9eb95cd988af1"
+    },
+    {
+      "path": "browser/studio.js",
+      "sha256": "386a9cff64fa419b9d1b2b744711c439c6346882b35f5a26f7c75dd07fc80e87"
+    },
+    {
+      "path": "browser/studio.css",
+      "sha256": "7c14ae8ba8fc041dd404dfe5a4d0655f16522997b23d19281d769b01818e6a04"
+    },
+    {
+      "path": "avatar_assets/studio.py",
+      "sha256": "cf7ee42f824d3a736504059bc002b3f4f2857bad88dd5f6126c2b61c3814da7c"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "1789c0acd9b73cf94d083cad70b54f39bc1dccc4bca33de939b7845201abeacc"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "91d741d31debaaddb9ec2424fe7239d4988783b6e0e716231d722bc5ef677e02"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "4fb3aafa5004a988a64e43406d5e44010469683fdee790486709239f959153f1"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "db92c5b07f9edb5f42c68e2294115b7d4fa67c4610f51240ba93f621ef197204"
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44"
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "job-000.json",
+      "status": "planned",
+      "observed_seconds": 1.508008209,
+      "elapsed_seconds_measured": 0.83,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-001.json",
+      "status": "launching",
+      "observed_seconds": 2.2198982500000004,
+      "elapsed_seconds_measured": 0.01,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-002.json",
+      "status": "running",
+      "observed_seconds": 2.291511625,
+      "elapsed_seconds_measured": 0.08,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-003.json",
+      "status": "running",
+      "observed_seconds": 4.871531542,
+      "elapsed_seconds_measured": 2.66,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "running",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-004.json",
+      "status": "running",
+      "observed_seconds": 7.467989875,
+      "elapsed_seconds_measured": 5.26,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "running",
+          "detail": "",
+          "attempt": 0
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-005.json",
+      "status": "running",
+      "observed_seconds": 74.81409574999999,
+      "elapsed_seconds_measured": 72.61,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "running",
+          "detail": "",
+          "attempt": 0
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-006.json",
+      "status": "running",
+      "observed_seconds": 85.10279274999999,
+      "elapsed_seconds_measured": 82.89,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "running",
+          "detail": "",
+          "attempt": 0
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-007.json",
+      "status": "running",
+      "observed_seconds": 126.252680125,
+      "elapsed_seconds_measured": 124.05,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "running",
+          "detail": "",
+          "attempt": 1
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-008.json",
+      "status": "running",
+      "observed_seconds": 224.782626167,
+      "elapsed_seconds_measured": 222.58,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "running",
+          "detail": "",
+          "attempt": 1
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-009.json",
+      "status": "running",
+      "observed_seconds": 235.06582245899997,
+      "elapsed_seconds_measured": 232.86,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "running",
+          "detail": "",
+          "attempt": 1
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-010.json",
+      "status": "running",
+      "observed_seconds": 276.306166875,
+      "elapsed_seconds_measured": 274.1,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-011.json",
+      "status": "running",
+      "observed_seconds": 395.49086412500003,
+      "elapsed_seconds_measured": 393.28,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-012.json",
+      "status": "running",
+      "observed_seconds": 405.773335209,
+      "elapsed_seconds_measured": 403.57,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-013.json",
+      "status": "running",
+      "observed_seconds": 447.000686125,
+      "elapsed_seconds_measured": 444.79,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 2,
+          "elapsed_seconds": 51.75
+        },
+        {
+          "id": "deformation_gate:2",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 3",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "portable_attachment:2",
+          "stage": "portable_attachment",
+          "label": "Check portable fur attachment · attempt 3",
+          "status": "complete",
+          "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+          "attempt": 2,
+          "elapsed_seconds": 0.827
+        },
+        {
+          "id": "native_reload:2",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-014.json",
+      "status": "running",
+      "observed_seconds": 449.57103662500003,
+      "elapsed_seconds_measured": 447.36,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 2,
+          "elapsed_seconds": 51.75
+        },
+        {
+          "id": "deformation_gate:2",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 3",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "portable_attachment:2",
+          "stage": "portable_attachment",
+          "label": "Check portable fur attachment · attempt 3",
+          "status": "complete",
+          "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+          "attempt": 2,
+          "elapsed_seconds": 0.827
+        },
+        {
+          "id": "native_reload:2",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 3",
+          "status": "complete",
+          "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 2.657
+        },
+        {
+          "id": "action_audit:2",
+          "stage": "action_audit",
+          "label": "Action Audit · attempt 3",
+          "status": "complete",
+          "detail": "Numeric movement/stability checks passed; visual action review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 0.572
+        },
+        {
+          "id": "exported_views:2",
+          "stage": "exported_views",
+          "label": "Exported Views · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-015.json",
+      "status": "running",
+      "observed_seconds": 454.71999845899995,
+      "elapsed_seconds_measured": 452.51,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 2,
+          "elapsed_seconds": 51.75
+        },
+        {
+          "id": "deformation_gate:2",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 3",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "portable_attachment:2",
+          "stage": "portable_attachment",
+          "label": "Check portable fur attachment · attempt 3",
+          "status": "complete",
+          "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+          "attempt": 2,
+          "elapsed_seconds": 0.827
+        },
+        {
+          "id": "native_reload:2",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 3",
+          "status": "complete",
+          "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 2.657
+        },
+        {
+          "id": "action_audit:2",
+          "stage": "action_audit",
+          "label": "Action Audit · attempt 3",
+          "status": "complete",
+          "detail": "Numeric movement/stability checks passed; visual action review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 0.572
+        },
+        {
+          "id": "exported_views:2",
+          "stage": "exported_views",
+          "label": "Exported Views · attempt 3",
+          "status": "complete",
+          "detail": "Actual exported views rendered; their quality still requires review.",
+          "attempt": 2,
+          "elapsed_seconds": 4.292
+        },
+        {
+          "id": "media:2",
+          "stage": "media",
+          "label": "Media · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-016.json",
+      "status": "running",
+      "observed_seconds": 475.339711292,
+      "elapsed_seconds_measured": 473.13,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 2,
+          "elapsed_seconds": 51.75
+        },
+        {
+          "id": "deformation_gate:2",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 3",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "portable_attachment:2",
+          "stage": "portable_attachment",
+          "label": "Check portable fur attachment · attempt 3",
+          "status": "complete",
+          "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+          "attempt": 2,
+          "elapsed_seconds": 0.827
+        },
+        {
+          "id": "native_reload:2",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 3",
+          "status": "complete",
+          "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 2.657
+        },
+        {
+          "id": "action_audit:2",
+          "stage": "action_audit",
+          "label": "Action Audit · attempt 3",
+          "status": "complete",
+          "detail": "Numeric movement/stability checks passed; visual action review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 0.572
+        },
+        {
+          "id": "exported_views:2",
+          "stage": "exported_views",
+          "label": "Exported Views · attempt 3",
+          "status": "complete",
+          "detail": "Actual exported views rendered; their quality still requires review.",
+          "attempt": 2,
+          "elapsed_seconds": 4.292
+        },
+        {
+          "id": "media:2",
+          "stage": "media",
+          "label": "Media · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-017.json",
+      "status": "running",
+      "observed_seconds": 697.040776334,
+      "elapsed_seconds_measured": 694.84,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 2,
+          "elapsed_seconds": 51.75
+        },
+        {
+          "id": "deformation_gate:2",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 3",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "portable_attachment:2",
+          "stage": "portable_attachment",
+          "label": "Check portable fur attachment · attempt 3",
+          "status": "complete",
+          "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+          "attempt": 2,
+          "elapsed_seconds": 0.827
+        },
+        {
+          "id": "native_reload:2",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 3",
+          "status": "complete",
+          "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 2.657
+        },
+        {
+          "id": "action_audit:2",
+          "stage": "action_audit",
+          "label": "Action Audit · attempt 3",
+          "status": "complete",
+          "detail": "Numeric movement/stability checks passed; visual action review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 0.572
+        },
+        {
+          "id": "exported_views:2",
+          "stage": "exported_views",
+          "label": "Exported Views · attempt 3",
+          "status": "complete",
+          "detail": "Actual exported views rendered; their quality still requires review.",
+          "attempt": 2,
+          "elapsed_seconds": 4.292
+        },
+        {
+          "id": "media:2",
+          "stage": "media",
+          "label": "Media · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-018.json",
+      "status": "running",
+      "observed_seconds": 699.610646042,
+      "elapsed_seconds_measured": 697.4,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 2,
+          "elapsed_seconds": 51.75
+        },
+        {
+          "id": "deformation_gate:2",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 3",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "portable_attachment:2",
+          "stage": "portable_attachment",
+          "label": "Check portable fur attachment · attempt 3",
+          "status": "complete",
+          "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+          "attempt": 2,
+          "elapsed_seconds": 0.827
+        },
+        {
+          "id": "native_reload:2",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 3",
+          "status": "complete",
+          "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 2.657
+        },
+        {
+          "id": "action_audit:2",
+          "stage": "action_audit",
+          "label": "Action Audit · attempt 3",
+          "status": "complete",
+          "detail": "Numeric movement/stability checks passed; visual action review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 0.572
+        },
+        {
+          "id": "exported_views:2",
+          "stage": "exported_views",
+          "label": "Exported Views · attempt 3",
+          "status": "complete",
+          "detail": "Actual exported views rendered; their quality still requires review.",
+          "attempt": 2,
+          "elapsed_seconds": 4.292
+        },
+        {
+          "id": "media:2",
+          "stage": "media",
+          "label": "Media · attempt 3",
+          "status": "complete",
+          "detail": "Portrait, video and static files encoded; independent quality review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 244.984
+        },
+        {
+          "id": "review_evidence:2",
+          "stage": "review_evidence",
+          "label": "Review Evidence · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-019.json",
+      "status": "running",
+      "observed_seconds": 702.211524542,
+      "elapsed_seconds_measured": 700.01,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 2,
+          "elapsed_seconds": 51.75
+        },
+        {
+          "id": "deformation_gate:2",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 3",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "portable_attachment:2",
+          "stage": "portable_attachment",
+          "label": "Check portable fur attachment · attempt 3",
+          "status": "complete",
+          "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+          "attempt": 2,
+          "elapsed_seconds": 0.827
+        },
+        {
+          "id": "native_reload:2",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 3",
+          "status": "complete",
+          "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 2.657
+        },
+        {
+          "id": "action_audit:2",
+          "stage": "action_audit",
+          "label": "Action Audit · attempt 3",
+          "status": "complete",
+          "detail": "Numeric movement/stability checks passed; visual action review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 0.572
+        },
+        {
+          "id": "exported_views:2",
+          "stage": "exported_views",
+          "label": "Exported Views · attempt 3",
+          "status": "complete",
+          "detail": "Actual exported views rendered; their quality still requires review.",
+          "attempt": 2,
+          "elapsed_seconds": 4.292
+        },
+        {
+          "id": "media:2",
+          "stage": "media",
+          "label": "Media · attempt 3",
+          "status": "complete",
+          "detail": "Portrait, video and static files encoded; independent quality review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 244.984
+        },
+        {
+          "id": "review_evidence:2",
+          "stage": "review_evidence",
+          "label": "Review Evidence · attempt 3",
+          "status": "complete",
+          "detail": "Final-media and numeric evidence prepared; no critic verdict yet.",
+          "attempt": 2,
+          "elapsed_seconds": 1.052
+        },
+        {
+          "id": "reviewer:2",
+          "stage": "reviewer",
+          "label": "Reviewer · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-020.json",
+      "status": "unsupported",
+      "observed_seconds": 738.626036792,
+      "elapsed_seconds_measured": 735.34,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.001
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.756
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 67.348
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 51.191
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0,
+          "elapsed_seconds": 0.006
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 99.421
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 51.981
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 117.937
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 2,
+          "elapsed_seconds": 51.75
+        },
+        {
+          "id": "deformation_gate:2",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 3",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 0.005
+        },
+        {
+          "id": "portable_attachment:2",
+          "stage": "portable_attachment",
+          "label": "Check portable fur attachment · attempt 3",
+          "status": "complete",
+          "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+          "attempt": 2,
+          "elapsed_seconds": 0.827
+        },
+        {
+          "id": "native_reload:2",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 3",
+          "status": "complete",
+          "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+          "attempt": 2,
+          "elapsed_seconds": 2.657
+        },
+        {
+          "id": "action_audit:2",
+          "stage": "action_audit",
+          "label": "Action Audit · attempt 3",
+          "status": "complete",
+          "detail": "Numeric movement/stability checks passed; visual action review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 0.572
+        },
+        {
+          "id": "exported_views:2",
+          "stage": "exported_views",
+          "label": "Exported Views · attempt 3",
+          "status": "complete",
+          "detail": "Actual exported views rendered; their quality still requires review.",
+          "attempt": 2,
+          "elapsed_seconds": 4.292
+        },
+        {
+          "id": "media:2",
+          "stage": "media",
+          "label": "Media · attempt 3",
+          "status": "complete",
+          "detail": "Portrait, video and static files encoded; independent quality review is pending.",
+          "attempt": 2,
+          "elapsed_seconds": 244.984
+        },
+        {
+          "id": "review_evidence:2",
+          "stage": "review_evidence",
+          "label": "Review Evidence · attempt 3",
+          "status": "complete",
+          "detail": "Final-media and numeric evidence prepared; no critic verdict yet.",
+          "attempt": 2,
+          "elapsed_seconds": 1.052
+        },
+        {
+          "id": "reviewer:2",
+          "stage": "reviewer",
+          "label": "Reviewer · attempt 3",
+          "status": "unsupported",
+          "detail": "Reviewer response failed its evidence contract: Duplicate review check",
+          "attempt": 2,
+          "elapsed_seconds": 37.663
+        }
+      ],
+      "reviews": []
+    }
+  ],
+  "checks": [
+    "Saved OpenAI backend is pinned to 7 calls and 2 repairs; dollar authorization remains an action-time worker check",
+    "Real HTTP/UI preserve the saved exact prompt/style/actions and disclose source reuse, 0 estimated Meshy credits and unknown Meshy account dollar conversion",
+    "OpenAI dollar reservation is recorded separately from Meshy generation credits; this verifier creates no API allowance",
+    "One explicit UI Start sent the pinned plan_id with a session token; no plan/create/cancel/retry mutation"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "at_seconds": 0.767246959
+    },
+    {
+      "method": "GET",
+      "path": "/studio.css",
+      "at_seconds": 0.7810900419999999
+    },
+    {
+      "method": "GET",
+      "path": "/studio.js",
+      "at_seconds": 0.782256125
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 0.782571167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/session",
+      "at_seconds": 0.7968940840000001
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 0.8168373339999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 0.8170947089999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 1.450912542
+    },
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab/start",
+      "at_seconds": 2.200267084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 2.2186200840000003
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 2.286082625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 4.7956395
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 4.8613286250000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab/files/0cfadd1df16d93001ff93e2050890a99",
+      "at_seconds": 4.8705848750000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 7.376394459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 7.462416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 9.971451209000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 10.061603875000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 12.570448834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 12.654276125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 15.162801042000002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 15.246035959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 17.755099959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 17.840790542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 20.3488
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 20.434363167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 22.941303959000003
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 23.0250965
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 25.534313875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 25.61958675
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 28.126805709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 28.190191625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 30.699946167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 30.783811584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 33.292479166999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 33.378278292000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 35.887137875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 35.974072917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 38.482279125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 38.56578475
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 41.07509075
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 41.159420959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 43.666937417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 43.7527545
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 46.26248075
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 46.347369542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 48.856263334000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 48.940630417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 51.4487345
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 51.534655542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 54.044176125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 54.128608542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 56.6363975
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 56.720767333999994
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 59.23005025
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 59.31615275
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 61.824254208999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 61.889359750000004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 64.39766216700001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 64.482136917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 66.991005542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 67.07620374999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 69.58586724999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 69.670158542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 72.176449834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 72.241615209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 74.748907209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 74.80774216699999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 77.314998959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 77.37462408399999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 79.88160387499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 79.93924891699999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 82.44943699999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 82.51476216699999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 85.02255829199999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 85.091643375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab/files/f1ec73ee6e387ba185522f3cfb84bcdb",
+      "at_seconds": 85.100723792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 87.60450249999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 87.66988970899999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 90.18033674999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 90.23931499999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 92.74651204199999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 92.81065025
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 95.32025337499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 95.379575584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 97.88900962499999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 97.950408375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 100.45846974999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 100.5200205
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 103.028138875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 103.08884770899999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 105.59985466699999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 105.67035924999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 108.18119899999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 108.252888167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 110.76359837499999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 110.82810358399999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 113.33582595899999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 113.393932292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 115.90125066699999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 115.96107370899999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 118.46902641699998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 118.528922834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 121.039462667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 121.11200116699999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 123.62304545899998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 123.68349099999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 126.189177042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 126.246415042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 128.75697233399998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 128.84246712499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 131.35233862500002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 131.436019042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 133.94560545899998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 134.032314584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 136.540969209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 136.62656320899998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 139.134525042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 139.215450625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 141.72535274999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 141.810411459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 144.31892166699998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 144.391014459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 146.89964508399999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 146.985822834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 149.495182917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 149.5809205
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 152.090798167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 152.176965792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 154.6858455
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 154.76375475
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 157.27341462500002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 157.356301167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 159.865237375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 159.951015459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 162.460805834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 162.546467417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 165.056863459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 165.14201683399997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 167.652171542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 167.738320292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 170.249416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 170.338367542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 172.848124584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 172.933135959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 175.44364933399999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 175.52271958400001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 178.032834292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 178.118774625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 180.626789667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 180.686212375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 183.19613320899998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 183.28092325
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 185.79326591699999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 185.87671262499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 188.38542537499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 188.454999209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 190.96512562499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 191.050426084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 193.559679625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 193.648153875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 196.157674625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 196.245416625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 198.755387709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 198.841013167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 201.35182595899997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 201.440836625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 203.9511435
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 204.0356795
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 206.54512870899998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 206.631677084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 209.140553959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 209.2266015
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 211.736542834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 211.822836292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 214.33201508399998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 214.421963542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 216.933332625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 217.01883049999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 219.528355375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 219.614825292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 222.12352266699997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 222.209721709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 224.716298542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 224.776507709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 227.283045459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 227.339648459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 229.84651795899998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 229.911322959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 232.418914709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 232.47736508399998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 234.988323667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 235.054435834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab/files/d83d28e2d21613eeca39a2b765553d40",
+      "at_seconds": 235.063577417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 237.565463084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 237.64221533399999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 240.152028125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 240.235213667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 242.74604725
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 242.82144541699998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 245.329190125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 245.397371917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 247.906235459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 247.96475775
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 250.472917792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 250.53242674999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 253.04344466700002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 253.10998708399998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 255.621108667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 255.683240417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 258.19053858399997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 258.25152420899997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 260.759209042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 260.824303167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 263.3356895
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 263.405087084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 265.916254709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 265.982583292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 268.494168667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 268.559863
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 271.070781125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 271.131319709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 273.639100834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 273.69881062499996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 276.208951292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 276.29876049999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 278.80839825
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 278.89398895899996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 281.402980917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 281.48901658399996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 283.99634704199997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 284.055301042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 286.564089084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 286.648319
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 289.15718599999997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 289.243625792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 291.753339209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 291.839712542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 294.347773792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 294.424920667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 296.93581808399995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 297.022768334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 299.532675417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 299.61850308399994
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 302.128395292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 302.214397459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 304.72442879199997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 304.80998024999997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 307.319678417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 307.4041325
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 309.912485875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 309.997246834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 312.50620383399996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 312.575276334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 315.086227959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 315.17204975
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 317.68189408399996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 317.767790584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 320.27673112499997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 320.361772917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 322.870955834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 322.9574775
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 325.467321875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 325.55290249999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 328.060718417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 328.123106042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 330.631757542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 330.71698229199995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 333.227046334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 333.31231525
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 335.819816334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 335.884924584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 338.39334725
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 338.479895292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 340.989971167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 341.076871417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 343.584615084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 343.64139925
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 346.150841375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 346.236542917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 348.746661625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 348.831959209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 351.340252292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 351.403951292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 353.912615459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 353.99601954199994
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 356.504802792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 356.59157025
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 359.100043542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 359.18635475
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 361.6954745
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 361.782733167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 364.29280837499994
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 364.379550417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 366.889034459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 366.97529433399995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 369.484910584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 369.57047125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 372.080444834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 372.16674837499994
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 374.675794792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 374.756631667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 377.26621037499996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 377.351654417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 379.861374542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 379.947280209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 382.45438437499996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 382.535952834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 385.046282917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 385.131684375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 387.641974167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 387.727292625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 390.237036584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 390.3222
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 392.83152166699995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 392.917421709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 395.42464629200003
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 395.48363604199994
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 397.990657167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 398.04763216699996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 400.55515891699997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 400.615572084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 403.12655595900003
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 403.190314334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 405.69852504199997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 405.763997875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab/files/50b58bbf1a3a78a19cae141b211c53c5",
+      "at_seconds": 405.770611917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 408.27261783399996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 408.33353224999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 410.841584917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 410.909921334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 413.418160584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 413.48781587499997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 416.000666334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 416.05935479199997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 418.56739195899996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 418.634901584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 421.14785220899995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 421.218919542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 423.731980834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 423.797958125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 426.311332834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 426.381483084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 428.89416962499996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 428.961474167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 431.471396375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 431.534634959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 434.043052875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 434.110775834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 436.620057084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 436.679855042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 439.19330366699995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 439.258692667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 441.77113120900003
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 441.848413209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 444.36124774999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 444.423644042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 446.931725625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 446.992154375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 449.49956737499997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 449.562477042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 452.070725
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 452.134561917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 454.643801709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 454.71059137500004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 457.219106917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 457.279333875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 459.79449650000004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 459.858151084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 462.367093875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 462.427494625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 464.94251
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 465.011040125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 467.52667820899995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 467.591039667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 470.100495959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 470.16563466699995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 472.67458074999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 472.742647042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 475.25187029200004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 475.32877091700004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab/files/e83db1d5553a1fdf6d71ad1ba9e2db9a",
+      "at_seconds": 475.336569167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 477.838121417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 477.9042495
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 480.41869854199996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 480.48895612499996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 483.00255662499995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 483.06430375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 485.5729805
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 485.637376042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 488.14650308399996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 488.205684625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 490.714405209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 490.787651167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 493.30227049999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 493.364258459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 495.878110042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 495.942347459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 498.45321924999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 498.51685499999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 501.025785792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 501.08834125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 503.597828625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 503.66359204199995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 506.172970959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 506.23378395899994
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 508.742245917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 508.81102954199997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 511.32545175
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 511.39556416700003
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 513.910467125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 513.975288042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 516.484063625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 516.545672292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 519.054814334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 519.117393959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 521.6264655
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 521.689025917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 524.197962625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 524.2574552499999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 526.76719
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 526.840203584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 529.355757709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 529.4223450000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 531.9379566250001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 531.999450709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 534.515787
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 534.581813125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 537.0918975000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 537.15230825
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 539.662611959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 539.726324
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 542.2360561670001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 542.2956235000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 544.805235042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 544.880492459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 547.395932417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 547.4638270840001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 549.975619959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 550.0468710840001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 552.5632706670001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 552.6298249170001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 555.145736875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 555.207450125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 557.71722375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 557.780386459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 560.290174875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 560.3494836670001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 562.8591752500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 562.933266125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 565.4496971670001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 565.511500917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 568.027476125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 568.101032875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 570.6161985000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 570.6795837500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 573.19013
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 573.2531752500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 575.7636020000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 575.82402225
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 578.334516125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 578.3920000840001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 580.9004066670001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 580.9725455
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 583.487876625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 583.553799375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 586.0677165000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 586.1360054170001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 588.646731792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 588.710032459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 591.220413375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 591.28479425
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 593.7946940840001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 593.867955334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 596.378462542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 596.4397720420001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 598.950128792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 599.021915
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 601.537423834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 601.602318209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 604.1127995840001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 604.1844485
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 606.694854375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 606.759398959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 609.2706820840001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 609.33582675
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 611.845532584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 611.9089342090001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 614.420243334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 614.4892474590001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 617.0001837500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 617.061659584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 619.5767745
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 619.647280709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 622.163672375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 622.238506292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 624.748827459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 624.811717709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 627.3222843750001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 627.389921625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 629.9006995000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 629.9665385000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 632.4796566250001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 632.5383248750001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 635.0474265
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 635.112437459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 637.629338875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 637.7021335840001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 640.218628125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 640.2820501250001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 642.793136375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 642.875071
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 645.387980125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 645.4518082920001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 647.9621503750001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 648.0244143750001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 650.534465834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 650.607558209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 653.122766959
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 653.1823928340001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 655.6924115
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 655.7600137500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 658.2723608340001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 658.34627375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 660.8632506250001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 660.935614875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 663.451964459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 663.5180595420001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 666.030125084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 666.0935690420001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 668.603969417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 668.6673363340001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 671.178120584
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 671.2382916250001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 673.748014084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 673.824437209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 676.340927875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 676.4106974590001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 678.927756292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 678.998427417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 681.5147027090001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 681.5882973750001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 684.104621167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 684.1690565
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 686.6792972500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 686.745472334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 689.256361334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 689.316507084
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 691.8259262500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 691.883329834
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 694.3925632920001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 694.4610632920001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 696.9719096250001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 697.0319051250001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 699.541467459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 699.600940292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab/files/91ae5f31bba6e9ef80c1f4e8659f4961",
+      "at_seconds": 699.607626125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 702.1138561250001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 702.201419709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 704.7132330840001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 704.801260459
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 707.3136298750001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 707.401824625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 709.9143705000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 710.0031777500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 712.5143475840001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 712.6025926670001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 715.114406334
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 715.203127709
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 717.713764209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 717.8013676250001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 720.3143217920001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 720.402902875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 722.915150875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 723.003295125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 725.515893125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 725.607592167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 728.119571125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 728.2079917090001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 730.718513209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 730.805781625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 733.318782
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 733.4078087500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 735.919882292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 736.009214625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 738.520825209
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab",
+      "at_seconds": 738.6138324170001
+    }
+  ],
+  "errors": [],
+  "external_requests": [],
+  "request_failures": [],
+  "mutations": [
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/d8795ec6c273489da37954ab/start",
+      "plan_id": "28492e655c31627c709f57daca53e4a9d09d0192e8f7744df0da93ccd8a78ba3",
+      "csrf_present": true
+    }
+  ],
+  "assets": {},
+  "artifacts": [
+    {
+      "path": "source-test.mjs",
+      "bytes": 38951,
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "source-helper.py",
+      "bytes": 31642,
+      "sha256": "57f575f69a2cf7388b40ab8ece65fe9679e87d576febefb5ebdec15ae7671389"
+    },
+    {
+      "path": "ownership-before.json",
+      "bytes": 3711,
+      "sha256": "c9bbeada7415152b6424ff0c1397ff1467a758aa9e14e2f4c27330c88f4460c1"
+    },
+    {
+      "path": "job-000.json",
+      "bytes": 4001,
+      "sha256": "dad73a0cf2268e13a8530c0588b794902fea72dbc3e39b75f2a27ceb6d50dfff"
+    },
+    {
+      "path": "initial-job.png",
+      "bytes": 369493,
+      "sha256": "edd5bd413bdf1da5591bfefa6dfd51060c1a8cb27045f10cefedfc28e5e59fce"
+    },
+    {
+      "path": "job-001.json",
+      "bytes": 4007,
+      "sha256": "8bb9d878cb24f15dadd4bed65cae3e5233988760ace9fd01fa36bed7d70d905d"
+    },
+    {
+      "path": "job-002.json",
+      "bytes": 4005,
+      "sha256": "d18f525fee5d79f9e015e2db980201344fcb081f7d963dabee1195d17e3e5c36"
+    },
+    {
+      "path": "progress-00.png",
+      "bytes": 374582,
+      "sha256": "f6128df4759a6a3e29ad09d621ba106f7485ed46fdca3d70cf52b5bc8ee63320"
+    },
+    {
+      "path": "job-003.json",
+      "bytes": 4623,
+      "sha256": "ea8479b4591c7c7881227996361fb8dfd21666f5588be713f307b6f900e5d42a"
+    },
+    {
+      "path": "progress-01.png",
+      "bytes": 556193,
+      "sha256": "0752fce1a585fc6e4818994e7c73f4d6633211fcddbddbc7cbe27a6de6e03f09"
+    },
+    {
+      "path": "job-004.json",
+      "bytes": 4888,
+      "sha256": "4f86d40056bb2dd3d86a8876972e209e8304829434a9c0c210d926dd5fa208d0"
+    },
+    {
+      "path": "progress-02.png",
+      "bytes": 563509,
+      "sha256": "004ff4a8a5b105fda7f15d99d8cbdd9e95e7321981f838dd1b6d1772dba96908"
+    },
+    {
+      "path": "job-005.json",
+      "bytes": 5163,
+      "sha256": "0b42ad7f724a9643865038dc534eb7cf10732d424b4a5c7a797d5301bcbe6b3b"
+    },
+    {
+      "path": "progress-03.png",
+      "bytes": 572758,
+      "sha256": "52a925ccf46ec7a72e372a22d075ee8652b943d3a9996f68835596c53185b1aa"
+    },
+    {
+      "path": "job-006.json",
+      "bytes": 5387,
+      "sha256": "0d5b0a83078f189d88c9419fcc24396dc526f28b73ca8cb62ef69aa67c849877"
+    },
+    {
+      "path": "progress-04.png",
+      "bytes": 585644,
+      "sha256": "fe92837cdf115f8281b4ce330b9957514de6bf688734555444f8e087d980b929"
+    },
+    {
+      "path": "job-007.json",
+      "bytes": 7133,
+      "sha256": "58f09a742c743713bbceb9117588e2ed08df26e0cd5f59a8195ef0e334c5e5d4"
+    },
+    {
+      "path": "progress-05.png",
+      "bytes": 674188,
+      "sha256": "55ca169c98d2c8aeb9addecd409f4be87ba6305629c2531800272a5e9963872a"
+    },
+    {
+      "path": "job-008.json",
+      "bytes": 7407,
+      "sha256": "63ec233623cf1c17926f93aa495a2586f865a861a43ab5f631021dc771d94bee"
+    },
+    {
+      "path": "progress-06.png",
+      "bytes": 684140,
+      "sha256": "08e0eefbc4b3d7415d05d7062f02065a5d2ff468456ef6c7e15714060a49fb9a"
+    },
+    {
+      "path": "job-009.json",
+      "bytes": 7629,
+      "sha256": "35c82ba84ce9b82d4a48bb5cd690b8ab09b6e2667f38cfbfcc8f51399cefd060"
+    },
+    {
+      "path": "progress-07.png",
+      "bytes": 684176,
+      "sha256": "e4528eb58d04c6ae28f4007641adcf233efc6620a848c88087a1d777e38b3b83"
+    },
+    {
+      "path": "job-010.json",
+      "bytes": 9373,
+      "sha256": "9d2e81ae00ffdee2a010aecf977480bce844f05b391455965d02c86ebdd5119a"
+    },
+    {
+      "path": "job-011.json",
+      "bytes": 9649,
+      "sha256": "e20d3b4fc936d879a9d02b287bc21a5a3cd1e3717291a2c6ef5bce1ca7d7301a"
+    },
+    {
+      "path": "job-012.json",
+      "bytes": 9871,
+      "sha256": "5b7d48e7c5131f77e18373f844cf0f58b0c90cb63c1d518c7334385104f46309"
+    },
+    {
+      "path": "job-013.json",
+      "bytes": 10791,
+      "sha256": "2ebd673eaa60806517c61c4cddb503d0ec4ef95175e63e23f0ff208a202e116e"
+    },
+    {
+      "path": "job-014.json",
+      "bytes": 11374,
+      "sha256": "951a652cba623e462b49e050bc6a246ae8e0de96462730cb30842d52e41fc9eb"
+    },
+    {
+      "path": "job-015.json",
+      "bytes": 11638,
+      "sha256": "373ff09a986c7668d4b12c7f142f0b69b0681fc01a05d888119d3acabd537062"
+    },
+    {
+      "path": "job-016.json",
+      "bytes": 11861,
+      "sha256": "5b71f4403704ff167905816d741bfe022b858ef635be49d00fea0f2bb5c5b2c2"
+    },
+    {
+      "path": "job-017.json",
+      "bytes": 11861,
+      "sha256": "c04e83aef28b6bfb282819c3a9da53de06da353f9f86ea25dde47292e1690be5"
+    },
+    {
+      "path": "job-018.json",
+      "bytes": 12391,
+      "sha256": "58d6a04598ebd74856bc57c3392486ba6c0265a66196a7df2b4da88498b01986"
+    },
+    {
+      "path": "job-019.json",
+      "bytes": 12662,
+      "sha256": "f33a354c0acecb433c845c611d4fd129e6345ce0e0a3a6e8cfee97949c4638a8"
+    },
+    {
+      "path": "job-020.json",
+      "bytes": 12862,
+      "sha256": "7d51627088b06891429530609181198d819c09b1076c1fe40c92b06690efab58"
+    },
+    {
+      "path": "terminal-job.json",
+      "bytes": 12862,
+      "sha256": "7d51627088b06891429530609181198d819c09b1076c1fe40c92b06690efab58"
+    },
+    {
+      "path": "ownership-after.json",
+      "bytes": 5318,
+      "sha256": "030cb38a4e17a414d2f083cc80026880feef4bb7d6812e70f95c592c4e2603c5"
+    },
+    {
+      "path": "server.log",
+      "bytes": 108,
+      "sha256": "79d2f0c5a451365e2b2c3d449bf813984d00abc8f083bf9cc436e8a491541d3c"
+    }
+  ],
+  "cleanup": {
+    "browser_exit_verified": true,
+    "server_exit_verified": true,
+    "worker_cancel_requested": false,
+    "worker_signalled": false
+  },
+  "resources": {
+    "sampled_peak_rss_bytes": 1587429376,
+    "samples": 368,
+    "sampling_interval_ms": 2000,
+    "scope": "Tester Node + direct HTTP server + owned Chrome subtree; detached generation workers are EXCLUDED and keep their own bounds. RSS is sampled and shared pages may be double-counted."
+  },
+  "initial_status": "planned",
+  "frozen_plan_id": "28492e655c31627c709f57daca53e4a9d09d0192e8f7744df0da93ccd8a78ba3",
+  "generation_mode": "reused_generated_source",
+  "source_reuse": {
+    "bytes": 25557832,
+    "path": "inputs/source-model.glb",
+    "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+  },
+  "source_generation": null,
+  "agent_backend": {
+    "authorization_checked": false,
+    "automatic_paid_retries": 0,
+    "currency": "USD",
+    "execution_gate": "exact_request_dollar_grant_and_explicit_start",
+    "historical_plan_semantics_revalidated": true,
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "maximum_reservation_microdollars": 6505632,
+    "model": "gpt-5.2-2025-12-11",
+    "plan_verified": true,
+    "provider": "openai",
+    "reasoning_effort": "medium",
+    "reservation_microdollars_per_call": 929376,
+    "timeout": 600
+  },
+  "server_pid": 97676,
+  "server": {
+    "port": 51412,
+    "pid": 97676,
+    "job_id": "d8795ec6c273489da37954ab",
+    "canonical_state_dir": ".local/studio"
+  },
+  "browser_pid": 97677,
+  "browser": {
+    "version": "156.0.8078.76",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "software_webgl": true
+  },
+  "initial_ui": {
+    "status": "planned",
+    "timeline_entries": 3,
+    "reviews": 0,
+    "elapsed_label": "0s elapsed"
+  },
+  "last_ui": {
+    "status": "unsupported",
+    "timeline_entries": 22,
+    "reviews": 0,
+    "elapsed_label": "12m 15s elapsed"
+  },
+  "terminal_status": "unsupported",
+  "result": "Actual worker stopped without a completed delivery; preserved attempts are not a pass",
+  "worker_handoff": {
+    "status": "unsupported",
+    "output": "outputs/studio-d8795ec6c273489da37954ab",
+    "owner": {
+      "active_lease_job": null,
+      "cancel_requested": false,
+      "ended_local": "2026-11-02T17:24:30.343334-08:00",
+      "heartbeat_local": "2026-11-02T17:24:30.343334-08:00",
+      "identity_verified_live": false,
+      "invocation_dir": "jobs/d8795ec6c273489da37954ab/run-0002",
+      "invocations": 2,
+      "operation": "execute",
+      "owner_identity": "darwin-start:1793668335:2587",
+      "owner_pid": 97702,
+      "queued_jobs": []
+    },
+    "next_action": "Inspect the canonical status and preserved receipts before any next action; this verifier issued no worker cancellation."
+  },
+  "start_requests": 1,
+  "request_count": 587,
+  "observed_rejected_reviews": [],
+  "elapsed_seconds": 739.184839459,
+  "finished_local": "11/02/2026, 17:24:31 PST"
+}

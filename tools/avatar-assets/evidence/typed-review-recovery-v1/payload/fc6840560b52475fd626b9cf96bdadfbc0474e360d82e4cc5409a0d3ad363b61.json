@@ -1,0 +1,111 @@
+{
+  "bindings": {
+    "authored_height_m": 0.38,
+    "design_sha256": "828c107ea3cb33e05bfeb300beda124a44a8a2aa72d3f159440ea285f9564190",
+    "exported_model_sha256": "8a9276e04dbd4a4ce9cc8def5931f047214a76551e378f67e7872476d7b00def",
+    "finish_report_sha256": "18713d30a1ef76c8086c817b3694201dc715ac7b2422295865b2a70bce0a0977",
+    "manifest_sha256": "e3fa2514c35d0cceed49855c60971868a538cbf413690b62183651cc364fa12a",
+    "requested_height_m": 0.38,
+    "rig_verification_sha256": "e6830ab2ae59eb38c479916634da670168c28df14644d4fbf836df796dab80fd",
+    "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+    "state_ids": [
+      "toy_dance"
+    ]
+  },
+  "implementation_sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+  "measurement": {
+    "bone_names": [
+      "root",
+      "spine",
+      "chest",
+      "neck",
+      "head",
+      "ear_l",
+      "ear_r",
+      "arm_l_upper",
+      "arm_l_lower",
+      "hand_l",
+      "arm_r_upper",
+      "arm_r_lower",
+      "hand_r",
+      "dragon_root",
+      "dragon_body",
+      "dragon_head",
+      "dragon_tail1",
+      "dragon_tail2",
+      "dragon_wing_l",
+      "dragon_wing_r",
+      "leg_l_upper",
+      "leg_l_lower",
+      "foot_l",
+      "leg_r_upper",
+      "leg_r_lower",
+      "foot_r",
+      "tail"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 109672,
+    "edges_sha256": "30749e08ef85fac9996930ee42eecb8bde638a592b4be6c43e87c0ea129c6f06",
+    "pose_samples_measured": 8,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 0.3799999952316284,
+      "height_basis": "z_span",
+      "max": [
+        0.14380080997943878,
+        0.12301573157310486,
+        0.3799999952316284
+      ],
+      "min": [
+        -0.14380080997943878,
+        -0.12301573157310486,
+        0.0
+      ]
+    },
+    "rest_sha256": "bb773aec26ff6931656d92d0aace335ea38b3aa81513f981c2f141c635994924",
+    "rig_route": "authored",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 50004
+  },
+  "measurement_scope": "bound_native_rest_and_pose_samples",
+  "passed": true,
+  "physics_verified": false,
+  "rig_route": "authored",
+  "sampling_implementation_sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+  "schema_version": 1,
+  "scope": "Conservative gross-spike rejection of at most four retained edges per sampled pose set; not exhaustive edge/frame coverage, skin correctness or visual acceptance.",
+  "states": [
+    {
+      "id": "toy_dance",
+      "max_reported_excess_m": 0.050657684682977,
+      "max_reported_stretch_ratio": 7.765025645363416,
+      "offending_outliers": [],
+      "passed": true,
+      "reported_outliers": 4,
+      "sample_seconds": [
+        0.0,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0
+      ]
+    }
+  ],
+  "status": "no_reported_severe_spike",
+  "thresholds": {
+    "excess_height_fraction_strictly_greater_than": 0.03,
+    "excess_m_strictly_greater_than": 0.011399999856948851,
+    "height_m": 0.3799999952316284,
+    "height_source": "native_measured_rest",
+    "stretch_ratio_strictly_greater_than": 8.0
+  },
+  "version": "sampled-deformation-gate-v2",
+  "visual_approval": false
+}

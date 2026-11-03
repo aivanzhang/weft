@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded tool stdout",
+  "distinct_methods_passed": 18,
+  "runs": [
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_rejected_review_continuation.RejectedReviewContinuationTests -q",
+      "methods": 17,
+      "passed": 9,
+      "fixture_errors": 8,
+      "seconds": 0.858,
+      "failure": "New analytic action audit omitted states list required by review_citations; fixture corrected, production gates unchanged."
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_rejected_review_continuation.RejectedReviewContinuationTests.test_invalid_paid_review_kept_as_untrusted_not_a_verdict tests.test_rejected_review_continuation.RejectedReviewContinuationTests.test_valid_review_cannot_be_misclassified_as_contract_failure tests.test_rejected_review_continuation.RejectedReviewContinuationTests.test_rejection_reason_and_failure_kind_must_match tests.test_rejected_review_continuation.RejectedReviewContinuationTests.test_accepted_review_receipt_is_forbidden tests.test_rejected_review_continuation.RejectedReviewContinuationTests.test_raw_answer_or_paid_image_tampering_rejected tests.test_rejected_review_continuation.RejectedReviewContinuationTests.test_unknown_reviewer_charge_blocks_continuation tests.test_rejected_review_continuation.RejectedReviewContinuationTests.test_final_image_reseal_does_not_replace_paid_inputs tests.test_rejected_review_continuation.RejectedReviewContinuationTests.test_changed_validator_semantics_blocks_reinterpretation -q",
+      "methods": 8,
+      "passed": 8,
+      "seconds": 0.648
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_rejected_review_continuation.RejectedReviewContinuationTests.test_future_typed_paid_review_is_compared_in_canonical_form -q",
+      "methods": 1,
+      "passed": 1,
+      "seconds": 0.066,
+      "prior_fixture_failure": "Typed fixture initially omitted strict required requirement_reviews; explicit empty list added, canonical fixture updated equivalently."
+    }
+  ],
+  "actual_read_only_proof": "actual-read-only.json",
+  "provider_calls": 0,
+  "native_calls": 0,
+  "live_ledger_changes": false,
+  "sources": [
+    {
+      "path": "avatar_assets/pipeline_continuation.py",
+      "sha256": "c581effc1f3c20fc9599afaca3ccf720231682d711260225cb9783eaa46a9c7c"
+    },
+    {
+      "path": "tests/test_rejected_review_continuation.py",
+      "sha256": "507625490b031e5dd37b21a710017555acc2180e15f6b80d92a0dbce31ddd931"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "agent_backend": {
+    "authorization_checked": false,
+    "automatic_paid_retries": 0,
+    "currency": "USD",
+    "execution_gate": "exact_request_dollar_grant_and_explicit_start",
+    "historical_plan_semantics_revalidated": true,
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "maximum_reservation_microdollars": 6505632,
+    "model": "gpt-5.2-2025-12-11",
+    "plan_verified": true,
+    "provider": "openai",
+    "reasoning_effort": "medium",
+    "reservation_microdollars_per_call": 929376,
+    "timeout": 600
+  },
+  "files": [
+    {
+      "path": "outputs/studio-d8795ec6c273489da37954ab/request.json",
+      "sha256": "2513b8838b4566ed4aaea41247ece4044776e2dcc3b182a150a9060c28c96df9"
+    },
+    {
+      "path": "outputs/studio-d8795ec6c273489da37954ab/plan.json",
+      "sha256": "67cdf0c89632ff84513a724e4830e819c7c8e40b70f0dc52e82bdbe13500127c"
+    },
+    {
+      "path": ".local/studio/jobs/d8795ec6c273489da37954ab/retry-parent-custody.json",
+      "sha256": "955ad96251f2c7db3c38da8649c02019b0738a3ba8a3d6deb8bbf432d626c4c7"
+    },
+    {
+      "path": "outputs/studio-d8795ec6c273489da37954ab/input-receipt.json",
+      "sha256": "ad60f52383c369c31d5dba37e89a9b00cd4c220c19b453ae6eada19d534f5b06"
+    },
+    {
+      "path": ".local/studio/jobs/d8795ec6c273489da37954ab/pipeline-request.json",
+      "sha256": "9989e808050e0483899494add69d0e4c67470435b67c172c27848ed5e58be56f"
+    }
+  ],
+  "generation_mode": "reused_generated_source",
+  "id": "d8795ec6c273489da37954ab",
+  "output": "outputs/studio-d8795ec6c273489da37954ab",
+  "owner": {
+    "active_lease_job": null,
+    "cancel_requested": false,
+    "ended_local": "2026-11-02T17:11:48.746879-08:00",
+    "heartbeat_local": "2026-11-02T17:11:48.746879-08:00",
+    "identity_verified_live": false,
+    "invocation_dir": "jobs/d8795ec6c273489da37954ab/run-0001",
+    "invocations": 1,
+    "operation": "plan",
+    "owner_identity": "darwin-start:1793668307:918904",
+    "owner_pid": 97440,
+    "queued_jobs": []
+  },
+  "ownership_scope": "Read-only canonical registry and selected PID identity; no dispatch, cancellation or signal",
+  "plan_available": true,
+  "plan_id": "28492e655c31627c709f57daca53e4a9d09d0192e8f7744df0da93ccd8a78ba3",
+  "provenance": "actual_pipeline",
+  "recorded_local": "2026-11-02T17:12:12.959418-08:00",
+  "reference_selected": true,
+  "request": {
+    "custom_actions": [
+      "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    ],
+    "preset": "preview",
+    "prompt": "Create an editable, rigged avatar from this previously generated Muse-style panda and its small green shoulder dragon. Preserve the selected source character, proportions, black eye patches, black-and-ivory palette, and companion. Keep the dragon perched and attached to the shoulder during this run; do not separate it or make it fly. Do not add props, clothing, text, a pedestal or scenery.",
+    "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look."
+  },
+  "schema_version": 1,
+  "source_generation": null,
+  "source_reuse": {
+    "bytes": 25557832,
+    "path": "inputs/source-model.glb",
+    "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+  },
+  "state_dir": ".local/studio",
+  "status": "planned"
+}

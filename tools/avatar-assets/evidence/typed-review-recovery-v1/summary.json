@@ -1,0 +1,67 @@
+{
+  "actions": {
+    "browser_calls": 0,
+    "configuration_or_ledger_changes": 0,
+    "git_operations": 0,
+    "native_calls": 0,
+    "private_database_access": 0,
+    "provider_calls": 0,
+    "source_or_root_document_changes": 0
+  },
+  "actual_job": {
+    "failure_kind": "review_contract",
+    "frame_0024": {
+      "bytes": 518209,
+      "classification": "rejected_generated_d879_preserved_artifact_not_accepted",
+      "path": "outputs/studio-d8795ec6c273489da37954ab/media-2/frames/toy_dance/0024.png",
+      "sha256": "474aac637a4d73df81f177275ee81821c9a0f84ed562c35815b3ecfe96f7d1f8",
+      "snapshot": "payload/474aac637a4d73df81f177275ee81821c9a0f84ed562c35815b3ecfe96f7d1f8.png",
+      "storage": "snapshot"
+    },
+    "id": "d8795ec6c273489da37954ab",
+    "raw_reviewer": "agents/reviewer-2/answer.json",
+    "raw_reviewer_preserved": "No invented deformation check, rewritten answer, altered verdict or retroactive acceptance.",
+    "result": "Generated attempts and prior images are rejected evidence, not an accepted avatar delivery.",
+    "status": "unsupported"
+  },
+  "distinctions": [
+    "Test fixtures and coordinator/image-custody checks are analytic/local evidence, not new provider output.",
+    "Weight-witness diagnosis is measurement of retained generated geometry, not independent physical validation.",
+    "Actual website/live-v3 receipts record a completed unsupported run, not a successful end-to-end delivery.",
+    "The corrected V2 reviewer contract has local tests only in this bundle; future live child results are excluded."
+  ],
+  "groups": [
+    {
+      "classification": "analytic_typed_review_coordinator_tests",
+      "source": "outputs/typed-review-pipeline-tests-v1"
+    },
+    {
+      "classification": "analytic_typed_critic_contract_and_preserved_rejection_tests",
+      "source": "outputs/typed-critic-contract-tests-v1"
+    },
+    {
+      "classification": "analytic_and_readonly_rejected_review_continuation_tests",
+      "source": "outputs/rejected-review-continuation-tests-v1"
+    },
+    {
+      "classification": "analytic_rejected_review_image_custody_tests",
+      "source": "outputs/rejected-review-image-tests-v1"
+    },
+    {
+      "classification": "local_readonly_consumer_proof_not_new_generation",
+      "source": "outputs/rejected-review-image-consumer-proof-v1"
+    },
+    {
+      "classification": "readonly_measurement_of_rejected_generated_d879_geometry",
+      "source": "outputs/d879-weight-witness-diagnosis-v1"
+    },
+    {
+      "classification": "actual_terminal_d879_website_run_unsupported",
+      "source": "outputs/gpt52-panda-studio-live-v3"
+    }
+  ],
+  "omissions": "All original selected-folder files are indexed; large GLB/blend/videos, unselected raw frames and invocation-shaped files are exact local hash references. Credential-shaped content is never copied.",
+  "recorded_local": "2026-11-02 17:35:04 PST",
+  "schema_version": 1,
+  "scope": "Completed typed-review recovery tests/diagnosis and terminal rejected d879 artifacts; no active child outputs included"
+}

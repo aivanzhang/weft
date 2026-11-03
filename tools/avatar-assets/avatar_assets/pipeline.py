@@ -1292,11 +1292,12 @@ class Pipeline:
             # A failed/uncertain reviewer request is not a reason to buy another model call.
             self.guard()
             self.event('reviewer', 'running', attempt=attempt)
-            review = self.agents.call('reviewer-'+str(attempt),
-                prompts.critic_prompt(self.request, plan, config, proofs, evidence),
-                prompts.critic_schema(evidence, action_audit),
+            raw_review = self.agents.call('reviewer-'+str(attempt),
+                prompts.typed_critic_prompt(self.request, plan, config, proofs, evidence),
+                prompts.typed_critic_schema(evidence, action_audit),
                 images=[Path(e['path']) for e in evidence])
             try:
+                review = prompts.decode_typed_review(raw_review)
                 prompts.validate_review(review, plan, [e['id'] for e in prompts.review_citations(evidence, action_audit)])
                 self._bind_review(review, evidence, action_audit)
             except (ValueError, KeyError, TypeError) as error:

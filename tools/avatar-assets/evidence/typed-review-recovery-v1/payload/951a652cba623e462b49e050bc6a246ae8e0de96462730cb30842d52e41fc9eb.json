@@ -1,0 +1,270 @@
+{
+  "id": "d8795ec6c273489da37954ab",
+  "title": "Create an editable, rigged avatar from this previously generated Muse-style pand",
+  "status": "running",
+  "created_at": "2026-11-02T17:11:47.878002-08:00",
+  "updated_at": "2026-11-02T17:19:41.660661-08:00",
+  "elapsed_seconds": 447.36,
+  "request": {
+    "prompt": "Create an editable, rigged avatar from this previously generated Muse-style panda and its small green shoulder dragon. Preserve the selected source character, proportions, black eye patches, black-and-ivory palette, and companion. Keep the dragon perched and attached to the shoulder during this run; do not separate it or make it fly. Do not add props, clothing, text, a pedestal or scenery.",
+    "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look.",
+    "custom_actions": [
+      "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    ],
+    "preset": "preview",
+    "reference_selected": true,
+    "reuse_model_selected": true
+  },
+  "operation": "execute",
+  "queued": false,
+  "cancel_requested": false,
+  "stages": [
+    {
+      "id": "planner",
+      "stage": "planner",
+      "label": "Planner",
+      "status": "ready",
+      "detail": "",
+      "attempt": null,
+      "elapsed_seconds": 0.001
+    },
+    {
+      "id": "geometry",
+      "stage": "geometry",
+      "label": "Geometry",
+      "status": "reused_generated_source",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "pipeline",
+      "stage": "pipeline",
+      "label": "Pipeline",
+      "status": "planned",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "inspection",
+      "stage": "inspection",
+      "label": "Inspection",
+      "status": "complete",
+      "detail": "Source geometry and review views inspected; no quality acceptance.",
+      "attempt": null,
+      "elapsed_seconds": 2.756
+    },
+    {
+      "id": "author:0",
+      "stage": "author",
+      "label": "Author · attempt 1",
+      "status": "complete",
+      "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "attempt": 0,
+      "elapsed_seconds": 67.348
+    },
+    {
+      "id": "build:0",
+      "stage": "build",
+      "label": "Build · attempt 1",
+      "status": "complete",
+      "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+      "attempt": 0,
+      "elapsed_seconds": 51.191
+    },
+    {
+      "id": "deformation_gate:0",
+      "stage": "deformation_gate",
+      "label": "Check skin stretching · attempt 1",
+      "status": "failed",
+      "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+      "attempt": 0,
+      "elapsed_seconds": 0.006
+    },
+    {
+      "id": "attempt:0",
+      "stage": "attempt",
+      "label": "Attempt · attempt 1",
+      "status": "rejected",
+      "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [38317, 38323], \"endpoint_influences\": [{\"arm_l_lower\": 0.2785860598087311, \"arm_l_upper\": 0.18692715466022491, \"hand_l\": 0.27576273679733276, \"spine\": 0.25872403383255005}, {\"arm_r_lower\": 0.27565133571624756, \"arm_r_upper\": 0.23481938242912292, \"hand_r\": 0.2541639506816864, \"spine\": 0.2353653311729",
+      "attempt": 0
+    },
+    {
+      "id": "author:1",
+      "stage": "author",
+      "label": "Author · attempt 2",
+      "status": "complete",
+      "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "attempt": 1,
+      "elapsed_seconds": 99.421
+    },
+    {
+      "id": "build:1",
+      "stage": "build",
+      "label": "Build · attempt 2",
+      "status": "complete",
+      "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+      "attempt": 1,
+      "elapsed_seconds": 51.981
+    },
+    {
+      "id": "deformation_gate:1",
+      "stage": "deformation_gate",
+      "label": "Check skin stretching · attempt 2",
+      "status": "failed",
+      "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+      "attempt": 1,
+      "elapsed_seconds": 0.005
+    },
+    {
+      "id": "attempt:1",
+      "stage": "attempt",
+      "label": "Attempt · attempt 2",
+      "status": "rejected",
+      "detail": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [46540, 46549], \"endpoint_influences\": [{\"arm_l_lower\": 0.15494973957538605, \"chest\": 0.4802725613117218, \"hand_l\": 0.1887715458869934, \"leg_l_upper\": 0.17600615322589874}, {\"chest\": 0.4723236560821533, \"hand_l\": 0.17739534378051758, \"leg_l_lower\": 0.1435357630252838, \"leg_l_upper\": 0.206745252013206",
+      "attempt": 1
+    },
+    {
+      "id": "author:2",
+      "stage": "author",
+      "label": "Author · attempt 3",
+      "status": "complete",
+      "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "attempt": 2,
+      "elapsed_seconds": 117.937
+    },
+    {
+      "id": "build:2",
+      "stage": "build",
+      "label": "Build · attempt 3",
+      "status": "complete",
+      "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+      "attempt": 2,
+      "elapsed_seconds": 51.75
+    },
+    {
+      "id": "deformation_gate:2",
+      "stage": "deformation_gate",
+      "label": "Check skin stretching · attempt 3",
+      "status": "complete",
+      "detail": "No reported gross skin spike; this is not visual acceptance.",
+      "attempt": 2,
+      "elapsed_seconds": 0.005
+    },
+    {
+      "id": "portable_attachment:2",
+      "stage": "portable_attachment",
+      "label": "Check portable fur attachment · attempt 3",
+      "status": "complete",
+      "detail": "Portable roots passed sampled attachment checks; appearance remains unreviewed.",
+      "attempt": 2,
+      "elapsed_seconds": 0.827
+    },
+    {
+      "id": "native_reload:2",
+      "stage": "native_reload",
+      "label": "Native Reload · attempt 3",
+      "status": "complete",
+      "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+      "attempt": 2,
+      "elapsed_seconds": 2.657
+    },
+    {
+      "id": "action_audit:2",
+      "stage": "action_audit",
+      "label": "Action Audit · attempt 3",
+      "status": "complete",
+      "detail": "Numeric movement/stability checks passed; visual action review is pending.",
+      "attempt": 2,
+      "elapsed_seconds": 0.572
+    },
+    {
+      "id": "exported_views:2",
+      "stage": "exported_views",
+      "label": "Exported Views · attempt 3",
+      "status": "running",
+      "detail": "",
+      "attempt": 2
+    }
+  ],
+  "plan_id": "28492e655c31627c709f57daca53e4a9d09d0192e8f7744df0da93ccd8a78ba3",
+  "plan": {
+    "id": "28492e655c31627c709f57daca53e4a9d09d0192e8f7744df0da93ccd8a78ba3",
+    "summary": "Plush toy-style panda avatar with black-and-ivory markings and a small green dragon perched on its shoulder (attached), matching the provided reference portrait; no clothing/props/scenery.",
+    "estimate": {
+      "credits": 0,
+      "amount": null,
+      "currency": "USD",
+      "note": "Account dollar price and agent usage price are unknown. No paid retries or allowance changes."
+    },
+    "authorization": {
+      "can_start": true,
+      "estimated_credits": 0,
+      "reason": "Explicit source reuse requires no new Meshy credits; existing bounded agent/local execution still applies.",
+      "execution_gate": "canonical_ledger_and_explicit_start"
+    },
+    "warnings": [
+      "Dance/hops are authored keyframed motion only; no physical balance, foot-ground contact solving, or impact dynamics are implied.",
+      "Keeping the dragon perched is treated as a rigid attachment to the shoulder region during animation; no independent dragon flight or separation is authored in this run.",
+      "Exact one-to-one reconstruction of the reference image geometry is not guaranteed; the prompt specifies intended appearance for generation/texture."
+    ]
+  },
+  "capabilities": {
+    "plan": false,
+    "start": false,
+    "cancel": true,
+    "retry": false,
+    "resume": false,
+    "session_required": true,
+    "execution_gate": "canonical_ledger_and_explicit_start"
+  },
+  "previews": [
+    {
+      "url": "/api/studio/jobs/d8795ec6c273489da37954ab/files/d8f2c5951ea9e4d820391edd57c2d3d8",
+      "kind": "image",
+      "id": "front",
+      "label": "Work-in-progress preview",
+      "bytes": 238423
+    },
+    {
+      "url": "/api/studio/jobs/d8795ec6c273489da37954ab/files/0cfadd1df16d93001ff93e2050890a99",
+      "kind": "image",
+      "id": "three-quarter",
+      "label": "Work-in-progress preview",
+      "bytes": 233356
+    },
+    {
+      "url": "/api/studio/jobs/d8795ec6c273489da37954ab/files/f1ec73ee6e387ba185522f3cfb84bcdb",
+      "kind": "image",
+      "id": "portrait",
+      "label": "Work-in-progress preview",
+      "bytes": 462640
+    },
+    {
+      "url": "/api/studio/jobs/d8795ec6c273489da37954ab/files/d83d28e2d21613eeca39a2b765553d40",
+      "kind": "image",
+      "id": "portrait",
+      "label": "Work-in-progress preview",
+      "bytes": 462367
+    },
+    {
+      "url": "/api/studio/jobs/d8795ec6c273489da37954ab/files/50b58bbf1a3a78a19cae141b211c53c5",
+      "kind": "image",
+      "id": "portrait",
+      "label": "Work-in-progress preview",
+      "bytes": 462999
+    }
+  ],
+  "reviews": [],
+  "result": null,
+  "ai_failure": null,
+  "error": null,
+  "storage": {
+    "retained_bytes_measured": 450066222,
+    "pipeline_bytes_measured": 449469306,
+    "measured_at": "2026-11-02T17:19:41.660659-08:00",
+    "total_limit_bytes": 8589934592,
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false
+  },
+  "provenance": "actual_pipeline"
+}

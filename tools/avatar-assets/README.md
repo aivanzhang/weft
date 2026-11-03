@@ -12,17 +12,20 @@ fully hands-off Studio delivery using the already accepted panda appearance.
 Earlier accepted authored panda/dragon assets remain intact; no new hands-off
 result has passed final acceptance yet.
 
-Actual website **Retry saved work → Prepare** now reuses the previous AI plan
-and failure history without another planner charge. The current continuation
-`d8795ec6c273489da37954ab` is authoring after fixes for exact fur capacity and
-combined material face-count feedback. Its parent returned valid API answers,
-but all three designs failed finishing checks. No validator was relaxed.
-The saved source and accepted portrait are bound to a finite standing retry policy.
+Actual website **Retry saved work → Prepare** reuses the previous AI plan
+and authenticated failure history without another planner charge. Run
+`d8795ec6c273489da37954ab` built real furred rigs and dance media after automatic
+weight repairs, but **did not pass final review**. The critic identified patchy
+exported fur and unclear hops; its response also repeated one review category,
+so the backend rejected it. A fixed four-category response contract and safe
+continuation of rejected review evidence now pass focused tests. Website retry
+`45757c9565b545119553baca` is running with the authenticated prior images. No validator
+was relaxed and no old recipe was manually edited.
 This trial keeps the shoulder dragon perched, not flying.
 
 [GPT-5.2 model profiles](docs/api-model-profiles.md) and standard responses keep
-per-call reservations within the existing $15 total cap. Before the continuation,
-$4.529554 was settled and $6.548016 remained in uncertain charge holds; those
+per-call reservations within the existing $15 total cap. After the stopped run,
+$5.174529 was settled and $6.548016 remained in uncertain charge holds; those
 holds are conservative exposure, not confirmed bills. No new Meshy work or
 hosted deployment. The [handoff](TODO.md) records exact sources, ownership,
 commands, failures and the next safe action. [Backend details](docs/api-website-backend.md).

@@ -1,0 +1,1202 @@
+{
+  "attempts": [
+    {
+      "attempt": 0,
+      "max_observed_excess_m": 0.07448626390784112,
+      "witnesses": [
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.0031519784089987487,
+              "bones": [
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r"
+              ],
+              "index": 6
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.2785860516360903,
+            "arm_l_upper": 0.18692715865436849,
+            "hand_l": 0.27576273643426746,
+            "spine": 0.2587240532752737
+          },
+          "constraint_factors": {},
+          "discarded_total_before_normalization": 0.6283872663782071,
+          "index": 38317,
+          "max_component_difference": 1.9442723653284588e-08,
+          "normalized_blender_xyz": [
+            0.5032773897932957,
+            0.12422030257359808,
+            0.35206770083863737
+          ],
+          "observed_final": {
+            "arm_l_lower": 0.2785860598087311,
+            "arm_l_upper": 0.18692715466022491,
+            "hand_l": 0.27576273679733276,
+            "spine": 0.25872403383255005
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.10352612419738946,
+            "arm_l_upper": 0.06946451241570445,
+            "arm_r_lower": 0.06267313223636733,
+            "arm_r_upper": 0.051293514136095515,
+            "chest": 0.047430652634860064,
+            "hand_l": 0.10247694431736411,
+            "hand_r": 0.0604080127069895,
+            "spine": 0.09614515269133483
+          },
+          "predicted_final": {
+            "arm_l_lower": 0.2785860516360903,
+            "arm_l_upper": 0.18692715865436849,
+            "hand_l": 0.27576273643426746,
+            "spine": 0.2587240532752737
+          },
+          "rank4_minus_rank5": 0.006791380179337114
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.10846311654694431,
+              "bones": [
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r"
+              ],
+              "index": 6
+            }
+          ],
+          "before_constraints": {
+            "arm_r_lower": 0.2756513392344155,
+            "arm_r_upper": 0.23481940067669307,
+            "hand_r": 0.25416392120323805,
+            "spine": 0.23536533888565347
+          },
+          "constraint_factors": {},
+          "discarded_total_before_normalization": 0.6281939119200878,
+          "index": 38323,
+          "max_component_difference": 2.9478448348996267e-08,
+          "normalized_blender_xyz": [
+            0.5204609445666455,
+            0.1293433449870546,
+            0.3704860852955026
+          ],
+          "observed_final": {
+            "arm_r_lower": 0.27565133571624756,
+            "arm_r_upper": 0.23481938242912292,
+            "hand_r": 0.2541639506816864,
+            "spine": 0.23536533117294312
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.08212054314630195,
+            "arm_l_upper": 0.062273902416402856,
+            "arm_r_lower": 0.10248884611473683,
+            "arm_r_upper": 0.08730728277087073,
+            "chest": 0.048699086834540536,
+            "hand_l": 0.07774138953555437,
+            "hand_r": 0.09449969327362698,
+            "spine": 0.08751026592067765
+          },
+          "predicted_final": {
+            "arm_r_lower": 0.2756513392344155,
+            "arm_r_upper": 0.23481940067669307,
+            "hand_r": 0.25416392120323805,
+            "spine": 0.23536533888565347
+          },
+          "rank4_minus_rank5": 0.005186739624568781
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.011608608877505897,
+              "bones": [
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l"
+              ],
+              "index": 5
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.28310445318050576,
+            "arm_l_upper": 0.22121945241414334,
+            "hand_l": 0.25633677849672504,
+            "spine": 0.23933931590862587
+          },
+          "constraint_factors": {},
+          "discarded_total_before_normalization": 0.6098771062982713,
+          "index": 38314,
+          "max_component_difference": 3.1981098908007155e-08,
+          "normalized_blender_xyz": [
+            0.4936432896863717,
+            0.13520692885641794,
+            0.3858167530463464
+          ],
+          "observed_final": {
+            "arm_l_lower": 0.28310444951057434,
+            "arm_l_upper": 0.22121942043304443,
+            "hand_l": 0.2563368082046509,
+            "spine": 0.23933930695056915
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.11044552849462448,
+            "arm_l_upper": 0.08630277291891747,
+            "arm_r_lower": 0.056900672399274106,
+            "arm_r_upper": 0.052024296441924266,
+            "chest": 0.05702959566903715,
+            "hand_l": 0.10000284578932143,
+            "hand_r": 0.04968362784204589,
+            "spine": 0.09337174649886532
+          },
+          "predicted_final": {
+            "arm_l_lower": 0.28310445318050576,
+            "arm_l_upper": 0.22121945241414334,
+            "hand_l": 0.25633677849672504,
+            "spine": 0.23933931590862587
+          },
+          "rank4_minus_rank5": 0.029273177249880322
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.018873769054741335,
+              "bones": [
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r"
+              ],
+              "index": 6
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.2490959664905926,
+            "hand_l": 0.3009667339448739,
+            "hand_r": 0.19704550912796917,
+            "spine": 0.2528917904365644
+          },
+          "constraint_factors": {},
+          "discarded_total_before_normalization": 0.6189911273623598,
+          "index": 41523,
+          "max_component_difference": 1.1490641549372071e-08,
+          "normalized_blender_xyz": [
+            0.5081566113906301,
+            0.12207169061489834,
+            0.2852625592478019
+          ],
+          "observed_final": {
+            "arm_l_lower": 0.24909596145153046,
+            "hand_l": 0.300966739654541,
+            "hand_r": 0.19704551994800568,
+            "spine": 0.25289177894592285
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.09490777337116403,
+            "arm_r_lower": 0.06474837002852281,
+            "hand_l": 0.11467099600176894,
+            "hand_r": 0.07507608729115733,
+            "leg_l_upper": 0.06024994470857985,
+            "leg_r_upper": 0.061426240753414324,
+            "root": 0.05243225951767125,
+            "spine": 0.0963540159735497
+          },
+          "predicted_final": {
+            "arm_l_lower": 0.2490959664905926,
+            "hand_l": 0.3009667339448739,
+            "hand_r": 0.19704550912796917,
+            "spine": 0.2528917904365644
+          },
+          "rank4_minus_rank5": 0.010327717262634525
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.2516719478776492,
+              "bones": [
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r"
+              ],
+              "index": 6
+            }
+          ],
+          "before_constraints": {
+            "arm_r_lower": 0.30531111042824505,
+            "arm_r_upper": 0.17764389211646356,
+            "hand_r": 0.358725235736383,
+            "spine": 0.1583197617189084
+          },
+          "constraint_factors": {},
+          "discarded_total_before_normalization": 0.5273012344393975,
+          "index": 41549,
+          "max_component_difference": 2.0231405356563315e-08,
+          "normalized_blender_xyz": [
+            0.5327618071607862,
+            0.12358529751148514,
+            0.28509905821522985
+          ],
+          "observed_final": {
+            "arm_r_lower": 0.3053111135959625,
+            "arm_r_upper": 0.17764388024806976,
+            "hand_r": 0.35872524976730347,
+            "spine": 0.15831974148750305
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.061665135992670914,
+            "arm_r_lower": 0.14432018501136823,
+            "arm_r_upper": 0.08397204851283317,
+            "hand_l": 0.07371086583126853,
+            "hand_r": 0.16956897610802435,
+            "leg_l_upper": 0.045530842916002186,
+            "leg_r_upper": 0.049209271784660544,
+            "spine": 0.07483755592837674
+          },
+          "predicted_final": {
+            "arm_r_lower": 0.30531111042824505,
+            "arm_r_upper": 0.17764389211646356,
+            "hand_r": 0.358725235736383,
+            "spine": 0.1583197617189084
+          },
+          "rank4_minus_rank5": 0.00112669009710821
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.049253076743711974,
+              "bones": [
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r"
+              ],
+              "index": 6
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.22269703860011786,
+            "hand_l": 0.2906782085451073,
+            "hand_r": 0.2386041948747836,
+            "spine": 0.24802055797999129
+          },
+          "constraint_factors": {},
+          "discarded_total_before_normalization": 0.619735981408012,
+          "index": 41522,
+          "max_component_difference": 1.3331820813977657e-08,
+          "normalized_blender_xyz": [
+            0.5134283094911779,
+            0.12536524374334226,
+            0.26886671334651535
+          ],
+          "observed_final": {
+            "arm_l_lower": 0.22269703447818756,
+            "hand_l": 0.2906782031059265,
+            "hand_r": 0.23860420286655426,
+            "spine": 0.24802054464817047
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.08468367082661589,
+            "arm_r_lower": 0.07323232195049666,
+            "hand_l": 0.11053446369848244,
+            "hand_r": 0.09073258999599104,
+            "leg_l_upper": 0.06236931915420202,
+            "leg_r_upper": 0.06448329909741686,
+            "root": 0.05643085443911533,
+            "spine": 0.09431329407089864
+          },
+          "predicted_final": {
+            "arm_l_lower": 0.22269703860011786,
+            "hand_l": 0.2906782085451073,
+            "hand_r": 0.2386041948747836,
+            "spine": 0.24802055797999129
+          },
+          "rank4_minus_rank5": 0.011451348876119233
+        }
+      ]
+    },
+    {
+      "attempt": 1,
+      "max_observed_excess_m": 0.013185192432493576,
+      "witnesses": [
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.16308523321256013,
+              "bones": [
+                "root",
+                "spine",
+                "chest"
+              ],
+              "index": 1
+            },
+            {
+              "alpha": 1,
+              "bones": [
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l"
+              ],
+              "index": 5
+            },
+            {
+              "alpha": 0.3213999758502942,
+              "bones": [
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l"
+              ],
+              "index": 7
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.33114001490835215,
+            "hand_l": 0.40341994109563206,
+            "leg_l_lower": 0.10853712157462027,
+            "leg_l_upper": 0.1569029224213955
+          },
+          "constraint_factors": {
+            "arm_l_lower": 0.41714060600220515,
+            "hand_l": 0.41714060600220515
+          },
+          "discarded_total_before_normalization": 0.09479092388834864,
+          "index": 46540,
+          "max_component_difference": 3.3152185413554136e-08,
+          "normalized_blender_xyz": [
+            0.2138070397538566,
+            0.2807233249421049,
+            0.3097164434472692
+          ],
+          "observed_final": {
+            "arm_l_lower": 0.15494973957538605,
+            "chest": 0.4802725613117218,
+            "hand_l": 0.1887715458869934,
+            "leg_l_upper": 0.17600615322589874
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.2997509469587879,
+            "arm_l_upper": 0.013669685026724018,
+            "foot_l": 0.08112123886162463,
+            "hand_l": 0.36517939216419393,
+            "leg_l_lower": 0.09824878754437999,
+            "leg_l_upper": 0.14202994944428954,
+            "root": 0.0,
+            "spine": 0.0
+          },
+          "predicted_final": {
+            "arm_l_lower": 0.15494974589905108,
+            "chest": 0.4802725735117272,
+            "hand_l": 0.1887715605155084,
+            "leg_l_upper": 0.17600612007371333
+          },
+          "rank4_minus_rank5": 0.01712754868275536
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.12270223026401222,
+              "bones": [
+                "root",
+                "spine",
+                "chest"
+              ],
+              "index": 1
+            },
+            {
+              "alpha": 1,
+              "bones": [
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l"
+              ],
+              "index": 5
+            },
+            {
+              "alpha": 0.3679228530899313,
+              "bones": [
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l"
+              ],
+              "index": 7
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.3065710669915337,
+            "hand_l": 0.38636898858149255,
+            "leg_l_lower": 0.12582493164163064,
+            "leg_l_upper": 0.1812350127853431
+          },
+          "constraint_factors": {
+            "arm_l_lower": 0.40248226050835845,
+            "hand_l": 0.40248226050835845
+          },
+          "discarded_total_before_normalization": 0.10672413061724328,
+          "index": 46549,
+          "max_component_difference": 7.222249859273333e-08,
+          "normalized_blender_xyz": [
+            0.21747130065990633,
+            0.27625966543782127,
+            0.3071192886593378
+          ],
+          "observed_final": {
+            "chest": 0.4723236560821533,
+            "hand_l": 0.17739534378051758,
+            "leg_l_lower": 0.1435357630252838,
+            "leg_l_upper": 0.20674525201320648
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.2738525363944616,
+            "arm_l_upper": 0.013090516337937983,
+            "foot_l": 0.0936336142793053,
+            "hand_l": 0.34513409417766916,
+            "leg_l_lower": 0.11239637520220355,
+            "leg_l_upper": 0.1618928636084224,
+            "root": 0.0,
+            "spine": 0.0
+          },
+          "predicted_final": {
+            "chest": 0.47232372411379775,
+            "hand_l": 0.1773953757365736,
+            "leg_l_lower": 0.14353572035892087,
+            "leg_l_upper": 0.2067451797907079
+          },
+          "rank4_minus_rank5": 0.018762760922898247
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.1293577087889341,
+              "bones": [
+                "root",
+                "spine",
+                "chest"
+              ],
+              "index": 1
+            },
+            {
+              "alpha": 1,
+              "bones": [
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l"
+              ],
+              "index": 5
+            },
+            {
+              "alpha": 0.3488064515425405,
+              "bones": [
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l"
+              ],
+              "index": 7
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.31690930895424974,
+            "hand_l": 0.39329780690897875,
+            "leg_l_lower": 0.11871018960941336,
+            "leg_l_upper": 0.17108269452735814
+          },
+          "constraint_factors": {
+            "arm_l_lower": 0.4021881516427164,
+            "hand_l": 0.4021881516427164
+          },
+          "discarded_total_before_normalization": 0.10222312398779385,
+          "index": 46557,
+          "max_component_difference": 1.0269867012357992e-08,
+          "normalized_blender_xyz": [
+            0.21609243289515392,
+            0.2770302628107555,
+            0.3081775848260376
+          ],
+          "observed_final": {
+            "arm_l_lower": 0.144625723361969,
+            "chest": 0.48176005482673645,
+            "hand_l": 0.17948661744594574,
+            "leg_l_upper": 0.19412761926651
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.2845138493721334,
+            "arm_l_upper": 0.013586022656131335,
+            "foot_l": 0.08863710133166251,
+            "hand_l": 0.35309367642919487,
+            "leg_l_lower": 0.10657526317835579,
+            "leg_l_upper": 0.15359408703252217,
+            "root": 0.0,
+            "spine": 0.0
+          },
+          "predicted_final": {
+            "arm_l_lower": 0.1446257152913085,
+            "chest": 0.48176005627765417,
+            "hand_l": 0.17948660717607873,
+            "leg_l_upper": 0.19412762125495867
+          },
+          "rank4_minus_rank5": 0.01793816184669328
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.11456005501637308,
+              "bones": [
+                "root",
+                "spine",
+                "chest"
+              ],
+              "index": 1
+            },
+            {
+              "alpha": 1,
+              "bones": [
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l"
+              ],
+              "index": 5
+            },
+            {
+              "alpha": 0.36223299153272426,
+              "bones": [
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l"
+              ],
+              "index": 7
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.30993765625520586,
+            "hand_l": 0.38820148672766686,
+            "leg_l_lower": 0.12374004320307787,
+            "leg_l_upper": 0.1781208138140494
+          },
+          "constraint_factors": {
+            "arm_l_lower": 0.3961536406492483,
+            "hand_l": 0.3961536406492483
+          },
+          "discarded_total_before_normalization": 0.10583450435159489,
+          "index": 46552,
+          "max_component_difference": 2.0720240467841933e-08,
+          "normalized_blender_xyz": [
+            0.21732614986732549,
+            0.2752941512790466,
+            0.30743313456752597
+          ],
+          "observed_final": {
+            "chest": 0.48057523369789124,
+            "hand_l": 0.1753128468990326,
+            "leg_l_lower": 0.1410597711801529,
+            "leg_l_upper": 0.20305214822292328
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.27713555802554113,
+            "arm_l_upper": 0.01351507565044259,
+            "foot_l": 0.0923194287011523,
+            "hand_l": 0.347116374791292,
+            "leg_l_lower": 0.11064407706223518,
+            "leg_l_upper": 0.15926948576933675,
+            "root": 0.0,
+            "spine": 0.0
+          },
+          "predicted_final": {
+            "chest": 0.48057521297765077,
+            "hand_l": 0.17531285891456913,
+            "leg_l_lower": 0.14105977592296826,
+            "leg_l_upper": 0.20305215218481182
+          },
+          "rank4_minus_rank5": 0.018324648361082885
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.1293577087889341,
+              "bones": [
+                "root",
+                "spine",
+                "chest"
+              ],
+              "index": 1
+            },
+            {
+              "alpha": 1,
+              "bones": [
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l"
+              ],
+              "index": 5
+            },
+            {
+              "alpha": 0.3488064515425405,
+              "bones": [
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l"
+              ],
+              "index": 7
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.31690930895424974,
+            "hand_l": 0.39329780690897875,
+            "leg_l_lower": 0.11871018960941336,
+            "leg_l_upper": 0.17108269452735814
+          },
+          "constraint_factors": {
+            "arm_l_lower": 0.4021881516427164,
+            "hand_l": 0.4021881516427164
+          },
+          "discarded_total_before_normalization": 0.10222312398779385,
+          "index": 46556,
+          "max_component_difference": 1.0269867012357992e-08,
+          "normalized_blender_xyz": [
+            0.21609243289515392,
+            0.2770302628107555,
+            0.3081775848260376
+          ],
+          "observed_final": {
+            "arm_l_lower": 0.144625723361969,
+            "chest": 0.48176005482673645,
+            "hand_l": 0.17948661744594574,
+            "leg_l_upper": 0.19412761926651
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.2845138493721334,
+            "arm_l_upper": 0.013586022656131335,
+            "foot_l": 0.08863710133166251,
+            "hand_l": 0.35309367642919487,
+            "leg_l_lower": 0.10657526317835579,
+            "leg_l_upper": 0.15359408703252217,
+            "root": 0.0,
+            "spine": 0.0
+          },
+          "predicted_final": {
+            "arm_l_lower": 0.1446257152913085,
+            "chest": 0.48176005627765417,
+            "hand_l": 0.17948660717607873,
+            "leg_l_upper": 0.19412762125495867
+          },
+          "rank4_minus_rank5": 0.01793816184669328
+        },
+        {
+          "active_layers": [
+            {
+              "alpha": 1,
+              "bones": [
+                "root",
+                "spine",
+                "chest",
+                "neck",
+                "head",
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l",
+                "arm_r_upper",
+                "arm_r_lower",
+                "hand_r",
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l",
+                "leg_r_upper",
+                "leg_r_lower",
+                "foot_r",
+                "tail",
+                "dragon_root",
+                "dragon_body",
+                "dragon_head",
+                "dragon_tail1",
+                "dragon_tail2",
+                "dragon_wing_l",
+                "dragon_wing_r",
+                "ear_l",
+                "ear_r"
+              ],
+              "index": 0
+            },
+            {
+              "alpha": 0.11456005501637308,
+              "bones": [
+                "root",
+                "spine",
+                "chest"
+              ],
+              "index": 1
+            },
+            {
+              "alpha": 1,
+              "bones": [
+                "arm_l_upper",
+                "arm_l_lower",
+                "hand_l"
+              ],
+              "index": 5
+            },
+            {
+              "alpha": 0.36223299153272426,
+              "bones": [
+                "leg_l_upper",
+                "leg_l_lower",
+                "foot_l"
+              ],
+              "index": 7
+            }
+          ],
+          "before_constraints": {
+            "arm_l_lower": 0.30993765625520586,
+            "hand_l": 0.38820148672766686,
+            "leg_l_lower": 0.12374004320307787,
+            "leg_l_upper": 0.1781208138140494
+          },
+          "constraint_factors": {
+            "arm_l_lower": 0.3961536406492483,
+            "hand_l": 0.3961536406492483
+          },
+          "discarded_total_before_normalization": 0.10583450435159489,
+          "index": 46553,
+          "max_component_difference": 2.0720240467841933e-08,
+          "normalized_blender_xyz": [
+            0.21732614986732549,
+            0.2752941512790466,
+            0.30743313456752597
+          ],
+          "observed_final": {
+            "chest": 0.48057523369789124,
+            "hand_l": 0.1753128468990326,
+            "leg_l_lower": 0.1410597711801529,
+            "leg_l_upper": 0.20305214822292328
+          },
+          "pre_top4": {
+            "arm_l_lower": 0.27713555802554113,
+            "arm_l_upper": 0.01351507565044259,
+            "foot_l": 0.0923194287011523,
+            "hand_l": 0.347116374791292,
+            "leg_l_lower": 0.11064407706223518,
+            "leg_l_upper": 0.15926948576933675,
+            "root": 0.0,
+            "spine": 0.0
+          },
+          "predicted_final": {
+            "chest": 0.48057521297765077,
+            "hand_l": 0.17531285891456913,
+            "leg_l_lower": 0.14105977592296826,
+            "leg_l_upper": 0.20305215218481182
+          },
+          "rank4_minus_rank5": 0.018324648361082885
+        }
+      ]
+    }
+  ],
+  "feedback_checks": [
+    {
+      "author": 1,
+      "has_ellipsoid_formula": true,
+      "has_endpoint_coordinates": true,
+      "has_endpoint_influences": true,
+      "has_top4_semantics": true
+    },
+    {
+      "author": 2,
+      "has_ellipsoid_formula": true,
+      "has_endpoint_coordinates": true,
+      "has_endpoint_influences": true,
+      "has_top4_semantics": true
+    }
+  ],
+  "inputs": {
+    "outputs/studio-d8795ec6c273489da37954ab/agents/author-1/prompt.txt": {
+      "bytes": 72302,
+      "sha256": "e80d6da16abf7ec59bd51ecbfe84b8d00fd0a93a0eb6daf70a1cc7f946ea975f"
+    },
+    "outputs/studio-d8795ec6c273489da37954ab/agents/author-2/prompt.txt": {
+      "bytes": 73139,
+      "sha256": "377f26aebfa01e19bef15c1727537746838cf9d98f6dda5286eded098b5d5e37"
+    },
+    "outputs/studio-d8795ec6c273489da37954ab/deformation-gate-0.json": {
+      "bytes": 7838,
+      "sha256": "42da3c9c381caa34a995dbe5c8588cd05bbf4cabbc0d49cc8cab87c14065a25a"
+    },
+    "outputs/studio-d8795ec6c273489da37954ab/deformation-gate-1.json": {
+      "bytes": 7849,
+      "sha256": "6def560b9b39e5a030be0d3bf53bcccfaf43ee529d1b6c011ad2dcfa0c8fa0aa"
+    },
+    "outputs/studio-d8795ec6c273489da37954ab/finish-0.json": {
+      "bytes": 25308,
+      "sha256": "c00f908f0dfe782b38e42068a1fa78d2984e51c1cd348d81681f82a2bc8b1ddd"
+    },
+    "outputs/studio-d8795ec6c273489da37954ab/finish-1.json": {
+      "bytes": 26497,
+      "sha256": "1e442e3c0ccbb4683a2e9a5aa556354c9955307e8312b0515594d8ad1b79a5f6"
+    },
+    "scripts/blender_finish_generated.py": {
+      "bytes": 59927,
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    "scripts/creature_rig_math.py": {
+      "bytes": 5399,
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Read-only reconstruction of retained witness positions, not a full mesh scan or native replay. Positions are reconstructed from stored normalized float coordinates; comparisons include native float32 rounding. No guards, geometry or parameters changed."
+}

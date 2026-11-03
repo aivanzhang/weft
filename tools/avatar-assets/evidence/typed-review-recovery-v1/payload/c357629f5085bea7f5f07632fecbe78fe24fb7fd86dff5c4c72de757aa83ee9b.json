@@ -1,0 +1,32 @@
+{
+  "all_calls_settled": true,
+  "call_roles": [
+    "author-0",
+    "author-1",
+    "author-2",
+    "reviewer-2"
+  ],
+  "context_bytes": 35881,
+  "context_contains_accepted_review": false,
+  "evidence_images": 7,
+  "files": 671,
+  "ledger_after": "535a75cbd7f23de854ae04f8936a77aa5b7055ab543ce6dc8d2c7de7afab283a",
+  "ledger_before": "535a75cbd7f23de854ae04f8936a77aa5b7055ab543ce6dc8d2c7de7afab283a",
+  "new_planner_calls": 0,
+  "no_grants_or_calls": true,
+  "output_unchanged": true,
+  "parent": "outputs/studio-d8795ec6c273489da37954ab",
+  "raw_check_names": [
+    "identity",
+    "appearance",
+    "appearance",
+    "framing"
+  ],
+  "raw_review_sha256": "ca1eed63fefd596cc7c8149d28cecc2aa114fbe77d0ab661d6d5c0bd8ba4dc42",
+  "read_only": true,
+  "reason": "Reviewer response failed its evidence contract: Duplicate review check",
+  "rejected_status": "invalid_untrusted",
+  "schema_version": 1,
+  "seconds": 0.7179831247776747,
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+}

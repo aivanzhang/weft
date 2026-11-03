@@ -76,15 +76,21 @@ retains the latest ready proposal plus distinct source failures, and requires
 **zero new planner calls** for this validated plan. No completed native build is
 required to continue a well-recorded failed build.
 
-The actual website retry/Prepare passed with evidence in
+The first actual website retry/Prepare passed with evidence in
 [`outputs/gpt52-panda-website-retry-v3/`](../outputs/gpt52-panda-website-retry-v3/).
-It reused the validated plan without a new planner call and closed its temporary
-browser/server. Child `d8795ec6c273489da37954ab` is now running through the actual
-website Start observer, session **17883**. Do not launch a duplicate. Its first
-native build succeeded but the deformation gate rejected belly vertices influenced
-by opposite arms; the existing bounded repair loop is correcting the weights.
-This is not final avatar acceptance. Consult the [current handoff](../TODO.md)
-and saved run result for subsequent status.
+Child `d8795ec6c273489da37954ab` later ended **unsupported**: its final model/media
+reached review, but duplicate appearance checks replaced the required deformation
+assessment. Its four settled calls cost **$0.644975**; no valid review or final
+acceptance resulted. The rejected answer and every attempt remain unchanged.
+
+The [typed review and recovery path](typed-review-recovery.md) preserves that
+invalid response as diagnostic evidence, never as approval. Actual website
+Retry→Prepare passed for the next child `45757c9565b545119553baca`, reusing the plan
+without another planner call. See
+[preparation evidence](../outputs/gpt52-panda-website-retry-v4/) and
+[Start observation evidence](../outputs/gpt52-panda-studio-live-v4/).
+The [current handoff](../TODO.md) owns live progress and the next safe action.
+This note does not establish an active process or an accepted avatar.
 
 ## Verification
 

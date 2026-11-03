@@ -1,0 +1,124 @@
+{
+  "appearance_checks": [
+    "Match the accepted reference portrait: rounded plush panda with soft, neatly groomed short fur (not spiky/carved fur)",
+    "Preserve black-and-ivory palette with clean, tidy color boundaries; keep black eye patches and black ears/arms/legs",
+    "Keep clear, expressive eyes; friendly toy-like proportions (large head, compact limbs)",
+    "Include the small green shoulder dragon, distinct from the panda (do not cover it in panda fur); preserve its surface details and silhouette (spines, limbs, tail, small wings as depicted)",
+    "Dragon remains perched/attached on the panda shoulder with no separation; do not add straps or new attachment props",
+    "No added props, clothing, text, pedestal, or scenery; character-only",
+    "Avoid a shiny plastic look overall; keep materials primarily soft/matte with controlled gloss only on eyes/nose"
+  ],
+  "generation_prompt": "Create a single plush toy panda avatar with a small green dragon companion perched on its shoulder, matching the provided reference portrait. Panda: rounded plush proportions, large head, short muzzle, black eye patches, black ears/arms/legs, ivory/white face and belly; soft neatly groomed short fur as a continuous undercoat surface (no coarse carved fur spikes). Clean, tidy color boundaries. Dragon: small green dragon sitting/perched on the panda shoulder, kept distinct from panda fur; preserve visible surface details (spines, tail, small wings) with a matte, slightly textured reptile-like finish. Materials: panda fur soft/matte with subtle sheen; eyes glossy with clear highlights; nose slightly glossy; dragon skin/scales matte-satin; avoid overall shiny plastic. Pose: neutral, animation/",
+  "height_meters": 0.38,
+  "limitations": [
+    "Dance/hops are authored keyframed motion only; no physical balance, foot-ground contact solving, or impact dynamics are implied.",
+    "Keeping the dragon perched is treated as a rigid attachment to the shoulder region during animation; no independent dragon flight or separation is authored in this run.",
+    "Exact one-to-one reconstruction of the reference image geometry is not guaranteed; the prompt specifies intended appearance for generation/texture."
+  ],
+  "reason": "Planned one custom 4-second toy dance state with rhythmic side-to-side beats, small whole-body hops, coordinated arm swings, gentle head tilts, and a return to the starting pose while keeping the shoulder dragon attached; no unsupported interaction/expression features requested.",
+  "states": [
+    {
+      "id": "toy_dance",
+      "meaning": "Cheerful 4-second toy dance: three alternating side-to-side beats with small whole-body hops, coordinated arm swings, gentle head tilts; the shoulder dragon stays perched/attached; ends in the starting pose.",
+      "requirements": [
+        {
+          "description": "Perform three clearly readable alternating side-to-side beats over the clip duration (left-right-left or right-left-right), with timing that reads as an intentional rhythm.",
+          "id": "three_beats_rhythm",
+          "kind": "rhythm",
+          "role": "panda_body"
+        },
+        {
+          "description": "Add small whole-body hops synchronized with the beat: visible upward-and-downward body motion (toy-like, modest amplitude) while also shifting side-to-side.",
+          "id": "hops_and_sways",
+          "kind": "travel",
+          "role": "panda_body"
+        },
+        {
+          "description": "Swing both arms in coordination with the side-to-side beats (arms move visibly and symmetrically/alternating in a toy-dance style; no new props).",
+          "id": "arm_swings",
+          "kind": "articulation",
+          "role": "arms"
+        },
+        {
+          "description": "Gently tilt the head in coordination with the beat (small, readable tilts; maintain a friendly toy demeanor).",
+          "id": "head_tilts",
+          "kind": "articulation",
+          "role": "head"
+        },
+        {
+          "description": "Keep the dragon perched and attached to the panda shoulder throughout: the dragon follows the shoulder/body motion without separating, flying, or drifting away.",
+          "id": "dragon_attached",
+          "kind": "articulation",
+          "role": "dragon"
+        },
+        {
+          "description": "Finish in the same overall starting pose: panda body position/orientation returns to its initial placement at the end of the clip.",
+          "id": "return_body_pose",
+          "kind": "return_pose",
+          "role": "panda_body"
+        },
+        {
+          "description": "Finish with arms returning to their starting pose (no held-out final gesture).",
+          "id": "return_arm_pose",
+          "kind": "return_pose",
+          "role": "arms"
+        },
+        {
+          "description": "Finish with head returning to its starting pose (neutral at clip end).",
+          "id": "return_head_pose",
+          "kind": "return_pose",
+          "role": "head"
+        }
+      ],
+      "roles": [
+        {
+          "description": "Main panda body/root including torso, hips/legs and overall translation used for sways and small hops.",
+          "id": "panda_body"
+        },
+        {
+          "description": "Both panda arms/forearms/paws used for coordinated swinging.",
+          "id": "arms"
+        },
+        {
+          "description": "Panda head/neck used for gentle tilts (no facial expression requirements).",
+          "id": "head"
+        },
+        {
+          "description": "Green shoulder dragon companion attached on the panda shoulder; must remain perched and follow along.",
+          "id": "dragon"
+        }
+      ],
+      "user_request": "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    }
+  ],
+  "status": "ready",
+  "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look.",
+  "subject": "Plush toy-style panda avatar with black-and-ivory markings and a small green dragon perched on its shoulder (attached), matching the provided reference portrait; no clothing/props/scenery.",
+  "surface_intent": [
+    {
+      "finish": "Soft matte with subtle sheen; short neatly groomed fur appearance with clean markings",
+      "material": "fur",
+      "region": "panda_coat"
+    },
+    {
+      "finish": "Glossy with clear catchlights; crisp iris/pupil detail",
+      "material": "glass",
+      "region": "panda_eyes"
+    },
+    {
+      "finish": "Slight gloss/satin, smooth and tidy (not wet-looking)",
+      "material": "other",
+      "region": "panda_nose_and_mouth"
+    },
+    {
+      "finish": "Matte to satin with subtle texture; preserve small sculpted details (spines, limbs, wings, tail)",
+      "material": "scales",
+      "region": "dragon_body"
+    },
+    {
+      "finish": "Glossy with catchlights, matching toy aesthetic",
+      "material": "glass",
+      "region": "dragon_eyes"
+    }
+  ]
+}

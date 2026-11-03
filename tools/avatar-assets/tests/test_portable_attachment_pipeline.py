@@ -8,6 +8,7 @@ import shutil
 import tempfile
 import time
 import unittest
+from typed_review_fixtures import review_fixture, wire_review
 from unittest.mock import Mock, patch
 
 from avatar_assets import pipeline
@@ -185,6 +186,9 @@ class AttachmentPipelineTests(unittest.TestCase):
 
     def progression(self, mode):
         worker=self.worker
+        worker._author_preflight=Mock(return_value={'status':'not_applicable'})
+        self.stack.enter_context(patch('avatar_assets.repair_visual_inputs.author_base_images',return_value=[Path('/analytic/guide-'+str(i)+'.png') for i in range(3)]))
+        self.stack.enter_context(patch('avatar_assets.repair_visual_inputs.author_images',side_effect=lambda base,repair:base+repair))
         worker._plan=Mock(return_value=self.plan);worker._source=Mock(return_value=self.source)
         worker._deformation=Mock(return_value={'passed':True})
         worker._diagnostics=Mock(return_value={});worker._contacts=Mock(return_value=(None,[]))
@@ -275,11 +279,11 @@ class AttachmentPipelineTests(unittest.TestCase):
         write_json(self.out/'plan.json',self.plan)
         write_json(self.out/'generation-cost.json',{'provider_reported_credits':0,'scope':'Analytic receipt'})
         write_json(self.out/'deformation-gate-0.json',{'passed':True,'scope':'Analytic receipt'})
-        review={'verdict':'accept','summary':'Analytic orchestration acceptance only','limitations':['No media was rendered.']}
-        self.agents.call.side_effect=[{'status':'ready'},review]
+        review=review_fixture('accept','Analytic orchestration acceptance only')
+        self.agents.call.side_effect=[{'status':'ready'},wire_review(review)]
         self.stack.enter_context(patch('avatar_assets.quality_policy.evaluate_quality_evidence',return_value={'passed':True,'missing':[]}))
-        critic=self.stack.enter_context(patch('avatar_assets.pipeline_prompts.critic_prompt',return_value='Analytic critic input'))
-        self.stack.enter_context(patch('avatar_assets.pipeline_prompts.critic_schema',return_value={}))
+        critic=self.stack.enter_context(patch('avatar_assets.pipeline_prompts.typed_critic_prompt',return_value='Analytic critic input'))
+        self.stack.enter_context(patch('avatar_assets.pipeline_prompts.typed_critic_schema',return_value={}))
         self.stack.enter_context(patch('avatar_assets.pipeline_prompts.review_citations',return_value=[]))
         self.stack.enter_context(patch('avatar_assets.pipeline_prompts.validate_review'))
         self.stack.enter_context(patch('avatar_assets.gallery._Catalog'))

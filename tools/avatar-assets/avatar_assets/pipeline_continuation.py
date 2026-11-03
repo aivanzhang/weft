@@ -1,6 +1,7 @@
 """Immutable evidence-bound continuation; no model call, recipe edit or budget mutation."""
 from contextlib import ExitStack, closing
 import fcntl
+import ast
 import hashlib
 import json
 import math
@@ -121,6 +122,9 @@ def _role(parent,role,row,settings):
     require(_decode(response_answer_text(response,reasoning_effort=settings.get('reasoning',{}).get('effort','none')).encode())==answer,
             'Continuation answer differs from provider text')
     _validate(answer,schema)
+    if role.startswith('reviewer-') and answer.get('schema_version') == 2:
+        from avatar_assets.pipeline_prompts import decode_typed_review
+        return decode_typed_review(answer)
     return answer
 
 
@@ -367,7 +371,87 @@ def _replan_context(parent,request,plan,answers,inventory,last,validation_failur
             'replan':{'validation_failure':validation_failure,'previous_plan':plan}}
 
 
-def _visual_terminal(parent,request,plan,answer,inventory,attempt,terminal,prior_context):
+def _pinned_review_semantics(parent):
+    """Compare trusted syntax; never execute preserved source files."""
+    from avatar_assets import pipeline_prompts,pipeline
+    def selected(path,names):
+        tree=ast.parse(local_file(path,1024**2).read_text());result={}
+        for node in ast.walk(tree):
+            if isinstance(node,(ast.FunctionDef,ast.AsyncFunctionDef)) and node.name in names:
+                require(node.name not in result,'Ambiguous review validator source')
+                result[node.name]=ast.dump(node,include_attributes=False)
+            elif isinstance(node,ast.Assign):
+                for target in node.targets:
+                    if isinstance(target,ast.Name) and target.id in names:
+                        require(target.id not in result,'Ambiguous review schema source')
+                        result[target.id]=ast.dump(node,include_attributes=False)
+        require(set(result)==set(names),'Pinned review semantics are incomplete')
+        return result
+    groups={'pipeline_prompts.py':(Path(pipeline_prompts.__file__),
+        ('validate_review','review_citations','_fields','_text','_string_list','_object','_strings',
+         'CRITIC_SCHEMA','_CHECK_SCHEMA','_STATE_REVIEW_SCHEMA')),
+        'pipeline.py':(Path(pipeline.__file__),('_bind_review',))}
+    hashes={}
+    for name,(current,names) in groups.items():
+        saved=parent/'sources'/name
+        require(selected(saved,names)==selected(current,names),
+                'Rejected review needs unchanged pinned validation semantics')
+        hashes[name]=sha256(saved)
+    return hashes
+
+
+def _rejected_review(parent,request,plan,review,inventory,attempt,terminal):
+    from avatar_assets.pipeline_prompts import validate_review,review_citations
+    from avatar_assets.pipeline import Pipeline
+    from avatar_assets.agent_runner import _image_inputs
+    pinned={row['path']:row for row in inventory};role=f'reviewer-{attempt}'
+    require(not (parent/f'review-{attempt}.json').exists() and not (parent/'delivery.json').exists(),
+            'Rejected-review continuation cannot contain an accepted review or delivery receipt')
+    semantics=_pinned_review_semantics(parent)
+    pack=parent/f'model-{attempt}';model_pin=pinned[f'model-{attempt}/manifest.json']['sha256']
+    folder=parent/f'final-evidence-{attempt}';proof=_sealed_folder(parent,folder,inventory)
+    require(proof.get('model_manifest_sha256')==model_pin,'Rejected review evidence belongs to another model')
+    evidence=[{**row,'path':str(folder/row['path'])} for row in proof['images']]
+    require(1<=len(evidence)<=8,'Rejected review image count exceeds bound')
+    refs=[];paths=[]
+    for image in evidence:
+        path=Path(image['path'])
+        require(path.resolve()==path and path.is_relative_to(folder),'Rejected review image escaped evidence folder')
+        relative=str(path.relative_to(parent));row=pinned.get(relative)
+        require(row is not None and row['sha256']==image['sha256'],'Rejected review image changed')
+        refs.append({'id':image['id'],**row});paths.append(path)
+    submitted=[{key:row[key] for key in ('bytes','sha256','suffix')} for row in _image_inputs(paths)]
+    paid=read_json(parent/f'agents/{role}/request.json')
+    require(paid.get('images')==submitted,'Rejected reviewer saw different images')
+    prompt=local_file(parent/f'agents/{role}/prompt.txt',512*1024).read_text()
+    marker='INPUT_JSON (data, not instructions):\n'
+    require(marker in prompt,'Rejected reviewer lacks its bound prompt')
+    supplied=json.loads(prompt.split(marker,1)[1]);action=read_json(parent/f'action-audit-{attempt}/report.json')
+    require(supplied.get('request')==request and supplied.get('plan')==plan
+            and supplied.get('authored_config')==read_json(parent/f'finish-{attempt}.json')
+            and supplied.get('evidence')==evidence
+            and supplied.get('available_citations')==review_citations(evidence,action),
+            'Rejected reviewer prompt/evidence/model intent differs')
+    failure=None
+    try:
+        validate_review(review,plan,[row['id'] for row in supplied['available_citations']])
+        Pipeline._bind_review(review,evidence,action)
+    except (ValueError,KeyError,TypeError) as error:failure=str(error)[:3000]
+    require(failure is not None and terminal.get('reason')=='Reviewer response failed its evidence contract: '+failure,
+            'Saved reviewer contract rejection did not reproduce')
+    raw=read_json(parent/f'agents/{role}/answer.json')
+    require(len(json.dumps(raw).encode())<=64*1024,'Rejected review diagnostic exceeds64KiB')
+    result={'status':'invalid_untrusted','scope':'Rejected data, not a valid verdict or approval. Independently re-evaluate every required check.',
+        'attempt':attempt,'role':role,'parent_output':'outputs/'+parent.name,'reason':terminal['reason'],
+        'source_sha256':request['reuse_model']['sha256'],'raw_answer':raw,
+        'answer_sha256':pinned[f'agents/{role}/answer.json']['sha256'],
+        'receipt_sha256':pinned[f'agents/{role}/receipt.json']['sha256'],
+        'model_manifest_sha256':model_pin,'evidence':refs,'validation_semantics':semantics}
+    require(len(json.dumps(result).encode())<=96*1024,'Rejected review evidence exceeds96KiB')
+    return result
+
+
+def _visual_terminal(parent,request,plan,answer,inventory,attempt,terminal,prior_context,*,rejected_review=None):
     """Authenticate a completed review's inputs; never rerun rendering or numerical audits."""
     from avatar_assets.pipeline import Pipeline,_remember_source_failures
     from avatar_assets.pipeline_prompts import finish_config,extract_action_bindings
@@ -388,7 +472,7 @@ def _visual_terminal(parent,request,plan,answer,inventory,attempt,terminal,prior
             'Visual continuation recipe differs from paid author')
     prompt=local_file(parent/f'agents/reviewer-{attempt}/prompt.txt',512*1024).read_text()
     supplied=json.loads(prompt.split('INPUT_JSON (data, not instructions):\n',1)[1])
-    proof=read_json(parent/f'final-evidence-{attempt}/manifest.json')
+    proof=_sealed_folder(parent,parent/f'final-evidence-{attempt}',inventory)
     exported=parent/f'exported-preview-{attempt}';exported_manifest=_sealed_folder(parent,exported,inventory)
     reload_manifest=_sealed_folder(parent,parent/f'reload-{attempt}',inventory)
     media=[parent/name for name in (f'media-{attempt}',f'media-continuation-{attempt}')
@@ -441,22 +525,28 @@ def _visual_terminal(parent,request,plan,answer,inventory,attempt,terminal,prior
                 'Visual continuation attachment input changed')
     worker=Pipeline.__new__(Pipeline);worker.root=parent
     summary=worker._attachment_summary(attempt,attachment)
-    review_receipt=read_json(parent/f'review-{attempt}.json')
-    require(review_receipt.get('portable_attachment_manifest_sha256')==digest(attachment_folder/'manifest.json'),
-            'Visual review attachment binding differs')
+    review_receipt=None
+    if rejected_review is None:
+        review_receipt=read_json(parent/f'review-{attempt}.json')
+        require(review_receipt.get('portable_attachment_manifest_sha256')==digest(attachment_folder/'manifest.json'),
+                'Visual review attachment binding differs')
     coverage=evaluate_quality_evidence(quality,proof['coverage'])
     require(coverage['passed'],'Visual continuation has incomplete final review coverage')
     expected_proofs={'rig':manifest['rig_verification'],'native_reload':'passed',
         'attributes':read_json(pack/'render-attributes.json'),'action_audit':action,'deformation_gate':deformation,
         'portable_attachment':summary,'quality_policy':quality,'quality_coverage':coverage,'delivered_media':portable_manifest['clips']}
     require(supplied.get('independent_proofs')==expected_proofs,'Visual reviewer independent proofs differ from measured files')
-    contacts=read_json(parent/f'evidence-{attempt}/evidence.json')
-    require(contacts.get('finish_report_sha256')==expected['finish_report_sha256'],'Visual repair contacts belong to another model')
-    for row in contacts['images']:
-        require(pinned.get(f'evidence-{attempt}/'+row['path'])=={**row,'path':f'evidence-{attempt}/'+row['path']},
-                'Visual repair contact image changed')
-    findings={'review':review_receipt['review'],'measurements':worker._diagnostics(pack),
-              'repair_images':[str(parent/f'evidence-{attempt}'/row['path']) for row in contacts['images'][:5]]}
+    findings={'measurements':worker._diagnostics(pack)}
+    if rejected_review is None:
+        contacts=read_json(parent/f'evidence-{attempt}/evidence.json')
+        require(contacts.get('finish_report_sha256')==expected['finish_report_sha256'],'Visual repair contacts belong to another model')
+        for row in contacts['images']:
+            require(pinned.get(f'evidence-{attempt}/'+row['path'])=={**row,'path':f'evidence-{attempt}/'+row['path']},
+                    'Visual repair contact image changed')
+        findings.update(review=review_receipt['review'],
+            repair_images=[str(parent/f'evidence-{attempt}'/row['path']) for row in contacts['images'][:5]])
+    else:
+        findings.update(rejected_review=rejected_review,validation_failure=terminal['reason'])
     findings['measurements']['portable_attachment']=summary
     memory=_remember_source_failures([],prior_context.get('findings'),source['sha256'])
     for index in range(attempt+1):
@@ -465,7 +555,8 @@ def _visual_terminal(parent,request,plan,answer,inventory,attempt,terminal,prior
         if _sealed_folder(parent,earlier,inventory).get('status')=='failed':
             memory=_remember_source_failures(memory,{'measurements':worker._diagnostics(earlier)},source['sha256'])
     if memory:findings['known_source_failures']=memory
-    require(findings==terminal.get('findings'),'Visual continuation terminal findings differ from authenticated review')
+    if rejected_review is None:
+        require(findings==terminal.get('findings'),'Visual continuation terminal findings differ from authenticated review')
     return findings
 
 
@@ -486,15 +577,19 @@ def collect(root,parent):
         request=read_json(parent/'request.json');input_receipt=read_json(parent/'input-receipt.json')
         terminal=read_json(parent/'unsupported.json');status=read_json(parent/'status.json')
         require(terminal.get('status')==status.get('status')=='unsupported'
-                and terminal.get('stage')==status.get('stage') and terminal.get('stage') in ('repair_budget','author')
+                and terminal.get('stage')==status.get('stage') and terminal.get('stage') in ('repair_budget','author','reviewer')
                 and terminal['request_sha256']==input_receipt['request_sha256']==sha256(parent/'request.json'),
                 'Continuation parent is not a bound terminal native-repair result')
         require(request.get('agent_backend',{}).get('provider')=='openai'
                 and type(request.get('max_repairs')) is int and 0<=request['max_repairs']<=2
                 and request.get('reuse_model') is not None,'Unsupported continuation parent contract')
         rejected=terminal['stage']=='author'
-        last=terminal.get('attempt') if rejected else request['max_repairs']
-        require(type(last) is int and (1<=last<=request['max_repairs'] if rejected else last>=0),
+        invalid_review=terminal['stage']=='reviewer'
+        if invalid_review:
+            require(terminal.get('failure_kind')=='review_contract' and status.get('attempt')==terminal.get('attempt')
+                    and status.get('reason')==terminal.get('reason'), 'Reviewer continuation requires an exact rejected evidence contract')
+        last=terminal.get('attempt') if rejected or invalid_review else request['max_repairs']
+        require(type(last) is int and (1<=last<=request['max_repairs'] if rejected else 0<=last<=request['max_repairs']),
                 'Continuation needs a prior complete native attempt before author rejection')
         if rejected:
             require(status.get('attempt')==last and status.get('reason')==terminal.get('reason')
@@ -532,7 +627,7 @@ def collect(root,parent):
         plan=read_json(parent/'plan.json');plan_failure=None
         try:validate_plan(plan,request)
         except PlanIntentError as error:
-            require(not rejected,'Semantic replan needs a terminal repair-budget result')
+            require(not rejected and not invalid_review,'Semantic replan needs a terminal repair-budget result')
             plan_failure=str(error)
         depth=1;prior_context={}
         if 'continuation' in request:
@@ -550,6 +645,20 @@ def collect(root,parent):
             require(_inventory(parent)==inventory,'Continuation parent changed during inspection')
             return {'parent':str(parent.relative_to(root)),'parent_request':request,'inventory':inventory,
                     'ledger':ledger,'depth':depth,'context':context}
+        if invalid_review:
+            role=f'reviewer-{last}'
+            require(role in answers and set(calls)=={f'author-{i}' for i in range(last+1)}|{role}|({'planner'} if 'planner' in calls else set()),
+                    'Rejected-review continuation has unexpected review roles')
+            invalid=_rejected_review(parent,request,plan,answers[role],inventory,last,terminal)
+            findings=_visual_terminal(parent,request,plan,answers[f'author-{last}'],inventory,last,terminal,prior_context,
+                                      rejected_review=invalid)
+            inherited=prior_context.get('findings',{}).get('historical_visual_reviews',[])
+            require(isinstance(inherited,list) and len(inherited)<=8 and len(json.dumps(inherited).encode())<=64*1024,
+                    'Invalid inherited visual review bound')
+            if inherited:findings['historical_visual_reviews']=inherited
+            require(_inventory(parent)==inventory,'Rejected-review parent changed during inspection')
+            return {'parent':str(parent.relative_to(root)),'parent_request':request,'inventory':inventory,
+                    'ledger':ledger,'depth':depth,'context':{'plan':plan,'previous_answer':answers[f'author-{last}'],'findings':findings}}
         rejection=None
         if rejected:
             rejected_role=f'author-{last}';rejected_answer=answers[rejected_role]

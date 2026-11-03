@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-02 17:29:44 PST",
+  "evidence_kind": "Analyst-recorded exact local test results; terminal logs retained in session, no replay solely for logs",
+  "scope": "Typed reviewer caller integration; unchanged canonical review validator and evidence binding",
+  "source_sha256": {
+    "avatar_assets/pipeline.py": "765ec4cc1328d85ee1a34189dd3ab7ae19550e072b0860713a59776997c950b4",
+    "tests/typed_review_fixtures.py": "629cafa70b61add931faacd3ec62e7e9e326e08e2a14e063a4ce1764de3d247b",
+    "tests/test_pipeline_progress.py": "e5858fb07121bd083644d72e84857cd9c578a86d1f832654ed5858ea3c20d8c2",
+    "tests/test_source_failure_memory.py": "9d17d20013d274f583d0a15bc36e440c29fd92df09bbcca98a9d35be39751904",
+    "tests/test_visual_history_memory.py": "8dca463e57edae602a6e36fab44f898580fb5ca18ceb4b4921c2ec8c1807c31e",
+    "tests/test_portable_attachment_pipeline.py": "046290e8b82424bd9e3f10a98c5c7aba5ed7a81e1d1a946fc825856896838b22"
+  },
+  "commands": [
+    ".venv/bin/python - <<'PY'\nimport unittest\nsuite=unittest.TestSuite()\nfor pattern in ['test_pipeline_progress.py','test_source_failure_memory.py','test_visual_history_memory.py','test_portable_attachment_pipeline.py','test_pipeline.py']:\n suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=pattern))\nresult=unittest.TextTestRunner(verbosity=2).run(suite)\nraise SystemExit(not result.wasSuccessful())\nPY",
+    ".venv/bin/python - <<'PY'\nimport unittest,sys\nsys.path.insert(0,'tests')\nnames=['test_pipeline_progress.PipelineProgressTests.'+x for x in [\n 'test_exited_reviewer_invalid_data_is_unsupported_not_uncertain_or_accepted',\n 'test_malformed_typed_review_is_terminal_without_legacy_fallback_or_new_call',\n 'test_new_reviewer_call_does_not_accept_legacy_wire_shape',\n 'test_real_coordinator_repairs_audit_and_closes_each_completed_stage']]+[\n 'test_portable_attachment_pipeline.AttachmentPipelineTests.'+x for x in [\n 'test_custody_failure_stops_without_repair_call',\n 'test_new_delivery_and_critic_bind_the_validated_audit',\n 'test_numeric_failure_repairs_once_with_witnesses_before_media_or_critic',\n 'test_pass_completes_gate_before_native_reload',\n 'test_unsupported_mapping_stops_without_repair_call']]\nr=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromNames(names))\nraise SystemExit(not r.wasSuccessful())\nPY"
+  ],
+  "results": [
+    {
+      "tests": 59,
+      "passed": 50,
+      "errors": 9,
+      "elapsed_seconds": 1.231,
+      "exit_code": 1,
+      "failure": "Older orchestration fixtures omitted required source guide/preflight stubs; failed before critic integration."
+    },
+    {
+      "tests": 9,
+      "passed": 9,
+      "errors": 0,
+      "elapsed_seconds": 0.355,
+      "exit_code": 0,
+      "scope": "Only9 repaired fixture tests rerun; no unchanged passing tests repeated."
+    }
+  ],
+  "unique_passing_tests": 59,
+  "coverage": [
+    "New reviewer calls request typed V2 prompt/schema with no legacy fallback",
+    "Decode occurs inside existing review-contract rejection handler",
+    "Malformed typed checks and legacy wire shape stop with unsupported review_contract, no delivery or additional call",
+    "Raw mock agent answer object and preserved answer.json bytes remain unchanged",
+    "Saved review receipt retains unchanged canonical checks-list structure",
+    "Existing evidence acceptance, attachment custody, historical completed delivery, native-failure memory and visual-review memory tests pass"
+  ],
+  "limitations": [
+    "Analytic coordinator/agent/material/media fixtures, not a paid review or native asset build",
+    "Critic schema/decoder and continuation custody are independently owned and verified by sibling agents"
+  ],
+  "diff_check_exit_code": 0,
+  "actions": {
+    "provider_calls": 0,
+    "native_calls": 0,
+    "ledger_changes": 0,
+    "configuration_changes": 0,
+    "live_artifact_changes": 0
+  }
+}

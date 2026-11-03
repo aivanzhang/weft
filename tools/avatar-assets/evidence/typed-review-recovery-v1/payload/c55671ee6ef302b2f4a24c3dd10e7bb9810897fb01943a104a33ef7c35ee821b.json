@@ -1,0 +1,6023 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "authored_rig": {
+    "authored_not_recovered": true,
+    "design": {
+      "base_bones": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "ear_l",
+        "ear_r",
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l",
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r",
+        "tail",
+        "dragon_root",
+        "dragon_body",
+        "dragon_head",
+        "dragon_tail1",
+        "dragon_tail2",
+        "dragon_wing_l",
+        "dragon_wing_r"
+      ],
+      "bones": [
+        {
+          "head": [
+            0.5,
+            0.55,
+            0.02
+          ],
+          "name": "root",
+          "parent": null,
+          "tail": [
+            0.5,
+            0.55,
+            0.12
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.55,
+            0.12
+          ],
+          "name": "spine",
+          "parent": "root",
+          "tail": [
+            0.5,
+            0.55,
+            0.55
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.53,
+            0.55
+          ],
+          "name": "chest",
+          "parent": "spine",
+          "tail": [
+            0.5,
+            0.5,
+            0.68
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.48,
+            0.68
+          ],
+          "name": "neck",
+          "parent": "chest",
+          "tail": [
+            0.5,
+            0.45,
+            0.76
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.44,
+            0.76
+          ],
+          "name": "head",
+          "parent": "neck",
+          "tail": [
+            0.5,
+            0.42,
+            0.93
+          ]
+        },
+        {
+          "head": [
+            0.33,
+            0.5,
+            0.88
+          ],
+          "name": "ear_l",
+          "parent": "head",
+          "tail": [
+            0.28,
+            0.52,
+            0.95
+          ]
+        },
+        {
+          "head": [
+            0.67,
+            0.5,
+            0.88
+          ],
+          "name": "ear_r",
+          "parent": "head",
+          "tail": [
+            0.72,
+            0.52,
+            0.95
+          ]
+        },
+        {
+          "head": [
+            0.36,
+            0.5,
+            0.63
+          ],
+          "name": "arm_l_upper",
+          "parent": "chest",
+          "tail": [
+            0.28,
+            0.45,
+            0.48
+          ]
+        },
+        {
+          "head": [
+            0.28,
+            0.45,
+            0.48
+          ],
+          "name": "arm_l_lower",
+          "parent": "arm_l_upper",
+          "tail": [
+            0.25,
+            0.42,
+            0.33
+          ]
+        },
+        {
+          "head": [
+            0.25,
+            0.42,
+            0.33
+          ],
+          "name": "hand_l",
+          "parent": "arm_l_lower",
+          "tail": [
+            0.26,
+            0.4,
+            0.23
+          ]
+        },
+        {
+          "head": [
+            0.64,
+            0.52,
+            0.62
+          ],
+          "name": "arm_r_upper",
+          "parent": "chest",
+          "tail": [
+            0.73,
+            0.5,
+            0.48
+          ]
+        },
+        {
+          "head": [
+            0.73,
+            0.5,
+            0.48
+          ],
+          "name": "arm_r_lower",
+          "parent": "arm_r_upper",
+          "tail": [
+            0.78,
+            0.48,
+            0.34
+          ]
+        },
+        {
+          "head": [
+            0.78,
+            0.48,
+            0.34
+          ],
+          "name": "hand_r",
+          "parent": "arm_r_lower",
+          "tail": [
+            0.78,
+            0.46,
+            0.24
+          ]
+        },
+        {
+          "head": [
+            0.45,
+            0.57,
+            0.18
+          ],
+          "name": "leg_l_upper",
+          "parent": "root",
+          "tail": [
+            0.4,
+            0.56,
+            0.09
+          ]
+        },
+        {
+          "head": [
+            0.4,
+            0.56,
+            0.09
+          ],
+          "name": "leg_l_lower",
+          "parent": "leg_l_upper",
+          "tail": [
+            0.38,
+            0.55,
+            0.03
+          ]
+        },
+        {
+          "head": [
+            0.38,
+            0.55,
+            0.03
+          ],
+          "name": "foot_l",
+          "parent": "leg_l_lower",
+          "tail": [
+            0.34,
+            0.45,
+            0.01
+          ]
+        },
+        {
+          "head": [
+            0.55,
+            0.57,
+            0.18
+          ],
+          "name": "leg_r_upper",
+          "parent": "root",
+          "tail": [
+            0.6,
+            0.56,
+            0.09
+          ]
+        },
+        {
+          "head": [
+            0.6,
+            0.56,
+            0.09
+          ],
+          "name": "leg_r_lower",
+          "parent": "leg_r_upper",
+          "tail": [
+            0.62,
+            0.55,
+            0.03
+          ]
+        },
+        {
+          "head": [
+            0.62,
+            0.55,
+            0.03
+          ],
+          "name": "foot_r",
+          "parent": "leg_r_lower",
+          "tail": [
+            0.66,
+            0.45,
+            0.01
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.85,
+            0.22
+          ],
+          "name": "tail",
+          "parent": "root",
+          "tail": [
+            0.5,
+            0.95,
+            0.25
+          ]
+        },
+        {
+          "head": [
+            0.3,
+            0.42,
+            0.66
+          ],
+          "name": "dragon_root",
+          "parent": "chest",
+          "tail": [
+            0.3,
+            0.38,
+            0.7
+          ]
+        },
+        {
+          "head": [
+            0.3,
+            0.38,
+            0.7
+          ],
+          "name": "dragon_body",
+          "parent": "dragon_root",
+          "tail": [
+            0.26,
+            0.34,
+            0.66
+          ]
+        },
+        {
+          "head": [
+            0.22,
+            0.3,
+            0.7
+          ],
+          "name": "dragon_head",
+          "parent": "dragon_body",
+          "tail": [
+            0.2,
+            0.26,
+            0.72
+          ]
+        },
+        {
+          "head": [
+            0.26,
+            0.4,
+            0.64
+          ],
+          "name": "dragon_tail1",
+          "parent": "dragon_body",
+          "tail": [
+            0.22,
+            0.46,
+            0.6
+          ]
+        },
+        {
+          "head": [
+            0.22,
+            0.46,
+            0.6
+          ],
+          "name": "dragon_tail2",
+          "parent": "dragon_tail1",
+          "tail": [
+            0.18,
+            0.52,
+            0.56
+          ]
+        },
+        {
+          "head": [
+            0.28,
+            0.36,
+            0.7
+          ],
+          "name": "dragon_wing_l",
+          "parent": "dragon_body",
+          "tail": [
+            0.22,
+            0.34,
+            0.74
+          ]
+        },
+        {
+          "head": [
+            0.32,
+            0.36,
+            0.7
+          ],
+          "name": "dragon_wing_r",
+          "parent": "dragon_body",
+          "tail": [
+            0.38,
+            0.34,
+            0.74
+          ]
+        }
+      ],
+      "height_meters": 0.38,
+      "layers": [
+        {
+          "bones": [
+            "root",
+            "spine",
+            "chest",
+            "neck",
+            "head",
+            "arm_l_upper",
+            "arm_l_lower",
+            "hand_l",
+            "arm_r_upper",
+            "arm_r_lower",
+            "hand_r",
+            "leg_l_upper",
+            "leg_l_lower",
+            "foot_l",
+            "leg_r_upper",
+            "leg_r_lower",
+            "foot_r",
+            "tail",
+            "dragon_root",
+            "dragon_body",
+            "dragon_head",
+            "dragon_tail1",
+            "dragon_tail2",
+            "dragon_wing_l",
+            "dragon_wing_r",
+            "ear_l",
+            "ear_r"
+          ],
+          "feather": 0.2,
+          "max": [
+            1.2,
+            1.2,
+            1.2
+          ],
+          "min": [
+            -0.2,
+            -0.2,
+            -0.2
+          ],
+          "min_vertices": 8000
+        },
+        {
+          "bones": [
+            "root",
+            "spine",
+            "chest"
+          ],
+          "feather": 0.12,
+          "max": [
+            0.82,
+            1.05,
+            0.8
+          ],
+          "min": [
+            0.18,
+            0.25,
+            0.06
+          ],
+          "min_vertices": 9000
+        },
+        {
+          "bones": [
+            "neck",
+            "head"
+          ],
+          "feather": 0.1,
+          "max": [
+            0.88,
+            0.7,
+            1.15
+          ],
+          "min": [
+            0.12,
+            0.05,
+            0.66
+          ],
+          "min_vertices": 6000
+        },
+        {
+          "bones": [
+            "ear_l"
+          ],
+          "feather": 0.08,
+          "max": [
+            0.42,
+            0.7,
+            1.15
+          ],
+          "min": [
+            0.12,
+            0.2,
+            0.82
+          ],
+          "min_vertices": 400
+        },
+        {
+          "bones": [
+            "ear_r"
+          ],
+          "feather": 0.08,
+          "max": [
+            0.88,
+            0.7,
+            1.15
+          ],
+          "min": [
+            0.58,
+            0.2,
+            0.82
+          ],
+          "min_vertices": 400
+        },
+        {
+          "bones": [
+            "arm_l_upper",
+            "arm_l_lower",
+            "hand_l"
+          ],
+          "feather": 0.1,
+          "max": [
+            0.5,
+            0.72,
+            0.8
+          ],
+          "min": [
+            -0.1,
+            0.08,
+            0.18
+          ],
+          "min_vertices": 2500
+        },
+        {
+          "bones": [
+            "arm_r_upper",
+            "arm_r_lower",
+            "hand_r"
+          ],
+          "feather": 0.1,
+          "max": [
+            1.1,
+            0.72,
+            0.8
+          ],
+          "min": [
+            0.5,
+            0.08,
+            0.18
+          ],
+          "min_vertices": 2500
+        },
+        {
+          "bones": [
+            "leg_l_upper",
+            "leg_l_lower",
+            "foot_l"
+          ],
+          "feather": 0.08,
+          "max": [
+            0.6,
+            1.1,
+            0.34
+          ],
+          "min": [
+            0.12,
+            0.22,
+            -0.1
+          ],
+          "min_vertices": 2200
+        },
+        {
+          "bones": [
+            "leg_r_upper",
+            "leg_r_lower",
+            "foot_r"
+          ],
+          "feather": 0.08,
+          "max": [
+            0.88,
+            1.1,
+            0.34
+          ],
+          "min": [
+            0.4,
+            0.22,
+            -0.1
+          ],
+          "min_vertices": 2200
+        },
+        {
+          "bones": [
+            "tail"
+          ],
+          "feather": 0.08,
+          "max": [
+            0.75,
+            1.25,
+            0.42
+          ],
+          "min": [
+            0.25,
+            0.7,
+            0.1
+          ],
+          "min_vertices": 500
+        },
+        {
+          "bones": [
+            "dragon_root",
+            "dragon_body",
+            "dragon_head",
+            "dragon_tail1",
+            "dragon_tail2",
+            "dragon_wing_l",
+            "dragon_wing_r"
+          ],
+          "feather": 0.08,
+          "max": [
+            0.52,
+            0.62,
+            0.88
+          ],
+          "min": [
+            -0.05,
+            0.02,
+            0.42
+          ],
+          "min_vertices": 1500
+        }
+      ],
+      "space": "normalized_bounds_blender_z_up"
+    },
+    "height_meters": 0.38,
+    "input_world_bounds": {
+      "max": [
+        0.7209079265594482,
+        0.6167859435081482,
+        0.950253963470459
+      ],
+      "min": [
+        -0.7186660170555115,
+        -0.6147109270095825,
+        -0.9518150091171265
+      ]
+    },
+    "layers": [
+      {
+        "bones": [
+          "root",
+          "spine",
+          "chest",
+          "neck",
+          "head",
+          "arm_l_upper",
+          "arm_l_lower",
+          "hand_l",
+          "arm_r_upper",
+          "arm_r_lower",
+          "hand_r",
+          "leg_l_upper",
+          "leg_l_lower",
+          "foot_l",
+          "leg_r_upper",
+          "leg_r_lower",
+          "foot_r",
+          "tail",
+          "dragon_root",
+          "dragon_body",
+          "dragon_head",
+          "dragon_tail1",
+          "dragon_tail2",
+          "dragon_wing_l",
+          "dragon_wing_r",
+          "ear_l",
+          "ear_r"
+        ],
+        "selected_vertices": 50004
+      },
+      {
+        "bones": [
+          "root",
+          "spine",
+          "chest"
+        ],
+        "selected_vertices": 9761
+      },
+      {
+        "bones": [
+          "neck",
+          "head"
+        ],
+        "selected_vertices": 13178
+      },
+      {
+        "bones": [
+          "ear_l"
+        ],
+        "selected_vertices": 1717
+      },
+      {
+        "bones": [
+          "ear_r"
+        ],
+        "selected_vertices": 2129
+      },
+      {
+        "bones": [
+          "arm_l_upper",
+          "arm_l_lower",
+          "hand_l"
+        ],
+        "selected_vertices": 31372
+      },
+      {
+        "bones": [
+          "arm_r_upper",
+          "arm_r_lower",
+          "hand_r"
+        ],
+        "selected_vertices": 5638
+      },
+      {
+        "bones": [
+          "leg_l_upper",
+          "leg_l_lower",
+          "foot_l"
+        ],
+        "selected_vertices": 3291
+      },
+      {
+        "bones": [
+          "leg_r_upper",
+          "leg_r_lower",
+          "foot_r"
+        ],
+        "selected_vertices": 3411
+      },
+      {
+        "bones": [
+          "tail"
+        ],
+        "selected_vertices": 994
+      },
+      {
+        "bones": [
+          "dragon_root",
+          "dragon_body",
+          "dragon_head",
+          "dragon_tail1",
+          "dragon_tail2",
+          "dragon_wing_l",
+          "dragon_wing_r"
+        ],
+        "selected_vertices": 29325
+      }
+    ],
+    "max_influences": 4,
+    "mesh_topology_uv_textures_unchanged": true,
+    "method": "Authored spatial layers with nearest-segment blending; not recovered anatomy",
+    "positive_vertices_per_bone": {
+      "arm_l_lower": 7441,
+      "arm_l_upper": 6510,
+      "arm_r_lower": 5345,
+      "arm_r_upper": 5839,
+      "chest": 1629,
+      "dragon_body": 26047,
+      "dragon_head": 20483,
+      "dragon_root": 7790,
+      "dragon_tail1": 19964,
+      "dragon_tail2": 15961,
+      "dragon_wing_l": 12392,
+      "dragon_wing_r": 5041,
+      "ear_l": 2052,
+      "ear_r": 2886,
+      "foot_l": 2484,
+      "foot_r": 2418,
+      "hand_l": 6415,
+      "hand_r": 4798,
+      "head": 6603,
+      "leg_l_lower": 2595,
+      "leg_l_upper": 3059,
+      "leg_r_lower": 3232,
+      "leg_r_upper": 4326,
+      "neck": 6741,
+      "root": 864,
+      "spine": 3469,
+      "tail": 1840
+    },
+    "source_to_authored": {
+      "translation_before_scale": [
+        -0.0011209547519683838,
+        -0.001037508249282837,
+        0.9518150091171265
+      ],
+      "uniform_scale": 0.19978245030885808
+    }
+  },
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "camera_back_shift_m": 0.0,
+    "clip_end": 1000.0,
+    "fit": "motion",
+    "fur_margin_m": 0.021,
+    "location": [
+      0.564908312005367,
+      -1.1418157287133888,
+      0.25385359639548843
+    ],
+    "motion_envelope": {
+      "elapsed_seconds": 0.5522365001961589,
+      "sample_seconds": {
+        "toy_dance": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          1,
+          1.25,
+          1.5,
+          1.75,
+          2,
+          2.25,
+          2.5,
+          2.75,
+          3,
+          3.25,
+          3.5,
+          3.75,
+          4
+        ]
+      },
+      "scope": "Base skin at every authored key and midpoint, plus explicit fur margin; not continuous bounds or physics",
+      "world_bounds_m": {
+        "max": [
+          0.15729492902755737,
+          0.13677509129047394,
+          0.41712549328804016
+        ],
+        "min": [
+          -0.15975500643253326,
+          -0.15585359930992126,
+          -2.572946078416294e-09
+        ]
+      }
+    },
+    "orthographic_scale": 0.5703291153029431,
+    "sampled_depth_max_m": 1.5047308482021997,
+    "sampled_depth_min_m": 1.0287362623863374,
+    "view": "three_quarter"
+  },
+  "color_corrections": null,
+  "deformation_measurement": {
+    "bone_names": [
+      "root",
+      "spine",
+      "chest",
+      "neck",
+      "head",
+      "ear_l",
+      "ear_r",
+      "arm_l_upper",
+      "arm_l_lower",
+      "hand_l",
+      "arm_r_upper",
+      "arm_r_lower",
+      "hand_r",
+      "dragon_root",
+      "dragon_body",
+      "dragon_head",
+      "dragon_tail1",
+      "dragon_tail2",
+      "dragon_wing_l",
+      "dragon_wing_r",
+      "leg_l_upper",
+      "leg_l_lower",
+      "foot_l",
+      "leg_r_upper",
+      "leg_r_lower",
+      "foot_r",
+      "tail"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 109672,
+    "edges_sha256": "30749e08ef85fac9996930ee42eecb8bde638a592b4be6c43e87c0ea129c6f06",
+    "pose_samples_measured": 8,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 0.3799999952316284,
+      "height_basis": "z_span",
+      "max": [
+        0.14380080997943878,
+        0.12301573157310486,
+        0.3799999952316284
+      ],
+      "min": [
+        -0.14380080997943878,
+        -0.12301573157310486,
+        0.0
+      ]
+    },
+    "rest_sha256": "bb773aec26ff6931656d92d0aace335ea38b3aa81513f981c2f141c635994924",
+    "rig_route": "authored",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 50004
+  },
+  "emitter_scale_applied": true,
+  "groom": {
+    "armature": "CreatureRig",
+    "clump_factor": 0.15,
+    "comb": {
+      "amount": 0.35,
+      "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+      "authored_surface_normal_reoriented_parents": 0,
+      "direction_rest_object_axes": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "flow_config": {
+        "regions": [
+          {
+            "center": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "comb": 0.3,
+            "direction": [
+              0,
+              0.25,
+              -0.75
+            ],
+            "feather": 0.35,
+            "length_scale": 1,
+            "name": "body",
+            "radius": [
+              0.6,
+              0.55,
+              0.55
+            ]
+          },
+          {
+            "center": [
+              0.5,
+              0.22,
+              0.82
+            ],
+            "comb": 0.28,
+            "direction": [
+              0,
+              -0.2,
+              -0.9
+            ],
+            "feather": 0.35,
+            "length_scale": 0.8,
+            "name": "head_face",
+            "radius": [
+              0.45,
+              0.28,
+              0.35
+            ]
+          },
+          {
+            "center": [
+              0.5,
+              0.45,
+              0.45
+            ],
+            "comb": 0.32,
+            "direction": [
+              0,
+              0.2,
+              -0.85
+            ],
+            "feather": 0.35,
+            "length_scale": 0.95,
+            "name": "limbs",
+            "radius": [
+              0.65,
+              0.55,
+              0.45
+            ]
+          }
+        ]
+      },
+      "hair_dynamics": false,
+      "initialization": {
+        "method": "Particle Edit enter/exit on owned emitter",
+        "parents": 5200
+      },
+      "limitations": [
+        "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+        "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+        "Stored parent arc length follows explicit regional scale (otherwise preserved); children add configured roughness/clump variation."
+      ],
+      "limits": {
+        "amount_range": [
+          0,
+          0.95
+        ],
+        "direction_component_range": [
+          -1,
+          1
+        ],
+        "parents": 10000,
+        "stored_keys": 150000,
+        "stored_parent_arc_length_m": 0.08,
+        "wall_seconds": 20
+      },
+      "max_arc_length_change_m": 0.0011960164122762932,
+      "max_key_error_m": 8.307063252098023e-08,
+      "max_planned_arc_length_error_m": 7.24579290404398e-08,
+      "max_root_shift_m": 0.0,
+      "max_stored_arc_length_m": 0.006972506413249367,
+      "max_surface_normal_reorientation_degrees": 0.0,
+      "mean_tip_displacement_m": 0.0021812330229070936,
+      "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+      "native_only": true,
+      "parallel_direction_strands_unchanged": 0,
+      "parents": 5200,
+      "regional_length_scale_range": [
+        0.8291437874859555,
+        0.9960743570927291
+      ],
+      "schema_version": 1,
+      "seconds": 0.8782058330252767,
+      "settings_preserved": {
+        "child_seed": 1337421,
+        "hair_dynamics": false,
+        "seed": 1337421,
+        "settings": {
+          "child_percent": 4,
+          "child_type": "INTERPOLATED",
+          "clump_factor": 0.15000000596046448,
+          "count": 5200,
+          "hair_length": 0.007000000216066837,
+          "hair_step": 3,
+          "material": 6,
+          "radius_scale": 0.00011999999696854502,
+          "rendered_child_count": 18,
+          "root_radius": 2.0,
+          "roughness_1": 0.004000000189989805,
+          "roughness_2": 0.00139999995008111,
+          "tip_radius": 0.11999999731779099,
+          "type": "HAIR",
+          "use_modifier_stack": true,
+          "use_regrow_hair": false
+        }
+      },
+      "skin_signature": {
+        "geometry_weights_sha256": "6ac5c1daa300f40f0348dc90d0cf3b48e09e2cd7db8f39fc40d82b5effed568a",
+        "mixed_weight_vertices": 48659,
+        "vertices": 50004
+      },
+      "status": "combed_pending_render_review",
+      "stored_keys": 20800
+    },
+    "copied_skin": {
+      "geometry_weights_sha256": "6ac5c1daa300f40f0348dc90d0cf3b48e09e2cd7db8f39fc40d82b5effed568a",
+      "mixed_weight_vertices": 48659,
+      "vertices": 50004
+    },
+    "density_excluded_vertices": 23781,
+    "density_selected_vertices": 26223,
+    "dynamics_enabled": false,
+    "emitter_surface_visible": false,
+    "fur_max_chroma": 0.95,
+    "gltf_export_supported": false,
+    "kind": "editable_native_blender_particle_hair",
+    "limitations": [
+      "Native Blender hair is not exported as glTF geometry or browser hair.",
+      "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+      "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+    ],
+    "mask_config": [
+      {
+        "center": [
+          0.23,
+          0.35,
+          0.62
+        ],
+        "radius": [
+          0.22,
+          0.22,
+          0.22
+        ]
+      },
+      {
+        "center": [
+          0.5,
+          0.18,
+          0.76
+        ],
+        "radius": [
+          0.35,
+          0.18,
+          0.18
+        ]
+      },
+      {
+        "center": [
+          0.5,
+          0.14,
+          0.68
+        ],
+        "radius": [
+          0.22,
+          0.16,
+          0.12
+        ]
+      }
+    ],
+    "material": {
+      "base_color_linear": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "material": "NativeGroom_Material_0_hair",
+      "model": "CHIANG",
+      "parametrization": "COLOR",
+      "radial_roughness": 0.85,
+      "shader": "ShaderNodeBsdfHairPrincipled",
+      "shader_roughness": 0.65,
+      "texture_color_sampling": true
+    },
+    "native_only": true,
+    "native_parameters": {
+      "child_type": "INTERPOLATED",
+      "hair_step": 3,
+      "radius_parameter_description": "Multiplier of diameter properties",
+      "radius_scale": 0.00011999999696854502,
+      "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+      "render_children": 18,
+      "render_step": 3,
+      "root_diameter_m": 0.00024,
+      "root_radius": 2.0,
+      "root_radius_description": "Strand diameter width at the root",
+      "tip_diameter_m": 1.44e-05,
+      "tip_radius": 0.11999999731779099,
+      "use_modifier_stack": true,
+      "use_parent_particles": true,
+      "viewport_children": 4
+    },
+    "object": "NativeGroom_Mesh_0",
+    "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+    "render_fiber_upper_bound": 98800,
+    "reserved_prefix": "NativeGroom_",
+    "schema_version": 1,
+    "settings": {
+      "children": 18,
+      "length": 0.007,
+      "parents": 5200,
+      "radius": 0.00012,
+      "roughness": 0.004,
+      "seed": 1337421
+    },
+    "source_object": "Mesh_0"
+  },
+  "groom_excluded_parts": {
+    "names": [],
+    "vertices": 0
+  },
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_continuity": null,
+  "normal_strength": 0.3,
+  "normal_uv_export": {
+    "authored_targets": [],
+    "elapsed_seconds": 0.031449,
+    "errors": [],
+    "geometry_or_materials_changed": false,
+    "materials": [
+      {
+        "admission": "coherent_uv0",
+        "material": "Material_0__surface_base_plush",
+        "normal": {
+          "image": "normal",
+          "normal_uv_index": 0,
+          "packed_png_bytes": 0,
+          "texture_sha256": null,
+          "texture_uv_index": 0
+        },
+        "object": "Mesh_0",
+        "polygons": 39885,
+        "slot": 1,
+        "triangles": 39885
+      },
+      {
+        "admission": "coherent_uv0",
+        "material": "Material_0__surface_eyes_gloss",
+        "normal": {
+          "image": "normal",
+          "normal_uv_index": 0,
+          "packed_png_bytes": 0,
+          "texture_sha256": null,
+          "texture_uv_index": 0
+        },
+        "object": "Mesh_0",
+        "polygons": 678,
+        "slot": 2,
+        "triangles": 678
+      },
+      {
+        "admission": "coherent_uv0",
+        "material": "Material_0__surface_nose_satin",
+        "normal": {
+          "image": "normal",
+          "normal_uv_index": 0,
+          "packed_png_bytes": 0,
+          "texture_sha256": null,
+          "texture_uv_index": 0
+        },
+        "object": "Mesh_0",
+        "polygons": 275,
+        "slot": 3,
+        "triangles": 275
+      },
+      {
+        "admission": "coherent_uv0",
+        "material": "Material_0__surface_dragon_matte_satin",
+        "normal": {
+          "image": "normal",
+          "normal_uv_index": 0,
+          "packed_png_bytes": 0,
+          "texture_sha256": null,
+          "texture_uv_index": 0
+        },
+        "object": "Mesh_0",
+        "polygons": 21279,
+        "slot": 4,
+        "triangles": 21279
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "PortableCoat_0_cutout_fur",
+        "normal": null,
+        "object": "PortableCoat_0",
+        "polygons": 12000,
+        "slot": 0,
+        "triangles": 12000
+      }
+    ],
+    "objects": 2,
+    "packed_png_bytes_hashed": 0,
+    "policy": "live-normal-uv-export-v1",
+    "quality_approved": false,
+    "schema_version": 1,
+    "status": "supported",
+    "tangent_restoration_performed": false,
+    "texture_pixels_read": false,
+    "triangles": 74117,
+    "used_materials": 5,
+    "vertices": 68004
+  },
+  "part_rigs": null,
+  "portable_fur": [
+    {
+      "cards": 3000,
+      "config": {
+        "brightness": [
+          0,
+          1.01
+        ],
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 3000
+      },
+      "geometry_profile": "tuft-v1",
+      "material": {
+        "alpha_cutoff": 0.22,
+        "alpha_mode": "MASK",
+        "double_sided": false,
+        "kind": "fur_atlas",
+        "material": "PortableCoat_0_cutout_fur",
+        "path": "textures/PortableCoat_0-fur-atlas.png",
+        "pattern": "3 curved fibers per tile; sixteen seeded tiles",
+        "profile": "tuft-v1",
+        "resolution": 1024,
+        "root_color": "Exact sampled triangle UV, sRGB texels decoded before bilinear interpolation; linear constant per tuft",
+        "seed": 193,
+        "sha256": "ebefd4b72a8c29ffdf3bdf40aa4a33214bcb5e9012c89a781c0c24c2a7bad0d3"
+      },
+      "root_samples": [
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006972317643231891,
+          "length_scale": 0.95,
+          "normal": [
+            -0.5814655471316134,
+            0.6892852840283555,
+            0.4321846997764761
+          ],
+          "position": [
+            -0.13848499953746796,
+            -0.05973266065120697,
+            0.21264244616031647
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 0,
+          "root_inset_m": 0.00034861588216159457,
+          "source_vertex_index": 26693,
+          "triangle_index": 164,
+          "width_m": 0.0034951700535767283
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003561315736862358,
+          "length_scale": 0.95,
+          "normal": [
+            -0.6129768832665445,
+            -0.6261925437674433,
+            0.4818114140521079
+          ],
+          "position": [
+            -0.13174691796302795,
+            -0.06893223524093628,
+            0.2583712637424469
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 24,
+          "root_inset_m": 0.0001780657868431179,
+          "source_vertex_index": 16407,
+          "triangle_index": 660,
+          "width_m": 0.006520284864107947
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.3370925376570697,
+          "direction": [
+            0.0,
+            -0.9220467956900411,
+            -0.38707842429891054
+          ],
+          "layer": "pile",
+          "length_m": 0.004146369189768428,
+          "length_scale": 0.9948357131864343,
+          "normal": [
+            -0.6271264265748374,
+            0.5717304630399785,
+            -0.5289959571901914
+          ],
+          "position": [
+            -0.1285753697156906,
+            0.11161834746599197,
+            0.07315891981124878
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 47,
+          "root_inset_m": 0.00020731845948842142,
+          "source_vertex_index": 49666,
+          "triangle_index": 1650,
+          "width_m": 0.006913662166453962
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003534610776479325,
+          "length_scale": 0.95,
+          "normal": [
+            -0.44419719913439815,
+            -0.4407850121006574,
+            -0.7799983470422096
+          ],
+          "position": [
+            -0.12170485407114029,
+            -0.07220108062028885,
+            0.1623142659664154
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 71,
+          "root_inset_m": 0.00017673053882396626,
+          "source_vertex_index": 34604,
+          "triangle_index": 2667,
+          "width_m": 0.006670931638402891
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006880108813142112,
+          "length_scale": 0.95,
+          "normal": [
+            -0.8809925111892202,
+            -0.4210000237790074,
+            0.21589621397001582
+          ],
+          "position": [
+            -0.11719916760921478,
+            -0.08232884854078293,
+            0.24601411819458008
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 94,
+          "root_inset_m": 0.0003440054406571056,
+          "source_vertex_index": 12574,
+          "triangle_index": 3479,
+          "width_m": 0.0035458734512058233
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.004060848873554055,
+          "length_scale": 0.95,
+          "normal": [
+            0.7794672880655525,
+            0.5566064909983546,
+            -0.287436881791867
+          ],
+          "position": [
+            -0.10983957350254059,
+            -0.06502408534288406,
+            0.16415365040302277
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 118,
+          "root_inset_m": 0.00020304244367770277,
+          "source_vertex_index": 33853,
+          "triangle_index": 4175,
+          "width_m": 0.006610849170553729
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.004052769978319586,
+          "length_scale": 0.95,
+          "normal": [
+            0.23419572010636,
+            -0.04650272349101021,
+            -0.9710766506263974
+          ],
+          "position": [
+            -0.11033863574266434,
+            -0.07054648548364639,
+            0.16133372485637665
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 142,
+          "root_inset_m": 0.00020263849891597932,
+          "source_vertex_index": 34840,
+          "triangle_index": 4666,
+          "width_m": 0.0068249832632590116
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0038328208919521946,
+          "length_scale": 0.95,
+          "normal": [
+            -0.8692850540037104,
+            -0.4677714742862785,
+            0.15979156025838073
+          ],
+          "position": [
+            -0.10811743885278702,
+            -0.0795065313577652,
+            0.1502024531364441
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 165,
+          "root_inset_m": 0.00019164104459760975,
+          "source_vertex_index": 34771,
+          "triangle_index": 5270,
+          "width_m": 0.0065507323220031395
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003928171975659694,
+          "length_scale": 0.95,
+          "normal": [
+            -0.7123319520052495,
+            0.6436141741468765,
+            -0.27989995532265644
+          ],
+          "position": [
+            -0.1007622629404068,
+            -0.023512300103902817,
+            0.1525145322084427
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 189,
+          "root_inset_m": 0.0001964085987829847,
+          "source_vertex_index": 36802,
+          "triangle_index": 5962,
+          "width_m": 0.00662185697792418
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003552064517811189,
+          "length_scale": 0.95,
+          "normal": [
+            -0.5368731605203365,
+            -0.828066466276268,
+            -0.16147178373214074
+          ],
+          "position": [
+            -0.10153182595968246,
+            -0.09604790061712265,
+            0.24160312116146088
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 213,
+          "root_inset_m": 0.00017760322589055946,
+          "source_vertex_index": 10465,
+          "triangle_index": 6567,
+          "width_m": 0.006866560074654299
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.00419575538839498,
+          "length_scale": 0.95,
+          "normal": [
+            0.25028264448536575,
+            0.13950300175419678,
+            0.958069679287984
+          ],
+          "position": [
+            -0.09971919655799866,
+            -0.08036439120769501,
+            0.183186337351799
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 236,
+          "root_inset_m": 0.000209787769419749,
+          "source_vertex_index": 32363,
+          "triangle_index": 7115,
+          "width_m": 0.007106084145543372
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0037344513524148093,
+          "length_scale": 0.95,
+          "normal": [
+            0.3669910964510722,
+            -0.9191840730669546,
+            -0.14289217944199575
+          ],
+          "position": [
+            -0.09606018662452698,
+            0.07039583474397659,
+            0.07954837381839752
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 260,
+          "root_inset_m": 0.00018672256762074048,
+          "source_vertex_index": 49530,
+          "triangle_index": 7524,
+          "width_m": 0.006779939616860687
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0036230943066016116,
+          "length_scale": 0.95,
+          "normal": [
+            -0.4474043493520931,
+            0.3688929333979042,
+            -0.8147069116375039
+          ],
+          "position": [
+            -0.09569139033555984,
+            -0.054720520973205566,
+            0.12006287276744843
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 283,
+          "root_inset_m": 0.0001811547153300806,
+          "source_vertex_index": 46271,
+          "triangle_index": 7886,
+          "width_m": 0.006488571953559594
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.007295680202681102,
+          "length_scale": 0.95,
+          "normal": [
+            -0.9263107982712115,
+            0.3095873961179153,
+            0.2147183019006058
+          ],
+          "position": [
+            -0.09345582127571106,
+            0.025971410796046257,
+            0.1234046220779419
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 307,
+          "root_inset_m": 0.0003647840101340551,
+          "source_vertex_index": 48380,
+          "triangle_index": 8146,
+          "width_m": 0.0034757448417785624
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.00703833525671061,
+          "length_scale": 0.95,
+          "normal": [
+            -0.22310438469282337,
+            -0.5367624454071288,
+            0.8137017332729455
+          ],
+          "position": [
+            -0.09301430732011795,
+            -0.09928777813911438,
+            0.24825488030910492
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 331,
+          "root_inset_m": 0.0003519167628355305,
+          "source_vertex_index": 10584,
+          "triangle_index": 8441,
+          "width_m": 0.0035662023292792003
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006764642013395233,
+          "length_scale": 0.95,
+          "normal": [
+            -0.8866645336515049,
+            0.4577758733529542,
+            0.06532422629085956
+          ],
+          "position": [
+            -0.09143222868442535,
+            0.03781391307711601,
+            0.10765676945447922
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 354,
+          "root_inset_m": 0.0003382321006697617,
+          "source_vertex_index": 48402,
+          "triangle_index": 8715,
+          "width_m": 0.003435356516655282
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003477574246617699,
+          "length_scale": 0.95,
+          "normal": [
+            -0.6205046464590579,
+            -0.1303018093915392,
+            -0.7733016372619488
+          ],
+          "position": [
+            -0.0880541056394577,
+            -0.087431900203228,
+            0.1095091700553894
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 378,
+          "root_inset_m": 0.00017387871233088496,
+          "source_vertex_index": 45348,
+          "triangle_index": 8938,
+          "width_m": 0.006593086371337323
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0034963363020717986,
+          "length_scale": 0.95,
+          "normal": [
+            0.0948205479027987,
+            -0.46329717694477174,
+            -0.8811156504854615
+          ],
+          "position": [
+            -0.08775203675031662,
+            -0.09305776655673981,
+            0.23101425170898438
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 401,
+          "root_inset_m": 0.00017481681510358993,
+          "source_vertex_index": 10690,
+          "triangle_index": 9175,
+          "width_m": 0.006844117388732017
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.007176712928614733,
+          "length_scale": 0.95,
+          "normal": [
+            -0.9117143590666261,
+            -0.40940694981030284,
+            0.034100981199303416
+          ],
+          "position": [
+            -0.08661607652902603,
+            -0.041724275797605515,
+            0.07566121220588684
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 425,
+          "root_inset_m": 0.0003588356464307367,
+          "source_vertex_index": 46493,
+          "triangle_index": 9521,
+          "width_m": 0.003606437113077348
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.007158577831434298,
+          "length_scale": 0.95,
+          "normal": [
+            -0.024729245275481804,
+            0.48708059106310986,
+            -0.8730068511974672
+          ],
+          "position": [
+            -0.08082357794046402,
+            -0.06584440916776657,
+            0.11038580536842346
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 449,
+          "root_inset_m": 0.0003579288915717149,
+          "source_vertex_index": 46508,
+          "triangle_index": 9722,
+          "width_m": 0.0037184463593654712
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.007065872187122601,
+          "length_scale": 0.95,
+          "normal": [
+            -0.845969023334498,
+            -0.5309939993149253,
+            -0.04880352702435484
+          ],
+          "position": [
+            -0.08516504615545273,
+            -0.044517435133457184,
+            0.06760797649621964
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 472,
+          "root_inset_m": 0.0003532936093561301,
+          "source_vertex_index": 46522,
+          "triangle_index": 9943,
+          "width_m": 0.003579207100007679
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.3170674231293267,
+          "direction": [
+            0.0,
+            0.2396457107343889,
+            -0.9708604087749224
+          ],
+          "layer": "tuft",
+          "length_m": 0.006877193932574764,
+          "length_scale": 0.9577286511190921,
+          "normal": [
+            0.8511012114099739,
+            0.3088985569918446,
+            -0.42450961052116487
+          ],
+          "position": [
+            -0.08151822537183762,
+            0.09867224097251892,
+            0.07444892078638077
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 496,
+          "root_inset_m": 0.0003438596966287382,
+          "source_vertex_index": 48861,
+          "triangle_index": 10242,
+          "width_m": 0.0037193215001381148
+        },
+        {
+          "barycentric": [
+            0.04440301160737525,
+            0.1539300421468141,
+            0.8016669462458106
+          ],
+          "comb": 0.3109492418726344,
+          "direction": [
+            0.0,
+            0.13670333674469134,
+            -0.9906120318888053
+          ],
+          "layer": "pile",
+          "length_m": 0.003723063180018751,
+          "length_scale": 0.9189232580946892,
+          "normal": [
+            -0.9598675055080895,
+            -0.27930892704924903,
+            -0.025315906862584194
+          ],
+          "position": [
+            -0.08149571000124237,
+            -0.012228934805655027,
+            0.3457334554374569
+          ],
+          "root_binding_kind": "uniform-skin-interior",
+          "root_index": 520,
+          "root_inset_m": 0.00018615315900093757,
+          "triangle_index": 10452,
+          "width_m": 0.006790137672947803
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.31948443993637043,
+          "direction": [
+            0.0,
+            0.23131073509332029,
+            -0.9728799226166546
+          ],
+          "layer": "pile",
+          "length_m": 0.004015041851823774,
+          "length_scale": 0.9512889001590739,
+          "normal": [
+            -0.272827455306228,
+            -0.2896146272143256,
+            -0.9174358546158066
+          ],
+          "position": [
+            -0.0788784921169281,
+            0.08848494291305542,
+            0.0719672217965126
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 543,
+          "root_inset_m": 0.00020075209259118874,
+          "source_vertex_index": 49157,
+          "triangle_index": 10872,
+          "width_m": 0.007064556901394272
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.004009754639108086,
+          "length_scale": 0.95,
+          "normal": [
+            -0.7826880437194681,
+            0.48060907287949445,
+            -0.3954925350553471
+          ],
+          "position": [
+            -0.07676319777965546,
+            -0.0007662783609703183,
+            0.04234768822789192
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 567,
+          "root_inset_m": 0.0002004877319554043,
+          "source_vertex_index": 47516,
+          "triangle_index": 11148,
+          "width_m": 0.007089817613298285
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0038715588632485553,
+          "length_scale": 0.95,
+          "normal": [
+            -0.5015190373669808,
+            -0.00861802440115127,
+            -0.8651036844297441
+          ],
+          "position": [
+            -0.07455459982156754,
+            -0.09165409952402115,
+            0.10095647722482681
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 590,
+          "root_inset_m": 0.00019357794316242778,
+          "source_vertex_index": 45401,
+          "triangle_index": 11389,
+          "width_m": 0.006802915870417545
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.007140483843513274,
+          "length_scale": 0.95,
+          "normal": [
+            -0.6804179009361405,
+            -0.7227142512877234,
+            -0.12130783598466277
+          ],
+          "position": [
+            -0.07407911866903305,
+            -0.06534834951162338,
+            0.10062623023986816
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 614,
+          "root_inset_m": 0.00035702419217566373,
+          "source_vertex_index": 45413,
+          "triangle_index": 11603,
+          "width_m": 0.003445245114047586
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0037093095696073028,
+          "length_scale": 0.95,
+          "normal": [
+            0.7445436711597054,
+            0.4212158319798285,
+            -0.5179111358385425
+          ],
+          "position": [
+            -0.07079209387302399,
+            -0.07769410312175751,
+            0.10705183446407318
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 638,
+          "root_inset_m": 0.00018546547848036514,
+          "source_vertex_index": 45449,
+          "triangle_index": 11834,
+          "width_m": 0.0071020149361162325
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0035608779590500157,
+          "length_scale": 0.95,
+          "normal": [
+            -0.7028609448844529,
+            -0.5867119376909875,
+            -0.40218850596085004
+          ],
+          "position": [
+            -0.06436390429735184,
+            -0.057063568383455276,
+            0.03371189162135124
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 661,
+          "root_inset_m": 0.00017804389795250078,
+          "source_vertex_index": 46653,
+          "triangle_index": 12020,
+          "width_m": 0.006953117966797538
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0038486143485811056,
+          "length_scale": 0.95,
+          "normal": [
+            0.23390468540528758,
+            -0.4630134023630041,
+            0.854931100953573
+          ],
+          "position": [
+            -0.06414873898029327,
+            -0.09136441349983215,
+            0.1645132601261139
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 685,
+          "root_inset_m": 0.0001924307174290553,
+          "source_vertex_index": 20392,
+          "triangle_index": 12261,
+          "width_m": 0.006649214831777679
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.00358829998872833,
+          "length_scale": 0.95,
+          "normal": [
+            -0.7159870501988611,
+            0.6051930480064864,
+            0.347999883034682
+          ],
+          "position": [
+            -0.0635991320014,
+            0.04030361399054527,
+            0.2184315323829651
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 708,
+          "root_inset_m": 0.00017941499943641652,
+          "source_vertex_index": 38210,
+          "triangle_index": 12482,
+          "width_m": 0.006972383216309822
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.0064541924562987974,
+          "length_scale": 0.95,
+          "normal": [
+            -0.23699638286873462,
+            -0.9336958534096309,
+            -0.2684115642680048
+          ],
+          "position": [
+            -0.06315281987190247,
+            -0.11636698246002197,
+            0.11500877141952515
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 732,
+          "root_inset_m": 0.0003227096228149399,
+          "source_vertex_index": 43942,
+          "triangle_index": 12692,
+          "width_m": 0.0035667916887240966
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0036977567991329794,
+          "length_scale": 0.95,
+          "normal": [
+            -0.44701452969681366,
+            0.518297719427116,
+            -0.7290716592191655
+          ],
+          "position": [
+            -0.05998966470360756,
+            0.0512223057448864,
+            0.05784321203827858
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 756,
+          "root_inset_m": 0.00018488783995664897,
+          "source_vertex_index": 47805,
+          "triangle_index": 12916,
+          "width_m": 0.006497391109037326
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.3189932104165434,
+          "direction": [
+            0.0,
+            0.21834782959161242,
+            -0.9758710085419241
+          ],
+          "layer": "tuft",
+          "length_m": 0.0060960513135023065,
+          "length_scale": 0.9462245390620375,
+          "normal": [
+            0.2566100040980979,
+            -0.8947345544841939,
+            0.3655152292432493
+          ],
+          "position": [
+            -0.06086950749158859,
+            -0.020825812593102455,
+            0.33831360936164856
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 779,
+          "root_inset_m": 0.0003048025656751153,
+          "source_vertex_index": 6873,
+          "triangle_index": 13082,
+          "width_m": 0.0035514624551510566
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.3173737423538734,
+          "direction": [
+            0.0,
+            0.23702687442545997,
+            -0.9715030935617741
+          ],
+          "layer": "tuft",
+          "length_m": 0.007329540700436311,
+          "length_scale": 0.9571678672977211,
+          "normal": [
+            -0.03683063821736902,
+            -0.020028829908141494,
+            -0.9991207885240964
+          ],
+          "position": [
+            -0.05270020291209221,
+            -0.05397593230009079,
+            4.3761760025518015e-05
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 803,
+          "root_inset_m": 0.00036647703502181556,
+          "source_vertex_index": 46712,
+          "triangle_index": 13303,
+          "width_m": 0.0035529691285642044
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006653593047778778,
+          "length_scale": 0.95,
+          "normal": [
+            0.280596425589694,
+            0.10089233176767894,
+            0.9545084511604746
+          ],
+          "position": [
+            -0.05427229404449463,
+            0.08804621547460556,
+            0.0948479101061821
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 826,
+          "root_inset_m": 0.0003326796523889389,
+          "source_vertex_index": 49099,
+          "triangle_index": 13656,
+          "width_m": 0.0036146917850721997
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003741365680866114,
+          "length_scale": 0.95,
+          "normal": [
+            -0.3894103475487157,
+            0.49361544949184044,
+            -0.7776267544554757
+          ],
+          "position": [
+            -0.05258093401789665,
+            0.05084651708602905,
+            0.05332234129309654
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 850,
+          "root_inset_m": 0.0001870682840433057,
+          "source_vertex_index": 47852,
+          "triangle_index": 13944,
+          "width_m": 0.006942954698814464
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.00607182953606355,
+          "length_scale": 0.95,
+          "normal": [
+            -0.4438836123960292,
+            -0.8882694535116733,
+            -0.11808774959463406
+          ],
+          "position": [
+            -0.05104520544409752,
+            -0.08201559633016586,
+            0.10092431306838989
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 874,
+          "root_inset_m": 0.00030359147680317753,
+          "source_vertex_index": 45900,
+          "triangle_index": 14159,
+          "width_m": 0.0035786550506226736
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.00376609662302516,
+          "length_scale": 0.95,
+          "normal": [
+            -0.6205237198580104,
+            0.7015368666650342,
+            0.35042308400472644
+          ],
+          "position": [
+            -0.0507461316883564,
+            0.04523145407438278,
+            0.3003093898296356
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 897,
+          "root_inset_m": 0.000188304831151258,
+          "source_vertex_index": 7267,
+          "triangle_index": 14457,
+          "width_m": 0.006821592245096584
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003624283811778167,
+          "length_scale": 0.95,
+          "normal": [
+            -0.5613166307309444,
+            0.5742890457178794,
+            0.5959158766414167
+          ],
+          "position": [
+            -0.04625222086906433,
+            0.043357085436582565,
+            0.2382107973098755
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 921,
+          "root_inset_m": 0.00018121419058890836,
+          "source_vertex_index": 20263,
+          "triangle_index": 14739,
+          "width_m": 0.006873101148795098
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.007168909569625258,
+          "length_scale": 0.95,
+          "normal": [
+            -0.4955018536519032,
+            0.8492157078347757,
+            0.18251190260968927
+          ],
+          "position": [
+            -0.0453268326818943,
+            0.07961679250001907,
+            0.13363167643547058
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 945,
+          "root_inset_m": 0.0003584454784812629,
+          "source_vertex_index": 48628,
+          "triangle_index": 15107,
+          "width_m": 0.003694300474282742
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.2945193778958011,
+          "direction": [
+            0.0,
+            0.00916310054437014,
+            -0.999958017912959
+          ],
+          "layer": "pile",
+          "length_m": 0.003438293971628491,
+          "length_scale": 0.8808860179990654,
+          "normal": [
+            0.22990440142325527,
+            0.45572692770562,
+            0.8599168178203118
+          ],
+          "position": [
+            -0.04959098622202873,
+            -0.004469620529562235,
+            0.37681928277015686
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 968,
+          "root_inset_m": 0.00017191469858142457,
+          "source_vertex_index": 6170,
+          "triangle_index": 15346,
+          "width_m": 0.0070194231198736304
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006058778923303665,
+          "length_scale": 0.95,
+          "normal": [
+            -0.5451001487410129,
+            -0.7325075814378936,
+            0.40779709535323233
+          ],
+          "position": [
+            -0.04486753046512604,
+            -0.07545173913240433,
+            0.15006199479103088
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 992,
+          "root_inset_m": 0.0003029389461651833,
+          "source_vertex_index": 44916,
+          "triangle_index": 15661,
+          "width_m": 0.0035833655628699705
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006180382216751937,
+          "length_scale": 0.95,
+          "normal": [
+            0.05021118658977825,
+            0.9736191463159407,
+            -0.22258615111517063
+          ],
+          "position": [
+            -0.039318572729825974,
+            0.00876853708177805,
+            0.019340744242072105
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1015,
+          "root_inset_m": 0.00030901911083759686,
+          "source_vertex_index": 47982,
+          "triangle_index": 15974,
+          "width_m": 0.0036179139079893867
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.3050353919845417,
+          "direction": [
+            0.0,
+            0.09999629802081161,
+            -0.9949878091625711
+          ],
+          "layer": "pile",
+          "length_m": 0.0038949517153422115,
+          "length_scale": 0.9090257012416392,
+          "normal": [
+            0.41019082984010763,
+            0.9057739516943124,
+            0.1063815376235627
+          ],
+          "position": [
+            -0.04067010432481766,
+            -9.658324415795505e-05,
+            0.3651801347732544
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1039,
+          "root_inset_m": 0.0001947475857671106,
+          "source_vertex_index": 6283,
+          "triangle_index": 16360,
+          "width_m": 0.006940299984681075
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0035401235863098406,
+          "length_scale": 0.95,
+          "normal": [
+            -0.2055965799250662,
+            -0.9766770657216893,
+            0.061902791668766805
+          ],
+          "position": [
+            -0.039287008345127106,
+            -0.06581403315067291,
+            0.18222437798976898
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1063,
+          "root_inset_m": 0.00017700617931549204,
+          "source_vertex_index": 20616,
+          "triangle_index": 16807,
+          "width_m": 0.00696153440302858
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003487777311782743,
+          "length_scale": 0.95,
+          "normal": [
+            -0.3278187753070539,
+            0.7456397281591893,
+            -0.5801346794899213
+          ],
+          "position": [
+            -0.0316433310508728,
+            0.051182571798563004,
+            0.24387523531913757
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1086,
+          "root_inset_m": 0.00017438886558913716,
+          "source_vertex_index": 20305,
+          "triangle_index": 17079,
+          "width_m": 0.006713037185792214
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006311921566631517,
+          "length_scale": 0.95,
+          "normal": [
+            -0.4589903697509218,
+            -0.7516762687685449,
+            0.47361442909407886
+          ],
+          "position": [
+            -0.032735344022512436,
+            -0.07611501961946487,
+            0.16428950428962708
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1110,
+          "root_inset_m": 0.00031559607833157584,
+          "source_vertex_index": 20642,
+          "triangle_index": 17283,
+          "width_m": 0.003598247165062446
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.3029342364867238,
+          "direction": [
+            0.0,
+            0.039747962070567994,
+            -0.9992097374982075
+          ],
+          "layer": "pile",
+          "length_m": 0.0034474232941654795,
+          "length_scale": 0.8860033868252143,
+          "normal": [
+            0.17240769932677694,
+            -0.929123568143061,
+            0.3271161572499201
+          ],
+          "position": [
+            -0.034166786819696426,
+            -0.03700459375977516,
+            0.36399802565574646
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1133,
+          "root_inset_m": 0.00017237116470827398,
+          "source_vertex_index": 6371,
+          "triangle_index": 17485,
+          "width_m": 0.0069994118319716275
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.3190123022688231,
+          "direction": [
+            0.0,
+            0.23339012596033984,
+            -0.9723831801837262
+          ],
+          "layer": "tuft",
+          "length_m": 0.006791625999272125,
+          "length_scale": 0.9524692443279422,
+          "normal": [
+            -0.41840025795804403,
+            0.5094981791198676,
+            0.7518994810572631
+          ],
+          "position": [
+            -0.027034148573875427,
+            0.02768436260521412,
+            0.3409806787967682
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1157,
+          "root_inset_m": 0.0003395812999636063,
+          "source_vertex_index": 7307,
+          "triangle_index": 17782,
+          "width_m": 0.0035400922582564066
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006108922728814342,
+          "length_scale": 0.95,
+          "normal": [
+            -0.16521510450474036,
+            -0.9269232972313259,
+            0.33692309254976077
+          ],
+          "position": [
+            -0.02725151740014553,
+            -0.06847033649682999,
+            0.18823184072971344
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1181,
+          "root_inset_m": 0.00030544613644071714,
+          "source_vertex_index": 20665,
+          "triangle_index": 18076,
+          "width_m": 0.0036889921242066314
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0038248047597300183,
+          "length_scale": 0.95,
+          "normal": [
+            -0.18021591984077923,
+            -0.978601964232938,
+            -0.09929963663265591
+          ],
+          "position": [
+            -0.029436735436320305,
+            -0.08955219388008118,
+            0.10159817337989807
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1204,
+          "root_inset_m": 0.0001912402379865009,
+          "source_vertex_index": 44802,
+          "triangle_index": 18479,
+          "width_m": 0.00680233182055577
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0035706142863000034,
+          "length_scale": 0.95,
+          "normal": [
+            0.7664926593363262,
+            -0.5889124232167762,
+            0.2562638502880798
+          ],
+          "position": [
+            -0.028116773813962936,
+            -0.11049176752567291,
+            0.12624333798885345
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1228,
+          "root_inset_m": 0.00017853071431500018,
+          "source_vertex_index": 44684,
+          "triangle_index": 18736,
+          "width_m": 0.006994970398848801
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.3187494181676998,
+          "direction": [
+            0.0,
+            0.23454761827696222,
+            -0.9721046315909643
+          ],
+          "layer": "tuft",
+          "length_m": 0.0066300829694995,
+          "length_scale": 0.9531264545807504,
+          "normal": [
+            -0.3329959606336058,
+            0.5391209278642594,
+            0.7736034613033231
+          ],
+          "position": [
+            -0.02110360935330391,
+            0.030787985771894455,
+            0.3415990173816681
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1252,
+          "root_inset_m": 0.000331504148474975,
+          "source_vertex_index": 7317,
+          "triangle_index": 19011,
+          "width_m": 0.0036317039400241453
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.004051766408017312,
+          "length_scale": 0.95,
+          "normal": [
+            0.4365767876502827,
+            -0.8216811493689504,
+            -0.3663888607158799
+          ],
+          "position": [
+            -0.02319972775876522,
+            -0.06432267278432846,
+            0.03203471750020981
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1275,
+          "root_inset_m": 0.0002025883204008656,
+          "source_vertex_index": 47004,
+          "triangle_index": 19279,
+          "width_m": 0.006815327210215084
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003600152885880209,
+          "length_scale": 0.95,
+          "normal": [
+            -0.04800201753297405,
+            -0.9195189808116084,
+            0.39010338404062184
+          ],
+          "position": [
+            -0.012804647907614708,
+            -0.07045038789510727,
+            0.1871556043624878
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1299,
+          "root_inset_m": 0.00018000764429401046,
+          "source_vertex_index": 20716,
+          "triangle_index": 19514,
+          "width_m": 0.0065846120549898045
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.007256482053034425,
+          "length_scale": 0.95,
+          "normal": [
+            0.7029151473509938,
+            0.6970153602733743,
+            -0.14170350442917387
+          ],
+          "position": [
+            -0.016559956595301628,
+            -0.003442566143348813,
+            0.016195768490433693
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1322,
+          "root_inset_m": 0.00036282410265172125,
+          "source_vertex_index": 47154,
+          "triangle_index": 19650,
+          "width_m": 0.003639012130179432
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0035937388045936863,
+          "length_scale": 0.95,
+          "normal": [
+            -0.0790503934516548,
+            -0.9724317382374018,
+            -0.21937992105870577
+          ],
+          "position": [
+            -0.011206388473510742,
+            -0.09109511226415634,
+            0.09714102745056152
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1346,
+          "root_inset_m": 0.00017968694022968434,
+          "source_vertex_index": 44773,
+          "triangle_index": 19799,
+          "width_m": 0.006467641966963935
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003667845098381176,
+          "length_scale": 0.95,
+          "normal": [
+            0.4237142785353832,
+            -0.4158244718957105,
+            0.8047087788373463
+          ],
+          "position": [
+            -0.012178529053926468,
+            -0.05492430180311203,
+            0.021240077912807465
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1370,
+          "root_inset_m": 0.0001833922549190588,
+          "source_vertex_index": 47202,
+          "triangle_index": 19966,
+          "width_m": 0.006586621697029228
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003959180616636318,
+          "length_scale": 0.95,
+          "normal": [
+            -0.20567633414178788,
+            0.8741769876745178,
+            0.43989980654042293
+          ],
+          "position": [
+            -0.011253336444497108,
+            0.06957893073558807,
+            0.22774659097194672
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1393,
+          "root_inset_m": 0.0001979590308318159,
+          "source_vertex_index": 8258,
+          "triangle_index": 20200,
+          "width_m": 0.0070001166373395984
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.0071745770110828765,
+          "length_scale": 0.95,
+          "normal": [
+            -0.03809343122752616,
+            -0.9795643883030077,
+            0.19749050525498132
+          ],
+          "position": [
+            -0.003393695456907153,
+            -0.09139318764209747,
+            0.13911712169647217
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1417,
+          "root_inset_m": 0.0003587288505541438,
+          "source_vertex_index": 38313,
+          "triangle_index": 20337,
+          "width_m": 0.0036669850918402227
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.007269629079796775,
+          "length_scale": 0.95,
+          "normal": [
+            0.5706921053107064,
+            -0.23660758936607376,
+            0.7863379487156962
+          ],
+          "position": [
+            -0.006211626343429089,
+            -0.051998287439346313,
+            0.019527534022927284
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1440,
+          "root_inset_m": 0.00036348145398983875,
+          "source_vertex_index": 47334,
+          "triangle_index": 20464,
+          "width_m": 0.003636738420961876
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006406065378636931,
+          "length_scale": 0.95,
+          "normal": [
+            0.7112095235173184,
+            -0.31210269993850825,
+            0.6298991334724653
+          ],
+          "position": [
+            -0.0038432057481259108,
+            -0.05322595313191414,
+            0.017072409391403198
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1464,
+          "root_inset_m": 0.00032030326893184655,
+          "source_vertex_index": 41715,
+          "triangle_index": 20676,
+          "width_m": 0.0034226311087067677
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003808307774114319,
+          "length_scale": 0.95,
+          "normal": [
+            0.9388274231920024,
+            -0.19920941286079846,
+            -0.28092468615328353
+          ],
+          "position": [
+            -0.002339842962101102,
+            -0.03927934169769287,
+            0.03507360443472862
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1488,
+          "root_inset_m": 0.00019041538870571596,
+          "source_vertex_index": 41769,
+          "triangle_index": 20875,
+          "width_m": 0.006499376469148444
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0041575402614911945,
+          "length_scale": 0.95,
+          "normal": [
+            -0.17550007713363155,
+            0.808389233309369,
+            -0.5618777183654642
+          ],
+          "position": [
+            0.0030301089864224195,
+            0.08799266815185547,
+            0.06267034262418747
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1511,
+          "root_inset_m": 0.00020787701307455975,
+          "source_vertex_index": 48260,
+          "triangle_index": 21056,
+          "width_m": 0.006702156360628457
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.3112762308724328,
+          "direction": [
+            0.0,
+            0.1340691676363498,
+            -0.9909719765408588
+          ],
+          "layer": "pile",
+          "length_m": 0.0037603132375309076,
+          "length_scale": 0.9172858657716229,
+          "normal": [
+            -0.026399477647942995,
+            -0.4139227464309087,
+            0.9099291332664371
+          ],
+          "position": [
+            0.010916122235357761,
+            -0.058451440185308456,
+            0.350556880235672
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1535,
+          "root_inset_m": 0.0001880156618765454,
+          "source_vertex_index": 4988,
+          "triangle_index": 21192,
+          "width_m": 0.007080650315816425
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.004007246490954581,
+          "length_scale": 0.95,
+          "normal": [
+            0.01659450911115262,
+            0.29800538033703455,
+            -0.9544199366932458
+          ],
+          "position": [
+            0.02249990776181221,
+            0.056179508566856384,
+            0.0414213091135025
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1559,
+          "root_inset_m": 0.00020036232454772904,
+          "source_vertex_index": 43360,
+          "triangle_index": 21318,
+          "width_m": 0.007051463764888928
+        },
+        {
+          "barycentric": [
+            0.20473674215225113,
+            0.13003369880849797,
+            0.665229559039251
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0042397858382009585,
+          "length_scale": 0.95,
+          "normal": [
+            -0.12756378091080794,
+            0.991344127586638,
+            0.031053220432458464
+          ],
+          "position": [
+            0.008372900950992801,
+            0.1008682343820056,
+            0.10274118680388283
+          ],
+          "root_binding_kind": "uniform-skin-interior",
+          "root_index": 1582,
+          "root_inset_m": 0.00021198929191004794,
+          "triangle_index": 21450,
+          "width_m": 0.006777505614832991
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0036288952498628093,
+          "length_scale": 0.95,
+          "normal": [
+            -0.9499537548987024,
+            0.0011002087025197942,
+            -0.3123886251044797
+          ],
+          "position": [
+            0.017753876745700836,
+            0.02637316845357418,
+            0.022524088621139526
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1606,
+          "root_inset_m": 0.00018144476249314046,
+          "source_vertex_index": 43410,
+          "triangle_index": 21768,
+          "width_m": 0.006580452670452259
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006960310719788962,
+          "length_scale": 0.95,
+          "normal": [
+            0.06584753090364692,
+            0.9103953234367342,
+            0.4084659811274588
+          ],
+          "position": [
+            0.020827729254961014,
+            0.06391371041536331,
+            0.3096422255039215
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1629,
+          "root_inset_m": 0.0003480155359894481,
+          "source_vertex_index": 8356,
+          "triangle_index": 22059,
+          "width_m": 0.0036588908713219466
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0035777699529321457,
+          "length_scale": 0.95,
+          "normal": [
+            0.2043025390602554,
+            -0.8156594817676365,
+            0.5412578704610987
+          ],
+          "position": [
+            0.022784799337387085,
+            -0.06758150458335876,
+            0.18866775929927826
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1653,
+          "root_inset_m": 0.00017888849764660728,
+          "source_vertex_index": 9656,
+          "triangle_index": 22446,
+          "width_m": 0.006870597036261365
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003519397287565913,
+          "length_scale": 0.95,
+          "normal": [
+            0.2322135219859454,
+            -0.921527484694911,
+            -0.3112297787146233
+          ],
+          "position": [
+            0.023100852966308594,
+            -0.0862683653831482,
+            0.0898781567811966
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1677,
+          "root_inset_m": 0.00017596986437829566,
+          "source_vertex_index": 41600,
+          "triangle_index": 22635,
+          "width_m": 0.006788139359834817
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0035283215538391283,
+          "length_scale": 0.95,
+          "normal": [
+            -0.5618355381681011,
+            -0.7276637693372635,
+            -0.3935051039633998
+          ],
+          "position": [
+            0.02376752905547619,
+            -0.006437303032726049,
+            0.03727162256836891
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1700,
+          "root_inset_m": 0.00017641607769195642,
+          "source_vertex_index": 41867,
+          "triangle_index": 22974,
+          "width_m": 0.007136076021514703
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.3169841730468899,
+          "direction": [
+            0.0,
+            0.24231405864059488,
+            -0.9701978648632053
+          ],
+          "layer": "pile",
+          "length_m": 0.004158350329497906,
+          "length_scale": 0.9575395673827751,
+          "normal": [
+            0.20660187980664949,
+            0.5682664699701785,
+            0.7964853309182731
+          ],
+          "position": [
+            0.02618849091231823,
+            0.03444220498204231,
+            0.34538549184799194
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1724,
+          "root_inset_m": 0.00020791751647489533,
+          "source_vertex_index": 7980,
+          "triangle_index": 23281,
+          "width_m": 0.006899197187084689
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.00616209260300011,
+          "length_scale": 0.95,
+          "normal": [
+            0.11770049374152348,
+            0.7587206889827237,
+            -0.6406945527180504
+          ],
+          "position": [
+            0.030144184827804565,
+            0.08799546211957932,
+            0.061087463051080704
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1747,
+          "root_inset_m": 0.00030810463015000554,
+          "source_vertex_index": 43548,
+          "triangle_index": 23501,
+          "width_m": 0.0035916569562399916
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.0066646964286607565,
+          "length_scale": 0.95,
+          "normal": [
+            0.3186671571365587,
+            -0.8341819218619102,
+            0.45010194867526826
+          ],
+          "position": [
+            0.028104204684495926,
+            -0.06807976216077805,
+            0.1852165162563324
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1771,
+          "root_inset_m": 0.00033323482143303787,
+          "source_vertex_index": 9740,
+          "triangle_index": 23762,
+          "width_m": 0.0035213184699084263
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.31469141123774846,
+          "direction": [
+            0.0,
+            0.2520466268347195,
+            -0.9677150912852602
+          ],
+          "layer": "pile",
+          "length_m": 0.0040251067687874596,
+          "length_scale": 0.9633317342045217,
+          "normal": [
+            0.00020786374766622635,
+            0.007522255167524837,
+            -0.9999716858340826
+          ],
+          "position": [
+            0.0462702214717865,
+            0.046854060143232346,
+            9.569238318363205e-05
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1795,
+          "root_inset_m": 0.000201255338439373,
+          "source_vertex_index": 43594,
+          "triangle_index": 23921,
+          "width_m": 0.006845535181487091
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.00678325896564255,
+          "length_scale": 0.95,
+          "normal": [
+            0.41058134476568064,
+            -0.7269860407595746,
+            -0.5503764674031069
+          ],
+          "position": [
+            0.03275953605771065,
+            -0.0979694128036499,
+            0.22071346640586853
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1818,
+          "root_inset_m": 0.0003391629482821275,
+          "source_vertex_index": 9760,
+          "triangle_index": 24136,
+          "width_m": 0.0035295010612272776
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006182183182449567,
+          "length_scale": 0.95,
+          "normal": [
+            0.38983088119796383,
+            -0.7008877286555892,
+            0.5973175670314982
+          ],
+          "position": [
+            0.037220876663923264,
+            -0.06616146117448807,
+            0.1822289675474167
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1842,
+          "root_inset_m": 0.00030910915912247833,
+          "source_vertex_index": 38378,
+          "triangle_index": 24362,
+          "width_m": 0.0036072271094574147
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.31356843070390156,
+          "direction": [
+            0.0,
+            0.19005907867360697,
+            -0.9817726552587109
+          ],
+          "layer": "pile",
+          "length_m": 0.004180977737330515,
+          "length_scale": 0.9387115468793439,
+          "normal": [
+            0.31918621684123566,
+            0.19138399138803844,
+            0.9281661094970894
+          ],
+          "position": [
+            0.04811021685600281,
+            0.004507801495492458,
+            0.35333505272865295
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1866,
+          "root_inset_m": 0.00020904888686652576,
+          "source_vertex_index": 7528,
+          "triangle_index": 24516,
+          "width_m": 0.006950255210969738
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006862109156025439,
+          "length_scale": 0.95,
+          "normal": [
+            0.3944081477297418,
+            -0.773578307988252,
+            0.49600283710320386
+          ],
+          "position": [
+            0.0476333387196064,
+            -0.06748262047767639,
+            0.17325454950332642
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1889,
+          "root_inset_m": 0.00034310545780127195,
+          "source_vertex_index": 38395,
+          "triangle_index": 24666,
+          "width_m": 0.0036031157238708557
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0036676587118841604,
+          "length_scale": 0.95,
+          "normal": [
+            0.45310585509896395,
+            -0.6735172539173682,
+            -0.5840116375130243
+          ],
+          "position": [
+            0.04929553344845772,
+            -0.06251763552427292,
+            0.06818796694278717
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1913,
+          "root_inset_m": 0.00018338293559420804,
+          "source_vertex_index": 41648,
+          "triangle_index": 24836,
+          "width_m": 0.0067997043575925235
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006997834639252698,
+          "length_scale": 0.95,
+          "normal": [
+            0.4493948605396288,
+            -0.8852908781042155,
+            0.11960067084274571
+          ],
+          "position": [
+            0.05018695816397667,
+            -0.08031944185495377,
+            0.13204242289066315
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1936,
+          "root_inset_m": 0.00034989173196263494,
+          "source_vertex_index": 38416,
+          "triangle_index": 24959,
+          "width_m": 0.0036147071024135893
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.31264937939946835,
+          "direction": [
+            0.0,
+            0.14932986010795035,
+            -0.9887874356403099
+          ],
+          "layer": "pile",
+          "length_m": 0.0037834914646086766,
+          "length_scale": 0.9224351727480062,
+          "normal": [
+            0.33748166869805946,
+            -0.39429273169267187,
+            0.854774452722532
+          ],
+          "position": [
+            0.05417861416935921,
+            -0.052722472697496414,
+            0.3443410396575928
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1960,
+          "root_inset_m": 0.00018917457323043384,
+          "source_vertex_index": 2361,
+          "triangle_index": 25071,
+          "width_m": 0.0065153354041801075
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0038994386863688496,
+          "length_scale": 0.95,
+          "normal": [
+            0.32225795330086526,
+            0.9456786742490629,
+            -0.04291452673479903
+          ],
+          "position": [
+            0.054723020642995834,
+            0.06496116518974304,
+            0.26920923590660095
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 1984,
+          "root_inset_m": 0.0001949719343184425,
+          "source_vertex_index": 4276,
+          "triangle_index": 25251,
+          "width_m": 0.007085362993039542
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0038298963743160215,
+          "length_scale": 0.95,
+          "normal": [
+            0.25899377747263064,
+            -0.5116095598616214,
+            -0.8192544668713474
+          ],
+          "position": [
+            0.061142824590206146,
+            -0.0770585909485817,
+            0.21225067973136902
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2007,
+          "root_inset_m": 0.00019149481871580108,
+          "source_vertex_index": 1812,
+          "triangle_index": 25366,
+          "width_m": 0.007068005767867703
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.3147631025495181,
+          "direction": [
+            0.0,
+            0.2476160089070972,
+            -0.9688582518268193
+          ],
+          "layer": "tuft",
+          "length_m": 0.007271546501781093,
+          "length_scale": 0.9638594967300456,
+          "normal": [
+            0.007622912239255296,
+            0.006320691815741108,
+            -0.9999509688299537
+          ],
+          "position": [
+            0.07470525801181793,
+            0.030167633667588234,
+            7.012598507571965e-05
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2031,
+          "root_inset_m": 0.00036357732508905465,
+          "source_vertex_index": 43751,
+          "triangle_index": 25524,
+          "width_m": 0.003598601461743913
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003539791742222234,
+          "length_scale": 0.95,
+          "normal": [
+            0.473407799035638,
+            0.8332202330163082,
+            -0.28570806622229256
+          ],
+          "position": [
+            0.061690233647823334,
+            0.08797429502010345,
+            0.08381832391023636
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2054,
+          "root_inset_m": 0.0001769895871111117,
+          "source_vertex_index": 43765,
+          "triangle_index": 25725,
+          "width_m": 0.006593885418129357
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003826243222635133,
+          "length_scale": 0.95,
+          "normal": [
+            0.48399012627863597,
+            0.8295057304044371,
+            0.27870019894322146
+          ],
+          "position": [
+            0.06613779067993164,
+            0.05623327195644379,
+            0.29435425996780396
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2078,
+          "root_inset_m": 0.00019131216113175666,
+          "source_vertex_index": 4324,
+          "triangle_index": 25923,
+          "width_m": 0.006983431755490523
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.31468338380698535,
+          "direction": [
+            0.0,
+            0.24977626900782401,
+            -0.9683035760754636
+          ],
+          "layer": "pile",
+          "length_m": 0.003885960616269598,
+          "length_scale": 0.9637540520540675,
+          "normal": [
+            0.49187274289954264,
+            0.7811619282025192,
+            -0.3845090983571165
+          ],
+          "position": [
+            0.06562134623527527,
+            0.049673791974782944,
+            0.006699919700622559
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2102,
+          "root_inset_m": 0.0001942980308134799,
+          "source_vertex_index": 43785,
+          "triangle_index": 26132,
+          "width_m": 0.006598260304297342
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.3199092955126251,
+          "direction": [
+            0.0,
+            0.22943900684146112,
+            -0.9733230409990323
+          ],
+          "layer": "pile",
+          "length_m": 0.003975704488178497,
+          "length_scale": 0.9502267612184373,
+          "normal": [
+            0.5301494539263673,
+            0.657354347527244,
+            0.5355621516580553
+          ],
+          "position": [
+            0.07079552114009857,
+            0.03989466279745102,
+            0.31765827536582947
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2125,
+          "root_inset_m": 0.00019878522440892486,
+          "source_vertex_index": 3780,
+          "triangle_index": 26395,
+          "width_m": 0.0066393878589191225
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.004238411047341356,
+          "length_scale": 0.95,
+          "normal": [
+            0.3424941955249948,
+            -0.6370984423497476,
+            -0.6905094501795119
+          ],
+          "position": [
+            0.06530649214982986,
+            -0.08506926894187927,
+            0.22009654343128204
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2149,
+          "root_inset_m": 0.0002119205523670678,
+          "source_vertex_index": 2310,
+          "triangle_index": 26544,
+          "width_m": 0.006966510340118207
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.3170821406753698,
+          "direction": [
+            0.0,
+            0.24123029871732768,
+            -0.9704678989955046
+          ],
+          "layer": "tuft",
+          "length_m": 0.0067591988248230945,
+          "length_scale": 0.9574102367335008,
+          "normal": [
+            0.0021029945786827644,
+            -0.0011967220262971013,
+            -0.9999970726308123
+          ],
+          "position": [
+            0.07814351469278336,
+            -0.005146312527358532,
+            3.1163137464318424e-05
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2173,
+          "root_inset_m": 0.00033795994124115477,
+          "source_vertex_index": 42928,
+          "triangle_index": 26703,
+          "width_m": 0.003555073972825046
+        },
+        {
+          "barycentric": [
+            0.7415529087578698,
+            0.05210913313756012,
+            0.20633795810456998
+          ],
+          "comb": 0.31610157575480374,
+          "direction": [
+            0.0,
+            0.1998316873871886,
+            -0.979830238723009
+          ],
+          "layer": "tuft",
+          "length_m": 0.006892077254473432,
+          "length_scale": 0.9408923031324872,
+          "normal": [
+            -0.18390560217826507,
+            0.7256656937360156,
+            0.6630143515958585
+          ],
+          "position": [
+            0.06898621049329905,
+            -0.0010931557082791117,
+            0.34316283368294426
+          ],
+          "root_binding_kind": "uniform-skin-interior",
+          "root_index": 2196,
+          "root_inset_m": 0.0003446038627236716,
+          "triangle_index": 26885,
+          "width_m": 0.0034572716657477955
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006490174013526484,
+          "length_scale": 0.95,
+          "normal": [
+            0.5838015506139569,
+            0.7168952018613047,
+            0.38109974947378095
+          ],
+          "position": [
+            0.07461635023355484,
+            0.04667547717690468,
+            0.30294591188430786
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2220,
+          "root_inset_m": 0.00032450870067632424,
+          "source_vertex_index": 3795,
+          "triangle_index": 27083,
+          "width_m": 0.003605708148343656
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.3194157328420823,
+          "direction": [
+            0.0,
+            0.23161337781501548,
+            -0.9728079169173732
+          ],
+          "layer": "tuft",
+          "length_m": 0.006937609821533745,
+          "length_scale": 0.9514606678947943,
+          "normal": [
+            0.6025921596895762,
+            0.485380194034797,
+            0.6334735640256783
+          ],
+          "position": [
+            0.07529502362012863,
+            0.025408636778593063,
+            0.3270648419857025
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2243,
+          "root_inset_m": 0.0003468804910766873,
+          "source_vertex_index": 3426,
+          "triangle_index": 27244,
+          "width_m": 0.003748052797317805
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0037374337962995945,
+          "length_scale": 0.95,
+          "normal": [
+            0.3425741548484009,
+            -0.5263342941528557,
+            0.7782127981654626
+          ],
+          "position": [
+            0.07559589296579361,
+            -0.016909701749682426,
+            0.01938549615442753
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2267,
+          "root_inset_m": 0.00018687168981497973,
+          "source_vertex_index": 42971,
+          "triangle_index": 27437,
+          "width_m": 0.006852098204230134
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003966208049273703,
+          "length_scale": 0.95,
+          "normal": [
+            0.7711082746672618,
+            -0.5052054557021505,
+            0.3875041629046857
+          ],
+          "position": [
+            0.0810515433549881,
+            -0.011715143918991089,
+            0.20175190269947052
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2291,
+          "root_inset_m": 0.00019831040246368514,
+          "source_vertex_index": 38625,
+          "triangle_index": 27620,
+          "width_m": 0.006775019803406787
+        },
+        {
+          "barycentric": [
+            0.14433476354863317,
+            0.2752908963685212,
+            0.5803743400828456
+          ],
+          "comb": 0.3093186916559056,
+          "direction": [
+            0.0,
+            0.11215555162586,
+            -0.9936906622483171
+          ],
+          "layer": "tuft",
+          "length_m": 0.006830185752921973,
+          "length_scale": 0.9099450937096459,
+          "normal": [
+            0.505996658294805,
+            -0.7465363962249313,
+            -0.4320310068802733
+          ],
+          "position": [
+            0.07694952746150474,
+            -0.03414026985539083,
+            0.34672320285339775
+          ],
+          "root_binding_kind": "uniform-skin-interior",
+          "root_index": 2314,
+          "root_inset_m": 0.00034150928764609866,
+          "triangle_index": 27822,
+          "width_m": 0.0035924010460418733
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003997276013051707,
+          "length_scale": 0.95,
+          "normal": [
+            0.7675689624312242,
+            0.05888623126132605,
+            0.6382556695244403
+          ],
+          "position": [
+            0.08422529697418213,
+            0.027440819889307022,
+            0.21754190325737
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2338,
+          "root_inset_m": 0.00019986380065258538,
+          "source_vertex_index": 4479,
+          "triangle_index": 28139,
+          "width_m": 0.006612026369506825
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.3160813223107696,
+          "direction": [
+            0.0,
+            0.18729326597221724,
+            -0.9823040428103003
+          ],
+          "layer": "tuft",
+          "length_m": 0.006928749029642871,
+          "length_scale": 0.9354504021862085,
+          "normal": [
+            0.22739582793402616,
+            -0.972487195657418,
+            0.05059438427898442
+          ],
+          "position": [
+            0.08134482800960541,
+            -0.015010346658527851,
+            0.3377456068992615
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2361,
+          "root_inset_m": 0.00034643745148214356,
+          "source_vertex_index": 3198,
+          "triangle_index": 28287,
+          "width_m": 0.0034763779838332225
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.0073001161039004375,
+          "length_scale": 0.95,
+          "normal": [
+            0.8972323165346487,
+            0.23980357352947995,
+            -0.3707673344408312
+          ],
+          "position": [
+            0.08113625645637512,
+            0.013370142318308353,
+            0.22074802219867706
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2385,
+          "root_inset_m": 0.0003650058051950219,
+          "source_vertex_index": 4517,
+          "triangle_index": 28446,
+          "width_m": 0.003440853905817671
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.00407307528645964,
+          "length_scale": 0.95,
+          "normal": [
+            0.7999125642128075,
+            -0.5264261314300709,
+            -0.2881239624919466
+          ],
+          "position": [
+            0.08350547403097153,
+            -0.04347776621580124,
+            0.08844549208879471
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2409,
+          "root_inset_m": 0.000203653764322982,
+          "source_vertex_index": 42202,
+          "triangle_index": 28695,
+          "width_m": 0.0068502214767433645
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.31753554598982897,
+          "direction": [
+            0.0,
+            0.23988938874780952,
+            -0.9708002272178361
+          ],
+          "layer": "pile",
+          "length_m": 0.0035222758416319604,
+          "length_scale": 0.9561611350254275,
+          "normal": [
+            -0.3666950577670377,
+            0.9259311843214035,
+            0.09047749173353506
+          ],
+          "position": [
+            0.0836409330368042,
+            0.013734152540564537,
+            0.3352157771587372
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2432,
+          "root_inset_m": 0.00017611379208159802,
+          "source_vertex_index": 3759,
+          "triangle_index": 28863,
+          "width_m": 0.006475602395660527
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.30326609306310714,
+          "direction": [
+            0.0,
+            0.22591912251625337,
+            -0.9741460619853093
+          ],
+          "layer": "pile",
+          "length_m": 0.004277190453074448,
+          "length_scale": 0.9598097367313326,
+          "normal": [
+            -0.2154793669048204,
+            0.6314004294334067,
+            0.7449175391609514
+          ],
+          "position": [
+            0.08698908239603043,
+            -0.0011596258264034986,
+            0.3642679452896118
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2456,
+          "root_inset_m": 0.0002138595226537224,
+          "source_vertex_index": 2777,
+          "triangle_index": 29087,
+          "width_m": 0.006923359050142351
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003881555816371047,
+          "length_scale": 0.95,
+          "normal": [
+            0.884357663273249,
+            -0.14389230832669234,
+            0.44407941521117
+          ],
+          "position": [
+            0.08662707358598709,
+            -0.02378060854971409,
+            0.16103065013885498
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2479,
+          "root_inset_m": 0.00019407779081855235,
+          "source_vertex_index": 38792,
+          "triangle_index": 29330,
+          "width_m": 0.0066637540522366725
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.3154314910033338,
+          "direction": [
+            0.0,
+            0.181213722961518,
+            -0.9834437384062326
+          ],
+          "layer": "pile",
+          "length_m": 0.0038961296637608574,
+          "length_scale": 0.9334943919469942,
+          "normal": [
+            -0.3114049229885412,
+            -0.9245287764079838,
+            0.21971234724533992
+          ],
+          "position": [
+            0.09087545424699783,
+            -0.017061112448573112,
+            0.33475545048713684
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2503,
+          "root_inset_m": 0.00019480648318804289,
+          "source_vertex_index": 3311,
+          "triangle_index": 29524,
+          "width_m": 0.006549041958362634
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0038916688057892106,
+          "length_scale": 0.95,
+          "normal": [
+            0.7538009306836138,
+            -0.6567071098423906,
+            -0.022801946911880124
+          ],
+          "position": [
+            0.09292741864919662,
+            -0.07547910511493683,
+            0.2480311244726181
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2527,
+          "root_inset_m": 0.00019458344028946053,
+          "source_vertex_index": 2229,
+          "triangle_index": 29755,
+          "width_m": 0.006769684702726604
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.3170210697142458,
+          "direction": [
+            0.0,
+            0.19750248915812213,
+            -0.9803023853772599
+          ],
+          "layer": "tuft",
+          "length_m": 0.0061224963134873245,
+          "length_scale": 0.9389887158133726,
+          "normal": [
+            -0.13821152590771377,
+            -0.8762921810232515,
+            0.46152961723357944
+          ],
+          "position": [
+            0.09508206695318222,
+            -0.020320363342761993,
+            0.32946664094924927
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2550,
+          "root_inset_m": 0.0003061248156743662,
+          "source_vertex_index": 3333,
+          "triangle_index": 30008,
+          "width_m": 0.0034924456083343393
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0036465333845150934,
+          "length_scale": 0.95,
+          "normal": [
+            0.9225101218841034,
+            -0.36688431094802954,
+            0.11987901151396987
+          ],
+          "position": [
+            0.09540671855211258,
+            -0.028834108263254166,
+            0.126840278506279
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2574,
+          "root_inset_m": 0.0001823266692257547,
+          "source_vertex_index": 38902,
+          "triangle_index": 30304,
+          "width_m": 0.0068891138673621575
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.004194404245156124,
+          "length_scale": 0.95,
+          "normal": [
+            0.8826317581778673,
+            -0.14068882790031095,
+            0.4485173721940807
+          ],
+          "position": [
+            0.09335215389728546,
+            -0.029159940779209137,
+            0.31405022740364075
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2598,
+          "root_inset_m": 0.0002097202122578062,
+          "source_vertex_index": 3887,
+          "triangle_index": 30533,
+          "width_m": 0.006904450688500986
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0038952704868287368,
+          "length_scale": 0.95,
+          "normal": [
+            0.9447441223263842,
+            -0.13876767636008375,
+            0.29698834207317504
+          ],
+          "position": [
+            0.0981617122888565,
+            -0.011497784405946732,
+            0.13623884320259094
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2621,
+          "root_inset_m": 0.00019476352434143684,
+          "source_vertex_index": 38937,
+          "triangle_index": 30690,
+          "width_m": 0.006985952807098953
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.319910157518956,
+          "direction": [
+            0.0,
+            0.22937201239717522,
+            -0.9733388309981628
+          ],
+          "layer": "tuft",
+          "length_m": 0.006371038377777393,
+          "length_scale": 0.950197776242255,
+          "normal": [
+            0.10068918665422869,
+            0.5956120432366256,
+            -0.7969366233537031
+          ],
+          "position": [
+            0.09748764336109161,
+            0.0054911281913518906,
+            0.31790661811828613
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2645,
+          "root_inset_m": 0.00031855191888886965,
+          "source_vertex_index": 3964,
+          "triangle_index": 30848,
+          "width_m": 0.003468386086013707
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0038517899059752015,
+          "length_scale": 0.95,
+          "normal": [
+            0.7928560589274298,
+            -0.49518901698227363,
+            0.3552000947102821
+          ],
+          "position": [
+            0.09953641891479492,
+            -0.0558934323489666,
+            0.2823471426963806
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2668,
+          "root_inset_m": 0.00019258949529876008,
+          "source_vertex_index": 3864,
+          "triangle_index": 31109,
+          "width_m": 0.00684136008275371
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.00385136686724548,
+          "length_scale": 0.95,
+          "normal": [
+            0.9423887667465225,
+            0.15772521391750757,
+            -0.2950019816961319
+          ],
+          "position": [
+            0.10084538906812668,
+            0.027875933796167374,
+            0.08836118876934052
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2692,
+          "root_inset_m": 0.000192568343362274,
+          "source_vertex_index": 40843,
+          "triangle_index": 31316,
+          "width_m": 0.006969137260787925
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.00690340628549194,
+          "length_scale": 0.95,
+          "normal": [
+            0.7905191128200466,
+            -0.03697799493028721,
+            0.6113200145236062
+          ],
+          "position": [
+            0.10876137763261795,
+            0.026076102629303932,
+            0.18822503089904785
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2716,
+          "root_inset_m": 0.000345170314274597,
+          "source_vertex_index": 40519,
+          "triangle_index": 31522,
+          "width_m": 0.003600262960991555
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.3086097340300077,
+          "direction": [
+            0.0,
+            0.278975334357402,
+            -0.9602982676336429
+          ],
+          "layer": "pile",
+          "length_m": 0.004284843398972088,
+          "length_scale": 0.9784756649249808,
+          "normal": [
+            0.34382302273216425,
+            0.8567949112908082,
+            0.38430223656061885
+          ],
+          "position": [
+            0.10667584836483002,
+            0.01182083785533905,
+            0.34719711542129517
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2739,
+          "root_inset_m": 0.0002142421699486044,
+          "source_vertex_index": 3664,
+          "triangle_index": 31813,
+          "width_m": 0.0065499040555603546
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0035547417124559407,
+          "length_scale": 0.95,
+          "normal": [
+            -0.6264733975551945,
+            -0.7717014328862176,
+            0.1095809319042777
+          ],
+          "position": [
+            0.10655838251113892,
+            -0.028422754257917404,
+            0.1032307893037796
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2763,
+          "root_inset_m": 0.00017773708562279704,
+          "source_vertex_index": 39243,
+          "triangle_index": 32272,
+          "width_m": 0.006768626761214248
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.004219414060531676,
+          "length_scale": 0.95,
+          "normal": [
+            0.6545605953137076,
+            0.701290221681508,
+            0.28238706067464575
+          ],
+          "position": [
+            0.11144265532493591,
+            0.05656430125236511,
+            0.1624303162097931
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2786,
+          "root_inset_m": 0.00021097070302658383,
+          "source_vertex_index": 40545,
+          "triangle_index": 32578,
+          "width_m": 0.006751797466452922
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006559160707348653,
+          "length_scale": 0.95,
+          "normal": [
+            -0.8243161800143485,
+            0.5651017861841517,
+            -0.03409995041101044
+          ],
+          "position": [
+            0.109101802110672,
+            0.02726779505610466,
+            0.09127321094274521
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2810,
+          "root_inset_m": 0.00032795803536743266,
+          "source_vertex_index": 40987,
+          "triangle_index": 32893,
+          "width_m": 0.0036597540783039435
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.003489501168356725,
+          "length_scale": 0.95,
+          "normal": [
+            0.9828961769267358,
+            -0.0915292695320319,
+            -0.1598045625185325
+          ],
+          "position": [
+            0.11077317595481873,
+            -0.03252787888050079,
+            0.24915648996829987
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2834,
+          "root_inset_m": 0.00017447505841783627,
+          "source_vertex_index": 4118,
+          "triangle_index": 33274,
+          "width_m": 0.006847162818925368
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.00395789584082164,
+          "length_scale": 0.95,
+          "normal": [
+            0.08258979444171716,
+            0.7837210101673131,
+            -0.6155975179257965
+          ],
+          "position": [
+            0.1159549430012703,
+            0.04180656746029854,
+            0.10418814420700073
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2857,
+          "root_inset_m": 0.00019789479204108203,
+          "source_vertex_index": 41008,
+          "triangle_index": 33617,
+          "width_m": 0.0067700585769133416
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.3076992185067399,
+          "direction": [
+            0.0,
+            0.2828758858501003,
+            -0.9591565217442465
+          ],
+          "layer": "pile",
+          "length_m": 0.003653892449641942,
+          "length_scale": 0.9807633168521677,
+          "normal": [
+            0.9467994464755123,
+            0.1987840785160054,
+            0.2530922722688429
+          ],
+          "position": [
+            0.11443819105625153,
+            0.0010249940678477287,
+            0.34710782766342163
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2881,
+          "root_inset_m": 0.0001826946224820971,
+          "source_vertex_index": 3045,
+          "triangle_index": 34058,
+          "width_m": 0.007090171437564084
+        },
+        {
+          "barycentric": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0041820698157146435,
+          "length_scale": 0.95,
+          "normal": [
+            0.7571907113309548,
+            0.6047804411413671,
+            0.24678501714442894
+          ],
+          "position": [
+            0.12389089167118073,
+            0.04817643016576767,
+            0.14911581575870514
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2905,
+          "root_inset_m": 0.00020910349078573218,
+          "source_vertex_index": 40597,
+          "triangle_index": 34547,
+          "width_m": 0.006736879917928494
+        },
+        {
+          "barycentric": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.007259200002873144,
+          "length_scale": 0.95,
+          "normal": [
+            0.5367534281848234,
+            0.6978023209825227,
+            -0.4743075775941639
+          ],
+          "position": [
+            0.12683089077472687,
+            0.03592497110366821,
+            0.10231639444828033
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2928,
+          "root_inset_m": 0.00036296000014365723,
+          "source_vertex_index": 41068,
+          "triangle_index": 34939,
+          "width_m": 0.0037294874501598504
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.004131031004011841,
+          "length_scale": 0.95,
+          "normal": [
+            0.6886945879025054,
+            -0.6142700835752077,
+            0.38519089944896867
+          ],
+          "position": [
+            0.13149979710578918,
+            -0.016178688034415245,
+            0.12453938275575638
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2952,
+          "root_inset_m": 0.00020655155020059203,
+          "source_vertex_index": 39592,
+          "triangle_index": 35337,
+          "width_m": 0.006773945760913773
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "pile",
+          "length_m": 0.0035075605605780972,
+          "length_scale": 0.95,
+          "normal": [
+            0.8174837984760762,
+            0.28989515265548105,
+            -0.49767563703277806
+          ],
+          "position": [
+            0.13671334087848663,
+            0.011821217834949493,
+            0.088791124522686
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2975,
+          "root_inset_m": 0.00017537802802890487,
+          "source_vertex_index": 39643,
+          "triangle_index": 35506,
+          "width_m": 0.006922037744033562
+        },
+        {
+          "barycentric": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "comb": 0.32,
+          "direction": [
+            0.0,
+            0.2290393337255473,
+            -0.9734171683335759
+          ],
+          "layer": "tuft",
+          "length_m": 0.006788694219632178,
+          "length_scale": 0.95,
+          "normal": [
+            0.9993413831547804,
+            0.03299494683765993,
+            0.015104085456285546
+          ],
+          "position": [
+            0.14380080997943878,
+            0.004732938017696142,
+            0.11119751632213593
+          ],
+          "root_binding_kind": "source-vertex",
+          "root_index": 2999,
+          "root_inset_m": 0.00033943471098160893,
+          "source_vertex_index": 39733,
+          "triangle_index": 35761,
+          "width_m": 0.003504410139204309
+        }
+      ],
+      "root_summary": {
+        "binding_archive": {
+          "bytes": 193054,
+          "export_correspondence": {
+            "attribute": "_AVATAR_FUR_VERTEX_ID",
+            "coat_node": "PortableCoat_0",
+            "coat_vertex_count": 18000,
+            "policy": "portable-fur-source-ids-v1",
+            "source_node": "Mesh_0",
+            "source_triangle_count": 62117,
+            "source_vertex_count": 50004
+          },
+          "path": "portable-root-bindings/PortableCoat_0.npz",
+          "root_inset_convention": "surface_root_minus_bottom_edge_midpoint",
+          "roots": 3000,
+          "schema_version": 2,
+          "sha256": "edd5a6ce097e9621f4d1c4828a5524338852f224885e52de27bc9956c9545aaf",
+          "space": "blender_local_z_up_meters"
+        },
+        "binding_selection": {
+          "allocation_policy": "Hamilton largest remainder; uniform wins ties; when possible give each nonempty domain one root",
+          "canonical_weight_classes": 17122,
+          "capacity_reallocation": false,
+          "count_reduction": false,
+          "domains": [
+            {
+              "binding_kind": "uniform-skin-interior",
+              "eligible_area": 0.011768230874558156,
+              "eligible_triangles": 1781,
+              "expected_count": 141.53741736594887,
+              "hamilton_count": 142,
+              "resolved_count": 142
+            },
+            {
+              "binding_kind": "source-vertex",
+              "eligible_area": 0.2376689376191499,
+              "eligible_triangles": 33990,
+              "expected_count": 2858.462582634051,
+              "hamilton_count": 2858,
+              "resolved_count": 2858,
+              "unique_vertex_capacity": 25054
+            }
+          ],
+          "eligible_triangles": 35771,
+          "excluded_degenerate_triangles": 0,
+          "ignored_zero_weight_entries": 0,
+          "maximum_positive_influences": 4,
+          "minimum_domain_adjustment": null,
+          "minimum_triangle_area_exclusive": 1e-14,
+          "normalization_policy": "sort positive named influences; divide by math.fsum; exact tuple equality, no cutoff/tolerance",
+          "ordering_policy": "original triangle index; stable draw/corner order within each face",
+          "policy": "exact-skin-domain-roots-v1",
+          "referenced_vertices": 26093,
+          "requested_roots": 3000,
+          "seed": 2209117,
+          "selected_roots": 3000,
+          "source_attributes_modified": false,
+          "source_triangles": 35771,
+          "source_vertices": 50004,
+          "uniform_sampling_policy": "one seeded draw per cumulative-area stratum; open barycentric draws",
+          "varying_sampling_policy": "area-weighted-source-vertices-v1"
+        },
+        "eligible_area_m2": 0.24943716849370817,
+        "length_clamped": 0,
+        "length_range_m": [
+          0.0031508534993452356,
+          0.007445728588435088
+        ],
+        "length_scale_range": [
+          0.8308828502003847,
+          0.9961380218937779
+        ],
+        "maximum_sample_records": 128,
+        "pile_cards": 2000,
+        "regional_flow": true,
+        "root_color_source": "Exact emitter triangle UV callback; linear RGB constant per card",
+        "root_placement": "skin-consistent-v1",
+        "roots": 3000,
+        "sample_records": 128,
+        "tuft_cards": 1000,
+        "width_clamped": 0,
+        "width_range_m": [
+          0.0034200637024190705,
+          0.007139734878303557
+        ]
+      },
+      "sample_root_color": true,
+      "sampling": {
+        "borrowed_pixel_buffer_bytes": 268435456,
+        "buffer_lifetime": "Released when portable_coat returns, before native grooming",
+        "flow_bounds_local": {
+          "min": [
+            -0.14380080997943878,
+            -0.12301573157310486,
+            0.0
+          ],
+          "span": [
+            0.28760161995887756,
+            0.24603146314620972,
+            0.3799999952316284
+          ]
+        },
+        "flow_bounds_scope": "Entire rest emitter, identical to native groom copy",
+        "output_color_space": "linear RGB after per-texel sRGB decode and bilinear filtering",
+        "sampling_policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+        "sampling_triangles": 35771,
+        "source_contract": {
+          "coordinates": "Blender UVs paired with bottom-up image rows",
+          "extension": "REPEAT",
+          "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+          "interpolation": "Linear",
+          "material_slots": [
+            1,
+            4
+          ],
+          "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+          "render_uv_layer": "UVMap",
+          "sampled_uv_layer": "UVMap"
+        },
+        "source_pixel_interpretation": "Existing encoded-sRGB image.pixels convention; bottom-up rows",
+        "texture_dimensions": [
+          4096,
+          4096
+        ],
+        "uv_source": "Actual active UV corners of each selected loop triangle; never first-loop vertex UV"
+      },
+      "vertices": 18000
+    }
+  ],
+  "portable_fur_build_order": "Tuft cards and borrowed root-color buffer completed before native grooming",
+  "portable_fur_export_budget": {
+    "base_export_vertices": 50004,
+    "cards": 3000,
+    "exported_corners_per_card": 12,
+    "limit": 100000,
+    "maximum_cards": 3825,
+    "projected_max_vertices": 90100,
+    "reserve_vertices": 4096,
+    "scope": "Conservative corner allowance, not measured export size or visible fur coverage"
+  },
+  "portable_fur_identity": {
+    "attachment_verified": false,
+    "attribute": "_AVATAR_FUR_VERTEX_ID",
+    "coats": [
+      {
+        "node": "PortableCoat_0",
+        "roots": 3000,
+        "vertices": 18000
+      }
+    ],
+    "export_attribute_type": "SCALAR",
+    "export_attributes": true,
+    "export_component_type": 5126,
+    "identity_scope": "IDs are local to each named mesh; bottom card endpoints are 6*r and 6*r+1",
+    "native_attribute_domain": "POINT",
+    "native_attribute_type": "INT",
+    "policy": "portable-fur-source-ids-v1",
+    "recorded_roots": 3000,
+    "schema_version": 1,
+    "source_node": "Mesh_0",
+    "source_skin_restoration_performed": false,
+    "source_triangle_count": 62117,
+    "source_vertex_count": 50004,
+    "space": "applied_rest_Blender_XYZ_meters"
+  },
+  "review_views": [
+    {
+      "path": "views/front.png",
+      "resolution": 720,
+      "sha256": "baba46d70398943245bde0f0a374168e6d08742aca94706b5ac1f6477ad1613f",
+      "view": "front"
+    },
+    {
+      "path": "views/side.png",
+      "resolution": 720,
+      "sha256": "369c713f12a4ec3201dfa2a727b72693151e6b44b8d399447d15310700a53f07",
+      "view": "side"
+    },
+    {
+      "path": "views/back.png",
+      "resolution": 720,
+      "sha256": "21e48835ffd2947d801cdd93dab37bb9f33ac84c06fd127b288b0284925f2fdb",
+      "view": "back"
+    },
+    {
+      "path": "views/three_quarter.png",
+      "resolution": 720,
+      "sha256": "2cac3354c039b0d66fa7afcf2a021d473a9395d730321d0d55157b35ab95ad2c",
+      "view": "three_quarter"
+    }
+  ],
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.14380080997943878,
+      0.12301573157310486,
+      0.3799999952316284
+    ],
+    "min": [
+      -0.14380080997943878,
+      -0.12301573157310486,
+      0.0
+    ]
+  },
+  "source_color_sampling": {
+    "exact_root_contract": true,
+    "required_by": [
+      "groom",
+      "portable_fur",
+      "surface_profiles"
+    ],
+    "sampled_vertices": 50004,
+    "scope": "CPU source-color selection sampling; importer, exporter and renderer image handling is separate.",
+    "selection_sampling_calls": 1,
+    "source_image": "Image_0",
+    "status": "sampled"
+  },
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "source_unchanged": true,
+  "states": [
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            38317,
+            38323
+          ],
+          "endpoint_influences": [
+            {
+              "arm_l_lower": 0.2785860598087311,
+              "arm_l_upper": 0.18692715466022491,
+              "hand_l": 0.27576273679733276,
+              "spine": 0.25872403383255005
+            },
+            {
+              "arm_r_lower": 0.27565133571624756,
+              "arm_r_upper": 0.23481938242912292,
+              "hand_r": 0.2541639506816864,
+              "spine": 0.23536533117294312
+            }
+          ],
+          "excess_length": 0.07448626390784112,
+          "posed_length": 0.08314640430641554,
+          "rest_length": 0.008660140398574424,
+          "rest_normalized_bounds": [
+            [
+              0.5032773897932957,
+              0.12422030257359808,
+              0.35206770083863737
+            ],
+            [
+              0.5204609445666455,
+              0.1293433449870546,
+              0.3704860852955026
+            ]
+          ],
+          "second": 2.0,
+          "stretch_ratio": 9.601045765967324
+        },
+        {
+          "endpoint_indices": [
+            38314,
+            38323
+          ],
+          "endpoint_influences": [
+            {
+              "arm_l_lower": 0.28310444951057434,
+              "arm_l_upper": 0.22121942043304443,
+              "hand_l": 0.2563368082046509,
+              "spine": 0.23933930695056915
+            },
+            {
+              "arm_r_lower": 0.27565133571624756,
+              "arm_r_upper": 0.23481938242912292,
+              "hand_r": 0.2541639506816864,
+              "spine": 0.23536533117294312
+            }
+          ],
+          "excess_length": 0.06907509169767617,
+          "posed_length": 0.07884784514248072,
+          "rest_length": 0.009772753444804546,
+          "rest_normalized_bounds": [
+            [
+              0.4936432896863717,
+              0.13520692885641794,
+              0.3858167530463464
+            ],
+            [
+              0.5204609445666455,
+              0.1293433449870546,
+              0.3704860852955026
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 8.0681299889335
+        },
+        {
+          "endpoint_indices": [
+            41523,
+            41549
+          ],
+          "endpoint_influences": [
+            {
+              "arm_l_lower": 0.24909596145153046,
+              "hand_l": 0.300966739654541,
+              "hand_r": 0.19704551994800568,
+              "spine": 0.25289177894592285
+            },
+            {
+              "arm_r_lower": 0.3053111135959625,
+              "arm_r_upper": 0.17764388024806976,
+              "hand_r": 0.35872524976730347,
+              "spine": 0.15831974148750305
+            }
+          ],
+          "excess_length": 0.06882452744129468,
+          "posed_length": 0.07591108568907202,
+          "rest_length": 0.007086558247777341,
+          "rest_normalized_bounds": [
+            [
+              0.5081566113906301,
+              0.12207169061489834,
+              0.2852625592478019
+            ],
+            [
+              0.5327618071607862,
+              0.12358529751148514,
+              0.28509905821522985
+            ]
+          ],
+          "second": 2.0,
+          "stretch_ratio": 10.711982183012623
+        },
+        {
+          "endpoint_indices": [
+            41522,
+            41549
+          ],
+          "endpoint_influences": [
+            {
+              "arm_l_lower": 0.22269703447818756,
+              "hand_l": 0.2906782031059265,
+              "hand_r": 0.23860420286655426,
+              "spine": 0.24802054464817047
+            },
+            {
+              "arm_r_lower": 0.3053111135959625,
+              "arm_r_upper": 0.17764388024806976,
+              "hand_r": 0.35872524976730347,
+              "spine": 0.15831974148750305
+            }
+          ],
+          "excess_length": 0.0673420128980004,
+          "posed_length": 0.0756580834347618,
+          "rest_length": 0.008316070536761394,
+          "rest_normalized_bounds": [
+            [
+              0.5134283094911779,
+              0.12536524374334226,
+              0.26886671334651535
+            ],
+            [
+              0.5327618071607862,
+              0.12358529751148514,
+              0.28509905821522985
+            ]
+          ],
+          "second": 2.0,
+          "stretch_ratio": 9.097816462752856
+        }
+      ],
+      "deformation_rest_sha256": "bb773aec26ff6931656d92d0aace335ea38b3aa81513f981c2f141c635994924",
+      "deformation_samples_measured": 8,
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        36.0,
+        48.0,
+        60.0,
+        72.0,
+        84.0,
+        96.0
+      ],
+      "id": "toy_dance",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes_bounded_pose_error",
+      "seconds": [
+        0.0,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0
+      ]
+    }
+  ],
+  "surface_profiles": {
+    "base_color_textures_preserved": true,
+    "faces_reassigned": 62117,
+    "geometry_uv_skin_unchanged": true,
+    "new_material_count": 4,
+    "precedence": "last_matching_profile_wins",
+    "profiles": [
+      {
+        "matched_faces": 62117,
+        "material_copies": [
+          {
+            "material": "Material_0__surface_base_plush",
+            "new_slot": 1,
+            "normal_map_nodes": 1,
+            "removed_input_links": {
+              "metallic": 1,
+              "normal_strength": 0,
+              "roughness": 1
+            },
+            "selected_faces": 39885,
+            "source_material": "Material_0",
+            "source_slot": 0,
+            "texture_images": [
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "Image_0",
+                "node": "Image Texture"
+              },
+              {
+                "dimensions": [
+                  2048,
+                  2048
+                ],
+                "image": "Image_1",
+                "node": "Image Texture.001"
+              },
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "normal",
+                "node": "Image Texture.002"
+              }
+            ]
+          }
+        ],
+        "name": "base_plush",
+        "selected_faces": 39885,
+        "settings": {
+          "metallic": 0,
+          "normal_strength": 0.2,
+          "roughness": 0.78
+        }
+      },
+      {
+        "matched_faces": 678,
+        "material_copies": [
+          {
+            "material": "Material_0__surface_eyes_gloss",
+            "new_slot": 2,
+            "normal_map_nodes": 1,
+            "removed_input_links": {
+              "metallic": 1,
+              "normal_strength": 0,
+              "roughness": 1
+            },
+            "selected_faces": 678,
+            "source_material": "Material_0",
+            "source_slot": 0,
+            "texture_images": [
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "Image_0",
+                "node": "Image Texture"
+              },
+              {
+                "dimensions": [
+                  2048,
+                  2048
+                ],
+                "image": "Image_1",
+                "node": "Image Texture.001"
+              },
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "normal",
+                "node": "Image Texture.002"
+              }
+            ]
+          }
+        ],
+        "name": "eyes_gloss",
+        "selected_faces": 678,
+        "settings": {
+          "metallic": 0,
+          "normal_strength": 0.1,
+          "roughness": 0.08
+        }
+      },
+      {
+        "matched_faces": 275,
+        "material_copies": [
+          {
+            "material": "Material_0__surface_nose_satin",
+            "new_slot": 3,
+            "normal_map_nodes": 1,
+            "removed_input_links": {
+              "metallic": 1,
+              "normal_strength": 0,
+              "roughness": 1
+            },
+            "selected_faces": 275,
+            "source_material": "Material_0",
+            "source_slot": 0,
+            "texture_images": [
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "Image_0",
+                "node": "Image Texture"
+              },
+              {
+                "dimensions": [
+                  2048,
+                  2048
+                ],
+                "image": "Image_1",
+                "node": "Image Texture.001"
+              },
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "normal",
+                "node": "Image Texture.002"
+              }
+            ]
+          }
+        ],
+        "name": "nose_satin",
+        "selected_faces": 275,
+        "settings": {
+          "metallic": 0,
+          "normal_strength": 0.1,
+          "roughness": 0.25
+        }
+      },
+      {
+        "matched_faces": 21279,
+        "material_copies": [
+          {
+            "material": "Material_0__surface_dragon_matte_satin",
+            "new_slot": 4,
+            "normal_map_nodes": 1,
+            "removed_input_links": {
+              "metallic": 1,
+              "normal_strength": 0,
+              "roughness": 1
+            },
+            "selected_faces": 21279,
+            "source_material": "Material_0",
+            "source_slot": 0,
+            "texture_images": [
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "Image_0",
+                "node": "Image Texture"
+              },
+              {
+                "dimensions": [
+                  2048,
+                  2048
+                ],
+                "image": "Image_1",
+                "node": "Image Texture.001"
+              },
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "normal",
+                "node": "Image Texture.002"
+              }
+            ]
+          }
+        ],
+        "name": "dragon_matte_satin",
+        "selected_faces": 21279,
+        "settings": {
+          "metallic": 0,
+          "normal_strength": 0.25,
+          "roughness": 0.55
+        }
+      }
+    ],
+    "selection": "Normalized world-bound face centroids; any region or all when empty. Mean sampled vertex RGB; brightness=channel mean, chroma=max-min. Brightness upper bound is exclusive.",
+    "source_materials_unchanged": true,
+    "texture_scope": "Existing image datablocks and UV routing are reused unchanged; no repainting, resampling, new resolution or added texture detail."
+  },
+  "weft_runtime_verified": false,
+  "world_rest_position_max_error": 0.0
+}

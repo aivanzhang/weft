@@ -1,0 +1,49 @@
+{
+  "batches": [
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -B -m unittest test_rejected_review_images.RejectedReviewImagesTests -q",
+      "exit_code": 0,
+      "scope": "Before adding eighth typed-receipt case",
+      "seconds": 0.082,
+      "tests": 7
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -B -m unittest test_repair_visual_inputs.RepairVisualInputsTests test_rejected_review_images.RejectedReviewImagesTests.test_valid_typed_paid_answer_matches_unchanged_canonical_receipt -q",
+      "exit_code": 0,
+      "seconds": 0.195,
+      "tests": 11
+    }
+  ],
+  "classification": "analytic_fixture_tests_not_generated_assets",
+  "created_local": "2026-11-02T17:30:18.213516-08:00",
+  "earlier_failure": {
+    "reason": "Fixture reused production write-once JSON helper on existing temporary files; FileExistsError before assertions. Replaced only fixture writer; production helper unchanged.",
+    "tests": 7
+  },
+  "memory_measurement": "not sampled",
+  "native_calls": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 14156,
+      "path": "avatar_assets/repair_visual_inputs.py",
+      "sha256": "142488c2a181637a76643e484ffc1f3bdd795968905a474ffc5649ee291c2934",
+      "snapshot": "sources/repair_visual_inputs.py"
+    },
+    {
+      "bytes": 6028,
+      "path": "tests/test_rejected_review_images.py",
+      "sha256": "8ff3a747e2687d6a5dc63953231c9be8351811228fe45d9497cafedd7fb6e11f",
+      "snapshot": "sources/test_rejected_review_images.py"
+    },
+    {
+      "bytes": 10199,
+      "path": "tests/test_repair_visual_inputs.py",
+      "sha256": "518cfbb4e59f79ea269aab8adf65c81d855c53afe4b882dc5d3206e7c12e064a",
+      "snapshot": "sources/test_repair_visual_inputs.py"
+    }
+  ],
+  "status": "passed",
+  "unique_tests": 18
+}

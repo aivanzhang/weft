@@ -1,12 +1,14 @@
 """Analytic stage receipts and real coordinator control flow; no avatar/model calls."""
 
 from contextlib import ExitStack
+from copy import deepcopy
 import json
 from pathlib import Path
 import shutil
 import tempfile
 import time
 import unittest
+from typed_review_fixtures import review_fixture, wire_review
 from unittest.mock import Mock, patch
 
 from avatar_assets.pipeline import Pipeline, PipelineCancelled
@@ -69,16 +71,22 @@ class PipelineProgressTests(unittest.TestCase):
         self.assertEqual((stage['id'],stage['status']),('author:1','unsupported'))
         self.assertIsNone(self.worker._active_progress)
 
-    def _coordinator(self, review_error=None):
+    def _coordinator(self, review_error=None, invalid_wire=None):
         source=self.root/'fixture.glb';source.write_bytes(b'ANALYTIC, NOT A RENDERABLE MODEL')
         source_hash=sha256(source)
         self.worker.request={'max_repairs':1,'media_spec':{'size':128,'portrait':128,'seconds':1,'samples':1}}
         write_json(self.root/'request.json',self.worker.request)
+        self.worker.continuation=None
+        self.worker._author_preflight=Mock(return_value={'status':'not_applicable'})
         self.worker.guard=Mock();self.worker._plan=Mock(return_value={'status':'ready'})
         self.worker._source=Mock(return_value={'path':str(source),'sha256':source_hash})
         self.worker.agents=Mock()
-        self.worker.agents.call.side_effect=[{'status':'ready'},{'status':'ready'},
-            {'verdict':'accept','state_reviews':[],'limitations':[]}]
+        canonical=review_fixture('accept',evidence_ids=['front'])
+        raw=wire_review(canonical) if invalid_wire is None else deepcopy(invalid_wire)
+        raw_before=deepcopy(raw)
+        raw_path=self.root/'agents/reviewer-1/answer.json';raw_path.parent.mkdir(parents=True)
+        write_json(raw_path,raw);raw_hash=sha256(raw_path)
+        self.worker.agents.call.side_effect=[{'status':'ready'},{'status':'ready'},raw]
         self.worker._action_audit=Mock(side_effect=[{'passed':False,'states':['fixture torso moves']},
                                                   {'passed':True,'states':[]}])
         self.worker._deformation=Mock(return_value={'passed':True,'provenance':'analytic_fixture'})
@@ -86,7 +94,7 @@ class PipelineProgressTests(unittest.TestCase):
                     'provenance':'analytic_fixture'}
         self.worker._portable_attachment=Mock(return_value=attachment)
         self.worker._attachment_summary=Mock(return_value={**attachment,'evidence':{'manifest_sha256':'0'*64}})
-        self.worker._full_evidence=Mock(return_value=([],{}))
+        self.worker._full_evidence=Mock(return_value=([{'id':'front','path':'analytic.png','state_ids':[]}],{}))
         self.worker._deliver=Mock(return_value={'status':'complete','provenance':'analytic_fixture'})
 
         def pack(folder,create):
@@ -112,19 +120,21 @@ class PipelineProgressTests(unittest.TestCase):
 
         self.worker._pack=pack
         with ExitStack() as stack:
+            stack.enter_context(patch('avatar_assets.repair_visual_inputs.author_base_images',return_value=[Path('/analytic/guide-'+str(i)+'.png') for i in range(3)]))
+            stack.enter_context(patch('avatar_assets.repair_visual_inputs.author_images',side_effect=lambda base,repair:base+repair))
             for target,value in (
                 ('avatar_assets.quality_policy.build_quality_policy',{}),
                 ('avatar_assets.quality_policy.evaluate_quality_evidence',{'passed':True,'missing':[]}),
                 ('avatar_assets.pipeline_prompts.author_prompt','Analytic author'),
                 ('avatar_assets.pipeline_prompts.finish_config',{}),
-                ('avatar_assets.pipeline_prompts.critic_prompt','Analytic critic'),
-                ('avatar_assets.pipeline_prompts.critic_schema',{}),
+                ('avatar_assets.pipeline_prompts.typed_critic_prompt','Analytic critic'),
+                ('avatar_assets.pipeline_prompts.typed_critic_schema',{'analytic':'typed_schema_v2'}),
                 ('avatar_assets.pipeline_prompts.validate_review',None)):
                 stack.enter_context(patch(target,return_value=value))
             if review_error:
                 stack.enter_context(patch('avatar_assets.pipeline_prompts.validate_review',side_effect=ValueError(review_error)))
             result=self.worker.run(execute=True)
-            self.assertEqual(result['status'],'unsupported' if review_error else 'complete',result.get('findings'))
+            self.assertEqual(result['status'],'unsupported' if review_error or invalid_wire is not None else 'complete',result.get('findings'))
         states={item['id']:item['status'] for item in _stage_progress(self.root,'complete')}
         self.assertEqual(states['action_audit:0'],'failed')
         self.assertEqual(states['attempt:0'],'rejected')
@@ -134,9 +144,16 @@ class PipelineProgressTests(unittest.TestCase):
         self.assertEqual(self.worker._portable_attachment.call_count,2)
         self.assertEqual(self.worker._attachment_summary.call_count,2)
         self.assertEqual([call.args[0] for call in self.worker._portable_attachment.call_args_list],[0,1])
-        self.assertEqual(states['reviewer:1'],'unsupported' if review_error else 'accept')
+        self.assertEqual(states['reviewer:1'],'unsupported' if review_error or invalid_wire is not None else 'accept')
         self.assertNotIn('running',states.values())
         self.assertEqual(self.worker.agents.call.call_count,3)
+        self.assertEqual(self.worker.agents.call.call_args.args[2],{'analytic':'typed_schema_v2'})
+        self.assertEqual(raw,raw_before);self.assertEqual(sha256(raw_path),raw_hash)
+        if not review_error and invalid_wire is None:
+            self.assertEqual(read_json(self.root/'review-1.json')['review'],canonical)
+            self.assertNotIn('schema_version',read_json(self.root/'review-1.json')['review'])
+        else:
+            self.assertFalse((self.root/'review-1.json').exists())
         return result
 
     def test_real_coordinator_repairs_audit_and_closes_each_completed_stage(self):
@@ -147,6 +164,19 @@ class PipelineProgressTests(unittest.TestCase):
         self.assertEqual(result['failure_kind'],'review_contract')
         self.worker._deliver.assert_not_called()
         self.assertEqual(read_json(self.root/'unsupported.json')['status'],'unsupported')
+
+
+    def test_malformed_typed_review_is_terminal_without_legacy_fallback_or_new_call(self):
+        malformed=wire_review(review_fixture('accept',evidence_ids=['front']))
+        del malformed['checks']['deformation']
+        result=self._coordinator(invalid_wire=malformed)
+        self.assertEqual(result['failure_kind'],'review_contract')
+        self.worker._deliver.assert_not_called()
+
+    def test_new_reviewer_call_does_not_accept_legacy_wire_shape(self):
+        result=self._coordinator(invalid_wire=review_fixture('accept',evidence_ids=['front']))
+        self.assertEqual(result['failure_kind'],'review_contract')
+        self.worker._deliver.assert_not_called()
 
 
 class StageSnapshotTests(unittest.TestCase):

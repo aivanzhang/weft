@@ -3,6 +3,7 @@ from copy import deepcopy
 from pathlib import Path
 import tempfile
 import unittest
+from typed_review_fixtures import review_fixture, wire_review
 from unittest.mock import Mock, patch
 
 from avatar_assets import pipeline
@@ -57,8 +58,8 @@ class VisualHistoryMemoryTests(unittest.TestCase):
             worker._pack=Mock(side_effect=pack)
             portable=root/'portable';portable.mkdir();write_json(portable/'manifest.json',{'clips':[]})
             worker._media=Mock(return_value=(root/'media',portable))
-            review={'verdict':'repair','summary':'Analytic portable flecks need adjustment'}
-            sequence=[{'status':'ready'},{'status':'ready'},review] if native_first else [{'status':'ready'},review,{'status':'ready'}]
+            review=review_fixture()
+            sequence=[{'status':'ready'},{'status':'ready'},wire_review(review)] if native_first else [{'status':'ready'},wire_review(review),{'status':'ready'}]
             worker.agents=Mock();worker.agents.call.side_effect=sequence+[
                 {'status':'unsupported','reason':'Analytic stop after checking repaired prompt'}]
             with patch('avatar_assets.repair_visual_inputs.author_base_images',return_value=[Path('/analytic/guide-'+str(i)+'.png') for i in range(3)]), \
@@ -70,8 +71,8 @@ class VisualHistoryMemoryTests(unittest.TestCase):
                  patch('avatar_assets.pipeline_prompts.finish_config',return_value={'analytic':True}), \
                  patch('avatar_assets.pipeline_prompts.author_schema',return_value={}), \
                  patch('avatar_assets.pipeline_prompts.author_prompt',return_value='Analytic') as author_prompt, \
-                 patch('avatar_assets.pipeline_prompts.critic_prompt',return_value='Analytic'), \
-                 patch('avatar_assets.pipeline_prompts.critic_schema',return_value={}), \
+                 patch('avatar_assets.pipeline_prompts.typed_critic_prompt',return_value='Analytic'), \
+                 patch('avatar_assets.pipeline_prompts.typed_critic_schema',return_value={}), \
                  patch('avatar_assets.pipeline_prompts.validate_review'):
                 worker._run(False)
             prompts=author_prompt.call_args_list

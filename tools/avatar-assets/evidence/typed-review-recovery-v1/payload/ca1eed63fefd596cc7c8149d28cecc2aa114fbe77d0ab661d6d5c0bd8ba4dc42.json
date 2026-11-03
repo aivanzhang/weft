@@ -1,0 +1,133 @@
+{
+  "checks": [
+    {
+      "evidence_ids": [
+        "evidence-selected-reference",
+        "evidence-delivered-portrait",
+        "evidence-native-views",
+        "evidence-exported-views"
+      ],
+      "name": "identity",
+      "passed": true,
+      "reason": "Subject reads as the requested plush toy panda with black eye patches and a small green shoulder dragon companion. The delivered portrait and native/exported multiviews consistently show the same panda/dragon pairing and proportions (large head, compact toy body) without added props/clothing/scenery."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Native render matches the intended plush look: soft, short groomed fur with clean black/ivory boundaries, expressive eyes with catchlights, and a distinct green dragon with visible sculpted details (spines/wings/tail) that is not covered in panda fur."
+    },
+    {
+      "evidence_ids": [
+        "evidence-exported-views",
+        "evidence-motion-00",
+        "evidence-isolated-exported-toy_dance"
+      ],
+      "name": "appearance",
+      "passed": false,
+      "reason": "Exported representation does not match the requested “soft, neatly groomed short fur” look: it shows conspicuous sparse/spiky card-like tufts and patchy coverage over the panda (notably on head/body), producing a rough, stubbly silhouette and visible flecking rather than a continuous plush undercoat. These artifacts are prominent in exported multiview and during motion, making the exported avatar read lower-quality/less plush than native."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views"
+      ],
+      "name": "framing",
+      "passed": true,
+      "reason": "Full character (panda + perched dragon) is visible in front/side/back/three-quarter views for both native and exported. No extra props/clothing/text/pedestal/scenery are present."
+    }
+  ],
+  "limitations": [
+    "Motion evidence is a contact-sheet style sampling; it does not prove continuous-time collisions, ground contact, balance, or seamless looping across all frames (even if endpoints match).",
+    "Only one isolated ‘greatest_recorded_edge_stretch’ pose is provided per representation; localized deformation/clipping elsewhere in the clip could be missed."
+  ],
+  "required_repairs": [
+    "Fix exported fur/portable coat appearance to match the intended plush short-fur look: eliminate the obvious sparse spiky card tips and patchy coverage (especially on the panda head and torso). Target a denser, more even short pile with a cleaner silhouette and fewer visible individual card protrusions in exported views and during motion.",
+    "Re-check exported motion appearance after fur fix to ensure the panda surface does not show conspicuous bald flecks/patches or harsh card artifacts during the dance frames."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": [
+        "evidence-motion-00",
+        "evidence-isolated-native-toy_dance",
+        "evidence-isolated-exported-toy_dance",
+        "action-audit-toy_dance"
+      ],
+      "id": "toy_dance",
+      "meaning_passed": false,
+      "motion_passed": true,
+      "reason": "The clip shows real pose changes (sways/leans and some arm/head articulation). However, the requested “small whole-body hops” are not clearly readable as hops from the provided motion contact sheet; the feet appear largely planted with no obvious up/down hop moments visible at the sampled frames. Additionally, exported fur artifacts are prominent during the motion, harming the intended plush presentation even when the motion itself changes.",
+      "requirement_reviews": [
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "three_beats_rhythm",
+          "passed": true,
+          "reason": "Across the sampled frames, the panda alternates side-to-side leaning/weight shifts multiple times over the 4 seconds, reading as repeated beats rather than a single sway."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "hops_and_sways",
+          "passed": false,
+          "reason": "Side-to-side sways are visible, but the ‘small whole-body hops’ are not clearly readable as hops in the provided sampled frames; the motion looks primarily like leaning/swaying with minimal apparent vertical lift."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "arm_swings",
+          "passed": true,
+          "reason": "Both arms change pose in coordination with the side-to-side beats (hands/forearms shift position across the sampled times), reading as toy-like arm swinging rather than remaining static."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "head_tilts",
+          "passed": true,
+          "reason": "Head/neck orientation changes are visible across the sampled frames (gentle tilts accompanying the sways)."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "dragon_attached",
+          "passed": true,
+          "reason": "The green dragon remains perched on the shoulder throughout the sampled frames with no visible separation, flight, or drifting away; it follows the panda’s body movement."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "return_body_pose",
+          "passed": true,
+          "reason": "The final sampled frame visually matches the starting overall pose closely (body returns to the initial stance/orientation)."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "return_arm_pose",
+          "passed": true,
+          "reason": "Arms appear to return to their starting relaxed position by the end frame rather than holding a final gesture."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "return_head_pose",
+          "passed": true,
+          "reason": "Head appears to return near-neutral at the end, matching the starting orientation closely."
+        }
+      ]
+    }
+  ],
+  "summary": "Native appearance meets the plush panda + perched green dragon brief, but exported fur/portable coat renders with conspicuous spiky/sparse card artifacts and patchiness that break the requested soft, neatly groomed short-fur look. The toy dance shows readable sways/tilts and returns to start, but the required ‘small whole-body hops’ are not clearly readable from the provided motion evidence. Requires repair before acceptance.",
+  "verdict": "repair"
+}

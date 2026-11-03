@@ -1,0 +1,20 @@
+test_citations_bound_for_all_check_state_and_requirement_locations (test_typed_critic_contract.TypedCriticContractTests.test_citations_bound_for_all_check_state_and_requirement_locations) ... ok
+test_decoding_does_not_weaken_acceptance_or_repair_gates (test_typed_critic_contract.TypedCriticContractTests.test_decoding_does_not_weaken_acceptance_or_repair_gates) ... ok
+test_duplicate_legacy_failure_is_not_normalized_or_accepted (test_typed_critic_contract.TypedCriticContractTests.test_duplicate_legacy_failure_is_not_normalized_or_accepted) ... ok
+test_exact_roundtrip_fixed_order_and_detached_values (test_typed_critic_contract.TypedCriticContractTests.test_exact_roundtrip_fixed_order_and_detached_values) ... ok
+test_fixed_objects_are_closed_and_no_evidence_cannot_be_bound (test_typed_critic_contract.TypedCriticContractTests.test_fixed_objects_are_closed_and_no_evidence_cannot_be_bound) ... ok
+test_legacy_schema_and_bound_schema_are_unchanged_by_typed_calls (test_typed_critic_contract.TypedCriticContractTests.test_legacy_schema_and_bound_schema_are_unchanged_by_typed_calls) ... ok
+test_missing_unknown_and_wrong_version_fields_fail_closed (test_typed_critic_contract.TypedCriticContractTests.test_missing_unknown_and_wrong_version_fields_fail_closed) ... ok
+test_prompt_preserves_exact_evidence_and_failure_data (test_typed_critic_contract.TypedCriticContractTests.test_prompt_preserves_exact_evidence_and_failure_data) ... ok
+test_rejected_review_feedback_is_retained_without_synthesized_checks (test_typed_critic_contract.TypedCriticContractTests.test_rejected_review_feedback_is_retained_without_synthesized_checks) ... ok
+test_acceptance_is_bound_to_complete_named_evidence (test_pipeline_prompts.ReviewContractTests.test_acceptance_is_bound_to_complete_named_evidence) ... ok
+test_critic_prompt_preserves_independent_failure (test_pipeline_prompts.ReviewContractTests.test_critic_prompt_preserves_independent_failure) ... ok
+test_exact_requirement_evidence_cannot_be_replaced_by_state_summary (test_pipeline_prompts.ReviewContractTests.test_exact_requirement_evidence_cannot_be_replaced_by_state_summary) ... ok
+test_real_numeric_citations_are_allowed_without_invented_ids (test_pipeline_prompts.ReviewContractTests.test_real_numeric_citations_are_allowed_without_invented_ids) ... ok
+test_repair_and_unsupported_cannot_hide_as_acceptance (test_pipeline_prompts.ReviewContractTests.test_repair_and_unsupported_cannot_hide_as_acceptance) ... ok
+test_structured_schemas_are_closed_at_every_object (test_pipeline_prompts.ReviewContractTests.test_structured_schemas_are_closed_at_every_object) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.003s
+
+OK

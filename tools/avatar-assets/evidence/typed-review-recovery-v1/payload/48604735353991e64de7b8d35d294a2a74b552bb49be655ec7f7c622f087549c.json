@@ -1,0 +1,96 @@
+{
+  "checks": [
+    "finite normals/UV0/UV1/UV2/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "selected normal-map UV0/UV1/UV2 binding"
+  ],
+  "decoded_scalar_values": 736488,
+  "limitations": [
+    "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+    "This HD check does not change Weft's diffuse UV0-only contract; normal maps and extra UV sets remain unsupported there."
+  ],
+  "limits": {
+    "decoded_global_values": 2000000,
+    "decoded_surface_values": 1100000,
+    "file_bytes": 67108864,
+    "normal_map_uv_indices": [
+      0,
+      1,
+      2
+    ],
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "Material_0__surface_base_plush",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.2581024738954625e-07,
+      "normal_tangent_dot_error": 0.00013123603531917105,
+      "tangent_squared_length_error": 0.00014984448613208912,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 29458
+    },
+    {
+      "material": "Material_0__surface_eyes_gloss",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.0309761694647932e-07,
+      "normal_tangent_dot_error": 0.00011081035398063932,
+      "tangent_squared_length_error": 0.00013570455411837656,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 646
+    },
+    {
+      "material": "Material_0__surface_nose_satin",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.0627039631904154e-07,
+      "normal_tangent_dot_error": 0.00011962297256462584,
+      "tangent_squared_length_error": 0.00015471746468609382,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 259
+    },
+    {
+      "material": "Material_0__surface_dragon_matte_satin",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.1993754462101833e-07,
+      "normal_tangent_dot_error": 0.00012713460270319388,
+      "tangent_squared_length_error": 0.00015411612213256376,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 20582
+    },
+    {
+      "material": "PortableCoat_0_cutout_fur",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.2460824178338612e-07,
+      "normal_tangent_dot_error": 0.00014129816189223376,
+      "tangent_squared_length_error": 0.00013931004373568534,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 30887
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "ed4e963ef334cb9266400a3f914e48c6c1eb453ae355bfad81c12e2b5e168eb5",
+  "status": "validated_render_attributes",
+  "tangent_uv_derivation_verified": false,
+  "vertices": 81832,
+  "weft_runtime_verified": false
+}

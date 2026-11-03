@@ -1,0 +1,28 @@
+{
+  "bounds": {
+    "memory_mib": 512,
+    "output_mib": 16,
+    "seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/typed-critic-contract-tests-v1/check.py",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/typed-critic-contract-tests-v1"
+  ],
+  "scope": "Fixed reviewer transport tests and read-only rejection/reconstruction of saved malformed reviewer2; no provider/native/ledger work.",
+  "source_pins": {
+    "avatar_assets/pipeline_prompts.py": {
+      "bytes": 69258,
+      "sha256": "00efb4808be3ca82a25b346cae78dd4ac705da66a099a85ea0ee60075e0da935"
+    },
+    "tests/test_pipeline_prompts.py": {
+      "bytes": 22274,
+      "sha256": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+    },
+    "tests/test_typed_critic_contract.py": {
+      "bytes": 9196,
+      "sha256": "867b43cded3ed8896d2942f1f28b186c493ad0c222846f6326fec5bf395b9907"
+    }
+  }
+}

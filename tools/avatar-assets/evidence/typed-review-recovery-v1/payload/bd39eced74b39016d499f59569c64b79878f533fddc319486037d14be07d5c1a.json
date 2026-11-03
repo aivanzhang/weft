@@ -1,0 +1,58 @@
+{
+  "actual_witness_tradeoff": [
+    {
+      "current_observed_weights": {
+        "chest": 0.4723236560821533,
+        "hand_l": 0.17739534378051758,
+        "leg_l_lower": 0.1435357630252838,
+        "leg_l_upper": 0.20674525201320648
+      },
+      "fourth_nonfallback_weight": 0.12338941604921187,
+      "hypothetical_weights": {
+        "arm_l_lower": 0,
+        "chest": 0.9076016398060547,
+        "hand_l": 0.03211724786539537,
+        "leg_l_lower": 0.002435515592418766,
+        "leg_l_upper": 0.057845596736131225
+      },
+      "native_vertex_index": 46549,
+      "not_applied_to_any_asset": true
+    },
+    {
+      "current_observed_weights": {
+        "arm_l_lower": 0.144625723361969,
+        "chest": 0.48176005482673645,
+        "hand_l": 0.17948661744594574,
+        "leg_l_upper": 0.19412761926651
+      },
+      "fourth_nonfallback_weight": 0.11871018960941336,
+      "hypothetical_weights": {
+        "arm_l_lower": 0.008746979597266877,
+        "chest": 0.8994109870883455,
+        "hand_l": 0.03946952839644276,
+        "leg_l_lower": 0,
+        "leg_l_upper": 0.052372504917944776
+      },
+      "native_vertex_index": 46557,
+      "not_applied_to_any_asset": true
+    }
+  ],
+  "current_attempt_note": "Parent reports repair2 passed the unchanged deformation gate; no speculative weight change is needed for this observed failure. Final media/meaning remains parent-owned.",
+  "decision": "Do not implement or promote from this analysis; the ongoing automatic repair already cleared the measured gate.",
+  "future_minimum_touchpoints": [
+    "Explicit opt-in versioned weight_constraints policy; keep current default and historical config meaning unchanged.",
+    "Pure bounded weight helper plus native constrain_weights integration and measured mass-transfer reporting; no exporter format change is required.",
+    "Host finish validator, typed author contract and prompt, native snapshot/source pins need explicit support if implemented.",
+    "Tests: fourth/fifth rank crossing, tied weights, zero-fallback boundary, fewer-than-four nonfallbacks, finite normalized output with at most four positives, input immutability and model-independent motion displacement counterexample."
+  ],
+  "mathematical_policy": "For normalized finite nonnegative weights, let t be fourth-largest nonfallback weight (0 when fewer than four). Set each nonfallback weight to max(w-t,0); transfer all removed mass to the declared fallback.",
+  "properties": [
+    "At most three nonfallback weights remain positive, plus fallback; sum and nonnegativity are preserved in exact arithmetic.",
+    "The fourth order statistic, positive-part operation and mass transfer are continuous even across ties. This only proves continuity relative to continuous input weights.",
+    "The existing upstream authored skin top-4 selection is discontinuous; this local policy does not repair that separate boundary.",
+    "To avoid a new discontinuity at fallback weight zero, apply the rule even when fallback is initially zero. Conditionally enabling it only when a fifth positive weight appears is not continuous.",
+    "Always applying it changes some already-admitted four-bone rows with no removed constraint mass. The most symmetric four-way row becomes entirely fallback.",
+    "It changes motion: transferred mass follows the fallback rather than its original bones. Per-pose displacement is the sum of removed weights times fallback-versus-original transformed point differences. Quality/action gates must remain unchanged."
+  ],
+  "status": "read_only_option_not_implemented"
+}

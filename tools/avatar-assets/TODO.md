@@ -1,6 +1,96 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 2, 2026, 5:12 PM PST
+## Session handoff — November 02, 2026, 05:33 PM PST
+
+- **Actual website continuation is running**, job `45757c9565b545119553baca`,
+  observer **7212**, evidence `outputs/gpt52-panda-studio-live-v4`.
+  One Start, at most1,800s observer; do not duplicate or signal the worker.
+  Output `outputs/studio-45757c9565b545119553baca`;
+  request SHA `a44e2d2e20e8ac289662060b0751e0faa805a9ea87a680262cff2d0744455198`;
+  planID `e1fb12158bc5e12e61d3501f09716565e80d2031f2e07db953afbc8a1d2812a8`.
+- Actual website Retry→Prepare passed (`outputs/gpt52-panda-website-retry-v4`),
+  zero new planner calls, exact source/reference/intent, automatic recorded grant.
+  GPT-5.2 standard response, medium reasoning, 600s/call, seven calls/two repairs,
+  same$15 aggregate cap; second of three allowed lineage successors. No Meshy.
+- **All runtime changes frozen before preparation.** Typed critic requires exactly
+  identity/appearance/framing/deformation keys and decodes to the unchanged review
+  format. Original raw replies stay immutable. Same acceptance/evidence gates.
+  New continuation authenticates a rejected settled review and reproduces its
+  exact rejection using AST-equal saved/current validator semantics (never executes
+  old sources). It carries invalid data as `invalid_untrusted`, not a valid verdict.
+- Root image selection independently authenticates the paid images/model/source
+  and selects exported views, native views, motion, isolated exported pose. Invalid
+  votes cannot suppress evidence. Actual consumer proof:8total images,0.679s,
+  author prompt77,274B+1KiB allowance below128KiB. No paid call in this proof.
+  `outputs/rejected-review-image-consumer-proof-v1`, result SHA
+  `5c1973010615e20c63ff24a180c6bfdc95e8e8edc0672bfbbb08afdb74a8c572`.
+- Focused verification:59 pipeline methods,15 typed-critic/legacy methods,
+  18 continuation methods,18 image-consumer methods. Earlier stale/tamper-fixture
+  setup failures are retained separately; only fixtures changed, not validators.
+  Evidence folders: `typed-review-pipeline-tests-v1`, `typed-critic-contract-tests-v1`,
+  `rejected-review-continuation-tests-v1`, `rejected-review-image-tests-v1` under outputs.
+- Before this run: settled$5.174529, unknownholds$6.548016, conservative exposure
+  $11.722545; remaining$3.277455. Expected bounded nextwork$0.35–$1.20; every paid
+  call rechecks the cap, no transport retries/newcredits. Holds are not invoices.
+- **Next safe action:** observe session7212 through build/media/strict review;
+  verify actualbrowser delivery only if accepted. Parentd879 is unsupported,
+  not complete; its visible defects/malformed review remain preserved. This trial
+  keeps the dragon perched. No hands-off delivery accepted yet.
+- Last pushed checkpoint remains `b03a4e16985bb146813d23400c5c40860354bfef`.
+  Newreviewfixes await avatar-only save; evidence is frozen in
+  `evidence/typed-review-recovery-v1`, manifest SHA
+  `ec57f02fc9645dc16e1a10f07590aca7650dd35adf22fb8596b5011dd2fde61e`:259files,
+  18,885,976bytes; large editable/model/frame files remain preserved local hash
+  references, not full remote copies. No runtime edits while this job runs.
+  Preserve unrelatedWeft work. No deployment, Meta spend or new Meshy generation.
+
+## Historical handoff — November 02, 2026, 05:29 PM PST
+
+- **No live generation worker.** Website run `d8795ec6c273489da37954ab` ended
+  **unsupported** after739.185s, one Start; observer17883/browser/server exited,
+  no cancellation/signals, canonical lease empty. Output remains immutable.
+  Evidence `outputs/gpt52-panda-studio-live-v3/studio-live-test.json`.
+- Real progress: three native builds, automatic weight repairs, passing final
+  sampled deformation/action/portable-fur attachment gates, editable rigged GLB,
+  1600×1600 opaque portrait and96-frame720×720 H.264 silent4s dance at24fps.
+  Static fallback exists; loop is explicitly not certified. These are rejected
+  generated artifacts, **not an accepted delivery**. In the final pose sample,
+  the assistant also observed a conspicuous upper-belly point during the dance.
+- The final paid critic returned `repair` for patchy/spiky exported fur and hops
+  not clearly visible. It duplicated `appearance` and omitted `deformation`, so
+  validation correctly rejected it: `failure_kind=review_contract`,
+  `Reviewer response failed its evidence contract: Duplicate review check`.
+  Its malformed votes are not a valid review, approval or complete assessment.
+- **Fixes in progress, no new paid calls:** typed reviewer wire schema requires
+  exactly four named categories before decoding into the unchanged canonical
+  review. Continuation of rejected review data must authenticate all paid input,
+  media and native proofs and reproduce the rejection; invalid data stays marked
+  untrusted. Bound review images can be independently re-inspected without using
+  malformed votes to choose/suppress evidence. No scorer or old artifact edited.
+- Ownership: pipeline_contracts owns prompts/typed schema tests; openai_backend
+  owns pipeline caller/affected fixtures; api_studio_integration owns continuation
+  and tests; root owns repair_visual_inputs/tests and docs. Freeze all before new
+  website Retry→Prepare→Start. No duplicate current job or manual recipe edits.
+- Actual run cost **$0.644975** (four settled calls). Cumulative settled **$5.174529**,
+  unchanged unknown holds **$6.548016**, exposure **$11.722545**, remaining
+  **$3.277455** under existing **$15 total cap**. No new Meshy work. Expected next
+  bounded continuation approximately$0.35–$1.20; every call checks the cap.
+  Same source/reference/model/standing policy; one of three successors used.
+- Weight witness diagnosis reproduced native weights within7.23e-8: rank changes
+  at the hard four-influence cutoff caused the first remaining spike. Optional
+  continuous sparsification was examined but **not implemented** because it could
+  shift90% of the witness weight to the chest and alter requested motion.
+  `outputs/d879-weight-witness-diagnosis-v1`; current repair solved the numeric gate,
+  not final visual quality.
+- Last avatar-only commit **`b03a4e16985bb146813d23400c5c40860354bfef`** pushed and
+  exact remote hash verified.70files/5,280,233bytes; guardv30; receipt
+  `outputs/studio-reference-repair-publication-v1`. New reviewer fixes are unsaved.
+- **Next safe action:** finish focused tests + actual read-only continuation/image
+  custody proof, then run one new exact-bound website continuation within existing
+  authorization. Preserve this failed job and all unknown holds. No deployment,
+  Meta spend, new Meshy calls or changes to unrelated Weft files. Goal remains active.
+
+## Historical handoff — November 2, 2026, 5:12 PM PST
 
 - **Actual website continuation is running**, job `d8795ec6c273489da37954ab`,
   output `outputs/studio-d8795ec6c273489da37954ab`, observer session **17883**.

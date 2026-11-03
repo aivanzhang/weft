@@ -3,6 +3,7 @@ from copy import deepcopy
 from pathlib import Path
 import tempfile
 import unittest
+from typed_review_fixtures import review_fixture, wire_review
 from unittest.mock import Mock, patch
 
 from avatar_assets import pipeline
@@ -78,7 +79,7 @@ class SourceFailureMemoryTests(unittest.TestCase):
             portable=root/'portable';portable.mkdir();write_json(portable/'manifest.json',{'clips':[]})
             worker._media=Mock(return_value=(root/'media',portable))
             worker.agents=Mock();worker.agents.call.side_effect=[{'status':'ready'},{'status':'ready'},
-                {'verdict':'repair','summary':'Analytic portable flecks need adjustment'},
+                wire_review(review_fixture()),
                 {'status':'unsupported','reason':'Analytic stop after checking repaired prompt'}]
             with patch('avatar_assets.repair_visual_inputs.author_base_images',return_value=[Path('/analytic/guide-'+str(i)+'.png') for i in range(3)]), \
                  patch('avatar_assets.repair_visual_inputs.author_images',side_effect=lambda base,repair:base+repair[:8-len(base)]), \
@@ -88,8 +89,8 @@ class SourceFailureMemoryTests(unittest.TestCase):
                  patch('avatar_assets.pipeline_prompts.finish_config',return_value={'analytic':True}), \
                  patch('avatar_assets.pipeline_prompts.author_schema',return_value={}), \
                  patch('avatar_assets.pipeline_prompts.author_prompt',return_value='Analytic') as author_prompt, \
-                 patch('avatar_assets.pipeline_prompts.critic_prompt',return_value='Analytic'), \
-                 patch('avatar_assets.pipeline_prompts.critic_schema',return_value={}), \
+                 patch('avatar_assets.pipeline_prompts.typed_critic_prompt',return_value='Analytic'), \
+                 patch('avatar_assets.pipeline_prompts.typed_critic_schema',return_value={}), \
                  patch('avatar_assets.pipeline_prompts.validate_review'):
                 worker._run(False)
             prompts=author_prompt.call_args_list
