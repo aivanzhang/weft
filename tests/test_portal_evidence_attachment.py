@@ -121,7 +121,7 @@ def test_imported_server_guard_only_allows_attached_review(fixture):
     from weft.portal import Portal
     from types import SimpleNamespace
     source,root,folder,*_=fixture
-    server=SimpleNamespace(jobs={folder.name:json.loads((folder/'job.json').read_bytes())},_folder=lambda _:folder)
+    server=SimpleNamespace(jobs={folder.name:json.loads((folder/'job.json').read_bytes())},_folder=lambda _:folder,_status=lambda _: {})
     with pytest.raises(ValueError,match='attachment'):Portal._require_review_body(server,folder.name)
     attach_existing_import(root,folder.name,source)
     server.jobs[folder.name]=json.loads((folder/'job.json').read_bytes())

@@ -17,7 +17,8 @@ def _limit(kind, requested):
 
 def main():
     repairs = len(sys.argv) == 4 and sys.argv[3] == "repairs"
-    cpu_limit = 65 if repairs else 360
+    equipment = len(sys.argv) == 4 and sys.argv[3] == "equipment"
+    cpu_limit = 110 if equipment else 65 if repairs else 360
     _limit(resource.RLIMIT_CPU, cpu_limit)
     _limit(resource.RLIMIT_FSIZE, 512 * 1024**2)
     from weft.lab_worker import atomic_json
@@ -25,7 +26,7 @@ def main():
     review = len(sys.argv) == 4 and sys.argv[3] == "review"
     checks = len(sys.argv) == 4 and sys.argv[3] == "checks"
     supports = len(sys.argv) == 4 and sys.argv[3] == "supports"
-    work = root / "muse/repairs" if repairs else root / "muse/checks" if checks else root / "muse" if review else root
+    work = root / "equipment" if equipment else root / "muse/repairs" if repairs else root / "muse/checks" if checks else root / "muse" if review else root
     stopped = threading.Event()
     started = time.monotonic()
 
@@ -40,7 +41,10 @@ def main():
                 os._exit(74)
 
     threading.Thread(target=monitor, name="weft-resource-limit", daemon=True).start()
-    if repairs:
+    if equipment:
+        from weft.portal_equipment_candidates import execute_equipment_job
+        result = execute_equipment_job(root, project=Path(sys.argv[2]))
+    elif repairs:
         from weft.portal_repair_jobs import execute_repair_job
         result = execute_repair_job(root)
     elif supports:

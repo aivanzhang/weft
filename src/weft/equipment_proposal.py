@@ -240,12 +240,15 @@ def _find_human_document(base_run, declared, human, pinned):
 
 
 def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, source_mappings=(), max_seconds=30,
-                               auto_context_path=None):
+                               auto_context_path=None, conditional_context_path=None, conditional_candidate_id=None):
     """Seal a ready initial proposal or an inspectable non-ready rejection; never alter inputs."""
     if type(max_seconds) not in (float, int) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= 60:
         raise ValueError('Proposal preparation requires a 1–60 second bound')
     if not isinstance(source_mappings, (tuple, list)) or len(source_mappings) > 7:
         raise ValueError('Use at most seven verified source-equivalence bundles')
+    if ((conditional_context_path is None) != (conditional_candidate_id is None)
+            or auto_context_path is not None and conditional_context_path is not None):
+        raise ValueError('Choose one automatic context or an exact conditional context/candidate pair')
     base_run, evidence_run, config_path, out = map(lambda p: Path(p).absolute(), (base_run, evidence_run, config_path, out))
     inputs = [base_run, evidence_run, *(Path(p).absolute() for p in source_mappings)]
     if out.exists() or any(out.resolve().is_relative_to(p.resolve()) or p.resolve().is_relative_to(out.resolve()) for p in inputs):
@@ -334,6 +337,23 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
             files['input-bindings.json'] = context_raw
             readbacks.append((path.parent, path.name, MAX_CONTEXT_BYTES, hashlib.sha256(context_raw).hexdigest()))
             implementation['equipment_autoproposal.py'] = Path(__file__).with_name('equipment_autoproposal.py').read_bytes()
+        if conditional_context_path is not None:
+            from weft.equipment_conditional_assembly import MAX_CONTEXT_BYTES, derive_conditional_equipment_configs
+
+            path = Path(conditional_context_path).absolute()
+            context_raw = read_package_file(path.parent, path.name, max_bytes=MAX_CONTEXT_BYTES)
+            context = _json_bytes(context_raw, 'Conditional equipment role context', MAX_CONTEXT_BYTES)
+            derived, _ = derive_conditional_equipment_configs(documents, source_sha256=config['source_sha256'],
+                human_ref=(human_sha, human_ref['observation_entity_id']), equipment_document_sha256=equipment_sha,
+                body_references=base['human_spec']['reference_evidence'], source_equivalences=equivalents,
+                deadline=deadline, max_candidates=context.get('maximum_candidates'))
+            selected = [row for row in derived['candidates'] if row['id'] == conditional_candidate_id]
+            if context != derived or len(selected) != 1 or selected[0]['config'] != config:
+                raise EquipmentProposalError('conditional_role_context_mismatch', 'Conditional alternatives/config differ from exact source-derived hypotheses')
+            files['input-bindings.json'] = context_raw
+            readbacks.append((path.parent, path.name, MAX_CONTEXT_BYTES, hashlib.sha256(context_raw).hexdigest()))
+            for name in ('equipment_autoproposal.py', 'equipment_conditional_assembly.py'):
+                implementation[name] = Path(__file__).with_name(name).read_bytes()
         check(); stage = 'proposal_geometry'
         automatic = any('frame_selection' in item for item in config['equipment'])
         proposal = build_equipment_proposal(base, config, source_binding=binding, construction_evidence=construction,
@@ -341,6 +361,10 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
         if auto_context_path is not None:
             proposal['proposer']['automatic_role_context_sha256'] = hashlib.sha256(files['input-bindings.json']).hexdigest()
             proposal['assumptions'].append('Conditional source-image role alternatives are retained in input-bindings.json; correspondence and rigidity are not verified.')
+        if conditional_context_path is not None:
+            proposal['proposer']['conditional_role_context_sha256'] = hashlib.sha256(files['input-bindings.json']).hexdigest()
+            proposal['proposer']['conditional_candidate_id'] = conditional_candidate_id
+            proposal['assumptions'].append('Selected conditional role assignment and all competing assignments remain in input-bindings.json; original identity ambiguity is unresolved.')
         if automatic:
             files['frame-selection.json'] = _bytes({item['object_id']: item['frame_selection_receipt']
                 for item in proposal['equipment'] if 'frame_selection_receipt' in item})

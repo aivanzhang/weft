@@ -7,10 +7,12 @@
   let selected = null, timer = null, pending = false, uploading = false, lastProjects = "", lastDetail = "";
   let museAvailable = false, reviewing = false;
   let checking = false, repairing = false;
+  let preparingEquipment = false, choosingEquipment = false;
   let creatingSupport = false, selectedJob = null;
   const reviewActive = job => ["queued", "running", "cancelling"].includes(job.muse?.status);
   const checkActive = job => ["queued", "running", "cancelling"].includes(job.muse?.checks?.status);
   const repairActive = job => ["queued", "running", "cancelling"].includes(job.muse?.repairs?.status);
+  const equipmentActive = job => ["queued", "running", "cancelling"].includes(job.equipment_candidates?.status);
   const terminal = new Set(["ready", "preview", "needs_input", "failed", "cancelled", "interrupted"]);
   const labels = {queued:"Queued",uploading:"Uploading",running:"Processing",ready:"Ready to explore",preview:"Body evidence ready · no physics",needs_input:"Scene inputs needed",failed:"Needs attention",cancelled:"Cancelled",interrupted:"Interrupted"};
   const error = message => { $("error").textContent = message; $("error").hidden = false; };
@@ -38,13 +40,34 @@
     $("project-error").hidden = !job.error;
     $("project-error").textContent = job.error || "";
     const inventory = job.scene_inventory, imported = job.kind === "imported_lab";
-    const legacyScope = !inventory && !imported && job.kind !== "support_experiment" && job.status === "ready" && job.route === "exercise";
-    $("scene-inventory").hidden = !inventory && !imported && !legacyScope;
-    $("inventory-summary").textContent = inventory?.message || (imported
+    const legacyScope = !inventory && !imported && !job.equipment_candidate_id && job.kind !== "support_experiment" && job.status === "ready" && job.route === "exercise";
+    $("scene-inventory").hidden = !inventory && !imported && !legacyScope && !job.equipment_candidate_id;
+    $("inventory-summary").textContent = job.equipment_candidate_id ? `Selected conditional equipment candidate ${job.equipment_candidate_id}. Prepared evidence was verified; geometry, contact and task success remain unverified.` : inventory?.message || (imported
       ? `Imported source-bound simulation candidate, not automatic equipment reconstruction. Task success and physical/contact accuracy are not established. ${job.review_unavailable_reason || ""}`
       : legacyScope ? "Legacy person-only simulation: this upload did not record an explicit equipment declaration. Its saved world is unchanged; do not treat it as a full-scene reconstruction or verified equipment absence." : "");
     $("inventory-next-steps").replaceChildren(...(inventory?.next_steps || []).map(value => {const li=document.createElement("li");li.textContent=value;return li;}));
     artifactLink("inventory-download", job, "analysis/scene-inventory.json", !!inventory);
+    const equipment = job.equipment_candidates, equipmentReport = equipment?.report, equipmentAvailable = job.equipment_availability;
+    $("equipment-candidates").hidden = !equipment && !(job.status === "needs_input" && equipmentAvailable);
+    $("equipment-status").textContent = equipment?.message || equipmentAvailable?.reason || "";
+    $("equipment-source-options").replaceChildren(...(!equipment ? equipmentAvailable?.matches || [] : []).map(match => {
+      const button = document.createElement("button");button.type = "button";
+      button.textContent = `Build candidates · ${match.label}`;button.disabled = preparingEquipment;
+      button.onclick = () => equipmentAction("prepare", match.id);return button;
+    }));
+    const sourceProof = equipmentReport?.source_validation;
+    $("equipment-coverage").textContent = sourceProof ? `${sourceProof.body_reference_count} body pose samples across ${sourceProof.source_slots} decoded source slots; ${sourceProof.raw_object_ids.length} raw object tracks retained. Unresolved: ${sourceProof.unresolved_reasons.join("; ") || "No role ambiguity reported; physical accuracy is still unverified."}` : "";
+    $("equipment-alternatives").replaceChildren(...(equipmentReport?.candidates || []).map(candidate => {
+      const card = document.createElement("section"), title = document.createElement("h4"), details = document.createElement("p"), reasons = document.createElement("p"), choose = document.createElement("button");
+      title.textContent = `${candidate.id} · ${candidate.selectable ? "Playable, untrained candidate" : candidate.status}`;
+      details.textContent = `Person correspondence: ${candidate.assignment?.body_correspondence || "unresolved"}. Rigid proxies: ${(candidate.assignment?.rigid_proxies || []).join(", ") || "none"}. This assignment is a hypothesis; candidates may represent different tasks.`;
+      reasons.textContent = candidate.reasons.length ? `Constructor result: ${candidate.reasons.join("; ")}` : "No task-success or physical-contact test has passed merely because this candidate is playable.";
+      choose.textContent = `Choose ${candidate.id} and open sandbox`;choose.type = "button";
+      choose.hidden = !candidate.selectable || !!job.equipment_candidate_id;choose.disabled = choosingEquipment;
+      choose.onclick = () => equipmentAction("select", candidate.id);card.append(title, details, reasons, choose);return card;
+    }));
+    $("equipment-selection-note").textContent = job.equipment_candidate_id ? `This project is locked to ${job.equipment_candidate_id}; all recordings use that world. Other alternatives remain preserved in the report.` : equipmentReport ? "Choose one admitted candidate before opening the sandbox. Selection locks this project; no score or automatic ranking makes the choice." : "";
+    artifactLink("equipment-report-download", job, "equipment/candidates.json", !!equipmentReport);
     const preview = job.status === "preview" ? job.body_preview : null;
     $("body-preview").hidden = !preview;
     $("body-preview-image").hidden = !preview?.image;
@@ -62,8 +85,8 @@
       $("readiness-retry").textContent = readiness.retry_reason;
     }
     artifactLink("readiness-download", job, "analysis/reconstruction-readiness.json", !!readiness);
-    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job) && !checkActive(job) && !repairActive(job);
-    $("cancel").textContent = repairActive(job) ? "Cancel suggestion tests" : checkActive(job) ? "Cancel local checks" : reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
+    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job) && !checkActive(job) && !repairActive(job) && !equipmentActive(job);
+    $("cancel").textContent = equipmentActive(job) ? "Cancel equipment candidates" : repairActive(job) ? "Cancel suggestion tests" : checkActive(job) ? "Cancel local checks" : reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
     const stage = {source:"reconstruct",observe:"reconstruct",world:"reconstruct",repair:"reconstruct",evaluate:"reconstruct",render:"train",starting:"analyze",queued:"upload"}[job.stage] || job.stage;
     const names = ["upload", "analyze", "reconstruct", "train", "ready"], current = names.indexOf(stage);
     document.querySelectorAll("#steps li").forEach(node => {
@@ -92,7 +115,7 @@
     artifactLink("attachment-receipt-download", job, "review-evidence/receipt.json", importedReviewReady);
     artifactLink("attachment-context-download", job, "review-evidence/prepared/context.json", importedReviewReady && job.review_attachment.prepared);
     artifactLink("attachment-request-download", job, "review-evidence/prepared/request.json", importedReviewReady && job.review_attachment.prepared);
-    $("muse-review").hidden = (imported && !importedReviewReady) || (job.status !== "ready" && !job.muse);
+    $("muse-review").hidden = !!job.review_unavailable_reason || (imported && !importedReviewReady) || (job.status !== "ready" && !job.muse);
     $("review-muse").hidden = !!job.muse;
     $("review-muse").disabled = (imported && !importedReviewReady) || !museAvailable || reviewing;
     const legacyBodyReview = job.kind === "support_experiment" && job.muse?.status === "proposed" && job.muse.review_scope !== "coupled_world_assumptions";
@@ -194,7 +217,7 @@
       if (!selected && data.jobs.length) selected = data.jobs[0].id;
       await show(data.jobs.find(job => job.id === selected));
       $("create").disabled = uploading;
-      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job));
+      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job) || equipmentActive(job));
       timer = setTimeout(refresh, active ? 1500 : 12000);
     } catch (e) { error(e.message); $("connection").textContent = "Connection needs attention"; timer = setTimeout(refresh, 12000); }
     finally { pending = false; }
@@ -257,6 +280,16 @@
     } catch (e) { error(`${e.message}. Existing comparison evidence will not be retried or overwritten.`); }
     finally { repairing = false; lastDetail = ""; refresh(); }
   };
+  async function equipmentAction(action, id) {
+    if (!selected || preparingEquipment || choosingEquipment) return;
+    preparingEquipment = action === "prepare";choosingEquipment = action === "select";
+    const identity = selected;
+    try {
+      const job = await request(`/api/projects/${identity}/equipment/${action}`, {method:"POST", body:JSON.stringify({id}), headers:{"Content-Type":"application/json"}});
+      if (selected === identity) await show(job);
+    } catch (e) { error(`${e.message}. Existing source and candidates were preserved; no automatic retry.`); }
+    finally { preparingEquipment = false;choosingEquipment = false;lastDetail = "";refresh(); }
+  }
   $("support-form").onsubmit = async event => {
     event.preventDefault();
     if (creatingSupport || !selectedJob?.support_experiment_available) return;

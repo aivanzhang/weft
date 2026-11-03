@@ -278,3 +278,35 @@ def test_network_worker_forwards_raw_chunks_and_closes_once(monkeypatch):
     sam._network_worker(Pipe(), b'fixture', 'local-secret')
     assert calls == [('connect', 'api.meta.ai', 30), ('POST', '/v1/responses', 'Bearer local-secret'), ('close',), ('pipe_close',)]
     assert sent == [('headers', 200, [('Content-Type', 'text/event-stream')]), ('bytes', b'data: {}\n'), ('bytes', b'\n'), ('end',)]
+
+
+@pytest.mark.parametrize('stage',['entry','after_payload','after_key','after_reserve'])
+def test_absolute_deadline_prevents_send_after_local_preparation(tmp_path,monkeypatch,stage):
+    video=tmp_path/'video.mp4';video.write_bytes(b'fixture')
+    now=[0.];events=[]
+    monkeypatch.setattr(sam.time,'monotonic',lambda:now[0])
+    original=sam.build_request
+    def build(*a,**k):
+        value=original(*a,**k)
+        if stage=='after_payload':now[0]=10.
+        return value
+    def key(*a):
+        events.append('key')
+        if stage=='after_key':now[0]=10.
+        return 'synthetic-key'
+    def reserve(*a,**k):
+        events.append('reserve')
+        if stage=='after_reserve':now[0]=10.
+        return {'reservation_id':'synthetic'}
+    monkeypatch.setattr(sam,'build_request',build);monkeypatch.setattr(sam,'resolve_key',key)
+    monkeypatch.setattr(sam,'reserve_call',reserve)
+    monkeypatch.setattr(sam,'settle_call',lambda *a,**k: events.append('preserved_unknown') or {})
+    monkeypatch.setattr(sam,'_network_response',lambda *a,**k:pytest.fail('Expired aggregate deadline must not send'))
+    with pytest.raises(TimeoutError,match='nothing sent'):
+        sam.segment_video(video,tmp_path/'run',expected_sha256=digest(video),frame_count=50,width=160,height=100,
+                          roi=[10,10,20,20],deadline=121 if stage=='entry' else 125)
+    assert ('reserve' in events)==(stage=='after_reserve')
+    if stage=='after_reserve':
+        assert 'preserved_unknown' in events
+        receipt=json.loads((tmp_path/'run/call.json').read_text())
+        assert receipt['request_count']==0 and receipt['reservation']['reservation_id']=='synthetic'

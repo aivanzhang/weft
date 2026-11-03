@@ -40,6 +40,8 @@ def test_shape_derivatives_match_actual_native_geometry_at_multiple_poses(tmp_pa
                 engine.set_shape(np.array([.99,1.01])-step);minus=engine.source_state(q,roots[knot])
                 np.testing.assert_allclose((plus['absolute_points']-minus['absolute_points'])/2e-6,
                                            state['shape_point_jacobian'][:,:,axis],atol=1e-8)
+                np.testing.assert_allclose((plus['gaps']-minus['gaps'])/2e-6,
+                                           state['shape_gap_jacobian'][:,axis],atol=1e-8)
         assert engine.invariant()
     finally:engine.close()
 

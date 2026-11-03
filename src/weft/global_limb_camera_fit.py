@@ -85,6 +85,21 @@ class SharedShapeGeometry(_NativeGeometry):
                     points, _ = limb_geometry(np.asarray(angles)[list(block)], lengths, -1)
                     jac[[knee, ankle], :, parameter] = points @ rotation.T
             state["shape_point_jacobian"] = jac
+            normal=self.data.geom_xmat[self.floor].reshape(3,3)[:,2]
+            support_jac=np.zeros((len(self.supports),2))
+            for index,(name,geom,end) in enumerate(self.supports):
+                for side in ('left','right'):
+                    proximal=self.data.xmat[self.env.model.body(side+'_hip_body').id].reshape(3,3)
+                    distal=self.data.xmat[self.env.model.body(side+'_knee_body').id].reshape(3,3)
+                    axis=self.data.geom_xmat[geom].reshape(3,3)[:,2]
+                    if name==side+'_hip_geom':
+                        length=self.original_lengths['thigh']
+                        support_jac[index,0]=normal@(proximal@[0.,0.,-length/2]+end*length/2*axis)
+                    elif name==side+'_knee_geom':
+                        support_jac[index,0]=normal@(proximal@[0.,0.,-self.original_lengths['thigh']])
+                        length=self.original_lengths['shin']
+                        support_jac[index,1]=normal@(distal@[0.,0.,-length/2]+end*length/2*axis)
+            state['shape_gap_jacobian']=support_jac
         return state
 
 
@@ -135,7 +150,7 @@ def audit_global_parameters(shape, original_angles, correction, rotation, origin
 
 
 def fit_global_limb_camera(human_bytes, original_evidence_bytes, derived_evidence_bytes, dimensions_bytes,
-                           *, maximum_seconds=30., maximum_iterations=8):
+                           *, maximum_seconds=30., maximum_iterations=8, _strategy=None):
     _require(type(maximum_seconds) in (int, float) and .1 <= maximum_seconds <= 30., "invalid tighter time bound")
     _require(type(maximum_iterations) is int and 1 <= maximum_iterations <= 8, "invalid tighter iteration bound")
     started = time.monotonic(); deadline = started + maximum_seconds
@@ -182,6 +197,21 @@ def fit_global_limb_camera(human_bytes, original_evidence_bytes, derived_evidenc
         _require(valid(projected), "original authored gauge projection invalid")
         initial_errors = errors(projected); initial_depth = np.array([p["camera_points"][:, 2] for p in projected])
         initial_cost = objective(projected, shape, delta, rotation)
+        if _strategy is not None:
+            seed=_strategy.seed(args,deepcopy(human),deepcopy({'K':K,'center':center,'rotation0':rotation0}))
+            seed_shape=np.asarray(seed['shape'],dtype=float).copy();seed_delta=np.asarray(seed['delta'],dtype=float).copy()
+            seed_rotation=np.asarray(seed['rotation'],dtype=float).copy()
+            _require(audit_global_parameters(seed_shape,angles,seed_delta,seed_rotation,rotation0,times)['passed'],
+                     'strategy seed exceeds original parameter bounds')
+            engine.set_shape(seed_shape)
+            seed_states=[at(engine,j,seed_delta) for j in range(len(samples))]
+            seed_projection=projection(seed_states,seed_rotation)
+            _require(valid(seed_projection)
+                and not np.any((errors(seed_projection)>initial_errors+1e-8)&(confidence>0))
+                and np.max(abs(np.array([p['camera_points'][:,2] for p in seed_projection])-initial_depth))<=.08+1e-8
+                and all(np.all(a['gaps']>=np.minimum(0.,b['gaps'])-1e-8) for a,b in zip(seed_states,baseline)),
+                'strategy seed regresses original source/floor evidence')
+            shape,delta,rotation,states,projected=seed_shape,seed_delta,seed_rotation,seed_states,seed_projection
         try:
             for iteration in range(maximum_iterations):
                 check(); engine.set_shape(shape)
@@ -194,8 +224,10 @@ def fit_global_limb_camera(human_bytes, original_evidence_bytes, derived_evidenc
                     Hlocal[a,a] += np.eye(8)*.0005;Hlocal[b,b] += np.eye(8)*.0005
                     Hlocal[a,b] -= np.eye(8)*.0005;Hlocal[b,a] -= np.eye(8)*.0005
                     diff=.0005*(delta[knot]-delta[knot+1]);gl[a]+=diff;gl[b]-=diff
+                derivatives=[]
                 for knot,index in enumerate(source_indices):
                     state=at(engine,index,delta,True);p=project_with_jacobians(state["absolute_points"],rotation,center,K)
+                    if _strategy is not None:derivatives.append(state)
                     residual=(p["pixels"]-target[knot])*scale
                     global_jac=np.concatenate((p["root_jacobian"]@state["shape_point_jacobian"],p["rotation_jacobian"]),axis=2)*scale
                     local_jac=(p["root_jacobian"]@state["absolute_jacobian"][:,:,LEGS])*scale
@@ -205,10 +237,29 @@ def fit_global_limb_camera(human_bytes, original_evidence_bytes, derived_evidenc
                     slot=slice(knot*8,(knot+1)*8)
                     Hglobal+=A.T@A;Hlocal[slot,slot]+=B.T@B;cross[:,slot]+=A.T@B;gg+=A.T@r;gl[slot]+=B.T@r
                 accepted=False
-                for camera_free in (True,False):
-                    size=5 if camera_free else 2
-                    gs,ls=_schur_step(Hglobal[:size,:size],Hlocal,cross[:size],gg[:size],gl)
-                    global_step=np.r_[gs,np.zeros(5-size)];local_step=ls.reshape(-1,8)
+                if _strategy is None:
+                    proposals=[]
+                    for camera_free in (True,False):
+                        size=5 if camera_free else 2
+                        gs,ls=_schur_step(Hglobal[:size,:size],Hlocal,cross[:size],gg[:size],gl)
+                        proposals.append({'global_step':np.r_[gs,np.zeros(5-size)],'local_step':ls.reshape(-1,8),
+                            'name':'joint_shape_camera' if camera_free else 'joint_shape_fixed_camera'})
+                else:
+                    support_derivatives=[at(engine,j,delta,True) for j in range(len(samples))]
+                    context={'Hglobal':Hglobal,'Hlocal':Hlocal,'cross':cross,'global_gradient':gg,'local_gradient':gl,
+                        'shape':shape,'delta':delta,'rotation':rotation,'rotation0':rotation0,'center':center,'K':K,
+                        'angles':angles,'times':times,'target':target,'confidence':confidence,'scale':scale,
+                        'initial_depth':initial_depth,'initial_errors':initial_errors,'source_states':derivatives,'support_states':support_derivatives,
+                        'baseline_states':baseline,'samples':samples,'iteration':iteration,'remaining_seconds':max(0.,deadline-time.monotonic())}
+                    context['deadline']=deadline
+                    proposals=_strategy.proposals(deepcopy(context))
+                    _require(isinstance(proposals,list) and len(proposals)<=2,'bounded strategy proposal list required')
+                    check()
+                for proposed in proposals:
+                    global_step=np.asarray(proposed['global_step'],dtype=float).copy()
+                    local_step=np.asarray(proposed['local_step'],dtype=float).copy()
+                    _require(global_step.shape==(5,) and local_step.shape==delta.shape
+                        and np.isfinite(global_step).all() and np.isfinite(local_step).all(),'finite bounded strategy step required')
                     factor=min(1.,.02/max(np.max(abs(global_step[:2])),1e-15),.10/max(np.max(abs(local_step)),1e-15),
                                .10/max(np.linalg.norm(global_step[2:]),1e-15))
                     global_step*=factor;local_step*=factor
@@ -217,8 +268,11 @@ def fit_global_limb_camera(human_bytes, original_evidence_bytes, derived_evidenc
                     lower = np.maximum(-.15, joint_limits[:,0]-angles[:,LEGS])
                     upper = np.minimum(.15, joint_limits[:,1]-angles[:,LEGS])
                     local_step = np.clip(delta+local_step, lower, upper)-delta
-                    record={"iteration":iteration,"direction":"joint_shape_camera" if camera_free else "joint_shape_fixed_camera",
+                    record={"iteration":iteration,"direction":proposed['name'],
                             "global_step":global_step.tolist(),"local_step":local_step.tolist(),"trials":[],"accepted":False}
+                    if _strategy is not None:
+                        record['proposal_solver']=deepcopy(proposed.get('solver_report'))
+                        record['restoration_requested']=proposed.get('restoration') is True
                     journal.append(record)
                     for backtrack in range(8):
                         check();alpha=2.**-backtrack
@@ -245,7 +299,15 @@ def fit_global_limb_camera(human_bytes, original_evidence_bytes, derived_evidenc
                         if rejection is None and np.any((errors(trial_projection)>np.minimum(initial_errors,errors(projected))+1e-8)&(confidence>0)):
                             rejection="endpoint_image_nonregression"
                         cost=objective(trial_projection,trial_shape,trial_delta,trial_rotation) if rejection is None else None
-                        if rejection is None and cost>=objective(projected,shape,delta,rotation)-1e-12:rejection="no_image_objective_descent"
+                        if rejection is None and cost>=objective(projected,shape,delta,rotation)-1e-12:
+                            restoring=_strategy is not None and proposed.get('restoration') is True
+                            before_error=errors(projected);after_error=errors(trial_projection)
+                            image_before=float(np.sum(confidence*np.where(before_error<=.05,.5*before_error**2,.05*(before_error-.025))))
+                            image_after=float(np.sum(confidence*np.where(after_error<=.05,.5*after_error**2,.05*(after_error-.025))))
+                            floor_before=sum(float(np.maximum(-s['gaps']-.025,0).sum()) for s in states)
+                            floor_after=sum(float(np.maximum(-s['gaps']-.025,0).sum()) for s in trial_states)
+                            if not (restoring and image_after<=image_before+1e-12 and floor_after<floor_before-1e-8):
+                                rejection="no_image_objective_descent"
                         comparison = ({"weighted_mean_pixel_error":float(np.sum(confidence*errors(trial_projection))/np.sum(confidence)/scale),
                             "maximum_confident_endpoint_error_increase":float(np.max(np.where(confidence>0,errors(trial_projection)-initial_errors,0.))),
                             "floor":source_fit._floor_summary(trial_states,rows,lookup)}
@@ -303,5 +365,8 @@ def fit_global_limb_camera(human_bytes, original_evidence_bytes, derived_evidenc
                             for t,w,b,a in zip(times,confidence,initial_errors,final_errors)],
         "journal":journal,"stop_reason":stop,"geometry_calls":calls,"seconds":time.monotonic()-started,
         "physical_validation":"unverified","partition":"exposed_development","rollouts":0,"inference_calls":0,"installed":False}
+    if _strategy is not None:
+        result['profile']=_strategy.profile
+        result['strategy']=deepcopy(_strategy.receipt())
     _require(len(json.dumps(result,allow_nan=False).encode())<=16<<20,"output exceeds bound")
     return result

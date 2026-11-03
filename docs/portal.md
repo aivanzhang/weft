@@ -25,7 +25,9 @@ The user starts/manages this server. No browser opens automatically. Use
    annotated source poses and downloadable body/joint models, not an interactive
    simulation. **Ground only** plus **Interactive scene simulation** enables the
    person-only sandbox; this is your scope declaration, not verified absence.
-   Automatic mixed equipment reconstruction is not available from an upload.
+   If this exact video has registered prepared equipment evidence, **Build
+   candidates** constructs the supported alternatives in the background.
+   Unfamiliar mixed-video reconstruction is not yet automatic.
 3. Watch the processing stages. The original, sampled frames,
    scene proposal, API receipt, failure reasons and processing log are inspectable.
 4. For a completed simulation, select **Open interactive sandbox**. Inspect the source, tracks and geometry;
@@ -119,7 +121,53 @@ stop assembly with a saved explanation and exit code 1. Geometry, depth, mass,
 floor support and task intent remain explicitly authored assumptions. This is
 not automatic mixed-video upload support.
 
-[Verification and remaining work](handoffs/parallel-reconstruction-and-muse.md).
+For ambiguous identities, `shared-exercise-alternatives` uses the same arguments
+plus `--max-candidates 3`. It preserves the original ambiguity, constructs each
+bounded assignment separately and retains every rejection. It never chooses a
+winner. Different assignments may imply different tasks, so their scores cannot
+be ranked as if they were the same task.
+
+### Choose prepared equipment candidates in the portal
+
+For an exact registered source, upload with **Equipment or obstacles** and
+**Interactive scene simulation**, then choose **Build candidates**. Inspect the
+assumed body/equipment identities and reasons before selecting a ready candidate.
+Selection locks that project to one world so later recordings cannot switch
+silently. Rejected candidates cannot open a sandbox. These new selected worlds
+do not yet support Muse review, local comparisons or repairs; the existing
+imported example's verified Muse attachment remains available.
+
+**Equipment alternatives — saved rejections.webm** is already in the local
+project list. It displays three failed alternatives from an existing real-video
+study; inspection revalidated the source receipts without repeating construction.
+It is not playable. **Equipment candidate.webm** remains the separate playable
+example, with explicit assumptions and an unsuccessful full-task stability result.
+
+An administrator can register prepared inputs while the portal is stopped:
+
+```sh
+.venv-lab/bin/python -m weft portal-equipment-register \
+  --source-sha256 ORIGINAL_VIDEO_SHA256 \
+  --run BASE_WORLD --evidence-run OBJECT_EVIDENCE \
+  --source-mapping VERIFIED_MAPPING --label "Prepared exercise evidence"
+```
+
+Omit `--source-mapping` when both packages use the exact original video. The
+catalog is bounded and requires complete source/body/mapping validation. Users
+never need to enter these paths in the web interface. Registration and world
+construction make no AI call. Unknown videos still need new evidence; matching
+saved inputs does not establish arbitrary-video reconstruction.
+
+[Current verification and remaining work](handoffs/conditional-equipment-and-constraints.md).
+
+### Prepare new equipment evidence offline
+
+The developer command `exercise-perceive` binds a saved OpenAI analysis to the
+exact original MP4 and prepares the existing tracking request. It verifies every
+sampled image/time and adds a tracking-only person anchor from a sealed body.
+It is offline by default; explicit execution uses the shared Meta budget.
+This bridge is not yet a button for unfamiliar uploads, and evidence preparation
+does not guarantee world admission. See the [command and supported limits](handoffs/conditional-equipment-and-constraints.md#source-pinned-perception-bridge).
 
 ## API configuration and spending
 

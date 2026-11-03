@@ -23,6 +23,8 @@ function setup(jobs=[]) {
       if(path.endsWith("/muse")){info.jobs[0].muse={status:"queued",message:"Waiting"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/muse/checks")){info.jobs[0].muse.checks={status:"queued",message:"Waiting for local comparisons"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/muse/repairs")){info.jobs[0].muse.repairs={status:"queued",message:"Waiting for suggestion tests",applied:false};info.jobs[0].muse.repair_availability.available=false;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/equipment/prepare")){info.jobs[0].equipment_candidates={status:"queued",message:"Waiting for conditional construction"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/equipment/select")){info.jobs[0].status="ready";info.jobs[0].equipment_candidate_id=JSON.parse(options.body).id;info.jobs[0].sandbox=`/labs/${info.jobs[0].id}/`;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/supports")){const child={id:"e".repeat(32),name:info.jobs[0].name,kind:"support_experiment",parent_id:info.jobs[0].id,status:"queued",stage:"queued",events:[],source_available:false};info.jobs.unshift(child);return {ok:true,json:async()=>structuredClone(child)};}
       return {ok:true,json:async()=>({frames:[]})};},console};
   vm.runInNewContext(code,context);
@@ -212,4 +214,21 @@ function setup(jobs=[]) {
   assert.equal(e.get("run-checks").hidden,true);assert.equal(e.get("repair-comparison").hidden,true);
   assert.ok(!f.calls.some(c=>c.path.includes("prepared/request")));
   console.log("PASS imported evidence enables review and inspectable preparation without enabling repairs or eager downloads");
+}
+{
+  const id="6".repeat(32),f=setup([{id,name:"mixed.webm",status:"needs_input",route:"exercise",events:[],equipment_availability:{available:true,matches:[{id:"a".repeat(16),label:"Verified prepared source"}],reason:"Exact video match; not yet admitted"}}]);await tick();
+  const e=f.elements;assert.equal(e.get("equipment-candidates").hidden,false);assert.equal(e.get("sandbox").hidden,true);
+  const build=e.get("equipment-source-options").children[0];await Promise.all([build.onclick(),build.onclick()]);await tick();
+  const requests=f.calls.filter(c=>c.path.endsWith("/equipment/prepare"));assert.equal(requests.length,1);assert.equal(requests[0].options.headers.Authorization,"Bearer test-owner-token");assert.deepEqual(JSON.parse(requests[0].options.body),{id:"a".repeat(16)});
+  assert.equal(e.get("cancel").textContent,"Cancel equipment candidates");assert.equal([...f.delays.values()].at(-1),1500);
+  f.info.jobs[0].equipment_candidates={status:"complete",message:"Choose one candidate",report:{source_validation:{body_reference_count:121,source_slots:257,raw_object_ids:["sam-1","sam-2","sam-3"],unresolved_reasons:["identity ambiguity"]},candidates:[{id:"alternative-1",status:"ready",selectable:true,assignment:{body_correspondence:"sam-1",rigid_proxies:["sam-2","sam-3"]},reasons:[]},{id:"alternative-2",status:"rejected_initial_geometry",selectable:false,assignment:{body_correspondence:"sam-2",rigid_proxies:["sam-1","sam-3"]},reasons:["<script>floor failure</script>"]}]}};
+  await e.get("refresh").onclick();await tick();
+  assert.equal(e.get("equipment-alternatives").children.length,2);assert.equal(e.get("equipment-alternatives").children[1].children[3].hidden,true);
+  assert.equal(e.get("equipment-alternatives").children[1].children[2].textContent,"Constructor result: <script>floor failure</script>");
+  assert.match(e.get("equipment-coverage").textContent,/121.*257.*3 raw object tracks/);
+  await e.get("equipment-alternatives").children[0].children[3].onclick();await tick();
+  assert.equal(e.get("sandbox").hidden,false);assert.match(e.get("equipment-selection-note").textContent,/locked to alternative-1/);
+  assert.equal(e.get("equipment-alternatives").children[0].children[3].hidden,true);
+  assert.ok(!f.calls.some(c=>c.path.includes("/files/equipment/")));
+  console.log("PASS prepared equipment matching, authenticated deduplicated queue, retained failures and explicit frozen candidate selection");
 }

@@ -13,7 +13,11 @@ from weft.io import digest, local_time, write_json
 from weft.meta_segmentation import build_request, segment_video
 
 
-def inspect_video(video):
+def inspect_video(video, *, deadline=None, frame_inspector=None, include_fps=False):
+    if deadline is not None and (type(deadline) not in (int, float) or not math.isfinite(deadline)):
+        raise ValueError('Tracking deadline must be finite')
+    if type(include_fps) is not bool:
+        raise ValueError('Optional source FPS must be explicitly requested')
     video = Path(video)
     if video.suffix.lower() != '.mp4' or not 1 <= video.stat().st_size <= 37_000_000:
         raise ValueError('Use an MP4 of at most 37 MB; conversion is never automatic')
@@ -26,12 +30,15 @@ def inspect_video(video):
             raise ValueError('Cannot decode input MP4')
         width, height, count = [capture.get(prop) for prop in
                                (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FRAME_COUNT)]
+        fps = capture.get(cv2.CAP_PROP_FPS) if include_fps else None
+        if include_fps and (not math.isfinite(fps) or not 1 <= fps <= 120):
+            raise ValueError('Source FPS is outside the analysis envelope')
         if (any(not math.isfinite(x) or x != int(x) for x in (width,height,count))
                 or not 1 <= count <= 500 or not 16 <= width <= 4096 or not 16 <= height <= 4096
                 or width * height > 8_847_360):
             raise ValueError('Video must contain 1–500 frames within the supported size envelope')
         for index in range(int(count) + 1):
-            if time.monotonic() - started > 30:
+            if time.monotonic() - started > 30 or deadline is not None and time.monotonic() >= deadline:
                 raise TimeoutError('Local decode exceeded its between-frame time bound')
             ok, frame = capture.read()
             if not ok:
@@ -42,9 +49,12 @@ def inspect_video(video):
             if not math.isfinite(stamp) or stamp < 0 or (timestamps and stamp <= timestamps[-1]):
                 raise ValueError('Decoder did not expose strictly increasing frame timestamps')
             timestamps.append(stamp)
+            if frame_inspector is not None:
+                frame_inspector(index, frame, stamp)
         if len(timestamps) != count or digest(video) != source_hash:
             raise ValueError('Input changed or decoded frame count is incomplete')
         return {'source_sha256': source_hash, 'width': int(width), 'height': int(height),
+                **({'fps': fps} if include_fps else {}),
                 'frame_count': int(count), 'decoder_timestamps_s': timestamps,
                 'timestamp_scope': 'Decoder presentation times; not independent encoded-container verification',
                 'seconds': time.monotonic() - started}
@@ -88,11 +98,11 @@ document.getElementById('next').onclick=()=>select(selected+1);</script></html>'
     (out / 'index.html').write_text(page.replace('DATA', data))
 
 
-def track_video(video, out, boxes, *, execute=False, max_cost_usd=None, project_root=None):
+def track_video(video, out, boxes, *, execute=False, max_cost_usd=None, project_root=None, deadline=None):
     if not isinstance(boxes, list) or not 1 <= len(boxes) <= 8 or any(
             not isinstance(b, list) or len(b) != 6 or any(type(n) is not int for n in b) for b in boxes):
         raise ValueError('Provide 1–8 boxes: object ID, initialization frame, x, y, width, height')
-    metadata = inspect_video(video)
+    metadata = inspect_video(video, **({'deadline': deadline} if deadline is not None else {}))
     objects = [{'object_id': b[0], 'frame': b[1], 'roi': b[2:]} for b in boxes]
     payload = build_request(video, expected_sha256=metadata['source_sha256'], frame_count=metadata['frame_count'],
                             width=metadata['width'], height=metadata['height'], objects=objects)
@@ -116,7 +126,8 @@ def track_video(video, out, boxes, *, execute=False, max_cost_usd=None, project_
         if execute:
             report['call'] = segment_video(out / 'source.mp4', out / 'call',
                 expected_sha256=metadata['source_sha256'], frame_count=metadata['frame_count'],
-                width=metadata['width'], height=metadata['height'], objects=objects, project_root=project_root)
+                width=metadata['width'], height=metadata['height'], objects=objects, project_root=project_root,
+                **({'deadline': deadline} if deadline is not None else {}))
             result = json.loads((out / 'call/segmentation.json').read_text())
             _viewer(out, metadata, result)
             report['status'] = 'completed_tracking_not_physics'

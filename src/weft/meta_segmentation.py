@@ -3,6 +3,7 @@
 import base64
 import http.client
 import json
+import math
 import multiprocessing
 from contextlib import contextmanager
 from pathlib import Path
@@ -196,14 +197,25 @@ def _network_response(body, key, started):
             process.close()
 
 
-def segment_video(video, out, *, expected_sha256, frame_count, width, height, roi=None, objects=None, project_root=None):
+def segment_video(video, out, *, expected_sha256, frame_count, width, height, roi=None, objects=None, project_root=None,
+                  deadline=None):
     from weft.meta_segmentation_parser import SamStream
+
+    def check_deadline():
+        if deadline is not None:
+            if type(deadline) not in (int, float) or not math.isfinite(deadline):
+                raise ValueError('Segmentation deadline must be finite')
+            if deadline-time.monotonic() < TOTAL_SECONDS+2:
+                raise TimeoutError('Insufficient time for bounded tracking and cleanup; nothing sent')
+
+    check_deadline()
 
     body = build_request(video, expected_sha256=expected_sha256, frame_count=frame_count,
                          width=width, height=height, roi=roi, objects=objects)
     prompts = _prompts(frame_count, width, height, roi, objects)
     estimate = max(50, frame_count) * len(prompts) * .20 / 1000
     reservation_usd = max(RESERVATION_USD, estimate)
+    check_deadline()
     key = resolve_key(project_root)
     out = Path(out)
     out.mkdir(parents=True, exist_ok=False)
@@ -224,7 +236,10 @@ def segment_video(video, out, *, expected_sha256, frame_count, width, height, ro
     reservation = None
     started = time.monotonic()
     try:
+        check_deadline()
         reservation = reserve_call(project_root, estimate_usd=reservation_usd, request_sha256=record['request_sha256'])
+        record['reservation'] = reservation
+        check_deadline()
         record.update(status='requesting', request_count=1, reservation=reservation)
         write_json(out / 'call.json', record)
         with _network_response(body, key, started) as response:

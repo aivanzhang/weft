@@ -25,6 +25,9 @@ from weft.portal_repair_jobs import TERMINAL as REPAIR_TERMINAL, availability as
 from weft.portal_supports import body_path
 from weft.portal_lab_runtime import open_portal_lab
 from weft.portal_inventory import exercise_intent
+from weft.portal_equipment_candidates import (TERMINAL as EQUIPMENT_TERMINAL, read_catalog,
+    availability as equipment_availability, read_status as equipment_status, read_report as equipment_report,
+    select_candidate)
 
 MAX_UPLOAD = 100_000_000
 MAX_JOBS = 50
@@ -70,6 +73,7 @@ class Portal:
             raise ValueError("Another portal owns this job directory") from None
         self.jobs = {}
         try:
+            self.equipment_catalog = read_catalog(self.root)
             for folder in sorted(self.root.iterdir()):
                 if not re.fullmatch(r"[a-f0-9]{32}", folder.name):
                     continue
@@ -90,6 +94,10 @@ class Portal:
                 repairs = folder / "muse/repairs/status.json"
                 if repairs.is_file() and bounded_json(repairs)["status"] not in REPAIR_TERMINAL:
                     atomic_json(repairs, {"status": "interrupted", "message": "Portal restarted during candidate testing; partial results preserved, no automatic retry.", "applied": False})
+                equipment = equipment_status(folder)
+                if equipment and equipment.get("status") not in EQUIPMENT_TERMINAL:
+                    atomic_json(folder / "equipment/status.json", {**equipment, "status": "interrupted",
+                        "message": "Portal restarted during equipment construction; upload and partial candidates preserved. No automatic retry."})
             self.thread = threading.Thread(target=self._work, name="weft-portal-queue", daemon=True) if start else None
             if self.thread:
                 self.thread.start()
@@ -105,6 +113,14 @@ class Portal:
     def _status(self, identity):
         path = self._folder(identity) / "status.json"
         return bounded_json(path) if path.is_file() else {"status": "uploading", "stage": "upload"}
+
+    def _stored_bytes(self):
+        from weft.portal_import import _storage
+        until = time.monotonic() + 2
+        def bounded_inventory():
+            if time.monotonic() >= until:
+                raise ValueError("Portal storage inventory exceeded its bounded preparation window")
+        return _storage(self.root, bounded_inventory)
 
     def summary(self, identity):
         with self.lock:
@@ -126,6 +142,12 @@ class Portal:
             result["source_available"] = (folder / config["source_file"]).is_file()
             status = self._status(identity)
             result.update(status)
+            result["equipment_availability"] = equipment_availability(config, status, self.equipment_catalog)
+            equipment = equipment_status(folder)
+            if equipment:
+                result["equipment_candidates"] = {**equipment, "report": equipment_report(folder, equipment)}
+            if status.get("equipment_candidate_id"):
+                result["review_unavailable_reason"] = "This conditional equipment candidate has no verified portal review attachment. Local checks and repairs are unavailable."
             inventory_path = folder / "analysis/scene-inventory.json"
             if inventory_path.is_file():
                 inventory = bounded_json(inventory_path, maximum=8192)
@@ -160,7 +182,8 @@ class Portal:
                     pass
             result["sandbox"] = f"/labs/{identity}/" if status["status"] == "ready" else None
             result["support_experiment_available"] = (status["status"] == "ready" and status.get("route") == "exercise"
-                and result["kind"] == "video" and (body_path(folder, config) / "manifest.json").is_file())
+                and result["kind"] == "video" and not status.get("equipment_candidate_id")
+                and (body_path(folder, config) / "manifest.json").is_file())
             review = folder / "muse/status.json"
             if review.is_file():
                 result["muse"] = bounded_json(review)
@@ -210,13 +233,13 @@ class Portal:
             existing = next((j for j in self.jobs.values() if j.get("request_id") == request_id), None)
             if existing:
                 raise ValueError("This upload identifier already exists; reload the project list instead of resubmitting")
-            pending = sum(self._status(i)["status"] not in TERMINAL for i in self.jobs)
+            pending = sum(self._status(i)["status"] not in TERMINAL or equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"} for i in self.jobs)
             if len(self.jobs) >= MAX_JOBS or pending >= 4:
                 raise ValueError("Portal job capacity reached; preserve existing projects before making room")
             if ai and (not credential_status(self.project)["configured"]
                        or self.budget.status()["remaining_usd"] < self.budget.status()["reservation_usd"]):
                 raise ValueError("OpenAI key or remaining allowance is unavailable; no video uploaded")
-            stored = sum(p.stat().st_size for p in self.root.rglob("*") if p.is_file() and not p.is_symlink())
+            stored = self._stored_bytes()
             # Reserve expansion for every queued job so parallel uploads cannot overcommit disk.
             if stored + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
                 raise ValueError("The portal's 2 GB local storage allowance is full")
@@ -261,6 +284,7 @@ class Portal:
                 review = False
                 checks = False
                 repairs = False
+                equipment = False
                 if identity is None:
                     identity = next((i for i in self.jobs if self._review_status(i).get("status") == "queued"), None)
                     review = identity is not None
@@ -270,16 +294,19 @@ class Portal:
                 if identity is None:
                     identity = next((i for i in self.jobs if self._repair_status(i).get("status") == "queued"), None)
                     repairs = identity is not None
+                if identity is None:
+                    identity = next((i for i in self.jobs if equipment_status(self._folder(i)).get("status") == "queued"), None)
+                    equipment = identity is not None
                 if identity:
                     self.active = identity
-                    target = self._folder(identity) / ("muse/repairs/status.json" if repairs else "muse/checks/status.json" if checks else "muse/status.json" if review else "status.json")
+                    target = self._folder(identity) / ("equipment/status.json" if equipment else "muse/repairs/status.json" if repairs else "muse/checks/status.json" if checks else "muse/status.json" if review else "status.json")
                     if not repairs:
                         atomic_json(target, {"status": "running", "stage": "starting", "events": []})
             if identity is None:
                 self.wake.wait(1)
                 self.wake.clear()
                 continue
-            self._run(identity, review=review, checks=checks, **({"repairs": True} if repairs else {}))
+            self._run(identity, review=review, checks=checks, **({"repairs": True} if repairs else {}), **({"equipment": True} if equipment else {}))
             with self.lock:
                 self.active, self.process = None, None
 
@@ -307,10 +334,10 @@ class Portal:
                 if existing.get("parent_id") != identity or existing.get("support_request_sha256") != request_sha:
                     raise ValueError("This request identifier belongs to a different experiment")
                 return self.summary(existing["id"])
-            pending = sum(self._status(i)["status"] not in TERMINAL for i in self.jobs)
+            pending = sum(self._status(i)["status"] not in TERMINAL or equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"} for i in self.jobs)
             if len(self.jobs) >= MAX_JOBS or pending >= 4:
                 raise ValueError("Portal job capacity reached")
-            stored = sum(p.stat().st_size for p in self.root.rglob("*") if p.is_file() and not p.is_symlink())
+            stored = self._stored_bytes()
             if stored + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
                 raise ValueError("The portal's 2 GB local storage allowance is full")
             source = body_path(self._folder(identity), parent)
@@ -346,6 +373,43 @@ class Portal:
     def _repair_status(self, identity):
         path = self._folder(identity) / "muse/repairs/status.json"
         return bounded_json(path) if path.is_file() else {}
+
+    def prepare_equipment(self, identity, entry_id):
+        from weft.io import canonical_hash
+        from weft.portal_equipment_candidates import PROFILE
+        from weft.shared_world_packaging import write_package_files
+
+        with self.lock:
+            root = self._folder(identity)
+            if equipment_status(root):
+                return self.summary(identity)
+            catalog = read_catalog(self.root)
+            available = equipment_availability(self.jobs[identity], self._status(identity), catalog)
+            if not available["available"] or entry_id not in {e["id"] for e in available["matches"]}:
+                raise ValueError("No registered prepared evidence matches this upload")
+            if sum(equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"} for i in self.jobs) >= 4:
+                raise ValueError("Equipment candidate queue is full")
+            pending = sum(self._status(i)["status"] not in TERMINAL or equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"} for i in self.jobs)
+            stored = self._stored_bytes()
+            if stored + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
+                raise ValueError("Equipment candidate storage reservation exceeds the portal allowance")
+            entry = next(e for e in catalog["entries"] if e["id"] == entry_id)
+            work = root / "equipment"
+            work.mkdir(mode=0o700)
+            request = {"profile": PROFILE, "source_sha256": self.jobs[identity]["source_sha256"],
+                "entry": entry, "entry_sha256": canonical_hash(entry), "requested_at": local_time()}
+            write_package_files(work, {"parent-status.json": (root / "status.json").read_bytes(),
+                "request.json": (json.dumps(request, sort_keys=True, indent=2) + "\n").encode()})
+            atomic_json(work / "status.json", {"status": "queued", "message": "Waiting to validate prepared evidence and build conditional equipment candidates. No AI call or training."})
+            self.wake.set()
+            return self.summary(identity)
+
+    def choose_equipment(self, identity, candidate_id):
+        with self.lock:
+            if identity in self.labs:
+                raise ValueError("A project with an opened sandbox cannot switch equipment candidates")
+            select_candidate(self._folder(identity), candidate_id)
+            return self.summary(identity)
 
     def repair(self, identity):
         with self.lock:
@@ -398,6 +462,8 @@ class Portal:
             return self.summary(identity)
 
     def _require_review_body(self, identity, *, action="review"):
+        if self._status(identity).get("equipment_candidate_id"):
+            raise ValueError("Conditional equipment candidates need a verified review attachment; Muse, local checks and repairs are unavailable")
         if self.jobs[identity].get("kind") == "imported_lab":
             from weft.portal_evidence_attachment import attachment_summary
 
@@ -407,15 +473,15 @@ class Portal:
             if action != "review":
                 raise ValueError("Imported construction attachments enable Muse review only; local checks and repairs are not qualified")
 
-    def _run(self, identity, *, review=False, checks=False, repairs=False):
+    def _run(self, identity, *, review=False, checks=False, repairs=False, equipment=False):
         folder = self._folder(identity)
-        work = folder / "muse/repairs" if repairs else folder / "muse/checks" if checks else folder / "muse" if review else folder
-        terminal = REPAIR_TERMINAL if repairs else CHECK_TERMINAL if checks else REVIEW_TERMINAL if review else TERMINAL
+        work = folder / "equipment" if equipment else folder / "muse/repairs" if repairs else folder / "muse/checks" if checks else folder / "muse" if review else folder
+        terminal = EQUIPMENT_TERMINAL if equipment else REPAIR_TERMINAL if repairs else CHECK_TERMINAL if checks else REVIEW_TERMINAL if review else TERMINAL
         env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "PYTHONPATH": str(Path(__file__).resolve().parent.parent),
                "PYTHONUNBUFFERED": "1", "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1",
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MPLCONFIGDIR": str(folder / "runtime/matplotlib")}
         support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks or repairs)
-        if not (review or checks or repairs or support) and os.environ.get("OPENAI_API_KEY"):
+        if not (review or checks or repairs or support or equipment) and os.environ.get("OPENAI_API_KEY"):
             env["OPENAI_API_KEY"] = os.environ["OPENAI_API_KEY"]
         if review:
             for name in ("META_API_KEY", "MODEL_API_KEY"):
@@ -425,12 +491,12 @@ class Portal:
         reason = None
         try:
             with (work / "worker.log").open("xb") as log:
-                mode = ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else []
+                mode = ["equipment"] if equipment else ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else []
                 process = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.portal_worker", str(folder), str(self.project), *mode],
                                            stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, env=env)
                 with self.lock:
                     self.process = process
-                deadline = time.monotonic() + (65 if repairs else 60 if checks else 90 if review else 420)
+                deadline = time.monotonic() + (120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
                 next_inventory = 0
                 while process.poll() is None:
                     if self.stopping.wait(.5):
@@ -474,6 +540,14 @@ class Portal:
 
     def cancel(self, identity):
         with self.lock:
+            equipment = equipment_status(self._folder(identity))
+            if equipment and equipment.get("status") not in EQUIPMENT_TERMINAL:
+                folder = self._folder(identity) / "equipment"
+                atomic_json(folder / "cancel-request.json", {"requested_at": local_time()})
+                atomic_json(folder / "status.json", {**equipment,
+                    "status": "cancelling" if self.active == identity else "cancelled",
+                    "message": "Equipment preparation cancelled; parent upload and partial candidates preserved."})
+                return self.summary(identity)
             repairs = self._repair_status(identity)
             queued_repair_next = (repairs.get("status") == "queued"
                 and self._check_status(identity).get("status") not in {"queued", "running", "cancelling"}
@@ -539,7 +613,7 @@ class Portal:
         if not file.is_relative_to(folder) or not file.is_file():
             raise ValueError("Artifact is outside this project")
         relative = file.relative_to(folder).as_posix()
-        if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "muse/repairs/run/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity]["source_file"], "failure.json", "worker.log", "muse/binding.json", "support-priors.json", "body-reuse.json"}:
+        if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "muse/repairs/run/", "equipment/run/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity]["source_file"], "failure.json", "worker.log", "muse/binding.json", "support-priors.json", "body-reuse.json", "equipment/candidates.json", "equipment/source-validation.json", "equipment/selection.json"}:
             raise ValueError("File is not a public project artifact")
         return file
 
@@ -633,6 +707,21 @@ class PortalHandler(LabHandler):
                 if int(self.headers.get("Content-Length", "0")) > 2:
                     raise ValueError("Cancellation takes no arguments")
                 return self.reply(self.server.portal.cancel(match[1]))
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/equipment/(prepare|select)", path)
+            if match:
+                length = int(self.headers.get("Content-Length", "0"))
+                if not 1 <= length <= 256:
+                    raise ValueError("Equipment choice requires a bounded candidate identifier")
+                self.connection.settimeout(10)
+                raw = self.rfile.read(length)
+                if len(raw) != length:
+                    raise ValueError("Equipment choice request was interrupted")
+                from weft.exercise_body_source import _json
+                value = _json(raw)
+                if set(value) != {"id"} or not isinstance(value["id"], str) or not re.fullmatch(r"[a-zA-Z0-9_-]{1,64}", value["id"]):
+                    raise ValueError("Equipment choice accepts only a candidate identifier")
+                method = self.server.portal.prepare_equipment if match[2] == "prepare" else self.server.portal.choose_equipment
+                return self.reply(method(match[1], value["id"]), 202 if match[2] == "prepare" else 200)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/muse", path)
             if match:
                 if int(self.headers.get("Content-Length", "0")) != 0:

@@ -50,6 +50,13 @@ def main():
     portal_attach.add_argument("--project-id", required=True)
     portal_attach.add_argument("--body-source", required=True, help="Exact sealed body package used by the imported world")
     portal_attach.add_argument("--max-seconds", type=float, default=30)
+    portal_equipment = commands.add_parser("portal-equipment-register", help="Register exact prepared equipment evidence for matching portal uploads; no scan or API call")
+    portal_equipment.add_argument("--root", default=".local/portal")
+    portal_equipment.add_argument("--source-sha256", required=True)
+    portal_equipment.add_argument("--run", required=True, help="Source-qualified body/world package")
+    portal_equipment.add_argument("--evidence-run", required=True)
+    portal_equipment.add_argument("--source-mapping", action="append", default=[])
+    portal_equipment.add_argument("--label", required=True)
     openai_setup = commands.add_parser("openai-budget", help="Set a lifetime portal API allowance without resetting charges")
     openai_setup.add_argument("--total-usd", type=float, required=True)
     interact = commands.add_parser("interact", help="Step the Python simulator manually")
@@ -149,6 +156,17 @@ def main():
     segment.add_argument("--out", required=True, help="New artifact directory")
     segment.add_argument("--execute", action="store_true", help="Send one paid request; otherwise prepare offline")
     segment.add_argument("--meta-budget", type=float, help="Per-request reservation allowance; aggregate budget also applies")
+    perception = commands.add_parser("exercise-perceive", help="Bind saved AI equipment regions to original MP4 tracking and body evidence; offline by default")
+    perception.add_argument("--video", required=True, help="Exact analyzed MP4, at most 500 frames and 37 MB")
+    perception.add_argument("--analysis", required=True, help="Saved portal analysis with source frames and original provider request/response")
+    perception.add_argument("--out", required=True)
+    perception.add_argument("--pose-model", help="Local pose model; required for execution unless --body-source is supplied")
+    perception.add_argument("--body-source", help="Reuse a sealed exact-source body package without pose inference")
+    tracking_source = perception.add_mutually_exclusive_group()
+    tracking_source.add_argument("--execute-tracking", action="store_true", help="Make one bounded Meta tracking request, after local body checks")
+    tracking_source.add_argument("--saved-tracking", help="Exact-source sealed tracking with identical initialization prompts; no API call")
+    perception.add_argument("--meta-budget", type=float, help="Explicit single-request allowance; existing shared project ledger still applies")
+    perception.add_argument("--max-seconds", type=float, default=420)
     tracking_view = commands.add_parser("tracking-view", help="Create an offline viewer from sealed tracking; no API calls")
     tracking_view.add_argument("--run", required=True, help="Sealed study containing call/call.json and call/segmentation.json")
     tracking_view.add_argument("--video", required=True, help="Exact MP4 used for that request")
@@ -387,6 +405,13 @@ def main():
     exercise_auto.add_argument("--source-mapping", action="append", default=[])
     exercise_auto.add_argument("--out", required=True, help="New output directory outside the inputs")
     exercise_auto.add_argument("--max-seconds", type=float, default=90)
+    exercise_conditional = commands.add_parser("shared-exercise-alternatives", help="Build bounded conditional equipment-role alternatives without resolving raw identities")
+    exercise_conditional.add_argument("--run", required=True)
+    exercise_conditional.add_argument("--evidence-run", required=True)
+    exercise_conditional.add_argument("--source-mapping", action="append", default=[])
+    exercise_conditional.add_argument("--out", required=True)
+    exercise_conditional.add_argument("--max-candidates", type=int, choices=(2, 3, 4), default=3)
+    exercise_conditional.add_argument("--max-seconds", type=float, default=90)
     exercise_build = commands.add_parser("shared-exercise-build", help="Build one exercise world and lab from video or saved body evidence")
     exercise_source = exercise_build.add_mutually_exclusive_group(required=True)
     exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
@@ -605,6 +630,11 @@ def main():
         elif args.command == "segment":
             from weft.segmentation_lab import track_video
             result = track_video(args.video, args.out, args.box, execute=args.execute, max_cost_usd=args.meta_budget)
+        elif args.command == "exercise-perceive":
+            from weft.exercise_perception_pipeline import prepare_exercise_perception
+            result = prepare_exercise_perception(args.video, args.analysis, args.out, pose_model=args.pose_model,
+                body_source=args.body_source, saved_tracking=args.saved_tracking, execute_tracking=args.execute_tracking,
+                max_meta_cost_usd=args.meta_budget, max_seconds=args.max_seconds)
         elif args.command == "tracking-view":
             from weft.segmentation_lab import prepare_tracking_view
             result = prepare_tracking_view(args.run, args.video, args.out)
@@ -847,6 +877,10 @@ def main():
             from weft.equipment_autoproposal import prepare_automatic_equipment_scene
             result = prepare_automatic_equipment_scene(args.run, args.evidence_run, args.out,
                 source_mappings=args.source_mapping, max_seconds=args.max_seconds)
+        elif args.command == "shared-exercise-alternatives":
+            from weft.equipment_conditional_assembly import prepare_conditional_equipment_scene
+            result = prepare_conditional_equipment_scene(args.run, args.evidence_run, args.out,
+                source_mappings=args.source_mapping, max_seconds=args.max_seconds, max_candidates=args.max_candidates)
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             if args.native_timing and args.video is None:
@@ -1007,6 +1041,10 @@ def main():
         elif args.command == "portal-attach-evidence":
             from weft.portal_import import attach_existing_import
             result = attach_existing_import(args.root, args.project_id, args.body_source, max_seconds=args.max_seconds)
+        elif args.command == "portal-equipment-register":
+            from weft.portal_equipment_candidates import register_equipment_source
+            result = register_equipment_source(args.root, source_sha256=args.source_sha256, base_run=args.run,
+                evidence_run=args.evidence_run, source_mappings=args.source_mapping, label=args.label)
         elif args.command == "openai-budget":
             from weft.openai_access import OpenAIBudget
             result = OpenAIBudget().configure(args.total_usd, note="Administrator explicitly configured the portal lifetime allowance through the CLI")
@@ -1154,6 +1192,8 @@ def main():
             parser.exit(1, "weft: recording export failed; actions are preserved and recovery guidance is printed above\n")
         if args.command in {"shared-exercise-build", "shared-exercise-auto-build"} and result.get("status") != "ready":
             parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
+        if args.command == "shared-exercise-alternatives" and result.get("status") != "candidates_ready":
+            parser.exit(1, f"weft: no admitted equipment candidate; inspect {Path(args.out) / 'result.json'}\n")
         if args.command == "shared-exercise-config":
             pin = result.get("manifest_sha256")
             if (result.get("profile") != "shared-exercise-config-package-v1" or result.get("sealed") is not True
