@@ -17,73 +17,132 @@ SPATIAL_JOINT_LIMITS = {name: (0., 2.6) if name.endswith(("_elbow", "_knee")) el
 LIMB_ENDPOINTS = {"left_shoulder": (11, 13, 15), "right_shoulder": (12, 14, 16),
                   "left_hip": (23, 25, 27), "right_hip": (24, 26, 28)}
 BEND_PLANE_MIN_SINE = .03
-# Ill-conditioned limb fits (near-pole twist, depth flips) can spike single chart samples
-# far beyond human joint speed; short spikes become explicit interpolation proposals.
-SPEED_SCREEN = {"maximum_joint_speed_rad_s": 14.0, "maximum_bridge_span_s": 0.5}
+# Landmark depth flips can swing one or two chart samples by about pi and then leave the
+# whole series parked on the equivalent dual Euler branch. Glitches are flagged by a
+# physical rotation-space speed bound (immune to chart artifacts), the surviving samples
+# are re-charted from their exact rotations with clean priors and a weak small-angle pull,
+# and the flagged samples become explicit zero-confidence interpolation proposals.
+SPEED_SCREEN = {"maximum_rotation_speed_rad_s": 14.0, "maximum_joint_speed_rad_s": 14.0,
+                "maximum_bridge_span_s": 0.5, "principal_pull": 0.05}
+_CHART_GROUPS = (("torso_twist", "torso_lateral", "torso_flex"),) + tuple(
+    (f"{side}_{joint}_twist", f"{side}_{joint}_lateral", f"{side}_{joint}")
+    for side in ("left", "right") for joint in ("shoulder", "hip"))
+_DISTAL_NAMES = tuple(f"{side}_{joint}" for side in ("left", "right") for joint in ("elbow", "knee"))
+
+
+def _rotation_angle(a, b):
+    trace = float(np.trace(a.T @ b))
+    return math.acos(min(1., max(-1., (trace - 1.) / 2.)))
+
+
+def _greedy_drop(speeds_of, count, observed, bound):
+    """Indices to drop so no remaining adjacent pair exceeds the bound; ends never drop."""
+    kept = np.ones(count, dtype=bool)
+    for _ in range(count):
+        index = np.flatnonzero(kept)
+        if len(index) < 2:
+            break
+        speeds = speeds_of(index)
+        fast = np.flatnonzero(speeds > bound)
+        if not len(fast):
+            break
+        incident = {}
+        for pair in fast:
+            for candidate in (index[pair], index[pair + 1]):
+                if 0 < candidate < count - 1 and observed[candidate]:
+                    position = int(np.flatnonzero(index == candidate)[0])
+                    total = 0.0
+                    if position > 0:
+                        total += speeds_of(index[[position - 1, position]])[0]
+                    if position < len(index) - 1:
+                        total += speeds_of(index[[position, position + 1]])[0]
+                    incident[candidate] = total
+        if not incident:
+            break
+        kept[max(incident, key=lambda c: (incident[c], c))] = False
+    return np.flatnonzero(~kept)
+
+
+def _bridge(name, dropped, kept_index, times, values, span, references, audits, screened, unbridged):
+    rows = []
+    for sample in dropped:
+        left = kept_index[kept_index < sample]
+        right = kept_index[kept_index > sample]
+        if not len(left) or not len(right) or times[right[0]] - times[left[-1]] > span:
+            unbridged.append({"joint": name, "evidence_index": int(sample), "time_s": float(times[sample]),
+                              "flank_gap_s": float(times[right[0]] - times[left[-1]]) if len(left) and len(right) else None})
+            continue
+        replacement = float(np.interp(times[sample], times[kept_index], values[kept_index]))
+        rows.append({"evidence_index": int(sample), "time_s": float(times[sample]),
+                     "original_radians": float(values[sample]), "proposal_radians": replacement})
+        references[sample]["joints"][name] = replacement
+        audits[sample]["joint_confidence"][name] = 0.
+        screened_joints = audits[sample].setdefault("speed_screened_joints", [])
+        if name not in screened_joints:
+            screened_joints.append(name)
+    if rows:
+        screened[name] = rows
 
 
 def _screen_reference_speeds(references, audits):
-    """Bridge short implausible-speed chart spikes; long runs stay untouched and audited."""
+    """Flag rotation-space glitches, re-chart the survivors, bridge the flagged samples."""
     times = np.array([row["time_s"] for row in references], dtype=float)
-    bound = SPEED_SCREEN["maximum_joint_speed_rad_s"]
-    span = SPEED_SCREEN["maximum_bridge_span_s"]
-    screened, unbridged = {}, []
+    policy = dict(SPEED_SCREEN)
+    screened, unbridged, recharted = {}, [], {}
+    result = {"policy": policy, "screened_joints": screened, "unbridged_intervals": unbridged,
+              "recharted_samples": recharted}
     if len(references) < 3:
-        return {"policy": dict(SPEED_SCREEN), "screened_joints": screened, "unbridged_intervals": unbridged}
-    for name in SPATIAL_JOINT_NAMES:
-        values = np.array([row["joints"][name] for row in references], dtype=float)
-        # Zero-confidence samples are already declared unobserved (assumed twist, gimbal
-        # lock); they belong to the explicit twist-transport tool, not this screen.
-        observed = np.array([audit["joint_confidence"].get(name, 0.) > 0. for audit in audits])
-        kept = np.ones(len(values), dtype=bool)
+        return result
+    for names in _CHART_GROUPS:
+        # Samples with any assumed/singular chart angle stay exactly as stored: they belong
+        # to the explicit twist-transport tool and must keep their original values.
+        observed = np.array([all(audit["joint_confidence"].get(name, 0.) > 0. for name in names)
+                             for audit in audits])
+        rotations = [rotation_zyx([row["joints"][name] for name in names]) for row in references]
 
-        def fast_pairs():
-            index = np.flatnonzero(kept)
-            speeds = np.abs(np.diff(values[index]) / np.diff(times[index]))
-            return index, np.flatnonzero(speeds > bound)
+        def chart_speeds(index):
+            return np.array([_rotation_angle(rotations[a], rotations[b]) / (times[b] - times[a])
+                             for a, b in zip(index, index[1:])])
 
-        for _ in range(len(values)):
-            index, fast = fast_pairs()
-            if not len(fast):
-                break
-            # Drop the interior sample with the largest incident chart speed; the first and
-            # last samples stay so bridging always has observed flanks.
-            incident = {}
-            for pair in fast:
-                for candidate in (index[pair], index[pair + 1]):
-                    if 0 < candidate < len(values) - 1 and observed[candidate]:
-                        position = int(np.flatnonzero(index == candidate)[0])
-                        speed = 0.0
-                        if position > 0:
-                            speed += abs(values[candidate] - values[index[position - 1]]) / (times[candidate] - times[index[position - 1]])
-                        if position < len(index) - 1:
-                            speed += abs(values[index[position + 1]] - values[candidate]) / (times[index[position + 1]] - times[candidate])
-                        incident[candidate] = speed
-            if not incident:
-                break
-            kept[max(incident, key=lambda c: (incident[c], c))] = False
-        dropped = np.flatnonzero(~kept)
-        if not len(dropped):
-            continue
-        index = np.flatnonzero(kept)
-        rows = []
-        for sample in dropped:
-            left = index[index < sample]
-            right = index[index > sample]
-            gap = times[right[0]] - times[left[-1]]
-            if gap > span:
-                unbridged.append({"joint": name, "evidence_index": int(sample),
-                                  "time_s": float(times[sample]), "flank_gap_s": float(gap)})
+        dropped = _greedy_drop(chart_speeds, len(references), observed, policy["maximum_rotation_speed_rad_s"])
+        dropped_set = set(int(i) for i in dropped)
+        previous = None
+        changed = 0
+        for sample in range(len(references)):
+            if not observed[sample]:
+                # Pass-through resets continuity to the stored representation.
+                previous = np.array([references[sample]["joints"][name] for name in names])
                 continue
-            replacement = float(np.interp(times[sample], times[index], values[index]))
-            rows.append({"evidence_index": int(sample), "time_s": float(times[sample]),
-                         "original_radians": float(values[sample]), "proposal_radians": replacement})
-            references[sample]["joints"][name] = replacement
-            audits[sample]["joint_confidence"][name] = 0.
-            audits[sample].setdefault("speed_screened_joints", []).append(name)
-        if rows:
-            screened[name] = rows
-    return {"policy": dict(SPEED_SCREEN), "screened_joints": screened, "unbridged_intervals": unbridged}
+            if sample in dropped_set:
+                continue
+            angles, _ = rotation_to_zyx(rotations[sample], previous, principal_pull=policy["principal_pull"])
+            stored = [references[sample]["joints"][name] for name in names]
+            if any(abs(float(new) - old) > 1e-9 for new, old in zip(angles, stored)):
+                changed += 1
+            for name, value in zip(names, angles):
+                references[sample]["joints"][name] = float(value)
+            previous = angles
+        if changed:
+            recharted[names[2]] = changed
+        if len(dropped):
+            kept_index = np.array(sorted(set(range(len(references))) - dropped_set), dtype=int)
+            for name in names:
+                values = np.array([row["joints"][name] for row in references], dtype=float)
+                _bridge(name, dropped, kept_index, times, values, policy["maximum_bridge_span_s"],
+                        references, audits, screened, unbridged)
+    for name in _DISTAL_NAMES:
+        values = np.array([row["joints"][name] for row in references], dtype=float)
+        observed = np.array([audit["joint_confidence"].get(name, 0.) > 0. for audit in audits])
+
+        def scalar_speeds(index):
+            return np.abs(np.diff(values[index]) / np.diff(times[index]))
+
+        dropped = _greedy_drop(scalar_speeds, len(values), observed, policy["maximum_joint_speed_rad_s"])
+        if len(dropped):
+            kept_index = np.array(sorted(set(range(len(values))) - set(int(i) for i in dropped)), dtype=int)
+            _bridge(name, dropped, kept_index, times, values, policy["maximum_bridge_span_s"],
+                    references, audits, screened, unbridged)
+    return result
 
 
 def rotation_zyx(angles):
@@ -95,8 +154,14 @@ def rotation_zyx(angles):
                      [-sy, cy * sx, cy * cx]])
 
 
-def rotation_to_zyx(rotation, previous=None):
-    """Return bounded continuous-branch angles and whether yaw/roll are singular."""
+def rotation_to_zyx(rotation, previous=None, principal_pull=0.):
+    """Return bounded continuous-branch angles and whether yaw/roll are singular.
+
+    principal_pull adds a weak small-angle preference between the two equivalent Euler
+    branches; it never changes the represented rotation, only the parametrization.
+    """
+    if type(principal_pull) not in (int, float) or not 0. <= principal_pull <= .25:
+        raise ValueError("Principal pull must be a small nonnegative branch preference")
     r = np.asarray(rotation, dtype=float)
     if (r.shape != (3, 3) or not np.isfinite(r).all()
             or not np.allclose(r.T @ r, np.eye(3), atol=1e-6)
@@ -122,7 +187,8 @@ def rotation_to_zyx(rotation, previous=None):
                        if -math.tau <= value + k * math.tau <= math.tau]
             wrapped.append(min(options, key=lambda candidate: abs(candidate - target)))
         candidates.append(np.asarray(wrapped))
-    chosen = min(candidates, key=lambda candidate: float(np.linalg.norm(candidate - prior)))
+    chosen = min(candidates, key=lambda candidate: float(np.linalg.norm(candidate - prior)
+                                                         + principal_pull * np.linalg.norm(candidate)))
     return chosen, singular
 
 

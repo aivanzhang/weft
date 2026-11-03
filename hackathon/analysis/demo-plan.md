@@ -37,19 +37,25 @@ Rubric: impact 30%; Meta tooling 25%; demo 25%; technical execution 20%.
 - **Muse tested:** actual model chose feedback-1; unchanged scorer rejected it after
   936 controls. Score 0.02523263→0.02513716. No installation or physical claim.
   Full path 34.345 s; rounded ledger charge $0.019114.
-- **Three new videos (updated):** after the bounded transient-hypothesis screen,
-  the frozen rerun admits **2/3 with full 450+ step playable rollouts**; the
-  multi-person clip stays refused with recorded reasons
-  (`.local/hackathon-unseen-20261103-05/`). The original 0/3 run is preserved
-  unchanged ([report](../../.local/hackathon-unseen-20261103-01/report.html)).
-  A live portal journey re-verified sots-press admission end to end
-  (`.local/portal-unfamiliar-source-acceptance-02/result.json`).
-- **Task success (updated):** with disclosed three-axis root assistance — the
-  primary route's default, now also used by saved-body labs — the recorded demo
-  world and sots-press **pass every frozen gate** (root 0.018 vs 0.15; angular
-  0.09–0.11 vs 0.35). Unassisted tracking still fails and stays the labeled hard
-  mode. Overhead-squat completes but fails one peak-angular gate from an
-  ill-conditioned squat-bottom chart transition (`.local/tracking-study-01/`).
+- **Three new videos (final):** after the bounded transient-hypothesis screen and the
+  rotation-space reference re-anchoring, the frozen rerun admits **2/3 with full
+  450+ step playable rollouts**, and **both admitted videos pass every frozen task
+  gate with labeled root assistance** (overhead-squat angular 0.068 vs 0.35, root
+  0.009 vs 0.15). The multi-person clip stays refused with recorded reasons
+  (`.local/hackathon-unseen-20261103-06/`, `.local/tracking-study-01/`). The original
+  0/3 run is preserved unchanged
+  ([report](../../.local/hackathon-unseen-20261103-01/report.html)).
+- **Live demo journey (verified):** one scripted pass through the real portal on the
+  previously rejected sots-press clip — upload → admission → saved-body world → lab →
+  robot avatar → continuous 456-step recording with a mid-take swap to the re-skinned
+  Studio panda → **task success true, no failed gates** → avatar video (15.2 s, 455
+  frames) and replay exported — in about 14 seconds
+  (`.local/portal-unfamiliar-source-acceptance-02/continue-result.json`; frames:
+  `demo-video-frames.png`).
+- **Studio avatar (new):** a Blender bone-heat re-skin derivative
+  (`studio-panda-470-weft-reskin`) is visually coherent under recorded poses and
+  imports through the standard consumer; robot remains the default avatar
+  (`.local/studio-skin-repair-01/NOTES.md`).
 - **Positioning implemented:** portal, landing page and pitch name simulation/RL developers.
 - **Apple Notes saved:** the demo script and item 5 checklist were verified in the note.
   A later native-app connection failure prevented syncing these final results; this

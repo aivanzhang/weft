@@ -176,3 +176,20 @@ def test_plausible_motion_is_never_screened():
     screen = audit["reference_speed_screen"]
     assert screen["screened_joints"] == {} and screen["unbridged_intervals"] == []
     assert not any("speed_screened_joints" in row for row in audit["frames"])
+
+
+def test_transient_twist_flip_cannot_park_the_chart_on_the_dual_branch():
+    base = rotation_zyx([0.3, 0.2, 0.4])
+    frames = [pose_frame(i, limb=base) for i in range(8)]
+    frames[3] = pose_frame(3, limb=base @ rotation_zyx([math.pi, 0., 0.]))
+    reference, audit = build_spatial_reference({"frames": frames, "source_sha256": "source"}, anchor())
+    for name in ("left_hip", "right_shoulder"):
+        names = (name + "_twist", name + "_lateral", name)
+        # The glitch sample becomes a zero-confidence proposal...
+        assert all(audit["frames"][3]["joint_confidence"][n] == 0. for n in names)
+        assert set(names) <= set(audit["frames"][3]["speed_screened_joints"])
+        # ...and every later sample returns to the small-angle branch with the same rotation.
+        for index in (4, 5, 6, 7):
+            triple = [reference[index]["joints"][n] for n in names]
+            assert abs(triple[0] - reference[0]["joints"][names[0]]) < 1e-6
+            np.testing.assert_allclose(rotation_zyx(triple), base, atol=1e-8)

@@ -54,23 +54,31 @@ Development observations from November 3, 2026; these are small, scoped studies,
 not an external benchmark or a guarantee for new inputs.
 
 - Rerunning the frozen three-video evaluation after the transient-hypothesis screen:
-  **2/3 unfamiliar videos now complete the full pipeline** (admission, body, world,
+  **2/3 unfamiliar videos complete the full pipeline** (admission, body, world,
   lab and a 450+ step playable rollout). The multi-person clip stays refused with
-  recorded reasons. Evidence: `.local/hackathon-unseen-20261103-05/`.
-- With disclosed three-axis root assistance (the primary route's default), the
-  recorded demo world and the new sots-press video **pass every frozen task gate**
-  (root tracking 0.018 vs the 0.15 gate). Unassisted tracking still fails and
-  remains the honest hard mode. Evidence: `.local/tracking-study-01/`.
-- The overhead-squat video completes and replays but fails one gate (peak angular
-  1.00 vs 0.70): its squat-bottom chart transition is ill-conditioned. A bounded
-  joint-speed screen now bridges single-sample reference spikes with audited
-  zero-confidence proposals; the residual near-bound transition is preserved.
+  recorded reasons. Evidence: `.local/hackathon-unseen-20261103-06/`.
+- With disclosed three-axis root assistance (the default on both portal routes),
+  **both admitted unfamiliar videos and the recorded demo world pass every frozen
+  task gate** (for example overhead-squat: angular 0.068 vs 0.35, root 0.009 vs
+  0.15). Unassisted tracking still fails and remains the honest hard mode.
+  Evidence: `.local/tracking-study-01/`.
+- Landmark depth flips used to park limb references on the dual Euler branch for
+  seconds (a 1.1-rad peak tracking spike). References are now screened in rotation
+  space and re-charted with clean priors; bridged samples are explicit
+  zero-confidence proposals and the represented rotations never change.
+- A complete live-portal journey on the previously rejected sots-press clip —
+  upload, admission, saved-body world, built-in and imported avatars, one
+  continuous 456-step recording with a mid-take avatar swap, task success true,
+  video/replay export — runs in about 14 seconds.
+  Evidence: `.local/portal-unfamiliar-source-acceptance-02/continue-result.json`.
 - A real Muse-selected controller candidate was tested and rejected under the
   unchanged scoring rules. No accepted physical repair was demonstrated.
-- Three bounded Studio-panda skin-weight repairs (filter, re-authoring, probe-guided
-  consensus) all failed posed-stretch validation; the robot remains the qualified
-  avatar. Tooling and evidence: `tools/avatar-assets/avatar_assets/skin_weight_repair.py`,
-  `.local/studio-skin-repair-01/NOTES.md`.
+- Three bounded Studio-panda weight-space repairs failed, but a Blender bone-heat
+  re-skin through a watertight proxy (`tools/avatar-assets/scripts/blender_reskin_proxy.py`)
+  produced a clean labeled derivative: mapped-role severe stretch 752→80, recorded-pose
+  severe edges ~309→~107 per frame, visually coherent. It ships as the separate asset
+  `studio-panda-470-weft-reskin`; the robot stays the default.
+  Evidence: `.local/studio-skin-repair-01/NOTES.md`.
 - In a separate ball task, a learned policy passed 8/12 changed starts while
   a fixed feedback controller passed 12/12. This did not show a learning advantage.
 
@@ -95,11 +103,10 @@ ledgers. See [API configuration](sandbox/README.md#api-configuration).
 
 ## Roadmap
 
-- Extend admission beyond single-person clips and qualify unassisted tracking;
-  resolve the ill-conditioned chart transitions behind the overhead-squat near-miss.
+- Extend admission beyond single-person clips and qualify unassisted tracking.
 - Constrain camera, scale, geometry and equipment contact using stronger evidence.
-- Re-skin the Studio avatar against its existing rig in the authoring environment;
-  bounded weight-space repairs are exhausted and documented.
+- Qualify the re-skinned Studio derivative across more poses and extend the proxy
+  re-skin to arbitrary imported models.
 - Demonstrate useful learning and supported repairs against fixed independent baselines.
 - Improve end-to-end usability, reproducibility and resource measurements.
 
