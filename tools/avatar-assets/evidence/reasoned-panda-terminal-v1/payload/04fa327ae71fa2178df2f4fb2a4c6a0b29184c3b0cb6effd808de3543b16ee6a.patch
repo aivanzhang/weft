@@ -1,0 +1,323 @@
+--- a/tools/avatar-assets/avatar_assets/pipeline.py
++++ b/tools/avatar-assets/avatar_assets/pipeline.py
+@@ -26,7 +26,7 @@
+ }
+ MAX_OUTPUT = 2 * 1024**3
+ MAX_STAGE_START_SECONDS = 3600
+-PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
++PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
+                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
+                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
+                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
+@@ -1100,6 +1100,7 @@
+ 
+     def _run(self, execute, *, plan_only=False):
+         from avatar_assets import pipeline_prompts as prompts
++        from avatar_assets import repair_visual_inputs
+         from avatar_assets.cli import verify_pack
+         from avatar_assets.finish_generated import finish
+         from avatar_assets.provider_model import preview
+@@ -1143,9 +1144,13 @@
+         require(read_json(self.root/'quality-policy.json') == quality, 'Prepared quality policy changed')
+         source_parents = {b['name']: b['parent'] for rig in context['native'].get('rigs', []) for b in rig['bones']}
+         self.event('inspection', 'complete', reason='Source geometry and review views inspected; no quality acceptance.')
++        source_guides = [inspection/name for name in ('guide-front.png','guide-side.png','three-quarter.png')]
++        visual_inputs = {'status': 'unavailable', 'reason': 'No prior authenticated visual critique.', 'images': []}
+         previous, findings, selected, repair_images = None, None, None, []
+         if self.continuation is not None:
+             previous, findings = self.continuation['previous_answer'], self.continuation['findings']
++            visual_inputs = repair_visual_inputs.from_continuation(ROOT, self.root, self.request, self.continuation, source_guides)
++            repair_images = [Path(row['path']) for row in visual_inputs['images']]
+             if self.continuation.get('replan'):
+                 findings = {**findings, 'semantic_replan': {
+                     'validation_failure': self.continuation['replan']['validation_failure'],
+@@ -1164,6 +1169,7 @@
+                 findings = {**(findings or {}), 'historical_visual_reviews': deepcopy(visual_history)}
+             if last_visual_review is not None:
+                 findings = {**(findings or {}), 'last_visual_review': deepcopy(last_visual_review)}
++            findings = {**(findings or {}), 'repair_visual_inputs': deepcopy(visual_inputs)}
+             author_prompt = prompts.author_prompt(self.request, plan, context, previous, findings)
+             if self.continuation is not None:
+                 if self.continuation.get('replan'):
+@@ -1177,8 +1183,7 @@
+                                       'the supplied measured failures; do not restart the character, rig or action design. '
+                                       'Prior geometry checks are not proof of deformation or appearance acceptance.\n')
+             answer = self.agents.call('author-'+str(attempt), author_prompt,
+-                                      prompts.author_schema(self.request, plan), images=[inspection/n for n in
+-                                          ('guide-front.png','guide-side.png','three-quarter.png')]+repair_images[:5])
++                                      prompts.author_schema(self.request, plan), images=source_guides+repair_images[:5])
+             if answer.get('status') == 'unsupported':
+                 _text(answer['reason'], 4000, 'unsupported author reason')
+                 return self.unsupported('author', answer['reason'], attempt=attempt)
+@@ -1270,7 +1275,8 @@
+                 if attachment_proof is not None:
+                     findings['measurements']['portable_attachment'] = attachment_proof
+                 if (pack/'finish-report.json').exists() and read_json(pack/'finish-report.json').get('states'):
+-                    _, repair_images = self._contacts(attempt, pack)
++                    _, native_repair_images = self._contacts(attempt, pack)
++                    repair_images = list(dict.fromkeys([*repair_images, *native_repair_images]))[:5]
+                     findings['repair_images'] = [str(p) for p in repair_images[:5]]
+                 source_failures = _remember_source_failures(source_failures, findings, source['sha256'])
+                 if source_failures:
+@@ -1305,7 +1311,10 @@
+             if review['verdict'] == 'unsupported':
+                 return self.unsupported('reviewer', review['summary'], attempt=attempt, review=review)
+             last_visual_review = _current_visual_memory(source['sha256'], pack, review_path, review_receipt)
+-            _, repair_images = self._contacts(attempt, pack)
++            visual_inputs = repair_visual_inputs.from_current_review(self.root, source['sha256'], attempt, review, evidence, source_guides)
++            repair_images = [Path(row['path']) for row in visual_inputs['images']]
++            if not repair_images:
++                _, repair_images = self._contacts(attempt, pack)
+             previous, findings = config, {'review': review, 'measurements': self._diagnostics(pack),
+                                          'repair_images': [str(p) for p in repair_images[:5]]}
+             findings['measurements']['portable_attachment'] = attachment_proof
+--- /dev/null
++++ b/tools/avatar-assets/avatar_assets/repair_visual_inputs.py
+@@ -0,0 +1,139 @@
++"""Select existing critic-cited images; never generate images or follow freeform repair paths."""
++from pathlib import Path
++
++from avatar_assets.safety import local_file, read_json, require, sha256
++from avatar_assets.agent_runner import _image_inputs, MAX_IMAGE_BYTES, MAX_IMAGE_TOTAL_BYTES
++
++
++def _file(folder, name, maximum=1024**2):
++    relative=Path(name)
++    require(isinstance(name,str) and not relative.is_absolute() and '..' not in relative.parts,
++            'Repair image custody: escaped path')
++    path=folder/relative
++    require(path.resolve()==path and path.is_relative_to(folder),'Repair image custody: linked or escaped path')
++    return local_file(path,maximum)
++
++
++def _pins(rows):
++    require(isinstance(rows,list) and len(rows)<=1024,'Repair image custody: inventory bound')
++    result={row['path']:row for row in rows}
++    require(len(result)==len(rows),'Repair image custody: duplicate inventory path')
++    return result
++
++
++def _bound(folder,pins,name,maximum=1024**2):
++    path=_file(folder,name,maximum);row=pins.get(name)
++    require(row=={'path':name,'bytes':path.stat().st_size,'sha256':sha256(path)},
++            'Repair image custody: changed artifact '+name)
++    return path
++
++
++def _lineage_inventory(root,child,request,target):
++    from avatar_assets.pipeline_continuation import _read_context
++    for _ in range(8):
++        receipt,_=_read_context(child,request)
++        parent=root/request['continuation']['parent']
++        require(parent.resolve()==parent and parent.parent==root/'outputs',
++                'Repair image custody: escaped ancestor')
++        pins=_pins(receipt['inventory'])
++        parent_request=read_json(_bound(parent,pins,'request.json'))
++        require(sha256(parent/'request.json')==receipt['parent_request_sha256'],
++                'Repair image custody: ancestor request changed')
++        if str(parent.relative_to(root))==target:return parent,pins,parent_request
++        require('continuation' in parent_request,'Repair image custody: review is outside bound ancestry')
++        for name in ('continuation/receipt.json','continuation/context.json'):
++            _bound(parent,pins,name,4*1024**2)
++        child,request=parent,parent_request
++    raise ValueError('Repair image custody: ancestor depth exceeds8')
++
++
++def _review_evidence(folder,source_sha,attempt,review,evidence,pins=None):
++    require(type(attempt) is int and 0<=attempt<=2,'Repair image custody: attempt bound')
++    def load(name,maximum=1024**2):
++        return read_json(_bound(folder,pins,name,maximum) if pins is not None else _file(folder,name,maximum))
++    receipt=load(f'review-{attempt}.json');model=load(f'model-{attempt}/manifest.json',4*1024**2)
++    model_sha=sha256(folder/f'model-{attempt}/manifest.json')
++    require(receipt['review']==review and receipt['evidence']==evidence and review.get('verdict')=='repair'
++            and receipt['model_manifest_sha256']==model_sha and model.get('source_sha256')==source_sha,
++            'Repair image custody: review/source/model mismatch')
++    paid=load(f'agents/reviewer-{attempt}/receipt.json')
++    answer_path=(f'agents/reviewer-{attempt}/answer.json')
++    answer=load(answer_path);paid_request=load(f'agents/reviewer-{attempt}/request.json')
++    require(paid.get('status')=='succeeded' and paid.get('answer_sha256')==sha256(folder/answer_path)
++            and answer==review,'Repair image custody: paid answer mismatch')
++    proof=load(f'final-evidence-{attempt}/manifest.json',4*1024**2)
++    require(proof['model_manifest_sha256']==model_sha,'Repair image custody: image model mismatch')
++    expected=[{**row,'path':str(folder/f'final-evidence-{attempt}'/row['path'])} for row in proof['images']]
++    require(evidence==expected and len(evidence)<=8,'Repair image custody: critic evidence changed')
++    image_pins=_pins(proof['artifacts']);records=[]
++    for image in evidence:
++        path=Path(image['path']);name=str(path.relative_to(folder/f'final-evidence-{attempt}'))
++        path=_bound(folder/f'final-evidence-{attempt}',image_pins,name,MAX_IMAGE_BYTES)
++        relative=str(path.relative_to(folder))
++        if pins is not None:_bound(folder,pins,relative,MAX_IMAGE_BYTES)
++        require(sha256(path)==image['sha256'],'Repair image custody: image hash mismatch')
++        records.append({**image,'bytes':path.stat().st_size})
++    require(paid_request.get('images')==[{'bytes':r['bytes'],'sha256':r['sha256'],'suffix':Path(r['path']).suffix}
++                                        for r in records],'Repair image custody: paid images differ')
++    return records
++
++
++def _selected(review,records,base_images):
++    cited=set()
++    for row in review.get('checks',[]):
++        if row.get('passed') is False:cited.update(row.get('evidence_ids',[]))
++    for row in review.get('state_reviews',[]):
++        if row.get('meaning_passed') is False or row.get('motion_passed') is False:cited.update(row.get('evidence_ids',[]))
++        for requirement in row.get('requirement_reviews',[]):
++            if requirement.get('passed') is False:cited.update(requirement.get('evidence_ids',[]))
++    def rank(row):
++        name=row['id']
++        priority=(0 if name=='evidence-exported-views' else 1 if name.startswith('evidence-isolated-exported-')
++                  else 2 if name=='evidence-native-views' else 3 if name.startswith('evidence-isolated-native-')
++                  else 4 if name.startswith('evidence-motion-') else 5)
++        return priority,name
++    candidates=sorted((row for row in records if row['id'] in cited),key=rank)
++    chosen=[];seen=set()
++    for row in candidates:
++        if row['sha256'] not in seen:chosen.append(row);seen.add(row['sha256'])
++        if len(chosen)==5:break
++    if not chosen:return {'status':'unavailable','reason':'No critic-failure-cited image evidence; no freeform path was loaded.','images':[]}
++    require(len(base_images)==3,'Repair image inputs require the three source guides')
++    inputs=_image_inputs([*base_images,*[Path(row['path']) for row in chosen]])
++    require(sum(row['bytes'] for row in inputs)<=MAX_IMAGE_TOTAL_BYTES,'Repair images exceed total byte bound')
++    motion=sum(row['id'].startswith(('evidence-motion-','evidence-isolated-')) for row in chosen)
++    return {'status':'available','reason':'Bound critic failure images; static-only evidence does not establish motion.' if not motion
++            else 'Bound critic failure images, including sampled pose or motion evidence.',
++            'images':chosen,'motion_images':motion,'total_agent_images':len(inputs),
++            'total_agent_image_bytes':sum(row['bytes'] for row in inputs)}
++
++
++def from_continuation(root,child,request,context,base_images):
++    """Context must already pass pipeline_continuation.verify; recheck every selected file."""
++    from avatar_assets.pipeline_continuation import _read_context
++    _,saved_context=_read_context(Path(child),request)
++    require(context==saved_context,'Repair image custody: continuation context differs')
++    history=(context or {}).get('findings',{}).get('historical_visual_reviews',[])
++    require(isinstance(history,list) and len(history)<=8,'Repair visual history bound')
++    if not history:return {'status':'unavailable','reason':'No authenticated prior visual review.','images':[]}
++    summary=history[-1]
++    parent,pins,parent_request=_lineage_inventory(Path(root),Path(child),request,summary['parent_output'])
++    source_sha=request['reuse_model']['sha256']
++    require(parent_request['reuse_model']['sha256']==source_sha,'Repair image custody: ancestor source mismatch')
++    attempt=summary['attempt'];role=f'reviewer-{attempt}'
++    for name,checksum in ((f'review-{attempt}.json',summary['review_reference']['sha256']),
++                          (f'agents/{role}/answer.json',summary['answer_sha256']),
++                          (f'agents/{role}/receipt.json',summary['receipt_sha256']),
++                          (f'model-{attempt}/manifest.json',summary['model_manifest_sha256'])):
++        require(sha256(_bound(parent,pins,name,4*1024**2))==checksum,'Repair image custody: history reference changed')
++    receipt=read_json(parent/f'review-{attempt}.json')
++    records=_review_evidence(parent,source_sha,attempt,receipt['review'],receipt['evidence'],pins)
++    require(summary['evidence']==[{'id':r['id'],'path':str(Path(r['path']).relative_to(parent)),
++                                  'sha256':r['sha256'],'bytes':r['bytes']} for r in records],
++            'Repair image custody: historical images differ')
++    return _selected(receipt['review'],records,base_images)
++
++
++def from_current_review(job,source_sha,attempt,review,evidence,base_images):
++    """Call after validate_review/_bind_review and the saved review receipt, never before."""
++    return _selected(review,_review_evidence(Path(job),source_sha,attempt,review,evidence),base_images)
+--- /dev/null
++++ b/tools/avatar-assets/tests/test_repair_visual_inputs.py
+@@ -0,0 +1,105 @@
++"""Analytic image-custody fixtures, not model/provider/native executions."""
++from pathlib import Path
++import importlib.util
++import tempfile
++import unittest
++from copy import deepcopy
++from PIL import Image
++from avatar_assets.safety import artifacts,read_json,write_json,sha256
++
++from avatar_assets import repair_visual_inputs as visual
++SOURCE='a'*64
++
++
++class RepairVisualInputsTests(unittest.TestCase):
++    def setUp(self):
++        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
++        self.root=Path(self.temp.name).resolve();self.parent=self.root/'outputs/parent';self.parent.mkdir(parents=True)
++        self.child=self.root/'outputs/child';(self.child/'inspection').mkdir(parents=True)
++        self.guides=[]
++        for n in range(3):
++            path=self.child/'inspection'/f'guide-{n}.png';Image.new('RGB',(8,8),(n,0,0)).save(path);self.guides.append(path)
++        self.source={'sha256':SOURCE}
++        write_json(self.parent/'request.json',{'reuse_model':self.source})
++        model=self.parent/'model-0';model.mkdir()
++        write_json(model/'manifest.json',{'source_sha256':SOURCE,'artifacts':[]})
++        final=self.parent/'final-evidence-0';final.mkdir();images=[]
++        names=['evidence-native-views','evidence-motion-00','evidence-delivered-portrait','evidence-isolated-native-wave',
++               'evidence-isolated-exported-wave','evidence-exported-views']
++        for n,name in enumerate(names):
++            path=final/f'{name}.png';Image.new('RGB',(8,8),(30+n*20,10,0)).save(path)
++            images.append({'id':name,'path':path.name,'sha256':sha256(path),'kind':'analytic still','state_ids':[]})
++        model_sha=sha256(model/'manifest.json')
++        write_json(final/'manifest.json',{'model_manifest_sha256':model_sha,'images':images,'artifacts':artifacts(final)})
++        self.evidence=[{**row,'path':str(final/row['path'])} for row in images]
++        self.review={'verdict':'repair','checks':[{'name':'appearance','passed':False,'evidence_ids':names}]}
++        write_json(self.parent/'review-0.json',{'model_manifest_sha256':model_sha,'review':self.review,'evidence':self.evidence})
++        agents=self.parent/'agents/reviewer-0';agents.mkdir(parents=True)
++        write_json(agents/'answer.json',self.review)
++        write_json(agents/'receipt.json',{'status':'succeeded','answer_sha256':sha256(agents/'answer.json')})
++        write_json(agents/'request.json',{'images':[{'bytes':Path(row['path']).stat().st_size,'sha256':row['sha256'],'suffix':'.png'} for row in self.evidence]})
++        self.summary={'attempt':0,'parent_output':'outputs/parent',
++            'review_reference':{'path':'review-0.json','sha256':sha256(self.parent/'review-0.json')},
++            'model_manifest_sha256':model_sha,'answer_sha256':sha256(agents/'answer.json'),
++            'receipt_sha256':sha256(agents/'receipt.json'),
++            'evidence':[{'id':row['id'],'path':str(Path(row['path']).relative_to(self.parent)),
++                         'sha256':row['sha256'],'bytes':Path(row['path']).stat().st_size} for row in self.evidence]}
++        self.context={'plan':{},'previous_answer':{},'findings':{'historical_visual_reviews':[self.summary],
++            'repair_images':['/untrusted/freeform.png']}}
++        (self.child/'continuation').mkdir();write_json(self.child/'continuation/context.json',self.context)
++        from avatar_assets.pipeline_continuation import POLICY
++        receipt={'policy':POLICY,'schema_version':1,'depth':1,'parent':'outputs/parent','inventory':artifacts(self.parent),
++            'parent_request_sha256':sha256(self.parent/'request.json'),'context_sha256':sha256(self.child/'continuation/context.json')}
++        write_json(self.child/'continuation/receipt.json',receipt)
++        self.request={'reuse_model':self.source,'continuation':{'schema_version':1,'policy':POLICY,'parent':'outputs/parent',
++            'receipt':'continuation/receipt.json','sha256':sha256(self.child/'continuation/receipt.json')}}
++
++    def continuation(self):
++        return visual.from_continuation(self.root,self.child,self.request,self.context,self.guides)
++
++    def test_continuation_and_current_choose_failure_citations_and_prioritize_exported(self):
++        result=self.continuation()
++        current=visual.from_current_review(self.parent,SOURCE,0,self.review,self.evidence,self.guides)
++        self.assertEqual(result,current);self.assertEqual(result['total_agent_images'],8)
++        self.assertEqual([x['id'] for x in result['images']][:2],['evidence-exported-views','evidence-isolated-exported-wave'])
++        self.assertEqual(len(result['images']),5)
++        self.assertNotIn('/untrusted/freeform.png',str(result))
++
++    def test_changed_image_hash_rejected_before_attachment(self):
++        Path(self.evidence[0]['path']).write_bytes(b'changed')
++        with self.assertRaisesRegex(ValueError,'changed artifact'):self.continuation()
++
++    def test_changed_source_or_model_rejected(self):
++        with self.assertRaisesRegex(ValueError,'source/model mismatch'):
++            visual.from_current_review(self.parent,'b'*64,0,self.review,self.evidence,self.guides)
++        path=self.parent/'model-0/manifest.json';path.write_text('{}')
++        with self.assertRaises(ValueError):self.continuation()
++
++    def test_escaped_paths_and_unbound_context_rejected(self):
++        with self.assertRaisesRegex(ValueError,'escaped path'):visual._file(self.parent,'../outside.png')
++        changed=deepcopy(self.context);changed['findings']['historical_visual_reviews'][0]['parent_output']='../elsewhere'
++        with self.assertRaisesRegex(ValueError,'context differs'):
++            visual.from_continuation(self.root,self.child,self.request,changed,self.guides)
++
++    def test_paid_answer_or_paid_images_mismatch_rejected(self):
++        path=self.parent/'agents/reviewer-0/request.json';path.write_text('{"images":[]}')
++        with self.assertRaisesRegex(ValueError,'paid images differ'):
++            visual.from_current_review(self.parent,SOURCE,0,self.review,self.evidence,self.guides)
++
++    def test_static_only_and_no_failure_images_are_explicit(self):
++        records=[{**row,'bytes':Path(row['path']).stat().st_size} for row in self.evidence]
++        static={'checks':[{'passed':False,'evidence_ids':['evidence-exported-views']}]}
++        result=visual._selected(static,records,self.guides)
++        self.assertEqual(result['motion_images'],0);self.assertIn('static-only',result['reason'])
++        self.assertEqual(visual._selected({'checks':[]},records,self.guides)['status'],'unavailable')
++
++    def test_byte_and_count_bounds_remain_authoritative(self):
++        from unittest.mock import patch
++        records=[{**row,'bytes':Path(row['path']).stat().st_size} for row in self.evidence]
++        with patch.object(visual,'_image_inputs',return_value=[{'bytes':33*1024**2}]),self.assertRaisesRegex(ValueError,'total byte'):
++            visual._selected(self.review,records,self.guides)
++        with self.assertRaisesRegex(ValueError,'three source'):
++            visual._selected(self.review,records,self.guides[:2])
++
++
++if __name__=='__main__':unittest.main()

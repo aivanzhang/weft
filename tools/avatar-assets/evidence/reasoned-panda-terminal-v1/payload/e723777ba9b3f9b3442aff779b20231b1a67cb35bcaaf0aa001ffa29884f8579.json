@@ -1,0 +1,41 @@
+{
+  "cleanup_events": [],
+  "cleanup_status": "not_required",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "avatar_assets.packaging",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-2",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-2",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-2/sources/scene.json",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-2/sources/output-spec.json"
+  ],
+  "descendant_exit_verified": false,
+  "elapsed_seconds": 2.867,
+  "exit_code": 0,
+  "failure": null,
+  "failure_reasons": [],
+  "final_output_bytes": 53581565,
+  "last_rss_sample_elapsed_seconds": 2.606,
+  "limits": {
+    "cleanup_grace_seconds": 7,
+    "log_bytes": 16777216,
+    "output_inventory_entries": 100000,
+    "output_mb": 512,
+    "rss_mb": 768,
+    "wall_seconds": 180
+  },
+  "manual_stop_required": false,
+  "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+  "monitor_checkpoint": "packaging-monitor.json",
+  "monitor_errors": [],
+  "pid": 71564,
+  "process_exit_verified": true,
+  "rss_exit_race_observed": true,
+  "rss_samples": 10,
+  "sampled_max_output_bytes": 53581565,
+  "sampled_peak_rss_bytes": 286392320,
+  "sampling_interval_seconds": 0.25,
+  "schema_version": 1,
+  "status": "finished"
+}

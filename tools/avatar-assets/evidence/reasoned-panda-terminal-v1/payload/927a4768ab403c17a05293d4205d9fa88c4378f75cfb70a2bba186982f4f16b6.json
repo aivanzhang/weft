@@ -1,0 +1,71 @@
+{
+  "actual_microdollars_upper_estimate": 199900,
+  "answer_sha256": "d02d7a902d1d2e45dbefb334da9295722bb0fc9d9ac07483629fe3fd9eebf649",
+  "artifacts": [
+    {
+      "bytes": 36759,
+      "path": "answer.json",
+      "sha256": "d02d7a902d1d2e45dbefb334da9295722bb0fc9d9ac07483629fe3fd9eebf649"
+    },
+    {
+      "bytes": 289158,
+      "path": "image-00.png",
+      "sha256": "0cb578b511819ef51c6b31995eac9cdccb0480355913002ffa0dfb5cb4f00c9d"
+    },
+    {
+      "bytes": 249759,
+      "path": "image-01.png",
+      "sha256": "2618a66248f46988cd73ee84292cbd03f934f7f3cb2145181b85d7b82979c37c"
+    },
+    {
+      "bytes": 211947,
+      "path": "image-02.png",
+      "sha256": "6e567455d73842716cd0ce023f88425bddf0c9ff33da0e7604c48995bdfa9723"
+    },
+    {
+      "bytes": 661,
+      "path": "payload-metadata.json",
+      "sha256": "bb2e139cfa367c0d11f707e75b99f00477a46afa1af5a011fd62c15a1250d400"
+    },
+    {
+      "bytes": 84075,
+      "path": "prompt.txt",
+      "sha256": "4936f5fff889bb36a62290a120f1675468c28a56f6b363094f56c42f37ebf759"
+    },
+    {
+      "bytes": 735,
+      "path": "request.json",
+      "sha256": "3588e3610c875cf20ed5da02f05a1575019e2df8a4423133fca97ac9ec516bc9"
+    },
+    {
+      "bytes": 121821,
+      "path": "response.json",
+      "sha256": "517f5352eb3f8490577a3671931371e0427b4d08bfeedd1bfbb73b5c4285a92d"
+    },
+    {
+      "bytes": 36992,
+      "path": "schema.json",
+      "sha256": "fafbfeb57dabb4da36a215756baa6215883763a3a746fec06bb440f55b6a9e8f"
+    }
+  ],
+  "elapsed_seconds": 93.2176384171471,
+  "execution_kind": "openai_responses_api",
+  "model": "gpt-5.4-2026-03-05",
+  "reserved_microdollars": 5618640,
+  "response_id": "resp_01973213cfc877c0016ae91823548c87d082ef2e8839f8776c",
+  "schema_version": 1,
+  "status": "succeeded",
+  "tool_activity": false,
+  "usage": {
+    "input_tokens": 27664,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 8716,
+    "output_tokens_details": {
+      "reasoning_tokens": 4292
+    },
+    "total_tokens": 36380
+  }
+}

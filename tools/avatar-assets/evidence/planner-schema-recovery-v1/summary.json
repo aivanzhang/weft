@@ -1,0 +1,67 @@
+{
+  "custody_tests": [
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest discover -s tests -p test_studio_reference_planning_custody.py -v",
+      "count": 6,
+      "seconds": 0.143
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest discover -s tests -p test_studio_api_release.py -q",
+      "count": 13,
+      "seconds": 0.382
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest discover -s tests -p test_author_input_recovery.py -q",
+      "count": 4,
+      "seconds": 0.197
+    }
+  ],
+  "harness_source_change": {
+    "browser_seconds": 300,
+    "current_syntax_check": "Parent reported node --check passed after bound-only edits",
+    "mock_test": "Earlier passing test preserved; not rerun for bound-only edit",
+    "packaging_reran_checks": false,
+    "path": "browser/tests/studio-prepare-live.mjs",
+    "prepare_observation_seconds": 270,
+    "request_limit": 1500,
+    "server_seconds": 330,
+    "sha256": "e4c636e62e79c89c25807fc2be420e90fc18ef61f81c4457f96bf507587c84b1"
+  },
+  "new_schema_validation": {
+    "actual_original_response_changed": false,
+    "in_memory_regression_note": "generation_prompt length845 exceeds800; analytic in-memory length correction independently reveals unsupported interaction requirement",
+    "recorded_unique_tests": 32,
+    "transport_string_lengths_now_bound": true
+  },
+  "no_provider_native_browser_database_or_git_operations": true,
+  "old_settled_cost_microdollars": 74970,
+  "original_job": "905fab75929b427ea12432a3",
+  "original_job_released_to": "failed",
+  "prior_bundles": [
+    {
+      "path": "evidence/reasoned-panda-terminal-v1/manifest.json",
+      "sha256": "2bbad87e0642f284b4c77253a1b1249eb8624b0a08d5c163f6915720e4b0325a",
+      "storage": "external_already_sealed_bundle_reference"
+    },
+    {
+      "path": "evidence/accepted-source-plan-failure-v1/manifest.json",
+      "sha256": "de9da5998cb53005551c3088590a4dc94a27f18fce5e7827fc508e96028a2ab4",
+      "storage": "external_already_sealed_bundle_reference"
+    }
+  ],
+  "project_settled_at_successor_grant_microdollars": 3936227,
+  "release_ledger_sha256_unchanged": "565268b8bbeeb46f77c8c03c689fb3665a0768819c3ebb2eaa55467ceb6ef88b",
+  "schema_version": 1,
+  "source_snapshot_policy": "Only listed frozen tests/schema/inspection/prepare-harness sources; no general runtime inventory or live job snapshot.",
+  "status": "recovery_contract_and_preparation_only",
+  "successor": {
+    "grant_microdollars": 11063773,
+    "id": "d80fa601c945434983e496db",
+    "live_output_accessed": false,
+    "max_calls": 7,
+    "max_repairs": 2,
+    "outcome": "not included",
+    "request_sha256": "477f5dac93a1ee467ec6fc94bcc08c829c7787c680de2ff41cf37492924c3579",
+    "status_at_assignment": "planner running; parent-reported"
+  }
+}

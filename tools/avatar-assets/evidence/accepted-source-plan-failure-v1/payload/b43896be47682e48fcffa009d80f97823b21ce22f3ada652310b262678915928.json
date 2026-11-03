@@ -1,0 +1,119 @@
+{
+  "appearance_checks": [
+    "Panda retains the selected rounded plush proportions with a large head, chubby torso, short limbs, and pom-pom tail.",
+    "Black eye patches, black ears, black arms and legs, and the black-and-ivory palette remain cleanly bounded and recognizable.",
+    "Panda fur reads as soft, neatly groomed short fur with a clean continuous undercoat surface, not coarse carved clumps, separate spikes, or shiny plastic.",
+    "Face keeps clear expressive eyes, a friendly toy-like expression, and the same overall character identity from the reference.",
+    "Small green shoulder dragon remains distinct from the panda with readable wings, horns/spikes, limbs, tail, and preserved surface details.",
+    "Dragon stays perched on the panda's shoulder and is not turned into a flying companion for this run.",
+    "No added props, clothing, text, pedestal, or scenery."
+  ],
+  "generation_prompt": "Use the supplied panda-and-dragon character as the guide. Create a rounded plush panda with a large head, chubby body, black ears, black eye patches, black arms and legs, ivory face and belly, and a pom-pom tail. Keep soft neatly groomed short fur as a clean continuous undercoat surface with crisp black-and-ivory boundaries, clear expressive eyes, and a friendly small smile; avoid a shiny plastic look. Keep a small green dragon perched and attached on the panda's shoulder, distinct from the panda with separate horns/spikes, wings, limbs, and tail, and preserve its green surface details without covering it in panda fur. Neutral articulation-ready standing pose with slight arm clearance from the torso, legs separated, tail visible, dragon appendages readable with space at intended joints. No clothing, props, text, pedestal, or scenery.",
+  "height_meters": 0.8,
+  "limitations": [
+    "The reference portrait and supplied model guide the character, but this plan does not promise exact recovery of unseen anatomy or hidden contact geometry.",
+    "Keeping the dragon perched is authored attachment and coordinated motion, not physical balance, collision, or contact simulation.",
+    "If the supplied shoulder-dragon area contains welded or occluded contact geometry, unattended processing does not automatically separate or repair those hidden regions.",
+    "Text instructions here steer appearance and neutral posing; they do not guarantee reshaping beyond what the supplied guide can support.",
+    "No new props, cloth dynamics, facial blendshapes, lip sync, or independent dragon flight are included in this request."
+  ],
+  "reason": "Supported as a stylized rigged panda avatar with an attached shoulder dragon and one authored toy-dance state using bounded skeletal motion and a return to the starting pose.",
+  "states": [
+    {
+      "id": "toy_dance",
+      "meaning": "A cheerful toy-like dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings, gentle head tilts, the dragon staying perched on the shoulder, and a finish in the starting pose.",
+      "requirements": [
+        {
+          "description": "The panda performs a cheerful toy-dance with three readable alternating side-to-side beats through the overall body motion.",
+          "id": "beat_sway",
+          "kind": "rhythm",
+          "role": "panda_body"
+        },
+        {
+          "description": "Small whole-body hops create visible brief rises from the ground during the dance rather than remaining fully planted throughout.",
+          "id": "hop_rise",
+          "kind": "takeoff",
+          "role": "panda_body"
+        },
+        {
+          "description": "Both arms swing in coordination with the beats with clear readable motion.",
+          "id": "arm_swings",
+          "kind": "articulation",
+          "role": "panda_arms"
+        },
+        {
+          "description": "The head makes gentle readable tilts that support the upbeat toy motion.",
+          "id": "head_tilts",
+          "kind": "articulation",
+          "role": "panda_head"
+        },
+        {
+          "description": "The green dragon remains visibly perched and attached at the panda's shoulder throughout the clip, traveling with the panda instead of separating or flying.",
+          "id": "dragon_perch",
+          "kind": "interaction",
+          "role": "shoulder_dragon"
+        },
+        {
+          "description": "The panda finishes in the starting pose at the end of the clip.",
+          "id": "return_start",
+          "kind": "return_pose",
+          "role": "panda_body"
+        }
+      ],
+      "roles": [
+        {
+          "description": "Main panda body for whole-body dance motion and hops.",
+          "id": "panda_body"
+        },
+        {
+          "description": "Both panda arms for coordinated arm swings.",
+          "id": "panda_arms"
+        },
+        {
+          "description": "Panda head for gentle tilts.",
+          "id": "panda_head"
+        },
+        {
+          "description": "Small green dragon perched on the panda's shoulder.",
+          "id": "shoulder_dragon"
+        }
+      ],
+      "user_request": "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    }
+  ],
+  "status": "ready",
+  "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look.",
+  "subject": "A rounded plush-style black-and-ivory panda with black eye patches, expressive eyes, short soft fur, and a small distinct green dragon perched on its shoulder; no clothing, props, text, pedestal, or scenery.",
+  "surface_intent": [
+    {
+      "finish": "soft neatly groomed short ivory fur with a continuous undercoat surface and rounded plush silhouette",
+      "material": "fur",
+      "region": "panda_ivory_fur"
+    },
+    {
+      "finish": "soft neatly groomed short black fur with crisp boundaries against the ivory areas",
+      "material": "fur",
+      "region": "panda_black_markings"
+    },
+    {
+      "finish": "clear glossy eyes with bright pupils and expressive catchlights",
+      "material": "glass",
+      "region": "panda_eyes"
+    },
+    {
+      "finish": "smooth dark satin nose surface with gentle highlight definition",
+      "material": "skin",
+      "region": "panda_nose"
+    },
+    {
+      "finish": "small green dragon body with readable fine scale and spike detail and subtle satin highlights",
+      "material": "scales",
+      "region": "dragon_body"
+    },
+    {
+      "finish": "thin green wing membranes kept distinct from the body and not covered in fur",
+      "material": "other",
+      "region": "dragon_wings"
+    }
+  ]
+}

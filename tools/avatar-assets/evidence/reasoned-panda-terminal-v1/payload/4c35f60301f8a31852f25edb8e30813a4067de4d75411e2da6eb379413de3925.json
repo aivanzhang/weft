@@ -1,0 +1,381 @@
+{
+  "accepted_delivery": false,
+  "actual_material_attribute_metadata": [
+    {
+      "attributes": {
+        "JOINTS_0": {
+          "componentType": 5121,
+          "count": 27043,
+          "type": "VEC4"
+        },
+        "NORMAL": {
+          "componentType": 5126,
+          "count": 27043,
+          "type": "VEC3"
+        },
+        "POSITION": {
+          "componentType": 5126,
+          "count": 27043,
+          "type": "VEC3"
+        },
+        "TANGENT": {
+          "componentType": 5126,
+          "count": 27043,
+          "type": "VEC4"
+        },
+        "TEXCOORD_0": {
+          "componentType": 5126,
+          "count": 27043,
+          "type": "VEC2"
+        },
+        "WEIGHTS_0": {
+          "componentType": 5126,
+          "count": 27043,
+          "type": "VEC4"
+        },
+        "_AVATAR_FUR_VERTEX_ID": {
+          "componentType": 5126,
+          "count": 27043,
+          "type": "SCALAR"
+        }
+      },
+      "material": {
+        "doubleSided": true,
+        "name": "Material_0",
+        "normalTexture": {
+          "index": 0,
+          "scale": 0.30000001192092896
+        },
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 1
+          },
+          "metallicRoughnessTexture": {
+            "index": 2
+          }
+        }
+      },
+      "mesh": "Mesh_0"
+    },
+    {
+      "attributes": {
+        "COLOR_0": {
+          "componentType": 5126,
+          "count": 6442,
+          "type": "VEC3"
+        },
+        "JOINTS_0": {
+          "componentType": 5121,
+          "count": 6442,
+          "type": "VEC4"
+        },
+        "NORMAL": {
+          "componentType": 5126,
+          "count": 6442,
+          "type": "VEC3"
+        },
+        "POSITION": {
+          "componentType": 5126,
+          "count": 6442,
+          "type": "VEC3"
+        },
+        "TANGENT": {
+          "componentType": 5126,
+          "count": 6442,
+          "type": "VEC4"
+        },
+        "TEXCOORD_0": {
+          "componentType": 5126,
+          "count": 6442,
+          "type": "VEC2"
+        },
+        "WEIGHTS_0": {
+          "componentType": 5126,
+          "count": 6442,
+          "type": "VEC4"
+        },
+        "_AVATAR_FUR_VERTEX_ID": {
+          "componentType": 5126,
+          "count": 6442,
+          "type": "SCALAR"
+        }
+      },
+      "material": {
+        "alphaCutoff": 0.2199999988079071,
+        "alphaMode": "MASK",
+        "name": "PortableCoat_0_cutout_fur",
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 3
+          },
+          "metallicFactor": 0,
+          "roughnessFactor": 0.8999999761581421
+        }
+      },
+      "mesh": "PortableCoat_0"
+    },
+    {
+      "attributes": {
+        "COLOR_0": {
+          "componentType": 5126,
+          "count": 4473,
+          "type": "VEC3"
+        },
+        "JOINTS_0": {
+          "componentType": 5121,
+          "count": 4473,
+          "type": "VEC4"
+        },
+        "NORMAL": {
+          "componentType": 5126,
+          "count": 4473,
+          "type": "VEC3"
+        },
+        "POSITION": {
+          "componentType": 5126,
+          "count": 4473,
+          "type": "VEC3"
+        },
+        "TANGENT": {
+          "componentType": 5126,
+          "count": 4473,
+          "type": "VEC4"
+        },
+        "TEXCOORD_0": {
+          "componentType": 5126,
+          "count": 4473,
+          "type": "VEC2"
+        },
+        "WEIGHTS_0": {
+          "componentType": 5126,
+          "count": 4473,
+          "type": "VEC4"
+        },
+        "_AVATAR_FUR_VERTEX_ID": {
+          "componentType": 5126,
+          "count": 4473,
+          "type": "SCALAR"
+        }
+      },
+      "material": {
+        "alphaCutoff": 0.2199999988079071,
+        "alphaMode": "MASK",
+        "name": "PortableCoat_1_cutout_fur",
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 4
+          },
+          "metallicFactor": 0,
+          "roughnessFactor": 0.8999999761581421
+        }
+      },
+      "mesh": "PortableCoat_1"
+    }
+  ],
+  "body_positions_normals_camera_lights_unchanged": true,
+  "body_stretch_witness": {
+    "excess_to_maximum_coat_length_ratio": 11.49425775774172,
+    "field": "states[id=dance].deformation_outliers",
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-0/finish-report.json",
+    "scope": "Retained sampled body-edge witness, not exhaustive or distinct-physical-point coverage",
+    "sha256": "d31fa7ae850af074c4dbb65018b43a940e8b0b9aab47ece2887f5a0909e9e38c",
+    "witness": {
+      "endpoint_indices": [
+        16734,
+        16765
+      ],
+      "endpoint_influences": [
+        {
+          "chest": 0.024226078763604164,
+          "neck": 0.019446836784482002,
+          "spine": 0.26430562138557434,
+          "upperarm_l": 0.6920214891433716
+        },
+        {
+          "chest": 0.1354231983423233,
+          "neck": 0.11340987682342529,
+          "spine": 0.7511669397354126
+        }
+      ],
+      "excess_length": 0.057721703613576966,
+      "posed_length": 0.08601895107479475,
+      "rest_length": 0.02829724746121778,
+      "rest_normalized_bounds": [
+        [
+          0.24843873006026423,
+          0.5372683654074776,
+          0.6173392183707147
+        ],
+        [
+          0.2478408245159987,
+          0.5843601911901586,
+          0.6254662031376101
+        ]
+      ],
+      "second": 2.0,
+      "stretch_ratio": 3.0398345702240572
+    }
+  },
+  "changed_variable": "Only hide_render of exact coat nodes from manifest-bound export correspondence",
+  "coat_geometry": [
+    {
+      "cards": 600,
+      "coat_node": "PortableCoat_0",
+      "eligible_area_m2": 1.2708058948058583,
+      "length_range_m": [
+        0.001238898286972634,
+        0.005001202026653518
+      ],
+      "width_range_m": [
+        0.0007267682683433961,
+        0.0015164012115762076
+      ]
+    },
+    {
+      "cards": 420,
+      "coat_node": "PortableCoat_1",
+      "eligible_area_m2": 0.38007514071564785,
+      "length_range_m": [
+        0.0012023964971673727,
+        0.00502178608050613
+      ],
+      "width_range_m": [
+        0.0007281204414492615,
+        0.0015172117201736033
+      ]
+    }
+  ],
+  "finding": "Large angular arm/cheek/chest body artifacts remain visible with both portable coat nodes hidden; current short cards are not their sole cause.",
+  "interpretation": "The retained large body-edge stretch and arm-versus-torso influence discontinuity support a body-deformation contribution. This ablation alone does not separate every shading fleck from normal-map response.",
+  "limitations": [
+    "One2.0-second pose; EEVEE8samples for both controls, compared with original16sample review.",
+    "No geometry, normal, material, skin, image or action edits; no accepted-asset promotion.",
+    "Numeric root attachment and gross-spike gate passing do not establish smooth body deformation.",
+    "Body-only comparison does not determine whether all residual marks originate in geometry, imported smooth normals, normal-map texture or lighting."
+  ],
+  "next_safe_action": "Use these body-only images and exact shoulder influence witness in repair feedback; do not treat further blanket fur reduction as the demonstrated fix.",
+  "normal_validation": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-0/render-attributes.json",
+    "primitives": [
+      {
+        "material": "Material_0",
+        "normal_map_uv_set": 0,
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.3991781095134e-07,
+        "normal_tangent_dot_error": 0.00013272060614966108,
+        "tangent_squared_length_error": 0.00015030258575521316,
+        "verified_uv_sets": [
+          0
+        ],
+        "vertices": 27043
+      },
+      {
+        "material": "PortableCoat_0_cutout_fur",
+        "normal_map_uv_set": null,
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.1357218216166984e-07,
+        "normal_tangent_dot_error": 0.00012161386296904997,
+        "tangent_squared_length_error": 0.0001342523679646046,
+        "verified_uv_sets": [
+          0
+        ],
+        "vertices": 6442
+      },
+      {
+        "material": "PortableCoat_1_cutout_fur",
+        "normal_map_uv_set": null,
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.01886018125208e-07,
+        "normal_tangent_dot_error": 0.0001305427908402379,
+        "tangent_squared_length_error": 0.000137354849719884,
+        "verified_uv_sets": [
+          0
+        ],
+        "vertices": 4473
+      }
+    ],
+    "sha256": "c60c9becefb0e204a0869728b55647d8faf5a1aba2c432255f055f57acbdb76d",
+    "status": "validated_render_attributes",
+    "tangent_uv_derivation_verified": false
+  },
+  "pixel_comparison": {
+    "coat_hidden_vs_visible": {
+      "fraction_within_2_levels": 0.9998726851851852,
+      "maximum_channel_difference_255": 32,
+      "mean_absolute_rgb_difference_255": 0.0018820730452674898,
+      "pixels": 518400,
+      "pixels_over_8_levels": 5
+    },
+    "eight_vs_original_sixteen_sample_control": {
+      "fraction_within_2_levels": 0.9862577160493827,
+      "maximum_channel_difference_255": 23,
+      "mean_absolute_rgb_difference_255": 0.1256938014403292,
+      "pixels": 518400,
+      "pixels_over_8_levels": 386
+    },
+    "regions": {
+      "lower_cheek_flecks": {
+        "fraction_within_2_levels": 1.0,
+        "maximum_channel_difference_255": 2,
+        "mean_absolute_rgb_difference_255": 0.005549389567147614,
+        "pixels": 1802,
+        "pixels_over_8_levels": 0,
+        "rectangle_xyxy": [
+          302,
+          269,
+          355,
+          303
+        ]
+      },
+      "viewer_left_arm_facets": {
+        "fraction_within_2_levels": 0.9998268997749697,
+        "maximum_channel_difference_255": 3,
+        "mean_absolute_rgb_difference_255": 0.0030581039755351682,
+        "pixels": 11554,
+        "pixels_over_8_levels": 0,
+        "rectangle_xyxy": [
+          207,
+          260,
+          316,
+          366
+        ]
+      },
+      "viewer_left_chest_border": {
+        "fraction_within_2_levels": 0.9996565934065934,
+        "maximum_channel_difference_255": 5,
+        "mean_absolute_rgb_difference_255": 0.00641025641025641,
+        "pixels": 11648,
+        "pixels_over_8_levels": 0,
+        "rectangle_xyxy": [
+          282,
+          348,
+          338,
+          556
+        ]
+      },
+      "viewer_left_thigh": {
+        "fraction_within_2_levels": 0.9997765363128491,
+        "maximum_channel_difference_255": 4,
+        "mean_absolute_rgb_difference_255": 0.003997517070142768,
+        "pixels": 13425,
+        "pixels_over_8_levels": 0,
+        "rectangle_xyxy": [
+          211,
+          425,
+          286,
+          604
+        ]
+      }
+    }
+  },
+  "pose": {
+    "frame": 48.0,
+    "id": "dance",
+    "seconds": 2.0
+  },
+  "schema_version": 1,
+  "source_bytes_unchanged": true,
+  "source_model_sha256": "ce019b90577f84646aeca74072a762d9897cd6e7e21dd06e6d4e9d6d0f5f55f8",
+  "source_scene_sha256": "41ab8ac31fab60614084280d026df5d225fbe964750b58ec86dc0d1fab031ec0",
+  "status": "diagnostic_completed"
+}

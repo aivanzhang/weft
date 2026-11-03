@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "passed_read_only_actual_custody",
+  "evidence_kind": "analyst-recorded test commands plus saved exact read-only API/process proofs",
+  "tests": [
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest discover -s tests -p test_studio_reference_planning_custody.py -v",
+      "count": 6,
+      "seconds": 0.143
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest discover -s tests -p test_studio_api_release.py -q",
+      "count": 13,
+      "seconds": 0.382
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest discover -s tests -p test_author_input_recovery.py -q",
+      "count": 4,
+      "seconds": 0.197
+    }
+  ],
+  "source_sha256": {
+    "avatar_assets/studio_inspection.py": "114406851e53224f7b4d0e59000069bdd381a2dc12227635c80cc6db933bdb89",
+    "tests/test_studio_api_release.py": "99264c4e8344bf959d8ff5dfc16b181f887788e22118b3e5186b7be0ce990615",
+    "tests/test_studio_reference_planning_custody.py": "1b4848aaf937d91d7f0bafd67937455f72ecb30b7180e47c33046cb5f76b71b8"
+  },
+  "actual_job": "905fab75929b427ea12432a3",
+  "owner_pid": 76635,
+  "owner_identity": "darwin-start:1793663257:919234",
+  "invocation": "jobs/905fab75929b427ea12432a3/run-0002",
+  "operation": "plan",
+  "absent_pids": [
+    75068,
+    75072,
+    76635,
+    76637
+  ],
+  "ledger_sha256_unchanged": "565268b8bbeeb46f77c8c03c689fb3665a0768819c3ebb2eaa55467ceb6ef88b",
+  "calls": [
+    {
+      "role": "planner",
+      "state": "settled",
+      "response_id": "resp_0ee41fd6e6a8e008016ae9211ad2a487d0bf16c23513fd45e7",
+      "reserved_microdollars": 5618640,
+      "actual_microdollars": 74970,
+      "usage": {
+        "input_tokens": 3462,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 4421,
+        "output_tokens_details": {
+          "reasoning_tokens": 3196
+        },
+        "total_tokens": 7883
+      }
+    }
+  ],
+  "provider_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "job_or_ledger_mutations": 0,
+  "process_inventory": "Default sandbox denied /bin/ps; narrowly approved read-only process inventory then passed under existing custody locks. No signals or release performed.",
+  "remaining_action": "Root must use release_inspected with exact PID/identity; then create fresh identical source/reference request and transfer remaining allowance under unchanged15-dollar project cap. Do not reuse invalid plan or rewrite responses.",
+  "test_warnings": "Existing fixture SQL helpers emitted unclosed-SQLite ResourceWarning; all23 tests passed."
+}

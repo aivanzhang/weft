@@ -1,0 +1,44 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/reasoned-panda-terminal-packaging-v1/package.py"
+  ],
+  "limits": {
+    "internal_seconds": 25,
+    "output_mb": 96,
+    "per_snapshot_bytes": 8388608,
+    "rss_mb": 256,
+    "source_bytes": 1073741824,
+    "source_files": 4096,
+    "wall_seconds": 30
+  },
+  "monitor_scope": "Only evidence/reasoned-panda-terminal-v1; controller receipts are bounded small metadata in preparation folder",
+  "schema_version": 1,
+  "scope": "Read-only exact-byte compact terminal evidence packaging; no current runtime/provider/native/DB calls",
+  "script": {
+    "path": "outputs/reasoned-panda-terminal-packaging-v1/package.py",
+    "sha256": "61c5042fcb73f2d5cd3a76d0507ce9cfd6395bf27851997051545d0e7a249479"
+  },
+  "source_receipts": [
+    {
+      "path": "outputs/studio-d8a680ce6580429f9fdd016f/status.json",
+      "sha256": "5e15f9aefbe967200b97528c5b7ab6c91bfdb07d88fb7d7f7789a536ff857471"
+    },
+    {
+      "path": "outputs/openai-panda-reasoned-resumed-studio-live-v1/accounting-terminal.json",
+      "sha256": "10658d98a017a5e1701cb6c4f436ff24846aafe6bd561e9dd1c7c7c91a546d5d"
+    },
+    {
+      "path": "outputs/openai-panda-reasoned-resumed-studio-live-v1/studio-live-test.json",
+      "sha256": "b769d93de4dd6653524b75ccaa421f157e804f21dc3f9aefe6ce432027b4dd73"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ]
+}

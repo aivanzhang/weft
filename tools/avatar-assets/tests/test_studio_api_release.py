@@ -32,9 +32,14 @@ class StudioApiReleaseTests(unittest.TestCase):
         self.source = self.root / 'outputs/saved-paid-source.glb'
         self.source.parent.mkdir()
         self.source.write_bytes(b'ANALYTIC NON-MODEL SOURCE; NOT A GENERATED AVATAR')
+        self.reference = None
+        if getattr(self,'fixture_reference',False):
+            from PIL import Image
+            self.reference=self.root/'outputs/reference.png'
+            Image.new('RGB',(8,8),(200,100,20)).save(self.reference)
         self.executor = FixtureExecutor()
         self.jobs = StudioJobs(self.root, executor=self.executor)
-        self.job = self.jobs.create('An original dancing character', reuse_model=self.source,
+        self.job = self.jobs.create('An original dancing character', reuse_model=self.source, reference=self.reference,
                                     custom_actions=['Dance with a visible rhythm'])['id']
         self.jobs.plan(self.job)
         self.claim()
@@ -53,6 +58,10 @@ class StudioApiReleaseTests(unittest.TestCase):
                     'media_spec': MEDIA_SPECS['preview'], 'created': '2026-11-02T11:00:00-08:00',
                     'reuse_model': {'path': 'inputs/source-model.glb', 'original_path': str(self.source),
                                     'bytes': copied.stat().st_size, 'sha256': checksum(copied)}}
+        if self.reference is not None:
+            target=self.output/'inputs/reference.png';target.write_bytes(self.reference.read_bytes())
+            prepared['reference']={'path':'inputs/reference.png','original_path':str(self.reference),
+                                   'bytes':target.stat().st_size,'sha256':checksum(target)}
         write(self.output / 'request.json', prepared)
         request_hash = checksum(self.output / 'request.json')
         snapshot = self.output / 'sources/openai_runner.py'
@@ -87,7 +96,8 @@ class StudioApiReleaseTests(unittest.TestCase):
                     patch.object(api, 'post_response', return_value=json.dumps(response).encode()) as transport:
                 runner = api.OpenAIRunner(self.output / 'agents', job_id=self.output.name,
                     job_digest=request_hash, ledger=ledger, max_calls=self.backend['max_calls'])
-                runner.call('planner', 'Plan this analytic dance; no tool execution', schema)
+                runner.call('planner', 'Plan this analytic dance; no tool execution', schema,
+                            images=[self.output/'inputs/reference.png'] if self.reference is not None else [])
                 self.assertEqual(transport.call_count, 1)
         finally:
             ledger.close()

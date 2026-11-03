@@ -9,18 +9,17 @@ The append-only ledger cap is active; no new Meshy work.
 **Current direction:** Studio uses the server OpenAI API, not a personal AI login;
 Meshy remains the geometry/texture provider. The website now supports authenticated
 **Retry saved work → Prepare → Start** under an owner-approved standing budget.
-The latest completed run built a real rigged panda, passed the dance and
-fur-attachment checks, and rendered the final native media. Independent visual
-review accepted identity, motion and native appearance but rejected sparse,
-upright fur on the exported GLB. A later repair reintroduced an optional texture
-route that had already failed; no accepted delivery resulted.
-Persistent failure memory and measured coat feedback are now implemented and
-tested. The next website run also ended unsupported: dance meaning passed, but patchy
-coat artifacts remained. The reasoning-enabled successor stopped before its first API call on a prompt
-size check. A whitespace-only fix and guarded same-job recovery are verified;
-the same job is planned for one new Start. The [handoff](TODO.md) records custody; do not duplicate the job. Settled API use before this successor
-is **$2.777078 across 29 calls**, under the enforced
+The recent fresh panda base repeatedly failed final appearance review, despite
+real rigs, motion and media. Medium reasoning runs correctly, but did not make
+that source acceptable. All rejected attempts remain preserved.
+A new request uses the **unrigged generated base behind the previously accepted
+panda appearance**, plus its accepted portrait reference. No old rig is copied;
+the shoulder dragon stays perched in this trial. Its first planner exceeded a
+text limit. The corrected website Prepare passed, and one exact-plan Start is
+now running rigging, fur, dance and review. No final delivery is accepted yet.
+Pre-Start settled API use was **$3.999655 across37calls**, under the enforced
 **$15 cap including all prior use**. No new Meshy call or deployment.
+The [handoff](TODO.md) contains exact ownership, source hashes and recovery status.
 [Backend results](docs/api-website-backend.md).
 
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.

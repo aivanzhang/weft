@@ -1,0 +1,655 @@
+{
+  "actions": [
+    {
+      "displacement_by_mesh_m": {
+        "Mesh_0": 0.15342509506909924,
+        "PortableCoat_0": 0.15250240601655463,
+        "PortableCoat_1": 0.12503313206626956
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.15342509506909924,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "CreatureRig/chest",
+        "CreatureRig/ear_l",
+        "CreatureRig/ear_r",
+        "CreatureRig/foot_l",
+        "CreatureRig/foot_r",
+        "CreatureRig/forearm_l",
+        "CreatureRig/forearm_r",
+        "CreatureRig/hand_l",
+        "CreatureRig/hand_r",
+        "CreatureRig/head",
+        "CreatureRig/hips",
+        "CreatureRig/neck",
+        "CreatureRig/shin_l",
+        "CreatureRig/shin_r",
+        "CreatureRig/spine",
+        "CreatureRig/tail",
+        "CreatureRig/thigh_l",
+        "CreatureRig/thigh_r",
+        "CreatureRig/upperarm_l",
+        "CreatureRig/upperarm_r"
+      ],
+      "name": "dance",
+      "owners": [
+        {
+          "name": "CreatureRig",
+          "slot": "OBCreatureRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    }
+  ],
+  "armatures": [
+    {
+      "bones": [
+        {
+          "head_local": [
+            0.0,
+            0.0,
+            0.032999999821186066
+          ],
+          "name": "hips",
+          "parent": null,
+          "tail_local": [
+            0.0,
+            5.84022652461158e-09,
+            0.20362445712089539
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            6.0242237864827075e-09,
+            0.20899999141693115
+          ],
+          "name": "spine",
+          "parent": "hips",
+          "tail_local": [
+            0.0,
+            1.656662007576415e-08,
+            0.5170000791549683
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            1.656661652305047e-08,
+            0.5170000791549683
+          ],
+          "name": "chest",
+          "parent": "spine",
+          "tail_local": [
+            0.0,
+            -0.027363216504454613,
+            0.6424020528793335
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            -0.045604605227708817,
+            0.7260000705718994
+          ],
+          "name": "neck",
+          "parent": "chest",
+          "tail_local": [
+            0.0,
+            -0.10831104218959808,
+            0.814000129699707
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            -0.10831104218959808,
+            0.814000129699707
+          ],
+          "name": "head",
+          "parent": "neck",
+          "tail_local": [
+            0.0,
+            -0.12278372794389725,
+            0.9629434943199158
+          ]
+        },
+        {
+          "head_local": [
+            -0.11982124298810959,
+            -0.09120927006006241,
+            0.9019999504089355
+          ],
+          "name": "ear_l",
+          "parent": "head",
+          "tail_local": [
+            -0.20152647793293,
+            -0.0912092849612236,
+            1.0273706912994385
+          ]
+        },
+        {
+          "head_local": [
+            0.11982124298810959,
+            -0.09120927006006241,
+            0.9019999504089355
+          ],
+          "name": "ear_r",
+          "parent": "head",
+          "tail_local": [
+            0.20152647793293,
+            -0.0912092849612236,
+            1.0273706912994385
+          ]
+        },
+        {
+          "head_local": [
+            -0.07988086342811584,
+            -0.017101746052503586,
+            0.6159999966621399
+          ],
+          "name": "upperarm_l",
+          "parent": "chest",
+          "tail_local": [
+            -0.17307522892951965,
+            -0.03990408033132553,
+            0.48399993777275085
+          ]
+        },
+        {
+          "head_local": [
+            -0.17307521402835846,
+            -0.03990405797958374,
+            0.48399996757507324
+          ],
+          "name": "forearm_l",
+          "parent": "upperarm_l",
+          "tail_local": [
+            -0.22632911801338196,
+            -0.05700581148266792,
+            0.36299991607666016
+          ]
+        },
+        {
+          "head_local": [
+            -0.22632913291454315,
+            -0.0570058599114418,
+            0.36299997568130493
+          ],
+          "name": "hand_l",
+          "parent": "forearm_l",
+          "tail_local": [
+            -0.28416404128074646,
+            -0.06938778609037399,
+            0.2435375452041626
+          ]
+        },
+        {
+          "head_local": [
+            0.07988086342811584,
+            -0.017101746052503586,
+            0.6159999966621399
+          ],
+          "name": "upperarm_r",
+          "parent": "chest",
+          "tail_local": [
+            0.17307522892951965,
+            -0.03990408033132553,
+            0.48399993777275085
+          ]
+        },
+        {
+          "head_local": [
+            0.17307521402835846,
+            -0.03990405797958374,
+            0.48399996757507324
+          ],
+          "name": "forearm_r",
+          "parent": "upperarm_r",
+          "tail_local": [
+            0.22632911801338196,
+            -0.05700581148266792,
+            0.36299991607666016
+          ]
+        },
+        {
+          "head_local": [
+            0.22632913291454315,
+            -0.0570058599114418,
+            0.36299997568130493
+          ],
+          "name": "hand_r",
+          "parent": "forearm_r",
+          "tail_local": [
+            0.28416404128074646,
+            -0.06938778609037399,
+            0.2435375452041626
+          ]
+        },
+        {
+          "head_local": [
+            -0.039940424263477325,
+            0.017101746052503586,
+            0.197999969124794
+          ],
+          "name": "thigh_l",
+          "parent": "hips",
+          "tail_local": [
+            -0.0465971902012825,
+            0.01140119880437851,
+            0.08799993246793747
+          ]
+        },
+        {
+          "head_local": [
+            -0.046597182750701904,
+            0.011401201598346233,
+            0.08799997717142105
+          ],
+          "name": "shin_l",
+          "parent": "thigh_l",
+          "tail_local": [
+            -0.059910599142313004,
+            0.011401175521314144,
+            0.02199995517730713
+          ]
+        },
+        {
+          "head_local": [
+            -0.05991058424115181,
+            0.011401173658668995,
+            0.02199997566640377
+          ],
+          "name": "foot_l",
+          "parent": "shin_l",
+          "tail_local": [
+            -0.11323044449090958,
+            -0.027737140655517578,
+            0.009412923827767372
+          ]
+        },
+        {
+          "head_local": [
+            0.039940424263477325,
+            0.017101746052503586,
+            0.197999969124794
+          ],
+          "name": "thigh_r",
+          "parent": "hips",
+          "tail_local": [
+            0.0465971902012825,
+            0.01140119880437851,
+            0.08799993246793747
+          ]
+        },
+        {
+          "head_local": [
+            0.046597182750701904,
+            0.011401201598346233,
+            0.08799997717142105
+          ],
+          "name": "shin_r",
+          "parent": "thigh_r",
+          "tail_local": [
+            0.059910599142313004,
+            0.011401175521314144,
+            0.02199995517730713
+          ]
+        },
+        {
+          "head_local": [
+            0.05991058424115181,
+            0.011401173658668995,
+            0.02199997566640377
+          ],
+          "name": "foot_r",
+          "parent": "shin_r",
+          "tail_local": [
+            0.11323044449090958,
+            -0.027737140655517578,
+            0.009412923827767372
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            0.10831102728843689,
+            0.1759999841451645
+          ],
+          "name": "tail",
+          "parent": "hips",
+          "tail_local": [
+            0.0,
+            0.2311016470193863,
+            0.05752984434366226
+          ]
+        }
+      ],
+      "name": "CreatureRig"
+    }
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up_m": {
+    "dimensions": [
+      0.6656737327575684,
+      0.5700579285621643,
+      1.1000001430511475
+    ],
+    "max": [
+      0.3328368663787842,
+      0.28502896428108215,
+      1.1000001430511475
+    ],
+    "min": [
+      -0.3328368663787842,
+      -0.28502896428108215,
+      -2.207550764410371e-08
+    ]
+  },
+  "excluded_importer_display_helpers": [
+    "Icosphere"
+  ],
+  "limits": {
+    "action_time_samples": 9,
+    "actions": 16,
+    "probe_vertices": 128,
+    "render_resolution": 256,
+    "render_samples": 8,
+    "render_threads": 4,
+    "source_bytes": 67108864,
+    "vertices": 100000
+  },
+  "materials": [
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "Material_0",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "PortableCoat_0_cutout_fur",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "PortableCoat_1_cutout_fur",
+      "uses_nodes": true
+    }
+  ],
+  "meshes": [
+    {
+      "armature": "CreatureRig",
+      "materials": [
+        "Material_0"
+      ],
+      "name": "Mesh_0",
+      "polygons": 36124,
+      "unweighted_vertices": 0,
+      "vertices": 27043,
+      "weighted_vertices": 27043
+    },
+    {
+      "armature": "CreatureRig",
+      "materials": [
+        "PortableCoat_0_cutout_fur"
+      ],
+      "name": "PortableCoat_0",
+      "polygons": 2400,
+      "unweighted_vertices": 0,
+      "vertices": 6442,
+      "weighted_vertices": 6442
+    },
+    {
+      "armature": "CreatureRig",
+      "materials": [
+        "PortableCoat_1_cutout_fur"
+      ],
+      "name": "PortableCoat_1",
+      "polygons": 1680,
+      "unweighted_vertices": 0,
+      "vertices": 4473,
+      "weighted_vertices": 4473
+    }
+  ],
+  "native_loading_verified": true,
+  "probe_coverage": [
+    {
+      "material": "Material_0",
+      "material_index": 0,
+      "object": "Mesh_0",
+      "probe_vertices": [
+        0,
+        644,
+        1288,
+        1932,
+        2575,
+        3219,
+        3863,
+        4507,
+        5151,
+        5795,
+        6439,
+        7082,
+        7726,
+        8370,
+        9014,
+        9658,
+        10302,
+        10946,
+        11589,
+        12233,
+        12877,
+        13521,
+        14165,
+        14809,
+        15453,
+        16096,
+        16740,
+        17384,
+        18028,
+        18672,
+        19316,
+        19960,
+        20603,
+        21247,
+        21891,
+        22535,
+        23179,
+        23823,
+        24467,
+        25110,
+        25754,
+        26398,
+        27042
+      ]
+    },
+    {
+      "material": "PortableCoat_0_cutout_fur",
+      "material_index": 0,
+      "object": "PortableCoat_0",
+      "probe_vertices": [
+        0,
+        153,
+        307,
+        460,
+        613,
+        767,
+        920,
+        1074,
+        1227,
+        1380,
+        1534,
+        1687,
+        1840,
+        1994,
+        2147,
+        2300,
+        2454,
+        2607,
+        2760,
+        2914,
+        3067,
+        3220,
+        3374,
+        3527,
+        3681,
+        3834,
+        3987,
+        4141,
+        4294,
+        4447,
+        4601,
+        4754,
+        4907,
+        5061,
+        5214,
+        5368,
+        5521,
+        5674,
+        5828,
+        5981,
+        6134,
+        6288,
+        6441
+      ]
+    },
+    {
+      "material": "PortableCoat_1_cutout_fur",
+      "material_index": 0,
+      "object": "PortableCoat_1",
+      "probe_vertices": [
+        0,
+        109,
+        218,
+        327,
+        436,
+        545,
+        654,
+        764,
+        873,
+        982,
+        1091,
+        1200,
+        1309,
+        1418,
+        1527,
+        1636,
+        1745,
+        1854,
+        1963,
+        2072,
+        2181,
+        2291,
+        2400,
+        2509,
+        2618,
+        2727,
+        2836,
+        2945,
+        3054,
+        3163,
+        3272,
+        3381,
+        3490,
+        3599,
+        3708,
+        3818,
+        3927,
+        4036,
+        4145,
+        4254,
+        4363,
+        4472
+      ]
+    }
+  ],
+  "probe_vertices": 128,
+  "renders": [
+    {
+      "camera_position_blender_z_up": [
+        0.0,
+        -3.3000004291534424,
+        0.880000114440918
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        0.0,
+        0.5500000715255737
+      ],
+      "path": "independent-front.png",
+      "sha256": "965e682f935a1ae08481773f65d4338c86f8463496eeee797168df0d3690bd0c",
+      "view": "front"
+    },
+    {
+      "camera_position_blender_z_up": [
+        0.0,
+        3.3000004291534424,
+        0.880000114440918
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        0.0,
+        0.5500000715255737
+      ],
+      "path": "independent-back.png",
+      "sha256": "ae42216499f375a14881b81410c8643deeefc4d33f96998fdc93045289ef1fe2",
+      "view": "back"
+    },
+    {
+      "camera_position_blender_z_up": [
+        3.3000004291534424,
+        0.0,
+        0.880000114440918
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        0.0,
+        0.5500000715255737
+      ],
+      "path": "independent-side.png",
+      "sha256": "c07de3f99e14aa8c8bac05a719a08012631ec2a8b062a23286f9809a7d3caaa1",
+      "view": "side"
+    }
+  ],
+  "sampled_animation_verified": true,
+  "schema_version": 1,
+  "scope": "Native GLB reload, material/rig inspection, sampled deformation and three-view renders; not physical simulation or exhaustive motion review",
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-0/model.glb",
+  "source_sha256": "ce019b90577f84646aeca74072a762d9897cd6e7e21dd06e6d4e9d6d0f5f55f8",
+  "source_unchanged": true,
+  "status": "passed",
+  "tool": "Blender built-in glTF importer and evaluated dependency graph",
+  "verifier_sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+  "wall_seconds": 0.9820893327705562,
+  "weft_runtime_verified": false
+}

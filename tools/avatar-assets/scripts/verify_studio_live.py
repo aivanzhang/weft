@@ -173,7 +173,7 @@ def fresh_generation(state, job_id, output, request, prepared, plan, request_dig
                         "authorization_checked": False, "execution_gate": "canonical_ledger_and_explicit_start"}, files
 
 
-def api_backend(state, job_id, output, request, prepared, plan, request_digest, *, terminal_sealed=False):
+def api_backend(state, job_id, output, request, prepared, plan, request_digest, *, terminal_sealed=False, unplanned=False):
     from avatar_assets.agent_backend import validate_settings
     from avatar_assets.openai_runner import reserve_microdollars
     from avatar_assets.pipeline import _pipeline_sources
@@ -189,7 +189,7 @@ def api_backend(state, job_id, output, request, prepared, plan, request_digest, 
     else:
         _validate_prepared_request(prepared, request, output, agent_backend=settings)
     historical_files = historical_plan(output, request, prepared, plan) if terminal_sealed else []
-    if not terminal_sealed:
+    if not terminal_sealed and not unplanned:
         require(validate_plan(plan, prepared)["status"] == "ready", "API inspection needs a ready planner result")
     request_hash = sha(output / "request.json", MAX_JSON)
     receipt_path = output / "input-receipt.json"
@@ -206,7 +206,8 @@ def api_backend(state, job_id, output, request, prepared, plan, request_digest, 
     return {**settings, "currency": "USD", "reservation_microdollars_per_call": reservation,
             "maximum_reservation_microdollars": reservation * settings["max_calls"],
             "automatic_paid_retries": 0, "authorization_checked": False,
-            "historical_plan_semantics_revalidated": False if terminal_sealed else True,
+            "historical_plan_semantics_revalidated": not terminal_sealed and not unplanned,
+            "plan_verified": not unplanned,
             "execution_gate": "exact_request_dollar_grant_and_explicit_start"}, [receipt_path, binding_path, *revision_files, *historical_files]
 
 
@@ -336,7 +337,28 @@ def local_time(value):
     return datetime.fromtimestamp(value, ZoneInfo("America/Los_Angeles")).isoformat() if value else None
 
 
-def inspect(job_id):
+
+def unplanned_api_state(output, prepared, status, data, active, queued):
+    """Harness admission only; it grants no planning, generation or provider authority."""
+    require(status == 'awaiting_authorization' and data.get('operation') == 'plan'
+            and data.get('ended') is not None and active is None and not queued,
+            'Unplanned inspection requires a released awaiting-authorization planning job')
+    require('agent_backend' in prepared and prepared.get('reuse_model') is not None
+            and prepared.get('max_credits') == 0 and 'continuation' not in prepared,
+            'Unplanned inspection supports only a fresh saved API source-reuse request')
+    for name in ('plan.json', 'agents', 'delivery.json', 'unsupported.json', 'runtime-revision.json',
+                 'generation', 'inspection'):
+        path = output/name
+        require(not path.exists() and not path.is_symlink(), 'Unplanned inspection found execution artifact: '+name)
+    ledger = ROOT/'.local/openai/ledger.sqlite3'
+    regular(ledger, MAX_FILE)
+    with closing(sqlite3.connect(ledger.as_uri()+'?mode=ro',uri=True,timeout=1)) as db:
+        db.execute('PRAGMA query_only=ON')
+        count = db.execute('SELECT count(*) FROM calls WHERE job=?',(output.name,)).fetchone()[0]
+    require(count == 0, 'Unplanned inspection requires zero API calls or reservations')
+
+
+def inspect(job_id, *, allow_unplanned=False):
     from avatar_assets.studio_jobs import _digest, process_identity
 
     require(isinstance(job_id, str) and re.fullmatch(r"[a-f0-9]{24}", job_id), "Invalid canonical job ID")
@@ -382,11 +404,15 @@ def inspect(job_id):
     if output != output.resolve() or not output.is_relative_to(ROOT / "outputs"):
         raise ValueError("Job output escapes the workspace")
     prepared_path, plan_path = output / "request.json", output / "plan.json"
-    prepared, plan = read_json(prepared_path), read_json(plan_path)
+    prepared = read_json(prepared_path)
+    unplanned = allow_unplanned and not plan_path.exists() and not plan_path.is_symlink()
+    if unplanned:
+        unplanned_api_state(output, prepared, row['status'], data, active, queued)
+    plan = None if unplanned else read_json(plan_path)
     for key in ("prompt", "style", "custom_actions", "preset"):
         if prepared.get(key) != request.get(key):
             raise ValueError("Prepared request differs from the Studio input: " + key)
-    files = [prepared_path, plan_path]
+    files = [prepared_path] + ([] if unplanned else [plan_path])
     source_reuse, source_generation, backend = None, None, None
     terminal_files = unsupported_seal(state, job_id, output, data, row["request_digest"]) if row["status"] == "unsupported" else []
     files.extend(terminal_files)
@@ -395,7 +421,7 @@ def inspect(job_id):
         files.append(state / "jobs" / job_id / "retry-parent-custody.json")
     if "agent_backend" in prepared:
         backend, extra = api_backend(state, job_id, output, request, prepared, plan, row["request_digest"],
-                                     terminal_sealed=bool(terminal_files))
+                                     terminal_sealed=bool(terminal_files), unplanned=unplanned)
         files.extend(extra)
     if request["reuse_model"] is not None:
         source_reuse = reused_source(output, request, prepared)
@@ -407,7 +433,7 @@ def inspect(job_id):
                                                                row["request_digest"])
         files.extend(extra)
         mode = "new_meshy_generation"
-    plan_id = _digest({"request": row["request_digest"], "plan": plan,
+    plan_id = None if unplanned else _digest({"request": row["request_digest"], "plan": plan,
                        "generation": generation})
     for key in ("plan_id", "expected_plan_id"):
         require(data.get(key) in (None, plan_id), "Recorded canonical plan ID differs")
@@ -421,7 +447,10 @@ def inspect(job_id):
             owner["identity_verified_live"] = process_identity(owner["owner_pid"]) == owner["owner_identity"]
         except (ValueError, OSError, ProcessLookupError):
             pass
+    if unplanned:
+        require(not owner["identity_verified_live"], "Unplanned preparation still has a live owner")
     return {"schema_version": 1, "provenance": "actual_pipeline", "id": job_id,
+            "plan_available": not unplanned,
             "status": row["status"], "state_dir": str(state.relative_to(ROOT)),
             "output": str(output.relative_to(ROOT)), "plan_id": plan_id, "owner": owner,
             "request": {key: request[key] for key in ("prompt", "style", "custom_actions", "preset")},
@@ -435,12 +464,13 @@ def inspect(job_id):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--job", required=True)
+    parser.add_argument("--allow-unplanned", action="store_true", help="Admit only a saved zero-call API request awaiting Prepare; no plan claim")
     parser.add_argument("--serve", action="store_true", help="Start the real ephemeral HTTP server; no implicit test Start")
     parser.add_argument("--max-seconds", type=int, default=915)
     args = parser.parse_args()
     if not re.fullmatch(r"[a-f0-9]{24}", args.job) or not 30 <= args.max_seconds <= 1830:
         raise ValueError("Invalid job ID or bounded lifetime")
-    before = inspect(args.job)
+    before = inspect(args.job, allow_unplanned=args.allow_unplanned)
     if not args.serve:
         print(json.dumps(before, sort_keys=True), flush=True)
         return

@@ -1,0 +1,118 @@
+{
+  "checks": [
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "identity",
+      "passed": false,
+      "reason": "The character keeps the requested compact upright cute proportions, ivory face/belly, black limbs, warm brown eyes, and short muzzle, but key panda markings are off: the requested black eye patches are not clearly present, and the tail is not a small fully black tail because the visible tip is white."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait",
+        "evidence-isolated-exported-dance"
+      ],
+      "name": "appearance",
+      "passed": false,
+      "reason": "Native appearance is close to the cute short-fur target, but exported appearance shows conspicuous polygonal/patchy coat artifacts on the arms, flanks, and neck, a dirty gray banding/seam-like transition around the back of the head/neck, and jagged bright coat edges along the belly border. This does not read as tidy short soft fur with clean simple color boundaries."
+    },
+    {
+      "evidence_ids": [
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait",
+        "evidence-motion-00"
+      ],
+      "name": "framing",
+      "passed": true,
+      "reason": "The character is shown full-body in native and exported multiviews, the delivered portrait keeps the full figure visible, and the motion evidence shows the single character without props or scenery."
+    },
+    {
+      "evidence_ids": [
+        "evidence-motion-00",
+        "evidence-isolated-native-dance",
+        "evidence-isolated-exported-dance"
+      ],
+      "name": "deformation",
+      "passed": false,
+      "reason": "During the dance, especially in the exported pose, the forearms and side body show faceted polygon-like patches and coat breakup rather than a smooth tidy short-fur surface. There are also visible artifact streaks/flecks near the cheek/arm boundary and uneven surface breakup on the limbs, which is not acceptable deformation/presentation quality."
+    }
+  ],
+  "limitations": [
+    "Motion review is based on sampled state images/contact sheets, not every frame.",
+    "No image evidence here proves collisions, ground forces, balance, or seamless looping."
+  ],
+  "required_repairs": [
+    "Restore the requested panda markings: make the eye patches clearly black and make the tail read as a small black tail without the visible white tip.",
+    "Clean the exported coat/fur presentation to remove polygonal bright flecks, patchy card-like areas, and the dirty seam/banding around the neck, while keeping short tidy black-and-ivory fur and smooth underlying forms.",
+    "Reduce visible motion-time surface breakup on the arms, shoulders, cheek/arm boundary, side body, and feet so the dance holds a clean silhouette in exported frames.",
+    "Revise the dance so the small whole-body hops are visually readable in the motion images, not only numerically detected."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": [
+        "evidence-motion-00",
+        "evidence-isolated-native-dance",
+        "evidence-isolated-exported-dance",
+        "action-audit-dance"
+      ],
+      "id": "dance",
+      "meaning_passed": false,
+      "motion_passed": true,
+      "reason": "The clip shows real pose changes with alternating side-to-side sways, head tilts, and some arm motion, but the requested small whole-body hops are not clearly readable visually. Exported motion frames also show noticeable coat/surface artifacts on the arms and body.",
+      "requirement_reviews": [
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "body_rhythm",
+          "passed": true,
+          "reason": "The contact sheet shows clear alternating left-right body beats across the sequence rather than a static pose."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "action-audit-dance"
+          ],
+          "id": "body_hops",
+          "passed": false,
+          "reason": "Although the numeric audit reports some vertical travel, the motion images do not make small whole-body hops clearly readable; the action mostly reads as side-to-side swaying in place."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-dance",
+            "evidence-isolated-exported-dance"
+          ],
+          "id": "arms_swing",
+          "passed": true,
+          "reason": "Both arms change angle and position relative to the torso across the beats, so the arm motion is visible and not only carried by whole-body travel."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00"
+          ],
+          "id": "head_tilts",
+          "passed": true,
+          "reason": "The head visibly alternates tilt direction in coordination with the body beats, and the change reads relative to the torso."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "action-audit-dance"
+          ],
+          "id": "return_neutral",
+          "passed": true,
+          "reason": "The first and last poses visually return to the same neutral raised-paws stance, and the audit also reports endpoint return for the measured vertices."
+        }
+      ]
+    }
+  ],
+  "summary": "Repair required. The avatar is close in overall silhouette and framing, and the dance has real rhythmic motion, but it misses key requested identity details (clear black eye patches and fully black tail), exported fur/coat quality is visibly patchy and artifacted, deformation/presentation in motion is not clean, and the requested hops are not visually readable enough.",
+  "verdict": "repair"
+}

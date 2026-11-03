@@ -1,0 +1,235 @@
+{
+  "artifacts": [
+    {
+      "bytes": 522172,
+      "path": "delivered-portrait.webp",
+      "sha256": "87ee7f41134e6b0f9a100f82ab30e649dac682857e41b6a11517d3728018f9a3"
+    },
+    {
+      "bytes": 989722,
+      "path": "exported-views.png",
+      "sha256": "922db698a198cce7e77196a00d74023e24f5d1a470ccbf921324ee962035dc09"
+    },
+    {
+      "bytes": 387351,
+      "path": "isolated-exported-dance.png",
+      "sha256": "16aa44a91612b64e32b5a15ed673c37afe7bc2808b8afa42519831f048a68cbc"
+    },
+    {
+      "bytes": 438951,
+      "path": "isolated-native-dance.png",
+      "sha256": "14d3bcaa5b54c95a7c09d1149cc64d8a769b3ee61e26d0f2985d3c0ad9883310"
+    },
+    {
+      "bytes": 3952890,
+      "path": "motion-00.png",
+      "sha256": "8c67a39f4176671e885429bb98666cb742dcf7c2d42670ab2dea1f7e9b601e57"
+    },
+    {
+      "bytes": 1088325,
+      "path": "native-views.png",
+      "sha256": "89b26f544b4190467030c2ecf81a81dcb4ec046e706ad02b9e75e77e651dde75"
+    }
+  ],
+  "coverage": [
+    {
+      "height": 720,
+      "id": "evidence-native-views-front",
+      "kind": "view",
+      "representation": "native",
+      "view": "front",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-side",
+      "kind": "view",
+      "representation": "native",
+      "view": "side",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-back",
+      "kind": "view",
+      "representation": "native",
+      "view": "back",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-three_quarter",
+      "kind": "view",
+      "representation": "native",
+      "view": "three_quarter",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-front",
+      "kind": "view",
+      "representation": "exported",
+      "view": "front",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-side",
+      "kind": "view",
+      "representation": "exported",
+      "view": "side",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-back",
+      "kind": "view",
+      "representation": "exported",
+      "view": "back",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-three_quarter",
+      "kind": "view",
+      "representation": "exported",
+      "view": "three_quarter",
+      "width": 720
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00-native",
+      "kind": "state",
+      "pose_height": 720,
+      "pose_width": 720,
+      "representation": "native",
+      "state_ids": [
+        "dance"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00-exported",
+      "kind": "state",
+      "pose_height": 720,
+      "pose_width": 720,
+      "representation": "exported",
+      "state_ids": [
+        "dance"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "portrait",
+      "representation": "native",
+      "width": 1600
+    }
+  ],
+  "exported_manifest_sha256": "0139c9d543e7289012b61605f173275379deb5e06c9ffa2c8b9a7125e8cacf55",
+  "images": [
+    {
+      "height": 1496,
+      "id": "evidence-native-views",
+      "kind": "multiview",
+      "path": "native-views.png",
+      "sha256": "89b26f544b4190467030c2ecf81a81dcb4ec046e706ad02b9e75e77e651dde75",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 1496,
+      "id": "evidence-exported-views",
+      "kind": "multiview",
+      "path": "exported-views.png",
+      "sha256": "922db698a198cce7e77196a00d74023e24f5d1a470ccbf921324ee962035dc09",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00",
+      "kind": "native_exported_and_delivered_motion",
+      "path": "motion-00.png",
+      "sha256": "8c67a39f4176671e885429bb98666cb742dcf7c2d42670ab2dea1f7e9b601e57",
+      "state_ids": [
+        "dance"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "delivered_portrait",
+      "path": "delivered-portrait.webp",
+      "sha256": "87ee7f41134e6b0f9a100f82ab30e649dac682857e41b6a11517d3728018f9a3",
+      "state_ids": [],
+      "width": 1600
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-native-dance",
+      "kind": "isolated_motion_pose",
+      "path": "isolated-native-dance.png",
+      "representation": "native",
+      "sample_index": 3,
+      "second": 2.0,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "14d3bcaa5b54c95a7c09d1149cc64d8a769b3ee61e26d0f2985d3c0ad9883310",
+      "state_ids": [
+        "dance"
+      ],
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-exported-dance",
+      "kind": "isolated_motion_pose",
+      "path": "isolated-exported-dance.png",
+      "representation": "exported",
+      "sample_index": 3,
+      "second": 2.0,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "16aa44a91612b64e32b5a15ed673c37afe7bc2808b8afa42519831f048a68cbc",
+      "state_ids": [
+        "dance"
+      ],
+      "width": 720
+    }
+  ],
+  "kind": "full_resolution_review_evidence",
+  "media_manifest_sha256": "fa93b74512e614dc6d259dad1db2ba8fed095059dc47c120716dc6d3fc8030bc",
+  "model_manifest_sha256": "2eebb0191f4a0a310f6116b70c1880e408f64cdaf1e370ca86b80a243979ddd1",
+  "quality_equivalence_verified": false,
+  "schema_version": 1,
+  "scope": "Up to eight actual poses per representation for one to four states; four selected poses for five to eight states. One-state jobs also include two unchanged individual pose images. Four decoded delivered video samples per state. Not all-frame visual, physics or loop certification.",
+  "sources": {
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/back.png": "0011e8a7d1bed967cfe98d33cf761a8894d4e1047d63f1d3815808f978340e26",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/front.png": "1cb12724a6c973af26513f7440b222e0a7b1580b82634038d97f031a39d77e53",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/renders/dance/0000.png": "7c888ceb79535adef7e7ad87df74634f4d715413c101208cfa9d2fe0a3046014",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/renders/dance/0001.png": "47e267a488d8ae0a0110a352aff7fd266f096d174d12107e5a2d29ea4436e3b9",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/renders/dance/0002.png": "1bbc84b90172126aa241d35f575fb66563fc294eb5976ee2983d5da9ae708efc",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/renders/dance/0003.png": "16aa44a91612b64e32b5a15ed673c37afe7bc2808b8afa42519831f048a68cbc",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/renders/dance/0004.png": "79383125ec5df8477fea8d7b66a9abbbd9d89baf048cf65b79cba7cafc577701",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/renders/dance/0005.png": "003cfa11cbcf6bad81359f33b1896499c16faf9c23c0ec36421197c9823b3de7",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/renders/dance/0006.png": "db321e173b82890bf9745f17195a4eb4db11b36c942efb7c318be1e8d2cf3923",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/side.png": "ded20c7ea7685cc98e8fb552cd5b3c9681f6cf5681e1de430dcccfe52c771eb6",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-1/three-quarter.png": "21833a1d7898f91c9af9dff0f928fe8f71b4d4eba69ac540635fddfb3ea15c49",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/animations/dance.mp4": "4b2ac9318cd66c3e656b747ec595eea56deaf17bfae19093537aa767288280ae",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/portrait.webp": "87ee7f41134e6b0f9a100f82ab30e649dac682857e41b6a11517d3728018f9a3",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/renders/dance/0000.png": "2e55fed21dc77cf594c60231b33971e5b66a091c28da79e75459840d35bb295f",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/renders/dance/0001.png": "de5c39aca6f89b65a60bd656b71ab8191d6564c1fe920e7b72a7bd9d0ce5c813",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/renders/dance/0002.png": "d3f53257d39fb332c07464451793ffde8ef91b481cdb9d4a6b695a878a4032fb",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/renders/dance/0003.png": "14d3bcaa5b54c95a7c09d1149cc64d8a769b3ee61e26d0f2985d3c0ad9883310",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/renders/dance/0004.png": "e122323f72047861699bca4d1fb42a697d7124e0466edebf5f3ee48ea140bcb4",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/renders/dance/0005.png": "7b6487f818af88d8cc189c5805bf192290996ca0b5c952e465e8ff17aa3e5b0b",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/renders/dance/0006.png": "ff8147fba4afeac196b545a8034c5b994caefd56312b328b7512f79fdbd62484",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/views/back.png": "4f43039e6dfbbace902fde968dd6a26f5c82d2c79a3dba647afc80fe43e4cfc1",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/views/front.png": "b595ed13767faa27610d3ae0ea434ff412294e27a599c7d744838ce2167ec0da",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/views/side.png": "9e282fadb4e3766384655342f4f482856ae8b00dba5b02a27e71eb7c080dc122",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/views/three_quarter.png": "a7c969b7caf792dcb098374afed6000a159a0f70f4b39e5bc2a2eacd3374cfc7"
+  },
+  "status": "prepared_for_review"
+}

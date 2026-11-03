@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "status": "passed_frozen",
+  "recorded_at": "2026-11-02T15:57:30.287802-08:00",
+  "classification": "Analyst-recorded local test outputs; retained actual paid answer used read-only as a regression fixture; no new provider/native execution",
+  "sources": {
+    "avatar_assets/pipeline_prompts.py": "c9ef2904fe93476df3448bd78b131eaa7001da75bb72b771158cb19ae0c4f259",
+    "tests/test_plan_string_bounds.py": "d5e67bb8f9c6f74dca88578f928b9349753a304097bfaddd3c32939af4be61ec",
+    "tests/test_pipeline_prompts.py": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+  },
+  "tests": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p 'test_plan_string_bounds.py' -v",
+      "passed": 9,
+      "skipped": 0,
+      "seconds": 0.003,
+      "fixture": "evidence/accepted-source-plan-failure-v1/payload"
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p 'test_pipeline_prompts.py' -q",
+      "passed": 23,
+      "skipped": 0,
+      "seconds": 0.024,
+      "note": "Prior passing run retained; runtime source unchanged since that run, only fixture paths in new test changed."
+    }
+  ],
+  "unique_test_total": 32,
+  "actual_original_answer_sha256": "b43896be47682e48fcffa009d80f97823b21ce22f3ada652310b262678915928",
+  "actual_original_request_sha256": "2713f0d5710ac0b14a54fbf1a3423f0a9a7c03043d5e6a6faaf1b9cb3ca77a59",
+  "actual_failure": "generation_prompt length845 exceeds800; analytic in-memory length correction independently reveals unsupported interaction requirement",
+  "unchanged": "Saved answers, local800-character limit, semantic validators, image layout guidance, all ledger/custody/provider state",
+  "provider_calls": 0,
+  "native_calls": 0,
+  "ledger_writes": 0,
+  "custody_writes": 0
+}

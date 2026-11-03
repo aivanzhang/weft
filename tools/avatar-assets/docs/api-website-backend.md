@@ -10,6 +10,34 @@ The user selected OpenAI API for the website backend. Website jobs must not
 depend on a personal ChatGPT login, local CLI session or operator-written rig.
 The first live API planner succeeded; no API-backed delivery has passed yet.
 
+## Current accepted-source trial
+
+The rejected fresh-base panda builds remain preserved. The next trial uses the
+unrigged paid base behind the user's accepted appearance plus its portrait,
+without copying the old rig or motion recipe. The shoulder dragon remains perched;
+independent flight is not part of this trial. Trusted local creation selects this
+saved source; the website does not yet expose a saved-source picker.
+
+Job `905fab75929b427ea12432a3` stopped after its planner returned845characters
+for an800-character generation brief. Its unchanged paid answer also classified
+an existing perched attachment as unsupported interaction. Schema text bounds
+now mirror local validation; planner guidance distinguishes existing attached
+accessories from new interactions and independently moving companions. Neither
+change relaxes the acceptance checks. The original answer is not edited or reused
+as a valid plan. A fresh request and paid planner are required after verified
+custody release, within the standing$15 total budget.
+
+The author now receives the optional request reference and authenticated images
+of critic-reported exported defects. Inputs remain bounded at eight images,
+8MiB each and32MiB combined, deduplicated against source/reference images. A
+successful numeric skin check still does not establish visual quality.
+Continuation inventories admit up to4096files/1GiB, with64MiB/file and20s limits;
+the actual three-attempt d8 inventory passed without omitting rejected evidence.
+
+The website Prepare verifier now waits for its actual POST response before
+polling canonical state. Its earlier stale-DOM failure did not cancel or duplicate
+the detached paid planner. These are workflow fixes, not a completed avatar.
+
 ## Requested flow
 
 1. The user enters a character, style, optional reference and custom actions.

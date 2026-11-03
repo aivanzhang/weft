@@ -1,0 +1,622 @@
+{
+  "classification": "Measured exported rest-pose body skin-weight adjacency, not a causal deformation/appearance test",
+  "method": "Exact-position welding; only triangle-connected nonzero edges, excluding portable coat meshes. Check split duplicate weights before selecting representative weights. L1 maximum possible is 2. No spatial nearest-neighbor joins.",
+  "limits": [
+    "Input source has no skin weights; source-versus-finished weight comparison unavailable.",
+    "No before-constraint weights saved here; cannot isolate weight_constraints from automatic rigging, authored rig layers or top-four export truncation.",
+    "Exact welding treats coincident disconnected surface positions as one; only original triangle-connected edge pairs are measured.",
+    "Mesh-local edge lengths; no world unit assumption."
+  ],
+  "models": [
+    {
+      "path": "outputs/studio-d8a680ce6580429f9fdd016f/inputs/source-model.glb",
+      "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+      "body_vertices": 26957,
+      "triangles": 36124,
+      "exact_position_groups": 18071,
+      "split_duplicate_vertices": 8886,
+      "true_geometric_edges": 54197,
+      "has_skin_weights": false
+    },
+    {
+      "path": "outputs/studio-d8a680ce6580429f9fdd016f/model-0/model.glb",
+      "sha256": "ce019b90577f84646aeca74072a762d9897cd6e7e21dd06e6d4e9d6d0f5f55f8",
+      "body_vertices": 27043,
+      "triangles": 36124,
+      "exact_position_groups": 18071,
+      "split_duplicate_vertices": 8972,
+      "true_geometric_edges": 54197,
+      "has_skin_weights": true,
+      "seam_weight_disagreement_groups": 0,
+      "seam_max_l1": 0.0,
+      "edge_l1_percentiles": {
+        "p50": 0.03778852568939328,
+        "p90": 0.2634096521651373,
+        "p95": 0.4010775207541883,
+        "p99": 0.7548443788290023,
+        "max": 2.0
+      },
+      "edge_l1_above_0_5": 1695,
+      "edge_l1_above_1": 183,
+      "edge_l1_above_1_length_range": [
+        0.010785644290682371,
+        0.1420851930058118
+      ],
+      "largest_edges": [
+        {
+          "l1": 2.0,
+          "length_local_units": 0.04336581842183301,
+          "endpoints": [
+            [
+              -0.0764521062374115,
+              0.15494230389595032,
+              -0.14914387464523315
+            ],
+            [
+              -0.03412848711013794,
+              0.14549586176872253,
+              -0.14887891709804535
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 1.0
+            },
+            {
+              "tail": 1.0
+            }
+          ]
+        },
+        {
+          "l1": 2.0,
+          "length_local_units": 0.03829208966865578,
+          "endpoints": [
+            [
+              -0.07641855627298355,
+              0.1683150976896286,
+              -0.1709599792957306
+            ],
+            [
+              -0.0391678661108017,
+              0.15944655239582062,
+              -0.1710982471704483
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 1.0
+            },
+            {
+              "tail": 1.0
+            }
+          ]
+        },
+        {
+          "l1": 2.0,
+          "length_local_units": 0.04413641165605934,
+          "endpoints": [
+            [
+              -0.0764521062374115,
+              0.15494230389595032,
+              -0.14914387464523315
+            ],
+            [
+              -0.03371138125658035,
+              0.15093035995960236,
+              -0.15939851105213165
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 1.0
+            },
+            {
+              "tail": 1.0
+            }
+          ]
+        },
+        {
+          "l1": 2.0,
+          "length_local_units": 0.05238131276648108,
+          "endpoints": [
+            [
+              -0.0798126608133316,
+              0.14755535125732422,
+              -0.1323503851890564
+            ],
+            [
+              -0.02855861373245716,
+              0.1407763808965683,
+              -0.14076882600784302
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 1.0
+            },
+            {
+              "tail": 1.0
+            }
+          ]
+        },
+        {
+          "l1": 2.0,
+          "length_local_units": 0.050641894103846355,
+          "endpoints": [
+            [
+              -0.0764521062374115,
+              0.15494230389595032,
+              -0.14914387464523315
+            ],
+            [
+              -0.02855861373245716,
+              0.1407763808965683,
+              -0.14076882600784302
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 1.0
+            },
+            {
+              "tail": 1.0
+            }
+          ]
+        },
+        {
+          "l1": 2.0,
+          "length_local_units": 0.042926179153971976,
+          "endpoints": [
+            [
+              0.03964570537209511,
+              0.1629772186279297,
+              -0.17263534665107727
+            ],
+            [
+              0.07596731185913086,
+              0.18187125027179718,
+              -0.1855354756116867
+            ]
+          ],
+          "weights": [
+            {
+              "tail": 1.0
+            },
+            {
+              "spine": 1.0
+            }
+          ]
+        },
+        {
+          "l1": 2.0,
+          "length_local_units": 0.041371108132696656,
+          "endpoints": [
+            [
+              0.03964570537209511,
+              0.1629772186279297,
+              -0.17263534665107727
+            ],
+            [
+              0.07847977429628372,
+              0.1758270114660263,
+              -0.17882941663265228
+            ]
+          ],
+          "weights": [
+            {
+              "tail": 1.0
+            },
+            {
+              "spine": 1.0
+            }
+          ]
+        },
+        {
+          "l1": 2.0,
+          "length_local_units": 0.0377139236053624,
+          "endpoints": [
+            [
+              -0.0722694993019104,
+              0.13826218247413635,
+              -0.11182261258363724
+            ],
+            [
+              -0.03784250468015671,
+              0.13710631430149078,
+              -0.12717793881893158
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 1.0
+            },
+            {
+              "tail": 1.0
+            }
+          ]
+        },
+        {
+          "l1": 2.0,
+          "length_local_units": 0.034108101605304704,
+          "endpoints": [
+            [
+              0.05019769072532654,
+              0.14517997205257416,
+              -0.14364053308963776
+            ],
+            [
+              0.08334849029779434,
+              0.15065380930900574,
+              -0.1377733200788498
+            ]
+          ],
+          "weights": [
+            {
+              "tail": 1.0
+            },
+            {
+              "spine": 1.0
+            }
+          ]
+        },
+        {
+          "l1": 2.0,
+          "length_local_units": 0.051869534198995176,
+          "endpoints": [
+            [
+              -0.0722694993019104,
+              0.13826218247413635,
+              -0.11182261258363724
+            ],
+            [
+              -0.021580075845122337,
+              0.13191771507263184,
+              -0.12081030756235123
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 1.0
+            },
+            {
+              "tail": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "outputs/studio-d8a680ce6580429f9fdd016f/model-1/model.glb",
+      "sha256": "6d5b5f01e5bd4df96c1e5ea59bf815660e5d35eeb100610f55abd00af9b75596",
+      "body_vertices": 27043,
+      "triangles": 36124,
+      "exact_position_groups": 18071,
+      "split_duplicate_vertices": 8972,
+      "true_geometric_edges": 54197,
+      "has_skin_weights": true,
+      "seam_weight_disagreement_groups": 0,
+      "seam_max_l1": 0.0,
+      "edge_l1_percentiles": {
+        "p50": 0.03598448634147644,
+        "p90": 0.2471616879105569,
+        "p95": 0.3762603756040333,
+        "p99": 0.7024597168806944,
+        "max": 1.9724571397528052
+      },
+      "edge_l1_above_0_5": 1421,
+      "edge_l1_above_1": 148,
+      "edge_l1_above_1_length_range": [
+        0.011356473823670402,
+        0.1420851930058118
+      ],
+      "largest_edges": [
+        {
+          "l1": 1.9724571397528052,
+          "length_local_units": 0.06860457445952226,
+          "endpoints": [
+            [
+              0.15827448666095734,
+              0.5327252149581909,
+              0.054214268922805786
+            ],
+            [
+              0.18569518625736237,
+              0.4706553518772125,
+              0.04411352798342705
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 0.040921,
+              "chest": 0.096223,
+              "upperarm_r": 0.862856
+            },
+            {
+              "upperarm_r": 0.013771,
+              "forearm_r": 0.986229
+            }
+          ]
+        },
+        {
+          "l1": 1.9328701458871365,
+          "length_local_units": 0.08319684389094086,
+          "endpoints": [
+            [
+              0.15827448666095734,
+              0.5327252149581909,
+              0.054214268922805786
+            ],
+            [
+              0.18264703452587128,
+              0.4533909559249878,
+              0.06002538651227951
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 0.040921,
+              "chest": 0.096223,
+              "upperarm_r": 0.862856
+            },
+            {
+              "chest": 0.000664,
+              "upperarm_r": 0.032901,
+              "forearm_r": 0.966435
+            }
+          ]
+        },
+        {
+          "l1": 1.811328660696745,
+          "length_local_units": 0.04254414906928404,
+          "endpoints": [
+            [
+              -0.18083052337169647,
+              0.4697309136390686,
+              0.05438261851668358
+            ],
+            [
+              -0.15938755869865417,
+              0.5034347772598267,
+              0.06902001798152924
+            ]
+          ],
+          "weights": [
+            {
+              "chest": 0.000116,
+              "upperarm_l": 0.094219,
+              "forearm_l": 0.905664
+            },
+            {
+              "spine": 0.035891,
+              "chest": 0.359279,
+              "upperarm_l": 0.604831
+            }
+          ]
+        },
+        {
+          "l1": 1.8113286532461643,
+          "length_local_units": 0.05985226891386236,
+          "endpoints": [
+            [
+              -0.18083052337169647,
+              0.4697309136390686,
+              0.05438261851668358
+            ],
+            [
+              -0.15798582136631012,
+              0.5248245000839233,
+              0.05939364805817604
+            ]
+          ],
+          "weights": [
+            {
+              "chest": 0.000116,
+              "upperarm_l": 0.094219,
+              "forearm_l": 0.905664
+            },
+            {
+              "spine": 0.043318,
+              "chest": 0.136146,
+              "upperarm_l": 0.820535
+            }
+          ]
+        },
+        {
+          "l1": 1.8113286523148417,
+          "length_local_units": 0.05688534888646,
+          "endpoints": [
+            [
+              -0.18083052337169647,
+              0.4697309136390686,
+              0.05438261851668358
+            ],
+            [
+              -0.16570542752742767,
+              0.5239121913909912,
+              0.04592309519648552
+            ]
+          ],
+          "weights": [
+            {
+              "chest": 0.000116,
+              "upperarm_l": 0.094219,
+              "forearm_l": 0.905664
+            },
+            {
+              "spine": 0.009242,
+              "chest": 0.064969,
+              "upperarm_l": 0.925789
+            }
+          ]
+        },
+        {
+          "l1": 1.729128853417933,
+          "length_local_units": 0.0396034797237817,
+          "endpoints": [
+            [
+              -0.15149323642253876,
+              0.1751304715871811,
+              -0.13917040824890137
+            ],
+            [
+              -0.13670368492603302,
+              0.19543322920799255,
+              -0.16978907585144043
+            ]
+          ],
+          "weights": [
+            {
+              "thigh_l": 0.446927,
+              "shin_l": 0.273732,
+              "foot_l": 0.143905,
+              "tail": 0.135436
+            },
+            {
+              "hips": 0.147077,
+              "spine": 0.145944,
+              "chest": 0.014579,
+              "tail": 0.692401
+            }
+          ]
+        },
+        {
+          "l1": 1.706780904904008,
+          "length_local_units": 0.0541173739234023,
+          "endpoints": [
+            [
+              -0.16539767384529114,
+              0.18132629990577698,
+              -0.1360296905040741
+            ],
+            [
+              -0.1339835524559021,
+              0.20011450350284576,
+              -0.1758900284767151
+            ]
+          ],
+          "weights": [
+            {
+              "thigh_l": 0.441319,
+              "shin_l": 0.267035,
+              "foot_l": 0.145036,
+              "tail": 0.14661
+            },
+            {
+              "hips": 0.142751,
+              "spine": 0.142291,
+              "chest": 0.015306,
+              "tail": 0.699652
+            }
+          ]
+        },
+        {
+          "l1": 1.7067808965221047,
+          "length_local_units": 0.046497812351423466,
+          "endpoints": [
+            [
+              -0.16539767384529114,
+              0.18132629990577698,
+              -0.1360296905040741
+            ],
+            [
+              -0.13670368492603302,
+              0.19543322920799255,
+              -0.16978907585144043
+            ]
+          ],
+          "weights": [
+            {
+              "thigh_l": 0.441319,
+              "shin_l": 0.267035,
+              "foot_l": 0.145036,
+              "tail": 0.14661
+            },
+            {
+              "hips": 0.147077,
+              "spine": 0.145944,
+              "chest": 0.014579,
+              "tail": 0.692401
+            }
+          ]
+        },
+        {
+          "l1": 1.6811746298335493,
+          "length_local_units": 0.06309377881794276,
+          "endpoints": [
+            [
+              0.05454401299357414,
+              0.1307791918516159,
+              -0.01885295659303665
+            ],
+            [
+              0.060086119920015335,
+              0.06857398897409439,
+              -0.027831971645355225
+            ]
+          ],
+          "weights": [
+            {
+              "thigh_r": 0.994858,
+              "shin_r": 0.005009,
+              "foot_r": 0.000134
+            },
+            {
+              "thigh_r": 0.15427,
+              "shin_r": 0.827897,
+              "foot_r": 0.017833
+            }
+          ]
+        },
+        {
+          "l1": 1.6745775640010834,
+          "length_local_units": 0.05135616987230564,
+          "endpoints": [
+            [
+              0.15149207413196564,
+              0.5037853717803955,
+              0.07892349362373352
+            ],
+            [
+              0.17714542150497437,
+              0.46173304319381714,
+              0.06439890712499619
+            ]
+          ],
+          "weights": [
+            {
+              "spine": 0.096159,
+              "chest": 0.401059,
+              "upperarm_r": 0.502783
+            },
+            {
+              "chest": 0.001337,
+              "upperarm_r": 0.161374,
+              "forearm_r": 0.837289
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "comparison": {
+    "same_body_positions": true,
+    "same_welded_edges": true,
+    "changed_position_groups": 8011,
+    "weight_l1_change_percentiles": [
+      2.2351741790771484e-08,
+      1.7244629859924316,
+      1.924903929233551,
+      2.0,
+      2.000000074505806
+    ]
+  },
+  "elapsed_seconds": 0.19268737500533462,
+  "peak_rss_bytes": 173326336,
+  "max_runtime_seconds": 55,
+  "memory_acceptance_limit_bytes": 536870912,
+  "source_sha256": {
+    "scripts/blender_finish_generated.py": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081",
+    "avatar_assets/author_contract.py": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d",
+    "outputs/d8-rig-weight-diagnosis-v1/measure.py": "39a12ef5f26d2bb205ae4963c59d0a529c17a3082b8df3d47f5aec1a65313ec1"
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2600,
+      "path": "README.md",
+      "sha256": "4ed2cc3193ca523b4792ecf6b4ad8165c5e6e6825f667d42692fdbfcbe14d51a"
+    },
+    {
+      "bytes": 7094,
+      "path": "inventory.json",
+      "sha256": "c9dfe6796dd2bff6374c989c15c3300a26527fbefe37ca4cf5b3709cef920b04"
+    },
+    {
+      "bytes": 1071,
+      "path": "packaging/job.json",
+      "sha256": "562f23591b511706e759b7a1a0cae0d8db4cffd4741088dc33f2e0b5c18a2c7f"
+    },
+    {
+      "bytes": 245,
+      "path": "packaging/package-handle.json",
+      "sha256": "5a7025cc6308ba548c9eb2af825b20c2c024b30044c893041dd7dff1b93452b9"
+    },
+    {
+      "bytes": 983,
+      "path": "packaging/package-monitor.json",
+      "sha256": "6146a7cca4aa3be161cc82b6510dfe51dab1c16d7005ef57922b905550ec2f11"
+    },
+    {
+      "bytes": 79,
+      "path": "packaging/package.log",
+      "sha256": "4e9cde9342276041251ee3c26841288ab65e55aeb1eea8f04d2b846d1e49c1c5"
+    },
+    {
+      "bytes": 8913,
+      "path": "packaging/package.py",
+      "sha256": "736f480a2ab6ee5e5abddfbea6e6b9baa74ea40539ae255d057ec6c1ec581fcc"
+    },
+    {
+      "bytes": 6492,
+      "path": "packaging/prepared.json",
+      "sha256": "a7384c4909274441e8c941ae3a0d942f3a109e37ab86155694977435d69440cf"
+    },
+    {
+      "bytes": 11421,
+      "path": "packaging/sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "packaging/sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 47852,
+      "path": "payload/114406851e53224f7b4d0e59000069bdd381a2dc12227635c80cc6db933bdb89.py",
+      "sha256": "114406851e53224f7b4d0e59000069bdd381a2dc12227635c80cc6db933bdb89"
+    },
+    {
+      "bytes": 17229,
+      "path": "payload/116d04199f6f66828b39b7126a783566ee6cd75d3f797fefe7ea96230ba9ba4e.json",
+      "sha256": "116d04199f6f66828b39b7126a783566ee6cd75d3f797fefe7ea96230ba9ba4e"
+    },
+    {
+      "bytes": 1794,
+      "path": "payload/142d19b72998291c2def5d22ca078eeeb5fc15c98e7942a93e22a6750054b080.json",
+      "sha256": "142d19b72998291c2def5d22ca078eeeb5fc15c98e7942a93e22a6750054b080"
+    },
+    {
+      "bytes": 3201,
+      "path": "payload/1b4848aaf937d91d7f0bafd67937455f72ecb30b7180e47c33046cb5f76b71b8.py",
+      "sha256": "1b4848aaf937d91d7f0bafd67937455f72ecb30b7180e47c33046cb5f76b71b8"
+    },
+    {
+      "bytes": 561,
+      "path": "payload/1b9044870ef7443488c471caf916d314ebd9f75c9a605b5eb16a60214306294c.json",
+      "sha256": "1b9044870ef7443488c471caf916d314ebd9f75c9a605b5eb16a60214306294c"
+    },
+    {
+      "bytes": 8092,
+      "path": "payload/454f34683e48226cd7ce9304622dec83ed1342958c68b3dbfcf8ad90e61f1e20.py",
+      "sha256": "454f34683e48226cd7ce9304622dec83ed1342958c68b3dbfcf8ad90e61f1e20"
+    },
+    {
+      "bytes": 2333,
+      "path": "payload/7708de970882c250f049493a9dc62c15b8797bb4aaddf7dae5f1cc87cda785ff.mjs",
+      "sha256": "7708de970882c250f049493a9dc62c15b8797bb4aaddf7dae5f1cc87cda785ff"
+    },
+    {
+      "bytes": 419,
+      "path": "payload/78718ab90ebafe36c2f2447581af1886a3e5d091226b67ed73a70c9686d6b0cf.json",
+      "sha256": "78718ab90ebafe36c2f2447581af1886a3e5d091226b67ed73a70c9686d6b0cf"
+    },
+    {
+      "bytes": 2090,
+      "path": "payload/8bd48af189ad80502832df2910e657022be8c8f3c205fd100cef3575c717a84a.json",
+      "sha256": "8bd48af189ad80502832df2910e657022be8c8f3c205fd100cef3575c717a84a"
+    },
+    {
+      "bytes": 16029,
+      "path": "payload/99264c4e8344bf959d8ff5dfc16b181f887788e22118b3e5186b7be0ce990615.py",
+      "sha256": "99264c4e8344bf959d8ff5dfc16b181f887788e22118b3e5186b7be0ce990615"
+    },
+    {
+      "bytes": 832,
+      "path": "payload/ac46a54f9d2792d3296918ab269afa05821715eaa22c75560e22ed8c38ae41ff.mjs",
+      "sha256": "ac46a54f9d2792d3296918ab269afa05821715eaa22c75560e22ed8c38ae41ff"
+    },
+    {
+      "bytes": 1288,
+      "path": "payload/b42b1acc70faebee0ca4da272e76a37d2ccd403c9bf6a30a720885fd6d328743.json",
+      "sha256": "b42b1acc70faebee0ca4da272e76a37d2ccd403c9bf6a30a720885fd6d328743"
+    },
+    {
+      "bytes": 2643,
+      "path": "payload/c476d142073ce3f889412daafee6b177f6c7e5e4cde7cf554e886ce2dc61de93.json",
+      "sha256": "c476d142073ce3f889412daafee6b177f6c7e5e4cde7cf554e886ce2dc61de93"
+    },
+    {
+      "bytes": 63299,
+      "path": "payload/c9ef2904fe93476df3448bd78b131eaa7001da75bb72b771158cb19ae0c4f259.py",
+      "sha256": "c9ef2904fe93476df3448bd78b131eaa7001da75bb72b771158cb19ae0c4f259"
+    },
+    {
+      "bytes": 2097,
+      "path": "payload/d149a8c4271a38998c4b9a276bebd0582fc36c7b2741a6c63ed5988badedead9.json",
+      "sha256": "d149a8c4271a38998c4b9a276bebd0582fc36c7b2741a6c63ed5988badedead9"
+    },
+    {
+      "bytes": 8042,
+      "path": "payload/d5e67bb8f9c6f74dca88578f928b9349753a304097bfaddd3c32939af4be61ec.py",
+      "sha256": "d5e67bb8f9c6f74dca88578f928b9349753a304097bfaddd3c32939af4be61ec"
+    },
+    {
+      "bytes": 22274,
+      "path": "payload/d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d.py",
+      "sha256": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+    },
+    {
+      "bytes": 4570,
+      "path": "payload/d865f42fe508bdd52760fc26a3bc900ac511a861467ced6db1e10192bf3339c7.json",
+      "sha256": "d865f42fe508bdd52760fc26a3bc900ac511a861467ced6db1e10192bf3339c7"
+    },
+    {
+      "bytes": 6601,
+      "path": "payload/e4c636e62e79c89c25807fc2be420e90fc18ef61f81c4457f96bf507587c84b1.mjs",
+      "sha256": "e4c636e62e79c89c25807fc2be420e90fc18ef61f81c4457f96bf507587c84b1"
+    },
+    {
+      "bytes": 1053,
+      "path": "payload/e92899ad5d40f54f9526af36046f332d71af42ddab9496c56d1d010dd26c2c51.json",
+      "sha256": "e92899ad5d40f54f9526af36046f332d71af42ddab9496c56d1d010dd26c2c51"
+    },
+    {
+      "bytes": 343,
+      "path": "payload/f3b473d443267ffb9fd8e970b7324294a7264c6c0eacc121665197751397478a.json",
+      "sha256": "f3b473d443267ffb9fd8e970b7324294a7264c6c0eacc121665197751397478a"
+    },
+    {
+      "bytes": 2819,
+      "path": "summary.json",
+      "sha256": "cf1b1abb38b55dc166e624f34ba245ae1b480cc4e8dda350c8c7ae26af1223df"
+    },
+    {
+      "bytes": 607,
+      "path": "verification.json",
+      "sha256": "775f223a1b6e52a3e87aaf64dde1ba659024d1fb78c8dd1beedbc59d88288f7c"
+    }
+  ],
+  "created_local": "2026-11-02T16:01:12.310331-08:00",
+  "kind": "compact-planner-recovery-contract-evidence",
+  "schema_version": 1,
+  "scope": "Frozen schema/custody/release/preparation only; no live successor snapshot",
+  "status": "successor_outcome_not_included"
+}

@@ -1,0 +1,1176 @@
+{
+  "artifacts": [
+    {
+      "bytes": 454493,
+      "path": "animations/dance.mp4",
+      "sha256": "4b2ac9318cd66c3e656b747ec595eea56deaf17bfae19093537aa767288280ae"
+    },
+    {
+      "bytes": 182466,
+      "path": "contact-sheets/dance.png",
+      "sha256": "f3dd69e8adb00022112a111e80cda0592a2481d49fedbdd94cc85ee26fb5dc41"
+    },
+    {
+      "bytes": 481091,
+      "path": "fallbacks/dance.png",
+      "sha256": "3999a1ab979db37d551bb72ad16549b8cf98f96f40e91f5e0723c528c1d26933"
+    },
+    {
+      "bytes": 1724,
+      "path": "job.json",
+      "sha256": "eb39ba039ce9433619b86b2172f012d211d5bd767bd6380bd7a15588c7c27eae"
+    },
+    {
+      "bytes": 607,
+      "path": "packaging-handle.json",
+      "sha256": "2919f47839463f7333b95bd685e0f8d8aee332d6a629ce65469c8fc6eebfebd1"
+    },
+    {
+      "bytes": 1509,
+      "path": "packaging-job.json",
+      "sha256": "098074d69790f5394e00c59ef89dc9022d5d74472743e3931d9f0b4449a53906"
+    },
+    {
+      "bytes": 1399,
+      "path": "packaging-monitor.json",
+      "sha256": "f36a4de80643aaae69542b6c61090c1d1ef31f3b5b47bade7e985aa8f95ef365"
+    },
+    {
+      "bytes": 2737,
+      "path": "packaging-result.json",
+      "sha256": "5813bc759d408e1573ac8bf3d89b5f95553e816c71dcaac2a51ce5ffe345037d"
+    },
+    {
+      "bytes": 0,
+      "path": "packaging.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 822,
+      "path": "portrait-denoise/denoise-handle.json",
+      "sha256": "ba8fef58368062a936beba002a7e5feb8e70a0382a11a86ccc2f213ba959190b"
+    },
+    {
+      "bytes": 1608,
+      "path": "portrait-denoise/denoise-monitor.json",
+      "sha256": "afc6a97f67192016c09139c740b05c0eb0071126a2ac6e7fdb41c2d7c7df711d"
+    },
+    {
+      "bytes": 314,
+      "path": "portrait-denoise/denoise.log",
+      "sha256": "b9665eef6c62308f22377b52219f269ef8d089e7e5b66ffffc16bd6000f0740f"
+    },
+    {
+      "bytes": 804648,
+      "path": "portrait-denoise/portrait.png",
+      "sha256": "c31385c9292ff00e04bbe141760a15bf5541669d410a0cd2380904f4c9b3a0c4"
+    },
+    {
+      "bytes": 6822,
+      "path": "portrait-denoise/report.json",
+      "sha256": "d7be24fb924593eb935721e3df6a39183199d18b37b8382ea13069a76f68d5c4"
+    },
+    {
+      "bytes": 3304,
+      "path": "portrait-denoise/worker-result.json",
+      "sha256": "550658b56f34a9e86a999f809af12d5a2d7eb65cb2e0d2a79bd4d0246c70edb3"
+    },
+    {
+      "bytes": 2142538,
+      "path": "portrait-raw.png",
+      "sha256": "cd2f0020d49280fbdcfcbcbcc8ade49e3b7ee99949e4a0ac4f811f69bd70c6f4"
+    },
+    {
+      "bytes": 804648,
+      "path": "portrait.png",
+      "sha256": "c31385c9292ff00e04bbe141760a15bf5541669d410a0cd2380904f4c9b3a0c4"
+    },
+    {
+      "bytes": 522172,
+      "path": "portrait.webp",
+      "sha256": "87ee7f41134e6b0f9a100f82ab30e649dac682857e41b6a11517d3728018f9a3"
+    },
+    {
+      "bytes": 439,
+      "path": "render-complete.json",
+      "sha256": "2805559776f43f43d57ff6393b688ba23184488a73df00f12636f03830e98d44"
+    },
+    {
+      "bytes": 766,
+      "path": "render-handle.json",
+      "sha256": "81b68317b186d21b58cd5d03c3acaa565379e4358726c502d7b4cd9e39e820a8"
+    },
+    {
+      "bytes": 1566,
+      "path": "render-monitor.json",
+      "sha256": "44551ca846f94eea7a438d7b452d08783a30b6bc9c423c46536531dc8aeae44a"
+    },
+    {
+      "bytes": 610,
+      "path": "resume-input-receipt.json",
+      "sha256": "da101cb54184f3677006734839ae91837b628f64a80d84afc4d89523e030914b"
+    },
+    {
+      "bytes": 35175,
+      "path": "source-manifest.json",
+      "sha256": "fa93b74512e614dc6d259dad1db2ba8fed095059dc47c120716dc6d3fc8030bc"
+    },
+    {
+      "bytes": 37927,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "f187d28b4390394ad9ab9ae82ccc1ade48ae557fa2512bbbd96f8e1dfd7a54aa"
+    },
+    {
+      "bytes": 3521,
+      "path": "sources/blender_render.py",
+      "sha256": "cbc04bcfaed17363aceff826ef4fd398cdd8357da9b865eb9628a1b511872650"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 17213,
+      "path": "sources/denoise_portrait.py",
+      "sha256": "b722ed597d60d5d20cd4e14fb10235d62c8caf2cb220e68aca92a80ea54fe4a7"
+    },
+    {
+      "bytes": 70,
+      "path": "sources/output-spec.json",
+      "sha256": "ded38a65670ec1c7f7131f4a8d3e40d3ddc3bbec66fa1b4a77d58fd75d947faa"
+    },
+    {
+      "bytes": 2961,
+      "path": "sources/packaging.py",
+      "sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a"
+    },
+    {
+      "bytes": 516,
+      "path": "sources/prompt.txt",
+      "sha256": "99db1c7b85aca4751f792b9a91cef5210b1f2ba89ab5243d1839a84042e260aa"
+    },
+    {
+      "bytes": 977,
+      "path": "sources/scene.json",
+      "sha256": "0f0638010a60a51857fac4b5ee63eb3e8e64bb1a1ccc98dddfefc76b375000f6"
+    }
+  ],
+  "clips": [
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/dance.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 481091,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "3999a1ab979db37d551bb72ad16549b8cf98f96f40e91f5e0723c528c1d26933",
+        "width": 720
+      },
+      "id": "dance",
+      "inspection": {
+        "adjacent_mae_max": 0.009214,
+        "adjacent_mae_mean": 0.006865,
+        "audio": false,
+        "boundary_mae": 0.005562,
+        "bytes": 454493,
+        "codec": "h264",
+        "contact_sample_frames": [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          52,
+          60,
+          68,
+          76,
+          84,
+          95
+        ],
+        "duration_seconds": 4.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 96,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "4b2ac9318cd66c3e656b747ec595eea56deaf17bfae19093537aa767288280ae",
+        "unique_thumbnails": 96,
+        "width": 720
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": false,
+      "meaning": "A cheerful four-second toy dance with readable alternating side-to-side beats, small whole-body hops, coordinated arm swings, and head tilts, ending back in the starting neutral pose.",
+      "path": "animations/dance.mp4",
+      "source_clip_seconds": 4.0
+    }
+  ],
+  "distribution": {
+    "historical_records": "Original render/packaging jobs and absolute paths describe source creation, not new jobs or portable dependency paths.",
+    "implementation_sha256": "2de17898a1f28e5a63573dd7283d55d3ce2de59ef93aedbab180d444847e2d5f",
+    "kind": "portable_byte_preserving_subset",
+    "limits": {
+      "file_bytes": 67108864,
+      "manifest_bytes": 1048576,
+      "output_bytes": 67108864,
+      "path_depth": 12,
+      "retained_entries": 256,
+      "source_bytes": 536870912,
+      "source_entries": 4096,
+      "tree_entries": 8192,
+      "wall_seconds": 60
+    },
+    "native_frames_included": false,
+    "omission_policy": [
+      "frames/**",
+      "render.log"
+    ],
+    "omitted_artifacts": [
+      {
+        "bytes": 481091,
+        "path": "frames/dance/0000.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3999a1ab979db37d551bb72ad16549b8cf98f96f40e91f5e0723c528c1d26933"
+      },
+      {
+        "bytes": 481941,
+        "path": "frames/dance/0001.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d2f882d054e2b7134123d41e8f81a7e4794ec540786b26d5ace156781f7ec19f"
+      },
+      {
+        "bytes": 483069,
+        "path": "frames/dance/0002.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a0503bad1fe123f5a5be58cb4f9fe2587ec401452d5e4926b6e69fa238fa4e37"
+      },
+      {
+        "bytes": 484405,
+        "path": "frames/dance/0003.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "66a908fbe68cf5540c211605b637064a35b87b8217e109106f509a76b0671424"
+      },
+      {
+        "bytes": 485115,
+        "path": "frames/dance/0004.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "bfa2c663a23bbd4b0fe070e7823975f12c9d585931a070efea14e48223cb5446"
+      },
+      {
+        "bytes": 486841,
+        "path": "frames/dance/0005.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "455bf91c07685ed8b69935b296d2f838fb4f52226bce6fa8e14e14470b1823d6"
+      },
+      {
+        "bytes": 487950,
+        "path": "frames/dance/0006.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c61352d75dbc915183fcd50bf0f1e147b36923bc619fd45d6a4fa4f76b1885b7"
+      },
+      {
+        "bytes": 489786,
+        "path": "frames/dance/0007.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "68952f28515af148b593c8266089d26e29088a533d7d635e1921d8bf45f9cb66"
+      },
+      {
+        "bytes": 490343,
+        "path": "frames/dance/0008.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7687d7caf443d4c482d8e762c0bdd2d88c8893187d149c21d8071fc497e60226"
+      },
+      {
+        "bytes": 491725,
+        "path": "frames/dance/0009.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b246a7434d90fd29c94770146f242254f72004c5ab3ee10b9f8604264da160b8"
+      },
+      {
+        "bytes": 493017,
+        "path": "frames/dance/0010.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9fa4d11546256ae729cfd0022c0d90419507b0afbd2e2edbde7f253768c118a5"
+      },
+      {
+        "bytes": 494218,
+        "path": "frames/dance/0011.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b09bfb85e5e2637ba8ce99b925ad7ee39d9a431de2926d66dbe7675343e28984"
+      },
+      {
+        "bytes": 494958,
+        "path": "frames/dance/0012.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7aa1ba50a08d27e93bdfd1cef124a7944fabd1073b9fd88c8d5a65fe4a2e1c47"
+      },
+      {
+        "bytes": 495974,
+        "path": "frames/dance/0013.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c0ea1c63e93cc550ec511288e4dc84da16c8c5a61774f2b35537c519fff582df"
+      },
+      {
+        "bytes": 496404,
+        "path": "frames/dance/0014.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "137bf9143f769107ecb501720b7baf07607c20c111c27e1a42eda6bc5144f439"
+      },
+      {
+        "bytes": 497752,
+        "path": "frames/dance/0015.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "69542c8f4d1f4c74313c7e721fe7682224933d2a80ab59555381af4e763dfca3"
+      },
+      {
+        "bytes": 498217,
+        "path": "frames/dance/0016.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7bf3fb632d01e8b9930bbb3ceb16bf666ff1bdfd196aec1429829b246d7bac51"
+      },
+      {
+        "bytes": 496699,
+        "path": "frames/dance/0017.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e3e51d9611e39b70d10c1a2a0f58dccb2704b5c46eac22eb253aadf8e467aa7b"
+      },
+      {
+        "bytes": 495624,
+        "path": "frames/dance/0018.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "55b91d59fb3390b2779ebde881f1b6b4de24c7b0d2211ad8277d857d191b578e"
+      },
+      {
+        "bytes": 494490,
+        "path": "frames/dance/0019.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1dbfd76f74b2d8380f3246513d590609ba0aded2125350a7464bbec99115d960"
+      },
+      {
+        "bytes": 493092,
+        "path": "frames/dance/0020.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5ee9ec4aa0d8a00e08a76c388a29793d0df4597c23a9c7180dd1e8a8d43c57ad"
+      },
+      {
+        "bytes": 491271,
+        "path": "frames/dance/0021.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "57b7acfef777ed7828a11f3d5361fae8bc03732ad569978ca212c3eb97fc9bb1"
+      },
+      {
+        "bytes": 489862,
+        "path": "frames/dance/0022.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b7f22728d588f998cbf1e50aa1525865abad8f99a42a50954b404f40bfca4498"
+      },
+      {
+        "bytes": 488346,
+        "path": "frames/dance/0023.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "736a0cf6dd032767c99b4698557a33bae06f53809d0bee8a55a1d06b37ae28b2"
+      },
+      {
+        "bytes": 487408,
+        "path": "frames/dance/0024.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c1ab54ae63e24989bc3b3a1eb40c2c63c386ab57549c8e9dfce4d16bb0abd116"
+      },
+      {
+        "bytes": 486265,
+        "path": "frames/dance/0025.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "81542941f19779c3d757a9f7b0075712bd4be8d9e9e07e0afe8f53973409bdc6"
+      },
+      {
+        "bytes": 485200,
+        "path": "frames/dance/0026.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d5cd1353431d237680da73f136084b37909b95f8c12ac8f7d24ca7429fc7c5f7"
+      },
+      {
+        "bytes": 484273,
+        "path": "frames/dance/0027.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b5fa6b523c4643a6c180f9e0ac2566fb1d557de68666d5b38489c12a920153bf"
+      },
+      {
+        "bytes": 482645,
+        "path": "frames/dance/0028.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b859fe6ba52a4f4671c4fca7c3fbf81c3660849c4064907be0a23cdd8db75a5a"
+      },
+      {
+        "bytes": 481618,
+        "path": "frames/dance/0029.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1172a25532a4aef2a301c7b2e4eb0038b7a3550a47d92b02f77e2c75083c2a68"
+      },
+      {
+        "bytes": 481424,
+        "path": "frames/dance/0030.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cfcf1d162abaec5263961499f6aec8ff174ced004e19c81afd2e0f55a3cf3b65"
+      },
+      {
+        "bytes": 480888,
+        "path": "frames/dance/0031.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c2b9f9cd877026c95f039a3f4a66867f134e888de214a856f40c9d48ac316795"
+      },
+      {
+        "bytes": 479920,
+        "path": "frames/dance/0032.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f307d09500759fc110bcee8a354c7baebef7f02b567ac9037c14e751ee62d28b"
+      },
+      {
+        "bytes": 479733,
+        "path": "frames/dance/0033.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "fbaab1ad042e1bbbfdbca63d19f6918ffc35390c902f6efbdbb86c530596418f"
+      },
+      {
+        "bytes": 480907,
+        "path": "frames/dance/0034.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e2683296dada55d0f38c2d654021a82d491b2bce3f7b3812fa85b4335e9509d6"
+      },
+      {
+        "bytes": 481614,
+        "path": "frames/dance/0035.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "636b6815aa320487480fff9542feef913af65cd3bd379e7827bff9a6d330c5f7"
+      },
+      {
+        "bytes": 482459,
+        "path": "frames/dance/0036.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "374f037cb3e80f0951bc83832a9fc7534f1d863f994944f5f76a4738963d6d5f"
+      },
+      {
+        "bytes": 484181,
+        "path": "frames/dance/0037.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "49079f84e53af00e6f930ad0a58019b7ab960bf3d24da2f7198edf294008ef6e"
+      },
+      {
+        "bytes": 485837,
+        "path": "frames/dance/0038.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "80623a073eace9e66c53ef02f5019a120e13b84b599d5c47fefba0c5978a2c48"
+      },
+      {
+        "bytes": 487409,
+        "path": "frames/dance/0039.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "22196bdb0f41756ee074e1ee1ba4d2cf21ae9a0ed6c00df50d66dcf56a284a2a"
+      },
+      {
+        "bytes": 488445,
+        "path": "frames/dance/0040.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8f6ee7fcb8bec1f9b7c874a3037603bee1a93e580237fd8cbc4a5985d41f2811"
+      },
+      {
+        "bytes": 490019,
+        "path": "frames/dance/0041.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9df5c8b44c7d28324dfce65f7a0fcb384965fc58cc14aaa7c9a1f35399dc5658"
+      },
+      {
+        "bytes": 491932,
+        "path": "frames/dance/0042.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "34c151a01464cd8c9e2e3095eaf820b919ee64296f772353abecfa85f9193899"
+      },
+      {
+        "bytes": 493870,
+        "path": "frames/dance/0043.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a6cf88e7fc987083b76c7645b434649789922538c7122b6ed443fd4184e0482a"
+      },
+      {
+        "bytes": 495817,
+        "path": "frames/dance/0044.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d1b9a5b649cc5dfb803df33b481d48eb582baa7da55e91d90e1e2a76c725b550"
+      },
+      {
+        "bytes": 496824,
+        "path": "frames/dance/0045.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "afb4f14574b1819ffda3efcdbd0d85544bfd46a33b84a240b809be403c3e2626"
+      },
+      {
+        "bytes": 497737,
+        "path": "frames/dance/0046.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "80ea61ac42f3004cb062a7a695e2772b3fe8c1e297fe9d5eed2f7a325da5e6b3"
+      },
+      {
+        "bytes": 499511,
+        "path": "frames/dance/0047.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3333392d8e32cb5ce98091476f8870dddcca4029ce0229c21d7ed8bb3de5dba0"
+      },
+      {
+        "bytes": 500360,
+        "path": "frames/dance/0048.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "912612252fe22a8711d01b3bb5d5f647e35da4376917f031b901645ea99e668a"
+      },
+      {
+        "bytes": 499436,
+        "path": "frames/dance/0049.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3f08b63857fbe3f4ca8d7b5479f0db15282d7daa2d462f1ad3a671dede2864dc"
+      },
+      {
+        "bytes": 497294,
+        "path": "frames/dance/0050.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "674a7c1e1cdb9fc1694483ef262ce7915983a0b2bccafff13070ae50856af56d"
+      },
+      {
+        "bytes": 496173,
+        "path": "frames/dance/0051.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "322ee250befc291f98d242daaa238f1329941fba501687eaf4378da62ed7c692"
+      },
+      {
+        "bytes": 494642,
+        "path": "frames/dance/0052.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d07c6cbc47d3c04d9da4caa916763229b2aa22ec685f528322062ffd110b80d4"
+      },
+      {
+        "bytes": 493185,
+        "path": "frames/dance/0053.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1cb95f665733154aba4abfd8ebd0eabba1f9c6da5a5cfd3f9e989893607e0c92"
+      },
+      {
+        "bytes": 491001,
+        "path": "frames/dance/0054.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4ab882c0d7fea8bbda82da7b16297b23ac6d7887c89b18890185ce6ff88085ba"
+      },
+      {
+        "bytes": 489605,
+        "path": "frames/dance/0055.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f7a4672ace7b9a17c7ce1550fbf615bda93152ae59c921719311f2d52935c6d7"
+      },
+      {
+        "bytes": 488309,
+        "path": "frames/dance/0056.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c70a3e9fedf408d11c687ce57fa4c5f1880a9e491c9c771260e065aa40e42a8d"
+      },
+      {
+        "bytes": 485778,
+        "path": "frames/dance/0057.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4f4c41fbf2aa87be44557c562a913140ad8c6edeab3fd4bbbbdd84ac19690a7a"
+      },
+      {
+        "bytes": 484906,
+        "path": "frames/dance/0058.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b5fe3c7b7b30e55af0e3e8970f1de6f456665e25bd6c50e6e5eafb210506fedf"
+      },
+      {
+        "bytes": 482979,
+        "path": "frames/dance/0059.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2d7f2cbcadaf9f65dc41bee7f85fb06c5aef9a09363189d019f8c71019281075"
+      },
+      {
+        "bytes": 481195,
+        "path": "frames/dance/0060.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0fbf3f8c92dd3aa787c9bcbfc185260cfe5ce9305cdd737425483303d591227f"
+      },
+      {
+        "bytes": 481085,
+        "path": "frames/dance/0061.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2c3e520f57c013b14e5a2e48e95b1127e990b44dbf62d2aafbb29f3b43a13d0d"
+      },
+      {
+        "bytes": 479488,
+        "path": "frames/dance/0062.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ad404f22b20dce64a1ec0017f6848dd4d7f4bcd716ac7f95cdde788e543b696d"
+      },
+      {
+        "bytes": 478963,
+        "path": "frames/dance/0063.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3742a314ded44e5e06f290428cea3313c9c782626819e7fb37961a14fc3e319a"
+      },
+      {
+        "bytes": 476984,
+        "path": "frames/dance/0064.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "595f5e13d74cd60ca008285be5a8889160a49c7b3f3a570b7e45beecbb220da6"
+      },
+      {
+        "bytes": 476203,
+        "path": "frames/dance/0065.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "765ac6c6808faa2b14e11007664f58359ce95a018ab380bb5ae80f4bf470635c"
+      },
+      {
+        "bytes": 477120,
+        "path": "frames/dance/0066.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b60405859a85399128f42d5ae8ebded95c7b6266ea31c6ea649db040253eed26"
+      },
+      {
+        "bytes": 478498,
+        "path": "frames/dance/0067.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2d23ddd82ca44aae25de534573c030d4f6cc74432ec18863c4439b29a04b43b1"
+      },
+      {
+        "bytes": 479944,
+        "path": "frames/dance/0068.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2473c8716df781910b526f0694d1d667dd9105470878e205c49c07babc5de7f5"
+      },
+      {
+        "bytes": 480854,
+        "path": "frames/dance/0069.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "372fe8c3099aa50e544de906d3f17059b4b0e6f583f5fab1507f9acbcc3043f7"
+      },
+      {
+        "bytes": 482089,
+        "path": "frames/dance/0070.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d6636d2f30d77e3b9095b2d0c235dfc781c72637d985d056c7b5a44b9add9ab1"
+      },
+      {
+        "bytes": 484164,
+        "path": "frames/dance/0071.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b1453bd8c977ba4a532420e920a454e6c56ffc10f533c86e24d1c0d5d5e6b3e1"
+      },
+      {
+        "bytes": 484176,
+        "path": "frames/dance/0072.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7c68495077f1b76d36b3d0d1d2ff766a91bcb5af2d842d1c685f7bd3587c8879"
+      },
+      {
+        "bytes": 485716,
+        "path": "frames/dance/0073.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "32aee82060c482e69ed707ec9234f93ed4e4e1110a67b6198e527199739bdc26"
+      },
+      {
+        "bytes": 487235,
+        "path": "frames/dance/0074.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "90330bb492f0a751c84f65b99f1ead00a8045e0bbd45cf458fd80024780e8357"
+      },
+      {
+        "bytes": 489031,
+        "path": "frames/dance/0075.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a44ef1800bd23b1051c4eeb0d626690dee6ffea7a115065588b69c29566accfd"
+      },
+      {
+        "bytes": 490121,
+        "path": "frames/dance/0076.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "435ec78392f7a6313ef81d19b292d024b8724fa5dadcb57eccdff5d19fb0eaf3"
+      },
+      {
+        "bytes": 491159,
+        "path": "frames/dance/0077.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0ce678ae69e8d259103491ea25687f920926b2f60f4b2a57684d2c586c540971"
+      },
+      {
+        "bytes": 492800,
+        "path": "frames/dance/0078.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d6d4c90775b83971f8b92a9eb93b8ff488a9f98ad1cd630cfb98706b38714684"
+      },
+      {
+        "bytes": 493237,
+        "path": "frames/dance/0079.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "574ae5a9a04ac528db23e141aa7c8c92625e0fdfb7ec320057f6029f4dcd8531"
+      },
+      {
+        "bytes": 494460,
+        "path": "frames/dance/0080.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1dcc0a20991706a97a3f0c72b1930ef66e53676f7e9bea016f079b4fc8d0c47d"
+      },
+      {
+        "bytes": 495025,
+        "path": "frames/dance/0081.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c0b7e23d6276cb9c278c7f4c142daa5742535841677adcc1843527ac1773a0c5"
+      },
+      {
+        "bytes": 494697,
+        "path": "frames/dance/0082.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9a966829078991e87383e50ead19195bb025df39f5271e8afab55af872045447"
+      },
+      {
+        "bytes": 494087,
+        "path": "frames/dance/0083.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3a604a05f63eece956679ae933ef94c3c66c2bbe815a850a1ff180ec4d06a54d"
+      },
+      {
+        "bytes": 492868,
+        "path": "frames/dance/0084.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c955af11cc0e9d23ca107106d3608e1450df9d6c0dae42e658575414aa6c8170"
+      },
+      {
+        "bytes": 492515,
+        "path": "frames/dance/0085.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e2306dddd26e2208c63d5623f2216f460afa998dc42af0ef5aedb2e862b3b50d"
+      },
+      {
+        "bytes": 490675,
+        "path": "frames/dance/0086.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d8481d539362497bfdb831c8f6e7f42483b722c6daeb5b821f08a1c6b3cfc12e"
+      },
+      {
+        "bytes": 490004,
+        "path": "frames/dance/0087.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "762f5a68f8919105e880b1ebf4a2056ac6e7d96fbd6bb141af325ebd89838d90"
+      },
+      {
+        "bytes": 489273,
+        "path": "frames/dance/0088.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6d880514a5c9f91962f4afbb24ca777f87b5d6fa3309d0620b8c3a810eb2ad4e"
+      },
+      {
+        "bytes": 488436,
+        "path": "frames/dance/0089.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9203227eec340c38ff03deee9d0d3723126bda45e9ad2b9b3e8f17b636b2f71a"
+      },
+      {
+        "bytes": 487391,
+        "path": "frames/dance/0090.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3b4c74e32093f732e77e6a97588df6f2c6ace05df153308258a164f5266062a6"
+      },
+      {
+        "bytes": 486290,
+        "path": "frames/dance/0091.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "db2764e4665327ffa0059f61a9b5b97d124b9bbf59b242ac3dd71451fc35c540"
+      },
+      {
+        "bytes": 485346,
+        "path": "frames/dance/0092.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "75d771de3a606754894a275e5e17375c281900a0651b39b51cc33e592e8fac44"
+      },
+      {
+        "bytes": 483497,
+        "path": "frames/dance/0093.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9e496ba3465cd48a5c8a55968177e190c86a62bef88483510f6cebd7f6ebb49d"
+      },
+      {
+        "bytes": 482177,
+        "path": "frames/dance/0094.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "112f6a3ea94678d6d420ce66cef5a352f91c7c46808564620a041c073705db2a"
+      },
+      {
+        "bytes": 481414,
+        "path": "frames/dance/0095.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e68e30d90cbc3cf336638944711fd644a788744f949e7b63fd32ab3f6eaf2536"
+      },
+      {
+        "bytes": 481091,
+        "path": "frames/dance/0096.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0efdcf41487a60d95876fb21318b1f8f33200e9b8beb8043868696d1f5b1e9b4"
+      },
+      {
+        "bytes": 591571,
+        "path": "render.log",
+        "reason": "Verbose native-render log; unchanged in the full local source pack",
+        "sha256": "e0b162eabead2b4f483772d2663685e178f8a2f929184ee97fc0a301516f83a2"
+      }
+    ],
+    "parent_3d_binding": "Original parent_3d_manifest_sha256 retained without alteration.",
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "regeneration": "No media decoding, rendering, re-encoding, or generation; every retained original file is byte-identical.",
+    "retained_original_artifact_bytes": 5497716,
+    "schema_version": 1,
+    "source_artifact_bytes": 53440389,
+    "source_inventory_verified": 128,
+    "source_manifest": {
+      "bytes": 35175,
+      "path": "source-manifest.json",
+      "sha256": "fa93b74512e614dc6d259dad1db2ba8fed095059dc47c120716dc6d3fc8030bc"
+    },
+    "source_pack_name": "media-1",
+    "source_preservation": "Full source pack and its original manifest remain unchanged; omitted files are not deleted."
+  },
+  "has_transparency": false,
+  "id": "studio-d8a680ce6580429f9fdd016f-attempt-1",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/sources/blender_render.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1/source.blend",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/sources/scene.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1",
+      "720",
+      "1600",
+      "4",
+      "8",
+      "false"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 142.342,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 50149786,
+    "last_rss_sample_elapsed_seconds": 142.087,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 1200
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "render-monitor.json",
+    "monitor_errors": [],
+    "pid": 69191,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 558,
+    "sampled_max_output_bytes": 50149786,
+    "sampled_peak_rss_bytes": 1203585024,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "rendered_2d_avatar",
+  "origin": "Native 3D skeletal rendering at 24fps; not stock video or repeated stills",
+  "output_spec": {
+    "portrait": 1600,
+    "samples": 8,
+    "seconds": 4,
+    "size": 720
+  },
+  "packaging_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "avatar_assets.packaging",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/sources/scene.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/sources/output-spec.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 3.063,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 53438814,
+    "last_rss_sample_elapsed_seconds": 2.806,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 768,
+      "wall_seconds": 180
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "packaging-monitor.json",
+    "monitor_errors": [],
+    "pid": 69775,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 11,
+    "sampled_max_output_bytes": 53438814,
+    "sampled_peak_rss_bytes": 295485440,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "parent_3d": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-1",
+  "parent_3d_manifest_sha256": "2eebb0191f4a0a310f6116b70c1880e408f64cdaf1e370ca86b80a243979ddd1",
+  "portrait": {
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bytes": 522172,
+    "format": "WEBP",
+    "frames": 1,
+    "has_transparency": false,
+    "height": 1600,
+    "kind": "image",
+    "metadata_keys": [
+      "background",
+      "duration",
+      "loop",
+      "timestamp"
+    ],
+    "mode": "RGB",
+    "sha256": "87ee7f41134e6b0f9a100f82ab30e649dac682857e41b6a11517d3728018f9a3",
+    "width": 1600
+  },
+  "portrait_postprocessing": {
+    "input": {
+      "bytes": 2142538,
+      "height": 1600,
+      "mode": "RGBA",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/portrait-raw.png",
+      "sha256": "cd2f0020d49280fbdcfcbcbcc8ade49e3b7ee99949e4a0ac4f811f69bd70c6f4",
+      "width": 1600
+    },
+    "job": {
+      "cleanup_events": [],
+      "cleanup_status": "not_required",
+      "command": [
+        "/usr/bin/env",
+        "-i",
+        "PATH=/usr/bin:/bin:/usr/sbin:/sbin",
+        "LANG=en_US.UTF-8",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "OMP_NUM_THREADS=4",
+        "OPENBLAS_NUM_THREADS=1",
+        "VECLIB_MAXIMUM_THREADS=1",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/denoise_portrait.py",
+        "--worker",
+        "--input",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/portrait-raw.png",
+        "--output",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/portrait-denoise/portrait.png",
+        "--report",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/portrait-denoise/worker-result.json"
+      ],
+      "descendant_exit_verified": false,
+      "elapsed_seconds": 1.024,
+      "exit_code": 0,
+      "failure": null,
+      "failure_reasons": [],
+      "final_output_bytes": 810581,
+      "last_rss_sample_elapsed_seconds": 0.768,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 64,
+        "rss_mb": 2048,
+        "wall_seconds": 90
+      },
+      "manual_stop_required": false,
+      "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+      "monitor_checkpoint": "denoise-monitor.json",
+      "monitor_errors": [],
+      "pid": 69773,
+      "process_exit_verified": true,
+      "rss_exit_race_observed": true,
+      "rss_samples": 3,
+      "sampled_max_output_bytes": 810581,
+      "sampled_peak_rss_bytes": 993624064,
+      "sampling_interval_seconds": 0.25,
+      "schema_version": 1,
+      "status": "finished"
+    },
+    "libraries": [
+      {
+        "bytes": 155808,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise.dylib",
+        "sha256": "83d76a6271d9fcf58a52e51cb720b4224d5bd6057e6e4c04b569371ab01cfaa4"
+      },
+      {
+        "bytes": 47280496,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_core.dylib",
+        "sha256": "dc6ab8759da67555cb25e9e4c14a08829ef95d9ff14fe0dd2b1b6f0bee0a7a5e"
+      },
+      {
+        "bytes": 302112,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_device_cpu.dylib",
+        "sha256": "c4429328016a97d5bcf83587e816e42bdf45b2550034b66c40a410ad56b26739"
+      },
+      {
+        "bytes": 382752,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libtbb.dylib",
+        "sha256": "9e5310a0d7e0e126a3fd33cbd1199748cd7b642dab42d2a4d804f54a63ec1f69"
+      }
+    ],
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "raw_input_unchanged": true,
+    "schema_version": 1,
+    "status": "needs_visual_review",
+    "worker": {
+      "alpha_unchanged": true,
+      "change_metrics_are_quality_scores": false,
+      "input": {
+        "alpha_sha256": "47d23dadd0f8a03d2ce179b07af10b6a2461477526e919003bad797678040ea0",
+        "bytes": 2142538,
+        "color_space": "8-bit display-referred sRGB, explicitly selected; no ICC transform",
+        "dpi": [
+          71.9836,
+          71.9836
+        ],
+        "gamma_chunk": null,
+        "height": 1600,
+        "mode": "RGBA",
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/portrait-raw.png",
+        "sha256": "cd2f0020d49280fbdcfcbcbcc8ade49e3b7ee99949e4a0ac4f811f69bd70c6f4",
+        "width": 1600
+      },
+      "kind": "render_portrait_denoise",
+      "limitations": [
+        "Color-only display-referred denoising; no albedo/normal guides.",
+        "Fine hair or texture can be softened; compare this result with the unchanged raw render.",
+        "No geometry, rig, texture source or render-camera change; not evidence of Muse parity."
+      ],
+      "native": {
+        "api_documentation": "https://github.com/RenderKit/oidn/blob/v2.3.3/doc/api.md",
+        "api_header": "https://github.com/RenderKit/oidn/blob/v2.3.3/include/OpenImageDenoise/oidn.h",
+        "auxiliary_images": [],
+        "device": "CPU",
+        "filter": "RT",
+        "hdr": false,
+        "libraries": [
+          {
+            "bytes": 155808,
+            "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise.dylib",
+            "sha256": "83d76a6271d9fcf58a52e51cb720b4224d5bd6057e6e4c04b569371ab01cfaa4"
+          },
+          {
+            "bytes": 47280496,
+            "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_core.dylib",
+            "sha256": "dc6ab8759da67555cb25e9e4c14a08829ef95d9ff14fe0dd2b1b6f0bee0a7a5e"
+          },
+          {
+            "bytes": 302112,
+            "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_device_cpu.dylib",
+            "sha256": "c4429328016a97d5bcf83587e816e42bdf45b2550034b66c40a410ad56b26739"
+          },
+          {
+            "bytes": 382752,
+            "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libtbb.dylib",
+            "sha256": "9e5310a0d7e0e126a3fd33cbd1199748cd7b642dab42d2a4d804f54a63ec1f69"
+          }
+        ],
+        "maxMemoryMB_requested": 768,
+        "memory_request_is_hard_limit": false,
+        "name": "Open Image Denoise",
+        "native_seconds": 0.55274,
+        "quality": "high",
+        "quality_enum": 6,
+        "srgb": true,
+        "threads": 4,
+        "version": "2.3.3"
+      },
+      "output": {
+        "bytes": 804648,
+        "height": 1600,
+        "mode": "RGBA",
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/media-1/portrait-denoise/portrait.png",
+        "sha256": "c31385c9292ff00e04bbe141760a15bf5541669d410a0cd2380904f4c9b3a0c4",
+        "width": 1600
+      },
+      "peak_rss_bytes": 1016086528,
+      "provider_calls": 0,
+      "provider_cost_usd": 0,
+      "raw_input_unchanged": true,
+      "reference_images_used": [],
+      "rgb_mean_absolute_change_8bit": 0.7196727991104126,
+      "rgb_rmse_change_8bit": 1.6126022338867188,
+      "schema_version": 1,
+      "status": "needs_visual_review",
+      "wall_seconds": 0.770051,
+      "worker_source_sha256": "b722ed597d60d5d20cd4e14fb10235d62c8caf2cb220e68aca92a80ea54fe4a7"
+    }
+  },
+  "preset": "preview",
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "reduced_motion": "Use still PNG fallback; do not autoplay video",
+  "rejected_attempts": [],
+  "rights": "User-described subject with optional selected references. Generated hidden surfaces and agent-authored rig, scale and motion are assumptions. Source provenance is retained by the pipeline; commercial rights are not independently verified.",
+  "schema_version": 1,
+  "status": "needs_visual_review",
+  "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass.",
+  "subject": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail."
+}

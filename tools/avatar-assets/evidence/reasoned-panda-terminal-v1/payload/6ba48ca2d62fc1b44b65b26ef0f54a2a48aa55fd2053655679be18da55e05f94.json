@@ -1,0 +1,96 @@
+{
+  "checks": [
+    "finite normals/UV0/UV1/UV2/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "selected normal-map UV0/UV1/UV2 binding"
+  ],
+  "decoded_scalar_values": 670005,
+  "limitations": [
+    "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+    "This HD check does not change Weft's diffuse UV0-only contract; normal maps and extra UV sets remain unsupported there."
+  ],
+  "limits": {
+    "decoded_global_values": 2000000,
+    "decoded_surface_values": 1100000,
+    "file_bytes": 67108864,
+    "normal_map_uv_indices": [
+      0,
+      1,
+      2
+    ],
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "Material_0",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.3991781095134e-07,
+      "normal_tangent_dot_error": 0.00013272060614966108,
+      "tangent_squared_length_error": 0.00015030258575521316,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 26778
+    },
+    {
+      "material": "Material_0__color_tail-tip-black",
+      "normal_map_uv_set": 0,
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.0722891536095744e-07,
+      "normal_tangent_dot_error": 9.564147065055373e-05,
+      "tangent_squared_length_error": 0.00012622400667083866,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 369
+    },
+    {
+      "material": "PortableCoat_0_cutout_fur",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.238145655475421e-07,
+      "normal_tangent_dot_error": 0.00013788475177811677,
+      "tangent_squared_length_error": 0.00013929740917739686,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 16168
+    },
+    {
+      "material": "PortableCoat_1_cutout_fur",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.2714762781816944e-07,
+      "normal_tangent_dot_error": 0.00013261087192839582,
+      "tangent_squared_length_error": 0.00015908899542704802,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 18176
+    },
+    {
+      "material": "PortableCoat_2_cutout_fur",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.2281571609994444e-07,
+      "normal_tangent_dot_error": 0.00013199704529309741,
+      "tangent_squared_length_error": 0.0001374634252364615,
+      "verified_uv_sets": [
+        0
+      ],
+      "vertices": 12954
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "4c6fd15043797d5fc67525ba8fdfff13221edebed62ef65bae031a3e553de107",
+  "status": "validated_render_attributes",
+  "tangent_uv_derivation_verified": false,
+  "vertices": 74445,
+  "weft_runtime_verified": false
+}

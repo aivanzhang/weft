@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded completed commands; stdout retained in session only",
+  "tests": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_repair_visual_inputs.py -v",
+      "count": 10,
+      "seconds": 0.192
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_visual_history_memory.py -q",
+      "count": 4,
+      "seconds": 0.118
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_source_failure_memory.py -q",
+      "count": 4,
+      "seconds": 0.114
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline.py -q",
+      "count": 21,
+      "seconds": 0.596
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_replan.py -q",
+      "count": 7,
+      "seconds": 0.148
+    }
+  ],
+  "final_layout_check": {
+    "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest test_repair_visual_inputs.RepairVisualInputsTests.test_reference_is_pinned_under_inputs_and_reaches_first_author -v",
+    "count": 1,
+    "seconds": 0.121
+  },
+  "source_sha256": {
+    "avatar_assets/pipeline.py": "1f2d18cc43117ada419b1a4c3bc45a5e8af0e6b054531a729711d62d4e868974",
+    "avatar_assets/repair_visual_inputs.py": "b4a037aa7215bb5c04089f48c4fd19b21178653532de78f0634df181c28670cb",
+    "tests/test_repair_visual_inputs.py": "518cfbb4e59f79ea269aab8adf65c81d855c53afe4b882dc5d3206e7c12e064a",
+    "tests/test_visual_history_memory.py": "f8bd9272fef4ada44289b70283ce6869c97bb74f5e5622b8142e4d74acf0f41e",
+    "tests/test_source_failure_memory.py": "e1983b2f843be80925c8b383013b4c14b2ab079fde2498ba1399eef769a21545",
+    "tests/test_pipeline_replan.py": "0a60a2f54115c27400f56d29f9e0aade8609c3ad8728efb2d394b28c8d9e20df"
+  },
+  "actual_proof": "actual-hypothetical-d8.json",
+  "billing": "No extra API calls; up to5additional critic images, reduced to4when a distinct reference consumes the fourth base slot. Exact image-token demand/cost unknown; current full-context reservation and total budgets remain.",
+  "provider_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "saved_job_mutations": 0,
+  "scope": "Source/reference/critic images are bounded and hash-bound; analytic tests do not establish avatar quality."
+}

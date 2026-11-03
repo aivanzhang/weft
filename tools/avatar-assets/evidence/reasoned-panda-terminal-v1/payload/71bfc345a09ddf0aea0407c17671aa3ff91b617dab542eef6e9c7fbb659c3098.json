@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_continuation_inventory_capacity.py",
+    "-v"
+  ],
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "measured_parent": {
+    "bytes": 641261780,
+    "files": 1175
+  },
+  "schema_version": 1,
+  "scope": "Local finite inventory boundary tests; no model, native, provider or ledger mutation",
+  "source_sha256": {
+    "avatar_assets/pipeline_continuation.py": "eeaa6356f1475709f895250a23119cfdf0e1bc5b4a0afc842919b373350510fb",
+    "tests/test_continuation_inventory_capacity.py": "90aacf546bf2921be7959a50a4bc2f65364ad148910dbc623b1e4d0b2a7d63fa",
+    "tests/test_pipeline_continuation.py": "d58ea7b5212c56fb6b9943ca5449a92c4896a8db83124b104a804a0754748d20"
+  }
+}

@@ -1,0 +1,38 @@
+--- a/tools/avatar-assets/tests/test_visual_history_memory.py
++++ b/tools/avatar-assets/tests/test_visual_history_memory.py
+@@ -61,7 +61,9 @@
+             sequence=[{'status':'ready'},{'status':'ready'},review] if native_first else [{'status':'ready'},review,{'status':'ready'}]
+             worker.agents=Mock();worker.agents.call.side_effect=sequence+[
+                 {'status':'unsupported','reason':'Analytic stop after checking repaired prompt'}]
+-            with patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
++            with patch('avatar_assets.repair_visual_inputs.from_continuation',return_value={'status':'unavailable','images':[]}), \
++                 patch('avatar_assets.repair_visual_inputs.from_current_review',return_value={'status':'unavailable','images':[]}), \
++                 patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
+                  patch('avatar_assets.quality_policy.evaluate_quality_evidence',return_value={'passed':True,'missing':[]}), \
+                  patch('avatar_assets.pipeline_prompts.finish_config',return_value={'analytic':True}), \
+                  patch('avatar_assets.pipeline_prompts.author_schema',return_value={}), \
+--- a/tools/avatar-assets/tests/test_source_failure_memory.py
++++ b/tools/avatar-assets/tests/test_source_failure_memory.py
+@@ -80,7 +80,8 @@
+             worker.agents=Mock();worker.agents.call.side_effect=[{'status':'ready'},{'status':'ready'},
+                 {'verdict':'repair','summary':'Analytic portable flecks need adjustment'},
+                 {'status':'unsupported','reason':'Analytic stop after checking repaired prompt'}]
+-            with patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
++            with patch('avatar_assets.repair_visual_inputs.from_current_review',return_value={'status':'unavailable','images':[]}), \
++                 patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
+                  patch('avatar_assets.quality_policy.evaluate_quality_evidence',return_value={'passed':True,'missing':[]}), \
+                  patch('avatar_assets.pipeline_prompts.finish_config',return_value={'analytic':True}), \
+                  patch('avatar_assets.pipeline_prompts.author_schema',return_value={}), \
+--- a/tools/avatar-assets/tests/test_pipeline_replan.py
++++ b/tools/avatar-assets/tests/test_pipeline_replan.py
+@@ -120,7 +120,9 @@
+         self.worker.unsupported=Mock(return_value={'status':'unsupported'})
+         self.worker.agents=Mock()
+         self.worker.agents.call.return_value={'status':'unsupported','reason':'Analytic stop before native finishing'}
+-        with patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
++        with patch('avatar_assets.repair_visual_inputs.from_continuation',return_value={'status':'unavailable','images':[]}), \
++                 patch('avatar_assets.repair_visual_inputs.from_current_review',return_value={'status':'unavailable','images':[]}), \
++                 patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
+              patch('avatar_assets.pipeline_prompts.author_prompt',return_value='Analytic author prompt') as prompt:
+             # _run imports build_quality_policy from its module at entry.
+             self.worker._run(False)

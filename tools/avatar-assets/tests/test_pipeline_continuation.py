@@ -415,7 +415,7 @@ class ContinuationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'64MiB'):cont._inventory(root)
         (root/'large.glb').unlink()
         for index in range(cont.MAX_FILES+1):(root/str(index)).touch()
-        with self.assertRaisesRegex(ValueError,'1024 files'):cont._inventory(root)
+        with self.assertRaisesRegex(ValueError,'4096 files'):cont._inventory(root)
 
 
 if __name__=='__main__':unittest.main()

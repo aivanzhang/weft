@@ -61,7 +61,11 @@ class VisualHistoryMemoryTests(unittest.TestCase):
             sequence=[{'status':'ready'},{'status':'ready'},review] if native_first else [{'status':'ready'},review,{'status':'ready'}]
             worker.agents=Mock();worker.agents.call.side_effect=sequence+[
                 {'status':'unsupported','reason':'Analytic stop after checking repaired prompt'}]
-            with patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
+            with patch('avatar_assets.repair_visual_inputs.author_base_images',return_value=[Path('/analytic/guide-'+str(i)+'.png') for i in range(3)]), \
+                 patch('avatar_assets.repair_visual_inputs.author_images',side_effect=lambda base,repair:base+repair[:8-len(base)]), \
+                 patch('avatar_assets.repair_visual_inputs.from_continuation',return_value={'status':'unavailable','images':[]}), \
+                 patch('avatar_assets.repair_visual_inputs.from_current_review',return_value={'status':'unavailable','images':[]}), \
+                 patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
                  patch('avatar_assets.quality_policy.evaluate_quality_evidence',return_value={'passed':True,'missing':[]}), \
                  patch('avatar_assets.pipeline_prompts.finish_config',return_value={'analytic':True}), \
                  patch('avatar_assets.pipeline_prompts.author_schema',return_value={}), \

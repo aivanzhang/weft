@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded commands; stdout retained in session",
+  "checks": [
+    {
+      "command": "node --test browser/tests/studio-prepare-observation.test.mjs",
+      "tests": 3,
+      "exit_code": 0
+    },
+    {
+      "command": "node --check browser/tests/studio-prepare-live.mjs",
+      "exit_code": 0
+    }
+  ],
+  "sha256": {
+    "browser/tests/studio-prepare-live.mjs": "4df325017b0f99d75e0e5723c4b9c040b9f742fdfe56ec85b5c0dcbba731278f",
+    "browser/tests/studio-prepare-observation.mjs": "ac46a54f9d2792d3296918ab269afa05821715eaa22c75560e22ed8c38ae41ff",
+    "browser/tests/studio-prepare-observation.test.mjs": "7708de970882c250f049493a9dc62c15b8797bb4aaddf7dae5f1cc87cda785ff"
+  },
+  "scope": "Harness only: bind accepted POST before bounded canonical status observation, save POST response, never repeat Prepare or cancel detached work. Old DOM authorization status cannot complete the new operation.",
+  "production_changes": 0,
+  "provider_calls": 0,
+  "browser_calls": 0,
+  "native_calls": 0,
+  "actual_job_or_failed_report_changes": 0
+}

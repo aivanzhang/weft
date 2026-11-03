@@ -1,0 +1,200 @@
+{
+  "elapsed_seconds": 0.49034641589969397,
+  "error_encoding": "little-endian float64 max-absolute-component error per root; part order, state/time then part order",
+  "error_hashes": {
+    "animated_attachment": "781681da8af479892dc70eb631ae6a3ca2ededb437461afd1696bf2b5fef3cc2",
+    "named_weight": "23a42ad5ba648109fe6db7efb21415cf15e3a93cf6aac27731406f820af556e5",
+    "rest_midpoint": "94e9820ba5f3c16f73e9530ce4fd49591c41b1cdc33b0da2d3c380ce9887cb7c"
+  },
+  "expected_state_ids": [
+    "dance"
+  ],
+  "gates": {
+    "animated_attachment_m": 1e-05,
+    "authored_inset_m": 0.0005,
+    "named_weight": 1e-06,
+    "rest_midpoint_m": 1e-06
+  },
+  "implementations": {
+    "fur_attachment.py": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac",
+    "fur_bindings.py": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+    "safety.py": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+    "three_d.py": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+  },
+  "inputs": [
+    {
+      "bytes": 441374,
+      "path": "manifest.json",
+      "sha256": "52b38cb01e809cd093264ea4411fdc201c1dcc9fdd478377c68bcb7add348319"
+    },
+    {
+      "bytes": 390712,
+      "path": "finish-report.json",
+      "sha256": "fc4092e3dabb9d377f30e4a52a45207e6f685355bf6a5ca48f1e0c8ec2420038"
+    },
+    {
+      "bytes": 27632,
+      "path": "sources/finish-design.json",
+      "sha256": "7d5b4a87013208ba604721c966ba31e2b982e631537586b7b18acbb8dc30ca16"
+    },
+    {
+      "bytes": 20219048,
+      "path": "model.glb",
+      "sha256": "4c6fd15043797d5fc67525ba8fdfff13221edebed62ef65bae031a3e553de107"
+    },
+    {
+      "bytes": 97054,
+      "path": "portable-root-bindings/PortableCoat_0.npz",
+      "sha256": "a9b11fc62a4db734c6a12ba3bec6961a47dfafa88e36e56fb4cc36a03295319c"
+    },
+    {
+      "bytes": 109854,
+      "path": "portable-root-bindings/PortableCoat_1.npz",
+      "sha256": "f2c6ff5358f8d237b91cddec6fe727851cfdef7ec2972ae722e234c139fb0137"
+    },
+    {
+      "bytes": 77854,
+      "path": "portable-root-bindings/PortableCoat_2.npz",
+      "sha256": "dcfe05414dee7c78d66effa3ec7255d036911fc7705f67fed8ca89db4e4ff39e"
+    }
+  ],
+  "intent": {
+    "design_sha256": "7d5b4a87013208ba604721c966ba31e2b982e631537586b7b18acbb8dc30ca16",
+    "model_sha256": "4c6fd15043797d5fc67525ba8fdfff13221edebed62ef65bae031a3e553de107",
+    "schema_version": 1,
+    "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+    "state_ids": [
+      "dance"
+    ]
+  },
+  "limitations": [
+    "Attachment to the final exported body, not native-source skin fidelity.",
+    "Discrete 24 fps samples only; no continuous-motion, loop, physics or appearance approval."
+  ],
+  "metrics": {
+    "attachment_failures": 0,
+    "body_vertices": 26957,
+    "coat_vertices": 26400,
+    "exported_vertices": 74445,
+    "max_attachment_error_m": 5.8026371707597946e-08,
+    "max_inset_m": 0.00012616006841821087,
+    "max_named_weight_error": 1.7885666392380983e-08,
+    "max_rest_midpoint_error_m": 5.8026370819419526e-08,
+    "named_weight_failures": 0,
+    "rest_midpoint_failures": 0,
+    "root_pose_checks": 426800,
+    "triangles": 53724,
+    "unique_attachment_failed_roots": 0
+  },
+  "passed": true,
+  "policy": "portable-fur-attachment-v1",
+  "reason": "Attachment measured against the final exported body",
+  "roots": 4400,
+  "schema_version": 1,
+  "states": [
+    {
+      "id": "dance",
+      "times": [
+        0.0,
+        0.041666666666666664,
+        0.08333333333333333,
+        0.125,
+        0.16666666666666666,
+        0.20833333333333334,
+        0.25,
+        0.2916666666666667,
+        0.3333333333333333,
+        0.375,
+        0.4166666666666667,
+        0.4583333333333333,
+        0.5,
+        0.5416666666666666,
+        0.5833333333333334,
+        0.625,
+        0.6666666666666666,
+        0.7083333333333334,
+        0.75,
+        0.7916666666666666,
+        0.8333333333333334,
+        0.875,
+        0.9166666666666666,
+        0.9583333333333334,
+        1.0,
+        1.0416666666666667,
+        1.0833333333333333,
+        1.125,
+        1.1666666666666667,
+        1.2083333333333333,
+        1.25,
+        1.2916666666666667,
+        1.3333333333333333,
+        1.375,
+        1.4166666666666667,
+        1.4583333333333333,
+        1.5,
+        1.5416666666666667,
+        1.5833333333333333,
+        1.625,
+        1.6666666666666667,
+        1.7083333333333333,
+        1.75,
+        1.7916666666666667,
+        1.8333333333333333,
+        1.875,
+        1.9166666666666667,
+        1.9583333333333333,
+        2.0,
+        2.0416666666666665,
+        2.0833333333333335,
+        2.125,
+        2.1666666666666665,
+        2.2083333333333335,
+        2.25,
+        2.2916666666666665,
+        2.3333333333333335,
+        2.375,
+        2.4166666666666665,
+        2.4583333333333335,
+        2.5,
+        2.5416666666666665,
+        2.5833333333333335,
+        2.625,
+        2.6666666666666665,
+        2.7083333333333335,
+        2.75,
+        2.7916666666666665,
+        2.8333333333333335,
+        2.875,
+        2.9166666666666665,
+        2.9583333333333335,
+        3.0,
+        3.0416666666666665,
+        3.0833333333333335,
+        3.125,
+        3.1666666666666665,
+        3.2083333333333335,
+        3.25,
+        3.2916666666666665,
+        3.3333333333333335,
+        3.375,
+        3.4166666666666665,
+        3.4583333333333335,
+        3.5,
+        3.5416666666666665,
+        3.5833333333333335,
+        3.625,
+        3.6666666666666665,
+        3.7083333333333335,
+        3.75,
+        3.7916666666666665,
+        3.8333333333333335,
+        3.875,
+        3.9166666666666665,
+        3.9583333333333335,
+        4.0
+      ]
+    }
+  ],
+  "status": "measured",
+  "witnesses": []
+}

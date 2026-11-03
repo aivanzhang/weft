@@ -1,0 +1,61 @@
+{
+  "actual_microdollars_upper_estimate": 74970,
+  "answer_sha256": "b43896be47682e48fcffa009d80f97823b21ce22f3ada652310b262678915928",
+  "artifacts": [
+    {
+      "bytes": 6971,
+      "path": "answer.json",
+      "sha256": "b43896be47682e48fcffa009d80f97823b21ce22f3ada652310b262678915928"
+    },
+    {
+      "bytes": 1051974,
+      "path": "image-00.png",
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    {
+      "bytes": 661,
+      "path": "payload-metadata.json",
+      "sha256": "5c96c14a868636ba1166869c091a6664fd5e8643aa8d7695878710eabddc232d"
+    },
+    {
+      "bytes": 8761,
+      "path": "prompt.txt",
+      "sha256": "4c43e95b60135ee7d63bf386404128ff2ad258be0b51916c803903a43036134a"
+    },
+    {
+      "bytes": 449,
+      "path": "request.json",
+      "sha256": "c15a27b50920b35f623346bfb325d7b8460ef082ae988ab125d2963f31127da4"
+    },
+    {
+      "bytes": 62579,
+      "path": "response.json",
+      "sha256": "98610512e27bd7ecdb8b3c9f1ec37ab02b6154099df53a0dee7822c5fd4a0e01"
+    },
+    {
+      "bytes": 4285,
+      "path": "schema.json",
+      "sha256": "1745513497a0fa890a9fc810c5ff3cd9284c2c1dfcaa6be0a5786685f6f5d75f"
+    }
+  ],
+  "elapsed_seconds": 57.99759254185483,
+  "execution_kind": "openai_responses_api",
+  "model": "gpt-5.4-2026-03-05",
+  "reserved_microdollars": 5618640,
+  "response_id": "resp_0ee41fd6e6a8e008016ae9211ad2a487d0bf16c23513fd45e7",
+  "schema_version": 1,
+  "status": "succeeded",
+  "tool_activity": false,
+  "usage": {
+    "input_tokens": 3462,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 4421,
+    "output_tokens_details": {
+      "reasoning_tokens": 3196
+    },
+    "total_tokens": 7883
+  }
+}

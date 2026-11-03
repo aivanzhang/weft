@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "scratch_proposal_tested_not_applied",
+  "evidence_kind": "analyst-recorded completed command results",
+  "tests": [
+    {
+      "command": "PYTHONPATH=. .venv/bin/python -m unittest discover -s outputs/repair-visual-input-fix-v1 -p test_repair_visual_inputs.py -v",
+      "count": 7,
+      "seconds": 0.067
+    },
+    {
+      "command": "PYTHONPATH=. .venv/bin/python -m unittest discover -s outputs/repair-visual-input-fix-v1 -p test_scratch_pipeline_visual_inputs.py -v",
+      "count": 1,
+      "seconds": 0.158
+    }
+  ],
+  "production_pipeline_sha256": "2ca8440e3d9aaa049e18a58153d806f6e7259a891129b042d5232af6f59c3069",
+  "files": {
+    "hypothetical-d8-selection-final.json": "56c92eb16cd463feabbd8bdec2a9c26cba5dbbdfeb6877c9945e8946a051ecea",
+    "repair_visual_inputs.py": "d120a6aabcdde404e025f9b95e217899de28cfe64750e9b00ff5208de37b86f6",
+    "analytic-fixtures.patch": "b3c1c2b5f7c0144c5a0558d4c6a4c09aa1eafc990398877fd4c5234c7b0f8117",
+    "hypothetical-d8-selection.json": "b6a91e36bc3c1f652cf0b1dedbbb9ad7ebea3bde8e26171bdff8e41911de8cde",
+    "test_scratch_pipeline_visual_inputs.py": "8fc61ef125849dbe631dfaa85dfa1b58725200f88dc45bca3f64f5362dad00c7",
+    "pipeline.py": "342f36af3d2132d3c8bd825d8108a6704a03f20d903bbe448e5c570218352f6a",
+    "test_repair_visual_inputs.py": "f7a904059b80f717ee91f4ba7dd6a9a69cf80e948521c96759aa20915506a594",
+    "change.patch": "04fa327ae71fa2178df2f4fb2a4c6a0b29184c3b0cb6effd808de3543b16ee6a"
+  },
+  "hypothetical_selection": {
+    "images": 5,
+    "agent_image_total": 8,
+    "agent_total_bytes": 7618171,
+    "elapsed_seconds": 0.041810667142271996
+  },
+  "cost": "No extra API calls. Up to five additional high-detail image inputs per author request; exact additional image-token demand and dollar cost are unknown before provider usage. Existing full-context per-call reservations and total spend/call caps remain mandatory. No new grant implied.",
+  "provider_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "active_runtime_changes": 0,
+  "apply_only_after_terminal": [
+    "git apply tools/avatar-assets/outputs/repair-visual-input-fix-v1/change.patch",
+    "git apply tools/avatar-assets/outputs/repair-visual-input-fix-v1/analytic-fixtures.patch"
+  ]
+}

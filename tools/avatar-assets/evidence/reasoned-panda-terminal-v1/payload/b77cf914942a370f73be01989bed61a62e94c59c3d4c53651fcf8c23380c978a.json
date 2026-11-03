@@ -1,0 +1,130 @@
+{
+  "accepted_delivery": false,
+  "baseline": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-body-normal-ablation-v1/body-no-normal-map.png",
+    "sha256": "17b82290d085326ef64855f26da15d5abb7afdc5f077c0d6e729b36a089e1412"
+  },
+  "changed_variable": "Only normals and smoothing overrides of an in-memory static posed-body copy; portable coats hidden and normal-map input disconnected in both controls",
+  "diagnostic_image": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-posed-normal-diagnostic-v1/posed-smooth-normals.png",
+    "sha256": "58481e45300b6c764b61cbeadbeeda556e4a312b889d2a1a42d83cc9fd8c75c4"
+  },
+  "finding": "The large angular arm, cheek and chest artifacts remain with fresh smooth normals computed directly from the unchanged posed triangles.",
+  "geometry_topology_uv_material_camera_light_preservation": true,
+  "interpretation": "The original stored/skinned normal field is not the sole cause. Body geometry folds and unchanged texture/material patterns remain possible contributors; this static control does not uniquely separate them.",
+  "limitations": [
+    "One static baked pose only; not a corrected exported animation or new deliverable.",
+    "Normals accumulate over actual indexed triangles without vertex welding or cross-seam alias guessing.",
+    "Basecolor and roughness/metallic textures remain unchanged; painted/baked patterns are not excluded.",
+    "Known large posed body-edge stretch remains independent evidence; this control does not establish all visible pixels share one cause."
+  ],
+  "next_safe_action": "Use preserved body-only and smooth-normal controls with exact body-edge/weight witnesses in subsequent repair reasoning; no further blind coat reduction is demonstrated.",
+  "normal_field_hashes": {
+    "after": "6ac827e17eca3513d5968d32b65bdc2f244a2289a30656e2c4590b0f59ea189b",
+    "before": "e4382f00aed35b61e40a7c64ac2017471bc99ab964e01637afb523044d4dc25e"
+  },
+  "normal_method": {
+    "all_faces_smooth": true,
+    "coordinate_space": "Evaluated posed body mesh local frame at2seconds",
+    "fresh_normals_sha256": "16cf3b4b7d648f7d188bba950a1eba72ebb1b4e16ad890546c0b6e63d985ad1d",
+    "method": "Per-indexed-vertex sum of unit face normal times face area times corner angle; normalized",
+    "oriented_triangle_sha256": "1dc8f41f00b84e2be69c705332a9da6cb48fcd1031c01878081c6ddf5c9d0afd",
+    "position_sha256": "afdda8cf7141fac1d38248968ca9c3fd78ec6b5ab7b99c60f64326909f4065d9",
+    "source_normal_overrides_removed": [
+      "custom_normal",
+      "sharp_edge",
+      "sharp_face"
+    ],
+    "source_skin_or_animation_modified": false,
+    "source_vertex_correspondence": "Exact index; no welding or cross-seam position matching",
+    "static_pose_only": true,
+    "triangles": 36124,
+    "uv_layer_bytes_preserved": true,
+    "vertices": 27043
+  },
+  "original_files_unchanged": true,
+  "pixel_comparison": {
+    "regions": {
+      "lower_cheek_flecks": {
+        "fraction_within_2_levels": 0.6409544950055494,
+        "maximum_channel_difference_255": 56,
+        "mean_absolute_rgb_difference_255": 4.311320754716981,
+        "pixels": 1802,
+        "pixels_over_8_levels": 281,
+        "rectangle_xyxy": [
+          302,
+          269,
+          355,
+          303
+        ]
+      },
+      "viewer_left_arm_facets": {
+        "fraction_within_2_levels": 0.7562748831573481,
+        "maximum_channel_difference_255": 60,
+        "mean_absolute_rgb_difference_255": 2.2218567884138247,
+        "pixels": 11554,
+        "pixels_over_8_levels": 726,
+        "rectangle_xyxy": [
+          207,
+          260,
+          316,
+          366
+        ]
+      },
+      "viewer_left_chest_border": {
+        "fraction_within_2_levels": 0.9500343406593407,
+        "maximum_channel_difference_255": 19,
+        "mean_absolute_rgb_difference_255": 0.5930059523809523,
+        "pixels": 11648,
+        "pixels_over_8_levels": 40,
+        "rectangle_xyxy": [
+          282,
+          348,
+          338,
+          556
+        ]
+      },
+      "viewer_left_thigh": {
+        "fraction_within_2_levels": 0.9495716945996275,
+        "maximum_channel_difference_255": 8,
+        "mean_absolute_rgb_difference_255": 0.5560273122284295,
+        "pixels": 13425,
+        "pixels_over_8_levels": 0,
+        "rectangle_xyxy": [
+          211,
+          425,
+          286,
+          604
+        ]
+      }
+    },
+    "whole_image": {
+      "fraction_within_2_levels": 0.9834741512345679,
+      "maximum_channel_difference_255": 60,
+      "mean_absolute_rgb_difference_255": 0.18462705761316872,
+      "pixels": 518400,
+      "pixels_over_8_levels": 1539
+    }
+  },
+  "pose": {
+    "frame": 48.0,
+    "id": "dance",
+    "second": 2.0
+  },
+  "preceding_normal_map_ablation": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-body-normal-ablation-v1/manifest.json",
+    "sha256": "61cf442b2fc3447ec4b02a08e75b37bbe291e21ad8436567c944b28073d3345b"
+  },
+  "schema_version": 1,
+  "source_model": {
+    "bytes": 16967928,
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-0/model.glb",
+    "sha256": "ce019b90577f84646aeca74072a762d9897cd6e7e21dd06e6d4e9d6d0f5f55f8"
+  },
+  "source_scene": {
+    "bytes": 21718932,
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-0/source.blend",
+    "sha256": "41ab8ac31fab60614084280d026df5d225fbe964750b58ec86dc0d1fab031ec0"
+  },
+  "status": "diagnostic_completed"
+}

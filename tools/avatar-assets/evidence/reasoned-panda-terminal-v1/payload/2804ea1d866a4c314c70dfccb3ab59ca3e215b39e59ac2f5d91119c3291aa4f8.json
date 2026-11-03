@@ -1,0 +1,103 @@
+{
+  "bindings": {
+    "authored_height_m": 1.1,
+    "design_sha256": "4953bbe88e19f8a6de8d4a4ecd27c36399fa3d07a538658c67e61f2f4d87063c",
+    "exported_model_sha256": "ce019b90577f84646aeca74072a762d9897cd6e7e21dd06e6d4e9d6d0f5f55f8",
+    "finish_report_sha256": "d31fa7ae850af074c4dbb65018b43a940e8b0b9aab47ece2887f5a0909e9e38c",
+    "manifest_sha256": "5283885cdb3975046e0a69ebb07110c49b718fd79b76464eb106d3f5e9dc95a4",
+    "requested_height_m": 1.1,
+    "rig_verification_sha256": "fe68efbf4abaa2c29748aaeaeec8e75936ee16551c15d6cb55024ac00a90b080",
+    "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+    "state_ids": [
+      "dance"
+    ]
+  },
+  "implementation_sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+  "measurement": {
+    "bone_names": [
+      "hips",
+      "spine",
+      "chest",
+      "neck",
+      "head",
+      "ear_l",
+      "ear_r",
+      "upperarm_l",
+      "forearm_l",
+      "hand_l",
+      "upperarm_r",
+      "forearm_r",
+      "hand_r",
+      "thigh_l",
+      "shin_l",
+      "foot_l",
+      "thigh_r",
+      "shin_r",
+      "foot_r",
+      "tail"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 62119,
+    "edges_sha256": "fc818cd8f0a99fc119a2261934700b59056d5763682749a107dd42fba8b3ebee",
+    "pose_samples_measured": 7,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 1.100000023841858,
+      "height_basis": "z_span",
+      "max": [
+        0.3328368663787842,
+        0.28502899408340454,
+        1.100000023841858
+      ],
+      "min": [
+        -0.3328368663787842,
+        -0.28502899408340454,
+        0.0
+      ]
+    },
+    "rest_sha256": "2094c1cf31da8a8edb64e7011074375b06acf264def34ceac4fa0a6413e5bd51",
+    "rig_route": "authored",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 26957
+  },
+  "measurement_scope": "bound_native_rest_and_pose_samples",
+  "passed": true,
+  "physics_verified": false,
+  "rig_route": "authored",
+  "sampling_implementation_sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+  "schema_version": 1,
+  "scope": "Conservative gross-spike rejection of at most four retained edges per sampled pose set; not exhaustive edge/frame coverage, skin correctness or visual acceptance.",
+  "states": [
+    {
+      "id": "dance",
+      "max_reported_excess_m": 0.057721703613576966,
+      "max_reported_stretch_ratio": 3.0398345702240572,
+      "offending_outliers": [],
+      "passed": true,
+      "reported_outliers": 4,
+      "sample_seconds": [
+        0.0,
+        0.65,
+        1.35,
+        2.0,
+        2.7,
+        3.35,
+        4.0
+      ]
+    }
+  ],
+  "status": "no_reported_severe_spike",
+  "thresholds": {
+    "excess_height_fraction_strictly_greater_than": 0.03,
+    "excess_m_strictly_greater_than": 0.03300000071525574,
+    "height_m": 1.100000023841858,
+    "height_source": "native_measured_rest",
+    "stretch_ratio_strictly_greater_than": 8.0
+  },
+  "version": "sampled-deformation-gate-v2",
+  "visual_approval": false
+}

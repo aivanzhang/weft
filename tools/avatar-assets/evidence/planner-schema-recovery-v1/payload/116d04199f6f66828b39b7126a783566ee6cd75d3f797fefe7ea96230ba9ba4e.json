@@ -1,0 +1,360 @@
+{
+  "schema_version": 1,
+  "policy": "completed-api-planning-custody-v1",
+  "job_id": "studio-905fab75929b427ea12432a3",
+  "reference": {
+    "prepared_reference": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/inputs/reference.png",
+      "bytes": 1051974,
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    "original_reference": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-fur-v3/portrait.png",
+      "bytes": 1051974,
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    "submitted_image": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/planner/image-00.png",
+      "bytes": 1051974,
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    }
+  },
+  "request_sha256": "2713f0d5710ac0b14a54fbf1a3423f0a9a7c03043d5e6a6faaf1b9cb3ca77a59",
+  "ledger": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.local/openai/ledger.sqlite3",
+    "bytes": 73728,
+    "sha256": "565268b8bbeeb46f77c8c03c689fb3665a0768819c3ebb2eaa55467ceb6ef88b"
+  },
+  "files": [
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/request.json",
+      "sha256": "2713f0d5710ac0b14a54fbf1a3423f0a9a7c03043d5e6a6faaf1b9cb3ca77a59",
+      "bytes": 2195
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.local/studio/jobs/905fab75929b427ea12432a3/pipeline-request.json",
+      "sha256": "2e44f080c755e710e1529e2a4a3d8f239f0e70ffd4dfef5cba7859c7be9134d2",
+      "bytes": 218
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/input-receipt.json",
+      "sha256": "afd637cde858256d31348e6938fa83cbe71d7f1c8641369adaef092a0b435cd9",
+      "bytes": 6938
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/action_audit.py",
+      "bytes": 35083,
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/action_intent.py",
+      "bytes": 17776,
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/agent_backend.py",
+      "bytes": 8034,
+      "sha256": "4ee863873c193e0dd75eb7801cecce305ffacabe67da6d2759aa3317a31050b9"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/agent_runner.py",
+      "bytes": 26471,
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/author_contract.py",
+      "bytes": 12872,
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/author_geometry.py",
+      "bytes": 8595,
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/deformation_gate.py",
+      "bytes": 16614,
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/finish_generated.py",
+      "bytes": 38146,
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/fringe_export.py",
+      "bytes": 13676,
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/fur_attachment.py",
+      "bytes": 40332,
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/fur_bindings.py",
+      "bytes": 19539,
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/generated_tangents.py",
+      "bytes": 16931,
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/normal_continuity.py",
+      "bytes": 17295,
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/openai_runner.py",
+      "bytes": 34778,
+      "sha256": "a5806e54e0b574194d50131e365abaf0a08d8580cf7190cafc783a0a8ba781e3"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/pipeline.py",
+      "bytes": 100331,
+      "sha256": "1f2d18cc43117ada419b1a4c3bc45a5e8af0e6b054531a729711d62d4e868974"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/pipeline_continuation.py",
+      "bytes": 47040,
+      "sha256": "eeaa6356f1475709f895250a23119cfdf0e1bc5b4a0afc842919b373350510fb"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/pipeline_evidence.py",
+      "bytes": 9788,
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/pipeline_prompts.py",
+      "bytes": 62234,
+      "sha256": "b7b2188778c1cd75ddab59358ada97bd90be2f534823ce61549eeacc5de97304"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/pipeline_recovery.py",
+      "bytes": 13968,
+      "sha256": "52849e9a991c88db03751a8a4ba6b51a9bc6eaf9b0ab94f0d331ad80bd358a5f"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/portable_fringe.py",
+      "bytes": 1326,
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/quality_policy.py",
+      "bytes": 14626,
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/repair_visual_inputs.py",
+      "bytes": 10234,
+      "sha256": "b4a037aa7215bb5c04089f48c4fd19b21178653532de78f0634df181c28670cb"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_edge_fringe.py",
+      "bytes": 20746,
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_finish_generated.py",
+      "bytes": 59927,
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_fur_cards.py",
+      "bytes": 26295,
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_fur_identity.py",
+      "bytes": 6657,
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_fur_undercoat.py",
+      "bytes": 42039,
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_material_coat.py",
+      "bytes": 5450,
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_material_colors.py",
+      "bytes": 8894,
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_material_groom.py",
+      "bytes": 31282,
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_normal_continuity.py",
+      "bytes": 6885,
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_normal_uv_export.py",
+      "bytes": 10304,
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/edge_fringe.py",
+      "bytes": 17397,
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/fringe_color_atlas.py",
+      "bytes": 16114,
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/fur_root_sampling.py",
+      "bytes": 4687,
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/fur_skin_roots.py",
+      "bytes": 8834,
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/fur_vertex_roots.py",
+      "bytes": 6002,
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/material_fur.py",
+      "bytes": 9487,
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/motion_samples.py",
+      "bytes": 5273,
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/native_render_tasks.py",
+      "bytes": 6129,
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/normal_uv_export.py",
+      "bytes": 9560,
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/scripts/undercoat_uv_atlas.py",
+      "bytes": 14944,
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/sources/three_d.py",
+      "bytes": 35323,
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+      "bytes": 25557832,
+      "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/inputs/source-model.glb",
+      "bytes": 25557832,
+      "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-fur-v3/portrait.png",
+      "bytes": 1051974,
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/inputs/reference.png",
+      "bytes": 1051974,
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/status.json",
+      "sha256": "2da98bfd3a3b234dc44bedb6a7686602c2f2930b22c74b8102fd0f9501078b2a",
+      "bytes": 206
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/runner.json",
+      "sha256": "04d482241270fa9655ae548385fd23948f22f143f431403b11b14ac5634b2b8a",
+      "bytes": 1346
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/planner/receipt.json",
+      "sha256": "ce7f294d74a8a167aac3ecc07ff1e824caa285ad8522ba93ef2e11b776ac61a0",
+      "bytes": 1756
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/planner/request.json",
+      "sha256": "c15a27b50920b35f623346bfb325d7b8460ef082ae988ab125d2963f31127da4",
+      "bytes": 449
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/planner/schema.json",
+      "sha256": "1745513497a0fa890a9fc810c5ff3cd9284c2c1dfcaa6be0a5786685f6f5d75f",
+      "bytes": 4285
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/planner/payload-metadata.json",
+      "sha256": "5c96c14a868636ba1166869c091a6664fd5e8643aa8d7695878710eabddc232d",
+      "bytes": 661
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/planner/answer.json",
+      "sha256": "b43896be47682e48fcffa009d80f97823b21ce22f3ada652310b262678915928",
+      "bytes": 6971
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/planner/response.json",
+      "sha256": "98610512e27bd7ecdb8b3c9f1ec37ab02b6154099df53a0dee7822c5fd4a0e01",
+      "bytes": 62579
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/planner/prompt.txt",
+      "bytes": 8761,
+      "sha256": "4c43e95b60135ee7d63bf386404128ff2ad258be0b51916c803903a43036134a"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/agents/planner/image-00.png",
+      "bytes": 1051974,
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    }
+  ],
+  "receipt_bytes": 87604,
+  "approval_sha256": [
+    "051607149ae89ce106843c7222b36c764d159661d70eef5da506314098dcef20",
+    "402df4e8c87c819fec19349e26fbe876e5c5d084e3c237ca42633a432239de2b"
+  ],
+  "calls": [
+    {
+      "role": "planner",
+      "state": "settled",
+      "response_id": "resp_0ee41fd6e6a8e008016ae9211ad2a487d0bf16c23513fd45e7",
+      "reserved_microdollars": 5618640,
+      "actual_microdollars": 74970,
+      "usage": {
+        "input_tokens": 3462,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 4421,
+        "output_tokens_details": {
+          "reasoning_tokens": 3196
+        },
+        "total_tokens": 7883
+      }
+    }
+  ],
+  "call_ceiling_preserved": 7,
+  "dollar_ceiling_microdollars_preserved": 11138743,
+  "new_provider_calls": 0,
+  "scope": "Completed API transport/accounting only; rejected semantics are preserved, not accepted or retried."
+}

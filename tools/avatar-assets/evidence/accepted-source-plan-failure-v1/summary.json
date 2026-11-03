@@ -1,0 +1,37 @@
+{
+  "accepted_result": false,
+  "accounting_observed_local": "2026-11-02T15:55:35.698646-08:00",
+  "accounting_path": "outputs/accepted-source-panda-plan-failure-accounting-v1/receipt.json",
+  "accounting_sha256": "3db6ffff5fc0c27d54d938ea96c21fe8c17952b6d5d721030682ed213f40de6c",
+  "author_or_native_started": false,
+  "canonical_status_at_assignment": "needs_inspection with retained lease; parent-reported, not queried by this packager",
+  "generation_prompt_characters": 845,
+  "job_id": "905fab75929b427ea12432a3",
+  "output_status": {
+    "automatic_retry": false,
+    "error": "Invalid plan generation_prompt",
+    "recorded": "2026-11-02T15:48:36.174211-08:00",
+    "schema_version": 1,
+    "stage": "pipeline",
+    "status": "checkpointed_error"
+  },
+  "planner_answer_sha256": "b43896be47682e48fcffa009d80f97823b21ce22f3ada652310b262678915928",
+  "planner_cost_microdollars": 74970,
+  "planner_receipt_path": "outputs/studio-905fab75929b427ea12432a3/agents/planner/receipt.json",
+  "planner_transport": "succeeded",
+  "private_state_accessed": false,
+  "project_calls_observed": 36,
+  "project_settled_microdollars_observed": 3936227,
+  "reference_sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422",
+  "retry_outcome": "not included",
+  "runtime_or_database_mutations": false,
+  "saved_transport_schema": {
+    "type": "string"
+  },
+  "schema_version": 1,
+  "semantic_maximum_characters": 800,
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "status": "planner_semantic_validation_failed",
+  "transport_schema_note": "The original saved schema admits string without maxLength; the saved prompt and semantic validator impose 800. All bytes remain unchanged.",
+  "uncertain_calls_observed": 0
+}

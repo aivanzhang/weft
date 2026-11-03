@@ -120,7 +120,11 @@ class PipelineReplanTests(unittest.TestCase):
         self.worker.unsupported=Mock(return_value={'status':'unsupported'})
         self.worker.agents=Mock()
         self.worker.agents.call.return_value={'status':'unsupported','reason':'Analytic stop before native finishing'}
-        with patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
+        with patch('avatar_assets.repair_visual_inputs.author_base_images',return_value=[Path('/analytic/guide-'+str(i)+'.png') for i in range(3)]), \
+                 patch('avatar_assets.repair_visual_inputs.author_images',side_effect=lambda base,repair:base+repair[:8-len(base)]), \
+                 patch('avatar_assets.repair_visual_inputs.from_continuation',return_value={'status':'unavailable','images':[]}), \
+                 patch('avatar_assets.repair_visual_inputs.from_current_review',return_value={'status':'unavailable','images':[]}), \
+                 patch('avatar_assets.quality_policy.build_quality_policy',return_value={}), \
              patch('avatar_assets.pipeline_prompts.author_prompt',return_value='Analytic author prompt') as prompt:
             # _run imports build_quality_policy from its module at entry.
             self.worker._run(False)

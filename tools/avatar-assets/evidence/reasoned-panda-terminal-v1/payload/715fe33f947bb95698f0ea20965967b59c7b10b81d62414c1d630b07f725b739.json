@@ -1,0 +1,62 @@
+{
+  "baseline_image": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/final-evidence-0/isolated-exported-dance.png",
+    "sha256": "837f4620df9969052f0c5d568d495a21452c24fe36eb843c38fc53a889fbbabd"
+  },
+  "coat_nodes": [
+    "PortableCoat_0",
+    "PortableCoat_1"
+  ],
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-coat-body-ablation-v2/ablate.py"
+  ],
+  "finish_report": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-0/finish-report.json",
+    "sha256": "d31fa7ae850af074c4dbb65018b43a940e8b0b9aab47ece2887f5a0909e9e38c"
+  },
+  "limits": {
+    "maximum_renders": 2,
+    "memory_mb": 2048,
+    "output_mb": 64,
+    "resolution": 720,
+    "samples": 8,
+    "seconds_total": 60,
+    "threads": 4
+  },
+  "model": {
+    "bytes": 16967928,
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-0/model.glb",
+    "sha256": "ce019b90577f84646aeca74072a762d9897cd6e7e21dd06e6d4e9d6d0f5f55f8"
+  },
+  "prior_attempt": {
+    "exit_code": -11,
+    "hypothesis_change": "Run authorized native diagnostic outside sandbox; prior Blender crashed during startup before script execution",
+    "job_sha256": "92d10d10ec8d1164c186548af980a922001047dbddfe229edad771ed30df2271",
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-coat-body-ablation-v1",
+    "rendered_images": 0
+  },
+  "scene": {
+    "bytes": 21718932,
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-0/source.blend",
+    "sha256": "41ab8ac31fab60614084280d026df5d225fbe964750b58ec86dc0d1fab031ec0"
+  },
+  "schema_version": 1,
+  "scope": "Saved exported GLB pose; two visibility-only diagnostic renders; no asset mutation, provider or score changes",
+  "script_sha256": "5ce1dbc259c86e4daf2eb3d35261bb06c589ae137d2079793096951fb713d1e7",
+  "second": 2.0,
+  "source_node": "Mesh_0",
+  "sources": {
+    "blender_provider_preview.py": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+    "blender_verify.py": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+  },
+  "state": "dance"
+}

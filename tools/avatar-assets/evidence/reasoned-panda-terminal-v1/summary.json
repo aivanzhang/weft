@@ -1,0 +1,96 @@
+{
+  "accepted_portable_result": false,
+  "accounting_path": "outputs/openai-panda-reasoned-resumed-studio-live-v1/accounting-terminal.json",
+  "accounting_scope": "Historical validated usage estimate, not invoice or current successor totals.",
+  "accounting_sha256": "10658d98a017a5e1701cb6c4f436ff24846aafe6bd561e9dd1c7c7c91a546d5d",
+  "browser": {
+    "active_lease_job": null,
+    "cleanup": {
+      "browser_exit_verified": true,
+      "server_exit_verified": true,
+      "worker_cancel_requested": false,
+      "worker_signalled": false
+    },
+    "elapsed_seconds": 1127.6889469999999,
+    "path": "outputs/openai-panda-reasoned-resumed-studio-live-v1/studio-live-test.json",
+    "queued_jobs": [],
+    "sha256": "b769d93de4dd6653524b75ccaa421f157e804f21dc3f9aefe6ce432027b4dd73",
+    "starts": 1
+  },
+  "continuation_inventory": {
+    "path": "outputs/continuation-inventory-capacity-tests-v1/actual-result.json",
+    "scope": "Previously completed read-only terminal collection; not rerun for this archive."
+  },
+  "diagnostic_conclusion": "Large angular body artifacts remained with the coat hidden, normal-map influence disconnected, and freshly recalculated posed normals. These controls rule out each removed factor as the sole cause; they do not identify a unique cause or prove a repair.",
+  "diagnostic_limits": [
+    "The first sandboxed coat-ablation attempt failed before rendering and remains preserved.",
+    "Subsequent diagnostic renders are transient static controls, not modified accepted assets.",
+    "The skin-weight diagnosis and numeric gates do not establish visual quality."
+  ],
+  "excluded_work": "The new fresh-source905 job and private .local files are not inventoried or copied.",
+  "later_retirement": {
+    "scope": "Parent-reported after this terminal snapshot",
+    "statement": "The old job ledger was retired to the fresh-source continuation without resetting history. No ledger was read or changed by this packaging job."
+  },
+  "medium_api_executed": true,
+  "reviews": [
+    {
+      "path": "outputs/studio-d8a680ce6580429f9fdd016f/review-0.json",
+      "retained_evidence_images": 6,
+      "sha256": "c1dcd4a5ad898513ea37da7c73e05aad009c210fdd3d62a9d52574511aa49a51",
+      "summary": "Requested panda identity, palette, and dance meaning are present, but the attempt should be repaired because exported appearance and motion-state deformation show conspicuous coat breakup, bright flecks, and faceted/lumpy arm-torso regions that violate the requested tidy short-fur presentation.",
+      "verdict": "repair"
+    },
+    {
+      "path": "outputs/studio-d8a680ce6580429f9fdd016f/review-1.json",
+      "retained_evidence_images": 6,
+      "sha256": "9fd17942c65461ed39459fa3d0d0ed6db74ff3abd7ac88515cb0430c1cb58232",
+      "summary": "Readable panda-like identity and a semantically correct dance are present, but the asset should not be accepted because the requested small black tail is not preserved and the exported moving coat has conspicuous patchy white/gray breakup and deformation artifacts.",
+      "verdict": "repair"
+    },
+    {
+      "path": "outputs/studio-d8a680ce6580429f9fdd016f/review-2.json",
+      "retained_evidence_images": 6,
+      "sha256": "574b29977e887fa4bbd061e3eabd4791adf46d63bd90deb74460b23a0f2d47ee",
+      "summary": "Repair required. The avatar is close in overall silhouette and framing, and the dance has real rhythmic motion, but it misses key requested identity details (clear black eye patches and fully black tail), exported fur/coat quality is visibly patchy and artifacted, deformation/presentation in motion is not clean, and the requested hops are not visually readable enough.",
+      "verdict": "repair"
+    }
+  ],
+  "schema_version": 1,
+  "source_roots": [
+    "outputs/studio-d8a680ce6580429f9fdd016f",
+    "outputs/openai-panda-reasoned-resumed-studio-live-v1",
+    "outputs/d8-coat-body-ablation-v1",
+    "outputs/d8-coat-body-ablation-v2",
+    "outputs/d8-body-normal-ablation-v1",
+    "outputs/d8-posed-normal-diagnostic-v1",
+    "outputs/d8-rig-weight-diagnosis-v1",
+    "outputs/continuation-inventory-capacity-tests-v1",
+    "outputs/repair-visual-input-fix-v1",
+    "outputs/repair-visual-input-tests-v2"
+  ],
+  "stage": "repair_budget",
+  "status": "unsupported",
+  "terminal_accounting": {
+    "budget": {
+      "effective_ceiling_microdollars": 15000000,
+      "original_ceiling_microdollars": 17000000,
+      "policy": "append-only-lower-ceiling-v1",
+      "reductions": 1
+    },
+    "calls": 35,
+    "classification": "read_only_validated_api_ledger_snapshot",
+    "cost_scope": "Conservative usage-based estimate, not invoice; no new Meshy.",
+    "current_job": {
+      "calls": 6,
+      "effective_exposure_microdollars": 1084179,
+      "reserved_microdollars": 33711840,
+      "settled_actual_microdollars": 1084179,
+      "uncertain_reserved_microdollars": 0
+    },
+    "recorded_local": "2026-11-02T15:29:21.791907-08:00",
+    "schema_version": 1,
+    "total_settled_microdollars": 3861257,
+    "uncertain_reserved_microdollars": 0
+  }
+}

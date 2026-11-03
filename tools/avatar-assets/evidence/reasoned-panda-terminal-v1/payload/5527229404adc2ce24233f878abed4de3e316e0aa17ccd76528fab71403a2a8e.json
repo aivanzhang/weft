@@ -1,0 +1,116 @@
+{
+  "accepted_delivery": false,
+  "basecolor_roughness_metallic_unchanged": true,
+  "baseline": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-coat-body-ablation-v2/body-only.png",
+    "sha256": "cec74c13686ea8b91d85c6321a4644866a4a33ba1b4693ef5c28dee9e8cb7fdb"
+  },
+  "body_geometry_and_custom_normals_unchanged": true,
+  "camera_lights_pose_unchanged": true,
+  "changed_variable": "Only the direct NormalMap output link into the body Principled Normal socket was removed in memory",
+  "finding": "The large angular arm, cheek and chest artifacts remain when the body normal-map input is disconnected and both portable coats are hidden.",
+  "interpretation": "Normal-map shading and current short portable fur are not sufficient explanations. Body deformation/topology and stored mesh normals remain possible contributors; this test does not uniquely distinguish them.",
+  "next_safe_action": "Address the bound body-edge/influence evidence or separately prove a stored-normal defect; do not treat blanket fur reduction or normal-map removal as a demonstrated repair.",
+  "normal_map_disconnected_image": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-body-normal-ablation-v1/body-no-normal-map.png",
+    "sha256": "17b82290d085326ef64855f26da15d5abb7afdc5f077c0d6e729b36a089e1412"
+  },
+  "original_file_bytes_unchanged": true,
+  "pixel_comparison": {
+    "regions": {
+      "lower_cheek_flecks": {
+        "fraction_within_2_levels": 0.9966703662597114,
+        "maximum_channel_difference_255": 7,
+        "mean_absolute_rgb_difference_255": 0.14039955604883464,
+        "pixels": 1802,
+        "pixels_over_8_levels": 0,
+        "rectangle_xyxy": [
+          302,
+          269,
+          355,
+          303
+        ]
+      },
+      "viewer_left_arm_facets": {
+        "fraction_within_2_levels": 0.9998268997749697,
+        "maximum_channel_difference_255": 4,
+        "mean_absolute_rgb_difference_255": 0.11565980035774047,
+        "pixels": 11554,
+        "pixels_over_8_levels": 0,
+        "rectangle_xyxy": [
+          207,
+          260,
+          316,
+          366
+        ]
+      },
+      "viewer_left_chest_border": {
+        "fraction_within_2_levels": 0.9880666208791209,
+        "maximum_channel_difference_255": 12,
+        "mean_absolute_rgb_difference_255": 0.23666437728937728,
+        "pixels": 11648,
+        "pixels_over_8_levels": 2,
+        "rectangle_xyxy": [
+          282,
+          348,
+          338,
+          556
+        ]
+      },
+      "viewer_left_thigh": {
+        "fraction_within_2_levels": 0.9963500931098697,
+        "maximum_channel_difference_255": 7,
+        "mean_absolute_rgb_difference_255": 0.1329608938547486,
+        "pixels": 13425,
+        "pixels_over_8_levels": 0,
+        "rectangle_xyxy": [
+          211,
+          425,
+          286,
+          604
+        ]
+      }
+    },
+    "whole_image": {
+      "fraction_within_2_levels": 0.9990046296296297,
+      "maximum_channel_difference_255": 13,
+      "mean_absolute_rgb_difference_255": 0.03882458847736626,
+      "pixels": 518400,
+      "pixels_over_8_levels": 11
+    }
+  },
+  "pose": {
+    "frame": 48.0,
+    "id": "dance",
+    "second": 2.0
+  },
+  "preceding_coat_ablation": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-coat-body-ablation-v2/manifest.json",
+    "sha256": "e7ec512504ea5ac199e990fdb71f156596bfa97221adafcc87b3424da605c370"
+  },
+  "removed_links": [
+    {
+      "material": "Material_0",
+      "normal_map_strength": 0.30000001192092896,
+      "removed_link": [
+        "Normal Map",
+        "Normal",
+        "Principled BSDF",
+        "Normal"
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "scope": "One fixed-pose shading diagnostic; not a new model or quality/physics verdict",
+  "source_model": {
+    "bytes": 16967928,
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-0/model.glb",
+    "sha256": "ce019b90577f84646aeca74072a762d9897cd6e7e21dd06e6d4e9d6d0f5f55f8"
+  },
+  "source_scene": {
+    "bytes": 21718932,
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-0/source.blend",
+    "sha256": "41ab8ac31fab60614084280d026df5d225fbe964750b58ec86dc0d1fab031ec0"
+  },
+  "status": "diagnostic_completed"
+}

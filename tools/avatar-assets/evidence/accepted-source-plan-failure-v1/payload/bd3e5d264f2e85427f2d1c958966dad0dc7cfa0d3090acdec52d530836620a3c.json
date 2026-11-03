@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded results; command stdout retained in session only",
+  "checks": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_studio_prepare_verifier.py -v",
+      "tests": 5,
+      "seconds": 0.045
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_studio_live_verifier.py -q",
+      "tests": 29,
+      "seconds": 0.254
+    },
+    {
+      "command": "node --check browser/tests/studio-prepare-live.mjs",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/python scripts/verify_studio_live.py --job 905fab75929b427ea12432a3 --allow-unplanned",
+      "exit_code": 0,
+      "plan_available": false,
+      "plan_id": null,
+      "status": "awaiting_authorization",
+      "api_calls_or_reservations": 0,
+      "active_lease_job": null,
+      "queued_jobs": []
+    }
+  ],
+  "sha256": {
+    "scripts/verify_studio_live.py": "2be49900e1a689ccaa336693a99cd7c3bdec4fd8b82dd0c4f1d9823828fb7a78",
+    "browser/tests/studio-prepare-live.mjs": "1eb647b717aed1c0e435d547ec52551702a220a6b942e8f6b3a3f1eeb149b5e7",
+    "tests/test_studio_prepare_verifier.py": "467adfcbcbeefffd511d48eea3a5a7fe52e219c1caea2162f590d8978c869b0b"
+  },
+  "runtime_source_changes": 0,
+  "provider_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "ledger_mutations": 0,
+  "authority": "Harness admission only; no provider authorization or plan acceptance inferred."
+}

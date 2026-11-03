@@ -1,93 +1,97 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 2, 2026, 3:06 PM PST
+## Session handoff — November 2, 2026, 3:59 PM PST
 
-- Workspace: `tools/avatar-assets` in Weft; thread
-  `01a18ebe-a17c-7cc0-9117-06ca476fb31c`. Preserve unrelated Weft work and all saved attempts.
-- **Standing authorization:** bounded avatar OpenAI retries within **$15 total,
-  including prior use**, without repeated approval. Receipt
-  `call_dc0abee558574e469abc3d2ea5e3defa`; append-only reduction evidence
-  `outputs/openai-standing-cap-15-v1/`. Seven-call/two-repair job limits, full
-  per-call reservations and finite standing-policy successor count still apply.
-  No new Meshy generation, Meta-budget use, deployment or appearance expansion.
-- **Last completed job:** `b082dc54dbb54f9d9030f75b`, terminal **unsupported** at
-  author attempt 2. Model 0 passed native rig/dance, deformation, reload and media
-  checks. Critic 0 accepted identity, motion and native fur but rejected sparse
-  flecks/stubble in the exported fur. This is partial progress, not delivery.
-- Author 1 shortened/narrowed portable fur but reintroduced the optional undercoat
-  route already rejected on this source: `Aliased material exceeds2048face UV1 repair bound`.
-  Author 2 incorrectly treated that undercoat as required and returned unsupported.
-  Preserve answers, config, critique, media and `model-1/native-failure.json` unchanged.
-- Resumed browser run `88667` exited after 314.445 s; root last verified browser,
-  server, worker and lease cleanup. Evidence:
-  `outputs/openai-panda-resumed-studio-live-v1/`. Do not restart b082 or execute
-  archived runtime sources. A successor must use authenticated Retry/Prepare/Start.
-- **Implemented/tested, runtime frozen:** persistent source-bound native-failure
-  memory survives critic feedback; at most eight summaries, each message at most
-  1,000 characters, preserving original evidence. 32 focused tests passed:
-  `outputs/source-failure-memory-tests-v1/result.json`. Continuation now preserves
-  authenticated earlier visual reviews and coat facts; evidence
-  `outputs/continuation-visual-memory-tests-v1/` and
-  `outputs/continuation-coat-facts-tests-v1/`. Root's comb/optional-undercoat prompt
-  clarification passed four tests. These checks made no provider/native calls.
-- **Latest terminal successor:** `1f98497e18e74820bda487ce`, unsupported at
-  `repair_budget`. Website Retry/Prepare reused the paid plan with zero planner
-  calls; plan ID `c77df21bd8ac0ae53ad7d211aae2595879d45c08b1142f99121209a62f6c24ef`.
-  Attempt 0 failed body-rhythm controls. Attempts 1 and 2 passed numeric rig,
-  attachment and action gates, rendered final media, and passed dance meaning.
-  Both visual reviews rejected patchy exported coat/deformation around cheeks,
-  neck and legs. Do not treat either model as accepted or edit paid answers.
-- Browser session `67032` exited 1 after one Start / 544.392182 s. Browser/server
-  exit verified; no active worker lease or queued job, and no cancellation.
-  Evidence: `outputs/openai-panda-coat-retry-website-v1/` and
-  `outputs/openai-panda-coat-studio-live-v1/`. Terminal job inventory is 942 files /
-  505,817,129 bytes, within the current 1,024-file / 512 MiB continuation limit.
-- **Verified accounting at 2:42 PM PST:** 29 settled calls, **$2.777078** total,
-  zero uncertain hold; current successor used five calls / $0.620851. Usage-based
-  estimate, not an invoice. Exact read-only receipt:
-  `outputs/openai-panda-coat-studio-live-v1/accounting-terminal.json`, SHA
-  `3a572a18d7aebd59ccd0d7481a1bf105ff3ad310154371847a396a2d413eb124`.
-- **Current recovered job / planned, no live process:** `d8a680ce6580429f9fdd016f`.
-  Retry/Prepare reused the paid plan, ID
-  `f477ceb0278eb9d685ccbdb0c57bee2d89d9e5e5e297a20eaf67c55f6cf587d2`.
-  One browser Start stopped before any API call on `API prompt exceeds bound`.
-  Session `85284` exited 1 after 8.506887 s, browser/server exits verified. Evidence
-  `outputs/openai-panda-reasoned-studio-live-v1/`; canonical inspection/release and append-only runtime adoption are now complete.
-  Original owner was PID64159, `darwin-start:1793660115:477725`, run-0002.
-  Do not reset the DB, retire this job or start another successor.
-- **Preflight correction:** the earlier 137,636-byte claim compared the full
-  prompt to the 160 KiB payload bound, missing the runner's stricter **128 KiB**
-  complete-prompt bound. Preserve that failed proof; it is not passing evidence.
-  JSON whitespace is now compacted without removing any value. Independent
-  exact-directive measurement is **84,075 / 131,072 bytes**; payload separately
-  56,082 / 163,840 bytes. Append-only erratum and unchanged-input proof:
-  `outputs/full-author-prompt-limit-correction-v1/`, manifest
-  `24b6f5da301c4d29ca2ba30d4137d77b218d2e50aab3703af09b17c33756b85d`.
-  Six tests cover
-  exact data preservation and actual d8 prompt length against imported runner
-  limits. The no-call/inherited-plan recovery passed 30 checks and actual custody
-  verification. All sources are frozen. Root applied guarded release/adoption
-  with identical ledger hashes before/after; plan and seven-call grant unchanged.
-  Revision: `outputs/d8-inherited-author-input-runtime-revision-v1`, manifest
-  `6e77c6c632236663ae6ca154eb85dbd56005085111839910d917ab604e93068c`;
-  adoption: `outputs/d8-inherited-author-input-adoption-v1/`. No charge occurred.
-- New jobs use `reasoning_effort=medium`, bound to the immutable request and
-  runner. Same 16,384 output-token bound, $5.618640 full-call reservation and
-  $15 total cap. Historical none-mode jobs are unchanged. Expected new-run
-  cost $0.50–$2.10, not a measured result. Exact setting/cost assumptions:
-  `outputs/openai-medium-backend-setting-v1/`.
-- Persistent inherited/latest visual-review memory is implemented (36 checks),
-  bounded reasoning support passes 55 checks, and authenticated visual-rejection
-  continuation passes 29 unique checks. Combined changed-module run: 25 tests
-  pass in 0.600 s; `outputs/reasoned-repair-integration-tests-v2/` preserves logs.
-  v1's test-import-path failure is retained; no runtime bug or paid call occurred.
-  Actual read-only continuation kept all 942 files unchanged. Its original
-  complete-prompt size assessment used the wrong bound; see correction above.
-- Next: checkpoint these tested changes, then use one website Start on the
-  SAME planned d8 job (same plan ID). Root verifies final review/downloads or
-  preserves unsupported results, records settled accounting/custody, and saves
-  only avatar-owned changes. No Muse parity or hands-off quality success is
-  claimed before that actual delivery passes.
+- Workspace `tools/avatar-assets`; thread `01a18ebe-a17c-7cc0-9117-06ca476fb31c`.
+  Preserve unrelated Weft work. No hosted deployment, Meta budget, new Meshy call,
+  subscriptions or repeated approval questions. The user authorizes bounded API
+  work within **$15 total including prior use**; the append-only cap remains active.
+- **Actual website Start running:** `d80fa601c945434983e496db`, session93846,
+  `outputs/accepted-source-panda-studio-live-v1`, bounded1,800s. Root owns this job;
+  no duplicate Prepare/Start or source edits while it runs. Exact planID
+  `b3990b08ff554ec2ee269f48caf69e61a482b51606949471df2d52d24b51ef01`.
+  Website Prepare session30069 passed with browser/server exits verified:
+  `outputs/accepted-source-panda-website-prepare-v3`. The plan keeps the exact
+  dance request and perched companion; no unsupported interaction/stability.
+  Its planner settled$0.063428, bringing pre-Start total to37calls/$3.999655.
+  The new request pins tested planner bounds and accessory-intent guidance.
+- **905 failed planner preserved and released:** 845-character brief exceeded800;
+  secondary attached-dragon interaction was unsupported. Verified exact worker
+  absence, one settled charge and matching reference-image transport before
+  release; no answer edits or replay. Release receipt:
+  `outputs/accepted-source-planner-release-v1/receipt.json`.
+  Original answer/schema/source evidence:
+  `evidence/accepted-source-plan-failure-v1`, manifest
+  `de9da5998cb53005551c3088590a4dc94a27f18fce5e7827fc508e96028a2ab4`.
+- d80 reuses the same raw f3 source/portrait/user intent, NOT a previous plan/rig.
+  Its seven-call/two-repair grant is$11.063773 within$15total; prior$3.936227
+  remains charged. Exact preparation/grant/cost: `outputs/accepted-source-panda-studio-v2`.
+  Expected additional API$0.50–$2.10; no new Meshy call. The old source-specific
+  automatic policy is unchanged. No repeated approval question is required.
+- Last d8 run
+  `d8a680ce6580429f9fdd016f` is terminal unsupported at repair_budget. Session52534
+  sent one Start, took1,127.688947s and closed browser/server; no lease or queue.
+  Three real rigged builds and full media passed numeric checks, but final review
+  rejected identity details, body/coat appearance, motion deformation and unclear
+  hops. Do not relabel these as accepted or continue blindly on the same base.
+- **Historical pre-retry accounting:**36 calls / **$3.936227**, no uncertain holds.
+ 905planner cost$0.074970. Current receipt:
+ `outputs/accepted-source-panda-plan-failure-accounting-v1/receipt.json`.
+  d8 used6 medium-reasoning calls / $1.084179. Exact receipt:
+  `outputs/openai-panda-reasoned-resumed-studio-live-v1/accounting-terminal.json`.
+  Reasoning executes correctly; improved final quality is NOT established.
+- **New source-specific request:** `905fab75929b427ea12432a3`, prepared from the
+  exact previously accepted appearance's **unrigged** Meshy base:
+  `outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb`, SHA
+  `f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188`.
+  50,004vertices/62,117triangles, zero skins/joints/weights/animations, UV0-only
+  embedded textures; static current preflight passes. It includes a fused small
+  green shoulder dragon and asymmetric rest pose. Native guards still apply.
+- New reference: `outputs/muse-panda-smooth-fur-v3/portrait.png`. New request asks
+  for the preserved panda/dragon appearance and a cheerful4s dance; dragon remains
+  perched, NOT flying in this trial. No old rig or motion recipe is reused. Exact
+  intent, source/ref hashes, estimates and source-specific approval are in
+  `outputs/accepted-source-panda-studio-v1/`.
+- Initial trusted preparation stopped before API use because no grant existed.
+  Root then used the existing ledger's atomic retire-and-continue operation to
+  retire settled d8 and bind this exact fresh request to **7calls/$11.138743**,
+  within the unchanged$15 project cap. Prior cost remains$3.861257; no new charge.
+  The old f5 source-specific automatic-retry policy is **unchanged**, not widened.
+  This fresh request has no continuation plan/design; it must run a new planner.
+- Actual website Prepare ran once in browser attemptv2, but its observer read
+  stale awaiting_authorization state. The detached planner continued and failed
+  as above. Harness now awaits the actual POST response then fresh canonical
+  status; three mocked tests pass. No duplicate Prepare was sent to test it.
+  `outputs/studio-prepare-observation-tests-v1/`; v1/v2 failures remain preserved.
+  Browser creation currently lacks a saved-source picker; this reuse request
+  was created through the trusted local API. Do not claim that picker exists.
+- **Applied/frozen reusable fixes:** author receives the actual optional reference
+  and authenticated critic-cited exported/pose images, within8total/8MiB each/
+  32MiB total, deduped against source/reference.46 focused checks passed plus final
+  reference routing check; `outputs/repair-visual-input-tests-v2/`.
+  Continuation now bounds4096files/1GiB/8192entries, unchanged64MiB per file,
+  1MiB streaming chunks/20s deadline.8checks and actual1175file/641,261,780byte
+  d8 capture pass; `outputs/continuation-inventory-capacity-tests-v1/`.
+- **Measured diagnosis (not a fix):** d8model0 large facets remain with fur hidden,
+  normal map disconnected, and fresh smooth posed normals. A body edge stretches
+ 28.3→86.0mm. Model1 has fewer steep weight edges (148vs183), not proof of clean
+  deformation. Evidence `outputs/d8-coat-body-ablation-v2/`,
+  `outputs/d8-body-normal-ablation-v1/`, `outputs/d8-posed-normal-diagnostic-v1/`,
+  `outputs/d8-rig-weight-diagnosis-v1/`. Failed sandbox ablationv1 is preserved.
+  Compact archive sealed: `evidence/reasoned-panda-terminal-v1`, manifest
+  `2bbad87e0642f284b4c77253a1b1249eb8624b0a08d5c163f6915720e4b0325a`.
+ 646files/69,952,594B, full local originals retained; no new acceptance.
+- **Saved remote checkpoint:** avatar-only `d03b6740274498530609ed512e1854f8d6ac191b`,
+  exact private main verified,1,617files/119,645,530B; parent7b01ffd preserved.
+  Receipt `outputs/reasoned-visual-publication-v1/receipt.json`. Subsequent image
+  feedback, inventory, helper and current evidence/docs changes still need a checkpoint.
+- d8's earlier no-call prompt failure/recovery is preserved. The actual complete
+  prompt bound is128KiB, separate from160KiB payload bound. JSON whitespace-only
+  compaction yields84,075/131,072bytes with identical decoded data; erratum
+  `outputs/full-author-prompt-limit-correction-v1/`. Guarded zero-call inherited-plan
+  recovery passed30checks and preserved exact ledger hashes; revisionmanifest
+  `6e77c6c632236663ae6ca154eb85dbd56005085111839910d917ab604e93068c`.
+
 
 ### Preserved continuation milestones
 
@@ -263,9 +267,9 @@ Tests include 10 continuation, 11 standing-policy, 71 Studio/HTTP/custody and
 - [x] Save standing-policy/native continuation checkpoint: `db460a3c18930c9d41f80be7ac2353b1bd69151a`,
   492 files / 20,139,155 bytes, private push and remote SHA verified. Receipt
   `outputs/standing-website-publication-v1/receipt.json`.
-- [ ] Save the latest b082 terminal evidence, tested failure-memory/continuation fixes,
-  successor result and exact accounting/custody in a new checkpoint; require the
-  actual run handle and immutable result manifests before marking complete.
+- [x] Save b082 terminal evidence and failure-memory/continuation checkpoint: d03b674.
+- [ ] Save the latest d8/905 evidence, tested schema/image-feedback/custody fixes,
+  successor result and exact accounting/custody in a new avatar-only checkpoint.
 
 The user accepts the earlier appearance. Do not expand fur-density or Muse-parity
 work. A working key, fixture, source mesh or numeric-only pass is not delivery.

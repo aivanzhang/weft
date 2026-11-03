@@ -1,0 +1,254 @@
+{
+  "body_normals_geometry_camera_lights_equal_to_baseline": true,
+  "body_state": {
+    "body_faces": 36124,
+    "body_vertices": 27043,
+    "camera_matrix": [
+      [
+        0.882352888584137,
+        0.01383475586771965,
+        -0.4703849256038666,
+        -1.807115077972412
+      ],
+      [
+        -0.4705883264541626,
+        0.025940250605344772,
+        -0.8819714784622192,
+        -3.386173725128174
+      ],
+      [
+        4.1485137103336456e-08,
+        0.9995677471160889,
+        0.029398929327726364,
+        0.6775758862495422
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "camera_ortho_scale": 1.3260204792022705,
+    "lights": [
+      {
+        "energy": 302.5,
+        "matrix": [
+          [
+            0.3162277042865753,
+            -0.5070926547050476,
+            0.8017836809158325,
+            3.3000001907348633
+          ],
+          [
+            0.9486833214759827,
+            0.16903087496757507,
+            -0.2672611474990845,
+            -1.100000023841858
+          ],
+          [
+            -3.672915482866301e-08,
+            0.8451542258262634,
+            0.5345225930213928,
+            2.75
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "Fill",
+        "size": 3.3000001907348633
+      },
+      {
+        "energy": 726.0000610351562,
+        "matrix": [
+          [
+            0.8320503234863281,
+            0.41202086210250854,
+            -0.3713907301425934,
+            -2.200000047683716
+          ],
+          [
+            -0.5547001361846924,
+            0.61803138256073,
+            -0.5570861101150513,
+            -3.3000001907348633
+          ],
+          [
+            2.274588872808181e-08,
+            0.6695342063903809,
+            0.7427812218666077,
+            4.950000286102295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "Key",
+        "size": 2.75
+      },
+      {
+        "energy": 423.5000305175781,
+        "matrix": [
+          [
+            -1.0,
+            1.8226802467324887e-07,
+            -3.127227898858109e-08,
+            0.0
+          ],
+          [
+            -1.5099580252808664e-07,
+            -0.7071067690849304,
+            0.7071067690849304,
+            3.3000001907348633
+          ],
+          [
+            1.0677012340920555e-07,
+            0.7071067690849304,
+            0.7071067690849304,
+            3.8500001430511475
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "Rim",
+        "size": 2.200000047683716
+      }
+    ],
+    "posed_body_corner_normals_sha256": "e4382f00aed35b61e40a7c64ac2017471bc99ab964e01637afb523044d4dc25e",
+    "posed_body_positions_sha256": "afdda8cf7141fac1d38248968ca9c3fd78ec6b5ab7b99c60f64326909f4065d9"
+  },
+  "elapsed_seconds": 1.5533491661772132,
+  "frame": 48.0,
+  "material_preservation": [
+    {
+      "after_links": [
+        [
+          "Image Texture",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ],
+        [
+          "Image Texture.001",
+          "Color",
+          "Separate Color",
+          "Color"
+        ],
+        [
+          "Image Texture.002",
+          "Color",
+          "Normal Map",
+          "Color"
+        ],
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Separate Color",
+          "Blue",
+          "Principled BSDF",
+          "Metallic"
+        ],
+        [
+          "Separate Color",
+          "Green",
+          "Principled BSDF",
+          "Roughness"
+        ]
+      ],
+      "all_socket_values_unchanged": true,
+      "before_links": [
+        [
+          "Image Texture",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ],
+        [
+          "Image Texture.001",
+          "Color",
+          "Separate Color",
+          "Color"
+        ],
+        [
+          "Image Texture.002",
+          "Color",
+          "Normal Map",
+          "Color"
+        ],
+        [
+          "Normal Map",
+          "Normal",
+          "Principled BSDF",
+          "Normal"
+        ],
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Separate Color",
+          "Blue",
+          "Principled BSDF",
+          "Metallic"
+        ],
+        [
+          "Separate Color",
+          "Green",
+          "Principled BSDF",
+          "Roughness"
+        ]
+      ],
+      "material": "Material_0",
+      "other_links_unchanged": true
+    }
+  ],
+  "removed_links": [
+    {
+      "material": "Material_0",
+      "normal_map_strength": 0.30000001192092896,
+      "removed_link": [
+        "Normal Map",
+        "Normal",
+        "Principled BSDF",
+        "Normal"
+      ]
+    }
+  ],
+  "render": {
+    "path": "body-no-normal-map.png",
+    "sha256": "17b82290d085326ef64855f26da15d5abb7afdc5f077c0d6e729b36a089e1412"
+  },
+  "render_policy": {
+    "engine": "BLENDER_EEVEE_NEXT",
+    "engine_fallback": false,
+    "policy": "gltf-single-sided-culling-eevee-next-v1",
+    "reason": "Respect imported glTF single-sided culling and authored-normal semantics",
+    "sample_control": "scene.eevee.taa_render_samples",
+    "samples_actual": 8,
+    "samples_requested": 8,
+    "scope": "Exported GLB review only; native hair/portrait renderers are separate"
+  },
+  "schema_version": 1,
+  "scope": "Single posed-body normal-map shading ablation; not material or animation acceptance",
+  "second": 2.0,
+  "source_files_unchanged": true,
+  "state": "dance",
+  "status": "completed_diagnostic"
+}

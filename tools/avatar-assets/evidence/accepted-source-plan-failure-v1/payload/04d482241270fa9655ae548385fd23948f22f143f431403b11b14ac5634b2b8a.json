@@ -1,0 +1,32 @@
+{
+  "automatic_retries": 0,
+  "execution_kind": "openai_responses_api",
+  "implementation_sha256": "a5806e54e0b574194d50131e365abaf0a08d8580cf7190cafc783a0a8ba781e3",
+  "job_digest": "2713f0d5710ac0b14a54fbf1a3423f0a9a7c03043d5e6a6faaf1b9cb3ca77a59",
+  "job_id": "studio-905fab75929b427ea12432a3",
+  "max_calls": 7,
+  "max_output_tokens": 16384,
+  "model": "gpt-5.4-2026-03-05",
+  "pricing": {
+    "checked": "2026-11-02",
+    "context_tokens": 1050000,
+    "input_microdollars_per_token": 2.5,
+    "long_context_threshold": 272000,
+    "long_input_multiplier": 2,
+    "long_output_multiplier": 1.5,
+    "model": "gpt-5.4-2026-03-05",
+    "output_microdollars_per_token": 15,
+    "source": "https://developers.openai.com/api/docs/models/gpt-5.4"
+  },
+  "reasoning": {
+    "effort": "medium"
+  },
+  "reservation_microdollars_per_call": 5618640,
+  "reservation_policy": "validated-settled-exposure-v1 with append-only-lower-ceiling-v1: reserve the full1.05M context at long-context rates plus maximum output before every call. Validated settled upper costs replace holds in exposure; the latest validated lower project ceiling applies. Uncertain holds, original rows, call caps and explicit retry approval remain.",
+  "schema_version": 1,
+  "service_tier": "default",
+  "store": false,
+  "timeout": 240,
+  "tools": [],
+  "truncation": "disabled"
+}

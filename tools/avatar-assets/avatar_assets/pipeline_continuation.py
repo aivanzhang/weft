@@ -13,8 +13,11 @@ import time
 from avatar_assets.safety import local_file, read_json, require, sha256, write_json
 
 POLICY='terminal-native-repair-continuation-v1'
-MAX_FILES=1024
-MAX_BYTES=512*1024**2
+MAX_FILES=4096
+MAX_BYTES=1024**3
+MAX_ENTRIES=8192
+MAX_FILE_BYTES=64*1024**2
+INVENTORY_SECONDS=20
 INTENT=('prompt','style','states','custom_actions','preset','media_spec')
 
 
@@ -24,21 +27,21 @@ def _inventory(parent):
         with os.scandir(pending.pop()) as children:
             for entry in children:
                 entries+=1
-                require(entries<=2048 and time.monotonic()-started<20 and not entry.is_symlink(),
+                require(entries<=MAX_ENTRIES and time.monotonic()-started<INVENTORY_SECONDS and not entry.is_symlink(),
                         'Continuation inventory exceeded bounds or contains links')
                 info=entry.stat(follow_symlinks=False);path=Path(entry.path)
                 if stat.S_ISDIR(info.st_mode):pending.append(path);continue
                 require(stat.S_ISREG(info.st_mode),'Unsupported continuation parent entry')
                 total+=info.st_size
-                require(len(files)<MAX_FILES and total<=MAX_BYTES and info.st_size<=64*1024**2,
-                        'Continuation parent exceeds1024 files/512MiB/64MiB per file')
+                require(len(files)<MAX_FILES and total<=MAX_BYTES and info.st_size<=MAX_FILE_BYTES,
+                        'Continuation parent exceeds4096 files/1GiB/64MiB per file')
                 digest=hashlib.sha256();read=0
                 with path.open('rb') as stream:
                     while True:
                         chunk=stream.read(min(1024**2,info.st_size-read+1))
                         if not chunk:break
                         read+=len(chunk)
-                        require(read<=info.st_size and time.monotonic()-started<20,'Continuation file grew or exceeded deadline')
+                        require(read<=info.st_size and time.monotonic()-started<INVENTORY_SECONDS,'Continuation file grew or exceeded deadline')
                         digest.update(chunk)
                 require(read==info.st_size and path.stat().st_mtime_ns==info.st_mtime_ns,'Continuation file changed while hashing')
                 files.append({'path':str(path.relative_to(parent)),'bytes':info.st_size,'sha256':digest.hexdigest()})

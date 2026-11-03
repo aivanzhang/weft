@@ -1,0 +1,112 @@
+{
+  "accounting": {
+    "active_exposure_microdollars": 74970,
+    "jobs": {
+      "studio-1f87be60ed4c4fe1aa95968c": {
+        "calls": 3,
+        "effective_exposure_microdollars": 418436,
+        "reserved_microdollars": 16855920,
+        "settled_actual_microdollars": 418436,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-1f98497e18e74820bda487ce": {
+        "calls": 5,
+        "effective_exposure_microdollars": 620851,
+        "reserved_microdollars": 28093200,
+        "settled_actual_microdollars": 620851,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-6869ed56ce1c4266bc0f873c": {
+        "calls": 2,
+        "effective_exposure_microdollars": 191428,
+        "reserved_microdollars": 11237280,
+        "settled_actual_microdollars": 191428,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-905fab75929b427ea12432a3": {
+        "calls": 1,
+        "effective_exposure_microdollars": 74970,
+        "reserved_microdollars": 5618640,
+        "settled_actual_microdollars": 74970,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-9e1cceb87c40437896c5a77f": {
+        "calls": 2,
+        "effective_exposure_microdollars": 118301,
+        "reserved_microdollars": 11237280,
+        "settled_actual_microdollars": 118301,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-b082dc54dbb54f9d9030f75b": {
+        "calls": 5,
+        "effective_exposure_microdollars": 467278,
+        "reserved_microdollars": 28093200,
+        "settled_actual_microdollars": 467278,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-b91db2687dca4024af238111": {
+        "calls": 4,
+        "effective_exposure_microdollars": 337927,
+        "reserved_microdollars": 22474560,
+        "settled_actual_microdollars": 337927,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-c5dee3fe1ba74741bfb7aeb8": {
+        "calls": 4,
+        "effective_exposure_microdollars": 378343,
+        "reserved_microdollars": 22474560,
+        "settled_actual_microdollars": 378343,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-d8a680ce6580429f9fdd016f": {
+        "calls": 6,
+        "effective_exposure_microdollars": 1084179,
+        "reserved_microdollars": 33711840,
+        "settled_actual_microdollars": 1084179,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-dbd9606e33444ce9b69c2a3c": {
+        "calls": 1,
+        "effective_exposure_microdollars": 22918,
+        "reserved_microdollars": 5618640,
+        "settled_actual_microdollars": 22918,
+        "uncertain_reserved_microdollars": 0
+      },
+      "studio-f628641c66e74ea09f3b8517": {
+        "calls": 3,
+        "effective_exposure_microdollars": 221596,
+        "reserved_microdollars": 16855920,
+        "settled_actual_microdollars": 221596,
+        "uncertain_reserved_microdollars": 0
+      }
+    },
+    "policy": "validated-settled-exposure-v1",
+    "project_exposure_microdollars": 3936227,
+    "retired_actual_microdollars": 3861257,
+    "retired_jobs": {
+      "studio-1f87be60ed4c4fe1aa95968c": 418436,
+      "studio-1f98497e18e74820bda487ce": 620851,
+      "studio-6869ed56ce1c4266bc0f873c": 191428,
+      "studio-9e1cceb87c40437896c5a77f": 118301,
+      "studio-b082dc54dbb54f9d9030f75b": 467278,
+      "studio-b91db2687dca4024af238111": 337927,
+      "studio-c5dee3fe1ba74741bfb7aeb8": 378343,
+      "studio-d8a680ce6580429f9fdd016f": 1084179,
+      "studio-dbd9606e33444ce9b69c2a3c": 22918,
+      "studio-f628641c66e74ea09f3b8517": 221596
+    }
+  },
+  "budget": {
+    "effective_ceiling_microdollars": 15000000,
+    "original_ceiling_microdollars": 17000000,
+    "policy": "append-only-lower-ceiling-v1",
+    "reductions": 1
+  },
+  "job_id": "905fab75929b427ea12432a3",
+  "new_meshy_calls": 0,
+  "observed_local": "2026-11-02T15:55:35.698646-08:00",
+  "project_call_count": 36,
+  "project_settled_microdollars": 3936227,
+  "schema_version": 1,
+  "uncertain_calls": 0
+}

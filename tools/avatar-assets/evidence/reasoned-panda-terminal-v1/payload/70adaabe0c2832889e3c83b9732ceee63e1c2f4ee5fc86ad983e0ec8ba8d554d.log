@@ -1,0 +1,12 @@
+test_aggregate_bytes_count_all_files_and_do_not_depend_on_file_limit (test_continuation_inventory_capacity.InventoryCapacityTests.test_aggregate_bytes_count_all_files_and_do_not_depend_on_file_limit) ... ok
+test_deadline_still_stops_before_open_and_during_chunked_hashing (test_continuation_inventory_capacity.InventoryCapacityTests.test_deadline_still_stops_before_open_and_during_chunked_hashing) ... ok
+test_exact_64mib_file_streams_and_larger_file_is_rejected_before_open (test_continuation_inventory_capacity.InventoryCapacityTests.test_exact_64mib_file_streams_and_larger_file_is_rejected_before_open) ... ok
+test_exact_entry_count_is_admitted_and_next_directory_rejected (test_continuation_inventory_capacity.InventoryCapacityTests.test_exact_entry_count_is_admitted_and_next_directory_rejected) ... ok
+test_exact_file_count_is_admitted_and_next_file_rejected (test_continuation_inventory_capacity.InventoryCapacityTests.test_exact_file_count_is_admitted_and_next_file_rejected) ... ok
+test_measured_three_attempt_capacity_remains_finite (test_continuation_inventory_capacity.InventoryCapacityTests.test_measured_three_attempt_capacity_remains_finite) ... ok
+test_symbolic_links_are_not_admitted (test_continuation_inventory_capacity.InventoryCapacityTests.test_symbolic_links_are_not_admitted) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.458s
+
+OK

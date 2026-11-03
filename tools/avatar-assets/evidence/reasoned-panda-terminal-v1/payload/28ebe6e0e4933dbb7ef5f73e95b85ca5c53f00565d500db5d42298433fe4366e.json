@@ -1,0 +1,49 @@
+{
+  "artifacts": [
+    {
+      "bytes": 3902,
+      "path": "ablate.py",
+      "sha256": "5ce1dbc259c86e4daf2eb3d35261bb06c589ae137d2079793096951fb713d1e7"
+    },
+    {
+      "bytes": 1231,
+      "path": "job.json",
+      "sha256": "92d10d10ec8d1164c186548af980a922001047dbddfe229edad771ed30df2271"
+    },
+    {
+      "bytes": 372,
+      "path": "native-handle.json",
+      "sha256": "9f16f35927b67eae571ad68dd44c47e6ae4ff054d5e37077d30ce74455af2819"
+    },
+    {
+      "bytes": 1111,
+      "path": "native-monitor.json",
+      "sha256": "5a38fac8485ede055add0eaa254957787f322dc636fc222a77a43b20573de459"
+    },
+    {
+      "bytes": 378,
+      "path": "native.log",
+      "sha256": "99ad9cf601b298623a892ad7bc6487f8095aa1d844e0ce5c1de03b11ce29771a"
+    },
+    {
+      "bytes": 2097,
+      "path": "prepared.json",
+      "sha256": "f932f41b54d11ad74e5009cad96d204faaf8b4ca0a1e95c2643f13dbd9c1ba59"
+    },
+    {
+      "bytes": 13587,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ],
+  "geometry_or_appearance_result": false,
+  "kind": "exported_coat_visibility_ablation",
+  "reason": "Sandboxed Blender exited -11 during startup; no diagnostic images produced",
+  "schema_version": 1,
+  "status": "failed_before_script"
+}

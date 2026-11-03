@@ -1,0 +1,486 @@
+[
+  {
+    "bytes": 3995,
+    "path": "outputs/accepted-source-panda-plan-failure-accounting-v1/receipt.json",
+    "sha256": "3db6ffff5fc0c27d54d938ea96c21fe8c17952b6d5d721030682ed213f40de6c",
+    "snapshot": "payload/3db6ffff5fc0c27d54d938ea96c21fe8c17952b6d5d721030682ed213f40de6c.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 2090,
+    "path": "outputs/accepted-source-panda-studio-v1/created.json",
+    "sha256": "37caa2586b7a9d637acd96e2fcb5d8a568e775666c73c38f95d2a6df5bd266cc",
+    "snapshot": "payload/37caa2586b7a9d637acd96e2fcb5d8a568e775666c73c38f95d2a6df5bd266cc.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 628,
+    "path": "outputs/accepted-source-panda-studio-v1/grant-receipt.json",
+    "sha256": "023587661e4d020c73817bed3210a42e822ba51f57cfa5f2a4a5660a221f1367",
+    "snapshot": "payload/023587661e4d020c73817bed3210a42e822ba51f57cfa5f2a4a5660a221f1367.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1288,
+    "path": "outputs/accepted-source-panda-studio-v1/request-draft.json",
+    "sha256": "b42b1acc70faebee0ca4da272e76a37d2ccd403c9bf6a30a720885fd6d328743",
+    "snapshot": "payload/b42b1acc70faebee0ca4da272e76a37d2ccd403c9bf6a30a720885fd6d328743.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1029,
+    "path": "outputs/accepted-source-panda-studio-v1/scope-cost.json",
+    "sha256": "9b094c303dcc73c62f8c52b469026601945c46c9518c2020b31efafff8ed3437",
+    "snapshot": "payload/9b094c303dcc73c62f8c52b469026601945c46c9518c2020b31efafff8ed3437.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1039,
+    "path": "outputs/accepted-source-panda-studio-v1/source-specific-approval.json",
+    "sha256": "d19443365ca5548dd29292aafa525e23b9658eceb4e3b3947a8cc3f09703eb37",
+    "snapshot": "payload/d19443365ca5548dd29292aafa525e23b9658eceb4e3b3947a8cc3f09703eb37.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1321,
+    "path": "outputs/accepted-source-panda-website-prepare-v1/result.json",
+    "sha256": "881e6c17e326f1a1510bfd077a5ec50f9b56c44fc4b9902c16d0bda7a6375ff5",
+    "snapshot": "payload/881e6c17e326f1a1510bfd077a5ec50f9b56c44fc4b9902c16d0bda7a6375ff5.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 2142,
+    "path": "outputs/accepted-source-panda-website-prepare-v2/prepared.json",
+    "sha256": "17fbe4b45192c95dffa3087292f6bbe6d27016264334b0576e997b511454972c",
+    "snapshot": "payload/17fbe4b45192c95dffa3087292f6bbe6d27016264334b0576e997b511454972c.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1508,
+    "path": "outputs/accepted-source-panda-website-prepare-v2/result.json",
+    "sha256": "6ab8d0e870dc36bd337c027d0e88a013b4404fd8985614dd5be47f9498e95ea0",
+    "snapshot": "payload/6ab8d0e870dc36bd337c027d0e88a013b4404fd8985614dd5be47f9498e95ea0.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 6971,
+    "path": "outputs/studio-905fab75929b427ea12432a3/agents/planner/answer.json",
+    "sha256": "b43896be47682e48fcffa009d80f97823b21ce22f3ada652310b262678915928",
+    "snapshot": "payload/b43896be47682e48fcffa009d80f97823b21ce22f3ada652310b262678915928.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1051974,
+    "path": "outputs/studio-905fab75929b427ea12432a3/agents/planner/image-00.png",
+    "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422",
+    "snapshot": "payload/17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422.png",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 661,
+    "path": "outputs/studio-905fab75929b427ea12432a3/agents/planner/payload-metadata.json",
+    "sha256": "5c96c14a868636ba1166869c091a6664fd5e8643aa8d7695878710eabddc232d",
+    "snapshot": "payload/5c96c14a868636ba1166869c091a6664fd5e8643aa8d7695878710eabddc232d.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 8761,
+    "path": "outputs/studio-905fab75929b427ea12432a3/agents/planner/prompt.txt",
+    "sha256": "4c43e95b60135ee7d63bf386404128ff2ad258be0b51916c803903a43036134a",
+    "snapshot": "payload/4c43e95b60135ee7d63bf386404128ff2ad258be0b51916c803903a43036134a.txt",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1756,
+    "path": "outputs/studio-905fab75929b427ea12432a3/agents/planner/receipt.json",
+    "sha256": "ce7f294d74a8a167aac3ecc07ff1e824caa285ad8522ba93ef2e11b776ac61a0",
+    "snapshot": "payload/ce7f294d74a8a167aac3ecc07ff1e824caa285ad8522ba93ef2e11b776ac61a0.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 449,
+    "path": "outputs/studio-905fab75929b427ea12432a3/agents/planner/request.json",
+    "sha256": "c15a27b50920b35f623346bfb325d7b8460ef082ae988ab125d2963f31127da4",
+    "snapshot": "payload/c15a27b50920b35f623346bfb325d7b8460ef082ae988ab125d2963f31127da4.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 62579,
+    "path": "outputs/studio-905fab75929b427ea12432a3/agents/planner/response.json",
+    "sha256": "98610512e27bd7ecdb8b3c9f1ec37ab02b6154099df53a0dee7822c5fd4a0e01",
+    "snapshot": "payload/98610512e27bd7ecdb8b3c9f1ec37ab02b6154099df53a0dee7822c5fd4a0e01.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 4285,
+    "path": "outputs/studio-905fab75929b427ea12432a3/agents/planner/schema.json",
+    "sha256": "1745513497a0fa890a9fc810c5ff3cd9284c2c1dfcaa6be0a5786685f6f5d75f",
+    "snapshot": "payload/1745513497a0fa890a9fc810c5ff3cd9284c2c1dfcaa6be0a5786685f6f5d75f.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1346,
+    "path": "outputs/studio-905fab75929b427ea12432a3/agents/runner.json",
+    "sha256": "04d482241270fa9655ae548385fd23948f22f143f431403b11b14ac5634b2b8a",
+    "snapshot": "payload/04d482241270fa9655ae548385fd23948f22f143f431403b11b14ac5634b2b8a.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1681,
+    "path": "outputs/studio-905fab75929b427ea12432a3/estimate.json",
+    "sha256": "d0c25378c45a22aabb49d9babb1a42751f3cab2fd18574a82e1af3247683aa2c",
+    "snapshot": "payload/d0c25378c45a22aabb49d9babb1a42751f3cab2fd18574a82e1af3247683aa2c.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 6938,
+    "path": "outputs/studio-905fab75929b427ea12432a3/input-receipt.json",
+    "sha256": "afd637cde858256d31348e6938fa83cbe71d7f1c8641369adaef092a0b435cd9",
+    "snapshot": "payload/afd637cde858256d31348e6938fa83cbe71d7f1c8641369adaef092a0b435cd9.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1051974,
+    "path": "outputs/studio-905fab75929b427ea12432a3/inputs/reference.png",
+    "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422",
+    "snapshot": "payload/17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422.png",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 25557832,
+    "local_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-905fab75929b427ea12432a3/inputs/source-model.glb",
+    "path": "outputs/studio-905fab75929b427ea12432a3/inputs/source-model.glb",
+    "reason": "file larger than 8 MiB; original source retained locally",
+    "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+    "storage": "hash_reference"
+  },
+  {
+    "bytes": 2195,
+    "path": "outputs/studio-905fab75929b427ea12432a3/request.json",
+    "sha256": "2713f0d5710ac0b14a54fbf1a3423f0a9a7c03043d5e6a6faaf1b9cb3ca77a59",
+    "snapshot": "payload/2713f0d5710ac0b14a54fbf1a3423f0a9a7c03043d5e6a6faaf1b9cb3ca77a59.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 35083,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/action_audit.py",
+    "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d",
+    "snapshot": "payload/2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 17776,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/action_intent.py",
+    "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad",
+    "snapshot": "payload/9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 8034,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/agent_backend.py",
+    "sha256": "4ee863873c193e0dd75eb7801cecce305ffacabe67da6d2759aa3317a31050b9",
+    "snapshot": "payload/4ee863873c193e0dd75eb7801cecce305ffacabe67da6d2759aa3317a31050b9.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 26471,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/agent_runner.py",
+    "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535",
+    "snapshot": "payload/d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 12872,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/author_contract.py",
+    "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d",
+    "snapshot": "payload/7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 8595,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/author_geometry.py",
+    "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de",
+    "snapshot": "payload/0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 16614,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/deformation_gate.py",
+    "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+    "snapshot": "payload/5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 38146,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/finish_generated.py",
+    "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca",
+    "snapshot": "payload/79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 13676,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/fringe_export.py",
+    "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+    "snapshot": "payload/771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 40332,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/fur_attachment.py",
+    "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac",
+    "snapshot": "payload/7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 19539,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/fur_bindings.py",
+    "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38",
+    "snapshot": "payload/3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 16931,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/generated_tangents.py",
+    "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+    "snapshot": "payload/d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 17295,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/normal_continuity.py",
+    "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+    "snapshot": "payload/429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 34778,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/openai_runner.py",
+    "sha256": "a5806e54e0b574194d50131e365abaf0a08d8580cf7190cafc783a0a8ba781e3",
+    "snapshot": "payload/a5806e54e0b574194d50131e365abaf0a08d8580cf7190cafc783a0a8ba781e3.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 100331,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/pipeline.py",
+    "sha256": "1f2d18cc43117ada419b1a4c3bc45a5e8af0e6b054531a729711d62d4e868974",
+    "snapshot": "payload/1f2d18cc43117ada419b1a4c3bc45a5e8af0e6b054531a729711d62d4e868974.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 47040,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/pipeline_continuation.py",
+    "sha256": "eeaa6356f1475709f895250a23119cfdf0e1bc5b4a0afc842919b373350510fb",
+    "snapshot": "payload/eeaa6356f1475709f895250a23119cfdf0e1bc5b4a0afc842919b373350510fb.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 9788,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/pipeline_evidence.py",
+    "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+    "snapshot": "payload/72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 62234,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/pipeline_prompts.py",
+    "sha256": "b7b2188778c1cd75ddab59358ada97bd90be2f534823ce61549eeacc5de97304",
+    "snapshot": "payload/b7b2188778c1cd75ddab59358ada97bd90be2f534823ce61549eeacc5de97304.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 13968,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/pipeline_recovery.py",
+    "sha256": "52849e9a991c88db03751a8a4ba6b51a9bc6eaf9b0ab94f0d331ad80bd358a5f",
+    "snapshot": "payload/52849e9a991c88db03751a8a4ba6b51a9bc6eaf9b0ab94f0d331ad80bd358a5f.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1326,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/portable_fringe.py",
+    "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+    "snapshot": "payload/ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 14626,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/quality_policy.py",
+    "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62",
+    "snapshot": "payload/f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 10234,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/repair_visual_inputs.py",
+    "sha256": "b4a037aa7215bb5c04089f48c4fd19b21178653532de78f0634df181c28670cb",
+    "snapshot": "payload/b4a037aa7215bb5c04089f48c4fd19b21178653532de78f0634df181c28670cb.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 20746,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_edge_fringe.py",
+    "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+    "snapshot": "payload/e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 59927,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_finish_generated.py",
+    "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081",
+    "snapshot": "payload/617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 26295,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_fur_cards.py",
+    "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284",
+    "snapshot": "payload/93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 6657,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_fur_identity.py",
+    "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55",
+    "snapshot": "payload/100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 42039,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_fur_undercoat.py",
+    "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1",
+    "snapshot": "payload/3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 5450,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_material_coat.py",
+    "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c",
+    "snapshot": "payload/240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 8894,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_material_colors.py",
+    "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187",
+    "snapshot": "payload/0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 31282,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_material_groom.py",
+    "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979",
+    "snapshot": "payload/6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 6885,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_normal_continuity.py",
+    "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+    "snapshot": "payload/3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 10304,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/blender_normal_uv_export.py",
+    "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+    "snapshot": "payload/bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 17397,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/edge_fringe.py",
+    "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+    "snapshot": "payload/24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 16114,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/fringe_color_atlas.py",
+    "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+    "snapshot": "payload/127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 4687,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/fur_root_sampling.py",
+    "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+    "snapshot": "payload/0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 8834,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/fur_skin_roots.py",
+    "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb",
+    "snapshot": "payload/f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 6002,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/fur_vertex_roots.py",
+    "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4",
+    "snapshot": "payload/563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 9487,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/material_fur.py",
+    "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7",
+    "snapshot": "payload/5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 5273,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/motion_samples.py",
+    "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+    "snapshot": "payload/bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 6129,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/native_render_tasks.py",
+    "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+    "snapshot": "payload/f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 9560,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/normal_uv_export.py",
+    "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+    "snapshot": "payload/de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 14944,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/scripts/undercoat_uv_atlas.py",
+    "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+    "snapshot": "payload/a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 35323,
+    "path": "outputs/studio-905fab75929b427ea12432a3/sources/three_d.py",
+    "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+    "snapshot": "payload/19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e.py",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 206,
+    "path": "outputs/studio-905fab75929b427ea12432a3/status.json",
+    "sha256": "2da98bfd3a3b234dc44bedb6a7686602c2f2930b22c74b8102fd0f9501078b2a",
+    "snapshot": "payload/2da98bfd3a3b234dc44bedb6a7686602c2f2930b22c74b8102fd0f9501078b2a.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1116,
+    "path": "outputs/studio-prepare-observation-tests-v1/result.json",
+    "sha256": "704dd8722bc8e9fee31a2490dd8777a1be01318a2093fd38433c28c5cdcf2fb1",
+    "snapshot": "payload/704dd8722bc8e9fee31a2490dd8777a1be01318a2093fd38433c28c5cdcf2fb1.json",
+    "storage": "snapshot"
+  },
+  {
+    "bytes": 1484,
+    "path": "outputs/studio-unplanned-inspection-tests-v1/result.json",
+    "sha256": "bd3e5d264f2e85427f2d1c958966dad0dc7cfa0d3090acdec52d530836620a3c",
+    "snapshot": "payload/bd3e5d264f2e85427f2d1c958966dad0dc7cfa0d3090acdec52d530836620a3c.json",
+    "storage": "snapshot"
+  }
+]

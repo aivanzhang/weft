@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "classification": "actual_website_saved_request_preparation",
+  "parent_id": "905fab75929b427ea12432a3",
+  "mutations": [
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/905fab75929b427ea12432a3/plan"
+    }
+  ],
+  "errors": [
+    "Saved job did not plan\n+ actual - expected\n\n+ 'launching'\n- 'planned'\n"
+  ],
+  "generation_started": false,
+  "cleanup": {
+    "browser_closed": true,
+    "server_exit_verified": true
+  },
+  "sources": [
+    {
+      "path": "browser/tests/studio-prepare-live.mjs",
+      "sha256": "1eb647b717aed1c0e435d547ec52551702a220a6b942e8f6b3a3f1eeb149b5e7"
+    },
+    {
+      "path": "browser/studio.js",
+      "sha256": "71228c299a8d4a12813592b522eb18bb61469138d11d789577a8f7acadb29c66"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "35a7cb257bfd651fe592107c58b402953df066563348b1da7c447f6135123ac7"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "91d741d31debaaddb9ec2424fe7239d4988783b6e0e716231d722bc5ef677e02"
+    },
+    {
+      "path": "avatar_assets/standing_authorization.py",
+      "sha256": "e3134f4772d4669122b629d2ec932ef1868357dc0cc07d1a8713cc9cd4bedbcc"
+    },
+    {
+      "path": "avatar_assets/pipeline_continuation.py",
+      "sha256": "eeaa6356f1475709f895250a23119cfdf0e1bc5b4a0afc842919b373350510fb"
+    }
+  ],
+  "server_pid": 76619,
+  "job_id": "905fab75929b427ea12432a3",
+  "status": "failed",
+  "elapsed_seconds": 1.1615612080000002,
+  "request_count": 10
+}

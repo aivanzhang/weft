@@ -1,0 +1,86 @@
+{
+  "actual_microdollars_upper_estimate": 127385,
+  "answer_sha256": "77708bd91fdf2a77060d109223e5671720ca164deb0e525205eb0371323cbf33",
+  "artifacts": [
+    {
+      "bytes": 5896,
+      "path": "answer.json",
+      "sha256": "77708bd91fdf2a77060d109223e5671720ca164deb0e525205eb0371323cbf33"
+    },
+    {
+      "bytes": 1092745,
+      "path": "image-00.png",
+      "sha256": "7c0d962de3ccdccb78c24b42e2069079e15bfe087f6629e90ba05c7301fa3841"
+    },
+    {
+      "bytes": 990183,
+      "path": "image-01.png",
+      "sha256": "2eb3330954bc97df96cfaea4166c94d67ca317185ff74ca485a27f0edeeab627"
+    },
+    {
+      "bytes": 3985360,
+      "path": "image-02.png",
+      "sha256": "094a745738e052ab37464c14d9e62e9fc373658c06ab0e0f412202864ec03155"
+    },
+    {
+      "bytes": 525526,
+      "path": "image-03.webp",
+      "sha256": "bad4d0c8ef41a1d51b6c00921c15e215ad0a883e20e528a4ac7dfacc17dbfaa8"
+    },
+    {
+      "bytes": 437526,
+      "path": "image-04.png",
+      "sha256": "88d2e6d2f2f32b2ed511430847e422f270e4692c0f42a5c4dd0896f987901a61"
+    },
+    {
+      "bytes": 390681,
+      "path": "image-05.png",
+      "sha256": "32aab0949e9b79193f975adafdc23e573d1fc2e2580332396865ebe97403e465"
+    },
+    {
+      "bytes": 661,
+      "path": "payload-metadata.json",
+      "sha256": "0d6cbb3674d3020e12593b5dced777194d8b59b8ca17ac668e0fe45e193ee347"
+    },
+    {
+      "bytes": 53809,
+      "path": "prompt.txt",
+      "sha256": "9815255060ca2aa74f138c471cdd9fc5aaedaecb1d245713b650c2932241c3ff"
+    },
+    {
+      "bytes": 1169,
+      "path": "request.json",
+      "sha256": "f6745fa2268949022006913b4fb322ba383823a4d172ca2a8c352392b828af8a"
+    },
+    {
+      "bytes": 51667,
+      "path": "response.json",
+      "sha256": "f5f53f0bfdc301182d8c9445a1ccf1655866dae13e601c897b341992a79b09c5"
+    },
+    {
+      "bytes": 4217,
+      "path": "schema.json",
+      "sha256": "5c943f489842879014929f298c02a540435ea538c65e5e936738a8870ba6af01"
+    }
+  ],
+  "elapsed_seconds": 62.588928665965796,
+  "execution_kind": "openai_responses_api",
+  "model": "gpt-5.4-2026-03-05",
+  "reserved_microdollars": 5618640,
+  "response_id": "resp_0bafc119214ff321016ae91c46450087d0993c48ebe8edc329",
+  "schema_version": 1,
+  "status": "succeeded",
+  "tool_activity": false,
+  "usage": {
+    "input_tokens": 29108,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 3641,
+    "output_tokens_details": {
+      "reasoning_tokens": 2568
+    },
+    "total_tokens": 32749
+  }
+}

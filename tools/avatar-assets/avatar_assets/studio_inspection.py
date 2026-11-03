@@ -423,8 +423,9 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
     from avatar_assets.studio_worker import _validate_prepared_request
     root,output,binding_path=map(Path,(root,output,binding_path))
     _require(output.resolve()==output and output.is_relative_to(root/'outputs')
-             and request.get('reuse_model') is not None and request.get('reference') is None,
-             'API planning release requires explicit source reuse without a reference')
+             and request.get('reuse_model') is not None
+             and (request.get('reference') is None or profile=='planning'),
+             'API planning release requires source reuse; only completed planning may include a reference')
     allowed={'request.json','input-receipt.json','estimate.json','status.json','pipeline.lock','sources','inputs','events','agents'}
     if profile=='author_input_bound':
         allowed |= {'plan.json','inspection','quality-policy.json'}
@@ -463,7 +464,10 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
                  'API source snapshot changed')
         source_names.add(row['path']);source_pins[row['path']]=pin;records.append(pin)
     original=request['reuse_model'];selected=prepared['reuse_model']
-    _require(set(_entries(output/'inputs',1))=={'source-model.glb'},'API selected input inventory changed')
+    reference = prepared.get('reference')
+    reference_name = Path(reference['path']).name if reference else None
+    _require(set(_entries(output/'inputs',2))==({'source-model.glb',reference_name} if reference else {'source-model.glb'}),
+             'API selected input inventory changed')
     source=_file_pin(Path(original['path']),64*1024**2)
     copied=_file_pin(output/selected['path'],64*1024**2)
     info=Path(original['path']).stat()
@@ -472,6 +476,23 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
              and source['sha256']==copied['sha256']==selected['sha256']
              and source['bytes']==copied['bytes']==selected['bytes'],'API reused source bytes or identity changed')
     records.extend((source,copied))
+    reference_proof=None;image_records=[]
+    if reference:
+        from avatar_assets.agent_runner import _image_inputs,MAX_IMAGE_BYTES
+        original_reference=request['reference'];copied_path=output/reference['path']
+        _require(copied_path.parent==output/'inputs' and reference_name.startswith('reference.'),
+                 'API reference must be its prepared input snapshot')
+        original_pin=_file_pin(Path(original_reference['path']),MAX_IMAGE_BYTES)
+        copied_pin=_file_pin(copied_path,MAX_IMAGE_BYTES);info=Path(original_reference['path']).stat()
+        _require((info.st_size,info.st_mtime_ns,info.st_dev,info.st_ino)==
+                 (original_reference['bytes'],original_reference['mtime_ns'],original_reference['device'],original_reference['inode'])
+                 and original_pin['sha256']==copied_pin['sha256']==reference['sha256']
+                 and original_pin['bytes']==copied_pin['bytes']==reference['bytes'],
+                 'API reference bytes or original identity changed')
+        validated=_image_inputs([copied_path])[0]
+        image_records=[{key:validated[key] for key in ('bytes','sha256','suffix')}]
+        reference_proof={'prepared_reference':copied_pin,'original_reference':original_pin}
+        records.extend((original_pin,copied_pin))
     status=read(output/'status.json')
     _require(status.get('status')=='checkpointed_error' and status.get('automatic_retry') is False,
              'API planning did not preserve a non-retrying failure')
@@ -539,10 +560,16 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
                  and type(call['actual']) is int and 0<=call['actual']<=call['reserved']<=grant['ceiling'],
                  'API settled cost or reservation differs')
         folder=agents/'planner';names=['answer.json','payload-metadata.json','prompt.txt','receipt.json','request.json','response.json','schema.json']
-        _require(_entries(folder,7)==names,'API planner files are missing, extra or unsafe')
+        if image_records:names=sorted([*names,'image-00'+image_records[0]['suffix']])
+        _require(_entries(folder,8)==names,'API planner files are missing, extra or unsafe')
         receipt=read(folder/'receipt.json');call_request=read(folder/'request.json');schema=read(folder/'schema.json',64*1024)
         payload=read(folder/'payload-metadata.json');answer=read(folder/'answer.json');response=read(folder/'response.json',4*1024**2)
         prompt_pin=_file_pin(folder/'prompt.txt',128*1024);records.append(prompt_pin)
+        if image_records:
+            image_pin=_file_pin(folder/('image-00'+image_records[0]['suffix']),8*1024**2)
+            _require(image_pin['sha256']==image_records[0]['sha256'] and image_pin['bytes']==image_records[0]['bytes'],
+                     'API planner image differs from the selected reference')
+            records.append(image_pin);reference_proof['submitted_image']=image_pin
         artifact_rows=[{'path':name,'bytes':pin['bytes'],'sha256':pin['sha256']} for name in names if name!='receipt.json'
                        for pin in records if pin['path']==str(folder/name)]
         _require(receipt.get('schema_version')==1 and receipt.get('status')=='succeeded'
@@ -551,7 +578,7 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
                  and receipt.get('answer_sha256')==next(p['sha256'] for p in records if p['path']==str(folder/'answer.json')),
                  'API response receipt or artifact hashes changed')
         _require(call_request=={'role':'planner','prompt_sha256':prompt_pin['sha256'],'schema_sha256':digest(schema),
-                               'settings_sha256':digest(settings),'images':[]}
+                               'settings_sha256':digest(settings),'images':image_records}
                  and call['request_digest']==digest(call_request),'API call request does not match its reservation')
         _require(response.get('status')=='completed' and response.get('model')==MODEL
                  and response.get('service_tier')=='default' and isinstance(response.get('id'),str)
@@ -572,7 +599,14 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
         _require(len(answer_text.encode())<=MAX_JSON and json.loads(answer_text)==answer,
                  'API preserved answer differs from the completed response')
         prompt=(folder/'prompt.txt').read_text()
-        actual_payload={'model':MODEL,'instructions':payload.get('instructions'),'input':[{'role':'user','content':[{'type':'input_text','text':prompt}]}],
+        content=[{'type':'input_text','text':prompt}]
+        if image_records:
+            import base64
+            suffix=image_records[0]['suffix'];mime={'.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp'}[suffix]
+            raw=(folder/('image-00'+suffix)).read_bytes()
+            _require(hashlib.sha256(raw).hexdigest()==image_records[0]['sha256'],'API planner image changed during inspection')
+            content.append({'type':'input_image','image_url':'data:'+mime+';base64,'+base64.b64encode(raw).decode(),'detail':'high'})
+        actual_payload={'model':MODEL,'instructions':payload.get('instructions'),'input':[{'role':'user','content':content}],
                         'text':{'format':{'type':'json_schema','name':'avatar_planner','schema':schema,'strict':True}},
                         'max_output_tokens':backend['max_output_tokens'],'reasoning':{'effort':backend.get('reasoning_effort','none')},'store':False,'tools':[],
                         'tool_choice':'none','service_tier':'default','truncation':'disabled'}
@@ -624,6 +658,7 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
                                        'author-input-bound-custody-v1' if profile=='author_input_bound' else
                                        'completed-api-planning-custody-v1'),'job_id':output.name,
             **({'inherited_plan':inherited_proof} if inherited_proof else {}),
+            **({'reference':reference_proof} if reference_proof else {}),
             **({'inspection':inspection_proof} if inspection_proof else {}),
             'request_sha256':request_hash,'ledger':ledger_pin,'files':records,'receipt_bytes':total,
             'approval_sha256':approvals,'calls':proof_calls,

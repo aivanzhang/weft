@@ -23,31 +23,33 @@ def _strings(limit=16):
 
 
 _ID_SCHEMA = {"type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-z][a-z0-9_-]{0,63}$"}
-_ROLE_SCHEMA = _object({"id": deepcopy(_ID_SCHEMA), "description": {"type": "string"}})
+_ROLE_SCHEMA = _object({"id": deepcopy(_ID_SCHEMA), "description": {"type": "string", "minLength": 1, "maxLength": 600}})
 _REQUIREMENT_SCHEMA = _object({
     "id": deepcopy(_ID_SCHEMA), "kind": {"type": "string", "enum": list(KINDS)},
-    "role": deepcopy(_ID_SCHEMA), "description": {"type": "string"},
+    "role": deepcopy(_ID_SCHEMA), "description": {"type": "string", "minLength": 1, "maxLength": 600},
 })
 _STATE_SCHEMA = _object({
-    "id": deepcopy(_ID_SCHEMA), "meaning": {"type": "string"}, "user_request": {"type": "string"},
+    "id": deepcopy(_ID_SCHEMA), "meaning": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "user_request": {"type": "string", "maxLength": 600},
     "roles": {"type": "array", "items": _ROLE_SCHEMA, "minItems": 1, "maxItems": 4},
     "requirements": {"type": "array", "items": _REQUIREMENT_SCHEMA, "minItems": 1, "maxItems": 8},
 })
 _SURFACE_SCHEMA = _object({
-    "region": {"type": "string"}, "material": {"type": "string", "enum": list(MATERIALS)},
-    "finish": {"type": "string"},
+    "region": {"type": "string", "minLength": 1, "maxLength": 200},
+    "material": {"type": "string", "enum": list(MATERIALS)},
+    "finish": {"type": "string", "minLength": 1, "maxLength": 600},
 })
 PLAN_SCHEMA = _object({
     "status": {"type": "string", "enum": ["ready", "unsupported"]},
-    "reason": {"type": "string"},
-    "subject": {"type": "string"},
-    "style": {"type": "string"},
-    "generation_prompt": {"type": "string"},
+    "reason": {"type": "string", "maxLength": 4000},
+    "subject": {"type": "string", "maxLength": 400},
+    "style": {"type": "string", "maxLength": 800},
+    "generation_prompt": {"type": "string", "maxLength": 800},
     "height_meters": {"type": "number"},
     "states": {"type": "array", "items": _STATE_SCHEMA, "maxItems": 8},
     "surface_intent": {"type": "array", "items": _SURFACE_SCHEMA, "maxItems": 8},
-    "appearance_checks": _strings(),
-    "limitations": _strings(),
+    "appearance_checks": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 2000}, "maxItems": 16},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 2000}, "maxItems": 16},
 })
 
 AUTHOR_SCHEMA = _object({
@@ -144,8 +146,12 @@ requirements:[{id,kind,role,description}] (one to eight, all roles used). Descri
 invented thresholds or bone names. Kinds: articulation, travel, rhythm, takeoff, landing, return_pose, stability, interaction, expression.
 Dance requires rhythm and coordinated readable movement, not one small nod; flight requires actual travel, not standing wing flaps.
 Flapping requires articulation of the actual wing role, distinct from body/root travel. A flight+flap request needs both.
-Takeoff/landing need a visible rise/descent and the stated support relationship. Separate body/companion/appendage roles
-when the prompt involves multiple actors. Never attach every requirement to the main body to hide an unmoving accessory.
+Takeoff/landing need a visible rise/descent and the stated support relationship. Separately requested body/companion/appendage
+motion needs distinct roles. Never attach every requirement to the main body to hide requested independent accessory motion.
+Preserving an existing attached accessory while it is carried with the body belongs in appearance_checks; the main moving
+role may include that attached companion. Staying perched relative to a moving body is not world-space stability or
+new-prop interaction. This does not add attachment repair, separation or physical-contact simulation capability.
+If the companion must fly, flap or otherwise move independently, give that requested motion its own roles and requirements.
 Use stability only when the user's action explicitly requests world-stationary geometry, such as a fixed base or planted feet.
 Never invent a stationary torso for a whole-body dance, hop or travel. Readable, supportive or upright does not mean motionless.
 Do not classify genuinely requested stationary torso/planted feet as articulation: they must remain still, not pass a movement test.
@@ -155,7 +161,8 @@ Use return_pose for returning to a neutral/starting pose: it compares the final 
 surface vertices. It imposes no minimum hop height and does not prove a seamless loop, physical landing or stillness during the clip.
 For explicit custom actions, do not add unrequested stability or landing constraints as generic quality requirements.
 Keep moving hands separate from supporting torso/feet roles, preserving the exact requested relationships.
-Interaction with new props or facial expression/lip sync requires unsupported, not pretending a gesture meets it.
+A ready plan must never contain interaction or expression requirement kinds: these are unsupported by the current backend.
+If the request needs new-prop interaction, facial expression or lip sync, return unsupported rather than substitute a gesture.
 Default actions should be achievable with modest skeletal rotations: idle, inspection, greeting, appendage motion or a celebration.
 This backend supports skinned rigid/soft bone articulation, static textures, optional native hair and browser fur cards.
 Bounded authored travel can depict takeoff or dance without simulating forces. A welded accessory first needs a reviewed

@@ -1,0 +1,63 @@
+{
+  "baseline_body_only": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-coat-body-ablation-v2/body-only.png",
+    "sha256": "cec74c13686ea8b91d85c6321a4644866a4a33ba1b4693ef5c28dee9e8cb7fdb"
+  },
+  "baseline_image": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/final-evidence-0/isolated-exported-dance.png",
+    "sha256": "837f4620df9969052f0c5d568d495a21452c24fe36eb843c38fc53a889fbbabd"
+  },
+  "coat_nodes": [
+    "PortableCoat_0",
+    "PortableCoat_1"
+  ],
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-body-normal-ablation-v1/ablate.py"
+  ],
+  "finish_report": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-0/finish-report.json",
+    "sha256": "d31fa7ae850af074c4dbb65018b43a940e8b0b9aab47ece2887f5a0909e9e38c"
+  },
+  "limits": {
+    "maximum_renders": 1,
+    "memory_mb": 2048,
+    "output_mb": 64,
+    "resolution": 720,
+    "samples": 8,
+    "seconds_total": 60,
+    "threads": 4
+  },
+  "model": {
+    "bytes": 16967928,
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/model-0/model.glb",
+    "sha256": "ce019b90577f84646aeca74072a762d9897cd6e7e21dd06e6d4e9d6d0f5f55f8"
+  },
+  "prior_native_result": {
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/d8-coat-body-ablation-v2/native-result.json",
+    "sha256": "90eeafce57f49c436e06e8940847cf343dcbf99abd466d74886127e708599b9d"
+  },
+  "scene": {
+    "bytes": 21718932,
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-d8a680ce6580429f9fdd016f/exported-preview-0/source.blend",
+    "sha256": "41ab8ac31fab60614084280d026df5d225fbe964750b58ec86dc0d1fab031ec0"
+  },
+  "schema_version": 1,
+  "scope": "Only disconnect direct body normal-map input; preserve basecolor/roughness/metallic, actual custom normals, geometry and skin",
+  "script_sha256": "f13efad161da10f7c3331dfe905cab811dfaa32496eb285e33b3728b83916815",
+  "second": 2.0,
+  "source_node": "Mesh_0",
+  "sources": {
+    "blender_provider_preview.py": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+    "blender_verify.py": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+  },
+  "state": "dance"
+}

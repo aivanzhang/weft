@@ -1,0 +1,11 @@
+# Accepted-source planner failure
+
+The fresh planner call for the previously generated panda/shoulder-dragon source returned successfully, then local validation rejected its **845-character generation prompt against the existing 800-character limit**. The original transport schema only required a string; the saved prompt and local semantic validator imposed the length limit. This bundle preserves all three unchanged. No author, rig build or native render started, and no accepted avatar resulted.
+
+The selected portrait, exact user request, source-specific grant receipt, source hashes, saved planner prompt/schema/answer/API receipt and original prepared source snapshots are preserved. The large unrigged source model remains unchanged at its original local path with its exact hash. This is not a new Meshy generation or reuse of an old motion recipe.
+
+The first website preparation check failed before server readiness. The second submitted one Prepare but its harness stopped on the intermediate launching state; the detached planner later reached the semantic failure above. Both original browser reports and the separate observation/unplanned-inspection test receipts remain intact. Those test receipts explicitly identify analyst-recorded results whose raw stdout remains in the session; this archive does not invent missing logs or replay tests.
+
+The public accounting receipt observed **36 settled calls / $3.936227 cumulative** at November 2, 2026, 3:55:35 PM PST, including **$0.074970 for this single planner call**, with zero uncertain calls. These are recorded usage estimates, not an invoice or later retry totals. At assignment, the canonical job needed inspection and retained its lease; this packager did not query or release private state. No later release, repair or retry outcome is claimed.
+
+`inventory.json` maps exact source bytes to deduplicated payloads or original local-path hash references. `verification.json` records source-pin, API-artifact, portrait and secret-marker checks. `summary.json` binds failure facts and historical accounting. `packaging/` preserves the bounded archive command and receipt; `manifest.json` seals the bundle. No `.local` contents, secret invocations, state databases, active source edits or future job artifacts are copied.

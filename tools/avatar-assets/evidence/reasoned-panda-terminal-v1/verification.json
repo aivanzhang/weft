@@ -1,0 +1,29 @@
+{
+  "all_18_critic_images_retained": true,
+  "all_payload_hashes_and_sizes_verified": true,
+  "all_source_hashes_unchanged": true,
+  "all_videos_and_portraits_retained": true,
+  "elapsed_seconds": 2.599945332854986,
+  "hash_reference_reasons": {
+    "bytecode cache": 76,
+    "file larger than 8 MiB": 18,
+    "individual frame or pose sequence; critic sheets and isolated images retained": 333
+  },
+  "hash_reference_records": 427,
+  "hash_referenced_marker_records": [],
+  "schema_version": 1,
+  "secret_markers": [
+    "provider_key",
+    "bearer",
+    "private_key",
+    "invocation",
+    "query_token"
+  ],
+  "snapshot_records": 900,
+  "snapshot_secret_marker_hits": 0,
+  "source_bytes": 649818761,
+  "source_records": 1327,
+  "unique_payload_bytes": 69293882,
+  "unique_payload_files": 633,
+  "verification_scope": "Exact bytes and inventory custody; no media decoding, new tests, models, database calls or quality acceptance."
+}

@@ -26,7 +26,7 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
-PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
+PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
@@ -1100,6 +1100,7 @@ class Pipeline:
 
     def _run(self, execute, *, plan_only=False):
         from avatar_assets import pipeline_prompts as prompts
+        from avatar_assets import repair_visual_inputs
         from avatar_assets.cli import verify_pack
         from avatar_assets.finish_generated import finish
         from avatar_assets.provider_model import preview
@@ -1143,9 +1144,13 @@ class Pipeline:
         require(read_json(self.root/'quality-policy.json') == quality, 'Prepared quality policy changed')
         source_parents = {b['name']: b['parent'] for rig in context['native'].get('rigs', []) for b in rig['bones']}
         self.event('inspection', 'complete', reason='Source geometry and review views inspected; no quality acceptance.')
+        source_guides = repair_visual_inputs.author_base_images(self.root, self.request.get('reference'))
+        visual_inputs = {'status': 'unavailable', 'reason': 'No prior authenticated visual critique.', 'images': []}
         previous, findings, selected, repair_images = None, None, None, []
         if self.continuation is not None:
             previous, findings = self.continuation['previous_answer'], self.continuation['findings']
+            visual_inputs = repair_visual_inputs.from_continuation(ROOT, self.root, self.request, self.continuation, source_guides)
+            repair_images = [Path(row['path']) for row in visual_inputs['images']]
             if self.continuation.get('replan'):
                 findings = {**findings, 'semantic_replan': {
                     'validation_failure': self.continuation['replan']['validation_failure'],
@@ -1164,6 +1169,12 @@ class Pipeline:
                 findings = {**(findings or {}), 'historical_visual_reviews': deepcopy(visual_history)}
             if last_visual_review is not None:
                 findings = {**(findings or {}), 'last_visual_review': deepcopy(last_visual_review)}
+            reference = self.request.get('reference')
+            reference_index = (next((i+1 for i,path in enumerate(source_guides)
+                                     if sha256(path) == reference['sha256']), None) if reference else None)
+            findings = {**(findings or {}), 'repair_visual_inputs': deepcopy(visual_inputs),
+                        'author_image_layout': {'source_guides': [1,2,3], 'user_reference': reference_index,
+                                                'repair_images_start': len(source_guides)+1}}
             author_prompt = prompts.author_prompt(self.request, plan, context, previous, findings)
             if self.continuation is not None:
                 if self.continuation.get('replan'):
@@ -1177,8 +1188,7 @@ class Pipeline:
                                       'the supplied measured failures; do not restart the character, rig or action design. '
                                       'Prior geometry checks are not proof of deformation or appearance acceptance.\n')
             answer = self.agents.call('author-'+str(attempt), author_prompt,
-                                      prompts.author_schema(self.request, plan), images=[inspection/n for n in
-                                          ('guide-front.png','guide-side.png','three-quarter.png')]+repair_images[:5])
+                                      prompts.author_schema(self.request, plan), images=repair_visual_inputs.author_images(source_guides, repair_images))
             if answer.get('status') == 'unsupported':
                 _text(answer['reason'], 4000, 'unsupported author reason')
                 return self.unsupported('author', answer['reason'], attempt=attempt)
@@ -1270,7 +1280,8 @@ class Pipeline:
                 if attachment_proof is not None:
                     findings['measurements']['portable_attachment'] = attachment_proof
                 if (pack/'finish-report.json').exists() and read_json(pack/'finish-report.json').get('states'):
-                    _, repair_images = self._contacts(attempt, pack)
+                    _, native_repair_images = self._contacts(attempt, pack)
+                    repair_images = list(dict.fromkeys([*repair_images, *native_repair_images]))[:min(5,8-len(source_guides))]
                     findings['repair_images'] = [str(p) for p in repair_images[:5]]
                 source_failures = _remember_source_failures(source_failures, findings, source['sha256'])
                 if source_failures:
@@ -1305,7 +1316,10 @@ class Pipeline:
             if review['verdict'] == 'unsupported':
                 return self.unsupported('reviewer', review['summary'], attempt=attempt, review=review)
             last_visual_review = _current_visual_memory(source['sha256'], pack, review_path, review_receipt)
-            _, repair_images = self._contacts(attempt, pack)
+            visual_inputs = repair_visual_inputs.from_current_review(self.root, source['sha256'], attempt, review, evidence, source_guides)
+            repair_images = [Path(row['path']) for row in visual_inputs['images']]
+            if not repair_images:
+                _, repair_images = self._contacts(attempt, pack)
             previous, findings = config, {'review': review, 'measurements': self._diagnostics(pack),
                                          'repair_images': [str(p) for p in repair_images[:5]]}
             findings['measurements']['portable_attachment'] = attachment_proof

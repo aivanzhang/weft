@@ -1,0 +1,41 @@
+{
+  "artifacts": [
+    {
+      "bytes": 733,
+      "path": "audit-handle.json",
+      "sha256": "c1a55b3afaee8d725c54b84c3cc8bbb609c5a8fb77613161f04d91e5c154190d"
+    },
+    {
+      "bytes": 1514,
+      "path": "audit-monitor.json",
+      "sha256": "d489487d8ada633600fe0bce5113638ae327f55434346cc0c40b2f21bdb60668"
+    },
+    {
+      "bytes": 54,
+      "path": "audit.log",
+      "sha256": "2a3c4886761570fa584200e9789b75072f3586ea575c3d2df0372b2ec772babb"
+    },
+    {
+      "bytes": 320,
+      "path": "intent.json",
+      "sha256": "516d8fecb6cdbfd6088057a8ebac577e4a562d49fd409b7fe89cc5a842a59f04"
+    },
+    {
+      "bytes": 1656,
+      "path": "job.json",
+      "sha256": "7ba76ec7488e8cf3820f760adb064cb1ea2199f0bc7c196ddfbbde6acf90995c"
+    },
+    {
+      "bytes": 5621,
+      "path": "report.json",
+      "sha256": "0a0fcc588e5d2b784562aa2bc69eaadbeb2d9feb51b0f2c8b707b4bd4a3358ef"
+    }
+  ],
+  "implementation_sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac",
+  "intent_sha256": "516d8fecb6cdbfd6088057a8ebac577e4a562d49fd409b7fe89cc5a842a59f04",
+  "kind": "portable_root_attachment_audit",
+  "model_manifest_sha256": "5283885cdb3975046e0a69ebb07110c49b718fd79b76464eb106d3f5e9dc95a4",
+  "model_sha256": "ce019b90577f84646aeca74072a762d9897cd6e7e21dd06e6d4e9d6d0f5f55f8",
+  "schema_version": 1,
+  "status": "measured"
+}

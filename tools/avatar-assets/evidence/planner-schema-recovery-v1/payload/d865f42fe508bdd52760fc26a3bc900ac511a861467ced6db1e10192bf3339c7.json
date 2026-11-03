@@ -1,0 +1,126 @@
+{
+  "receipts": [
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0002/invocation.json",
+      "sha256": "e4b3ca8514ff1bb86f5709166e4a94974015ed7c292991809324c9e1942d7bc5",
+      "bytes": 1487,
+      "kind": "invocation"
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0002/owner.json",
+      "sha256": "7dbe44cd7be288231c154f646648b125c33b8b9f2236549e20f1be9a04acc8ef",
+      "bytes": 155,
+      "kind": "owner",
+      "pid": 76635,
+      "exit_code": null
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0002/result.json",
+      "sha256": "403d0b1878c277d9d744fa5e3e492c8d5c64daa56e5e7ed9bb08116f3cec7545",
+      "bytes": 174,
+      "kind": "terminal_result"
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0002/supervisor-result.json",
+      "sha256": "2d73a8237742a228af79c65c790816a5ab36de0a55c427ff2eeaa6596eb47a8e",
+      "bytes": 327,
+      "kind": "terminal_result"
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0002/worker-handle.json",
+      "sha256": "18cd7db9ce68b791cbb44fee92ac303a0fe7bf1cb47344cbdb2588ad1fec76ec",
+      "bytes": 408,
+      "kind": "handle",
+      "pid": 76637,
+      "exit_code": null
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0002/worker-job.json",
+      "sha256": "bc93e245a128e3d08e2aeb5c948f3c9dda271ed04c51237c2a9d53e5d4477d83",
+      "bytes": 1329,
+      "kind": "exit",
+      "pid": 76637,
+      "exit_code": 1
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0002/worker-monitor.json",
+      "sha256": "12a0d857dd9b4d92c5d368c6f644e2d1ae8538303af64391d73ac8aaefe04c2e",
+      "bytes": 1199,
+      "kind": "exit",
+      "pid": 76637,
+      "exit_code": 1
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0001/owner.json",
+      "sha256": "7b633e897a59d7fae4563cf7ff0dcf95b568cf78e5158989ad2ba151d9a12ead",
+      "bytes": 155,
+      "kind": "prior_plan_owner"
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0001/invocation.json",
+      "sha256": "9053efe2cf3e5f31a9cb3bd383bfe3a2a93b7c1d7869da9a900d90e0fe57fb9a",
+      "bytes": 1487,
+      "kind": "prior_plan_invocation"
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0001/worker-job.json",
+      "sha256": "558ed2341f3723830902f68306983181368caf429cee84375cd30421929c589f",
+      "bytes": 1277,
+      "kind": "prior_plan_exit"
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0001/worker-monitor.json",
+      "sha256": "db41656359c2c2614a39949bbbb3b662f01aa4d40a2cb53cf30c76ae89fffc1c",
+      "bytes": 1149,
+      "kind": "prior_plan_exit"
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0001/worker-handle.json",
+      "sha256": "d5e9e358e80b47ed372b1bae8fba680afb992a490e025332ea2805733230dd00",
+      "bytes": 408,
+      "kind": "prior_plan_handle"
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0001/result.json",
+      "sha256": "15376b00b53cd9cfb256ad83ebc30f0fb7ccd1fc0dd180736e63a75e7b567ec8",
+      "bytes": 304,
+      "kind": "prior_plan_terminal"
+    },
+    {
+      "path": ".local/studio/jobs/905fab75929b427ea12432a3/run-0001/supervisor-result.json",
+      "sha256": "746a8ff9ef9ed7122e4785de5b5ef8f6e0beb3e1c8873346f023d4048c237d1a",
+      "bytes": 332,
+      "kind": "prior_plan_terminal"
+    }
+  ],
+  "known_pids": [
+    75068,
+    75072,
+    76635,
+    76637
+  ],
+  "receipt_bytes": 10191,
+  "process_check": {
+    "recorded_local": "2026-11-02T15:57:01.676901-08:00",
+    "known_pid_count": 2,
+    "os_snapshot_sha256": "ebc38948562310609b30661257b96e1febd1d0bfc87c42836308cc2f39feac5e",
+    "matched_processes": [],
+    "scope": "Recorded PIDs, direct children and process groups are absent; no worker was signalled."
+  },
+  "bounds": {
+    "inventory_entries": 20000,
+    "receipts": 512,
+    "receipt_bytes": 4194304,
+    "inventory_seconds": 8,
+    "os_snapshot_seconds": 2
+  },
+  "scope": "Local source-reuse custody only. No accepted assets, remote-task completion, refunded spend or replay authorization.",
+  "previous_planning_invocations": 1,
+  "final_process_check": {
+    "recorded_local": "2026-11-02T15:57:01.692045-08:00",
+    "known_pid_count": 4,
+    "os_snapshot_sha256": "5e58536eccfff210a997f3b36147213066ed7862a4425b7a99accc02100e9b85",
+    "matched_processes": [],
+    "scope": "Recorded PIDs, direct children and process groups are absent; no worker was signalled."
+  }
+}

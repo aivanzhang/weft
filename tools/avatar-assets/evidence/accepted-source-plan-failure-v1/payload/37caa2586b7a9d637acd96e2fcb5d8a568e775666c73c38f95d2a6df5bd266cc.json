@@ -1,0 +1,46 @@
+{
+  "cancel_requested": false,
+  "capabilities": {
+    "cancel": true,
+    "execution_gate": "canonical_ledger_and_explicit_start",
+    "plan": true,
+    "resume": false,
+    "retry": false,
+    "session_required": true,
+    "start": false
+  },
+  "created_at": "2026-11-02T15:40:52.409996-08:00",
+  "elapsed_seconds": 0,
+  "error": null,
+  "id": "905fab75929b427ea12432a3",
+  "operation": null,
+  "plan": null,
+  "plan_id": null,
+  "previews": [],
+  "provenance": "actual_pipeline",
+  "queued": false,
+  "request": {
+    "custom_actions": [
+      "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    ],
+    "preset": "preview",
+    "prompt": "Create an editable, rigged avatar from this previously generated Muse-style panda and its small green shoulder dragon. Preserve the selected source character, proportions, black eye patches, black-and-ivory palette, and companion. Keep the dragon perched and attached to the shoulder during this run; do not separate it or make it fly. Do not add props, clothing, text, a pedestal or scenery.",
+    "reference_selected": true,
+    "reuse_model_selected": true,
+    "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look."
+  },
+  "result": null,
+  "reviews": [],
+  "stages": [],
+  "status": "created",
+  "storage": {
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false,
+    "measured_at": null,
+    "pipeline_bytes_measured": 0,
+    "retained_bytes_measured": 0,
+    "total_limit_bytes": 8589934592
+  },
+  "title": "Create an editable, rigged avatar from this previously generated Muse-style pand",
+  "updated_at": "2026-11-02T15:40:52.409996-08:00"
+}
