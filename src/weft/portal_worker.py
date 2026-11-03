@@ -20,7 +20,8 @@ def main():
     repairs = len(sys.argv) == 4 and sys.argv[3] == "repairs"
     equipment = len(sys.argv) == 4 and sys.argv[3] == "equipment"
     perception = len(sys.argv) == 4 and sys.argv[3] == "perception"
-    cpu_limit = 185 if moving else 110 if equipment else 65 if repairs else 360
+    tasks = len(sys.argv) == 4 and sys.argv[3] == "tasks"
+    cpu_limit = 185 if moving or tasks else 110 if equipment else 65 if repairs else 360
     _limit(resource.RLIMIT_CPU, cpu_limit)
     _limit(resource.RLIMIT_FSIZE, 512 * 1024**2)
     from weft.lab_worker import atomic_json
@@ -48,7 +49,10 @@ def main():
                 os._exit(74)
 
     threading.Thread(target=monitor, name="weft-resource-limit", daemon=True).start()
-    if moving:
+    if tasks:
+        from weft.portal_task_jobs import execute_job
+        result = execute_job(root, project=Path(sys.argv[2]))
+    elif moving:
         from weft.portal_moving_equipment import execute_job
         result = execute_job(root, project=Path(sys.argv[2]))
     elif perception:

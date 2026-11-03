@@ -35,7 +35,7 @@ MAX_UPLOAD = 100_000_000
 MAX_JOBS = 50
 MAX_STORAGE = 2_000_000_000
 MAX_JOB_BYTES = 650_000_000
-TERMINAL = {"ready", "preview", "needs_input", "failed", "cancelled", "interrupted"}
+TERMINAL = {"ready", "preview", "needs_input", "failed", "cancelled", "interrupted", "complete"}
 ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.css"}
 PERCEPTION_ARTIFACTS = {"perception/" + name for name in (
     "preflight/metadata.json", "preflight/body-anchor.json", "preflight/result.json", "preflight/manifest.json",
@@ -262,9 +262,12 @@ class Portal:
             if "inventory" in config:
                 result["inventory"] = config["inventory"]
             result["parent_id"] = config.get("parent_id")
-            result["source_available"] = (folder / config["source_file"]).is_file()
+            result["source_available"] = bool(config.get("source_file") and (folder / config["source_file"]).is_file())
             status = self._status(identity)
             result.update(status)
+            if result["kind"] == "task_job":
+                from weft.portal_task_jobs import summary as task_summary
+                result["task_job"] = task_summary(folder)
             result["perception"] = {**perception_jobs.summary(folder, config, status),
                 "busy": self.active == identity and perception_jobs.read_status(folder).get("status") not in {"not_started", None}}
             result["body_detail"] = {"available": False}
@@ -282,6 +285,8 @@ class Portal:
             if self._placement(identity):
                 result["control_profile"] = "moving_equipment_task"
                 result["review_unavailable_reason"] = "Authored placement tasks have no qualified Muse review or repair contract"
+            result["task_tools"] = {"create_available": status["status"] == "ready" and self._exploration(identity),
+                "learning_available": status["status"] == "ready" and self._placement(identity)}
             if self._spatial_import(identity):
                 result["control_profile"] = "spatial_rigid"
                 result["source_scope"] = config.get("source_scope")
@@ -459,7 +464,7 @@ class Portal:
                 if identity:
                     self.active = identity
                     target = self._folder(identity) / ("moving-equipment/status.json" if moving else "equipment/status.json" if equipment else "muse/repairs/status.json" if repairs else "muse/checks/status.json" if checks else "muse/status.json" if review else "status.json")
-                    if not repairs and not perception and not moving:
+                    if not repairs and not perception and not moving and self.jobs[identity].get("kind") != "task_job":
                         atomic_json(target, {"status": "running", "stage": "starting", "events": []})
             if identity is None:
                 self.wake.wait(1)
@@ -646,6 +651,33 @@ class Portal:
             self.wake.set()
             return self.summary(config["id"])
 
+    def task_options(self, identity):
+        with self.lock:
+            if self._status(identity)["status"] != "ready" or not (self._exploration(identity) or self._placement(identity)):
+                raise ValueError("Task settings require a ready moving exploration or authored placement world")
+            return self.lab(identity).task_options()
+
+    def task_action(self, identity, operation, payload):
+        from weft.portal_task_jobs import create_task_child, create_learning_child
+
+        if operation not in {"create", "train"}:
+            raise ValueError("Unknown task action")
+        with self.lock:
+            self._folder(identity)
+            if self.active == identity:
+                raise ValueError("The parent worker is finishing; refresh before creating a separate task job")
+            lab = self.labs.get(identity)
+            if lab is not None and (getattr(lab, "loading", False) or lab.recorder is not None
+                    or (lab.export_future is not None and not lab.export_future.done())):
+                raise ValueError("Finish loading, recording or exporting the parent sandbox first")
+            create = create_task_child if operation == "create" else create_learning_child
+            config = create(self.root, identity, payload, lease_fd=self.lease, existing_jobs=self.jobs,
+                stored_bytes=self._stored_bytes(), reserved_bytes=self._reserved_growth(),
+                pending_jobs=self._pending_jobs(), deadline=time.monotonic()+2)
+            self.jobs[config["id"]] = config
+            self.wake.set()
+            return self.summary(config["id"])
+
     def _reserve_perception_slot(self):
         pending = self._pending_jobs()
         if pending >= 4:
@@ -704,6 +736,8 @@ class Portal:
             return self.summary(identity)
 
     def _require_review_body(self, identity, *, action="review"):
+        if self.jobs[identity].get("kind") == "task_job" and not self._placement(identity):
+            raise ValueError("Task-learning reports have no qualified Muse review or repair contract")
         if self._spatial_import(identity):
             raise ValueError("Imported rigid worlds have no qualified Muse review or repair contract")
         if self._placement(identity):
@@ -736,7 +770,8 @@ class Portal:
                "PYTHONUNBUFFERED": "1", "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1",
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MPLCONFIGDIR": str(folder / "runtime/matplotlib")}
         support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks or repairs or equipment or perception or moving)
-        if (paid_perception or not (review or checks or repairs or support or equipment or perception or moving)) and os.environ.get("OPENAI_API_KEY"):
+        tasks = self.jobs[identity].get("kind") == "task_job" and not (review or checks or repairs or equipment or perception or moving)
+        if (paid_perception or not (review or checks or repairs or support or tasks or equipment or perception or moving)) and os.environ.get("OPENAI_API_KEY"):
             env["OPENAI_API_KEY"] = os.environ["OPENAI_API_KEY"]
         if review or paid_perception:
             for name in ("META_API_KEY", "MODEL_API_KEY"):
@@ -751,7 +786,7 @@ class Portal:
             if moving:
                 log_name = moving_jobs.read_status(folder)["phase"] + "-worker.log"
             with (work / log_name).open("xb") as log:
-                mode = ["moving"] if moving else ["perception"] if perception else ["equipment"] if equipment else ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else []
+                mode = ["moving"] if moving else ["perception"] if perception else ["equipment"] if equipment else ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else ["tasks"] if tasks else []
                 process = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.portal_worker", str(folder), str(self.project), *mode],
                                            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE if moving else log, stderr=subprocess.STDOUT, env=env)
                 if moving:
@@ -771,7 +806,7 @@ class Portal:
                     output_thread.start()
                 with self.lock:
                     self.process = process
-                deadline = time.monotonic() + (195 if moving else 450 if perception else 120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
+                deadline = time.monotonic() + (195 if moving or tasks else 450 if perception else 120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
                 next_inventory = 0
                 while process.poll() is None:
                     if moving and output_limit.is_set():
@@ -913,14 +948,14 @@ class Portal:
                 if not lab_path.is_relative_to(folder):
                     raise ValueError("Sandbox path is outside this project")
                 if self._placement(identity):
-                    from weft.moving_equipment_compatibility_lab import LoadingCompatibleTaskLab
-                    lab = LoadingCompatibleTaskLab(lab_path, project=self.project)
+                    from weft.portal_task_options import LoadingTaskLearningLab
+                    lab = LoadingTaskLearningLab(lab_path, project=self.project)
                 elif self._spatial_import(identity):
                     from weft.portal_spatial_lab import LoadingSpatialPortalLab
                     lab = LoadingSpatialPortalLab(lab_path, project=self.project)
                 elif self._exploration(identity):
-                    from weft.shared_world_exploration import LoadingExplorationLab
-                    lab = LoadingExplorationLab(lab_path, project=self.project)
+                    from weft.portal_task_options import LoadingTaskAuthoringLab
+                    lab = LoadingTaskAuthoringLab(lab_path, project=self.project)
                 else:
                     lab = open_portal_lab(lab_path, project=self.project)
                 lab.token = self.token
@@ -930,6 +965,14 @@ class Portal:
 
     def artifact(self, identity, name):
         folder = self._folder(identity)
+        if name.startswith("task-job/"):
+            from weft.portal_task_jobs import ARTIFACTS
+            from weft.shared_world_packaging import read_package_file
+            relative = name.removeprefix("task-job/")
+            if self.jobs[identity].get("kind") != "task_job" or relative not in ARTIFACTS:
+                raise ValueError("File is not a public task artifact")
+            read_package_file(folder / "task-job", relative, max_bytes=(4 << 20) + 1)
+            return folder / name
         if name.startswith("body-detail/"):
             if name not in {"body-detail/request.json", "body-detail/recipe.json"}:
                 raise ValueError("File is not a public body-detail artifact")
@@ -967,7 +1010,7 @@ class Portal:
         if not file.is_relative_to(folder) or not file.is_file():
             raise ValueError("Artifact is outside this project")
         relative = file.relative_to(folder).as_posix()
-        if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "muse/repairs/run/", "equipment/run/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity]["source_file"], "failure.json", "worker.log", "muse/binding.json", "support-priors.json", "body-reuse.json", "equipment/candidates.json", "equipment/source-validation.json", "equipment/selection.json"}:
+        if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "muse/repairs/run/", "equipment/run/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity].get("source_file"), "failure.json", "worker.log", "muse/binding.json", "support-priors.json", "body-reuse.json", "equipment/candidates.json", "equipment/source-validation.json", "equipment/selection.json"}:
             raise ValueError("File is not a public project artifact")
         return file
 
@@ -1025,6 +1068,9 @@ class PortalHandler(LabHandler):
                 return self.send_file(file)
             if path == "/api/portal":
                 return self.reply(self.server.portal.info())
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/task-options", path)
+            if match:
+                return self.reply(self.server.portal.task_options(match[1]))
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})(?:/files/(.+))?", path)
             if match:
                 if match[2]:
@@ -1061,6 +1107,17 @@ class PortalHandler(LabHandler):
                 if int(self.headers.get("Content-Length", "0")) > 2:
                     raise ValueError("Cancellation takes no arguments")
                 return self.reply(self.server.portal.cancel(match[1]))
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/tasks/(create|train)", path)
+            if match:
+                length = int(self.headers.get("Content-Length", "0"))
+                if not 1 <= length <= 4096:
+                    raise ValueError("Task requests require bounded JSON")
+                self.connection.settimeout(10)
+                raw = self.rfile.read(length)
+                if len(raw) != length:
+                    raise ValueError("Task request upload was interrupted")
+                from weft.spatial_scene_inputs import _json
+                return self.reply(self.server.portal.task_action(match[1], match[2], _json(raw, 4096)), 202)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/moving-equipment/(prepare|build|select)", path)
             if match:
                 length = int(self.headers.get("Content-Length", "0"))

@@ -10,6 +10,8 @@
   let preparingEquipment = false, choosingEquipment = false;
   let preflighting = false, preparingPerception = false, consentKey = "", perceptionRequest = null;
   let bodyDetailBusy = false, bodyDetailKey = "", bodyDetailRequest = null;
+  let taskKey = "", taskMode = "", taskOptionsValue = null, taskOptionsWanted = false, taskOptionsTimer = null;
+  let taskOptionsFlight = null, taskOptionsController = null, taskGeneration = 0, taskBusy = false, taskActionRequest = null;
   let movingBusy = false, movingKey = "", movingChoices = [], movingFields = [];
   const movingActive = job => ["queued", "running", "cancelling"].includes(job.moving_equipment?.status);
   let creatingSupport = false, selectedJob = null;
@@ -18,8 +20,8 @@
   const repairActive = job => ["queued", "running", "cancelling"].includes(job.muse?.repairs?.status);
   const equipmentActive = job => ["queued", "running", "cancelling"].includes(job.equipment_candidates?.status);
   const perceptionActive = job => !!job.perception?.busy || ["queued_preflight", "preflighting", "queued", "analyzing", "preparing_tracking", "tracking", "exporting_evidence", "cancelling"].includes(job.perception?.status);
-  const terminal = new Set(["ready", "preview", "needs_input", "failed", "cancelled", "interrupted"]);
-  const labels = {queued:"Queued",uploading:"Uploading",running:"Processing",ready:"Ready to explore",preview:"Body evidence ready · no physics",needs_input:"Scene inputs needed",failed:"Needs attention",cancelled:"Cancelled",interrupted:"Interrupted"};
+  const terminal = new Set(["ready", "complete", "preview", "needs_input", "failed", "cancelled", "interrupted"]);
+  const labels = {queued:"Queued",uploading:"Uploading",running:"Processing",ready:"Ready to explore",complete:"Report complete · inspect task outcome",preview:"Body evidence ready · no physics",needs_input:"Scene inputs needed",failed:"Needs attention",cancelled:"Cancelled",interrupted:"Interrupted"};
   const error = message => { $("error").textContent = message; $("error").hidden = false; };
   const fileURL = (id, name) => `/api/projects/${id}/files/${name.split("/").map(encodeURIComponent).join("/")}?token=${encodeURIComponent(token)}`;
   async function request(path, options = {}) {
@@ -36,6 +38,7 @@
     if (!job) return;
     selected = job.id;
     selectedJob = job;
+    showTaskTools(job);
     const signature = JSON.stringify([job, museAvailable, reviewing, checking, repairing, preflighting, preparingPerception, bodyDetailBusy]);
     if (lastDetail === signature) return;
     lastDetail = signature;
@@ -167,7 +170,7 @@
     artifactLink("source-download", job, "source" + job.name.slice(job.name.lastIndexOf(".")).toLowerCase(), job.source_available ?? !!job.source_sha256);
     artifactLink("plan-download", job, "analysis/plan.json", !!job.plan);
     artifactLink("receipt-download", job, "analysis/receipt.json", !!job.receipt);
-    artifactLink("failure-download", job, "failure.json", job.status === "failed");
+    artifactLink("failure-download", job, "failure.json", job.status === "failed" && job.kind !== "task_job");
     $("support-editor").hidden = !job.support_experiment_available;
     $("experiment-note").hidden = job.kind !== "support_experiment";
     $("experiment-note").textContent = job.kind === "support_experiment" ? "Authored support experiment: source-bound body, user-specified box and load task. Equipment/contact are not recovered. This is a new task, not a scored repair of the parent project." : "";
@@ -273,7 +276,7 @@
           const button = document.createElement("button"); button.type = "button"; button.className = "project-card";
           button.setAttribute("aria-pressed", String(selected === job.id));
           const name = document.createElement("strong"); name.textContent = job.name;
-          const meta = document.createElement("small"); meta.textContent = job.kind === "support_experiment" ? "Authored support experiment · reused body" : job.ai ? "OpenAI + local reconstruction" : "Local reconstruction";
+          const meta = document.createElement("small"); meta.textContent = job.kind === "task_job" ? "Authored task / development report · no API" : job.kind === "support_experiment" ? "Authored support experiment · reused body" : job.ai ? "OpenAI + local reconstruction" : "Local reconstruction";
           const title = document.createElement("span"); title.append(name,meta);
           const state = document.createElement("span"); state.className = "state"; state.textContent = labels[job.status] || job.status;
           button.append(title,state); button.onclick = () => { selected = job.id; lastProjects = ""; show(job); refresh(); }; return button;
@@ -501,8 +504,149 @@
     } catch(e) { error(`${e.message}. Refresh the project list before submitting again; no automatic retry was made.`); }
     finally { creatingSupport = false; $("support-create").disabled = false; refresh(); }
   };
+  function pauseTaskOptions() {
+    clearTimeout(taskOptionsTimer); taskOptionsTimer = null;
+    taskOptionsController?.abort();
+  }
+  let taskReportKey = "";
+  function showTaskTools(job) {
+    const mode = job.task_tools?.learning_available ? "train" : job.task_tools?.create_available ? "create" : "";
+    const key = `${job.id}:${mode}`;
+    if (key !== taskKey) {
+      pauseTaskOptions(); taskGeneration++; taskKey = key; taskMode = mode; taskOptionsValue = null;
+      taskOptionsWanted = false; taskActionRequest = null;
+      $("task-options-status").textContent = "";
+      $("task-create-form").hidden = true; $("training-settings-form").hidden = true;
+      $("task-create-confirm").checked = false; $("evaluation-enabled").checked = false; $("evaluation-settings").hidden = true;
+    }
+    $("task-tools").hidden = !mode;
+    $("task-tools-heading").textContent = mode === "train" ? "Train against this fixed task" : "Set a simulation goal";
+    $("task-configure").textContent = mode === "train" ? "Show training settings" : "Configure placement task";
+    $("task-configure").disabled = taskBusy || !!taskOptionsFlight;
+    $("task-create-submit").disabled = $("task-train-submit").disabled = taskBusy;
+    const reportKey = JSON.stringify([job.id, job.task_job]);
+    if (reportKey !== taskReportKey) { taskReportKey = reportKey; renderTaskReport(job); }
+  }
+  async function fetchTaskOptions() {
+    clearTimeout(taskOptionsTimer); taskOptionsTimer = null;
+    if (!taskOptionsWanted || taskOptionsFlight || document.hidden || !taskMode || taskOptionsValue) return;
+    const identity = selected, generation = taskGeneration;
+    const controller = new AbortController(); taskOptionsController = controller;
+    $("task-configure").disabled = true;
+    $("task-options-status").textContent = "Checking the saved world before showing task settings…";
+    let poll = false, timedOut = false;
+    const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, 15000);
+    taskOptionsFlight = request(`/api/projects/${identity}/task-options`, {signal: controller.signal});
+    try {
+      const options = await taskOptionsFlight;
+      if (generation !== taskGeneration || identity !== selected || document.hidden) return;
+      if (options.status === "running") { poll = true; return; }
+      if (options.status !== "ready") { taskOptionsWanted = false; $("task-options-status").textContent = options.reason || "Task settings are unavailable; manual exploration is unchanged."; return; }
+      if (options.profile !== "portal-moving-task-options-v1" || !/^[a-f0-9]{64}$/.test(options.parent_manifest_sha256 || "")
+          || !/^[a-f0-9]{64}$/.test(options.scene_sha256 || "") || (taskMode === "train" && !/^[a-f0-9]{64}$/.test(options.task_sha256 || ""))) throw new Error("Task settings lack their exact world/task identity");
+      taskOptionsValue = options;
+      $("task-options-status").textContent = "Saved-world settings ready. No task or training has started.";
+      if (taskMode === "create") {
+        $("task-object").replaceChildren(...options.objects.map(obj => { const option = document.createElement("option"); option.value = obj.id; option.textContent = obj.id; return option; }));
+        $("task-object").value = options.objects[0].id; initialTaskPosition();
+        $("task-world-limits").textContent = `World coordinates, not measured metres. Bounds: ${options.bounds_world.join(" × ")}. Complete interval: ${options.duration_s}s (${options.horizon_steps} controls). The original body and floor limits remain required.`;
+        $("task-hold").min = options.minimum_hold_s; $("task-hold").max = options.duration_s;
+        $("task-hold").value = String(Math.min(options.duration_s, Math.max(options.minimum_hold_s, .5)));
+        $("task-create-form").hidden = false;
+      } else $("training-settings-form").hidden = false;
+    } catch (e) {
+      if ((timedOut || !controller.signal.aborted) && generation === taskGeneration && identity === selected) {
+        taskOptionsWanted = false; $("task-options-status").textContent = `${timedOut ? "Task settings timed out; use Configure again to retry" : e.message}. Manual controls remain available.`;
+      }
+    } finally {
+      clearTimeout(timeout); taskOptionsFlight = null; taskOptionsController = null;
+      $("task-configure").disabled = taskBusy;
+      if (taskOptionsWanted && !document.hidden && !taskOptionsValue && (poll || generation !== taskGeneration || controller.signal.aborted))
+        taskOptionsTimer = setTimeout(fetchTaskOptions, poll ? 1000 : 0);
+    }
+  }
+  function initialTaskPosition() {
+    const obj = taskOptionsValue?.objects.find(row => row.id === $("task-object").value);
+    if (!obj) return;
+    ["x", "y", "z"].forEach((axis, i) => { $("task-"+axis).value = String(obj.initial_position_world[i]); $("task-"+axis).min = "0"; $("task-"+axis).max = taskOptionsValue.bounds_world[i]; });
+    $("task-create-confirm").checked = false;
+  }
+  function taskNumber(id, low, high, integer = false) {
+    const text = $(id).value.trim(), value = Number(text);
+    if (!text || !Number.isFinite(value) || value < low || value > high || (integer && !Number.isInteger(value))) throw new Error(`Check ${id.replaceAll("-", " ")} (${low}–${high})`);
+    return value;
+  }
+  async function submitTaskAction(operation, body) {
+    if (taskBusy || !taskOptionsValue || taskMode !== operation) return;
+    const identity = selected, signature = JSON.stringify([identity, operation, body]);
+    if (taskActionRequest?.signature !== signature) taskActionRequest = {signature, payload: {...body, request_id: crypto.randomUUID().replaceAll("-", "")}};
+    taskBusy = true; $("task-create-submit").disabled = $("task-train-submit").disabled = true;
+    try {
+      const child = await request(`/api/projects/${identity}/tasks/${operation}`, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(taskActionRequest.payload)});
+      if (identity === selected) { lastProjects = ""; await show(child); }
+    } catch (e) { error(`${e.message}. Original project preserved. Retry uses the same request unless you edit settings; no automatic retry or policy installation.`); }
+    finally { taskBusy = false; $("task-create-submit").disabled = $("task-train-submit").disabled = false; lastDetail = ""; refresh(); }
+  }
+  $("task-configure").onclick = () => { taskOptionsWanted = true; return fetchTaskOptions(); };
+  $("task-object").onchange = initialTaskPosition;
+  $("evaluation-enabled").onchange = () => { $("evaluation-settings").hidden = !$("evaluation-enabled").checked; };
+  $("task-create-form").onsubmit = async event => {
+    event.preventDefault(); if (taskBusy || !taskOptionsValue || taskMode !== "create") return;
+    try {
+      if (!$("task-create-confirm").checked) throw new Error("Confirm the authored goal and tolerances before creating a separate task");
+      const object = $("task-object").value;
+      if (!taskOptionsValue.objects.some(row => row.id === object)) throw new Error("Choose an admitted object");
+      await submitTaskAction("create", {parent_manifest_sha256:taskOptionsValue.parent_manifest_sha256, task:{target_object_id:object,
+        target_position_world:["x","y","z"].map((axis,i) => taskNumber("task-"+axis,0,taskOptionsValue.bounds_world[i])),
+        position_tolerance_world:taskNumber("task-position-tolerance",.00001,.5), speed_tolerance_world_s:taskNumber("task-speed-tolerance",.00001,1),
+        hold_duration_s:taskNumber("task-hold",taskOptionsValue.minimum_hold_s,taskOptionsValue.duration_s)}});
+    } catch(e) { error(e.message); }
+  };
+  $("training-settings-form").onsubmit = async event => {
+    event.preventDefault(); if (taskBusy || !taskOptionsValue || taskMode !== "train") return;
+    try {
+      const training = {seed:taskNumber("training-seed",0,2147483647,true), generations:taskNumber("training-generations",1,4,true),
+        population:taskNumber("training-population",4,12,true), max_seconds:taskNumber("training-seconds",1,60)};
+      let evaluation = null, trials = training.generations*training.population+4;
+      if ($("evaluation-enabled").checked) {
+        const tokens = $("evaluation-seeds").value.split(",").map(x=>x.trim()), seeds = tokens.map(Number);
+        if (tokens.some(x=>!/^\d+$/.test(x)) || seeds.length<2 || seeds.length>16 || seeds.some(x=>!Number.isSafeInteger(x)||x<0||x>2147483647||x===training.seed) || new Set(seeds).size!==seeds.length) throw new Error("Use 2–16 unique evaluation seeds, different from the training seed");
+        evaluation = {evaluation_seeds:seeds, position_jitter:taskNumber("evaluation-position-jitter",0,.05), velocity_jitter:taskNumber("evaluation-velocity-jitter",0,.1), max_seconds:taskNumber("evaluation-seconds",1,60)};
+        if (evaluation.position_jitter+evaluation.velocity_jitter===0) throw new Error("Different seeds alone do not create different physical starts; choose a nonzero variation");
+        trials += 4*seeds.length;
+      }
+      if (trials*taskOptionsValue.horizon_steps>20000) throw new Error("Training plus evaluation exceeds 20,000 controls; reduce generations, population or evaluation seeds");
+      await submitTaskAction("train", {task_sha256:taskOptionsValue.task_sha256, training, evaluation});
+    } catch(e) { error(e.message); }
+  };
+  function renderTaskReport(job) {
+    const state = job.task_job, report = state?.report;
+    $("task-job-results").hidden = !state;
+    $("task-job-status").textContent = state ? `${state.operation === "create" ? "Task creation" : "Training / evaluation"}: ${state.status}. ${state.error || ""}` : "";
+    $("task-job-outcome").textContent = !report ? "" : report.status === "failed" ? report.failure || "Processing failed; partial evidence is retained."
+      : report.operation === "create" ? "Separate authored task ready. No learning or task-success claim; open its sandbox to try it."
+      : `Selected policy: ${report.training?.selected_kind || "unknown"}. Original-start task success: ${report.training?.selected_policy_success === true ? "yes" : "no"}. No policy installed.`;
+    const blocks = [], metric = x => Number.isFinite(x) ? x.toFixed(3) : "unknown";
+    for (const row of report?.training?.comparisons || []) {
+      const p = document.createElement("p"), trial = row.trial, m = trial.metrics;
+      p.textContent = `${row.controller}: ${trial.status}; success ${m?.success === true ? "yes" : "no"}; full interval ${m?.completed_interval === true ? "yes" : "no"}. Distance ${metric(m?.object_distance_world)}, speed ${metric(m?.object_speed_world_s)}, final hold ${metric(m?.terminal_consecutive_hold_s)}s. Failed checks: ${m?.failed_criteria?.join(", ") || "none reported"}. ${trial.failure || m?.failure || ""}${row.reused_training_trial ? " Same-start training trial reused." : ""}`;
+      blocks.push(p);
+    }
+    if (report?.training) {
+      const p = document.createElement("p"), changed = report.evaluation;
+      p.textContent = changed ? `Changed starts: ${changed.admitted_changed_starts}/${changed.requested_starts} admitted; ${changed.excluded_or_refused_starts} excluded or refused. ${changed.admitted_changed_starts ? "Matched same-world development comparison, not a final holdout." : "No changed-start evidence available."}` : "Changed-start evaluation was not requested; nominal replay is not independent validation.";
+      blocks.push(p);
+      for (const row of changed?.comparisons || []) { const p=document.createElement("p");p.textContent=`${row.controller}: ${row.successes}/${row.admitted_starts} task successes (${row.requested_starts} starts requested).`;blocks.push(p); }
+    }
+    $("task-job-report").replaceChildren(...blocks);
+    const allowed = new Set(["request.json","start.json","receipt.json","report.json","failure.json","evaluation-protocol.json","training/result.json","training/evaluation.json","training/policy.json","training/failure.json","training/manifest.json","evaluation/result.json","evaluation/failure.json","evaluation/protocol.json","evaluation/manifest.json"]);
+    ["training/settings.json","evaluation/nominal-start.json","evaluation/plan.json"].forEach(name=>allowed.add(name));
+    for(let i=1;i<=4;i++) allowed.add(`training/generation-${i}.json`);
+    for(let i=1;i<=16;i++) allowed.add(`evaluation/start-${i}.json`);
+    $("task-job-artifacts").replaceChildren(...(state?.artifacts || []).filter(name=>name.startsWith("task-job/")&&allowed.has(name.slice(9))).map(name=>{const a=document.createElement("a");a.className="text-link";a.textContent=name.slice(9);a.href=fileURL(job.id,name);return a;}));
+  }
   $("refresh").onclick = refresh;
-  document.addEventListener("visibilitychange", () => { clearTimeout(timer); if (!document.hidden) refresh(); });
-  window.addEventListener("pagehide", () => clearTimeout(timer));
+  document.addEventListener("visibilitychange", () => { clearTimeout(timer); if (document.hidden) pauseTaskOptions(); else { refresh(); if(taskOptionsWanted&&!taskOptionsValue) fetchTaskOptions(); } });
+  window.addEventListener("pagehide", () => { clearTimeout(timer); taskOptionsWanted=false;pauseTaskOptions(); });
   refresh();
 })();

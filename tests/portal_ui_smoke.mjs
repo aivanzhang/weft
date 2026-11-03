@@ -6,7 +6,7 @@ import {Element} from "./lab_ui_smoke.mjs";
 const html = fs.readFileSync(new URL("../src/weft/assets/portal.html", import.meta.url), "utf8");
 const code = fs.readFileSync(new URL("../src/weft/assets/portal.js", import.meta.url), "utf8");
 const tick = async () => { for(let i=0;i<40;i++) await Promise.resolve(); };
-function setup(jobs=[]) {
+function setup(jobs=[], overrides={}) {
   const elements = new Map();
   for (const match of html.matchAll(/<([a-z][\w-]*)\b([^>]*)>/gi)) {
     const attrs = Object.fromEntries([...match[2].matchAll(/([\w-]+)(?:="([^"]*)")?/g)].map(m=>[m[1],m[2]??""]));
@@ -16,9 +16,9 @@ function setup(jobs=[]) {
   const timers=new Map(), delays=new Map(), calls=[], listeners=new Map(); let next=1;
   const document={hidden:false,getElementById:id=>elements.get(id),createElement:tag=>new Element(tag),querySelectorAll:()=>[],addEventListener:(name,fn)=>listeners.set(name,fn)};
   const info={credential:{configured:true},budget:{configured:true,remaining_usd:5,total_usd:5,calls:0,unsettled_calls:0,reservation_usd:.3135},muse:{available:true,budget_configured:true,remaining_usd:4.7,total_budget_usd:5,unsettled_count:0,estimated_one_call_usd:.058368},jobs};
-  const context={document,location:{hash:"#token=test-owner-token",pathname:"/"},history:{replaceState(){}},sessionStorage:{getItem(){return null;},setItem(){}},URLSearchParams,AbortSignal,crypto:{randomUUID:()=>"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"},
+  const context={document,location:{hash:"#token=test-owner-token",pathname:"/"},history:{replaceState(){}},sessionStorage:{getItem(){return null;},setItem(){}},URLSearchParams,AbortSignal,AbortController,crypto:{randomUUID:overrides.uuid || (()=>"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")},
     setTimeout:(fn,delay)=>{const id=next++;timers.set(id,fn);delays.set(id,delay);return id;},clearTimeout:id=>{timers.delete(id);delays.delete(id);},window:{addEventListener(){}},
-    fetch:async(path,options={})=>{calls.push({path,options});if(path==="/api/portal")return {ok:true,json:async()=>structuredClone(info)};
+    fetch:async(path,options={})=>{calls.push({path,options});const custom=await overrides.fetch?.(path,options,info);if(custom)return custom;if(path==="/api/portal")return {ok:true,json:async()=>structuredClone(info)};
       if(path.startsWith("/api/projects?"))return {ok:true,json:async()=>({id:"b".repeat(32),name:"clip.webm",status:"queued",stage:"queued",events:[]})};
       if(path.endsWith("/muse")){info.jobs[0].muse={status:"queued",message:"Waiting"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/muse/checks")){info.jobs[0].muse.checks={status:"queued",message:"Waiting for local comparisons"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
@@ -35,6 +35,97 @@ function setup(jobs=[]) {
       return {ok:true,json:async()=>({frames:[]})};},console};
   vm.runInNewContext(code,context);
   return {elements,calls,timers,delays,document,listeners,info};
+}
+
+const taskOptions = task => ({status:"ready",profile:"portal-moving-task-options-v1",parent_manifest_sha256:"2".repeat(64),scene_sha256:"4".repeat(64),task_sha256:task ? "3".repeat(64) : null,objects:[{id:"raw-0",initial_position_world:[.4,.5,.6]}],bounds_world:[2,2,2],duration_s:15.233,minimum_hold_s:1/30,horizon_steps:457});
+{
+  const parent={id:"f".repeat(32),name:"Moving.mp4",status:"ready",events:[],task_tools:{create_available:true}};
+  const f=setup([parent],{fetch:async(path,options)=>{
+    if(path.endsWith("/task-options"))return await new Promise((resolve,reject)=>options.signal.addEventListener("abort",()=>reject(new Error("Aborted")),{once:true}));
+  }});await tick();const e=f.elements;
+  const pending=e.get("task-configure").onclick();await tick();
+  const timeout=[...f.delays.entries()].find(([,delay])=>delay===15000);assert.ok(timeout);
+  f.timers.get(timeout[0])();await pending;await tick();
+  assert.match(e.get("task-options-status").textContent,/timed out.*Manual controls remain available/);
+  assert.equal(e.get("task-configure").disabled,false);assert.equal(e.get("task-create-form").hidden,true);
+  assert.equal(f.calls.filter(c=>c.path.endsWith("/task-options")).length,1);
+  assert.ok(![...f.delays.values()].some(delay=>delay===0||delay===1000||delay===15000));
+  console.log("PASS task-options timeout releases loading without automatic retry or blocking manual controls");
+}
+{
+  const id="a".repeat(32),parent={id,name:"Moving.mp4",status:"ready",events:[],task_tools:{create_available:true},sandbox:`/labs/${id}/`};
+  let uuid=0;
+  const f=setup([parent],{uuid:()=>String(++uuid).padStart(32,"0"),fetch:async path=>{
+    if(path.endsWith("/task-options"))return {ok:true,json:async()=>taskOptions(false)};
+    if(path.endsWith("/tasks/create"))return {ok:false,json:async()=>({error:"Queue temporarily full"})};
+  }});await tick();const e=f.elements;
+  assert.equal(e.get("task-tools").hidden,false);assert.equal(e.get("task-create-form").hidden,true);
+  assert.equal(f.calls.length,1);
+  await Promise.all([e.get("task-configure").onclick(),e.get("task-configure").onclick()]);await tick();
+  assert.equal(f.calls.filter(c=>c.path.endsWith("/task-options")).length,1);
+  assert.equal(e.get("task-x").value,"0.4");assert.equal(e.get("task-create-form").hidden,false);
+  await e.get("task-create-form").onsubmit({preventDefault(){}});
+  assert.ok(!f.calls.some(c=>c.path.endsWith("/tasks/create")));
+  e.get("task-create-confirm").checked=true;
+  await Promise.all([e.get("task-create-form").onsubmit({preventDefault(){}}),e.get("task-create-form").onsubmit({preventDefault(){}})]);await tick();
+  await e.get("task-create-form").onsubmit({preventDefault(){}});await tick();
+  let posted=f.calls.filter(c=>c.path.endsWith("/tasks/create"));assert.equal(posted.length,2);
+  assert.equal(posted[0].options.body,posted[1].options.body);
+  const request=JSON.parse(posted[0].options.body);assert.equal(request.parent_manifest_sha256,"2".repeat(64));
+  assert.deepEqual(request.task.target_position_world,[.4,.5,.6]);assert.equal(request.task.target_object_id,"raw-0");
+  assert.ok(!("training" in request));assert.equal(posted[0].options.headers.Authorization,"Bearer test-owner-token");
+  e.get("task-x").value="0.7";await e.get("task-create-form").onsubmit({preventDefault(){}});await tick();
+  posted=f.calls.filter(c=>c.path.endsWith("/tasks/create"));assert.notEqual(JSON.parse(posted[2].options.body).request_id,request.request_id);
+  assert.equal(parent.status,"ready");assert.equal(e.get("sandbox").hidden,false);
+  assert.ok(!f.calls.some(c=>c.path.includes("/tasks/train")||c.path.includes("/files/")));
+  console.log("PASS task authoring is lazy, source-pinned, explicit and deduplicated; edited settings receive a new request");
+}
+{
+  const id="b".repeat(32),parent={id,name:"Task.mp4",status:"ready",kind:"imported_lab",control_profile:"moving_equipment_task",events:[],task_tools:{learning_available:true}};
+  const report={status:"complete",training:{selected_kind:"authored_unchanged",selected_policy_success:false,comparisons:[{controller:"random",reused_training_trial:false,trial:{status:"failed",failure:"<script>object left bounds</script>",metrics:{success:false,completed_interval:false,object_distance_world:.316,object_speed_world_s:.2,terminal_consecutive_hold_s:0,failed_criteria:["peak_angular_rmse_rad","terminal_consecutive_placement_hold"]}}}]},evaluation:{requested_starts:3,admitted_changed_starts:2,excluded_or_refused_starts:1,comparisons:[{controller:"frozen_policy",successes:0,admitted_starts:2,requested_starts:3}]}};
+  const f=setup([parent],{fetch:async(path,options,info)=>{
+    if(path.endsWith("/task-options"))return {ok:true,json:async()=>taskOptions(true)};
+    if(path.endsWith("/tasks/train")){const child={id:"c".repeat(32),name:"Task report",kind:"task_job",status:"complete",events:[],source_available:false,task_job:{operation:"train_evaluate",status:"complete",report,artifacts:["task-job/report.json","task-job/training/policy.json","task-job/training/generation-4.json","task-job/evaluation/start-16.json","task-job/training/settings.json","task-job/evaluation/nominal-start.json","task-job/evaluation/plan.json","task-job/training/generation-5.json","task-job/evaluation/start-17.json","task-job/../job.json"]}};info.jobs.push(child);return {ok:true,json:async()=>structuredClone(child)};}
+  }});await tick();const e=f.elements;
+  await e.get("task-configure").onclick();await tick();assert.equal(e.get("training-settings-form").hidden,false);
+  e.get("evaluation-enabled").checked=true;e.get("evaluation-enabled").onchange();assert.equal(e.get("evaluation-settings").hidden,false);
+  e.get("evaluation-seeds").value="1729,4102";await e.get("training-settings-form").onsubmit({preventDefault(){}});
+  assert.ok(!f.calls.some(c=>c.path.endsWith("/tasks/train")));
+  e.get("evaluation-seeds").value="4101,4102";
+  await Promise.all([e.get("training-settings-form").onsubmit({preventDefault(){}}),e.get("training-settings-form").onsubmit({preventDefault(){}})]);await tick();
+  const calls=f.calls.filter(c=>c.path.endsWith("/tasks/train"));assert.equal(calls.length,1);
+  const body=JSON.parse(calls[0].options.body);assert.equal(body.task_sha256,"3".repeat(64));assert.deepEqual(body.evaluation.evaluation_seeds,[4101,4102]);assert.equal(body.training.generations,1);assert.equal(body.training.population,4);
+  assert.match(e.get("task-job-outcome").textContent,/authored_unchanged.*success: no.*No policy installed/);
+  assert.ok(e.get("task-job-report").children.some(p=>p.textContent.includes("<script>object left bounds</script>")));
+  assert.ok(e.get("task-job-report").children.some(p=>/2\/3 admitted; 1 excluded/.test(p.textContent)));
+  assert.ok(e.get("task-job-report").children.some(p=>/0\/2 task successes \(3 starts requested\)/.test(p.textContent)));
+  assert.equal(e.get("sandbox").hidden,true);assert.equal(e.get("cancel").hidden,true);assert.equal(e.get("task-job-artifacts").children.length,7);
+  assert.ok(!f.calls.some(c=>c.path.includes("/files/")||c.path.endsWith("/muse")));
+  assert.ok([...f.delays.values()].every(x=>x===12000));
+  f.info.jobs.at(-1).status="failed";f.info.jobs.at(-1).task_job={status:"failed",operation:"train_evaluate",report:{status:"failed",failure:"Original learner failure"},artifacts:["task-job/failure.json"]};
+  await e.get("refresh").onclick();await tick();assert.equal(e.get("failure-download").hidden,true);
+  assert.equal(e.get("task-job-outcome").textContent,"Original learner failure");
+  console.log("PASS explicit training freezes separate evaluation settings, retains failed baselines and actual denominators, and never installs a policy");
+}
+{
+  const ids=["d".repeat(32),"e".repeat(32)],jobs=ids.map(id=>({id,name:"Moving.mp4",status:"ready",events:[],task_tools:{create_available:true}}));
+  let resolveFirst, optionsCalls=0;
+  const f=setup(jobs,{fetch:async path=>{
+    if(!path.endsWith("/task-options"))return;
+    optionsCalls++;if(optionsCalls===1)return await new Promise(resolve=>{resolveFirst=resolve;});
+    return {ok:true,json:async()=>({status:"running"})};
+  }});await tick();const e=f.elements;
+  const inFlight=e.get("task-configure").onclick();await tick();await e.get("task-configure").onclick();assert.equal(optionsCalls,1);
+  e.get("projects").children[1].onclick();await tick();
+  const request=f.calls.find(c=>c.path.endsWith("/task-options"));assert.equal(request.options.signal.aborted,true);
+  resolveFirst({ok:true,json:async()=>taskOptions(false)});await inFlight;await tick();
+  assert.equal(e.get("task-create-form").hidden,true);assert.equal(optionsCalls,1);
+  await e.get("task-configure").onclick();await tick();assert.equal(optionsCalls,2);
+  assert.ok([...f.delays.values()].includes(1000));
+  f.document.hidden=true;f.listeners.get("visibilitychange")();assert.equal(f.timers.size,0);
+  f.document.hidden=false;f.listeners.get("visibilitychange")();await tick();assert.equal(optionsCalls,3);
+  assert.equal(e.get("task-create-form").hidden,true);
+  console.log("PASS task options ignore stale projects, share one in-flight load and pause polling while hidden");
 }
 
 {

@@ -1,5 +1,12 @@
 # Weft iteration backlog
 
+## Portal-authored tasks and another exercise source — November 2, 2026 (PST)
+
+- [x] Add closed task/training requests, background-cached world options and separate queued create/train/evaluate children. Preserve source/world/scorer identity, full native interval, all baseline failures, actual changed-start denominators and partial artifacts. No implicit training, policy installation or provider keys in these workers. [Guide](docs/portal-tasks.md), [handoff](docs/handoffs/portal-tasks.md).
+- [x] Acquire RickyBennison's CC BY-SA single-leg squat and verify a lossless MP4 container derivative: all 235 decoded frames/native timestamps unchanged. Actual ordinary portal preflight reaches `awaiting_consent` in 6.978 seconds /408,698,880 B worker peak, no API or repeated inference. It admits 79 references, **77 partially tracked**; right shoulder/elbow usable only 2/79. This is partial-body preparation, not a playable world or complete-joint accuracy. Root independently verifies all 139 sealed acceptance members. No legitimate failure means no forced detailed child.
+- [x] Verify source-bound create → training/evaluation → downloadable report in 45.760 seconds, plus actual task training-settings loading in 10.767 seconds. 105 distinct Python checks/25 portal DOM groups pass; original/imported/task parents, runtime and budgets remain unchanged. The separately authored floor target still fails all four controllers on 2/2 admitted changed starts; no policy installed and original hover failure unchanged. [Evidence, IDs, limits and publication receipt](docs/handoffs/portal-tasks.md).
+- [ ] Qualify unfamiliar-video geometry, ground/equipment contact and meaningful learned task success with independent evidence. The new UI and another admitted partial body do not complete this remaining work.
+
 ## Portal body-detail recovery — November 2, 2026 (PST)
 
 - [x] Add an explicit **Try detailed body extraction** portal action: create one separate local child from a sealed failed preflight, retain the failed parent and every raw hypothesis, and derive a fixed attention region from all confidence-qualified estimates. Use the pinned Full model, every original frame, both pose hypotheses and native clocks; preserve all existing body/coverage/floor/root gates. No arbitrary client model/region, identity selection or automatic API retry.

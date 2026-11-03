@@ -42,11 +42,11 @@ def test_placement_summary_and_server_guards_do_not_claim_exploration_or_muse(pl
 def test_placement_uses_its_background_loader_not_legacy_lab(placement, monkeypatch):
     portal, identity = placement
     calls = []
-    module = ModuleType("weft.moving_equipment_compatibility_lab")
+    module = ModuleType("weft.portal_task_options")
     def load(root, *, project):
         calls.append((root, project))
         return SimpleNamespace(close=lambda: None)
-    module.LoadingCompatibleTaskLab = load
+    module.LoadingTaskLearningLab = load
     monkeypatch.setitem(sys.modules, module.__name__, module)
     first = portal.lab(identity)
     assert portal.lab(identity) is first
