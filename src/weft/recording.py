@@ -384,7 +384,7 @@ def _atomic_json(path, value):
 
 
 class Recorder:
-    def __init__(self, root, scene, profile="planar"):
+    def __init__(self, root, scene, profile="planar", *, shared_world_action_replay_contract=None):
         self.root = Path(root).resolve()
         self.scene = json.loads(_encoded(scene))
         if self.scene.get("profile") == "planar-rigid-v2":
@@ -412,6 +412,12 @@ class Recorder:
             raise ValueError("Scene object identities must be unique")
         self._validate_snapshot = _snapshot_validator(self.scene)
         self.profile = profile
+        self._shared_world_action_replay_contract = None
+        if shared_world_action_replay_contract is not None:
+            from weft.shared_world_action_replay import validate_contract
+            if profile != "shared-world":
+                raise ValueError("Exploration replay requires the explicit shared-world recording profile")
+            self._shared_world_action_replay_contract = validate_contract(shared_world_action_replay_contract, self.scene)
         self._stream = None
         self._started = None
         self._closed = False
@@ -446,6 +452,10 @@ class Recorder:
         _whole_body_event({"type": "start", "seed": seed, "snapshot": initial_snapshot}, self.scene)
         event = {"type": "start", "seed": seed, "snapshot": initial_snapshot}
         contract = None
+        if self._shared_world_action_replay_contract is not None:
+            from weft.shared_world_action_replay import validate_contract, validate_recording_event
+            validate_contract(self._shared_world_action_replay_contract, self.scene)
+            validate_recording_event(event, self._shared_world_action_replay_contract, self.scene)
         if self.scene.get("profile") == "spatial-rigid-v1":
             from weft.spatial_recording import policy_document, recording_contract, reset_options as spatial_reset_options
             if initial_snapshot["steps"] != 0:
@@ -467,6 +477,9 @@ class Recorder:
         }
         if self.scene.get("profile") in DETAILED_EXERCISE_PROFILES:
             self._metadata["limits"]["max_event_bytes"] = self._event_limit
+        if self._shared_world_action_replay_contract is not None:
+            from weft.shared_world_action_replay import METADATA_KEY
+            self._metadata[METADATA_KEY] = self._shared_world_action_replay_contract
         if contract is not None:
             self._metadata["action_replay_contract"] = contract
             if len(_encoded(self._metadata).encode("utf-8")) > 65536 - 2048:
@@ -517,6 +530,9 @@ class Recorder:
             if any(type(event.get(key)) is not bool for key in ("terminated", "truncated")):
                 raise ValueError("Recording step requires termination flags")
         _whole_body_event(event, self.scene)
+        if self._shared_world_action_replay_contract is not None:
+            from weft.shared_world_action_replay import validate_recording_event
+            validate_recording_event(event, self._shared_world_action_replay_contract, self.scene)
         contract = self._metadata.get("action_replay_contract")
         if contract is not None:
             from weft.spatial_recording import validate_controller_event

@@ -88,6 +88,8 @@ def _action_from_weights(weights, env):
 
 
 def validate_shared_policy(policy, scene=None):
+    if isinstance(scene, dict) and scene.get("task", {}).get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1":
+        raise ValueError("Dynamic native interval learning is not qualified")
     if isinstance(scene, dict) and scene.get("profile") == CAMERA_PROFILE:
         raise ValueError("Camera-coupled worlds require separately qualified policies; existing coupled policies are unsupported")
     if not isinstance(policy, dict):
@@ -110,6 +112,8 @@ def validate_shared_policy(policy, scene=None):
 
 def policy_action(policy, env):
     # The environment already validated its model; never compile MuJoCo again per action.
+    if env.scene.get("task", {}).get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1":
+        raise ValueError("Dynamic native interval learning is not qualified")
     if env.scene.get("profile") == CAMERA_PROFILE:
         raise ValueError("Camera-coupled worlds require separately qualified policies; existing coupled policies are unsupported")
     if env.scene.get("profile") == HUMAN_ONLY_PROFILE:
@@ -220,6 +224,8 @@ def train_shared_world_policy(
         scene = deepcopy(scene_or_dir)
 
     scene = validate_shared_world(scene)
+    if scene["task"].get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1":
+        raise ValueError("Dynamic native interval learning is not qualified")
     if "native_clock" in scene.get("human_spec", {}):
         raise ValueError("Native-clock learning requires the source-bound shared-exercise pipeline; this legacy learner does not preserve clock custody")
     if scene["profile"] != SCENE_PROFILE:

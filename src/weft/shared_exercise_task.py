@@ -131,6 +131,8 @@ def build_shared_exercise_task(scene, *, root_assistance=False, equipment_ids=No
 
 def validate_shared_exercise_task(task, scene):
     scene = validate_shared_world(scene)
+    if scene["task"].get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1":
+        raise ValueError("Dynamic native intervals require a separately qualified task; stationary exercise scoring is unsupported")
     if scene["profile"] == STATIC_SUPPORT_PROFILE:
         return _support_module().validate_shared_support_task(task, scene)
     try:

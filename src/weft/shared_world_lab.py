@@ -883,6 +883,18 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
     return target
 
 
+def _lab_runtime_modules(scene):
+    modules = ("shared_world_lab.py", "shared_world.py", "shared_world_observation.py",
+               "shared_world_packaging.py", "shared_world_evidence.py", "source_equivalence.py",
+               "world_evidence.py", "observations.py", "human.py", "mobile_human.py", "whole_body.py",
+               "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py", "spatial_rigid.py")
+    if "human_provenance" in scene:
+        modules = (*modules, "shared_human_projection.py")
+    if scene["task"].get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1":
+        modules = (*modules, "source_clock.py", "native_interval.py", "dynamic_native_interval.py")
+    return modules
+
+
 def prepare_shared_world_lab(source_run, out, *, policy_run=None):
     """Package an immutable sealed shared-world-v1 run (and optional policy run) into a new local lab."""
     started = time.perf_counter()
@@ -975,13 +987,9 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
     rewritten = {"scene.json", "human.json", "task.json", "reference-feasibility.json", "interventions.json",
                  "human-reference.json", "lab-provenance.json", "source-input-manifest.json", "policy-input-manifest.json"}
     policy_outputs = {"policy.json", "training.json", "rl-evaluation.json", "policy-rollout.json", "settings.json"}
-    modules = ("shared_world_lab.py", "shared_world.py", "shared_world_observation.py",
-               "shared_world_packaging.py", "shared_world_evidence.py", "source_equivalence.py",
-               "world_evidence.py", "observations.py", "human.py", "mobile_human.py", "whole_body.py",
-               "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py", "spatial_rigid.py")
+    modules = _lab_runtime_modules(scene)
     if "human_provenance" in scene:
         rewritten.remove("human.json")
-        modules = (*modules, "shared_human_projection.py")
     copied_names = {name for name in source_manifest["files"] if name not in rewritten
                     and not name.startswith(("lab-implementation/", "policy-implementation/"))
                     and not (policy_run is not None and name in policy_outputs)}

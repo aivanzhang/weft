@@ -2,9 +2,10 @@
 
 ## Active implementation scope — November 2, 2026 (PST)
 
-- Source lane owns only new `moving_equipment_evidence.py` and its tests first: complete bounded frame/identity/clock ledger, no inferred depth or physics.
-- Runtime lane owns `dynamic_native_interval.py`, analytic tests, exact-profile dispatch in `native_interval.py`, conditional helper custody in generic `shared_world_lab.py`, and explicit rejection of unqualified new-marker training in old task/generic learning entry points. No physics-mechanics rewrite or legacy weakening is approved.
-- Portal lane owns a new explicit generic-world action replay helper and analytic tests first. Existing generic recording lacks qualified exact action replay, and portal import requires the old exercise profile; importer/UI/task wiring remains pending a closed exploration contract. No stationary scorer, parking-reward success or meaningful-learning claim may be substituted.
+- Verified foundation: complete motion ledger, dynamic native terminal interval, and opt-in manual action replay; 190 distinct passing checks. Actual saved-source ledger preserves 458 slots per track, 442 body references, both raw equipment alternatives and all 91 pre-initialization slots. See [foundation handoff](handoffs/moving-equipment-foundation.md). This is not a ready moving-equipment world.
+- Source lane now owns new `moving_equipment_inputs.py` and tests: sealed body/root/native/provider admission before geometry, with shared bounded parsing.
+- Runtime lane now owns new `moving_equipment_proposal.py`, `moving_equipment_world.py` and tests: explicitly conditional free-body candidates, unchanged full body/time, retained alternatives and authored unknown-prefix state. No hidden pose driving or legacy gate weakening.
+- Portal lane now owns new `shared_world_exploration.py` and tests plus scoped integration in `lab.py`, `portal_import.py`, `portal.py`, `assets/lab.js`, `lab_console.py`, and `recording_receipt.py`. Reuse the existing simulator/session and real Recorder. Keep this exploration explicitly unscored; no stationary scorer, parking-reward success or meaningful-learning claim may be substituted. Current-runtime mismatch must refuse until archival support is qualified.
 - Root integrates and owns actual saved-source/native/portal acceptance, budgets, handoff and publication. No new paid request is planned.
 
 The following reviewed architecture is a plan, not implemented capability. Initial depth/shape, source constructor, new task and optional attachment control remain separate unfinished milestones. Do not treat a ledger or partial-action helper as a playable or trained world.
@@ -13,7 +14,7 @@ The following reviewed architecture is a plan, not implemented capability. Initi
 
 Add a distinct **conditional moving-equipment** construction contract, not an exception to the static floor-box constructor. Reuse SharedWorldEnv, exact source body, native clocks, shared contacts, inspector and recording. Keep every source frame/reference, initialization phase, unavailable slot and identity alternative. First deliver an honestly labelled free-body simulation candidate; then add an explicit assisted-attachment candidate if needed. Neither is recovered grip or verified exercise physics.
 
-This is a read-only design. No implementation, API, source processing or native physics was run. Parent owns selection of the next milestone and its acceptance plan. Runtime agent separately diagnoses the current image-consensus refusal.
+The architecture below began as a read-only design. The foundation milestone above is now implemented and verified; downstream construction, source admission and portal integration remain in progress. Root owns actual saved-source acceptance and publication; agents own separate files and analytic checks.
 
 ## Existing capabilities and hard boundaries
 

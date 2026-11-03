@@ -29,6 +29,9 @@ def native_interval(human, dt):
 
 def validate_interval(scene):
     marker = scene["task"].get("native_interval")
+    if isinstance(marker, dict) and marker.get("profile") == "native-dynamic-terminal-control-interval-v1":
+        from weft.dynamic_native_interval import validate_dynamic_interval
+        return validate_dynamic_interval(scene)
     if (scene["profile"] != "shared-world-v3" or "native_clock" not in scene["human_spec"]
             or not isinstance(marker, dict) or marker != native_interval(scene["human_spec"], scene["dt"])
             or type(marker.get("schema_version")) is not int or type(marker.get("full_control_steps")) is not int
