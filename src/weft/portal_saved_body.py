@@ -215,7 +215,8 @@ def execute_job(child,*,project=None):
         _check(deadline,child);stage='lab';atomic_json(child/'status.json',{'status':'running','stage':stage,'route':'exercise','scope':SCOPE})
         from weft.shared_exercise_lab import prepare_shared_exercise_lab
         remaining=min(60,deadline-time.monotonic());_require(remaining>=1,'no bounded lab time remains')
-        lab=prepare_shared_exercise_lab(work/'world',child/'lab',max_seconds=remaining)
+        # Match the primary exercise route: explicit disclosed root assistance, unchanged gates.
+        lab=prepare_shared_exercise_lab(work/'world',child/'lab',root_assistance=True,max_seconds=remaining)
         config=_json(_read(child/'lab','lab-config.json',64<<10));lab_manifest=_read(child/'lab/run','manifest.json',1<<20)
         _require(sha256(lab_manifest).hexdigest()==config['manifest_sha256']==lab['manifest_sha256'],'prepared lab seal differs')
         terminal={'status':'ready','lab':'lab'};report={'status':'ready','lab_manifest_sha256':config['manifest_sha256'],

@@ -17,6 +17,73 @@ SPATIAL_JOINT_LIMITS = {name: (0., 2.6) if name.endswith(("_elbow", "_knee")) el
 LIMB_ENDPOINTS = {"left_shoulder": (11, 13, 15), "right_shoulder": (12, 14, 16),
                   "left_hip": (23, 25, 27), "right_hip": (24, 26, 28)}
 BEND_PLANE_MIN_SINE = .03
+# Ill-conditioned limb fits (near-pole twist, depth flips) can spike single chart samples
+# far beyond human joint speed; short spikes become explicit interpolation proposals.
+SPEED_SCREEN = {"maximum_joint_speed_rad_s": 14.0, "maximum_bridge_span_s": 0.5}
+
+
+def _screen_reference_speeds(references, audits):
+    """Bridge short implausible-speed chart spikes; long runs stay untouched and audited."""
+    times = np.array([row["time_s"] for row in references], dtype=float)
+    bound = SPEED_SCREEN["maximum_joint_speed_rad_s"]
+    span = SPEED_SCREEN["maximum_bridge_span_s"]
+    screened, unbridged = {}, []
+    if len(references) < 3:
+        return {"policy": dict(SPEED_SCREEN), "screened_joints": screened, "unbridged_intervals": unbridged}
+    for name in SPATIAL_JOINT_NAMES:
+        values = np.array([row["joints"][name] for row in references], dtype=float)
+        # Zero-confidence samples are already declared unobserved (assumed twist, gimbal
+        # lock); they belong to the explicit twist-transport tool, not this screen.
+        observed = np.array([audit["joint_confidence"].get(name, 0.) > 0. for audit in audits])
+        kept = np.ones(len(values), dtype=bool)
+
+        def fast_pairs():
+            index = np.flatnonzero(kept)
+            speeds = np.abs(np.diff(values[index]) / np.diff(times[index]))
+            return index, np.flatnonzero(speeds > bound)
+
+        for _ in range(len(values)):
+            index, fast = fast_pairs()
+            if not len(fast):
+                break
+            # Drop the interior sample with the largest incident chart speed; the first and
+            # last samples stay so bridging always has observed flanks.
+            incident = {}
+            for pair in fast:
+                for candidate in (index[pair], index[pair + 1]):
+                    if 0 < candidate < len(values) - 1 and observed[candidate]:
+                        position = int(np.flatnonzero(index == candidate)[0])
+                        speed = 0.0
+                        if position > 0:
+                            speed += abs(values[candidate] - values[index[position - 1]]) / (times[candidate] - times[index[position - 1]])
+                        if position < len(index) - 1:
+                            speed += abs(values[index[position + 1]] - values[candidate]) / (times[index[position + 1]] - times[candidate])
+                        incident[candidate] = speed
+            if not incident:
+                break
+            kept[max(incident, key=lambda c: (incident[c], c))] = False
+        dropped = np.flatnonzero(~kept)
+        if not len(dropped):
+            continue
+        index = np.flatnonzero(kept)
+        rows = []
+        for sample in dropped:
+            left = index[index < sample]
+            right = index[index > sample]
+            gap = times[right[0]] - times[left[-1]]
+            if gap > span:
+                unbridged.append({"joint": name, "evidence_index": int(sample),
+                                  "time_s": float(times[sample]), "flank_gap_s": float(gap)})
+                continue
+            replacement = float(np.interp(times[sample], times[index], values[index]))
+            rows.append({"evidence_index": int(sample), "time_s": float(times[sample]),
+                         "original_radians": float(values[sample]), "proposal_radians": replacement})
+            references[sample]["joints"][name] = replacement
+            audits[sample]["joint_confidence"][name] = 0.
+            audits[sample].setdefault("speed_screened_joints", []).append(name)
+        if rows:
+            screened[name] = rows
+    return {"policy": dict(SPEED_SCREEN), "screened_joints": screened, "unbridged_intervals": unbridged}
 
 
 def rotation_zyx(angles):
@@ -169,7 +236,9 @@ def build_spatial_reference(evidence, body_frame):
         previous_time = timestamp
     if not references:
         raise ValueError("Spatial reference has no usable retained poses")
+    speed_screen = _screen_reference_speeds(references, audits)
     return references, {"schema_version": 1, "method": "model-world-landmarks-spatial-zyx-v1",
+                        "reference_speed_screen": speed_screen,
                         "source_sha256": evidence.get("source_sha256"), "model": deepcopy(evidence.get("model", {})),
                         "body_frame": deepcopy(body_frame), "frames": audits, "excluded_frames": excluded,
                         "bend_plane_min_sine": BEND_PLANE_MIN_SINE,
@@ -182,4 +251,5 @@ def build_spatial_reference(evidence, body_frame):
                                         "Confidence inherits pose-model visibility, not independent rotation accuracy",
                                         "Cropped or missing image endpoints have zero confidence; world coordinates cannot verify image visibility",
                                         "Distal flexion above 2.6 radians is explicitly clamped and audited",
+                                        "Chart samples beyond the audited joint-speed bound are bridged by zero-confidence interpolation proposals, not observed motion; unbridgeable fast intervals keep their original values and are listed",
                                         "Root translation, metric calibration, contacts and physical dynamics are not recovered"]}

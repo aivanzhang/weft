@@ -49,7 +49,10 @@ def test_passed_source_stays_diagnostic_and_preserves_all_unsampled_slots(source
 def test_competing_hypotheses_survive_and_block_automatic_retry(source):
     replace_sample(source, 10, 2)
     result = readiness.diagnose_reconstruction(raw(source))
-    assert result["status"] == "source_quality_rejected"
+    # One bounded transient ghost no longer rejects the source, but the sample itself
+    # stays ambiguous, unusable and beyond crop recovery; no hypothesis is selected.
+    assert result["status"] == "source_quality_passes_only"
+    assert result["source_quality"]["competing_hypotheses"]["resolved"]
     assert result["identity"]["competing_samples"] == [{"frame": 20, "evidence_id": source["frames"][10]["id"],
                                                         "retained_hypotheses": 2, "selected_hypothesis": None}]
     assert result["slots"][20]["state"] == "ambiguous_identity"

@@ -34,6 +34,15 @@ CONNECTIONS = ((11, 12), (11, 13), (13, 15), (12, 14), (14, 16), (11, 23), (12, 
 JOINT_NAMES = ("left_shoulder", "right_shoulder", "left_elbow", "right_elbow",
                "left_hip", "right_hip", "left_knee", "right_knee")
 USABLE_STATUSES = {"tracked", "tracked_partial"}
+TORSO_LANDMARKS = (11, 12, 23, 24)
+# Rare transient competing detections (duplicate-hypothesis ghosts, brief passersby) stay
+# unusable evidence but are not fatal when every gap is bounded and subject continuity holds.
+COMPETING_GAP_POLICY = {
+    "maximum_competing_fraction": 0.02, "maximum_competing_samples": 4,
+    "minimum_competing_allowance": 2, "maximum_run_samples": 2,
+    "maximum_flank_gap_seconds": 0.25, "maximum_flank_torso_motion": 0.30,
+    "maximum_hypothesis_torso_error": 0.10, "minimum_landmark_confidence": 0.5,
+}
 ASSUMPTIONS = [
     "A single person and fixed camera are required; camera motion is not recovered.",
     "Detected pose count is not verified person count: a person can be missed or produce competing pose hypotheses.",
@@ -336,6 +345,99 @@ def _pose_json(out, name, value, artifact_sink):
         artifact_sink.write_json(name, value)
 
 
+def _torso_points(landmarks, minimum_confidence):
+    if not isinstance(landmarks, list) or len(landmarks) != 33:
+        return None
+    points = []
+    for index in TORSO_LANDMARKS:
+        row = landmarks[index]
+        values = [row.get(key) for key in ("x", "y", "visibility", "presence")]
+        if any(type(value) not in (int, float) or not math.isfinite(value) for value in values):
+            return None
+        if min(values[2], values[3]) < minimum_confidence or not -0.05 <= values[0] <= 1.05 or not -0.05 <= values[1] <= 1.05:
+            return None
+        points.append([values[0], values[1]])
+    return np.array(points, dtype=float)
+
+
+def _torso_scale(points):
+    return float(np.linalg.norm((points[0] + points[1]) / 2 - (points[2] + points[3]) / 2))
+
+
+def review_competing_gaps(frames):
+    """Pure bounded review of competing-hypothesis samples; never selects, merges or relabels poses."""
+    policy = dict(COMPETING_GAP_POLICY)
+    competing = [index for index, frame in enumerate(frames) if frame.get("status") == "multiple_people"]
+    result = {"policy": policy, "competing_samples": len(competing), "sampled_frames": len(frames),
+              "gaps": [], "resolved": False,
+              "scope": ("Bounded transient-competing screen using flanking usable poses; no hypothesis is "
+                        "selected or merged, and detected pose count is not verified person count")}
+    if not competing:
+        result["resolved"] = True
+        return result
+    allowed = min(policy["maximum_competing_samples"],
+                  max(policy["minimum_competing_allowance"],
+                      math.floor(policy["maximum_competing_fraction"] * len(frames))))
+    result["allowed_competing_samples"] = allowed
+    if len(competing) > allowed:
+        result["gaps"] = [{"evidence_ids": [frames[index].get("id") for index in competing],
+                           "status": "unresolved", "reasons": ["competing_samples_exceed_bounded_envelope"]}]
+        return result
+    runs, current = [], [competing[0]]
+    for index in competing[1:]:
+        if index == current[-1] + 1:
+            current.append(index)
+        else:
+            runs.append(current)
+            current = [index]
+    runs.append(current)
+    confidence = policy["minimum_landmark_confidence"]
+    resolved = True
+    for run in runs:
+        gap = {"evidence_ids": [frames[index].get("id") for index in run], "reasons": []}
+        before = next((i for i in range(run[0] - 1, -1, -1) if frames[i].get("status") in USABLE_STATUSES), None)
+        after = next((i for i in range(run[-1] + 1, len(frames)) if frames[i].get("status") in USABLE_STATUSES), None)
+        if len(run) > policy["maximum_run_samples"]:
+            gap["reasons"].append("competing_run_too_long")
+        if before is None or after is None:
+            gap["reasons"].append("missing_usable_flank")
+        else:
+            gap["flank_evidence_ids"] = [frames[before]["id"], frames[after]["id"]]
+            t0, t1 = frames[before]["time_s"], frames[after]["time_s"]
+            gap["flank_gap_seconds"] = t1 - t0
+            if not (0 < t1 - t0 <= policy["maximum_flank_gap_seconds"]):
+                gap["reasons"].append("flank_gap_too_long")
+            left = _torso_points(frames[before].get("landmarks"), confidence)
+            right = _torso_points(frames[after].get("landmarks"), confidence)
+            scale = (_torso_scale(left) + _torso_scale(right)) / 2 if left is not None and right is not None else 0.0
+            if left is None or right is None or scale < 1e-3:
+                gap["reasons"].append("invalid_flank_geometry")
+            else:
+                motion = float(np.sqrt(np.mean(np.sum((right - left) ** 2, axis=1)))) / scale
+                gap["flank_torso_motion"] = motion
+                if motion > policy["maximum_flank_torso_motion"]:
+                    gap["reasons"].append("subject_continuity_not_supported")
+                reviews = []
+                for index in run:
+                    fraction = (frames[index]["time_s"] - t0) / (t1 - t0)
+                    expected = (1 - fraction) * left + fraction * right
+                    errors = []
+                    for pose in frames[index].get("poses") or []:
+                        points = _torso_points(pose.get("landmarks"), confidence)
+                        errors.append(float(np.sqrt(np.mean(np.sum((points - expected) ** 2, axis=1)))) / scale
+                                      if points is not None else None)
+                    finite = [error for error in errors if error is not None]
+                    reviews.append({"evidence_id": frames[index].get("id"), "hypothesis_torso_errors": errors})
+                    if not finite or min(finite) > policy["maximum_hypothesis_torso_error"]:
+                        gap["reasons"].append("no_hypothesis_continues_the_tracked_subject")
+                gap["hypothesis_reviews"] = reviews
+        gap["status"] = "bounded_transient_hypotheses" if not gap["reasons"] else "unresolved"
+        resolved = resolved and not gap["reasons"]
+        result["gaps"].append(gap)
+    result["resolved"] = resolved
+    return result
+
+
 def _quality(evidence):
     frames = evidence["frames"]
     tracked = [frame for frame in frames if frame["status"] in USABLE_STATUSES]
@@ -353,8 +455,12 @@ def _quality(evidence):
                                         for name in JOINT_NAMES},
               "out_of_plane_max": max((value for frame in tracked for value in frame["out_of_plane_fraction"].values()), default=0.0)}
     errors = []
+    competing_review = None
     if status_counts.get("multiple_people", 0):
-        errors.append("Multiple people or competing pose hypotheses were detected; inspect the source and raw poses")
+        competing_review = review_competing_gaps(frames)
+        status["competing_hypotheses"] = competing_review
+        if not competing_review["resolved"]:
+            errors.append("Multiple people or competing pose hypotheses were detected; inspect the source and raw poses")
     if len(tracked) < 8 or status["tracked_fraction"] < 0.65:
         errors.append("Insufficient full-body visibility: need at least 8 usable poses and 65% usable sampled frames")
     if max(ranges.values()) < 0.08:
@@ -362,6 +468,10 @@ def _quality(evidence):
     if tracked and tracked[-1]["time_s"] - tracked[0]["time_s"] < 0.4:
         errors.append("Usable pose sequence must span at least 0.4 seconds")
     status["warnings"] = ["Low-confidence joint angles are retained as uncertain model estimates, not verified motion"] if status_counts.get("tracked_partial") else []
+    if competing_review is not None and competing_review["resolved"]:
+        status["warnings"].append(
+            f"{status_counts['multiple_people']} sampled frames contain competing pose hypotheses within the bounded "
+            "transient envelope; they stay unusable evidence and detected pose count is not verified person count")
     lateral = [max(frame["out_of_plane_fraction"].values()) for frame in tracked]
     torso_tilts = []
     for frame in tracked:

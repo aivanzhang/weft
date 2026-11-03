@@ -228,16 +228,80 @@ def test_no_person_saves_negative_evidence_instead_of_inventing_joints(tmp_path,
     assert saved["quality"]["status_counts"] == {"no_pose": 15}
 
 
-def test_one_multi_person_frame_invalidates_an_otherwise_usable_clip(tmp_path, monkeypatch):
-    source = tmp_path / "synthetic-two-people.mp4"
+def test_one_transient_ghost_frame_stays_unusable_but_not_fatal(tmp_path, monkeypatch):
+    source = tmp_path / "synthetic-ghost.mp4"
     video(source)
     stub_detector(monkeypatch, lambda sample: inference_result(sample / 20, count=2 if sample == 4 else 1))
+    evidence = vision.inspect_exercise(source, tmp_path, "unused-test-model")
+    quality = evidence["quality"]
+    assert quality["passes"]
+    assert quality["tracked_frames"] == 14
+    assert quality["status_counts"]["multiple_people"] == 1
+    review = quality["competing_hypotheses"]
+    assert review["resolved"] and review["gaps"][0]["status"] == "bounded_transient_hypotheses"
+    assert review["gaps"][0]["evidence_ids"] == [evidence["frames"][4]["id"]]
+    assert any("competing pose hypotheses" in warning for warning in quality["warnings"])
+    # The competing sample is never selected, merged or relabeled.
+    assert evidence["frames"][4]["status"] == "multiple_people"
+    assert evidence["frames"][4]["landmarks"] == [] and len(evidence["frames"][4]["poses"]) == 2
+    saved = json.loads((tmp_path / "pose-landmarks.json").read_text())
+    assert len(saved["frames"][4]["poses"]) == 2
+
+
+def test_competing_frame_without_a_continuous_hypothesis_invalidates_the_clip(tmp_path, monkeypatch):
+    source = tmp_path / "synthetic-two-people.mp4"
+    video(source)
+
+    def infer(sample):
+        if sample != 4:
+            return inference_result(sample / 20)
+        result = inference_result(sample / 20, count=2)
+        for pose in result.pose_landmarks:
+            for point in pose:
+                point.x += 0.4
+        return result
+
+    stub_detector(monkeypatch, infer)
     with pytest.raises(vision.UnsupportedVideo, match="Multiple people"):
         vision.inspect_exercise(source, tmp_path, "unused-test-model")
     saved = json.loads((tmp_path / "evidence.json").read_text())
-    assert saved["quality"]["tracked_frames"] == 14
-    assert saved["quality"]["status_counts"]["multiple_people"] == 1
+    assert not saved["quality"]["passes"]
+    review = saved["quality"]["competing_hypotheses"]
+    assert not review["resolved"]
+    assert "no_hypothesis_continues_the_tracked_subject" in review["gaps"][0]["reasons"]
     assert len(saved["frames"][4]["poses"]) == 2
+
+
+def test_repeated_competing_frames_exceed_the_bounded_envelope(tmp_path, monkeypatch):
+    source = tmp_path / "synthetic-crowd.mp4"
+    video(source)
+    stub_detector(monkeypatch, lambda sample: inference_result(sample / 20, count=2 if sample % 3 == 0 else 1))
+    with pytest.raises(vision.UnsupportedVideo, match="Multiple people"):
+        vision.inspect_exercise(source, tmp_path, "unused-test-model")
+    saved = json.loads((tmp_path / "evidence.json").read_text())
+    review = saved["quality"]["competing_hypotheses"]
+    assert not review["resolved"]
+    assert review["gaps"][0]["reasons"] == ["competing_samples_exceed_bounded_envelope"]
+
+
+def test_subject_swap_across_a_competing_gap_invalidates_the_clip(tmp_path, monkeypatch):
+    source = tmp_path / "synthetic-swap.mp4"
+    video(source)
+
+    def infer(sample):
+        result = inference_result(sample / 20, count=2 if sample == 4 else 1)
+        if sample > 4:
+            for point in result.pose_landmarks[0]:
+                point.x += 0.35
+        return result
+
+    stub_detector(monkeypatch, infer)
+    with pytest.raises(vision.UnsupportedVideo, match="Multiple people"):
+        vision.inspect_exercise(source, tmp_path, "unused-test-model")
+    saved = json.loads((tmp_path / "evidence.json").read_text())
+    review = saved["quality"]["competing_hypotheses"]
+    assert not review["resolved"]
+    assert "subject_continuity_not_supported" in review["gaps"][0]["reasons"]
 
 
 def test_model_hash_is_required_and_existing_files_are_not_replaced(tmp_path):

@@ -73,8 +73,9 @@ def test_failed_schema_explains_competing_samples_not_insufficient_coverage(tmp_
     assert diagnostic["status"] == "saved_quality_rejected" and diagnostic["explains_body_stop"] is True
     checks = {row["id"]: row for row in diagnostic["checks"]}
     competing, coverage = checks["competing_poses"], checks["visibility"]
-    assert competing["status"] == "failed" and competing["observed"] == {"samples": 5}
-    assert competing["required"] == {"maximum_samples": 0}
+    assert competing["status"] == "failed" and competing["observed"]["samples"] == 5
+    assert competing["observed"]["bounded_transient_review"]["resolved"] is False
+    assert competing["required"] == {"maximum_unresolved_samples": 0}
     assert coverage["status"] == "passed" and coverage["observed"] == {
         "usable_samples": 165, "sampled_frames": 204, "usable_fraction": 165 / 204}
     assert coverage["required"] == {"minimum_samples": 8, "minimum_fraction": .65}
@@ -201,7 +202,7 @@ def test_different_pose_selection_cannot_supply_quality_numbers(tmp_path):
     seal(source)
     _, summary = run(source, tmp_path / "report")
     assert "pose_proposals/selected/pose-quality.json" not in {r["source_name"] for r in summary["artifacts"]}
-    assert summary["diagnostics"]["checks"][0]["observed"] == {"samples": 5}
+    assert summary["diagnostics"]["checks"][0]["observed"]["samples"] == 5
 
 
 def test_unknown_saved_gate_stays_verbatim_without_made_up_measurements(tmp_path):

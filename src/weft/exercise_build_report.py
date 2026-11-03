@@ -17,6 +17,7 @@ import time
 
 from weft import evidence_scorecard, reference_equipment_report
 from weft.exercise_coverage import summarize_coverage
+from weft.exercise_vision import review_competing_gaps
 from weft.io import canonical_hash, local_time
 from weft.lab_inspection import _open as _open_member, _pairs, _nonfinite, _float
 
@@ -574,8 +575,19 @@ def _pose_diagnostics(source, body_prefix, coverage, stages):
         result["checks"].append(row)
 
     competing = counts.get("multiple_people", 0)
-    check("competing_poses", "Unresolved pose estimates", {"samples": competing}, {"maximum_samples": 0},
-          competing > 0, f"{competing} sampled frames contain competing pose estimates; this check requires none. This does not prove that multiple people are present.",
+    competing_failed = _POSE_ERRORS["competing_poses"] in errors
+    review = review_competing_gaps(frames) if competing else None
+    if competing_failed and not competing:
+        raise ValueError("Saved pose-quality error contradicts its measurements: competing_poses")
+    # The current bounded transient envelope can resolve gaps an older saved gate rejected;
+    # a saved pass with unresolved recomputed gaps is still a contradiction.
+    if competing and not competing_failed and not review["resolved"]:
+        raise ValueError("Saved pose-quality error contradicts its measurements: competing_poses")
+    check("competing_poses", "Unresolved pose estimates",
+          {"samples": competing, "bounded_transient_review": None if review is None else
+           {"resolved": review["resolved"], "gaps": review["gaps"]}},
+          {"maximum_unresolved_samples": 0},
+          competing_failed, f"{competing} sampled frames contain competing pose estimates; unresolved gaps reject the clip. This does not prove that multiple people are present.",
           _affected_samples(frames, {"multiple_people"}) if competing else None)
     if all(key in quality for key in ("minimum_tracked_frames", "minimum_tracked_fraction")):
         minimum = _number(quality["minimum_tracked_frames"], "minimum tracked frames", 1, 900)

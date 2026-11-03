@@ -145,3 +145,34 @@ def test_invalid_usable_samples_fail_instead_of_disappearing(damage):
         frame["joint_confidence"]["left_shoulder"] = float("nan")
     with pytest.raises(ValueError):
         build_spatial_reference({"frames": [frame]}, anchor())
+
+
+def test_single_sample_speed_spike_becomes_zero_confidence_interpolation_proposal():
+    frames = [pose_frame(i, limb=rotation_zyx([0., .3 + .02 * i, 0.])) for i in range(6)]
+    spiked = pose_frame(3, limb=rotation_zyx([0., -2.6, 0.]))
+    frames[3] = spiked
+    reference, audit = build_spatial_reference({"frames": frames, "source_sha256": "source"}, anchor())
+    screen = audit["reference_speed_screen"]
+    assert screen["policy"]["maximum_joint_speed_rad_s"] == 14.0
+    screened = screen["screened_joints"]
+    assert any(rows and rows[0]["evidence_index"] == 3 for rows in screened.values())
+    for name, rows in screened.items():
+        for row in rows:
+            index = row["evidence_index"]
+            assert reference[index]["joints"][name] == pytest.approx(row["proposal_radians"])
+            assert audit["frames"][index]["joint_confidence"][name] == 0.
+            assert name in audit["frames"][index]["speed_screened_joints"]
+    # Flanking observed samples keep their original chart values.
+    clean, _ = build_spatial_reference({"frames": [pose_frame(i, limb=rotation_zyx([0., .3 + .02 * i, 0.]))
+                                                  for i in range(6)], "source_sha256": "source"}, anchor())
+    for index in (0, 1, 2, 4, 5):
+        for name in ("left_hip_lateral", "right_hip_lateral"):
+            assert reference[index]["joints"][name] == pytest.approx(clean[index]["joints"][name])
+
+
+def test_plausible_motion_is_never_screened():
+    frames = [pose_frame(i, limb=rotation_zyx([0., .1 * i, 0.])) for i in range(6)]
+    reference, audit = build_spatial_reference({"frames": frames, "source_sha256": "source"}, anchor())
+    screen = audit["reference_speed_screen"]
+    assert screen["screened_joints"] == {} and screen["unbridged_intervals"] == []
+    assert not any("speed_screened_joints" in row for row in audit["frames"])

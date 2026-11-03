@@ -36,12 +36,12 @@ playback and programmed reference controllers are different modes, not learned p
 
 | Area | Available | Not yet established |
 | --- | --- | --- |
-| Video intake | Uploads, processing stages, evidence inspection and failure reports | Reliable reconstruction across arbitrary videos |
-| Simulation | Rolling, planar, rigid-object and articulated-body profiles; shared MuJoCo worlds | Accurate recovery of hidden depth, materials, grasp/contact and balance |
-| Interaction | Manual controls, explicit tasks, reset, recording and action replay | Physical accuracy of changed-action predictions |
+| Video intake | Uploads, processing stages, evidence inspection and failure reports; transient competing pose hypotheses are screened instead of rejecting the clip | Multi-person videos (refused with reasons); reliable reconstruction across arbitrary videos |
+| Simulation | Rolling, planar, rigid-object and articulated-body profiles; shared MuJoCo worlds | Accurate recovery of hidden depth, materials, grasp/contact and unassisted balance |
+| Interaction | Manual controls, explicit tasks, reset, recording and action replay; disclosed root assistance | Physical accuracy of changed-action predictions |
 | Learning | Bounded training, baselines and evaluation on supported profiles | Consistent improvement over simple controllers |
 | Meta integration | SAM tracking, Muse review and constrained controller-choice tests | General autonomous physical repair |
-| Avatars | Built-in appearances, compatible-rig imports and state-driven motion | Automatic compatibility for arbitrary models; reliable Studio skin deformation |
+| Avatars | Built-in appearances, compatible-rig imports and state-driven motion | Automatic compatibility for arbitrary models; Studio skin weights (bounded repairs attempted and rejected; robot remains the qualified avatar) |
 
 Intake supports videos up to **60 seconds, 1,800 frames and 100 MB**, with further
 checks for each reconstruction path. Keep observed, inferred, assumed and unknown
@@ -53,12 +53,24 @@ measured muscle activity, recovered anatomy or validated biomechanics.
 Development observations from November 3, 2026; these are small, scoped studies,
 not an external benchmark or a guarantee for new inputs.
 
-- Camera framing kept all 235 saved states visible for two built-in avatars;
-  underlying body-position tracking still failed its task criteria.
+- Rerunning the frozen three-video evaluation after the transient-hypothesis screen:
+  **2/3 unfamiliar videos now complete the full pipeline** (admission, body, world,
+  lab and a 450+ step playable rollout). The multi-person clip stays refused with
+  recorded reasons. Evidence: `.local/hackathon-unseen-20261103-05/`.
+- With disclosed three-axis root assistance (the primary route's default), the
+  recorded demo world and the new sots-press video **pass every frozen task gate**
+  (root tracking 0.018 vs the 0.15 gate). Unassisted tracking still fails and
+  remains the honest hard mode. Evidence: `.local/tracking-study-01/`.
+- The overhead-squat video completes and replays but fails one gate (peak angular
+  1.00 vs 0.70): its squat-bottom chart transition is ill-conditioned. A bounded
+  joint-speed screen now bridges single-sample reference spikes with audited
+  zero-confidence proposals; the residual near-bound transition is preserved.
 - A real Muse-selected controller candidate was tested and rejected under the
   unchanged scoring rules. No accepted physical repair was demonstrated.
-- Three unfamiliar exercise videos were rejected during reconstruction;
-  **0/3 reached a playable environment**, so task success was not evaluated.
+- Three bounded Studio-panda skin-weight repairs (filter, re-authoring, probe-guided
+  consensus) all failed posed-stretch validation; the robot remains the qualified
+  avatar. Tooling and evidence: `tools/avatar-assets/avatar_assets/skin_weight_repair.py`,
+  `.local/studio-skin-repair-01/NOTES.md`.
 - In a separate ball task, a learned policy passed 8/12 changed starts while
   a fixed feedback controller passed 12/12. This did not show a learning advantage.
 
@@ -83,9 +95,11 @@ ledgers. See [API configuration](sandbox/README.md#api-configuration).
 
 ## Roadmap
 
-- Improve identity tracking and reconstruction across unfamiliar supported inputs.
+- Extend admission beyond single-person clips and qualify unassisted tracking;
+  resolve the ill-conditioned chart transitions behind the overhead-squat near-miss.
 - Constrain camera, scale, geometry and equipment contact using stronger evidence.
-- Repair avatar rig/skin compatibility and validate representative motion.
+- Re-skin the Studio avatar against its existing rig in the authoring environment;
+  bounded weight-space repairs are exhausted and documented.
 - Demonstrate useful learning and supported repairs against fixed independent baselines.
 - Improve end-to-end usability, reproducibility and resource measurements.
 
