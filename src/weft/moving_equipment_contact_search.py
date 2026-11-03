@@ -193,6 +193,53 @@ def _proposal(correction, values, matrix, hard, solve, budget):
     return np.asarray(restored["step"][:-1]), reports, float(restored["step"][-1])
 
 
+def _restoration_groups(labels, hard):
+    collision = np.array([r["kind"].startswith(("nonpenetration:", "floor:")) for r in labels])
+    support_rows = np.array([r["kind"] in {"support_gap", "upward_normal_scaled"} for r in labels])
+    _require(np.all(collision | support_rows | hard) and not np.any((collision | support_rows) & hard),
+             "restoration row classification differs")
+    return collision, support_rows
+
+
+def _separate_proposal(correction, values, matrix, labels, hard, budget):
+    from weft.moving_equipment_contact_restore import restore_contact_direction
+    collision, support_rows = _restoration_groups(labels, hard)
+    current = correction.ravel()
+    n = len(current)
+    low = np.maximum(-LIMITS["angle_update_rad"], -.5-current)
+    high = np.minimum(LIMITS["angle_update_rad"], .5-current)
+    C = np.vstack((matrix[hard], np.eye(n), -np.eye(n)))
+    lower = np.r_[-values[hard], low, -high]
+    budget.check()
+    result = restore_contact_direction(matrix[collision], values[collision], matrix[support_rows], values[support_rows],
+        C, lower, max_seconds=min(2., max(.001, budget.deadline-time.monotonic())))
+    budget.check()
+    hard_labels = [labels[i] for i in np.flatnonzero(hard)]
+    hard_labels += [{"kind": "update_or_correction_lower", "variable": i} for i in range(n)]
+    hard_labels += [{"kind": "update_or_correction_upper", "variable": i} for i in range(n)]
+    initial_rows = [{"row": int(i), **hard_labels[i], "residual": float(-lower[i])} for i in np.flatnonzero(lower > 0)]
+    report = {**result["report"], "initial_hard_anchor": {"violations": initial_rows, "original_hard_rows": len(lower),
+        "scope": "Exact caller residuals before bounded Phase-I; no timestamp, pose or bound clamp."}}
+    reports = [{"phase": "separate_collision_support_restoration", "status": result["status"],
+                "report": report, "failure": result["failure"]}]
+    step = None if result["status"] in {"incomplete_resource_bound", "unsupported_hard_anchor"} or result["step"] is None else np.asarray(result["step"])
+    return step, reports, None
+
+
+def _restoration_progress(before, after, labels, hard):
+    collision, support_rows = _restoration_groups(labels, hard)
+    def cost(values, mask):
+        residual = np.minimum(values[mask], 0.)
+        return float(residual @ residual)/max(1, len(residual))
+    old_collision, new_collision = cost(before, collision), cost(after, collision)
+    old_support, new_support = cost(before, support_rows), cost(after, support_rows)
+    preserved = np.min(after[collision]-np.minimum(before[collision], 0.), initial=0.) >= -1e-8
+    accepted = new_collision < old_collision-1e-14 or (preserved and new_support < old_support-1e-14)
+    return accepted, {"before_collision_squared_deficit": old_collision, "after_collision_squared_deficit": new_collision,
+        "before_support_squared_deficit": old_support, "after_support_squared_deficit": new_support,
+        "previous_collision_bounds_preserved": bool(preserved)}
+
+
 def _runtime(admission, scene, budget=None):
     from weft.moving_equipment_task_recording import runtime_identity
     from weft.shared_world_packaging import read_package_file
@@ -218,11 +265,16 @@ def _runtime(admission, scene, budget=None):
     return {"runtime_sha256": pins, "runtime_versions": identity["runtime_versions"]}
 
 
-def search_moving_contacts(admission, *, max_seconds=60, max_evaluations=24000, max_iterations=6):
+def search_moving_contacts(admission, *, max_seconds=60, max_evaluations=24000, max_iterations=6,
+                           strategy="shared-slack-v1"):
     """One immutable admitted world; two coupled alternatives, no source, physics or scorer changes."""
     from weft.constrained_limb_camera_fit import solve_source_qp
     from weft.moving_equipment_task import validate_moving_equipment_task
     started = time.monotonic()
+    _require(strategy in ("shared-slack-v1", "separate-collision-support-v1"), "unsupported restoration strategy")
+    separate = strategy == "separate-collision-support-v1"
+    if separate:
+        from weft import moving_equipment_contact_restore
     _require(type(max_seconds) in (int,float) and math.isfinite(max_seconds) and 0 < max_seconds <= 60, "deadline must be in (0,60]")
     _require(type(max_evaluations) is int and 1 <= max_evaluations <= 24000, "evaluation bound must be 1..24000")
     _require(type(max_iterations) is int and 1 <= max_iterations <= 6, "iteration bound must be 1..6")
@@ -231,6 +283,8 @@ def search_moving_contacts(admission, *, max_seconds=60, max_evaluations=24000, 
     validate_moving_equipment_task(task, scene, admission.bundle)
     knots, times = support._schedule(scene, task)
     _require(8*len(knots)+1 <= 518, "complete trajectory exceeds variable bound")
+    if separate:
+        _require(8*len(knots) <= 192, "complete separate-restoration trajectory exceeds 192 variables")
     budget = support._Budget(started+max_seconds, max_evaluations)
     runtime = _runtime(admission, scene, budget); budget.check()
     rows, fixed, failure, model = [], [], None, None
@@ -248,7 +302,10 @@ def search_moving_contacts(admission, *, max_seconds=60, max_evaluations=24000, 
                 values, jac, labels, hard = model.constraints(correction, side, derivatives=True)
                 violation = max(0., float(np.max(-values, initial=0.)))
                 if violation <= 1e-10: break
-                step, reports, slack = _proposal(correction, values, jac, hard, solve_source_qp, budget)
+                if separate:
+                    step, reports, slack = _separate_proposal(correction, values, jac, labels, hard, budget)
+                else:
+                    step, reports, slack = _proposal(correction, values, jac, hard, solve_source_qp, budget)
                 receipt = {"iteration": iteration+1, "before_worst_scaled_violation": violation,
                     "search_restoration_slack": slack, "solvers": reports, "accepted": False}
                 row["iterations"].append(receipt)
@@ -258,10 +315,12 @@ def search_moving_contacts(admission, *, max_seconds=60, max_evaluations=24000, 
                     trial = correction + step.reshape(correction.shape)*2.**(-power)
                     candidate, _, _, hard_flags = model.constraints(trial, side, derivatives=False)
                     new_violation = max(0., float(np.max(-candidate, initial=0.)))
-                    if (np.max(abs(trial)) <= .5+1e-10 and np.min(candidate[hard_flags], initial=0.) >= -1e-10
-                            and new_violation < violation-1e-10):
+                    progress, detail = (_restoration_progress(values, candidate, labels, hard_flags) if separate
+                                        else (new_violation < violation-1e-10, None))
+                    if (np.max(abs(trial)) <= .5+1e-10 and np.min(candidate[hard_flags], initial=0.) >= -1e-10 and progress):
                         correction = trial
                         receipt.update(accepted=True, fraction=2.**(-power), after_worst_scaled_violation=new_violation)
+                        if separate: receipt["restoration_progress"] = detail
                         break
                 if not receipt["accepted"]: break
             # Final native distances/static diagnostics are independently recomputed, not copied from the QP model.
@@ -273,7 +332,8 @@ def search_moving_contacts(admission, *, max_seconds=60, max_evaluations=24000, 
             row["constraint_failures"] = [{**label, "residual": float(value)} for value, label in zip(values,labels) if value < -1e-10]
             geometric = all(all(passed for key,passed in x["checks"].items() if not key.startswith("static_")) for x in row["audit"])
             geometric = geometric and not row["constraint_failures"]
-            row["status"] = "geometric_witness_only" if geometric else "no_witness_in_bounded_coupled_search"
+            unsupported = separate and any(s["status"] == "unsupported_hard_anchor" for i in row["iterations"] for s in i["solvers"])
+            row["status"] = "unsupported_hard_anchor" if unsupported else "geometric_witness_only" if geometric else "no_witness_in_bounded_coupled_search"
             row["static_load_hypothesis_passed"] = geometric and all(x["geometric_static_witness"] for x in row["audit"])
             row["dynamic_contact_verified"] = False
             row["task_success"] = False
@@ -302,6 +362,11 @@ def search_moving_contacts(admission, *, max_seconds=60, max_evaluations=24000, 
             "approach_transition_checked":False,"full_interval_score_checked":False,
             "static_load_scope":"Restrictive motor-only load estimate; floor load sharing is not solved. Failure is not actuator infeasibility; passing is not an equilibrium certificate.",
             "identity_scope":"Original conditional scene/shape/depth/unknown prefix retained; no recovered grasp claim."}}
+    if separate:
+        result["restoration_strategy"] = {"profile": strategy,
+            "helper_profile": moving_equipment_contact_restore.PROFILE,
+            "helper_sha256": runtime["runtime_sha256"]["moving_equipment_contact_restore.py"],
+            "scope": "Collision-first linear proposal and nonlinear progress only; original final native gates unchanged."}
     _bytes(result)
     try: budget.check()
     except TimeoutError as error:

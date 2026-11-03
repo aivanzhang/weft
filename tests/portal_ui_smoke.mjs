@@ -25,6 +25,7 @@ function setup(jobs=[]) {
       if(path.endsWith("/muse/repairs")){info.jobs[0].muse.repairs={status:"queued",message:"Waiting for suggestion tests",applied:false};info.jobs[0].muse.repair_availability.available=false;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/perception/preflight")){info.jobs[0].perception={...info.jobs[0].perception,status:"queued_preflight"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/perception/prepare")){info.jobs[0].perception={...info.jobs[0].perception,status:"queued",quote:null};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/perception/body-detail")){const parent=info.jobs.find(j=>path.includes(j.id));const child={id:"d".repeat(32),name:parent.name,kind:"video",route:"exercise",status:"needs_input",events:[],body_detail:{available:false,parent_id:parent.id,reason:"Detailed local attempt"},perception:{available:true,status:"queued_preflight",artifacts:{}}};parent.body_detail={...parent.body_detail,available:false,child_id:child.id};info.jobs.push(child);return {ok:true,json:async()=>structuredClone(child)};}
       if(path.endsWith("/moving-equipment/prepare")){info.jobs[0].moving_equipment={status:"queued",phase:"prepare",message:"Saved evidence only"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/moving-equipment/build")){info.jobs[0].moving_equipment.status="queued";info.jobs[0].moving_equipment.phase="build";return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/moving-equipment/select")){info.jobs[0].status="ready";info.jobs[0].moving_candidate_id=JSON.parse(options.body).id;info.jobs[0].control_profile="shared_world_exploration";info.jobs[0].review_unavailable_reason="Manual exploration has no qualified Muse review";info.jobs[0].sandbox=`/labs/${info.jobs[0].id}/`;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
@@ -34,6 +35,25 @@ function setup(jobs=[]) {
       return {ok:true,json:async()=>({frames:[]})};},console};
   vm.runInNewContext(code,context);
   return {elements,calls,timers,delays,document,listeners,info};
+}
+
+{
+  const id="7".repeat(32),parent={id,name:"Failed pose.mp4",kind:"video",route:"exercise",status:"needs_input",events:[],
+    body_detail:{available:true,recipe:"full-dense-region-v1",reason:"Original pose quality failed <script>"},
+    perception:{available:true,status:"failed",error:"Preserved first failure",artifacts:{failure:"perception/failure.json"}}};
+  const f=setup([parent]);await tick();const e=f.elements;
+  assert.equal(e.get("body-detail-option").hidden,false);assert.equal(e.get("body-detail-start").hidden,false);
+  assert.equal(e.get("body-detail-reason").textContent,parent.body_detail.reason);
+  assert.equal(f.calls.filter(c=>c.path.includes("/perception/")).length,0);
+  await Promise.all([e.get("body-detail-start").onclick(),e.get("body-detail-start").onclick()]);await tick();
+  const calls=f.calls.filter(c=>c.path.endsWith("/perception/body-detail"));assert.equal(calls.length,1);
+  assert.deepEqual(JSON.parse(calls[0].options.body),{recipe:"full-dense-region-v1",request_id:"a".repeat(32)});
+  assert.equal(parent.perception.status,"failed");assert.equal(parent.perception.error,"Preserved first failure");
+  assert.equal(e.get("body-detail-start").hidden,true);assert.equal(e.get("perception-consent").hidden,true);
+  e.get("projects").children[0].onclick();await tick();assert.equal(e.get("body-detail-open").hidden,false);
+  e.get("body-detail-open").onclick();await tick();assert.equal(e.get("body-detail-start").hidden,true);
+  assert.ok(!f.calls.some(c=>c.path.endsWith("/perception/prepare")||c.path.includes("/files/")||c.path.endsWith("/muse")));
+  console.log("PASS detailed body extraction is an explicit local child action, deduplicated and preserves failed parent");
 }
 
 {

@@ -20,7 +20,8 @@ PREFLIGHT_PROFILE = "exercise-perception-preflight-v1"
 LEGACY_ANCHOR_PROFILE = "sealed-pose-tracking-anchor-v1"
 VISIBLE_ANCHOR_PROFILE = "sealed-pose-visible-chain-tracking-anchor-v2"
 # This published producer has identical preflight/body/anchor semantics; never execute its snapshot.
-REVIEWED_PREFLIGHT_PRODUCERS = frozenset({'75434812f8b7727e79ba64b82d33bfb2e31fb752e18b8d99208865dfaea1479d'})
+REVIEWED_PREFLIGHT_PRODUCERS = frozenset({'75434812f8b7727e79ba64b82d33bfb2e31fb752e18b8d99208865dfaea1479d',
+    'd20a3c187762c5d1608bc2a793302b13f7e6a09992ea4a6a565952b0a016ed81'})
 
 
 def _check_deadline(deadline):
@@ -87,8 +88,20 @@ def _preflight_seed(seed, metadata, *, deadline, expected_manifest_sha256=None, 
     return pin, anchor
 
 
+def _detail_metadata(original_raw, metadata):
+    original = _json(original_raw)
+    if (any(original[key] != metadata[other] for key, other in (
+            ("source_sha256", "source_sha256"), ("width", "width"), ("height", "height"),
+            ("decoded_frames", "frame_count"), ("fps", "fps")))
+            or any(row.get("decoder_timestamp_s") is not None
+                   and row["decoder_timestamp_s"] != metadata["decoder_timestamps_s"][row["frame"]]
+                   for row in original["frames"])):
+        raise ValueError("Body-detail history differs from the complete original source or decoder clock")
+
+
 def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_source=None, max_seconds=210,
-                                         anchor_profile=LEGACY_ANCHOR_PROFILE, retain_body_source=False):
+                                         anchor_profile=LEGACY_ANCHOR_PROFILE, retain_body_source=False,
+                                         body_detail_recipe=None, body_detail_inputs=None):
     """Prepare source/body custody before either provider; never send or reserve API money."""
     from weft.segmentation_lab import inspect_video
     from weft.exercise_body_source import prepare_exercise_body_source
@@ -103,6 +116,26 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
     if type(retain_body_source) is not bool or retain_body_source and body_source is None:
         raise ValueError("Retained body custody requires an explicit existing sealed body")
     started = time.monotonic(); deadline = started+max_seconds
+    detail, detail_files, detail_options = None, {}, {}
+    if body_detail_recipe is not None or body_detail_inputs is not None:
+        from weft import portal_body_detail_recipe as recipes
+        if (body_source is not None or retain_body_source or body_detail_recipe is None
+                or not isinstance(body_detail_inputs, tuple) or len(body_detail_inputs) != 2):
+            raise ValueError("Body detail requires its original evidence/raw pair and a new local body")
+        detail_files = {"implementation/"+name: Path(__file__).with_name(name).read_bytes()
+                        for name in recipes.IMPLEMENTATIONS}
+        detail = recipes.validate_body_detail_recipe(body_detail_recipe, *body_detail_inputs)
+        detail_options = recipes.body_detail_options(detail)
+        detail_options.pop("native_timing")
+        detail_files.update(zip(recipes.INPUT_FILES, body_detail_inputs, strict=True))
+        detail_files[recipes.RECIPE_FILE] = recipes._encode(detail)
+        if pose_model is None:
+            raise ValueError("Body detail requires the fixed local Full model")
+        model = _path(pose_model)
+        if (model.name != recipes.MODEL_FILENAME or not model.is_file() or model.stat().st_size != recipes.MODEL_BYTES
+                or digest(model) != recipes.MODEL_SHA256):
+            raise ValueError("Body detail requires the exact fixed local Full model")
+        _check_deadline(deadline)
     video, out = _path(video), _path(out)
     supplied = [_path(v) for v in (body_source, pose_model) if v is not None]
     if out.exists() or any(out == p or out.is_relative_to(p) or p.is_relative_to(out) for p in [video, *supplied]):
@@ -110,8 +143,12 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
     if body_source is None and (pose_model is None or not _path(pose_model).is_file()):
         raise ValueError("Local pose model or exact sealed body is required before AI analysis")
     metadata = _preflight_metadata(inspect_video(video, deadline=deadline, include_fps=True))
+    if detail is not None:
+        _detail_metadata(body_detail_inputs[0], metadata)
     _check_deadline(deadline); out.mkdir(parents=True)
     write_json(out/"metadata.json", metadata)
+    if detail_files:
+        write_package_files(out, detail_files)
     stage = "body"
     try:
         generated_body = body_source is None
@@ -119,7 +156,7 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
             body_source = out/"body_source"
             prepare_exercise_body_source(video, body_source, pose_model=pose_model, native_timing=True,
                 source_note="Local source-bound preflight before API analysis; no source rights claim",
-                max_seconds=min(180, deadline-time.monotonic()))
+                max_seconds=min(180, deadline-time.monotonic()), **detail_options)
         elif retain_body_source:
             from weft.perception_body_reuse import copy_sealed_body
             reuse = copy_sealed_body(body_source, out/"body_source",
@@ -130,6 +167,8 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
         seed = prepare_shared_world_seed(body_source, out/"body_seed", deadline=deadline)
         stage = "anchor"
         seed_pin, anchor = _preflight_seed(seed, metadata, deadline=deadline, anchor_profile=anchor_profile)
+        if detail is not None:
+            _validate_detail_body(out/"body_source", detail, seed)
         write_json(out/"body-anchor.json", anchor)
         if digest(video) != metadata["source_sha256"]:
             raise ValueError("Original video changed during local preflight")
@@ -149,6 +188,13 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
         if retain_body_source:
             write_package_files(out, {"implementation/perception_body_reuse.py": Path(__file__).with_name("perception_body_reuse.py").read_bytes()})
             names += ["body-reuse.json", "implementation/perception_body_reuse.py"]
+        if detail is not None:
+            for name, expected in detail_files.items():
+                if name.startswith("implementation/") and Path(__file__).with_name(Path(name).name).read_bytes() != expected:
+                    raise ValueError("Body-detail implementation changed during preparation")
+                if (out/name).read_bytes() != expected:
+                    raise ValueError("Body-detail source or recipe changed during preparation")
+            names += list(detail_files)
         _check_deadline(deadline)
         write_json(out/"manifest.json", {"schema_version": 1, "profile": PREFLIGHT_PROFILE, "status": "local_ready",
             "files": {name: digest(out/name) for name in names}, "children": children})
@@ -157,6 +203,20 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
         write_json(out/"failure.json", {"stage": stage, "error_type": type(error).__name__, "message": str(error)[:500],
             "api_calls": 0, "retry": False, "scope": "Local source evidence retained; no provider call or reservation"})
         raise
+
+
+def _validate_detail_body(body, recipe, seed):
+    from weft.portal_body_detail_recipe import validate_body_detail_body
+    body_manifest, members = read_package_manifest(body)
+    _, seed_members = read_package_manifest(seed)
+    original = "inputs/human-source/source-manifest.json"
+    if (seed_members.get(original) != sha256(body_manifest).hexdigest()
+            or read_package_file(seed, original, max_bytes=8 << 20,
+                                 expected_sha256=seed_members.get(original)) != body_manifest):
+        raise ValueError("Body-detail seed must retain the exact newly generated body manifest")
+    marker, model = (_json(read_package_file(body, name, max_bytes=1 << 20,
+        expected_sha256=members.get(name))) for name in ("body-source.json", "model.json"))
+    validate_body_detail_body(recipe, marker, model)
 
 
 def validate_perception_preflight(video, preflight, *, deadline):
@@ -170,6 +230,12 @@ def validate_perception_preflight(video, preflight, *, deadline):
     manifest = _json(raw)
     names = {"metadata.json", "body-anchor.json", "result.json", "implementation/exercise_perception_pipeline.py"}
     reused_body = "body-reuse.json" in declared
+    detailed = "body-detail/recipe.json" in declared
+    if detailed:
+        from weft import portal_body_detail_recipe as recipes
+        names.update(recipes.ARTIFACTS)
+        if reused_body or "body_source" not in manifest.get("children", {}):
+            raise ValueError("Body detail must retain its newly generated body")
     if reused_body:
         names |= {"body-reuse.json", "implementation/perception_body_reuse.py"}
     stored_anchor = _json(read_package_file(preflight, "body-anchor.json", max_bytes=128 << 10,
@@ -182,14 +248,31 @@ def validate_perception_preflight(video, preflight, *, deadline):
     if (set(declared) != names or manifest.get("profile") != PREFLIGHT_PROFILE or manifest.get("status") != "local_ready"
             or set(manifest.get("children", {})) not in ({"body_seed"}, {"body_seed", "body_source"})):
         raise ValueError("Preflight seal differs from the closed local preparation contract")
-    files = {name: read_package_file(preflight, name, max_bytes=(1 << 20), expected_sha256=pin) for name, pin in declared.items()}
+    files, detail_bytes = {}, 0
+    for name, pin in declared.items():
+        _check_deadline(deadline)
+        limit = (min(16 << 20, (16 << 20)-detail_bytes) if detailed and name in recipes.INPUT_FILES
+                 else recipes.MAX_RECIPE_BYTES if detailed and name == recipes.RECIPE_FILE else 1 << 20)
+        files[name] = read_package_file(preflight, name, max_bytes=max(1, limit), expected_sha256=pin)
+        if detailed and name in recipes.INPUT_FILES:
+            detail_bytes += len(files[name])
+            if detail_bytes > 16 << 20:
+                raise ValueError("Body-detail raw inputs exceed their aggregate bound")
     producer = files["implementation/exercise_perception_pipeline.py"]
-    if producer != Path(__file__).read_bytes() and sha256(producer).hexdigest() not in REVIEWED_PREFLIGHT_PRODUCERS:
+    if producer != Path(__file__).read_bytes() and (detailed or sha256(producer).hexdigest() not in REVIEWED_PREFLIGHT_PRODUCERS):
         raise ValueError("Preflight implementation differs from this reviewed runtime; explicit compatibility is required")
     if (anchor_profile == VISIBLE_ANCHOR_PROFILE
             and files["implementation/person_tracking_anchor.py"] != Path(__file__).with_name("person_tracking_anchor.py").read_bytes()):
         raise ValueError("Preflight person anchor implementation differs from its exact sealed runtime")
     metadata = _preflight_metadata(_json(files["metadata.json"]))
+    if detailed:
+        for name in recipes.IMPLEMENTATIONS:
+            if files["implementation/"+name] != Path(__file__).with_name(name).read_bytes():
+                raise ValueError("Body-detail recipe implementation differs from its reviewed snapshot")
+        detail = recipes.validate_body_detail_recipe(_json(files[recipes.RECIPE_FILE]),
+                                                     *(files[name] for name in recipes.INPUT_FILES))
+        _detail_metadata(files[recipes.INPUT_FILES[0]], metadata)
+        _validate_detail_body(preflight/"body_source", detail, preflight/"body_seed")
     if reused_body:
         from weft.perception_body_reuse import validate_reuse_receipt
         if files["implementation/perception_body_reuse.py"] != Path(__file__).with_name("perception_body_reuse.py").read_bytes():

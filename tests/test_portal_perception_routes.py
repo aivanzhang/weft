@@ -28,7 +28,8 @@ def handler(action, raw=b'', *, authorized=True, length=None):
         headers={'Content-Length':str(len(raw) if length is None else length)},rfile=BytesIO(raw),
         connection=SimpleNamespace(settimeout=lambda _:None),route_lab=lambda:None,authorized=lambda:authorized,
         server=SimpleNamespace(portal=SimpleNamespace(preflight_perception=lambda *a:calls.append(a) or {},
-            prepare_perception=lambda *a:calls.append(a) or {})),reply=lambda value,status=200:replies.append((value,status)))
+            prepare_perception=lambda *a:calls.append(a) or {},
+            prepare_body_detail=lambda *a:calls.append(a) or {})),reply=lambda value,status=200:replies.append((value,status)))
     PortalHandler.do_POST(h)
     return calls,replies
 
@@ -42,9 +43,19 @@ def test_authenticated_transport_delivers_exact_closed_request():
     assert handler('preflight')[0]==[('a'*32,)]
 
 
+def test_detailed_body_transport_requires_authenticated_explicit_request():
+    payload={'recipe':'full-dense-region-v1','request_id':'d'*32}
+    raw=json.dumps(payload).encode()
+    calls,replies=handler('body-detail',raw)
+    assert calls==[('a'*32,payload)] and replies[-1][1]==202
+    assert handler('body-detail',raw,authorized=False)==([],[])
+
+
 @pytest.mark.parametrize('action,raw,length',[
     ('preflight',b'{}',2),('prepare',b'',0),('prepare',b'{}',2049),('prepare',b'{}',3),
-    ('prepare',b'{"x":1,"x":2}',None),('prepare',b'{',None)])
+    ('prepare',b'{"x":1,"x":2}',None),('prepare',b'{',None),
+    ('body-detail',b'',0),('body-detail',b'{}',2049),('body-detail',b'{}',3),
+    ('body-detail',b'{"recipe":1,"recipe":2}',None)])
 def test_transport_rejects_arguments_size_truncation_and_duplicate_keys(action,raw,length):
     calls,replies=handler(action,raw,length=length)
     assert not calls and replies[-1][1]==400

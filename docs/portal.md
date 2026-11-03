@@ -4,6 +4,8 @@ Upload a video, follow its reconstruction, open the interactive 3D sandbox, and
 save your actions. OpenAI scene analysis and Muse physics review use **server-side project API keys**, never a
 ChatGPT login, browser session, coding-agent CLI, or subscription token.
 
+Failed local body extraction can offer a [separate detailed-body attempt](portal-body-detail.md), using the local Full pose model without an API charge. The original failure stays intact; later OpenAI and Meta processing still requires its own consent.
+
 ## Open it locally
 
 From the repository root:

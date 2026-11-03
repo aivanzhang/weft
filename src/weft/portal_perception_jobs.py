@@ -203,6 +203,10 @@ def summary(root, job, parent_status):
                  'pose_diagnostic_manifest': 'pose-diagnostic/manifest.json', 'pose_diagnostic_error': 'pose-diagnostic-error.json'}
     result['artifacts'] = {key: 'perception/'+name for key, name in artifacts.items()
                            if (Path(root)/'perception'/name).is_file() and not (Path(root)/'perception'/name).is_symlink()}
+    if 'body_detail' in job:
+        for key, name in (('body_detail_request', 'body-detail/request.json'), ('body_detail_recipe', 'body-detail/recipe.json')):
+            if (Path(root)/name).is_file() and not (Path(root)/name).is_symlink():
+                result['artifacts'][key] = name
     if status:
         result.update({key: status[key] for key in ('stage', 'events', 'error', 'seconds') if key in status})
     if status.get('status') == 'awaiting_consent':
@@ -314,6 +318,15 @@ def execute_perception_job(root, *, project=PROJECT_ROOT):
                            'elapsed_seconds': round(time.monotonic()-started, 3)})
         atomic_json(work/'status.json', {'status': stage, 'stage': stage, 'message': message[:500], 'events': events})
     try:
+        initial_job = _read(root, 'job.json', 64 << 10)
+        detail_options = None
+        if 'body_detail' in initial_job and not paid:
+            check()
+            write_package_files(work, {'preflight-start.json': _bytes({'started_at': local_time(), 'api_calls': 0})})
+            from weft.portal_body_detail import prepare_queued_body_detail
+            progress('preflighting', 'Checking the preserved source and all body estimates for a separate detailed attempt. No media sent.')
+            detail_options = prepare_queued_body_detail(root, project=project, deadline=min(deadline, time.monotonic()+30))
+            check()
         root, job, video = _context(root)
         if read_package_file(root, 'status.json', max_bytes=32 << 10) != read_package_file(work, 'parent-status.json', max_bytes=32 << 10):
             raise ValueError('Original upload changed during perception')
@@ -324,10 +337,13 @@ def execute_perception_job(root, *, project=PROJECT_ROOT):
         if video.suffix.lower() != '.mp4' or not 1 <= video.stat().st_size <= 37_000_000 or digest(video) != job['source_sha256']:
             raise UnsupportedPerception('Use the exact original MP4 within 37 MB; implicit conversion is unsupported')
         if not paid:
-            write_package_files(work, {'preflight-start.json': _bytes({'started_at': local_time(), 'api_calls': 0})})
-            options = {'pose_model': Path(project)/'.local/models/pose_landmarker_lite.task'}
+            if detail_options is None:
+                write_package_files(work, {'preflight-start.json': _bytes({'started_at': local_time(), 'api_calls': 0})})
+            options = detail_options or {'pose_model': Path(project)/'.local/models/pose_landmarker_lite.task'}
             if ('body_reuse' in job or 'body_reuse' in pre_request
                     or (root/'body-reuse').exists() or (root/'body-reuse').is_symlink()):
+                if detail_options is not None:
+                    raise ValueError('Detailed acquisition cannot also replace poses with a saved body')
                 from weft.portal_body_reuse import validate_queued_body
                 body = validate_queued_body(root, deadline=min(deadline, time.monotonic()+30))
                 options = {'body_source': body, 'retain_body_source': True}

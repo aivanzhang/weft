@@ -141,6 +141,7 @@ class Portal:
             os.close(self.lease)
             raise ValueError("Another portal owns this job directory") from None
         self.jobs = {}
+        self.body_detail_children = {}
         try:
             self.equipment_catalog = read_catalog(self.root)
             for folder in sorted(self.root.iterdir()):
@@ -150,6 +151,8 @@ class Portal:
                     raise ValueError("Portal inventory is unsafe or exceeds 50 jobs")
                 config = bounded_json(folder / "job.json")
                 self.jobs[folder.name] = config
+                if "body_detail" in config and isinstance(config.get("parent_id"), str):
+                    self.body_detail_children[config["parent_id"]] = folder.name
                 status = self._status(folder.name)
                 if status["status"] not in TERMINAL:
                     atomic_json(folder / "status.json", {"status": "interrupted", "stage": "interrupted",
@@ -264,6 +267,14 @@ class Portal:
             result.update(status)
             result["perception"] = {**perception_jobs.summary(folder, config, status),
                 "busy": self.active == identity and perception_jobs.read_status(folder).get("status") not in {"not_started", None}}
+            result["body_detail"] = {"available": False}
+            if "body_detail" in config or (result["perception"]["status"] == "failed"
+                    and status.get("route") == "exercise" and status["status"] in {"needs_input", "failed"}):
+                from weft.portal_body_detail import body_detail_availability
+                result["body_detail"] = body_detail_availability(folder)
+            detail_child = getattr(self, "body_detail_children", {}).get(identity)
+            if detail_child:
+                result["body_detail"].update(available=False, child_id=detail_child)
             result["moving_equipment"] = moving_jobs.summary(folder)
             if self._exploration(identity):
                 result["control_profile"] = "shared_world_exploration"
@@ -620,6 +631,21 @@ class Portal:
             self.wake.set()
             return self.summary(identity)
 
+    def prepare_body_detail(self, identity, payload):
+        from weft.portal_body_detail import create_body_detail_child
+
+        with self.lock:
+            self._folder(identity)
+            if self.active == identity:
+                raise ValueError("The original worker is finishing; refresh before starting a separate body attempt")
+            config = create_body_detail_child(self.root, identity, payload, lease_fd=self.lease,
+                existing_jobs=self.jobs, stored_bytes=self._stored_bytes(), reserved_bytes=self._reserved_growth(),
+                pending_jobs=self._pending_jobs(), deadline=time.monotonic()+2)
+            self.jobs[config["id"]] = config
+            self.body_detail_children[identity] = config["id"]
+            self.wake.set()
+            return self.summary(config["id"])
+
     def _reserve_perception_slot(self):
         pending = self._pending_jobs()
         if pending >= 4:
@@ -904,6 +930,12 @@ class Portal:
 
     def artifact(self, identity, name):
         folder = self._folder(identity)
+        if name.startswith("body-detail/"):
+            if name not in {"body-detail/request.json", "body-detail/recipe.json"}:
+                raise ValueError("File is not a public body-detail artifact")
+            from weft.shared_world_packaging import read_package_file
+            read_package_file(folder, name, max_bytes=(2 << 20) if name.endswith("recipe.json") else (128 << 10))
+            return folder / name
         if name == 'equipment/recovery.json':
             from weft.shared_world_packaging import read_package_file
             recovery = equipment_recovery_summary(folder, self.jobs[identity])
@@ -1055,7 +1087,7 @@ class PortalHandler(LabHandler):
                     raise ValueError("Equipment choice accepts only a candidate identifier")
                 method = self.server.portal.prepare_equipment if match[2] == "prepare" else self.server.portal.choose_equipment
                 return self.reply(method(match[1], value["id"]), 202 if match[2] == "prepare" else 200)
-            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/perception/(preflight|prepare)", path)
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/perception/(preflight|prepare|body-detail)", path)
             if match:
                 length = int(self.headers.get("Content-Length", "0"))
                 if match[2] == "preflight":
@@ -1069,6 +1101,8 @@ class PortalHandler(LabHandler):
                 if len(raw) != length:
                     raise ValueError("Perception consent upload was interrupted")
                 from weft.exercise_body_source import _json
+                if match[2] == "body-detail":
+                    return self.reply(self.server.portal.prepare_body_detail(match[1], _json(raw)), 202)
                 return self.reply(self.server.portal.prepare_perception(match[1], _json(raw)), 202)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/muse", path)
             if match:

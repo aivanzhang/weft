@@ -9,6 +9,7 @@
   let checking = false, repairing = false;
   let preparingEquipment = false, choosingEquipment = false;
   let preflighting = false, preparingPerception = false, consentKey = "", perceptionRequest = null;
+  let bodyDetailBusy = false, bodyDetailKey = "", bodyDetailRequest = null;
   let movingBusy = false, movingKey = "", movingChoices = [], movingFields = [];
   const movingActive = job => ["queued", "running", "cancelling"].includes(job.moving_equipment?.status);
   let creatingSupport = false, selectedJob = null;
@@ -35,7 +36,7 @@
     if (!job) return;
     selected = job.id;
     selectedJob = job;
-    const signature = JSON.stringify([job, museAvailable, reviewing, checking, repairing, preflighting, preparingPerception]);
+    const signature = JSON.stringify([job, museAvailable, reviewing, checking, repairing, preflighting, preparingPerception, bodyDetailBusy]);
     if (lastDetail === signature) return;
     lastDetail = signature;
     $("project").hidden = false;
@@ -91,6 +92,16 @@
     $("perception-status").textContent = perception?.error || perception?.message || "";
     $("perception-preflight").hidden = !perception?.available || perception.status !== "not_started";
     $("perception-preflight").disabled = preflighting || perceptionActive(job);
+    const detail = job.body_detail;
+    const existingDetail = typeof detail?.child_id === "string" && /^[a-f0-9]{32}$/.test(detail.child_id);
+    const canDetail = detail?.available === true && detail.recipe === "full-dense-region-v1";
+    $("body-detail-option").hidden = !canDetail && !existingDetail && !detail?.parent_id;
+    $("body-detail-reason").textContent = detail?.reason || "";
+    $("body-detail-start").hidden = !canDetail || existingDetail;
+    $("body-detail-start").disabled = bodyDetailBusy || perceptionActive(job);
+    $("body-detail-open").hidden = !existingDetail;
+    $("body-detail-open").onclick = () => { if (existingDetail) { selected = detail.child_id; lastProjects = ""; lastDetail = ""; refresh(); } };
+    if (bodyDetailKey !== job.id) { bodyDetailKey = job.id; bodyDetailRequest = null; }
     $("perception-consent").hidden = perception?.status !== "awaiting_consent" || !quote;
     $("perception-quote").textContent = quote ? `${quote.frame_count} source frames. OpenAI (${quote.openai_model}): reserve up to $${quote.openai_max_usd.toFixed(4)}. Meta (${quote.meta_model}): reserve up to $${quote.meta_max_usd.toFixed(4)}. ${quote.message}` : "";
     updatePerceptionConsent();
@@ -112,7 +123,7 @@
       return li;
     }));
     $("perception-pose-scope").textContent = poseDiagnostic?.scope || "";
-    const artifactLabels = {person_region:"Person tracking region and excluded landmarks",body_model:"Estimated body model (no physics validation)",body_evidence:"Original inferred pose evidence",raw_poses:"All raw body estimates, including competing alternatives",pose_diagnostic:"Complete identity-break report and retained source poses",pose_diagnostic_summary:"Identity-break summary",pose_diagnostic_manifest:"Diagnostic source and failure identities",pose_diagnostic_error:"Why a pose diagnostic was unavailable",body_clock:"Native video timestamps",body_preview:"Source pose overlay (not simulation)",preflight_result:"Local check results",quote:"Saved cost and media quote",request:"Saved consent request",analysis_receipt:"OpenAI usage receipt",bridge_result:"Tracking preparation result",prepared_source:"Prepared source identities",failure:"Preparation failure details",preflight_receipt:"Local check resource receipt",preparation_receipt:"AI preparation resource receipt"};
+    const artifactLabels = {body_detail_request:"Detailed attempt: original source and request",body_detail_recipe:"Detailed attempt: all-estimate region, model and sampling",person_region:"Person tracking region and excluded landmarks",body_model:"Estimated body model (no physics validation)",body_evidence:"Original inferred pose evidence",raw_poses:"All raw body estimates, including competing alternatives",pose_diagnostic:"Complete identity-break report and retained source poses",pose_diagnostic_summary:"Identity-break summary",pose_diagnostic_manifest:"Diagnostic source and failure identities",pose_diagnostic_error:"Why a pose diagnostic was unavailable",body_clock:"Native video timestamps",body_preview:"Source pose overlay (not simulation)",preflight_result:"Local check results",quote:"Saved cost and media quote",request:"Saved consent request",analysis_receipt:"OpenAI usage receipt",bridge_result:"Tracking preparation result",prepared_source:"Prepared source identities",failure:"Preparation failure details",preflight_receipt:"Local check resource receipt",preparation_receipt:"AI preparation resource receipt"};
     if (recovered) artifactLabels.saved_recovery = "Saved-evidence recovery receipt · no new API call";
     const perceptionArtifacts = {...(perception?.artifacts || {}), ...(recovered ? {saved_recovery: recovery.artifact} : {})};
     $("perception-artifacts").replaceChildren(...Object.entries(perceptionArtifacts).filter(([key]) => artifactLabels[key]).map(([key,path]) => {
@@ -362,6 +373,18 @@
       if (selected === identity) await show(job);
     } catch(e) { error(`${e.message}. Inspect the saved request and receipts before taking another action; no automatic retry was made.`); }
     finally { preparingPerception = false; lastDetail = ""; refresh(); }
+  };
+  $("body-detail-start").onclick = async () => {
+    if (!selected || bodyDetailBusy || perceptionActive(selectedJob || {}) || selectedJob?.body_detail?.available !== true
+        || selectedJob.body_detail.recipe !== "full-dense-region-v1") return;
+    const identity = selected;
+    bodyDetailRequest ||= {recipe:"full-dense-region-v1",request_id:crypto.randomUUID().replaceAll("-", "")};
+    bodyDetailBusy = true; $("body-detail-start").disabled = true;
+    try {
+      const child = await request(`/api/projects/${identity}/perception/body-detail`, {method:"POST",body:JSON.stringify(bodyDetailRequest),headers:{"Content-Type":"application/json"}});
+      if (selected === identity) { lastProjects = ""; await show(child); }
+    } catch (e) { error(`${e.message}. The original attempt is preserved. Refresh to inspect progress; no automatic retry was made.`); }
+    finally { bodyDetailBusy = false; lastDetail = ""; refresh(); }
   };
   function showMoving(job) {
     const state = job.moving_equipment;
