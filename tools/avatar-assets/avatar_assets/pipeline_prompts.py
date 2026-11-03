@@ -176,6 +176,8 @@ unsupported: require a separate asset job for each character instead of one mult
 Use stability only when the user's action explicitly requests world-stationary geometry, such as a fixed base or planted feet.
 Never invent a stationary torso for a whole-body dance, hop or travel. Readable, supportive or upright does not mean motionless.
 Do not classify genuinely requested stationary torso/planted feet as articulation: they must remain still, not pass a movement test.
+In every non-stability description, phrase in-place limits only as negated travel ("no stepping or travel"); affirmative holds
+(keep/stay/remain/hold + planted/still/steady/fixed/stationary) or "without moving the feet/body" are rejected outside stability.
 Stability covers the entire clip. Do not mix stability and positive-motion kinds on one role; this contract has no phase windows.
 Use landing only for requested landing/descent, not merely returning to the starting pose after a small hop.
 Use return_pose for returning to a neutral/starting pose: it compares the final and initial positions of the role's weighted
