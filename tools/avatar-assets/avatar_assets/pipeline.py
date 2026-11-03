@@ -26,7 +26,7 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
-PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'openai_stream.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
+PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'openai_models.py', 'openai_grant_closure.py', 'openai_stream.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
@@ -479,7 +479,7 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
     if agent_backend is not None:
         from avatar_assets.openai_runner import reserve_microdollars
         estimate = read_json(out/'estimate.json')
-        reservation = reserve_microdollars(agent_backend['max_output_tokens'])
+        reservation = reserve_microdollars(agent_backend['max_output_tokens'], model=agent_backend['model'])
         estimate.update(agent_billing='OpenAI Responses API, billed separately from Meshy credits. Explicit administrator dollar grant required; no CLI fallback.',
                         agent_provider='openai', agent_model=agent_backend['model'],
                         reservation_microdollars_per_call=reservation,

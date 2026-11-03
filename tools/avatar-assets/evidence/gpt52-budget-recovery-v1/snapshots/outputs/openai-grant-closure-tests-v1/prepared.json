@@ -1,0 +1,48 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_openai_grant_closure.py",
+    "-v"
+  ],
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "seconds": 30
+  },
+  "schema_version": 1,
+  "scope": "Temporary real SQLite ledgers; canonical local-release verifier mocked, no actual policy/ledger/API/native actions",
+  "sources": [
+    {
+      "bytes": 14628,
+      "path": "avatar_assets/openai_grant_closure.py",
+      "sha256": "2b9879c3d9cd8fbafcbb126b3c87930c12e92554e18bf60fc7ebe358cd67b895"
+    },
+    {
+      "bytes": 12935,
+      "path": "tests/test_openai_grant_closure.py",
+      "sha256": "25f5d178346adb1822d8164cc1dbac2584f2d2357d00b17e17aaae8ea388cb7c"
+    },
+    {
+      "bytes": 41455,
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f"
+    },
+    {
+      "bytes": 2221,
+      "path": "avatar_assets/openai_models.py",
+      "sha256": "f78f56067079d163507c4b47f5a28b6458304bf26b52cda8a475156849aba633"
+    },
+    {
+      "bytes": 8563,
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44"
+    }
+  ]
+}

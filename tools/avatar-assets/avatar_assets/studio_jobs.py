@@ -578,6 +578,66 @@ class StudioJobs:
         return {'status':'failed','job_id':job_id,'lease_released':True,'receipt':relative,
                 'sha256':checksum,'no_dispatch':True,'no_cost_reset':True}
 
+    def release_uncertain_inspected(self,job_id,*,expected_pid,expected_identity,reason):
+        """Release an exited local owner without settling its unknown provider charge."""
+        from avatar_assets.studio_inspection import collect,custody_locks,include_previous_plans,recheck
+        from avatar_assets.studio_unknown_release import collect_unknown,recheck_unknown,TRANSITION,MAX_RELEASE_BYTES
+        _require(type(expected_pid) is int and expected_pid>0 and isinstance(expected_identity,str)
+                 and 0<len(expected_identity)<=256,'Explicit prior process identity is required')
+        reason=_safe_text(reason,800)
+        _require(bool(reason.strip()),'Unknown-charge release requires a recorded reason')
+
+        def owned(db):
+            row=self._row(db,job_id);data=json.loads(row['data']);request=json.loads(row['request'])
+            active=db.execute('SELECT job,token FROM active WHERE id=1').fetchone()
+            _require(row['status']=='needs_inspection' and data.get('operation')=='execute'
+                     and not data.get('uncertain_owner_release'),'Only an unreleased stopped execution can release unknown-charge ownership')
+            _require(data.get('owner_pid')==expected_pid and data.get('owner_identity')==expected_identity,
+                     'Retained worker identity changed')
+            _require(active and tuple(active)==(job_id,data.get('token')),'Exact old lease is no longer held')
+            _require(_digest(request)==row['request_digest'] and _json(self.jobs_dir/job_id/'request.json')==request,
+                     'Immutable Studio request receipt changed')
+            _require(not db.execute("SELECT 1 FROM jobs WHERE status='queued' LIMIT 1").fetchone(),
+                     'Queued work must be resolved separately before local release')
+            return row,data,request
+
+        with self._db() as db:row,data,request=owned(db)
+        output=self.root/'outputs'/row['output'];invocation=self.state_dir/data['invocation_dir']
+        _require(invocation.resolve()==invocation and invocation.is_relative_to(self.jobs_dir/job_id),
+                 'Retained invocation path is unsafe')
+        owner=_json(invocation/'owner.json');meta=_json(invocation/'invocation.json')
+        _require(owner.get('token')==data.get('token') and meta.get('job_id')==job_id
+                 and meta.get('request_digest')==row['request_digest'] and meta.get('operation')=='execute',
+                 'Retained invocation binding changed')
+        locks=[self.state_dir/'worker.lock',self.jobs_dir/job_id/'worker.lock',output/'pipeline.lock',output/'agents/runner.lock']
+        with custody_locks(locks):
+            local=include_previous_plans(self.root,invocation,
+                collect(self.root,output,invocation,expected_pid,expected_identity),row['request_digest'])
+            local['locks']=[str(path.relative_to(self.root)) for path in locks]
+            unknown=collect_unknown(self.root,output,request,self.jobs_dir/job_id/'pipeline-request.json')
+            with self._db(True) as db:
+                current,current_data,current_request=owned(db)
+                _require(current['request_digest']==row['request_digest'] and current_request==request
+                         and current_data.get('invocation_dir')==data['invocation_dir'],'Inspected ownership changed')
+                local['final_process_check']=recheck(self.root,local);recheck_unknown(unknown)
+                record={'schema_version':1,'job_id':job_id,'request_digest':row['request_digest'],
+                        'expected_pid':expected_pid,'expected_identity':expected_identity,'previous_status':'needs_inspection',
+                        'requested_transition':TRANSITION,'reason':reason,'recorded_local':_local_time(time.time()),
+                        'no_dispatch':True,'no_cost_reset':True,'old_job_restart_allowed':False,
+                        'proof':{'local_process_custody':local,'unknown_provider':unknown}}
+                _require(len(json.dumps(record).encode())<MAX_RELEASE_BYTES/2,'Unknown-call release proof exceeds bound')
+                path=self.jobs_dir/job_id/('uncertain-owner-release-'+uuid.uuid4().hex+'.json')
+                _write_private(path,record);checksum=hashlib.sha256(path.read_bytes()).hexdigest()
+                relative=str(path.relative_to(self.state_dir))
+                current_data['uncertain_owner_release']={'path':relative,'sha256':checksum}
+                self._update(db,current,current_data,'needs_inspection')
+                self._journal(db,job_id,{'status':'needs_inspection','action':'uncertain_owner_release',
+                    'receipt':relative,'sha256':checksum,'no_dispatch':True,'no_cost_reset':True,'old_job_restart_allowed':False})
+                db.execute('DELETE FROM active WHERE id=1 AND job=? AND token=?',(job_id,data['token']))
+        return {'status':'needs_inspection','job_id':job_id,'lease_released':True,'receipt':relative,
+                'sha256':checksum,'no_dispatch':True,'no_cost_reset':True,'old_job_restart_allowed':False,
+                'unknown_reserved_microdollars':unknown['uncertain_call']['reserved_microdollars']}
+
     def adopt_cached_planner_revision(self,job_id,revision,*,expected_revision_sha256):
         """Explicit local adoption after custody release; Start remains a separate action."""
         from avatar_assets.pipeline import _pipeline_sources
@@ -652,7 +712,7 @@ class StudioJobs:
             snapshots=_private_directory(invocation/'sources')
             payload['sources']=[]
             for name in ('studio_jobs.py','studio_worker.py','studio_inspection.py','studio_ai_status.py','agent_backend.py','openai_runner.py',
-                         'standing_authorization.py','pipeline_continuation.py'):
+                         'standing_authorization.py','pipeline_continuation.py','openai_models.py','openai_grant_closure.py','studio_unknown_release.py'):
                 source=Path(__file__).parent/name;target=snapshots/name
                 shutil.copyfile(source,target);target.chmod(0o600)
                 payload['sources'].append({'path':'sources/'+name,'sha256':hashlib.sha256(target.read_bytes()).hexdigest()})

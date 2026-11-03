@@ -11,8 +11,12 @@ depend on a personal ChatGPT login, local CLI session or operator-written rig.
 The first live API planner succeeded; no API-backed delivery has passed yet.
 
 Optional [bounded streaming and clearer stopped-job status](api-streaming.md)
-are implemented and locally tested. Streaming is not enabled in the current
-owner configuration and does not resolve the existing unknown charge.
+are implemented. Streaming passed one actual GPT-5.2 website planner call, but the first author
+failed on an unsupported event. New owner settings use standard responses with
+a600-second bound. Both unknown charges remain; no avatar delivery is accepted.
+
+New requests may explicitly select a [pinned GPT-5.2 price profile](api-model-profiles.md)
+to fit a smaller full-context reservation. The old unknown charge remains intact.
 
 ## Current accepted-source trial
 

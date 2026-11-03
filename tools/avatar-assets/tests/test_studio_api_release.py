@@ -44,7 +44,8 @@ class StudioApiReleaseTests(unittest.TestCase):
         self.jobs.plan(self.job)
         self.claim()
         self.output = self.jobs.resolve_job(self.job)
-        self.backend = {'provider': 'openai', 'model': api.MODEL, 'max_calls': getattr(self,'fixture_calls',3),
+        self.model = getattr(self,'fixture_model',api.MODEL)
+        self.backend = {'provider': 'openai', 'model': self.model, 'max_calls': getattr(self,'fixture_calls',3),
                         'max_repairs': getattr(self,'fixture_repairs',0), 'timeout': 240, 'max_output_tokens': 16384}
         streaming=getattr(self,'fixture_stream',False)
         if streaming:self.backend['transport']='sse-v1'
@@ -56,7 +57,7 @@ class StudioApiReleaseTests(unittest.TestCase):
         copied.write_bytes(self.source.read_bytes())
         prepared = {**self.request, 'schema_version': 1, 'id': self.output.name,
                     'states': [], 'max_credits': 0, 'max_repairs': self.backend['max_repairs'], 'max_agent_calls': self.backend['max_calls'],
-                    'agent_timeout': 240, 'agent_model': api.MODEL, 'agent_backend': self.backend,
+                    'agent_timeout': 240, 'agent_model': self.model, 'agent_backend': self.backend,
                     'media_spec': MEDIA_SPECS['preview'], 'created': '2026-11-02T11:00:00-08:00',
                     'reuse_model': {'path': 'inputs/source-model.glb', 'original_path': str(self.source),
                                     'bytes': copied.stat().st_size, 'sha256': checksum(copied)}}
@@ -70,6 +71,10 @@ class StudioApiReleaseTests(unittest.TestCase):
         snapshot.parent.mkdir()
         snapshot.write_bytes(Path(api.__file__).read_bytes())
         snapshots=[{'path': 'openai_runner.py', 'bytes': snapshot.stat().st_size, 'sha256': checksum(snapshot)}]
+        if self.model != api.MODEL:
+            from avatar_assets import openai_models
+            target=snapshot.with_name('openai_models.py');target.write_bytes(Path(openai_models.__file__).read_bytes())
+            snapshots.append({'path':'openai_models.py','bytes':target.stat().st_size,'sha256':checksum(target)})
         if streaming:
             from avatar_assets import openai_stream
             target=snapshot.with_name('openai_stream.py');target.write_bytes(Path(openai_stream.__file__).read_bytes())
@@ -93,7 +98,7 @@ class StudioApiReleaseTests(unittest.TestCase):
         schema = {'type': 'object', 'properties': {'state_id': {'type': 'string'}},
                   'required': ['state_id'], 'additionalProperties': False}
         schema = getattr(self,'fixture_schema',schema)
-        response = {'id': 'resp_analytic_planner', 'model': api.MODEL, 'service_tier': 'default',
+        response = {'id': 'resp_analytic_planner', 'model': self.model, 'service_tier': 'default',
                     'status': 'completed', 'usage': {'input_tokens': 100, 'output_tokens': 20, 'total_tokens': 120},
                     'output': [{'type': 'message', 'role': 'assistant', 'status': 'completed',
                                 'content': [{'type': 'output_text', 'text': json.dumps(self.answer)}]}]}
@@ -107,7 +112,7 @@ class StudioApiReleaseTests(unittest.TestCase):
                     patch('avatar_assets.openai_stream.post_stream_response' if streaming else
                           'avatar_assets.openai_runner.post_response',side_effect=respond) as transport:
                 runner = api.OpenAIRunner(self.output / 'agents', job_id=self.output.name,
-                    job_digest=request_hash, ledger=ledger, max_calls=self.backend['max_calls'],
+                    job_digest=request_hash, ledger=ledger, max_calls=self.backend['max_calls'], model=self.model,
                     **({'transport':'sse-v1'} if streaming else {}))
                 runner.call('planner', 'Plan this analytic dance; no tool execution', schema,
                             images=[self.output/'inputs/reference.png'] if self.reference is not None else [])
@@ -205,9 +210,9 @@ class StudioApiReleaseTests(unittest.TestCase):
 
     def test_uncertain_or_absent_api_reservation_cannot_release(self):
         self.sql("UPDATE calls SET state='reserved_uncertain'")
-        self.blocked('API calls are uncertain')
+        self.blocked('API calls are uncertain|price binding has no original call')
         self.sql('DELETE FROM calls')
-        self.blocked('API calls are uncertain')
+        self.blocked('API calls are uncertain|price binding has no original call')
 
     def test_failed_receipt_with_settled_charge_remains_outside_scope(self):
         self.change(self.output / 'agents/planner/receipt.json', lambda row: row.update(status='failed_or_uncertain'))
@@ -235,7 +240,7 @@ class StudioApiReleaseTests(unittest.TestCase):
 
     def test_reservation_is_not_refunded_during_failed_release(self):
         self.sql('UPDATE calls SET reserved=550')
-        self.blocked('settled cost or reservation differs')
+        self.blocked('settled cost or reservation differs|price profile differs from its reservation')
 
     def test_extra_roles_plans_native_or_generation_work_need_different_inspection(self):
         for name in ('plan.json', 'generation', 'inspection', 'model-0'):

@@ -21,6 +21,7 @@ MAX_EVENTS = 65536
 MAX_TRACE_BYTES = 4096
 _SAFE_ID = re.compile(r'^[A-Za-z0-9_.:-]{1,512}$')
 _RESPONSE_ID = re.compile(r'^resp_[A-Za-z0-9_-]{1,250}$')
+_EVENT_TYPE = re.compile(r'^[a-z][a-z0-9_.-]{0,127}$')
 _EVENTS = frozenset(('response.created', 'response.in_progress', 'response.completed',
     'response.output_item.added', 'response.output_item.done', 'response.content_part.added',
     'response.content_part.done', 'response.output_text.delta', 'response.output_text.done',
@@ -67,7 +68,7 @@ class _Trace:
         _require(parent.st_uid == os.getuid() and not stat.S_IMODE(parent.st_mode) & 0o022, 'unsafe_trace_directory')
         self.value = {'schema_version': 1, 'transport': 'sse-v1', 'status': 'prepared',
                       'client_request_id': client_id, 'server_request_id': None, 'response_id': None,
-                      'wire_bytes': 0, 'events': 0, 'last_sequence': None, 'elapsed_seconds': 0}
+                      'wire_bytes': 0, 'events': 0, 'last_sequence': None, 'last_event_type': None, 'elapsed_seconds': 0}
         self.write()
 
     def write(self):
@@ -166,6 +167,10 @@ class _Events:
         value = _decode(raw)
         _require(isinstance(value, dict), 'event_type')
         kind, sequence = value.get('type'), value.get('sequence_number')
+        # Keep only a bounded event label; provider payloads and key-bearing labels stay private.
+        self.trace.value['last_event_type'] = kind if isinstance(kind, str) and _EVENT_TYPE.fullmatch(kind) \
+            and (self._secret is None or self._secret not in kind) else None
+        _require(isinstance(kind, str), 'event_type')
         _require(type(sequence) is int and 0 <= sequence <= 2**53-1
                  and (self.trace.value['last_sequence'] is None or sequence > self.trace.value['last_sequence']),
                  'event_sequence')

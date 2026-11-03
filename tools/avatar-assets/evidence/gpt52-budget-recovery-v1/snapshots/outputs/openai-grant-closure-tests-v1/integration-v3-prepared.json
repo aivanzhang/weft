@@ -1,0 +1,16 @@
+{
+  "changed_hypothesis": "Correct fixture expectation: 550 settled planner cost plus unchanged5618640 unknown hold. No implementation change.",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_openai_grant_closure.RealReleaseIntegrationTests",
+    "-v"
+  ],
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "tests:."
+  },
+  "test_sha256": "9e619a6e9dacc858bbbc1a46c3b49af93ac0c4fbed56511137af59b528acbda7"
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded tool stdout",
+  "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_studio_unknown_stream_release.UnknownStreamReleaseTests tests.test_studio_unknown_release.UnknownReleaseTests.test_release_changes_only_lifecycle_and_cannot_restart_or_dispatch -q",
+  "tests": 7,
+  "seconds": 0.301,
+  "provider_calls": 0,
+  "native_calls": 0,
+  "actual_release": false,
+  "actual_read_only_proof": "actual-summary.json",
+  "scope": "Only failed_or_uncertain sse-v1 unsupported_event first-author; observed response ID remains non-billing evidence. Original unknown hold retained.",
+  "sources": [
+    {
+      "path": "avatar_assets/studio_unknown_release.py",
+      "sha256": "f1c349ad05f892fee7be0c0718476f9cfa26f15a10c78033f2cf1e0fa84584ad"
+    },
+    {
+      "path": "tests/test_studio_unknown_stream_release.py",
+      "sha256": "39e79ef46eda0497be712c734498a791e6ed2f1c45a233c1ae09ec44a2c06ac1"
+    }
+  ]
+}

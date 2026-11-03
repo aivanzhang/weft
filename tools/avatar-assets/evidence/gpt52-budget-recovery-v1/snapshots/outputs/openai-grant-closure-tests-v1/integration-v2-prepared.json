@@ -1,0 +1,15 @@
+{
+  "changed_hypothesis": "Test harness import path only: adjacent fixture imports test_pipeline_prompts as a top-level test module; no source/validator change.",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_openai_grant_closure.RealReleaseIntegrationTests",
+    "-v"
+  ],
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "tests:."
+  }
+}

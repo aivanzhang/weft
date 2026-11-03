@@ -202,7 +202,7 @@ def api_backend(state, job_id, output, request, prepared, plan, request_digest, 
             "Prepared API request is not bound to the canonical Studio request")
     sealed = terminal_sealed or ((output / "delivery-receipt.json").is_file() and (output / "delivery.json").is_file())
     revision_files = prepared_sources(output, receipt["sources"], _pipeline_sources(), sealed=sealed)
-    reservation = reserve_microdollars(settings["max_output_tokens"])
+    reservation = reserve_microdollars(settings["max_output_tokens"], model=settings["model"])
     return {**settings, "currency": "USD", "reservation_microdollars_per_call": reservation,
             "maximum_reservation_microdollars": reservation * settings["max_calls"],
             "automatic_paid_retries": 0, "authorization_checked": False,

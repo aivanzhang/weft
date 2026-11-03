@@ -1,0 +1,19 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "test_studio_api_release.StudioApiReleaseTests.test_reservation_is_not_refunded_during_failed_release",
+    "test_studio_api_release.StudioApiReleaseTests.test_uncertain_or_absent_api_reservation_cannot_release",
+    "test_studio_ai_status.StudioAiStatusTests.test_native_failure_after_ready_answer_is_not_mislabeled_ai_failure",
+    "test_studio_ai_status.StudioAiStatusTests.test_settled_invalid_response_is_not_unknown_transport",
+    "test_studio_ai_status.StudioAiStatusTests.test_settled_refusal_is_distinct_and_does_not_echo_answer",
+    "test_studio_ai_status.StudioAiStatusTests.test_timeout_is_specific_unknown_charge_not_raw_error_and_read_only",
+    "-q"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 0.1676904996857047,
+  "provider_calls": 0,
+  "fixture_fixes": "Two earlier failure-message matches; four status fixtures lacked the now-validated model binding. No runtime validation relaxed."
+}

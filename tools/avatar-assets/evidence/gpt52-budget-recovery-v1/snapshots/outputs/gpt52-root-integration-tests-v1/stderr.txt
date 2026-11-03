@@ -1,0 +1,102 @@
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2259: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x107133880>
+  def __init__(self, name, parent):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/encoder.py:426: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x107814310>
+  def _iterencode(o, _current_indent_level):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/encoder.py:426: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x107133880>
+  def _iterencode(o, _current_indent_level):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2259: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x107133b50>
+  def __init__(self, name, parent):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2259: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x1078146d0>
+  def __init__(self, name, parent):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py:2259: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x1078144f0>
+  def __init__(self, name, parent):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/encoder.py:426: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x107133b50>
+  def _iterencode(o, _current_indent_level):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+======================================================================
+FAIL: test_reservation_is_not_refunded_during_failed_release (test_studio_api_release.StudioApiReleaseTests.test_reservation_is_not_refunded_during_failed_release)
+----------------------------------------------------------------------
+ValueError: API call price profile differs from its reservation
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio_api_release.py", line 243, in test_reservation_is_not_refunded_during_failed_release
+    self.blocked('settled cost or reservation differs')
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio_api_release.py", line 167, in blocked
+    self.assertRaisesRegex((ValueError, OSError), pattern):
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "settled cost or reservation differs" does not match "API call price profile differs from its reservation"
+
+======================================================================
+FAIL: test_uncertain_or_absent_api_reservation_cannot_release (test_studio_api_release.StudioApiReleaseTests.test_uncertain_or_absent_api_reservation_cannot_release)
+----------------------------------------------------------------------
+ValueError: API price binding has no original call
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio_api_release.py", line 215, in test_uncertain_or_absent_api_reservation_cannot_release
+    self.blocked('API calls are uncertain')
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio_api_release.py", line 167, in blocked
+    self.assertRaisesRegex((ValueError, OSError), pattern):
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "API calls are uncertain" does not match "API price binding has no original call"
+
+======================================================================
+FAIL: test_native_failure_after_ready_answer_is_not_mislabeled_ai_failure (test_studio_ai_status.StudioAiStatusTests.test_native_failure_after_ready_answer_is_not_mislabeled_ai_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio_ai_status.py", line 87, in test_native_failure_after_ready_answer_is_not_mislabeled_ai_failure
+    self.assertIsNone(self.snapshot())
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: {'code': 'ai_status_unverified', 'verified': False, 'automatic_retry': False, 'message': 'AI call records could not be verified. Saved work is preserved; no automatic retry will start.', 'charge': {'status': 'unverified', 'currency': 'USD'}} is not None
+
+======================================================================
+FAIL: test_settled_invalid_response_is_not_unknown_transport (test_studio_ai_status.StudioAiStatusTests.test_settled_invalid_response_is_not_unknown_transport)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio_ai_status.py", line 77, in test_settled_invalid_response_is_not_unknown_transport
+    self.assertEqual(result['code'],'ai_response_unusable');self.assertEqual(result['charge']['status'],'settled')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'ai_status_unverified' != 'ai_response_unusable'
+- ai_status_unverified
++ ai_response_unusable
+
+
+======================================================================
+FAIL: test_settled_refusal_is_distinct_and_does_not_echo_answer (test_studio_ai_status.StudioAiStatusTests.test_settled_refusal_is_distinct_and_does_not_echo_answer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio_ai_status.py", line 83, in test_settled_refusal_is_distinct_and_does_not_echo_answer
+    self.assertEqual(result['code'],'ai_declined');self.assertNotIn('RAW MODEL',str(result))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'ai_status_unverified' != 'ai_declined'
+- ai_status_unverified
++ ai_declined
+
+
+======================================================================
+FAIL: test_timeout_is_specific_unknown_charge_not_raw_error_and_read_only (test_studio_ai_status.StudioAiStatusTests.test_timeout_is_specific_unknown_charge_not_raw_error_and_read_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio_ai_status.py", line 69, in test_timeout_is_specific_unknown_charge_not_raw_error_and_read_only
+    self.assertEqual(result['code'],'ai_charge_unknown');self.assertTrue(result['verified'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'ai_status_unverified' != 'ai_charge_unknown'
+- ai_status_unverified
++ ai_charge_unknown
+
+
+----------------------------------------------------------------------
+Ran 75 tests in 2.627s
+
+FAILED (failures=6)

@@ -1,0 +1,20 @@
+test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent (tests.test_openai_grant_closure.RealReleaseIntegrationTests.test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent) ... ERROR
+
+======================================================================
+ERROR: test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent (tests.test_openai_grant_closure.RealReleaseIntegrationTests.test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_openai_grant_closure.py", line 239, in test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent
+    from tests.test_studio_unknown_release import UnknownReleaseTests
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio_unknown_release.py", line 12, in <module>
+    from tests.test_author_input_recovery import AuthorInputRecoveryTests
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_author_input_recovery.py", line 15, in <module>
+    from tests.test_pipeline_continuation import schema
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline_continuation.py", line 19, in <module>
+    from test_pipeline_prompts import request as fixture_request, plan as fixture_plan, author_response, review as fixture_review
+ModuleNotFoundError: No module named 'test_pipeline_prompts'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.009s
+
+FAILED (errors=1)

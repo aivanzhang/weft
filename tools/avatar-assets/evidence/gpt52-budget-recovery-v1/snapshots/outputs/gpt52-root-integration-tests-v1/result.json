@@ -1,0 +1,24 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "test_model_profile_integration",
+    "test_studio_api_release",
+    "test_studio_reference_planning_custody",
+    "test_stream_planning_custody",
+    "test_pipeline_continuation",
+    "test_pipeline_replan",
+    "test_standing_authorization",
+    "test_studio_ai_status",
+    "-q"
+  ],
+  "environment_override": {
+    "PYTHONPATH": "tests"
+  },
+  "exit_code": 1,
+  "elapsed_seconds": 2.751820750068873,
+  "provider_calls": 0,
+  "provenance": "analytic fixtures"
+}

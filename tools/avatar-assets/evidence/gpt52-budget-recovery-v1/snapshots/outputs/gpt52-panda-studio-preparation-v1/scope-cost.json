@@ -1,0 +1,29 @@
+{
+  "recorded_local": "2026-11-02T16:41:52.365596-08:00",
+  "status": "prepared_not_executed",
+  "model": "gpt-5.2-2025-12-11",
+  "price_source": "https://developers.openai.com/api/docs/models/gpt-5.2",
+  "max_output_tokens": 16384,
+  "per_call_timeout_seconds": 600,
+  "transport": "sse-v1",
+  "reasoning_effort": "medium",
+  "maximum_calls": 7,
+  "maximum_repairs": 2,
+  "per_call_full_reservation_microdollars": 929376,
+  "prior_settled_microdollars": 3999655,
+  "prior_unknown_reserved_microdollars": 5618640,
+  "standing_project_cap_microdollars": 15000000,
+  "new_job_maximum_microdollars": 5381705,
+  "expected_additional_usd": [
+    0.35,
+    2.1
+  ],
+  "assumption": "Three expected calls; up to seven with two repairs; 50000 input tokens/call and1000\u20138000 output tokens/call. Bounds use entire400k context plus16384 output, not these estimates. Each call checks remaining dollars; seven calls are not guaranteed to fit.",
+  "new_meshy_credits": 0,
+  "recurring_spend": 0,
+  "approval_source": "call_dc0abee558574e469abc3d2ea5e3defa",
+  "user_reply": "STOP FUCKING ASKING!!!! You are approved as long as it is within $15",
+  "current_user_instruction": "Continue!!!",
+  "prior_config_sha256": "fb25e00c69c3e919e72e42d6bd8ebfd02ec8895fe0416f40385a51a6a83bcf65",
+  "old_unknown_charge_action": "Preserve original reservation and call rows; separately fence old unused grant after verified local lease release."
+}

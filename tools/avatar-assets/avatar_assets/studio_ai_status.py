@@ -63,7 +63,9 @@ def failure_snapshot(root,folder,binding_path,studio_request_digest,*,status,ope
             sizes=db.execute('SELECT length(CAST(role AS BLOB)),length(CAST(request_digest AS BLOB)),length(CAST(response_id AS BLOB)),length(CAST(usage AS BLOB)) FROM calls WHERE job=? LIMIT 13',(folder.name,)).fetchall()
             require(len(sizes)<=cap and all(all(size is None or type(size) is int and size<=limit
                     for size,limit in zip(row,(32,64,256,16384))) for row in sizes),'API row exceeds display bound')
-            calls=[dict(row) for row in db.execute('SELECT role,request_digest,reserved,state,response_id,actual,usage FROM calls WHERE job=? LIMIT 13',(folder.name,))]
+            calls=[dict(row) for row in db.execute('SELECT job,role,request_digest,reserved,state,response_id,actual,usage FROM calls WHERE job=? LIMIT 13',(folder.name,))]
+            from avatar_assets.openai_runner import attach_call_profiles
+            calls=attach_call_profiles(db,calls)
         after=ledger.stat()
         require((info.st_dev,info.st_ino,info.st_size,info.st_mtime_ns)==
                 (after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns),'Ledger changed while reading')
@@ -77,11 +79,13 @@ def failure_snapshot(root,folder,binding_path,studio_request_digest,*,status,ope
         calls.sort(key=order);call=calls[-1]
         uncertain=[row for row in calls if row['state']=='reserved_uncertain']
         require(not uncertain or uncertain==[call],'Multiple or nonterminal uncertain calls need inspection')
-        from avatar_assets.openai_runner import digest,call_exposure
+        from avatar_assets.openai_runner import digest,call_exposure,call_model
         role=call['role'];agent=folder/'agents'/role
         settings,_=_read(folder/'agents/runner.json',16*1024)
         require(settings.get('job_id')==folder.name and settings.get('job_digest')==request_pin['sha256']
-                and settings.get('max_calls')==cap,'Runner request binding differs')
+                and settings.get('max_calls')==cap
+                and settings.get('model')==prepared['agent_backend'].get('model')==call_model(call),
+                'Runner request binding differs')
         request,call_pin=_read(agent/'request.json',16*1024)
         receipt,_=_read(agent/'receipt.json',64*1024)
         require(request.get('role')==role and request.get('settings_sha256')==digest(settings)

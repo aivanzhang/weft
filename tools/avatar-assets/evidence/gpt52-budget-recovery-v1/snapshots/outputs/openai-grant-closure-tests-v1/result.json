@@ -1,0 +1,74 @@
+{
+  "actual_project_ledger_or_config_writes": 0,
+  "api": {
+    "approval_bindings": [
+      "operation=close_unused_grant",
+      "parent_job_id",
+      "parent_request_sha256",
+      "release_receipt_sha256"
+    ],
+    "function": "close_unused_grant(ledger, *, root, parent_id, parent_digest, release_receipt, release_sha256, approval)",
+    "hooks": [
+      "ensure_schema",
+      "grant_closures",
+      "allocated_grants",
+      "require_open_grant"
+    ],
+    "module": "avatar_assets.openai_grant_closure"
+  },
+  "combined_test_unittest_seconds": 0.08,
+  "commands": [
+    {
+      "bounded_child_seconds": 0.262,
+      "command": ".venv/bin/python -B -m unittest discover -s tests -p test_openai_grant_closure.py -v",
+      "passed": 15
+    },
+    {
+      "bounded_child_seconds": 0.262,
+      "command": "PYTHONPATH=tests:. .venv/bin/python -B -m unittest tests.test_openai_grant_closure.RealReleaseIntegrationTests -v",
+      "passed": 1
+    }
+  ],
+  "initial_focused_tests": 15,
+  "initial_tests_unittest_seconds": 0.076,
+  "live_handles": [],
+  "mock_scope": "Initial15cases use actual private receipt bytes and real SQLite with mocked canonical registry verification. Combined case uses real Studio release and verify_release plus ledger closure; only existing provider/process fixture boundaries are mocked.",
+  "preserved_failures": [
+    {
+      "cause": "Adjacent fixture imports test_pipeline_prompts via top-level tests search path; no production execution reached.",
+      "log": "integration.log"
+    },
+    {
+      "cause": "Combined fixture assertion omitted existing550microdollars settled planner charge. Actual closure correctly retained it alongside5618640unknown hold. Test expectation only corrected.",
+      "log": "integration-v2.log"
+    }
+  ],
+  "proved": [
+    "Append-only closure leaves original jobs/calls/budget/retirements/profile rows unchanged.",
+    "Full unknown hold remains in global exposure and closed allocation.",
+    "Closed parents cannot reserve or continue; idempotency does not regrant.",
+    "Concurrent reserve/closure rejects stale proof; concurrent children cannot double allocate.",
+    "Failure after insert rolls back closure; tampering and private-path/hash/permission failures reject.",
+    "Later independently validated settlement can reduce current exposure without rewriting closure or reopening parent."
+  ],
+  "provider_or_native_calls": 0,
+  "real_release_closure_integration_tests": 1,
+  "rss_note": "All short children exited before a successful .25s RSS sample; peaks unknown,512MiB monitor bound retained.",
+  "schema_version": 1,
+  "source_unchanged_after_initial_tests": true,
+  "sources": [
+    {
+      "bytes": 14628,
+      "path": "avatar_assets/openai_grant_closure.py",
+      "sha256": "2b9879c3d9cd8fbafcbb126b3c87930c12e92554e18bf60fc7ebe358cd67b895"
+    },
+    {
+      "bytes": 14962,
+      "path": "tests/test_openai_grant_closure.py",
+      "sha256": "9e619a6e9dacc858bbbc1a46c3b49af93ac0c4fbed56511137af59b528acbda7"
+    }
+  ],
+  "status": "passed_frozen",
+  "unchanged_initial_15_test_class_ast": true,
+  "unique_tests": 16
+}

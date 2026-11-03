@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded tool results; original command stdout not copied",
+  "tests": {
+    "distinct_methods_passed": 13,
+    "runs": [
+      {
+        "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_studio_unknown_release.UnknownReleaseTests -q",
+        "methods": 10,
+        "passed": 9,
+        "failed": 1,
+        "seconds": 0.357,
+        "failure": "Test expected held charge, but stronger price-profile guard rejected first; assertion regex corrected."
+      },
+      {
+        "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_studio_unknown_release.UnknownReleaseTests.test_unknown_row_mutation_rejected -q",
+        "methods": 1,
+        "passed": 1,
+        "seconds": 0.035
+      },
+      {
+        "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_studio_unknown_release.UnknownReleaseTests.test_wrong_owner_and_queued_work_retain_lease tests.test_studio_unknown_release.UnknownReleaseTests.test_oversized_or_unsealed_inspection_retain_lease tests.test_studio_unknown_release.UnknownReleaseTests.test_release_verifier_rejects_receipt_hash_and_wrong_parent -q",
+        "methods": 3,
+        "passed": 3,
+        "seconds": 0.105
+      }
+    ],
+    "fixture_failure_before_these_runs": "Mock initially raised raw TimeoutError instead of public transport ValueError; fixture corrected, no production change."
+  },
+  "sources": [
+    {
+      "path": "avatar_assets/studio_unknown_release.py",
+      "sha256": "38dc1a6cf22646aa8595f3827512bd1e7b47b75cc2066de70ab2395673d9c5a1"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "1789c0acd9b73cf94d083cad70b54f39bc1dccc4bca33de939b7845201abeacc"
+    },
+    {
+      "path": "tests/test_studio_unknown_release.py",
+      "sha256": "01e45fa4252fda1c79affb30cbd1cb0577adfd81a6577bf2959b7a4c37eed75c"
+    }
+  ],
+  "actual_read_only_proof": "actual-summary.json",
+  "actual_release": false,
+  "ledger_mutations": false,
+  "provider_calls": 0,
+  "native_calls": 0
+}

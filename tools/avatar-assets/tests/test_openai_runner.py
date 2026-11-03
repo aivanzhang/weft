@@ -343,7 +343,8 @@ class ContinuationTests(unittest.TestCase):
         self.ledger.db.execute('UPDATE calls SET actual=1')
         self.ledger.db.commit()
         with self.assertRaisesRegex(ValueError,'validated usage'): self.continue_job()
-        self.assertEqual(self.ledger._allocated(),17_000_000)
+        with self.assertRaisesRegex(ValueError,'validated usage'): self.ledger._allocated()
+        self.assertEqual(self.ledger.db.execute('SELECT ceiling FROM jobs WHERE id="parent"').fetchone()[0],17_000_000)
 
     def test_concurrent_retirements_cannot_double_allocate_global_budget(self):
         folder=self.folder.parent/'concurrent'
@@ -472,15 +473,15 @@ class ExposureTests(unittest.TestCase):
     def test_bounded_ten_thousand_row_snapshot_refuses_oversize_before_decoding(self):
         import sqlite3,time
         db=sqlite3.connect(':memory:');self.addCleanup(db.close)
-        db.execute('CREATE TABLE calls(job,reserved,state,response_id,actual,usage)')
+        db.execute('CREATE TABLE calls(job,role,request_digest,reserved,state,response_id,actual,usage)')
         usage=json.dumps({'input_tokens':40,'output_tokens':0,'total_tokens':40})
-        db.executemany('INSERT INTO calls VALUES(?,?,?,?,?,?)',
-            [(f'fixture-{i}',self.hold,'settled','resp_fixture',100,usage) for i in range(10000)])
+        db.executemany('INSERT INTO calls VALUES(?,?,?,?,?,?,?,?)',
+            [(f'fixture-{i}','planner','a'*64,self.hold,'settled','resp_fixture',100,usage) for i in range(10000)])
         started=time.monotonic();totals=api.accounting_snapshot(db);elapsed=time.monotonic()-started
         self.assertEqual(totals['project_exposure_microdollars'],1000000)
         self.assertEqual(len(totals['jobs']),10000)
         print(json.dumps({'analytic_accounting_rows':10000,'elapsed_seconds':elapsed}))
-        db.execute('INSERT INTO calls VALUES(?,?,?,?,?,?)',('extra',1,'settled','invalid',0,'invalid'))
+        db.execute('INSERT INTO calls VALUES(?,?,?,?,?,?,?,?)',('extra','planner','b'*64,1,'settled','invalid',0,'invalid'))
         with patch.object(api,'call_exposure',side_effect=AssertionError('No oversized decoding')):
             with self.assertRaisesRegex(ValueError,'exceeds10000'):api.accounting_snapshot(db)
 

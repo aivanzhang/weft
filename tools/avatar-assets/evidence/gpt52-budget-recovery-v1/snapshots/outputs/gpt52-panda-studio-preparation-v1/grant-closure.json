@@ -1,0 +1,71 @@
+{
+  "closure": {
+    "approval": {
+      "current_user_instruction": "Continue!!!",
+      "decision": "approved",
+      "operation": "close_unused_grant",
+      "parent_job_id": "studio-d80fa601c945434983e496db",
+      "parent_request_sha256": "477f5dac93a1ee467ec6fc94bcc08c829c7787c680de2ff41cf37492924c3579",
+      "question_item_id": "call_dc0abee558574e469abc3d2ea5e3defa",
+      "release_receipt_sha256": "16bf16f66cde8fdde97aba6edbc44257b98167731a31f000e7a9eacfe695a9a5",
+      "user_reply": "STOP FUCKING ASKING!!!! You are approved as long as it is within $15"
+    },
+    "calls": [
+      {
+        "call": {
+          "actual": null,
+          "job": "studio-d80fa601c945434983e496db",
+          "request_digest": "4b9efdcef947470fe7336822cf8be8e00af0ea8fe25d8d47229a9b6d32347804",
+          "reserved": 5618640,
+          "response_id": null,
+          "role": "author-0",
+          "state": "reserved_uncertain",
+          "usage": null
+        },
+        "profile_binding": null
+      },
+      {
+        "call": {
+          "actual": 63428,
+          "job": "studio-d80fa601c945434983e496db",
+          "request_digest": "a6126d9ec3a4b3e45ba9622cfcfb91a545859e62a4eef3afb407a3b699130bde",
+          "reserved": 5618640,
+          "response_id": "resp_003c92347d56ef62016ae923a6edcc87d0b429b94f8a348494",
+          "role": "planner",
+          "state": "settled",
+          "usage": "{\"input_tokens\":3567,\"input_tokens_details\":{\"cache_write_tokens\":0,\"cached_tokens\":0},\"output_tokens\":3634,\"output_tokens_details\":{\"reasoning_tokens\":2523},\"total_tokens\":7201}"
+        },
+        "profile_binding": null
+      }
+    ],
+    "calls_sha256": "cb3ba187660ef75ebdfe32d16a4d9496b4f58be29405a084c8ce98db43f10fd0",
+    "digest": "477f5dac93a1ee467ec6fc94bcc08c829c7787c680de2ff41cf37492924c3579",
+    "exposure_microdollars": 5682068,
+    "grant": {
+      "approval_sha256": "f3bfb84c2724ac57ab1e6993676bb6a0d5ba0726b1980ee0a733c8f3332cfe9f",
+      "calls": 7,
+      "ceiling": 11063773,
+      "digest": "477f5dac93a1ee467ec6fc94bcc08c829c7787c680de2ff41cf37492924c3579"
+    },
+    "parent": "studio-d80fa601c945434983e496db",
+    "policy": "close-unused-grant-preserve-charges-v1",
+    "release": {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/uncertain-owner-release-d177e350eb964f589073ef696d605b01.json",
+      "sha256": "16bf16f66cde8fdde97aba6edbc44257b98167731a31f000e7a9eacfe695a9a5"
+    },
+    "schema_version": 1,
+    "current_exposure_microdollars": 5682068,
+    "idempotent": false
+  },
+  "original_tables_unchanged": true,
+  "budget": {
+    "policy": "append-only-lower-ceiling-v1",
+    "original_ceiling_microdollars": 17000000,
+    "effective_ceiling_microdollars": 15000000,
+    "reductions": 1
+  },
+  "project_exposure_microdollars": 9618295,
+  "allocated_microdollars": 9618295,
+  "remaining_microdollars": 5381705,
+  "no_provider_calls": true
+}

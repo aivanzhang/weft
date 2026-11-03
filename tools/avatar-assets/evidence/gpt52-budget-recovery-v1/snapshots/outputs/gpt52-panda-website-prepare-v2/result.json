@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "classification": "actual_website_saved_request_preparation",
+  "parent_id": "447a849b435b4d2e962b3763",
+  "mutations": [
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763/plan"
+    }
+  ],
+  "errors": [],
+  "generation_started": false,
+  "cleanup": {
+    "browser_closed": true,
+    "server_exit_verified": true
+  },
+  "sources": [
+    {
+      "path": "browser/tests/studio-prepare-live.mjs",
+      "sha256": "e4c636e62e79c89c25807fc2be420e90fc18ef61f81c4457f96bf507587c84b1"
+    },
+    {
+      "path": "browser/tests/studio-prepare-observation.mjs",
+      "sha256": "ac46a54f9d2792d3296918ab269afa05821715eaa22c75560e22ed8c38ae41ff"
+    },
+    {
+      "path": "browser/studio.js",
+      "sha256": "386a9cff64fa419b9d1b2b744711c439c6346882b35f5a26f7c75dd07fc80e87"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "1789c0acd9b73cf94d083cad70b54f39bc1dccc4bca33de939b7845201abeacc"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "91d741d31debaaddb9ec2424fe7239d4988783b6e0e716231d722bc5ef677e02"
+    },
+    {
+      "path": "avatar_assets/standing_authorization.py",
+      "sha256": "141053e88759f5dad6c7b38b49e53206e6e3a5b9c4f9768d69b3c847d91fb672"
+    },
+    {
+      "path": "avatar_assets/pipeline_continuation.py",
+      "sha256": "831dd4c01f5b9c32ab9dd92dc826dacd61423fe05851ff5252949ec0b6e4777c"
+    }
+  ],
+  "server_pid": 93722,
+  "job_id": "447a849b435b4d2e962b3763",
+  "plan_id": "f53421af99019756334cc481a799f8ce4582e09f2ea8eb8b43bdab1b0171f6fd",
+  "status": "passed",
+  "elapsed_seconds": 38.391976583,
+  "request_count": 39
+}

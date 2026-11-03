@@ -10,7 +10,7 @@ import unittest
 from unittest.mock import patch
 
 from avatar_assets import studio_ai_status as status
-from avatar_assets.openai_runner import digest
+from avatar_assets.openai_runner import digest,MODEL
 
 
 def write(path,value):
@@ -26,11 +26,11 @@ class StudioAiStatusTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name).resolve();self.output=self.root/'outputs/studio-analytic'
         self.binding=self.root/'.local/studio/jobs/analytic/pipeline-request.json';self.request_digest='d'*64
-        self.prepared={'agent_backend':{'provider':'openai','max_calls':7},'max_agent_calls':7}
+        self.prepared={'agent_backend':{'provider':'openai','max_calls':7,'model':MODEL},'max_agent_calls':7}
         write(self.output/'request.json',self.prepared);checksum=pin(self.output/'request.json')['sha256']
         write(self.binding,{'schema_version':1,'studio_request_digest':self.request_digest,'pipeline_request_sha256':checksum})
         write(self.output/'input-receipt.json',{'request_sha256':checksum})
-        self.settings={'job_id':self.output.name,'job_digest':checksum,'max_calls':7}
+        self.settings={'job_id':self.output.name,'job_digest':checksum,'max_calls':7,'model':MODEL}
         write(self.output/'agents/runner.json',self.settings)
         self.folder=self.output/'agents/author-0'
         self.call_request={'role':'author-0','settings_sha256':digest(self.settings),'prompt_sha256':'b'*64,'schema_sha256':'c'*64,'images':[]}

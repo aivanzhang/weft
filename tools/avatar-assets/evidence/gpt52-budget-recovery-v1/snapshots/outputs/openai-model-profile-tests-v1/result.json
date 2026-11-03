@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "recorded_at_local": "2026-11-02 16:43:35 PST",
+  "evidence_kind": "Analyst-recorded exact tool results; raw terminal output retained in session, no rerun solely for logs",
+  "source_sha256": {
+    "avatar_assets/openai_models.py": "f78f56067079d163507c4b47f5a28b6458304bf26b52cda8a475156849aba633",
+    "avatar_assets/openai_runner.py": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f",
+    "avatar_assets/agent_backend.py": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44",
+    "tests/test_openai_model_profiles.py": "dc75209525828c83431c35f14c1a9b243d0e5cd1ddd9af07141f2c4ca1c33180",
+    "tests/test_openai_runner.py": "4078bba927b12c0a5cc272d9f7444bee9f5e2b60012bdc8e89d8e3cc7006cff6"
+  },
+  "commands": [
+    ".venv/bin/python - <<'PY'\nimport unittest\nsuite=unittest.TestSuite()\nfor pattern in ['test_openai_model_profiles.py','test_openai_runner.py','test_openai_studio_integration.py']:\n suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=pattern))\nresult=unittest.TextTestRunner(verbosity=2).run(suite)\nraise SystemExit(not result.wasSuccessful())\nPY",
+    ".venv/bin/python - <<'PY'\nimport unittest,sys\nsys.path.insert(0,'tests')\nloader=unittest.defaultTestLoader\nsuite=unittest.TestSuite(loader.loadTestsFromNames([\n 'test_openai_runner.ContinuationTests.test_inconsistent_settled_usage_is_not_released',\n 'test_openai_runner.ExposureTests.test_bounded_ten_thousand_row_snapshot_refuses_oversize_before_decoding']))\nfor pattern in ['test_reasoning_support.py','test_stream_runner_integration.py']:\n suite.addTests(loader.discover('tests',pattern=pattern))\nresult=unittest.TextTestRunner(verbosity=2).run(suite)\nraise SystemExit(not result.wasSuccessful())\nPY"
+  ],
+  "results": [
+    {
+      "tests": 67,
+      "passed": 65,
+      "errors": 2,
+      "elapsed_seconds": 0.615,
+      "exit_code": 1,
+      "fixture_failures": [
+        "Corrupt settled-usage fixture expected _allocated() numeric despite stronger fail-closed closure validation; now asserts rejection and preserved original grant.",
+        "10k-row synthetic calls table omitted actual role/request_digest columns; fixture now uses real call schema."
+      ]
+    },
+    {
+      "tests": 19,
+      "passed": 19,
+      "errors": 0,
+      "elapsed_seconds": 0.249,
+      "exit_code": 0,
+      "scope": "Only2 repaired failures plus17 previously unrun reasoning/stream tests"
+    }
+  ],
+  "unique_passing_tests": 84,
+  "performance": {
+    "analytic_accounting_rows": 10000,
+    "elapsed_seconds": 0.09988208394497633,
+    "scope": "single local accounting snapshot, not provider latency"
+  },
+  "diff_check_exit_code": 0,
+  "profile": {
+    "model": "gpt-5.2-2025-12-11",
+    "context_tokens": 400000,
+    "max_output_tokens": 16384,
+    "full_reservation_microdollars": 929376,
+    "standard_input_usd_per_million": 1.75,
+    "standard_output_usd_per_million": 14,
+    "official_source": "https://developers.openai.com/api/docs/models/gpt-5.2",
+    "retrieved_date_local": "2026-11-02 PST"
+  },
+  "compatibility": [
+    "Default model and legacy pricing remain GPT-5.4-2026-03-05.",
+    "Historical calls lacking a profile keep legacy5.4 accounting; existing unknown holds unchanged.",
+    "New call_profiles rows bind exact pinned model, complete price profile, max output, original request digest and reservation atomically.",
+    "Unknown/spoofed prices and mismatched response models fail closed; no automatic resubmission.",
+    "Selected profile lookup uses indexed128-key batches and checks4096-byte binding limit before decoding.",
+    "Grant-closure hooks delegate to independently owned openai_grant_closure module; no real ledger migration performed."
+  ],
+  "root_owned_verification": "Parent reported2 new selected5.2pipeline/streamcustody integration tests passing; not rerun or counted here.",
+  "actions": {
+    "authenticated_api_calls": 0,
+    "real_key_reads": 0,
+    "real_ledger_changes": 0,
+    "backend_configuration_changes": 0
+  }
+}

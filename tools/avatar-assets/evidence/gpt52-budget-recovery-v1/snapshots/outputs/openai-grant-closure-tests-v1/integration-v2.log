@@ -1,0 +1,15 @@
+test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent (tests.test_openai_grant_closure.RealReleaseIntegrationTests.test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent) ... FAIL
+
+======================================================================
+FAIL: test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent (tests.test_openai_grant_closure.RealReleaseIntegrationTests.test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_openai_grant_closure.py", line 258, in test_canonical_release_then_close_preserves_unknown_call_and_is_idempotent
+    self.assertEqual(result['current_exposure_microdollars'], 5_618_640)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 5619190 != 5618640
+
+----------------------------------------------------------------------
+Ran 1 test in 0.075s
+
+FAILED (failures=1)

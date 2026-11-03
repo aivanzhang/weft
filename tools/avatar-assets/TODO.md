@@ -1,6 +1,59 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 2, 2026, 4:25 PM PST
+## Session handoff — November 02, 2026, 4:59 PM PST
+
+- **Resumed; actual standard-response website Start is running.** New Studio job `447a849b435b4d2e962b3763`,
+  output `outputs/studio-447a849b435b4d2e962b3763`, observer session **21910** (one Start, at most1,800 seconds).
+  Exact request SHA `64d9e22a2b501d10cf6f3dae5c5660f830b3efc79c3335af52d27bd46031724a`.
+  Do not submit another Start or duplicate the current worker. Website Prepare
+  session18248 passed; planner cost$0.039626 in36.738 s. PlanID
+  `f53421af99019756334cc481a799f8ce4582e09f2ea8eb8b43bdab1b0171f6fd`.
+- Explicit GPT-5.2 snapshot `gpt-5.2-2025-12-11`, **standard non-streaming** response,
+  medium reasoning, 16,384 output tokens, **600 s/call**, seven calls/two repairs.
+  The owner configuration and every new request pin these settings. No model fallback.
+  Entire400k-context reservation is$0.929376/call, not an estimated input count.
+  The exact$15 cap remains; no new Meshy call or deployment.
+- Fresh grant **$4.417929** follows the existing standing authorization, no new question.
+  Preparation/config backup/closure/grant receipts: `outputs/gpt52-panda-studio-preparation-v2`.
+  Same paid accepted panda source and portrait, exact dance intent; no old rig or plan copied.
+  This narrow trial keeps the dragon perched, not flying.
+- **Prior15105 run failed in streaming, not Meshy or timeout.** Website Prepare passed
+  in31.228 s and cost$0.034400 (3,577 input/2,010 output,420 reasoning tokens).
+  Start session30103 sent oneStart, stopped39.127 s later, browser/server exited;
+  no worker was cancelled/signalled. First author stopped31.468 s after4events,
+  sequence3, with `unsupported_event`. The original trace did NOT record the event
+  name; do not invent it. No completed response/answer/rig exists.
+  `outputs/gpt52-panda-studio-live-v1`, `outputs/studio-15105a1353404792a185d61d`.
+- **Both unknown holds preserved:** d80$5.618640 and15105$0.929376; confirmed settled
+  total$4.034055, conservative exposure$10.582071 before the new planner.
+  The exposure is not an invoice. Each next call rechecks remaining dollars.
+  Both exited local leases were released using exact custody proofs; both original
+  jobs remain `needs_inspection` and cannot restart. Append-only grant closures free
+  only UNUSED authorization, never unknown charges. All original rows were unchanged.
+- Streaming now logs a sanitized event NAME for future diagnostics without accepting
+  extra event types.18 transport tests pass; original failed trace is unchanged.
+  `outputs/openai-stream-event-label-tests-v1`. Extended streaming local-custody
+  checks pass7 tests plus real15105 read-only inspection; no charge settlement.
+  `outputs/unknown-stream-owner-release-tests-v1`.
+- Other verification:84 backend/model-profile checks;75 root integration checks
+  (six fixture issues fixed and rerun individually);13 unknown-owner release checks;
+  16 grant-closure checks including real temporary Studio release→closure. Standing
+  grant allocation now respects closed grants; its11 checks pass after that final change.
+  These fixtures are not generated avatars. Original failures remain in evidence.
+  `outputs/openai-model-profile-tests-v1`, `gpt52-root-integration-tests-v1`/`v2`,
+  `unknown-owner-release-tests-v1`, `openai-grant-closure-tests-v1`.
+- **Next safe action:** observe session21910 and canonical state. The author is
+  in progress under a600-second deadline. Verify actual rig/motion/media
+  and independent visual review. Preserve rejected attempts. No hands-off delivery
+  is accepted yet; the earlier user-accepted authored panda/dragon remain intact.
+- Runtime source changes are frozen; all collaborators completed their changes.
+  Evidence frozen in `evidence/gpt52-budget-recovery-v1`, manifest
+  `eb107afbe009c8a899cf4eb9b129e610c0e1741aea440cddfc854c78f8891882`.
+  Code/docs/evidence checkpoint is prepared in `.local/avatar-quality-publication-v29`; last pushed commit
+  `356ba5080e5fc90bb10eef97e87f239f7e1424d9`. Preserve unrelated Weft edits.
+  See `docs/api-model-profiles.md` for prices/bounds and the two transport attempts.
+
+## Historical handoff — November 2, 2026, 4:25 PM PST
 
 - Workspace `tools/avatar-assets`; thread `01a18ebe-a17c-7cc0-9117-06ca476fb31c`.
   Preserve unrelated Weft work. No hosted deployment, Meta budget, new Meshy call,

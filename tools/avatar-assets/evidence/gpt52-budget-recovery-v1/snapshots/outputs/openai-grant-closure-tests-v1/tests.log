@@ -1,0 +1,20 @@
+test_changed_call_after_release_invalidates_initial_closure (test_openai_grant_closure.GrantClosureTests.test_changed_call_after_release_invalidates_initial_closure) ... ok
+test_closed_parent_reserve_and_continuation_stay_blocked (test_openai_grant_closure.GrantClosureTests.test_closed_parent_reserve_and_continuation_stay_blocked) ... ok
+test_closure_preserves_every_original_row_and_full_unknown_hold (test_openai_grant_closure.GrantClosureTests.test_closure_preserves_every_original_row_and_full_unknown_hold) ... ok
+test_concurrent_new_grants_cannot_double_allocate_recovered_capacity (test_openai_grant_closure.GrantClosureTests.test_concurrent_new_grants_cannot_double_allocate_recovered_capacity) ... ok
+test_existing_closure_requires_same_approval_and_receipt (test_openai_grant_closure.GrantClosureTests.test_existing_closure_requires_same_approval_and_receipt) ... ok
+test_history_or_closure_tampering_blocks_allocation (test_openai_grant_closure.GrantClosureTests.test_history_or_closure_tampering_blocks_allocation) ... ok
+test_idempotency_has_no_duplicate_history_or_allocation (test_openai_grant_closure.GrantClosureTests.test_idempotency_has_no_duplicate_history_or_allocation) ... ok
+test_legacy_readonly_database_needs_no_closure_table (test_openai_grant_closure.GrantClosureTests.test_legacy_readonly_database_needs_no_closure_table) ... ok
+test_legitimate_later_settlement_does_not_rewrite_closure (test_openai_grant_closure.GrantClosureTests.test_legitimate_later_settlement_does_not_rewrite_closure) ... ok
+test_new_independent_grant_uses_only_unallocated_capacity (test_openai_grant_closure.GrantClosureTests.test_new_independent_grant_uses_only_unallocated_capacity) ... ok
+test_post_insert_failure_rolls_back_without_rewriting_history (test_openai_grant_closure.GrantClosureTests.test_post_insert_failure_rolls_back_without_rewriting_history) ... ok
+test_receipt_hash_permissions_and_symlink_fail_closed (test_openai_grant_closure.GrantClosureTests.test_receipt_hash_permissions_and_symlink_fail_closed) ... ok
+test_release_and_approval_must_bind_parent_and_nonrestart_transition (test_openai_grant_closure.GrantClosureTests.test_release_and_approval_must_bind_parent_and_nonrestart_transition) ... ok
+test_reserve_close_race_cannot_use_a_stale_release_proof (test_openai_grant_closure.GrantClosureTests.test_reserve_close_race_cannot_use_a_stale_release_proof) ... ok
+test_settlement_after_release_requires_new_custody_proof (test_openai_grant_closure.GrantClosureTests.test_settlement_after_release_requires_new_custody_proof) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.076s
+
+OK

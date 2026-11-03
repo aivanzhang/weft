@@ -1,0 +1,22 @@
+{
+  "status": "prepared_not_executed",
+  "model": "gpt-5.2-2025-12-11",
+  "transport": "standard_nonstreaming",
+  "timeout_seconds": 600,
+  "max_calls": 7,
+  "max_repairs": 2,
+  "max_output_tokens": 16384,
+  "per_call_full_reservation_microdollars": 929376,
+  "project_exposure_microdollars": 10582071,
+  "remaining_microdollars": 4417929,
+  "cap_microdollars": 15000000,
+  "expected_additional_usd": [
+    0.35,
+    2.1
+  ],
+  "new_meshy_credits": 0,
+  "recurring_spend": 0,
+  "retry_hypothesis": "The prior author failed in our streaming event allowlist after31s, not timeout. Use supported standard JSON Responses transport with600s deadline; do not resubmit the oldcall or reduce its hold. Preserve originalunknown$5.618640 and newunknown$0.929376.",
+  "standing_approval": "call_dc0abee558574e469abc3d2ea5e3defa",
+  "user_reply": "STOP FUCKING ASKING!!!! You are approved as long as it is within $15"
+}

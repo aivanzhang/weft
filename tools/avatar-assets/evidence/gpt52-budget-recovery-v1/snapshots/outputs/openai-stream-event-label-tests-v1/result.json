@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "recorded_at_local": "2026-11-02 16:54:15 PST",
+  "evidence_kind": "Analyst-recorded actual unittest tool output; no rerun solely for a log",
+  "source_sha256": {
+    "avatar_assets/openai_stream.py": "cd249d535fdf81e1e2b39177d4d7c9767ed0be6717527a80c2a42016b5fb7e9c",
+    "tests/test_openai_stream.py": "0e5b2ca30f4ad1bbc81748abe198c09a68f051ee8694aa15179b5391568e18b0"
+  },
+  "command": ".venv/bin/python -m unittest discover -s tests -p test_openai_stream.py -v",
+  "tests": 18,
+  "passed": 18,
+  "exit_code": 0,
+  "elapsed_seconds": 0.048,
+  "diff_check_exit_code": 0,
+  "scope": "Save optional bounded sanitized last_event_type at existing trace milestones; unknown events still rejected",
+  "guards": [
+    "ASCII event label pattern [a-z][a-z0-9_.-]{0,127}; invalid/oversized/nontext labels become null",
+    "Any label containing the private in-memory key becomes null before trace write",
+    "No event payload, raw provider error, prompt or partial text added to trace",
+    "Every rejection remains failed_or_uncertain; exactly one POST/connection with no retry in new tests",
+    "Existing allowlist and all MAX_* bounds AST-equal to preserved v2 module"
+  ],
+  "historical_incident": {
+    "path": "outputs/studio-15105a1353404792a185d61d/agents/author-0/transport.json",
+    "sha256": "419507f613d5778b1db8ba6a92525888e65f366fe42faaf6c5555e48bcabec6b",
+    "status": "failed_or_uncertain",
+    "error_code": "unsupported_event",
+    "events": 4,
+    "last_sequence": 3,
+    "event_name": "unknown; old trace did not record it",
+    "trace_unchanged": true
+  },
+  "actions": {
+    "provider_calls": 0,
+    "key_reads": 0,
+    "ledger_changes": 0,
+    "configuration_changes": 0,
+    "historical_artifact_changes": 0
+  }
+}

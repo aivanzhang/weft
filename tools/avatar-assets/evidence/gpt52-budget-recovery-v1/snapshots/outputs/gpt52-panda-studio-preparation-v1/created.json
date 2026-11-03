@@ -1,0 +1,47 @@
+{
+  "id": "15105a1353404792a185d61d",
+  "title": "Create an editable, rigged avatar from this previously generated Muse-style pand",
+  "status": "created",
+  "created_at": "2026-11-02T16:49:25.283379-08:00",
+  "updated_at": "2026-11-02T16:49:25.283379-08:00",
+  "elapsed_seconds": 0,
+  "request": {
+    "prompt": "Create an editable, rigged avatar from this previously generated Muse-style panda and its small green shoulder dragon. Preserve the selected source character, proportions, black eye patches, black-and-ivory palette, and companion. Keep the dragon perched and attached to the shoulder during this run; do not separate it or make it fly. Do not add props, clothing, text, a pedestal or scenery.",
+    "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look.",
+    "custom_actions": [
+      "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    ],
+    "preset": "preview",
+    "reference_selected": true,
+    "reuse_model_selected": true
+  },
+  "operation": null,
+  "queued": false,
+  "cancel_requested": false,
+  "stages": [],
+  "plan_id": null,
+  "plan": null,
+  "capabilities": {
+    "plan": true,
+    "start": false,
+    "cancel": true,
+    "retry": false,
+    "resume": false,
+    "session_required": true,
+    "execution_gate": "canonical_ledger_and_explicit_start"
+  },
+  "previews": [],
+  "reviews": [],
+  "result": null,
+  "ai_failure": null,
+  "error": null,
+  "storage": {
+    "retained_bytes_measured": 0,
+    "pipeline_bytes_measured": 0,
+    "measured_at": null,
+    "total_limit_bytes": 8589934592,
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false
+  },
+  "provenance": "actual_pipeline"
+}

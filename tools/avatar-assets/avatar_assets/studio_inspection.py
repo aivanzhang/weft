@@ -419,7 +419,8 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
     """Verify a paid planner or a zero-call inherited plan; never dispatch or alter accounting."""
     _require(profile in ("planning","author_input_bound"),"Unsupported API custody profile")
     from avatar_assets.agent_backend import validate_settings
-    from avatar_assets.openai_runner import MODEL,PRICING,digest,reserve_microdollars,response_answer_text,validate_reasoning_usage
+    from avatar_assets.openai_runner import digest,reserve_microdollars,response_answer_text,validate_reasoning_usage
+    from avatar_assets.openai_models import price_profile,usage_cost_microdollars
     from avatar_assets.studio_worker import _validate_prepared_request
     root,output,binding_path=map(Path,(root,output,binding_path))
     _require(output.resolve()==output and output.is_relative_to(root/'outputs')
@@ -443,6 +444,7 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
 
     prepared=read(output/'request.json')
     backend=validate_settings(prepared.get('agent_backend'))
+    model=backend['model'];pricing=price_profile(model)
     if profile=='author_input_bound':
         _require(backend['max_calls']==7 and backend['max_repairs']==2,
                  'Author-input recovery retains exactly seven calls and two repairs')
@@ -505,11 +507,14 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
     expected_agents=['runner.json','runner.lock'] if inherited_plan else ['planner','runner.json','runner.lock']
     _require(_entries(agents,3)==expected_agents,'Only one API planner or an exact zero-call inherited plan can be released here')
     settings=read(agents/'runner.json')
-    expected={'schema_version':1,'execution_kind':'openai_responses_api','model':MODEL,
+    expected={'schema_version':1,'execution_kind':'openai_responses_api','model':model,
               'max_calls':backend['max_calls'],'timeout':backend['timeout'],'max_output_tokens':backend['max_output_tokens'],
               'job_id':output.name,'job_digest':request_hash,'automatic_retries':0,'tools':[],'store':False,
-              'service_tier':'default','reasoning':{'effort':backend.get('reasoning_effort','none')},'truncation':'disabled','pricing':PRICING,
-              'reservation_microdollars_per_call':reserve_microdollars(backend['max_output_tokens'])}
+              'service_tier':'default','reasoning':{'effort':backend.get('reasoning_effort','none')},'truncation':'disabled','pricing':pricing,
+              'reservation_microdollars_per_call':reserve_microdollars(backend['max_output_tokens'],model=model)}
+    if model != 'gpt-5.4-2026-03-05':
+        _require('openai_models.py' in source_pins,'Model profile snapshot is missing')
+        expected['model_profile_implementation_sha256']=source_pins['openai_models.py']['sha256']
     streaming = backend.get('transport') == 'sse-v1'
     if streaming:
         _require('openai_stream.py' in source_pins,'Streaming transport snapshot is missing')
@@ -530,6 +535,8 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
         budget=db.execute('SELECT ceiling,approval FROM budget WHERE id=1').fetchone()
         grant=db.execute('SELECT digest,calls,ceiling,approval FROM jobs WHERE id=?',(output.name,)).fetchone()
         calls=[dict(row) for row in db.execute('SELECT * FROM calls WHERE job=? ORDER BY role',(output.name,))]
+        from avatar_assets.openai_runner import attach_call_profiles,call_model
+        calls=attach_call_profiles(db,calls)
         retired=db.execute('SELECT 1 FROM retirements WHERE parent=?',(output.name,)).fetchone()
     finally:db.close()
     _require(_file_pin(ledger,64*1024**2)==ledger_pin,'API ledger changed during inspection')
@@ -560,6 +567,7 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
         _require(len(calls)==1 and calls[0]['role']=='planner' and calls[0]['state']=='settled',
                  'API calls are uncertain, missing or outside this completed planning scope')
         call=calls[0]
+        _require(call_model(call)==model,'API call model differs from saved runner')
         _require(type(call['reserved']) is int and call['reserved']==settings['reservation_microdollars_per_call']
                  and type(call['actual']) is int and 0<=call['actual']<=call['reserved']<=grant['ceiling'],
                  'API settled cost or reservation differs')
@@ -580,7 +588,7 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
         artifact_rows=[{'path':name,'bytes':pin['bytes'],'sha256':pin['sha256']} for name in names if name!='receipt.json'
                        for pin in records if pin['path']==str(folder/name)]
         _require(receipt.get('schema_version')==1 and receipt.get('status')=='succeeded'
-                 and receipt.get('execution_kind')=='openai_responses_api' and receipt.get('model')==MODEL
+                 and receipt.get('execution_kind')=='openai_responses_api' and receipt.get('model')==model
                  and receipt.get('tool_activity') is False and receipt.get('artifacts')==artifact_rows
                  and receipt.get('answer_sha256')==next(p['sha256'] for p in records if p['path']==str(folder/'answer.json')),
                  'API response receipt or artifact hashes changed')
@@ -592,7 +600,7 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
             verify_stream_trace(folder,call_request,settings,call['response_id'])
         _require(call_request==expected_request
                  and call['request_digest']==digest(call_request),'API call request does not match its reservation')
-        _require(response.get('status')=='completed' and response.get('model')==MODEL
+        _require(response.get('status')=='completed' and response.get('model')==model
                  and response.get('service_tier')=='default' and isinstance(response.get('id'),str)
                  and response['id'].startswith('resp_') and len(response['id'])<=256
                  and response['id']==call['response_id']==receipt.get('response_id'),
@@ -601,10 +609,10 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
         usage=response.get('usage');_require(isinstance(usage,dict) and usage==json.loads(call['usage'])==receipt.get('usage'),
                                             'API usage differs from settled accounting')
         inp,out=usage.get('input_tokens'),usage.get('output_tokens')
-        _require(type(inp) is int and 0<=inp<=1050000 and type(out) is int and 0<=out<=backend['max_output_tokens']
+        _require(type(inp) is int and 0<=inp<=pricing['context_tokens'] and type(out) is int and 0<=out<=backend['max_output_tokens']
                  and type(usage.get('total_tokens')) is int and usage['total_tokens']==inp+out,'Invalid settled API token counts')
         validate_reasoning_usage(usage,out)
-        amount=math.ceil(inp*(5 if inp>272000 else 2.5)+out*(22.5 if inp>272000 else 15))
+        amount=usage_cost_microdollars(model,inp,out)
         _require(call['actual']==receipt.get('actual_microdollars_upper_estimate')==amount
                  and receipt.get('reserved_microdollars')==call['reserved'],'API settled token cost differs')
         answer_text=response_answer_text(response,reasoning_effort=backend.get('reasoning_effort','none'))
@@ -618,7 +626,7 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
             raw=(folder/('image-00'+suffix)).read_bytes()
             _require(hashlib.sha256(raw).hexdigest()==image_records[0]['sha256'],'API planner image changed during inspection')
             content.append({'type':'input_image','image_url':'data:'+mime+';base64,'+base64.b64encode(raw).decode(),'detail':'high'})
-        actual_payload={'model':MODEL,'instructions':payload.get('instructions'),'input':[{'role':'user','content':content}],
+        actual_payload={'model':model,'instructions':payload.get('instructions'),'input':[{'role':'user','content':content}],
                         'text':{'format':{'type':'json_schema','name':'avatar_planner','schema':schema,'strict':True}},
                         'max_output_tokens':backend['max_output_tokens'],'reasoning':{'effort':backend.get('reasoning_effort','none')},'store':False,'tools':[],
                         'tool_choice':'none','service_tier':'default','truncation':'disabled'}

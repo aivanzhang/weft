@@ -1,0 +1,141 @@
+{
+  "id": "15105a1353404792a185d61d",
+  "title": "Create an editable, rigged avatar from this previously generated Muse-style pand",
+  "status": "needs_inspection",
+  "created_at": "2026-11-02T16:49:25.283379-08:00",
+  "updated_at": "2026-11-02T16:51:29.868295-08:00",
+  "elapsed_seconds": 35.5,
+  "request": {
+    "prompt": "Create an editable, rigged avatar from this previously generated Muse-style panda and its small green shoulder dragon. Preserve the selected source character, proportions, black eye patches, black-and-ivory palette, and companion. Keep the dragon perched and attached to the shoulder during this run; do not separate it or make it fly. Do not add props, clothing, text, a pedestal or scenery.",
+    "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look.",
+    "custom_actions": [
+      "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    ],
+    "preset": "preview",
+    "reference_selected": true,
+    "reuse_model_selected": true
+  },
+  "operation": "execute",
+  "queued": false,
+  "cancel_requested": false,
+  "stages": [
+    {
+      "id": "planner",
+      "stage": "planner",
+      "label": "Planner",
+      "status": "ready",
+      "detail": "",
+      "attempt": null,
+      "elapsed_seconds": 0.006
+    },
+    {
+      "id": "geometry",
+      "stage": "geometry",
+      "label": "Geometry",
+      "status": "reused_generated_source",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "pipeline",
+      "stage": "pipeline",
+      "label": "Pipeline",
+      "status": "checkpointed_error",
+      "detail": "OpenAI stream unsupported_event; reservation retained, no automatic retry",
+      "attempt": null
+    },
+    {
+      "id": "inspection",
+      "stage": "inspection",
+      "label": "Inspection",
+      "status": "complete",
+      "detail": "Source geometry and review views inspected; no quality acceptance.",
+      "attempt": null,
+      "elapsed_seconds": 3.546
+    },
+    {
+      "id": "author:0",
+      "stage": "author",
+      "label": "Author · attempt 1",
+      "status": "failed",
+      "detail": "OpenAI stream unsupported_event; reservation retained, no automatic retry",
+      "attempt": 0,
+      "elapsed_seconds": 31.517
+    }
+  ],
+  "plan_id": "26ca30b1352bba1af908d034b86979cbdb2483638293c576a8aee4e949fd6106",
+  "plan": {
+    "id": "26ca30b1352bba1af908d034b86979cbdb2483638293c576a8aee4e949fd6106",
+    "summary": "Muse-style plush panda (black-and-ivory, black eye patches) with a small green dragon companion perched on the panda’s left shoulder; no props/clothes/scenery; dragon stays attached and does not fly.",
+    "estimate": {
+      "credits": 0,
+      "amount": null,
+      "currency": "USD",
+      "note": "Account dollar price and agent usage price are unknown. No paid retries or allowance changes."
+    },
+    "authorization": {
+      "can_start": true,
+      "estimated_credits": 0,
+      "reason": "Explicit source reuse requires no new Meshy credits; existing bounded agent/local execution still applies.",
+      "execution_gate": "canonical_ledger_and_explicit_start"
+    },
+    "warnings": [
+      "No facial expression or lip-sync authoring is planned; animation will communicate cheerfulness through body motion only.",
+      "No physical balance, contact, or dynamics simulation (fur/cloth/dragon physics); hops and swings are authored keyframed motion.",
+      "Dragon will remain carried with the shoulder; this plan does not add independent dragon flight or detachment behavior."
+    ]
+  },
+  "capabilities": {
+    "plan": false,
+    "start": false,
+    "cancel": false,
+    "retry": false,
+    "resume": false,
+    "session_required": true,
+    "execution_gate": "canonical_ledger_and_explicit_start"
+  },
+  "previews": [
+    {
+      "url": "/api/studio/jobs/15105a1353404792a185d61d/files/0cf54e6fef9e2be367e90f8be8ad77c8",
+      "kind": "image",
+      "id": "front",
+      "label": "Work-in-progress preview",
+      "bytes": 238423
+    },
+    {
+      "url": "/api/studio/jobs/15105a1353404792a185d61d/files/a88529f0de15cd64d20fb0a411e011b7",
+      "kind": "image",
+      "id": "three-quarter",
+      "label": "Work-in-progress preview",
+      "bytes": 233356
+    }
+  ],
+  "reviews": [],
+  "result": null,
+  "ai_failure": {
+    "verified": true,
+    "role": "author-0",
+    "automatic_retry": false,
+    "source": "exact_job_ledger_and_receipt",
+    "code": "ai_charge_unknown",
+    "message": "AI request stopped after 31 seconds without a verified result. Its charge is unknown; $0.929376 remains reserved. Saved work is preserved; no automatic retry will start.",
+    "charge": {
+      "status": "unknown",
+      "reserved_microdollars": 929376,
+      "actual_microdollars": null,
+      "currency": "USD"
+    }
+  },
+  "error": {
+    "message": "AI request stopped after 31 seconds without a verified result. Its charge is unknown; $0.929376 remains reserved. Saved work is preserved; no automatic retry will start."
+  },
+  "storage": {
+    "retained_bytes_measured": 89416667,
+    "pipeline_bytes_measured": 88544095,
+    "measured_at": "2026-11-02T16:51:29.864078-08:00",
+    "total_limit_bytes": 8589934592,
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false
+  },
+  "provenance": "actual_pipeline"
+}

@@ -1,0 +1,38 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_openai_grant_closure.RealReleaseIntegrationTests",
+    "-v"
+  ],
+  "scope": "Real temporary Studio release verifier and ledger closure; fixture mocks only provider/process inventory; no actual ledger changes",
+  "sources": [
+    {
+      "bytes": 14628,
+      "path": "avatar_assets/openai_grant_closure.py",
+      "sha256": "2b9879c3d9cd8fbafcbb126b3c87930c12e92554e18bf60fc7ebe358cd67b895"
+    },
+    {
+      "bytes": 14962,
+      "path": "tests/test_openai_grant_closure.py",
+      "sha256": "43e8b35b373a7b9190b9a13acdf4ab5f463332139ebdfacc9da72c297a5b453c"
+    },
+    {
+      "bytes": 15146,
+      "path": "avatar_assets/studio_unknown_release.py",
+      "sha256": "38dc1a6cf22646aa8595f3827512bd1e7b47b75cc2066de70ab2395673d9c5a1"
+    },
+    {
+      "bytes": 9356,
+      "path": "tests/test_studio_unknown_release.py",
+      "sha256": "01e45fa4252fda1c79affb30cbd1cb0577adfd81a6577bf2959b7a4c37eed75c"
+    },
+    {
+      "bytes": 62900,
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "1789c0acd9b73cf94d083cad70b54f39bc1dccc4bca33de939b7845201abeacc"
+    }
+  ]
+}

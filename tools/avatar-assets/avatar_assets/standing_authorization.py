@@ -8,8 +8,8 @@ import sqlite3
 import stat
 
 from avatar_assets.agent_backend import validate_settings, _private_file
-from avatar_assets.openai_runner import (MODEL, OpenAILedger, accounting_snapshot,
-    budget_snapshot, digest, reserve_microdollars, _decode)
+from avatar_assets.openai_runner import (OpenAILedger, accounting_snapshot,
+    budget_snapshot, digest, reserve_microdollars, price_profile, _decode)
 from avatar_assets.safety import require, slug
 
 POLICY_FILE = '.local/openai-standing-authorization.json'
@@ -61,7 +61,8 @@ def _policy(root):
     for field, low, high in (('max_total_microdollars', 1, MAX_TOTAL), ('max_calls', 3, 7),
                              ('max_repairs', 0, 2), ('max_successors', 1, 16)):
         require(type(value[field]) is int and low <= value[field] <= high, 'Invalid standing '+field)
-    require(value['model'] == MODEL and value['max_calls'] >= 3+2*value['max_repairs'],
+    price_profile(value['model'])
+    require(value['max_calls'] >= 3+2*value['max_repairs'],
             'Standing AI settings are unsupported')
     selected = value['approval_receipt']
     require(isinstance(selected, dict) and set(selected) == {'path', 'sha256'}, 'Invalid approval receipt binding')
@@ -199,9 +200,9 @@ def _binding(root, parent, child, policy, policy_hash, approval, db):
         require(continuation is not None and continuation['parent'] == str(parent.relative_to(root))
                 and continuation['parent_request_sha256'] == parent_hash,
                 'Child continuation differs from the exact grant parent')
-        next_hold = reserve_microdollars(child_request['agent_backend']['max_output_tokens'])
+        next_hold = reserve_microdollars(child_request['agent_backend']['max_output_tokens'], model=child_request['agent_backend']['model'])
     else:
-        next_hold = reserve_microdollars()
+        next_hold = reserve_microdollars(model=policy['model'])
     existing = child is not None and len(chain) >= 2 and chain[-2:] == [parent.name, child.name]
     if existing:
         child_grant = db.execute('SELECT * FROM jobs WHERE id=?', (child.name,)).fetchone()
@@ -216,9 +217,9 @@ def _binding(root, parent, child, policy, policy_hash, approval, db):
         if child is not None:
             require(not db.execute('SELECT 1 FROM jobs WHERE id=?', (child.name,)).fetchone(),
                     'Child has an unrelated existing grant')
-        allocated = db.execute('SELECT COALESCE(SUM(ceiling),0) FROM jobs WHERE id NOT IN '
-                               '(SELECT parent FROM retirements)').fetchone()[0]
-        allocated += accounting['retired_actual_microdollars']
+        from avatar_assets.openai_grant_closure import allocated_grants,require_open_grant
+        require_open_grant(db,parent.name)
+        allocated = allocated_grants(db)
         ceiling = budget['effective_ceiling_microdollars']-allocated+parent_grant['ceiling']-parent_cost['settled_actual_microdollars']
         require(type(ceiling) is int and next_hold <= ceiling <= policy['max_total_microdollars'],
                 'Standing allowance cannot fully reserve another bounded call')

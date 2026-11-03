@@ -56,7 +56,7 @@ def _parent(root,value):
 
 
 def _ledger(root,parent,request,*,successor=None):
-    from avatar_assets.openai_runner import call_exposure
+    from avatar_assets.openai_runner import call_exposure,attach_call_profiles
     path=local_file(Path(root)/'.local/openai/ledger.sqlite3',64*1024**2)
     info=path.stat()
     require(info.st_uid==os.getuid() and stat.S_IMODE(info.st_mode)==0o600,'Continuation ledger is not owner-only')
@@ -64,6 +64,7 @@ def _ledger(root,parent,request,*,successor=None):
         db.row_factory=sqlite3.Row;db.execute('PRAGMA query_only=ON');db.execute('BEGIN')
         grant=db.execute('SELECT id,digest,calls,ceiling,approval FROM jobs WHERE id=?',(parent.name,)).fetchone()
         rows=[dict(row) for row in db.execute('SELECT * FROM calls WHERE job=? ORDER BY role LIMIT 13',(parent.name,))]
+        rows=attach_call_profiles(db,rows)
         retired=db.execute('SELECT * FROM retirements WHERE parent=?',(parent.name,)).fetchone()
         child_grant=(db.execute('SELECT digest,calls,ceiling,approval FROM jobs WHERE id=?',(successor['id'],)).fetchone()
                      if successor is not None else None)
@@ -95,7 +96,8 @@ def _ledger(root,parent,request,*,successor=None):
 
 def _role(parent,role,row,settings):
     from avatar_assets.agent_runner import _call_artifacts,_validate
-    from avatar_assets.openai_runner import digest,_decode,response_answer_text
+    from avatar_assets.openai_runner import digest,_decode,response_answer_text,call_model
+    require(call_model(row)==settings['model'],'Continuation ledger model differs from runner')
     folder=parent/'agents'/role
     receipt=read_json(folder/'receipt.json');request=read_json(folder/'request.json')
     answer=read_json(folder/'answer.json');schema=read_json(folder/'schema.json')

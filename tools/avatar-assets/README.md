@@ -19,12 +19,17 @@ text limit. The corrected website Prepare passed, but the rigging API call then
 timed out after 240 seconds before returning a rig. No hands-off delivery is accepted.
 Recorded use is **$3.999655 settled**, plus a **$5.618640 uncertain reservation**;
 the latter is a conservative hold, not a known bill. The unchanged **$15 total cap**
-blocks another full reservation until genuine provider evidence resolves the
-unknown charge. The stopped job and earlier accepted assets remain preserved.
+still blocks another full GPT-5.4 reservation. A new explicit
+[GPT-5.2 model profile](docs/api-model-profiles.md) reserves $0.929376 per call
+without reducing that unknown hold. Its actual website planner passed, but the first
+author stopped on an unsupported streaming event. Both unknown holds remain.
+A new standard-response trial passed website planning and is now authoring
+(`447a849b435b4d2e962b3763`); it has not delivered an accepted avatar yet. The stopped job and earlier accepted assets remain preserved.
 No new Meshy call or deployment.
 The new [bounded streaming transport](docs/api-streaming.md) preserves early
 request IDs for future jobs; clearer website failure messages are implemented.
-Both are locally tested, not a recovered or completed avatar run.
+Streaming has now passed a real planner call. This is not a recovered or
+completed avatar run.
 The [handoff](TODO.md) contains exact ownership, source hashes and recovery status.
 [Backend results](docs/api-website-backend.md).
 

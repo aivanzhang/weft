@@ -2,8 +2,13 @@
 
 The optional `sse-v1` transport retains early request identities during long AI
 calls. It does not recover the prior timed-out panda answer, establish its cost,
-or complete the hands-off avatar acceptance run. The current owner configuration
-and all existing jobs remain unchanged; no live streaming call has been made.
+or complete the hands-off avatar acceptance run. Existing jobs remain unchanged. A new GPT-5.2 Studio request now uses streaming;
+its actual website planner completed in31.228 s with3,577 input/2,010 output
+tokens and$0.034400 usage. Evidence: `outputs/gpt52-panda-website-prepare-v1`
+and `outputs/studio-15105a1353404792a185d61d/agents/planner`. The first author then stopped on an unsupported event at31.468 s. Its original
+trace lacks the event name; no rig/answer was returned. New traces record only
+sanitized event names, not payloads. A fresh job uses standard responses while
+this streaming compatibility remains unresolved.
 
 ## New-job configuration
 
@@ -13,8 +18,7 @@ The setting and transport implementation hash become immutable job inputs.
 Changing settings never resubmits an old call or makes a failed job resumable.
 
 The configured timeout remains an absolute bound, not a sliding inactivity timer.
-Values up to 600 seconds are already supported, but the present owner setting
-remains 240 seconds. Seven 600-second calls could consume 4,200 seconds before
+Values up to 600 seconds are already supported, and the new standard-response owner setting is600 seconds. The previous job used240 seconds. Seven 600-second calls could consume 4,200 seconds before
 native work inside the worker's 5,400-second limit; increasing one timeout is not
 proof a complete job will fit. Socket operations are bounded; OS DNS still needs
 the outer worker deadline. A late DNS return cannot submit a late POST.

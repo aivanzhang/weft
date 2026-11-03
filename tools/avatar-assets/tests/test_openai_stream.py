@@ -146,6 +146,37 @@ class StreamTests(unittest.TestCase):
                 self.assertEqual(self.connection_calls, 1)
                 self.assertEqual(len(self.last.requests), 1)
                 self.assertTrue(self.last.closed)
+    def test_unknown_event_records_only_safe_name_without_acceptance_or_retry(self):
+        kind = 'response.synthetic_future_event'
+        rows = events()[:1]+[{'type':kind,'sequence_number':1,'payload':KEY+' private output'}]
+        with self.assertRaisesRegex(stream.StreamError,'unsupported_event') as caught:
+            self.call(FakeResponse(encode(rows)))
+        trace = self.trace_value()
+        self.assertEqual(trace['last_event_type'],kind)
+        self.assertEqual(trace['response_id'],RID)
+        self.assertEqual(trace['status'],'failed_or_uncertain')
+        self.assertNotIn(KEY,self.trace.read_text());self.assertNotIn('private output',self.trace.read_text())
+        self.assertNotIn(KEY,str(caught.exception))
+        self.assertEqual(self.connection_calls,1);self.assertEqual(len(self.last.requests),1)
+        self.assertTrue(self.last.closed)
+
+    def test_event_name_logging_omits_secret_unsafe_oversize_and_nontext_values(self):
+        for index, kind in enumerate(('response.'+KEY,'response.bad\nname','response.'+'x'*128,{'private':KEY})):
+            with self.subTest(index=index):
+                self.trace=self.folder/f'event-label-{index}.json'
+                row={'type':kind,'sequence_number':1,'payload':KEY}
+                raw=encode(events()[:1])+b'data: '+json.dumps(row).encode()+b'\n\n'
+                writes=[];original=stream._Trace.write
+                def capture(value):
+                    original(value);writes.append(value.path.read_text())
+                with patch.object(stream._Trace,'write',capture):
+                    with self.assertRaises(stream.StreamError) as caught:self.call(FakeResponse(raw))
+                self.assertIsNone(self.trace_value()['last_event_type'])
+                for saved in writes:self.assertNotIn(KEY,saved)
+                self.assertNotIn(KEY,str(caught.exception))
+                self.assertEqual(self.connection_calls,1);self.assertEqual(len(self.last.requests),1)
+                self.assertTrue(self.last.closed)
+
     def test_provider_failures_and_incomplete_never_return_an_answer(self):
         for kind in ('error','response.failed','response.incomplete','response.refusal.delta'):
             with self.subTest(kind=kind):

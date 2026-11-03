@@ -8,7 +8,7 @@ from pathlib import Path
 import sqlite3
 import stat
 
-from avatar_assets.openai_runner import MODEL, reserve_microdollars, accounting_snapshot, budget_snapshot, validate_reasoning_effort
+from avatar_assets.openai_runner import MODEL, reserve_microdollars, accounting_snapshot, budget_snapshot, validate_reasoning_effort, price_profile
 from avatar_assets.safety import require
 
 DEFAULT = {'provider': 'openai', 'model': MODEL, 'max_calls': 5, 'max_repairs': 1,
@@ -21,7 +21,8 @@ def validate_settings(value):
             'Invalid server AI configuration fields')
     validate_reasoning_effort(value.get('reasoning_effort','none'))
     require('transport' not in value or value['transport']=='sse-v1', 'Unsupported API transport')
-    require(value['provider'] == 'openai' and value['model'] == MODEL, 'Unsupported server AI provider or model')
+    require(value['provider'] == 'openai', 'Unsupported server AI provider or model')
+    price_profile(value['model'])
     for field, low, high in (('max_calls', 3, 12), ('max_repairs', 0, 2),
                              ('timeout', 30, 600), ('max_output_tokens', 256, 32768)):
         require(type(value[field]) is int and low <= value[field] <= high, 'Invalid server AI '+field)
@@ -58,7 +59,7 @@ def pipeline_limits(settings):
 def readiness(root, *, job_id=None, job_digest=None, settings=None):
     root = Path(root)
     result = {'provider': 'openai', 'configured': False, 'key_ready': False,
-              'project_budget_ready': False, 'job_grant_ready': False, 'job_retired': False, 'can_run': False,
+              'project_budget_ready': False, 'job_grant_ready': False, 'job_retired': False, 'job_closed': False, 'can_run': False,
               'currency': 'USD', 'mesh_generation_currency': 'Meshy credits',
               'reason': 'Administrator OpenAI backend configuration is required.'}
     try:
@@ -67,7 +68,7 @@ def readiness(root, *, job_id=None, job_digest=None, settings=None):
             require(validate_settings(settings) == current, 'Saved AI backend differs from current owner configuration')
         result.update(model=current['model'], max_calls=current['max_calls'],
                       max_repairs=current['max_repairs'],
-                      reservation_microdollars_per_call=reserve_microdollars(current['max_output_tokens']))
+                      reservation_microdollars_per_call=reserve_microdollars(current['max_output_tokens'], current['model']))
         result['maximum_reservation_microdollars'] = result['reservation_microdollars_per_call'] * current['max_calls']
         config = root / '.local/openai-backend.json'
         result['configured'] = config.is_file()
@@ -95,6 +96,8 @@ def readiness(root, *, job_id=None, job_digest=None, settings=None):
                 result['project_remaining_microdollars'] = max(0, budget['effective_ceiling_microdollars'] - accounting['project_exposure_microdollars']) if budget else 0
                 if job_id is not None:
                     result['job_retired'] = job_id in accounting['retired_jobs']
+                    from avatar_assets.openai_grant_closure import grant_closures
+                    result['job_closed'] = job_id in grant_closures(db, accounting)
                     grant = db.execute('SELECT digest,calls,ceiling FROM jobs WHERE id=?', (job_id,)).fetchone()
                     result['job_grant_ready'] = bool(grant and grant[0] == job_digest and grant[1] == current['max_calls'])
                     if result['job_grant_ready']:
@@ -115,6 +118,8 @@ def readiness(root, *, job_id=None, job_digest=None, settings=None):
             result['reason'] = 'An explicit administrator OpenAI dollar allowance is required; Meshy credits do not cover AI calls.'
         elif job_id is None:
             result['reason'] = 'OpenAI backend configured. Each saved request still needs its own administrator dollar grant.'
+        elif result['job_closed']:
+            result['reason'] = 'This OpenAI grant was explicitly closed; original charges remain, but no new calls are allowed.'
         elif result['job_retired']:
             result['reason'] = 'This OpenAI job was explicitly retired into a successor; it cannot make more calls.'
         elif not result['job_grant_ready']:
