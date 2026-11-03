@@ -1,0 +1,12 @@
+{
+  "name": "weft-local",
+  "private": true,
+  "scripts": {
+    "dev": "node website/dev.mjs",
+    "sandbox": "node sandbox/run.mjs",
+    "test:local": "node --test website/dev.test.mjs sandbox/run.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

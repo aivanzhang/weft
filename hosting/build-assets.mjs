@@ -1,27 +1,11 @@
+import { publicAssets } from "../website/public-assets.mjs";
 import { copyFile, mkdir, readdir, stat } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 const output = resolve(here, ".build/public");
-const assets = [
-  "website/index.html",
-  "website/styles.css",
-  "website/site.js",
-  "website/footer.css",
-  "website/footer.js",
-  "website/environments.css",
-  "website/environments.js",
-  "website/environments/catalog.js",
-  "website/environments/rolling-ball.json",
-  "website/environments/rolling-ball.jpg",
-  "website/fonts/InterVariable.woff2",
-  "website/fonts/OFL.txt",
-  "assets/brand/source/weft-wordmark.png",
-  "assets/brand/exports/weft-mascot.png",
-  "src/weft/assets/engine.js",
-  "data/rolling-ball.mp4",
-];
+const assets = publicAssets;
 async function existing(dir, prefix = "") {
   let entries;
   try {

@@ -1,0 +1,19 @@
+// Both servers expose only this catalog, never the repository or private runs.
+export const publicAssets = [
+  "website/index.html",
+  "website/styles.css",
+  "website/site.js",
+  "website/footer.css",
+  "website/footer.js",
+  "website/environments.css",
+  "website/environments.js",
+  "website/environments/catalog.js",
+  "website/environments/rolling-ball.json",
+  "website/environments/rolling-ball.jpg",
+  "website/fonts/InterVariable.woff2",
+  "website/fonts/OFL.txt",
+  "assets/brand/source/weft-wordmark.png",
+  "assets/brand/exports/weft-mascot.png",
+  "src/weft/assets/engine.js",
+  "data/rolling-ball.mp4",
+];

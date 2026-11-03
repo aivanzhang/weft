@@ -18,6 +18,30 @@ These describe the target and its presentation. The implementation status below 
 
 ## Start locally
 
+The landing page and interactive sandbox run as separate local environments:
+
+| Environment | Run from this repository | Address |
+| --- | --- | --- |
+| Landing page | `npm run dev` | `http://127.0.0.1:3000/` |
+| Video upload / 3D sandbox | `npm run sandbox` | Open the authenticated link printed for port `8765` |
+
+Use separate terminals. The landing page needs only Node.js 22+; no npm install
+is required. It serves only public site assets and never starts Python, uploads
+videos or calls AI APIs. Refresh the browser after edits. The sandbox uses the
+existing `.venv-lab` Python environment and `.local/portal` project storage.
+This is process/dependency separation, not container isolation. Neither command
+deploys anything; the hosted site remains offline.
+
+To reopen the saved hackathon demo rather than the default project collection:
+
+```sh
+npm run sandbox -- --root .local/portal-unfamiliar-source-acceptance-01/portal
+```
+
+Existing projects, recordings and spending ledgers are preserved. Do not run two
+sandbox processes against the same project directory. See [sandbox setup and
+options](sandbox/README.md) and [landing-page development](website/README.md).
+
 These saved examples are ready in this workspace; their local artifacts are not
 included in a fresh clone. Run one command, then open its printed local link:
 

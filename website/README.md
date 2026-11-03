@@ -1,5 +1,27 @@
 # Weft website
 
+## Local development
+
+From the repository root:
+
+```sh
+npm run dev
+```
+
+Open `http://127.0.0.1:3000/`. Node.js 22+ is the only requirement; no dependency
+installation or Python environment is needed. Refresh after editing files.
+Use `npm run dev -- --port 3001` if port 3000 is already occupied.
+
+This server exposes only the shared public asset allowlist, not the repository,
+credentials or experiment folders. It supports source-video seeking and disables
+uploads with an explicit local-only message. It does not proxy the sandbox or
+start API workers. Run `npm run sandbox` in another terminal for the separate
+[video-to-simulation environment](../sandbox/README.md) on port 8765.
+The hosted site remains offline; these commands do not deploy it.
+
+`npm run test:local` checks the isolated launchers and public HTTP routes using a
+temporary loopback listener that closes after the test. It makes no AI calls.
+
 Open [index.html](index.html) directly. No server, installation, account, network request, or build is needed for the gallery. Visitor video generation requires the hosted service described in [hosting](../hosting/README.md). The site and all runtime dependencies live in the Weft repository; there is no dependency on the GTM workspace.
 
 ## Files

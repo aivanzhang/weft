@@ -343,7 +343,7 @@
       token = config.csrf;
       if (!ready)
         message(
-          "Video submissions are not open yet. You can still explore the environments above.",
+          config.message || "Video submissions are not open yet. You can still explore the environments above.",
         );
       else message(file ? "Ready when you are." : "Choose a video to begin.");
       if (config.job) {
