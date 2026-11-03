@@ -15,10 +15,13 @@ that source acceptable. All rejected attempts remain preserved.
 A new request uses the **unrigged generated base behind the previously accepted
 panda appearance**, plus its accepted portrait reference. No old rig is copied;
 the shoulder dragon stays perched in this trial. Its first planner exceeded a
-text limit. The corrected website Prepare passed, and one exact-plan Start is
-now running rigging, fur, dance and review. No final delivery is accepted yet.
-Pre-Start settled API use was **$3.999655 across37calls**, under the enforced
-**$15 cap including all prior use**. No new Meshy call or deployment.
+text limit. The corrected website Prepare passed, but the rigging API call then
+timed out after 240 seconds before returning a rig. No hands-off delivery is accepted.
+Recorded use is **$3.999655 settled**, plus a **$5.618640 uncertain reservation**;
+the latter is a conservative hold, not a known bill. The unchanged **$15 total cap**
+blocks another full reservation until genuine provider evidence resolves the
+unknown charge. The stopped job and earlier accepted assets remain preserved.
+No new Meshy call or deployment.
 The [handoff](TODO.md) contains exact ownership, source hashes and recovery status.
 [Backend results](docs/api-website-backend.md).
 

@@ -26,6 +26,11 @@ The reusable automatic attachment stage now passes on a complete saved fox;
 [its evidence](portable-fur-attachment.md) is a component check, not the missing
 Studio run. Its appearance is unchanged and is not another quality upgrade.
 
+The latest accepted-source website Prepare passed, but its rigging API request
+timed out after four minutes with no answer. No new rig/dance delivery resulted.
+The uncertain charge remains reserved; no duplicate request is submitted. See
+[the current handoff](../TODO.md) for exact ownership, accounting and next steps.
+
 ## Completion evidence required
 
 - [ ] A local creation screen accepts subject/style, an optional selected

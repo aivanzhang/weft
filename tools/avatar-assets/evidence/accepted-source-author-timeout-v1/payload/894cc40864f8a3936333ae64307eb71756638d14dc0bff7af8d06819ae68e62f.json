@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "status": "local_processes_absent_provider_charge_unknown",
+  "job_id": "d80fa601c945434983e496db",
+  "owner_pid": 80932,
+  "owner_identity": "darwin-start:1793663990:585732",
+  "invocation": "jobs/d80fa601c945434983e496db/run-0003",
+  "canonical_status": "needs_inspection",
+  "active_lease_retained": "d80fa601c945434983e496db",
+  "known_pids": [
+    80523,
+    80527,
+    80595,
+    80596,
+    80932,
+    80933,
+    80934,
+    80941
+  ],
+  "matched_processes": [],
+  "local_locks_acquired_and_released_without_mutation": true,
+  "response_id": null,
+  "response_file_present": false,
+  "answer_file_present": false,
+  "author_receipt_status": "failed_or_uncertain",
+  "automatic_resubmission_allowed": false,
+  "timeout_elapsed_seconds": 240.00913737528026,
+  "reserved_unknown_microdollars": 5618640,
+  "global_accounting": [
+    {
+      "state": "reserved_uncertain",
+      "count": 1,
+      "actual": null,
+      "reserved": 5618640
+    },
+    {
+      "state": "settled",
+      "count": 37,
+      "actual": 3999655,
+      "reserved": 207889680
+    }
+  ],
+  "unchanged_hashes": {
+    "ledger": "37be6a2c367a1d0817a90c525f2d75eba86fedc4ef3d16a585c731a8ea63c07e",
+    "registry": "7f3cf7d8707c27a9d367d647578ba4d3c649a55c6f036215bf84cb11d5802e83"
+  },
+  "reference_file_count": 4,
+  "evidence_files": [
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/agents/author-0/receipt.json",
+      "bytes": 1546,
+      "sha256": "1f4e3b9b0c4039a341fc50058dec23a88131bb7b0a4bf4fbd679534fcad107bd"
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/agents/author-0/image-00.png",
+      "bytes": 327995,
+      "sha256": "8d7f3a3530ef79b850f9b3a7260f166ae02d8e93c10a70e7d164e2ce8fd44ba3"
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/agents/author-0/image-01.png",
+      "bytes": 274689,
+      "sha256": "a38f3e5da8a6e3ae4c2e4154ab31105af0f58da283e13cc21558b69c8ca6ca43"
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/agents/author-0/image-02.png",
+      "bytes": 233356,
+      "sha256": "bfc0de8c582c734dc92d2429fd3549526be0468555335249504887431981b799"
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/agents/author-0/image-03.png",
+      "bytes": 1051974,
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/agents/author-0/payload-metadata.json",
+      "bytes": 661,
+      "sha256": "8aea89d2db43a2d7d943536a943433db1c6edf9641c511c6b51ff4c5e3ca8dc8"
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/agents/author-0/prompt.txt",
+      "bytes": 46000,
+      "sha256": "e3155a0b956f9ae78b4c69dbf88d8e44fba94a8d2320dd01c9a51e17215753fc"
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/agents/author-0/request.json",
+      "bytes": 879,
+      "sha256": "a68fa475cd74af73fd5f9ed6da50c19b248a9dfa80ede89cc991ca367cad2e29"
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/agents/author-0/schema.json",
+      "bytes": 36992,
+      "sha256": "fafbfeb57dabb4da36a215756baa6215883763a3a746fec06bb440f55b6a9e8f"
+    }
+  ],
+  "elapsed_seconds": 0.03454108303412795,
+  "api_calls": 0,
+  "signals_sent_to_workers": 0,
+  "lease_or_ledger_mutations": 0,
+  "reconciliation": "No implemented runner retrieval/reconciliation route; no response ID/body or validated usage to settle. Existing settle requires independently validated response/usage, not a timeout estimate."
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-02T16:07:22.730762-08:00",
+  "status": "passed_frozen",
+  "sources": {
+    "avatar_assets/repair_visual_inputs.py": "4d852afbc3f6be6fd808f8f6c499a82114fb6a068f1d0a31b5c6f583f798d36a",
+    "tests/test_repair_visual_inventory.py": "9b47fc6a17d2cd3cd0f59941b8a6beed2b2e6779a4991db4454e0445ed0a7e8b",
+    "tests/test_repair_visual_inputs.py": "518cfbb4e59f79ea269aab8adf65c81d855c53afe4b882dc5d3206e7c12e064a"
+  },
+  "command": ".venv/bin/python -m unittest discover -s tests -p 'test_repair_visual_*.py' -v",
+  "tests_passed": 14,
+  "elapsed_seconds": 0.32,
+  "classification": "Analyst-recorded local analytic regression results, not provider/native work",
+  "before_edit_ownership_check": {
+    "job": "d80fa601c945434983e496db",
+    "supervisor_pid": 80932,
+    "worker_pid": 80933,
+    "process_identity_results": "Both ESRCH, absent",
+    "worker_job_process_exit_verified": true,
+    "worker_job_exit_code": 1,
+    "worker_job_cleanup": "not_required"
+  },
+  "scope": "Use continuation.MAX_FILES only for inherited full parent inventory; preserve final-evidence1024 bound and all hash/path/image limits",
+  "ledger_or_custody_changes": 0,
+  "provider_calls": 0,
+  "native_calls": 0,
+  "backend_config_changes": 0
+}

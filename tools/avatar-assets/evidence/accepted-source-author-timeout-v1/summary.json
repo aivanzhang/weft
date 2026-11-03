@@ -1,0 +1,82 @@
+{
+  "accepted_result": false,
+  "accounting": {
+    "actual_uncertain_charge_known": false,
+    "next_full_call_fits": false,
+    "observed_local": "2026-11-02T16:06:14.256473-08:00",
+    "project_exposure_microdollars": 9618295,
+    "receipt_path": "outputs/accepted-source-author-timeout-accounting-v1/receipt.json",
+    "receipt_sha256": "7d757996c37bde2c1d91d76067464fec3e2df6113feb12e237a7468691e6ae62",
+    "recorded_calls": 38,
+    "remaining_exposure_microdollars": 5381705,
+    "settled_calls": 37,
+    "settled_microdollars": 3999655,
+    "uncertain_calls": 1,
+    "uncertain_reservation_microdollars": 5618640
+  },
+  "archive_operations": "Read-only input hashing/copy only; no API/native/browser/DB/Git actions.",
+  "author": {
+    "answer_retained": false,
+    "automatic_resubmission_allowed": false,
+    "elapsed_seconds": 240.00913737528026,
+    "receipt_sha256": "1f4e3b9b0c4039a341fc50058dec23a88131bb7b0a4bf4fbd679534fcad107bd",
+    "reservation_microdollars": 5618640,
+    "response_body_retained": false,
+    "response_id_retained": false,
+    "status": "failed_or_uncertain"
+  },
+  "canonical_status": "needs_inspection",
+  "job_id": "d80fa601c945434983e496db",
+  "lease_retained": true,
+  "local_custody": {
+    "ledger_registry_unchanged": {
+      "ledger": "37be6a2c367a1d0817a90c525f2d75eba86fedc4ef3d16a585c731a8ea63c07e",
+      "registry": "7f3cf7d8707c27a9d367d647578ba4d3c649a55c6f036215bf84cb11d5802e83"
+    },
+    "matched_processes": [],
+    "path": "outputs/author-timeout-custody-v1/summary.json",
+    "recorded_pids_absent": [
+      80523,
+      80527,
+      80595,
+      80596,
+      80932,
+      80933,
+      80934,
+      80941
+    ],
+    "remote_charge_resolved": false,
+    "sha256": "894cc40864f8a3936333ae64307eb71756638d14dc0bff7af8d06819ae68e62f"
+  },
+  "planner": {
+    "cost_microdollars": 63428,
+    "receipt_sha256": "18ff201e6c9cf8018f272beddb6156569af1e7e063196f4722acd757a3492a02",
+    "status": "succeeded"
+  },
+  "post_absence_inventory_fix": {
+    "analytic_tests": 14,
+    "path": "outputs/repair-image-inventory-fix-tests-v1/result.json",
+    "sha256": "03464fcb7c0d805abdccfe01af13a629850bce96b5a7c1be6a32a031bf6fe651",
+    "timeout_resolved": false
+  },
+  "release_or_retry_eligibility_claimed": false,
+  "schema_version": 1,
+  "source_inspection": "Completed native SOURCE inspection only; no skin, animation, authored rig or finished model.",
+  "status": "author_transport_uncertain",
+  "website_prepare": {
+    "elapsed_seconds": 62.675186542000006,
+    "path": "outputs/accepted-source-panda-website-prepare-v3/result.json",
+    "status": "passed"
+  },
+  "website_start": {
+    "cleanup": {
+      "browser_exit_verified": true,
+      "server_exit_verified": true,
+      "worker_cancel_requested": false,
+      "worker_signalled": false
+    },
+    "elapsed_seconds": 247.531631333,
+    "path": "outputs/accepted-source-panda-studio-live-v1/studio-live-test.json",
+    "starts": 1
+  }
+}

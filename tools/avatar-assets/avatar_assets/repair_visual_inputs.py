@@ -40,8 +40,8 @@ def author_images(base_images,repair_images):
     return [row['path'] for row in records]
 
 
-def _pins(rows):
-    require(isinstance(rows,list) and len(rows)<=1024,'Repair image custody: inventory bound')
+def _pins(rows, *, maximum=1024):
+    require(isinstance(rows,list) and len(rows)<=maximum,'Repair image custody: inventory bound')
     result={row['path']:row for row in rows}
     require(len(result)==len(rows),'Repair image custody: duplicate inventory path')
     return result
@@ -55,13 +55,13 @@ def _bound(folder,pins,name,maximum=1024**2):
 
 
 def _lineage_inventory(root,child,request,target):
-    from avatar_assets.pipeline_continuation import _read_context
+    from avatar_assets.pipeline_continuation import _read_context, MAX_FILES
     for _ in range(8):
         receipt,_=_read_context(child,request)
         parent=root/request['continuation']['parent']
         require(parent.resolve()==parent and parent.parent==root/'outputs',
                 'Repair image custody: escaped ancestor')
-        pins=_pins(receipt['inventory'])
+        pins=_pins(receipt['inventory'],maximum=MAX_FILES)
         parent_request=read_json(_bound(parent,pins,'request.json'))
         require(sha256(parent/'request.json')==receipt['parent_request_sha256'],
                 'Repair image custody: ancestor request changed')

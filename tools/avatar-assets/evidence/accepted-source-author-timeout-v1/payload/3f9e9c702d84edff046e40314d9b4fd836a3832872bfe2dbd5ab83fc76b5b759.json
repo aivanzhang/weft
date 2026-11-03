@@ -1,0 +1,220 @@
+{
+  "receipts": [
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0003/invocation.json",
+      "sha256": "28f9a0973630a231034ed645a393a9dbd800132cd1042a05f757160301708d29",
+      "bytes": 1490,
+      "kind": "invocation"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0003/owner.json",
+      "sha256": "76d8758affff472392b094ecc881d0a180d674acaa205712205c1c8177a57ed1",
+      "bytes": 155,
+      "kind": "owner",
+      "pid": 80932,
+      "exit_code": null
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0003/result.json",
+      "sha256": "9f0721e38a8cbabef04f11118c31d1c6adb186d82ff76c480905151a6fb9b2c5",
+      "bytes": 209,
+      "kind": "terminal_result"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0003/supervisor-result.json",
+      "sha256": "2d73a8237742a228af79c65c790816a5ab36de0a55c427ff2eeaa6596eb47a8e",
+      "bytes": 327,
+      "kind": "terminal_result"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0003/worker-handle.json",
+      "sha256": "dfd0db0624f495b667530f1a4eee0eb48f56fb81355c1b37639e7cc59051c24e",
+      "bytes": 408,
+      "kind": "handle",
+      "pid": 80933,
+      "exit_code": null
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0003/worker-job.json",
+      "sha256": "1d60ec08ad7bbb03c972460f1067be13eed3db962f44e72710f001196fcc732f",
+      "bytes": 1332,
+      "kind": "exit",
+      "pid": 80933,
+      "exit_code": 1
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0003/worker-monitor.json",
+      "sha256": "785299be3d7afc765280b8b40c874304ea90a09f72a57d891f8a2d3abdc2fd3d",
+      "bytes": 1202,
+      "kind": "exit",
+      "pid": 80933,
+      "exit_code": 1
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/inspection/guide-annotation-handle.json",
+      "sha256": "19fc11e43ec096a723b408957c2ec2b1d8b5a751cf727dd86516a24c85acfeae",
+      "bytes": 382,
+      "kind": "handle",
+      "pid": 80941,
+      "exit_code": null
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/inspection/guide-annotation-job.json",
+      "sha256": "819aa7e48b55dd7fea0c1e5b95edadf8bcd45e588e3c5b086895f559f9d0f403",
+      "bytes": 1218,
+      "kind": "exit",
+      "pid": 80941,
+      "exit_code": 0
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/inspection/guide-annotation-monitor.json",
+      "sha256": "2841812e320c2309974e436f0b6377c1925ecf9b09dd9088445919541c028a30",
+      "bytes": 1126,
+      "kind": "exit",
+      "pid": 80941,
+      "exit_code": 0
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/inspection/job.json",
+      "sha256": "4e01b3067ed2bfa9c0c458083175072f98474008468aae6f3dfee741b3c932a6",
+      "bytes": 1610,
+      "kind": "exit",
+      "pid": 80934,
+      "exit_code": 0
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/inspection/preview-handle.json",
+      "sha256": "194c8516cea9bcaa08431ecfe7e7de2ce4431c546d0712a10d41b386f9cb741d",
+      "bytes": 656,
+      "kind": "handle",
+      "pid": 80934,
+      "exit_code": null
+    },
+    {
+      "path": "outputs/studio-d80fa601c945434983e496db/inspection/preview-monitor.json",
+      "sha256": "7d01fd2377c7e406b96d428290d7a6fabf7a0a0c2af6e26eb036d3c2a9addcfa",
+      "bytes": 1464,
+      "kind": "exit",
+      "pid": 80934,
+      "exit_code": 0
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0001/owner.json",
+      "sha256": "957789b309841ae9177d5b7e2a1dc5ca30abfc356d31f60d201a3d23a8ceca13",
+      "bytes": 155,
+      "kind": "prior_plan_owner"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0001/invocation.json",
+      "sha256": "7ac7ae95238ce5075e7a72c4532133acf1efd8d0db399ed8f4382ad59fa9ebf6",
+      "bytes": 1487,
+      "kind": "prior_plan_invocation"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0001/worker-job.json",
+      "sha256": "a5e3c2c096b5d6b8b93615bb32f9b01bfe016851db2a9edea89a463451e8af3a",
+      "bytes": 1277,
+      "kind": "prior_plan_exit"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0001/worker-monitor.json",
+      "sha256": "3a119fd737e69214d9637ef5027467a95b3d89708cf1cd693ad8bc18dc8c31f2",
+      "bytes": 1149,
+      "kind": "prior_plan_exit"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0001/worker-handle.json",
+      "sha256": "a4a1e1eba4f76f64f12c7ac7cde1dc8217ecb67112a3648ecdea7d8cd6bde0d2",
+      "bytes": 408,
+      "kind": "prior_plan_handle"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0001/result.json",
+      "sha256": "2530e7805e0eb651a967197ad306620ff6fe982eaaa314dde5434cc7d6168877",
+      "bytes": 304,
+      "kind": "prior_plan_terminal"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0001/supervisor-result.json",
+      "sha256": "746a8ff9ef9ed7122e4785de5b5ef8f6e0beb3e1c8873346f023d4048c237d1a",
+      "bytes": 332,
+      "kind": "prior_plan_terminal"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0002/owner.json",
+      "sha256": "c2226298288c712300651124763a354c0fc772a9fe1e31b79617b2a5fbcefb91",
+      "bytes": 155,
+      "kind": "prior_plan_owner"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0002/invocation.json",
+      "sha256": "c687fe4c4686182e362d9cc100f9ed4d14f0037af551875f31e1d4add1c1d65a",
+      "bytes": 1487,
+      "kind": "prior_plan_invocation"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0002/worker-job.json",
+      "sha256": "1166ddab08ce9fd46ef7557e643f652d45079a834d06ad9ae42d4d843e5b9476",
+      "bytes": 1329,
+      "kind": "prior_plan_exit"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0002/worker-monitor.json",
+      "sha256": "97bac8be3bf73115afddfa8441ae2eac89fb37e702959123f8c34845416773f9",
+      "bytes": 1199,
+      "kind": "prior_plan_exit"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0002/worker-handle.json",
+      "sha256": "775adc1a2e021cdc82061f7d5d2ff0ca8927bf87b99c234f78ce050cfaeb292f",
+      "bytes": 408,
+      "kind": "prior_plan_handle"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0002/result.json",
+      "sha256": "0dc8c6ad19c56cf4fd3ea5f52fe86500e10710665b72911f05a38cd4d1bc213a",
+      "bytes": 217,
+      "kind": "prior_plan_terminal"
+    },
+    {
+      "path": ".local/studio/jobs/d80fa601c945434983e496db/run-0002/supervisor-result.json",
+      "sha256": "d659723f14a299969531bf30d626f620c06e95c56840fde8ba359b873d14a903",
+      "bytes": 317,
+      "kind": "prior_plan_terminal"
+    }
+  ],
+  "known_pids": [
+    80523,
+    80527,
+    80595,
+    80596,
+    80932,
+    80933,
+    80934,
+    80941
+  ],
+  "receipt_bytes": 21803,
+  "process_check": {
+    "recorded_local": "2026-11-02T16:06:59.606186-08:00",
+    "known_pid_count": 4,
+    "os_snapshot_sha256": "fbbedd4f1455508c883f520853c532a3dfec01c000095d58363fef090a01e37f",
+    "matched_processes": [],
+    "scope": "Recorded PIDs, direct children and process groups are absent; no worker was signalled."
+  },
+  "bounds": {
+    "inventory_entries": 20000,
+    "receipts": 512,
+    "receipt_bytes": 4194304,
+    "inventory_seconds": 8,
+    "os_snapshot_seconds": 2
+  },
+  "scope": "Local process absence only; provider request completion/charge remains unknown. Lease and reservation are retained; no retry or release authorization.",
+  "previous_planning_invocations": 2,
+  "final_process_check": {
+    "recorded_local": "2026-11-02T16:06:59.623894-08:00",
+    "known_pid_count": 8,
+    "os_snapshot_sha256": "5d5d11b2b4d5b38a5bbba0d86694db7e8b6696b32277748ae10da8f85603ec7f",
+    "matched_processes": [],
+    "scope": "Recorded PIDs, direct children and process groups are absent; no worker was signalled."
+  }
+}

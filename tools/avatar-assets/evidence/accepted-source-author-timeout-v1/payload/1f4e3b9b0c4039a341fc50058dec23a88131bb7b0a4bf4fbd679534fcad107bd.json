@@ -1,0 +1,51 @@
+{
+  "artifacts": [
+    {
+      "bytes": 327995,
+      "path": "image-00.png",
+      "sha256": "8d7f3a3530ef79b850f9b3a7260f166ae02d8e93c10a70e7d164e2ce8fd44ba3"
+    },
+    {
+      "bytes": 274689,
+      "path": "image-01.png",
+      "sha256": "a38f3e5da8a6e3ae4c2e4154ab31105af0f58da283e13cc21558b69c8ca6ca43"
+    },
+    {
+      "bytes": 233356,
+      "path": "image-02.png",
+      "sha256": "bfc0de8c582c734dc92d2429fd3549526be0468555335249504887431981b799"
+    },
+    {
+      "bytes": 1051974,
+      "path": "image-03.png",
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    {
+      "bytes": 661,
+      "path": "payload-metadata.json",
+      "sha256": "8aea89d2db43a2d7d943536a943433db1c6edf9641c511c6b51ff4c5e3ca8dc8"
+    },
+    {
+      "bytes": 46000,
+      "path": "prompt.txt",
+      "sha256": "e3155a0b956f9ae78b4c69dbf88d8e44fba94a8d2320dd01c9a51e17215753fc"
+    },
+    {
+      "bytes": 879,
+      "path": "request.json",
+      "sha256": "a68fa475cd74af73fd5f9ed6da50c19b248a9dfa80ede89cc991ca367cad2e29"
+    },
+    {
+      "bytes": 36992,
+      "path": "schema.json",
+      "sha256": "fafbfeb57dabb4da36a215756baa6215883763a3a746fec06bb440f55b6a9e8f"
+    }
+  ],
+  "automatic_resubmission_allowed": false,
+  "elapsed_seconds": 240.00913737528026,
+  "error": "API call failed validation or transport; inspect bounded response and ledger. Secrets omitted.",
+  "execution_kind": "openai_responses_api",
+  "reserved_microdollars": 5618640,
+  "schema_version": 1,
+  "status": "failed_or_uncertain"
+}

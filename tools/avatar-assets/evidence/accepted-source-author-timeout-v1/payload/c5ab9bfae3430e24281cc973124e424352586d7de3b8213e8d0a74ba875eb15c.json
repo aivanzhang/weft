@@ -1,0 +1,92 @@
+{
+  "id": "d80fa601c945434983e496db",
+  "title": "Create an editable, rigged avatar from this previously generated Muse-style pand",
+  "status": "running",
+  "created_at": "2026-11-02T15:57:59.862525-08:00",
+  "updated_at": "2026-11-02T15:59:50.633385-08:00",
+  "elapsed_seconds": 0.07,
+  "request": {
+    "prompt": "Create an editable, rigged avatar from this previously generated Muse-style panda and its small green shoulder dragon. Preserve the selected source character, proportions, black eye patches, black-and-ivory palette, and companion. Keep the dragon perched and attached to the shoulder during this run; do not separate it or make it fly. Do not add props, clothing, text, a pedestal or scenery.",
+    "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look.",
+    "custom_actions": [
+      "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    ],
+    "preset": "preview",
+    "reference_selected": true,
+    "reuse_model_selected": true
+  },
+  "operation": "execute",
+  "queued": false,
+  "cancel_requested": false,
+  "stages": [
+    {
+      "id": "planner",
+      "stage": "planner",
+      "label": "Planner",
+      "status": "ready",
+      "detail": "",
+      "attempt": null,
+      "elapsed_seconds": 61.009
+    },
+    {
+      "id": "geometry",
+      "stage": "geometry",
+      "label": "Geometry",
+      "status": "reused_generated_source",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "pipeline",
+      "stage": "pipeline",
+      "label": "Pipeline",
+      "status": "planned",
+      "detail": "",
+      "attempt": null
+    }
+  ],
+  "plan_id": "b3990b08ff554ec2ee269f48caf69e61a482b51606949471df2d52d24b51ef01",
+  "plan": {
+    "id": "b3990b08ff554ec2ee269f48caf69e61a482b51606949471df2d52d24b51ef01",
+    "summary": "A rounded plush-style panda avatar with black eye patches, black-and-ivory short fur, clear expressive eyes, and a small green dragon perched on its shoulder as an attached companion.",
+    "estimate": {
+      "credits": 0,
+      "amount": null,
+      "currency": "USD",
+      "note": "Account dollar price and agent usage price are unknown. No paid retries or allowance changes."
+    },
+    "authorization": {
+      "can_start": true,
+      "estimated_credits": 0,
+      "reason": "Explicit source reuse requires no new Meshy credits; existing bounded agent/local execution still applies.",
+      "execution_gate": "canonical_ledger_and_explicit_start"
+    },
+    "warnings": [
+      "This plan assumes the supplied source model and reference already represent the chosen panda and perched shoulder dragon; it does not claim exact recovery of hidden anatomy or obscured contact areas from the portrait alone.",
+      "The dragon is kept as an attached perched companion in this run; independent dragon flight, separation, or automatic attachment repair is not included.",
+      "Requested motion is authored toy motion with bounded travel, not physical balance, collision, or contact simulation."
+    ]
+  },
+  "capabilities": {
+    "plan": false,
+    "start": false,
+    "cancel": true,
+    "retry": false,
+    "resume": false,
+    "session_required": true,
+    "execution_gate": "canonical_ledger_and_explicit_start"
+  },
+  "previews": [],
+  "reviews": [],
+  "result": null,
+  "error": null,
+  "storage": {
+    "retained_bytes_measured": 29143560,
+    "pipeline_bytes_measured": 28676633,
+    "measured_at": "2026-11-02T15:59:31.357972-08:00",
+    "total_limit_bytes": 8589934592,
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false
+  },
+  "provenance": "actual_pipeline"
+}

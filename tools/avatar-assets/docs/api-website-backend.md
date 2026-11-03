@@ -18,20 +18,26 @@ without copying the old rig or motion recipe. The shoulder dragon remains perche
 independent flight is not part of this trial. Trusted local creation selects this
 saved source; the website does not yet expose a saved-source picker.
 
-Job `905fab75929b427ea12432a3` stopped after its planner returned845characters
-for an800-character generation brief. Its unchanged paid answer also classified
+Job `905fab75929b427ea12432a3` stopped after its planner returned 845 characters
+for an 800-character generation brief. Its unchanged paid answer also classified
 an existing perched attachment as unsupported interaction. Schema text bounds
 now mirror local validation; planner guidance distinguishes existing attached
 accessories from new interactions and independently moving companions. Neither
 change relaxes the acceptance checks. The original answer is not edited or reused
-as a valid plan. A fresh request and paid planner are required after verified
-custody release, within the standing$15 total budget.
+as a valid plan. The guarded release and fresh request succeeded: d80's website Prepare returned
+a valid plan. Its first author call then timed out at 240.009 seconds without a
+response ID, body or answer. Both website processes exited cleanly; all recorded
+local controller/native processes are absent. The job remains `needs_inspection`
+and its $5.618640 uncertain reservation stays intact. Settled use is $3.999655;
+conservative exposure is $9.618295 under the $15 cap. Remaining capacity cannot fit
+another full reservation. No genuine usage receipt means no settlement or blind
+resubmission. A longer future timeout is not recovery of this missing response.
 
 The author now receives the optional request reference and authenticated images
 of critic-reported exported defects. Inputs remain bounded at eight images,
-8MiB each and32MiB combined, deduplicated against source/reference images. A
+8 MiB each and 32 MiB combined, deduplicated against source/reference images. A
 successful numeric skin check still does not establish visual quality.
-Continuation inventories admit up to4096files/1GiB, with64MiB/file and20s limits;
+Continuation inventories admit up to 4096 files / 1 GiB, with 64 MiB/file and 20 s limits;
 the actual three-attempt d8 inventory passed without omitting rejected evidence.
 
 The website Prepare verifier now waits for its actual POST response before

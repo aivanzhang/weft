@@ -1,0 +1,101 @@
+{
+  "appearance_checks": [
+    "Preserve the selected source panda character, its existing proportions, and its rounded plush silhouette.",
+    "Keep the panda's black eye patches clearly readable on the ivory face with tidy boundaries.",
+    "Maintain the panda's black-and-ivory palette with no added clothing, props, text, pedestal, or scenery.",
+    "The panda fur should read as soft, neatly groomed short fur with a clean continuous undercoat surface, not coarse carved spikes and not shiny plastic.",
+    "Keep the small green dragon perched on the panda's shoulder as an attached companion during this run.",
+    "Preserve the dragon as a distinct green creature with visible wings, tail, horns/spines, and its own surface details; do not cover it in panda fur."
+  ],
+  "generation_prompt": "Rounded plush panda character with black eye patches, ivory face and belly, black limbs and ears, clear expressive eyes, and a small green dragon perched on its shoulder as a distinct attached companion. Match the provided character proportions and cute toy-like silhouette. Use soft neatly groomed short fur on the panda with a clean continuous undercoat surface and tidy color boundaries; avoid coarse carved fur and avoid a shiny plastic look. Keep the dragon green with preserved body details, wings, tail, horns/spines, and materials distinct from the panda. Neutral articulation-ready standing pose: feet slightly apart, knees relaxed, arms slightly away from the torso, head level, tail visible, and the perched dragon clearly separated in silhouette at its limbs, wings, neck, and tail.",
+  "height_meters": 0.62,
+  "limitations": [
+    "This plan assumes the supplied source model and reference already represent the chosen panda and perched shoulder dragon; it does not claim exact recovery of hidden anatomy or obscured contact areas from the portrait alone.",
+    "The dragon is kept as an attached perched companion in this run; independent dragon flight, separation, or automatic attachment repair is not included.",
+    "Requested motion is authored toy motion with bounded travel, not physical balance, collision, or contact simulation."
+  ],
+  "reason": "Supported: the request is a single authored toy dance that can be expressed with readable whole-body rhythm, small body travel for hops, arm articulation, gentle head articulation, and a return to the starting pose while the attached shoulder dragon remains carried with the body.",
+  "states": [
+    {
+      "id": "dance",
+      "meaning": "A cheerful toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings, gentle head tilts, the shoulder dragon staying perched, and a finish in the starting pose.",
+      "requirements": [
+        {
+          "description": "Readable cheerful dance timing with three alternating side-to-side beats across the clip, expressed through coordinated whole-body sways rather than a single minor motion.",
+          "id": "beats",
+          "kind": "rhythm",
+          "role": "body"
+        },
+        {
+          "description": "Small whole-body hops with visible upward and downward body travel during the dance, while the perched dragon remains attached and carried with the body rather than moving independently.",
+          "id": "hops",
+          "kind": "travel",
+          "role": "body"
+        },
+        {
+          "description": "Both arms perform coordinated swing arcs that are clearly visible and synchronized to the dance beats.",
+          "id": "arm_swings",
+          "kind": "articulation",
+          "role": "arms"
+        },
+        {
+          "description": "The head shows gentle readable tilts that support the toy-like dance feel and coordinate with the body beats.",
+          "id": "head_tilts",
+          "kind": "articulation",
+          "role": "head"
+        },
+        {
+          "description": "By the end of the clip, the body returns to the starting pose so the final overall pose matches the initial pose.",
+          "id": "return",
+          "kind": "return_pose",
+          "role": "body"
+        }
+      ],
+      "roles": [
+        {
+          "description": "The panda's main body, including torso, hips, legs, and the attached perched dragon carried with overall body motion.",
+          "id": "body"
+        },
+        {
+          "description": "Both panda arms used for the coordinated swing motion.",
+          "id": "arms"
+        },
+        {
+          "description": "The panda head and neck used for gentle tilting.",
+          "id": "head"
+        }
+      ],
+      "user_request": "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    }
+  ],
+  "status": "ready",
+  "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look.",
+  "subject": "A rounded plush-style panda avatar with black eye patches, black-and-ivory short fur, clear expressive eyes, and a small green dragon perched on its shoulder as an attached companion.",
+  "surface_intent": [
+    {
+      "finish": "soft neatly groomed short black-and-ivory fur with a clean continuous undercoat surface, rounded plush volume, and no coarse carved spikes",
+      "material": "fur",
+      "region": "panda coat"
+    },
+    {
+      "finish": "tidy black facial patches with clean readable boundaries against the ivory face fur",
+      "material": "fur",
+      "region": "panda eye patches"
+    },
+    {
+      "finish": "clear expressive eyes with gentle gloss and a dark nose with a soft satin sheen, not shiny plastic",
+      "material": "other",
+      "region": "panda eyes and nose"
+    },
+    {
+      "finish": "distinct green body surface with preserved sculpted detail and soft satin highlights rather than a plastic shine",
+      "material": "scales",
+      "region": "dragon body"
+    },
+    {
+      "finish": "subtle shading and clean separation for the paler belly and wing membranes",
+      "material": "skin",
+      "region": "dragon belly and wing membranes"
+    }
+  ]
+}
