@@ -85,10 +85,14 @@ has a ready lab, so import/interaction/training was not attempted on these resul
 
 ## Next work and existing interaction route
 
-Runtime agent owns saved consensus refusal diagnosis; contract agent owns the
-separate moving/held-equipment architecture review. Outputs:
+Saved consensus diagnosis and moving-equipment design are complete.
+[The durable next-stage plan](../moving-equipment-plan.md) records active source-ledger,
+native-interval and portal-contract ownership. Outputs:
 `.local/sampled-init-consensus-diagnosis-01/` and
-`.local/held-equipment-path-01/`. Keep raw identities, missing/pre-initialization
+`.local/held-equipment-path-01/`. The saved diagnosis retains all 458 slots and 442 eligible references: count/span
+pass, while edge range/drift (and equipment cohort consistency) fail. Box changes
+alone cannot separate physical motion from tracking/occlusion errors.
+Keep raw identities, missing/pre-initialization
 slots, complete source span and all rejected attempts. Do not trim to a convenient
 frame window or turn proximity into measured contact.
 
