@@ -22,7 +22,7 @@ MAX_RESPONSE = 4 * 1024**2
 MAX_REQUEST = 48 * 1024**2
 KEY_FILE = ROOT.parents[1] / '.local/credentials/openai-api-key'
 EXPOSURE_POLICY = 'validated-settled-exposure-v1'
-BUDGET_POLICY = 'append-only-lower-ceiling-v1'
+BUDGET_POLICY = 'append-only-ceiling-chain-v2'
 REASONING_EFFORTS = ('none', 'low', 'medium', 'high')
 
 
@@ -130,28 +130,68 @@ def _tightening_approval(value, ceiling):
     return record
 
 
+def _raising_approval(value, ceiling):
+    record = _approval(value)
+    require(value.get('operation') == 'raise_project_ceiling'
+            and type(value.get('max_microdollars')) is int and value['max_microdollars'] == ceiling,
+            'Ceiling raise approval must bind the exact higher amount')
+    return record
+
+
 def budget_snapshot(db):
-    """Read the original approval and its strictly decreasing, append-only ceiling chain."""
+    """Read the original approval and its append-only ceiling-change chain.
+
+    Reductions and raises live in separate append-only tables; each raise records the
+    overall change position it claimed, so replay interleaves both chains in their true
+    order and every stored approval is re-validated against its exact recorded amount.
+    """
     original = db.execute('SELECT ceiling FROM budget WHERE id=1').fetchone()
     has_reductions = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='budget_reductions'").fetchone() is not None
     count = db.execute('SELECT COUNT(*) FROM budget_reductions').fetchone()[0] if has_reductions else 0
     require(count <= 1024, 'API budget reduction inventory exceeds1024 records')
+    has_raises = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='budget_raises'").fetchone() is not None
+    raise_count = db.execute('SELECT COUNT(*) FROM budget_raises').fetchone()[0] if has_raises else 0
+    require(raise_count <= 1024, 'API budget raise inventory exceeds1024 records')
     if original is None:
-        require(count == 0, 'Budget reductions have no original approval')
+        require(count == 0 and raise_count == 0, 'Budget changes have no original approval')
         return None
     initial = current = _integer(original[0], 1, 1000000000, 'original project dollar ceiling')
-    rows = db.execute('SELECT id,previous_ceiling,ceiling,approval FROM budget_reductions ORDER BY id') if count else ()
-    for number, (index, previous, ceiling, approval) in enumerate(rows, 1):
-        require(type(index) is int and index == number and type(previous) is int and previous == current,
-                'Broken API budget reduction chain')
-        _integer(ceiling, 1, current-1, 'lower project dollar ceiling')
-        require(isinstance(approval, str) and len(approval.encode()) <= 8192,
-                'Invalid budget reduction approval')
-        require(_tightening_approval(_decode(approval.encode()), ceiling) == approval,
-                'Budget reduction approval differs from its record')
+    reductions = list(db.execute('SELECT id,previous_ceiling,ceiling,approval FROM budget_reductions ORDER BY id')) if count else []
+    raises = {}
+    if raise_count:
+        for index, sequence, previous, ceiling, approval in db.execute(
+                'SELECT id,sequence,previous_ceiling,ceiling,approval FROM budget_raises ORDER BY id'):
+            require(type(sequence) is int and sequence not in raises, 'Duplicate API budget raise position')
+            raises[sequence] = (index, previous, ceiling, approval)
+    total = count + raise_count
+    require(all(1 <= sequence <= total for sequence in raises), 'API budget raise position exceeds the change chain')
+    next_reduction = 0
+    seen_reductions = 0
+    for position in range(1, total + 1):
+        if position in raises:
+            index, previous, ceiling, approval = raises[position]
+            require(type(index) is int and type(previous) is int and previous == current,
+                    'Broken API budget raise chain')
+            _integer(ceiling, current + 1, 1000000000, 'higher project dollar ceiling')
+            require(isinstance(approval, str) and len(approval.encode()) <= 8192,
+                    'Invalid budget raise approval')
+            require(_raising_approval(_decode(approval.encode()), ceiling) == approval,
+                    'Budget raise approval differs from its record')
+        else:
+            require(next_reduction < len(reductions), 'Broken API budget change chain')
+            index, previous, ceiling, approval = reductions[next_reduction]
+            next_reduction += 1
+            seen_reductions += 1
+            require(type(index) is int and index == seen_reductions and type(previous) is int and previous == current,
+                    'Broken API budget reduction chain')
+            _integer(ceiling, 1, current - 1, 'lower project dollar ceiling')
+            require(isinstance(approval, str) and len(approval.encode()) <= 8192,
+                    'Invalid budget reduction approval')
+            require(_tightening_approval(_decode(approval.encode()), ceiling) == approval,
+                    'Budget reduction approval differs from its record')
         current = ceiling
     return {'policy': BUDGET_POLICY, 'original_ceiling_microdollars': initial,
-            'effective_ceiling_microdollars': current, 'reductions': count}
+            'effective_ceiling_microdollars': current, 'reductions': count, 'raises': raise_count}
 
 
 def _profile_bindings(db, keys=None):
@@ -303,6 +343,8 @@ class OpenAILedger:
             CREATE TABLE IF NOT EXISTS call_profiles(job TEXT, role TEXT, binding TEXT, PRIMARY KEY(job,role));
             CREATE TABLE IF NOT EXISTS budget_reductions(id INTEGER PRIMARY KEY,
                 previous_ceiling INTEGER, ceiling INTEGER, approval TEXT);
+            CREATE TABLE IF NOT EXISTS budget_raises(id INTEGER PRIMARY KEY, sequence INTEGER UNIQUE,
+                previous_ceiling INTEGER, ceiling INTEGER, approval TEXT);
         ''')
         from avatar_assets.openai_grant_closure import ensure_schema
         ensure_schema(self.db)
@@ -344,6 +386,26 @@ class OpenAILedger:
             self.db.execute('INSERT INTO budget_reductions VALUES(?,?,?,?)',
                             (budget['reductions']+1, previous, max_microdollars, record))
             return {**budget_snapshot(self.db), 'project_exposure_microdollars': exposure}
+
+    def raise_budget(self, max_microdollars, approval):
+        """Raise future spending capacity on explicit approval; history is never rewritten.
+
+        The raise appends to its own chained table and records the overall change
+        position it occupies, so later reductions and raises replay in true order.
+        Exposure, grants and uncertain charges are untouched.
+        """
+        _integer(max_microdollars, 1, 1000000000, 'higher project dollar ceiling')
+        record = _raising_approval(approval, max_microdollars)
+        with self.transaction():
+            budget = budget_snapshot(self.db)
+            require(budget is not None, 'Configure the approved project allowance first')
+            previous = budget['effective_ceiling_microdollars']
+            require(max_microdollars > previous, 'Project ceiling raises must strictly increase the current limit')
+            require(budget['raises'] < 1024, 'API budget raise inventory exceeds1024 records')
+            sequence = budget['reductions'] + budget['raises'] + 1
+            self.db.execute('INSERT INTO budget_raises VALUES(?,?,?,?,?)',
+                            (budget['raises'] + 1, sequence, previous, max_microdollars, record))
+            return budget_snapshot(self.db)
 
     def authorize_job(self, job_id, job_digest, max_calls, max_microdollars, approval):
         slug(job_id)
@@ -561,7 +623,7 @@ class OpenAIRunner:
             'max_calls':max_calls, 'timeout':timeout, 'max_output_tokens':max_output_tokens,
             'job_id':job_id, 'job_digest':job_digest, 'automatic_retries':0, 'tools':[], 'store':False,
             'service_tier':'default', 'reasoning':{'effort':reasoning_effort}, 'truncation':'disabled', 'pricing':profile, 'implementation_sha256':sha256(Path(__file__)), 'reservation_microdollars_per_call':self.reservation,
-            'reservation_policy':'validated-settled-exposure-v1 with append-only-lower-ceiling-v1: reserve the full1.05M context at long-context rates plus maximum output before every call. Validated settled upper costs replace holds in exposure; the latest validated lower project ceiling applies. Uncertain holds, original rows, call caps and explicit retry approval remain.'}
+            'reservation_policy':'validated-settled-exposure-v1 with append-only-ceiling-chain-v2: reserve the full1.05M context at long-context rates plus maximum output before every call. Validated settled upper costs replace holds in exposure; the latest validated project ceiling (reductions and explicit raises replayed in order) applies. Uncertain holds, original rows, call caps and explicit retry approval remain.'}
         if model != MODEL:
             self.settings['reservation_policy'] = 'full-pinned-model-context-v1: reserve the entire priced model context plus maximum output; preserve every prior uncertain hold and grant.'
             self.settings['model_profile_implementation_sha256'] = sha256(Path(__file__).with_name('openai_models.py'))
