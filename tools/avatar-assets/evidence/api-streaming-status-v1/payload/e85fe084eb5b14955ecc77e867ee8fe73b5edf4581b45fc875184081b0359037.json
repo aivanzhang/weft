@@ -1,0 +1,31 @@
+{
+  "id": "d80fa601c945434983e496db",
+  "status": "needs_inspection",
+  "operation": "execute",
+  "error": {
+    "message": "AI request stopped after 240 seconds without a verified result. Its charge is unknown; $5.618640 remains reserved. Saved work is preserved; no automatic retry will start."
+  },
+  "ai_failure": {
+    "verified": true,
+    "role": "author-0",
+    "automatic_retry": false,
+    "source": "exact_job_ledger_and_receipt",
+    "code": "ai_charge_unknown",
+    "message": "AI request stopped after 240 seconds without a verified result. Its charge is unknown; $5.618640 remains reserved. Saved work is preserved; no automatic retry will start.",
+    "charge": {
+      "status": "unknown",
+      "reserved_microdollars": 5618640,
+      "actual_microdollars": null,
+      "currency": "USD"
+    }
+  },
+  "capabilities": {
+    "plan": false,
+    "start": false,
+    "cancel": false,
+    "retry": false,
+    "resume": false,
+    "session_required": true,
+    "execution_gate": "canonical_ledger_and_explicit_start"
+  }
+}

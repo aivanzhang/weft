@@ -10,6 +10,20 @@ const text = (value, limit = 8000) => typeof value === "string" ? value.slice(0,
 const statusLabel = (value) => STATUS[value] || text(value, 80).replaceAll("_", " ") || "Status unavailable";
 const finite = (value) => typeof value === "number" && Number.isFinite(value) && value >= 0;
 
+export function aiFailureDisplay(job) {
+  const failure = job?.ai_failure;
+  if (!failure || !["needs_inspection", "failed", "unsupported"].includes(job.status)) return null;
+  const summaries = { ai_charge_unknown: "AI request stopped; charge remains unknown.",
+    ai_response_unusable: "AI response could not be used; usage cost is recorded.",
+    ai_declined: "AI could not complete this request; usage cost is recorded.",
+    ai_plan_incomplete: "AI planning stopped without a usable plan.",
+    ai_status_unverified: "AI call records need inspection." };
+  if (!Object.hasOwn(summaries, failure.code) || failure.automatic_retry !== false) return null;
+  if (failure.code !== "ai_status_unverified" && failure.verified !== true) return null;
+  return { summary: summaries[failure.code], message: text(failure.message, 1200),
+    chargeUnknown: failure.code === "ai_charge_unknown" };
+}
+
 export function parseActions(value, maximum = 8, characters = 600) {
   const actions = value.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
   if (actions.length > maximum) throw new Error(`Use up to ${maximum} actions, one per line.`);
@@ -239,7 +253,8 @@ export async function bootStudio() {
       complete: "The finished output is available below. Review its saved limitations before use.", unsupported: "This request could not be completed faithfully. Saved attempts are preserved.",
       needs_inspection: "This job needs inspection before it can continue. It will not restart automatically.", failed: "Creation stopped. Saved work is preserved; no retry is started automatically.",
     };
-    $("progress-summary").textContent = summaries[job.status] || "Waiting for a status update.";
+    const aiFailure = aiFailureDisplay(job);
+    $("progress-summary").textContent = aiFailure?.summary || summaries[job.status] || "Waiting for a status update.";
     const fragment = document.createDocumentFragment();
     for (const stage of (Array.isArray(job.stages) ? job.stages : []).slice(0, 40)) {
       const item = node("li"); item.dataset.status = stage.status;
@@ -257,8 +272,9 @@ export async function bootStudio() {
       item.append(dot, content); fragment.append(item);
     }
     $("timeline").replaceChildren(fragment);
-    $("job-problem").textContent = text(job.error?.message);
-    $("job-problem").hidden = !job.error?.message;
+    const problem = aiFailure?.message || text(job.error?.message);
+    $("job-problem").textContent = problem;
+    $("job-problem").hidden = !problem;
     const cancellable = LIVE.has(job.status);
     $("cancel-job").hidden = $("cancel-note").hidden = !cancellable;
   }

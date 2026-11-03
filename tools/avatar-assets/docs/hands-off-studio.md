@@ -30,6 +30,8 @@ The latest accepted-source website Prepare passed, but its rigging API request
 timed out after four minutes with no answer. No new rig/dance delivery resulted.
 The uncertain charge remains reserved; no duplicate request is submitted. See
 [the current handoff](../TODO.md) for exact ownership, accounting and next steps.
+Optional [streaming transport and specific stopped-job status](api-streaming.md)
+now pass local checks. They do not recover that answer or complete live acceptance.
 
 ## Completion evidence required
 

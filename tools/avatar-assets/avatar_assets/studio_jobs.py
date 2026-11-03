@@ -651,7 +651,7 @@ class StudioJobs:
                        'invocation_dir':str(invocation),'request_digest':row['request_digest']}
             snapshots=_private_directory(invocation/'sources')
             payload['sources']=[]
-            for name in ('studio_jobs.py','studio_worker.py','studio_inspection.py','agent_backend.py','openai_runner.py',
+            for name in ('studio_jobs.py','studio_worker.py','studio_inspection.py','studio_ai_status.py','agent_backend.py','openai_runner.py',
                          'standing_authorization.py','pipeline_continuation.py'):
                 source=Path(__file__).parent/name;target=snapshots/name
                 shutil.copyfile(source,target);target.chmod(0o600)
@@ -799,8 +799,12 @@ class StudioJobs:
                     if poster:previews.append(poster)
             if 'model_path' not in result:
                 status='needs_inspection';artifact_error='Completed delivery model is missing or outside the artifact allowlist.'
+        from avatar_assets.studio_ai_status import failure_snapshot
+        ai_failure=(failure_snapshot(self.root,folder,self.jobs_dir/row['id']/'pipeline-request.json',
+                                     row['request_digest'],status=status,operation=data.get('operation'))
+                    if artifact_error is None else None)
         error=data.get('error')
-        error=artifact_error or error
+        error=artifact_error or (ai_failure['message'] if ai_failure else error)
         if status=='needs_inspection' and not error:error='Worker heartbeat or ownership is uncertain. Inspect preserved handles; no automatic duplicate will start.'
         can_resume=status in ('planned','awaiting_authorization','cancelled') and plan_id is not None
         return {'id':row['id'],'title':_safe_text(request['prompt'],80),'status':status,
@@ -821,7 +825,7 @@ class StudioJobs:
                             'retry':status=='unsupported' and request['reuse_model'] is not None
                                 and standing.get('enabled') is True,
                             'resume':can_resume,'session_required':True,'execution_gate':'canonical_ledger_and_explicit_start'},
-            'previews':list({p['path']:p for p in previews}.values()),'reviews':reviews,'result':result,'error':{'message':_safe_text(error,800)} if error else None,
+            'previews':list({p['path']:p for p in previews}.values()),'reviews':reviews,'result':result,'ai_failure':ai_failure,'error':{'message':_safe_text(error,800)} if error else None,
             'storage':{'retained_bytes_measured':data.get('retained_bytes',0),'pipeline_bytes_measured':data.get('output_bytes',0),
                        'measured_at':_local_time(data.get('storage_measured_at')),'total_limit_bytes':STORED_BYTES_LIMIT,
                        'active_reservation_bytes':ACTIVE_RESERVATION_BYTES,'automatic_deletion':False},

@@ -17,6 +17,11 @@ authorization across bounded retries; do not ask again merely because a run
 exhausted its repair count. Enforce the shared total cap including prior usage,
 unknown-charge holds and immutable predecessor history. A working key alone
 is not spending authorization.
+For long API calls, [bounded streaming](../../docs/api-streaming.md) is an optional
+new-job transport that retains early request IDs without accepting partial output.
+A request ID is not billing proof or permission to retry. Preserve unknown-charge
+holds; only validated provider usage can settle them. Check the website's distinct
+unknown-charge, unusable-response and unverified-evidence statuses before resuming.
 The historical manual `generate` CLI remains a separate path; do not describe it
 as the website backend. Check the current handoff before claiming live acceptance.
 New OpenAI author jobs use typedv2 designs; do not embed rig JSON inside a string

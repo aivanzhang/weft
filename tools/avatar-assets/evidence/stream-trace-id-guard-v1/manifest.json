@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "created_local": "2026-11-02T16:28:43.334873-08:00",
+  "classification": "Analytic test evidence; no provider calls",
+  "artifacts": [
+    {
+      "path": "README.md",
+      "bytes": 651,
+      "sha256": "81f0fe57c139e8558371b66f98786a471ea0e1ab0deb825dc3bde6c8a8955917"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 1305,
+      "sha256": "9d0e95455d7b1f0167feef41ecaaebb888933a8476464a8d8d1e8ea789e9908f"
+    },
+    {
+      "path": "integration-result.json",
+      "bytes": 1056,
+      "sha256": "3d13a8a2783d04e00cdd1dc5e3a2b577da3bb47bb703cda1de9daa840492d584"
+    },
+    {
+      "path": "integration-stderr.log",
+      "bytes": 504,
+      "sha256": "7c352a1ec71631e3f7226ea682f15ee15eff52d4da36f84c99c7f1239b61961b"
+    },
+    {
+      "path": "sources/openai_stream.py",
+      "bytes": 13253,
+      "sha256": "e90f7a1a135991498b2d63af6be92027ac188be39cfe42ddb61fb183464e96f0"
+    },
+    {
+      "path": "sources/test_openai_stream.py",
+      "bytes": 15988,
+      "sha256": "11a6d0b526c99ac6d04ff516bd4bf1291505e89c19f4a403b0caa6e6c98f6c24"
+    },
+    {
+      "path": "sources/test_stream_runner_integration.py",
+      "bytes": 8853,
+      "sha256": "9308a18f68076956fe125c2626b5a435e9eb3d441f0596374861e1868afa7a63"
+    },
+    {
+      "path": "transport-result.json",
+      "bytes": 1418,
+      "sha256": "e107774f4d7eeb2350dd14b72f3db0ce2f4a0ac5c5e591dc6a20d7e4e750ebb0"
+    }
+  ]
+}

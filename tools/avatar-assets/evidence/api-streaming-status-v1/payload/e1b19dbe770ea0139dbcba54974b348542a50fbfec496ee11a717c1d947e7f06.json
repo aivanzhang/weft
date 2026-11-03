@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded completed command results plus read-only actual status/snapshot",
+  "checks": [
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest discover -s tests -p test_studio_ai_status.py -v",
+      "tests": 11,
+      "seconds": 0.048
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest discover -s tests -p test_studio_jobs.py -q",
+      "tests": 29,
+      "seconds": 0.582
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest discover -s tests -p test_studio_api_release.py -q",
+      "tests": 13,
+      "seconds": 0.415
+    },
+    {
+      "command": "node --test browser/tests/studio-ai-failure.test.mjs",
+      "tests": 3,
+      "duration_ms": 67.469417
+    },
+    {
+      "command": "node --check browser/studio.js",
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "avatar_assets/studio_ai_status.py": "51442d40e12576ec4e09156a9ba987892ebe7eebbbffb07415800874fd16b53c",
+    "avatar_assets/studio_jobs.py": "5aa20f8bc3edf7428aa364653099f391bdf3fefc2023a64627fb7ab8bac6c843",
+    "browser/studio.js": "386a9cff64fa419b9d1b2b744711c439c6346882b35f5a26f7c75dd07fc80e87",
+    "tests/test_studio_ai_status.py": "baf281438214f4d130220bf1d11b395bef773da1f154bcc85594dede21e837f7",
+    "browser/tests/studio-ai-failure.test.mjs": "56373698e338fed31ab6c791a115103bcd6e1b1b98d562d9bd2af71cbaeca00c"
+  },
+  "actual_status_evidence": "actual-status-read-only.json",
+  "actual_api_snapshot": "actual-api-snapshot.json",
+  "provider_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "job_lease_or_ledger_mutations": 0,
+  "scope": "Specific stopped-AI display only; no new execution permissions, account settings, accounting reconciliation or automatic retry. UI rendering checked by pure Node functions, not browser interaction.",
+  "fixture_failure": "Initial API fixture had0755state directories; corrected analytic permissions to0700, no production permission change.",
+  "test_warnings": "Existing API release fixture SQL helpers emit ResourceWarning; all focused tests pass."
+}

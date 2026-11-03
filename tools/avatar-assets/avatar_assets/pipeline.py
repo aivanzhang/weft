@@ -26,7 +26,7 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
-PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
+PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'openai_stream.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
@@ -545,7 +545,8 @@ class Pipeline:
                 agents = OpenAIRunner(self.root/'agents', job_id=self.root.name, job_digest=receipt['request_sha256'],
                     ledger=OpenAILedger(ROOT/'.local/openai'), max_calls=backend['max_calls'],
                     timeout=backend['timeout'], model=backend['model'], max_output_tokens=backend['max_output_tokens'],
-                    reasoning_effort=backend.get('reasoning_effort','none'))
+                    reasoning_effort=backend.get('reasoning_effort','none'),
+                    **({'transport':backend['transport']} if 'transport' in backend else {}))
             else:
                 from avatar_assets.agent_runner import AgentRunner
                 agents = AgentRunner(self.root/'agents', max_calls=self.request['max_agent_calls'],

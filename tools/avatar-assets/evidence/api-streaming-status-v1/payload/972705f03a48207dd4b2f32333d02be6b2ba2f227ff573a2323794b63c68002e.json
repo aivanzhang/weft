@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded focused command result",
+  "prior_evidence_preserved": "outputs/studio-ai-status-tests-v1/result.json",
+  "change": "Delivery artifact failures bypass AI status lookup, so the browser cannot replace a missing-model/delivery message with AI status. No other status or billing behavior changed.",
+  "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest test_studio_ai_status.StudioAiStatusTests.test_delivery_artifact_failure_has_priority_without_ai_status_lookup test_studio_ai_status.StudioAiStatusTests.test_api_snapshot_uses_verified_failure_without_changing_job_capabilities -v",
+  "tests": 2,
+  "seconds": 0.025,
+  "source_sha256": {
+    "avatar_assets/studio_jobs.py": "ca996f12e22833b2e14ae809e0a0562ce7f8ab4e1f66249c770f9d0f7aaf036d",
+    "avatar_assets/studio_ai_status.py": "51442d40e12576ec4e09156a9ba987892ebe7eebbbffb07415800874fd16b53c",
+    "browser/studio.js": "386a9cff64fa419b9d1b2b744711c439c6346882b35f5a26f7c75dd07fc80e87",
+    "tests/test_studio_ai_status.py": "f2a51d5d3e7136c75f4feba31bf0b9f65f486d53e82de510218e3fa89622501c",
+    "browser/tests/studio-ai-failure.test.mjs": "56373698e338fed31ab6c791a115103bcd6e1b1b98d562d9bd2af71cbaeca00c"
+  },
+  "provider_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "actual_job_mutations": 0
+}

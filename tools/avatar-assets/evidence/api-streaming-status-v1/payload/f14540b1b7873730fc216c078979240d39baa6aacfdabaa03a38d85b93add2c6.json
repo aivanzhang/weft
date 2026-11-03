@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "recorded_at_local": "2026-11-02 16:24:50 PST",
+  "evidence_kind": "analyst-recorded read-only documentation feasibility review; not an authenticated counting experiment",
+  "status": "no current reservation adjustment or retry supported",
+  "job": "studio-d80fa601c945434983e496db",
+  "role": "author-0",
+  "sources": [
+    {
+      "title": "Counting tokens",
+      "url": "https://developers.openai.com/api/docs/guides/token-counting",
+      "retrieved_date_local": "2026-11-02 PST",
+      "retrieval_time_precision": "date; exact retrieval clock not preserved",
+      "supports": [
+        "exact input count including image detail and request formatting",
+        "output limit includes reasoning tokens"
+      ]
+    },
+    {
+      "title": "Count input tokens",
+      "url": "https://developers.openai.com/api/reference/resources/responses/subresources/input_tokens/methods/count",
+      "retrieved_date_local": "2026-11-02 PST",
+      "retrieval_time_precision": "date; exact retrieval clock not preserved",
+      "supports": [
+        "POST /v1/responses/input_tokens",
+        "model/input/instructions/reasoning/text JSON schema/tools/truncation fields",
+        "response.input_tokens response object"
+      ]
+    },
+    {
+      "title": "GPT-5.4 model",
+      "url": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "retrieved_date_local": "2026-11-02 PST",
+      "retrieval_time_precision": "date; exact retrieval clock not preserved",
+      "supports": [
+        "pinned model gpt-5.4-2026-03-05",
+        "standard and long-context pricing",
+        "1050000 context window"
+      ]
+    }
+  ],
+  "original_artifact_sha256": {
+    "outputs/studio-d80fa601c945434983e496db/agents/author-0/request.json": "a68fa475cd74af73fd5f9ed6da50c19b248a9dfa80ede89cc991ca367cad2e29",
+    "outputs/studio-d80fa601c945434983e496db/agents/author-0/payload-metadata.json": "8aea89d2db43a2d7d943536a943433db1c6edf9641c511c6b51ff4c5e3ca8dc8",
+    "outputs/studio-d80fa601c945434983e496db/agents/author-0/receipt.json": "1f4e3b9b0c4039a341fc50058dec23a88131bb7b0a4bf4fbd679534fcad107bd"
+  },
+  "original_payload_sha256": "4c848911941bd9de1dae37de746871c0f5103cd08d692a43b851a49d976296ec",
+  "original_payload_bytes": 2582836,
+  "model": "gpt-5.4-2026-03-05",
+  "max_output_tokens": 16384,
+  "original_reserved_microdollars": 5618640,
+  "original_status": "failed_or_uncertain",
+  "actual_charge": "unknown",
+  "original_response_id": "unavailable",
+  "authenticated_input_count": null,
+  "count_endpoint_price": "not established by inspected official documentation; no claim of free service",
+  "math": {
+    "unit": "microUSD",
+    "N": "authenticated exact input token count; currently unavailable",
+    "normal_context_condition": "N <= 272000",
+    "normal_context_upper": "ceil(2.5 * N + 245760)",
+    "conservative_long_context_upper": "5 * N + 368640",
+    "original_full_context_upper": "5 * 1050000 + 368640 = 5618640",
+    "illustrative_only_N_100000_long_context_upper_microdollars": 868640,
+    "assumptions": [
+      "one original request; no retry",
+      "saved default service tier and standard api.openai.com endpoint",
+      "no tools",
+      "no cached-token discount",
+      "all hidden/reasoning and visible output within saved 16384 token cap",
+      "published pinned-model rates remain applicable to original request",
+      "count projection exactly preserves original input, images/detail, instructions, schema, reasoning and relevant request settings"
+    ]
+  },
+  "limits": [
+    "No authenticated endpoint/model acceptance or count receipt exists.",
+    "Official counting documentation describes the presented request, not retrospective billing reconciliation.",
+    "Count response is not original generation usage, response ID or settlement evidence.",
+    "Current policy retains full reservation for uncertain calls; no exception implemented or authorized by this review."
+  ],
+  "future_option_requirements": [
+    "Recheck official endpoint pricing and exact model support before any authorized count request.",
+    "Reconstruct exact original payload and match saved payload SHA before deriving documented count projection.",
+    "Preserve a receipt binding projection bytes/hash, pinned model, HTTPS response, request identifiers, count and pricing.",
+    "Explicitly review and authorize an append-only proof-based exposure policy before using any ceiling; preserve original reservation, uncertain state, call counts, grants and unknown actual charge.",
+    "Do not use settle or retire an uncertain parent; missing, inconsistent or insufficient evidence retains full hold."
+  ],
+  "actions": {
+    "authenticated_api_calls": 0,
+    "key_reads": 0,
+    "ledger_reads": 0,
+    "ledger_writes": 0,
+    "policy_changes": 0,
+    "paid_retries": 0,
+    "reservation_change_microdollars": 0,
+    "runtime_changes": 0
+  },
+  "next_safe_action": "Keep the original hold. Future owner may review a prospective counting/append-only proof design only within explicit authorization; this evidence does not permit execution or adjustment.",
+  "readme_sha256": "f7767e1c20a7fc20658c2f64e796ec96fd7e5944340816dd3c5de44f431dbe6a"
+}

@@ -1,0 +1,25 @@
+{
+  "status": {
+    "verified": true,
+    "role": "author-0",
+    "automatic_retry": false,
+    "source": "exact_job_ledger_and_receipt",
+    "code": "ai_charge_unknown",
+    "message": "AI request stopped after 240 seconds without a verified result. Its charge is unknown; $5.618640 remains reserved. Saved work is preserved; no automatic retry will start.",
+    "charge": {
+      "status": "unknown",
+      "reserved_microdollars": 5618640,
+      "actual_microdollars": null,
+      "currency": "USD"
+    }
+  },
+  "samples": 20,
+  "median_seconds": 0.0006114579737186432,
+  "max_seconds": 0.01571545796468854,
+  "total_seconds": 0.0269932490773499,
+  "hashes_unchanged": {
+    "ledger": "37be6a2c367a1d0817a90c525f2d75eba86fedc4ef3d16a585c731a8ea63c07e",
+    "registry": "7f3cf7d8707c27a9d367d647578ba4d3c649a55c6f036215bf84cb11d5802e83"
+  },
+  "scope": "Bounded warm local status-read measurement, not a browser or sustained UI benchmark"
+}

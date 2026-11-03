@@ -87,6 +87,23 @@ def digest(value):
     return hashlib.sha256(_canonical(value)).hexdigest()
 
 
+def stream_client_request_id(job_id, role, request):
+    return 'avatar-'+hashlib.sha256((job_id+'/'+role+'/'+digest(request)).encode()).hexdigest()[:48]
+
+
+def verify_stream_trace(folder, request, settings, response_id):
+    """A transport trace binds identity, never permission to settle an unknown charge."""
+    from avatar_assets.safety import local_file
+    base = {key:value for key,value in request.items() if key != 'client_request_id'}
+    expected = stream_client_request_id(settings['job_id'],request['role'],base)
+    trace = read_json(local_file(Path(folder)/'transport.json',8192))
+    require(request.get('client_request_id') == expected and trace.get('client_request_id') == expected
+            and trace.get('schema_version') == 1 and trace.get('transport') == 'sse-v1'
+            and trace.get('response_id') == response_id and trace.get('status') == 'completed',
+            'Streaming response identity differs from its saved transport trace')
+    return trace
+
+
 def _private(path):
     path = Path(path)
     require(not any(p.is_symlink() for p in (path, *path.parents)), 'Private path contains symlink')
@@ -457,10 +474,11 @@ def _strict(schema):
 
 class OpenAIRunner:
     def __init__(self, root, *, job_id, job_digest, ledger=None, max_calls=5, timeout=240,
-                 model=MODEL, max_output_tokens=16384, reasoning_effort='none'):
+                 model=MODEL, max_output_tokens=16384, reasoning_effort='none', transport=None):
         slug(job_id)
         require(model == MODEL, 'Model lacks an approved pinned price profile')
         validate_reasoning_effort(reasoning_effort)
+        require(transport is None or transport=='sse-v1', 'Unsupported API transport')
         _integer(max_calls, 1, 12, 'call ceiling')
         require(type(timeout) in (int,float) and math.isfinite(timeout) and 1 <= timeout <= 600, 'Invalid API timeout')
         self.reservation = reserve_microdollars(max_output_tokens)
@@ -474,6 +492,9 @@ class OpenAIRunner:
             'job_id':job_id, 'job_digest':job_digest, 'automatic_retries':0, 'tools':[], 'store':False,
             'service_tier':'default', 'reasoning':{'effort':reasoning_effort}, 'truncation':'disabled', 'pricing':PRICING, 'implementation_sha256':sha256(Path(__file__)), 'reservation_microdollars_per_call':self.reservation,
             'reservation_policy':'validated-settled-exposure-v1 with append-only-lower-ceiling-v1: reserve the full1.05M context at long-context rates plus maximum output before every call. Validated settled upper costs replace holds in exposure; the latest validated lower project ceiling applies. Uncertain holds, original rows, call caps and explicit retry approval remain.'}
+        if transport is not None:
+            self.settings.update(transport=transport,
+                transport_implementation_sha256=sha256(Path(__file__).with_name('openai_stream.py')))
         with self._lock():
             path = self.root/'runner.json'
             if path.exists():
@@ -502,6 +523,10 @@ class OpenAIRunner:
         request = {'role':role, 'prompt_sha256':hashlib.sha256(prompt.encode()).hexdigest(),
                    'schema_sha256':digest(schema), 'settings_sha256':digest(self.settings),
                    'images':[{k:v for k,v in row.items() if k != 'path'} for row in selected]}
+        streaming = self.settings.get('transport') == 'sse-v1'
+        if streaming:
+            # A role can submit only once; this opaque ID survives a lost HTTP response.
+            request['client_request_id'] = stream_client_request_id(self.job_id,role,request)
         with self._lock():
             out = self.root/role
             prior = self.ledger.call(self.job_id,role)
@@ -531,13 +556,22 @@ class OpenAIRunner:
                        'text':{'format':{'type':'json_schema','name':'avatar_'+role.replace('-','_'),'schema':schema,'strict':True}},
                        'max_output_tokens':self.settings['max_output_tokens'], 'reasoning':self.settings['reasoning'],
                        'store':False,'tools':[],'tool_choice':'none','service_tier':'default','truncation':'disabled'}
+            if streaming:
+                payload['stream'] = True
             require(len(_canonical(payload)) <= MAX_REQUEST, 'API request exceeds bound')
             write_json(out/'payload-metadata.json',{'sha256':digest(payload),'bytes':len(_canonical(payload)),
                        'instructions':INSTRUCTIONS,'endpoint':'https://api.openai.com/v1/responses'})
             self.ledger.reserve(self.job_id,self.job_digest,self.max_calls,role,digest(request),self.reservation)
             started = time.monotonic()
             try:
-                raw = post_response(payload,self.timeout,key)
+                if streaming:
+                    from avatar_assets.openai_stream import post_stream_response
+                    require(sha256(Path(__file__).with_name('openai_stream.py')) ==
+                            self.settings['transport_implementation_sha256'], 'Streaming transport source changed')
+                    raw = post_stream_response(payload,self.timeout,key,trace_path=out/'transport.json',
+                                               client_request_id=request['client_request_id'])
+                else:
+                    raw = post_response(payload,self.timeout,key)
                 require(len(raw)<=MAX_RESPONSE,'API response exceeds bound')
                 (out/'response.json').write_bytes(raw)
                 response = _decode(raw)
@@ -546,6 +580,8 @@ class OpenAIRunner:
                         and response.get('service_tier')=='default', 'Incomplete or unexpected API response')
                 rid = response.get('id')
                 require(isinstance(rid,str) and rid.startswith('resp_') and len(rid)<=256,'Invalid response identity')
+                if streaming:
+                    verify_stream_trace(out,request,self.settings,rid)
                 usage = response.get('usage',{})
                 inp = _integer(usage.get('input_tokens'),0,1050000,'reported input tokens')
                 output = _integer(usage.get('output_tokens'),0,self.settings['max_output_tokens'],'reported output tokens')

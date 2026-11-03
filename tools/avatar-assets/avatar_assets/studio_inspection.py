@@ -510,6 +510,10 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
               'job_id':output.name,'job_digest':request_hash,'automatic_retries':0,'tools':[],'store':False,
               'service_tier':'default','reasoning':{'effort':backend.get('reasoning_effort','none')},'truncation':'disabled','pricing':PRICING,
               'reservation_microdollars_per_call':reserve_microdollars(backend['max_output_tokens'])}
+    streaming = backend.get('transport') == 'sse-v1'
+    if streaming:
+        _require('openai_stream.py' in source_pins,'Streaming transport snapshot is missing')
+        expected.update(transport='sse-v1',transport_implementation_sha256=source_pins['openai_stream.py']['sha256'])
     _require(all(settings.get(k)==value for k,value in expected.items())
              and set(settings)==set(expected)|{'implementation_sha256','reservation_policy'}
              and 'openai_runner.py' in source_pins
@@ -560,11 +564,14 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
                  and type(call['actual']) is int and 0<=call['actual']<=call['reserved']<=grant['ceiling'],
                  'API settled cost or reservation differs')
         folder=agents/'planner';names=['answer.json','payload-metadata.json','prompt.txt','receipt.json','request.json','response.json','schema.json']
-        if image_records:names=sorted([*names,'image-00'+image_records[0]['suffix']])
-        _require(_entries(folder,8)==names,'API planner files are missing, extra or unsafe')
+        if image_records:names.append('image-00'+image_records[0]['suffix'])
+        if streaming:names.append('transport.json')
+        names=sorted(names)
+        _require(_entries(folder,9)==names,'API planner files are missing, extra or unsafe')
         receipt=read(folder/'receipt.json');call_request=read(folder/'request.json');schema=read(folder/'schema.json',64*1024)
         payload=read(folder/'payload-metadata.json');answer=read(folder/'answer.json');response=read(folder/'response.json',4*1024**2)
         prompt_pin=_file_pin(folder/'prompt.txt',128*1024);records.append(prompt_pin)
+        if streaming:read(folder/'transport.json',8192)
         if image_records:
             image_pin=_file_pin(folder/('image-00'+image_records[0]['suffix']),8*1024**2)
             _require(image_pin['sha256']==image_records[0]['sha256'] and image_pin['bytes']==image_records[0]['bytes'],
@@ -577,8 +584,13 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
                  and receipt.get('tool_activity') is False and receipt.get('artifacts')==artifact_rows
                  and receipt.get('answer_sha256')==next(p['sha256'] for p in records if p['path']==str(folder/'answer.json')),
                  'API response receipt or artifact hashes changed')
-        _require(call_request=={'role':'planner','prompt_sha256':prompt_pin['sha256'],'schema_sha256':digest(schema),
-                               'settings_sha256':digest(settings),'images':image_records}
+        expected_request={'role':'planner','prompt_sha256':prompt_pin['sha256'],'schema_sha256':digest(schema),
+                          'settings_sha256':digest(settings),'images':image_records}
+        if streaming:
+            from avatar_assets.openai_runner import stream_client_request_id,verify_stream_trace
+            expected_request['client_request_id']=stream_client_request_id(output.name,'planner',expected_request)
+            verify_stream_trace(folder,call_request,settings,call['response_id'])
+        _require(call_request==expected_request
                  and call['request_digest']==digest(call_request),'API call request does not match its reservation')
         _require(response.get('status')=='completed' and response.get('model')==MODEL
                  and response.get('service_tier')=='default' and isinstance(response.get('id'),str)
@@ -610,6 +622,7 @@ def collect_api_planning(root,output,request,binding_path,*,profile="planning"):
                         'text':{'format':{'type':'json_schema','name':'avatar_planner','schema':schema,'strict':True}},
                         'max_output_tokens':backend['max_output_tokens'],'reasoning':{'effort':backend.get('reasoning_effort','none')},'store':False,'tools':[],
                         'tool_choice':'none','service_tier':'default','truncation':'disabled'}
+        if streaming:actual_payload['stream']=True
         encoded=json.dumps(actual_payload,sort_keys=True,ensure_ascii=False,allow_nan=False,separators=(',',':')).encode()
         _require(payload.get('endpoint')=='https://api.openai.com/v1/responses' and payload.get('sha256')==digest(actual_payload)
                  and payload.get('bytes')==len(encoded),'API payload metadata differs from saved inputs')

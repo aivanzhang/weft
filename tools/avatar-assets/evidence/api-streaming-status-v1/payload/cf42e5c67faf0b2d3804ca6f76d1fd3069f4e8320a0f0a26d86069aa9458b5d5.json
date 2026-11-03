@@ -1,0 +1,43 @@
+{
+  "classification": "Mocked transport and analytic payload performance, not provider latency",
+  "cpu_limit_seconds": 30,
+  "measured_peak_rss_acceptance_bytes": 536870912,
+  "workloads": [
+    {
+      "workload": "near_4m_event_64k_chunks",
+      "wire_bytes": 4192933,
+      "chunk_bytes": 65536,
+      "events": 3,
+      "seconds": 0.012865041382610798,
+      "output_bytes": 4192547,
+      "output_sha256": "10f097b7b8d7b6c4a1cab0020b06bb73991d9e4908182d4242b96a9bf4505fea",
+      "expected_output_sha256": "10f097b7b8d7b6c4a1cab0020b06bb73991d9e4908182d4242b96a9bf4505fea",
+      "http_requests": 1,
+      "peak_rss_bytes_cumulative": 105381888
+    },
+    {
+      "workload": "near_4m_event_1k_chunks",
+      "wire_bytes": 4192933,
+      "chunk_bytes": 1024,
+      "events": 3,
+      "seconds": 0.01521858386695385,
+      "output_bytes": 4192547,
+      "output_sha256": "10f097b7b8d7b6c4a1cab0020b06bb73991d9e4908182d4242b96a9bf4505fea",
+      "expected_output_sha256": "10f097b7b8d7b6c4a1cab0020b06bb73991d9e4908182d4242b96a9bf4505fea",
+      "http_requests": 1,
+      "peak_rss_bytes_cumulative": 120258560
+    },
+    {
+      "workload": "65536_events_64k_chunks",
+      "wire_bytes": 7853567,
+      "chunk_bytes": 65536,
+      "events": 65536,
+      "seconds": 0.33625041600316763,
+      "output_bytes": 318,
+      "output_sha256": "3a464bae816c432cfdf5a88b77575a44e78cba7aee30c56a6bb1bbc97324460a",
+      "expected_output_sha256": "3a464bae816c432cfdf5a88b77575a44e78cba7aee30c56a6bb1bbc97324460a",
+      "http_requests": 1,
+      "peak_rss_bytes_cumulative": 122011648
+    }
+  ]
+}

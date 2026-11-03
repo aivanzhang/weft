@@ -46,6 +46,8 @@ class StudioApiReleaseTests(unittest.TestCase):
         self.output = self.jobs.resolve_job(self.job)
         self.backend = {'provider': 'openai', 'model': api.MODEL, 'max_calls': getattr(self,'fixture_calls',3),
                         'max_repairs': getattr(self,'fixture_repairs',0), 'timeout': 240, 'max_output_tokens': 16384}
+        streaming=getattr(self,'fixture_stream',False)
+        if streaming:self.backend['transport']='sse-v1'
         with self.jobs._db() as db:
             row = self.jobs._row(db, self.job)
             self.request = json.loads(row['request'])
@@ -67,8 +69,12 @@ class StudioApiReleaseTests(unittest.TestCase):
         snapshot = self.output / 'sources/openai_runner.py'
         snapshot.parent.mkdir()
         snapshot.write_bytes(Path(api.__file__).read_bytes())
-        write(self.output / 'input-receipt.json', {'request_sha256': request_hash, 'sources': [
-            {'path': 'openai_runner.py', 'bytes': snapshot.stat().st_size, 'sha256': checksum(snapshot)}]})
+        snapshots=[{'path': 'openai_runner.py', 'bytes': snapshot.stat().st_size, 'sha256': checksum(snapshot)}]
+        if streaming:
+            from avatar_assets import openai_stream
+            target=snapshot.with_name('openai_stream.py');target.write_bytes(Path(openai_stream.__file__).read_bytes())
+            snapshots.append({'path':'openai_stream.py','bytes':target.stat().st_size,'sha256':checksum(target)})
+        write(self.output / 'input-receipt.json', {'request_sha256': request_hash, 'sources': snapshots})
         write(self.jobs.jobs_dir / self.job / 'pipeline-request.json', {'schema_version': 1,
               'studio_request_digest': row['request_digest'], 'pipeline_request_sha256': request_hash})
         write(self.output / 'estimate.json', {'provenance': 'analytic cost fixture'})
@@ -91,11 +97,18 @@ class StudioApiReleaseTests(unittest.TestCase):
                     'status': 'completed', 'usage': {'input_tokens': 100, 'output_tokens': 20, 'total_tokens': 120},
                     'output': [{'type': 'message', 'role': 'assistant', 'status': 'completed',
                                 'content': [{'type': 'output_text', 'text': json.dumps(self.answer)}]}]}
+        def respond(*args,**kwargs):
+            if streaming:
+                write(kwargs['trace_path'],{'schema_version':1,'transport':'sse-v1','status':'completed',
+                    'client_request_id':kwargs['client_request_id'],'response_id':response['id']})
+            return json.dumps(response).encode()
         try:
             with patch.object(api, 'read_api_key', return_value='ANALYTIC NEVER REAL'), \
-                    patch.object(api, 'post_response', return_value=json.dumps(response).encode()) as transport:
+                    patch('avatar_assets.openai_stream.post_stream_response' if streaming else
+                          'avatar_assets.openai_runner.post_response',side_effect=respond) as transport:
                 runner = api.OpenAIRunner(self.output / 'agents', job_id=self.output.name,
-                    job_digest=request_hash, ledger=ledger, max_calls=self.backend['max_calls'])
+                    job_digest=request_hash, ledger=ledger, max_calls=self.backend['max_calls'],
+                    **({'transport':'sse-v1'} if streaming else {}))
                 runner.call('planner', 'Plan this analytic dance; no tool execution', schema,
                             images=[self.output/'inputs/reference.png'] if self.reference is not None else [])
                 self.assertEqual(transport.call_count, 1)

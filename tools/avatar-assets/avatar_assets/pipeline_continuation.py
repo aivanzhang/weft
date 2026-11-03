@@ -113,6 +113,9 @@ def _role(parent,role,row,settings):
     require(response.get('id')==row['response_id'] and response.get('status')=='completed'
             and response.get('model')==settings['model'] and response.get('usage')==receipt['usage'],
             'Continuation provider response differs')
+    if settings.get('transport') == 'sse-v1':
+        from avatar_assets.openai_runner import verify_stream_trace
+        verify_stream_trace(folder,request,settings,row['response_id'])
     require(_decode(response_answer_text(response,reasoning_effort=settings.get('reasoning',{}).get('effort','none')).encode())==answer,
             'Continuation answer differs from provider text')
     _validate(answer,schema)
@@ -515,8 +518,14 @@ def collect(root,parent):
         settings=read_json(parent/'agents/runner.json')
         require(settings.get('job_id')==parent.name and settings.get('job_digest')==sha256(parent/'request.json')
                 and settings.get('max_calls')==request['max_agent_calls']
+                and settings.get('transport')==request['agent_backend'].get('transport')
                 and settings.get('implementation_sha256')==pinned['sources/openai_runner.py']['sha256'],
                 'Continuation parent runner binding changed')
+        if settings.get('transport') is not None:
+            require(settings['transport']=='sse-v1' and request['agent_backend'].get('transport')=='sse-v1'
+                    and settings.get('transport_implementation_sha256') ==
+                    pinned.get('sources/openai_stream.py',{}).get('sha256'),
+                    'Continuation streaming transport binding changed')
         answers={role:_role(parent,role,row,settings) for role,row in calls.items()}
         plan=read_json(parent/'plan.json');plan_failure=None
         try:validate_plan(plan,request)

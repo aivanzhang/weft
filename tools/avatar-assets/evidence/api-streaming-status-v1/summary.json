@@ -1,0 +1,130 @@
+{
+  "archive_preparation_note": "The first preparation was superseded before execution solely to include the final combined integration receipt; both preparation versions remain preserved.",
+  "final_combined_integration": {
+    "captured_logs": true,
+    "cases": 13,
+    "elapsed_seconds": 0.270488,
+    "path": "outputs/stream-runner-integration-tests-v2/result.json",
+    "same_cases_not_additional_unique": true,
+    "sha256": "d65b8e7f9948de18fe776983559ccecbe06d4c40c8713579c613f7a87ea14f91"
+  },
+  "input_token_cost_review": {
+    "authenticated_count_receipt": false,
+    "free_endpoint_pricing_proven": false,
+    "path": "outputs/input-token-cost-bound-review-v1/result.json",
+    "reservation_adjustment": 0,
+    "retry_authority": false,
+    "sha256": "f14540b1b7873730fc216c078979240d39baa6aacfdabaa03a38d85b93add2c6"
+  },
+  "mutable_root_documentation_excluded": true,
+  "no_real_streaming_provider_call": true,
+  "owner_configuration_unchanged": true,
+  "provider_native_browser_pipeline_git_actions_by_packager": 0,
+  "schema_version": 1,
+  "source_freeze": {
+    "checked_receipt_source_snapshots": [
+      {
+        "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9",
+        "snapshot_path": "outputs/openai-stream-transport-tests-v1/sources/openai_stream.py"
+      },
+      {
+        "sha256": "56cb5ad281f75c760397de18e9e1602d9b154f2b0e83fed1cd0871babbcb93ee",
+        "snapshot_path": "outputs/openai-stream-transport-tests-v1/sources/test_openai_stream.py"
+      },
+      {
+        "sha256": "9c734e0a9bc7f363021f57490e5829e2e4318567d8e8a9a58ff39f7928eb1adc",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/agent_backend.py"
+      },
+      {
+        "sha256": "c3402a436187f861c0f6ecdd8afb6a62e1821e41d83db0d881d4d8df500c0e3f",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/openai_runner.py"
+      },
+      {
+        "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/openai_stream.py"
+      },
+      {
+        "sha256": "84b434d2b28e50f4f086df01af5bb9cc000bde050b1652b68093c983f393af26",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline.py"
+      },
+      {
+        "sha256": "55c923e49f39ca463d49aee427a283ccebd226398a165be441e7eb4c79dac7d1",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline_continuation.py"
+      },
+      {
+        "sha256": "44b3df31f1fe81213d3fac595193e6ec372c4a3f811f9adb99bd1f06a522c13c",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/studio_inspection.py"
+      },
+      {
+        "sha256": "9308a18f68076956fe125c2626b5a435e9eb3d441f0596374861e1868afa7a63",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_runner_integration.py"
+      },
+      {
+        "sha256": "cf3714c4149e5ffcc9e3a152141ddc7ff262e602ac3cafb34e4fca14c0b0aa5e",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_planning_custody.py"
+      },
+      {
+        "sha256": "7f1eb43eea7c9f2428ec512d755fc285ce7532489aa310e2dfca628eaf7e641b",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_studio_api_release.py"
+      },
+      {
+        "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8",
+        "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_pipeline_continuation.py"
+      },
+      {
+        "sha256": "ca996f12e22833b2e14ae809e0a0562ce7f8ab4e1f66249c770f9d0f7aaf036d",
+        "snapshot_path": "avatar_assets/studio_jobs.py"
+      },
+      {
+        "sha256": "51442d40e12576ec4e09156a9ba987892ebe7eebbbffb07415800874fd16b53c",
+        "snapshot_path": "avatar_assets/studio_ai_status.py"
+      },
+      {
+        "sha256": "386a9cff64fa419b9d1b2b744711c439c6346882b35f5a26f7c75dd07fc80e87",
+        "snapshot_path": "browser/studio.js"
+      },
+      {
+        "sha256": "f2a51d5d3e7136c75f4feba31bf0b9f65f486d53e82de510218e3fa89622501c",
+        "snapshot_path": "tests/test_studio_ai_status.py"
+      },
+      {
+        "sha256": "56373698e338fed31ab6c791a115103bcd6e1b1b98d562d9bd2af71cbaeca00c",
+        "snapshot_path": "browser/tests/studio-ai-failure.test.mjs"
+      }
+    ],
+    "historical_v1_status_source_note": "Original v1 source hashes remain in its receipt; current status code is bound to the later v2 receipt without relabeling the earlier run.",
+    "skill": {
+      "path": "skills/avatar-asset-workflow/SKILL.md",
+      "sha256": "fa26219bffa3bc281fe6b21e660ecda685fb2154fa11c3c0676567c172b307b0",
+      "validation": "Root-reported existing quick_validate exit0; not rerun by packager"
+    }
+  },
+  "status": "mock_and_local_verified_live_streaming_unverified",
+  "test_groups": {
+    "additional_transport_selection_regression": 1,
+    "adjacent_batch": {
+      "corrected_targeted_passes": 1,
+      "error": "Missing analytic guide PNGs in continuation fixture",
+      "errors": 1,
+      "full_batch_rerun_claimed": false,
+      "passed": 111,
+      "ran": 112
+    },
+    "counts_note": "Groups overlap; no summed unique total is asserted.",
+    "new_runner_integration_cases": 13,
+    "priority_targeted_cases": 2,
+    "status_node_initial": 3,
+    "status_python_initial": 53,
+    "stream_mock_cases": 15
+  },
+  "unchanged_state_from_public_receipts": {
+    "hashes": {
+      "ledger": "37be6a2c367a1d0817a90c525f2d75eba86fedc4ef3d16a585c731a8ea63c07e",
+      "registry": "7f3cf7d8707c27a9d367d647578ba4d3c649a55c6f036215bf84cb11d5802e83"
+    },
+    "private_state_read_by_packager": false,
+    "project_exposure_microdollars": 9618295,
+    "settled_microdollars": 3999655,
+    "unknown_hold_microdollars": 5618640
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "recorded_at_local": "2026-11-02 16:27:56 PST",
+  "scope": "Reject key-bearing early response IDs before any trace write; no other bounds/protocol changes",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_openai_stream.py",
+    "-v"
+  ],
+  "exit_code": 0,
+  "test_count": 16,
+  "elapsed_seconds": 0.10306950006633997,
+  "test_log_sha256": "3ca0fa19401cd834a8b935ed37f22d439f58543c97dd395508f6057dcd86bf39",
+  "source_sha256": {
+    "avatar_assets/openai_stream.py": "e90f7a1a135991498b2d63af6be92027ac188be39cfe42ddb61fb183464e96f0",
+    "tests/test_openai_stream.py": "11a6d0b526c99ac6d04ff516bd4bf1291505e89c19f4a403b0caa6e6c98f6c24"
+  },
+  "diff_check_exit_code": 0,
+  "tests_kind": "Mock HTTP only; synthetic key; no provider or ledger calls",
+  "verification": [
+    "All milestone writes and raised error exclude synthetic secret from both malicious response-ID variants",
+    "Response ID stays null; call remains failed_or_uncertain",
+    "Exactly one connection/POST and connection closed; no automatic retry"
+  ],
+  "performance": "v1 measurements preserved; not rerun for this bounded substring check",
+  "previous_evidence": "outputs/openai-stream-transport-tests-v1/result.json",
+  "actions": {
+    "provider_calls": 0,
+    "key_reads": 0,
+    "ledger_changes": 0,
+    "configuration_changes": 0
+  }
+}

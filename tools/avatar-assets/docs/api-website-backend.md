@@ -10,6 +10,10 @@ The user selected OpenAI API for the website backend. Website jobs must not
 depend on a personal ChatGPT login, local CLI session or operator-written rig.
 The first live API planner succeeded; no API-backed delivery has passed yet.
 
+Optional [bounded streaming and clearer stopped-job status](api-streaming.md)
+are implemented and locally tested. Streaming is not enabled in the current
+owner configuration and does not resolve the existing unknown charge.
+
 ## Current accepted-source trial
 
 The rejected fresh-base panda builds remain preserved. The next trial uses the

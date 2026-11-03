@@ -1,0 +1,101 @@
+{
+  "canonical_ledger_and_registry_hashes_unchanged": {
+    "ledger": "37be6a2c367a1d0817a90c525f2d75eba86fedc4ef3d16a585c731a8ea63c07e",
+    "registry": "7f3cf7d8707c27a9d367d647578ba4d3c649a55c6f036215bf84cb11d5802e83"
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=tests .venv/bin/python -B -m unittest test_stream_runner_integration test_stream_planning_custody -v",
+      "passed": 11,
+      "seconds": 0.177
+    },
+    {
+      "command": "PYTHONPATH=tests .venv/bin/python -B -m unittest test_openai_runner test_openai_studio_integration test_reasoning_support test_studio_api_release test_studio_reference_planning_custody test_pipeline_continuation test_pipeline_replan -q",
+      "errors": 1,
+      "failure": "Continuation author fixture omitted newly required guide PNGs; not a production validator failure. Existing fixture SQLite ResourceWarnings retained.",
+      "passed": 111,
+      "ran": 112,
+      "seconds": 2.807
+    },
+    {
+      "command": "PYTHONPATH=tests .venv/bin/python -B -m unittest test_pipeline_continuation.ContinuationTests.test_first_author_receives_parent_answer_and_exact_failure -v",
+      "fix": "Added three 8x8 analytic PNG guides to fixture; image validator unchanged.",
+      "passed": 1,
+      "seconds": 0.144
+    },
+    {
+      "command": "PYTHONPATH=tests .venv/bin/python -B -m unittest test_stream_runner_integration.StreamRunnerTests.test_real_stream_parser_and_runner_settle_only_complete_http_fixture test_stream_runner_integration.StreamRunnerTests.test_real_stream_timeout_preserves_early_identity_and_uncertain_reservation -v",
+      "passed": 2,
+      "seconds": 0.012
+    },
+    {
+      "command": "PYTHONPATH=tests .venv/bin/python -B -m unittest test_pipeline_continuation.ContinuationTests.test_child_preserves_context_and_never_replans_or_resets_parent -q",
+      "passed": 1,
+      "reason": "After tightening equality of saved transport selection.",
+      "seconds": 0.071
+    },
+    {
+      "command": ".venv/bin/python -B /Users/ivan/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/avatar-asset-workflow",
+      "exit_code": 0
+    }
+  ],
+  "classification": "Analyst-recorded executed local test results; transport/provider interactions are mocked, not live generation",
+  "owner_configuration_unchanged": true,
+  "project_exposure_microdollars": 9618295,
+  "provider_calls": 0,
+  "recorded_local": "2026-11-02T16:23:21.774410-08:00",
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 8173,
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "9c734e0a9bc7f363021f57490e5829e2e4318567d8e8a9a58ff39f7928eb1adc"
+    },
+    {
+      "bytes": 37029,
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "c3402a436187f861c0f6ecdd8afb6a62e1821e41d83db0d881d4d8df500c0e3f"
+    },
+    {
+      "bytes": 13109,
+      "path": "avatar_assets/openai_stream.py",
+      "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9"
+    },
+    {
+      "bytes": 100445,
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "84b434d2b28e50f4f086df01af5bb9cc000bde050b1652b68093c983f393af26"
+    },
+    {
+      "bytes": 47697,
+      "path": "avatar_assets/pipeline_continuation.py",
+      "sha256": "55c923e49f39ca463d49aee427a283ccebd226398a165be441e7eb4c79dac7d1"
+    },
+    {
+      "bytes": 48666,
+      "path": "avatar_assets/studio_inspection.py",
+      "sha256": "44b3df31f1fe81213d3fac595193e6ec372c4a3f811f9adb99bd1f06a522c13c"
+    },
+    {
+      "bytes": 8853,
+      "path": "tests/test_stream_runner_integration.py",
+      "sha256": "9308a18f68076956fe125c2626b5a435e9eb3d441f0596374861e1868afa7a63"
+    },
+    {
+      "bytes": 1811,
+      "path": "tests/test_stream_planning_custody.py",
+      "sha256": "cf3714c4149e5ffcc9e3a152141ddc7ff262e602ac3cafb34e4fca14c0b0aa5e"
+    },
+    {
+      "bytes": 16936,
+      "path": "tests/test_studio_api_release.py",
+      "sha256": "7f1eb43eea7c9f2428ec512d755fc285ce7532489aa310e2dfca628eaf7e641b"
+    },
+    {
+      "bytes": 31851,
+      "path": "tests/test_pipeline_continuation.py",
+      "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8"
+    }
+  ],
+  "uncertain_hold_microdollars": 5618640
+}

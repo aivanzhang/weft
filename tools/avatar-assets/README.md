@@ -22,6 +22,9 @@ the latter is a conservative hold, not a known bill. The unchanged **$15 total c
 blocks another full reservation until genuine provider evidence resolves the
 unknown charge. The stopped job and earlier accepted assets remain preserved.
 No new Meshy call or deployment.
+The new [bounded streaming transport](docs/api-streaming.md) preserves early
+request IDs for future jobs; clearer website failure messages are implemented.
+Both are locally tested, not a recovered or completed avatar run.
 The [handoff](TODO.md) contains exact ownership, source hashes and recovery status.
 [Backend results](docs/api-website-backend.md).
 

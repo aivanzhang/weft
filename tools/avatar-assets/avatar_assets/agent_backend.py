@@ -16,9 +16,11 @@ DEFAULT = {'provider': 'openai', 'model': MODEL, 'max_calls': 5, 'max_repairs': 
 
 
 def validate_settings(value):
-    require(isinstance(value, dict) and set(value) in (set(DEFAULT),set(DEFAULT)|{'reasoning_effort'}),
+    require(isinstance(value, dict) and set(DEFAULT) <= set(value)
+            and set(value) <= set(DEFAULT)|{'reasoning_effort','transport'},
             'Invalid server AI configuration fields')
     validate_reasoning_effort(value.get('reasoning_effort','none'))
+    require('transport' not in value or value['transport']=='sse-v1', 'Unsupported API transport')
     require(value['provider'] == 'openai' and value['model'] == MODEL, 'Unsupported server AI provider or model')
     for field, low, high in (('max_calls', 3, 12), ('max_repairs', 0, 2),
                              ('timeout', 30, 600), ('max_output_tokens', 256, 32768)):

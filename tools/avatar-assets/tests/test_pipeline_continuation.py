@@ -318,6 +318,10 @@ class ContinuationTests(unittest.TestCase):
 
     def test_first_author_receives_parent_answer_and_exact_failure(self):
         child=self.root/'outputs/author-child';self.prepare(child,self.parent)
+        from PIL import Image
+        (child/'inspection').mkdir()
+        for name in ('guide-front.png','guide-side.png','three-quarter.png'):
+            Image.new('RGB',(8,8),(10,20,30)).save(child/'inspection'/name)
         agents=Mock();agents.call.side_effect=RuntimeError('Stop before any provider')
         worker=pipeline.Pipeline(child,agents=agents)
         worker._pack=Mock(return_value=read_json(self.parent/'inspection/manifest.json'))

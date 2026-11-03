@@ -1,11 +1,44 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 2, 2026, 4:08 PM PST
+## Session handoff — November 2, 2026, 4:25 PM PST
 
 - Workspace `tools/avatar-assets`; thread `01a18ebe-a17c-7cc0-9117-06ca476fb31c`.
   Preserve unrelated Weft work. No hosted deployment, Meta budget, new Meshy call,
   subscriptions or repeated approval questions. The user authorizes bounded API
   work within **$15 total including prior use**; the append-only cap remains active.
+- **This goal continuation made local progress, with no provider calls.**
+  Optional `sse-v1` transport now preserves client/server/early response IDs,
+  parses bounded streaming events, rejects partial answers and keeps all unknown
+  reservations. Existing owner settings and jobs are unchanged; streaming is
+  not yet enabled or provider-tested. See `docs/api-streaming.md`.
+  Local evidence: `outputs/openai-stream-transport-tests-v1` and
+  `outputs/stream-runner-integration-tests-v1` / `v2`. Sixteen transport checks and
+  thirteen new integration/custody checks pass. The existing 112-check batch had
+  one missing-guide fixture; that fixture was corrected and its check passed
+  separately. No validator was relaxed; old fixture SQLite warnings remain.
+- The website/API now distinguishes unknown charges, settled unusable answers,
+  unsupported results and unverified evidence. Missing delivery/model errors
+  retain priority. Status reads make no lease, ledger or execution changes.
+  `outputs/studio-ai-status-tests-v1` / `v2`: 53 Python and 3 Node checks plus
+  the new priority regression; actual stopped-job reads median 0.611 ms / max 15.715 ms.
+- **Blocked audit: same paid-run condition observed for a second consecutive
+  goal turn.** Current authoritative accounting still has the unknown d80 hold;
+  no live local worker or new provider response exists. Local transport/status
+  improvements were available and completed, so the goal is not marked blocked
+  this turn. Final real rigging/quality/browser delivery remains unverified.
+  Recheck genuine provider evidence/accounting before any paid continuation.
+- A read-only review found a prospective input-token-count route, not a current
+  reconciliation: no authenticated count receipt exists, and official docs did
+  not establish the endpoint is free. No count call or hold adjustment was made.
+  `outputs/input-token-cost-bound-review-v1` records assumptions and constraints;
+  do not turn its conditional math into a settled charge or reset permission.
+- **Streaming/status evidence frozen:** `evidence/api-streaming-status-v1`,
+  manifest `e02d499581a08604784ec96e05b8f07c0945be07594d39877491a1aca71f94ba`.
+  Final credential-redaction guard is additive in `evidence/stream-trace-id-guard-v1`,
+  manifest `58168aee62958041752bad0a69edb14c40afc6813eb2288b480308c3aad55ed1`.
+  Final module passes 16 mocked transport tests; both real-parser/runner fixture
+  paths were rerun after that last change. No live streaming acceptance is claimed.
+  Publication receipt: `outputs/api-streaming-status-publication-v1/receipt.json`.
 - **Current d80 job stopped; no new rig/dance was produced.**
   `d80fa601c945434983e496db` reached source inspection and its first author call.
   That call timed out at 240.009 s with no response ID, response body or answer.
@@ -103,7 +136,7 @@
   Compact archive sealed: `evidence/reasoned-panda-terminal-v1`, manifest
   `2bbad87e0642f284b4c77253a1b1249eb8624b0a08d5c163f6915720e4b0325a`.
  646 files / 69,952,594 B, full local originals retained; no new acceptance.
-- **Saved remote checkpoint:** avatar-only `be7c9e08a0eacf5952236f8a0524e58d4f775f2e`,
+- **Earlier remote checkpoint:** avatar-only `be7c9e08a0eacf5952236f8a0524e58d4f775f2e`,
   exact private main verified, 782 files / 72,883,248 B. Parent a283d2e preserved;
   unrelated Weft edits remain untouched. Receipt
   `outputs/planner-contract-publication-v1/receipt.json`. This checkpoint includes
@@ -113,7 +146,9 @@
   141 files / 7,328,572 B preserve planning, source inspection, failed author,
   website exits, unchanged accounting/custody and the tested inventory fix.
   Large originals remain locally hash-referenced; no new rig is claimed.
-  Final publication receipt: `outputs/author-timeout-publication-v1/receipt.json`.
+  Saved private checkpoint `3fb50484c534d9f3f97eccd6d98c561cd2a8f03e` is verified.
+  Publication receipt: `outputs/author-timeout-publication-v1/receipt.json`.
+  Subsequent streaming/status work is a separate checkpoint.
 - **Post-timeout local fix:** read-only review found repair-image ancestor
   inventories still capped 1024 despite continuation allowing 4096. Actual d8
   has 1175 files, so a future visual continuation would fail before authoring.
@@ -306,7 +341,7 @@ Tests include 10 continuation, 11 standing-policy, 71 Studio/HTTP/custody and
   `outputs/standing-website-publication-v1/receipt.json`.
 - [x] Save b082 terminal evidence and failure-memory/continuation checkpoint: d03b674.
 - [x] Save d8/905 evidence and tested schema/image-feedback/custody fixes: be7c9e0.
-- [x] Preserve d80 stopped-job evidence, accounting/custody and the tested inventory fix.
+- [x] Preserve d80 stopped-job evidence, accounting/custody and the tested inventory fix:3fb5048.
   The final publication receipt records its commit and private-remote verification.
 
 The user accepts the earlier appearance. Do not expand fur-density or Muse-parity

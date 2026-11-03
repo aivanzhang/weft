@@ -1,0 +1,456 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/api-streaming-status-packaging-v1/package-v2.py"
+  ],
+  "inputs": [
+    {
+      "bytes": 9033,
+      "path": "avatar_assets/studio_ai_status.py",
+      "scope": "current_frozen_source",
+      "sha256": "51442d40e12576ec4e09156a9ba987892ebe7eebbbffb07415800874fd16b53c"
+    },
+    {
+      "bytes": 57652,
+      "path": "avatar_assets/studio_jobs.py",
+      "scope": "current_frozen_source",
+      "sha256": "ca996f12e22833b2e14ae809e0a0562ce7f8ab4e1f66249c770f9d0f7aaf036d"
+    },
+    {
+      "bytes": 40455,
+      "path": "browser/studio.js",
+      "scope": "current_frozen_source",
+      "sha256": "386a9cff64fa419b9d1b2b744711c439c6346882b35f5a26f7c75dd07fc80e87"
+    },
+    {
+      "bytes": 1728,
+      "path": "browser/tests/studio-ai-failure.test.mjs",
+      "scope": "current_frozen_source",
+      "sha256": "56373698e338fed31ab6c791a115103bcd6e1b1b98d562d9bd2af71cbaeca00c"
+    },
+    {
+      "bytes": 593,
+      "path": "outputs/author-timeout-publication-v1/receipt.json",
+      "scope": "preserved_evidence",
+      "sha256": "305bab3e570dbcf95674f0c4562044f0ec4e51159cdf89a0e3e8587f5cd26b1c"
+    },
+    {
+      "bytes": 4012,
+      "path": "outputs/input-token-cost-bound-review-v1/README.md",
+      "scope": "preserved_evidence",
+      "sha256": "f7767e1c20a7fc20658c2f64e796ec96fd7e5944340816dd3c5de44f431dbe6a"
+    },
+    {
+      "bytes": 5189,
+      "path": "outputs/input-token-cost-bound-review-v1/result.json",
+      "scope": "preserved_evidence",
+      "sha256": "f14540b1b7873730fc216c078979240d39baa6aacfdabaa03a38d85b93add2c6"
+    },
+    {
+      "bytes": 2591,
+      "path": "outputs/openai-stream-transport-tests-v1/measure.py",
+      "scope": "preserved_evidence",
+      "sha256": "401977f57c371b5c08be453764c7a18f1a7d20ede5077bcdd342767c85bd65a6"
+    },
+    {
+      "bytes": 1593,
+      "path": "outputs/openai-stream-transport-tests-v1/performance.json",
+      "scope": "preserved_evidence",
+      "sha256": "cf42e5c67faf0b2d3804ca6f76d1fd3069f4e8320a0f0a26d86069aa9458b5d5"
+    },
+    {
+      "bytes": 2204,
+      "path": "outputs/openai-stream-transport-tests-v1/result.json",
+      "scope": "preserved_evidence",
+      "sha256": "cde587e7c1832d17a84bcb471951fd472ccc0a5ec6e8eb0d3e1b75458a53f15c"
+    },
+    {
+      "bytes": 13109,
+      "path": "outputs/openai-stream-transport-tests-v1/sources/openai_stream.py",
+      "scope": "preserved_evidence",
+      "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9"
+    },
+    {
+      "bytes": 14681,
+      "path": "outputs/openai-stream-transport-tests-v1/sources/test_openai_stream.py",
+      "scope": "preserved_evidence",
+      "sha256": "56cb5ad281f75c760397de18e9e1602d9b154f2b0e83fed1cd0871babbcb93ee"
+    },
+    {
+      "bytes": 4202,
+      "path": "outputs/stream-runner-integration-tests-v1/result.json",
+      "scope": "preserved_evidence",
+      "sha256": "751931ed5bd3443d44b9d5c38fd7e5a2ad77e352448f5c568861cf72fcdbfdcb"
+    },
+    {
+      "bytes": 8173,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/agent_backend.py",
+      "scope": "preserved_evidence",
+      "sha256": "9c734e0a9bc7f363021f57490e5829e2e4318567d8e8a9a58ff39f7928eb1adc"
+    },
+    {
+      "bytes": 37029,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/openai_runner.py",
+      "scope": "preserved_evidence",
+      "sha256": "c3402a436187f861c0f6ecdd8afb6a62e1821e41d83db0d881d4d8df500c0e3f"
+    },
+    {
+      "bytes": 13109,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/openai_stream.py",
+      "scope": "preserved_evidence",
+      "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9"
+    },
+    {
+      "bytes": 100445,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline.py",
+      "scope": "preserved_evidence",
+      "sha256": "84b434d2b28e50f4f086df01af5bb9cc000bde050b1652b68093c983f393af26"
+    },
+    {
+      "bytes": 47697,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline_continuation.py",
+      "scope": "preserved_evidence",
+      "sha256": "55c923e49f39ca463d49aee427a283ccebd226398a165be441e7eb4c79dac7d1"
+    },
+    {
+      "bytes": 48666,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/studio_inspection.py",
+      "scope": "preserved_evidence",
+      "sha256": "44b3df31f1fe81213d3fac595193e6ec372c4a3f811f9adb99bd1f06a522c13c"
+    },
+    {
+      "bytes": 31851,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_pipeline_continuation.py",
+      "scope": "preserved_evidence",
+      "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8"
+    },
+    {
+      "bytes": 1811,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_planning_custody.py",
+      "scope": "preserved_evidence",
+      "sha256": "cf3714c4149e5ffcc9e3a152141ddc7ff262e602ac3cafb34e4fca14c0b0aa5e"
+    },
+    {
+      "bytes": 8853,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_runner_integration.py",
+      "scope": "preserved_evidence",
+      "sha256": "9308a18f68076956fe125c2626b5a435e9eb3d441f0596374861e1868afa7a63"
+    },
+    {
+      "bytes": 16936,
+      "path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_studio_api_release.py",
+      "scope": "preserved_evidence",
+      "sha256": "7f1eb43eea7c9f2428ec512d755fc285ce7532489aa310e2dfca628eaf7e641b"
+    },
+    {
+      "bytes": 1034,
+      "path": "outputs/studio-ai-status-tests-v1/actual-api-snapshot.json",
+      "scope": "preserved_evidence",
+      "sha256": "e85fe084eb5b14955ecc77e867ee8fe73b5edf4581b45fc875184081b0359037"
+    },
+    {
+      "bytes": 943,
+      "path": "outputs/studio-ai-status-tests-v1/actual-status-read-only.json",
+      "scope": "preserved_evidence",
+      "sha256": "6a7cf931b5e70364a51723ad14513205d85d6430f5f763f6a7a0b7f8d565b77b"
+    },
+    {
+      "bytes": 2135,
+      "path": "outputs/studio-ai-status-tests-v1/result.json",
+      "scope": "preserved_evidence",
+      "sha256": "e1b19dbe770ea0139dbcba54974b348542a50fbfec496ee11a717c1d947e7f06"
+    },
+    {
+      "bytes": 1356,
+      "path": "outputs/studio-ai-status-tests-v2/result.json",
+      "scope": "preserved_evidence",
+      "sha256": "972705f03a48207dd4b2f32333d02be6b2ba2f227ff573a2323794b63c68002e"
+    },
+    {
+      "bytes": 27833,
+      "path": "skills/avatar-asset-workflow/SKILL.md",
+      "scope": "current_frozen_source",
+      "sha256": "fa26219bffa3bc281fe6b21e660ecda685fb2154fa11c3c0676567c172b307b0"
+    },
+    {
+      "bytes": 10050,
+      "path": "tests/test_studio_ai_status.py",
+      "scope": "current_frozen_source",
+      "sha256": "f2a51d5d3e7136c75f4feba31bf0b9f65f486d53e82de510218e3fa89622501c"
+    },
+    {
+      "bytes": 2315,
+      "path": "outputs/stream-runner-integration-tests-v2/result.json",
+      "scope": "preserved_evidence",
+      "sha256": "d65b8e7f9948de18fe776983559ccecbe06d4c40c8713579c613f7a87ea14f91"
+    },
+    {
+      "bytes": 2509,
+      "path": "outputs/stream-runner-integration-tests-v2/stderr.log",
+      "scope": "preserved_evidence",
+      "sha256": "8babc1931ea6d9a53aa08a27e6d0eb6b24d85545aa1d2be893e91171e536e2c9"
+    },
+    {
+      "bytes": 0,
+      "path": "outputs/stream-runner-integration-tests-v2/stdout.log",
+      "scope": "preserved_evidence",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limits": {
+    "internal_seconds": 25,
+    "output_mb": 24,
+    "rss_mb": 256,
+    "source_bytes": 33554432,
+    "source_records": 256,
+    "wall_seconds": 30
+  },
+  "receipt_source_checks": [
+    {
+      "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9",
+      "snapshot_path": "outputs/openai-stream-transport-tests-v1/sources/openai_stream.py"
+    },
+    {
+      "sha256": "56cb5ad281f75c760397de18e9e1602d9b154f2b0e83fed1cd0871babbcb93ee",
+      "snapshot_path": "outputs/openai-stream-transport-tests-v1/sources/test_openai_stream.py"
+    },
+    {
+      "sha256": "9c734e0a9bc7f363021f57490e5829e2e4318567d8e8a9a58ff39f7928eb1adc",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/agent_backend.py"
+    },
+    {
+      "sha256": "c3402a436187f861c0f6ecdd8afb6a62e1821e41d83db0d881d4d8df500c0e3f",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/openai_runner.py"
+    },
+    {
+      "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/openai_stream.py"
+    },
+    {
+      "sha256": "84b434d2b28e50f4f086df01af5bb9cc000bde050b1652b68093c983f393af26",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "sha256": "55c923e49f39ca463d49aee427a283ccebd226398a165be441e7eb4c79dac7d1",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline_continuation.py"
+    },
+    {
+      "sha256": "44b3df31f1fe81213d3fac595193e6ec372c4a3f811f9adb99bd1f06a522c13c",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/studio_inspection.py"
+    },
+    {
+      "sha256": "9308a18f68076956fe125c2626b5a435e9eb3d441f0596374861e1868afa7a63",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_runner_integration.py"
+    },
+    {
+      "sha256": "cf3714c4149e5ffcc9e3a152141ddc7ff262e602ac3cafb34e4fca14c0b0aa5e",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_planning_custody.py"
+    },
+    {
+      "sha256": "7f1eb43eea7c9f2428ec512d755fc285ce7532489aa310e2dfca628eaf7e641b",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_studio_api_release.py"
+    },
+    {
+      "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_pipeline_continuation.py"
+    },
+    {
+      "sha256": "ca996f12e22833b2e14ae809e0a0562ce7f8ab4e1f66249c770f9d0f7aaf036d",
+      "snapshot_path": "avatar_assets/studio_jobs.py"
+    },
+    {
+      "sha256": "51442d40e12576ec4e09156a9ba987892ebe7eebbbffb07415800874fd16b53c",
+      "snapshot_path": "avatar_assets/studio_ai_status.py"
+    },
+    {
+      "sha256": "386a9cff64fa419b9d1b2b744711c439c6346882b35f5a26f7c75dd07fc80e87",
+      "snapshot_path": "browser/studio.js"
+    },
+    {
+      "sha256": "f2a51d5d3e7136c75f4feba31bf0b9f65f486d53e82de510218e3fa89622501c",
+      "snapshot_path": "tests/test_studio_ai_status.py"
+    },
+    {
+      "sha256": "56373698e338fed31ab6c791a115103bcd6e1b1b98d562d9bd2af71cbaeca00c",
+      "snapshot_path": "browser/tests/studio-ai-failure.test.mjs"
+    },
+    {
+      "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9",
+      "snapshot_path": "outputs/openai-stream-transport-tests-v1/sources/openai_stream.py"
+    },
+    {
+      "sha256": "c3402a436187f861c0f6ecdd8afb6a62e1821e41d83db0d881d4d8df500c0e3f",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/openai_runner.py"
+    },
+    {
+      "sha256": "9c734e0a9bc7f363021f57490e5829e2e4318567d8e8a9a58ff39f7928eb1adc",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/agent_backend.py"
+    },
+    {
+      "sha256": "84b434d2b28e50f4f086df01af5bb9cc000bde050b1652b68093c983f393af26",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "sha256": "55c923e49f39ca463d49aee427a283ccebd226398a165be441e7eb4c79dac7d1",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline_continuation.py"
+    },
+    {
+      "sha256": "44b3df31f1fe81213d3fac595193e6ec372c4a3f811f9adb99bd1f06a522c13c",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/studio_inspection.py"
+    },
+    {
+      "sha256": "ca996f12e22833b2e14ae809e0a0562ce7f8ab4e1f66249c770f9d0f7aaf036d",
+      "snapshot_path": "avatar_assets/studio_jobs.py"
+    },
+    {
+      "sha256": "51442d40e12576ec4e09156a9ba987892ebe7eebbbffb07415800874fd16b53c",
+      "snapshot_path": "avatar_assets/studio_ai_status.py"
+    },
+    {
+      "sha256": "9308a18f68076956fe125c2626b5a435e9eb3d441f0596374861e1868afa7a63",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_runner_integration.py"
+    },
+    {
+      "sha256": "cf3714c4149e5ffcc9e3a152141ddc7ff262e602ac3cafb34e4fca14c0b0aa5e",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_planning_custody.py"
+    },
+    {
+      "sha256": "7f1eb43eea7c9f2428ec512d755fc285ce7532489aa310e2dfca628eaf7e641b",
+      "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_studio_api_release.py"
+    }
+  ],
+  "runner_sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+  "safety_sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+  "schema_version": 1,
+  "script_sha256": "b7bea8b3a66b47eb9ef829d4ee341e93e5dfacdabe454483ae2bcfa87ed1224a",
+  "summary": {
+    "archive_preparation_note": "The first preparation was superseded before execution solely to include the final combined integration receipt; both preparation versions remain preserved.",
+    "final_combined_integration": {
+      "captured_logs": true,
+      "cases": 13,
+      "elapsed_seconds": 0.270488,
+      "path": "outputs/stream-runner-integration-tests-v2/result.json",
+      "same_cases_not_additional_unique": true,
+      "sha256": "d65b8e7f9948de18fe776983559ccecbe06d4c40c8713579c613f7a87ea14f91"
+    },
+    "input_token_cost_review": {
+      "authenticated_count_receipt": false,
+      "free_endpoint_pricing_proven": false,
+      "path": "outputs/input-token-cost-bound-review-v1/result.json",
+      "reservation_adjustment": 0,
+      "retry_authority": false,
+      "sha256": "f14540b1b7873730fc216c078979240d39baa6aacfdabaa03a38d85b93add2c6"
+    },
+    "mutable_root_documentation_excluded": true,
+    "no_real_streaming_provider_call": true,
+    "owner_configuration_unchanged": true,
+    "provider_native_browser_pipeline_git_actions_by_packager": 0,
+    "schema_version": 1,
+    "source_freeze": {
+      "checked_receipt_source_snapshots": [
+        {
+          "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9",
+          "snapshot_path": "outputs/openai-stream-transport-tests-v1/sources/openai_stream.py"
+        },
+        {
+          "sha256": "56cb5ad281f75c760397de18e9e1602d9b154f2b0e83fed1cd0871babbcb93ee",
+          "snapshot_path": "outputs/openai-stream-transport-tests-v1/sources/test_openai_stream.py"
+        },
+        {
+          "sha256": "9c734e0a9bc7f363021f57490e5829e2e4318567d8e8a9a58ff39f7928eb1adc",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/agent_backend.py"
+        },
+        {
+          "sha256": "c3402a436187f861c0f6ecdd8afb6a62e1821e41d83db0d881d4d8df500c0e3f",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/openai_runner.py"
+        },
+        {
+          "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/openai_stream.py"
+        },
+        {
+          "sha256": "84b434d2b28e50f4f086df01af5bb9cc000bde050b1652b68093c983f393af26",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline.py"
+        },
+        {
+          "sha256": "55c923e49f39ca463d49aee427a283ccebd226398a165be441e7eb4c79dac7d1",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/pipeline_continuation.py"
+        },
+        {
+          "sha256": "44b3df31f1fe81213d3fac595193e6ec372c4a3f811f9adb99bd1f06a522c13c",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/avatar_assets/studio_inspection.py"
+        },
+        {
+          "sha256": "9308a18f68076956fe125c2626b5a435e9eb3d441f0596374861e1868afa7a63",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_runner_integration.py"
+        },
+        {
+          "sha256": "cf3714c4149e5ffcc9e3a152141ddc7ff262e602ac3cafb34e4fca14c0b0aa5e",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_stream_planning_custody.py"
+        },
+        {
+          "sha256": "7f1eb43eea7c9f2428ec512d755fc285ce7532489aa310e2dfca628eaf7e641b",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_studio_api_release.py"
+        },
+        {
+          "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8",
+          "snapshot_path": "outputs/stream-runner-integration-tests-v1/sources/tests/test_pipeline_continuation.py"
+        },
+        {
+          "sha256": "ca996f12e22833b2e14ae809e0a0562ce7f8ab4e1f66249c770f9d0f7aaf036d",
+          "snapshot_path": "avatar_assets/studio_jobs.py"
+        },
+        {
+          "sha256": "51442d40e12576ec4e09156a9ba987892ebe7eebbbffb07415800874fd16b53c",
+          "snapshot_path": "avatar_assets/studio_ai_status.py"
+        },
+        {
+          "sha256": "386a9cff64fa419b9d1b2b744711c439c6346882b35f5a26f7c75dd07fc80e87",
+          "snapshot_path": "browser/studio.js"
+        },
+        {
+          "sha256": "f2a51d5d3e7136c75f4feba31bf0b9f65f486d53e82de510218e3fa89622501c",
+          "snapshot_path": "tests/test_studio_ai_status.py"
+        },
+        {
+          "sha256": "56373698e338fed31ab6c791a115103bcd6e1b1b98d562d9bd2af71cbaeca00c",
+          "snapshot_path": "browser/tests/studio-ai-failure.test.mjs"
+        }
+      ],
+      "historical_v1_status_source_note": "Original v1 source hashes remain in its receipt; current status code is bound to the later v2 receipt without relabeling the earlier run.",
+      "skill": {
+        "path": "skills/avatar-asset-workflow/SKILL.md",
+        "sha256": "fa26219bffa3bc281fe6b21e660ecda685fb2154fa11c3c0676567c172b307b0",
+        "validation": "Root-reported existing quick_validate exit0; not rerun by packager"
+      }
+    },
+    "status": "mock_and_local_verified_live_streaming_unverified",
+    "test_groups": {
+      "additional_transport_selection_regression": 1,
+      "adjacent_batch": {
+        "corrected_targeted_passes": 1,
+        "error": "Missing analytic guide PNGs in continuation fixture",
+        "errors": 1,
+        "full_batch_rerun_claimed": false,
+        "passed": 111,
+        "ran": 112
+      },
+      "counts_note": "Groups overlap; no summed unique total is asserted.",
+      "new_runner_integration_cases": 13,
+      "priority_targeted_cases": 2,
+      "status_node_initial": 3,
+      "status_python_initial": 53,
+      "stream_mock_cases": 15
+    },
+    "unchanged_state_from_public_receipts": {
+      "hashes": {
+        "ledger": "37be6a2c367a1d0817a90c525f2d75eba86fedc4ef3d16a585c731a8ea63c07e",
+        "registry": "7f3cf7d8707c27a9d367d647578ba4d3c649a55c6f036215bf84cb11d5802e83"
+      },
+      "private_state_read_by_packager": false,
+      "project_exposure_microdollars": 9618295,
+      "settled_microdollars": 3999655,
+      "unknown_hold_microdollars": 5618640
+    }
+  }
+}

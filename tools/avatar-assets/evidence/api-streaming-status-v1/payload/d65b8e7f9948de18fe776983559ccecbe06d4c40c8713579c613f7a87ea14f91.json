@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "classification": "Mock HTTP/pipeline/custody integration; no real providers or ledger changes",
+  "command": "PYTHONPATH=tests .venv/bin/python -B -m unittest test_stream_runner_integration test_stream_planning_custody -v",
+  "exit_code": 0,
+  "elapsed_seconds": 0.270488,
+  "tests_passed": 13,
+  "reason": "Combined integration after Studio failure-status changes and finalized stream parser",
+  "sources": [
+    {
+      "path": "avatar_assets/openai_stream.py",
+      "sha256": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9",
+      "bytes": 13109
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "c3402a436187f861c0f6ecdd8afb6a62e1821e41d83db0d881d4d8df500c0e3f",
+      "bytes": 37029
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "9c734e0a9bc7f363021f57490e5829e2e4318567d8e8a9a58ff39f7928eb1adc",
+      "bytes": 8173
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "84b434d2b28e50f4f086df01af5bb9cc000bde050b1652b68093c983f393af26",
+      "bytes": 100445
+    },
+    {
+      "path": "avatar_assets/pipeline_continuation.py",
+      "sha256": "55c923e49f39ca463d49aee427a283ccebd226398a165be441e7eb4c79dac7d1",
+      "bytes": 47697
+    },
+    {
+      "path": "avatar_assets/studio_inspection.py",
+      "sha256": "44b3df31f1fe81213d3fac595193e6ec372c4a3f811f9adb99bd1f06a522c13c",
+      "bytes": 48666
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "ca996f12e22833b2e14ae809e0a0562ce7f8ab4e1f66249c770f9d0f7aaf036d",
+      "bytes": 57652
+    },
+    {
+      "path": "avatar_assets/studio_ai_status.py",
+      "sha256": "51442d40e12576ec4e09156a9ba987892ebe7eebbbffb07415800874fd16b53c",
+      "bytes": 9033
+    },
+    {
+      "path": "tests/test_stream_runner_integration.py",
+      "sha256": "9308a18f68076956fe125c2626b5a435e9eb3d441f0596374861e1868afa7a63",
+      "bytes": 8853
+    },
+    {
+      "path": "tests/test_stream_planning_custody.py",
+      "sha256": "cf3714c4149e5ffcc9e3a152141ddc7ff262e602ac3cafb34e4fca14c0b0aa5e",
+      "bytes": 1811
+    },
+    {
+      "path": "tests/test_studio_api_release.py",
+      "sha256": "7f1eb43eea7c9f2428ec512d755fc285ce7532489aa310e2dfca628eaf7e641b",
+      "bytes": 16936
+    }
+  ],
+  "provider_calls": 0
+}

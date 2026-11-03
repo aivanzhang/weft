@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "classification": "Mocked HTTP + actual stream parser/runner, no provider or native calls",
+  "command": "PYTHONPATH=tests .venv/bin/python -B -m unittest test_stream_runner_integration.StreamRunnerTests.test_real_stream_parser_and_runner_settle_only_complete_http_fixture test_stream_runner_integration.StreamRunnerTests.test_real_stream_timeout_preserves_early_identity_and_uncertain_reservation -v",
+  "exit_code": 0,
+  "tests_passed": 2,
+  "elapsed_seconds": 0.08641104167327285,
+  "sources": {
+    "avatar_assets/openai_stream.py": "e90f7a1a135991498b2d63af6be92027ac188be39cfe42ddb61fb183464e96f0",
+    "avatar_assets/openai_runner.py": "c3402a436187f861c0f6ecdd8afb6a62e1821e41d83db0d881d4d8df500c0e3f",
+    "tests/test_openai_stream.py": "11a6d0b526c99ac6d04ff516bd4bf1291505e89c19f4a403b0caa6e6c98f6c24",
+    "tests/test_stream_runner_integration.py": "9308a18f68076956fe125c2626b5a435e9eb3d441f0596374861e1868afa7a63"
+  },
+  "reason": "After final early-response-ID credential redaction guard",
+  "provider_calls": 0
+}

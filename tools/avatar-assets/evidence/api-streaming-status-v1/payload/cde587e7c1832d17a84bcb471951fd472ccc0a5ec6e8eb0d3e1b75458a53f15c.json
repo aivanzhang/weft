@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-02T16:18:31.041958-08:00",
+  "status": "passed_frozen",
+  "classification": "Mocked HTTP/SSE transport tests and analytic local performance; no actual provider validation",
+  "sources": {
+    "avatar_assets/openai_stream.py": "ccd86b20c3a5f84d0a47febb28289d1fe6efa0e7eadbcef694b340670e8db4c9",
+    "tests/test_openai_stream.py": "56cb5ad281f75c760397de18e9e1602d9b154f2b0e83fed1cd0871babbcb93ee"
+  },
+  "tests": {
+    "command": ".venv/bin/python -m unittest discover -s tests -p 'test_openai_stream.py' -v",
+    "passed": 15,
+    "seconds": 0.041
+  },
+  "performance": {
+    "command": ".venv/bin/python outputs/openai-stream-transport-tests-v1/measure.py",
+    "result_sha256": "cf42e5c67faf0b2d3804ca6f76d1fd3069f4e8320a0f0a26d86069aa9458b5d5",
+    "script_sha256": "401977f57c371b5c08be453764c7a18f1a7d20ede5077bcdd342767c85bd65a6"
+  },
+  "bounds": {
+    "wire_bytes": 16777216,
+    "event_bytes": 4194304,
+    "response_bytes": 4194304,
+    "event_count": 65536,
+    "timeout_seconds_max": 600,
+    "trace_bytes": 4096,
+    "success_trace_milestones": 4
+  },
+  "deadline_scope": "Absolute monotonic socket/connect-return/read checks; OS DNS must be interrupted by existing outer worker. Late DNS return cannot submit POST.",
+  "official_sources_opened": [
+    "https://developers.openai.com/api/docs/guides/streaming-responses",
+    "https://developers.openai.com/api/reference/resources/responses/streaming-events",
+    "https://developers.openai.com/api/reference/overview"
+  ],
+  "contract": "post_stream_response(payload,timeout,key,*,trace_path,client_request_id) -> complete terminal response bytes; caller validates model/schema/usage before settlement",
+  "trace_statuses": [
+    "prepared",
+    "headers_received",
+    "response_created",
+    "completed",
+    "failed_or_uncertain"
+  ],
+  "trace_note": "Only IDs, status, counters, elapsed time and fixed failure category. No Authorization, key, prompt, partial model text or provider error body. New owner0600 trace, atomic fsync milestones. Completion means transport only, not settlement.",
+  "provider_calls": 0,
+  "key_reads": 0,
+  "ledger_writes": 0,
+  "backend_config_changes": 0
+}
