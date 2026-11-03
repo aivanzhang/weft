@@ -70,7 +70,7 @@ not an external benchmark or a guarantee for new inputs.
   upload, admission, saved-body world, built-in and imported avatars, one
   continuous 456-step recording with a mid-take avatar swap, task success true,
   video/replay export — runs in about 14 seconds.
-  Evidence: `.local/portal-unfamiliar-source-acceptance-02/continue-result.json`.
+  Evidence: `.local/portal-unfamiliar-source-acceptance-02/continue-result-02.json`.
 - A real Muse-selected controller candidate was tested and rejected under the
   unchanged scoring rules. No accepted physical repair was demonstrated.
 - Three bounded Studio-panda weight-space repairs failed, but a Blender bone-heat

@@ -50,7 +50,7 @@ Rubric: impact 30%; Meta tooling 25%; demo 25%; technical execution 20%.
   robot avatar → continuous 456-step recording with a mid-take swap to the re-skinned
   Studio panda → **task success true, no failed gates** → avatar video (15.2 s, 455
   frames) and replay exported — in about 14 seconds
-  (`.local/portal-unfamiliar-source-acceptance-02/continue-result.json`; frames:
+  (`.local/portal-unfamiliar-source-acceptance-02/continue-result-02.json`; frames:
   `demo-video-frames.png`).
 - **Studio avatar (new):** a Blender bone-heat re-skin derivative
   (`studio-panda-470-weft-reskin`) is visually coherent under recorded poses and
