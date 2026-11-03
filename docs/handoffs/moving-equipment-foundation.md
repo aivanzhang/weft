@@ -92,3 +92,31 @@ The user interface shows manual exploration, hides unsupported reference/learned
 - Numeric lane: new `moving_depth_intervals.py` and tests only. Analytically retain every feasible ray-depth component and numerical boundary uncertainty, without selected offsets, task scores or sampling sweeps. Final existing native geometry checks remain authoritative.
 - Portal lane: read-only design for offering this saved-input path and explicit factorized hypothesis selection through the existing portal, without extra API calls, source mutation or a second UI. Released code remains frozen during publication.
 - Root: integration, source acceptance, publication and durable handoff. The active goal is incomplete; real-source playability, contact/initialization, meaningful task learning and independent physical evidence remain unfinished. Keep unrelated avatar work and new unreviewed depth helpers out of this checkpoint.
+
+The integrated command/portal checkpoint was published and independently remote-verified as `fd6ff54c4aaa6e5188b6a4e566cc3824584c824c`. The following depth work is a subsequent milestone, not part of that acceptance.
+
+## Complete initial depth domains — November 2, 2026, 8:51 PM PST
+
+`moving_depth_geometry.py` extracts the exact original-start human spheres/capsules, floor and world bounds from one model compilation and forward projection, without reset, physics steps or moving the body. Every relevant collision primitive/filter is retained; unsupported geometry refuses. Nine checks pass, including primitive distances compared against native distances to 1e-12. Release: `.local/moving-depth-geometry-01/release.json`.
+
+`moving_depth_intervals.py` solves the affine image-ray center/radius constraints using exact rational coefficients and bounded root enclosures. It retains every disconnected possible component, certified interior and ambiguous/tangent boundary; it selects no depth. Thirty-seven distinct checks pass, with earlier fixture failures preserved. Release: `.local/moving-depth-intervals-01/release.json`. Both helpers received independent read-only review.
+
+One actual audit, `.venv-lab/bin/python .local/moving-depth-source-01/run.py`, uses the same original source and independently rederives the previous complete proposal bundle before testing a new explicit depth-domain prior. Camera, source pixels, median-size recipe, original body and unknown-prefix hypothesis remain unchanged. The depth domain uses the existing allowed camera offsets [-2,2], positive camera depth above 0.05, and the unchanged world-radius range [0.01,0.5]. This is not a sampling sweep or a chosen offset.
+
+| Raw track | Certified camera-depth intervals, model units |
+| --- | --- |
+| raw-0 / sam-1 | [1.2817565102311435, 1.7007999205893911] and [2.037585603239823, 2.30170685644502] |
+| raw-1 / sam-2 | No solution under this declared domain/shape/body prior. |
+
+The first track's outer interval enclosures and boundary uncertainty remain in its full report; do not replace them with rounded endpoints. The second track is not reclassified or deleted. The zero-penetration domain is a conservative proposal prior, not a modification of the native admission tolerances or a claim of physical identity.
+
+Measured **7.197 seconds**, **726,450,176 peak RSS bytes**, one model compilation, 12 human primitives, zero physics steps/API/inference calls. All 33 source files /105,604,367 bytes, the original proposal bundle and runtime remained unchanged. Geometry, per-track rays/results, exact source and runtime pins, and snapshots are in `.local/moving-depth-source-01/`. All root audit processes are terminal. **No depth was selected, no new world was admitted, and the source is not yet playable.**
+
+### Active follow-on ownership
+
+- Numeric lane: new `moving_depth_family.py` plus focused tests, and narrow additive dispatch in `moving_equipment_proposal.py` / `moving_equipment_world.py`. Prepare one immutable source-bound complete family; admit saved families by extraction/rederivation, not arbitrary receipt hashes. Materialize at most three explicit identity/depth choices; preserve the full family and all unavailable components. Selected depth remains an authored assumption. Existing native gates and legacy construction stay unchanged.
+- Portal lane: new `portal_moving_equipment.py` and scoped lab/portal/worker/frontend integration. Separate prepare/build/select lifecycle uses the same saved job, worker and sandbox, with no extra provider call. Preserve `equipment/` and immutable job/source history. Restore the exact family once before replaying the selected construction.
+- Source lane: independent source/family integrity review and negative tests in `tests/test_moving_depth_family_integrity.py`; do not race numeric/portal edits or repeat actual-source work.
+- Root: actual materialization and portal acceptance only after the new interfaces are tested/released. The earlier full-CLI source harness remains unexecuted; adjust a new acceptance plan for the new family, not the refused old priors.
+
+The moving workflow has a separately scoped **1.5 GiB job disk ceiling**, inside the unchanged **2 GiB portal-wide limit**. The measured original parent has 323 files /524,595,696 bytes; parent + three 256 MiB lab reservations +32 MiB receipts totals 1,363,456,496 bytes. These are conservative reservations, not measured final output sizes. Preserve partial outputs and account for incremental reservations across active jobs before queueing. No old-job ceiling increase, source cleanup, provider spend or recurring infrastructure is authorized by this local-only capacity adjustment. Use a new ordinary test root if existing capacity is unavailable; never delete unrelated work to fit it.
