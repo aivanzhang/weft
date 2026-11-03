@@ -588,6 +588,46 @@ Full-resolution, multiview state review checks both native and exported appearan
                     "quality_policy": build_quality_policy(request, plan, inspection)})
 
 
+def protected_author_prompt(request, plan, inspection, baseline, findings):
+    """One fixed baseline replaces full-design restatement and superseded failure instructions."""
+    from avatar_assets.repair_composition import FINISH_FIELDS, digest
+    view=deepcopy(findings or {})
+    current=(view.get('last_visual_review') or {}).get('review')
+    active_review=current if current is not None else baseline['active_review']
+    for key in ('historical_visual_reviews','last_visual_review'):
+        if key in view:
+            view[key]={'status':'historical_provenance_only','canonical_json_sha256':digest(view[key]),
+                       'reference':'continuation/context.json or original bound review receipts',
+                       'scope':'Superseded by the explicit passing protected baseline; not permission to change skin or articulation.'}
+    view.pop('review',None)
+    camera=_DESIGN_GUIDE.split('Consistent-quality review requires',1)[1].split('RIG:',1)[0]
+    surfaces=_DESIGN_GUIDE.split('surface_profiles is',1)[1].split('smoothing:',1)[0]
+    coat=_DESIGN_GUIDE.split('groom:{parents:',1)[1].split('A root that moves',1)[0]
+    guide=('Consistent-quality review requires'+camera+'surface_profiles is'+surfaces+'groom:{parents:'+coat)
+    return _BOUNDARY+"""
+ROLE: protected finishing and global-root trajectory repair author.
+Return schema_version:3, status, reason and patch only. Do not return design, a rig, weights, bindings or whole action curves.
+The coordinator composes this explicit patch over protected_repair_baseline.baseline_answer and records both the raw patch
+and effective design. This fixed baseline passed the bound numerical and visual deformation checks; it is not complete appearance approval.
+finish_updates: return every allowed property; null means inherit the FIXED baseline, not an earlier rejected patch.
+remove_finish_fields explicitly removes supported optional finishing fields; never update and remove the same field.
+Required fur/identity/quality rules and all finishing validations still apply; removal cannot bypass them.
+root_translations:null preserves motion. When schema permits a listed state, provide one xyz vector per existing key in that
+state's exact original order. Vectors are metre offsets for the sole hierarchy root only. Keys/times/interpolation, every rotation,
+all non-root translations, skin layers/constraints, attachment, part rigs and rest geometry are immutable. Do not add bones or keys.
+Appearance-only states cannot change root translation. If repair needs changes outside this scope, return unsupported with patch:null.
+Use active_visual_review as the current repair target. Older failure notes describe rejected candidates, not a defect in
+this passing skin. The baseline changes only after a new authenticated passing review; numerical failure never unlocks it. A later numerical rejection does not unlock weights; revise permitted finish/root edits or report unsupported.
+Preserve passing articulation while fixing only the visible coat/trajectory defects. A conservative capacity ceiling is not UV admission
+or appearance approval. Optional normal detail changes lighting, not strands/silhouette, and does not replace required native/portable fur.
+Explain the requested patch in reason. Do not claim edited output was generated or verified before the independent tools run.
+Allowed finishing properties: """+', '.join(FINISH_FIELDS)+'.\n'+guide+_payload({
+        'request':request,'plan':plan,'inspection':inspection,'protected_repair_baseline':baseline,
+        'active_visual_review':active_review,'repair_findings':_repair_prompt_view(view,continuation=bool(request.get('continuation'))),
+        'resource_envelope':_author_resource_envelope(inspection),
+        'quality_policy':build_quality_policy(request,plan,inspection)})
+
+
 def _design_json(value):
     _text(value, "author design JSON", 128 * 1024)
     require(len(value.encode()) <= 128 * 1024, "Author design exceeds128KiB")

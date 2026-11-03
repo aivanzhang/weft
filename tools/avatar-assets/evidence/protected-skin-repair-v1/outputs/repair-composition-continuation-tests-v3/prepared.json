@@ -1,0 +1,298 @@
+{
+  "changed_hypothesis": "Use an empty image tuple, not explicit None, in the new simulated author call wrapper.",
+  "kind": "analytic_composed_continuation_tests",
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 16,
+    "wall_seconds": 30
+  },
+  "native_calls": 0,
+  "prior_attempt": "outputs/repair-composition-continuation-tests-v2",
+  "provider_calls": 0,
+  "sources": {
+    "action_audit.py": {
+      "bytes": 35083,
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    "action_intent.py": {
+      "bytes": 17776,
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    "agent_backend.py": {
+      "bytes": 8563,
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44"
+    },
+    "agent_runner.py": {
+      "bytes": 26471,
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    "author_contract.py": {
+      "bytes": 12872,
+      "path": "avatar_assets/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    "author_geometry.py": {
+      "bytes": 8595,
+      "path": "avatar_assets/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    "coat_representation.py": {
+      "bytes": 10388,
+      "path": "avatar_assets/coat_representation.py",
+      "sha256": "1a750a54a21f658809bf0cb016fba0d2c3295ca1207da2babcbd83567f2c026b"
+    },
+    "deformation_gate.py": {
+      "bytes": 16614,
+      "path": "avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    "finish_generated.py": {
+      "bytes": 38146,
+      "path": "avatar_assets/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    "fringe_export.py": {
+      "bytes": 13676,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    "fur_attachment.py": {
+      "bytes": 40332,
+      "path": "avatar_assets/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    "fur_bindings.py": {
+      "bytes": 19539,
+      "path": "avatar_assets/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    "generated_tangents.py": {
+      "bytes": 16931,
+      "path": "avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    "normal_continuity.py": {
+      "bytes": 17295,
+      "path": "avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    "openai_grant_closure.py": {
+      "bytes": 14628,
+      "path": "avatar_assets/openai_grant_closure.py",
+      "sha256": "2b9879c3d9cd8fbafcbb126b3c87930c12e92554e18bf60fc7ebe358cd67b895"
+    },
+    "openai_models.py": {
+      "bytes": 2221,
+      "path": "avatar_assets/openai_models.py",
+      "sha256": "f78f56067079d163507c4b47f5a28b6458304bf26b52cda8a475156849aba633"
+    },
+    "openai_runner.py": {
+      "bytes": 41455,
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f"
+    },
+    "openai_stream.py": {
+      "bytes": 13672,
+      "path": "avatar_assets/openai_stream.py",
+      "sha256": "cd249d535fdf81e1e2b39177d4d7c9767ed0be6717527a80c2a42016b5fb7e9c"
+    },
+    "pipeline.py": {
+      "bytes": 103275,
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "5407f40dd18f58ea10d43a14d281456c376c94012343e452400b8e985eefa583"
+    },
+    "pipeline_continuation.py": {
+      "bytes": 59957,
+      "path": "avatar_assets/pipeline_continuation.py",
+      "sha256": "0941b24aa8856020d5280e5798ab4810d6df8078b77086d3c2e77ea8df80b2fb"
+    },
+    "pipeline_evidence.py": {
+      "bytes": 22599,
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "49b9682cc02e6e5ce79373486767bc392a03601bf62f8f452dda2a1b0d92ecc8"
+    },
+    "pipeline_prompts.py": {
+      "bytes": 72808,
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "06ec2b58ff222778c7797dca223c842159c47c4557e9925d8b5e665e776b53be"
+    },
+    "pipeline_recovery.py": {
+      "bytes": 13968,
+      "path": "avatar_assets/pipeline_recovery.py",
+      "sha256": "52849e9a991c88db03751a8a4ba6b51a9bc6eaf9b0ab94f0d331ad80bd358a5f"
+    },
+    "portable_fringe.py": {
+      "bytes": 1326,
+      "path": "avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    "provider_model.py": {
+      "bytes": 8121,
+      "path": "avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    "quality_policy.py": {
+      "bytes": 14626,
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    "repair_admission.py": {
+      "bytes": 11975,
+      "path": "avatar_assets/repair_admission.py",
+      "sha256": "5df94acdba444540270f70aab67412fe89bdceb78893ff65ee9be064045cd862"
+    },
+    "repair_composition.py": {
+      "bytes": 22533,
+      "path": "avatar_assets/repair_composition.py",
+      "sha256": "5767de3aaae5311243e1167c4435ce4fab0b0c0353c178e748ad6b262ddc3b7b"
+    },
+    "repair_visual_inputs.py": {
+      "bytes": 14156,
+      "path": "avatar_assets/repair_visual_inputs.py",
+      "sha256": "142488c2a181637a76643e484ffc1f3bdd795968905a474ffc5649ee291c2934"
+    },
+    "runner.py": {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    "safety.py": {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    "scripts/blender_edge_fringe.py": {
+      "bytes": 20746,
+      "path": "scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    "scripts/blender_finish_generated.py": {
+      "bytes": 59927,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    "scripts/blender_fur_cards.py": {
+      "bytes": 26295,
+      "path": "scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    "scripts/blender_fur_identity.py": {
+      "bytes": 6657,
+      "path": "scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    "scripts/blender_fur_undercoat.py": {
+      "bytes": 42039,
+      "path": "scripts/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    "scripts/blender_material_coat.py": {
+      "bytes": 5450,
+      "path": "scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    "scripts/blender_material_colors.py": {
+      "bytes": 8894,
+      "path": "scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    "scripts/blender_material_groom.py": {
+      "bytes": 31282,
+      "path": "scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    "scripts/blender_normal_continuity.py": {
+      "bytes": 6885,
+      "path": "scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    "scripts/blender_normal_uv_export.py": {
+      "bytes": 10304,
+      "path": "scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    "scripts/blender_undercoat_admission.py": {
+      "bytes": 13636,
+      "path": "scripts/blender_undercoat_admission.py",
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7"
+    },
+    "scripts/edge_fringe.py": {
+      "bytes": 17397,
+      "path": "scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    "scripts/fringe_color_atlas.py": {
+      "bytes": 16114,
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    "scripts/fur_root_sampling.py": {
+      "bytes": 4687,
+      "path": "scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    "scripts/fur_skin_roots.py": {
+      "bytes": 8834,
+      "path": "scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    "scripts/fur_vertex_roots.py": {
+      "bytes": 6002,
+      "path": "scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    "scripts/groom_flow.py": {
+      "bytes": 7179,
+      "path": "scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    "scripts/material_fur.py": {
+      "bytes": 9487,
+      "path": "scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    "scripts/motion_samples.py": {
+      "bytes": 5273,
+      "path": "scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    "scripts/native_render_tasks.py": {
+      "bytes": 6129,
+      "path": "scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    "scripts/normal_uv_export.py": {
+      "bytes": 9560,
+      "path": "scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    "scripts/undercoat_uv_atlas.py": {
+      "bytes": 14944,
+      "path": "scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    "three_d.py": {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    "undercoat_admission.py": {
+      "bytes": 13488,
+      "path": "avatar_assets/undercoat_admission.py",
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2"
+    }
+  },
+  "tests": [
+    "avatar_assets/pipeline_continuation.py",
+    "avatar_assets/repair_composition.py",
+    "tests/test_repair_composition_continuation.py",
+    "tests/test_pipeline_continuation.py",
+    "tests/test_visual_repair_continuation.py",
+    "tests/test_author_contract.py",
+    "tests/test_pipeline_prompts.py"
+  ]
+}

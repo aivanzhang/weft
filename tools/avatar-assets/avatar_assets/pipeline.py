@@ -26,7 +26,7 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
-PIPELINE_SOURCES = ('pipeline.py', 'coat_representation.py', 'repair_admission.py', 'undercoat_admission.py', 'provider_model.py', 'runner.py', 'safety.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'openai_models.py', 'openai_grant_closure.py', 'openai_stream.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
+PIPELINE_SOURCES = ('pipeline.py', 'coat_representation.py', 'repair_admission.py', 'repair_composition.py', 'undercoat_admission.py', 'provider_model.py', 'runner.py', 'safety.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'openai_models.py', 'openai_grant_closure.py', 'openai_stream.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
@@ -1180,6 +1180,8 @@ class Pipeline:
         source_failures = _remember_source_failures([], findings, source['sha256'])
         visual_history = _historical_visual_memory(findings)
         last_visual_review = None
+        protected_baseline = None
+        baseline_checked, checked_review = False, None
         for attempt in range(self.request['max_repairs']+1):
             self.guard()
             if source_failures:
@@ -1194,10 +1196,22 @@ class Pipeline:
             findings = {**(findings or {}), 'repair_visual_inputs': deepcopy(visual_inputs),
                         'author_image_layout': {'source_guides': [1,2,3], 'user_reference': reference_index,
                                                 'repair_images_start': len(source_guides)+1}}
+            from avatar_assets import repair_composition
+            review_key = (last_visual_review or {}).get('receipt',{}).get('sha256')
+            if not baseline_checked or review_key != checked_review:
+                try:
+                    candidate = repair_composition.select_baseline(
+                        ROOT,self.root,self.request,self.continuation,last_visual_review,source['sha256'],plan)
+                    protected_baseline = repair_composition.advance_baseline(protected_baseline,candidate)
+                    baseline_checked, checked_review = True, review_key
+                except (ValueError,OSError,KeyError,TypeError) as error:
+                    raise EvidenceCustodyError('Protected repair baseline requires inspection: '+str(error)) from error
             findings['optional_coat_probe'] = self._coat_admission_feedback(source['sha256'], last_visual_review, attempt)
             self.event('author', 'running', attempt=attempt)
-            author_prompt = prompts.author_prompt(self.request, plan, context, previous, findings)
-            if self.continuation is not None:
+            author_prompt = (prompts.protected_author_prompt(self.request,plan,context,protected_baseline,findings)
+                             if protected_baseline is not None else
+                             prompts.author_prompt(self.request, plan, context, previous, findings))
+            if self.continuation is not None and protected_baseline is None:
                 if self.continuation.get('replan'):
                     author_prompt += ('\nREPLANNED CONTINUATION: the supplied current plan replaces the rejected prior intent plan. '
                                       'Adapt action bindings and only the motion controls needed for this validated plan or measured defects. '
@@ -1209,6 +1223,7 @@ class Pipeline:
                                       'the supplied measured failures; do not restart the character, rig or action design. '
                                       'Prior geometry checks are not proof of deformation or appearance acceptance.\n')
             answer = self.agents.call('author-'+str(attempt), author_prompt,
+                                      repair_composition.patch_schema(protected_baseline) if protected_baseline is not None else
                                       prompts.author_schema(self.request, plan), images=repair_visual_inputs.author_images(source_guides, repair_images))
             if answer.get('status') == 'unsupported':
                 _text(answer['reason'], 4000, 'unsupported author reason')
@@ -1218,6 +1233,11 @@ class Pipeline:
             exported = self.root/f'exported-preview-{attempt}'
             attachment_proof, author_geometry = None, None
             try:
+                if protected_baseline is not None:
+                    try:
+                        answer = repair_composition.materialize(self.root,attempt,answer,protected_baseline)
+                    except (ValueError,OSError,KeyError,TypeError) as error:
+                        raise EvidenceCustodyError('Protected patch composition requires inspection: '+str(error)) from error
                 author_geometry = self._author_preflight(answer, source, context['native'], attempt)
                 config = prompts.finish_config(answer, self.request, plan, source, attempt,
                                                quality_policy=quality, bone_parents=source_parents)

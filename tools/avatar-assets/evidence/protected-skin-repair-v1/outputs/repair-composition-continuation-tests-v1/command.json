@@ -1,0 +1,9 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-c",
+    "import sys, unittest; sys.path.insert(0, 'tests'); unittest.main(module=None, argv=['unittest', 'test_repair_composition_continuation', 'test_pipeline_continuation.ContinuationTests.test_paid_author_refusal_retains_valid_seed_and_native_failure_without_planner', 'test_pipeline_continuation.ContinuationTests.test_replan_preserves_built_seed_and_all_rejected_answers', 'test_pipeline_continuation.ContinuationTests.test_child_preserves_context_and_never_replans_or_resets_parent', 'test_visual_repair_continuation.VisualContinuationTests.test_completed_visual_repair_retains_paid_design_critique_and_no_new_calls', 'test_visual_repair_continuation.VisualContinuationTests.test_changed_action_gate_cannot_be_repaired_by_resealing_its_pack'], verbosity=2)"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets"
+}

@@ -26,6 +26,9 @@ The source-bound undercoat probe **refused** the current export budget; its capa
 ceiling is not an admitted recipe. The automatic continuation preflight passes
 without a paid call. See the [motion/coat milestone](docs/motion-coat-admission.md).
 No validator was relaxed and no old recipe was manually edited.
+[Protected-skin repair patches](docs/protected-skin-repairs.md) keep a verified
+baseline rig and articulation fixed during eligible finishing/root-motion repairs;
+the local derivative proof is not a new accepted avatar.
 This trial keeps the shoulder dragon perched, not flying.
 
 [GPT-5.2 model profiles](docs/api-model-profiles.md) and standard responses keep

@@ -1,0 +1,223 @@
+{
+  "bindings": {
+    "authored_height_m": 0.38,
+    "design_sha256": "e3161d55c3b7e4f9a25629cfae444d33517d086497a4710699e9cacdd5d2a1b7",
+    "exported_model_sha256": "651978d9134ea1a809136852fc6ad063280b8710db594241b25adb26f3078612",
+    "finish_report_sha256": "a797374195076dc315f9e5f9088db2320c002dc541026a4cb0af7c9c5826ee9e",
+    "manifest_sha256": "c8846901d8c9c9562464717153fc2ae47dc62bd5d33c2b38977781a9c28d6a88",
+    "requested_height_m": 0.38,
+    "rig_verification_sha256": "8433e8a4abdc1e05bd900714d7d588b719651405742818bb429fda97355e5e12",
+    "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+    "state_ids": [
+      "toy_dance"
+    ]
+  },
+  "implementation_sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+  "measurement": {
+    "bone_names": [
+      "root",
+      "spine",
+      "chest",
+      "neck",
+      "head",
+      "ear_l",
+      "ear_r",
+      "arm_l_upper",
+      "arm_l_lower",
+      "hand_l",
+      "arm_r_upper",
+      "arm_r_lower",
+      "hand_r",
+      "dragon_root",
+      "dragon_body",
+      "dragon_head",
+      "dragon_tail1",
+      "dragon_tail2",
+      "dragon_wing_l",
+      "dragon_wing_r",
+      "leg_l_upper",
+      "leg_l_lower",
+      "foot_l",
+      "leg_r_upper",
+      "leg_r_lower",
+      "foot_r",
+      "tail"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 109672,
+    "edges_sha256": "30749e08ef85fac9996930ee42eecb8bde638a592b4be6c43e87c0ea129c6f06",
+    "pose_samples_measured": 8,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 0.3799999952316284,
+      "height_basis": "z_span",
+      "max": [
+        0.14380080997943878,
+        0.12301573157310486,
+        0.3799999952316284
+      ],
+      "min": [
+        -0.14380080997943878,
+        -0.12301573157310486,
+        0.0
+      ]
+    },
+    "rest_sha256": "bb773aec26ff6931656d92d0aace335ea38b3aa81513f981c2f141c635994924",
+    "rig_route": "authored",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 50004
+  },
+  "measurement_scope": "bound_native_rest_and_pose_samples",
+  "passed": false,
+  "physics_verified": false,
+  "rig_route": "authored",
+  "sampling_implementation_sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+  "schema_version": 1,
+  "scope": "Conservative gross-spike rejection of at most four retained edges per sampled pose set; not exhaustive edge/frame coverage, skin correctness or visual acceptance.",
+  "states": [
+    {
+      "id": "toy_dance",
+      "max_reported_excess_m": 0.053760651371493905,
+      "max_reported_stretch_ratio": 9.161021267844099,
+      "offending_outliers": [
+        {
+          "endpoint_indices": [
+            39746,
+            39754
+          ],
+          "endpoint_influences": [
+            {
+              "foot_r": 0.07085025310516357,
+              "hand_r": 0.7056363821029663,
+              "leg_r_lower": 0.10556193441152573,
+              "leg_r_upper": 0.11795146018266678
+            },
+            {
+              "chest": 0.7913345694541931,
+              "hand_r": 0.016331009566783905,
+              "leg_r_lower": 0.09082195907831192,
+              "leg_r_upper": 0.10151244699954987
+            }
+          ],
+          "excess_length": 0.05343395957852508,
+          "posed_length": 0.05998141948885083,
+          "rest_length": 0.006547459910325752,
+          "rest_normalized_bounds": [
+            [
+              0.8531683804114459,
+              0.5022797079478656,
+              0.23462031527092977
+            ],
+            [
+              0.8552662147916714,
+              0.5287499306518388,
+              0.23382014251157035
+            ]
+          ],
+          "second": 2.0,
+          "stretch_ratio": 9.161021267844099
+        },
+        {
+          "endpoint_indices": [
+            42451,
+            42452
+          ],
+          "endpoint_influences": [
+            {
+              "chest": 0.7913345694541931,
+              "hand_r": 0.016331009566783905,
+              "leg_r_lower": 0.09082195907831192,
+              "leg_r_upper": 0.10151244699954987
+            },
+            {
+              "foot_r": 0.07085025310516357,
+              "hand_r": 0.7056363821029663,
+              "leg_r_lower": 0.10556193441152573,
+              "leg_r_upper": 0.11795146018266678
+            }
+          ],
+          "excess_length": 0.05343395957852508,
+          "posed_length": 0.05998141948885083,
+          "rest_length": 0.006547459910325752,
+          "rest_normalized_bounds": [
+            [
+              0.8552662147916714,
+              0.5287499306518388,
+              0.23382014251157035
+            ],
+            [
+              0.8531683804114459,
+              0.5022797079478656,
+              0.23462031527092977
+            ]
+          ],
+          "second": 2.0,
+          "stretch_ratio": 9.161021267844099
+        },
+        {
+          "endpoint_indices": [
+            42391,
+            42394
+          ],
+          "endpoint_influences": [
+            {
+              "chest": 0.2482444792985916,
+              "hand_r": 0.23295724391937256,
+              "leg_r_lower": 0.25249889492988586,
+              "leg_r_upper": 0.26629936695098877
+            },
+            {
+              "chest": 0.41891545057296753,
+              "foot_r": 0.13968178629875183,
+              "leg_r_lower": 0.21452420949935913,
+              "leg_r_upper": 0.22687853872776031
+            }
+          ],
+          "excess_length": 0.021212822055008806,
+          "posed_length": 0.0239732930650568,
+          "rest_length": 0.0027604710100479933,
+          "rest_normalized_bounds": [
+            [
+              0.8365961390459103,
+              0.518673574692391,
+              0.20500308061904757
+            ],
+            [
+              0.8383119390270302,
+              0.5295635772585757,
+              0.20617444915112004
+            ]
+          ],
+          "second": 2.0,
+          "stretch_ratio": 8.684493688865077
+        }
+      ],
+      "passed": false,
+      "reported_outliers": 4,
+      "sample_seconds": [
+        0.0,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0
+      ]
+    }
+  ],
+  "status": "severe_sampled_deformation",
+  "thresholds": {
+    "excess_height_fraction_strictly_greater_than": 0.03,
+    "excess_m_strictly_greater_than": 0.011399999856948851,
+    "height_m": 0.3799999952316284,
+    "height_source": "native_measured_rest",
+    "stretch_ratio_strictly_greater_than": 8.0
+  },
+  "version": "sampled-deformation-gate-v2",
+  "visual_approval": false
+}

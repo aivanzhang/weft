@@ -1,0 +1,247 @@
+{
+  "patch": {
+    "finish_updates": {
+      "camera_fit": "motion",
+      "camera_view": "three_quarter",
+      "color_corrections": null,
+      "fur_clump": 0,
+      "fur_max_chroma": 0.95,
+      "fur_undercoat": null,
+      "groom": {
+        "children": 14,
+        "comb": 0.18,
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "length": 0.0042,
+        "parents": 5200,
+        "radius": 0.00011,
+        "roughness": 0.004,
+        "seed": 1337421
+      },
+      "groom_excluded_parts": null,
+      "groom_exclusions": [
+        {
+          "center": [
+            0.21,
+            0.35,
+            0.62
+          ],
+          "radius": [
+            0.17,
+            0.18,
+            0.18
+          ]
+        },
+        {
+          "center": [
+            0.5,
+            0.18,
+            0.76
+          ],
+          "radius": [
+            0.35,
+            0.18,
+            0.18
+          ]
+        },
+        {
+          "center": [
+            0.5,
+            0.14,
+            0.68
+          ],
+          "radius": [
+            0.24,
+            0.18,
+            0.14
+          ]
+        }
+      ],
+      "groom_flow": {
+        "regions": [
+          {
+            "center": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "comb": 0.22,
+            "direction": [
+              0,
+              0.22,
+              -0.78
+            ],
+            "feather": 0.4,
+            "length_scale": 1,
+            "name": "body",
+            "radius": [
+              0.6,
+              0.55,
+              0.55
+            ]
+          },
+          {
+            "center": [
+              0.5,
+              0.22,
+              0.82
+            ],
+            "comb": 0.16,
+            "direction": [
+              0,
+              -0.18,
+              -0.92
+            ],
+            "feather": 0.4,
+            "length_scale": 0.7,
+            "name": "head_face",
+            "radius": [
+              0.45,
+              0.28,
+              0.35
+            ]
+          },
+          {
+            "center": [
+              0.5,
+              0.48,
+              0.96
+            ],
+            "comb": 0.08,
+            "direction": [
+              0,
+              0.05,
+              -0.98
+            ],
+            "feather": 0.7,
+            "length_scale": 0.42,
+            "name": "head_crown",
+            "radius": [
+              0.42,
+              0.36,
+              0.25
+            ]
+          },
+          {
+            "center": [
+              0.5,
+              0.45,
+              0.45
+            ],
+            "comb": 0.24,
+            "direction": [
+              0,
+              0.2,
+              -0.85
+            ],
+            "feather": 0.35,
+            "length_scale": 0.95,
+            "name": "limbs",
+            "radius": [
+              0.65,
+              0.55,
+              0.45
+            ]
+          }
+        ]
+      },
+      "groom_shader": {
+        "radial_roughness": 0.85,
+        "roughness": 0.65
+      },
+      "normal_continuity": null,
+      "portable_fur": {
+        "bands": [
+          {
+            "brightness": [
+              0,
+              1.01
+            ],
+            "color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "count": 3825
+          }
+        ],
+        "settings": {
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length": 0.0015,
+          "profile": "tuft-v1",
+          "root_placement": "skin-consistent-v1",
+          "sample_root_color": true,
+          "seed": 2209117,
+          "width": 0.018
+        }
+      },
+      "pose_resolution": 720,
+      "review_views": true,
+      "surface_profiles": null
+    },
+    "remove_finish_fields": [],
+    "root_translations": [
+      {
+        "state_id": "toy_dance",
+        "values": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            -0.006,
+            0,
+            0.015
+          ],
+          [
+            -0.015,
+            0,
+            0.055
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0.015,
+            0,
+            0.055
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            -0.015,
+            0,
+            0.055
+          ],
+          [
+            -0.006,
+            0,
+            0.015
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      }
+    ]
+  },
+  "reason": "Analytic fixture: copies the rejected candidate finishing and root translation values, but composes them over the earlier passing skin. Not a fresh AI generation or quality approval.",
+  "schema_version": 3,
+  "status": "ready"
+}

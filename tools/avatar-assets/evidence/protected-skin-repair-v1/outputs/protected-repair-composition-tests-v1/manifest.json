@@ -1,0 +1,31 @@
+{
+  "artifacts": [
+    {
+      "bytes": 5551,
+      "path": "result.json",
+      "sha256": "9e03f2ab2226c385a404dfe0281e9f8cb3489763ef92465b50949bda2e7bede2"
+    },
+    {
+      "bytes": 103610,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "8b50a6b35a080d5e2045ecd458514b8ee7fc89b8617ea91e5fed0fbaf7377883"
+    },
+    {
+      "bytes": 73082,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "69eac9c7bdc2a9d2da29e808edf216d297ad6eb59bd7bcf167070a4a4984cc01"
+    },
+    {
+      "bytes": 25136,
+      "path": "sources/avatar_assets/repair_composition.py",
+      "sha256": "c609649ae73bd71271ea4777bee5091150ee53a190d77afc6495cd3b25b888a3"
+    },
+    {
+      "bytes": 16383,
+      "path": "sources/tests/test_repair_composition.py",
+      "sha256": "24cb80e403da7055b7ced1a132486aae0729903e28a4caf646b186500a20a8f9"
+    }
+  ],
+  "classification": "Protected repair analytic implementation evidence; no generated quality acceptance",
+  "schema_version": 1
+}

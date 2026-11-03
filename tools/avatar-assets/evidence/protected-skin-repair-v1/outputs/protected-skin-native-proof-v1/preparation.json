@@ -1,0 +1,63 @@
+{
+  "classification": "Analytic deterministic derivative, not generated or accepted asset",
+  "composer_sha256": "927489a9d536f1a952de11e4c846bb9a256a2d60fd5de8681b8a32cfe966a090",
+  "config_sha256": "145f6d1eb1ac6b8c4c61b94dc9b4df4bc72a5c49d5664ef967007f11588fe9c5",
+  "inputs": [
+    {
+      "bytes": 34620,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/agents/author-2/answer.json",
+      "sha256": "3d89188c2901deff66c4ff0c4a3a0d4a45393a2c35beaa9f177c37ab167815d8"
+    },
+    {
+      "bytes": 11270,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/review-2.json",
+      "sha256": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39"
+    },
+    {
+      "bytes": 3417,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/deformation-gate-2.json",
+      "sha256": "c021c4f810023146563ad21727e7028b531248750e2804c757ee76b2d6c06fbc"
+    },
+    {
+      "bytes": 7319,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/plan.json",
+      "sha256": "67cdf0c89632ff84513a724e4830e819c7c8e40b70f0dc52e82bdbe13500127c"
+    },
+    {
+      "bytes": 187704,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/model-2/manifest.json",
+      "sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08"
+    },
+    {
+      "bytes": 4275,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/quality-policy.json",
+      "sha256": "250c3d052b7aeea0b8b74c5e38422a9eb82a1ce1f8a9ed5e5238e3d8980383d1"
+    },
+    {
+      "bytes": 34553,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6c2aeac484bd4d4597fb71f3/agents/author-2/answer.json",
+      "sha256": "f77ddd517c79bdc05df343f3ce9fbc5427257ed515b27e9778ec5ba0db9ddb57"
+    },
+    {
+      "bytes": 6749,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6c2aeac484bd4d4597fb71f3/deformation-gate-2.json",
+      "sha256": "084e3182c0f03d9b7ca82b2ec788d0d99cd509d3e4600d8d4b0c1d290cebbeb9"
+    }
+  ],
+  "ledger_mutations": 0,
+  "native_bounds": "Existing finish runner: bounded wall/RSS/output; no provider credentials in native child",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "scope": {
+    "allowed_scope": "finishing_and_existing_key_global_root_translation",
+    "failed_root_trajectory_requirements": [
+      {
+        "kind": "travel",
+        "requirement_id": "hops_and_sways",
+        "state_id": "toy_dance"
+      }
+    ],
+    "fixed_skin_and_articulation": true,
+    "root_bone": "root"
+  }
+}

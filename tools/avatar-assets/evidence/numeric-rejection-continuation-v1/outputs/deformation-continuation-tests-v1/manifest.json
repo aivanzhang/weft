@@ -1,0 +1,76 @@
+{
+  "artifacts": [
+    {
+      "bytes": 320,
+      "path": "command.json",
+      "sha256": "7e9f1eec9cc851f1445c42f44f82bb9fef09212561122fa06aed87d7f27b2bd1"
+    },
+    {
+      "bytes": 1178,
+      "path": "job.json",
+      "sha256": "5574fe222f95fca2b4d0ad047439f644853076ebc1f09e59ef24f1ca18d05f83"
+    },
+    {
+      "bytes": 11077,
+      "path": "prepared.json",
+      "sha256": "89ce5f78419a5407b325031d1671c91ba0b495d44d03fcbf6a6d2e69d6cc40bb"
+    },
+    {
+      "bytes": 1522,
+      "path": "result.json",
+      "sha256": "c8cabbb5764420daf45e87af09a4e5d2dce23497754b4f3a10adf06315dd19b9"
+    },
+    {
+      "bytes": 1594,
+      "path": "run.py",
+      "sha256": "d9623d9bb23b9ae9b4549a4f83ac08450b15019720a2f601fc08e1452725a955"
+    },
+    {
+      "bytes": 16614,
+      "path": "sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 65936,
+      "path": "sources/avatar_assets/pipeline_continuation.py",
+      "sha256": "747781cc5f6b3db069a89035aac15c0d77e9ac230a3a99c760e6dbe412f25283"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 7816,
+      "path": "sources/tests/test_deformation_continuation.py",
+      "sha256": "8b7540bcf9007612d517fb04faae920ad0cad5010b7c1257de7287980c046ec0"
+    },
+    {
+      "bytes": 15012,
+      "path": "sources/tests/test_deformation_gate.py",
+      "sha256": "f94a4c6c48828484173f9dfdd6525c2172d447a9fa587a224a8b0c6d2fb751b3"
+    },
+    {
+      "bytes": 31851,
+      "path": "sources/tests/test_pipeline_continuation.py",
+      "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8"
+    },
+    {
+      "bytes": 296,
+      "path": "tests-handle.json",
+      "sha256": "67cc9c5a5317972dcc916285aba58786d1bb5ea130de3b8435d679c750d64abe"
+    },
+    {
+      "bytes": 1080,
+      "path": "tests-monitor.json",
+      "sha256": "fefe340d843a793f6b2b84142b23a7ce3bdd4983c1271ccdde2118e4e4351678"
+    },
+    {
+      "bytes": 1668,
+      "path": "tests.log",
+      "sha256": "42faa1b502b15e1d0c44f9e92fca13e7fe0e185f413d7d914748b31a538dcfd3"
+    }
+  ],
+  "kind": "analytic_composed_continuation_tests",
+  "schema_version": 1
+}

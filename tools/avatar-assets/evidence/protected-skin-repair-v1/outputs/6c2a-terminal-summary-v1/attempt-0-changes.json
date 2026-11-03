@@ -1,0 +1,539 @@
+{
+  "author_declared_reason": "Continuation reuses the prior skeleton, bindings, and overall toy_dance structure, adjusting only fields tied to measured failures. (1) Exported coat artifacts (stubbly tips/speckling and crown lump): shortened and widened portable tuft-v1 cards (same 3825 count to preserve budget) and set fur_clump to 0 to reduce clumpy speckle; slightly broadened head_crown flow blending to soften the localized crown ridge. (2) Possible dragon/arm weight leakage contributing to export-side breakup: removed dragon bones from the whole-body fallback weight layer and tightened the dragon and arm spatial layers to reduce unintended influence outside their regions; additionally tightened the hand_r constraint ellipsoid to suppress demonstrated torso-side hand_r leakage. (3) Readable hops: increased root vertical translation peaks at beats (1s/2s/3s) while preserving timing, return-to-start, and all articulation roles.",
+  "classification": "Exact canonical configuration comparison; not causal attribution",
+  "reference": "outputs/studio-45757c9565b545119553baca/finish-2.json",
+  "versus_parent": [
+    {
+      "after": 0.035,
+      "before": 0.014,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/2/translations_m/root/2"
+    },
+    {
+      "after": 0.035,
+      "before": 0.014,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/4/translations_m/root/2"
+    },
+    {
+      "after": 0.035,
+      "before": 0.014,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/6/translations_m/root/2"
+    },
+    {
+      "after": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "ear_l",
+        "ear_r",
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l",
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r",
+        "tail"
+      ],
+      "before": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l",
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r",
+        "tail",
+        "dragon_root",
+        "dragon_body",
+        "dragon_head",
+        "dragon_tail1",
+        "dragon_tail2",
+        "dragon_wing_l",
+        "dragon_wing_r",
+        "ear_l",
+        "ear_r"
+      ],
+      "operation": "changed",
+      "path": "/authored_rig/layers/0/bones"
+    },
+    {
+      "after": 0.48,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/max/0"
+    },
+    {
+      "after": 0.68,
+      "before": 0.72,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/max/1"
+    },
+    {
+      "after": 0.78,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/max/2"
+    },
+    {
+      "after": -0.05,
+      "before": -0.1,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/min/0"
+    },
+    {
+      "after": 0.18,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/min/1"
+    },
+    {
+      "after": 1.05,
+      "before": 1.1,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/max/0"
+    },
+    {
+      "after": 0.68,
+      "before": 0.72,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/max/1"
+    },
+    {
+      "after": 0.78,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/max/2"
+    },
+    {
+      "after": 0.52,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/min/0"
+    },
+    {
+      "after": 0.18,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/min/1"
+    },
+    {
+      "after": 0.06,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/feather"
+    },
+    {
+      "after": 0.45,
+      "before": 0.52,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/max/0"
+    },
+    {
+      "after": 0.82,
+      "before": 0.88,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/max/2"
+    },
+    {
+      "after": 0.03,
+      "before": -0.05,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/min/0"
+    },
+    {
+      "after": 0.18,
+      "before": 0.02,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/min/1"
+    },
+    {
+      "after": 0.48,
+      "before": 0.42,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/min/2"
+    },
+    {
+      "after": 0,
+      "before": 0.02,
+      "operation": "changed",
+      "path": "/fur_clump"
+    },
+    {
+      "after": 0.35,
+      "before": 0.25,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/feather"
+    },
+    {
+      "after": 0.6,
+      "before": 0.65,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/length_scale"
+    },
+    {
+      "after": 0.35,
+      "before": 0.28,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/0"
+    },
+    {
+      "after": 0.28,
+      "before": 0.24,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/1"
+    },
+    {
+      "after": 0.2,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/2"
+    },
+    {
+      "after": "studio-6c2aeac484bd4d4597fb71f3-attempt-0",
+      "before": "studio-45757c9565b545119553baca-attempt-2",
+      "operation": "changed",
+      "path": "/id"
+    },
+    {
+      "after": 0.003,
+      "before": 0.0042,
+      "operation": "changed",
+      "path": "/portable_fur/settings/length"
+    },
+    {
+      "after": 0.0105,
+      "before": 0.0065,
+      "operation": "changed",
+      "path": "/portable_fur/settings/width"
+    },
+    {
+      "after": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6c2aeac484bd4d4597fb71f3/inputs/source-model.glb",
+      "before": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/inputs/source-model.glb",
+      "operation": "changed",
+      "path": "/source"
+    },
+    {
+      "after": 0.83,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/0"
+    },
+    {
+      "after": 0.48,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/1"
+    },
+    {
+      "after": 0.28,
+      "before": 0.32,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/2"
+    },
+    {
+      "after": 0.08,
+      "before": 0.12,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/0"
+    },
+    {
+      "after": 0.12,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/1"
+    },
+    {
+      "after": 0.12,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/2"
+    }
+  ],
+  "versus_previous_attempt": [
+    {
+      "after": 0.035,
+      "before": 0.014,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/2/translations_m/root/2"
+    },
+    {
+      "after": 0.035,
+      "before": 0.014,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/4/translations_m/root/2"
+    },
+    {
+      "after": 0.035,
+      "before": 0.014,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/6/translations_m/root/2"
+    },
+    {
+      "after": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "ear_l",
+        "ear_r",
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l",
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r",
+        "tail"
+      ],
+      "before": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l",
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r",
+        "tail",
+        "dragon_root",
+        "dragon_body",
+        "dragon_head",
+        "dragon_tail1",
+        "dragon_tail2",
+        "dragon_wing_l",
+        "dragon_wing_r",
+        "ear_l",
+        "ear_r"
+      ],
+      "operation": "changed",
+      "path": "/authored_rig/layers/0/bones"
+    },
+    {
+      "after": 0.48,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/max/0"
+    },
+    {
+      "after": 0.68,
+      "before": 0.72,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/max/1"
+    },
+    {
+      "after": 0.78,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/max/2"
+    },
+    {
+      "after": -0.05,
+      "before": -0.1,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/min/0"
+    },
+    {
+      "after": 0.18,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/min/1"
+    },
+    {
+      "after": 1.05,
+      "before": 1.1,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/max/0"
+    },
+    {
+      "after": 0.68,
+      "before": 0.72,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/max/1"
+    },
+    {
+      "after": 0.78,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/max/2"
+    },
+    {
+      "after": 0.52,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/min/0"
+    },
+    {
+      "after": 0.18,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/min/1"
+    },
+    {
+      "after": 0.06,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/feather"
+    },
+    {
+      "after": 0.45,
+      "before": 0.52,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/max/0"
+    },
+    {
+      "after": 0.82,
+      "before": 0.88,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/max/2"
+    },
+    {
+      "after": 0.03,
+      "before": -0.05,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/min/0"
+    },
+    {
+      "after": 0.18,
+      "before": 0.02,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/min/1"
+    },
+    {
+      "after": 0.48,
+      "before": 0.42,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/min/2"
+    },
+    {
+      "after": 0,
+      "before": 0.02,
+      "operation": "changed",
+      "path": "/fur_clump"
+    },
+    {
+      "after": 0.35,
+      "before": 0.25,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/feather"
+    },
+    {
+      "after": 0.6,
+      "before": 0.65,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/length_scale"
+    },
+    {
+      "after": 0.35,
+      "before": 0.28,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/0"
+    },
+    {
+      "after": 0.28,
+      "before": 0.24,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/1"
+    },
+    {
+      "after": 0.2,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/2"
+    },
+    {
+      "after": "studio-6c2aeac484bd4d4597fb71f3-attempt-0",
+      "before": "studio-45757c9565b545119553baca-attempt-2",
+      "operation": "changed",
+      "path": "/id"
+    },
+    {
+      "after": 0.003,
+      "before": 0.0042,
+      "operation": "changed",
+      "path": "/portable_fur/settings/length"
+    },
+    {
+      "after": 0.0105,
+      "before": 0.0065,
+      "operation": "changed",
+      "path": "/portable_fur/settings/width"
+    },
+    {
+      "after": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6c2aeac484bd4d4597fb71f3/inputs/source-model.glb",
+      "before": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/inputs/source-model.glb",
+      "operation": "changed",
+      "path": "/source"
+    },
+    {
+      "after": 0.83,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/0"
+    },
+    {
+      "after": 0.48,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/1"
+    },
+    {
+      "after": 0.28,
+      "before": 0.32,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/2"
+    },
+    {
+      "after": 0.08,
+      "before": 0.12,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/0"
+    },
+    {
+      "after": 0.12,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/1"
+    },
+    {
+      "after": 0.12,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/2"
+    }
+  ]
+}

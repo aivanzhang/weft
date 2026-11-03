@@ -1,0 +1,354 @@
+[
+  {
+    "event": {
+      "recorded": "2026-11-02T18:32:25.549238-08:00",
+      "schema_version": 1,
+      "stage": "planner",
+      "status": "running"
+    },
+    "file": "0000.json"
+  },
+  {
+    "event": {
+      "elapsed_seconds": 0.0,
+      "recorded": "2026-11-02T18:32:25.549897-08:00",
+      "schema_version": 1,
+      "stage": "planner",
+      "status": "ready"
+    },
+    "file": "0001.json"
+  },
+  {
+    "event": {
+      "new_paid_calls": 0,
+      "recorded": "2026-11-02T18:32:25.550348-08:00",
+      "schema_version": 1,
+      "stage": "geometry",
+      "status": "reused_generated_source"
+    },
+    "file": "0002.json"
+  },
+  {
+    "event": {
+      "new_geometry_paid_calls": 0,
+      "recorded": "2026-11-02T18:32:25.550590-08:00",
+      "schema_version": 1,
+      "stage": "pipeline",
+      "status": "planned"
+    },
+    "file": "0003.json"
+  },
+  {
+    "event": {
+      "recorded": "2026-11-02T18:32:57.250477-08:00",
+      "schema_version": 1,
+      "stage": "planner",
+      "status": "running"
+    },
+    "file": "0004.json"
+  },
+  {
+    "event": {
+      "elapsed_seconds": 0.001,
+      "recorded": "2026-11-02T18:32:57.251746-08:00",
+      "schema_version": 1,
+      "stage": "planner",
+      "status": "ready"
+    },
+    "file": "0005.json"
+  },
+  {
+    "event": {
+      "new_paid_calls": 0,
+      "recorded": "2026-11-02T18:32:57.252263-08:00",
+      "schema_version": 1,
+      "stage": "geometry",
+      "status": "reused_generated_source"
+    },
+    "file": "0006.json"
+  },
+  {
+    "event": {
+      "recorded": "2026-11-02T18:32:57.252520-08:00",
+      "schema_version": 1,
+      "stage": "inspection",
+      "status": "running"
+    },
+    "file": "0007.json"
+  },
+  {
+    "event": {
+      "elapsed_seconds": 3.256,
+      "reason": "Source geometry and review views inspected; no quality acceptance.",
+      "recorded": "2026-11-02T18:33:00.508428-08:00",
+      "schema_version": 1,
+      "stage": "inspection",
+      "status": "complete"
+    },
+    "file": "0008.json"
+  },
+  {
+    "event": {
+      "attempt": 0,
+      "reason": "Checking the exported coat",
+      "recorded": "2026-11-02T18:33:00.557233-08:00",
+      "schema_version": 1,
+      "stage": "inspection",
+      "status": "running"
+    },
+    "file": "0009.json"
+  },
+  {
+    "event": {
+      "attempt": 0,
+      "elapsed_seconds": 2.823,
+      "reason": "Coat check recorded; appearance review is still required",
+      "recorded": "2026-11-02T18:33:03.380293-08:00",
+      "schema_version": 1,
+      "stage": "inspection",
+      "status": "complete"
+    },
+    "file": "0010.json"
+  },
+  {
+    "event": {
+      "attempt": 0,
+      "recorded": "2026-11-02T18:33:03.380678-08:00",
+      "schema_version": 1,
+      "stage": "author",
+      "status": "running"
+    },
+    "file": "0011.json"
+  },
+  {
+    "event": {
+      "attempt": 0,
+      "elapsed_seconds": 95.237,
+      "reason": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "recorded": "2026-11-02T18:34:38.617619-08:00",
+      "schema_version": 1,
+      "stage": "author",
+      "status": "complete"
+    },
+    "file": "0012.json"
+  },
+  {
+    "event": {
+      "attempt": 0,
+      "recorded": "2026-11-02T18:34:38.618011-08:00",
+      "schema_version": 1,
+      "stage": "build",
+      "status": "running"
+    },
+    "file": "0013.json"
+  },
+  {
+    "event": {
+      "attempt": 0,
+      "elapsed_seconds": 47.118,
+      "reason": "Model built and source-bound; independent motion and visual checks are pending.",
+      "recorded": "2026-11-02T18:35:25.736340-08:00",
+      "schema_version": 1,
+      "stage": "build",
+      "status": "complete"
+    },
+    "file": "0014.json"
+  },
+  {
+    "event": {
+      "attempt": 0,
+      "recorded": "2026-11-02T18:35:25.736918-08:00",
+      "schema_version": 1,
+      "stage": "deformation_gate",
+      "status": "running"
+    },
+    "file": "0015.json"
+  },
+  {
+    "event": {
+      "attempt": 0,
+      "elapsed_seconds": 0.006,
+      "reason": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40005, 40081], \"endpoint_influences\": [{\"chest\": 0.41287997364997864, \"hand_r\": 0.5831224918365479, \"leg_r_upper\": 0.003997525200247765}, {\"chest\": 0.9956004619598389, \"leg_r_upper\": 0.004399562254548073}], \"excess_length\": 0.045297738454824536, \"posed_length\": 0.051488514278222715, \"rest_length\": 0.006190775823398178, \"rest_normalized_bounds\": [[0.8885017567831248, 0.4810486370905945, 0.2326445781261617], [0.9057040815998741, 0.4926256042639913, 0.23894718118651517]], \"second\": 2.0, \"stretch_ratio\": 8.316972823280194}, {\"endpoint_indices\": [39952, 40065], \"endpoint_influences\": [{\"chest\": 0.4102684557437897, \"hand_r\": 0.5855817794799805, \"leg_r_upper\": 0.004149775952100754}, {\"chest\": 0.9948838353157043, \"leg_r_upper\": 0.005116170272231102}], \"excess_length\": 0.043898503355201235, \"posed_length\": 0.049278178672033573, \"rest_length\": 0.005379675316832335, \"rest_normalized_bounds\": [[0.8864177820627298, 0.5059695267183324, 0.23543784004058135], [0.9048892631313671, 0.5067182091070549, 0.23761599769863326]], \"second\": 2.0, \"stretch_ratio\": 9.160065574561402}, {\"endpoint_indices\": [39982, 40123], \"endpoint_influences\": [{\"chest\": 0.40968528389930725, \"hand_r\": 0.5855761766433716, \"leg_r_upper\": 0.004738564603030682}, {\"chest\": 0.9817585349082947, \"hand_r\": 0.012017104774713516, \"leg_r_upper\": 0.006224384531378746}], \"excess_length\": 0.0437811994862969, \"posed_length\": 0.048219727060497784, \"rest_length\": 0.0044385275742008885, \"rest_normalized_bounds\": [[0.8864511747758543, 0.4980092949305071, 0.23086232079784896], [0.901795994304431, 0.49611728867563604, 0.23063360757744447]], \"second\": 2.0, \"stretch_ratio\": 10.863901655309476}, {\"endpoint_indices\": [40001, 40065], \"endpoint_influences\": [{\"chest\": 0.4485152065753937, \"hand_r\": 0.5471564531326294, \"leg_r_upper\": 0.004328359849750996}, {\"chest\": 0.9948838353157043, \"leg_r_upper\": 0.005116170272231102}], \"excess_length\": 0.04160638606719327, \"posed_length\": 0.04676524380089363, \"rest_length\": 0.005158857733700358, \"rest_normalized_bounds\": [[0.8877161083650275, 0.5031372010840631, 0.23445416732153349], [0.9048892631313671, 0.5067182091070549, 0.23761599769863326]], \"second\": 2.0, \"stretch_ratio\": 9.065038466829312}], \"max_reported_excess_m\": 0.045297738454824536, \"max_reported_stretch_ratio\": 10.863901655309476}]",
+      "recorded": "2026-11-02T18:35:25.742922-08:00",
+      "schema_version": 1,
+      "stage": "deformation_gate",
+      "status": "failed"
+    },
+    "file": "0016.json"
+  },
+  {
+    "event": {
+      "attempt": 0,
+      "reason": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40005, 40081], \"endpoint_influences\": [{\"chest\": 0.41287997364997864, \"hand_r\": 0.5831224918365479, \"leg_r_upper\": 0.003997525200247765}, {\"chest\": 0.9956004619598389, \"leg_r_upper\": 0.004399562254548073}], \"excess_length\": 0.045297738454824536, \"posed_length\": 0.051488514278222715, \"rest_length\": 0.006190775823398178, \"rest_normalized_bounds\": [[0.8885017567831248, 0.4810486370905945, 0.2326445781261617], [0.9057040815998741, 0.4926256042639913, 0.23894718118651517]], \"second\": 2.0, \"stretch_ratio\": 8.316972823280194}, {\"endpoint_indices\": [39952, 40065], \"endpoint_influences\": [{\"chest\": 0.4102684557437897, \"hand_r\": 0.5855817794799805, \"leg_r_upper\": 0.004149775952100754}, {\"chest\": 0.9948838353157043, \"leg_r_upper\": 0.005116170272231102}], \"excess_length\": 0.043898503355201235, \"posed_length\": 0.049278178672033573, \"rest_length\": 0.005379675316832335, \"rest_normalized_bounds\": [[0.8864177820627298, 0.5059695267183324, 0.23543784004058135], [0.9048892631313671, 0.5067182091070549, 0.23761599769863326]], \"second\": 2.0, \"stretch_ratio\": 9.160065574561402}, {\"endpoint_indices\": [39982, 40123], \"endpoint_influences\": [{\"chest\": 0.40968528389930725, \"hand_r\": 0.5855761766433716, \"leg_r_upper\": 0.004738564603030682}, {\"chest\": 0.9817585349082947, \"hand_r\": 0.012017104774713516, \"leg_r_upper\": 0.006224384531378746}], \"excess_length\": 0.0437811994862969, \"posed_length\": 0.048219727060497784, \"rest_length\": 0.0044385275742008885, \"rest_normalized_bounds\": [[0.8864511747758543, 0.4980092949305071, 0.23086232079784896], [0.901795994304431, 0.49611728867563604, 0.23063360757744447]], \"second\": 2.0, \"stretch_ratio\": 10.863901655309476}, {\"endpoint_indices\": [40001, 40065], \"endpoint_influences\": [{\"chest\": 0.4485152065753937, \"hand_r\": 0.5471564531326294, \"leg_r_upper\": 0.004328359849750996}, {\"chest\": 0.9948838353157043, \"leg_r_upper\": 0.005116170272231102}], \"excess_length\": 0.04160638606719327, \"posed_length\": 0.04676524380089363, \"rest_length\": 0.005158857733700358, \"rest_normalized_bounds\": [[0.8877161083650275, 0.5031372010840631, 0.23445416732153349], [0.9048892631313671, 0.5067182091070549, 0.23761599769863326]], \"second\": 2.0, \"stretch_ratio\": 9.065038466829312}], \"max_reported_excess_m\": 0.045297738454824536, \"max_reported_stretch_ratio\": 10.863901655309476}]",
+      "recorded": "2026-11-02T18:35:25.915243-08:00",
+      "schema_version": 1,
+      "stage": "attempt",
+      "status": "rejected"
+    },
+    "file": "0017.json"
+  },
+  {
+    "event": {
+      "attempt": 1,
+      "recorded": "2026-11-02T18:35:25.987064-08:00",
+      "schema_version": 1,
+      "stage": "author",
+      "status": "running"
+    },
+    "file": "0018.json"
+  },
+  {
+    "event": {
+      "attempt": 1,
+      "elapsed_seconds": 124.333,
+      "reason": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "recorded": "2026-11-02T18:37:30.320732-08:00",
+      "schema_version": 1,
+      "stage": "author",
+      "status": "complete"
+    },
+    "file": "0019.json"
+  },
+  {
+    "event": {
+      "attempt": 1,
+      "recorded": "2026-11-02T18:37:30.321102-08:00",
+      "schema_version": 1,
+      "stage": "build",
+      "status": "running"
+    },
+    "file": "0020.json"
+  },
+  {
+    "event": {
+      "attempt": 1,
+      "elapsed_seconds": 45.823,
+      "reason": "Model built and source-bound; independent motion and visual checks are pending.",
+      "recorded": "2026-11-02T18:38:16.144405-08:00",
+      "schema_version": 1,
+      "stage": "build",
+      "status": "complete"
+    },
+    "file": "0021.json"
+  },
+  {
+    "event": {
+      "attempt": 1,
+      "recorded": "2026-11-02T18:38:16.145014-08:00",
+      "schema_version": 1,
+      "stage": "deformation_gate",
+      "status": "running"
+    },
+    "file": "0022.json"
+  },
+  {
+    "event": {
+      "attempt": 1,
+      "elapsed_seconds": 0.005,
+      "reason": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [47702, 47704], \"endpoint_influences\": [{\"chest\": 0.20858053863048553, \"hand_l\": 0.29255861043930054, \"leg_l_lower\": 0.24282877147197723, \"leg_l_upper\": 0.2560321092605591}, {\"chest\": 0.2980509400367737, \"foot_l\": 0.18179674446582794, \"leg_l_lower\": 0.25457999110221863, \"leg_l_upper\": 0.26557230949401855}], \"excess_length\": 0.029386935871943097, \"posed_length\": 0.03342258000459282, \"rest_length\": 0.004035644132649724, \"rest_normalized_bounds\": [[0.15967366951669631, 0.4805800978984055, 0.20947295847030636], [0.16262453357711137, 0.4927522744342038, 0.20271347795930006]], \"second\": 1.0, \"stretch_ratio\": 8.281845203890219}, {\"endpoint_indices\": [39885, 39908], \"endpoint_influences\": [{\"chest\": 0.3953917622566223, \"hand_r\": 0.591248095035553, \"leg_r_lower\": 0.006408156361430883, \"leg_r_upper\": 0.006951988209038973}, {\"chest\": 0.7613194584846497, \"hand_r\": 0.23671658337116241, \"leg_r_upper\": 0.0019639756064862013}], \"excess_length\": 0.02779761132833743, \"posed_length\": 0.03056531089390237, \"rest_length\": 0.002767699565564941, \"rest_normalized_bounds\": [[0.8744045138865502, 0.4139701159089406, 0.2439059739853956], [0.8789829683173875, 0.4238645692189132, 0.24394595223283708]], \"second\": 2.0, \"stretch_ratio\": 11.043579756339414}, {\"endpoint_indices\": [40080, 40109], \"endpoint_influences\": [{\"chest\": 0.742704451084137, \"hand_r\": 0.2542263865470886, \"leg_r_upper\": 0.0030691917054355145}, {\"chest\": 0.4424826502799988, \"hand_r\": 0.5547146201133728, \"leg_r_upper\": 0.002802755916491151}], \"excess_length\": 0.024250654037337067, \"posed_length\": 0.027077462567360724, \"rest_length\": 0.002826808530023657, \"rest_normalized_bounds\": [[0.896408291174925, 0.41034444111196416, 0.2417904012051432], [0.892600200677512, 0.4000715785070849, 0.24346174291512518]], \"second\": 2.0, \"stretch_ratio\": 9.57881026598364}, {\"endpoint_indices\": [39851, 39868], \"endpoint_influences\": [{\"chest\": 0.45400118827819824, \"hand_r\": 0.4924790561199188, \"leg_r_lower\": 0.02532464638352394, \"leg_r_upper\": 0.0281950943171978}, {\"chest\": 0.8321391344070435, \"hand_r\": 0.16190211474895477, \"leg_r_upper\": 0.005958735477179289}], \"excess_length\": 0.024150021993189507, \"posed_length\": 0.027048919319832845, \"rest_length\": 0.0028988973266433392, \"rest_normalized_bounds\": [[0.867086380342847, 0.4219067934064374, 0.24912243923541671], [0.874731731388083, 0.4294772581033175, 0.24829175830880915]], \"second\": 2.0, \"stretch_ratio\": 9.33076141442824}], \"max_reported_excess_m\": 0.029386935871943097, \"max_reported_stretch_ratio\": 11.043579756339414}]",
+      "recorded": "2026-11-02T18:38:16.150422-08:00",
+      "schema_version": 1,
+      "stage": "deformation_gate",
+      "status": "failed"
+    },
+    "file": "0023.json"
+  },
+  {
+    "event": {
+      "attempt": 1,
+      "reason": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [47702, 47704], \"endpoint_influences\": [{\"chest\": 0.20858053863048553, \"hand_l\": 0.29255861043930054, \"leg_l_lower\": 0.24282877147197723, \"leg_l_upper\": 0.2560321092605591}, {\"chest\": 0.2980509400367737, \"foot_l\": 0.18179674446582794, \"leg_l_lower\": 0.25457999110221863, \"leg_l_upper\": 0.26557230949401855}], \"excess_length\": 0.029386935871943097, \"posed_length\": 0.03342258000459282, \"rest_length\": 0.004035644132649724, \"rest_normalized_bounds\": [[0.15967366951669631, 0.4805800978984055, 0.20947295847030636], [0.16262453357711137, 0.4927522744342038, 0.20271347795930006]], \"second\": 1.0, \"stretch_ratio\": 8.281845203890219}, {\"endpoint_indices\": [39885, 39908], \"endpoint_influences\": [{\"chest\": 0.3953917622566223, \"hand_r\": 0.591248095035553, \"leg_r_lower\": 0.006408156361430883, \"leg_r_upper\": 0.006951988209038973}, {\"chest\": 0.7613194584846497, \"hand_r\": 0.23671658337116241, \"leg_r_upper\": 0.0019639756064862013}], \"excess_length\": 0.02779761132833743, \"posed_length\": 0.03056531089390237, \"rest_length\": 0.002767699565564941, \"rest_normalized_bounds\": [[0.8744045138865502, 0.4139701159089406, 0.2439059739853956], [0.8789829683173875, 0.4238645692189132, 0.24394595223283708]], \"second\": 2.0, \"stretch_ratio\": 11.043579756339414}, {\"endpoint_indices\": [40080, 40109], \"endpoint_influences\": [{\"chest\": 0.742704451084137, \"hand_r\": 0.2542263865470886, \"leg_r_upper\": 0.0030691917054355145}, {\"chest\": 0.4424826502799988, \"hand_r\": 0.5547146201133728, \"leg_r_upper\": 0.002802755916491151}], \"excess_length\": 0.024250654037337067, \"posed_length\": 0.027077462567360724, \"rest_length\": 0.002826808530023657, \"rest_normalized_bounds\": [[0.896408291174925, 0.41034444111196416, 0.2417904012051432], [0.892600200677512, 0.4000715785070849, 0.24346174291512518]], \"second\": 2.0, \"stretch_ratio\": 9.57881026598364}, {\"endpoint_indices\": [39851, 39868], \"endpoint_influences\": [{\"chest\": 0.45400118827819824, \"hand_r\": 0.4924790561199188, \"leg_r_lower\": 0.02532464638352394, \"leg_r_upper\": 0.0281950943171978}, {\"chest\": 0.8321391344070435, \"hand_r\": 0.16190211474895477, \"leg_r_upper\": 0.005958735477179289}], \"excess_length\": 0.024150021993189507, \"posed_length\": 0.027048919319832845, \"rest_length\": 0.0028988973266433392, \"rest_normalized_bounds\": [[0.867086380342847, 0.4219067934064374, 0.24912243923541671], [0.874731731388083, 0.4294772581033175, 0.24829175830880915]], \"second\": 2.0, \"stretch_ratio\": 9.33076141442824}], \"max_reported_excess_m\": 0.029386935871943097, \"max_reported_stretch_ratio\": 11.043579756339414}]",
+      "recorded": "2026-11-02T18:38:16.322764-08:00",
+      "schema_version": 1,
+      "stage": "attempt",
+      "status": "rejected"
+    },
+    "file": "0024.json"
+  },
+  {
+    "event": {
+      "attempt": 2,
+      "recorded": "2026-11-02T18:38:16.384728-08:00",
+      "schema_version": 1,
+      "stage": "author",
+      "status": "running"
+    },
+    "file": "0025.json"
+  },
+  {
+    "event": {
+      "attempt": 2,
+      "elapsed_seconds": 90.264,
+      "reason": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "recorded": "2026-11-02T18:39:46.649018-08:00",
+      "schema_version": 1,
+      "stage": "author",
+      "status": "complete"
+    },
+    "file": "0026.json"
+  },
+  {
+    "event": {
+      "attempt": 2,
+      "recorded": "2026-11-02T18:39:46.649467-08:00",
+      "schema_version": 1,
+      "stage": "build",
+      "status": "running"
+    },
+    "file": "0027.json"
+  },
+  {
+    "event": {
+      "attempt": 2,
+      "elapsed_seconds": 44.752,
+      "reason": "Model built and source-bound; independent motion and visual checks are pending.",
+      "recorded": "2026-11-02T18:40:31.402018-08:00",
+      "schema_version": 1,
+      "stage": "build",
+      "status": "complete"
+    },
+    "file": "0028.json"
+  },
+  {
+    "event": {
+      "attempt": 2,
+      "recorded": "2026-11-02T18:40:31.402530-08:00",
+      "schema_version": 1,
+      "stage": "deformation_gate",
+      "status": "running"
+    },
+    "file": "0029.json"
+  },
+  {
+    "event": {
+      "attempt": 2,
+      "elapsed_seconds": 0.005,
+      "reason": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [39746, 39754], \"endpoint_influences\": [{\"foot_r\": 0.07085025310516357, \"hand_r\": 0.7056363821029663, \"leg_r_lower\": 0.10556193441152573, \"leg_r_upper\": 0.11795146018266678}, {\"chest\": 0.7913345694541931, \"hand_r\": 0.016331009566783905, \"leg_r_lower\": 0.09082195907831192, \"leg_r_upper\": 0.10151244699954987}], \"excess_length\": 0.05343395957852508, \"posed_length\": 0.05998141948885083, \"rest_length\": 0.006547459910325752, \"rest_normalized_bounds\": [[0.8531683804114459, 0.5022797079478656, 0.23462031527092977], [0.8552662147916714, 0.5287499306518388, 0.23382014251157035]], \"second\": 2.0, \"stretch_ratio\": 9.161021267844099}, {\"endpoint_indices\": [42451, 42452], \"endpoint_influences\": [{\"chest\": 0.7913345694541931, \"hand_r\": 0.016331009566783905, \"leg_r_lower\": 0.09082195907831192, \"leg_r_upper\": 0.10151244699954987}, {\"foot_r\": 0.07085025310516357, \"hand_r\": 0.7056363821029663, \"leg_r_lower\": 0.10556193441152573, \"leg_r_upper\": 0.11795146018266678}], \"excess_length\": 0.05343395957852508, \"posed_length\": 0.05998141948885083, \"rest_length\": 0.006547459910325752, \"rest_normalized_bounds\": [[0.8552662147916714, 0.5287499306518388, 0.23382014251157035], [0.8531683804114459, 0.5022797079478656, 0.23462031527092977]], \"second\": 2.0, \"stretch_ratio\": 9.161021267844099}, {\"endpoint_indices\": [42391, 42394], \"endpoint_influences\": [{\"chest\": 0.2482444792985916, \"hand_r\": 0.23295724391937256, \"leg_r_lower\": 0.25249889492988586, \"leg_r_upper\": 0.26629936695098877}, {\"chest\": 0.41891545057296753, \"foot_r\": 0.13968178629875183, \"leg_r_lower\": 0.21452420949935913, \"leg_r_upper\": 0.22687853872776031}], \"excess_length\": 0.021212822055008806, \"posed_length\": 0.0239732930650568, \"rest_length\": 0.0027604710100479933, \"rest_normalized_bounds\": [[0.8365961390459103, 0.518673574692391, 0.20500308061904757], [0.8383119390270302, 0.5295635772585757, 0.20617444915112004]], \"second\": 2.0, \"stretch_ratio\": 8.684493688865077}], \"max_reported_excess_m\": 0.053760651371493905, \"max_reported_stretch_ratio\": 9.161021267844099}]",
+      "recorded": "2026-11-02T18:40:31.408158-08:00",
+      "schema_version": 1,
+      "stage": "deformation_gate",
+      "status": "failed"
+    },
+    "file": "0030.json"
+  },
+  {
+    "event": {
+      "attempt": 2,
+      "reason": "Severe sampled skin deformation: [{\"id\": \"toy_dance\", \"passed\": false, \"sample_seconds\": [0.0, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [39746, 39754], \"endpoint_influences\": [{\"foot_r\": 0.07085025310516357, \"hand_r\": 0.7056363821029663, \"leg_r_lower\": 0.10556193441152573, \"leg_r_upper\": 0.11795146018266678}, {\"chest\": 0.7913345694541931, \"hand_r\": 0.016331009566783905, \"leg_r_lower\": 0.09082195907831192, \"leg_r_upper\": 0.10151244699954987}], \"excess_length\": 0.05343395957852508, \"posed_length\": 0.05998141948885083, \"rest_length\": 0.006547459910325752, \"rest_normalized_bounds\": [[0.8531683804114459, 0.5022797079478656, 0.23462031527092977], [0.8552662147916714, 0.5287499306518388, 0.23382014251157035]], \"second\": 2.0, \"stretch_ratio\": 9.161021267844099}, {\"endpoint_indices\": [42451, 42452], \"endpoint_influences\": [{\"chest\": 0.7913345694541931, \"hand_r\": 0.016331009566783905, \"leg_r_lower\": 0.09082195907831192, \"leg_r_upper\": 0.10151244699954987}, {\"foot_r\": 0.07085025310516357, \"hand_r\": 0.7056363821029663, \"leg_r_lower\": 0.10556193441152573, \"leg_r_upper\": 0.11795146018266678}], \"excess_length\": 0.05343395957852508, \"posed_length\": 0.05998141948885083, \"rest_length\": 0.006547459910325752, \"rest_normalized_bounds\": [[0.8552662147916714, 0.5287499306518388, 0.23382014251157035], [0.8531683804114459, 0.5022797079478656, 0.23462031527092977]], \"second\": 2.0, \"stretch_ratio\": 9.161021267844099}, {\"endpoint_indices\": [42391, 42394], \"endpoint_influences\": [{\"chest\": 0.2482444792985916, \"hand_r\": 0.23295724391937256, \"leg_r_lower\": 0.25249889492988586, \"leg_r_upper\": 0.26629936695098877}, {\"chest\": 0.41891545057296753, \"foot_r\": 0.13968178629875183, \"leg_r_lower\": 0.21452420949935913, \"leg_r_upper\": 0.22687853872776031}], \"excess_length\": 0.021212822055008806, \"posed_length\": 0.0239732930650568, \"rest_length\": 0.0027604710100479933, \"rest_normalized_bounds\": [[0.8365961390459103, 0.518673574692391, 0.20500308061904757], [0.8383119390270302, 0.5295635772585757, 0.20617444915112004]], \"second\": 2.0, \"stretch_ratio\": 8.684493688865077}], \"max_reported_excess_m\": 0.053760651371493905, \"max_reported_stretch_ratio\": 9.161021267844099}]",
+      "recorded": "2026-11-02T18:40:31.577619-08:00",
+      "schema_version": 1,
+      "stage": "attempt",
+      "status": "rejected"
+    },
+    "file": "0031.json"
+  },
+  {
+    "event": {
+      "reason": "No accepted model within the bounded local repair attempts",
+      "recorded": "2026-11-02T18:40:31.578085-08:00",
+      "schema_version": 1,
+      "stage": "repair_budget",
+      "status": "unsupported"
+    },
+    "file": "0032.json"
+  }
+]

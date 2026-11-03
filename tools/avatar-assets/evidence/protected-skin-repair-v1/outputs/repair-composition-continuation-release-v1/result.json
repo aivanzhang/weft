@@ -1,0 +1,66 @@
+{
+  "behavior": [
+    "Paid raw author patches and refusals remain unchanged.",
+    "Ready authors require verified materialized composition before config, geometry, binding, replan or seed reconstruction.",
+    "Legacy full-answer paths retain existing semantics; unexplained composition artifacts reject.",
+    "Parent immutable inventory includes composition baseline/effective answer/receipt."
+  ],
+  "dependency": {
+    "path": "avatar_assets/repair_composition.py",
+    "sha256": "af566026fa5263cf58532886b0cbdc04c0687ed8c531661ed6b22abf005eaf02"
+  },
+  "native_calls": 0,
+  "ownership_released": [
+    "avatar_assets/pipeline_continuation.py",
+    "tests/test_repair_composition_continuation.py"
+  ],
+  "provider_calls": 0,
+  "schema_version": 1,
+  "scope": "Continuation receipt custody and effective design reconstruction, not actual generated model or appearance acceptance.",
+  "sources": {
+    "avatar_assets/pipeline_continuation.py": {
+      "bytes": 59957,
+      "sha256": "0941b24aa8856020d5280e5798ab4810d6df8078b77086d3c2e77ea8df80b2fb"
+    },
+    "tests/test_repair_composition_continuation.py": {
+      "bytes": 10501,
+      "sha256": "a52291696486ff59f4075b135be078d138706f77a1ae366e45242c9e3525e2cb"
+    }
+  },
+  "status": "frozen",
+  "verification": {
+    "final_run_source_pins_unchanged": true,
+    "legacy_test_methods": 5,
+    "new_test_methods": 9,
+    "receipts": [
+      {
+        "exit_code": 1,
+        "manifest_sha256": "6776270a59f49a6d4cc0ceda3a14325528e3d10c1186f1d4ef926e332ead1602",
+        "path": "outputs/repair-composition-continuation-tests-v1",
+        "rss_samples": 4,
+        "sampled_peak_rss_bytes": 78446592,
+        "seconds": 1.277
+      },
+      {
+        "exit_code": 1,
+        "manifest_sha256": "b9948199467f57656fbfad9dbd4e55445d617289c3a7a451e0c3561624c8c4dc",
+        "path": "outputs/repair-composition-continuation-tests-v2",
+        "rss_samples": 6,
+        "sampled_peak_rss_bytes": 65175552,
+        "seconds": 1.788
+      },
+      {
+        "exit_code": 0,
+        "manifest_sha256": "907929c6121b32fa248ba84650ae87651d32897ab88065916006a93e80b96be5",
+        "path": "outputs/repair-composition-continuation-tests-v3",
+        "rss_samples": 7,
+        "sampled_peak_rss_bytes": 63979520,
+        "seconds": 2.043
+      }
+    ],
+    "unique_test_methods": 14,
+    "v1": "Five legacy methods passed; nine new methods failed during typed fixture schema setup.",
+    "v2": "One new orphan-composition method passed; eight new methods failed in explicit None image fixture wrapper.",
+    "v3": "All eight affected methods passed after empty image tuple correction."
+  }
+}

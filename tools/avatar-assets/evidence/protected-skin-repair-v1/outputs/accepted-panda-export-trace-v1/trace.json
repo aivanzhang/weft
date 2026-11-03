@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-02T18:48:41.206654-08:00",
+  "scope": "Read-only local provenance/config comparison; no new rendering or visual judgment",
+  "accepted_appearance_scope": "User accepted the saved appearance iteration and later the dance/flight demonstration. Local records explicitly distinguish dense native video from sparse/flecked interactive GLB; no independent claim that exported fur alone was accepted as Muse quality.",
+  "last_demonstrated_browser_pack": "outputs/muse-panda-dance-flight-v2",
+  "prior_same_raw_source_browser_pack": "outputs/muse-panda-smooth-fur-v3",
+  "packs": [
+    {
+      "pack": "outputs/muse-panda-smooth-fur-v3",
+      "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+      "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "height_m": 1.2,
+      "portable_fur": {
+        "bands": [
+          {
+            "brightness": [
+              0,
+              0.35
+            ],
+            "color": [
+              0.09,
+              0.08,
+              0.075,
+              1
+            ],
+            "count": 1320
+          },
+          {
+            "brightness": [
+              0.35,
+              1.01
+            ],
+            "color": [
+              0.92,
+              0.9,
+              0.85,
+              1
+            ],
+            "count": 1080
+          }
+        ],
+        "settings": {
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.014,
+          "profile": "combed-v1",
+          "sample_root_color": true,
+          "seed": 912,
+          "width": 0.005
+        }
+      },
+      "native_groom": {
+        "children": 30,
+        "comb": 0.6,
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "length": 0.018,
+        "parents": 6500,
+        "radius": 0.00017,
+        "roughness": 0.0006,
+        "seed": 831
+      },
+      "normal_strength": 0.15,
+      "fur_clump": 0.06,
+      "derived_ratios_not_visual_metrics": {
+        "card_length_height_ratio": 0.011666666666666667,
+        "card_width_height_ratio": 0.004166666666666667,
+        "native_length_height_ratio": 0.015
+      },
+      "portable_count": 2400
+    },
+    {
+      "pack": "outputs/muse-panda-dance-flight-v2",
+      "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/diagnostic-model.glb",
+      "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+      "height_m": 1.2,
+      "portable_fur": {
+        "bands": [
+          {
+            "brightness": [
+              0,
+              0.35
+            ],
+            "color": [
+              0.09,
+              0.08,
+              0.075,
+              1
+            ],
+            "count": 1320
+          },
+          {
+            "brightness": [
+              0.35,
+              1.01
+            ],
+            "color": [
+              0.92,
+              0.9,
+              0.85,
+              1
+            ],
+            "count": 1080
+          }
+        ],
+        "settings": {
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.014,
+          "profile": "combed-v1",
+          "sample_root_color": true,
+          "seed": 912,
+          "width": 0.005
+        }
+      },
+      "native_groom": {
+        "children": 30,
+        "comb": 0.6,
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "length": 0.018,
+        "parents": 6500,
+        "radius": 0.00017,
+        "roughness": 0.0006,
+        "seed": 831
+      },
+      "normal_strength": 0.15,
+      "fur_clump": 0.06,
+      "derived_ratios_not_visual_metrics": {
+        "card_length_height_ratio": 0.011666666666666667,
+        "card_width_height_ratio": 0.004166666666666667,
+        "native_length_height_ratio": 0.015
+      },
+      "portable_count": 2400
+    },
+    {
+      "pack": "outputs/studio-45757c9565b545119553baca/model-2",
+      "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/inputs/source-model.glb",
+      "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "height_m": 0.38,
+      "portable_fur": {
+        "bands": [
+          {
+            "brightness": [
+              0,
+              1.01
+            ],
+            "color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "count": 3825
+          }
+        ],
+        "settings": {
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length": 0.0042,
+          "profile": "tuft-v1",
+          "root_placement": "skin-consistent-v1",
+          "sample_root_color": true,
+          "seed": 2209117,
+          "width": 0.0065
+        }
+      },
+      "native_groom": {
+        "children": 14,
+        "comb": 0.28,
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "length": 0.006,
+        "parents": 5200,
+        "radius": 0.00012,
+        "roughness": 0.004,
+        "seed": 1337421
+      },
+      "normal_strength": 0.3,
+      "fur_clump": 0.02,
+      "derived_ratios_not_visual_metrics": {
+        "card_length_height_ratio": 0.011052631578947368,
+        "card_width_height_ratio": 0.017105263157894735,
+        "native_length_height_ratio": 0.015789473684210527
+      },
+      "portable_count": 3825
+    }
+  ],
+  "generalizable_clues": [
+    "Compare finishing dimensions relative to authored height: previous card length1.167% vs baseline1.105%, native length1.5% vs1.579%; absolute-metre comparison would misleadingly imply much longer old fur.",
+    "Baseline cards are relatively4.105 times wider (1.711%height vs0.417%); profile/topology/count/groom field also differ, so this is not proof width causes artifacts.",
+    "Oldcombed-v1 uses2400cards with two brightness bands, downwardZglobal direction and sampledrootcolor; currenttuft-v1 uses3825cards, skin-consistent roots and regionalfield. Morecards are not evidenceofbetterappearance.",
+    "The old recipe can inform scale-aware representation comparisons, not silently replace currentv2qualitypolicy or its attachmentguarantee.",
+    "Useraccepted native-first appearance does not provide an already-proven high-quality exported-coat recipe; both historical browser catalogs disclose lighter/sparser fur.",
+    "Dance-flight source includes authored companionseparation/closures, sourcehash734e...; current45757 uses originalf3... source. This prevents an exact sourcecontrolled comparison to latestdance-flight."
+  ],
+  "prohibited_actions_taken": {
+    "provider_calls": 0,
+    "native_calls": 0,
+    "browser_calls": 0,
+    "recipe_or_runtime_edits": 0
+  },
+  "references": [
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/model.glb",
+      "bytes": 29952112,
+      "sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/source.blend",
+      "bytes": 48885543,
+      "sha256": "242ac2b3332e6077c50f6497970dbac3807de71d69bf49351457bffe4b4c0df8"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/finish-config.json",
+      "bytes": 24340,
+      "sha256": "a071f42eb313e692f0833c06b64f0d459be748c01178ff8619d1062d20825ebf"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/finish-report.json",
+      "bytes": 39365,
+      "sha256": "c1f936f2fb75a994f375852231361adc123bc143746ac7171909569855c77fe3"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/manifest.json",
+      "bytes": 67655,
+      "sha256": "6849b4a0c6ed0773b0219c37f91d9ef193b1b257a1bfd2eb779b55dc6babfd01"
+    },
+    {
+      "path": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "bytes": 29999436,
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67"
+    },
+    {
+      "path": "outputs/muse-panda-dance-flight-v2/source.blend",
+      "bytes": 50792001,
+      "sha256": "3537d88b09c6b9ef59ee0e77d89378ecae8b9961a182b2551d4e63383822727e"
+    },
+    {
+      "path": "outputs/muse-panda-dance-flight-v2/finish-config.json",
+      "bytes": 39291,
+      "sha256": "d494b3904b03a008a6952481a157b982b19709887c451724c916141d5b915294"
+    },
+    {
+      "path": "outputs/muse-panda-dance-flight-v2/finish-report.json",
+      "bytes": 36648,
+      "sha256": "a091a0d7044274d6af6ae1ecd5d66df54032a54260df65e83c459af3e589b0c8"
+    },
+    {
+      "path": "outputs/muse-panda-dance-flight-v2/manifest.json",
+      "bytes": 59416,
+      "sha256": "e7785cfc3fad32ad92492c045aea8736730a0f7cfb85a40b3b90ee3093a07e47"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/model-2/model.glb",
+      "bytes": 31190952,
+      "sha256": "95088085cc205911f493203ef830f7045d79637cf659a19c89c77cfcebf60a54"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/model-2/source.blend",
+      "bytes": 50732169,
+      "sha256": "f0ce473e05342fb696c5a0250022d3bdc14aa2c64159d804cc83aad30d2a072e"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/model-2/finish-config.json",
+      "bytes": 25009,
+      "sha256": "b77d47d2fec325a7c108a1fa65ef8e77ef4b86d8f431d52f353ae29fd3e27d24"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/model-2/finish-report.json",
+      "bytes": 155005,
+      "sha256": "5fab3cf97fb50c2114e6c7f190b4863dfb4609861f6ee36ce623e60c3af29aec"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/model-2/manifest.json",
+      "bytes": 187704,
+      "sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08"
+    },
+    {
+      "path": "docs/fur-workflow.md",
+      "bytes": 13071,
+      "sha256": "6917f29950bd6811b4afd67a0bb2e12f75f556e72ae641cd626cc8891ec91a1f"
+    },
+    {
+      "path": "docs/compound-motion.md",
+      "bytes": 14577,
+      "sha256": "6a8b52eeec7a07ccf07c37caab529a869aa3a80cf957826f8867ef136997dafc"
+    },
+    {
+      "path": "TODO-history-2026-11-02.md",
+      "bytes": 209096,
+      "sha256": "6bee1cba7af7c4b4c4f54fdd6cc6e1e0908124d2548b52810724527c05130382"
+    },
+    {
+      "path": "outputs/browser-panda-fur-v1/source-catalog.json",
+      "bytes": 916,
+      "sha256": "baf9188d0bb9520ec323f4d07a459f9edaa6fbe18e2bb870743c45d6d414a346"
+    },
+    {
+      "path": "outputs/browser-panda-fur-v1/browser-test.json",
+      "bytes": 13328,
+      "sha256": "9d8bfd30728456dcc9b4d09af878ff5dc053315586e20d80eabcab70f1ab85b6"
+    },
+    {
+      "path": "outputs/browser-panda-fur-v1/asset-01-model.png",
+      "bytes": 281695,
+      "sha256": "c2229a3098dd62c9d074d3c2bf9ae3852e82b0dd20da7c761c852ddd8bc41ebd"
+    },
+    {
+      "path": "outputs/browser-compound-motion-v1/source-catalog.json",
+      "bytes": 699,
+      "sha256": "a5abb0c2bc1d793e5a3a9f30cc56635952429ff350d78adc1a023a5c77fa2df9"
+    },
+    {
+      "path": "outputs/browser-compound-motion-v1/browser-test.json",
+      "bytes": 6130,
+      "sha256": "a65b8eb2b21650ca047306c45c2fd15cde3faa4a0e57121480bae9c305bf81f8"
+    },
+    {
+      "path": "outputs/browser-compound-motion-v1/asset-01-model.png",
+      "bytes": 270164,
+      "sha256": "1eab65a5eddcecd6ba2beaadd5a5ab87c61d54cc19d2e4add7d9000e584e71a7"
+    },
+    {
+      "path": "outputs/compound-motion-delivery-v1/manifest.json",
+      "bytes": 1654,
+      "sha256": "ee1512e11ff534fc2d01955a2320bc50be4546dc6bbef8cb7c20342b63d213b0"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-c",
+      "import sys, unittest; sys.path.insert(0, 'tests'); unittest.main(module=None, argv=['unittest', 'test_repair_composition_continuation.ComposedContinuationTests.test_native_continuation_uses_effective_design_and_retains_paid_patch', 'test_repair_composition_continuation.ComposedContinuationTests.test_missing_composition_never_falls_back_to_raw_patch', 'test_repair_composition_continuation.ComposedContinuationTests.test_changed_effective_answer_is_not_a_new_paid_design', 'test_repair_composition_continuation.ComposedContinuationTests.test_changed_passing_baseline_stops_before_reconstruction', 'test_repair_composition_continuation.ComposedContinuationTests.test_raw_paid_patch_tampering_is_rejected_before_composition', 'test_repair_composition_continuation.ComposedContinuationTests.test_visual_terminal_reconstructs_from_composed_design', 'test_repair_composition_continuation.ComposedContinuationTests.test_paid_patch_refusal_remains_raw_while_previous_seed_is_effective', 'test_repair_composition_continuation.ComposedContinuationTests.test_semantic_replan_receives_effective_design_and_separate_paid_raw'], verbosity=2)"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 2.043,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 197339,
+    "last_rss_sample_elapsed_seconds": 1.787,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 20410,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 7,
+    "sampled_max_output_bytes": 197339,
+    "sampled_peak_rss_bytes": 63979520,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "native_calls": 0,
+  "passed": true,
+  "provider_calls": 0,
+  "scope": "Analytic receipt/authentication and continuation control flow; no appearance or actual native proof.",
+  "source_changes": [],
+  "targets": [
+    "test_repair_composition_continuation.ComposedContinuationTests.test_native_continuation_uses_effective_design_and_retains_paid_patch",
+    "test_repair_composition_continuation.ComposedContinuationTests.test_missing_composition_never_falls_back_to_raw_patch",
+    "test_repair_composition_continuation.ComposedContinuationTests.test_changed_effective_answer_is_not_a_new_paid_design",
+    "test_repair_composition_continuation.ComposedContinuationTests.test_changed_passing_baseline_stops_before_reconstruction",
+    "test_repair_composition_continuation.ComposedContinuationTests.test_raw_paid_patch_tampering_is_rejected_before_composition",
+    "test_repair_composition_continuation.ComposedContinuationTests.test_visual_terminal_reconstructs_from_composed_design",
+    "test_repair_composition_continuation.ComposedContinuationTests.test_paid_patch_refusal_remains_raw_while_previous_seed_is_effective",
+    "test_repair_composition_continuation.ComposedContinuationTests.test_semantic_replan_receives_effective_design_and_separate_paid_raw"
+  ]
+}

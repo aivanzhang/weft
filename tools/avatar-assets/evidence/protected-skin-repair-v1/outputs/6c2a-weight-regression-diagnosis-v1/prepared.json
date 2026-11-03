@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/6c2a-weight-regression-diagnosis-v1/check.py"
+  ],
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "schema_version": 1,
+  "scope": "Read-only exact recipe/gate comparison and eight-point analytical constraint factors; no whole-mesh scan, mutation, native or API call",
+  "script_sha256": "74f77f6074eb87330c209ef3da5cd02f263c81a6d6aa95d069d95be00fb1c599"
+}

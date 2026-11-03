@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-02T19:09:46.210472-08:00",
+  "scope": "Completed protected-skin core, terminal evidence and analytic/native diagnostic proof. Not a completed Studio delivery or appearance acceptance.",
+  "tests": {
+    "composer_and_coordinator_unique": 77,
+    "composer_source_sha256": "c609649ae73bd71271ea4777bee5091150ee53a190d77afc6495cd3b25b888a3",
+    "continuation_unique": 14,
+    "continuation_release_dependency_sha256": "af566026fa5263cf58532886b0cbdc04c0687ed8c531661ed6b22abf005eaf02",
+    "combined_final_version_claim": false,
+    "note": "Separate preserved release scopes; continuation14 used an earlier helper. New numeric-terminal continuation fix remains in progress and is not included."
+  },
+  "native_proof": {
+    "classification": "Analytic derivative from immutable baseline + copied child finishing/root fields; real native build, not new AI generation",
+    "deformation_passed": true,
+    "appearance_accepted": false,
+    "elapsed_seconds": 44.23504191683605,
+    "native_seconds": 43.641,
+    "sampled_direct_child_peak_rss_bytes": 1786314752,
+    "output_bytes": 89330732
+  },
+  "first_preflight": {
+    "status": "failed",
+    "failure": "Continuation failed pack custody changed",
+    "scope": "Completed native model plus failed deformation gate did not match prior failed-native-pack continuation assumption",
+    "no_success_claim": true
+  },
+  "current_user_scope": "Retain accepted appearance; stop fur tuning; complete hands-off website/backend. Old fur-retry preparation superseded before activation.",
+  "references": [
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/job.json",
+      "bytes": 1789,
+      "sha256": "0d8cae3ad46a05444e66d79fa58cd49a7b8686c89cf0ebbf8cf2b15b3ba30c56",
+      "reason": "runtime_receipt_hash_reference"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/job.json",
+      "bytes": 1185,
+      "sha256": "bdfafed9353deaade885fd6798fcf13641546f8ca84528c8d1759814ce05658b",
+      "reason": "runtime_receipt_hash_reference"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/job.json",
+      "bytes": 2165,
+      "sha256": "cd2e816731eeb1d6c764a14107ed7992bebbc2029628eb7581bb3b33080a6dca",
+      "reason": "runtime_receipt_hash_reference"
+    },
+    {
+      "path": "outputs/6c2a-weight-regression-diagnosis-v1/job.json",
+      "bytes": 1078,
+      "sha256": "318964047c0880e7ec6545f899439766a4be58188994fde6e71e92f38646d3da",
+      "reason": "runtime_receipt_hash_reference"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/model/model.glb",
+      "bytes": 31208588,
+      "sha256": "958c007dec77de1a3970b175dfd35530caf8dbebbcc314b931f9216530fe82f2",
+      "reason": "large_or_runtime_artifact_hash_reference"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/model/source.blend",
+      "bytes": 50732155,
+      "sha256": "066f98360b69c40330ee585b27739110459735eab703ed92a87f34cf466d360e",
+      "reason": "large_or_runtime_artifact_hash_reference"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/model/job.json",
+      "bytes": 1554,
+      "sha256": "25d4327489e9d4df1ce3c3e9f917a64483ce0b61244d66fad9fa8521e0f696d0",
+      "reason": "large_or_runtime_artifact_hash_reference"
+    }
+  ],
+  "actions_during_bundling": {
+    "provider_calls": 0,
+    "native_calls": 0,
+    "browser_calls": 0,
+    "git_writes": 0,
+    "runtime_recipe_or_ledger_edits": 0
+  }
+}

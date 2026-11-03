@@ -1,0 +1,35 @@
+from pathlib import Path
+import sys,json,hashlib
+import numpy as np
+sys.path.insert(0,str(Path.cwd()))
+from avatar_assets.safety import read_json,sha256,write_json
+out=Path(__file__).parent;root=Path.cwd();pins=read_json(out/'input-pins.json')
+for name,pin in pins.items():assert sha256(root/name)==pin['sha256'] and (root/name).stat().st_size==pin['bytes']
+p=root/'outputs/studio-45757c9565b545119553baca';c=root/'outputs/studio-6c2aeac484bd4d4597fb71f3'
+a=read_json(p/'finish-2.json');b=read_json(c/'finish-0.json');pg=read_json(p/'deformation-gate-2.json');cg=read_json(c/'deformation-gate-0.json')
+for folder,attempt,gate in ((p,2,pg),(c,0,cg)):
+ pack=folder/f'model-{attempt}';m=read_json(pack/'manifest.json');report=read_json(pack/'finish-report.json')
+ assert m['finish']==report and gate['bindings']['manifest_sha256']==sha256(pack/'manifest.json') and gate['bindings']['finish_report_sha256']==sha256(pack/'finish-report.json')
+ assert next(x for x in m['artifacts'] if x['path']=='finish-report.json')['sha256']==sha256(pack/'finish-report.json')
+review=read_json(p/'review-2.json')['review'];req=read_json(c/'agents/author-0/request.json');receipt=read_json(c/'agents/author-0/receipt.json');answer=read_json(c/'agents/author-0/answer.json');prompt=(c/'agents/author-0/prompt.txt').read_text()
+assert sha256(c/'agents/author-0/prompt.txt')==req['prompt_sha256'] and sha256(c/'agents/author-0/answer.json')==receipt['answer_sha256']
+pa={x['name']:x for x in a['authored_rig']['bones']};cb={x['name']:x for x in b['authored_rig']['bones']}
+assert pa==cb and a['authored_rig']['base_bones']==b['authored_rig']['base_bones']
+changes=[]
+for old,new in zip(a['authored_actions'],b['authored_actions']):
+ assert old['id']==new['id'] and old['interpolation']==new['interpolation'] and len(old['keys'])==len(new['keys'])
+ for x,y in zip(old['keys'],new['keys']):
+  assert x['second']==y['second'] and x['rotations']==y['rotations']
+  if x.get('translations_m')!=y.get('translations_m'):changes.append({'state':old['id'],'second':x['second'],'before':x.get('translations_m'),'after':y.get('translations_m')})
+witness=[]
+for row in cg['states'][0]['offending_outliers']:
+ points=np.asarray(row['rest_normalized_bounds']);factors={};alphas={}
+ for label,cfg in [('parent',a),('child',b)]:
+  r=cfg['weight_constraints']['regions']['hand_r'];distance=np.linalg.norm((points-r['center'])/r['radius'],axis=1)
+  factors[label]={'ellipsoid_distance':distance.tolist(),'retained_hand_r_fraction':np.clip((1-distance)/.25,0,1).tolist()}
+  layer=cfg['authored_rig']['layers'][6];edge=np.minimum(points-layer['min'],np.asarray(layer['max'])-points).min(axis=1);v=np.clip(edge/layer['feather'],0,1);alphas[label]=(v*v*(3-2*v)).tolist()
+ witness.append({'measured_child':row,'analytic_constraint_factors':factors,'analytic_right_arm_layer_alpha':alphas,'right_arm_layer_alpha_equal_here':alphas['parent']==alphas['child']})
+result={'schema_version':1,'status':'read_only_diagnosis','source_sha256':a['source_sha256'],'input_hashes_verified':True,'same_source':a['source_sha256']==b['source_sha256'],'same_rest_hashes':all(pg['measurement'][k]==cg['measurement'][k] for k in ['rest_sha256','edges_sha256']),'parent_deformation_passed':pg['passed'],'parent_latest_review_deformation':next(x for x in review['checks'] if x['name']=='deformation'),'child_deformation_passed':cg['passed'],'parent_max_reported_excess_m':pg['states'][0]['max_reported_excess_m'],'child_max_reported_excess_m':cg['states'][0]['max_reported_excess_m'],'named_bone_definitions_identical':True,'all_rotation_keys_identical':True,'base_bones_identical':True,'bone_order_before':[x['name'] for x in a['authored_rig']['bones']],'bone_order_after':[x['name'] for x in b['authored_rig']['bones']],'action_changes':changes,'layer_changes':[{'index':i,'before':x,'after':y} for i,(x,y) in enumerate(zip(a['authored_rig']['layers'],b['authored_rig']['layers'])) if x!=y],'constraint_before':a['weight_constraints'],'constraint_after':b['weight_constraints'],'witnesses':witness,'paid_author_reason':answer['reason'],'paid_prompt_had_weight_preservation_instruction':'Preserve already-passing rig bindings, weights and motion keys unless a specific current defect requires changing them.' in prompt,'interpretation':['Root translation moves both endpoints equally and cannot explain a change in their relative distance; all joint rotations and named bone rest definitions stayed equal.','The shifted/narrowed hand_r ellipsoid raises retention at the first witness endpoint while taking the neighbor outside the ellipsoid; removed mass transfers to chest. The measured child has a large hand/chest ownership discontinuity.','The narrowed right-arm box has exactly the same computed blend alpha at these witnesses; the hand constraint is the local causal change. Broad layer membership and bone ordering also changed, so this is not a measured isolated counterfactual replay.','Latest parent numerical and visual deformation checks passed. Historical failures and previous author reason still mention hand leakage; the child cited possible leakage despite the explicit preservation instruction.','Passing the sampled severe-edge gate is not globally perfect skinning: parent still reported40.575mm maximum excess below the BOTH-criteria rejection.'],'recommended_new_scope':{'mode':'explicit authenticated baseline plus appearance/root-translation patch','protect':['ordered authored_rig','weight_constraints','part_rigs','attachment','action_bindings','source identity','smoothing','surface_smoothing'],'motion_invariants':['state IDs','key counts/times/interpolation','all rotations','all nonroot translations'],'root_translation_changes':'Only the unique baseline root is editable; independent motion/visual gates remain mandatory.','raw_answer':'Preserve raw patch unchanged; compose separate effective design with baseline, patch and composed hashes. Reject supplied protected fields instead of ignoring them.','required_consumers':['pipeline before _author_preflight and finish_config','extract_action_bindings','critic effective config','pipeline_continuation authenticated effective-design reconstruction'],'legacy':'Old full-design answers and old receipts retain their original interpretation.','tests':['Coat and root translation edits preserve exact skin recipe','Any protected field or nonroot motion edit refuses before native','Newest bound passing deformation supersedes stale generic ancestor failures for repair scope','Tampered/foreign baseline fails custody; no silent fallback','Explicit new current deformation evidence needs a separate broader repair scope']},'native_or_api_calls':0,'production_or_recipe_edits':False,'quality_acceptance':False}
+for name,pin in pins.items():assert sha256(root/name)==pin['sha256']
+write_json(out/'result.json',result)
+print({'parent_deformation_passed':pg['passed'],'child_deformation_passed':cg['passed'],'changed_layer_indices':[x['index'] for x in result['layer_changes']],'action_change_count':len(changes),'witnesses':len(witness)})

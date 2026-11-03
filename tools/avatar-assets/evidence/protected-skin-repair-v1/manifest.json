@@ -1,0 +1,531 @@
+{
+  "schema_version": 1,
+  "copied_files": 85,
+  "copied_bytes": 1638375,
+  "limit_bytes": 10485760,
+  "copied": [
+    {
+      "path": "docs/protected-skin-repairs.md",
+      "source": "docs/protected-skin-repairs.md",
+      "bytes": 7337,
+      "sha256": "f4374b99e6a4279ece458505d99603a1de2e6f333eba0651e3f52ccb9cd3d2fe"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/artifact-references.json",
+      "source": "outputs/6c2a-terminal-summary-v1/artifact-references.json",
+      "bytes": 11917,
+      "sha256": "fcf373dddf8db1e2df1dce7c71a4160c48c4cc158c8374604b436d125e36bd0e"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/attempt-0-changes.json",
+      "source": "outputs/6c2a-terminal-summary-v1/attempt-0-changes.json",
+      "bytes": 13306,
+      "sha256": "7626cfd10caea6d78c6948744edbc1afb3882b376757eea0dfdd52684802c780"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/attempt-0-deformation-gate.json",
+      "source": "outputs/6c2a-terminal-summary-v1/attempt-0-deformation-gate.json",
+      "bytes": 7328,
+      "sha256": "d07f219d258eacda6b4f78d09e426e7762c3eb7e5babc254804e00350fe281e8"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/attempt-1-changes.json",
+      "source": "outputs/6c2a-terminal-summary-v1/attempt-1-changes.json",
+      "bytes": 15670,
+      "sha256": "2da5b43ce31bd3dcf3566087d709bef1f807e9debccbfb6433a27478c643e494"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/attempt-1-deformation-gate.json",
+      "source": "outputs/6c2a-terminal-summary-v1/attempt-1-deformation-gate.json",
+      "bytes": 7655,
+      "sha256": "5e69dc4a50177a5dbdc9879f64b93eadab475139b95466023b5ee85628b3dd8a"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/attempt-2-changes.json",
+      "source": "outputs/6c2a-terminal-summary-v1/attempt-2-changes.json",
+      "bytes": 22782,
+      "sha256": "8bfb11666dae16a587c82100d97e4f33b3f2a7b64a60735d4e0a4422d3983bfd"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/attempt-2-deformation-gate.json",
+      "source": "outputs/6c2a-terminal-summary-v1/attempt-2-deformation-gate.json",
+      "bytes": 6749,
+      "sha256": "084e3182c0f03d9b7ca82b2ec788d0d99cd509d3e4600d8d4b0c1d290cebbeb9"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/events.json",
+      "source": "outputs/6c2a-terminal-summary-v1/events.json",
+      "bytes": 23911,
+      "sha256": "11e1c2dd8e2c76d8e11d9437b85150bdc65b24dc9bdc0c56763c8557fda24369"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/manifest.json",
+      "source": "outputs/6c2a-terminal-summary-v1/manifest.json",
+      "bytes": 1641,
+      "sha256": "8a92f164e396f69b23494baeec0d00818b9ebad24530aa68cb1dd50bae6cc21c"
+    },
+    {
+      "path": "outputs/6c2a-terminal-summary-v1/summary.json",
+      "source": "outputs/6c2a-terminal-summary-v1/summary.json",
+      "bytes": 29825,
+      "sha256": "39f4cf768234bd7df934eb74d123260eafe69e0adbad759b4809c231f044745d"
+    },
+    {
+      "path": "outputs/6c2a-weight-regression-diagnosis-v1/check.py",
+      "source": "outputs/6c2a-weight-regression-diagnosis-v1/check.py",
+      "bytes": 7046,
+      "sha256": "74f77f6074eb87330c209ef3da5cd02f263c81a6d6aa95d069d95be00fb1c599"
+    },
+    {
+      "path": "outputs/6c2a-weight-regression-diagnosis-v1/diagnosis.log",
+      "source": "outputs/6c2a-weight-regression-diagnosis-v1/diagnosis.log",
+      "bytes": 153,
+      "sha256": "fe182e1858a655f8cc9d7fc4102d0e868ca58ed5aadabff3bfa60781dd5612a2"
+    },
+    {
+      "path": "outputs/6c2a-weight-regression-diagnosis-v1/input-pins.json",
+      "source": "outputs/6c2a-weight-regression-diagnosis-v1/input-pins.json",
+      "bytes": 2860,
+      "sha256": "55f54360b48b3de31794a29b0bcd3f1c8e106b9778f48b73a006c042daf74b96"
+    },
+    {
+      "path": "outputs/6c2a-weight-regression-diagnosis-v1/manifest.json",
+      "source": "outputs/6c2a-weight-regression-diagnosis-v1/manifest.json",
+      "bytes": 1642,
+      "sha256": "7584b5598a068a530769b3b5078fd90d463c3ad1345bf01b9144d33f04c0bb43"
+    },
+    {
+      "path": "outputs/6c2a-weight-regression-diagnosis-v1/prepared.json",
+      "source": "outputs/6c2a-weight-regression-diagnosis-v1/prepared.json",
+      "bytes": 549,
+      "sha256": "bb796b1a764b526723b41f6a81632f5a2255be916cfc20f9d94c8b26a5016438"
+    },
+    {
+      "path": "outputs/6c2a-weight-regression-diagnosis-v1/result.json",
+      "source": "outputs/6c2a-weight-regression-diagnosis-v1/result.json",
+      "bytes": 19958,
+      "sha256": "7b27ddb11341251c9c2df3670fdecfa7cf0292ee5b6159e4c52d664874d310d4"
+    },
+    {
+      "path": "outputs/6c2a-weight-regression-diagnosis-v1/sources/blender_finish_generated.py",
+      "source": "outputs/6c2a-weight-regression-diagnosis-v1/sources/blender_finish_generated.py",
+      "bytes": 59927,
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    {
+      "path": "outputs/6c2a-weight-regression-diagnosis-v1/sources/creature_rig_math.py",
+      "source": "outputs/6c2a-weight-regression-diagnosis-v1/sources/creature_rig_math.py",
+      "bytes": 5399,
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "path": "outputs/accepted-panda-export-trace-v1/README.md",
+      "source": "outputs/accepted-panda-export-trace-v1/README.md",
+      "bytes": 1287,
+      "sha256": "8331f48325bf0437d8b4798bbe830c662695b63d106ff63570773d5c69f6933a"
+    },
+    {
+      "path": "outputs/accepted-panda-export-trace-v1/manifest.json",
+      "source": "outputs/accepted-panda-export-trace-v1/manifest.json",
+      "bytes": 333,
+      "sha256": "213918d439605a10c4f749a5ddef7ff40fe8e6e0abb43c5b21d366a3ad48c9d8"
+    },
+    {
+      "path": "outputs/accepted-panda-export-trace-v1/trace.json",
+      "source": "outputs/accepted-panda-export-trace-v1/trace.json",
+      "bytes": 11503,
+      "sha256": "ab47c170c02069f2990a1e49b64427d34e79e73e0638cb0b21975473e7820fcb"
+    },
+    {
+      "path": "outputs/protected-repair-composition-tests-v1/manifest.json",
+      "source": "outputs/protected-repair-composition-tests-v1/manifest.json",
+      "bytes": 1001,
+      "sha256": "6d0bb8b100194412fd533333a2e7c115f3bb94d1a729baf2054d8b0683d9cc29"
+    },
+    {
+      "path": "outputs/protected-repair-composition-tests-v1/result.json",
+      "source": "outputs/protected-repair-composition-tests-v1/result.json",
+      "bytes": 5551,
+      "sha256": "9e03f2ab2226c385a404dfe0281e9f8cb3489763ef92465b50949bda2e7bede2"
+    },
+    {
+      "path": "outputs/protected-repair-composition-tests-v1/sources/avatar_assets/pipeline.py",
+      "source": "outputs/protected-repair-composition-tests-v1/sources/avatar_assets/pipeline.py",
+      "bytes": 103610,
+      "sha256": "8b50a6b35a080d5e2045ecd458514b8ee7fc89b8617ea91e5fed0fbaf7377883"
+    },
+    {
+      "path": "outputs/protected-repair-composition-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "source": "outputs/protected-repair-composition-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "bytes": 73082,
+      "sha256": "69eac9c7bdc2a9d2da29e808edf216d297ad6eb59bd7bcf167070a4a4984cc01"
+    },
+    {
+      "path": "outputs/protected-repair-composition-tests-v1/sources/avatar_assets/repair_composition.py",
+      "source": "outputs/protected-repair-composition-tests-v1/sources/avatar_assets/repair_composition.py",
+      "bytes": 25136,
+      "sha256": "c609649ae73bd71271ea4777bee5091150ee53a190d77afc6495cd3b25b888a3"
+    },
+    {
+      "path": "outputs/protected-repair-composition-tests-v1/sources/tests/test_repair_composition.py",
+      "source": "outputs/protected-repair-composition-tests-v1/sources/tests/test_repair_composition.py",
+      "bytes": 16383,
+      "sha256": "24cb80e403da7055b7ced1a132486aae0729903e28a4caf646b186500a20a8f9"
+    },
+    {
+      "path": "outputs/protected-skin-continuation-preflight-v1/failure.json",
+      "source": "outputs/protected-skin-continuation-preflight-v1/failure.json",
+      "bytes": 430,
+      "sha256": "5e1eac2bbc557dabd236e32f8d4388e5138afa9da7f8ec167a53af1ffed5c5d0"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/analytic-patch.json",
+      "source": "outputs/protected-skin-native-proof-v1/analytic-patch.json",
+      "bytes": 4846,
+      "sha256": "1a0a49285ff1b3ed9daa7bbd0cc6d9e6fe138bff65957e3f89323697346ef80c"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/baseline.json",
+      "source": "outputs/protected-skin-native-proof-v1/baseline.json",
+      "bytes": 38328,
+      "sha256": "ed59347db3af0946337c21bb29c54f06b1ba68b9bb0b1fae6524a54be08a92e7"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/comparison.json",
+      "source": "outputs/protected-skin-native-proof-v1/comparison.json",
+      "bytes": 1369,
+      "sha256": "f2cfcd1b3340bff12a66fdc65dd1d344581e0d07ccd021ed50064736085f5e17"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/composed-answer.json",
+      "source": "outputs/protected-skin-native-proof-v1/composed-answer.json",
+      "bytes": 33982,
+      "sha256": "18f2d584f2c7c722981decf1072b2a369468e743f483c1d5c728471090480ed1"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/composer-source.py",
+      "source": "outputs/protected-skin-native-proof-v1/composer-source.py",
+      "bytes": 20610,
+      "sha256": "927489a9d536f1a952de11e4c846bb9a256a2d60fd5de8681b8a32cfe966a090"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/deformation.json",
+      "source": "outputs/protected-skin-native-proof-v1/deformation.json",
+      "bytes": 3416,
+      "sha256": "672483174a723ec097e01f3765d4fb30ccf2b9ca1576b0fb9b595d914c8e9c1a"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/finish.json",
+      "source": "outputs/protected-skin-native-proof-v1/finish.json",
+      "bytes": 24964,
+      "sha256": "145f6d1eb1ac6b8c4c61b94dc9b4df4bc72a5c49d5664ef967007f11588fe9c5"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/model/exported-nodes.json",
+      "source": "outputs/protected-skin-native-proof-v1/model/exported-nodes.json",
+      "bytes": 12511,
+      "sha256": "70e2c574c91837978f86bad751a401dfca434a173af0f45c8b2a6abb48fe78da"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/model/finish-config.json",
+      "source": "outputs/protected-skin-native-proof-v1/model/finish-config.json",
+      "bytes": 25013,
+      "sha256": "2a7b548bebd28e45fc3b65a35719be92b529358f86024cc9a101102d6e62bb43"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/model/finish-report.json",
+      "source": "outputs/protected-skin-native-proof-v1/model/finish-report.json",
+      "bytes": 150894,
+      "sha256": "d3ec072d8cb0fdc38b54d7f686c7c80e629abd7d4b1ae080a842a5b9a2b1ca93"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/model/manifest.json",
+      "source": "outputs/protected-skin-native-proof-v1/model/manifest.json",
+      "bytes": 183584,
+      "sha256": "c6623bf346ea3cbcd6582198cce7d7ee873a3b94ac3e9b2426c76fbd5b0cf17a"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/model/rig-verification.json",
+      "source": "outputs/protected-skin-native-proof-v1/model/rig-verification.json",
+      "bytes": 3649,
+      "sha256": "8838ffa798bb0e444b8c2a641651ff599e18fb5019e19d2da7595c6f629b6990"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/preparation.json",
+      "source": "outputs/protected-skin-native-proof-v1/preparation.json",
+      "bytes": 2738,
+      "sha256": "8f0eba4f00c3807f7b9dabf2eea42e8d381197e73bdc1f0c75f621a2e0cf3d9f"
+    },
+    {
+      "path": "outputs/protected-skin-native-proof-v1/result.json",
+      "source": "outputs/protected-skin-native-proof-v1/result.json",
+      "bytes": 487,
+      "sha256": "deed226c021d45543cf1c6f98e7fcf240fc05166762700c8e2d49b2c93b91ebe"
+    },
+    {
+      "path": "outputs/protected-skin-retry-preparation-v1/scope-update.json",
+      "source": "outputs/protected-skin-retry-preparation-v1/scope-update.json",
+      "bytes": 596,
+      "sha256": "9213e09bda0b1ee04e4ef74d09f4c158b6621a15ab8da03150f6f620814a25f2"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-release-v1/manifest.json",
+      "source": "outputs/repair-composition-continuation-release-v1/manifest.json",
+      "bytes": 193,
+      "sha256": "cbd04dbb105e0f3b0c344440263762bebcf1fc060b66768e495a49afe0c4ff9e"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-release-v1/result.json",
+      "source": "outputs/repair-composition-continuation-release-v1/result.json",
+      "bytes": 2637,
+      "sha256": "f1b0f6e20992a3ae17eff8584888f20ea4e52b6a07412424a994072391b8108e"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/command.json",
+      "source": "outputs/repair-composition-continuation-tests-v1/command.json",
+      "bytes": 931,
+      "sha256": "fbb75f5d507c66ef18e2d7143e7d61941d766234eaead0e639be7b355e638c78"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/manifest.json",
+      "source": "outputs/repair-composition-continuation-tests-v1/manifest.json",
+      "bytes": 2531,
+      "sha256": "6776270a59f49a6d4cc0ceda3a14325528e3d10c1186f1d4ef926e332ead1602"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/prepared.json",
+      "source": "outputs/repair-composition-continuation-tests-v1/prepared.json",
+      "bytes": 11125,
+      "sha256": "1e150d882647b7d3b2c2257ca46111e5b2fcfe16230e1ee6d96412e00c35bce4"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/result.json",
+      "source": "outputs/repair-composition-continuation-tests-v1/result.json",
+      "bytes": 2765,
+      "sha256": "95a29781f20d3fae88298517f19b7122e12a878029a44251771250384925979f"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/run.py",
+      "source": "outputs/repair-composition-continuation-tests-v1/run.py",
+      "bytes": 2232,
+      "sha256": "c72ecaee0c2569bfba067dc512f70cf47799177bfd2fb627d8a2da905b948a48"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/sources/avatar_assets/pipeline_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v1/sources/avatar_assets/pipeline_continuation.py",
+      "bytes": 59957,
+      "sha256": "0941b24aa8856020d5280e5798ab4810d6df8078b77086d3c2e77ea8df80b2fb"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/sources/avatar_assets/repair_composition.py",
+      "source": "outputs/repair-composition-continuation-tests-v1/sources/avatar_assets/repair_composition.py",
+      "bytes": 22533,
+      "sha256": "5767de3aaae5311243e1167c4435ce4fab0b0c0353c178e748ad6b262ddc3b7b"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_author_contract.py",
+      "source": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_author_contract.py",
+      "bytes": 17129,
+      "sha256": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_pipeline_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_pipeline_continuation.py",
+      "bytes": 31851,
+      "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_pipeline_prompts.py",
+      "source": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_pipeline_prompts.py",
+      "bytes": 22274,
+      "sha256": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_repair_composition_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_repair_composition_continuation.py",
+      "bytes": 10070,
+      "sha256": "7d7625e9c648644cede98715d54f65ac2e0520991334196cc417b0c10f5f7b30"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_visual_repair_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v1/sources/tests/test_visual_repair_continuation.py",
+      "bytes": 12919,
+      "sha256": "a168f991b70e3c0188925d98bd05fb3dfd1695d2a6b6a5489da40a20f7c963f6"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v1/tests.log",
+      "source": "outputs/repair-composition-continuation-tests-v1/tests.log",
+      "bytes": 33939,
+      "sha256": "5337c289ccbd258f7b51a41fe6113c2c7722cc9053acbe0add39a1829fc14621"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/command.json",
+      "source": "outputs/repair-composition-continuation-tests-v2/command.json",
+      "bytes": 327,
+      "sha256": "6bef0a43c1a1f6eae27ea898050dfdc888e5c4be6c66f4ea1fee42200a8de13b"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/manifest.json",
+      "source": "outputs/repair-composition-continuation-tests-v2/manifest.json",
+      "bytes": 2531,
+      "sha256": "b9948199467f57656fbfad9dbd4e55445d617289c3a7a451e0c3561624c8c4dc"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/prepared.json",
+      "source": "outputs/repair-composition-continuation-tests-v2/prepared.json",
+      "bytes": 11366,
+      "sha256": "a9fc48e186688edbb22d53d5ceed864455c5806e1667d648f1627ec506bdaefc"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/result.json",
+      "source": "outputs/repair-composition-continuation-tests-v2/result.json",
+      "bytes": 1537,
+      "sha256": "47a3fd151c3c1e585d18e6eb94f133017f6440073a4af509e9217f9e4977436d"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/run.py",
+      "source": "outputs/repair-composition-continuation-tests-v2/run.py",
+      "bytes": 1601,
+      "sha256": "8ad2d62ed7427d55f7cb903a6f4eb5e14000c138db09eda5d9b5099fd793a0ac"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/sources/avatar_assets/pipeline_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v2/sources/avatar_assets/pipeline_continuation.py",
+      "bytes": 59957,
+      "sha256": "0941b24aa8856020d5280e5798ab4810d6df8078b77086d3c2e77ea8df80b2fb"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/sources/avatar_assets/repair_composition.py",
+      "source": "outputs/repair-composition-continuation-tests-v2/sources/avatar_assets/repair_composition.py",
+      "bytes": 22533,
+      "sha256": "5767de3aaae5311243e1167c4435ce4fab0b0c0353c178e748ad6b262ddc3b7b"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_author_contract.py",
+      "source": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_author_contract.py",
+      "bytes": 17129,
+      "sha256": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_pipeline_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_pipeline_continuation.py",
+      "bytes": 31851,
+      "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_pipeline_prompts.py",
+      "source": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_pipeline_prompts.py",
+      "bytes": 22274,
+      "sha256": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_repair_composition_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_repair_composition_continuation.py",
+      "bytes": 10495,
+      "sha256": "900fc0203853f2a5ad99b5ada813baddc47626194dc49bd80f3442767d25ad53"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_visual_repair_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v2/sources/tests/test_visual_repair_continuation.py",
+      "bytes": 12919,
+      "sha256": "a168f991b70e3c0188925d98bd05fb3dfd1695d2a6b6a5489da40a20f7c963f6"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v2/tests.log",
+      "source": "outputs/repair-composition-continuation-tests-v2/tests.log",
+      "bytes": 19735,
+      "sha256": "f037efe363545773b2659a4e2312a523f4912c6b7e7bc6e122f8c39fe45f3ab1"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/command.json",
+      "source": "outputs/repair-composition-continuation-tests-v3/command.json",
+      "bytes": 1307,
+      "sha256": "e2ee981ac7dbbf9105e48d4a45ffcb9ea03b151013817629a5e237c2c2aeba03"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/manifest.json",
+      "source": "outputs/repair-composition-continuation-tests-v3/manifest.json",
+      "bytes": 2532,
+      "sha256": "907929c6121b32fa248ba84650ae87651d32897ab88065916006a93e80b96be5"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/prepared.json",
+      "source": "outputs/repair-composition-continuation-tests-v3/prepared.json",
+      "bytes": 11310,
+      "sha256": "6f33b858d9db3c80bb5daa6a974472e63b34662c9f0854caa47102cabeadae17"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/result.json",
+      "source": "outputs/repair-composition-continuation-tests-v3/result.json",
+      "bytes": 3524,
+      "sha256": "a5050974e7d01aa6891600f1c130e686ba690a7ddd5d062709f0f1a6e5339e62"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/run.py",
+      "source": "outputs/repair-composition-continuation-tests-v3/run.py",
+      "bytes": 2581,
+      "sha256": "20ec062afd36f5f3cd43508a5c2c466680d522a179a1bf15a992f7c6056a8ea6"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/sources/avatar_assets/pipeline_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v3/sources/avatar_assets/pipeline_continuation.py",
+      "bytes": 59957,
+      "sha256": "0941b24aa8856020d5280e5798ab4810d6df8078b77086d3c2e77ea8df80b2fb"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/sources/avatar_assets/repair_composition.py",
+      "source": "outputs/repair-composition-continuation-tests-v3/sources/avatar_assets/repair_composition.py",
+      "bytes": 22533,
+      "sha256": "5767de3aaae5311243e1167c4435ce4fab0b0c0353c178e748ad6b262ddc3b7b"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_author_contract.py",
+      "source": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_author_contract.py",
+      "bytes": 17129,
+      "sha256": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_pipeline_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_pipeline_continuation.py",
+      "bytes": 31851,
+      "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_pipeline_prompts.py",
+      "source": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_pipeline_prompts.py",
+      "bytes": 22274,
+      "sha256": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_repair_composition_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_repair_composition_continuation.py",
+      "bytes": 10501,
+      "sha256": "a52291696486ff59f4075b135be078d138706f77a1ae366e45242c9e3525e2cb"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_visual_repair_continuation.py",
+      "source": "outputs/repair-composition-continuation-tests-v3/sources/tests/test_visual_repair_continuation.py",
+      "bytes": 12919,
+      "sha256": "a168f991b70e3c0188925d98bd05fb3dfd1695d2a6b6a5489da40a20f7c963f6"
+    },
+    {
+      "path": "outputs/repair-composition-continuation-tests-v3/tests.log",
+      "source": "outputs/repair-composition-continuation-tests-v3/tests.log",
+      "bytes": 1658,
+      "sha256": "839e2560f750eba5a722eb1e74166c9e1a2d66705de73c6d683e3edf3a390f9e"
+    }
+  ],
+  "generated": [
+    {
+      "path": "summary.json",
+      "bytes": 3496,
+      "sha256": "2e2e08851505e315c0d86560c3c42a3a5ee3e426b6a8e8e0a6d1fc3b92acc73d"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1046,
+      "sha256": "a68f09c5d3e6d5e2f01fd7f9bbf27a0e5fbc805e0c2f8e06c00da9b68d8ef187"
+    }
+  ],
+  "originals_unchanged": true
+}

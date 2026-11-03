@@ -1,0 +1,53 @@
+{
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-c",
+      "import sys, unittest; sys.path.insert(0, 'tests'); unittest.main(module=None, argv=['unittest', 'test_repair_composition_continuation', 'test_pipeline_continuation.ContinuationTests.test_paid_author_refusal_retains_valid_seed_and_native_failure_without_planner', 'test_pipeline_continuation.ContinuationTests.test_replan_preserves_built_seed_and_all_rejected_answers', 'test_pipeline_continuation.ContinuationTests.test_child_preserves_context_and_never_replans_or_resets_parent', 'test_visual_repair_continuation.VisualContinuationTests.test_completed_visual_repair_retains_paid_design_critique_and_no_new_calls', 'test_visual_repair_continuation.VisualContinuationTests.test_changed_action_gate_cannot_be_repaired_by_resealing_its_pack'], verbosity=2)"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.277,
+    "exit_code": 1,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 227444,
+    "last_rss_sample_elapsed_seconds": 1.022,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 20118,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 4,
+    "sampled_max_output_bytes": 227444,
+    "sampled_peak_rss_bytes": 78446592,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "native_calls": 0,
+  "passed": false,
+  "provider_calls": 0,
+  "scope": "Analytic receipt/authentication and continuation control flow; no appearance or actual native proof.",
+  "source_changes": [],
+  "targets": [
+    "test_repair_composition_continuation",
+    "test_pipeline_continuation.ContinuationTests.test_paid_author_refusal_retains_valid_seed_and_native_failure_without_planner",
+    "test_pipeline_continuation.ContinuationTests.test_replan_preserves_built_seed_and_all_rejected_answers",
+    "test_pipeline_continuation.ContinuationTests.test_child_preserves_context_and_never_replans_or_resets_parent",
+    "test_visual_repair_continuation.VisualContinuationTests.test_completed_visual_repair_retains_paid_design_critique_and_no_new_calls",
+    "test_visual_repair_continuation.VisualContinuationTests.test_changed_action_gate_cannot_be_repaired_by_resealing_its_pack"
+  ]
+}

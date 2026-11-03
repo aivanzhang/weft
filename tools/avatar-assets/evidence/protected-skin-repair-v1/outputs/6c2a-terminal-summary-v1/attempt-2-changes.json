@@ -1,0 +1,922 @@
+{
+  "author_declared_reason": "Repairs are limited to measured failures while preserving the prior rig, bindings, and the toy_dance structure. (1) Severe deformation outliers were traced to torso-side vertices carrying large hand_l/hand_r influence; updated weight_constraints ellipsoids for both hands (and aligned arm segments) toward the actual arm/hand volumes so leaked hand weights on the belly/torso are suppressed and transferred back to chest. (2) Exported portable coat reads speckled/prickly; shortened and widened tuft-v1 cards (count unchanged at 3825) and slightly reduced native groom length/comb, plus softened head_crown flow (lower comb/length_scale, higher feather/radius) to reduce the visible crown lump and silhouette spikes. (3) Hop readability was previously flagged as weak; increased root vertical translation at the three beat peaks (and added small lift at anticipations) while keeping the same beat timings and returning to rest at 4s.",
+  "classification": "Exact canonical configuration comparison; not causal attribution",
+  "reference": "outputs/studio-45757c9565b545119553baca/finish-2.json",
+  "versus_parent": [
+    {
+      "after": 0.015,
+      "before": 0,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/1/translations_m/root/2"
+    },
+    {
+      "after": 0.055,
+      "before": 0.014,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/2/translations_m/root/2"
+    },
+    {
+      "after": 0.055,
+      "before": 0.014,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/4/translations_m/root/2"
+    },
+    {
+      "after": 0.055,
+      "before": 0.014,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/6/translations_m/root/2"
+    },
+    {
+      "after": 0.015,
+      "before": 0,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/7/translations_m/root/2"
+    },
+    {
+      "after": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "ear_l",
+        "ear_r",
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l",
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r",
+        "tail"
+      ],
+      "before": [
+        "root",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "arm_l_upper",
+        "arm_l_lower",
+        "hand_l",
+        "arm_r_upper",
+        "arm_r_lower",
+        "hand_r",
+        "leg_l_upper",
+        "leg_l_lower",
+        "foot_l",
+        "leg_r_upper",
+        "leg_r_lower",
+        "foot_r",
+        "tail",
+        "dragon_root",
+        "dragon_body",
+        "dragon_head",
+        "dragon_tail1",
+        "dragon_tail2",
+        "dragon_wing_l",
+        "dragon_wing_r",
+        "ear_l",
+        "ear_r"
+      ],
+      "operation": "changed",
+      "path": "/authored_rig/layers/0/bones"
+    },
+    {
+      "after": 0.44,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/max/0"
+    },
+    {
+      "after": 0.58,
+      "before": 0.72,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/max/1"
+    },
+    {
+      "after": 0.78,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/max/2"
+    },
+    {
+      "after": -0.05,
+      "before": -0.1,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/min/0"
+    },
+    {
+      "after": 0.05,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/authored_rig/layers/5/min/1"
+    },
+    {
+      "after": 1.05,
+      "before": 1.1,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/max/0"
+    },
+    {
+      "after": 0.58,
+      "before": 0.72,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/max/1"
+    },
+    {
+      "after": 0.78,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/max/2"
+    },
+    {
+      "after": 0.56,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/min/0"
+    },
+    {
+      "after": 0.05,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/authored_rig/layers/6/min/1"
+    },
+    {
+      "after": 0.06,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/feather"
+    },
+    {
+      "after": 0.45,
+      "before": 0.52,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/max/0"
+    },
+    {
+      "after": 0.82,
+      "before": 0.88,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/max/2"
+    },
+    {
+      "after": 0.03,
+      "before": -0.05,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/min/0"
+    },
+    {
+      "after": 0.18,
+      "before": 0.02,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/min/1"
+    },
+    {
+      "after": 0.48,
+      "before": 0.42,
+      "operation": "changed",
+      "path": "/authored_rig/layers/10/min/2"
+    },
+    {
+      "after": 0,
+      "before": 0.02,
+      "operation": "changed",
+      "path": "/fur_clump"
+    },
+    {
+      "after": 0.18,
+      "before": 0.28,
+      "operation": "changed",
+      "path": "/groom/comb"
+    },
+    {
+      "after": 0.0042,
+      "before": 0.006,
+      "operation": "changed",
+      "path": "/groom/length"
+    },
+    {
+      "after": 0.00011,
+      "before": 0.00012,
+      "operation": "changed",
+      "path": "/groom/radius"
+    },
+    {
+      "after": 0.22,
+      "before": 0.28,
+      "operation": "changed",
+      "path": "/groom_flow/regions/0/comb"
+    },
+    {
+      "after": 0.22,
+      "before": 0.25,
+      "operation": "changed",
+      "path": "/groom_flow/regions/0/direction/1"
+    },
+    {
+      "after": -0.78,
+      "before": -0.75,
+      "operation": "changed",
+      "path": "/groom_flow/regions/0/direction/2"
+    },
+    {
+      "after": 0.4,
+      "before": 0.35,
+      "operation": "changed",
+      "path": "/groom_flow/regions/0/feather"
+    },
+    {
+      "after": 0.16,
+      "before": 0.24,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/comb"
+    },
+    {
+      "after": -0.18,
+      "before": -0.2,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/direction/1"
+    },
+    {
+      "after": -0.92,
+      "before": -0.9,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/direction/2"
+    },
+    {
+      "after": 0.4,
+      "before": 0.35,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/feather"
+    },
+    {
+      "after": 0.7,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/length_scale"
+    },
+    {
+      "after": 0.08,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/comb"
+    },
+    {
+      "after": -0.98,
+      "before": -0.95,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/direction/2"
+    },
+    {
+      "after": 0.7,
+      "before": 0.25,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/feather"
+    },
+    {
+      "after": 0.42,
+      "before": 0.65,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/length_scale"
+    },
+    {
+      "after": 0.42,
+      "before": 0.28,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/0"
+    },
+    {
+      "after": 0.36,
+      "before": 0.24,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/1"
+    },
+    {
+      "after": 0.25,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/2"
+    },
+    {
+      "after": 0.24,
+      "before": 0.3,
+      "operation": "changed",
+      "path": "/groom_flow/regions/3/comb"
+    },
+    {
+      "after": "studio-6c2aeac484bd4d4597fb71f3-attempt-2",
+      "before": "studio-45757c9565b545119553baca-attempt-2",
+      "operation": "changed",
+      "path": "/id"
+    },
+    {
+      "after": 0.0015,
+      "before": 0.0042,
+      "operation": "changed",
+      "path": "/portable_fur/settings/length"
+    },
+    {
+      "after": 0.018,
+      "before": 0.0065,
+      "operation": "changed",
+      "path": "/portable_fur/settings/width"
+    },
+    {
+      "after": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6c2aeac484bd4d4597fb71f3/inputs/source-model.glb",
+      "before": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/inputs/source-model.glb",
+      "operation": "changed",
+      "path": "/source"
+    },
+    {
+      "after": 0.265,
+      "before": 0.22,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/center/0"
+    },
+    {
+      "after": 0.435,
+      "before": 0.49,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/center/1"
+    },
+    {
+      "after": 0.405,
+      "before": 0.44,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/center/2"
+    },
+    {
+      "after": 0.12,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/radius/0"
+    },
+    {
+      "after": 0.1,
+      "before": 0.2,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/radius/1"
+    },
+    {
+      "after": 0.2,
+      "before": 0.22,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/radius/2"
+    },
+    {
+      "after": 0.32,
+      "before": 0.28,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/center/0"
+    },
+    {
+      "after": 0.47,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/center/1"
+    },
+    {
+      "after": 0.14,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/radius/0"
+    },
+    {
+      "after": 0.12,
+      "before": 0.22,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/radius/1"
+    },
+    {
+      "after": 0.22,
+      "before": 0.26,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/radius/2"
+    },
+    {
+      "after": 0.755,
+      "before": 0.75,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/center/0"
+    },
+    {
+      "after": 0.49,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/center/1"
+    },
+    {
+      "after": 0.41,
+      "before": 0.46,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/center/2"
+    },
+    {
+      "after": 0.12,
+      "before": 0.14,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/radius/0"
+    },
+    {
+      "after": 0.1,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/radius/1"
+    },
+    {
+      "after": 0.2,
+      "before": 0.22,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/radius/2"
+    },
+    {
+      "after": 0.685,
+      "before": 0.68,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/center/0"
+    },
+    {
+      "after": 0.51,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/center/1"
+    },
+    {
+      "after": 0.55,
+      "before": 0.58,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/center/2"
+    },
+    {
+      "after": 0.14,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/radius/0"
+    },
+    {
+      "after": 0.12,
+      "before": 0.2,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/radius/1"
+    },
+    {
+      "after": 0.22,
+      "before": 0.26,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/radius/2"
+    },
+    {
+      "after": 0.255,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/center/0"
+    },
+    {
+      "after": 0.41,
+      "before": 0.48,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/center/1"
+    },
+    {
+      "after": 0.285,
+      "before": 0.32,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/center/2"
+    },
+    {
+      "after": 0.11,
+      "before": 0.14,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/radius/0"
+    },
+    {
+      "after": 0.08,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/radius/1"
+    },
+    {
+      "after": 0.17,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/radius/2"
+    },
+    {
+      "after": 0.79,
+      "before": 0.8,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/0"
+    },
+    {
+      "after": 0.47,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/1"
+    },
+    {
+      "after": 0.29,
+      "before": 0.32,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/2"
+    },
+    {
+      "after": 0.11,
+      "before": 0.12,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/0"
+    },
+    {
+      "after": 0.08,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/1"
+    }
+  ],
+  "versus_previous_attempt": [
+    {
+      "after": 0.015,
+      "before": 0,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/1/translations_m/root/2"
+    },
+    {
+      "after": 0.055,
+      "before": 0.035,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/2/translations_m/root/2"
+    },
+    {
+      "after": 0.055,
+      "before": 0.035,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/4/translations_m/root/2"
+    },
+    {
+      "after": 0.055,
+      "before": 0.035,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/6/translations_m/root/2"
+    },
+    {
+      "after": 0.015,
+      "before": 0,
+      "operation": "changed",
+      "path": "/authored_actions/0/keys/7/translations_m/root/2"
+    },
+    {
+      "after": 0.18,
+      "before": 0.22,
+      "operation": "changed",
+      "path": "/groom/comb"
+    },
+    {
+      "after": 0.0042,
+      "before": 0.005,
+      "operation": "changed",
+      "path": "/groom/length"
+    },
+    {
+      "after": 0.22,
+      "before": 0.24,
+      "operation": "changed",
+      "path": "/groom_flow/regions/0/comb"
+    },
+    {
+      "after": 0.22,
+      "before": 0.25,
+      "operation": "changed",
+      "path": "/groom_flow/regions/0/direction/1"
+    },
+    {
+      "after": -0.78,
+      "before": -0.75,
+      "operation": "changed",
+      "path": "/groom_flow/regions/0/direction/2"
+    },
+    {
+      "after": 0.4,
+      "before": 0.35,
+      "operation": "changed",
+      "path": "/groom_flow/regions/0/feather"
+    },
+    {
+      "after": 0.16,
+      "before": 0.2,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/comb"
+    },
+    {
+      "after": -0.18,
+      "before": -0.2,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/direction/1"
+    },
+    {
+      "after": -0.92,
+      "before": -0.9,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/direction/2"
+    },
+    {
+      "after": 0.4,
+      "before": 0.35,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/feather"
+    },
+    {
+      "after": 0.7,
+      "before": 0.75,
+      "operation": "changed",
+      "path": "/groom_flow/regions/1/length_scale"
+    },
+    {
+      "after": 0.08,
+      "before": 0.12,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/comb"
+    },
+    {
+      "after": 0.05,
+      "before": 0.08,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/direction/1"
+    },
+    {
+      "after": -0.98,
+      "before": -0.95,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/direction/2"
+    },
+    {
+      "after": 0.7,
+      "before": 0.55,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/feather"
+    },
+    {
+      "after": 0.42,
+      "before": 0.5,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/length_scale"
+    },
+    {
+      "after": 0.42,
+      "before": 0.38,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/0"
+    },
+    {
+      "after": 0.36,
+      "before": 0.32,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/1"
+    },
+    {
+      "after": 0.25,
+      "before": 0.22,
+      "operation": "changed",
+      "path": "/groom_flow/regions/2/radius/2"
+    },
+    {
+      "after": 0.24,
+      "before": 0.26,
+      "operation": "changed",
+      "path": "/groom_flow/regions/3/comb"
+    },
+    {
+      "after": "studio-6c2aeac484bd4d4597fb71f3-attempt-2",
+      "before": "studio-6c2aeac484bd4d4597fb71f3-attempt-1",
+      "operation": "changed",
+      "path": "/id"
+    },
+    {
+      "after": 0.0015,
+      "before": 0.0022,
+      "operation": "changed",
+      "path": "/portable_fur/settings/length"
+    },
+    {
+      "after": 0.018,
+      "before": 0.0135,
+      "operation": "changed",
+      "path": "/portable_fur/settings/width"
+    },
+    {
+      "after": 0.265,
+      "before": 0.22,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/center/0"
+    },
+    {
+      "after": 0.435,
+      "before": 0.42,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/center/1"
+    },
+    {
+      "after": 0.405,
+      "before": 0.44,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/center/2"
+    },
+    {
+      "after": 0.12,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/radius/0"
+    },
+    {
+      "after": 0.1,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/radius/1"
+    },
+    {
+      "after": 0.2,
+      "before": 0.22,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_lower/radius/2"
+    },
+    {
+      "after": 0.32,
+      "before": 0.28,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/center/0"
+    },
+    {
+      "after": 0.47,
+      "before": 0.44,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/center/1"
+    },
+    {
+      "after": 0.14,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/radius/0"
+    },
+    {
+      "after": 0.12,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/radius/1"
+    },
+    {
+      "after": 0.22,
+      "before": 0.26,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_l_upper/radius/2"
+    },
+    {
+      "after": 0.755,
+      "before": 0.76,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/center/0"
+    },
+    {
+      "after": 0.49,
+      "before": 0.42,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/center/1"
+    },
+    {
+      "after": 0.41,
+      "before": 0.44,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/center/2"
+    },
+    {
+      "after": 0.12,
+      "before": 0.14,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/radius/0"
+    },
+    {
+      "after": 0.1,
+      "before": 0.14,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/radius/1"
+    },
+    {
+      "after": 0.2,
+      "before": 0.22,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_lower/radius/2"
+    },
+    {
+      "after": 0.685,
+      "before": 0.68,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/center/0"
+    },
+    {
+      "after": 0.51,
+      "before": 0.44,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/center/1"
+    },
+    {
+      "after": 0.55,
+      "before": 0.58,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/center/2"
+    },
+    {
+      "after": 0.14,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/radius/0"
+    },
+    {
+      "after": 0.12,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/radius/1"
+    },
+    {
+      "after": 0.22,
+      "before": 0.26,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/arm_r_upper/radius/2"
+    },
+    {
+      "after": 0.255,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/center/0"
+    },
+    {
+      "after": 0.41,
+      "before": 0.4,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/center/1"
+    },
+    {
+      "after": 0.285,
+      "before": 0.32,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/center/2"
+    },
+    {
+      "after": 0.11,
+      "before": 0.14,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/radius/0"
+    },
+    {
+      "after": 0.08,
+      "before": 0.14,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/radius/1"
+    },
+    {
+      "after": 0.17,
+      "before": 0.18,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_l/radius/2"
+    },
+    {
+      "after": 0.79,
+      "before": 0.82,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/0"
+    },
+    {
+      "after": 0.47,
+      "before": 0.36,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/1"
+    },
+    {
+      "after": 0.29,
+      "before": 0.3,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/center/2"
+    },
+    {
+      "after": 0.11,
+      "before": 0.12,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/0"
+    },
+    {
+      "after": 0.08,
+      "before": 0.09,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/1"
+    },
+    {
+      "after": 0.18,
+      "before": 0.16,
+      "operation": "changed",
+      "path": "/weight_constraints/regions/hand_r/radius/2"
+    }
+  ]
+}

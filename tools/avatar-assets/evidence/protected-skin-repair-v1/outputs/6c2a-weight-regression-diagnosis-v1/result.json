@@ -1,0 +1,835 @@
+{
+  "action_changes": [
+    {
+      "after": {
+        "root": [
+          -0.015,
+          0,
+          0.035
+        ]
+      },
+      "before": {
+        "root": [
+          -0.015,
+          0,
+          0.014
+        ]
+      },
+      "second": 1,
+      "state": "toy_dance"
+    },
+    {
+      "after": {
+        "root": [
+          0.015,
+          0,
+          0.035
+        ]
+      },
+      "before": {
+        "root": [
+          0.015,
+          0,
+          0.014
+        ]
+      },
+      "second": 2,
+      "state": "toy_dance"
+    },
+    {
+      "after": {
+        "root": [
+          -0.015,
+          0,
+          0.035
+        ]
+      },
+      "before": {
+        "root": [
+          -0.015,
+          0,
+          0.014
+        ]
+      },
+      "second": 3,
+      "state": "toy_dance"
+    }
+  ],
+  "all_rotation_keys_identical": true,
+  "base_bones_identical": true,
+  "bone_order_after": [
+    "root",
+    "spine",
+    "chest",
+    "neck",
+    "head",
+    "ear_l",
+    "ear_r",
+    "arm_l_upper",
+    "arm_l_lower",
+    "hand_l",
+    "arm_r_upper",
+    "arm_r_lower",
+    "hand_r",
+    "leg_l_upper",
+    "leg_l_lower",
+    "foot_l",
+    "leg_r_upper",
+    "leg_r_lower",
+    "foot_r",
+    "tail",
+    "dragon_root",
+    "dragon_body",
+    "dragon_head",
+    "dragon_tail1",
+    "dragon_tail2",
+    "dragon_wing_l",
+    "dragon_wing_r"
+  ],
+  "bone_order_before": [
+    "root",
+    "spine",
+    "chest",
+    "neck",
+    "head",
+    "ear_l",
+    "ear_r",
+    "arm_l_upper",
+    "arm_l_lower",
+    "hand_l",
+    "arm_r_upper",
+    "arm_r_lower",
+    "hand_r",
+    "leg_l_upper",
+    "leg_l_lower",
+    "foot_l",
+    "leg_r_upper",
+    "leg_r_lower",
+    "foot_r",
+    "tail",
+    "dragon_root",
+    "dragon_body",
+    "dragon_head",
+    "dragon_tail1",
+    "dragon_tail2",
+    "dragon_wing_l",
+    "dragon_wing_r"
+  ],
+  "child_deformation_passed": false,
+  "child_max_reported_excess_m": 0.045297738454824536,
+  "constraint_after": {
+    "fallback_bone": "chest",
+    "regions": {
+      "arm_l_lower": {
+        "center": [
+          0.22,
+          0.49,
+          0.44
+        ],
+        "radius": [
+          0.16,
+          0.2,
+          0.22
+        ]
+      },
+      "arm_l_upper": {
+        "center": [
+          0.28,
+          0.5,
+          0.56
+        ],
+        "radius": [
+          0.18,
+          0.22,
+          0.26
+        ]
+      },
+      "arm_r_lower": {
+        "center": [
+          0.75,
+          0.5,
+          0.46
+        ],
+        "radius": [
+          0.14,
+          0.18,
+          0.22
+        ]
+      },
+      "arm_r_upper": {
+        "center": [
+          0.68,
+          0.5,
+          0.58
+        ],
+        "radius": [
+          0.16,
+          0.2,
+          0.26
+        ]
+      },
+      "hand_l": {
+        "center": [
+          0.18,
+          0.48,
+          0.32
+        ],
+        "radius": [
+          0.14,
+          0.18,
+          0.18
+        ]
+      },
+      "hand_r": {
+        "center": [
+          0.83,
+          0.48,
+          0.28
+        ],
+        "radius": [
+          0.08,
+          0.12,
+          0.12
+        ]
+      }
+    }
+  },
+  "constraint_before": {
+    "fallback_bone": "chest",
+    "regions": {
+      "arm_l_lower": {
+        "center": [
+          0.22,
+          0.49,
+          0.44
+        ],
+        "radius": [
+          0.16,
+          0.2,
+          0.22
+        ]
+      },
+      "arm_l_upper": {
+        "center": [
+          0.28,
+          0.5,
+          0.56
+        ],
+        "radius": [
+          0.18,
+          0.22,
+          0.26
+        ]
+      },
+      "arm_r_lower": {
+        "center": [
+          0.75,
+          0.5,
+          0.46
+        ],
+        "radius": [
+          0.14,
+          0.18,
+          0.22
+        ]
+      },
+      "arm_r_upper": {
+        "center": [
+          0.68,
+          0.5,
+          0.58
+        ],
+        "radius": [
+          0.16,
+          0.2,
+          0.26
+        ]
+      },
+      "hand_l": {
+        "center": [
+          0.18,
+          0.48,
+          0.32
+        ],
+        "radius": [
+          0.14,
+          0.18,
+          0.18
+        ]
+      },
+      "hand_r": {
+        "center": [
+          0.8,
+          0.5,
+          0.32
+        ],
+        "radius": [
+          0.12,
+          0.16,
+          0.18
+        ]
+      }
+    }
+  },
+  "input_hashes_verified": true,
+  "interpretation": [
+    "Root translation moves both endpoints equally and cannot explain a change in their relative distance; all joint rotations and named bone rest definitions stayed equal.",
+    "The shifted/narrowed hand_r ellipsoid raises retention at the first witness endpoint while taking the neighbor outside the ellipsoid; removed mass transfers to chest. The measured child has a large hand/chest ownership discontinuity.",
+    "The narrowed right-arm box has exactly the same computed blend alpha at these witnesses; the hand constraint is the local causal change. Broad layer membership and bone ordering also changed, so this is not a measured isolated counterfactual replay.",
+    "Latest parent numerical and visual deformation checks passed. Historical failures and previous author reason still mention hand leakage; the child cited possible leakage despite the explicit preservation instruction.",
+    "Passing the sampled severe-edge gate is not globally perfect skinning: parent still reported40.575mm maximum excess below the BOTH-criteria rejection."
+  ],
+  "layer_changes": [
+    {
+      "after": {
+        "bones": [
+          "root",
+          "spine",
+          "chest",
+          "neck",
+          "head",
+          "ear_l",
+          "ear_r",
+          "arm_l_upper",
+          "arm_l_lower",
+          "hand_l",
+          "arm_r_upper",
+          "arm_r_lower",
+          "hand_r",
+          "leg_l_upper",
+          "leg_l_lower",
+          "foot_l",
+          "leg_r_upper",
+          "leg_r_lower",
+          "foot_r",
+          "tail"
+        ],
+        "feather": 0.2,
+        "max": [
+          1.2,
+          1.2,
+          1.2
+        ],
+        "min": [
+          -0.2,
+          -0.2,
+          -0.2
+        ],
+        "min_vertices": 8000
+      },
+      "before": {
+        "bones": [
+          "root",
+          "spine",
+          "chest",
+          "neck",
+          "head",
+          "arm_l_upper",
+          "arm_l_lower",
+          "hand_l",
+          "arm_r_upper",
+          "arm_r_lower",
+          "hand_r",
+          "leg_l_upper",
+          "leg_l_lower",
+          "foot_l",
+          "leg_r_upper",
+          "leg_r_lower",
+          "foot_r",
+          "tail",
+          "dragon_root",
+          "dragon_body",
+          "dragon_head",
+          "dragon_tail1",
+          "dragon_tail2",
+          "dragon_wing_l",
+          "dragon_wing_r",
+          "ear_l",
+          "ear_r"
+        ],
+        "feather": 0.2,
+        "max": [
+          1.2,
+          1.2,
+          1.2
+        ],
+        "min": [
+          -0.2,
+          -0.2,
+          -0.2
+        ],
+        "min_vertices": 8000
+      },
+      "index": 0
+    },
+    {
+      "after": {
+        "bones": [
+          "arm_l_upper",
+          "arm_l_lower",
+          "hand_l"
+        ],
+        "feather": 0.1,
+        "max": [
+          0.48,
+          0.68,
+          0.78
+        ],
+        "min": [
+          -0.05,
+          0.18,
+          0.18
+        ],
+        "min_vertices": 2500
+      },
+      "before": {
+        "bones": [
+          "arm_l_upper",
+          "arm_l_lower",
+          "hand_l"
+        ],
+        "feather": 0.1,
+        "max": [
+          0.5,
+          0.72,
+          0.8
+        ],
+        "min": [
+          -0.1,
+          0.08,
+          0.18
+        ],
+        "min_vertices": 2500
+      },
+      "index": 5
+    },
+    {
+      "after": {
+        "bones": [
+          "arm_r_upper",
+          "arm_r_lower",
+          "hand_r"
+        ],
+        "feather": 0.1,
+        "max": [
+          1.05,
+          0.68,
+          0.78
+        ],
+        "min": [
+          0.52,
+          0.18,
+          0.18
+        ],
+        "min_vertices": 2500
+      },
+      "before": {
+        "bones": [
+          "arm_r_upper",
+          "arm_r_lower",
+          "hand_r"
+        ],
+        "feather": 0.1,
+        "max": [
+          1.1,
+          0.72,
+          0.8
+        ],
+        "min": [
+          0.5,
+          0.08,
+          0.18
+        ],
+        "min_vertices": 2500
+      },
+      "index": 6
+    },
+    {
+      "after": {
+        "bones": [
+          "dragon_root",
+          "dragon_body",
+          "dragon_head",
+          "dragon_tail1",
+          "dragon_tail2",
+          "dragon_wing_l",
+          "dragon_wing_r"
+        ],
+        "feather": 0.06,
+        "max": [
+          0.45,
+          0.62,
+          0.82
+        ],
+        "min": [
+          0.03,
+          0.18,
+          0.48
+        ],
+        "min_vertices": 1500
+      },
+      "before": {
+        "bones": [
+          "dragon_root",
+          "dragon_body",
+          "dragon_head",
+          "dragon_tail1",
+          "dragon_tail2",
+          "dragon_wing_l",
+          "dragon_wing_r"
+        ],
+        "feather": 0.08,
+        "max": [
+          0.52,
+          0.62,
+          0.88
+        ],
+        "min": [
+          -0.05,
+          0.02,
+          0.42
+        ],
+        "min_vertices": 1500
+      },
+      "index": 10
+    }
+  ],
+  "named_bone_definitions_identical": true,
+  "native_or_api_calls": 0,
+  "paid_author_reason": "Continuation reuses the prior skeleton, bindings, and overall toy_dance structure, adjusting only fields tied to measured failures. (1) Exported coat artifacts (stubbly tips/speckling and crown lump): shortened and widened portable tuft-v1 cards (same 3825 count to preserve budget) and set fur_clump to 0 to reduce clumpy speckle; slightly broadened head_crown flow blending to soften the localized crown ridge. (2) Possible dragon/arm weight leakage contributing to export-side breakup: removed dragon bones from the whole-body fallback weight layer and tightened the dragon and arm spatial layers to reduce unintended influence outside their regions; additionally tightened the hand_r constraint ellipsoid to suppress demonstrated torso-side hand_r leakage. (3) Readable hops: increased root vertical translation peaks at beats (1s/2s/3s) while preserving timing, return-to-start, and all articulation roles.",
+  "paid_prompt_had_weight_preservation_instruction": true,
+  "parent_deformation_passed": true,
+  "parent_latest_review_deformation": {
+    "evidence_ids": [
+      "evidence-motion-00",
+      "evidence-isolated-native-toy_dance",
+      "evidence-isolated-exported-toy_dance",
+      "action-audit-toy_dance"
+    ],
+    "name": "deformation",
+    "passed": true,
+    "reason": "Sampled motion frames and the isolated “greatest recorded edge stretch” pose do not show a clear catastrophic collapse/tearing; proportions stay coherent through the dance poses in both native and exported snapshots. Numeric deformation gate reports no severe spike failure for the sampled poses (not a full visual guarantee)."
+  },
+  "parent_max_reported_excess_m": 0.040574659500180785,
+  "production_or_recipe_edits": false,
+  "quality_acceptance": false,
+  "recommended_new_scope": {
+    "legacy": "Old full-design answers and old receipts retain their original interpretation.",
+    "mode": "explicit authenticated baseline plus appearance/root-translation patch",
+    "motion_invariants": [
+      "state IDs",
+      "key counts/times/interpolation",
+      "all rotations",
+      "all nonroot translations"
+    ],
+    "protect": [
+      "ordered authored_rig",
+      "weight_constraints",
+      "part_rigs",
+      "attachment",
+      "action_bindings",
+      "source identity",
+      "smoothing",
+      "surface_smoothing"
+    ],
+    "raw_answer": "Preserve raw patch unchanged; compose separate effective design with baseline, patch and composed hashes. Reject supplied protected fields instead of ignoring them.",
+    "required_consumers": [
+      "pipeline before _author_preflight and finish_config",
+      "extract_action_bindings",
+      "critic effective config",
+      "pipeline_continuation authenticated effective-design reconstruction"
+    ],
+    "root_translation_changes": "Only the unique baseline root is editable; independent motion/visual gates remain mandatory.",
+    "tests": [
+      "Coat and root translation edits preserve exact skin recipe",
+      "Any protected field or nonroot motion edit refuses before native",
+      "Newest bound passing deformation supersedes stale generic ancestor failures for repair scope",
+      "Tampered/foreign baseline fails custody; no silent fallback",
+      "Explicit new current deformation evidence needs a separate broader repair scope"
+    ]
+  },
+  "same_rest_hashes": true,
+  "same_source": true,
+  "schema_version": 1,
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "status": "read_only_diagnosis",
+  "witnesses": [
+    {
+      "analytic_constraint_factors": {
+        "child": {
+          "ellipsoid_distance": [
+            0.8310034346390254,
+            1.0117275088117523
+          ],
+          "retained_hand_r_fraction": [
+            0.6759862614438985,
+            0.0
+          ]
+        },
+        "parent": {
+          "ellipsoid_distance": [
+            0.890775538703551,
+            0.9903614230362224
+          ],
+          "retained_hand_r_fraction": [
+            0.4368978451857961,
+            0.03855430785511027
+          ]
+        }
+      },
+      "analytic_right_arm_layer_alpha": {
+        "child": [
+          0.5396316806259909,
+          0.6327752373851309
+        ],
+        "parent": [
+          0.5396316806259909,
+          0.6327752373851309
+        ]
+      },
+      "measured_child": {
+        "endpoint_indices": [
+          40005,
+          40081
+        ],
+        "endpoint_influences": [
+          {
+            "chest": 0.41287997364997864,
+            "hand_r": 0.5831224918365479,
+            "leg_r_upper": 0.003997525200247765
+          },
+          {
+            "chest": 0.9956004619598389,
+            "leg_r_upper": 0.004399562254548073
+          }
+        ],
+        "excess_length": 0.045297738454824536,
+        "posed_length": 0.051488514278222715,
+        "rest_length": 0.006190775823398178,
+        "rest_normalized_bounds": [
+          [
+            0.8885017567831248,
+            0.4810486370905945,
+            0.2326445781261617
+          ],
+          [
+            0.9057040815998741,
+            0.4926256042639913,
+            0.23894718118651517
+          ]
+        ],
+        "second": 2.0,
+        "stretch_ratio": 8.316972823280194
+      },
+      "right_arm_layer_alpha_equal_here": true
+    },
+    {
+      "analytic_constraint_factors": {
+        "child": {
+          "ellipsoid_distance": [
+            0.8258781612958425,
+            1.025005767151074
+          ],
+          "retained_hand_r_fraction": [
+            0.6964873548166302,
+            0.0
+          ]
+        },
+        "parent": {
+          "ellipsoid_distance": [
+            0.860643854173925,
+            0.9875490517072631
+          ],
+          "retained_hand_r_fraction": [
+            0.5574245833043001,
+            0.04980379317094741
+          ]
+        }
+      },
+      "analytic_right_arm_layer_alpha": {
+        "child": [
+          0.5812460056143113,
+          0.61335645763863
+        ],
+        "parent": [
+          0.5812460056143113,
+          0.61335645763863
+        ]
+      },
+      "measured_child": {
+        "endpoint_indices": [
+          39952,
+          40065
+        ],
+        "endpoint_influences": [
+          {
+            "chest": 0.4102684557437897,
+            "hand_r": 0.5855817794799805,
+            "leg_r_upper": 0.004149775952100754
+          },
+          {
+            "chest": 0.9948838353157043,
+            "leg_r_upper": 0.005116170272231102
+          }
+        ],
+        "excess_length": 0.043898503355201235,
+        "posed_length": 0.049278178672033573,
+        "rest_length": 0.005379675316832335,
+        "rest_normalized_bounds": [
+          [
+            0.8864177820627298,
+            0.5059695267183324,
+            0.23543784004058135
+          ],
+          [
+            0.9048892631313671,
+            0.5067182091070549,
+            0.23761599769863326
+          ]
+        ],
+        "second": 2.0,
+        "stretch_ratio": 9.160065574561402
+      },
+      "right_arm_layer_alpha_equal_here": true
+    },
+    {
+      "analytic_constraint_factors": {
+        "child": {
+          "ellipsoid_distance": [
+            0.829533012529118,
+            0.9963406480067659
+          ],
+          "retained_hand_r_fraction": [
+            0.6818679498835278,
+            0.014637407972936334
+          ]
+        },
+        "parent": {
+          "ellipsoid_distance": [
+            0.8743004973392898,
+            0.9832060021841591
+          ],
+          "retained_hand_r_fraction": [
+            0.5027980106428407,
+            0.0671759912633636
+          ]
+        }
+      },
+      "analytic_right_arm_layer_alpha": {
+        "child": [
+          0.5129335295291447,
+          0.5095036049272931
+        ],
+        "parent": [
+          0.5129335295291447,
+          0.5095036049272931
+        ]
+      },
+      "measured_child": {
+        "endpoint_indices": [
+          39982,
+          40123
+        ],
+        "endpoint_influences": [
+          {
+            "chest": 0.40968528389930725,
+            "hand_r": 0.5855761766433716,
+            "leg_r_upper": 0.004738564603030682
+          },
+          {
+            "chest": 0.9817585349082947,
+            "hand_r": 0.012017104774713516,
+            "leg_r_upper": 0.006224384531378746
+          }
+        ],
+        "excess_length": 0.0437811994862969,
+        "posed_length": 0.048219727060497784,
+        "rest_length": 0.0044385275742008885,
+        "rest_normalized_bounds": [
+          [
+            0.8864511747758543,
+            0.4980092949305071,
+            0.23086232079784896
+          ],
+          [
+            0.901795994304431,
+            0.49611728867563604,
+            0.23063360757744447
+          ]
+        ],
+        "second": 2.0,
+        "stretch_ratio": 10.863901655309476
+      },
+      "right_arm_layer_alpha_equal_here": true
+    },
+    {
+      "analytic_constraint_factors": {
+        "child": {
+          "ellipsoid_distance": [
+            0.8376902175852416,
+            1.025005767151074
+          ],
+          "retained_hand_r_fraction": [
+            0.6492391296590334,
+            0.0
+          ]
+        },
+        "parent": {
+          "ellipsoid_distance": [
+            0.8721037792682076,
+            0.9875490517072631
+          ],
+          "retained_hand_r_fraction": [
+            0.5115848829271696,
+            0.04980379317094741
+          ]
+        }
+      },
+      "analytic_right_arm_layer_alpha": {
+        "child": [
+          0.5666357719688622,
+          0.61335645763863
+        ],
+        "parent": [
+          0.5666357719688622,
+          0.61335645763863
+        ]
+      },
+      "measured_child": {
+        "endpoint_indices": [
+          40001,
+          40065
+        ],
+        "endpoint_influences": [
+          {
+            "chest": 0.4485152065753937,
+            "hand_r": 0.5471564531326294,
+            "leg_r_upper": 0.004328359849750996
+          },
+          {
+            "chest": 0.9948838353157043,
+            "leg_r_upper": 0.005116170272231102
+          }
+        ],
+        "excess_length": 0.04160638606719327,
+        "posed_length": 0.04676524380089363,
+        "rest_length": 0.005158857733700358,
+        "rest_normalized_bounds": [
+          [
+            0.8877161083650275,
+            0.5031372010840631,
+            0.23445416732153349
+          ],
+          [
+            0.9048892631313671,
+            0.5067182091070549,
+            0.23761599769863326
+          ]
+        ],
+        "second": 2.0,
+        "stretch_ratio": 9.065038466829312
+      },
+      "right_arm_layer_alpha_equal_here": true
+    }
+  ]
+}

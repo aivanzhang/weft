@@ -1,0 +1,57 @@
+{
+  "artifacts": [
+    {
+      "bytes": 7046,
+      "path": "check.py",
+      "sha256": "74f77f6074eb87330c209ef3da5cd02f263c81a6d6aa95d069d95be00fb1c599"
+    },
+    {
+      "bytes": 250,
+      "path": "diagnosis-handle.json",
+      "sha256": "98e1048df8588d57bfa43ee9e69a5191ad48fc56fba3e1e70eb1f4c9872e839e"
+    },
+    {
+      "bytes": 986,
+      "path": "diagnosis-monitor.json",
+      "sha256": "339a5ab96d83a8fa37521e51ec74789e9bf3597da6fe26ba74da600d7a0b065d"
+    },
+    {
+      "bytes": 153,
+      "path": "diagnosis.log",
+      "sha256": "fe182e1858a655f8cc9d7fc4102d0e868ca58ed5aadabff3bfa60781dd5612a2"
+    },
+    {
+      "bytes": 2860,
+      "path": "input-pins.json",
+      "sha256": "55f54360b48b3de31794a29b0bcd3f1c8e106b9778f48b73a006c042daf74b96"
+    },
+    {
+      "bytes": 1078,
+      "path": "job.json",
+      "sha256": "318964047c0880e7ec6545f899439766a4be58188994fde6e71e92f38646d3da"
+    },
+    {
+      "bytes": 549,
+      "path": "prepared.json",
+      "sha256": "bb796b1a764b526723b41f6a81632f5a2255be916cfc20f9d94c8b26a5016438"
+    },
+    {
+      "bytes": 19958,
+      "path": "result.json",
+      "sha256": "7b27ddb11341251c9c2df3670fdecfa7cf0292ee5b6159e4c52d664874d310d4"
+    },
+    {
+      "bytes": 59927,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    {
+      "bytes": 5399,
+      "path": "sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    }
+  ],
+  "kind": "weight_recipe_regression_diagnosis",
+  "schema_version": 1,
+  "status": "completed"
+}

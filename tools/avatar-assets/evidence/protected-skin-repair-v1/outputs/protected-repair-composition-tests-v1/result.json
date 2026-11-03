@@ -1,0 +1,82 @@
+{
+  "classification": "Analyst-recorded analytic unit/orchestration tests; no provider or native calls in this lane",
+  "implemented": [
+    "StrictV3 finish/global-root patch schema with no rig/skin/full-motion fields",
+    "Authenticated baseline with numericPASS and validreview identity/framing/deformation/motionPASS",
+    "Root updates only for explicitly failed travel/rhythm/return_pose requirements whose role uses unique hierarchy root",
+    "Appearance-only states cannot change root translation",
+    "Immutable rawpatch plus effectiveV2 and composition receipt with source/plan/schema/prompt/protected-projection binding",
+    "Baseline persists through failed patches; advances only on new authenticated qualifying review and identical protected skin/articulation",
+    "Fresh fullgeneration transitions after first qualifying review; legacy routes retained",
+    "Latest current critique retained; superseded failure directives represented by provenance hashes"
+  ],
+  "independent_checks": {
+    "actual_consumer": "Root-owned read-only actual request/prompt/recomposition proof pending at this checkpoint",
+    "continuation_consumer": "Separate pipeline_contracts lane:14 focused checks reported passing; receipts remain independently classified",
+    "native_hypothesis": "Root-owned outputs/protected-skin-native-proof-v1; actual synthetic derivative numerical proof, not visual acceptance"
+  },
+  "ledger_mutations": 0,
+  "limits": {
+    "baseline_json_bytes": 262144,
+    "composition_depth": 24,
+    "composition_files": 3,
+    "effective_json_bytes": 131072,
+    "evidence_bytes": 134217728,
+    "evidence_files": 48,
+    "receipt_json_bytes": 16384
+  },
+  "native_calls": 0,
+  "old_outputs_edited": false,
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T19:07:25.358904-08:00",
+  "schema_version": 1,
+  "source_pins": {
+    "avatar_assets/pipeline.py": "8b50a6b35a080d5e2045ecd458514b8ee7fc89b8617ea91e5fed0fbaf7377883",
+    "avatar_assets/pipeline_prompts.py": "69eac9c7bdc2a9d2da29e808edf216d297ad6eb59bd7bcf167070a4a4984cc01",
+    "avatar_assets/repair_composition.py": "c609649ae73bd71271ea4777bee5091150ee53a190d77afc6495cd3b25b888a3",
+    "tests/test_repair_composition.py": "24cb80e403da7055b7ced1a132486aae0729903e28a4caf646b186500a20a8f9"
+  },
+  "tests": {
+    "affected_unique_passed": 64,
+    "new_unique_passed": 13,
+    "runs": [
+      {
+        "command": ".venv/bin/python -m unittest discover -s tests -p test_repair_composition.py -v",
+        "passed": 11,
+        "seconds": 0.036,
+        "tests": 11
+      },
+      {
+        "command": ".venv/bin/python - <<'PY'\nimport unittest,sys\nsys.path.insert(0,'tests')\nsuite=unittest.TestSuite()\nfor name in ['test_repair_composition.RepairCompositionTests.test_new_passing_root_pose_becomes_immutable_and_failures_do_not_rebaseline',\n             'test_repair_composition.RepairCompositionTests.test_protected_prompt_includes_one_baseline_and_no_stale_weight_directives']:\n suite.addTests(unittest.defaultTestLoader.loadTestsFromName(name))\nfor pattern in ['test_pipeline_progress.py','test_visual_history_memory.py','test_source_failure_memory.py','test_pipeline_prompts.py','test_pipeline.py']:\n suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=pattern))\nr=unittest.TextTestRunner(verbosity=2).run(suite)\nraise SystemExit(not r.wasSuccessful())\nPY",
+        "passed": 66,
+        "reason": "New baseline-advancement test and changed current-critique prompt test;64 affected coordinator/legacy tests",
+        "seconds": 0.784,
+        "tests": 66
+      },
+      {
+        "command": ".venv/bin/python - <<'PY'\nimport unittest,sys\nsys.path.insert(0,'tests')\nr=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromName('test_repair_composition.RepairCompositionTests.test_fresh_coordinator_switches_after_review_and_advances_only_on_new_pass'))\nraise SystemExit(not r.wasSuccessful())\nPY",
+        "failed": 1,
+        "reason": "New analytic fresh-job fixture omitted attachment evidence reference; diagnostic assertion initially hid the failure reason",
+        "seconds": 0.174,
+        "tests": 1
+      },
+      {
+        "command": ".venv/bin/python - <<'PY'\nimport unittest,sys\nsys.path.insert(0,'tests')\nr=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromName('test_repair_composition.RepairCompositionTests.test_fresh_coordinator_switches_after_review_and_advances_only_on_new_pass'))\nraise SystemExit(not r.wasSuccessful())\nPY",
+        "failed": 1,
+        "reason": "Diagnostic assertion exposed missing fixture evidence; production behavior unchanged",
+        "seconds": 0.103,
+        "tests": 1
+      },
+      {
+        "command": ".venv/bin/python - <<'PY'\nimport unittest,sys\nsys.path.insert(0,'tests')\nr=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromName('test_repair_composition.RepairCompositionTests.test_fresh_coordinator_switches_after_review_and_advances_only_on_new_pass'))\nraise SystemExit(not r.wasSuccessful())\nPY",
+        "passed": 1,
+        "reason": "Corrected explicit analytic attachment reference; real coordinator transitions fullV2→V3 and freezes newly passing root pose",
+        "seconds": 0.106,
+        "tests": 1
+      }
+    ],
+    "unchanged_passing_tests_repeated": false,
+    "unique_passed": 77
+  },
+  "user_steering": "Stop additional hair tuning; preserve completed work. Future user-accepted appearance policy needs a new explicit request, not old verdict changes."
+}

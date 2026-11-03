@@ -1,0 +1,53 @@
+{
+  "baseline_deformation_sha256": "c021c4f810023146563ad21727e7028b531248750e2804c757ee76b2d6c06fbc",
+  "classification": "Actual local analytic derivative, not appearance acceptance",
+  "deformation_passed": true,
+  "native_job": {
+    "elapsed_seconds": 43.641,
+    "exit_code": 0,
+    "final_output_bytes": 89330732,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 600
+    },
+    "process_exit_verified": true,
+    "sampled_peak_rss_bytes": 1786314752
+  },
+  "new_deformation_sha256": "672483174a723ec097e01f3765d4fb30ccf2b9ca1576b0fb9b595d914c8e9c1a",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "rest_measurement_equal": {
+    "bone_names": true,
+    "edges": true,
+    "edges_sha256": true,
+    "pose_samples_measured": true,
+    "rest_bounds": true,
+    "rest_sha256": true,
+    "vertices": true
+  },
+  "schema_version": 1,
+  "states": [
+    {
+      "id": "toy_dance",
+      "max_reported_excess_m": 0.040574657986486726,
+      "max_reported_stretch_ratio": 6.123494979312311,
+      "offending_outliers": [],
+      "passed": true,
+      "reported_outliers": 4,
+      "sample_seconds": [
+        0.0,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0
+      ]
+    }
+  ]
+}

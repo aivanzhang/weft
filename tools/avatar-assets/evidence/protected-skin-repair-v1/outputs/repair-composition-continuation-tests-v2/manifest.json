@@ -1,0 +1,81 @@
+{
+  "artifacts": [
+    {
+      "bytes": 327,
+      "path": "command.json",
+      "sha256": "6bef0a43c1a1f6eae27ea898050dfdc888e5c4be6c66f4ea1fee42200a8de13b"
+    },
+    {
+      "bytes": 1185,
+      "path": "job.json",
+      "sha256": "bdfafed9353deaade885fd6798fcf13641546f8ca84528c8d1759814ce05658b"
+    },
+    {
+      "bytes": 11366,
+      "path": "prepared.json",
+      "sha256": "a9fc48e186688edbb22d53d5ceed864455c5806e1667d648f1627ec506bdaefc"
+    },
+    {
+      "bytes": 1537,
+      "path": "result.json",
+      "sha256": "47a3fd151c3c1e585d18e6eb94f133017f6440073a4af509e9217f9e4977436d"
+    },
+    {
+      "bytes": 1601,
+      "path": "run.py",
+      "sha256": "8ad2d62ed7427d55f7cb903a6f4eb5e14000c138db09eda5d9b5099fd793a0ac"
+    },
+    {
+      "bytes": 59957,
+      "path": "sources/avatar_assets/pipeline_continuation.py",
+      "sha256": "0941b24aa8856020d5280e5798ab4810d6df8078b77086d3c2e77ea8df80b2fb"
+    },
+    {
+      "bytes": 22533,
+      "path": "sources/avatar_assets/repair_composition.py",
+      "sha256": "5767de3aaae5311243e1167c4435ce4fab0b0c0353c178e748ad6b262ddc3b7b"
+    },
+    {
+      "bytes": 17129,
+      "path": "sources/tests/test_author_contract.py",
+      "sha256": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f"
+    },
+    {
+      "bytes": 31851,
+      "path": "sources/tests/test_pipeline_continuation.py",
+      "sha256": "a81daa73b5397aab94a7834634dce53dfacb61f574914bbcb9d1abd5a04086b8"
+    },
+    {
+      "bytes": 22274,
+      "path": "sources/tests/test_pipeline_prompts.py",
+      "sha256": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+    },
+    {
+      "bytes": 10495,
+      "path": "sources/tests/test_repair_composition_continuation.py",
+      "sha256": "900fc0203853f2a5ad99b5ada813baddc47626194dc49bd80f3442767d25ad53"
+    },
+    {
+      "bytes": 12919,
+      "path": "sources/tests/test_visual_repair_continuation.py",
+      "sha256": "a168f991b70e3c0188925d98bd05fb3dfd1695d2a6b6a5489da40a20f7c963f6"
+    },
+    {
+      "bytes": 303,
+      "path": "tests-handle.json",
+      "sha256": "87a60e784c0e3b9b31a83e33d1f42c200da5ea0a22ce4e7f8cb6e23a0ba1fb16"
+    },
+    {
+      "bytes": 1087,
+      "path": "tests-monitor.json",
+      "sha256": "e4b6541d26d554190bb367b9bfd1b43bdd53025877ba07b81e6ad75d11a87e3d"
+    },
+    {
+      "bytes": 19735,
+      "path": "tests.log",
+      "sha256": "f037efe363545773b2659a4e2312a523f4912c6b7e7bc6e122f8c39fe45f3ab1"
+    }
+  ],
+  "kind": "analytic_composed_continuation_tests",
+  "schema_version": 1
+}

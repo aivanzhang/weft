@@ -1,6 +1,68 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 02, 2026, 06:32 PM PST
+## Session handoff — November 02, 2026, 06:43 PM PST
+
+- **User steering:** stop fur tuning; the user is happy with the prior appearance.
+  Focus on hands-off website/backend, requested motion, preview and download.
+  The prepared appearance-optimization retry is superseded **before activation**;
+  no further paid call or policy increase occurred. A new request must explicitly
+  pin the accepted appearance and assess preservation, not silently waive or rewrite
+  old quality verdicts. Backend is checking the smallest compatible request route.
+- **No live worker and no accepted hands-off delivery.** Child
+  `6c2aeac484bd4d4597fb71f3` ended `unsupported` / `repair_budget` at
+  November 02, 2026, 06:40:31 PM PST. Observer17227 completed in460.083s;
+  browser/server exited, no active lease, no cancellation or signals. All three
+  native models built but failed independent deformation checks; no final media
+  or critic call was reached. Preserve all outputs and original AI responses.
+- The new automatic coat check worked through the actual website in2.553s;
+  source snapshots54/54 unchanged. It did not fix skin regressions: author0
+  changed passing weights while responding to older failure notes. Rig bones
+  and rotations stayed identical; global root lift alone cannot stretch edges.
+  Latest prior model45757/model-2 had passed deformation. Do not repeat an
+  unchanged paid retry or manually alter its recipe.
+- **Accounting:** this job used3settled author calls/$0.624328. Cumulative
+  settled$6.648951 + unchanged unknownholds$6.548016 = exposure$13.196967;
+  remaining$1.803033 under the existing$15total. Holds are not confirmed bills.
+  No Meshy calls. All three configured lineage successors are now used; any
+  further bounded attempt needs an explicit recorded policy revision under the
+  same standing approval, never a reset or new dollar allowance.
+- **Local implementation in progress, no paid work:** openai_backend owns a new
+  explicit schema-scoped repair composer, pipeline and prompt integration.
+  pipeline_contracts owns continuation authentication and tests. New narrow
+  repair mode will preserve an authenticated passing skin/rest geometry and
+  rotations while allowing finishing and existing-key root translations; raw AI
+  patches remain immutable and composed designs get separate provenance.
+  Unsupported action changes keep the ordinary full-author route; no quality
+  gate is relaxed. Root owns local native proof, docs and any later website run.
+  api_studio_integration owns a bounded terminal summary only.
+- **Saved:** `e8c8a49f5566119c3c9a2214fa9dfed6b7c3f882` verified on private remote
+  main;139avatar-only files/3,865,730bytes, guardv32, parentf7a2030 preserved.
+  `outputs/motion-coat-publication-v1/receipt.json`. Later handoff/new fixes are
+  not yet checkpointed. Do not touch unrelated Weft work or deployment.
+- **Local native proof passed:** `outputs/protected-skin-native-proof-v1` is an
+  explicitly analytic derivative (not new AI output or appearance acceptance).
+  The earlier passing skin plus the rejected candidate's finish/root edits passed
+  the unchanged deformation gate. Native43.641s, sampledRSS1,786,314,752B,
+  output89,330,732B, verified exit; rest/edge hashes, bone definitions and bounds
+  match the baseline. Final helper re-composition must match this exact design.
+- **Protected repair checks complete:**77 analytic methods plus14 separately
+  versioned continuation methods passed;8 new numeric-terminal checks passed.
+  Actual6c2 collection now preserves the completed-model/failed-deformation
+  terminal. Full actual consumer proof v2 passed0.859s with8images and73,092B
+  prompt +16KiB allowance below128KiB. Final composer reproduces the native
+  proof's exact effective design. No provider/native calls in that preflight.
+  Evidence: `evidence/protected-skin-repair-v1` and
+  `evidence/numeric-rejection-continuation-v1`.
+- **Remaining integration:** only a newly authenticated passing review may
+  advance the finishing/root-motion baseline, while skin/non-root controls stay
+  equal. Failed patches cannot replace it. Latest critiques must remain active;
+  appearance-only repairs cannot undo newly passing hop motion. The frozen checks above cover this mode.
+- **Next safe action:** implement the explicit new preserve-current-appearance
+  request/UI mode before any paid website continuation.
+  Preserve original responses, ancestor proof hashes and failed scenes. No
+  provider call is authorized by a test fixture or by elapsed time alone.
+
+## Historical handoff — November 02, 2026, 06:32 PM PST
 
 - **No accepted hands-off delivery.** Studio `45757c9565b545119553baca` is terminal
   `unsupported` / `repair_budget`. Its one website Start ran 1,314.403 s; browser,
@@ -44,10 +106,11 @@
   `1fc0603e4077bf08b8e6d3a966685d0ae5024e0f16726c61014566cb727b37a6`). Large/private-shaped
   originals are hash-referenced, not copied; prior frozen bundles remain unchanged.
   Exact test commands and classification are retained in the copied result receipts.
-- **Save status:** last avatar-only checkpoint `2acd5f26dae412a10ce54e076962aa5e62ff8781`
-  has a verified publication receipt. Root reports another owner advanced HEAD to
-  `f7a2030`; these new avatar fixes/evidence still need an owner-coordinated checkpoint.
-  This documentation task performs no Git writes. Preserve unrelated dirty work.
+- **Saved and pushed:** avatar-only checkpoint `e8c8a49f5566119c3c9a2214fa9dfed6b7c3f882`
+  is verified on private remote main; parent `f7a2030` from the other Weft owner is
+  preserved. 139 reviewed files / 3,865,730 bytes; guard v32. Receipt:
+  `outputs/motion-coat-publication-v1/receipt.json`. No deployment or unrelated
+  work was included. This later handoff update remains to checkpoint.
 - **New root-owned Start is active:** child `6c2aeac484bd4d4597fb71f3`, observer
   **17227**, `outputs/gpt52-panda-studio-live-v5`, at most 1,800 s and one Start.
   Retry→Prepare v5 passed with no planner charge; its browser/server exited.

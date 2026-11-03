@@ -1,0 +1,230 @@
+test_changed_effective_answer_is_not_a_new_paid_design (test_repair_composition_continuation.ComposedContinuationTests.test_changed_effective_answer_is_not_a_new_paid_design) ... ERROR
+test_changed_passing_baseline_stops_before_reconstruction (test_repair_composition_continuation.ComposedContinuationTests.test_changed_passing_baseline_stops_before_reconstruction) ... ERROR
+test_legacy_answer_with_unexplained_composition_is_rejected (test_repair_composition_continuation.ComposedContinuationTests.test_legacy_answer_with_unexplained_composition_is_rejected) ... ok
+test_missing_composition_never_falls_back_to_raw_patch (test_repair_composition_continuation.ComposedContinuationTests.test_missing_composition_never_falls_back_to_raw_patch) ... ERROR
+test_native_continuation_uses_effective_design_and_retains_paid_patch (test_repair_composition_continuation.ComposedContinuationTests.test_native_continuation_uses_effective_design_and_retains_paid_patch) ... ERROR
+test_paid_patch_refusal_remains_raw_while_previous_seed_is_effective (test_repair_composition_continuation.ComposedContinuationTests.test_paid_patch_refusal_remains_raw_while_previous_seed_is_effective) ... ERROR
+test_raw_paid_patch_tampering_is_rejected_before_composition (test_repair_composition_continuation.ComposedContinuationTests.test_raw_paid_patch_tampering_is_rejected_before_composition) ... ERROR
+test_semantic_replan_receives_effective_design_and_separate_paid_raw (test_repair_composition_continuation.ComposedContinuationTests.test_semantic_replan_receives_effective_design_and_separate_paid_raw) ... ERROR
+test_visual_terminal_reconstructs_from_composed_design (test_repair_composition_continuation.ComposedContinuationTests.test_visual_terminal_reconstructs_from_composed_design) ... ERROR
+
+======================================================================
+ERROR: test_changed_effective_answer_is_not_a_new_paid_design (test_repair_composition_continuation.ComposedContinuationTests.test_changed_effective_answer_is_not_a_new_paid_design)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 101, in test_changed_effective_answer_is_not_a_new_paid_design
+    child, _, _ = self.composed_child()
+                  ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 74, in composed_child
+    self.make_terminal(child, inherited=True)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 27, in make_terminal
+    return native_fixtures.ContinuationTests.make_terminal(self, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline_continuation.py", line 73, in make_terminal
+    runner.call(role,'Analytic fixture',schema(answer))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 67, in submit
+    returned = original_call(runner, role, prompt, composition.patch_schema(baseline), images=images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py", line 595, in call
+    selected = _image_inputs(images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/agent_runner.py", line 154, in _image_inputs
+    require(isinstance(images, (list, tuple)) and len(images) <= 8, 'At most eight selected images')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: At most eight selected images
+
+======================================================================
+ERROR: test_changed_passing_baseline_stops_before_reconstruction (test_repair_composition_continuation.ComposedContinuationTests.test_changed_passing_baseline_stops_before_reconstruction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 111, in test_changed_passing_baseline_stops_before_reconstruction
+    child, _, _ = self.composed_child()
+                  ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 74, in composed_child
+    self.make_terminal(child, inherited=True)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 27, in make_terminal
+    return native_fixtures.ContinuationTests.make_terminal(self, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline_continuation.py", line 73, in make_terminal
+    runner.call(role,'Analytic fixture',schema(answer))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 67, in submit
+    returned = original_call(runner, role, prompt, composition.patch_schema(baseline), images=images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py", line 595, in call
+    selected = _image_inputs(images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/agent_runner.py", line 154, in _image_inputs
+    require(isinstance(images, (list, tuple)) and len(images) <= 8, 'At most eight selected images')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: At most eight selected images
+
+======================================================================
+ERROR: test_missing_composition_never_falls_back_to_raw_patch (test_repair_composition_continuation.ComposedContinuationTests.test_missing_composition_never_falls_back_to_raw_patch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 94, in test_missing_composition_never_falls_back_to_raw_patch
+    child, _, _ = self.composed_child()
+                  ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 74, in composed_child
+    self.make_terminal(child, inherited=True)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 27, in make_terminal
+    return native_fixtures.ContinuationTests.make_terminal(self, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline_continuation.py", line 73, in make_terminal
+    runner.call(role,'Analytic fixture',schema(answer))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 67, in submit
+    returned = original_call(runner, role, prompt, composition.patch_schema(baseline), images=images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py", line 595, in call
+    selected = _image_inputs(images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/agent_runner.py", line 154, in _image_inputs
+    require(isinstance(images, (list, tuple)) and len(images) <= 8, 'At most eight selected images')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: At most eight selected images
+
+======================================================================
+ERROR: test_native_continuation_uses_effective_design_and_retains_paid_patch (test_repair_composition_continuation.ComposedContinuationTests.test_native_continuation_uses_effective_design_and_retains_paid_patch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 80, in test_native_continuation_uses_effective_design_and_retains_paid_patch
+    child, raw, _ = self.composed_child()
+                    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 74, in composed_child
+    self.make_terminal(child, inherited=True)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 27, in make_terminal
+    return native_fixtures.ContinuationTests.make_terminal(self, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline_continuation.py", line 73, in make_terminal
+    runner.call(role,'Analytic fixture',schema(answer))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 67, in submit
+    returned = original_call(runner, role, prompt, composition.patch_schema(baseline), images=images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py", line 595, in call
+    selected = _image_inputs(images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/agent_runner.py", line 154, in _image_inputs
+    require(isinstance(images, (list, tuple)) and len(images) <= 8, 'At most eight selected images')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: At most eight selected images
+
+======================================================================
+ERROR: test_paid_patch_refusal_remains_raw_while_previous_seed_is_effective (test_repair_composition_continuation.ComposedContinuationTests.test_paid_patch_refusal_remains_raw_while_previous_seed_is_effective)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 150, in test_paid_patch_refusal_remains_raw_while_previous_seed_is_effective
+    child, _, baseline = self.composed_child(max_repairs=1)
+                         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 74, in composed_child
+    self.make_terminal(child, inherited=True)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 27, in make_terminal
+    return native_fixtures.ContinuationTests.make_terminal(self, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline_continuation.py", line 73, in make_terminal
+    runner.call(role,'Analytic fixture',schema(answer))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 67, in submit
+    returned = original_call(runner, role, prompt, composition.patch_schema(baseline), images=images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py", line 595, in call
+    selected = _image_inputs(images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/agent_runner.py", line 154, in _image_inputs
+    require(isinstance(images, (list, tuple)) and len(images) <= 8, 'At most eight selected images')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: At most eight selected images
+
+======================================================================
+ERROR: test_raw_paid_patch_tampering_is_rejected_before_composition (test_repair_composition_continuation.ComposedContinuationTests.test_raw_paid_patch_tampering_is_rejected_before_composition)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 121, in test_raw_paid_patch_tampering_is_rejected_before_composition
+    child, _, _ = self.composed_child()
+                  ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 74, in composed_child
+    self.make_terminal(child, inherited=True)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 27, in make_terminal
+    return native_fixtures.ContinuationTests.make_terminal(self, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline_continuation.py", line 73, in make_terminal
+    runner.call(role,'Analytic fixture',schema(answer))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 67, in submit
+    returned = original_call(runner, role, prompt, composition.patch_schema(baseline), images=images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py", line 595, in call
+    selected = _image_inputs(images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/agent_runner.py", line 154, in _image_inputs
+    require(isinstance(images, (list, tuple)) and len(images) <= 8, 'At most eight selected images')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: At most eight selected images
+
+======================================================================
+ERROR: test_semantic_replan_receives_effective_design_and_separate_paid_raw (test_repair_composition_continuation.ComposedContinuationTests.test_semantic_replan_receives_effective_design_and_separate_paid_raw)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 176, in test_semantic_replan_receives_effective_design_and_separate_paid_raw
+    child, raw, _ = self.composed_child()
+                    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 74, in composed_child
+    self.make_terminal(child, inherited=True)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 27, in make_terminal
+    return native_fixtures.ContinuationTests.make_terminal(self, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline_continuation.py", line 73, in make_terminal
+    runner.call(role,'Analytic fixture',schema(answer))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 67, in submit
+    returned = original_call(runner, role, prompt, composition.patch_schema(baseline), images=images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py", line 595, in call
+    selected = _image_inputs(images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/agent_runner.py", line 154, in _image_inputs
+    require(isinstance(images, (list, tuple)) and len(images) <= 8, 'At most eight selected images')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: At most eight selected images
+
+======================================================================
+ERROR: test_visual_terminal_reconstructs_from_composed_design (test_repair_composition_continuation.ComposedContinuationTests.test_visual_terminal_reconstructs_from_composed_design)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 137, in test_visual_terminal_reconstructs_from_composed_design
+    child, raw, _ = self.composed_child()
+                    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 74, in composed_child
+    self.make_terminal(child, inherited=True)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 27, in make_terminal
+    return native_fixtures.ContinuationTests.make_terminal(self, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_pipeline_continuation.py", line 73, in make_terminal
+    runner.call(role,'Analytic fixture',schema(answer))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_repair_composition_continuation.py", line 67, in submit
+    returned = original_call(runner, role, prompt, composition.patch_schema(baseline), images=images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/openai_runner.py", line 595, in call
+    selected = _image_inputs(images)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/agent_runner.py", line 154, in _image_inputs
+    require(isinstance(images, (list, tuple)) and len(images) <= 8, 'At most eight selected images')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: At most eight selected images
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.485s
+
+FAILED (errors=8)
