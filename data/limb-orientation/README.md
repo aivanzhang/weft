@@ -32,4 +32,4 @@ Tolerances were fixed from visual endpoint uncertainty before candidate scoring:
 Original excerpts and derivatives retain these licenses. Changes: individual frames
 extracted, contact sheets assembled, identifying strips and separately marked visual
 estimates added. Annotation data is offered under CC BY-SA 4.0. Full provenance and
-source hashes are in the annotation document. See [grader](../../docs/limb-fidelity.md).
+source hashes are in the annotation document. See [grader](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/limb-fidelity.md).

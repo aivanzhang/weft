@@ -31,4 +31,4 @@ not a representative accuracy study.
 Frozen annotation SHA-256:
 `a017fff83778a19cb19ceedc403a7b98cdedf37b40ded01f8a4e1b6bb9c08a01`.
 
-See [grader and interpretation](../../docs/body-fidelity.md).
+See [grader and interpretation](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/body-fidelity.md).

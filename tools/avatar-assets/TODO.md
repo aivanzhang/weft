@@ -408,7 +408,7 @@
   **45 distinct analytic tests pass** (13 new,
   32 affected), with independent review finding no blockers. The native transport
   is mocked in those tests; the separate actual probe supplies native evidence.
-- **Evidence:** [motion/coat/admission milestone](docs/motion-coat-admission.md) and
+- **Evidence:** [motion/coat/admission milestone](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/motion-coat-admission.md) and
   new `evidence/panda-motion-coat-admission-v1/manifest.json` (120 copied files /
   3,402,029 bytes; manifest SHA
   `1fc0603e4077bf08b8e6d3a966685d0ae5024e0f16726c61014566cb727b37a6`). Large/private-shaped

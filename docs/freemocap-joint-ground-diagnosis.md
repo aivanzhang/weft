@@ -1,6 +1,6 @@
 # Joint and ground diagnosis
 
-**No new exercise body is admitted.** These checks narrow the causes of missing joints and reject unsupported floor estimates. The existing [playable squat sandbox](heavy-pose-model.md) stays unchanged.
+**No new exercise body is admitted.** These checks narrow the causes of missing joints and reject unsupported floor estimates. The existing [playable squat sandbox](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/heavy-pose-model.md) stays unchanged.
 
 The complete two-camera source, original 36,564 joint slots and previous failures remain in the [human-motion evidence](freemocap-body-evidence.md). Cam3 was undecoded during this diagnostic. The subsequent [frozen comparison](freemocap-fixed-lengths.md) opens it; it is now exposed development evidence, not final evaluation data.
 

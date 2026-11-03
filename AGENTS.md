@@ -32,8 +32,8 @@ The selected logo is `assets/brand/exports/weft-logo.png` (v3 lettering and layo
 
 ## Parallel ownership and durable handoffs
 
-- Build one generalizable Weft pipeline, not separate exercise and object products. The user closed agy and transferred both tracks to this session: video understanding/reconstruction and simulation/RL/lab/recording. Follow the [combined goal](docs/handoffs/complete-goal.md) and [current handoff](docs/handoffs/combined.md). The [former file split](docs/parallel-workstreams.md) remains useful for non-overlapping delegation, not a prohibition on completing either track. Preserve inherited work; do not duplicate jobs or race shared edits.
-- Each session must keep its handoff note current at meaningful milestones, before long-running work, when blocked and before ending. Record critical decisions, exact files/commands/settings, verified results and artifact identities, failures/limits, live handles and ownership, Git state and the next safe action. Do not leave resumable context only in chat or include secrets.
+- Build one generalizable Weft pipeline, not separate exercise and object products. The user closed agy and transferred both tracks to this session: video understanding/reconstruction and simulation/RL/lab/recording. Use [PROJECT.md](PROJECT.md) as the current guide. The historical [combined goal](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/handoffs/complete-goal.md) and [combined handoff](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/handoffs/combined.md) are preserved for context. The [former file split](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/parallel-workstreams.md) remains useful for non-overlapping delegation, not a prohibition on completing either track. Preserve inherited work; do not duplicate jobs or race shared edits.
+- Each session must update the current state and resume record in `PROJECT.md` at meaningful milestones, before long-running work, when blocked and before ending; do not create overlapping handoff files. Record critical decisions, exact files/commands/settings, verified results and artifact identities, failures/limits, live handles and ownership, Git state and the next safe action. Do not leave resumable context only in chat or include secrets.
 - Checkpoint relevant completed/tested work periodically and before handoff; push only within the user's authorization and applicable review rules. Inspect stashes, preserve unique contents in a commit or verified backup, and clean only reviewed entries. Never discard evidence or unrelated work to make Git look clean.
 - All sessions share the existing $5 Meta budget and canonical ledger. A separate checkout is not permission to create another budget or copy the key. Track B's first integration milestone requires no paid call.
 
@@ -48,7 +48,7 @@ The selected logo is `assets/brand/exports/weft-logo.png` (v3 lettering and layo
 
 ## Implementation invariants
 
-- Start with `docs/architecture.md`, `docs/iteration.md`, and `TODO.md` for current scope. Historical hackathon analyses are references, not a substitute for the current scope.
+- Start with `PROJECT.md` for current scope, architecture, status and remaining work; `docs/HISTORY.md` indexes the preserved prior narratives. Historical hackathon analyses are references, not a substitute for the current scope.
 - Preserve existing dirty work and saved run directories. Each experiment uses a new output directory; record hypotheses, resolved settings, source copies, and rejected proposals. Do not silently promote a development benchmark to a final holdout.
 
 - Prefer a small Python simulator, deterministic evaluator, and explicit bounded tool loop. A dashboard can use Next.js, React, TypeScript, Tailwind, and alias imports.

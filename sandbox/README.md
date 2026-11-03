@@ -62,4 +62,4 @@ node --test sandbox/run.test.mjs
 `--check` verifies the Python executable and prints the launch command without
 importing the pipeline, creating project directories or making API calls. Full
 portal behavior and current reconstruction limits are documented in
-[the portal guide](../docs/portal.md) and [the demo guide](../docs/hackathon-demo.md).
+[the portal guide](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/portal.md) and [the demo guide](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/hackathon-demo.md).

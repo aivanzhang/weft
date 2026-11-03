@@ -1,13 +1,13 @@
 # Avatar assets
 
-Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
+Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/relocation.md).
 
 **Budget:** standing authorization permits further bounded retries within **$15
 total OpenAI spend**, including prior use, without repeated approval questions.
 The append-only ledger cap is active. The new owl/rabbit trial needs a separate
 62-credit Meshy allowance increase; no new paid work has run for it yet.
 
-**Current request:** [separate characters and different animals](docs/separate-assets.md).
+**Current request:** [separate characters and different animals](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/separate-assets.md).
 The next checks are an owl taking off/flying and a rabbit hopping, each with its
 own model, rig and motion. The previous panda/dragon source is combined and
 remains unchanged; its accepted dance does not prove independent dragon control.
@@ -37,12 +37,12 @@ unsupported: exported coat quality and visible hops still failed. Local checks n
 preserve motion peaks in review samples and distinguish native from exported coat.
 The source-bound undercoat probe **refused** the current export budget; its capacity
 ceiling is not an admitted recipe. The automatic continuation preflight passes
-without a paid call. See the [motion/coat milestone](docs/motion-coat-admission.md).
+without a paid call. See the [motion/coat milestone](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/motion-coat-admission.md).
 No validator was relaxed and no old recipe was manually edited.
-[Protected-skin repair patches](docs/protected-skin-repairs.md) keep a verified
+[Protected-skin repair patches](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/protected-skin-repairs.md) keep a verified
 baseline rig and articulation fixed during eligible finishing/root-motion repairs;
 the local derivative proof is not a new accepted avatar.
-The explicit [Keep look; finish motion](docs/preserve-current-appearance.md) mode
+The explicit [Keep look; finish motion](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/preserve-current-appearance.md) mode
 preserves the current verified baseline’s appearance instead of tuning fur again.
 The actual **Retry→Prepare→Start→delivery** run passed on attempt 0 in a
 368.122-second browser observation. Its four review categories, dance state and
@@ -52,45 +52,45 @@ GLB, editable Blender source, portrait, four-second animation and static fallbac
 This proves a saved-source continuation, not fresh text-to-mesh or every prompt.
 This trial keeps the shoulder dragon perched, not flying.
 
-[GPT-5.2 model profiles](docs/api-model-profiles.md) and standard responses keep
+[GPT-5.2 model profiles](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/api-model-profiles.md) and standard responses keep
 per-call reservations within the existing $15 total cap. The completed run used
 two settled API calls costing **$0.178757**, with no Meshy submission or new unknown
 hold. Cumulative settled use is **$6.827708** plus **$6.548016** in retained uncertain
 charge holds: **$13.375724** exposure and **$1.624276** remaining. Holds are not
 confirmed bills. No new Meshy work or
 hosted deployment. The [handoff](TODO.md) records exact sources, ownership,
-commands, failures and the next safe action. [Backend details](docs/api-website-backend.md).
+commands, failures and the next safe action. [Backend details](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/api-website-backend.md).
 
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.
 The user has accepted the previous appearance; the active priority is now
 separate assets and broader animal/motion tests, not further appearance upgrades. One real saved-source
 preservation delivery now passes; fresh geometry generation and broader prompt
-coverage remain separate, unproven acceptance cases. The earlier [texture-preserving undercoat improvement](docs/undercoat-uv2-preservation.md)
+coverage remain separate, unproven acceptance cases. The earlier [texture-preserving undercoat improvement](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/undercoat-uv2-preservation.md)
 passes component checks; it is not a newly accepted avatar.
-The subsequent [actual-source control](docs/source-uv-control.md) builds a rigged
+The subsequent [actual-source control](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/source-uv-control.md) builds a rigged
 furred GLB and passes independent skin/texture-frame checks, but its eight rendered
 views/poses still expose folded shoulder/cheek geometry. It remains unapproved.
 The reusable pre-export guard now rejects unsupported normal-texture UV routes;
 passing that check is not visual acceptance.
-The [current local quality work](docs/quality-next-step.md) also removes an unused
+The [current local quality work](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/quality-next-step.md) also removes an unused
 shared-image requirement for non-color-driven finishing. An existing mixed-material
 lamp passes the public finisher; this is an integration check, not a new generated
 avatar or a Muse-quality result.
-The new [separate-source composer](docs/multipart-sources.md) preserves complete
+The new [separate-source composer](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/multipart-sources.md) preserves complete
 character parts, materials and textures in one unrigged GLB. It is tested on the
 saved robot and dragon; automatic multipart generation and animation remain separate work.
-The opt-in [material-owned fur profile](docs/material-owned-fur.md) now finishes
+The opt-in [material-owned fur profile](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/material-owned-fur.md) now finishes
 an existing three-texture fox without sharing one color image across its coat.
 Its native portrait and exported views are verified locally; the coat still
 reads as short plush, not dense Muse fur or a fresh accepted Studio delivery.
 That first coat failed attachment by up to 2.50 mm. The opt-in
-[skin-consistent root placement](docs/skin-consistent-fur.md) fixes this mechanism:
+[skin-consistent root placement](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/skin-consistent-fur.md) fixes this mechanism:
 all 3,000 roots pass across 36 sampled poses, with maximum separation below
 0.4 micrometres. Body, colors and existing motions are preserved. Appearance
 still reads as short plush, with abrupt tail/leg boundaries and source deformation
 defects; this fox is not an accepted Studio delivery.
 
-The new [automatic fur-attachment gate](docs/portable-fur-attachment.md) now runs
+The new [automatic fur-attachment gate](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/portable-fur-attachment.md) now runs
 before expensive media in the prompt pipeline. The actual saved fox passes
 1,164,000 root-pose checks in1.3s; analytic detached-fur controls correctly fail.
 This verifies attachment to the exported body, not denser fur or an accepted
@@ -127,8 +127,8 @@ acceptance test. Existing-model renderer checks alone do not prove a new avatar
 meets its prompt. Work now includes exact custom-action contracts, subject-specific
 materials/fur, actual weighted-motion checks, 720px native/exported views and
 review of final media before delivery. No universal prompt success or Muse-level
-finish is promised. [Active goal and acceptance gates](docs/hands-off-studio.md),
-[commands and bounds](docs/prompt-pipeline.md), [current handoff](TODO.md).
+finish is promised. [Active goal and acceptance gates](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/hands-off-studio.md),
+[commands and bounds](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/prompt-pipeline.md), [current handoff](TODO.md).
 
 Earlier checkpoint **November 1, 2026**: the integrated suite passed **682 tests in
 17.120s**, with nine browser fixture checks also preserved. The previous robot
@@ -164,14 +164,14 @@ The 122.283-second finish and 22.214-second reload made no new paid calls.
 Appearance review still finds smooth portable fur and exposed cheek/shoulder
 marks, so this is a technical component pass—not a new accepted fur model,
 Muse parity or a changed default. Weft's importer stays unchanged.
-[Inputs, bounds and verification](docs/adaptive-undercoat.md).
+[Inputs, bounds and verification](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/adaptive-undercoat.md).
 
 A later **experimental upright-fringe pass** preserves the real rig/action and
 improves sampled ear/tail/paw outlines. Its exported white coat is still too
 smooth, and cheek/shoulder defects remain; it is not promoted into the automatic
 finish. The build and independent reload passed within 1.279s/495 MB and
 15.275s/1.04 GB sampled memory respectively, with no new generation calls.
-[Exact experiment, previews and limits](docs/edge-fringe-experiment.md).
+[Exact experiment, previews and limits](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/edge-fringe-experiment.md).
 
 The area-weighted follow-up improves fur placement but still looks speckled,
 not densely furry. It is also **not accepted**. A separate source-texture guard
@@ -180,7 +180,7 @@ math and approved assets are unchanged. Verification covers **695 tests across
 two runs**: 668 passed initially, and all 27 sandbox-blocked localhost tests
 passed with local permission. This verifies software, not hands-off visual quality.
 
-Exported-model review now uses [verified EEVEE culling](docs/exported-preview-renderer.md),
+Exported-model review now uses [verified EEVEE culling](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/exported-preview-renderer.md),
 while native hair rendering stays unchanged. A matched source-normal experiment
 removes most white-body speckling; the separate color-atlas correction passes its
 measured color gate. Reordering unchanged texture patches then removes most
@@ -188,14 +188,14 @@ dark-region flecks in matched actual previews without changing geometry or motio
 Cheek/shoulder defects and sparse fur remain; no experimental coat is promoted.
 The renderer change passes six focused and 49 integration checks.
 
-The experimental [portable edge-fringe workflow](docs/portable-fringe.md) has
+The experimental [portable edge-fringe workflow](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/portable-fringe.md) has
 reusable geometry/color libraries and a passing small Blender fixture. Real
 panda/fox checks exposed exported normal/weight drift, and the panda exceeded
 its memory limit. That option now returns **unsupported before native work**;
 existing combed-card finishing and approved assets are unchanged. The final
 guard and surrounding contracts pass 59 tests. This is not a new Studio delivery.
 
-[Export fidelity and staged rendering](docs/export-fidelity-and-staging.md) now
+[Export fidelity and staged rendering](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/export-fidelity-and-staging.md) now
 prove a float-normal fix, exact full-source skin restoration and 13 native
 stills below the same 2 GiB limit. The independent panda audit verifies nine
 sampled poses and attached fringe. Its exported preview still has conspicuous
@@ -203,13 +203,13 @@ contour spikes and cheek/shoulder defects, so this experimental route remains
 disabled and no approved asset is replaced. These repairs are not a fresh
 hands-off text-prompt acceptance.
 
-The latest [contour/contact diagnosis](docs/contour-contact-diagnosis.md) finds
+The latest [contour/contact diagnosis](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/contour-contact-diagnosis.md) finds
 that shorter regional fur improves outlines without changing the body, textures,
 skin or actions. It remains short plush, not dense hair; cheek/shoulder defects
 still prevent quality acceptance. The tested helper and diagnostic evidence are
 preserved with compact evidence; the public fringe route and approved assets remain unchanged.
 
-A [normal-transfer quality guard](docs/normal-transfer-guard.md) now rejects
+A [normal-transfer quality guard](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/normal-transfer-guard.md) now rejects
 inward-facing transfers before shading changes. The actual panda and Blender
 checks reproduce 172 rejected corners; 23 focused software tests cover the guard
 and its pinned, bounded repair diagnostics. This prevents a known defect but is
@@ -243,7 +243,7 @@ This is **not a polished/Muse-equivalent result**: cheek scuffs, mottled shoulde
 shading and a small bright fleck remain. Browser fur also shows colored flecks;
 the native video is the fuller fur representation. Physical flight, seamless
 looping and unchanged-fidelity Weft import are not claimed.
-[Files, controls, measured results and limitations](docs/compound-motion.md).
+[Files, controls, measured results and limitations](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/compound-motion.md).
 [Sealed delivery evidence](evidence/compound-motion-v1.json).
 
 ## Panda fur and detail upgrade
@@ -252,7 +252,7 @@ The latest fur work separates a clean generated undercoat from editable native
 hair and lighter browser fur. Regional combing/length, eye and accessory masks,
 source-colored tapered cards and bounded local color repairs are reusable
 finishing controls, available to the AI author—not panda-specific code.
-[Workflow, costs and preserved failures](docs/fur-workflow.md).
+[Workflow, costs and preserved failures](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/fur-workflow.md).
 
 The new panda has an editable groom/rig, a1600px portrait and four720px/24fps/2s
 motion previews: idle, look-around, head tilt and tail lift/dip. The complete4s
@@ -282,7 +282,7 @@ the approved dragon and the original reference are unchanged.
 The finishing stage now supports bounded surface smoothing, separate material-response regions,
 and native-hair sheen controls. A local comparison tool isolates geometry, texture/normal maps,
 native hair and portable cards before spending on another generation. These are reusable,
-configuration-driven controls, not panda-specific code. See [recipes, results and rejected trials](docs/meshy-quality-upgrade-v1.md).
+configuration-driven controls, not panda-specific code. See [recipes, results and rejected trials](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/meshy-quality-upgrade-v1.md).
 
 The selected dragon refinement is `outputs/agent-dragon-polish-v1`; the two panda trials and
 dragon material trial were rejected. Prior delivered packs remain unchanged. This pass does
@@ -327,11 +327,11 @@ four-state default. The current AI-call allowance defaults to 10, capped at 12;
 the expected first attempt uses three calls (planner, author, critic), and each
 complete local repair adds two. These caps do not authorize new paid generation.
 
-**Historical real-agent checkpoint on two different generated sources:** the dragon completed after two automatic repairs; the robot completed after one. Both exported real skins, four motions, portrait/videos/static fallbacks and passed actual browser playback checks. The robot test inferred style and state IDs from the text alone. These runs reused preserved Meshy geometry; fresh geometry generation was not purchased again. They verify the earlier bounded workflow, not the new final-media quality gate or studio. Full results, rejected attempts and measured limits are in [the verification report](docs/prompt-pipeline-results-v1.md).
+**Historical real-agent checkpoint on two different generated sources:** the dragon completed after two automatic repairs; the robot completed after one. Both exported real skins, four motions, portrait/videos/static fallbacks and passed actual browser playback checks. The robot test inferred style and state IDs from the text alone. These runs reused preserved Meshy geometry; fresh geometry generation was not purchased again. They verify the earlier bounded workflow, not the new final-media quality gate or studio. Full results, rejected attempts and measured limits are in [the verification report](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/prompt-pipeline-results-v1.md).
 
 View both completed examples with `./tools/avatar-assets/run gallery --catalog browser/gallery-agent-v1.json`, then open `http://127.0.0.1:8765/` yourself. Dragon media is1600px/720px/4s; the bounded robot test uses512px/256px/2s. Both retain their original4K texture maps.
 
-See [commands, roles, outputs and limits](docs/prompt-pipeline.md) and the [current handoff](TODO.md). Agents cannot execute tools or spend directly; local scripts own execution. This is not a guarantee of Muse-equivalent quality, arbitrary interactions, hair physics or Weft compatibility. This release checkpoint includes source, selected editable models, compact media and verification evidence; full frame sequences and rejected binary intermediates remain local.
+See [commands, roles, outputs and limits](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/prompt-pipeline.md) and the [current handoff](TODO.md). Agents cannot execute tools or spend directly; local scripts own execution. This is not a guarantee of Muse-equivalent quality, arbitrary interactions, hair physics or Weft compatibility. This release checkpoint includes source, selected editable models, compact media and verification evidence; full frame sequences and rejected binary intermediates remain local.
 
 ## Current scope
 
@@ -339,14 +339,14 @@ See [commands, roles, outputs and limits](docs/prompt-pipeline.md) and the [curr
 
 There are now **two implemented generation routes**:
 
-- **Meshy7.1 text/reference-to-3D:** real paid generation using the user-designated project key, an independent non-resetting credit ledger, resumable tasks, original GLB/FBX downloads and local validation. [Repeatable commands, costs and limits](docs/meshy-workflow.md).
+- **Meshy7.1 text/reference-to-3D:** real paid generation using the user-designated project key, an independent non-resetting credit ledger, resumable tasks, original GLB/FBX downloads and local validation. [Repeatable commands, costs and limits](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/meshy-workflow.md).
 - **Local scene authoring:** agent-written JSON creates geometry/materials/skins/actions without paid generation. This remains useful for articulated objects, precise controls and repairs.
 
 The new Meshy panda is closer in shape/identity than the procedural prototype, but **Muse-quality parity is not established**. An earlier source's auto-weights incorrectly assigned belly geometry to a hand; generated motions visibly distorted it and remain rejected. The new smooth source instead has a locally authored rig and four modest fur-demo motions. The finishing path supports explicit spatial weight corrections, accessory anchors, local replacement actions, native hair and separate browser fur cards. These are authored repairs, not secretly relabeled provider animation or recovered anatomy. Text-to-3D is automatic; final visual acceptance is not.
 
 The independently text-generated blue/copper robot exercises the same finishing workflow. Earlier fox/lamp/HD models and all failed attempts remain available. Native hair and portable cutout cards have different appearance. No cloth/hair physics, recovered fingers or unchanged-fidelity Weft HD conversion is claimed. The original reference and hidden surfaces cannot establish the original 3D mesh or license.
 
-**Standalone dragon:** Meshy generated the emerald mesh and scale textures; the local workflow authored its19-bone creature skeleton, skin weights and four motions: idle, look around, wing flap and celebration. This adds a reusable non-humanoid finishing route, not a universal automatic rig detector. [Dragon files, exact commands and limitations](docs/dragon-delivery-v1.md).
+**Standalone dragon:** Meshy generated the emerald mesh and scale textures; the local workflow authored its19-bone creature skeleton, skin weights and four motions: idle, look around, wing flap and celebration. This adds a reusable non-humanoid finishing route, not a universal automatic rig detector. [Dragon files, exact commands and limitations](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/dragon-delivery-v1.md).
 
 ### What our code contributes
 
@@ -360,7 +360,7 @@ The independently text-generated blue/copper robot exercises the same finishing 
 
 The procedural scene route creates geometry without Meshy, but has not matched the Muse target. Neural base generation currently uses Meshy only; another provider adapter is not implemented. Reuse of the downstream workflow is supported, while hands-off production quality for arbitrary prompts is not established.
 
-The earlier [platform research](docs/generation-platform-research-2026-10-31.md) predates this authorized Meshy trial; it is not a report of tested alternatives. Current generation/results and costs supersede its previous “no backend connected” status.
+The earlier [platform research](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/generation-platform-research-2026-10-31.md) predates this authorized Meshy trial; it is not a report of tested alternatives. Current generation/results and costs supersede its previous “no backend connected” status.
 
 ## Migration verification
 
@@ -391,7 +391,7 @@ The default, agent, HD, Meshy v1/v2/v3 and portable-quality catalogs include the
 ./tools/avatar-assets/run gallery --catalog browser/gallery-meshy-v2.json
 ```
 
-Use `http://127.0.0.1:8765/`. No Blender is needed. Current local bundles: [panda](outputs/muse-panda-meshy-refined-v6/manifest.json), [robot](outputs/workshop-robot-meshy-refined-v2/manifest.json), [workflow](docs/meshy-workflow.md). Each has a matching 1600px portrait and four 720px/24fps/four-second clips, with static fallbacks. Crafting/working remain weak pantomimes, not accepted task interactions. Generation used **132 Meshy credits**; local finishing used no further provider calls. Dollar purchase cost is unknown. Viewing the gallery makes no paid call.
+Use `http://127.0.0.1:8765/`. No Blender is needed. Current local bundles: [panda](outputs/muse-panda-meshy-refined-v6/manifest.json), [robot](outputs/workshop-robot-meshy-refined-v2/manifest.json), [workflow](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/meshy-workflow.md). Each has a matching 1600px portrait and four 720px/24fps/four-second clips, with static fallbacks. Crafting/working remain weak pantomimes, not accepted task interactions. Generation used **132 Meshy credits**; local finishing used no further provider calls. Dollar purchase cost is unknown. Viewing the gallery makes no paid call.
 
 The local gallery starts with the dance/shoulder-flight preview, then the approved soft-fur panda and smoother dragon, earlier HD panda, robot, fox, lamp and original 2D reference. From the Weft root, use `./tools/avatar-assets/run gallery`. No Blender or rendering job is needed to view them. Selected editable HD bundles and compact media are included in this release checkpoint alongside the earlier detailed release.
 
@@ -402,13 +402,13 @@ cd /Users/ivan/kintsugi/weft/tools/avatar-assets
 
 Open **http://127.0.0.1:8765/** yourself. Choose a model, orbit/zoom, switch animations, play/pause, scrub the timeline, or view existing videos and portraits. Playback starts paused; reduced-motion settings default to a portrait. Ctrl+C stops the server. Nothing is uploaded by the gallery; it does not drive Weft physics.
 
-Dependencies are already installed here. See [browser setup, controls and adding assets](docs/browser-gallery.md) for a fresh checkout or custom collection. The gallery is a read-only preview, not Weft physics or alignment verification.
+Dependencies are already installed here. See [browser setup, controls and adding assets](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/browser-gallery.md) for a fresh checkout or custom collection. The gallery is a read-only preview, not Weft physics or alignment verification.
 
 If the gallery was already running, stop it with Ctrl+C and restart it to load the new catalog. The previous detailed collection is preserved in `browser/gallery-quality-v2-portable.json`; the original basic collection remains in `browser/gallery-basic-v1.json`. Select either with `gallery --catalog PATH --port 8766`.
 
 ## Use from a text request
 
-Use [avatar-asset-workflow](skills/avatar-asset-workflow/SKILL.md) with a description such as “Create a blue workshop robot that idles, looks around, waves and gives a celebratory nod.” Use the [studio](docs/hands-off-studio.md) for local browser input/tracking, or [`generate`](docs/prompt-pipeline.md) for the CLI. Actual workpiece interaction is outside this backend; it is not silently replaced by a gesture. The commands below are the separate local scene-authoring route; they do not make paid calls.
+Use [avatar-asset-workflow](skills/avatar-asset-workflow/SKILL.md) with a description such as “Create a blue workshop robot that idles, looks around, waves and gives a celebratory nod.” Use the [studio](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/hands-off-studio.md) for local browser input/tracking, or [`generate`](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/prompt-pipeline.md) for the CLI. Actual workpiece interaction is outside this backend; it is not silently replaced by a gesture. The commands below are the separate local scene-authoring route; they do not make paid calls.
 
 ```sh
 .venv/bin/python -m avatar_assets request --subject 'Blue robot' --prompt 'A friendly blue workshop robot' --out outputs/request-new
@@ -426,7 +426,7 @@ For raw media inspection:
 .venv/bin/python -m avatar_assets inspect '/Users/ivan/Downloads/Poo avatar assets.zip' --sha256 cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb --out outputs/reference-new
 ```
 
-See [scene schema/output overrides](docs/scene-contract.md), [examples](docs/scene-examples.md), [3D verification](docs/three-d.md), and [TODO/handoff](TODO.md). Existing output folders are never replaced. This tool uses Weft’s existing private Git remote; it has no nested repository.
+See [scene schema/output overrides](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/scene-contract.md), [examples](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/scene-examples.md), [3D verification](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/three-d.md), and [TODO/handoff](TODO.md). Existing output folders are never replaced. This tool uses Weft’s existing private Git remote; it has no nested repository.
 
 ## Verified artifacts
 
@@ -438,7 +438,7 @@ See [scene schema/output overrides](docs/scene-contract.md), [examples](docs/sce
 | Text-only workshop robot | `outputs/workshop-robot-meshy-refined-v2` | `outputs/workshop-robot-meshy-media-v1` |
 | Text-only emerald dragon | `outputs/emerald-dragon-finished-v3` | `outputs/emerald-dragon-media-v1` |
 
-Both have real skeletons, skin weights, embedded textures and four locally authored gestures. Panda also has editable native hair and separate portable fur cards. Original provider models/motions and rejected attempts remain preserved. The gallery uses byte-identical compact media subsets; full frames stay in the folders above. No seamless loop or HD Weft compatibility is certified. The new workflow passed **255 Python tests** and the full browser check. See [delivery, verification and critical bone IDs](docs/meshy-delivery-v1.md) and the [current handoff](TODO.md). Fixture tests do not establish visual quality.
+Both have real skeletons, skin weights, embedded textures and four locally authored gestures. Panda also has editable native hair and separate portable fur cards. Original provider models/motions and rejected attempts remain preserved. The gallery uses byte-identical compact media subsets; full frames stay in the folders above. No seamless loop or HD Weft compatibility is certified. The new workflow passed **255 Python tests** and the full browser check. See [delivery, verification and critical bone IDs](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/meshy-delivery-v1.md) and the [current handoff](TODO.md). Fixture tests do not establish visual quality.
 
 ### HD browser editions
 
@@ -457,7 +457,7 @@ Each media pack has a native1600×1600 portrait, four silent720×720 H.264 previ
 
 These are **short HD previews**, not new eight-second Muse exports. The full preset remains available, but detailed fur rendering can exceed its1200-second/2GiB/512MiB bounds. Panda media rendered in967.158s and fox in800.671s; measured native peaks were1.65GB and1.42GB. At most two heavy native jobs ran concurrently, with four CPU threads each. Limits use sampled direct-child memory, not instantaneous OS allocation caps.
 
-The [HD release index](evidence/hd-release-v1.json), [decisions/results](docs/hd-quality-pass-v1.md), and [visual review](outputs/hd-visual-review-v1/review.json) bind selected artifacts, source snapshots, costs and preserved failures. The [previous quality release](evidence/quality-release-v2.json) is unchanged. Higher-resolution textures, fiber counts and passing rig tests do not establish Muse-equivalent sculpting or appearance.
+The [HD release index](evidence/hd-release-v1.json), [decisions/results](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/hd-quality-pass-v1.md), and [visual review](outputs/hd-visual-review-v1/review.json) bind selected artifacts, source snapshots, costs and preserved failures. The [previous quality release](evidence/quality-release-v2.json) is unchanged. Higher-resolution textures, fiber counts and passing rig tests do not establish Muse-equivalent sculpting or appearance.
 
 ### Preserved original editions and Weft handoff
 
@@ -479,9 +479,9 @@ Full-size CPU renders took approximately 18–19 minutes per example while runni
 
 ## Weft handoff
 
-The models and metadata pass the **existing frozen Weft importer**. That code was read/executed without modification; sealed test imports were written only inside this workspace. There is no duplicate Weft importer, renderer, recording path or physics model here. [The delivery guide](docs/weft-delivery-v1.md) gives exact model/mapping paths, hashes, resource counts and critical node IDs.
+The models and metadata pass the **existing frozen Weft importer**. That code was read/executed without modification; sealed test imports were written only inside this workspace. There is no duplicate Weft importer, renderer, recording path or physics model here. [The delivery guide](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/weft-delivery-v1.md) gives exact model/mapping paths, hashes, resource counts and critical node IDs.
 
-The user authorized an [authored neutral convention](examples/weft/neutral-proposal-v1.json). This is not a measured Weft neutral state. [The alignment derivation](docs/weft-neutral-proposal.md) explains the exact transform equation and correction recipe. Each model/mapping folder includes actual glTF node IDs and global rest matrices in `node-table.json`. `AvatarRig` contains the mesh and all bones and maps to `mobile_root`; head/hands/accessories keep local rest transforms. Weft retains its19joint angles plus root translation. **Actual Weft pose alignment/display/replay remains for the integration owner to verify.**
+The user authorized an [authored neutral convention](examples/weft/neutral-proposal-v1.json). This is not a measured Weft neutral state. [The alignment derivation](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/weft-neutral-proposal.md) explains the exact transform equation and correction recipe. Each model/mapping folder includes actual glTF node IDs and global rest matrices in `node-table.json`. `AvatarRig` contains the mesh and all bones and maps to `mobile_root`; head/hands/accessories keep local rest transforms. Weft retains its19joint angles plus root translation. **Actual Weft pose alignment/display/replay remains for the integration owner to verify.**
 
 Exact recovery of the original panda rig is explicitly unsupported in `outputs/reference-3d-unsupported-v1/unsupported.json`. The delivered panda is newly authored, not recovered fur, topology or anatomy. No independent license verification is claimed.
 
@@ -513,4 +513,4 @@ Fresh Studio attempt evidence: `evidence/studio-fresh-panda-attempt-v1`,261origi
 
 ## Convert a Studio rig for the Weft sandbox
 
-The [v2 delivery command](docs/weft-delivery-v2.md) creates a new bounded `weft-avatar.zip` from a saved Studio GLB and explicit role/rights settings. It preserves the original, reduces render geometry, simplifies unsupported materials and retains skinning. No API calls or physics changes; ordinary Weft import still validates the result.
+The [v2 delivery command](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/weft-delivery-v2.md) creates a new bounded `weft-avatar.zip` from a saved Studio GLB and explicit role/rights settings. It preserves the original, reduces render geometry, simplifies unsupported materials and retains skinning. No API calls or physics changes; ordinary Weft import still validates the result.

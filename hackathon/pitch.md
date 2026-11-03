@@ -4,7 +4,7 @@
 
 Copy prepared October 27, 2026 for the Meta Global AI Developer Hackathon. The vision and prototype copy are separated so future capabilities are not presented as shipped results. Nothing in this document has been submitted or published.
 
-[Product goal](../goal.md) · [First-version scope](../v1.md) · [Current evidence](../TODO.md) · [Submission requirements](analysis/requirements.md)
+[Product goal](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/goal.md) · [First-version scope](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/v1.md) · [Current evidence](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/TODO.md) · [Submission requirements](analysis/requirements.md)
 
 ---
 
