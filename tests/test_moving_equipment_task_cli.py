@@ -107,3 +107,18 @@ def test_changed_start_evaluation_requires_one_explicit_reset_source(command, mo
     with pytest.raises(SystemExit) as error:
         cli.main()
     assert error.value.code == 2
+
+
+def test_preflight_only_inspects_the_saved_lab_with_bounded_admission(command, monkeypatch, capsys):
+    cli, _, _ = command
+    calls = []
+    module = ModuleType("weft.moving_equipment_compatibility_lab")
+    def inspect(*args, **kwargs):
+        calls.append((args, kwargs))
+        return {"status": "assessed", "blocks_manual_exploration": False}
+    module.inspect_saved_compatibility = inspect
+    monkeypatch.setitem(sys.modules, module.__name__, module)
+    monkeypatch.setattr(sys, "argv", ["weft", "moving-equipment-preflight", "--lab", "saved task", "--max-seconds", "20"])
+    cli.main()
+    assert calls == [(("saved task",), {"max_seconds": 20.})]
+    assert json.loads(capsys.readouterr().out)["blocks_manual_exploration"] is False

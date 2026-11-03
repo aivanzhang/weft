@@ -437,6 +437,9 @@ def main():
     moving_task.add_argument("--task", required=True, help="Explicit target, position/speed tolerances and hold duration JSON")
     moving_task.add_argument("--out", required=True, help="New child lab directory")
     moving_task.add_argument("--max-seconds", type=float, default=90)
+    moving_preflight = commands.add_parser("moving-equipment-preflight", help="Explain a saved placement task's force/support assumptions without training or changing it")
+    moving_preflight.add_argument("--lab", required=True, help="Sealed authored placement-task child")
+    moving_preflight.add_argument("--max-seconds", type=float, default=30, help="One source admission and advisory report, at most 30 seconds")
     moving_train = commands.add_parser("moving-equipment-train", help="Train bounded feedback for an authored placement task; exact-start comparisons are not changed-start validation")
     moving_train.add_argument("--lab", required=True, help="Sealed authored placement-task child")
     moving_train.add_argument("--out", required=True, help="New learning output; leaves task and sandbox unchanged")
@@ -942,6 +945,9 @@ def main():
             from weft.moving_equipment_learning import train_saved_moving_equipment_policy
             result = train_saved_moving_equipment_policy(args.lab, args.out, seed=args.seed,
                 generations=args.generations, population=args.population, max_seconds=args.max_seconds)
+        elif args.command == "moving-equipment-preflight":
+            from weft.moving_equipment_compatibility_lab import inspect_saved_compatibility
+            result = inspect_saved_compatibility(args.lab, max_seconds=args.max_seconds)
         elif args.command == "moving-equipment-evaluate":
             from weft.moving_equipment_evaluation import evaluate_saved_changed_starts
             result = evaluate_saved_changed_starts(args.lab, args.protocol, args.policy, args.out,

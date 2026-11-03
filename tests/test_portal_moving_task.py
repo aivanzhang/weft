@@ -42,13 +42,32 @@ def test_placement_summary_and_server_guards_do_not_claim_exploration_or_muse(pl
 def test_placement_uses_its_background_loader_not_legacy_lab(placement, monkeypatch):
     portal, identity = placement
     calls = []
-    module = ModuleType("weft.moving_equipment_task_lab")
+    module = ModuleType("weft.moving_equipment_compatibility_lab")
     def load(root, *, project):
         calls.append((root, project))
         return SimpleNamespace(close=lambda: None)
-    module.LoadingTaskLab = load
+    module.LoadingCompatibleTaskLab = load
     monkeypatch.setitem(sys.modules, module.__name__, module)
     first = portal.lab(identity)
     assert portal.lab(identity) is first
     assert calls == [(portal.root / identity / "lab", portal.project)]
     assert first.token == portal.token
+
+
+def test_spatial_import_routes_off_thread_and_keeps_review_unavailable(placement, monkeypatch):
+    portal, identity = placement
+    portal.jobs[identity].update(control_profile="spatial_rigid", mode="objects", source_scope={"modeled_frames": 21})
+    calls = []
+    module = ModuleType("weft.portal_spatial_lab")
+    def load(root, *, project):
+        calls.append((root, project)); return SimpleNamespace(close=lambda: None)
+    module.LoadingSpatialPortalLab = load
+    monkeypatch.setitem(sys.modules, module.__name__, module)
+    first = portal.lab(identity)
+    assert portal.lab(identity) is first and len(calls) == 1
+    summary = portal.summary(identity)
+    assert summary["control_profile"] == "spatial_rigid" and summary["source_scope"] == {"modeled_frames": 21}
+    assert "rigid worlds" in summary["review_unavailable_reason"]
+    for action in ("review", "checks", "repairs"):
+        with pytest.raises(ValueError, match="rigid worlds"):
+            portal._require_review_body(identity, action=action)

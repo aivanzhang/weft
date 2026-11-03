@@ -234,6 +234,10 @@ class Portal:
     def _placement(self, identity):
         return self.jobs[identity].get("control_profile") == "moving_equipment_task"
 
+    def _spatial_import(self, identity):
+        return (self.jobs[identity].get("kind") == "imported_lab"
+                and self.jobs[identity].get("control_profile") == "spatial_rigid")
+
     def summary(self, identity):
         with self.lock:
             config = self.jobs[identity]
@@ -267,6 +271,10 @@ class Portal:
             if self._placement(identity):
                 result["control_profile"] = "moving_equipment_task"
                 result["review_unavailable_reason"] = "Authored placement tasks have no qualified Muse review or repair contract"
+            if self._spatial_import(identity):
+                result["control_profile"] = "spatial_rigid"
+                result["source_scope"] = config.get("source_scope")
+                result["review_unavailable_reason"] = "Imported rigid worlds have no qualified Muse review or repair contract"
             result["equipment_availability"] = equipment_availability(config, status, self.equipment_catalog)
             equipment = equipment_status(folder)
             if equipment:
@@ -670,6 +678,8 @@ class Portal:
             return self.summary(identity)
 
     def _require_review_body(self, identity, *, action="review"):
+        if self._spatial_import(identity):
+            raise ValueError("Imported rigid worlds have no qualified Muse review or repair contract")
         if self._placement(identity):
             raise ValueError("Authored placement tasks have no qualified Muse review or repair contract")
         if self._exploration(identity):
@@ -877,8 +887,11 @@ class Portal:
                 if not lab_path.is_relative_to(folder):
                     raise ValueError("Sandbox path is outside this project")
                 if self._placement(identity):
-                    from weft.moving_equipment_task_lab import LoadingTaskLab
-                    lab = LoadingTaskLab(lab_path, project=self.project)
+                    from weft.moving_equipment_compatibility_lab import LoadingCompatibleTaskLab
+                    lab = LoadingCompatibleTaskLab(lab_path, project=self.project)
+                elif self._spatial_import(identity):
+                    from weft.portal_spatial_lab import LoadingSpatialPortalLab
+                    lab = LoadingSpatialPortalLab(lab_path, project=self.project)
                 elif self._exploration(identity):
                     from weft.shared_world_exploration import LoadingExplorationLab
                     lab = LoadingExplorationLab(lab_path, project=self.project)

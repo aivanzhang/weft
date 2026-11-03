@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, partialPixels = false, jointPixels = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, sharedExploration = false, movingPlacement = null, placementState = null, taskRecordingAvailable = false, asyncTaskRecording = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, recordingEvidence = null, trainingDisabled = false} = {}) {
+function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, spatialImportScope = null, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, partialPixels = false, jointPixels = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, sharedExploration = false, movingPlacement = null, placementState = null, taskCompatibility = null, placementTaskHash = "a".repeat(64), taskRecordingAvailable = false, asyncTaskRecording = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, recordingEvidence = null, trainingDisabled = false} = {}) {
   const shared = profile === 'shared-world';
   let taskPreparation = null;
   const elements = [];
@@ -274,7 +274,8 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
     },
   });
   const status = () => ({status: backendReady ? generationFailed ? 'failed' : 'ready' : 'running', profile, directory: '/synthetic/lab',
-    ...(movingPlacement?{control_profile:"moving_equipment_task",placement_task:movingPlacement,placement_task_sha256:"a".repeat(64),task_recording_available:taskRecordingAvailable}:{}),
+    ...(spatialImportScope ? {spatial_import_scope:spatialImportScope} : {}),
+    ...(movingPlacement?{control_profile:"moving_equipment_task",placement_task:movingPlacement,placement_task_sha256:placementTaskHash,task_compatibility:taskCompatibility,task_recording_available:taskRecordingAvailable}:{}),
     ...(sharedExploration?{control_profile:"shared_world_exploration",exploration:{evaluation_status:"not_configured",task_success_available:false,manual_only:true}}:{}),
     ...(sharedExercise?{control_profile:'shared_exercise',exercise_task:exerciseTask,action_contract:missingExerciseContract?null:exerciseActionContract,exercise_policy:exercisePolicy}:{}),
     ...(taskPreparation ? {recording_preparation:{status:taskPreparation}} : {}),
@@ -431,7 +432,7 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
     action(value) { (select('[data-action]').find(element => !element.hidden && element.dataset.action === String(value)) || select('[data-action]').find(element => element.dataset.action === String(value))).click(); },
     async nextTimer() { const entry = [...timers].sort((a,b)=>a[1].at-b[1].at)[0]; assert(entry, 'Expected scheduled timer'); timers.delete(entry[0]); now=entry[1].at; entry[1].callback(); await drain(); },
     async ready() { await drain(); assert.match(ids.get('status').textContent,/running/); backendReady=true; await this.nextTimer(); await drain();
-      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract||Boolean(movingPlacement && placementState?.task_sha256 !== 'a'.repeat(64))); assert.equal(ids.get('objects').children.length,rigidObjects?.length ?? (sharedProfile==='shared-world-v3'?0:(profile==='spatial-rigid'||shared||multiObject)?3:1));
+      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract||Boolean(movingPlacement && placementState?.task_sha256 !== placementTaskHash)); assert.equal(ids.get('objects').children.length,rigidObjects?.length ?? (sharedProfile==='shared-world-v3'?0:(profile==='spatial-rigid'||shared||multiObject)?3:1));
       if(!sharedExercise)assert.equal(ids.get('scores').children.length,noPolicy?0:(wholeBody||spatialTrained||sharedTrained)?4:2); this.stage('play'); }
   };
 }
@@ -1898,6 +1899,33 @@ async function movingPlacementUsesItsOwnTaskAndLocksUnsupportedControls() {
 }
 
 checks.push(movingPlacementUsesItsOwnTaskAndLocksUnsupportedControls);
+
+async function placementCompatibilityIsBoundedAdviceAndNeverDisablesManualActions() {
+  const movingPlacement={profile:'moving-equipment-placement-task-v1',goal:{object_id:'ball',position_world:[.2,.3,.4],position_tolerance_world:.03,speed_tolerance_world_s:.1,terminal_consecutive_hold_s:.5},body_gates:{}};
+  const placementState={profile:movingPlacement.profile,task_sha256:'a'.repeat(64),success:false,completed_interval:false,failure:null,failed_criteria:[],elapsed_s:0,duration_s:3,object_distance_world:.2,object_speed_world_s:0,terminal_consecutive_hold_s:0};
+  const report={profile:'moving-equipment-compatibility-v1',status:'assessed',blocks_manual_exploration:false,input_sha256:{task_canonical:'a'.repeat(64)},facts:{support_dependency:true},warnings:[{message:'Upward force is weaker than gravity. <script>not executable</script>'}],next_steps:['Inspect support under the unchanged task limits.']};
+  for(const [taskCompatibility,valid] of [[report,true],[{...report,input_sha256:{task_canonical:'b'.repeat(64)}},false],[null,false]]) {
+    const ui=fixture('shared-world',{movingPlacement,placementState,taskCompatibility});await ui.ready();
+    assert.equal(ui.ids.get('step').disabled,false);
+    assert.equal(ui.ids.get('placement-compatibility-warnings').children.length,valid?1:0);
+    assert.match(ui.ids.get('placement-compatibility-status').textContent,valid?/needs a support strategy/:/not been assessed/);
+    if(valid)assert.equal(ui.ids.get('placement-compatibility-warnings').children[0].textContent,report.warnings[0].message);
+    assert.doesNotMatch(ui.ids.get('placement-outcome').textContent,/impossible|success/i);
+  }
+  const missing=fixture('shared-world',{movingPlacement,placementState,placementTaskHash:null,taskCompatibility:{...report,input_sha256:{task_canonical:null}}});await missing.ready();
+  assert.match(missing.ids.get('placement-compatibility-status').textContent,/not been assessed/);
+  assert.equal(missing.ids.get('placement-compatibility-warnings').children.length,0);
+}
+checks.push(placementCompatibilityIsBoundedAdviceAndNeverDisablesManualActions);
+
+async function spatialImportKeepsPartialCoverageVisibleWithoutDisablingControls() {
+  const ui=fixture('spatial-rigid',{spatialTrained:true,spatialImportScope:{profile:'source-linked-spatial-hypothesis-v1',physical_validation:'unverified',source_frame_count:157,reconstruction_coverage:{simulation_frames:21}}});await ui.ready();
+  assert.equal(ui.ids.get('spatial-import-note').hidden,false);
+  assert.match(ui.ids.get('spatial-import-note').textContent,/21 of 157 source frames/);
+  assert.match(ui.ids.get('spatial-import-note').textContent,/does not validate the full video/);
+  assert.equal(ui.ids.get('step').disabled,false);assert.equal(ui.ids.get('policy').disabled,false);
+}
+checks.push(spatialImportKeepsPartialCoverageVisibleWithoutDisablingControls);
 
 async function movingTaskWaitsForRecordingPreparationBeforeAnyAction() {
   const movingPlacement={profile:'moving-equipment-placement-task-v1',goal:{object_id:'ball',position_world:[.2,.3,.4],position_tolerance_world:.03,speed_tolerance_world_s:.1,terminal_consecutive_hold_s:.5},body_gates:{}};

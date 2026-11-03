@@ -74,6 +74,73 @@ def test_active_portal_lease_is_not_bypassed(source, tmp_path):
         os.close(fd)
 
 
+def test_spatial_import_uses_own_admission_current_runtime_and_exact_reservation(source, tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    import weft.lab
+    import weft.portal_spatial_import
+    scene = json.loads((source / "run/scene.json").read_bytes())
+    (source / "run/policy.json").write_text('{"fixture":"policy bytes, not a qualified policy"}')
+    manifest = json.loads((source / "run/manifest.json").read_bytes())
+    manifest["files"]["policy.json"] = digest(source / "run/policy.json")
+    write_json(source / "run/manifest.json", manifest)
+    write_json(source / "lab-config.json", {"profile": "spatial-rigid", "control_profile": "spatial_rigid"})
+    calls = []
+    def inspect(path, config, manifest, files, *, deadline):
+        calls.append(path)
+        return {"scene": scene, "source_file": "source.webm", "source_sha256": digest(source / "run/source.webm"),
+            "learned_policy_available": True, "source_scope": {"physical_validation": "unverified", "modeled_frames": 21},
+            "runtime_compatibility": {"historical_recordings_revalidated": False}, "import_reservation_bytes": 2 << 20}
+    monkeypatch.setattr(weft.portal_spatial_import, "inspect_spatial_import", inspect)
+    class Current:
+        def __init__(self, root): self.root = root; self.session = SimpleNamespace(policy_sha256=digest(root / "run/policy.json"))
+        def summary(self): return {"profile": "spatial-rigid", "scene": scene, "learned_policy_available": True}
+        def close(self): pass
+    monkeypatch.setattr(weft.lab, "Lab", Current)
+    def forbidden(*args, **kwargs): raise AssertionError("Archived fallback must not run for a spatial import")
+    monkeypatch.setattr(module, "open_portal_lab", forbidden)
+    monkeypatch.setattr(module, "MAX_STORAGE", 3 << 20)
+    result = import_lab(source, tmp_path / "portal")
+    assert calls == [source]
+    assert result["import_reservation_bytes"] == 2 << 20
+    assert result["source_scope"]["physical_validation"] == "unverified"
+    assert not result["runtime_compatibility"]["historical_recordings_revalidated"]
+    target = Path(result["directory"])
+    job = json.loads((target / "job.json").read_bytes())
+    assert job["mode"] == "objects" and job["control_profile"] == "spatial_rigid"
+    assert job["learned_policy_available"] and job["ai"] is False
+    assert json.loads((target / "status.json").read_bytes())["route"] == "spatial_rigid"
+    assert not (target / "lab/sessions/old.json").exists()
+
+
+def test_spatial_reservation_over_existing_cap_refuses_before_copy(source, tmp_path, monkeypatch):
+    import weft.portal_spatial_import
+    write_json(source / "lab-config.json", {"profile": "spatial-rigid", "control_profile": "spatial_rigid"})
+    monkeypatch.setattr(weft.portal_spatial_import, "inspect_spatial_import", lambda *args, **kwargs: {
+        "scene": {}, "source_file": "source.webm", "source_sha256": "a" * 64,
+        "import_reservation_bytes": module.MAX_JOB_BYTES + 1})
+    with pytest.raises(ValueError, match="project byte limit"):
+        import_lab(source, tmp_path / "portal")
+    assert not (tmp_path / "portal").exists()
+
+
+def test_final_metadata_growth_cannot_exceed_the_reserved_import(source, tmp_path, monkeypatch):
+    scene = json.loads((source / "run/scene.json").read_bytes())
+    monkeypatch.setattr(module, "MAX_JOB_BYTES", 1_050_000)
+    class Growing:
+        def __init__(self, root): self.root = root
+        def summary(self):
+            (self.root / "oversized-metadata.json").write_bytes(b"x" * 1_060_000)
+            return {"control_profile": "shared_exercise", "scene": scene, "learned_policy_available": False}
+        def close(self): pass
+    monkeypatch.setattr(module, "open_portal_lab", lambda root, **kwargs: Growing(root))
+    root = tmp_path / "portal"
+    with pytest.raises(ValueError, match="metadata exceed"):
+        import_lab(source, root)
+    partial = list(root.glob(".import-*"))
+    assert len(partial) == 1 and (partial[0] / "import-failure.json").exists()
+    assert not [p for p in root.iterdir() if p.is_dir() and not p.name.startswith(".")]
+
+
 @pytest.mark.parametrize("mutation", ["stale_seal", "changed_file", "link", "unbound"])
 def test_bad_source_never_publishes_a_ready_project(source, tmp_path, mutation):
     if mutation == "stale_seal":

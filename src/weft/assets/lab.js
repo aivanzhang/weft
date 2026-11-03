@@ -1466,6 +1466,29 @@
     appearanceView.configure(data.appearance, scene);
   }
 
+  function showPlacementCompatibility(data) {
+    const report = data.task_compatibility;
+    const list = $("placement-compatibility-warnings"); list.replaceChildren();
+    const bound = report?.profile === "moving-equipment-compatibility-v1"
+      && report.status === "assessed" && report.blocks_manual_exploration === false
+      && typeof data.placement_task_sha256 === "string" && /^[a-f0-9]{64}$/.test(data.placement_task_sha256)
+      && report.input_sha256?.task_canonical === data.placement_task_sha256
+      && Array.isArray(report.warnings) && report.warnings.length <= 8
+      && report.warnings.every(row => typeof row?.message === "string" && row.message.length <= 2000)
+      && Array.isArray(report.next_steps) && report.next_steps.length <= 8
+      && report.next_steps.every(row => typeof row === "string" && row.length <= 2000);
+    if (!bound) {
+      text($("placement-compatibility-status"), "Support requirements have not been assessed for this task.");
+      text($("placement-compatibility-next"), "You can still experiment manually. No feasibility or task-success claim is available from this check.");
+      return;
+    }
+    text($("placement-compatibility-status"), report.facts?.support_dependency
+      ? "Keeping the object at this elevated target needs a support strategy."
+      : "No elevated-support warning was established. Reachability and task success remain unverified.");
+    for (const warning of report.warnings) { const item = document.createElement("li"); text(item, warning.message); list.append(item); }
+    text($("placement-compatibility-next"), `${report.next_steps.join(" ")} Manual controls stay available.`);
+  }
+
   async function artifact(name) {
     const response = await fetch(fileURL(`run/${name}`), {signal: AbortSignal.timeout(10000)});
     if (!response.ok) throw new Error(`Artifact is not available yet: ${name}`);
@@ -1595,6 +1618,7 @@
       }
       $("placement-task-card").hidden = !movingTask();
       if (movingTask()) {
+        showPlacementCompatibility(data);
         text($("start-help"), "Authored placement task ready. Inspect the target and full-interval limits, then use explicit motor or equipment-force controls.");
         text($("learning-boundary"), "This placement goal is authored. No learned controller is installed here; task success and learning results are separate.");
         text($("training-caption"), "Manual virtual-force task · learning not connected to this sandbox.");
@@ -1662,6 +1686,15 @@
       }
     }
     if (data.profile === "spatial-rigid") {
+      const imported = data.spatial_import_scope;
+      if (imported?.profile === "source-linked-spatial-hypothesis-v1" && imported.physical_validation === "unverified") {
+        const modeled = imported.reconstruction_coverage?.simulation_frames, total = imported.source_frame_count;
+        const coverage = Number.isSafeInteger(modeled) && Number.isSafeInteger(total) && modeled >= 0 && modeled <= total
+          ? `This saved world models ${modeled} of ${total} source frames. ` : "Source coverage remains limited to the saved reconstruction. ";
+        const zeroGravity = Array.isArray(scene.gravity) && scene.gravity.length === 3 && scene.gravity.every(value => value === 0);
+        text($("spatial-import-note"), `${coverage}${zeroGravity ? "This candidate uses zero gravity. " : ""}Depth, geometry and physics remain explicit assumptions; importing does not validate the full video or real-world accuracy.`);
+        $("spatial-import-note").hidden = false;
+      }
       actionNames = ["Coast", "← Left (−x)", "Right (+x) →", "↑ Forward (+y)", "↓ Back (−y)", "Up (+z)", "Down (−z)", "Slow down"];
       for (const button of document.querySelectorAll("[data-action]")) {
         if (Number(button.dataset.action) >= 6 && button.dataset.spatial !== "true") continue;

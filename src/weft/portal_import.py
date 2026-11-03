@@ -1,4 +1,4 @@
-"""Copy a sealed exercise lab into the stopped portal without rerunning reconstruction."""
+"""Copy a sealed source-linked lab into the stopped portal without rerunning reconstruction."""
 
 import fcntl
 from hashlib import sha256
@@ -66,23 +66,34 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
     manifest_hash = sha256(manifest_raw).hexdigest()
     exploration = config.get("control_profile") == "shared_world_exploration"
     placement = config.get("control_profile") == "moving_equipment_task"
-    if (len(manifest_raw) > 1 << 20 or len(files) > 6000
-            or config.get("control_profile") not in {"shared_exercise", "shared_world_exploration", "moving_equipment_task"}
-            or config.get("manifest_sha256") != manifest_hash
-            or json.loads(manifest_raw).get("status") != "ready"):
-        raise ValueError("Import requires an exact ready source-bound exercise or moving-task lab")
-    scene = json.loads(read_package_file(source / "run", "scene.json", max_bytes=16 << 20,
-                                       expected_sha256=files.get("scene.json")))
-    binding = scene.get("source_binding", {})
-    source_hash = binding.get("source_sha256")
-    if binding.get("mode") != "source_qualified" or not isinstance(source_hash, str) or not re.fullmatch(r"[a-f0-9]{64}", source_hash):
-        raise ValueError("Portal import requires a source-bound world, not an unbound fixture")
-    media = [n for n, h in files.items() if re.fullmatch(r"source\.(webm|mp4|mov|m4v|avi|mkv)", n) and h == source_hash]
-    if len(media) != 1:
-        raise ValueError("Import requires one sealed original source video at the lab run root")
-    media = media[0]
-    # A closed 256 MiB task child needs only one additional source copy and small import receipts.
-    import_limit = min(MAX_JOB_BYTES, (256 << 20) + (64 << 20) + 1_000_000) if placement else MAX_JOB_BYTES
+    spatial = config.get("control_profile") == "spatial_rigid"
+    spatial_admission = None
+    if len(manifest_raw) > 1 << 20 or len(files) > 6000:
+        raise ValueError("Imported lab inventory exceeds its bound")
+    if spatial:
+        from weft.portal_spatial_import import inspect_spatial_import
+        spatial_admission = inspect_spatial_import(source, config_raw, manifest_raw, files, deadline=started + max_seconds)
+        scene, media, source_hash = (spatial_admission[k] for k in ("scene", "source_file", "source_sha256"))
+        import_limit = spatial_admission["import_reservation_bytes"]
+        if type(import_limit) is not int or not 1_000_000 <= import_limit <= MAX_JOB_BYTES:
+            raise ValueError("Spatial imported lab exceeds the portal project byte limit")
+    else:
+        if (config.get("control_profile") not in {"shared_exercise", "shared_world_exploration", "moving_equipment_task"}
+                or config.get("manifest_sha256") != manifest_hash or json.loads(manifest_raw).get("status") != "ready"):
+            raise ValueError("Import requires an exact ready source-bound exercise or moving-task lab")
+        scene = json.loads(read_package_file(source / "run", "scene.json", max_bytes=16 << 20,
+                                           expected_sha256=files.get("scene.json")))
+        binding = scene.get("source_binding", {})
+        source_hash = binding.get("source_sha256")
+        if binding.get("mode") != "source_qualified" or not isinstance(source_hash, str) or not re.fullmatch(r"[a-f0-9]{64}", source_hash):
+            raise ValueError("Portal import requires a source-bound world, not an unbound fixture")
+        media = [n for n, h in files.items() if re.fullmatch(r"source\.(webm|mp4|mov|m4v|avi|mkv)", n) and h == source_hash]
+        if len(media) != 1:
+            raise ValueError("Import requires one sealed original source video at the lab run root")
+        media = media[0]
+        # A closed 256 MiB task child needs only one additional source copy and small import receipts.
+        import_limit = min(MAX_JOB_BYTES, (256 << 20) + (64 << 20) + 1_000_000) if placement else MAX_JOB_BYTES
+    route, mode = ("spatial_rigid", "objects") if spatial else ("exercise", "exercise")
     name = name or "Imported world" + Path(media).suffix
     if (not isinstance(name, str) or not 1 <= len(name) <= 180 or Path(name).name != name
             or any(ord(c) < 32 for c in name) or Path(name).suffix.lower() != Path(media).suffix):
@@ -141,38 +152,56 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
         if placement:
             from weft.moving_equipment_task_lab import TaskLab
             lab = TaskLab(target, max_seconds=max(.01, max_seconds - (time.monotonic() - started)))
+        elif spatial:
+            from weft.lab import Lab
+            lab = Lab(target)
         else:
             lab = open_portal_lab(target, project=project)
         try:
             summary = lab.summary()
-            if summary.get("control_profile") != config["control_profile"] or summary.get("scene") != scene:
+            profile_matches = (summary.get("profile") == "spatial-rigid" if spatial
+                               else summary.get("control_profile") == config["control_profile"])
+            if not profile_matches or summary.get("scene") != scene:
                 raise ValueError("Imported lab admission changed the saved world")
             learned = summary.get("learned_policy_available") is True
+            if spatial and learned != spatial_admission["learned_policy_available"]:
+                raise ValueError("Spatial policy availability changed during current-runtime admission")
+            if spatial and (getattr(lab.session, "policy_sha256", None) != files.get("policy.json")
+                    or read_package_file(target, "lab-config.json", max_bytes=64 << 10) != config_raw
+                    or read_package_file(target / "run", "manifest.json", max_bytes=1 << 20) != manifest_raw):
+                raise ValueError("Spatial policy or copied seals changed during current-runtime admission")
         finally:
             lab.close()
         check()
         if (read_package_file(source, "lab-config.json", max_bytes=64 << 10) != config_raw
                 or read_package_file(source / "run", "manifest.json", max_bytes=1 << 20) != manifest_raw):
             raise ValueError("Original lab seals changed during import")
-        job = {"id": identity, "name": name, "created_at": local_time(), "ai": False, "mode": "exercise",
+        job = {"id": identity, "name": name, "created_at": local_time(), "ai": False, "mode": mode,
                "kind": "imported_lab", "source_file": media, "source_sha256": source_hash, "import_identity": key,
                "inventory_method": "saved_world", "learned_policy_available": learned,
                **({"control_profile": "shared_world_exploration", "task_success_available": False} if exploration else {}),
-               **({"control_profile": "moving_equipment_task", "task_scope": "authored_virtual_force_placement"} if placement else {})}
+               **({"control_profile": "moving_equipment_task", "task_scope": "authored_virtual_force_placement"} if placement else {}),
+               **({"control_profile": "spatial_rigid", "source_scope": spatial_admission["source_scope"]} if spatial else {})}
         write_json(stage / "job.json", job)
         (stage / "analysis").mkdir(mode=0o700)
         receipt = {"profile": "portal-lab-import-v1", "source_manifest_sha256": manifest_hash,
                    "source_lab_config_sha256": sha256(config_raw).hexdigest(), "files_copied": len(files),
                    "bytes_copied": total, "original_sessions_imported": False, "learned_policy_available": learned,
                    "seconds": time.monotonic() - started, "api_calls": 0, "physics_steps": 0, "scope": SCOPE}
+        if spatial:
+            receipt.update(source_scope=spatial_admission["source_scope"], runtime_compatibility=spatial_admission["runtime_compatibility"],
+                           import_reservation_bytes=import_limit)
         write_json(stage / "analysis/import.json", receipt)
-        write_json(stage / "analysis/plan.json", {"route": "exercise", "summary": SCOPE,
+        write_json(stage / "analysis/plan.json", {"route": route, "summary": SCOPE,
                    "warnings": ["Saved evidence and task are unchanged; recordings made here belong to this new project.",
+                                "Muse review is unavailable for this imported rigid world." if spatial else
                                 "Muse review needs a verified body-evidence attachment; it is unavailable for this import."]})
-        write_json(stage / "status.json", {"status": "ready", "stage": "ready", "route": "exercise", "lab": "lab",
+        write_json(stage / "status.json", {"status": "ready", "stage": "ready", "route": route, "lab": "lab",
                    "events": [{"stage": "import", "message": "Saved world verified and copied; no reconstruction or training rerun", "time": local_time()}],
                    "scope": SCOPE, "learned_policy_available": learned})
         check()
+        if _storage(stage, check) > import_limit:
+            raise ValueError("Imported lab and metadata exceed their reserved project capacity")
         os.rename(stage, root / identity)
         return {"id": identity, "status": "ready", "directory": str(root / identity), **receipt}
     except Exception as error:

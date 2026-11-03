@@ -12,6 +12,17 @@ This path adds a supplied placement goal to an existing source-qualified moving 
 
 Open **Authored kettlebell hover-place.mp4** (`9c67eaa0f37b42f2ad6b59506e331e2a`), then its sandbox. The task card and controls are ready; recording `session-c8522314ab40` contains the verified six-action example. Its short interval is incomplete, not successful. The original unscored exploration remains a separate project.
 
+The task card's **Before you try** section now explains support requirements without disabling manual controls. It is advice about the saved task, not a feasibility certificate. To inspect the same check from the CLI without training or changing the world:
+
+```sh
+.venv-lab/bin/python -m weft moving-equipment-preflight \
+  --lab .local/moving-placement-source-acceptance-01/task-child
+```
+
+For a simpler object-control example, open **Grayscale ball — authored 3D depth.avi** (`460d1f5ebb964c18821c99b0be8b3fda`) in the same portal. It supports manual and existing learned actions; recording `session-6f9c676e1807` contains three manual and six learned actions with exact replay. This saved world models only 21 of 157 source frames, with authored depth and zero gravity—not recovered tabletop physics. Its visible source note preserves those limits. No new training or reconstruction was performed by importing it; Muse review is unavailable for this imported rigid-world profile.
+
+For the authored kettlebell task:
+
 1. **Video** shows the original clip. **Play captured movement** in the 3D world shows estimated body poses without running physics; equipment there stays at its initial position.
 2. In **Sandbox**, select an explicit motor or equipment-force channel. Equipment channels ending in `fx`, `fy` or `fz` push along that world axis. All unselected commands remain zero; there is no automatic balance controller.
 3. Click **Start over**, then start recording. Controls pause during preparation; playback starts when recording is ready. Pause to inspect or select a channel, then use **Fine controls → Advance one step** for a controlled trial.
