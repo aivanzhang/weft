@@ -307,13 +307,33 @@
       $("avatar-creations").dataset.signature = creationSignature;
       $("avatar-creations").replaceChildren(...creations.map(row => {
         const li = document.createElement("li");
-        const stages = (row.stages || []).filter(s => s.status === "running" || s.status === "complete");
-        const current = stages.length ? ` · ${stages[stages.length - 1].stage}` : "";
-        const label = {planning: "Planning", authorized: "Authorized, starting", generating: "Generating (about ten minutes)",
+        li.className = `creation-card creation-${row.state}`;
+        const prompt = document.createElement("span");
+        prompt.className = "creation-prompt"; prompt.textContent = `“${row.prompt}”`;
+        const label = {planning: "Planning", authorized: "Authorized, starting", generating: "Generating",
                        adopting: "Importing into the library", ready: "Ready in the character list",
                        failed: "Failed", unsupported: "Finished without a usable rig",
-                       adopt_failed: "Generated, but import failed", needs_inspection: "Needs inspection"}[row.state] || row.state;
-        li.textContent = `“${row.prompt}” — ${label}${row.state === "generating" ? current : ""}${row.error ? ` · ${row.error}` : ""}`;
+                       adopt_failed: "Generated, but import failed", needs_inspection: "Needs inspection",
+                       cancelled: "Cancelled"}[row.state] || row.state;
+        const state = document.createElement("span");
+        state.className = "creation-state"; state.textContent = label;
+        li.append(prompt, state);
+        const stages = (row.stages || []).filter(s => s.stage && (s.status === "running" || s.status === "complete" || s.status === "ready"));
+        if (stages.length && !["ready", "failed", "cancelled"].includes(row.state)) {
+          const track = document.createElement("span");
+          track.className = "creation-stages";
+          for (const s of stages) {
+            const chip = document.createElement("span");
+            chip.className = `stage-chip stage-${s.status}`; chip.textContent = s.stage;
+            track.append(chip);
+          }
+          li.append(track);
+        }
+        if (row.error) {
+          const err = document.createElement("span");
+          err.className = "creation-error"; err.textContent = row.error;
+          li.append(err);
+        }
         return li;
       }));
     }

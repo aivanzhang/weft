@@ -199,7 +199,7 @@ class AvatarStudioBridge:
             self._save()
         return self.summary()
 
-    AGENT_GRANT_MICRODOLLARS = 1_900_000
+    AGENT_GRANT_MICRODOLLARS = 3_000_000
 
     def _grant_tool(self, *arguments):
         result = subprocess.run(
@@ -250,6 +250,9 @@ class AvatarStudioBridge:
                   "elapsed_seconds": payload.get("elapsed_seconds")}
         if payload.get("error"):
             update["error"] = payload["error"].get("message")
+        elif status in ("queued", "launching", "planning", "running", "planned", "complete"):
+            # A healthy advance clears refusals left over from earlier grant-gated attempts.
+            update["error"] = None
         plan = payload.get("plan") or {}
         authorization = plan.get("authorization") or {}
         if status == "awaiting_authorization" and not payload.get("plan_id"):
