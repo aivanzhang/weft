@@ -100,6 +100,17 @@ def _proposal_contract(config):
     return contract
 
 
+def _needs_root_transfer(human, human_raw, entity, indexed, documents):
+    """Keep admitted legacy bodies unchanged; only the known narrow root refusal selects v2."""
+    try:
+        _body_contract(human, human_raw, entity, indexed, documents)
+    except ValueError as error:
+        if 'native_clock' in human and str(error) == 'Torso scale is degenerate':
+            return True
+        raise
+    return False
+
+
 def floor_box_from_bounds(bounds, camera, base, floor, *, depth_prior=None):
     """Invert pixel bounds with fixed floor support; supplied depth remains a hypothesis."""
     prior = validate_depth_prior(depth_prior) if depth_prior is not None else None
@@ -134,7 +145,7 @@ def floor_box_from_bounds(bounds, camera, base, floor, *, depth_prior=None):
             'construction_bbox_edge_error_px': (projected - bounds).tolist(), 'floor_contract_unchanged': True}
 
 
-def build_equipment_proposal(base_scene, config, *, source_binding, construction_evidence: bytes, human_document: bytes, deadline=None):
+def build_equipment_proposal(base_scene, config, *, source_binding, construction_evidence: bytes, human_document: bytes, deadline=None, root_proof=None):
     """Build one unadmitted proposal in memory; admission remains the existing constructor's job."""
     config = validate_proposal_config(config)
     construction_contract = _proposal_contract(config)
@@ -155,7 +166,11 @@ def build_equipment_proposal(base_scene, config, *, source_binding, construction
     if set(entities) != {'human', *selected}:
         raise EquipmentProposalError('equipment_binding_mismatch', 'New bindings must cover exactly the human and selected equipment')
     indexed, documents = _construction_index(construction_evidence, source_binding)
-    contract, frames = _body_contract(human, human_document, entities['human'], indexed, documents)
+    if root_proof is None:
+        contract, frames = _body_contract(human, human_document, entities['human'], indexed, documents)
+    else:
+        from weft.equipment_root_binding import derive_body_binding
+        contract, frames = derive_body_binding(human, human_document, entities['human'], indexed, documents, root_proof=root_proof)
     distance = float(config['camera']['distance_model_units'])
     scale = contract['root_scale_unchanged']['model_units_per_pixel']; base_height = human['mobility']['base_height']
     camera = {'distance_model_units': distance, 'focal_px': distance / scale,
@@ -298,6 +313,8 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
         base_files = manifest(base_run, 'base')
         base_raw = pinned(base_run, base_files, 'scene.json', maximum=MAX_BODY_JSON_BYTES)
         base = validate_shared_world(_json_bytes(base_raw, 'Base scene', MAX_BODY_JSON_BYTES))
+        if 'native_clock' in base['human_spec'] and any('frame_selection' in item for item in config['equipment']):
+            implementation['source_clock.py'] = Path(__file__).with_name('source_clock.py').read_bytes()
         if 'human_provenance' in base:
             implementation['shared_human_projection.py'] = Path(__file__).with_name('shared_human_projection.py').read_bytes()
         files['inputs/base-scene.json'] = base_raw
@@ -372,8 +389,33 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
                 implementation[name] = Path(__file__).with_name(name).read_bytes()
         check(); stage = 'proposal_geometry'
         automatic = any('frame_selection' in item for item in config['equipment'])
+        root_proof = None
+        if 'native_clock' in base['human_spec']:
+            indexed, source_documents = _construction_index(construction, binding)
+            selected_human = next(row for row in binding['entity_bindings'] if row['world_entity_id'] == 'human')
+            needs_transfer = _needs_root_transfer(base['human_spec'], human_raw, selected_human, indexed, source_documents)
+            del indexed, source_documents
+            if needs_transfer:
+                from weft.shared_world_pipeline import read_equipment_root_proof
+
+                for name in ('equipment_root_binding.py', 'source_clock.py'):
+                    implementation[name] = Path(__file__).with_name(name).read_bytes()
+
+                def read_root_file(name, maximum):
+                    check()
+                    raw = pinned(base_run, base_files, name, maximum=maximum)
+                    if sum(map(len, files.values())) + len(raw) > MAX_OUTPUT_BYTES:
+                        raise EquipmentProposalError('root_proof_output_bound', 'Complete root proof exceeds the unchanged proposal package bound')
+                    files['inputs/root-proof/' + name] = raw
+                    return raw
+
+                root_proof = read_equipment_root_proof(base_run, base_files, read_file=read_root_file,
+                    human_sha256=hashlib.sha256(human_raw).hexdigest())
+                if root_proof is None:
+                    raise EquipmentProposalError('missing_original_root_proof', 'Native root transfer requires its original sealed body proof')
         proposal = build_equipment_proposal(base, config, source_binding=binding, construction_evidence=construction,
-            human_document=human_raw, **({'deadline': deadline} if automatic else {}))
+            human_document=human_raw, **({'deadline': deadline} if automatic else {}),
+            **({'root_proof': root_proof} if root_proof is not None else {}))
         if auto_context_path is not None:
             proposal['proposer']['automatic_role_context_sha256'] = hashlib.sha256(files['input-bindings.json']).hexdigest()
             proposal['assumptions'].append('Conditional source-image role alternatives are retained in input-bindings.json; correspondence and rigidity are not verified.')
@@ -392,7 +434,8 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
             files['frame-migration.json'] = _bytes(migration)
         scene = construct_equipment_world(admission_base, proposal, source_binding=binding, construction_evidence=construction,
                                          human_document=human_raw, target_object_id=config['target_object_id'],
-                                         **({'deadline': deadline} if automatic else {}))
+                                         **({'deadline': deadline} if automatic else {}),
+                                         **({'root_proof': root_proof} if root_proof is not None else {}))
         files['initial-geometry-admission.json'] = _bytes({'status': 'passed_existing_constructor',
             'candidate_scene_canonical_sha256': canonical_hash(scene), 'source_body_unchanged': scene['human_spec'] == base['human_spec'],
             'checks': {obj['id']: obj['provenance']['initial_geometry_checks'] for obj in scene['objects']},

@@ -94,7 +94,7 @@ def _document(raw):
 
 def _clock(source, frame):
     contract = source['source']
-    return contract['frame_times_s'][frame] if source['observation_schema_version'] == 3 else frame / contract['fps']
+    return contract['frame_times_s'][frame] if source['observation_schema_version'] in (3, 4) else frame / contract['fps']
 
 
 def _prepare(raw, binding, references, object_ids, deadline):
@@ -144,7 +144,15 @@ def _prepare(raw, binding, references, object_ids, deadline):
                  'declared source slots exceed bound')
         _require(all(type(image.get(key)) is int and 1 <= image[key] <= 4096 for key in ('width_px', 'height_px'))
                  and all(image[key] == contract.get(key) for key in ('width_px', 'height_px')), 'source image dimensions differ')
-        if source.get('observation_schema_version') == 3:
+        if source.get('observation_schema_version') == 4:
+            from weft.observations import _validate_source
+
+            # Validate complete native custody once; per-slot lookup never substitutes nominal FPS.
+            _require(type(source['observation_schema_version']) is int, 'native source schema version differs')
+            _validate_source(contract, 4)
+            _require(source.get('time') == {'unit': 'seconds', 'origin': 'first_native_presentation_timestamp',
+                     'basis': 'native_pts_elapsed_time', 'status': 'observed'}, 'native source time declaration differs')
+        elif source.get('observation_schema_version') == 3:
             stamps = contract.get('frame_times_s')
             _require(contract['metadata_frames'] == count and isinstance(stamps, list) and len(stamps) == count
                      and all(_number(t) and 0 <= t <= 3600 for t in stamps)

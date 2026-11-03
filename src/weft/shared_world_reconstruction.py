@@ -119,8 +119,16 @@ def _source_row(indexed, entity, frame, evidence_id):
     return row
 
 
-def _body_mapping(human, proposal, entity, indexed, documents):
+def _body_mapping(human, proposal, entity, indexed, documents, *, root_proof=None):
     contract = proposal['body_binding']
+    if 'profile' in contract:
+        from weft.equipment_root_binding import PROFILE as ROOT_BINDING_PROFILE, validate_body_mapping
+
+        if contract['profile'] != ROOT_BINDING_PROFILE:
+            raise ValueError('Unknown equipment body-root binding profile')
+        return validate_body_mapping(human, contract, entity, indexed, documents, root_proof=root_proof)
+    if root_proof is not None:
+        raise ValueError('Legacy equipment body mapping cannot consume a root derivation proof')
     if (contract['source_sha256'] != human['source_sha256'] or contract['reference_count'] != len(human['reference'])
             or contract.get('preserve_all_source_references_and_clocks') is not True
             or contract['mobility_contract_unchanged'] != human['mobility'] or contract['body_lengths_unchanged'] != human['lengths']):
@@ -224,7 +232,7 @@ def _check_initial_geometry(scene, frames):
 
 
 def _construct_equipment_world(base_scene, proposal, *, source_binding, construction_evidence,
-                               human_document, target_object_id, deadline=None):
+                               human_document, target_object_id, deadline=None, root_proof=None):
     base = validate_shared_world(base_scene)
     if (base['source_binding']['mode'] != 'source_qualified' or base['controlled_id'] != 'human'
             or base['task']['start_offset_s'] != 0
@@ -261,7 +269,7 @@ def _construct_equipment_world(base_scene, proposal, *, source_binding, construc
         raise ValueError('New source binding must preserve human identity/counts and cover exactly the equipment')
     indexed, documents = _construction_index(construction_evidence, binding)
     human = base['human_spec']
-    scale, origin, frames = _body_mapping(human, proposal, entities['human'], indexed, documents)
+    scale, origin, frames = _body_mapping(human, proposal, entities['human'], indexed, documents, root_proof=root_proof)
     if base['coordinate_frame']['clock_binding']['source_time_offset_s'] != human['reference'][0]['time_s']:
         raise ValueError('Base source clock must retain the original first body reference')
     camera = deepcopy(proposal['camera_hypothesis'])
@@ -386,11 +394,12 @@ def _construct_equipment_world(base_scene, proposal, *, source_binding, construc
 
 
 def construct_equipment_world(base_scene, proposal, *, source_binding, construction_evidence: bytes,
-                              human_document: bytes, target_object_id: str, deadline=None):
+                              human_document: bytes, target_object_id: str, deadline=None, root_proof=None):
     """Return a new validated scene; source-media verification remains the packager's responsibility."""
     try:
         return _construct_equipment_world(base_scene, proposal, source_binding=source_binding,
-            construction_evidence=construction_evidence, human_document=human_document, target_object_id=target_object_id, deadline=deadline)
+            construction_evidence=construction_evidence, human_document=human_document, target_object_id=target_object_id,
+            deadline=deadline, root_proof=root_proof)
     except (KeyError, TypeError, IndexError, AttributeError) as error:
         raise ValueError('Malformed equipment proposal, source binding or filtered evidence') from error
 

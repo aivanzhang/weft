@@ -1,5 +1,7 @@
 # Clearer-frame equipment initialization
 
+**Continuation:** [Native root/clock transfer](native-equipment-root-transfer.md) is now verified against all original roots. Construction advances beyond both handoff failures but still abstains at image consensus; moving/held-equipment support is the next unresolved method.
+
 ## Verified checkpoint — November 2, 2026 (PST)
 
 The ordinary portal now lets equipment analysis select a clearer supplied image

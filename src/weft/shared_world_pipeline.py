@@ -72,6 +72,54 @@ def read_equipment_observations(directory, files):
     return documents[0]
 
 
+def read_equipment_root_proof(directory, declared, *, expected=None, human_sha256=None, read_file=None):
+    """Join fixed retained body members to both original and outer seals."""
+    from weft.equipment_root_binding import MAX_PROOF_BYTES, PROOF_NAMES, proof_hashes
+
+    if expected is not None and (type(expected) is not dict or set(expected) != PROOF_NAMES
+            or any(not isinstance(pin, str) or not re.fullmatch(r'[a-f0-9]{64}', pin) for pin in expected.values())):
+        raise ValueError('Root proof requires its exact closed member identities')
+    layouts = (
+        ('inputs/human-source/source-manifest.json', 'inputs/human-source/reconstruction-evidence.json',
+         'inputs/human-source/native-clock.json'),
+        ('inputs/body-source-manifest.json', 'reconstruction-evidence.json', 'native-clock.json'),
+    )
+    present = [layout for layout in layouts if layout[1] in declared or layout[2] in declared]
+    if not present and expected is None:
+        return None
+    if len(present) != 1:
+        raise ValueError('Root proof needs one unambiguous retained native body layout')
+    if not isinstance(human_sha256, str) or not re.fullmatch(r'[a-f0-9]{64}', human_sha256):
+        raise ValueError('Root proof requires the exact original full human identity')
+    manifest_name, evidence_name, _ = present[0]
+    read = read_file or (lambda name, maximum: _sealed_file(directory, declared, name, max_bytes=maximum))
+    original_raw = read(manifest_name, 1 << 20)
+    if (type(original_raw) is not bytes or not 0 < len(original_raw) <= 1 << 20
+            or hashlib.sha256(original_raw).hexdigest() != declared.get(manifest_name)):
+        raise ValueError('Original root-proof manifest differs from its outer seal')
+    original = _json(original_raw)
+    members = original.get('files')
+    if (original.get('profile') != 'exercise-body-source-v1' or original.get('status') != 'construction_only'
+            or original.get('simulation_ready') is not False or not isinstance(members, dict)
+            or members.get('human.json') != human_sha256):
+        raise ValueError('Root proof must retain its original construction-only body manifest')
+    paths = {'reconstruction-evidence.json': evidence_name, 'root-motion.json': 'root-motion.json'}
+    proof, remaining = {}, MAX_PROOF_BYTES
+    for name, path in paths.items():
+        pin = members.get(name)
+        if (not isinstance(pin, str) or not re.fullmatch(r'[a-f0-9]{64}', pin)
+                or declared.get(path) != pin or expected is not None and expected[name] != pin):
+            raise ValueError('Root proof differs from its original body or outer member seal')
+        raw = read(path, remaining)
+        if type(raw) is not bytes or not raw or len(raw) > remaining or hashlib.sha256(raw).hexdigest() != pin:
+            raise ValueError('Root proof bytes differ from their bounded exact identity')
+        proof[name] = raw
+        remaining -= len(raw)
+    if expected is not None and proof_hashes(proof) != expected:
+        raise ValueError('Root proof differs from the proposed binding')
+    return proof
+
+
 def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *, target_object_id,
                                    source_mappings=(), frame_translation=None, full_reference=False, deadline=None):
     """Construct a new sealed coupled candidate from explicit, verified intermediate inputs."""
@@ -138,9 +186,29 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
     if not human_files:
         raise ValueError("Geometry proposal must pin an exact body document sealed in the base run")
     human_document = _sealed_file(base_run, base_files, sorted(human_files)[0], max_bytes=MAX_BODY_JSON_BYTES)
+    root_proof, root_proof_inputs, root_implementations = None, {}, {}
+    if 'native_clock' in base['human_spec'] and proposal.get('proposer', {}).get('frame_selection') is not None:
+        root_implementations['source_clock.py'] = Path(__file__).with_name('source_clock.py').read_bytes()
+    if 'profile' in body_binding:
+        from weft.equipment_root_binding import PROFILE as ROOT_BINDING_PROFILE
+
+        if body_binding['profile'] != ROOT_BINDING_PROFILE:
+            raise ValueError('Unknown equipment body-root binding profile')
+        for name in ('equipment_root_binding.py', 'source_clock.py'):
+            root_implementations[name] = Path(__file__).with_name(name).read_bytes()
+        def retained_root_file(name, maximum):
+            raw = checked(_sealed_file, base_run, base_files, name, max_bytes=maximum)
+            root_proof_inputs[name] = raw
+            return raw
+        root_proof = checked(read_equipment_root_proof, base_run, base_files,
+            expected=body_binding.get('root_proof_sha256'), human_sha256=human_file_sha, read_file=retained_root_file)
+        if root_proof is None:
+            raise ValueError('Versioned root binding requires its original sealed proof')
     mappings = []
-    remaining = MAX_INPUT_BYTES - sum(map(len, documents.values()))
-    remaining_files = MAX_SOURCE_FILES - len(documents)
+    remaining = MAX_INPUT_BYTES - sum(map(len, documents.values())) - sum(map(len, root_proof_inputs.values()))
+    remaining_files = MAX_SOURCE_FILES - len(documents) - len(root_proof_inputs)
+    if root_proof is not None and (remaining < 0 or remaining_files < 0):
+        raise ValueError('Construction documents and root proof exceed the existing aggregate input bound')
     for path in source_mappings:
         _check_deadline(deadline)
         item = load_source_equivalence(path, max_input_bytes=min(remaining, MAX_INPUT_BYTES),
@@ -161,7 +229,8 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
         base, frame_receipt = checked(translate_shared_world_xy, base, frame_translation)
     scene = checked(construct_equipment_world, base, proposal, source_binding=binding,
         construction_evidence=construction, human_document=human_document, target_object_id=target_object_id,
-        **({'deadline': deadline} if proposal.get('proposer', {}).get('frame_selection') is not None else {}))
+        **({'deadline': deadline} if proposal.get('proposer', {}).get('frame_selection') is not None else {}),
+        **({'root_proof': root_proof} if root_proof is not None else {}))
     initial_interval = {key: scene["task"][key] for key in ("start_offset_s", "horizon_steps")}
     if full_reference:
         # Choose the new task before packaging; never stretch an existing task or policy in place.
@@ -179,6 +248,7 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
                   "inputs/base-scene.json": base_raw, "inputs/base-manifest.json": base_manifest,
                   "inputs/human.json": human_document, "inputs/proposal-manifest.json": proposal_manifest,
                   "inputs/evidence-manifest.json": evidence_manifest})
+    files.update({f'inputs/root-proof/{name}': raw for name, raw in root_proof_inputs.items()})
     if proposal.get('proposer', {}).get('frame_selection') is not None:
         from weft.equipment_box_consensus import validate_selection_reference
 
@@ -238,6 +308,7 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
         files[f"implementation/{name}"] = Path(__file__).with_name(name).read_bytes()
     if "human_provenance" in scene:
         files["implementation/shared_human_projection.py"] = Path(__file__).with_name("shared_human_projection.py").read_bytes()
+    files.update({f'implementation/{name}': raw for name, raw in root_implementations.items()})
     files.update({"scene.json": _bytes(scene), "human.json": _human_sidecar(scene, human_document),
                   "task.json": _bytes(scene["task"]), "reference-feasibility.json": _bytes(feasibility),
                   "repair-ledger.json": _bytes({"proposals": [],
@@ -251,6 +322,11 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
             any(len(raw) > 64 * 1024 * 1024 for raw in files.values())):
         raise ValueError("Construction complete output exceeds its file/byte bound")
     _check_deadline(deadline)
+    for name, raw in root_proof_inputs.items():
+        checked(_sealed_file, base_run, base_files, name, max_bytes=len(raw))
+    for name, raw in root_implementations.items():
+        if Path(__file__).with_name(name).read_bytes() != raw:
+            raise ValueError('Root proof implementation changed during construction')
     out.mkdir(parents=True, exist_ok=False)
     for name, raw in files.items():
         checked(write_package_files, out, {name: raw})
