@@ -37,17 +37,29 @@ Rubric: impact 30%; Meta tooling 25%; demo 25%; technical execution 20%.
 - **Muse tested:** actual model chose feedback-1; unchanged scorer rejected it after
   936 controls. Score 0.02523263→0.02513716. No installation or physical claim.
   Full path 34.345 s; rounded ledger charge $0.019114.
-- **Three new videos:** 0/3 admitted, 46.631 s, $0 API. All failures retained;
-  controller task success not evaluated. [Offline report](../../.local/hackathon-unseen-20261103-01/report.html).
-  Two high-coverage inputs fail a competing-pose sample; do not call these successes.
+- **Three new videos (updated):** after the bounded transient-hypothesis screen,
+  the frozen rerun admits **2/3 with full 450+ step playable rollouts**; the
+  multi-person clip stays refused with recorded reasons
+  (`.local/hackathon-unseen-20261103-05/`). The original 0/3 run is preserved
+  unchanged ([report](../../.local/hackathon-unseen-20261103-01/report.html)).
+  A live portal journey re-verified sots-press admission end to end
+  (`.local/portal-unfamiliar-source-acceptance-02/result.json`).
+- **Task success (updated):** with disclosed three-axis root assistance — the
+  primary route's default, now also used by saved-body labs — the recorded demo
+  world and sots-press **pass every frozen gate** (root 0.018 vs 0.15; angular
+  0.09–0.11 vs 0.35). Unassisted tracking still fails and stays the labeled hard
+  mode. Overhead-squat completes but fails one peak-angular gate from an
+  ill-conditioned squat-bottom chart transition (`.local/tracking-study-01/`).
 - **Positioning implemented:** portal, landing page and pitch name simulation/RL developers.
 - **Apple Notes saved:** the demo script and item 5 checklist were verified in the note.
   A later native-app connection failure prevented syncing these final results; this
   project copy is current. Reopen the same note and append/update these results when
   native access returns; do not create a duplicate note.
-- **Remaining:** Studio deformation, reliable unseen reconstruction, successful body tracking,
-  final narrated three-minute submission video and separately authorized public access.
-  More evidence is required before any arbitrary-video or physical-accuracy claim.
+- **Remaining:** Studio skin weights (three bounded repairs rejected; robot stays the
+  demo avatar — `.local/studio-skin-repair-01/NOTES.md`), unassisted tracking,
+  multi-person admission, the overhead-squat chart conditioning, the final narrated
+  three-minute submission video and separately authorized public access. More
+  evidence is required before any arbitrary-video or physical-accuracy claim.
 
 ## Three-minute recording script
 
@@ -56,7 +68,7 @@ Rubric: impact 30%; Meta tooling 25%; demo 25%; technical execution 20%.
 | 0:00–0:20 | “A video shows what happened once. An agent needs an environment where it can try something different. Weft makes the video the starting point.” Name simulation/RL developers. |
 | 0:20–1:10 | Upload licensed video; inspect source, processing artifacts and assumptions; enter the sandbox and change an action. Clearly label saved runs or time compression. |
 | 1:10–1:50 | Show Muse's actual evidence-linked controller choice, frozen test and real accept/reject/abstain outcome. Never script an improvement before it exists. |
-| 1:50–2:15 | Show the three-video results, including refusals, timing and limits. Explain playability versus task success. |
+| 1:50–2:15 | Show the three-video results: two unfamiliar clips reach playable environments (one passes all gates with labeled root assistance), the multi-person clip is refused with reasons. Explain playability versus task success and assisted versus unassisted. |
 | 2:15–2:40 | Select robot, interact, record and replay. Appearance follows physics state; it does not replace collision geometry. |
 | 2:40–3:00 | Summarize new hackathon work, Meta's actual role and the next technical limit. Finish on the working product. |
 
