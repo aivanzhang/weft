@@ -91,12 +91,15 @@ def _read(path, deadline, expected=None):
     return raw
 
 
-def _options(mode, identity, max_pose_hypotheses=2, person_region=None):
+def _options(mode, identity, max_pose_hypotheses=2, person_region=None, pose_sampling="bounded"):
+    exercise_vision.pose_sampling_metadata(pose_sampling)
     if mode not in {"video", "image"} or identity not in {"raw", "temporal"}:
         raise ValueError("Pose options require video/image mode and explicit raw/temporal identity")
     if type(max_pose_hypotheses) is not int or max_pose_hypotheses not in (1, 2):
         raise ValueError("Maximum pose hypotheses must be 1 (explicit single-person assumption) or 2")
     options = {"pose_mode": mode, "pose_identity": identity}
+    if pose_sampling != "bounded":
+        options["pose_sampling"] = pose_sampling
     # Omission preserves the existing two-hypothesis package contract.
     if max_pose_hypotheses == 1:
         options["max_pose_hypotheses"] = 1
@@ -299,6 +302,8 @@ def _model(model, options):
         raise ValueError("Single-person model metadata conflicts with the two-hypothesis contract")
     if "variant" in model and model["variant"] != matches[0]:
         raise ValueError("Pose model variant conflicts with its pinned bytes")
+    if model.get("pose_sampling") != exercise_vision.pose_sampling_metadata(options.get("pose_sampling", "bounded")):
+        raise ValueError("Pose model sampling differs from the declared source options")
     region = options.get("person_region")
     if model.get("person_region") != (None if region is None else exercise_vision.person_region_metadata(region)):
         raise ValueError("Pose model person region differs from the declared source options")
@@ -311,13 +316,21 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
             or evidence.get("source_sha256") != source_sha or source.get("sha256") != source_sha
             or config.get("profile") != "exercise"
             or _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw"),
-                        config.get("max_pose_hypotheses", 2), config.get("person_region")) != options):
+                        config.get("max_pose_hypotheses", 2), config.get("person_region"), config.get("pose_sampling", "bounded")) != options):
         raise ValueError("Pose/source/config identities conflict")
     _model(model, options)
+    if evidence.get("pose_sampling") != exercise_vision.pose_sampling_metadata(options.get("pose_sampling", "bounded")):
+        raise ValueError("Pose evidence sampling differs from the declared source options")
     if evidence.get("model") != model or raw.get("model") != model:
         raise ValueError("Raw and derived pose model metadata must remain identical")
     recovery = "pose-recovery.json" in raw_files
     mode_recovery = "pose-mode-recovery.json" in raw_files
+    capture_recovery = "pose-capture-recovery.json" in raw_files
+    if capture_recovery:
+        from weft.pose_capture_recovery import validate_capture_recovery_files
+        if recovery or mode_recovery:
+            raise ValueError("Interrupted capture recovery cannot be chained with pose refinements")
+        validate_capture_recovery_files(raw_files, source_sha256=source_sha, deadline=deadline)
     if recovery and mode_recovery:
         raise ValueError("Chained crop/mode recovery is unsupported")
     if recovery:
@@ -342,8 +355,11 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
     if (type(fps) not in (int, float) or not math.isfinite(fps) or not 1 <= fps <= 240
             or type(count) is not int or not 10 <= count <= 1800 or count / fps > 60
             or type(decoded) is not int or not 10 <= decoded <= 1800 or decoded / fps > 60
-            or type(stride) is not int or stride != max(1, math.ceil(fps / 15), math.ceil(count / 900))):
+            or type(stride) is not int
+            or stride != exercise_vision.pose_sampling_stride(options.get("pose_sampling", "bounded"), fps, count, decoded)):
         raise ValueError("Pose source exceeds the existing frame/duration/sampling contract")
+    if options.get("pose_sampling") == "all_frames" and evidence.get("sample_rate_fps") != fps:
+        raise ValueError("All-frame pose sampling must retain the original nominal source rate")
     if abs(decoded - count) > 1:
         container = evidence.get("container_frame_audit", {})
         if (container.get("encoded_video_frames") != decoded or container.get("decoded_frames") != decoded
@@ -402,6 +418,10 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
         observations["provenance"]["input_artifacts"]["native-clock.json"] = _sha(raw_files["native-clock.json"])
     for name in CAPTURE_FILES & raw_files.keys():
         observations["provenance"]["input_artifacts"][name] = _sha(raw_files[name])
+    if capture_recovery:
+        from weft.pose_capture_recovery import PROOF_FILES as CAPTURE_RECOVERY_FILES
+        for name in CAPTURE_RECOVERY_FILES:
+            observations["provenance"]["input_artifacts"][name] = _sha(raw_files[name])
     return evidence, observations, clock
 
 
@@ -440,6 +460,9 @@ def validate_body_source_files(files, *, deadline=None):
     if "pose-mode-recovery.json" in files:
         from weft.pose_mode_source import PROOF_FILES as MODE_PROOF_FILES
         required |= MODE_PROOF_FILES
+    if "pose-capture-recovery.json" in files:
+        from weft.pose_capture_recovery import PROOF_FILES as CAPTURE_RECOVERY_FILES
+        required |= CAPTURE_RECOVERY_FILES
     if not required <= files.keys():
         raise ValueError("Construction body source lacks required identity-bound artifacts")
     marker = _json(files["body-source.json"])
@@ -448,7 +471,7 @@ def validate_body_source_files(files, *, deadline=None):
         raise ValueError("Body source requires its explicit construction-only profile")
     options = marker.get("pose_options", {})
     if not isinstance(options, dict) or options != _options(options.get("pose_mode"), options.get("pose_identity"),
-                                                          options.get("max_pose_hypotheses", 2), options.get("person_region")):
+                                                          options.get("max_pose_hypotheses", 2), options.get("person_region"), options.get("pose_sampling", "bounded")):
         raise ValueError("Body source options are invalid")
     construction = marker.get("construction", {})
     if (not isinstance(construction, dict) or construction.get("body_model") != "mobile"
@@ -509,6 +532,9 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
     if (target / "pose-mode-recovery.json").exists():
         from weft.pose_mode_source import PROOF_FILES as MODE_PROOF_FILES
         pose_names |= MODE_PROOF_FILES | {source_name}
+    if (target / "pose-capture-recovery.json").exists():
+        from weft.pose_capture_recovery import PROOF_FILES as CAPTURE_RECOVERY_FILES
+        pose_names |= CAPTURE_RECOVERY_FILES | {source_name}
     evidence, observations, clock = _validated_pose(
         {name: _read(target / name, deadline) for name in pose_names}, options, source_sha, deadline=deadline)
     if native:
@@ -584,9 +610,9 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
 def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", pose_identity="raw",
                                  source_note="Rights not independently verified; user-provided local video",
                                  max_seconds=180, progress=None, max_pose_hypotheses=2, person_region=None,
-                                 native_timing=False):
+                                 native_timing=False, pose_sampling="bounded"):
     """Decode/infer once and seal mobile construction inputs; no learned task or dynamics."""
-    options = _options(pose_mode, pose_identity, max_pose_hypotheses, person_region)
+    options = _options(pose_mode, pose_identity, max_pose_hypotheses, person_region, pose_sampling)
     if type(native_timing) is not bool:
         raise ValueError("Native timing must be explicitly enabled or disabled")
     if not isinstance(source_note, str) or len(source_note) > 4000:
@@ -619,6 +645,8 @@ def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", p
             "implementation.json": _bytes(implementation),
             **{"implementation-source/" + name: raw for name, raw in snapshots.items()}}
         _write(target, files, deadline)
+        # Construction reloads these durable bytes; retaining them duplicates dense-source memory.
+        del files, video_raw, snapshots
 
         def report(stage, detail):
             _deadline(deadline)
@@ -652,6 +680,8 @@ def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", p
                 decoder_rows, max_seconds=min(20, max(.01, deadline - time.monotonic())))
             _write(target, {"native-clock.json": _bytes(binding), "native-clock-capture.json": _bytes(capture),
                             "native-clock-decode.log": log}, deadline)
+            del raw_pose, binding, capture, log
+        del evidence
         return _finish(target, options, source_name, "local_video", None,
                        [(video, source_sha), (model, model_sha)], implementation, started, deadline, progress,
                        native_capture_performed=native_timing)
@@ -722,6 +752,13 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, native_clock
             recovery_files, recovery_implementation = set(PROOF_FILES), RECOVERY_IMPLEMENTATION
             if not recovery_files <= declared.keys():
                 raise ValueError("Saved mode recovery lacks its complete derivation proof")
+        elif manifest.get("profile") == "interrupted-pose-capture-recovery-v1":
+            from weft.pose_capture_recovery import PROOF_FILES as CAPTURE_RECOVERY_FILES
+            recovery_files, recovery_implementation = set(CAPTURE_RECOVERY_FILES), ("pose_capture_recovery.py",)
+            if not recovery_files <= declared.keys():
+                raise ValueError("Saved capture recovery lacks its complete failed-study ancestry")
+        elif "pose-capture-recovery.json" in declared:
+            raise ValueError("Interrupted capture proof requires its explicit sealed package profile")
         elif "pose-recovery.json" in declared or "pose-mode-recovery.json" in declared:
             raise ValueError("Pose recovery proof requires its explicit sealed package profile")
         if {"pose-recovery.json", "pose-mode-recovery.json"} <= declared.keys():
@@ -738,7 +775,7 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, native_clock
                 kept[name] = raw
         config = _json(kept["run-config.json"])
         options = _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw"),
-                           config.get("max_pose_hypotheses", 2), config.get("person_region"))
+                           config.get("max_pose_hypotheses", 2), config.get("person_region"), config.get("pose_sampling", "bounded"))
         if clock_path is not None:
             clock_raw = _read(clock_path, deadline)
             kept["native-clock.json"] = clock_raw
@@ -768,6 +805,8 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, native_clock
                 decoder_clock_rows, max_seconds=min(20, max(.01, deadline - time.monotonic())))
             _write(target, {"native-clock.json": _bytes(binding), "native-clock-capture.json": _bytes(capture),
                             "native-clock-decode.log": log}, deadline)
+            del binding, capture, log
+        del kept, snapshots, raw
         return _finish(target, options, source_name, "sealed_pose_evidence", _sha(manifest_raw), pins,
                        implementation, started, deadline, progress, native_capture_performed=native_timing)
     except Exception as error:

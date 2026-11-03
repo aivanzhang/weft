@@ -129,6 +129,8 @@ def main():
     body_source.add_argument("--pose-model", help="Required with --video: local pinned pose model")
     body_source.add_argument("--pose-mode", choices=("video", "image"), help="Raw-video inference mode; default video")
     body_source.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw-video anatomy handling; default raw")
+    body_source.add_argument("--pose-sampling", choices=("bounded", "all_frames"),
+                             help="Default bounded sampling; all_frames observes every original frame, at most 900")
     body_source.add_argument("--max-pose-hypotheses", type=int, choices=(1, 2),
                              help="Default 2; 1 explicitly assumes one person and can miss competing people")
     body_source.add_argument("--person-region", type=int, nargs=4, metavar=("LEFT", "TOP", "RIGHT", "BOTTOM"),
@@ -1142,7 +1144,7 @@ def main():
             if args.evidence_run:
                 if args.native_timing:
                     raise ValueError("--native-timing requires --video; use --native-clock to bind saved evidence")
-                if any(getattr(args, key) is not None for key in ("pose_model", "pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region")):
+                if any(getattr(args, key) is not None for key in ("pose_model", "pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region", "pose_sampling")):
                     raise ValueError("Saved body evidence inherits its exact source/model/options; overrides are not supported")
                 destination = prepare_exercise_body_source_from_evidence(args.evidence_run, args.out,
                     max_seconds=30 if args.max_seconds is None else args.max_seconds, progress=body_progress,
@@ -1152,7 +1154,7 @@ def main():
                     raise ValueError("--native-clock requires --evidence-run; use --native-timing to capture raw video timing")
                 if not args.pose_model:
                     raise ValueError("--video requires --pose-model; fetch-pose-model can prepare the pinned local model")
-                options = {key: getattr(args, key) for key in ("pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region")
+                options = {key: getattr(args, key) for key in ("pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region", "pose_sampling")
                            if getattr(args, key) is not None}
                 if args.native_timing:
                     options["native_timing"] = True

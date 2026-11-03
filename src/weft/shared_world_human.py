@@ -233,6 +233,10 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
         from weft.pose_source_recovery import IMPLEMENTATION_FILES as RECOVERY_IMPLEMENTATION, PROOF_FILES
         implementation_names.extend(RECOVERY_IMPLEMENTATION)
         proof_names.update(PROOF_FILES)
+    if "pose-capture-recovery.json" in declared:
+        from weft.pose_capture_recovery import PROOF_FILES
+        implementation_names.append("pose_capture_recovery.py")
+        proof_names.update(PROOF_FILES)
     implementations = {}
     for name in dict.fromkeys(implementation_names):
         _check(deadline)

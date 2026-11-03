@@ -104,3 +104,13 @@ def test_saved_command_rejects_even_default_valued_overrides(calls, monkeypatch,
     with pytest.raises(SystemExit) as error:
         invoke(monkeypatch, ["--evidence-run", "saved", "--out", "body", option, value])
     assert error.value.code == 1 and not calls
+
+
+def test_all_original_frames_option_forwarded_only_for_raw_video(calls, monkeypatch):
+    invoke(monkeypatch, ['--video','video.mp4','--pose-model','pose.task','--out','body',
+                         '--pose-sampling','all_frames'])
+    assert calls[0][3]['pose_sampling']=='all_frames'
+    calls.clear()
+    with pytest.raises(SystemExit):
+        invoke(monkeypatch,['--evidence-run','saved','--out','body','--pose-sampling','all_frames'])
+    assert not calls

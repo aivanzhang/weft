@@ -276,3 +276,26 @@ function setup(jobs=[]) {
   assert.ok(!f.calls.some(c=>c.path.includes("/files/")));
   console.log("PASS selected perception worlds enable source-revalidated Muse review without unsupported checks, repairs or eager evidence reads");
 }
+{
+  const id="6".repeat(32), diagnostic={sampled_frames:153,usable_samples:143,identity_breaks:2,window_count:3,
+    listed_barriers:[{frame:111,source_time_s:3.699838,decoder_timestamp_s:3.7,hypothesis_count:2},{frame:123,source_time_s:4.099821,decoder_timestamp_s:4.1,hypothesis_count:2}],
+    listed_windows:[{frame_interval:[0,108],usable_samples:35,sampled_frames:37,screen_passed:true},{frame_interval:[114,120],usable_samples:2,sampled_frames:3,screen_passed:false}],
+    message:"<script>Both estimates stay unknown</script>",scope:"Diagnostic only; no body completed."};
+  const f=setup([{id,name:"competing.mp4",status:"needs_input",stage:"needs_input",events:[],perception:{available:true,status:"failed",error:"Original competing-pose refusal",pose_diagnostic:diagnostic,
+    artifacts:{pose_diagnostic:"perception/pose-diagnostic/report.json",raw_poses:"perception/preflight/body_source/pose-landmarks.json"}}}]);await tick();
+  const e=f.elements;assert.equal(e.get("perception-pose-diagnostic").hidden,false);
+  assert.match(e.get("perception-pose-counts").textContent,/143 of 153.*2 identity breaks.*could not be completed/);
+  assert.equal(e.get("perception-pose-explanation").textContent,diagnostic.message);
+  assert.equal(e.get("perception-status").textContent,"Original competing-pose refusal");
+  assert.match(e.get("perception-pose-barriers").children[0].textContent,/Source frame 111.*3.700 s by frame rate.*decoder-reported time 3.700.*Neither/);
+  assert.match(e.get("perception-pose-window-note").textContent,/not playable or selectable episodes/);
+  assert.match(e.get("perception-pose-windows").children[0].textContent,/other checks remain untested/);
+  assert.match(e.get("perception-pose-windows").children[1].textContent,/checks fail/);
+  assert.equal(e.get("sandbox").hidden,true);
+  assert.ok(e.get("perception-artifacts").children.some(a=>a.href.includes("pose-diagnostic/report.json")));
+  assert.ok(!f.calls.some(c=>c.path.includes("pose-diagnostic/") || c.path.includes("pose-landmarks.json")));
+  f.info.jobs[0].perception={status:"awaiting_consent",available:true};
+  await e.get("refresh").onclick();await tick();
+  assert.equal(e.get("perception-pose-diagnostic").hidden,true);assert.equal(e.get("perception-pose-barriers").children.length,0);
+  console.log("PASS failed perception explains identity barriers with safe text, unchanged failure, no playable windows or eager pose fetch");
+}

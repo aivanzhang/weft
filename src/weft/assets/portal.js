@@ -84,7 +84,24 @@
     $("perception-quote").textContent = quote ? `${quote.frame_count} source frames. OpenAI (${quote.openai_model}): reserve up to $${quote.openai_max_usd.toFixed(4)}. Meta (${quote.meta_model}): reserve up to $${quote.meta_max_usd.toFixed(4)}. ${quote.message}` : "";
     updatePerceptionConsent();
     $("perception-events").replaceChildren(...(perception?.events || []).slice(-40).map(event => { const li = document.createElement("li"); li.textContent = event.message; return li; }));
-    const artifactLabels = {person_region:"Person tracking region and excluded landmarks",body_model:"Estimated body model (no physics validation)",body_evidence:"Original inferred pose evidence",body_clock:"Native video timestamps",body_preview:"Source pose overlay (not simulation)",preflight_result:"Local check results",quote:"Saved cost and media quote",request:"Saved consent request",analysis_receipt:"OpenAI usage receipt",bridge_result:"Tracking preparation result",prepared_source:"Prepared source identities",failure:"Preparation failure details",preflight_receipt:"Local check resource receipt",preparation_receipt:"AI preparation resource receipt"};
+    const poseDiagnostic = perception?.status === "failed" ? perception.pose_diagnostic : null;
+    $("perception-pose-diagnostic").hidden = !poseDiagnostic;
+    $("perception-pose-counts").textContent = poseDiagnostic ? `${poseDiagnostic.usable_samples} of ${poseDiagnostic.sampled_frames} sampled poses usable; ${poseDiagnostic.identity_breaks} identity breaks. The body could not be completed.` : "";
+    $("perception-pose-explanation").textContent = poseDiagnostic?.message || "";
+    $("perception-pose-barriers").replaceChildren(...(poseDiagnostic?.listed_barriers || []).map(row => {
+      const li = document.createElement("li");
+      const decoder = row.decoder_timestamp_s === null ? "decoder time unavailable" : `decoder-reported time ${row.decoder_timestamp_s.toFixed(3)} s`;
+      li.textContent = `Source frame ${row.frame}: ${row.hypothesis_count} competing body estimates; ${row.source_time_s.toFixed(3)} s by frame rate (${decoder}). Neither estimate was selected.`;
+      return li;
+    }));
+    $("perception-pose-window-note").textContent = poseDiagnostic ? `Showing ${poseDiagnostic.listed_barriers.length} of ${poseDiagnostic.identity_breaks} identity breaks and ${poseDiagnostic.listed_windows.length} of ${poseDiagnostic.window_count} source windows. The complete report retains every sampled frame and both raw alternatives. These are diagnostic windows, not playable or selectable episodes. Times are unchanged source estimates, not a completed native-clock reconstruction.` : "";
+    $("perception-pose-windows").replaceChildren(...(poseDiagnostic?.listed_windows || []).map(row => {
+      const li = document.createElement("li");
+      li.textContent = `Frames ${row.frame_interval[0]}–${row.frame_interval[1]}: ${row.usable_samples}/${row.sampled_frames} usable poses. ${row.screen_passed ? "Count, coverage and duration checks pass; other checks remain untested." : "Count, coverage or duration checks fail."}`;
+      return li;
+    }));
+    $("perception-pose-scope").textContent = poseDiagnostic?.scope || "";
+    const artifactLabels = {person_region:"Person tracking region and excluded landmarks",body_model:"Estimated body model (no physics validation)",body_evidence:"Original inferred pose evidence",raw_poses:"All raw body estimates, including competing alternatives",pose_diagnostic:"Complete identity-break report and retained source poses",pose_diagnostic_summary:"Identity-break summary",pose_diagnostic_manifest:"Diagnostic source and failure identities",pose_diagnostic_error:"Why a pose diagnostic was unavailable",body_clock:"Native video timestamps",body_preview:"Source pose overlay (not simulation)",preflight_result:"Local check results",quote:"Saved cost and media quote",request:"Saved consent request",analysis_receipt:"OpenAI usage receipt",bridge_result:"Tracking preparation result",prepared_source:"Prepared source identities",failure:"Preparation failure details",preflight_receipt:"Local check resource receipt",preparation_receipt:"AI preparation resource receipt"};
     $("perception-artifacts").replaceChildren(...Object.entries(perception?.artifacts || {}).filter(([key]) => artifactLabels[key]).map(([key,path]) => {
       const a = document.createElement("a"); a.textContent = artifactLabels[key]; a.className = "text-link"; a.href = fileURL(job.id,path); a.download = path.split("/").pop(); return a;
     }));

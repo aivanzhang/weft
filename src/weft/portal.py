@@ -39,6 +39,8 @@ ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.
 PERCEPTION_ARTIFACTS = {"perception/" + name for name in (
     "preflight/metadata.json", "preflight/body-anchor.json", "preflight/result.json", "preflight/manifest.json",
     "preflight/body_source/human.json", "preflight/body_source/human.xml", "preflight/body_source/evidence.json",
+    "preflight/body_source/pose-landmarks.json", "pose-diagnostic/report.json", "pose-diagnostic/summary.json",
+    "pose-diagnostic/manifest.json", "pose-diagnostic-error.json",
     "preflight/body_source/native-clock.json", "preflight/body_source/tracks.gif", "preflight/body_source/tracks-contact-sheet.png",
     "quote.json", "request.json", "status.json", "failure.json", "preflight-complete.json", "prepared-source.json",
     "preflight-worker-receipt.json", "preparation-worker-receipt.json",
@@ -705,7 +707,7 @@ class Portal:
             file = folder / name
             if any(p.is_symlink() for p in (file, *file.parents)) or not file.is_file():
                 raise ValueError("Perception artifact is missing or unsafe")
-            if file.stat().st_size > ((16 << 20) if name.startswith("perception/preflight/body_source/") else 300_000 if file.suffix == ".jpg" else 1 << 20):
+            if file.stat().st_size > ((16 << 20) if name.startswith("perception/preflight/body_source/") or name == "perception/pose-diagnostic/report.json" else 300_000 if file.suffix == ".jpg" else 1 << 20):
                 raise ValueError("Perception artifact exceeds its bounded download size")
             return file
         if name.startswith("review-evidence/"):

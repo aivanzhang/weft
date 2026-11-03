@@ -682,6 +682,12 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
                 _seed_check(deadline)
                 recovery_validator_implementations[name] = read_package_file(Path(__file__).parent, name,
                                                                              max_bytes=1024 * 1024)
+        if "pose-capture-recovery.json" in declared:
+            from weft.pose_capture_recovery import PROOF_FILES
+            required |= PROOF_FILES
+            _seed_check(deadline)
+            recovery_validator_implementations["pose_capture_recovery.py"] = read_package_file(
+                Path(__file__).parent, "pose_capture_recovery.py", max_bytes=1024 * 1024)
     else:
         required = {"human.json", "scene.json", "evidence.json"}
     if not required <= declared.keys() or len(declared) + 1 > SEED_MAX_FILES:

@@ -388,9 +388,29 @@ def _quality(evidence):
 
 
 
+def pose_sampling_metadata(mode):
+    if mode not in ("bounded", "all_frames"):
+        raise ValueError("Pose sampling must be bounded or all_frames")
+    if mode == "all_frames":
+        return {"profile": "original-all-frames-v1", "maximum_samples": 900,
+                "selection": "Every decoded original frame; original frame IDs and clocks retained"}
+    return None
+
+
+def pose_sampling_stride(mode, fps, count, decoded=None):
+    metadata = pose_sampling_metadata(mode)
+    if metadata is not None:
+        if any(type(value) is not int or not 1 <= value <= 900
+               for value in (count, count if decoded is None else decoded)):
+            raise ValueError("All-frame pose sampling requires at most 900 metadata and decoded frames")
+        return 1
+    return max(1, math.ceil(fps / 15), math.ceil(count / 900))
+
+
 def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video", pose_identity="raw",
                      artifact_sink=None, max_preview_frames=None, max_pose_hypotheses=2, person_region=None,
-                     decoder_clock_sink=None):
+                     decoder_clock_sink=None, pose_sampling="bounded"):
+    sampling_metadata = pose_sampling_metadata(pose_sampling)
     if decoder_clock_sink is not None and not callable(decoder_clock_sink):
         raise ValueError("Decoder clock sink must be callable")
     if pose_mode not in {"video", "image"}:
@@ -433,7 +453,13 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
             cap.release()
             raise
         provenance["person_region"] = person_region_metadata(person_region)
-    stride = max(1, math.ceil(fps / 15), math.ceil(count / 900))
+    try:
+        stride = pose_sampling_stride(pose_sampling, fps, count)
+    except ValueError:
+        cap.release()
+        raise
+    if sampling_metadata is not None:
+        provenance["pose_sampling"] = sampling_metadata
     preview_stride = max(1, math.ceil(math.ceil(count / stride) / 48))
     resized_width = min(960, width)
     resized_height = round(height * resized_width / width)
@@ -444,6 +470,8 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
                 "model": provenance, "assumptions": ASSUMPTIONS[:],
                 "timestamp_basis": "Frame index divided by declared constant fps; per-frame decoder timestamps also preserved",
                 "scope": "Monocular pose reconstruction/development only; muscles and biomechanics are not measured"}
+    if sampling_metadata is not None:
+        evidence["pose_sampling"] = sampling_metadata
     evidence["assumptions"].append(
         "VIDEO mode permits tracked-region reuse; actual reuse depends on detector state and pose capacity, and is not measured."
         if pose_mode == "video" else
@@ -475,6 +503,8 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
                     decoder_time = float(cap.get(cv2.CAP_PROP_POS_MSEC)) / 1000
                     decoder_clock_sink({"frame": frame_index,
                                         "decoder_timestamp_s": decoder_time if math.isfinite(decoder_time) else None})
+                if pose_sampling == "all_frames" and decoded > 900:
+                    raise ValueError("All-frame pose sampling exceeds the 900 decoded-frame bound")
                 if decoded > 1800 or decoded / fps > 60:
                     raise ValueError("Decoded exercise video exceeds the frame/duration envelope")
                 if frame.shape[:2] != (height, width):

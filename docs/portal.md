@@ -186,9 +186,12 @@ Duplicates, cancellation and restarts do not automatically repeat paid requests.
 The current path requires an MP4 ≤37 MB/500 frames/60 seconds and a usable initial
 person pose, with at most three equipment objects. Missing/uncertain regions,
 camera movement, source-quality failures and rejected geometry remain visible.
-No person-only simulation is substituted for a failed mixed scene. The current
-real squat test stops before payment because two initial landmarks have low
-visibility; its evidence is preserved. [Verified scope and limitations](handoffs/portal-perception.md).
+No person-only simulation is substituted for a failed mixed scene. If the pose
+detector returns competing body estimates, the failed project shows their
+timestamps, coverage and downloadable alternatives. This does not prove multiple
+people were present. Screened time windows are diagnostic only, not playable
+shortcuts, and no retry or paid call happens automatically.
+[Verified scope and remaining reconstruction work](handoffs/dense-pose-and-contact-targets.md).
 
 ### Prepare new equipment evidence offline
 
