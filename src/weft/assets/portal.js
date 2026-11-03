@@ -9,6 +9,8 @@
   let checking = false, repairing = false;
   let preparingEquipment = false, choosingEquipment = false;
   let preflighting = false, preparingPerception = false, consentKey = "", perceptionRequest = null;
+  let movingBusy = false, movingKey = "", movingChoices = [], movingFields = [];
+  const movingActive = job => ["queued", "running", "cancelling"].includes(job.moving_equipment?.status);
   let creatingSupport = false, selectedJob = null;
   const reviewActive = job => ["queued", "running", "cancelling"].includes(job.muse?.status);
   const checkActive = job => ["queued", "running", "cancelling"].includes(job.muse?.checks?.status);
@@ -42,13 +44,14 @@
     $("project-error").hidden = !job.error;
     $("project-error").textContent = job.error || "";
     const inventory = job.scene_inventory, imported = job.kind === "imported_lab";
-    const legacyScope = !inventory && !imported && !job.equipment_candidate_id && job.kind !== "support_experiment" && job.status === "ready" && job.route === "exercise";
-    $("scene-inventory").hidden = !inventory && !imported && !legacyScope && !job.equipment_candidate_id;
-    $("inventory-summary").textContent = job.equipment_candidate_id ? `Selected conditional equipment candidate ${job.equipment_candidate_id}. Prepared evidence was verified; geometry, contact and task success remain unverified.` : inventory?.message || (imported
+    const legacyScope = !inventory && !imported && !job.equipment_candidate_id && !job.moving_candidate_id && job.control_profile !== "shared_world_exploration" && job.kind !== "support_experiment" && job.status === "ready" && job.route === "exercise";
+    $("scene-inventory").hidden = !inventory && !imported && !legacyScope && !job.equipment_candidate_id && !job.moving_candidate_id;
+    $("inventory-summary").textContent = job.moving_candidate_id ? `Selected moving simulation option ${job.moving_candidate_id}. Manual, unscored exploration using saved body/object evidence and your explicit identity/depth assumptions. Physical depth, contact, grasp and task success are not verified.` : job.equipment_candidate_id ? `Selected conditional equipment candidate ${job.equipment_candidate_id}. Prepared evidence was verified; geometry, contact and task success remain unverified.` : inventory?.message || (imported
       ? `Imported source-bound simulation candidate, not automatic equipment reconstruction. Task success and physical/contact accuracy are not established. ${job.review_unavailable_reason || ""}`
       : legacyScope ? "Legacy person-only simulation: this upload did not record an explicit equipment declaration. Its saved world is unchanged; do not treat it as a full-scene reconstruction or verified equipment absence." : "");
     $("inventory-next-steps").replaceChildren(...(inventory?.next_steps || []).map(value => {const li=document.createElement("li");li.textContent=value;return li;}));
     artifactLink("inventory-download", job, "analysis/scene-inventory.json", !!inventory);
+    showMoving(job);
     const equipment = job.equipment_candidates, equipmentReport = equipment?.report, equipmentAvailable = job.equipment_availability;
     const recovery = equipment?.recovery, recovered = recovery?.status === "recorded";
     $("equipment-candidates").hidden = !equipment && !(job.status === "needs_input" && equipmentAvailable);
@@ -131,8 +134,8 @@
       $("readiness-retry").textContent = readiness.retry_reason;
     }
     artifactLink("readiness-download", job, "analysis/reconstruction-readiness.json", !!readiness);
-    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job) && !checkActive(job) && !repairActive(job) && !equipmentActive(job) && !perceptionActive(job);
-    $("cancel").textContent = perceptionActive(job) ? "Cancel video preparation" : equipmentActive(job) ? "Cancel equipment candidates" : repairActive(job) ? "Cancel suggestion tests" : checkActive(job) ? "Cancel local checks" : reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
+    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job) && !checkActive(job) && !repairActive(job) && !equipmentActive(job) && !perceptionActive(job) && !movingActive(job);
+    $("cancel").textContent = movingActive(job) ? "Cancel moving preparation" : perceptionActive(job) ? "Cancel video preparation" : equipmentActive(job) ? "Cancel equipment candidates" : repairActive(job) ? "Cancel suggestion tests" : checkActive(job) ? "Cancel local checks" : reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
     const stage = {source:"reconstruct",observe:"reconstruct",world:"reconstruct",repair:"reconstruct",evaluate:"reconstruct",render:"train",starting:"analyze",queued:"upload"}[job.stage] || job.stage;
     const names = ["upload", "analyze", "reconstruct", "train", "ready"], current = names.indexOf(stage);
     document.querySelectorAll("#steps li").forEach(node => {
@@ -159,7 +162,7 @@
     artifactLink("support-priors-download", job, "support-priors.json", job.kind === "support_experiment");
     const importedReviewReady = imported && job.review_attachment?.available;
     const conditionalReview = !!job.equipment_candidate_id;
-    const reviewOnly = imported || conditionalReview;
+    const reviewOnly = imported || conditionalReview || job.control_profile === "shared_world_exploration";
     artifactLink("attachment-receipt-download", job, "review-evidence/receipt.json", importedReviewReady);
     artifactLink("attachment-context-download", job, "review-evidence/prepared/context.json", importedReviewReady && job.review_attachment.prepared);
     artifactLink("attachment-request-download", job, "review-evidence/prepared/request.json", importedReviewReady && job.review_attachment.prepared);
@@ -267,7 +270,7 @@
       if (!selected && data.jobs.length) selected = data.jobs[0].id;
       await show(data.jobs.find(job => job.id === selected));
       $("create").disabled = uploading;
-      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job) || equipmentActive(job) || perceptionActive(job));
+      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job) || equipmentActive(job) || perceptionActive(job) || movingActive(job));
       timer = setTimeout(refresh, active ? 1500 : 12000);
     } catch (e) { error(e.message); $("connection").textContent = "Connection needs attention"; timer = setTimeout(refresh, 12000); }
     finally { pending = false; }
@@ -359,6 +362,83 @@
     } catch(e) { error(`${e.message}. Inspect the saved request and receipts before taking another action; no automatic retry was made.`); }
     finally { preparingPerception = false; lastDetail = ""; refresh(); }
   };
+  function showMoving(job) {
+    const state = job.moving_equipment;
+    $("moving-equipment").hidden = !state?.available && !state?.status;
+    $("moving-status").textContent = state?.error || state?.message || "";
+    $("moving-prepare-form").hidden = !state?.available;
+    $("moving-prepare").disabled = movingBusy;
+    artifactLink("moving-family-download", job, "moving-equipment/family.json", !!state?.family);
+    artifactLink("moving-report-download", job, "moving-equipment/candidates.json", !!state?.report);
+    const family = state?.family;
+    $("moving-family").textContent = family ? `${family.factors.length} raw tracks; all ${family.identity_family.assignment_count} possible nonempty assignments of these tracks remain saved, along with every depth range. Choose up to three simulation options to build; no option is automatically ranked or dropped. ${family.settings ? `Your assumptions: camera distance ${family.settings.camera.distance_model_units} model units; depth domain [${family.settings.depth_domain_model_units.join(", ")}] model units; sphere from image-box size; mass ${family.settings.mass_kg} kg; friction [${family.settings.friction.join(", ")}]; first observed position extended backward with zero velocity.` : ""}` : "";
+    $("moving-choice-editor").hidden = state?.status !== "awaiting_choices";
+    const key = `${job.id}:${family?.family_sha256 || ""}`;
+    if (key !== movingKey) {
+      movingKey = key; movingChoices = []; movingFields = [];
+      $("moving-factors").replaceChildren(...(family?.factors || []).map(factor => {
+        const section=document.createElement("section"), title=document.createElement("h4"), explanation=document.createElement("p");
+        title.textContent=`${factor.object_id} · ${{feasible_intervals:"Depth choices available",no_solution:"No allowed depth",boundary_only:"Only uncertain boundaries remain",unsupported_input:"Insufficient source support"}[factor.status] || factor.status}`;
+        explanation.textContent=`${factor.certified_intervals.length} allowed depth ranges; ${factor.possible_intervals.length} possible ranges before boundary uncertainty. Allowed means initial model clearance only, not verified physical depth. ${factor.boundary_ambiguity ? "Uncertain boundaries cannot be selected. " : ""}${factor.reasons.join("; ")}`;
+        const intervals=document.createElement("p"), previous=document.createElement("button"), next=document.createElement("button");
+        let page=0;
+        const render=()=>{const start=page*32;intervals.textContent=factor.certified_intervals.slice(start,start+32).map((range,i)=>`#${start+i+1}: [${range[0]}, ${range[1]}]`).join("; ") || "No allowed depth is available.";previous.disabled=page===0;next.disabled=start+32>=factor.certified_intervals.length;};
+        previous.type=next.type="button";previous.textContent="Previous depth ranges";next.textContent="Next depth ranges";
+        previous.onclick=()=>{if(page>0){page--;render();}};next.onclick=()=>{if((page+1)*32<factor.certified_intervals.length){page++;render();}};render();
+        const include=document.createElement("input"), index=document.createElement("input"), depth=document.createElement("input");
+        include.type="checkbox";include.disabled=!factor.certified_intervals.length;index.type=depth.type="number";index.min="1";index.step="1";depth.step="any";
+        const label=(text,input)=>{const label=document.createElement("label");label.textContent=text;label.append(input);return label;};
+        section.append(title,explanation,intervals,previous,next,label("Treat this raw track as equipment",include),label("Allowed depth range number (starts at 1)",index),label("Depth in model units (explicit)",depth));
+        movingFields.push({factor,include,index,depth});return section;
+      }));
+      renderMovingChoices();
+    }
+    $("moving-build").disabled = movingBusy || !movingChoices.length || state?.status !== "awaiting_choices";
+    $("moving-candidates").replaceChildren(...(state?.report?.candidates || []).map(row=>{
+      const section=document.createElement("section"), text=document.createElement("p"), button=document.createElement("button");
+      text.textContent=`${row.id}: ${row.status}. ${row.reasons.join("; ")} Manual exploration only; no task success or physical validation.`;
+      button.type="button";button.textContent=`Open ${row.id} and lock this world`;button.hidden=!row.selectable || !!job.moving_candidate_id;button.disabled=movingBusy;
+      button.onclick=()=>movingAction("select",{id:row.id});section.append(text,button);return section;
+    }));
+    if(job.moving_candidate_id) $("moving-status").textContent=`This project is locked to ${job.moving_candidate_id}. Other hypotheses and earlier failures remain saved. Manual controls and recording use only this world.`;
+  }
+  function renderMovingChoices() {
+    $("moving-choices").replaceChildren(...movingChoices.map((choice,i)=>{const row=document.createElement("li");row.textContent=`Hypothesis ${i+1}: `+choice.equipment.map(e=>`${e.object_id}, range #${e.interval_index+1}, depth ${e.depth_model_units}`).join("; ");return row;}));
+    $("moving-add-choice").disabled=movingChoices.length>=3;
+    $("moving-remove-choice").disabled=!movingChoices.length;
+    $("moving-build").disabled=!movingChoices.length || movingBusy;
+  }
+  async function movingAction(action,payload) {
+    if(!selected || movingBusy)return;
+    movingBusy=true;const identity=selected;
+    try {const job=await request(`/api/projects/${identity}/moving-equipment/${action}`,{method:"POST",body:JSON.stringify(payload),headers:{"Content-Type":"application/json"}});if(selected===identity){lastDetail="";await show(job);}}
+    catch(e){error(`${e.message}. Saved evidence and previous attempts were preserved; no automatic retry.`);}
+    finally{movingBusy=false;lastDetail="";refresh();}
+  }
+  $("moving-prepare-form").onsubmit=event=>{
+    event.preventDefault();
+    if(!$("moving-confirm").checked)return error("Confirm the authored camera, material and prefix assumptions.");
+    try {
+      const number=id=>{const text=$(id).value.trim();if(!text || !Number.isFinite(Number(text)))throw new Error("Enter every moving assumption explicitly.");return Number(text);};
+      movingAction("prepare",{schema_version:1,profile:"moving-depth-family-priors-v1",camera:{distance_model_units:number("moving-camera")},depth_domain_model_units:[number("moving-depth-low"),number("moving-depth-high")],shape:{method:"sphere_from_median_image_box_diagonal"},mass_kg:number("moving-mass"),friction:[number("moving-friction"),.005,.0001],initialization:{method:"first_initialized_box_zero_velocity"}});
+    }catch(e){error(e.message);}
+  };
+  $("moving-add-choice").onclick=()=>{
+    try {
+      if(movingChoices.length>=3)throw new Error("At most three hypotheses can be constructed in this attempt; the all alternatives remain saved.");
+      const equipment=movingFields.filter(row=>row.include.checked).map(({factor,index,depth})=>{
+        if(!index.value.trim() || !depth.value.trim())throw new Error("Enter a range number and depth for each included track.");
+        const i=Number(index.value)-1,d=Number(depth.value),range=factor.certified_intervals[i];
+        if(!Number.isInteger(i)||!range||!Number.isFinite(d)||d<range[0]||d>range[1])throw new Error("Depth must lie inside its specified allowed range.");
+        return {object_id:factor.object_id,interval_index:i,depth_model_units:d};
+      }).sort((a,b)=>a.object_id<b.object_id?-1:a.object_id>b.object_id?1:0);
+      if(!equipment.length)throw new Error("Include at least one raw equipment track; the complement stays unknown.");
+      const choice={equipment};if(movingChoices.some(old=>JSON.stringify(old)===JSON.stringify(choice)))throw new Error("That explicit hypothesis is already listed.");
+      movingChoices.push(choice);renderMovingChoices();
+    }catch(e){error(e.message);}
+  };
+  $("moving-remove-choice").onclick=()=>{movingChoices.pop();renderMovingChoices();};
+  $("moving-build").onclick=()=>movingAction("build",{schema_version:1,profile:"moving-depth-selection-v1",family_sha256:selectedJob?.moving_equipment?.family?.family_sha256,choices:movingChoices});
   async function equipmentAction(action, id) {
     if (!selected || preparingEquipment || choosingEquipment) return;
     preparingEquipment = action === "prepare";choosingEquipment = action === "select";

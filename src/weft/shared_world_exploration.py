@@ -47,9 +47,11 @@ def _deadline(seconds, deadline=None):
     return min(time.monotonic() + seconds, deadline) if deadline is not None else time.monotonic() + seconds
 
 
-def _implementation(scene, inputs):
+def _implementation(scene, inputs, *, depth_selected=False):
     identity = replay_runtime_identity(scene)
     names = set(identity["runtime_sha256"]) | set(IMPLEMENTATIONS) | set(_json(inputs.admission_receipt_bytes)["runtime_sha256"])
+    if depth_selected:
+        names.update(("moving_depth_family.py", "moving_depth_geometry.py", "moving_depth_intervals.py"))
     files = {"implementation/" + name: read_package_file(Path(__file__).parent, name, max_bytes=2 << 20)
              for name in sorted(names)}
     return files, identity
@@ -87,7 +89,7 @@ def _inventory(inputs, bundle, scene, candidate_id, deadline):
     files.update({"human-reference.json": reference_bytes, "scene.json": _bytes(scene), "human.json": inputs.human_bytes,
         "task.json": _bytes(scene["task"]), "motion-evidence.json": inputs.motion_evidence_bytes,
         "source-admission.json": inputs.admission_receipt_bytes, "moving-proposals.json": _bytes(bundle)})
-    implementation, runtime = _implementation(scene, inputs)
+    implementation, runtime = _implementation(scene, inputs, depth_selected=bundle.get("profile") == "moving-depth-selected-proposals-v1")
     files.update(implementation)
     if len(files["moving-proposals.json"]) > MAX_BUNDLE_BYTES:
         raise ValueError("Moving proposal bundle exceeds exploration bound")
@@ -108,7 +110,7 @@ def _inventory(inputs, bundle, scene, candidate_id, deadline):
     return files, contract
 
 
-def prepare_shared_world_exploration(inputs, bundle, candidate_id, out, *, max_seconds=60, deadline=None):
+def prepare_shared_world_exploration(inputs, bundle, candidate_id, out, *, max_seconds=60, deadline=None, depth_family=None):
     from weft.moving_equipment_inputs import validate_moving_equipment_inputs
     from weft.moving_equipment_world import construct_moving_equipment_world
 
@@ -121,8 +123,9 @@ def prepare_shared_world_exploration(inputs, bundle, candidate_id, out, *, max_s
     if minimum_bytes + (2 << 20) > MAX_LAB_BYTES or len(inputs.source_files) + 40 > MAX_LAB_FILES:
         raise ValueError("Exploration inputs exceed the complete lab bound before construction")
     # The immutable admitted packet is shared across candidates; no repeated source reads.
-    before_implementation, _ = _implementation(inputs.base_scene, inputs)
-    scene = construct_moving_equipment_world(inputs, bundle, candidate_id, deadline=stop)
+    before_implementation, _ = _implementation(inputs.base_scene, inputs, depth_selected=depth_family is not None)
+    options = {"depth_family": depth_family} if depth_family is not None else {}
+    scene = construct_moving_equipment_world(inputs, bundle, candidate_id, deadline=stop, **options)
     _check(stop)
     files, contract = _inventory(inputs, bundle, scene, candidate_id, stop)
     if any(files.get(name) != raw for name, raw in before_implementation.items()):
@@ -194,7 +197,14 @@ def load_exploration_lab(run, config, *, max_seconds=60):
         raise ValueError("Exploration requires its exact current trusted runtime; archived execution is unsupported")
     source_files = {name.removeprefix("source-inputs/"): raw for name, raw in files.items() if name.startswith("source-inputs/")}
     packet = admit_moving_equipment_files(source_files, max_seconds=max(.01, min(30., stop - time.monotonic())))
-    rebuilt = construct_moving_equipment_world(packet, bundle, contract.get("candidate_id"), deadline=stop)
+    options = {}
+    if bundle.get("profile") == "moving-depth-selected-proposals-v1":
+        from weft.moving_depth_family import admit_moving_depth_family, materialize_moving_depth_selection
+        family = admit_moving_depth_family(packet, bundle["depth_family"], deadline=stop)
+        if materialize_moving_depth_selection(family, bundle["depth_selection"], deadline=stop) != bundle:
+            raise ValueError("Exploration explicit depth selection differs from the complete source family")
+        options["depth_family"] = family
+    rebuilt = construct_moving_equipment_world(packet, bundle, contract.get("candidate_id"), deadline=stop, **options)
     expected_files, expected_contract = _inventory(packet, bundle, rebuilt, contract.get("candidate_id"), stop)
     if (files != expected_files or contract != expected_contract or scene != rebuilt
             or config.get("scene_sha256") != canonical_hash(scene)):

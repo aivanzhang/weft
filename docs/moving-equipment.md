@@ -2,7 +2,15 @@
 
 This opt-in path builds conditional moving objects beside the original video-derived body in the existing simulator. It does not recover grip, measure muscle activity, or provide a scored exercise task. The existing stationary-equipment builder is unchanged.
 
-**Integration status:** saved-source admission is checked, and an analytic fixture passes construction, portal import, six manual actions, recording and exact replay. Complete real-source-to-portal acceptance is still pending. The first actual exercise clip retained all source frames but rejected every proposed initial world: one sphere overlapped a knee, and the competing track produced an oversized sphere.
+**Integration status:** the saved kettlebell-flip video now passes the actual portal journey: two explicitly chosen depth hypotheses build, one opens, six manual actions record, and export replays exactly. The initial fixed-depth attempt remains rejected and preserved. The newer path retains complete depth alternatives and uses explicit authored choices; it does not establish correct physical depth or grasp.
+
+To explore the verified local clip, start the portal yourself:
+
+```sh
+.venv-lab/bin/python -m weft portal --root .local/portal-kettlebell-flip-01/portal
+```
+
+Open project `cb3ea4169eae4804bd0aa6f99d3453cb`, then its sandbox. It is bound to `candidate-1`; recording `session-015bbe72b3db` contains the verified six-action example. The full second hypothesis and previous failures remain saved. This command starts no paid processing. These local video/run assets are not included in a fresh Git clone.
 
 ## Inputs
 
@@ -47,6 +55,20 @@ The output directory must be new. Source preparation is shared across candidates
 The process runs no learner and starts no server. It exits nonzero when no candidate is ready or when the overall build fails. Preserve failed outputs before changing inputs or settings.
 
 ## Portal use
+
+### Continue a saved exercise upload
+
+For an unresolved exercise upload with completed body and equipment evidence, the portal offers **moving-equipment exploration** without another AI request:
+
+1. Confirm the camera, depth range, sphere shape, material and unknown-prefix assumptions. These are authored settings, not measurements.
+2. Prepare alternatives. The background worker retains every raw track and computes the allowed initial-depth ranges under the original collision limits. An allowed range does **not** establish correct physical depth, identity or grip.
+3. Choose the track, range number and a depth inside that range. Add up to three hypotheses explicitly; the portal does not select a winner or hide other alternatives.
+4. Build those hypotheses. Inspect each admitted world or refusal, then choose one world to open. That project stays bound to the chosen world so its controls and recordings cannot switch underneath you.
+5. Open the sandbox, reset, use manual controls, and record/export the interaction. Original video, body references, assumptions and rejected alternatives remain saved.
+
+The complete family and construction report are downloadable. Work runs through the existing bounded local worker with no provider credentials. Failed attempts remain available; they are not automatically retried. This workflow is manual and unscored: task learning, gripping equipment and physical accuracy are not established by opening a world.
+
+### Import a CLI-built exploration
 
 Once a candidate passes admission, import its exact `lab_directory` using the existing stopped-portal workflow:
 

@@ -25,6 +25,9 @@ function setup(jobs=[]) {
       if(path.endsWith("/muse/repairs")){info.jobs[0].muse.repairs={status:"queued",message:"Waiting for suggestion tests",applied:false};info.jobs[0].muse.repair_availability.available=false;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/perception/preflight")){info.jobs[0].perception={...info.jobs[0].perception,status:"queued_preflight"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/perception/prepare")){info.jobs[0].perception={...info.jobs[0].perception,status:"queued",quote:null};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/moving-equipment/prepare")){info.jobs[0].moving_equipment={status:"queued",phase:"prepare",message:"Saved evidence only"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/moving-equipment/build")){info.jobs[0].moving_equipment.status="queued";info.jobs[0].moving_equipment.phase="build";return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/moving-equipment/select")){info.jobs[0].status="ready";info.jobs[0].moving_candidate_id=JSON.parse(options.body).id;info.jobs[0].control_profile="shared_world_exploration";info.jobs[0].review_unavailable_reason="Manual exploration has no qualified Muse review";info.jobs[0].sandbox=`/labs/${info.jobs[0].id}/`;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/equipment/prepare")){info.jobs[0].equipment_candidates={status:"queued",message:"Waiting for conditional construction"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/equipment/select")){info.jobs[0].status="ready";info.jobs[0].equipment_candidate_id=JSON.parse(options.body).id;info.jobs[0].sandbox=`/labs/${info.jobs[0].id}/`;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/supports")){const child={id:"e".repeat(32),name:info.jobs[0].name,kind:"support_experiment",parent_id:info.jobs[0].id,status:"queued",stage:"queued",events:[],source_available:false};info.jobs.unshift(child);return {ok:true,json:async()=>structuredClone(child)};}
@@ -326,4 +329,48 @@ function setup(jobs=[]) {
   await e.get("refresh").onclick();await tick();
   assert.equal(e.get("perception-pose-diagnostic").hidden,true);assert.equal(e.get("perception-pose-barriers").children.length,0);
   console.log("PASS failed perception explains identity barriers with safe text, unchanged failure, no playable windows or eager pose fetch");
+}
+
+{
+  const id="d".repeat(32),familyPin="a".repeat(64),ranges=Array.from({length:40},(_,i)=>[1+i*.01,1+i*.01+.005]);
+  const family={family_sha256:familyPin,settings:{camera:{distance_model_units:2},depth_domain_model_units:[.1,4],mass_kg:1,friction:[.5,.005,.0001]},identity_family:{assignment_count:7},factors:[{object_id:"raw-0",status:"feasible_intervals",certified_intervals:ranges,possible_intervals:ranges,boundary_ambiguity:true,reasons:[]},{object_id:"raw-1",status:"no_solution",certified_intervals:[],possible_intervals:[],reasons:["No safe depth <script>"],boundary_ambiguity:false}]};
+  const f=setup([{id,name:"Saved moving clip.mp4",kind:"video",route:"exercise",status:"needs_input",events:[],perception:{status:"evidence_ready",available:false},moving_equipment:{status:"awaiting_choices",phase:"prepare",message:"No new AI request",family}}]);await tick();
+  const e=f.elements,cards=e.get("moving-factors").children;
+  assert.equal(e.get("moving-choice-editor").hidden,false);assert.equal(e.get("moving-prepare-form").hidden,true);
+  assert.match(e.get("moving-family").textContent,/all 7 possible nonempty assignments.*remain saved/);
+  assert.equal(cards.length,2);assert.equal(cards[1].children[5].children[0].disabled,true);
+  assert.match(cards[1].children[1].textContent,/No safe depth <script>/);
+  assert.match(cards[0].children[2].textContent,/#32/);assert.doesNotMatch(cards[0].children[2].textContent,/#33/);
+  cards[0].children[4].onclick();assert.match(cards[0].children[2].textContent,/#33/);
+  assert.match(e.get("moving-family").textContent,/Your assumptions: camera distance 2.*mass 1 kg.*zero velocity/);
+  assert.match(cards[0].children[1].textContent,/initial model clearance only, not verified physical depth/);
+  assert.equal(e.get("moving-build").disabled,true);assert.equal(f.calls.length,1);
+  const include=cards[0].children[5].children[0],index=cards[0].children[6].children[0],depth=cards[0].children[7].children[0];
+  include.checked=true;index.value="1";depth.value="1.002";e.get("moving-add-choice").onclick();
+  assert.equal(e.get("moving-choices").children.length,1);assert.equal(e.get("moving-build").disabled,false);
+  e.get("moving-add-choice").onclick();assert.match(e.get("error").textContent,/already listed/);
+  depth.value="1.5";e.get("moving-add-choice").onclick();assert.match(e.get("error").textContent,/inside its specified/);
+  await e.get("moving-build").onclick();await tick();
+  const built=f.calls.find(c=>c.path.endsWith("/moving-equipment/build"));assert.ok(built);assert.equal(built.options.headers.Authorization,"Bearer test-owner-token");
+  assert.deepEqual(JSON.parse(built.options.body),{schema_version:1,profile:"moving-depth-selection-v1",family_sha256:familyPin,choices:[{equipment:[{object_id:"raw-0",interval_index:0,depth_model_units:1.002}]}]});
+  assert.equal(e.get("cancel").hidden,false);assert.equal(e.get("sandbox").hidden,true);
+  f.info.jobs[0].moving_equipment={status:"complete",family,report:{candidates:[{id:"candidate-1",status:"ready",selectable:true,reasons:[]},{id:"candidate-2",status:"rejected",selectable:false,reasons:["Pairwise overlap"]}]}};
+  await e.get("refresh").onclick();await tick();
+  const choices=e.get("moving-candidates").children;assert.equal(choices[1].children[1].hidden,true);assert.equal(choices[0].children[1].hidden,false);
+  await choices[0].children[1].onclick();await tick();assert.equal(e.get("sandbox").hidden,false);assert.equal(e.get("muse-review").hidden,true);
+  assert.match(e.get("moving-status").textContent,/locked.*earlier failures remain saved/);
+  assert.match(e.get("inventory-summary").textContent,/Selected moving simulation.*Manual, unscored/);
+  assert.doesNotMatch(e.get("inventory-summary").textContent,/Legacy person-only/);
+  assert.ok(!f.calls.some(c=>c.path.endsWith("/perception/prepare")||c.path.endsWith("/muse")));
+  console.log("PASS complete factorized moving family, paged intervals, explicit authored choices, retained refusals and manual-only selected sandbox");
+}
+{
+  const id="e".repeat(32),f=setup([{id,name:"Saved source.mp4",kind:"video",route:"exercise",status:"needs_input",events:[],moving_equipment:{available:true,message:"No new AI request"}}]);await tick();const e=f.elements;
+  await e.get("moving-prepare-form").onsubmit({preventDefault(){}});assert.match(e.get("error").textContent,/Confirm the authored/);
+  e.get("moving-confirm").checked=true;
+  for(const [id,value] of [["moving-camera","2"],["moving-depth-low","0.1"],["moving-depth-high","4"],["moving-mass","1"],["moving-friction","0.5"]])e.get(id).value=value;
+  await e.get("moving-prepare-form").onsubmit({preventDefault(){}});await tick();
+  const call=f.calls.find(c=>c.path.endsWith("/moving-equipment/prepare"));assert.ok(call);assert.deepEqual(JSON.parse(call.options.body).depth_domain_model_units,[.1,4]);
+  assert.equal(e.get("cancel").hidden,false);assert.equal(e.get("sandbox").hidden,true);
+  console.log("PASS saved moving preparation requires explicit authored priors and queues no provider request");
 }

@@ -87,8 +87,9 @@ def _family(packet, ids):
             "scope": "Exhaustive subsets of supplied raw tracks only, not exhaustive physical identity/depth/shape possibilities; not the prior conditional body-correspondence family."}
 
 
-def _track_proposal(track, object_id, depth_index, offset, camera, settings, body_start, first_frame, deadline):
-    depth = camera["distance_model_units"] + offset
+def _track_proposal(track, object_id, depth_index, offset, camera, settings, body_start, first_frame, deadline, *, depth_model_units=None):
+    # Explicit selections retain their supplied depth, not a lossy subtract/add round trip.
+    depth = camera["distance_model_units"] + offset if depth_model_units is None else depth_model_units
     focal = camera["focal_px"]
     origin = camera["pixel_origin"]
     base_height = camera["world_anchor_model_units"][2]

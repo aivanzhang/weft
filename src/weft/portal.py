@@ -29,6 +29,7 @@ from weft.portal_equipment_candidates import (TERMINAL as EQUIPMENT_TERMINAL, re
     availability as equipment_availability, read_status as equipment_status, read_report as equipment_report,
     select_candidate)
 from weft import portal_perception_jobs as perception_jobs
+from weft import portal_moving_equipment as moving_jobs
 
 MAX_UPLOAD = 100_000_000
 MAX_JOBS = 50
@@ -170,6 +171,10 @@ class Portal:
                 if equipment and not resume_recovery and equipment.get("status") not in EQUIPMENT_TERMINAL:
                     atomic_json(folder / "equipment/status.json", {**equipment, "status": "interrupted",
                         "message": "Portal restarted during equipment construction; upload and partial candidates preserved. No automatic retry."})
+                moving = moving_jobs.read_status(folder)
+                if moving.get("status") in moving_jobs.ACTIVE:
+                    atomic_json(folder / "moving-equipment/status.json", {**moving, "status": "interrupted",
+                        "message": "Portal restarted during moving preparation; saved evidence and partial worlds retained. No automatic retry."})
                 perception = perception_jobs.read_status(folder)
                 resume_reuse = False
                 if perception.get("status") == "queued_preflight" and "body_reuse" in config:
@@ -205,8 +210,26 @@ class Portal:
     def _pending_jobs(self):
         return sum(self._status(i)["status"] not in TERMINAL
             or equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"}
+            or moving_jobs.read_status(self._folder(i)).get("status") in moving_jobs.ACTIVE
             or perception_jobs.read_status(self._folder(i)).get("status") in perception_jobs.ACTIVE
             for i in self.jobs)
+
+    def _reserved_growth(self):
+        total = 0
+        for identity in self.jobs:
+            folder = self._folder(identity)
+            moving = moving_jobs.reserved_growth(folder)
+            if moving:
+                total += moving
+            elif (self._status(identity)["status"] not in TERMINAL
+                    or equipment_status(folder).get("status") in {"queued", "running", "cancelling"}
+                    or perception_jobs.read_status(folder).get("status") in perception_jobs.ACTIVE):
+                total += MAX_JOB_BYTES
+        return total
+
+    def _exploration(self, identity):
+        return (self.jobs[identity].get("control_profile") == "shared_world_exploration"
+                or moving_jobs.selected_profile(self._folder(identity), self._status(identity)) == "shared_world_exploration")
 
     def summary(self, identity):
         with self.lock:
@@ -234,6 +257,10 @@ class Portal:
             result.update(status)
             result["perception"] = {**perception_jobs.summary(folder, config, status),
                 "busy": self.active == identity and perception_jobs.read_status(folder).get("status") not in {"not_started", None}}
+            result["moving_equipment"] = moving_jobs.summary(folder)
+            if self._exploration(identity):
+                result["control_profile"] = "shared_world_exploration"
+                result["review_unavailable_reason"] = "Manual exploration has no qualified Muse review, scoring or repair contract"
             result["equipment_availability"] = equipment_availability(config, status, self.equipment_catalog)
             equipment = equipment_status(folder)
             if equipment:
@@ -281,7 +308,7 @@ class Portal:
                     pass
             result["sandbox"] = f"/labs/{identity}/" if status["status"] == "ready" else None
             result["support_experiment_available"] = (status["status"] == "ready" and status.get("route") == "exercise"
-                and result["kind"] == "video" and not status.get("equipment_candidate_id")
+                and result["kind"] == "video" and not status.get("equipment_candidate_id") and not status.get("moving_candidate_id")
                 and (body_path(folder, config) / "manifest.json").is_file())
             review = folder / "muse/status.json"
             if review.is_file():
@@ -340,7 +367,7 @@ class Portal:
                 raise ValueError("OpenAI key or remaining allowance is unavailable; no video uploaded")
             stored = self._stored_bytes()
             # Reserve expansion for every queued job so parallel uploads cannot overcommit disk.
-            if stored + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
+            if stored + self._reserved_growth() + MAX_JOB_BYTES > MAX_STORAGE:
                 raise ValueError("The portal's 2 GB local storage allowance is full")
             identity = uuid4().hex
             folder = self.root / identity
@@ -385,6 +412,7 @@ class Portal:
                 repairs = False
                 equipment = False
                 perception = False
+                moving = False
                 if identity is None:
                     identity = next((i for i in self.jobs if self._review_status(i).get("status") == "queued"), None)
                     review = identity is not None
@@ -400,17 +428,20 @@ class Portal:
                 if identity is None:
                     identity = next((i for i in self.jobs if perception_jobs.read_status(self._folder(i)).get("status") in {"queued_preflight", "queued"}), None)
                     perception = identity is not None
+                if identity is None:
+                    identity = next((i for i in self.jobs if moving_jobs.read_status(self._folder(i)).get("status") == "queued"), None)
+                    moving = identity is not None
                 if identity:
                     self.active = identity
-                    target = self._folder(identity) / ("equipment/status.json" if equipment else "muse/repairs/status.json" if repairs else "muse/checks/status.json" if checks else "muse/status.json" if review else "status.json")
-                    if not repairs and not perception:
+                    target = self._folder(identity) / ("moving-equipment/status.json" if moving else "equipment/status.json" if equipment else "muse/repairs/status.json" if repairs else "muse/checks/status.json" if checks else "muse/status.json" if review else "status.json")
+                    if not repairs and not perception and not moving:
                         atomic_json(target, {"status": "running", "stage": "starting", "events": []})
             if identity is None:
                 self.wake.wait(1)
                 self.wake.clear()
                 continue
             self._run(identity, review=review, checks=checks, **({"repairs": True} if repairs else {}),
-                **({"equipment": True} if equipment else {}), **({"perception": True} if perception else {}))
+                **({"equipment": True} if equipment else {}), **({"perception": True} if perception else {}), **({"moving": True} if moving else {}))
             with self.lock:
                 self.active, self.process = None, None
 
@@ -442,7 +473,7 @@ class Portal:
             if len(self.jobs) >= MAX_JOBS or pending >= 4:
                 raise ValueError("Portal job capacity reached")
             stored = self._stored_bytes()
-            if stored + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
+            if stored + self._reserved_growth() + MAX_JOB_BYTES > MAX_STORAGE:
                 raise ValueError("The portal's 2 GB local storage allowance is full")
             source = body_path(self._folder(identity), parent)
             manifest = source / "manifest.json"
@@ -478,6 +509,40 @@ class Portal:
         path = self._folder(identity) / "muse/repairs/status.json"
         return bounded_json(path) if path.is_file() else {}
 
+    def moving_equipment(self, identity, action, payload):
+        with self.lock:
+            folder = self._folder(identity)
+            if identity in self.labs:
+                raise ValueError("An opened sandbox cannot change moving assumptions or selection")
+            if action == "select":
+                if not isinstance(payload, dict) or set(payload) != {"id"} or not isinstance(payload["id"], str):
+                    raise ValueError("Choose one admitted candidate identifier")
+                moving_jobs.select_candidate(folder, payload["id"])
+            else:
+                if action not in {"prepare", "build"}:
+                    raise ValueError("Unknown moving action")
+                request_path = folder / "moving-equipment" / ("request.json" if action == "prepare" else "build-request.json")
+                if not request_path.exists():
+                    if self.active == identity or self._pending_jobs() >= 4:
+                        raise ValueError("Finish active work before queuing another moving phase")
+                    from weft.portal_import import _storage
+                    until = time.monotonic() + 2
+                    def check():
+                        if time.monotonic() > until:
+                            raise ValueError("Moving storage inventory exceeded its bounded preparation window")
+                    count = len(payload.get("choices", [])) if isinstance(payload, dict) and action == "build" else 0
+                    if action == "build" and not 1 <= count <= 3:
+                        raise ValueError("Choose one to three moving hypotheses")
+                    growth = moving_jobs.RECEIPT_BYTES if action == "prepare" else moving_jobs.RECEIPT_BYTES + count * (256 << 20)
+                    if _storage(folder, check) + growth > moving_jobs.MAX_JOB_BYTES or self._stored_bytes() + self._reserved_growth() + growth > MAX_STORAGE:
+                        raise ValueError("Moving preparation exceeds its scoped job or total portal storage allowance")
+                if action == "prepare":
+                    moving_jobs.queue_prepare(folder, payload)
+                else:
+                    moving_jobs.queue_build(folder, payload)
+                self.wake.set()
+            return self.summary(identity)
+
     def prepare_equipment(self, identity, entry_id):
         from weft.io import canonical_hash
         from weft.portal_equipment_candidates import PROFILE
@@ -495,7 +560,7 @@ class Portal:
                 raise ValueError("Equipment candidate queue is full")
             pending = self._pending_jobs()
             stored = self._stored_bytes()
-            if stored + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
+            if stored + self._reserved_growth() + MAX_JOB_BYTES > MAX_STORAGE:
                 raise ValueError("Equipment candidate storage reservation exceeds the portal allowance")
             entry = next(e for e in catalog["entries"] if e["id"] == entry_id)
             work = root / "equipment"
@@ -545,7 +610,7 @@ class Portal:
         pending = self._pending_jobs()
         if pending >= 4:
             raise ValueError("The shared processing queue is full")
-        if self._stored_bytes() + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
+        if self._stored_bytes() + self._reserved_growth() + MAX_JOB_BYTES > MAX_STORAGE:
             raise ValueError("Perception preparation exceeds the portal storage reservation")
 
     def repair(self, identity):
@@ -599,7 +664,7 @@ class Portal:
             return self.summary(identity)
 
     def _require_review_body(self, identity, *, action="review"):
-        if self.jobs[identity].get("control_profile") == "shared_world_exploration":
+        if self._exploration(identity):
             raise ValueError("Manual exploration has no qualified Muse review, scoring or repair contract")
         if self._status(identity).get("equipment_candidate_id"):
             from weft.portal_perception_review import attachment_summary
@@ -618,16 +683,16 @@ class Portal:
             if action != "review":
                 raise ValueError("Imported construction attachments enable Muse review only; local checks and repairs are not qualified")
 
-    def _run(self, identity, *, review=False, checks=False, repairs=False, equipment=False, perception=False):
+    def _run(self, identity, *, review=False, checks=False, repairs=False, equipment=False, perception=False, moving=False):
         folder = self._folder(identity)
-        work = folder / "perception" if perception else folder / "equipment" if equipment else folder / "muse/repairs" if repairs else folder / "muse/checks" if checks else folder / "muse" if review else folder
-        terminal = perception_jobs.RESTING if perception else EQUIPMENT_TERMINAL if equipment else REPAIR_TERMINAL if repairs else CHECK_TERMINAL if checks else REVIEW_TERMINAL if review else TERMINAL
+        work = folder / "moving-equipment" if moving else folder / "perception" if perception else folder / "equipment" if equipment else folder / "muse/repairs" if repairs else folder / "muse/checks" if checks else folder / "muse" if review else folder
+        terminal = moving_jobs.TERMINAL if moving else perception_jobs.RESTING if perception else EQUIPMENT_TERMINAL if equipment else REPAIR_TERMINAL if repairs else CHECK_TERMINAL if checks else REVIEW_TERMINAL if review else TERMINAL
         paid_perception = perception and (work / "request.json").is_file()
         env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "PYTHONPATH": str(Path(__file__).resolve().parent.parent),
                "PYTHONUNBUFFERED": "1", "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1",
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MPLCONFIGDIR": str(folder / "runtime/matplotlib")}
-        support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks or repairs or equipment or perception)
-        if (paid_perception or not (review or checks or repairs or support or equipment or perception)) and os.environ.get("OPENAI_API_KEY"):
+        support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks or repairs or equipment or perception or moving)
+        if (paid_perception or not (review or checks or repairs or support or equipment or perception or moving)) and os.environ.get("OPENAI_API_KEY"):
             env["OPENAI_API_KEY"] = os.environ["OPENAI_API_KEY"]
         if review or paid_perception:
             for name in ("META_API_KEY", "MODEL_API_KEY"):
@@ -635,17 +700,39 @@ class Portal:
                     env[name] = os.environ[name]
         process = None
         reason = None
+        output_thread = None
+        output_limit = threading.Event()
         try:
             log_name = ("preparation-worker.log" if paid_perception else "preflight-worker.log") if perception else "worker.log"
+            if moving:
+                log_name = moving_jobs.read_status(folder)["phase"] + "-worker.log"
             with (work / log_name).open("xb") as log:
-                mode = ["perception"] if perception else ["equipment"] if equipment else ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else []
+                mode = ["moving"] if moving else ["perception"] if perception else ["equipment"] if equipment else ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else []
                 process = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.portal_worker", str(folder), str(self.project), *mode],
-                                           stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, env=env)
+                                           stdin=subprocess.DEVNULL, stdout=subprocess.PIPE if moving else log, stderr=subprocess.STDOUT, env=env)
+                if moving:
+                    def capture_output():
+                        remaining = 8 << 20
+                        while True:
+                            block = process.stdout.read(65536)
+                            if not block:
+                                break
+                            log.write(block[:remaining])
+                            log.flush()
+                            remaining -= min(remaining, len(block))
+                            if remaining == 0:
+                                output_limit.set()
+                                break
+                    output_thread = threading.Thread(target=capture_output, name="weft-moving-log", daemon=True)
+                    output_thread.start()
                 with self.lock:
                     self.process = process
-                deadline = time.monotonic() + (450 if perception else 120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
+                deadline = time.monotonic() + (195 if moving else 450 if perception else 120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
                 next_inventory = 0
                 while process.poll() is None:
+                    if moving and output_limit.is_set():
+                        reason = "Moving worker reached its 8 MiB output allowance"
+                        break
                     if self.stopping.wait(.5):
                         reason = "Portal stopped; no automatic retry"
                         break
@@ -658,7 +745,8 @@ class Portal:
                     if time.monotonic() >= next_inventory:
                         next_inventory = time.monotonic() + 2
                         files = list(folder.rglob("*"))
-                        if len(files) > 6000 or sum(p.stat().st_size for p in files if p.is_file()) > MAX_JOB_BYTES:
+                        limit = moving_jobs.storage_limit(folder) if moving else MAX_JOB_BYTES
+                        if len(files) > 6000 or sum(p.stat().st_size for p in files if p.is_file()) > limit:
                             reason = "Processing reached its local artifact storage limit"
                             break
                 if reason and process.poll() is None:
@@ -668,6 +756,9 @@ class Portal:
                     except subprocess.TimeoutExpired:
                         process.kill()
                 process.wait()
+                if output_thread:
+                    output_thread.join(timeout=2)
+                    process.stdout.close()
                 current = bounded_json(work / "status.json")
                 if current["status"] not in terminal:
                     state = "cancelled" if (work / "cancel-request.json").exists() else "interrupted" if self.stopping.is_set() else "failed"
@@ -681,6 +772,10 @@ class Portal:
                 except subprocess.TimeoutExpired:
                     process.kill()
                     process.wait()
+            if output_thread:
+                output_thread.join(timeout=2)
+                if process is not None and process.stdout is not None:
+                    process.stdout.close()
             current = bounded_json(work / "status.json")
             if current["status"] not in terminal:
                 atomic_json(work / "status.json", {**current, "status": "failed", "error": str(error)[:500]})
@@ -709,6 +804,12 @@ class Portal:
                     "status": "cancelling" if self.active == identity else "cancelled",
                     "message": "Perception cancelled; original source, local evidence and any uncertain provider charges are preserved."})
                 self._cancel_perception_handoff(identity)
+                return self.summary(identity)
+            moving = moving_jobs.read_status(self._folder(identity))
+            if moving.get("status") in moving_jobs.ACTIVE:
+                work = self._folder(identity) / "moving-equipment"
+                atomic_json(work / "cancel-request.json", {"requested_at": local_time()})
+                atomic_json(work / "status.json", {**moving, "status": "cancelling" if self.active == identity else "cancelled", "message": "Moving work cancelled; original source and partial alternatives retained."})
                 return self.summary(identity)
             equipment = equipment_status(self._folder(identity))
             if equipment and equipment.get("status") not in EQUIPMENT_TERMINAL:
@@ -767,7 +868,7 @@ class Portal:
                 lab_path = (folder / self._status(identity).get("lab", "lab")).resolve()
                 if not lab_path.is_relative_to(folder):
                     raise ValueError("Sandbox path is outside this project")
-                if self.jobs[identity].get("control_profile") == "shared_world_exploration":
+                if self._exploration(identity):
                     from weft.shared_world_exploration import LoadingExplorationLab
                     lab = LoadingExplorationLab(lab_path, project=self.project)
                 else:
@@ -786,6 +887,13 @@ class Portal:
                 raise ValueError('Recovery receipt is unavailable or no longer matches this project')
             read_package_file(folder, name, max_bytes=64 << 10, expected_sha256=recovery['receipt_sha256'])
             return folder/name
+        if name.startswith("moving-equipment/"):
+            relative = name.removeprefix("moving-equipment/")
+            if relative not in moving_jobs.ARTIFACTS:
+                raise ValueError("Moving artifact is not in the approved receipt inventory")
+            from weft.shared_world_packaging import read_package_file
+            read_package_file(folder / "moving-equipment", relative, max_bytes=moving_jobs.MAX_FAMILY_BYTES)
+            return folder / name
         if name.startswith("perception/"):
             if name not in PERCEPTION_ARTIFACTS and not re.fullmatch(r"perception/analysis/frame-\d{5}\.jpg", name):
                 raise ValueError("File is not a public perception artifact")
@@ -897,6 +1005,17 @@ class PortalHandler(LabHandler):
                 if int(self.headers.get("Content-Length", "0")) > 2:
                     raise ValueError("Cancellation takes no arguments")
                 return self.reply(self.server.portal.cancel(match[1]))
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/moving-equipment/(prepare|build|select)", path)
+            if match:
+                length = int(self.headers.get("Content-Length", "0"))
+                if not 1 <= length <= 16 << 10:
+                    raise ValueError("Moving choices require bounded JSON")
+                self.connection.settimeout(10)
+                raw = self.rfile.read(length)
+                if len(raw) != length:
+                    raise ValueError("Moving choice upload interrupted")
+                from weft.shared_world_action_replay import _json
+                return self.reply(self.server.portal.moving_equipment(match[1], match[2], _json(raw)), 200 if match[2] == "select" else 202)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/equipment/(prepare|select)", path)
             if match:
                 length = int(self.headers.get("Content-Length", "0"))

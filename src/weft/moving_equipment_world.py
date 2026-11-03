@@ -7,7 +7,7 @@ from weft.io import canonical_hash
 from weft.moving_equipment_proposal import MAX_BYTES, PROFILE, WORLD_PROFILE, _check, _deadline, derive_moving_proposals
 
 
-def construct_moving_equipment_world(inputs, bundle, candidate_id, *, deadline=None):
+def construct_moving_equipment_world(inputs, bundle, candidate_id, *, deadline=None, depth_family=None):
     """Return an unscored validated scene; the caller owns exact source packaging."""
     from weft.dynamic_native_interval import dynamic_native_interval
     from weft.moving_equipment_inputs import validate_moving_equipment_inputs
@@ -16,7 +16,8 @@ def construct_moving_equipment_world(inputs, bundle, candidate_id, *, deadline=N
 
     stop = _deadline(deadline)
     packet = validate_moving_equipment_inputs(inputs, deadline=stop)
-    if not isinstance(bundle, dict) or bundle.get("profile") != PROFILE:
+    depth_profile = "moving-depth-selected-proposals-v1"
+    if not isinstance(bundle, dict) or bundle.get("profile") not in {PROFILE, depth_profile}:
         raise ValueError("Moving world requires the complete versioned proposal bundle")
     size = 0
     for chunk in json.JSONEncoder(allow_nan=False).iterencode(bundle):
@@ -24,7 +25,15 @@ def construct_moving_equipment_world(inputs, bundle, candidate_id, *, deadline=N
         size += len(chunk.encode())
         if size > MAX_BYTES:
             raise ValueError("Moving world proposal exceeds its byte bound")
-    expected = derive_moving_proposals(packet, bundle.get("settings"), max_candidates=bundle.get("maximum_candidates"), deadline=stop)
+    if bundle["profile"] == depth_profile:
+        from weft.moving_depth_family import validate_prepared_family, materialize_moving_depth_selection
+
+        prepared = validate_prepared_family(depth_family, packet, deadline=stop)
+        expected = materialize_moving_depth_selection(prepared, bundle.get("depth_selection"), deadline=stop)
+    else:
+        if depth_family is not None:
+            raise ValueError("Legacy moving proposals cannot consume an unrelated depth family")
+        expected = derive_moving_proposals(packet, bundle.get("settings"), max_candidates=bundle.get("maximum_candidates"), deadline=stop)
     if canonical_hash(bundle) != canonical_hash(expected):
         raise ValueError("Moving world proposal differs from exact source/prior rederivation")
     matches = [item for item in bundle["candidates"] if item["id"] == candidate_id]
@@ -61,6 +70,8 @@ def construct_moving_equipment_world(inputs, bundle, candidate_id, *, deadline=N
                 "initial_state_hypothesis": initial, "identity_assignment": candidate["identity_assignment"],
                 "physical_validation": "unverified", "source_contact_verified": False, "grasp_supported": False,
                 "trajectory_driving": False, "hidden_assistance": False, "task_success_available": False}})
+        if bundle["profile"] == depth_profile:
+            objects[-1]["provenance"]["depth_assumption"] = deepcopy(track["depth_assumption"])
     names = {obj["id"] for obj in objects}
     binding = packet.source_binding
     binding["entity_bindings"] = [row for row in binding["entity_bindings"] if row["world_entity_id"] in {"human", *names}]
