@@ -10,6 +10,7 @@ from weft.meta_access import access_status
 from weft.scene_advisor import ESTIMATE, MODEL, advise_run
 from weft.portal_supports import body_path
 from weft.portal_scene_context import construction_context
+from weft.openai_access import PROJECT_ROOT
 
 TERMINAL = {"proposed", "failed", "cancelled", "interrupted"}
 
@@ -21,7 +22,7 @@ def availability(project):
                               and status.get("remaining_usd", 0) >= ESTIMATE)}
 
 
-def construction_input(root):
+def construction_input(root, *, project=PROJECT_ROOT):
     root = Path(root).resolve()
     config = json.loads((root / "job.json").read_bytes())
     status = json.loads((root / "status.json").read_bytes())
@@ -31,7 +32,11 @@ def construction_input(root):
     if route not in {"exercise", "objects"}:
         raise ValueError("This project's construction format is not supported by Muse review")
     attachment = None
-    if config.get("kind") == "imported_lab":
+    if status.get("equipment_candidate_id"):
+        from weft.portal_perception_review import validate_attachment
+
+        source, attachment = validate_attachment(root, project=project)
+    elif config.get("kind") == "imported_lab":
         from weft.portal_evidence_attachment import validate_attachment
 
         source, attachment = validate_attachment(root)
@@ -58,15 +63,20 @@ def construction_input(root):
                "manifest_sha256": digest(manifest_path), "input_sha256": pins,
                "scope": "Construction observations and authored body assumptions only; no scores, policies or final evaluation"}
     if attachment is not None:
-        binding["imported_attachment"] = attachment
+        binding["perception_attachment" if status.get("equipment_candidate_id") else "imported_attachment"] = attachment
+    if status.get("equipment_candidate_id"):
+        from weft.portal_perception_review import CONDITIONAL_QUESTION
+        from weft.scene_advisor import DEFAULT_QUESTIONS
+
+        binding["review_questions"] = [*DEFAULT_QUESTIONS, CONDITIONAL_QUESTION]
     if config.get("kind") == "support_experiment":
         binding.update(review_scope="original_body_only",
                        scope="Original body construction evidence only. Added supports, load windows and child-world control settings are not reviewed; no scores, policies or final evaluation.")
     return source, binding
 
 
-def review_input(root):
-    source, binding = construction_input(root)
+def review_input(root, *, project=PROJECT_ROOT):
+    source, binding = construction_input(root, project=project)
     world, world_binding = construction_context(root)
     if world is not None:
         binding.update(review_scope="coupled_world_assumptions", simulation_world=world_binding,
@@ -84,7 +94,7 @@ def execute_review(root, *, project):
         if saved.get("status") in TERMINAL:
             return 0 if saved["status"] == "proposed" else 1
     try:
-        source, binding, world = review_input(root)
+        source, binding, world = review_input(root, project=project)
         write_json(folder / "binding.json", binding)
         coupled = world is not None
         if (folder / "cancel-request.json").exists():
@@ -95,8 +105,9 @@ def execute_review(root, *, project):
             if coupled else "Muse is reviewing construction evidence and proposing tests",
             "review_scope": binding.get("review_scope", "construction_observations")})
         receipt = advise_run(source, folder / "advice", execute=True, max_cost_usd=ESTIMATE, project_root=project,
+                             **({"questions": binding["review_questions"]} if "review_questions" in binding else {}),
                              **({"scene_context": world} if coupled else {}))
-        _, after, _ = review_input(root)
+        _, after, _ = review_input(root, project=project)
         if after != binding:
             raise ValueError("Construction inputs changed during Muse review")
         atomic_json(folder / "status.json", {"status": "proposed", "message":

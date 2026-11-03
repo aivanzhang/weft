@@ -84,7 +84,7 @@
     $("perception-quote").textContent = quote ? `${quote.frame_count} source frames. OpenAI (${quote.openai_model}): reserve up to $${quote.openai_max_usd.toFixed(4)}. Meta (${quote.meta_model}): reserve up to $${quote.meta_max_usd.toFixed(4)}. ${quote.message}` : "";
     updatePerceptionConsent();
     $("perception-events").replaceChildren(...(perception?.events || []).slice(-40).map(event => { const li = document.createElement("li"); li.textContent = event.message; return li; }));
-    const artifactLabels = {body_model:"Estimated body model (no physics validation)",body_evidence:"Original inferred pose evidence",body_clock:"Native video timestamps",body_preview:"Source pose overlay (not simulation)",preflight_result:"Local check results",quote:"Saved cost and media quote",request:"Saved consent request",analysis_receipt:"OpenAI usage receipt",bridge_result:"Tracking preparation result",prepared_source:"Prepared source identities",failure:"Preparation failure details",preflight_receipt:"Local check resource receipt",preparation_receipt:"AI preparation resource receipt"};
+    const artifactLabels = {person_region:"Person tracking region and excluded landmarks",body_model:"Estimated body model (no physics validation)",body_evidence:"Original inferred pose evidence",body_clock:"Native video timestamps",body_preview:"Source pose overlay (not simulation)",preflight_result:"Local check results",quote:"Saved cost and media quote",request:"Saved consent request",analysis_receipt:"OpenAI usage receipt",bridge_result:"Tracking preparation result",prepared_source:"Prepared source identities",failure:"Preparation failure details",preflight_receipt:"Local check resource receipt",preparation_receipt:"AI preparation resource receipt"};
     $("perception-artifacts").replaceChildren(...Object.entries(perception?.artifacts || {}).filter(([key]) => artifactLabels[key]).map(([key,path]) => {
       const a = document.createElement("a"); a.textContent = artifactLabels[key]; a.className = "text-link"; a.href = fileURL(job.id,path); a.download = path.split("/").pop(); return a;
     }));
@@ -132,6 +132,8 @@
     $("experiment-note").textContent = job.kind === "support_experiment" ? "Authored support experiment: source-bound body, user-specified box and load task. Equipment/contact are not recovered. This is a new task, not a scored repair of the parent project." : "";
     artifactLink("support-priors-download", job, "support-priors.json", job.kind === "support_experiment");
     const importedReviewReady = imported && job.review_attachment?.available;
+    const conditionalReview = !!job.equipment_candidate_id;
+    const reviewOnly = imported || conditionalReview;
     artifactLink("attachment-receipt-download", job, "review-evidence/receipt.json", importedReviewReady);
     artifactLink("attachment-context-download", job, "review-evidence/prepared/context.json", importedReviewReady && job.review_attachment.prepared);
     artifactLink("attachment-request-download", job, "review-evidence/prepared/request.json", importedReviewReady && job.review_attachment.prepared);
@@ -142,6 +144,8 @@
     $("muse-scope").hidden = job.route !== "exercise" && job.kind !== "support_experiment";
     $("muse-scope").textContent = importedReviewReady
       ? "Verified attached body observations and the current equipment world's assumptions are reviewed together. Physical accuracy is unverified. Imported local checks and repairs remain unavailable."
+      : conditionalReview
+      ? "Muse rechecks the selected world and original body evidence before sending a request. Object identities and physical accuracy remain uncertain. Local checks and repairs are unavailable for this candidate."
       : legacyBodyReview
       ? "This saved review covers reused body evidence only, not the authored boxes or load requirements."
       : "New exercise reviews include the saved world's geometry, supports and control assumptions. Authored settings remain separate from observed video evidence; scores and learned policies are not sent.";
@@ -163,9 +167,9 @@
     artifactLink("muse-context-download", job, "muse/advice/context.json", !!job.muse?.receipt);
     artifactLink("muse-receipt-download", job, "muse/advice/advisor-call.json", !!job.muse?.receipt);
     const checks = job.muse?.checks, report = checks?.report;
-    $("run-checks").hidden = imported || job.muse?.status !== "proposed" || !!checks;
+    $("run-checks").hidden = reviewOnly || job.muse?.status !== "proposed" || !!checks;
     $("run-checks").disabled = checking;
-    $("checks-help").hidden = imported || job.muse?.status !== "proposed";
+    $("checks-help").hidden = reviewOnly || job.muse?.status !== "proposed";
     $("checks-status").textContent = checks?.message || checks?.status || "";
     const controls = {authored:"Authored controller",root_unforced:"Controller without root assistance",coast:"No control",positive_x:"Push right",negative_x:"Push left"};
     $("checks-results").replaceChildren(...(report?.trials || []).map(trial => {
@@ -177,7 +181,7 @@
       a.href = fileURL(job.id, "muse/checks/" + trial.trace); a.download = trial.trace; return a;
     }));
     const repairs = job.muse?.repairs, repairReport = repairs?.report, repairAvailability = job.muse?.repair_availability;
-    $("repair-comparison").hidden = imported || (job.muse?.status !== "proposed" && !repairs);
+    $("repair-comparison").hidden = reviewOnly || (job.muse?.status !== "proposed" && !repairs);
     $("run-repairs").hidden = !repairAvailability?.available || !!repairs;
     $("run-repairs").disabled = repairing;
     $("repairs-status").textContent = repairs?.message || repairs?.error || repairs?.status || repairAvailability?.reason || "A supported evidence-linked control or articulation hypothesis is required.";

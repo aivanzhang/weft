@@ -270,8 +270,9 @@ def _perception_source(root, bridge, *, project, deadline):
         raise ValueError('Perception analysis differs from its exact sealed receipt')
     base_files = child_manifests[base][1]
     scene = _json(read_package_file(base, 'scene.json', max_bytes=16 << 20, expected_sha256=base_files.get('scene.json')))
-    anchor = body_tracking_anchor(base, scene, proposal)
-    if anchor != _json(raw['body-anchor.json']):
+    stored_anchor = _json(raw['body-anchor.json'])
+    anchor = body_tracking_anchor(base, scene, proposal, anchor_profile=stored_anchor.get('profile'))
+    if anchor != stored_anchor:
         raise ValueError('Perception body anchor differs from its exact source landmarks')
     evidence_files = child_manifests[equipment][1]
     evidence = adapt_tracking_run(bridge / 'tracking')
@@ -326,12 +327,17 @@ def publish_perception_source(root, bridge, *, project=PROJECT_ROOT):
     return descriptor
 
 
-def validate_job_source(root, *, project=PROJECT_ROOT):
+def validate_job_source(root, *, project=PROJECT_ROOT, deadline=None):
     """Resolve only the fixed descriptor and rederive every source/receipt join at action time."""
+    if deadline is not None and (type(deadline) not in (int, float) or not math.isfinite(deadline)):
+        raise ValueError('Perception source deadline must be finite')
+    deadline = min(time.monotonic()+30, deadline) if deadline is not None else time.monotonic()+30
+    _check(deadline)
     encoded = read_package_file(root, JOB_SOURCE_PATH, max_bytes=16 << 10)
-    descriptor, inputs, proof = _perception_source(root, Path(root)/'perception/bridge', project=project, deadline=time.monotonic()+30)
+    descriptor, inputs, proof = _perception_source(root, Path(root)/'perception/bridge', project=project, deadline=deadline)
     if encoded != (json.dumps(descriptor, sort_keys=True, indent=2)+'\n').encode() or read_package_file(root, JOB_SOURCE_PATH, max_bytes=16 << 10) != encoded:
         raise ValueError('Job-local perception descriptor differs from its qualified source')
+    _check(deadline)
     return inputs, {**proof, 'descriptor_sha256': sha256(encoded).hexdigest()}
 
 

@@ -19,6 +19,7 @@ def prepared(tmp_path, monkeypatch):
     calls=[]
     import weft.exercise_perception_pipeline as bridge
     def local(video,out,**kwargs):
+        assert kwargs['anchor_profile'] == bridge.VISIBLE_ANCHOR_PROFILE
         calls.append('local');out.mkdir();write_json(out/'manifest.json',{'fixture':True})
         return {'metadata':{'frame_count':100},'manifest_sha256':digest(out/'manifest.json')}
     monkeypatch.setattr(bridge,'prepare_exercise_perception_preflight',local)

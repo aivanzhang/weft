@@ -168,7 +168,11 @@ class Portal:
             if equipment:
                 result["equipment_candidates"] = {**equipment, "report": equipment_report(folder, equipment)}
             if status.get("equipment_candidate_id"):
-                result["review_unavailable_reason"] = "This conditional equipment candidate has no verified portal review attachment. Local checks and repairs are unavailable."
+                from weft.portal_perception_review import attachment_summary
+
+                attachment = attachment_summary(folder)
+                result["review_attachment"] = attachment
+                result["review_unavailable_reason"] = None if attachment["available"] else attachment["reason"]
             inventory_path = folder / "analysis/scene-inventory.json"
             if inventory_path.is_file():
                 inventory = bounded_json(inventory_path, maximum=8192)
@@ -522,7 +526,13 @@ class Portal:
 
     def _require_review_body(self, identity, *, action="review"):
         if self._status(identity).get("equipment_candidate_id"):
-            raise ValueError("Conditional equipment candidates need a verified review attachment; Muse, local checks and repairs are unavailable")
+            from weft.portal_perception_review import attachment_summary
+
+            attached = attachment_summary(self._folder(identity))
+            if not attached["available"]:
+                raise ValueError(attached["reason"])
+            if action != "review":
+                raise ValueError("Conditional equipment attachments enable Muse review only; local checks and repairs are not qualified")
         if self.jobs[identity].get("kind") == "imported_lab":
             from weft.portal_evidence_attachment import attachment_summary
 

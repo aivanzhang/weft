@@ -82,7 +82,8 @@ def summary(root, job, parent_status):
     artifacts = {'quote': 'quote.json', 'request': 'request.json', 'analysis_receipt': 'analysis/receipt.json',
                  'bridge_result': 'bridge/result.json', 'prepared_source': 'prepared-source.json', 'failure': 'failure.json',
                  'preflight_receipt': 'preflight-worker-receipt.json', 'preparation_receipt': 'preparation-worker-receipt.json',
-                 'preflight_result': 'preflight/result.json', 'body_model': 'preflight/body_source/human.xml',
+                 'preflight_result': 'preflight/result.json', 'person_region': 'preflight/body-anchor.json',
+                 'body_model': 'preflight/body_source/human.xml',
                  'body_evidence': 'preflight/body_source/evidence.json', 'body_clock': 'preflight/body_source/native-clock.json',
                  'body_preview': 'preflight/body_source/tracks.gif'}
     result['artifacts'] = {key: 'perception/'+name for key, name in artifacts.items()
@@ -169,7 +170,7 @@ def queue_prepare(root, payload, *, project=PROJECT_ROOT):
 
 def execute_perception_job(root, *, project=PROJECT_ROOT):
     from weft.exercise_perception_pipeline import (prepare_exercise_perception_preflight,
-        validate_perception_preflight, prepare_exercise_perception)
+        validate_perception_preflight, prepare_exercise_perception, VISIBLE_ANCHOR_PROFILE)
     from weft.portal_pipeline import sample_video, analyze_frames
 
     root = _path(root); work = root/'perception'; started = time.monotonic(); deadline = started+420
@@ -203,7 +204,8 @@ def execute_perception_job(root, *, project=PROJECT_ROOT):
             write_package_files(work, {'preflight-start.json': _bytes({'started_at': local_time(), 'api_calls': 0})})
             progress('preflighting', 'Checking native video/body evidence and initial person visibility locally; no media sent.')
             prepared = prepare_exercise_perception_preflight(video, work/'preflight',
-                pose_model=Path(project)/'.local/models/pose_landmarker_lite.task', max_seconds=210)
+                pose_model=Path(project)/'.local/models/pose_landmarker_lite.task', max_seconds=210,
+                anchor_profile=VISIBLE_ANCHOR_PROFILE)
             check()
             n = prepared['metadata']['frame_count']
             quote = {'schema_version': 1, 'profile': 'portal-perception-quote-v1', 'source_sha256': job['source_sha256'],

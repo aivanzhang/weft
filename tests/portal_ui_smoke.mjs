@@ -266,3 +266,13 @@ function setup(jobs=[]) {
   assert.ok(!f.calls.some(c=>c.path.includes("/files/perception/")));
   console.log("PASS local-only preflight, distinct media consents, quote caps, worker fence, one authenticated paid action and no retry");
 }
+{
+  const id="7".repeat(32),f=setup([{id,name:"new-equipment.mp4",kind:"video",route:"exercise",status:"ready",events:[],equipment_candidate_id:"alternative-1",review_attachment:{available:true,status:"pending_action_time_validation",repair_qualified:false},muse:{status:"proposed",repair_availability:{available:false}}}]);await tick();
+  const e=f.elements;
+  assert.equal(e.get("muse-review").hidden,false);
+  assert.match(e.get("muse-scope").textContent,/rechecks the selected world.*identities.*uncertain/);
+  assert.equal(e.get("run-checks").hidden,true);assert.equal(e.get("checks-help").hidden,true);
+  assert.equal(e.get("repair-comparison").hidden,true);assert.equal(e.get("attachment-receipt-download").hidden,true);
+  assert.ok(!f.calls.some(c=>c.path.includes("/files/")));
+  console.log("PASS selected perception worlds enable source-revalidated Muse review without unsupported checks, repairs or eager evidence reads");
+}

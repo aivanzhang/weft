@@ -30,6 +30,9 @@ The user starts/manages this server. No browser opens automatically. Use
    Otherwise, **Check video locally** starts new source preparation. Passing
    local checks offers separate consent for OpenAI images and Meta video tracking;
    passing those stages still does not guarantee a playable world.
+   The downloadable **Person tracking region and excluded landmarks** explains
+   the initial tracking hint. Hidden or low-confidence landmarks remain unknown;
+   this region does not establish a complete silhouette or physical identity.
 3. Watch the processing stages. The original, sampled frames,
    scene proposal, API receipt, failure reasons and processing log are inspectable.
 4. For a completed simulation, select **Open interactive sandbox**. Inspect the source, tracks and geometry;
@@ -39,6 +42,10 @@ The user starts/manages this server. No browser opens automatically. Use
    physical explanations, cited observations, suggested tests and unresolved questions.
    This sends construction evidence and up to three thumbnails to Meta. Review
    runs in the background; the sandbox remains usable. Proposals are not applied.
+   Selected worlds built from new perception evidence reuse their exact original
+   body evidence. Muse revalidates that body and the selected world before any
+   request; conditional object identities remain unresolved. Their local checks
+   and repairs remain unavailable.
 6. Select **Run local comparisons · no API charge**. Exercise projects compare
    authored control, disabled root assistance and no control under the same task.
    Object projects compare opposite force interventions and no control. Inspect

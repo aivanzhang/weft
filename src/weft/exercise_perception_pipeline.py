@@ -17,6 +17,8 @@ from weft.shared_world_packaging import read_package_file, read_package_manifest
 PROFILE = "exercise-perception-bridge-v1"
 SCOPE = "AI-proposed equipment regions and inferred poses/masks; inventory, identity, depth, contact and physical parameters remain unverified."
 PREFLIGHT_PROFILE = "exercise-perception-preflight-v1"
+LEGACY_ANCHOR_PROFILE = "sealed-pose-tracking-anchor-v1"
+VISIBLE_ANCHOR_PROFILE = "sealed-pose-visible-chain-tracking-anchor-v2"
 
 
 def _check_deadline(deadline):
@@ -40,7 +42,7 @@ def _preflight_metadata(value):
     return value
 
 
-def _preflight_seed(seed, metadata, *, deadline, expected_manifest_sha256=None):
+def _preflight_seed(seed, metadata, *, deadline, expected_manifest_sha256=None, anchor_profile=LEGACY_ANCHOR_PROFILE):
     from weft.shared_world_packaging import collect_shared_source_files
 
     _check_deadline(deadline)
@@ -79,11 +81,12 @@ def _preflight_seed(seed, metadata, *, deadline, expected_manifest_sha256=None):
             if row["decoder_timestamp_s"] is not None and row["decoder_timestamp_s"] != actual:
                 raise ValueError("Preflight native capture and source decoder clock differ")
     proposal = {**metadata, "boxes": []}
-    anchor = body_tracking_anchor(seed, scene, proposal)
+    anchor = body_tracking_anchor(seed, scene, proposal, **({"anchor_profile": anchor_profile} if anchor_profile != LEGACY_ANCHOR_PROFILE else {}))
     return pin, anchor
 
 
-def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_source=None, max_seconds=210):
+def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_source=None, max_seconds=210,
+                                         anchor_profile=LEGACY_ANCHOR_PROFILE):
     """Prepare source/body custody before either provider; never send or reserve API money."""
     from weft.segmentation_lab import inspect_video
     from weft.exercise_body_source import prepare_exercise_body_source
@@ -91,6 +94,8 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
 
     if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= 210:
         raise ValueError("Perception preflight requires a 1–210 second bound")
+    if anchor_profile not in (LEGACY_ANCHOR_PROFILE, VISIBLE_ANCHOR_PROFILE):
+        raise ValueError("Unknown source tracking anchor profile")
     if body_source is not None and pose_model is not None:
         raise ValueError("Choose an existing body or a local pose model, not both")
     started = time.monotonic(); deadline = started+max_seconds
@@ -114,7 +119,7 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
         stage = "seed"
         seed = prepare_shared_world_seed(body_source, out/"body_seed", deadline=deadline)
         stage = "anchor"
-        seed_pin, anchor = _preflight_seed(seed, metadata, deadline=deadline)
+        seed_pin, anchor = _preflight_seed(seed, metadata, deadline=deadline, anchor_profile=anchor_profile)
         write_json(out/"body-anchor.json", anchor)
         if digest(video) != metadata["source_sha256"]:
             raise ValueError("Original video changed during local preflight")
@@ -124,7 +129,10 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
             "inference_calls": int(generated_body), "simulation_ready": False, "seconds": time.monotonic()-started}
         write_json(out/"result.json", result)
         write_package_files(out, {"implementation/exercise_perception_pipeline.py": Path(__file__).read_bytes()})
-        names = ("metadata.json", "body-anchor.json", "result.json", "implementation/exercise_perception_pipeline.py")
+        names = ["metadata.json", "body-anchor.json", "result.json", "implementation/exercise_perception_pipeline.py"]
+        if anchor_profile == VISIBLE_ANCHOR_PROFILE:
+            write_package_files(out, {"implementation/person_tracking_anchor.py": Path(__file__).with_name("person_tracking_anchor.py").read_bytes()})
+            names.append("implementation/person_tracking_anchor.py")
         children = {"body_seed": seed_pin}
         if generated_body:
             children["body_source"] = digest(out/"body_source/manifest.json")
@@ -148,17 +156,28 @@ def validate_perception_preflight(video, preflight, *, deadline):
     raw, declared = read_package_manifest(preflight)
     manifest = _json(raw)
     names = {"metadata.json", "body-anchor.json", "result.json", "implementation/exercise_perception_pipeline.py"}
+    stored_anchor = _json(read_package_file(preflight, "body-anchor.json", max_bytes=128 << 10,
+                                           expected_sha256=declared.get("body-anchor.json")))
+    anchor_profile = stored_anchor.get("profile")
+    if anchor_profile == VISIBLE_ANCHOR_PROFILE:
+        names.add("implementation/person_tracking_anchor.py")
+    elif anchor_profile != LEGACY_ANCHOR_PROFILE:
+        raise ValueError("Unknown sealed preflight anchor profile")
     if (set(declared) != names or manifest.get("profile") != PREFLIGHT_PROFILE or manifest.get("status") != "local_ready"
             or set(manifest.get("children", {})) not in ({"body_seed"}, {"body_seed", "body_source"})):
         raise ValueError("Preflight seal differs from the closed local preparation contract")
     files = {name: read_package_file(preflight, name, max_bytes=(1 << 20), expected_sha256=pin) for name, pin in declared.items()}
     if files["implementation/exercise_perception_pipeline.py"] != Path(__file__).read_bytes():
         raise ValueError("Preflight implementation differs from this reviewed runtime; explicit compatibility is required")
+    if (anchor_profile == VISIBLE_ANCHOR_PROFILE
+            and files["implementation/person_tracking_anchor.py"] != Path(__file__).with_name("person_tracking_anchor.py").read_bytes()):
+        raise ValueError("Preflight person anchor implementation differs from its exact sealed runtime")
     metadata = _preflight_metadata(_json(files["metadata.json"]))
     if digest(video) != metadata.get("source_sha256"):
         raise ValueError("Preflight video differs from its original source")
     seed = preflight/"body_seed"
-    pin, anchor = _preflight_seed(seed, metadata, deadline=deadline, expected_manifest_sha256=manifest["children"]["body_seed"])
+    pin, anchor = _preflight_seed(seed, metadata, deadline=deadline,
+        expected_manifest_sha256=manifest["children"]["body_seed"], anchor_profile=anchor_profile)
     result = _json(files["result.json"])
     result_fields = {"profile", "status", "source_sha256", "metadata", "base_run", "base_manifest_sha256",
                      "body_anchor", "preflight_directory", "api_calls", "inference_calls", "simulation_ready", "seconds"}
@@ -189,8 +208,10 @@ def validate_perception_preflight(video, preflight, *, deadline):
     return {**result, "manifest_sha256": sha256(raw).hexdigest()}
 
 
-def body_tracking_anchor(seed, scene, proposal):
+def body_tracking_anchor(seed, scene, proposal, *, anchor_profile=LEGACY_ANCHOR_PROFILE):
     """A sealed pose supplies a tracking hint, never a rigid person or verified identity."""
+    if anchor_profile not in (LEGACY_ANCHOR_PROFILE, VISIBLE_ANCHOR_PROFILE):
+        raise ValueError("Unknown source tracking anchor profile")
     manifest, declared = read_package_manifest(seed)
     sealed_scene = _json(read_package_file(seed, "scene.json", max_bytes=16 << 20,
                                          expected_sha256=declared["scene.json"]))
@@ -214,6 +235,15 @@ def body_tracking_anchor(seed, scene, proposal):
     measurement = rows[0]["measurements"].get("landmarks", {})
     if tuple(measurement.get(k) for k in ("coordinate_system", "unit", "status")) != ("image", "pixels", "inferred"):
         raise ValueError("Body anchor requires inferred source-pixel landmarks")
+    if anchor_profile == VISIBLE_ANCHOR_PROFILE:
+        from weft.person_tracking_anchor import derive_visible_chain_anchor
+
+        derived = derive_visible_chain_anchor(rows[0], width=proposal["width"], height=proposal["height"])
+        if derived["status"] != "proposed":
+            raise ValueError("Visible-chain body anchor abstained: " + ", ".join(derived["reasons"]))
+        return {**derived, "source_sha256": proposal["source_sha256"], "body_seed_manifest_sha256": sha256(manifest).hexdigest(),
+            "observation_document_sha256": pin, "minimum_confidence": .5,
+            "prompt": [len(proposal["boxes"])+1, 0, *derived["roi_xywh"]]}
     points = {p["index"]: p for p in measurement["value"]}
     required = (0, 11, 12, 13, 14, 15, 16, 23, 24, 25, 26, 27, 28)
     def confident(point):
@@ -429,7 +459,9 @@ def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_s
             scene = _json(read_package_file(seed, "scene.json", max_bytes=16 << 20))
             if scene["source_binding"]["source_sha256"] != proposal["source_sha256"]:
                 raise ValueError("Body source differs from the tracked original video")
-            anchor = body_tracking_anchor(seed, scene, proposal)
+            anchor_profile = prepared["body_anchor"]["profile"] if prepared is not None else LEGACY_ANCHOR_PROFILE
+            anchor = body_tracking_anchor(seed, scene, proposal,
+                **({"anchor_profile": anchor_profile} if anchor_profile != LEGACY_ANCHOR_PROFILE else {}))
             if prepared is not None:
                 expected_anchor = {**prepared["body_anchor"], "prompt": [len(proposal["boxes"])+1, *prepared["body_anchor"]["prompt"][1:]]}
                 if anchor != expected_anchor:

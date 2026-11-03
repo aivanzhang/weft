@@ -185,7 +185,7 @@ def test_selected_candidate_disables_muse_repairs_and_supports_even_if_body_exis
     (folder/'build/body_source').mkdir(parents=True);(folder/'build/body_source/manifest.json').write_bytes(b'{}')
     assert not portal.summary(folder.name)['support_experiment_available']
     for action in (portal.review,portal.check,portal.repair):
-        with pytest.raises(ValueError,match='Conditional equipment'):action(folder.name)
+        with pytest.raises(ValueError,match='sealed generated body evidence'):action(folder.name)
 
 
 def test_interrupted_selection_retries_same_choice_without_overwriting_receipt(project,monkeypatch):
@@ -525,3 +525,27 @@ def test_job_local_worker_request_is_closed_and_pinned_before_builder(perception
     monkeypatch.setattr(conditional,'prepare_conditional_equipment_scene',lambda **kwargs:pytest.fail('No construction after invalid request'))
     assert module.execute_equipment_job(root,project=project)==1
     assert module.read_status(root)['status']=='failed' and not (work/'run').exists()
+
+
+def test_job_local_anchor_profile_rederives_explicit_visible_chain(perception_source,monkeypatch):
+    from weft import exercise_perception_pipeline as bridge_module
+    root,bridge,project=perception_source
+    anchor=json.loads((bridge/'body-anchor.json').read_bytes())
+    anchor['profile']=bridge_module.VISIBLE_ANCHOR_PROFILE
+    write_json(bridge/'body-anchor.json',anchor)
+    manifest=json.loads((bridge/'manifest.json').read_bytes())
+    manifest['files']['body-anchor.json']=digest(bridge/'body-anchor.json');write_json(bridge/'manifest.json',manifest)
+    # This truncated legacy fixture checks dispatch only; v2's complete-slot proof has its own real-source tests.
+    def rederive(*args,anchor_profile):
+        assert anchor_profile==bridge_module.VISIBLE_ANCHOR_PROFILE
+        raise ValueError('Independent v2 rederivation reached')
+    monkeypatch.setattr(bridge_module,'body_tracking_anchor',rederive)
+    with pytest.raises(ValueError,match='Independent v2 rederivation reached'):
+        module.publish_perception_source(root,bridge,project=project)
+    assert not (root/'perception/prepared-source.json').exists()
+
+
+@pytest.mark.parametrize('deadline',[True,float('nan'),float('inf'),'later',-1.])
+def test_job_local_validation_rejects_invalid_or_expired_shared_deadline(tmp_path,deadline):
+    with pytest.raises((ValueError,TimeoutError)):
+        module.validate_job_source(tmp_path,deadline=deadline)

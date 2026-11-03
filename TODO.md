@@ -1,11 +1,18 @@
 # Weft iteration backlog
 
+## Partial tracking and selected-world Muse — November 2, 2026 (PST)
+
+- [x] Integrate [versioned visible-chain person hints and selected-world Muse custody](docs/handoffs/visible-person-and-selected-muse.md). New portal preflights retain hidden landmarks as unknown; general builders keep the original anchor default. Exact generated-body/source/world validation enables review only, never checks/repairs or identity promotion.
+- [x] Verify 209 distinct Python checks and 16 UI journeys, one actual analytical conditional-world/Muse attachment and saved-only revalidation. Root verifies 692 package members plus all 458 new source mapping rows. No paid calls; existing examples remain usable.
+- [x] Acquire an attributed full-span kettlebell-flip source and run the actual local portal path once: 16.477 seconds/401 MB worker peak. Preserve the rejection: 143/153 usable poses but two competing samples prevent body admission. No quote, paid preparation or new playable world. All test-server children reaped; source/parent/runtime/budgets unchanged.
+- [ ] Resolve competing-pose identity without choosing a convenient hypothesis, overwriting raw evidence, bridging unknown identities or weakening the original veto. A separate bounded source-window/identity-barrier view is in progress; it must not count a shorter episode as full-clip task success. Then complete live API-backed reconstruction, source contacts and independent full-task learning.
+
 ## Portal perception — November 2, 2026 (PST)
 
 - [x] Connect [unfamiliar exercise preparation to the normal portal](docs/handoffs/portal-perception.md): local preflight, source-bound quote, separate OpenAI-image/Meta-video consent, canonical budgets, one worker, no automatic retry, inspectable evidence and job-local handoff to existing candidates. No global catalog restart/registration is required for newly generated inputs.
 - [x] Fix native body seed handoff found by actual local HTTP execution: preserve all native/capture artifacts and exact native clock binding without changing original timestamps, dt/substeps, confidence or task gates. The real 13.96-second preflight serves body artifacts with zero API spend; saved-only recovery succeeds at seed construction but refuses two low-visibility initial landmarks. Preserve all failures; do not repeat unchanged source inference or mislabel this as a successful real quote/sandbox.
 - [x] Verify 191 distinct Python checks and 15 UI journeys, including one real analytic constructor and five authenticated HTTP regressions. Independent saved audit verifies 76 members/27.08 MB and unchanged budgets/source/failure. All lanes released, no live test server/worker; separate avatar work untouched.
-- [ ] Complete real API-backed preparation → admitted world on an independently qualified, appropriately sourced equipment clip. Current source refuses the initial anchor gate; use independent visible evidence or separately evaluate a new anchor method, not a lower threshold. Keep invalid geometry/identities and unknown charges explicit. Connect qualified new body evidence to Muse review, then continue source-ground/contact, full-task learning and broader independent evaluation.
+- [ ] Complete real API-backed preparation → admitted world on an independently qualified, appropriately sourced equipment clip. The newer partial-pose method and selected-world Muse handoff are implemented above; the new clip refuses competing body hypotheses before anchor preparation. Keep invalid geometry/identities and unknown charges explicit, then continue source-ground/contact, full-task learning and broader independent evaluation.
 
 ## Parallel integration — November 2, 2026 (PST)
 
