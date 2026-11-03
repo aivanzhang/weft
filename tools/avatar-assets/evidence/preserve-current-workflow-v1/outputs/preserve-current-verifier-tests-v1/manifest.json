@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "path": "actual-inspection.json",
+      "bytes": 3711,
+      "sha256": "0c303dbf94d66b0efaf0c33f9f6294f13eea8b07d707eb1df0c5842932fc7a42"
+    },
+    {
+      "path": "result.json",
+      "bytes": 1324,
+      "sha256": "b3a777704b1cddf1db64ba090933d01cbf45e296e5dbc7cf5d01ca92435e072e"
+    },
+    {
+      "path": "sources/scripts/verify_studio_live.py",
+      "bytes": 32074,
+      "sha256": "99d9795c09e6d643a2839c18e2b08fbbb5156eddd58fee43f7f0d3277e58cc3c"
+    },
+    {
+      "path": "sources/tests/test_studio_preserve_current_verifier.py",
+      "bytes": 4633,
+      "sha256": "bd2b3114fa17294572ae7bf5f656cb5cbd8c67b6566804221c326f7765cfb16a"
+    }
+  ]
+}

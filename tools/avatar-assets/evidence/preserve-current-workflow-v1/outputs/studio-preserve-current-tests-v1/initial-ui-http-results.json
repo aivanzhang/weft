@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "classification": "Analyst-recorded tool stdout; analytic fixtures, no browser/provider/native/actual-job calls",
+  "runs": [
+    {
+      "command": "node --test browser/tests/studio-preserve-current.test.mjs browser/tests/studio-prepare-observation.test.mjs",
+      "passed": 7,
+      "seconds": 0.070268083
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest test_studio_preserve_current_http test_studio.StudioHTTPTests.test_retry_requires_session_and_empty_body_without_exposing_spending_controls -v",
+      "first_attempt": "All3fixture setUps blocked by sandbox localhost bind PermissionError before test bodies",
+      "retry_scope": "Same3tests with approved narrow escalation for temporary loopback fixture sockets",
+      "passed": 3,
+      "seconds": 0.072
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest test_studio_preserve_current_http.PreserveCurrentWireTests -v",
+      "passed": 1,
+      "seconds": 0.0
+    },
+    {
+      "command": "node --check browser/tests/studio-retry-live.mjs; node --check browser/studio.js",
+      "status": "passed"
+    }
+  ],
+  "unique_methods_passed": 11,
+  "remaining": "Worker immutable preference binding awaiting shared helper interface; no combined integration claim",
+  "provider_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "real_job_mutations": 0
+}

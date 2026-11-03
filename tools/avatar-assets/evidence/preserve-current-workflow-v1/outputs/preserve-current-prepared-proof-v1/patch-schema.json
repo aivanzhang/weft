@@ -1,0 +1,187 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "patch": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "finish_updates": {
+              "additionalProperties": false,
+              "properties": {
+                "camera_fit": {
+                  "type": "null"
+                },
+                "camera_view": {
+                  "type": "null"
+                },
+                "color_corrections": {
+                  "type": "null"
+                },
+                "fur_clump": {
+                  "type": "null"
+                },
+                "fur_max_chroma": {
+                  "type": "null"
+                },
+                "fur_undercoat": {
+                  "type": "null"
+                },
+                "groom": {
+                  "type": "null"
+                },
+                "groom_excluded_parts": {
+                  "type": "null"
+                },
+                "groom_exclusions": {
+                  "type": "null"
+                },
+                "groom_flow": {
+                  "type": "null"
+                },
+                "groom_shader": {
+                  "type": "null"
+                },
+                "normal_continuity": {
+                  "type": "null"
+                },
+                "portable_fur": {
+                  "type": "null"
+                },
+                "pose_resolution": {
+                  "type": "null"
+                },
+                "review_views": {
+                  "type": "null"
+                },
+                "surface_profiles": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "normal_continuity",
+                "groom",
+                "groom_exclusions",
+                "groom_excluded_parts",
+                "fur_max_chroma",
+                "fur_clump",
+                "portable_fur",
+                "camera_view",
+                "camera_fit",
+                "surface_profiles",
+                "groom_shader",
+                "groom_flow",
+                "color_corrections",
+                "pose_resolution",
+                "review_views",
+                "fur_undercoat"
+              ],
+              "type": "object"
+            },
+            "remove_finish_fields": {
+              "items": {
+                "enum": [
+                  "normal_continuity",
+                  "groom",
+                  "groom_exclusions",
+                  "groom_excluded_parts",
+                  "fur_max_chroma",
+                  "fur_clump",
+                  "portable_fur",
+                  "camera_view",
+                  "camera_fit",
+                  "surface_profiles",
+                  "groom_shader",
+                  "groom_flow",
+                  "color_corrections",
+                  "pose_resolution",
+                  "review_views",
+                  "fur_undercoat"
+                ],
+                "type": "string"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "root_translations": {
+              "anyOf": [
+                {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "state_id": {
+                            "const": "toy_dance",
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "items": {
+                                "maximum": 2,
+                                "minimum": -2,
+                                "type": "number"
+                              },
+                              "maxItems": 3,
+                              "minItems": 3,
+                              "type": "array"
+                            },
+                            "maxItems": 9,
+                            "minItems": 9,
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "state_id",
+                          "values"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "maxItems": 1,
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "finish_updates",
+            "remove_finish_fields",
+            "root_translations"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reason": {
+      "maxLength": 4000,
+      "minLength": 0,
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 3,
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "unsupported"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "reason",
+    "patch"
+  ],
+  "type": "object"
+}

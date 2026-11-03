@@ -75,6 +75,8 @@ def _validate_prepared_request(prepared,request,output,*,agent_backend=None):
               'max_credits':0 if request['reuse_model'] else 35,**limits}
     if agent_backend is not None:
         expected['agent_backend'] = agent_backend
+    if 'appearance_policy' in request:
+        expected['appearance_policy'] = request['appearance_policy']
     extra={'continuation'} if request.get('continuation_from') else set()
     _require(isinstance(prepared,dict) and set(prepared)==set(expected)|{'reference','reuse_model','created'}|extra,
              'Prepared pipeline request fields differ from the Studio contract')
@@ -86,6 +88,9 @@ def _validate_prepared_request(prepared,request,output,*,agent_backend=None):
         _require(prepared['continuation'].get('parent')=='outputs/studio-'+request['continuation_from'],
                  'Prepared continuation parent differs from Studio')
         verify(output.parents[1],output,prepared)
+    if 'appearance_policy' in request:
+        from avatar_assets.appearance_policy import verify_policy
+        verify_policy(output.parents[1],output,prepared)
     for field,name in (('reference','reference'),('reuse_model','source-model')):
         selected,actual=request[field],prepared[field]
         if selected is None:
@@ -143,7 +148,8 @@ def run_child(jobs,job_id,token,*,pipeline_module=None):
             reuse_model=request['reuse_model']['path'] if request['reuse_model'] else None,
             states=[],max_credits=0 if request['reuse_model'] else 35,**limits,
             **({'continuation_from':jobs.resolve_job(request['continuation_from'])}
-               if request.get('continuation_from') else {}))
+               if request.get('continuation_from') else {}),
+            **({'appearance_policy':request['appearance_policy']} if 'appearance_policy' in request else {}))
         verify_selected()
     prepared=_json(output/'request.json')
     _validate_prepared_request(prepared,request,output,agent_backend=backend)

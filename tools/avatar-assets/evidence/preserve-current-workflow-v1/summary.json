@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-02T19:35:14.942140-08:00",
+  "classification": "Completed analytic implementation evidence plus actual website Retry/Prepare and read-only prepared-request verification; not accepted generation",
+  "tests": {
+    "ui_http_worker": 14,
+    "backend": 89,
+    "policy_new": 10,
+    "policy_compatibility": 26,
+    "verifier": 5,
+    "counts_are_independent_groups_not_unique_sum": true
+  },
+  "actual_preparation": {
+    "job_id": "4701879a91cf42efbeebf16c",
+    "plan_id": "0604a687e6633aac3b5cd4a7f776f5966f68a95e303e8f9c66346052ae411608",
+    "website_seconds": 7.896187834,
+    "prompt_bytes": 62872,
+    "prompt_allowance_bytes": 16384,
+    "baseline_comparison_bytes": 2666441,
+    "new_planner_calls": 0
+  },
+  "failed_first_start_harness": {
+    "status": "failed_before_start",
+    "start_requests": 0,
+    "reason": "Read-only verifier exact request schema initially lacked appearance_policy",
+    "original_unchanged": true,
+    "browser_and_server_exit_verified": true
+  },
+  "policy_carry_forward": {
+    "scope": "One finite preserve-current successor under prior15total approval; no fur tuning",
+    "max_total_microdollars": 15000000,
+    "old_grants_calls_and_unknown_holds_preserved": true,
+    "earlier_old_policy_extension": "Ineligible; preserved, not represented as successful",
+    "pre_run_exposure_microdollars": 13196967,
+    "pre_run_remaining_microdollars": 1803033
+  },
+  "live_run_exclusion": "No mutable outputs from preserve-current-studio-live-v2 or active Studio470187 were copied; this archive does not establish its result.",
+  "references": [
+    {
+      "path": "outputs/appearance-policy-tests-v1/job.json",
+      "bytes": 1171,
+      "sha256": "70750008d6f2659f4f956b0cff3a4de11e90607c8fc007ec6d7b07f5dc6e3662",
+      "disposition": "private_shaped_runtime_hash_reference"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/job.json",
+      "bytes": 1192,
+      "sha256": "cf774aaa524875f7f5b0483c47c7314091a1b30d6541d22346d8d4495a72de77",
+      "disposition": "private_shaped_runtime_hash_reference"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/job.json",
+      "bytes": 1254,
+      "sha256": "70788c3741e16cbe133cf64cebc548aa6949ce918702d70a4c58e2a5b60bbb44",
+      "disposition": "private_shaped_runtime_hash_reference"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/job.json",
+      "bytes": 1237,
+      "sha256": "c733a8790bd175b076fdb7273b8ca9bae2172400a25b8f3337a4f956447b6271",
+      "disposition": "private_shaped_runtime_hash_reference"
+    },
+    {
+      "path": "outputs/preserve-current-verifier-tests-v1/actual-inspection.json",
+      "bytes": 3711,
+      "sha256": "0c303dbf94d66b0efaf0c33f9f6294f13eea8b07d707eb1df0c5842932fc7a42",
+      "disposition": "private_shaped_runtime_hash_reference"
+    }
+  ],
+  "bundle_actions": {
+    "provider_calls": 0,
+    "native_calls": 0,
+    "browser_calls": 0,
+    "job_or_ledger_mutations": 0,
+    "runtime_or_todo_edits": 0,
+    "git_writes": 0
+  }
+}

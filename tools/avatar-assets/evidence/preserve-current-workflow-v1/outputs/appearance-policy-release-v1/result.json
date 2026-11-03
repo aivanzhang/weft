@@ -1,0 +1,63 @@
+{
+  "actual_ledger_mutations": 0,
+  "actual_registry_mutations": 0,
+  "authorization": "Original preference explicitly excludes human asset approval. Canonical origin checked at prepare/grant, portable ancestry rechecked at consumption.",
+  "compatibility_methods": 26,
+  "distinct_new_methods": 10,
+  "evidence": [
+    {
+      "path": "outputs/appearance-policy-tests-v1/manifest.json",
+      "sha256": "d74bf03cbe464b2f7e2f2ae075ef970b4e9352b4aab5e0ddc53d01ed7ffa322a"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/manifest.json",
+      "sha256": "4662347447719d5167c706c2ad366d885075ca13d2cea2aaf04d10e16c4797b4"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/manifest.json",
+      "sha256": "a005d4b37f3a978bd2610ad029cfebd84b5b45da6db96f601e87a5e980da70da"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/manifest.json",
+      "sha256": "915978f1e0046c2717ecc5b77272f1deb852e570f11a6985554254eef2701fa1"
+    }
+  ],
+  "future_retries": "Inherit exact policy; no silent removal, different source, reference, prompt, actions or funding expansion.",
+  "native_calls": 0,
+  "new_method_results": "v1: 2 passed, 8 fixture scope errors. v2: affected 8 rerun, 7 passed, 1 fixture exclusive-create error. v3: final affected 1 passed. No production change was needed after v1.",
+  "provider_calls": 0,
+  "public_retry_payload": {
+    "appearance_policy": "preserve_current"
+  },
+  "saved_request": "appearance_policy object; portable inputs/appearance-preference.json retains original receipt bytes; Studio public projection exposes only mode string.",
+  "schema_version": 1,
+  "scope": "Immutable explicit appearance preference and source-bound continuation/standing grant custody. Analytic artifacts are not media, appearance or actual-generation acceptance.",
+  "sources": [
+    {
+      "bytes": 12551,
+      "path": "avatar_assets/appearance_policy.py",
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "bytes": 66399,
+      "path": "avatar_assets/pipeline_continuation.py",
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "bytes": 19355,
+      "path": "avatar_assets/standing_authorization.py",
+      "sha256": "58ccac59fa7e0b1bef312bb4e591d258d0ceb533c2090c4df904fe9029b847f3"
+    },
+    {
+      "bytes": 65127,
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "82568248aa15089cd678c346f9271e6087802b44a0b1ed6ba81a9c9a275e7738"
+    },
+    {
+      "bytes": 10901,
+      "path": "tests/test_appearance_policy.py",
+      "sha256": "e4d7b498ce1dfa27aa5dc28bc467effe3f1d2c26ea547c19bee53da18c613547"
+    }
+  ],
+  "status": "frozen"
+}

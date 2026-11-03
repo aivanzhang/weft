@@ -1,0 +1,54 @@
+{
+  "baseline_candidate": {
+    "attempt": 2,
+    "job": "45757c9565b545119553baca",
+    "model_manifest_sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08"
+  },
+  "budget": {
+    "expected_additional_usd_range": [
+      0.15,
+      0.8
+    ],
+    "max_author_and_critic_calls": 6,
+    "max_total_usd": 15,
+    "meshy_calls": 0,
+    "remaining_usd": 1.803033,
+    "reservation_each_usd": 0.929376,
+    "settled_usd": 6.648951,
+    "unknown_holds_usd": 6.548016
+  },
+  "decision": "Preserve current stable panda appearance instead of further fur optimization; prioritize hands-off website/backend motion, preview and download.",
+  "ledger_mutations": 0,
+  "new_appearance_criterion": "Preservation of selected baseline, not improving retained native/exported coat differences",
+  "new_request_required": true,
+  "next_safe_action": "Freeze and verify new explicit request/UI/coordinator/review mode, then activate one finite successor and run the authorized local website path.",
+  "not_claimed": [
+    "User inspected this exact intermediate model",
+    "Old appearance failure became a pass",
+    "New geometry or new Meshy generation"
+  ],
+  "old_requests_unchanged": true,
+  "policy_change": {
+    "candidate_sha256": "b3a24644f991a5d3d632d91b9f52904bdd207ae0ce1e6d0bd51ab91ce94ae57c",
+    "max_successors": {
+      "from": 3,
+      "to": 4
+    },
+    "previous_sha256": "f43d5ede22c8c6f0a216db021295b0e04f3bc8558fe751e68fb1416981d9d826",
+    "source_reference_model_and_dollar_limits_unchanged": true
+  },
+  "preserve_checks": [
+    "identity",
+    "framing",
+    "deformation",
+    "portable attachment",
+    "motion"
+  ],
+  "proposed_appearance_mode": "preserve_current",
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T19:17:57.496376-08:00",
+  "schema_version": 1,
+  "spending_basis": "Previousactual6callrun0.850094; motion-onlypatches shorter. Unknownholdsremainfullyreserved and percallguardenforcesaggregatecap. No transportretry/newaccount/creditpurchase/hostedcompute.",
+  "status": "prepared_not_activated",
+  "user_steering": "i dont kcare so much abotu the hair since i thought we were good on that!"
+}

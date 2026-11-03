@@ -49,6 +49,20 @@ export function localAssetURL(value, origin) {
   } catch { return null; }
 }
 
+export function canPreserveCurrent(job) {
+  return job?.status === "unsupported" && job?.capabilities?.retry_preserve_current === true;
+}
+
+export function retryRequestBody(job, preserveCurrent = false) {
+  if (typeof preserveCurrent !== "boolean") throw new Error("Invalid retry mode");
+  if (preserveCurrent) {
+    if (!canPreserveCurrent(job)) throw new Error("Keeping this look is not available for this job.");
+    return { appearance_policy: "preserve_current" };
+  }
+  if (job?.capabilities?.retry !== true) throw new Error("Retry is not available for this job.");
+  return {};
+}
+
 export function canStart(job) {
   return ["planned", "awaiting_authorization"].includes(job?.status) &&
     job?.capabilities?.start !== false && job?.plan?.authorization?.can_start === true && Boolean(planID(job));
@@ -141,6 +155,7 @@ export async function bootStudio() {
     $("save-request").disabled = state.busy || !state.session;
     $("save-request").textContent = state.busy && !state.selected ? "Saving request…" : "Save request →";
     $("retry-job").disabled = state.busy || !state.session || job?.capabilities?.retry !== true;
+    $("preserve-current-job").disabled = state.busy || !state.session || !canPreserveCurrent(job);
     $("prepare-plan").disabled = state.busy || !state.session || job?.capabilities?.plan !== true;
     $("start-job").disabled = state.busy || !state.session || !canStart(job) || !$("estimate-ack").checked;
     $("cancel-job").disabled = state.busy || job?.status === "cancel_requested" || job?.capabilities?.cancel === false;
@@ -200,6 +215,7 @@ export async function bootStudio() {
     addFact($("request-facts"), "Output", statusLabel(saved.preset));
     addFact($("request-facts"), "Reference", saved.reference_selected ? "Selected image" : "Text only");
     if (saved.reuse_model_selected) addFact($("request-facts"), "Geometry", "Existing generated model");
+    if (saved.appearance_policy === "preserve_current") addFact($("request-facts"), "Repair focus", "Keep current fur and materials; finish motion. Rig and motion checks still apply.");
     if (job.created_at && Number.isFinite(Date.parse(job.created_at))) addFact($("request-facts"), "Saved", new Intl.DateTimeFormat("en-US", {
       timeZone: "America/Los_Angeles", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short",
     }).format(new Date(job.created_at)));
@@ -221,6 +237,7 @@ export async function bootStudio() {
     $("planning-cost-note").hidden = Boolean(plan);
     $("retry-job").hidden = job.capabilities?.retry !== true;
     $("retry-note").hidden = job.capabilities?.retry !== true;
+    $("preserve-current-job").hidden = $("preserve-current-note").hidden = !canPreserveCurrent(job);
     $("prepare-plan").hidden = job.capabilities?.plan !== true;
     $("plan-warnings").replaceChildren(...(Array.isArray(plan?.warnings) ? plan.warnings : []).slice(0, 16).map((warning) => node("li", text(warning))));
     $("plan-warnings").hidden = !$("plan-warnings").children.length;
@@ -530,14 +547,18 @@ export async function bootStudio() {
       $("job-title").scrollIntoView({ block: "nearest" });
     });
   });
-  $("retry-job").addEventListener("click", () => {
-    const id = state.selected; if (!id || state.job?.capabilities?.retry !== true) return;
+  function retrySaved(preserveCurrent) {
+    const id = state.selected;
+    if (!id || (preserveCurrent ? !canPreserveCurrent(state.job) : state.job?.capabilities?.retry !== true)) return;
+    const body = retryRequestBody(state.job, preserveCurrent);
     mutate(async (signal) => {
-      const job = unwrapJob(await request(apiPath(id, "/retry"), { method: "POST", body: {}, signal }));
+      const job = unwrapJob(await request(apiPath(id, "/retry"), { method: "POST", body, signal }));
       state.selected = job.id; state.jobSignature = ""; state.resultSignature = "";
       renderJob(job); renderList();
     });
-  });
+  }
+  $("retry-job").addEventListener("click", () => retrySaved(false));
+  $("preserve-current-job").addEventListener("click", () => retrySaved(true));
   $("prepare-plan").addEventListener("click", () => {
     const id = state.selected; if (!id || state.job?.capabilities?.plan !== true) return;
     mutate(async (signal) => { const job = unwrapJob(await request(apiPath(id, "/plan"), { method: "POST", body: {}, signal })); if (state.selected === id) renderJob(job); });

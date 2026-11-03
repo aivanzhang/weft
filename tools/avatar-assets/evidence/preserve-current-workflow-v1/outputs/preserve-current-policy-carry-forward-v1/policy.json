@@ -1,0 +1,18 @@
+{
+  "allowed_reference_sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422",
+  "allowed_source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "approval_receipt": {
+    "path": "outputs/openai-standing-reference-policy-v2/approval.json",
+    "sha256": "0e77764b1ea4972bb7b70bce85ea3e48d8873eb0d6c8cb18bd700bed75bc378c"
+  },
+  "lineage_root_job_id": "studio-6c2aeac484bd4d4597fb71f3",
+  "lineage_root_request_sha256": "9d17db581c762429d06c7eb51bbdcacf796eefdf487538b78776e7d868abab98",
+  "max_calls": 7,
+  "max_repairs": 2,
+  "max_successors": 1,
+  "max_total_microdollars": 15000000,
+  "model": "gpt-5.2-2025-12-11",
+  "policy_id": "panda-preserve-current-v3",
+  "schema_version": 2,
+  "status": "active"
+}

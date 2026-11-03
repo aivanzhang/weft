@@ -1,0 +1,86 @@
+{
+  "classification": "Analyst-recorded analytic unit/orchestration tests; no provider/native job or asset acceptance",
+  "implemented": [
+    "Explicit preserve_current policy freezes all finishing, render and rest geometry values",
+    "Only previously eligible failed global-root trajectory edits remain",
+    "Original appearance reference stays fixed when passing motion baseline advances",
+    "Current identity/framing/deformation/motion remain independent gates",
+    "Selected baseline image plus current output required for appearance acceptance; baseline never current motion proof",
+    "One bounded comparison image sealed into final evidence; no current proof removed",
+    "Optional coat probe disabled because appearance changes are not authorized",
+    "Scope and retained native/exported coat difference recorded in delivery"
+  ],
+  "ledger_mutations": 0,
+  "limitations": [
+    "Live website/provider/native end-to-end run not performed by this lane",
+    "Policy authorization and continuation consumer tests owned separately by pipeline_contracts",
+    "Preservation is not Muse equivalence or human approval of selected model"
+  ],
+  "native_calls": 0,
+  "original_artifacts_changed": false,
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T19:26:40.903121-08:00",
+  "schema_version": 1,
+  "source_pins": [
+    {
+      "bytes": 29392,
+      "path": "avatar_assets/repair_composition.py",
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "bytes": 105705,
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "bytes": 76253,
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "bb7eab72d990d78a87c4a7e40f206af04b89b57fa9d530bc35d6601638501935"
+    },
+    {
+      "bytes": 25933,
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "edc3530f0c967bed770d4dfcae81e2eae28db1109b1b4cc3724d866955a697ed"
+    },
+    {
+      "bytes": 12314,
+      "path": "tests/test_preserved_appearance.py",
+      "sha256": "66786de867ba5675d103e792bbcddc7df58bd980d2637ac691066f740dee0b1d"
+    }
+  ],
+  "tests": {
+    "affected_unique_passed": 80,
+    "new_unique_passed": 9,
+    "runs": [
+      {
+        "command": ".venv/bin/python -m unittest discover -s tests -p test_preserved_appearance.py -v",
+        "passed": 7,
+        "seconds": 0.034
+      },
+      {
+        "command": "PYTHONPATH=tests .venv/bin/python -m unittest test_repair_composition test_repair_composition_continuation test_pipeline_prompts test_typed_critic_contract test_pipeline_evidence test_pipeline -v",
+        "errors": 1,
+        "failure": "Minimal prevalidated citation fixture lacked check.name; conditioned new baseline-name check on presence of baseline IDs, preserving legacy behavior.",
+        "passed": 79,
+        "seconds": 3.177
+      },
+      {
+        "command": "PYTHONPATH=tests .venv/bin/python -m unittest test_pipeline.PipelineTests.test_numeric_citations_cannot_replace_images_or_cross_states test_preserved_appearance.PreservedAppearanceTests.test_baseline_is_not_current_identity_or_motion_evidence test_preserved_appearance.PreservedAppearanceTests.test_baseline_comparison_keeps_pixels_and_rejects_changed_review_image -v",
+        "passed": 3,
+        "seconds": 0.019
+      },
+      {
+        "command": "PYTHONPATH=tests .venv/bin/python -m unittest test_preserved_appearance.PreservedAppearanceTests.test_baseline_is_sealed_as_eighth_attachment_without_changing_current_coverage test_preserved_appearance.PreservedAppearanceTests.test_cached_final_evidence_cannot_omit_preservation_scope -v",
+        "passed": 2,
+        "seconds": 0.141
+      },
+      {
+        "command": "PYTHONPATH=tests .venv/bin/python -m unittest test_preserved_appearance.PreservedAppearanceTests.test_prompt_preserves_reference_and_current_motion_without_fur_tuning test_typed_critic_contract.TypedCriticContractTests.test_prompt_preserves_exact_evidence_and_failure_data -v",
+        "passed": 2,
+        "reason": "Typed appearance sentence changed to explicitly reject new regressions only in preservation mode.",
+        "seconds": 0.001
+      }
+    ],
+    "total_unique_passed": 89
+  }
+}

@@ -384,8 +384,14 @@ def inspect(job_id, *, allow_unplanned=False):
     require(isinstance(data, dict) and isinstance(request, dict), "Invalid canonical Studio request")
     continuation_fields = ({"continuation_from", "continuation_policy_sha256", "continuation_custody_sha256"}
                            if "continuation_from" in request else set())
-    require(set(request) == {"prompt", "style", "custom_actions", "preset", "reference", "reuse_model"} | continuation_fields,
-            "Invalid canonical Studio request")
+    appearance_fields = {"appearance_policy"} if "appearance_policy" in request else set()
+    require(set(request) == {"prompt", "style", "custom_actions", "preset", "reference", "reuse_model"}
+            | continuation_fields | appearance_fields, "Invalid canonical Studio request")
+    if appearance_fields:
+        from avatar_assets.appearance_policy import validate_policy, verify_origin
+        require(bool(continuation_fields), "Appearance preservation requires a saved continuation")
+        validate_policy(request["appearance_policy"])
+        verify_origin(ROOT, request["appearance_policy"])
     if continuation_fields:
         require(isinstance(request["continuation_from"], str)
                 and re.fullmatch(r"[a-f0-9]{24}", request["continuation_from"])

@@ -1,6 +1,64 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 02, 2026, 06:43 PM PST
+## Session handoff — November 02, 2026, 07:32 PM PST
+
+- **Actual website generation is running**, observer **29234**,
+  `outputs/preserve-current-studio-live-v2`, at most1,800s. ONE Start; no
+  duplicate job or signals. Runtime is frozen. Explicit “Keep look; finish motion”
+  Retry→Prepare passed. New job `4701879a91cf42efbeebf16c`, plan
+  `0604a687e6633aac3b5cd4a7f776f5966f68a95e303e8f9c66346052ae411608`.
+  Request SHA `e545af41cf3250d42b822d1ba9d5cdcfeed92eb421b307b92aa00d433a9abcae`.
+  `outputs/preserve-current-website-retry-v1`; browser/server closed after Prepare.
+- Actual prepared-request proof passed: canonical preference origin, exact fixed
+  finishing/render/scale config, source-bound baseline comparison PNG2,666,441B,
+  author prompt62,872B+16KiB allowance below128KiB. No provider/native call.
+  `outputs/preserve-current-prepared-proof-v1`. This is not an accepted avatar.
+- First Start harness `outputs/preserve-current-studio-live-v1` failed BEFORE
+  Start (`start_requests:0`): `scripts/verify_studio_live.py:387` still expected
+  the old exact canonical request fields. All verifier browser/server cleanup
+  succeeded. The verifier fix passed5focused checks and actual read-only job inspection
+  (0.251s, planned, noactivelease, ledger/registry unchanged). Live-v2 is the
+  subsequent actual Start; do not restart v1 or issue another Start.
+- **User priority:** stop fur tuning. New immutable preserve_current request pins
+  stable45757/model2 appearance (not a claim the user viewed that exact model).
+  Fur/material/render/scale/skin are fixed; only eligible root motion can change.
+  New appearance review tests preservation with a separate baseline image; all
+  identity/framing/deformation/attachment/motion checks remain independent.
+- Runtime is frozen. Backend89new+affected checks pass; request/policy10new+26
+  affected checks pass; UI/HTTP/worker14analytic checks pass. These groups overlap;
+  do not sum them as unique coverage. Actual Prepare/proof is separate evidence.
+- **Budget:** settled$6.648951 + unknownholds$6.548016 = exposure$13.196967;
+  $1.803033 remains under the SAME$15total. No new Meshy work. Naive old-root
+  successor-limit extension failed because grants bind exactpolicyhash; preserved.
+  A recorded finite carry-forward anchors at exactterminal6c2request/grant, permits
+  ONE successor, and preserves all old grants, retirements, spend and holds.
+  Current policy SHA `8cdd3e20c1ce5fb61b36613a5ef34f4e1457b5938e43b1e21f9e3fdc8970702c`;
+  `outputs/preserve-current-policy-carry-forward-v1`. No funding/history reset.
+  The old fur-tuning retry remains superseded. Existing budget approval persists.
+- **Saved:** last avatar checkpoint `8d97cb72da1e8f9fba8b7af4f811c0adc103bfe6`
+  is verified on private remote main; parentd509a2c preserved. New preservation
+  mode is local/tested but not yet checkpointed. Do not touch unrelated Weft work.
+- **Next safe action:** observe existing session29234 and canonical job owner;
+  no duplicate Start, newmodel generation or hidden appearance change. Keep runtime
+  frozen through the job. Accept only actual new review+motion+browser/download proof.
+
+## Historical handoff — November 02, 2026, 06:43 PM PST
+
+- **Current implementation lane:** explicit NEW `preserve_current` appearance
+  policy, exposed as “Keep look; finish motion.” It pins the current stable model
+  (not a claim the user viewed that exact model), freezes all finishing/render/
+  scale settings and compares new appearance against that baseline instead of
+  chasing Muse fur parity. Identity, framing, deformation, attachment and motion
+  checks stay independent. Old request/verdicts are immutable.
+  - openai_backend: composition, pipeline/prompts, bounded baseline evidence.
+  - pipeline_contracts: policy descriptor, continuation, standing grants, Studio jobs.
+  - api_studio_integration: UI, HTTP/worker pass-through, fixtures/browser harness.
+  - root: integration, budget receipt, actual local/browser verification and saving.
+  No new paid/native job is running. Do not start the superseded fur-tuning request.
+- **Latest saved checkpoint:** `8d97cb72da1e8f9fba8b7af4f811c0adc103bfe6`, verified
+  private remote main;120avatar-only files/2,598,814bytes, guardv33; other-owner
+  parentd509a2c preserved. Receipt `outputs/protected-skin-publication-v1`.
+  New preservation-mode work is uncommitted until tests are complete.
 
 - **User steering:** stop fur tuning; the user is happy with the prior appearance.
   Focus on hands-off website/backend, requested motion, preview and download.

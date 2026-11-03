@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "tests": {
+    "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest test_studio_preserve_current_verifier test_studio_live_verifier.StudioInspectionTests.test_continuation_fields_are_exact_not_arbitrary_request_extensions test_studio_live_verifier.StudioInspectionTests.test_api_reuse_three_calls_zero_repairs_is_inspection_only -v",
+    "passed": 5,
+    "seconds": 0.049,
+    "classification": "Analyst-recorded tool stdout; analytic fixtures"
+  },
+  "actual_read_only": {
+    "job": "4701879a91cf42efbeebf16c",
+    "status": "planned",
+    "plan_id": "0604a687e6633aac3b5cd4a7f776f5966f68a95e303e8f9c66346052ae411608",
+    "seconds": 0.25111074978485703,
+    "ledger_and_registry_unchanged": true,
+    "hashes": {
+      ".local/studio/jobs.sqlite3": "b5a8a9ded3543a0ede185fa2ec6ebd64f2f304b5611a317fdb0ce9837d8ed842",
+      ".local/openai/ledger.sqlite3": "2e109a5d146d528b3aa09221ec3aeb7e0e88c3e74ace2909fda96907a38b04a9"
+    },
+    "active_lease": null
+  },
+  "prior_failure": {
+    "path": "outputs/preserve-current-studio-live-v1",
+    "classification": "Verifier rejected optional appearance field before Start; original artifacts preserved",
+    "start_requests": 0
+  },
+  "provider_calls": 0,
+  "browser_calls": 0,
+  "native_calls": 0,
+  "job_mutations": 0
+}

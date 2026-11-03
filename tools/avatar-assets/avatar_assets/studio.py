@@ -90,9 +90,12 @@ def _wire(snapshot):
         return result
     value = convert(value)
     if isinstance(value.get('request'), dict):
+        appearance = value['request'].get('appearance_policy')
         value['request'] = {k: v for k, v in value['request'].items()
                             if k in ('prompt', 'style', 'custom_actions', 'preset',
                                      'reference_selected', 'reuse_model_selected')}
+        if appearance == 'preserve_current':
+            value['request']['appearance_policy'] = appearance
     return value
 
 
@@ -284,8 +287,10 @@ class StudioHandler(gallery._Handler):
             require(match is not None, 'Unknown studio operation')
             identifier, operation = match.groups()
             if operation == 'retry':
-                require(not body, 'Retry accepts no new prompt, path, key or spending fields')
-                result = self.server.manager.retry(identifier)
+                require(not body or body == {'appearance_policy': 'preserve_current'},
+                        'Retry accepts only the explicit preserve_current appearance choice, not prompt, path, key or spending fields')
+                result = (self.server.manager.retry(identifier, appearance_policy='preserve_current') if body
+                          else self.server.manager.retry(identifier))
             elif operation == 'start':
                 require(set(body) == {'plan_id'} and isinstance(body['plan_id'], str)
                         and 0 < len(body['plan_id']) <= 128, 'Start must name the reviewed plan')

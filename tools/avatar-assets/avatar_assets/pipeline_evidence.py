@@ -223,7 +223,42 @@ def _tile(sheet, image, x, y, label):
     ImageDraw.Draw(sheet).text((x+8, y+6), label, fill='black')
 
 
-def build_evidence(pack, exported, media, output, reference=None):
+def _appearance_baseline(request_path,out,source):
+    from avatar_assets.appearance_policy import verify_policy
+    from avatar_assets.repair_composition import digest
+    request_path=local_file(request_path,1024*1024);job=request_path.parent;root=job.parent.parent
+    request=read_json(source(request_path));policy=verify_policy(root,job,request);pin=policy['baseline']
+    source(job/'inputs/appearance-preference.json')
+    parent=root/pin['parent_output'];review_path=source(parent/f"review-{pin['attempt']}.json")
+    require(sha256(review_path)==pin['review_sha256'],'Appearance baseline review changed')
+    receipt=read_json(review_path);folder=parent/f"final-evidence-{pin['attempt']}"
+    manifest_path=source(folder/'manifest.json');manifest=read_json(manifest_path)
+    require(manifest.get('model_manifest_sha256')==pin['model_manifest_sha256'],
+            'Appearance baseline evidence belongs to another model')
+    rows={r['path']:r for r in manifest['artifacts']};selected=[]
+    for name in ('native-views','exported-views'):
+        candidates=[r for r in manifest['images'] if r.get('id')=='evidence-'+name]
+        require(len(candidates)==1,'Appearance baseline multiview missing')
+        image=candidates[0];path=contained(folder,image['path']);local_file(path,8*1024*1024)
+        require(rows.get(image['path'])=={'path':image['path'],'bytes':path.stat().st_size,'sha256':sha256(path)}
+                and image['sha256']==sha256(path)
+                and any(r.get('id')==image['id'] and r.get('sha256')==image['sha256'] for r in receipt['evidence']),
+                'Appearance baseline image differs from reviewed evidence')
+        selected.append((image,source(path)))
+    decoded=[_read_image(path) for _,path in selected]
+    width=sum(im.width for im in decoded);height=max(im.height for im in decoded)+LABEL
+    require(width*height<=8_000_000,'Appearance baseline comparison exceeds8MP')
+    sheet=Image.new('RGB',(width,height),'white');draw=ImageDraw.Draw(sheet);x=0
+    for label,image in zip(('Selected baseline: native','Selected baseline: exported'),decoded):
+        draw.text((x+8,5),label,fill='black');sheet.paste(image,(x,LABEL));x+=image.width
+    target=out/'preserved-appearance-baseline.png';sheet.save(target)
+    return target,{'appearance_policy':policy,'appearance_policy_sha256':digest(policy),
+        'baseline_evidence_manifest_sha256':sha256(manifest_path),
+        'baseline_images':[{'id':row['id'],'sha256':row['sha256']} for row,_ in selected],
+        'scope':'Unchanged baseline pixels joined for comparison, not current motion evidence or human approval. Existing native/exported coat differences remain.'}
+
+
+def build_evidence(pack, exported, media, output, reference=None, *, appearance_request=None):
     pack, exported, media = map(lambda p: Path(p).resolve(), (pack, exported, media))
     out = new_directory(output)
     finish = read_json(pack/'finish-report.json')
@@ -326,6 +361,11 @@ def build_evidence(pack, exported, media, output, reference=None):
             record(target, 'isolated_motion_pose', [state['id']])
             images[-1].update(representation=representation, second=seconds[selected], sample_index=selected,
                              selection='greatest_recorded_edge_stretch' if outliers else 'middle_sequence_sample')
+    appearance=None
+    if appearance_request is not None:
+        require(len(images)<8,'No attachment capacity for required appearance baseline')
+        target,appearance=_appearance_baseline(appearance_request,out,source)
+        record(target,'appearance_baseline')
     require(len(images) <= 8 and sum((out/i['path']).stat().st_size for i in images) <= 32*1024**2,
             'Final evidence exceeds the bounded agent attachment allowance')
     report = {'schema_version': 1, 'kind': 'full_resolution_review_evidence', 'status': 'prepared_for_review',
@@ -333,6 +373,7 @@ def build_evidence(pack, exported, media, output, reference=None):
               'exported_manifest_sha256': sha256(exported/'manifest.json'),
               'media_manifest_sha256': sha256(media/'manifest.json'), 'images': images, 'coverage': coverage,
               'motion_sampling':motion_sampling,
+              **({'appearance_preservation':appearance} if appearance is not None else {}),
               'scope': 'Up to eight actual poses per representation for one to four states; four selected poses for five to eight states. One-state jobs also include two unchanged individual pose images. Up to four decoded delivered video samples per state, selected from bound control extrema or explicit uniform fallback. Not all-frame visual, physics or loop certification.',
               'quality_equivalence_verified': False, 'artifacts': artifacts(out)}
     write_json(out/'manifest.json', report)
@@ -341,5 +382,8 @@ def build_evidence(pack, exported, media, output, reference=None):
 
 if __name__ == '__main__':
     args = sys.argv[1:]
+    flags=[a for a in args if a.startswith('--appearance-request=')]
+    require(len(flags)<=1,'Duplicate appearance request')
+    args=[a for a in args if not a.startswith('--appearance-request=')]
     require(4 <= len(args) <= 5, 'Use model-pack exported-pack media-pack new-output [reference]')
-    build_evidence(*args)
+    build_evidence(*args,appearance_request=flags[0].split('=',1)[1] if flags else None)

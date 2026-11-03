@@ -1,0 +1,32 @@
+{
+  "appearance_policy": {
+    "authorization": {
+      "path": ".local/studio/jobs/4701879a91cf42efbeebf16c/appearance-preference.json",
+      "sha256": "016e4f1bd1d1f006c35be6105c44f78d1c7d51b1d53d41820f6b7f7482395321"
+    },
+    "baseline": {
+      "attempt": 2,
+      "descriptor_sha256": "16f67e916fbfc459933ced02f6a3cd5a7045109a9da068ddee7b6a2f453de606",
+      "design_sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293",
+      "model_manifest_sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+      "parent_output": "outputs/studio-45757c9565b545119553baca",
+      "review_sha256": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39",
+      "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    "mode": "preserve_current",
+    "schema_version": 1
+  },
+  "appearance_policy_sha256": "eea9a7568ac7e1d04e3757c1a113cd46a3756f2691a3556425ae1787886d4136",
+  "baseline_evidence_manifest_sha256": "60923062862bf29c008bc1e2be9e3fb71522ecc73e50f231094060c9bdf7c5ae",
+  "baseline_images": [
+    {
+      "id": "evidence-native-views",
+      "sha256": "f24aa73afa035b7b055378e7a83f02ed1cb316d687ac7a13fae24fea9d74eb04"
+    },
+    {
+      "id": "evidence-exported-views",
+      "sha256": "f8534cc9d00f6919b33b4cae2738ec4f155b652281a5528ed4efc5d85b368069"
+    }
+  ],
+  "scope": "Unchanged baseline pixels joined for comparison, not current motion evidence or human approval. Existing native/exported coat differences remain."
+}

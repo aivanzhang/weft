@@ -1,0 +1,34 @@
+{
+  "all_finishing_updates_null_only": true,
+  "appearance_policy": {
+    "authorization": {
+      "path": ".local/studio/jobs/4701879a91cf42efbeebf16c/appearance-preference.json",
+      "sha256": "016e4f1bd1d1f006c35be6105c44f78d1c7d51b1d53d41820f6b7f7482395321"
+    },
+    "baseline": {
+      "attempt": 2,
+      "descriptor_sha256": "16f67e916fbfc459933ced02f6a3cd5a7045109a9da068ddee7b6a2f453de606",
+      "design_sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293",
+      "model_manifest_sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+      "parent_output": "outputs/studio-45757c9565b545119553baca",
+      "review_sha256": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39",
+      "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    "mode": "preserve_current",
+    "schema_version": 1
+  },
+  "baseline_comparison_sha256": "f2bb78375b166acc11d149e0994c0e5438eb0d84b4ca74863e2a5d65f04bd073",
+  "classification": "Actual prepared website request/authority/baseline comparison with analytic motion patch; no generation",
+  "elapsed_seconds": 0.4530527079477906,
+  "immutable_finish_render_scale_config": true,
+  "job_id": "4701879a91cf42efbeebf16c",
+  "native_calls": 0,
+  "plan_id": "0604a687e6633aac3b5cd4a7f776f5966f68a95e303e8f9c66346052ae411608",
+  "prompt_allowance_bytes": 16384,
+  "prompt_bytes": 62872,
+  "provider_calls": 0,
+  "quality_accepted": false,
+  "request_sha256": "e545af41cf3250d42b822d1ba9d5cdcfeed92eb421b307b92aa00d433a9abcae",
+  "schema_version": 1,
+  "status": "passed"
+}

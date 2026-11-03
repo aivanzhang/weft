@@ -1,0 +1,662 @@
+{
+  "schema_version": 1,
+  "copied_files": 107,
+  "copied_bytes": 5064000,
+  "limit_bytes": 10485760,
+  "copied": [
+    {
+      "path": "docs/preserve-current-appearance.md",
+      "source": "docs/preserve-current-appearance.md",
+      "bytes": 6341,
+      "sha256": "5fdb321c872aa6f0613ba4147acfde5c396db91df0a879905dae44eb95062ac2"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/command.json",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/command.json",
+      "bytes": 379,
+      "sha256": "ef6729c717dc8a2bdfa5999a11ec82b2aaf908b83ef029c61f67cb72816f3e54"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/manifest.json",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/manifest.json",
+      "bytes": 3398,
+      "sha256": "915978f1e0046c2717ecc5b77272f1deb852e570f11a6985554254eef2701fa1"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/prepared.json",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/prepared.json",
+      "bytes": 2692,
+      "sha256": "338f378cca5461bb69cb1bb0aefd86694a58db1678b27d21106fcab41ae6e72c"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/result.json",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/result.json",
+      "bytes": 1648,
+      "sha256": "98e6f203f57830f2dda9b07faad5d433f381f1cca8be1ed1a1f2486c2608e19a"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/appearance_policy.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/appearance_policy.py",
+      "bytes": 12551,
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/pipeline.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/pipeline.py",
+      "bytes": 105705,
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/pipeline_continuation.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/pipeline_continuation.py",
+      "bytes": 66399,
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "bytes": 76253,
+      "sha256": "bb7eab72d990d78a87c4a7e40f206af04b89b57fa9d530bc35d6601638501935"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/repair_composition.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/repair_composition.py",
+      "bytes": 29392,
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/standing_authorization.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/standing_authorization.py",
+      "bytes": 19355,
+      "sha256": "58ccac59fa7e0b1bef312bb4e591d258d0ceb533c2090c4df904fe9029b847f3"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/studio_jobs.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/studio_jobs.py",
+      "bytes": 65127,
+      "sha256": "82568248aa15089cd678c346f9271e6087802b44a0b1ed6ba81a9c9a275e7738"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/studio_worker.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/avatar_assets/studio_worker.py",
+      "bytes": 15915,
+      "sha256": "9f0513516f8caf64a02551228c78fa78d5c68851fbabbf22d485b00ca7912707"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/tests/test_appearance_policy.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/tests/test_appearance_policy.py",
+      "bytes": 10901,
+      "sha256": "e4d7b498ce1dfa27aa5dc28bc467effe3f1d2c26ea547c19bee53da18c613547"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/tests/test_repair_composition_continuation.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/tests/test_repair_composition_continuation.py",
+      "bytes": 10501,
+      "sha256": "a52291696486ff59f4075b135be078d138706f77a1ae366e45242c9e3525e2cb"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/tests/test_standing_authorization.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/tests/test_standing_authorization.py",
+      "bytes": 11598,
+      "sha256": "0a7075281f100abe211529dd2415d96d9946cfe2ba5e2be189133a9416878135"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/sources/tests/test_studio_retry.py",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/sources/tests/test_studio_retry.py",
+      "bytes": 11940,
+      "sha256": "1e2596c560b6afc6bcff4e4ca9bfeaece4d20cb81c442abfdcfb2335254265db"
+    },
+    {
+      "path": "outputs/appearance-policy-compatibility-tests-v1/tests.log",
+      "source": "outputs/appearance-policy-compatibility-tests-v1/tests.log",
+      "bytes": 4997,
+      "sha256": "50547db3f3f7913e62dbef7d1d7c5f9863290f7b2df0b78ba2e2c69f40d24cd8"
+    },
+    {
+      "path": "outputs/appearance-policy-release-v1/manifest.json",
+      "source": "outputs/appearance-policy-release-v1/manifest.json",
+      "bytes": 193,
+      "sha256": "76f114fe9b9f6a8979f76228c099a4509e1c5a7a5604b28c98b2010f245c5904"
+    },
+    {
+      "path": "outputs/appearance-policy-release-v1/result.json",
+      "source": "outputs/appearance-policy-release-v1/result.json",
+      "bytes": 2712,
+      "sha256": "581faa943114bced3fb71d1065b4e55ef90cd4ab640dc1de5213b0987108c1e1"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/command.json",
+      "source": "outputs/appearance-policy-tests-v1/command.json",
+      "bytes": 313,
+      "sha256": "b01b87d3e8836f17d935bbdcf4844dcbda2ed7cdfbdbae1671eeb0fc1f64a882"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/manifest.json",
+      "source": "outputs/appearance-policy-tests-v1/manifest.json",
+      "bytes": 2860,
+      "sha256": "d74bf03cbe464b2f7e2f2ae075ef970b4e9352b4aab5e0ddc53d01ed7ffa322a"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/prepared.json",
+      "source": "outputs/appearance-policy-tests-v1/prepared.json",
+      "bytes": 1993,
+      "sha256": "95c77a6f0cac8b29823b04690060f88c72018f7afec98bbd41f3d1876a95f677"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/result.json",
+      "source": "outputs/appearance-policy-tests-v1/result.json",
+      "bytes": 1509,
+      "sha256": "1d03c929f1e48517e1218a9acae0ff64565651d975631f6724d54579b338e133"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/sources/avatar_assets/appearance_policy.py",
+      "source": "outputs/appearance-policy-tests-v1/sources/avatar_assets/appearance_policy.py",
+      "bytes": 12551,
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/sources/avatar_assets/pipeline.py",
+      "source": "outputs/appearance-policy-tests-v1/sources/avatar_assets/pipeline.py",
+      "bytes": 105705,
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/sources/avatar_assets/pipeline_continuation.py",
+      "source": "outputs/appearance-policy-tests-v1/sources/avatar_assets/pipeline_continuation.py",
+      "bytes": 66399,
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "source": "outputs/appearance-policy-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "bytes": 76108,
+      "sha256": "65c3cb07e44efb0b496f35ea99a86ce63f9f65b1e3d231004e86069c8696cf7d"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/sources/avatar_assets/repair_composition.py",
+      "source": "outputs/appearance-policy-tests-v1/sources/avatar_assets/repair_composition.py",
+      "bytes": 29392,
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/sources/avatar_assets/standing_authorization.py",
+      "source": "outputs/appearance-policy-tests-v1/sources/avatar_assets/standing_authorization.py",
+      "bytes": 19355,
+      "sha256": "58ccac59fa7e0b1bef312bb4e591d258d0ceb533c2090c4df904fe9029b847f3"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/sources/avatar_assets/studio_jobs.py",
+      "source": "outputs/appearance-policy-tests-v1/sources/avatar_assets/studio_jobs.py",
+      "bytes": 65127,
+      "sha256": "82568248aa15089cd678c346f9271e6087802b44a0b1ed6ba81a9c9a275e7738"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/sources/avatar_assets/studio_worker.py",
+      "source": "outputs/appearance-policy-tests-v1/sources/avatar_assets/studio_worker.py",
+      "bytes": 15915,
+      "sha256": "9f0513516f8caf64a02551228c78fa78d5c68851fbabbf22d485b00ca7912707"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/sources/tests/test_appearance_policy.py",
+      "source": "outputs/appearance-policy-tests-v1/sources/tests/test_appearance_policy.py",
+      "bytes": 10734,
+      "sha256": "6c9eff6901233e3207e3fbc5dd5e404c545a774300c1e4a0940b7abf1db5ebf6"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v1/tests.log",
+      "source": "outputs/appearance-policy-tests-v1/tests.log",
+      "bytes": 15510,
+      "sha256": "792a3a7cea41745e81657605a1c040cc4efdebd529262994b619354c318ccafa"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/command.json",
+      "source": "outputs/appearance-policy-tests-v2/command.json",
+      "bytes": 335,
+      "sha256": "0d357698f46d127e933aba3188790303915cbc18bc94cc452f771ab50256553c"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/manifest.json",
+      "source": "outputs/appearance-policy-tests-v2/manifest.json",
+      "bytes": 2859,
+      "sha256": "4662347447719d5167c706c2ad366d885075ca13d2cea2aaf04d10e16c4797b4"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/prepared.json",
+      "source": "outputs/appearance-policy-tests-v2/prepared.json",
+      "bytes": 2117,
+      "sha256": "b13173f77e8ddfb187a17cddf56c9d14f60cc6fe9758bf3031717b4f03ab6da4"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/result.json",
+      "source": "outputs/appearance-policy-tests-v2/result.json",
+      "bytes": 1552,
+      "sha256": "d0781479e1d7c16623631973182a6abca1d6ab2d0cf1c27d9a715fa7659bc720"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/sources/avatar_assets/appearance_policy.py",
+      "source": "outputs/appearance-policy-tests-v2/sources/avatar_assets/appearance_policy.py",
+      "bytes": 12551,
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/sources/avatar_assets/pipeline.py",
+      "source": "outputs/appearance-policy-tests-v2/sources/avatar_assets/pipeline.py",
+      "bytes": 105705,
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/sources/avatar_assets/pipeline_continuation.py",
+      "source": "outputs/appearance-policy-tests-v2/sources/avatar_assets/pipeline_continuation.py",
+      "bytes": 66399,
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/sources/avatar_assets/pipeline_prompts.py",
+      "source": "outputs/appearance-policy-tests-v2/sources/avatar_assets/pipeline_prompts.py",
+      "bytes": 76108,
+      "sha256": "65c3cb07e44efb0b496f35ea99a86ce63f9f65b1e3d231004e86069c8696cf7d"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/sources/avatar_assets/repair_composition.py",
+      "source": "outputs/appearance-policy-tests-v2/sources/avatar_assets/repair_composition.py",
+      "bytes": 29392,
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/sources/avatar_assets/standing_authorization.py",
+      "source": "outputs/appearance-policy-tests-v2/sources/avatar_assets/standing_authorization.py",
+      "bytes": 19355,
+      "sha256": "58ccac59fa7e0b1bef312bb4e591d258d0ceb533c2090c4df904fe9029b847f3"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/sources/avatar_assets/studio_jobs.py",
+      "source": "outputs/appearance-policy-tests-v2/sources/avatar_assets/studio_jobs.py",
+      "bytes": 65127,
+      "sha256": "82568248aa15089cd678c346f9271e6087802b44a0b1ed6ba81a9c9a275e7738"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/sources/avatar_assets/studio_worker.py",
+      "source": "outputs/appearance-policy-tests-v2/sources/avatar_assets/studio_worker.py",
+      "bytes": 15915,
+      "sha256": "9f0513516f8caf64a02551228c78fa78d5c68851fbabbf22d485b00ca7912707"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/sources/tests/test_appearance_policy.py",
+      "source": "outputs/appearance-policy-tests-v2/sources/tests/test_appearance_policy.py",
+      "bytes": 10877,
+      "sha256": "99fff4d13f2460948de79184231b26bc93e0e15685d45636b3e837d3aaebb80a"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v2/tests.log",
+      "source": "outputs/appearance-policy-tests-v2/tests.log",
+      "bytes": 2936,
+      "sha256": "42caeda560e3dbc9d764b49b9ba9fec4f16442ad461436ca31f882296697ee12"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/command.json",
+      "source": "outputs/appearance-policy-tests-v3/command.json",
+      "bytes": 396,
+      "sha256": "903f35f9ebf182b0cdce8e5258877dbc6fcb4e34eedc2d1a70f2a2eab9be7442"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/manifest.json",
+      "source": "outputs/appearance-policy-tests-v3/manifest.json",
+      "bytes": 2858,
+      "sha256": "a005d4b37f3a978bd2610ad029cfebd84b5b45da6db96f601e87a5e980da70da"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/prepared.json",
+      "source": "outputs/appearance-policy-tests-v3/prepared.json",
+      "bytes": 2138,
+      "sha256": "2f5d94ff31e9537b9f1abdb7a82f1a3c5c8166ba0f1ead7a696d35d744f17670"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/result.json",
+      "source": "outputs/appearance-policy-tests-v3/result.json",
+      "bytes": 1674,
+      "sha256": "d672a84910237cc977eaad0d368dc7df7c994a8293f1754af94b16de0124e966"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/sources/avatar_assets/appearance_policy.py",
+      "source": "outputs/appearance-policy-tests-v3/sources/avatar_assets/appearance_policy.py",
+      "bytes": 12551,
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/sources/avatar_assets/pipeline.py",
+      "source": "outputs/appearance-policy-tests-v3/sources/avatar_assets/pipeline.py",
+      "bytes": 105705,
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/sources/avatar_assets/pipeline_continuation.py",
+      "source": "outputs/appearance-policy-tests-v3/sources/avatar_assets/pipeline_continuation.py",
+      "bytes": 66399,
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/sources/avatar_assets/pipeline_prompts.py",
+      "source": "outputs/appearance-policy-tests-v3/sources/avatar_assets/pipeline_prompts.py",
+      "bytes": 76253,
+      "sha256": "bb7eab72d990d78a87c4a7e40f206af04b89b57fa9d530bc35d6601638501935"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/sources/avatar_assets/repair_composition.py",
+      "source": "outputs/appearance-policy-tests-v3/sources/avatar_assets/repair_composition.py",
+      "bytes": 29392,
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/sources/avatar_assets/standing_authorization.py",
+      "source": "outputs/appearance-policy-tests-v3/sources/avatar_assets/standing_authorization.py",
+      "bytes": 19355,
+      "sha256": "58ccac59fa7e0b1bef312bb4e591d258d0ceb533c2090c4df904fe9029b847f3"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/sources/avatar_assets/studio_jobs.py",
+      "source": "outputs/appearance-policy-tests-v3/sources/avatar_assets/studio_jobs.py",
+      "bytes": 65127,
+      "sha256": "82568248aa15089cd678c346f9271e6087802b44a0b1ed6ba81a9c9a275e7738"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/sources/avatar_assets/studio_worker.py",
+      "source": "outputs/appearance-policy-tests-v3/sources/avatar_assets/studio_worker.py",
+      "bytes": 15915,
+      "sha256": "9f0513516f8caf64a02551228c78fa78d5c68851fbabbf22d485b00ca7912707"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/sources/tests/test_appearance_policy.py",
+      "source": "outputs/appearance-policy-tests-v3/sources/tests/test_appearance_policy.py",
+      "bytes": 10901,
+      "sha256": "e4d7b498ce1dfa27aa5dc28bc467effe3f1d2c26ea547c19bee53da18c613547"
+    },
+    {
+      "path": "outputs/appearance-policy-tests-v3/tests.log",
+      "source": "outputs/appearance-policy-tests-v3/tests.log",
+      "bytes": 273,
+      "sha256": "36be36e8b98a8d9f492ffb0faa1aa989c4443c423c78aef2d7894d2ba238e15c"
+    },
+    {
+      "path": "outputs/preserve-current-appearance-tests-v1/manifest.json",
+      "source": "outputs/preserve-current-appearance-tests-v1/manifest.json",
+      "bytes": 1193,
+      "sha256": "6cd65f30cf600d456f31b2aa06fbb644bc1e8f2c759d706a15dbca551fea5c47"
+    },
+    {
+      "path": "outputs/preserve-current-appearance-tests-v1/result.json",
+      "source": "outputs/preserve-current-appearance-tests-v1/result.json",
+      "bytes": 4257,
+      "sha256": "33fc99956e04c9d9a32387a56c8bdd98c63cc4de004687947f0cb6be467b8719"
+    },
+    {
+      "path": "outputs/preserve-current-appearance-tests-v1/sources/avatar_assets/pipeline.py",
+      "source": "outputs/preserve-current-appearance-tests-v1/sources/avatar_assets/pipeline.py",
+      "bytes": 105705,
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "path": "outputs/preserve-current-appearance-tests-v1/sources/avatar_assets/pipeline_evidence.py",
+      "source": "outputs/preserve-current-appearance-tests-v1/sources/avatar_assets/pipeline_evidence.py",
+      "bytes": 25933,
+      "sha256": "edc3530f0c967bed770d4dfcae81e2eae28db1109b1b4cc3724d866955a697ed"
+    },
+    {
+      "path": "outputs/preserve-current-appearance-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "source": "outputs/preserve-current-appearance-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "bytes": 76253,
+      "sha256": "bb7eab72d990d78a87c4a7e40f206af04b89b57fa9d530bc35d6601638501935"
+    },
+    {
+      "path": "outputs/preserve-current-appearance-tests-v1/sources/avatar_assets/repair_composition.py",
+      "source": "outputs/preserve-current-appearance-tests-v1/sources/avatar_assets/repair_composition.py",
+      "bytes": 29392,
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "path": "outputs/preserve-current-appearance-tests-v1/sources/tests/test_preserved_appearance.py",
+      "source": "outputs/preserve-current-appearance-tests-v1/sources/tests/test_preserved_appearance.py",
+      "bytes": 12314,
+      "sha256": "66786de867ba5675d103e792bbcddc7df58bd980d2637ac691066f740dee0b1d"
+    },
+    {
+      "path": "outputs/preserve-current-policy-carry-forward-v1/activation.json",
+      "source": "outputs/preserve-current-policy-carry-forward-v1/activation.json",
+      "bytes": 1469,
+      "sha256": "4880bdc6d4ead7c85957f5460399ac09e3fac58bad1d2edf7ff140512cb546aa"
+    },
+    {
+      "path": "outputs/preserve-current-policy-carry-forward-v1/policy.json",
+      "source": "outputs/preserve-current-policy-carry-forward-v1/policy.json",
+      "bytes": 761,
+      "sha256": "8cdd3e20c1ce5fb61b36613a5ef34f4e1457b5938e43b1e21f9e3fdc8970702c"
+    },
+    {
+      "path": "outputs/preserve-current-policy-carry-forward-v1/rejected-successor-extension.json",
+      "source": "outputs/preserve-current-policy-carry-forward-v1/rejected-successor-extension.json",
+      "bytes": 763,
+      "sha256": "b3a24644f991a5d3d632d91b9f52904bdd207ae0ce1e6d0bd51ab91ce94ae57c"
+    },
+    {
+      "path": "outputs/preserve-current-policy-preflight-v1/result.json",
+      "source": "outputs/preserve-current-policy-preflight-v1/result.json",
+      "bytes": 1021,
+      "sha256": "f60cb3008bdb27e41212a8233860ceb7033b33aac25eb240b41710145f092697"
+    },
+    {
+      "path": "outputs/preserve-current-prepared-proof-v1/analytic-patch.json",
+      "source": "outputs/preserve-current-prepared-proof-v1/analytic-patch.json",
+      "bytes": 1470,
+      "sha256": "fd52c50f5adbf4466b4296dfee07db6f6a3f684b60510e36eda68a3d279f508b"
+    },
+    {
+      "path": "outputs/preserve-current-prepared-proof-v1/baseline-comparison.json",
+      "source": "outputs/preserve-current-prepared-proof-v1/baseline-comparison.json",
+      "bytes": 1527,
+      "sha256": "ba2d0d1374c687a7a0e6339173d0b0e977819b4b3cadd3feeb11fa9cdce03d63"
+    },
+    {
+      "path": "outputs/preserve-current-prepared-proof-v1/patch-schema.json",
+      "source": "outputs/preserve-current-prepared-proof-v1/patch-schema.json",
+      "bytes": 5216,
+      "sha256": "bee29953e6ea8035df825b12ac071609ea61b8ab2e9fc60fc53cd44bbf11fd50"
+    },
+    {
+      "path": "outputs/preserve-current-prepared-proof-v1/preserved-appearance-baseline.png",
+      "source": "outputs/preserve-current-prepared-proof-v1/preserved-appearance-baseline.png",
+      "bytes": 2666441,
+      "sha256": "f2bb78375b166acc11d149e0994c0e5438eb0d84b4ca74863e2a5d65f04bd073"
+    },
+    {
+      "path": "outputs/preserve-current-prepared-proof-v1/result.json",
+      "source": "outputs/preserve-current-prepared-proof-v1/result.json",
+      "bytes": 1613,
+      "sha256": "1a03768954a2a1ab7e061575f33e7d5e7e9bace1c8a735cf479e684de065cd8c"
+    },
+    {
+      "path": "outputs/preserve-current-request-preparation-v1/activation.json",
+      "source": "outputs/preserve-current-request-preparation-v1/activation.json",
+      "bytes": 735,
+      "sha256": "ac3f1c231e8448f3e2be0be6b9f9e14c84b384e9ece234c33e51586e04581473"
+    },
+    {
+      "path": "outputs/preserve-current-request-preparation-v1/previous-policy.json",
+      "source": "outputs/preserve-current-request-preparation-v1/previous-policy.json",
+      "bytes": 763,
+      "sha256": "f43d5ede22c8c6f0a216db021295b0e04f3bc8558fe751e68fb1416981d9d826"
+    },
+    {
+      "path": "outputs/preserve-current-request-preparation-v1/proposed-policy.json",
+      "source": "outputs/preserve-current-request-preparation-v1/proposed-policy.json",
+      "bytes": 763,
+      "sha256": "b3a24644f991a5d3d632d91b9f52904bdd207ae0ce1e6d0bd51ab91ce94ae57c"
+    },
+    {
+      "path": "outputs/preserve-current-request-preparation-v1/scope.json",
+      "source": "outputs/preserve-current-request-preparation-v1/scope.json",
+      "bytes": 2148,
+      "sha256": "9d26530a1928a67639065bc1819cf8c831f6ace0ea42db122870753f6bfd0a9d"
+    },
+    {
+      "path": "outputs/preserve-current-studio-live-v1/server.log",
+      "source": "outputs/preserve-current-studio-live-v1/server.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/preserve-current-studio-live-v1/source-helper.py",
+      "source": "outputs/preserve-current-studio-live-v1/source-helper.py",
+      "bytes": 31642,
+      "sha256": "57f575f69a2cf7388b40ab8ece65fe9679e87d576febefb5ebdec15ae7671389"
+    },
+    {
+      "path": "outputs/preserve-current-studio-live-v1/source-test.mjs",
+      "source": "outputs/preserve-current-studio-live-v1/source-test.mjs",
+      "bytes": 38951,
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "outputs/preserve-current-studio-live-v1/studio-live-test.json",
+      "source": "outputs/preserve-current-studio-live-v1/studio-live-test.json",
+      "bytes": 7387,
+      "sha256": "c88982f702273fa8ac240c55316da3ed332020fe253daab3440017dff9a92bbe"
+    },
+    {
+      "path": "outputs/preserve-current-verifier-tests-v1/manifest.json",
+      "source": "outputs/preserve-current-verifier-tests-v1/manifest.json",
+      "bytes": 712,
+      "sha256": "24c7451349127d33d09ee05768ec0c1568f97751ad6b6ab4cc096f8c9282524e"
+    },
+    {
+      "path": "outputs/preserve-current-verifier-tests-v1/result.json",
+      "source": "outputs/preserve-current-verifier-tests-v1/result.json",
+      "bytes": 1324,
+      "sha256": "b3a777704b1cddf1db64ba090933d01cbf45e296e5dbc7cf5d01ca92435e072e"
+    },
+    {
+      "path": "outputs/preserve-current-verifier-tests-v1/sources/scripts/verify_studio_live.py",
+      "source": "outputs/preserve-current-verifier-tests-v1/sources/scripts/verify_studio_live.py",
+      "bytes": 32074,
+      "sha256": "99d9795c09e6d643a2839c18e2b08fbbb5156eddd58fee43f7f0d3277e58cc3c"
+    },
+    {
+      "path": "outputs/preserve-current-verifier-tests-v1/sources/tests/test_studio_preserve_current_verifier.py",
+      "source": "outputs/preserve-current-verifier-tests-v1/sources/tests/test_studio_preserve_current_verifier.py",
+      "bytes": 4633,
+      "sha256": "bd2b3114fa17294572ae7bf5f656cb5cbd8c67b6566804221c326f7765cfb16a"
+    },
+    {
+      "path": "outputs/preserve-current-website-retry-v1/created.json",
+      "source": "outputs/preserve-current-website-retry-v1/created.json",
+      "bytes": 2194,
+      "sha256": "f3c63f7bb7e577d524d071152571621b92aee3283554bda770edd9ec26e63470"
+    },
+    {
+      "path": "outputs/preserve-current-website-retry-v1/prepare-response.json",
+      "source": "outputs/preserve-current-website-retry-v1/prepare-response.json",
+      "bytes": 2343,
+      "sha256": "72da68354a56f00dd56c19512e4e077aff2517e9905f5963dfebe9139850ed6f"
+    },
+    {
+      "path": "outputs/preserve-current-website-retry-v1/prepared.json",
+      "source": "outputs/preserve-current-website-retry-v1/prepared.json",
+      "bytes": 4083,
+      "sha256": "38674adec72327936906b5e2fd405d262f30adf2a0a1c3155ff1dd94970705d1"
+    },
+    {
+      "path": "outputs/preserve-current-website-retry-v1/prepared.png",
+      "source": "outputs/preserve-current-website-retry-v1/prepared.png",
+      "bytes": 183175,
+      "sha256": "c93a282b8edd042a0a6da47188ba9c9e049d495f60721d8801d306c4c54f9090"
+    },
+    {
+      "path": "outputs/preserve-current-website-retry-v1/result.json",
+      "source": "outputs/preserve-current-website-retry-v1/result.json",
+      "bytes": 1949,
+      "sha256": "1779f06251e3f63b8f805361cb85af787bbd978760de328bf47cde42e3add03e"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/initial-ui-http-results.json",
+      "source": "outputs/studio-preserve-current-tests-v1/initial-ui-http-results.json",
+      "bytes": 1398,
+      "sha256": "e9b375bf914a278e4a1f67b273d23d7276da20c3a5446abbe96d2dd20d5a74f8"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/manifest.json",
+      "source": "outputs/studio-preserve-current-tests-v1/manifest.json",
+      "bytes": 1940,
+      "sha256": "70ee49b5d6eabdd2b1c2cc907e10c1f8af9f7931abb2ec81a6aee56f6f6cb8bf"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/result.json",
+      "source": "outputs/studio-preserve-current-tests-v1/result.json",
+      "bytes": 2841,
+      "sha256": "a20c958f72c2ebeb715ceb29494dff81dbaa793da2d114e3395ec0418c3badc5"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/sources/avatar_assets/studio.py",
+      "source": "outputs/studio-preserve-current-tests-v1/sources/avatar_assets/studio.py",
+      "bytes": 19237,
+      "sha256": "5d76f93bc99612f2783bc153f475cec71343422126fe8c96bbc6a20689713a65"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/sources/avatar_assets/studio_worker.py",
+      "source": "outputs/studio-preserve-current-tests-v1/sources/avatar_assets/studio_worker.py",
+      "bytes": 15915,
+      "sha256": "9f0513516f8caf64a02551228c78fa78d5c68851fbabbf22d485b00ca7912707"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/sources/browser/studio.html",
+      "source": "outputs/studio-preserve-current-tests-v1/sources/browser/studio.html",
+      "bytes": 10417,
+      "sha256": "83d33dad268e455d3e1f9b478ceea1477897e63a8bc15d4f88ff63a2843f1cb6"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/sources/browser/studio.js",
+      "source": "outputs/studio-preserve-current-tests-v1/sources/browser/studio.js",
+      "bytes": 41680,
+      "sha256": "4ef7b031620fba7325c1cd2e899ccccfbbe2afd3646d11508e87c0ec95e5fffd"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/sources/browser/tests/studio-preserve-current.test.mjs",
+      "source": "outputs/studio-preserve-current-tests-v1/sources/browser/tests/studio-preserve-current.test.mjs",
+      "bytes": 2685,
+      "sha256": "55d4702acdb76c217b74d0dca2e4b75642ef7a39a4985f2d2aaf2a3e8f179b56"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/sources/browser/tests/studio-retry-live.mjs",
+      "source": "outputs/studio-preserve-current-tests-v1/sources/browser/tests/studio-retry-live.mjs",
+      "bytes": 7489,
+      "sha256": "4619426bbf5913e9a55b1538b215edc281704cc353964cd15d689f6a6a0211b0"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/sources/browser/tests/studio-retry-options.mjs",
+      "source": "outputs/studio-preserve-current-tests-v1/sources/browser/tests/studio-retry-options.mjs",
+      "bytes": 634,
+      "sha256": "6a7844a10de795b8573433d0cbe1f1acea6040054e91220ee3366f58edccb958"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/sources/tests/test_studio_preserve_current_http.py",
+      "source": "outputs/studio-preserve-current-tests-v1/sources/tests/test_studio_preserve_current_http.py",
+      "bytes": 2519,
+      "sha256": "61d22b07df0d497f556851f3cfd97098fb7f2ecd4eb0ca2943a8c301ceeb1425"
+    },
+    {
+      "path": "outputs/studio-preserve-current-tests-v1/sources/tests/test_studio_preserve_current_worker.py",
+      "source": "outputs/studio-preserve-current-tests-v1/sources/tests/test_studio_preserve_current_worker.py",
+      "bytes": 5408,
+      "sha256": "84e98019c7bf986a7e19224cb110b44610f44bc0308197bf50f6553e094cebf0"
+    }
+  ],
+  "generated": [
+    {
+      "path": "summary.json",
+      "bytes": 3058,
+      "sha256": "5a0fa43dc3163e4b5a5b231a12fdc4ea5b28cc4e2d2aa729c52be56467572ac2"
+    },
+    {
+      "path": "README.md",
+      "bytes": 901,
+      "sha256": "00284055e409c511b15651ed2db6adc98b29f9acf3ff8c08673489c55e39d631"
+    }
+  ]
+}

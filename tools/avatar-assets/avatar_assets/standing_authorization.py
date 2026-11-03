@@ -165,8 +165,12 @@ def _request(root, output, policy, *, verify_source):
                 and continuation.get('schema_version') == 1 and continuation.get('policy') == continuation_policy
                 and continuation.get('parent') == binding['parent'], 'Standing continuation receipt changed')
         _hash(continuation.get('parent_request_sha256'))
+    if value.get('appearance_policy') is not None:
+        from avatar_assets.appearance_policy import verify_origin, verify_policy
+        verify_origin(root,value['appearance_policy'])
+        verify_policy(root,output,value)
     context = {k:v for k,v in value.items() if k not in
-               ('id', 'created', 'agent_backend', 'max_agent_calls', 'max_repairs', 'agent_model', 'agent_timeout', 'continuation')}
+               ('id', 'created', 'agent_backend', 'max_agent_calls', 'max_repairs', 'agent_model', 'agent_timeout', 'continuation', 'appearance_policy')}
     context['reuse_model'] = {k:source[k] for k in ('bytes', 'sha256')}
     if policy['schema_version'] == 2:
         context['reference'] = ({k:reference[k] for k in ('bytes','sha256')} if reference is not None else None)
@@ -199,7 +203,7 @@ def _binding(root, parent, child, policy, policy_hash, approval, db):
     anchor = root/'outputs'/policy['lineage_root_job_id']
     _, anchor_hash, context, _ = _request(root, anchor, policy, verify_source=False)
     require(anchor_hash == policy['lineage_root_request_sha256'], 'Standing lineage root request changed')
-    _, parent_hash, parent_context, _ = _request(root, parent, policy, verify_source=True)
+    parent_request, parent_hash, parent_context, _ = _request(root, parent, policy, verify_source=True)
     require(parent_context == context, 'Retry intent differs from the approved lineage')
     chain, current = [], policy['lineage_root_job_id']
     while True:
@@ -235,6 +239,8 @@ def _binding(root, parent, child, policy, policy_hash, approval, db):
         require(continuation is not None and continuation['parent'] == str(parent.relative_to(root))
                 and continuation['parent_request_sha256'] == parent_hash,
                 'Child continuation differs from the exact grant parent')
+        from avatar_assets.appearance_policy import validate_transition
+        validate_transition(child_request,parent_request)
         next_hold = reserve_microdollars(child_request['agent_backend']['max_output_tokens'], model=child_request['agent_backend']['model'])
     else:
         next_hold = reserve_microdollars(model=policy['model'])

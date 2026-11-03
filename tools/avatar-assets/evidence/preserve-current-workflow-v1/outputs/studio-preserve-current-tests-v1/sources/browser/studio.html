@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Avatar studio</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/studio.css">
+  <script type="module" src="/studio.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="/" aria-label="Avatar studio home"><img src="/favicon.svg" alt="" width="34" height="34"><span>Avatar studio<small>Your characters, in motion.</small></span></a>
+    <span id="connection" class="local-badge">Connecting locally…</span>
+  </header>
+  <div id="connection-error" class="connection-error" role="status" hidden></div>
+  <main class="workspace">
+    <aside class="library" aria-label="Your creations">
+      <div class="library-heading"><h1>Creations</h1><button id="refresh" class="icon-button" type="button" aria-label="Refresh creations" title="Refresh">↻</button></div>
+      <button id="new-request" class="new-button" type="button"><span aria-hidden="true">＋</span> New avatar</button>
+      <div id="job-list" class="job-list" aria-label="Choose a creation"></div>
+      <p id="empty-jobs" class="muted small">Your saved requests will appear here.</p>
+      <p class="library-foot">Local workspace.<br>Generation sends only your selected inputs to the configured AI services.</p>
+    </aside>
+    <section class="main-panel" aria-label="Avatar creation">
+      <div id="message" class="message" role="alert" hidden></div>
+      <section id="composer" aria-labelledby="composer-title">
+        <div class="page-heading"><p class="eyebrow">MAKE SOMETHING YOURS</p><h2 id="composer-title">Bring a character to life.</h2><p class="intro">Describe an avatar and what it should do. Review the plan and cost before starting generation.</p></div>
+        <form id="request-form">
+          <div class="form-card">
+            <label for="prompt">What would you like to create? <span class="required">Required</span></label>
+            <textarea id="prompt" name="prompt" rows="4" maxlength="4000" required placeholder="A small copper robot gardener, with round glass eyes, worn teal overalls, and a leaf growing from its antenna…"></textarea>
+            <label for="style">Look and materials <span class="optional">Optional</span></label>
+            <textarea id="style" name="style" rows="2" maxlength="800" placeholder="Soft animated-film style, detailed brushed metal, warm colors…"></textarea>
+            <div class="label-row"><label for="actions">What should it do?</label><span id="action-count" class="muted small">0 of 8 actions</span></div>
+            <textarea id="actions" name="actions" rows="5" maxlength="4807" aria-describedby="actions-help actions-error" placeholder="Look around curiously, then return to the starting pose&#10;Lift a watering can and gently water a plant&#10;Do a happy little dance"></textarea>
+            <p id="actions-help" class="field-help">One action per line, up to 8. Describe the movement in your own words; each line can include a sequence. Leave blank for suggested actions.</p>
+            <p id="actions-error" class="field-error" hidden></p>
+          </div>
+          <div class="form-card two-up">
+            <div>
+              <label for="reference">Reference image <span class="optional">Optional</span></label>
+              <input id="reference" type="file" accept="image/png,image/jpeg,image/webp" disabled aria-describedby="reference-help">
+              <p id="reference-help" class="field-help">PNG, JPEG, or WebP. Up to 8 MiB and 16 megapixels. Use an image you are allowed to provide.</p>
+              <div id="reference-preview" class="reference-preview" hidden><img id="reference-image" alt="Selected reference"><span id="reference-name"></span><button id="remove-reference" class="text-button" type="button">Remove</button></div>
+            </div>
+            <div>
+              <label for="preset">Output preset</label>
+              <select id="preset" disabled><option value="preview">Preview</option></select>
+              <p id="preset-description" class="field-help">Loading available output sizes…</p>
+            </div>
+          </div>
+          <div class="form-footer"><p class="field-help">Saving a request does not start AI work or authorize spending.</p><button id="save-request" class="primary-button" type="submit" disabled>Save request <span aria-hidden="true">→</span></button></div>
+        </form>
+      </section>
+      <section id="job-detail" aria-labelledby="job-title" hidden>
+        <div class="job-heading"><div><p id="job-eyebrow" class="eyebrow">YOUR CREATION</p><h2 id="job-title"></h2><p id="job-description" class="intro"></p></div><span id="job-status" class="status-badge" role="status"></span></div>
+        <p id="fixture-notice" class="notice" hidden>Interface test fixture — these are not generated assets.</p>
+        <div class="job-layout">
+          <div class="job-main">
+            <section id="result-panel" class="result-panel" aria-label="Finished assets" hidden>
+              <div class="preview-toolbar"><div class="segmented" role="group" aria-label="Preview format"><button type="button" data-view="portrait" aria-pressed="true">Portrait</button><button type="button" data-view="video" aria-pressed="false">Rendered clip</button><button type="button" data-view="model" aria-pressed="false">3D model</button></div></div>
+              <div id="preview-stage" class="preview-stage">
+                <img id="result-portrait" alt="Avatar portrait" decoding="async" hidden>
+                <video id="result-video" playsinline controls preload="metadata" hidden></video>
+                <model-viewer id="result-model" alt="Avatar 3D preview. Drag to rotate." camera-controls interaction-prompt="none" loading="eager" shadow-intensity="0.8" exposure="1.15" environment-image="neutral" camera-orbit="25deg 75deg 125%" field-of-view="28deg" animation-crossfade-duration="0" hidden></model-viewer>
+                <p id="preview-loading" class="preview-overlay" role="status" hidden>Loading preview…</p>
+                <p id="preview-empty" class="preview-overlay" hidden>No portrait is available. Use the downloads below.</p>
+              </div>
+              <p id="preview-error" class="preview-error" role="status" hidden></p>
+              <div class="preview-bottom"><label id="clip-label" for="clip" hidden>Action <select id="clip"></select></label><div id="model-controls" hidden><button id="model-play" class="quiet-button" type="button" disabled>Play once</button><span id="model-time" class="small muted"></span></div><p id="motion-note" class="field-help">Playback starts paused. The portrait is the static and reduced-motion fallback.</p></div>
+              <div id="downloads" class="downloads" aria-label="Download assets"></div>
+              <ul id="result-limits" class="limitations"></ul>
+            </section>
+            <section id="plan-panel" class="panel" aria-labelledby="plan-title">
+              <div class="section-heading"><span class="step-number">1</span><h3 id="plan-title">Review the plan</h3></div>
+              <p id="plan-description" class="body-copy">Your request is saved. Prepare a plan to see the proposed assets and estimated work.</p>
+              <p id="planning-cost-note" class="field-help"></p>
+              <ul id="plan-warnings" class="limitations" hidden></ul>
+              <p id="retry-note" class="field-help" hidden>Save a retry using the same source, plan and failure findings. Eligibility and the existing dollar cap are checked before work; this button starts no generation.</p>
+              <button id="retry-job" class="primary-button" type="button" hidden>Retry saved work</button>
+              <p id="preserve-current-note" class="field-help" hidden>Keep the current verified baseline’s fur and materials, and focus on motion. Rig and motion checks still apply. Saves a new request; nothing starts until Prepare and Start.</p>
+              <button id="preserve-current-job" class="primary-button" type="button" aria-describedby="preserve-current-note" hidden>Keep look; finish motion</button>
+              <button id="prepare-plan" class="primary-button" type="button">Prepare plan</button>
+              <div id="estimate" class="estimate" hidden><div class="estimate-heading"><span>Generation estimate</span><strong id="estimate-total"></strong></div><dl id="cost-breakdown" class="cost-breakdown"></dl><p id="estimate-note" class="field-help"></p><p id="authorization" class="authorization"></p><label id="estimate-ack-label" class="checkbox-label"><input id="estimate-ack" type="checkbox"> I have reviewed this estimate.</label><button id="start-job" class="primary-button" type="button" disabled>Start creation</button></div>
+            </section>
+            <section class="panel" aria-labelledby="progress-title">
+              <div class="section-heading"><span class="step-number">2</span><h3 id="progress-title">Creation progress</h3><span id="job-elapsed" class="elapsed"></span></div>
+              <p id="progress-summary" class="body-copy">Generation has not started.</p>
+              <ol id="timeline" class="timeline"></ol>
+              <div id="job-problem" class="job-problem" role="status" hidden></div>
+              <button id="cancel-job" class="quiet-button" type="button" hidden>Request stop</button>
+              <p id="cancel-note" class="field-help" hidden>A stop request does not undo completed work or charges already incurred.</p>
+            </section>
+            <section id="reviews-panel" class="panel" aria-labelledby="reviews-title" hidden><div class="section-heading"><h3 id="reviews-title">Quality review</h3></div><div id="reviews"></div></section>
+          </div>
+          <aside class="request-summary panel" aria-labelledby="request-title"><h3 id="request-title">Your request</h3><p id="request-prompt"></p><dl id="request-facts"></dl><h4 id="requested-actions-title" hidden>Requested actions</h4><ol id="requested-actions"></ol><button id="copy-request" class="text-button" type="button">Use as a new request</button></aside>
+        </div>
+      </section>
+    </section>
+  </main>
+  <noscript>This local creation screen needs JavaScript. No generation has been started.</noscript>
+</body>
+</html>

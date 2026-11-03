@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "status": "frozen",
+  "classification": "Analytic UI options, temporary HTTP fixture and worker request-routing checks; no actual browser/job/provider/native execution",
+  "unique_methods_passed": 14,
+  "initial_runs": "initial-ui-http-results.json",
+  "additional_worker_run": {
+    "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest test_studio_preserve_current_worker -v",
+    "passed": 3,
+    "seconds": 0.012,
+    "scope": "Real worker boundary with mocked appearance-policy verifier and injected analytic pipeline; helperauthorization not claimed tested here"
+  },
+  "sources": [
+    {
+      "path": "browser/studio.js",
+      "bytes": 41680,
+      "sha256": "4ef7b031620fba7325c1cd2e899ccccfbbe2afd3646d11508e87c0ec95e5fffd"
+    },
+    {
+      "path": "browser/studio.html",
+      "bytes": 10417,
+      "sha256": "83d33dad268e455d3e1f9b478ceea1477897e63a8bc15d4f88ff63a2843f1cb6"
+    },
+    {
+      "path": "browser/tests/studio-retry-live.mjs",
+      "bytes": 7489,
+      "sha256": "4619426bbf5913e9a55b1538b215edc281704cc353964cd15d689f6a6a0211b0"
+    },
+    {
+      "path": "browser/tests/studio-retry-options.mjs",
+      "bytes": 634,
+      "sha256": "6a7844a10de795b8573433d0cbe1f1acea6040054e91220ee3366f58edccb958"
+    },
+    {
+      "path": "browser/tests/studio-preserve-current.test.mjs",
+      "bytes": 2685,
+      "sha256": "55d4702acdb76c217b74d0dca2e4b75642ef7a39a4985f2d2aaf2a3e8f179b56"
+    },
+    {
+      "path": "avatar_assets/studio.py",
+      "bytes": 19237,
+      "sha256": "5d76f93bc99612f2783bc153f475cec71343422126fe8c96bbc6a20689713a65"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "bytes": 15915,
+      "sha256": "9f0513516f8caf64a02551228c78fa78d5c68851fbabbf22d485b00ca7912707"
+    },
+    {
+      "path": "tests/test_studio_preserve_current_http.py",
+      "bytes": 2519,
+      "sha256": "61d22b07df0d497f556851f3cfd97098fb7f2ecd4eb0ca2943a8c301ceeb1425"
+    },
+    {
+      "path": "tests/test_studio_preserve_current_worker.py",
+      "bytes": 5408,
+      "sha256": "84e98019c7bf986a7e19224cb110b44610f44bc0308197bf50f6553e094cebf0"
+    }
+  ],
+  "browser_harness_command": "node browser/tests/studio-retry-live.mjs outputs/<new-output> <terminal-parent24hex> --preserve-current",
+  "harness_mutations": [
+    "explicit preserve_current Retry",
+    "Prepare"
+  ],
+  "harness_start_allowed": false,
+  "preserved": [
+    "Ordinary Retry body remains {}",
+    "Old request fields remain unchanged",
+    "No acceptance inferred from preserving appearance",
+    "No budget/path/key supplied by client"
+  ],
+  "pending_integration": "Actual helper/Studio manager snapshots and production continuation are independently owned/tested; no live acceptance claim",
+  "provider_calls": 0,
+  "native_calls": 0,
+  "browser_calls": 0,
+  "real_job_mutations": 0
+}

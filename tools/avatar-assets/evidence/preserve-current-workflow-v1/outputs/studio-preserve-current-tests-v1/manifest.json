@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "path": "initial-ui-http-results.json",
+      "bytes": 1398,
+      "sha256": "e9b375bf914a278e4a1f67b273d23d7276da20c3a5446abbe96d2dd20d5a74f8"
+    },
+    {
+      "path": "result.json",
+      "bytes": 2841,
+      "sha256": "a20c958f72c2ebeb715ceb29494dff81dbaa793da2d114e3395ec0418c3badc5"
+    },
+    {
+      "path": "sources/avatar_assets/studio.py",
+      "bytes": 19237,
+      "sha256": "5d76f93bc99612f2783bc153f475cec71343422126fe8c96bbc6a20689713a65"
+    },
+    {
+      "path": "sources/avatar_assets/studio_worker.py",
+      "bytes": 15915,
+      "sha256": "9f0513516f8caf64a02551228c78fa78d5c68851fbabbf22d485b00ca7912707"
+    },
+    {
+      "path": "sources/browser/studio.html",
+      "bytes": 10417,
+      "sha256": "83d33dad268e455d3e1f9b478ceea1477897e63a8bc15d4f88ff63a2843f1cb6"
+    },
+    {
+      "path": "sources/browser/studio.js",
+      "bytes": 41680,
+      "sha256": "4ef7b031620fba7325c1cd2e899ccccfbbe2afd3646d11508e87c0ec95e5fffd"
+    },
+    {
+      "path": "sources/browser/tests/studio-preserve-current.test.mjs",
+      "bytes": 2685,
+      "sha256": "55d4702acdb76c217b74d0dca2e4b75642ef7a39a4985f2d2aaf2a3e8f179b56"
+    },
+    {
+      "path": "sources/browser/tests/studio-retry-live.mjs",
+      "bytes": 7489,
+      "sha256": "4619426bbf5913e9a55b1538b215edc281704cc353964cd15d689f6a6a0211b0"
+    },
+    {
+      "path": "sources/browser/tests/studio-retry-options.mjs",
+      "bytes": 634,
+      "sha256": "6a7844a10de795b8573433d0cbe1f1acea6040054e91220ee3366f58edccb958"
+    },
+    {
+      "path": "sources/tests/test_studio_preserve_current_http.py",
+      "bytes": 2519,
+      "sha256": "61d22b07df0d497f556851f3cfd97098fb7f2ecd4eb0ca2943a8c301ceeb1425"
+    },
+    {
+      "path": "sources/tests/test_studio_preserve_current_worker.py",
+      "bytes": 5408,
+      "sha256": "84e98019c7bf986a7e19224cb110b44610f44bc0308197bf50f6553e094cebf0"
+    }
+  ]
+}

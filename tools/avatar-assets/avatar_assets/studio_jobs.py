@@ -419,20 +419,32 @@ class StudioJobs:
         return ([self.state_dir/'worker.lock'] if global_lock else []) + [
             self.jobs_dir/parent_id/'worker.lock',output/'pipeline.lock',output/'agents/runner.lock']
 
-    def retry(self, parent_id):
+    def retry(self, parent_id, *, appearance_policy=None):
         """Save one exact successor; only later Prepare/Start can invoke paid work."""
         from avatar_assets.studio_inspection import collect,custody_locks,recheck
         from avatar_assets.standing_authorization import retry_eligibility
+        _require(appearance_policy in (None,'preserve_current'), 'Unsupported retry appearance preference')
+        captured=None
         with self._db() as db:
             row=self._row(db,parent_id);data=json.loads(row['data'])
             if data.get('retry_child'):
+                child_request=json.loads(self._row(db,data['retry_child'])['request'])
+                _require(appearance_policy is None or child_request.get('appearance_policy',{}).get('mode')==appearance_policy,
+                         'Existing retry has a different immutable appearance preference')
                 return self.get(data['retry_child'])
-            _,_,_,output,_=self._retry_parent(db,parent_id)
+            _,_,saved,output,_=self._retry_parent(db,parent_id)
+        # Collection takes the same locks; capture before acquiring the manager's custody locks.
+        if appearance_policy=='preserve_current' and saved.get('appearance_policy') is None:
+            from avatar_assets.pipeline_continuation import collect as capture
+            captured=capture(self.root,output)
         with custody_locks(self._retry_locks(parent_id,output,global_lock=True)):
             with self._db(True) as db:
                 row,data,request,output,invocation=self._retry_parent(db,parent_id)
                 if data.get('retry_child'):
                     child_id=data['retry_child']
+                    existing=json.loads(self._row(db,child_id)['request'])
+                    _require(appearance_policy is None or existing.get('appearance_policy',{}).get('mode')==appearance_policy,
+                             'Existing retry has a different immutable appearance preference')
                 else:
                     proof=collect(self.root,output,invocation,data.get('owner_pid'),data.get('owner_identity'),
                                   terminal_status='unsupported')
@@ -448,7 +460,16 @@ class StudioJobs:
                                    'continuation_custody_sha256':_digest(proof)}
                     _require(db.execute('SELECT COUNT(*) FROM jobs').fetchone()[0]<MAX_JOBS,'Studio job inventory is full')
                     child_id=uuid.uuid4().hex[:24]
+                    preference=None
+                    if captured is not None:
+                        from avatar_assets.pipeline_continuation import _inventory
+                        from avatar_assets.appearance_policy import build_policy
+                        _require(_inventory(output)==captured['inventory'], 'Appearance preference parent changed after capture')
+                        child_request['appearance_policy'],preference=build_policy(self.root,output,captured,
+                            parent_job_id=parent_id,child_job_id=child_id,
+                            receipt_path=str((self.jobs_dir/child_id/'appearance-preference.json').relative_to(self.root)))
                     folder=_private_directory(self.jobs_dir/child_id)
+                    if preference is not None:_write_private(folder/'appearance-preference.json',preference)
                     _write_private(folder/'request.json',child_request)
                     _write_private(folder/'retry-parent-custody.json',proof)
                     created=time.time();checksum=_digest(child_request)
@@ -712,7 +733,7 @@ class StudioJobs:
             snapshots=_private_directory(invocation/'sources')
             payload['sources']=[]
             for name in ('studio_jobs.py','studio_worker.py','studio_inspection.py','studio_ai_status.py','agent_backend.py','openai_runner.py',
-                         'standing_authorization.py','pipeline_continuation.py','openai_models.py','openai_grant_closure.py','studio_unknown_release.py'):
+                         'standing_authorization.py','pipeline_continuation.py','appearance_policy.py','openai_models.py','openai_grant_closure.py','studio_unknown_release.py'):
                 source=Path(__file__).parent/name;target=snapshots/name
                 shutil.copyfile(source,target);target.chmod(0o600)
                 payload['sources'].append({'path':'sources/'+name,'sha256':hashlib.sha256(target.read_bytes()).hexdigest()})
@@ -872,7 +893,8 @@ class StudioJobs:
             'elapsed_seconds':round(max(0,(data.get('ended') or time.time())-data['started']),2) if data.get('started') else 0,
             'request':{'prompt':_safe_text(request['prompt'],4000),'style':_safe_text(request['style'],800),
                        'custom_actions':[_safe_text(a,600) for a in request['custom_actions']],'preset':request['preset'],
-                       'reference_selected':request['reference'] is not None,'reuse_model_selected':request['reuse_model'] is not None},
+                       'reference_selected':request['reference'] is not None,'reuse_model_selected':request['reuse_model'] is not None,
+                       **({'appearance_policy':'preserve_current'} if request.get('appearance_policy',{}).get('mode')=='preserve_current' else {})},
             'operation':data.get('operation'),'queued':status=='queued','cancel_requested':data.get('cancel_requested',False),
             'stages':stages,'plan_id':plan_id,
             'plan':{'id':plan_id,'summary':_safe_text(plan.get('subject',plan.get('reason','')),800),
@@ -883,6 +905,8 @@ class StudioJobs:
                             'start':can_resume and authorization['can_start'],
                             'cancel':status in ('created','queued','planning','running','launching','cancel_requested'),
                             'retry':status=='unsupported' and request['reuse_model'] is not None
+                                and standing.get('enabled') is True,
+                            'retry_preserve_current':status=='unsupported' and request['reuse_model'] is not None
                                 and standing.get('enabled') is True,
                             'resume':can_resume,'session_required':True,'execution_gate':'canonical_ledger_and_explicit_start'},
             'previews':list({p['path']:p for p in previews}.values()),'reviews':reviews,'result':result,'ai_failure':ai_failure,'error':{'message':_safe_text(error,800)} if error else None,

@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "status": "failed",
+  "provenance": "actual_pipeline",
+  "recorded_local": "11/02/2026, 19:31:00 PST",
+  "timezone": "America/Los_Angeles",
+  "job_id": "4701879a91cf42efbeebf16c",
+  "explicit_start_requested": true,
+  "limits": {
+    "wall_seconds": 1800,
+    "operation_ms": 15000,
+    "sampled_browser_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "server_log_bytes": 1048576,
+    "json_bytes": 1048576,
+    "requests": 2056,
+    "snapshots": 128,
+    "events": 4096,
+    "event_bytes": 1048576
+  },
+  "scope": "Actual local HTML/HTTP/canonical job manager, UI progress and real delivered GLB/video/static assets. Geometry provenance is bound to the inspected job. This does not establish visual quality, physical action, seamless loops or sustained FPS.",
+  "sources": [
+    {
+      "path": "browser/tests/studio-live.mjs",
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "scripts/verify_studio_live.py",
+      "sha256": "57f575f69a2cf7388b40ab8ece65fe9679e87d576febefb5ebdec15ae7671389"
+    },
+    {
+      "path": "browser/studio.html",
+      "sha256": "83d33dad268e455d3e1f9b478ceea1477897e63a8bc15d4f88ff63a2843f1cb6"
+    },
+    {
+      "path": "browser/studio.js",
+      "sha256": "4ef7b031620fba7325c1cd2e899ccccfbbe2afd3646d11508e87c0ec95e5fffd"
+    },
+    {
+      "path": "browser/studio.css",
+      "sha256": "7c14ae8ba8fc041dd404dfe5a4d0655f16522997b23d19281d769b01818e6a04"
+    },
+    {
+      "path": "avatar_assets/studio.py",
+      "sha256": "5d76f93bc99612f2783bc153f475cec71343422126fe8c96bbc6a20689713a65"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "82568248aa15089cd678c346f9271e6087802b44a0b1ed6ba81a9c9a275e7738"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "9f0513516f8caf64a02551228c78fa78d5c68851fbabbf22d485b00ca7912707"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "bb7eab72d990d78a87c4a7e40f206af04b89b57fa9d530bc35d6601638501935"
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44"
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "edc3530f0c967bed770d4dfcae81e2eae28db1109b1b4cc3724d866955a697ed"
+    }
+  ],
+  "snapshots": [],
+  "checks": [],
+  "requests": [],
+  "errors": [],
+  "external_requests": [],
+  "request_failures": [],
+  "mutations": [],
+  "assets": {},
+  "artifacts": [
+    {
+      "path": "source-test.mjs",
+      "bytes": 38951,
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "source-helper.py",
+      "bytes": 31642,
+      "sha256": "57f575f69a2cf7388b40ab8ece65fe9679e87d576febefb5ebdec15ae7671389"
+    },
+    {
+      "path": "server.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "cleanup": {
+    "browser_exit_verified": true,
+    "server_exit_verified": true,
+    "worker_cancel_requested": false,
+    "worker_signalled": false
+  },
+  "resources": {
+    "sampled_peak_rss_bytes": 0,
+    "samples": 0,
+    "sampling_interval_ms": 2000,
+    "scope": "Tester Node + direct HTTP server + owned Chrome subtree; detached generation workers are EXCLUDED and keep their own bounds. RSS is sampled and shared pages may be double-counted."
+  },
+  "error": "Error: Command failed: /Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python /Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py --job 4701879a91cf42efbeebf16c\nTraceback (most recent call last):\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py\", line 508, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py\", line 473, in main\n    before = inspect(args.job, allow_unplanned=args.allow_unplanned)\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py\", line 387, in inspect\n    require(set(request) == {\"prompt\", \"style\", \"custom_actions\", \"preset\", \"reference\", \"reuse_model\"} | continuation_fields,\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            \"Invalid canonical Studio request\")\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py\", line 26, in require\n    raise ValueError(message)\nValueError: Invalid canonical Studio request\n\n    at genericNodeError (node:internal/errors:998:15)\n    at wrappedFn (node:internal/errors:543:14)\n    at ChildProcess.exithandler (node:child_process:417:12)\n    at ChildProcess.emit (node:events:509:20)\n    at maybeClose (node:internal/child_process:1108:16)\n    at ChildProcess._handle.onexit (node:internal/child_process:305:5)",
+  "worker_handoff": {
+    "status": "unavailable",
+    "reason": "Command failed: /Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python /Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py --job 4701879a91cf42efbeebf16c\nTraceback (most recent call last):\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py\", line 508, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py\", line 473, in main\n    before = inspect(args.job, allow_unplanned=args.allow_unplanned)\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py\", line 387, in inspect\n    require(set(request) == {\"prompt\", \"style\", \"custom_actions\", \"preset\", \"reference\", \"reuse_model\"} | continuation_fields,\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            \"Invalid canonical Studio request\")\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/verify_studio_live.py\", line 26, in require\n    raise ValueError(message)\nValueError: Invalid canonical Studio request\n",
+    "next_action": "Inspect canonical ownership; never infer the worker stopped"
+  },
+  "start_requests": 0,
+  "request_count": 0,
+  "observed_rejected_reviews": [],
+  "elapsed_seconds": 0.14900737500000003,
+  "finished_local": "11/02/2026, 19:31:00 PST"
+}

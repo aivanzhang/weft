@@ -129,6 +129,8 @@ def _role(parent,role,row,settings):
 
 
 def _match(request,parent_request):
+    from avatar_assets.appearance_policy import validate_transition
+    validate_transition(request,parent_request)
     require(all(request.get(key)==parent_request.get(key) for key in INTENT),'Continuation changes original prompt/style/actions/output intent')
     for field in ('reuse_model','reference'):
         child,old=request.get(field),parent_request.get(field)
@@ -716,6 +718,9 @@ def collect(root,parent):
         inventory=_inventory(parent)
         pinned={row['path']:row for row in inventory}
         request=read_json(parent/'request.json');input_receipt=read_json(parent/'input-receipt.json')
+        if request.get('appearance_policy') is not None:
+            from avatar_assets.appearance_policy import verify_policy
+            verify_policy(root,parent,request)
         terminal=read_json(parent/'unsupported.json');status=read_json(parent/'status.json')
         require(terminal.get('status')==status.get('status')=='unsupported'
                 and terminal.get('stage')==status.get('stage') and terminal.get('stage') in ('repair_budget','author','reviewer')
@@ -917,6 +922,9 @@ def verify(root,child,request):
         parent_request=read_json(parent/'request.json')
         require(sha256(parent/'request.json')==receipt['parent_request_sha256'],'Continuation parent request changed')
         _match(request,parent_request)
+        if request.get('appearance_policy') is not None:
+            from avatar_assets.appearance_policy import verify_policy
+            verify_policy(root,child,request)
         require(_ledger(root,parent,parent_request,successor={'id':child.name,'digest':sha256(child/'request.json'),
                 'calls':request['max_agent_calls']})==receipt['ledger'],'Continuation parent accounting changed')
     return context

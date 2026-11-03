@@ -1,0 +1,28 @@
+test_existing_normal_retry_cannot_be_relabelled_by_later_preference (test_appearance_policy.AppearancePolicyTests.test_existing_normal_retry_cannot_be_relabelled_by_later_preference) ... ok
+test_explicit_retry_pins_latest_baseline_and_prepare_copies_exact_preference (test_appearance_policy.AppearancePolicyTests.test_explicit_retry_pins_latest_baseline_and_prepare_copies_exact_preference) ... ok
+test_no_qualifying_review_is_not_a_preservation_baseline (test_appearance_policy.AppearancePolicyTests.test_no_qualifying_review_is_not_a_preservation_baseline) ... ok
+test_ordinary_retry_inherits_policy_and_cannot_rebase_or_remove_it (test_appearance_policy.AppearancePolicyTests.test_ordinary_retry_inherits_policy_and_cannot_rebase_or_remove_it) ... ok
+test_policy_schema_rejects_unknown_fields_paths_and_boolean_attempt (test_appearance_policy.AppearancePolicyTests.test_policy_schema_rejects_unknown_fields_paths_and_boolean_attempt) ... ok
+test_portable_custody_rejects_changed_baseline_and_wrong_source (test_appearance_policy.AppearancePolicyTests.test_portable_custody_rejects_changed_baseline_and_wrong_source) ... ok
+test_portable_receipt_reads_without_private_registry (test_appearance_policy.AppearancePolicyTests.test_portable_receipt_reads_without_private_registry) ... ok
+test_receipt_and_canonical_request_tampering_block_authority (test_appearance_policy.AppearancePolicyTests.test_receipt_and_canonical_request_tampering_block_authority) ... ERROR
+
+======================================================================
+ERROR: test_receipt_and_canonical_request_tampering_block_authority (test_appearance_policy.AppearancePolicyTests.test_receipt_and_canonical_request_tampering_block_authority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_appearance_policy.py", line 99, in test_receipt_and_canonical_request_tampering_block_authority
+    changed=read_json(snapshot); changed['human_asset_approval']=True; write_json(snapshot,changed)
+                                                                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 66, in write_json
+    with Path(path).open("x") as handle:
+         ~~~~~~~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: '/private/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/tmp8rcoa5x7/outputs/studio-9222d26cda50406f969a49bb/inputs/appearance-preference.json'
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.702s
+
+FAILED (errors=1)

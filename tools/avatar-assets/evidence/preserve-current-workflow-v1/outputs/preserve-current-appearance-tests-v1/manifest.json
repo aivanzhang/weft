@@ -1,0 +1,36 @@
+{
+  "artifacts": [
+    {
+      "bytes": 4257,
+      "path": "result.json",
+      "sha256": "33fc99956e04c9d9a32387a56c8bdd98c63cc4de004687947f0cb6be467b8719"
+    },
+    {
+      "bytes": 105705,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "bytes": 25933,
+      "path": "sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "edc3530f0c967bed770d4dfcae81e2eae28db1109b1b4cc3724d866955a697ed"
+    },
+    {
+      "bytes": 76253,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "bb7eab72d990d78a87c4a7e40f206af04b89b57fa9d530bc35d6601638501935"
+    },
+    {
+      "bytes": 29392,
+      "path": "sources/avatar_assets/repair_composition.py",
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "bytes": 12314,
+      "path": "sources/tests/test_preserved_appearance.py",
+      "sha256": "66786de867ba5675d103e792bbcddc7df58bd980d2637ac691066f740dee0b1d"
+    }
+  ],
+  "classification": "Analyst-recorded analytic unit/orchestration tests; no provider/native job or asset acceptance",
+  "schema_version": 1
+}

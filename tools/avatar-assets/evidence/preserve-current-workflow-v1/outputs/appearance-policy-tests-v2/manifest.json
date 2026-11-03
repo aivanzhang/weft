@@ -1,0 +1,91 @@
+{
+  "artifacts": [
+    {
+      "bytes": 335,
+      "path": "command.json",
+      "sha256": "0d357698f46d127e933aba3188790303915cbc18bc94cc452f771ab50256553c"
+    },
+    {
+      "bytes": 1192,
+      "path": "job.json",
+      "sha256": "cf774aaa524875f7f5b0483c47c7314091a1b30d6541d22346d8d4495a72de77"
+    },
+    {
+      "bytes": 2117,
+      "path": "prepared.json",
+      "sha256": "b13173f77e8ddfb187a17cddf56c9d14f60cc6fe9758bf3031717b4f03ab6da4"
+    },
+    {
+      "bytes": 1552,
+      "path": "result.json",
+      "sha256": "d0781479e1d7c16623631973182a6abca1d6ab2d0cf1c27d9a715fa7659bc720"
+    },
+    {
+      "bytes": 1609,
+      "path": "run.py",
+      "sha256": "408ea4168f2cb99275bc752f8600da1fc896885eca2a64cca8e4c51006fa5dcd"
+    },
+    {
+      "bytes": 12551,
+      "path": "sources/avatar_assets/appearance_policy.py",
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "bytes": 105705,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "bytes": 66399,
+      "path": "sources/avatar_assets/pipeline_continuation.py",
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "bytes": 76108,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "65c3cb07e44efb0b496f35ea99a86ce63f9f65b1e3d231004e86069c8696cf7d"
+    },
+    {
+      "bytes": 29392,
+      "path": "sources/avatar_assets/repair_composition.py",
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "bytes": 19355,
+      "path": "sources/avatar_assets/standing_authorization.py",
+      "sha256": "58ccac59fa7e0b1bef312bb4e591d258d0ceb533c2090c4df904fe9029b847f3"
+    },
+    {
+      "bytes": 65127,
+      "path": "sources/avatar_assets/studio_jobs.py",
+      "sha256": "82568248aa15089cd678c346f9271e6087802b44a0b1ed6ba81a9c9a275e7738"
+    },
+    {
+      "bytes": 15915,
+      "path": "sources/avatar_assets/studio_worker.py",
+      "sha256": "9f0513516f8caf64a02551228c78fa78d5c68851fbabbf22d485b00ca7912707"
+    },
+    {
+      "bytes": 10877,
+      "path": "sources/tests/test_appearance_policy.py",
+      "sha256": "99fff4d13f2460948de79184231b26bc93e0e15685d45636b3e837d3aaebb80a"
+    },
+    {
+      "bytes": 311,
+      "path": "tests-handle.json",
+      "sha256": "05efae3c896b7f9dcfaa6675a530c1e5f364cb5aac609c30c2da7f8ffee4a542"
+    },
+    {
+      "bytes": 1094,
+      "path": "tests-monitor.json",
+      "sha256": "ffa1143ea2f95680f394baa4266db6b5337d5a70abb97ccd74a914691a88d7f2"
+    },
+    {
+      "bytes": 2936,
+      "path": "tests.log",
+      "sha256": "42caeda560e3dbc9d764b49b9ba9fec4f16442ad461436ca31f882296697ee12"
+    }
+  ],
+  "kind": "analytic_composed_continuation_tests",
+  "schema_version": 1
+}

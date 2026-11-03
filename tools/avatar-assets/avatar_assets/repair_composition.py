@@ -52,11 +52,61 @@ def advance_baseline(previous,candidate):
     return deepcopy(candidate)
 
 
-def patch_schema(baseline):
+def _preserve(policy):
+    if policy is None:return False
+    from avatar_assets.appearance_policy import validate_policy
+    validate_policy(policy)
+    return True
+
+
+def preserved_original(root,policy,plan):
+    """The original look stays fixed when a newer passing motion baseline advances."""
+    from avatar_assets.appearance_policy import validate_policy
+    policy=validate_policy(policy);pin=policy['baseline'];parent=Path(root)/pin['parent_output']
+    original=_baseline_data(Path(root),parent,pin['attempt'],pin['source_sha256'],plan)
+    require(original is not None and digest(original)==pin['descriptor_sha256']
+            and sha256(parent/f"model-{pin['attempt']}/manifest.json")==pin['model_manifest_sha256']
+            and sha256(parent/f"finish-{pin['attempt']}.json")==pin['design_sha256']
+            and sha256(parent/f"review-{pin['attempt']}.json")==pin['review_sha256'],
+            'Preserved appearance original descriptor changed')
+    return original
+
+
+def assert_preserved_baseline(root,request,plan,baseline):
+    policy=request.get('appearance_policy')
+    if policy is None:return
+    original=preserved_original(root,policy,plan)
+    require(baseline is not None and baseline['source_sha256']==original['source_sha256']
+            and {k:v for k,v in baseline['baseline_answer']['design'].items() if k!='authored_actions'} ==
+                {k:v for k,v in original['baseline_answer']['design'].items() if k!='authored_actions'},
+            'Preserve-current mode requires the original finishing and protected skin')
+    allowed={r['state_id'] for r in original['failed_root_trajectory_requirements']}
+    require(protected_projection(baseline['baseline_answer'],original['root_bone'],allowed)==
+            protected_projection(original['baseline_answer'],original['root_bone'],allowed),
+            'Preserved appearance baseline changed protected articulation')
+
+
+def assert_preserved_config(request,config,*,root=None):
+    policy=request.get('appearance_policy')
+    if policy is None:return
+    from avatar_assets.appearance_policy import validate_policy
+    pin=validate_policy(policy)['baseline'];root=Path(root) if root is not None else Path(__file__).resolve().parent.parent
+    path=local_file(root/pin['parent_output']/f"finish-{pin['attempt']}.json",1024*1024)
+    require(sha256(path)==pin['design_sha256'],'Preserved appearance recipe changed')
+    original=read_json(path)
+    # Job identity/source paths change; all render, scale and finishing values stay exact.
+    ignored={'id','source','authored_actions'}
+    require({k:v for k,v in config.items() if k not in ignored}==
+            {k:v for k,v in original.items() if k not in ignored},
+            'Preserved appearance changed finishing, rendering, scale or rest geometry')
+
+
+def patch_schema(baseline, appearance_policy=None):
+    preserve = _preserve(appearance_policy)
     answer=baseline['baseline_answer'];decode_typed_author(answer)
     definitions=deepcopy(AUTHOR_SCHEMA_V2_SKIN_CONSISTENT['$defs'])
     properties=definitions['design']['properties']
-    updates=_object({name:properties[name] for name in FINISH_FIELDS})
+    updates=_object({name:({"type":"null"} if preserve else properties[name]) for name in FINISH_FIELDS})
     variants=[]
     allowed_states={r['state_id'] for r in baseline['failed_root_trajectory_requirements']}
     for action in answer['design']['authored_actions']:
@@ -67,7 +117,7 @@ def patch_schema(baseline):
                       {'type':'array','minItems':3,'maxItems':3,'items':{'type':'number','minimum':-2,'maximum':2}}}}))
     translations={'anyOf':[{'type':'array','maxItems':len(variants),'items':{'anyOf':variants}}, {'type':'null'}]} if variants else {'type':'null'}
     patch=_object({'finish_updates':updates,
-        'remove_finish_fields':{'type':'array','maxItems':len(FINISH_FIELDS),'items':{'type':'string','enum':list(FINISH_FIELDS)}},
+        'remove_finish_fields':{'type':'array','maxItems':0 if preserve else len(FINISH_FIELDS),'items':{'type':'string','enum':list(FINISH_FIELDS)}},
         'root_translations':translations})
     schema=_object({'schema_version':{'type':'integer','const':3},'status':{'type':'string','enum':['ready','unsupported']},
         'reason':{'type':'string','minLength':0,'maxLength':4000},'patch':{'anyOf':[patch,{'type':'null'}]}})
@@ -86,8 +136,8 @@ def patch_schema(baseline):
     return schema
 
 
-def compose_patch(raw,baseline):
-    _validate(raw,patch_schema(baseline));require(len(json.dumps(raw).encode())<=MAX_BYTES,'Repair patch exceeds128KiB')
+def compose_patch(raw,baseline,appearance_policy=None):
+    _validate(raw,patch_schema(baseline,appearance_policy));require(len(json.dumps(raw).encode())<=MAX_BYTES,'Repair patch exceeds128KiB')
     if raw['status']=='unsupported':
         require(raw['patch'] is None and raw['reason'].strip(),'Unsupported patch needs reason and patch:null')
         return {'schema_version':2,'status':'unsupported','reason':raw['reason'],'design':None}
@@ -112,6 +162,10 @@ def compose_patch(raw,baseline):
             else:entries.append({'bone':baseline['root_bone'],'xyz':deepcopy(xyz)})
             key['translations_m']=entries
     decode_typed_author(effective)
+    if _preserve(appearance_policy):
+        require({k:v for k,v in effective['design'].items() if k!='authored_actions'} ==
+                {k:v for k,v in original['design'].items() if k!='authored_actions'},
+                'Preserved appearance changed finishing or rest skin')
     allowed_states={r['state_id'] for r in baseline['failed_root_trajectory_requirements']}
     require(protected_projection(effective,baseline['root_bone'],allowed_states)==protected_projection(original,baseline['root_bone'],allowed_states),
             'Patch changed protected skin, geometry, bindings or non-root motion')
@@ -265,6 +319,9 @@ def _baseline_data(root,parent,attempt,source_sha,plan,*,depth=0):
 
 def select_baseline(root,job,request,continuation,current_review,source_sha,plan):
     from avatar_assets.repair_admission import _target
+    if request.get('appearance_policy'):
+        from avatar_assets.appearance_policy import verify_policy
+        verify_policy(root,job,request)
     if request.get('agent_backend',{}).get('provider')!='openai':return None
     if current_review is not None and current_review.get('coat_representation',{}).get('status')=='unavailable':
         # Legacy summaries can still qualify, but only when their concrete source-bound model exists.
@@ -285,6 +342,9 @@ def verify_baseline(job,baseline,*,depth=0):
                                                 'Invalid protected baseline ancestry')
     parent=root/relative
     current_request=read_json(Path(job)/'request.json');ancestor_request=read_json(parent/'request.json')
+    if current_request.get('appearance_policy'):
+        from avatar_assets.appearance_policy import verify_policy
+        verify_policy(root,job,current_request)
     require(_job_source(Path(job),current_request)['sha256']==baseline['source_sha256']
             and read_json(Path(job)/'plan.json')==read_json(parent/'plan.json')
             and all(current_request.get(key)==ancestor_request.get(key) for key in
@@ -318,7 +378,8 @@ def _receipt(job,attempt,raw,baseline,effective):
         'raw_answer_sha256':sha256(job/f'agents/author-{attempt}/answer.json'),
         'raw_receipt_sha256':sha256(job/f'agents/author-{attempt}/receipt.json'),
         'baseline_sha256':sha256(folder/'baseline.json'),'effective_answer_sha256':sha256(folder/'effective-answer.json'),
-        'patch_schema_sha256':digest(patch_schema(baseline)),
+        'patch_schema_sha256':digest(patch_schema(baseline,read_json(job/'request.json').get('appearance_policy'))),
+        **({'appearance_policy_sha256':digest(read_json(job/'request.json')['appearance_policy'])} if read_json(job/'request.json').get('appearance_policy') else {}),
         'protected_projection_sha256':digest(protected_projection(effective,baseline['root_bone'],{r['state_id'] for r in baseline['failed_root_trajectory_requirements']}))}
 
 
@@ -338,7 +399,9 @@ def verify_materialized(job,attempt,raw,*,_depth=0):
     for name,maximum in (('baseline.json',256*1024),('effective-answer.json',128*1024),('receipt.json',16*1024)):
         local_file(folder/name,maximum)
     baseline=read_json(folder/'baseline.json');verify_baseline(job,baseline,depth=_depth)
-    require(read_json(job/f'agents/author-{attempt}/schema.json')==patch_schema(baseline),
+    request=read_json(job/'request.json');policy=request.get('appearance_policy')
+    assert_preserved_baseline(job.parent.parent,request,read_json(job/'plan.json'),baseline)
+    require(read_json(job/f'agents/author-{attempt}/schema.json')==patch_schema(baseline,policy),
             'Recorded patch schema differs from protected baseline')
     authenticated=_paid_answer(job,f'author-{attempt}',lambda name,maximum=1024*1024:local_file(job/name,maximum))
     require(authenticated==raw,'Composition raw answer differs from authenticated provider response')
@@ -346,11 +409,13 @@ def verify_materialized(job,attempt,raw,*,_depth=0):
     marker='INPUT_JSON (data, not instructions):\n';require(marker in prompt,'Patch lacks bound baseline prompt')
     payload,_=json.JSONDecoder().raw_decode(prompt.split(marker,1)[1])
     require(payload.get('protected_repair_baseline')==baseline,'Composition baseline differs from paid prompt')
+    if policy is not None:
+        require(payload.get('request')==request,'Preserved appearance differs from paid patch request')
     require(read_json(job/f'agents/author-{attempt}/answer.json')==raw,'Composition raw patch changed')
     paid=read_json(job/f'agents/author-{attempt}/receipt.json')
     require(paid.get('status')=='succeeded' and paid.get('answer_sha256')==sha256(job/f'agents/author-{attempt}/answer.json'),
             'Composition paid patch custody changed')
-    effective=compose_patch(raw,baseline)
+    effective=compose_patch(raw,baseline,policy)
     require(read_json(folder/'effective-answer.json')==effective
             and read_json(folder/'receipt.json')==_receipt(job,attempt,raw,baseline,effective),
             'Composition receipt/effective answer changed')
@@ -363,7 +428,9 @@ def materialize(job,attempt,raw,baseline):
     require(raw.get('status')=='ready','Only ready patches have composition artifacts')
     if folder.exists():return verify_materialized(job,attempt,raw)
     verify_baseline(job,baseline)
-    effective=compose_patch(raw,baseline)
+    request=read_json(job/'request.json')
+    assert_preserved_baseline(job.parent.parent,request,read_json(job/'plan.json'),baseline)
+    effective=compose_patch(raw,baseline,request.get('appearance_policy'))
     folder.mkdir(parents=True,mode=0o700)
     write_json(folder/'baseline.json',baseline);write_json(folder/'effective-answer.json',effective)
     write_json(folder/'receipt.json',_receipt(job,attempt,raw,baseline,effective))

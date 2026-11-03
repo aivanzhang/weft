@@ -29,13 +29,18 @@ No validator was relaxed and no old recipe was manually edited.
 [Protected-skin repair patches](docs/protected-skin-repairs.md) keep a verified
 baseline rig and articulation fixed during eligible finishing/root-motion repairs;
 the local derivative proof is not a new accepted avatar.
+The explicit [Keep look; finish motion](docs/preserve-current-appearance.md) mode
+preserves the current verified baseline’s appearance instead of tuning fur again.
+UI, backend and policy checks pass; actual Retry→Prepare and read-only request
+inspection pass. The first preservation-mode generation run is in progress, not
+accepted; see the handoff for live ownership.
 This trial keeps the shoulder dragon perched, not flying.
 
 [GPT-5.2 model profiles](docs/api-model-profiles.md) and standard responses keep
-per-call reservations within the existing $15 total cap. After the stopped run,
-$6.024623 was settled and $6.548016 remained in uncertain charge holds; those
-holds are conservative exposure, not confirmed bills. Total exposure is $12.572639,
-leaving $2.427361 under the unchanged cap. No new Meshy work or
+per-call reservations within the existing $15 total cap. Before the current preservation run,
+$6.648951 was settled and $6.548016 remained in uncertain charge holds; those
+holds are conservative exposure, not confirmed bills. Pre-run exposure was $13.196967,
+leaving $1.803033 under the unchanged cap; this is not a live bill. No new Meshy work or
 hosted deployment. The [handoff](TODO.md) records exact sources, ownership,
 commands, failures and the next safe action. [Backend details](docs/api-website-backend.md).
 
