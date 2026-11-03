@@ -350,13 +350,19 @@ def _admit_preserved_body_source(source, manifest_raw, names, scene, deadline, *
                     "source_manifest_sha256": names["inputs/body-source-manifest.json"]}
     construction = {"schema_version": 1, "profile": "exercise-body-source-v1",
                     "status": "construction_only", "simulation_ready": False}
+    if "human_provenance" in scene:
+        from weft.shared_human_projection import validate_projection
+        human_raw = read_package_file(source, "human.json", max_bytes=8 * 1024 * 1024,
+                                      expected_sha256=names["human.json"])
+        validate_projection(scene["human_spec"], scene["human_provenance"], human_raw)
+    elif canonical_hash(documents["human.json"]) != canonical_hash(scene["human_spec"]):
+        raise ValueError(failure)
     if (any(report.get(key) != value for key, value in report_fixed.items())
             or report.get("simulation_ready") is not False or inventory != scene["inventory"]
             or any(doc.get(key) != value for doc in (marker, parent) for key, value in construction.items())
             or any(type(doc.get("schema_version")) is not int for doc in (marker, parent))
             or any(doc.get("simulation_ready") is not False for doc in (marker, parent))
-            or marker.get("source_sha256") != source_sha or documents["source.json"].get("sha256") != source_sha
-            or canonical_hash(documents["human.json"]) != canonical_hash(scene["human_spec"])):
+            or marker.get("source_sha256") != source_sha or documents["source.json"].get("sha256") != source_sha):
         raise ValueError(failure)
     artifact = marker.get("source_artifact")
     parent_files, artifacts = parent.get("files"), marker.get("artifacts")

@@ -48,6 +48,8 @@ _ACTOR_FUNCTIONS = ("_trial", "_action", "phase_basis", "_coefficients")
 
 def _runtime_hashes(scene=None):
     names = POLICY_RUNTIME_FILES
+    if scene is not None and "human_provenance" in scene:
+        names = (*names, "shared_human_projection.py")
     if scene is not None and "native_clock" in scene.get("human_spec", {}):
         names = (*names, "source_clock.py")
     return {name: digest(Path(__file__).parent / name) for name in names}

@@ -140,7 +140,13 @@ def build_equipment_proposal(base_scene, config, *, source_binding, construction
     construction_contract = _proposal_contract(config)
     base = validate_shared_world(base_scene); human = base['human_spec']
     raw_human = _json_bytes(human_document, 'Original human document', MAX_BODY_JSON_BYTES)
-    if canonical_hash(raw_human) != canonical_hash(human):
+    if 'human_provenance' in base:
+        from weft.human import validate_human
+        from weft.shared_human_projection import validate_projection
+        if validate_human(raw_human) != raw_human:
+            raise EquipmentProposalError('human_document_mismatch', 'Full human sidecar must already be canonically validated')
+        validate_projection(human, base['human_provenance'], human_document)
+    elif canonical_hash(raw_human) != canonical_hash(human):
         raise EquipmentProposalError('human_document_mismatch', 'The exact sealed human document must match the base body')
     if not config['source_sha256'] == human['source_sha256'] == source_binding['source_sha256'] == base['source_binding']['source_sha256']:
         raise EquipmentProposalError('source_identity_mismatch', 'Configuration, body and all bindings must refer to the same original video')
@@ -219,7 +225,7 @@ def _bytes(value):
     return (json.dumps(value, sort_keys=True, indent=2, allow_nan=False) + '\n').encode()
 
 
-def _find_human_document(base_run, declared, human, pinned):
+def _find_human_document(base_run, declared, human, pinned, *, provenance=None):
     names = sorted(name for name in declared if Path(name).name == 'human.json')
     if not 1 <= len(names) <= MAX_HUMAN_DOCUMENTS:
         raise EquipmentProposalError('unsupported_human_document_layout', 'Base needs one to sixteen sealed human.json document candidates')
@@ -229,7 +235,14 @@ def _find_human_document(base_run, declared, human, pinned):
         if maximum <= 0: raise EquipmentProposalError('human_document_bytes_exceeded', 'Sealed body-document discovery exceeds its aggregate byte bound')
         raw = pinned(base_run, declared, name, maximum=maximum); total += len(raw)
         value = _json_bytes(raw, 'Sealed human document', MAX_BODY_JSON_BYTES)
-        if canonical_hash(value) == canonical_hash(human):
+        if provenance is not None:
+            from weft.shared_human_projection import validate_projection
+            try:
+                validate_projection(human, provenance, raw)
+            except ValueError:
+                continue
+            matches.setdefault(hashlib.sha256(raw).hexdigest(), []).append((name, raw))
+        elif canonical_hash(value) == canonical_hash(human):
             matches.setdefault(hashlib.sha256(raw).hexdigest(), []).append((name, raw))
     if len(matches) != 1:
         raise EquipmentProposalError('ambiguous_human_document' if matches else 'human_document_mismatch',
@@ -285,12 +298,15 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
         base_files = manifest(base_run, 'base')
         base_raw = pinned(base_run, base_files, 'scene.json', maximum=MAX_BODY_JSON_BYTES)
         base = validate_shared_world(_json_bytes(base_raw, 'Base scene', MAX_BODY_JSON_BYTES))
+        if 'human_provenance' in base:
+            implementation['shared_human_projection.py'] = Path(__file__).with_name('shared_human_projection.py').read_bytes()
         files['inputs/base-scene.json'] = base_raw
         proof = collect_shared_source_files(base, base_run, expected_manifest_sha256=seals[-1][1])
         files['inputs/base-source-verification.json'] = _bytes(proof.report)
         for name, raw in proof.files.items():
             readbacks.append((base_run, name, max(len(raw), 1), hashlib.sha256(raw).hexdigest()))
-        human_raw, human_document_binding = _find_human_document(base_run, base_files, base['human_spec'], pinned)
+        human_raw, human_document_binding = _find_human_document(base_run, base_files, base['human_spec'], pinned,
+                                                               provenance=base.get('human_provenance'))
         files['inputs/human-document-binding.json'] = _bytes(human_document_binding)
         files['inputs/human.json'] = human_raw
         human_ref = next(r for r in base['source_binding']['entity_bindings'] if r['world_entity_id'] == 'human')

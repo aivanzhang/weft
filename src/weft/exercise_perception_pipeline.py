@@ -86,7 +86,7 @@ def _preflight_seed(seed, metadata, *, deadline, expected_manifest_sha256=None, 
 
 
 def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_source=None, max_seconds=210,
-                                         anchor_profile=LEGACY_ANCHOR_PROFILE):
+                                         anchor_profile=LEGACY_ANCHOR_PROFILE, retain_body_source=False):
     """Prepare source/body custody before either provider; never send or reserve API money."""
     from weft.segmentation_lab import inspect_video
     from weft.exercise_body_source import prepare_exercise_body_source
@@ -98,6 +98,8 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
         raise ValueError("Unknown source tracking anchor profile")
     if body_source is not None and pose_model is not None:
         raise ValueError("Choose an existing body or a local pose model, not both")
+    if type(retain_body_source) is not bool or retain_body_source and body_source is None:
+        raise ValueError("Retained body custody requires an explicit existing sealed body")
     started = time.monotonic(); deadline = started+max_seconds
     video, out = _path(video), _path(out)
     supplied = [_path(v) for v in (body_source, pose_model) if v is not None]
@@ -116,6 +118,12 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
             prepare_exercise_body_source(video, body_source, pose_model=pose_model, native_timing=True,
                 source_note="Local source-bound preflight before API analysis; no source rights claim",
                 max_seconds=min(180, deadline-time.monotonic()))
+        elif retain_body_source:
+            from weft.perception_body_reuse import copy_sealed_body
+            reuse = copy_sealed_body(body_source, out/"body_source",
+                                     source_sha256=metadata["source_sha256"], deadline=deadline)
+            body_source = out/"body_source"
+            write_json(out/"body-reuse.json", reuse)
         stage = "seed"
         seed = prepare_shared_world_seed(body_source, out/"body_seed", deadline=deadline)
         stage = "anchor"
@@ -134,8 +142,11 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
             write_package_files(out, {"implementation/person_tracking_anchor.py": Path(__file__).with_name("person_tracking_anchor.py").read_bytes()})
             names.append("implementation/person_tracking_anchor.py")
         children = {"body_seed": seed_pin}
-        if generated_body:
+        if generated_body or retain_body_source:
             children["body_source"] = digest(out/"body_source/manifest.json")
+        if retain_body_source:
+            write_package_files(out, {"implementation/perception_body_reuse.py": Path(__file__).with_name("perception_body_reuse.py").read_bytes()})
+            names += ["body-reuse.json", "implementation/perception_body_reuse.py"]
         _check_deadline(deadline)
         write_json(out/"manifest.json", {"schema_version": 1, "profile": PREFLIGHT_PROFILE, "status": "local_ready",
             "files": {name: digest(out/name) for name in names}, "children": children})
@@ -156,6 +167,9 @@ def validate_perception_preflight(video, preflight, *, deadline):
     raw, declared = read_package_manifest(preflight)
     manifest = _json(raw)
     names = {"metadata.json", "body-anchor.json", "result.json", "implementation/exercise_perception_pipeline.py"}
+    reused_body = "body-reuse.json" in declared
+    if reused_body:
+        names |= {"body-reuse.json", "implementation/perception_body_reuse.py"}
     stored_anchor = _json(read_package_file(preflight, "body-anchor.json", max_bytes=128 << 10,
                                            expected_sha256=declared.get("body-anchor.json")))
     anchor_profile = stored_anchor.get("profile")
@@ -173,6 +187,12 @@ def validate_perception_preflight(video, preflight, *, deadline):
             and files["implementation/person_tracking_anchor.py"] != Path(__file__).with_name("person_tracking_anchor.py").read_bytes()):
         raise ValueError("Preflight person anchor implementation differs from its exact sealed runtime")
     metadata = _preflight_metadata(_json(files["metadata.json"]))
+    if reused_body:
+        from weft.perception_body_reuse import validate_reuse_receipt
+        if files["implementation/perception_body_reuse.py"] != Path(__file__).with_name("perception_body_reuse.py").read_bytes():
+            raise ValueError("Preflight body reuse differs from its reviewed implementation")
+        validate_reuse_receipt(_json(files["body-reuse.json"]), source_sha256=metadata["source_sha256"],
+                              body_manifest_sha256=manifest["children"].get("body_source"))
     if digest(video) != metadata.get("source_sha256"):
         raise ValueError("Preflight video differs from its original source")
     seed = preflight/"body_seed"
@@ -185,7 +205,7 @@ def validate_perception_preflight(video, preflight, *, deadline):
             or type(result.get("api_calls")) is not int or result["api_calls"] != 0
             or type(result.get("seconds")) not in (int, float) or not math.isfinite(result["seconds"]) or not 0 <= result["seconds"] <= 210
             or result.get("simulation_ready") is not False or type(result.get("inference_calls")) is not int
-            or result["inference_calls"] != int("body_source" in manifest["children"])
+            or result["inference_calls"] != int("body_source" in manifest["children"] and not reused_body)
             or result.get("metadata") != metadata or result.get("source_sha256") != metadata["source_sha256"]
             or result.get("base_run") != str(seed) or result.get("base_manifest_sha256") != pin
             or result.get("preflight_directory") != str(preflight) or result.get("body_anchor") != anchor

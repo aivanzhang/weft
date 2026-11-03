@@ -33,6 +33,14 @@ def _bytes(value):
     return (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode()
 
 
+def _human_sidecar(scene, full_raw):
+    if "human_provenance" in scene:
+        from weft.shared_human_projection import validate_projection
+        validate_projection(scene["human_spec"], scene["human_provenance"], full_raw)
+        return full_raw
+    return _bytes(scene["human_spec"])
+
+
 def _json(raw):
     try:
         value = json.loads(raw, object_pairs_hook=_unique_object, parse_constant=_nonfinite)
@@ -228,7 +236,9 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
                  "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py",
                  "spatial_rigid.py", *depth_modules):
         files[f"implementation/{name}"] = Path(__file__).with_name(name).read_bytes()
-    files.update({"scene.json": _bytes(scene), "human.json": _bytes(scene["human_spec"]),
+    if "human_provenance" in scene:
+        files["implementation/shared_human_projection.py"] = Path(__file__).with_name("shared_human_projection.py").read_bytes()
+    files.update({"scene.json": _bytes(scene), "human.json": _human_sidecar(scene, human_document),
                   "task.json": _bytes(scene["task"]), "reference-feasibility.json": _bytes(feasibility),
                   "repair-ledger.json": _bytes({"proposals": [],
                     "scope": "Initial geometry proposal only; retained camera alternatives are in geometry-study.json. No dynamic repair or learning executed."})})

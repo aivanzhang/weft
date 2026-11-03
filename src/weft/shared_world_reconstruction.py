@@ -235,8 +235,15 @@ def _construct_equipment_world(base_scene, proposal, *, source_binding, construc
             or len(json.dumps(proposal, allow_nan=False)) > MAX_PROPOSAL_BYTES):
         raise ValueError('Unsupported or oversized equipment geometry proposal')
     raw_human = _json_bytes(human_document, 'Human document', MAX_BODY_JSON_BYTES)
-    if (hashlib.sha256(human_document).hexdigest() != proposal['body_binding']['human_json_sha256']
-            or canonical_hash(raw_human) != canonical_hash(base['human_spec'])):
+    if 'human_provenance' in base:
+        from weft.human import validate_human
+        from weft.shared_human_projection import validate_projection
+        if validate_human(raw_human) != raw_human:
+            raise ValueError('Full human sidecar must already be canonically validated')
+        validate_projection(base['human_spec'], base['human_provenance'], human_document)
+    elif canonical_hash(raw_human) != canonical_hash(base['human_spec']):
+        raise ValueError('Exact human document identity or canonical base body differs')
+    if hashlib.sha256(human_document).hexdigest() != proposal['body_binding']['human_json_sha256']:
         raise ValueError('Exact human document identity or canonical base body differs')
     equipment = proposal.get('equipment')
     if not isinstance(equipment, list) or not 1 <= len(equipment) <= 12:

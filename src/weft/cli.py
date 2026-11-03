@@ -45,6 +45,11 @@ def main():
     portal_import.add_argument("--lab", required=True)
     portal_import.add_argument("--root", default=".local/portal")
     portal_import.add_argument("--name", help="Project filename with the original video extension")
+    portal_reuse = commands.add_parser("portal-reuse-body", help="Queue a new exercise project from exact sealed body evidence in the stopped portal")
+    portal_reuse.add_argument("--root", default=".local/portal")
+    portal_reuse.add_argument("--parent-project", required=True)
+    portal_reuse.add_argument("--body-source", required=True)
+    portal_reuse.add_argument("--body-manifest-sha256", required=True)
     portal_attach = commands.add_parser("portal-attach-evidence", help="Verify original body evidence for an imported portal world's Muse review")
     portal_attach.add_argument("--root", default=".local/portal")
     portal_attach.add_argument("--project-id", required=True)
@@ -1040,6 +1045,9 @@ def main():
         elif args.command == "portal-import":
             from weft.portal_import import import_lab
             result = import_lab(args.lab, args.root, name=args.name)
+        elif args.command == "portal-reuse-body":
+            from weft.portal_body_reuse import reuse_body
+            result = reuse_body(args.root, args.parent_project, args.body_source, args.body_manifest_sha256)
         elif args.command == "portal-attach-evidence":
             from weft.portal_import import attach_existing_import
             result = attach_existing_import(args.root, args.project_id, args.body_source, max_seconds=args.max_seconds)

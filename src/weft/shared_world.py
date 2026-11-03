@@ -403,7 +403,7 @@ def validate_shared_world(scene):
         "task",
         "assumptions",
     }
-    optional = {"action_contract", "learned_policy_available"}
+    optional = {"action_contract", "learned_policy_available", "human_provenance"}
     human_only = isinstance(scene, dict) and scene.get("profile") == HUMAN_ONLY_PROFILE
     static_support = isinstance(scene, dict) and scene.get("profile") == STATIC_SUPPORT_PROFILE
     camera_world = isinstance(scene, dict) and scene.get("profile") == CAMERA_PROFILE
@@ -419,6 +419,13 @@ def validate_shared_world(scene):
         raise ValueError("Unsupported shared-world schema_version or profile")
     if scene["physical_validation"] != "unverified":
         raise ValueError("shared-world-v1 must preserve physical_validation='unverified'")
+    projected = "human_provenance" in scene
+    if projected:
+        from weft.shared_human_projection import validate_projection
+        if (scene["profile"] not in (PROFILE, FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE)
+                or scene.get("source_binding", {}).get("mode") != "source_qualified"):
+            raise ValueError("Human provenance projection requires a source-qualified supported shared-world profile")
+        validate_projection(scene["human_spec"], scene["human_provenance"])
     if "learned_policy_available" in scene and type(scene["learned_policy_available"]) is not bool:
         raise ValueError("learned_policy_available must be a boolean when supplied")
     if camera_world:
@@ -460,7 +467,11 @@ def validate_shared_world(scene):
     contact["time_constant"] = _number(contact["time_constant"], "contact time_constant", 0.005, 0.05)
     contact["damping_ratio"] = _number(contact["damping_ratio"], "contact damping_ratio", 0.5, 2.0)
 
-    human_spec = validate_human(result["human_spec"])
+    if projected:
+        from weft.shared_human_projection import validate_runtime_human
+        human_spec = validate_runtime_human(result["human_spec"])
+    else:
+        human_spec = validate_human(result["human_spec"])
     if camera_world and canonical_hash(human_spec) != canonical_hash(scene["human_spec"]):
         raise ValueError("Camera coupling requires an already validated body; normalization cannot change its identity")
     if human_spec.get("profile") != "exercise-v3":

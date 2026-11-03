@@ -120,7 +120,15 @@ def _join(root, files, human, observations, deadline):
     run = root / binding["run"]
     scene = _json(read_package_file(run, "scene.json", max_bytes=16 << 20,
                                   expected_sha256=binding["input_sha256"]["scene.json"]))
-    if scene["human_spec"] != human or human["source_sha256"] != binding["source_sha256"]:
+    if "human_provenance" in scene:
+        from weft.shared_human_projection import validate_projection
+
+        if _json(files["human.json"]) != human:
+            raise ValueError("Attached full body differs from its validated source bytes")
+        validate_projection(scene["human_spec"], scene["human_provenance"], files["human.json"])
+    elif scene["human_spec"] != human:
+        raise ValueError("Attached body must exactly equal the current scene human; implicit transforms are unsupported")
+    if human["source_sha256"] != binding["source_sha256"]:
         raise ValueError("Attached body must exactly equal the current scene human; implicit transforms are unsupported")
     verify_shared_world_sources(scene, run, deadline=deadline)
     rows = [row for row in scene["source_binding"]["entity_bindings"] if row["world_entity_id"] == "human"]

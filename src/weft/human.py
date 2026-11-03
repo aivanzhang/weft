@@ -99,6 +99,8 @@ def joint_segment(name):
 
 
 def validate_human(spec):
+    if isinstance(spec, dict) and "provenance_projection" in spec:
+        raise ValueError("Runtime human projection requires its complete sidecar for full-body/source qualification")
     if not isinstance(spec, dict) or type(spec.get("schema_version")) is not int or (spec["schema_version"], spec.get("profile")) not in ((1, "exercise-v1"), (2, "exercise-v2"), (3, "exercise-v3")):
         raise ValueError("Unsupported human model schema")
     result = deepcopy(spec)

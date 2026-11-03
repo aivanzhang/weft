@@ -826,6 +826,8 @@ def _static_support_summary(source, settings, source_sha256, body_prefix):
                 or binding.get("source_sha256") != declared["source_sha256"]):
             raise ValueError("Saved scene contradicts the authored static-support scope")
         human_name = body_prefix + "/human.json" if body_prefix else None
+        if "human_provenance" in scene:
+            raise ValueError("Compact human provenance is unsupported for static-support scenes")
         if human_name in source.files and scene.get("human_spec") != source.document(human_name):
             raise ValueError("Saved static-support scene differs from its preserved body")
     task_name = "candidate/exercise-task.json"

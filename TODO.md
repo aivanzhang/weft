@@ -1,12 +1,19 @@
 # Weft iteration backlog
 
+## Dense portal and real API evidence — November 2, 2026 (PST)
+
+- [x] Integrate [compact source-preserving runtime bodies and saved-body portal intake](docs/handoffs/compact-body-portal.md). All 442 motion rows/physical values remain exact; original audit stays hash-pinned. Model XML and matched controls are identical. Generic scene, seed and worker limits remain unchanged.
+- [x] Verify 331 distinct current Python cases and one real authenticated portal preflight: 17.085 seconds, all 458 source frames, body artifacts served, consent quote ready. Preserve the earlier seed-size failure; exact duplicate observation storage saves 28,876,015 bytes without losing data.
+- [x] Complete one actual OpenAI analysis ($0.002276) and Meta tracking request ($0.0916), retain sealed bridge and all 916 slots. Both provider charges settled; tracking identities remain unresolved and no world is admitted. Preserve the publication-size failure and do not repeat paid requests.
+- [ ] Finish the reviewed bounded source-publication change and explicit saved-bridge recovery hooks. Reuse completed provider/body artifacts, preserve failed perception records, and queue the ordinary conditional equipment constructor. Verify actual saved-only memory/time and retained source custody; do not claim tracking overlap as physical identity or contact.
+
 ## Dense poses and source-constrained control — November 2, 2026 (PST)
 
 - [x] Add the reusable all-hypothesis fixed-region proposal and explicit bounded all-frame pose sampling. The unfamiliar full-span clip yields 442/458 usable poses and no competing detections or long root-motion gap; finalization exceeds the unchanged 1 GiB limit, so this is not a completed body. Preserve the partial capture and original failure. [Evidence and active recovery](docs/handoffs/dense-pose-and-contact-targets.md).
 - [x] Explain failed portal pose identity using saved alternatives, timestamps and bounded summaries without retrying or promoting shorter windows. Actual attachment preserves all 47 original files and adds three diagnostic files; 37 distinct Python cases and 17 DOM groups pass. No browser visual QA or paid call.
 - [x] Test one source-constrained arm/root target on the full original equipment task. All 254 controls/4,064 substeps complete; source/reference/task/physics remain unchanged. Spin improves but displacement/orientation/speed worsen and equipment stability still fails. Keep candidate rejected, not a learned policy or default.
 - [x] Recover and seal the dense body from saved capture below the original 1 GiB bound, without repeating inference; independently review ancestry and preserve it through both seed adapters. Sixteen recovery and six downstream custody checks pass. Preserve both failed preflight attempts.
-- [ ] Compact externally pinned source provenance so the complete 442-reference body fits the existing scene metadata envelope. The latest saved-body preflight clears custody but rejects size; no new playable world yet. Then carry an admitted result through the normal portal/API preparation. No frame dropping, repeated inference or overwritten failed projects; source-ground/equipment qualification and meaningful full-task learning remain required.
+- [x] Compact externally pinned source provenance so the complete 442-reference body fits the existing scene envelope, then complete ordinary portal preflight and one real API preparation. Preserve both earlier size failures; the latest remaining source-publication bound and saved-only recovery are recorded above. No new playable equipment world or full-task learning is claimed.
 
 ## Partial tracking and selected-world Muse — November 2, 2026 (PST)
 

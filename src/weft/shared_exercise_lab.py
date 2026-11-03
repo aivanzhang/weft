@@ -64,6 +64,8 @@ def _validate_task(task, scene):
 def runtime_files(scene):
     """Extra evaluator dependencies are pinned only for the profiles that execute them."""
     base = (*RUNTIME_FILES, "source_clock.py") if "native_clock" in scene.get("human_spec", {}) else RUNTIME_FILES
+    if "human_provenance" in scene:
+        base = (*base, "shared_human_projection.py")
     if "native_interval" in scene.get("task", {}):
         base = (*base, "native_interval.py")
     if scene["profile"] == CAMERA_PROFILE:

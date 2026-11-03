@@ -56,6 +56,8 @@ def _check(deadline):
 def _runtime_hashes(scene=None):
     package = Path(__file__).parent
     names = POLICY_RUNTIME_FILES
+    if scene is not None and "human_provenance" in scene:
+        names = (*names, "shared_human_projection.py")
     if scene is not None and scene["profile"] == HUMAN_ONLY_PROFILE:
         names = (*names, "person_inventory.py")
     elif scene is not None and scene["profile"] == STATIC_SUPPORT_PROFILE:

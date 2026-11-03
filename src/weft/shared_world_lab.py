@@ -367,7 +367,7 @@ def write_sealed_shared_world_fixture(out):
     return _seal_directory(out)
 
 
-def _adapted_shared_world(human_spec, observation_document, run_dir, *, scale=1.0, deadline=None):
+def _adapted_shared_world(human_spec, observation_document, run_dir, *, scale=1.0, deadline=None, human_document=None):
     """Prepare the legacy coordinate scaffold without creating or advancing a simulator."""
     human_spec = validate_human(human_spec)
     if human_spec.get("native_clock") != observation_document["source"].get("native_clock_summary"):
@@ -512,6 +512,9 @@ def _adapted_shared_world(human_spec, observation_document, run_dir, *, scale=1.
             "Physical validation remains unverified.",
         ],
     }
+    if human_document is not None:
+        from weft.shared_human_projection import compact_scene_if_needed
+        scene = compact_scene_if_needed(scene, human_document)
     scene = validate_shared_world(scene)
     return scene, raw_observations, construction_bytes
 
@@ -531,12 +534,13 @@ def adapt_to_shared_world(human_source, out, *, scale=1.0):
     source_manifest = json.loads((run_dir / "manifest.json").read_text())
     if not {"human.json", "scene.json", "evidence.json"} <= set(source_manifest["files"]):
         raise ValueError("Source-qualified adaptation requires sealed human, scene and observation evidence, not counts alone")
-    human_spec = validate_human(json.loads((run_dir / "human.json").read_text()))
+    human_document = (run_dir / "human.json").read_bytes()
+    human_spec = validate_human(json.loads(human_document))
     if human_spec.get("profile") != "exercise-v3" or "camera_reference" in human_spec:
         raise ValueError("shared-world adaptation requires a validated 30-Hz mobile exercise-v3 human.json")
 
     scene, raw_observations, construction_bytes = _adapted_shared_world(
-        human_spec, adapt_run(run_dir), run_dir, scale=scale)
+        human_spec, adapt_run(run_dir), run_dir, scale=scale, human_document=human_document)
     source_binding = scene["source_binding"]
     observation_sha = hashlib.sha256(raw_observations).hexdigest()
     feasibility = audit_shared_world_feasibility(scene)
@@ -548,6 +552,8 @@ def adapt_to_shared_world(human_source, out, *, scale=1.0):
     observation_path.parent.mkdir()
     observation_path.write_bytes(raw_observations)
     (out / "construction-evidence.json").write_bytes(construction_bytes)
+    if "human_provenance" in scene:
+        (out / "human.json").write_bytes(human_document)
     source_check = verify_shared_world_sources(scene, out)
     write_json(out / "source-binding-verification.json", source_check)
     input_copy = out / "inputs" / "human-source"
@@ -562,7 +568,8 @@ def adapt_to_shared_world(human_source, out, *, scale=1.0):
             shutil.copyfile(vid, out / vid.name)
 
     write_json(out / "scene.json", scene)
-    write_json(out / "human.json", scene["human_spec"])
+    if "human_provenance" not in scene:
+        write_json(out / "human.json", scene["human_spec"])
     write_json(out / "task.json", scene["task"])
     write_json(out / "reference-feasibility.json", feasibility)
     write_json(out / "interventions.json", interventions)
@@ -628,6 +635,29 @@ def _seed_path(value):
 def _seed_media(name):
     path = Path(name)
     return len(path.parts) == 1 and path.stem == "source" and path.suffix.lower() in _VIDEO_SUFFIXES
+
+
+def _seed_reuse_observations(scene, files, observation_name, *, construction_body):
+    """Reuse identical original bytes only when duplicate storage exhausts the existing output bound."""
+    if not construction_body or sum(map(len, files.values())) + 1024 * 1024 <= SEED_MAX_BYTES:
+        return None
+    retained = "inputs/human-source/observations.json"
+    if retained not in files or observation_name == retained or files.get(observation_name) != files[retained]:
+        return None
+    raw = files[retained]
+    sha = hashlib.sha256(raw).hexdigest()
+    documents = scene["source_binding"]["evidence_documents"]
+    if documents.get(sha) != observation_name:
+        raise ValueError("Seed observation storage must preserve its exact document binding")
+    documents[sha] = retained
+    if validate_shared_world(scene) != scene:
+        raise ValueError("Seed observation storage cannot change validated scene values")
+    del files[observation_name]
+    files["scene.json"] = _seed_bytes(scene)
+    return {"profile": "seed-source-evidence-storage-v1", "method": "reuse_exact_original_observation_bytes",
+            "document_sha256": sha, "artifact": retained, "redundant_generated_path": observation_name,
+            "duplicate_payload_bytes_avoided": len(raw),
+            "scope": "One ordinary file retains every original observation byte; no alias, link, row filtering or source rewrite"}
 
 
 def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
@@ -742,9 +772,13 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
     observations = validate_observations(observations)
     if not 5.0 <= observations["source"]["fps"] <= 240.0:
         raise ValueError("Source clock exceeds shared-world limits; it cannot be clamped or retimed")
+    projection_implementation = read_package_file(Path(__file__).parent, "shared_human_projection.py", max_bytes=1 << 20)
     scene, observation_raw, construction = _adapted_shared_world(human, observations, run,
-                                                                 scale=scale, deadline=deadline)
-    if canonical_hash(human) != canonical_hash(scene["human_spec"]):
+        scale=scale, deadline=deadline, human_document=kept["human.json"])
+    if "human_provenance" in scene:
+        from weft.shared_human_projection import validate_projection
+        validate_projection(scene["human_spec"], scene["human_provenance"], kept["human.json"])
+    elif canonical_hash(human) != canonical_hash(scene["human_spec"]):
         raise ValueError("Mobile body must already have its canonical validated values; source bytes are never rewritten")
     binding = scene["source_binding"]
     observation_name = next(iter(binding["evidence_documents"].values()))
@@ -756,6 +790,8 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
              **{name: raw for name, raw in kept.items() if name in _SEED_OPTIONAL or _seed_media(name)}}
     implementation = read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=1024 * 1024)
     files["implementation/shared_world_lab.py"] = implementation
+    if "human_provenance" in scene:
+        files["implementation/shared_human_projection.py"] = projection_implementation
     if construction_body:
         files["implementation/exercise_body_source.py"] = body_validator_implementation
     files.update({"implementation/" + name: raw for name, raw in recovery_validator_implementations.items()})
@@ -786,6 +822,9 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
     files["reconstruction.json"] = _seed_bytes({"schema_version": 1, "profile": PROFILE,
         "mode": "construction_seed", "status": "construction_only", "simulation_ready": False,
         "physical_validation": "unverified", "source_sha256": source_sha, "scope": receipt["scope"]})
+    storage = _seed_reuse_observations(scene, files, observation_name, construction_body=construction_body)
+    if storage is not None:
+        receipt["source_evidence_storage"] = storage
 
     def check_output():
         if len(files) + 3 > SEED_MAX_FILES or sum(map(len, files.values())) + 1024 * 1024 > SEED_MAX_BYTES:
@@ -819,6 +858,9 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
         raise ValueError("Body-source input gained a failure marker during seed preparation")
     if read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=1024 * 1024) != implementation:
         raise ValueError("Body preparation implementation changed during execution")
+    if ("human_provenance" in scene and read_package_file(Path(__file__).parent, "shared_human_projection.py",
+                                                        max_bytes=1 << 20) != projection_implementation):
+        raise ValueError("Human projection implementation changed during seed preparation")
     if (construction_body and read_package_file(Path(__file__).parent, "exercise_body_source.py",
                                                max_bytes=1024 * 1024) != body_validator_implementation):
         raise ValueError("Body source admission validator changed during seed preparation")
@@ -879,6 +921,8 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
                        "task.json", "reference-feasibility.json", "interventions.json", "human-reference.json",
                        "repair-ledger.json", "reconstruction.json", "lab-provenance.json", "policy.json",
                        "training.json", "rl-evaluation.json", "policy-rollout.json", "settings.json"}
+    if "human_provenance" in scene:
+        generated_paths.remove("human.json")
     source_files.validate_layout(reserved_paths=generated_paths)
 
     for status_file in ("status.json", "report.json", "reconstruction.json"):
@@ -935,6 +979,9 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
                "shared_world_packaging.py", "shared_world_evidence.py", "source_equivalence.py",
                "world_evidence.py", "observations.py", "human.py", "mobile_human.py", "whole_body.py",
                "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py", "spatial_rigid.py")
+    if "human_provenance" in scene:
+        rewritten.remove("human.json")
+        modules = (*modules, "shared_human_projection.py")
     copied_names = {name for name in source_manifest["files"] if name not in rewritten
                     and not name.startswith(("lab-implementation/", "policy-implementation/"))
                     and not (policy_run is not None and name in policy_outputs)}
@@ -989,7 +1036,8 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
     write_package_files(run, {f"lab-implementation/{name}": raw for name, raw in implementation.items()})
 
     write_json(run / "scene.json", scene)
-    write_json(run / "human.json", scene["human_spec"])
+    if "human_provenance" not in scene:
+        write_json(run / "human.json", scene["human_spec"])
     write_json(run / "task.json", scene["task"])
     write_json(run / "reference-feasibility.json", feasibility)
     write_json(run / "interventions.json", interventions)

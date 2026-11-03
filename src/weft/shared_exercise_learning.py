@@ -90,6 +90,8 @@ def _context(scene, task, *, allow_static_support=False):
 def _runtime_hashes(scene=None):
     package = Path(__file__).parent
     names = POLICY_RUNTIME_FILES
+    if scene is not None and "human_provenance" in scene:
+        names = (*names, "shared_human_projection.py")
     if scene is not None and "native_clock" in scene.get("human_spec", {}):
         names = (*names, "source_clock.py")
     if scene is not None and "native_interval" in scene.get("task", {}):

@@ -250,8 +250,14 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
     binding, construction = build_shared_world_binding({observation_sha: observation_raw},
         source_sha256=inventory["source_sha256"], world_ids=["human"],
         entity_refs={"human": (observation_sha, "person-0")}, deadline=deadline)
-    scene = validate_shared_world(_scene(human, observations, inventory, binding, float(scale)))
-    if canonical_hash(scene["human_spec"]) != canonical_hash(_json(inputs["human.json"])):
+    from weft.shared_human_projection import compact_scene_if_needed, validate_projection
+    projection_implementation = read_package_file(Path(__file__).parent, "shared_human_projection.py", max_bytes=1 << 20)
+    scene = validate_shared_world(compact_scene_if_needed(
+        _scene(human, observations, inventory, binding, float(scale)), inputs["human.json"]))
+    if "human_provenance" in scene:
+        validate_projection(scene["human_spec"], scene["human_provenance"], inputs["human.json"])
+        implementations["shared_human_projection.py"] = projection_implementation
+    elif canonical_hash(scene["human_spec"]) != canonical_hash(_json(inputs["human.json"])):
         raise ValueError("Person-only construction cannot rewrite the original body")
     required = exercise_body_source.POSE_FILES | proof_names | {
         "body-source.json", "human.json", "observations.json", "source-clock.json", "implementation.json",

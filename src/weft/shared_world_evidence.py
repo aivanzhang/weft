@@ -206,11 +206,11 @@ def build_shared_world_binding(documents, *, source_sha256, world_ids, entity_re
     return binding, construction
 
 
-def _load_equivalences(binding, directory_fd, documents, deadline):
+def _load_equivalences(binding, directory_fd, documents, deadline, *, extra_bytes=0, extra_files=0):
     from weft.source_equivalence import MAX_BUNDLE_BYTES, MAX_FILES, load_source_equivalence
 
     rows = validate_equivalence_bindings(binding)
-    result, total_bytes, total_files = [], sum(map(len, documents.values())), len(documents)
+    result, total_bytes, total_files = [], sum(map(len, documents.values())) + extra_bytes, len(documents) + extra_files
     for row in rows:
         _check_deadline(deadline)
         if MAX_INPUT_BYTES - total_bytes < 1 or MAX_SOURCE_FILES - total_files < 2:
@@ -280,6 +280,8 @@ def verify_shared_world_sources(scene, directory, *, include_files=False, deadli
         _check_deadline(deadline)
     binding = scene["source_binding"]
     if binding["mode"] == "analytic_fixture":
+        if "human_provenance" in scene:
+            raise ValueError("Human provenance projection requires original source-qualified evidence")
         validate_equivalence_bindings(binding)
         report = {"mode": "analytic_fixture", "source_evidence_verified": False,
                   "scope": "Authored software fixture; no source observation documents."}
@@ -293,7 +295,7 @@ def verify_shared_world_sources(scene, directory, *, include_files=False, deadli
     if directory.is_symlink() or not directory.is_dir():
         raise ValueError("Source evidence directory is missing or unsafe")
     directory = directory.resolve()
-    documents, total_bytes = {}, 0
+    documents, total_bytes, projection_files = {}, 0, {}
     _check_deadline(deadline)
     fd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
     try:
@@ -304,7 +306,22 @@ def verify_shared_world_sources(scene, directory, *, include_files=False, deadli
             if hashlib.sha256(raw).hexdigest() != sha:
                 raise ValueError("Coupled observation document differs from its pinned hash")
             documents[sha] = raw
-        equivalents = _load_equivalences(binding, fd, documents, deadline)
+        if "human_provenance" in scene:
+            from weft.shared_human_projection import MAX_HUMAN_BYTES, validate_projection
+            from weft.human import validate_human
+            if scene['human_provenance'].get('source_sha256') != binding['source_sha256']:
+                raise ValueError("Full human sidecar belongs to another source")
+            if "human.json" in paths.values():
+                raise ValueError("Human provenance sidecar cannot overwrite an observation document")
+            raw = _read_document(fd, "human.json", min(MAX_HUMAN_BYTES, MAX_INPUT_BYTES - total_bytes))
+            validate_projection(scene["human_spec"], scene["human_provenance"], raw)
+            full = json.loads(raw)
+            if validate_human(full) != full:
+                raise ValueError("Full human sidecar must retain canonically validated original body values")
+            projection_files["human.json"] = raw
+            total_bytes += len(raw)
+        equivalents = _load_equivalences(binding, fd, documents, deadline,
+                                         extra_bytes=sum(map(len, projection_files.values())), extra_files=len(projection_files))
     finally:
         os.close(fd)
     refs = {row["world_entity_id"]: None if row["provenance_mode"] == "authored_addition" else
@@ -334,9 +351,14 @@ def verify_shared_world_sources(scene, directory, *, include_files=False, deadli
                               for source in exported["sources"]],
             "scope": "Exact source identities and complete slots verified; pose/track output is not physical truth, and clocks are not implicitly aligned."}
     _check_deadline(deadline)
+    if projection_files:
+        report["human_provenance"] = {"verified": True,
+            "full_human_sha256": scene["human_provenance"]["full_human_sha256"],
+            "runtime_human_sha256": scene["human_provenance"]["runtime_human_sha256"],
+            "scope": "Exact full-body sidecar and unchanged runtime projection; physical validation remains unverified"}
     if not include_files:
         return report
-    files = {name: documents[sha] for sha, name in paths.items()}
+    files = {name: documents[sha] for sha, name in paths.items()} | projection_files
     for item in equivalents:
         files.update({f"source-mappings/{item.manifest_sha256}/{name}": item.raw_bytes(name)
                       for name in item.file_names})

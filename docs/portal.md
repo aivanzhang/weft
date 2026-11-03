@@ -171,6 +171,19 @@ saved inputs does not establish arbitrary-video reconstruction.
 
 ### Prepare an unfamiliar exercise video
 
+If a failed project already has a separately verified sealed body, stop the
+portal and reuse it without repeating pose inference:
+
+```sh
+.venv-lab/bin/python -m weft portal-reuse-body --root .local/portal \
+  --parent-project PROJECT_ID --body-source PATH_TO_BODY \
+  --body-manifest-sha256 EXACT_MANIFEST_SHA256
+```
+
+This creates a new child and preserves the failed parent. Start the portal again
+to run its local checks. It does not make paid calls or guarantee a valid world.
+Keep the returned child ID; it appears as a separate project.
+
 Choose **Exercise**, **Equipment/obstacles** or **Unsure**, and **Interactive scene
 simulation**. In the unresolved project, select **Check video locally**. Inspect
 the estimated body, pose evidence, clock and preview before paying for new media

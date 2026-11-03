@@ -1,5 +1,10 @@
 # Dense source poses and constrained contact targets
 
+**Continuation:** [Compact body and portal/API handoff](compact-body-portal.md)
+records completed compaction, actual queued preflight, real provider calls and
+the remaining saved-bridge publication/recovery work. The active-stage notes
+below describe the earlier checkpoint, not a reason to repeat those jobs.
+
 ## Active checkpoint — November 2, 2026, 5:53 PM PST
 
 The complete video-to-interactive-world goal remains active. Three independent
@@ -158,9 +163,31 @@ preflight/quote/consent path. A sealed reuse receipt must distinguish copied bod
 custody from new inference. This is a design, not an implemented intake feature;
 it depends on compact scene qualification and must not rewrite failed parents.
 
-Recovery and seed-only workers are terminal/reaped; compact scene design and
-review are active, and the contact lane is released. Root is preparing publication
-of the verified checkpoint. Keep all local
-studies, existing provider ledgers and separate avatar edits. Record final
-source/test pins, live-handle status and publication verification here before
-ending the checkpoint.
+Checkpoint **`f7a2030b54adc89bb7c74407fb7028e334ed322f`** is pushed to private
+`origin/main`; independent `git ls-remote` matches exactly. Publication receipt:
+`.local/dense-contact-publication-01.json`. Owned paths/index were clean and the
+stash list empty after publication; separate avatar changes remain untouched.
+No local video, study, provider ledger, key or model was committed.
+
+### Next parallel stage — November 2, 2026, 6:05 PM PST
+
+Recovery and seed-only workers are terminal/reaped. Compact scene work is active:
+
+- Source agent: versioned `shared_human_projection.py`, full-body admission and
+  core scene/seed/human/packaging/source-proof integration. Exact original
+  `human.json` stays sealed; all runtime reference/root rows and physical fields
+  stay unchanged. No increase to the generic 500 KB limit.
+- Runtime agent: strict full-sidecar/projection joins in Muse attachment and
+  build reporting, plus independent core packaging review.
+- Contact agent: strict joins in equipment proposal, reconstruction and learning
+  intake, plus a full consumer audit for omitted-confidence fallbacks. The
+  completed rejected contact trial is not rerun.
+- Root: confidence-weighted joint-task guard, integration and publication.
+  Nine focused task tests pass in `.local/compact-human-task-tests-01.xml`.
+
+The projection marker cannot stand in for complete body evidence. Consumers
+needing source confidence/audits must read the pinned full sidecar or explicitly
+reject the projection. Required verification includes exact physical/XML/action
+parity, source/sidecar tamper rejection and one fresh saved-body preflight after
+integration. No inference, body reconstruction or paid call is needed for this
+stage. Preserve every previous failure and separate avatar edit.

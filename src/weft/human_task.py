@@ -9,11 +9,18 @@ from weft.human import JOINT_LIMITS, JOINT_NAMES, joint_contract
 
 
 def propose_joint_task(evidence, spec=None):
+    if spec is not None and "provenance_projection" in spec:
+        raise UnsupportedVideo("Joint-task selection requires the full body evidence, not a compact runtime projection")
     frames = evidence.get("reference", [])
     names, limits = JOINT_NAMES, JOINT_LIMITS
     if spec is not None and spec["profile"] in {"exercise-v2", "exercise-v3"}:
         names, limits = joint_contract(spec)
-        confidence = {row["time_s"]: row["joint_confidence"] for row in spec["reference_evidence"]}
+        source_rows = spec.get("reference_evidence")
+        if (not isinstance(source_rows, list) or not source_rows
+                or any(not isinstance(row, dict) or not isinstance(row.get("joint_confidence"), dict)
+                       for row in source_rows)):
+            raise UnsupportedVideo("Joint-task selection requires full per-joint confidence evidence")
+        confidence = {row["time_s"]: row["joint_confidence"] for row in source_rows}
         frames = [{**row, "joint_confidence": confidence.get(row["time_s"], {})} for row in spec["reference"]]
     candidates = []
     for name in names:

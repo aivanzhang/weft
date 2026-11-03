@@ -110,7 +110,11 @@ class Portal:
                     atomic_json(folder / "equipment/status.json", {**equipment, "status": "interrupted",
                         "message": "Portal restarted during equipment construction; upload and partial candidates preserved. No automatic retry."})
                 perception = perception_jobs.read_status(folder)
-                if perception.get("status") in perception_jobs.ACTIVE or perception.get("status") == "cancelling":
+                resume_reuse = False
+                if perception.get("status") == "queued_preflight" and "body_reuse" in config:
+                    from weft.portal_body_reuse import validate_pending_reuse
+                    resume_reuse = validate_pending_reuse(folder)
+                if not resume_reuse and (perception.get("status") in perception_jobs.ACTIVE or perception.get("status") == "cancelling"):
                     atomic_json(folder / "perception/status.json", {**perception, "status": "interrupted",
                         "message": "Portal restarted during perception; source evidence and uncertain charges are preserved. No automatic retry."})
             self.thread = threading.Thread(target=self._work, name="weft-portal-queue", daemon=True) if start else None

@@ -214,9 +214,12 @@ def queue_preflight(root):
         return
     work = root/'perception'
     work.mkdir(mode=0o700)
+    request = {'profile': PROFILE, 'source_sha256': job['source_sha256'],
+               'requested_at': local_time(), 'api_calls_authorized': 0}
+    if 'body_reuse' in job:
+        request['body_reuse'] = job['body_reuse']
     write_package_files(work, {'parent-status.json': read_package_file(root, 'status.json', max_bytes=32 << 10),
-        'preflight-request.json': _bytes({'profile': PROFILE, 'source_sha256': job['source_sha256'],
-                                         'requested_at': local_time(), 'api_calls_authorized': 0})})
+                               'preflight-request.json': _bytes(request)})
     atomic_json(work/'status.json', {'status': 'queued_preflight', 'stage': 'local_check',
         'message': 'Waiting to check video, native body evidence and the initial person region locally. No API call.'})
 
@@ -315,10 +318,15 @@ def execute_perception_job(root, *, project=PROJECT_ROOT):
             raise UnsupportedPerception('Use the exact original MP4 within 37 MB; implicit conversion is unsupported')
         if not paid:
             write_package_files(work, {'preflight-start.json': _bytes({'started_at': local_time(), 'api_calls': 0})})
+            options = {'pose_model': Path(project)/'.local/models/pose_landmarker_lite.task'}
+            if ('body_reuse' in job or 'body_reuse' in pre_request
+                    or (root/'body-reuse').exists() or (root/'body-reuse').is_symlink()):
+                from weft.portal_body_reuse import validate_queued_body
+                body = validate_queued_body(root, deadline=min(deadline, time.monotonic()+30))
+                options = {'body_source': body, 'retain_body_source': True}
             progress('preflighting', 'Checking native video/body evidence and initial person visibility locally; no media sent.')
             prepared = prepare_exercise_perception_preflight(video, work/'preflight',
-                pose_model=Path(project)/'.local/models/pose_landmarker_lite.task', max_seconds=210,
-                anchor_profile=VISIBLE_ANCHOR_PROFILE)
+                max_seconds=210, anchor_profile=VISIBLE_ANCHOR_PROFILE, **options)
             check()
             n = prepared['metadata']['frame_count']
             quote = {'schema_version': 1, 'profile': 'portal-perception-quote-v1', 'source_sha256': job['source_sha256'],
