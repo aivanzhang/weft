@@ -1,5 +1,7 @@
 # Active goal: deliver the Weft hackathon demo
 
+**Quality issue reopened:** [Continuous motion verification](avatar-motion-quality.md) exposes defective Studio skin weights. Import/replay plumbing passes, but custom-avatar visual motion must not be called complete; the continuous robot clip is the current usable preview.
+
 Updated November 3, 2026 (PST), at the user's explicit direction. This is the
 current delivery goal. The broader physical-reconstruction research remains a
 backlog, not a prerequisite for this rough end-to-end demo.

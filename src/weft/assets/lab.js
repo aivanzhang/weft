@@ -2163,7 +2163,12 @@
       }
     }
     exporting = data.export?.status === "running";
-    if (data.export) { text($("export-status"), data.export.status === "ready" ? "Recording exported and verified. Download the offline replay or video below." : data.export.status === "failed" ? `Export failed: ${data.export.error}. The action journal is preserved.` : "Exporting recorded states to video and an offline replay…"); }
+    if (data.export) {
+      const frames = data.export.result?.video_frames, dt = data.scene?.dt;
+      const seconds = Number.isInteger(frames) && frames > 0 && Number.isFinite(dt) && dt > 0 ? frames * dt : null;
+      const duration = seconds === null ? "" : ` Video length: ${seconds.toFixed(2)} seconds.${seconds < 1 ? " Very short recording: run the simulation longer for a motion demo." : ""}`;
+      text($("export-status"), data.export.status === "ready" ? `Recording exported and verified.${duration} Download the offline replay or video below.` : data.export.status === "failed" ? `Export failed: ${data.export.error}. The action journal is preserved.` : "Exporting recorded states to video and an offline replay…");
+    }
   }
   const equipmentMetricLabels = {
     displacement_model_units: ["displacement", "model units"], orientation_rad: ["rotation", "rad"],

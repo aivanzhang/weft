@@ -1,5 +1,7 @@
 # Weft — from observation to an executable world
 
+**Quality issue reopened:** [Continuous motion verification](docs/handoffs/avatar-motion-quality.md) exposes defective Studio skin weights. Import/replay plumbing passes, but custom-avatar visual motion must not be called complete; the continuous robot clip is the current usable preview.
+
 **Demo verification — November 3, 2026 (PST):** The rough journey is implemented and verified, including generalized RL-driven avatars, Studio delivery, normal recording/export/replay and a real Muse API response. See [acceptance and limits](docs/handoffs/hackathon-demo.md). Broader physical reconstruction remains backlog.
 
 **Active delivery goal — November 3, 2026 (PST):** Ship the [rough hackathon demo](docs/handoffs/hackathon-demo-goal.md): video upload → processing stages → interactive 3D RL environment → optional Avatar Studio creation/import and correctly retargeted avatar → recording/replay → Muse review. The user explicitly prioritizes this complete usable journey over perfection and further reconstruction research. Preserve the broader target below as backlog; it no longer blocks demo completion.

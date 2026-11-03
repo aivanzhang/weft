@@ -1,5 +1,7 @@
 # Run the local Weft demo
 
+**Visual quality correction:** The earlier short acceptance clip was not a motion demo. A continuous robot recording now exists, but the Studio panda has a genuine deformation issue—not only reduced detail. See [current evidence and limits](handoffs/avatar-motion-quality.md).
+
 Video → estimated body → interactive 3D simulation → optional character → recorded
 controls and replay → Muse review. This is a rough local product demo, not validated
 biomechanics or reliable reconstruction of every unfamiliar scene.

@@ -1,5 +1,7 @@
 # Hackathon demo integration
 
+**Visual quality correction:** The earlier short acceptance clip was not a motion demo. A continuous robot recording now exists, but the Studio panda has a genuine deformation issue—not only reduced detail. See [current evidence and limits](avatar-motion-quality.md).
+
 Recorded November 3, 2026 (PST). Current objective:
 [hackathon demo goal](hackathon-demo-goal.md). This supersedes research perfection
 as the immediate completion gate. [User walkthrough](../hackathon-demo.md).
