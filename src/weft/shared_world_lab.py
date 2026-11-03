@@ -370,6 +370,8 @@ def write_sealed_shared_world_fixture(out):
 def _adapted_shared_world(human_spec, observation_document, run_dir, *, scale=1.0, deadline=None):
     """Prepare the legacy coordinate scaffold without creating or advancing a simulator."""
     human_spec = validate_human(human_spec)
+    if human_spec.get("native_clock") != observation_document["source"].get("native_clock_summary"):
+        raise ValueError("Body and observations must retain the same native source clock")
     if human_spec.get("profile") != "exercise-v3" or "camera_reference" in human_spec:
         raise ValueError("shared-world adaptation requires a validated 30-Hz mobile exercise-v3 human.json")
     if type(scale) not in (int, float) or not math.isfinite(scale) or not 0.5 <= scale <= 2.0:
@@ -445,7 +447,8 @@ def _adapted_shared_world(human_spec, observation_document, run_dir, *, scale=1.
                 "physics_substeps": 16,
                 "source_fps": max(5.0, min(240.0, source_fps)),
                 "source_time_offset_s": float(human_spec["reference"][0]["time_s"]),
-                "alignment_method": "pose_frame_index_over_fps_prior_v1",
+                "alignment_method": "native_pts_elapsed_time_v1" if "native_clock" in human_spec else "pose_frame_index_over_fps_prior_v1",
+                **({"native_clock": deepcopy(human_spec["native_clock"])} if "native_clock" in human_spec else {}),
             },
         },
         "source_binding": source_binding,
@@ -647,7 +650,7 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
     construction_body = "body-source.json" in declared
     recovery_validator_implementations = {}
     if construction_body:
-        from weft.exercise_body_source import PROFILE as BODY_SOURCE_PROFILE, POSE_FILES, validate_body_source_files
+        from weft.exercise_body_source import PROFILE as BODY_SOURCE_PROFILE, POSE_FILES, CAPTURE_FILES, validate_body_source_files
 
         body_validator_implementation = read_package_file(Path(__file__).parent, "exercise_body_source.py",
                                                            max_bytes=1024 * 1024)
@@ -660,6 +663,11 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
             raise ValueError("Body-source input requires its explicit construction-only manifest")
         required = POSE_FILES | {"body-source.json", "human.json", "observations.json",
                                  "source-clock.json", "implementation.json"}
+        # Native custody is indivisible; the strict validator must see every declared clock artifact.
+        if "native-clock.json" in declared:
+            required |= {"native-clock.json", "reconstruction-evidence.json"}
+        if CAPTURE_FILES & declared.keys():
+            required |= CAPTURE_FILES
         if "pose-recovery.json" in declared:
             from weft.pose_source_recovery import PROOF_FILES, IMPLEMENTATION_FILES as RECOVERY_IMPLEMENTATION
             required |= PROOF_FILES

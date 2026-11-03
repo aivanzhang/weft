@@ -1,5 +1,12 @@
 # Weft iteration backlog
 
+## Portal perception — November 2, 2026 (PST)
+
+- [x] Connect [unfamiliar exercise preparation to the normal portal](docs/handoffs/portal-perception.md): local preflight, source-bound quote, separate OpenAI-image/Meta-video consent, canonical budgets, one worker, no automatic retry, inspectable evidence and job-local handoff to existing candidates. No global catalog restart/registration is required for newly generated inputs.
+- [x] Fix native body seed handoff found by actual local HTTP execution: preserve all native/capture artifacts and exact native clock binding without changing original timestamps, dt/substeps, confidence or task gates. The real 13.96-second preflight serves body artifacts with zero API spend; saved-only recovery succeeds at seed construction but refuses two low-visibility initial landmarks. Preserve all failures; do not repeat unchanged source inference or mislabel this as a successful real quote/sandbox.
+- [x] Verify 191 distinct Python checks and 15 UI journeys, including one real analytic constructor and five authenticated HTTP regressions. Independent saved audit verifies 76 members/27.08 MB and unchanged budgets/source/failure. All lanes released, no live test server/worker; separate avatar work untouched.
+- [ ] Complete real API-backed preparation → admitted world on an independently qualified, appropriately sourced equipment clip. Current source refuses the initial anchor gate; use independent visible evidence or separately evaluate a new anchor method, not a lower threshold. Keep invalid geometry/identities and unknown charges explicit. Connect qualified new body evidence to Muse review, then continue source-ground/contact, full-task learning and broader independent evaluation.
+
 ## Parallel integration — November 2, 2026 (PST)
 
 - [x] Build [conditional equipment alternatives and portal selection](docs/handoffs/conditional-equipment-and-constraints.md) from exact registered source evidence. Retain every raw ID, assignment and rejection; require explicit selection and lock the selected world for recordings. Separable inputs retain the automatic builder; ambiguity uses the ordinary strict constructor per branch. This is not unfamiliar-video automatic reconstruction.
@@ -7,7 +14,7 @@
 - [x] Verify a synthetic MP4 through actual queued portal construction, explicit selection, inspection, six manual controls and exact recording/export/replay in 2.621 s. One admitted world and one rejected alternative remain; original sources/run and parent history are unchanged. No mocked constructor/runtime, inference, paid call or training. This verifies software integration, not real-source physical reconstruction.
 - [x] Add original source/rate/floor constraints to the simultaneous body proposal. The bounded source study still fails 6/34 source and 13/80 grid floor checks; preserve the rejected result and original limits. Small image/penetration improvement is not acceptance. Do not repeat the same solver-budget experiment.
 - [x] Finish the source-pinned perception bridge and review: all sampled pixels/decoder times/FPS verified, a sealed-pose tracking-only body anchor retained, and absolute deadline rechecked before provider send. Offline MP4 and canonical budget/timeout tests pass; no live API-backed bridge acceptance or automatic portal wiring is claimed. This checkpoint totals 278 distinct Python cases and 14 UI journeys; all implementation lanes released.
-- [ ] Wire unfamiliar-video equipment perception into the normal portal with explicit consent, shared provider budgets, background processing and immutable failures; prepared-source matching alone does not close this gap. Then qualify geometry/contact, useful full-task learning and independent broader evaluation under unchanged gates.
+- [x] Wire unfamiliar-video equipment perception into the normal portal with explicit consent, shared provider budgets, background processing and immutable failures. Real API-backed acceptance, qualified geometry/contact, useful full-task learning and independent broader evaluation remain pending above; wiring alone does not complete generalization.
 
 ## Product priority — November 2, 2026, 11:39 AM PST
 

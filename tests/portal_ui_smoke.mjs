@@ -23,6 +23,8 @@ function setup(jobs=[]) {
       if(path.endsWith("/muse")){info.jobs[0].muse={status:"queued",message:"Waiting"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/muse/checks")){info.jobs[0].muse.checks={status:"queued",message:"Waiting for local comparisons"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/muse/repairs")){info.jobs[0].muse.repairs={status:"queued",message:"Waiting for suggestion tests",applied:false};info.jobs[0].muse.repair_availability.available=false;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/perception/preflight")){info.jobs[0].perception={...info.jobs[0].perception,status:"queued_preflight"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/perception/prepare")){info.jobs[0].perception={...info.jobs[0].perception,status:"queued",quote:null};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/equipment/prepare")){info.jobs[0].equipment_candidates={status:"queued",message:"Waiting for conditional construction"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/equipment/select")){info.jobs[0].status="ready";info.jobs[0].equipment_candidate_id=JSON.parse(options.body).id;info.jobs[0].sandbox=`/labs/${info.jobs[0].id}/`;return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/supports")){const child={id:"e".repeat(32),name:info.jobs[0].name,kind:"support_experiment",parent_id:info.jobs[0].id,status:"queued",stage:"queued",events:[],source_available:false};info.jobs.unshift(child);return {ok:true,json:async()=>structuredClone(child)};}
@@ -231,4 +233,36 @@ function setup(jobs=[]) {
   assert.equal(e.get("equipment-alternatives").children[0].children[3].hidden,true);
   assert.ok(!f.calls.some(c=>c.path.includes("/files/equipment/")));
   console.log("PASS prepared equipment matching, authenticated deduplicated queue, retained failures and explicit frozen candidate selection");
+}
+
+{
+  const id="9".repeat(32), f=setup([{id,name:"equipment.mp4",ai:true,status:"needs_input",events:[],perception:{available:true,status:"not_started",message:"Local checks first"}}]);await tick();
+  const e=f.elements;
+  assert.equal(e.get("perception-preflight").hidden,false);assert.equal(e.get("perception-consent").hidden,true);
+  await Promise.all([e.get("perception-preflight").onclick(),e.get("perception-preflight").onclick()]);await tick();
+  assert.equal(f.calls.filter(c=>c.path.endsWith("/perception/preflight")).length,1);
+  assert.equal(e.get("cancel").textContent,"Cancel video preparation");assert.equal([...f.delays.values()].at(-1),1500);
+  const p=f.info.jobs[0].perception;
+  Object.assign(p,{status:"awaiting_consent",quote_sha256:"b".repeat(64),quote:{frame_count:68,openai_model:"gpt-4.1-mini",meta_model:"sam-3.1",openai_max_usd:.3135,meta_max_usd:.15,message:"Separate budgets"},artifacts:{quote:"perception/quote.json",body_evidence:"perception/preflight/body_source/evidence.json"}});
+  await e.get("refresh").onclick();await tick();
+  assert.equal(e.get("perception-openai").checked,false);assert.equal(e.get("perception-meta").checked,false);
+  assert.match(e.get("perception-quote").textContent,/68 source frames.*0.3135.*0.1500/);
+  assert.equal(e.get("perception-prepare").disabled,true);
+  e.get("perception-openai").checked=true;e.get("perception-openai").onchange();
+  assert.equal(e.get("perception-prepare").disabled,true);
+  e.get("perception-meta").checked=true;e.get("perception-meta").onchange();
+  assert.equal(e.get("perception-prepare").disabled,false);
+  p.busy=true;await e.get("refresh").onclick();await tick();assert.equal(e.get("perception-prepare").disabled,true);
+  p.busy=false;await e.get("refresh").onclick();await tick();
+  await Promise.all([e.get("perception-prepare").onclick(),e.get("perception-prepare").onclick()]);await tick();
+  const paid=f.calls.filter(c=>c.path.endsWith("/perception/prepare"));assert.equal(paid.length,1);
+  assert.equal(paid[0].options.headers.Authorization,"Bearer test-owner-token");
+  assert.deepEqual(JSON.parse(paid[0].options.body),{quote_sha256:"b".repeat(64),consent:{openai_sampled_images:true,meta_full_video_and_regions:true},openai_max_usd:.3135,meta_max_usd:.15,request_id:"a".repeat(32)});
+  Object.assign(f.info.jobs[0].perception,{status:"failed",error:"<script>provider uncertainty</script>"});
+  await e.get("refresh").onclick();await tick();
+  assert.equal(e.get("perception-status").textContent,"<script>provider uncertainty</script>");
+  assert.equal(e.get("perception-preflight").hidden,true);assert.equal(e.get("perception-consent").hidden,true);
+  assert.equal(f.calls.filter(c=>c.path.endsWith("/perception/prepare")).length,1);
+  assert.ok(!f.calls.some(c=>c.path.includes("/files/perception/")));
+  console.log("PASS local-only preflight, distinct media consents, quote caps, worker fence, one authenticated paid action and no retry");
 }

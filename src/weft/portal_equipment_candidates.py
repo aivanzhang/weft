@@ -20,6 +20,9 @@ TERMINAL = frozenset({"complete", "failed", "cancelled", "interrupted"})
 MAX_CATALOG_BYTES = 64 << 10
 MAX_ENTRIES = 12
 MAX_CANDIDATES = 3
+JOB_SOURCE_PROFILE = 'portal-job-perception-source-v1'
+JOB_SOURCE_PATH = 'perception/prepared-source.json'
+MAX_JOB_SOURCE_BYTES = 256 << 20
 SCOPE = "Conditional equipment simulations from verified prepared evidence; identities, camera, ground, geometry and contact remain hypotheses. Not automatic reconstruction of an unfamiliar video."
 
 
@@ -94,30 +97,37 @@ def availability(job, status, catalog):
 
 def validate_source_entry(entry, *, project=PROJECT_ROOT, max_seconds=15):
     """A matching upload hash only shortlists; complete source/equivalence validation admits inputs."""
+    entry = _entry(entry)
+    if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 0 < max_seconds <= 30:
+        raise ValueError("Prepared equipment validation must be bounded to 30 seconds")
+    return _validate_source_packages(entry['source_sha256'],
+        _path(project, entry['base']['path']), entry['base']['manifest_sha256'],
+        _path(project, entry['equipment']['path']), entry['equipment']['manifest_sha256'],
+        [(_path(project, item['path']), item['manifest_sha256']) for item in entry['mappings']],
+        deadline=time.monotonic()+max_seconds)
+
+
+def _validate_source_packages(source_sha256, base, base_pin, equipment, equipment_pin, mapping_inputs, *, deadline):
+    """Catalog and job-local sources share the same evidence admission, not catalog membership."""
     from weft.equipment_autoproposal import derive_equipment_config
     from weft.shared_world import validate_shared_world
     from weft.shared_world_packaging import collect_shared_source_files
     from weft.shared_world_pipeline import read_equipment_observations
     from weft.source_equivalence import load_source_equivalence
 
-    entry = _entry(entry)
-    if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 0 < max_seconds <= 30:
-        raise ValueError("Prepared equipment validation must be bounded to 30 seconds")
-    deadline = time.monotonic() + max_seconds
-    base, equipment = (_path(project, entry[key]['path']) for key in ('base', 'equipment'))
     base_manifest, base_files = read_package_manifest(base)
     equipment_manifest, equipment_files = read_package_manifest(equipment)
-    if (sha256(base_manifest).hexdigest() != entry['base']['manifest_sha256']
-            or sha256(equipment_manifest).hexdigest() != entry['equipment']['manifest_sha256']):
+    if (sha256(base_manifest).hexdigest() != base_pin
+            or sha256(equipment_manifest).hexdigest() != equipment_pin):
         raise ValueError("Prepared equipment source seals changed")
     if 'scene.json' not in base_files:
         raise ValueError('Prepared base scene lacks manifest coverage')
     scene_raw = read_package_file(base, 'scene.json', max_bytes=16 << 20, expected_sha256=base_files['scene.json'])
     scene = _json(scene_raw)
     if (validate_shared_world(scene) != scene or scene['source_binding']['mode'] != 'source_qualified'
-            or scene['source_binding']['source_sha256'] != entry['source_sha256']):
+            or scene['source_binding']['source_sha256'] != source_sha256):
         raise ValueError("Prepared equipment base is not the exact source-qualified uploaded video")
-    proof = collect_shared_source_files(scene, base, expected_manifest_sha256=entry['base']['manifest_sha256'], deadline=deadline)
+    proof = collect_shared_source_files(scene, base, expected_manifest_sha256=base_pin, deadline=deadline)
     human = next(row for row in scene['source_binding']['entity_bindings'] if row['world_entity_id'] == 'human')
     human_sha = human['observation_document_sha256']
     human_raw = proof.files[scene['source_binding']['evidence_documents'][human_sha]]
@@ -125,20 +135,19 @@ def validate_source_entry(entry, *, project=PROJECT_ROOT, max_seconds=15):
     documents = {human_sha: human_raw, sha256(equipment_raw).hexdigest(): equipment_raw}
     remaining = (64 << 20) - sum(map(len, documents.values()))
     equivalents, mappings = [], []
-    for item in entry['mappings']:
+    for path, pin in mapping_inputs:
         _check(deadline)
-        path = _path(project, item['path'])
         mapping = load_source_equivalence(path, max_input_bytes=remaining, deadline=deadline)
-        if mapping.manifest_sha256 != item['manifest_sha256']:
+        if mapping.manifest_sha256 != pin:
             raise ValueError("Prepared equipment source mapping seal changed")
         equivalents.append(mapping);mappings.append(path);remaining -= mapping.total_input_bytes
-    report, _ = derive_equipment_config(documents, source_sha256=entry['source_sha256'], human_ref=(human_sha, human['observation_entity_id']),
+    report, _ = derive_equipment_config(documents, source_sha256=source_sha256, human_ref=(human_sha, human['observation_entity_id']),
         equipment_document_sha256=sha256(equipment_raw).hexdigest(), body_references=scene['human_spec']['reference_evidence'],
         source_equivalences=equivalents, deadline=deadline)
     _check(deadline)
     return {'base_run': base, 'evidence_run': equipment, 'source_mappings': tuple(mappings)}, {
-        'source_sha256': entry['source_sha256'], 'base_manifest_sha256': entry['base']['manifest_sha256'],
-        'equipment_manifest_sha256': entry['equipment']['manifest_sha256'], 'role_status': report['status'],
+        'source_sha256': source_sha256, 'base_manifest_sha256': base_pin,
+        'equipment_manifest_sha256': equipment_pin, 'role_status': report['status'],
         'unresolved_reasons': report['reasons'], 'body_reference_count': len(scene['human_spec']['reference']),
         'raw_object_ids': [row['object_id'] for row in report['inventory']],
         'proposed_assignment': ({'body_correspondence': next(row['object_id'] for row in report['inventory']
@@ -146,6 +155,184 @@ def validate_source_entry(entry, *, project=PROJECT_ROOT, max_seconds=15):
             'rigid_proxies': [row['object_id'] for row in report['config']['equipment']]}
             if report.get('config') is not None else None),
         'source_slots': scene['source_binding']['total_source_frames'], 'scope': SCOPE}
+
+
+def _perception_source(root, bridge, *, project, deadline):
+    """Read completed bridge custody without decoding media, executing artifacts or consulting a catalog."""
+    from weft.exercise_perception_pipeline import PROFILE as BRIDGE_PROFILE, body_tracking_anchor, read_equipment_analysis
+    from weft.segmentation_evidence import adapt_tracking_run
+    from weft.segmentation_observations import adapt_segmentation
+    from weft.source_clock_capture import _file_hash
+
+    root = _path(Path(root).absolute().parent, Path(root).name)
+    bridge = Path(bridge).absolute()
+    if bridge != _path(root, 'perception/bridge'):
+        raise ValueError('Job-local evidence requires its fixed perception/bridge directory')
+    job_raw = read_package_file(root, 'job.json', max_bytes=64 << 10)
+    job = _json(job_raw)
+    source = job.get('source_sha256')
+    if (job.get('kind', 'video') != 'video' or not isinstance(source, str)
+            or not re.fullmatch(r'[a-f0-9]{64}', source) or not isinstance(job.get('source_file'), str)
+            or Path(job['source_file']).name != job['source_file'] or Path(job['source_file']).suffix.lower() != '.mp4'):
+        raise ValueError('Job-local evidence requires an exact original upload')
+    if _file_hash(root / job['source_file'], 37_000_000, deadline) != source:
+        raise ValueError('Job-local uploaded source changed')
+    manifest_raw, declared = read_package_manifest(bridge)
+    manifest = _json(manifest_raw)
+    if (manifest.get('profile') != BRIDGE_PROFILE or manifest.get('status') != 'evidence_ready'
+            or type(manifest.get('schema_version')) is not int or manifest['schema_version'] != 1
+            or len(declared) > 32 or (bridge / 'failure.json').exists()):
+        raise ValueError('Job-local source requires a completed perception bridge')
+    raw, total = {}, 0
+    for name, pin in declared.items():
+        _check(deadline)
+        raw[name] = read_package_file(bridge, name, max_bytes=min(4 << 20, (4 << 20)-total), expected_sha256=pin)
+        total += len(raw[name])
+    required = {'plan.json', 'result.json', 'body-anchor.json', 'implementation/exercise_perception_pipeline.py',
+                'analysis/frames.json', 'analysis/plan.json', 'analysis/request.json', 'analysis/response.json', 'analysis/receipt.json'}
+    if not required <= raw.keys():
+        raise ValueError('Perception bridge lacks source, anchor or provider receipt coverage')
+    result, plan = _json(raw['result.json']), _json(raw['plan.json'])
+    if (result.get('profile') != BRIDGE_PROFILE or result.get('status') != 'evidence_ready'
+            or result.get('source_sha256') != source or plan.get('source_sha256') != source
+            or result.get('assembly_inputs_ready') is not True or result.get('simulation_ready') is not False
+            or result.get('physics_steps') != 0 or result.get('source_mappings') != []
+            or result.get('body_anchor_status') != 'sealed_pose_tracking_hypothesis'):
+        raise ValueError('Perception result is not exact-source assembly evidence')
+    children = manifest.get('children')
+    if (not isinstance(children, dict) or not {'tracking', 'equipment_evidence'} <= children.keys()
+            or set(children) - {'tracking', 'equipment_evidence', 'body_seed', 'body_source'}):
+        raise ValueError('Perception bridge requires its exact tracking/equipment child seals')
+    child_manifests = {}
+    reserved = 0
+
+    def child(directory, pin):
+        nonlocal total, reserved
+        _check(deadline)
+        encoded, members = read_package_manifest(directory)
+        if sha256(encoded).hexdigest() != pin:
+            raise ValueError('Perception child manifest differs')
+        reserved += len(members)+1
+        if reserved > 1536:
+            raise ValueError('Perception source exceeds its aggregate file bound')
+        total += len(encoded)
+        for name in members:
+            _check(deadline)
+            target = directory / name
+            if any(p.is_symlink() for p in (target, *target.parents)) or not target.is_file():
+                raise ValueError('Perception child must contain regular contained members')
+            size = target.stat().st_size
+            total += size
+            if size > 64 << 20 or total > MAX_JOB_SOURCE_BYTES:
+                raise ValueError('Perception source exceeds its aggregate byte bound')
+        child_manifests[directory] = (encoded, members)
+        return encoded, members
+
+    for name, pin in children.items():
+        child(_path(bridge, name), pin)
+    equipment = _path(bridge, 'equipment_evidence')
+    if result.get('evidence_run') != str(equipment):
+        raise ValueError('Perception equipment result path differs from its sealed child')
+    preflight_pin = None
+    if result.get('preflight_descriptor') is not None:
+        if result['preflight_descriptor'] != 'preflight-descriptor.json' or 'preflight-descriptor.json' not in raw or 'body_seed' in children:
+            raise ValueError('Perception preflight reference must be sealed, not a fabricated local child')
+        external = _json(raw['preflight-descriptor.json'])
+        fields = {'profile', 'preflight_directory', 'preflight_manifest_sha256', 'base_run', 'base_manifest_sha256',
+                  'metadata_sha256', 'body_anchor_sha256'}
+        preflight = _path(root, 'perception/preflight')
+        base = _path(preflight, 'body_seed')
+        if (set(external) != fields or external['profile'] != 'exercise-perception-preflight-reference-v1'
+                or external['preflight_directory'] != str(preflight) or external['base_run'] != str(base)):
+            raise ValueError('Perception external body seed must stay in its fixed job-local preflight')
+        preflight_raw, preflight_files = child(preflight, external['preflight_manifest_sha256'])
+        preflight_document = _json(preflight_raw)
+        if (preflight_document.get('children', {}).get('body_seed') != external['base_manifest_sha256']
+                or preflight_files.get('metadata.json') != external['metadata_sha256']
+                or preflight_files.get('body-anchor.json') != external['body_anchor_sha256']):
+            raise ValueError('Perception preflight metadata/anchor/child identities differ')
+        child(base, external['base_manifest_sha256'])
+        if 'body_source' in preflight_document.get('children', {}):
+            child(_path(preflight, 'body_source'), preflight_document['children']['body_source'])
+        from weft.exercise_perception_pipeline import validate_perception_preflight
+        validate_perception_preflight(root / job['source_file'], preflight, deadline=deadline)
+        preflight_pin = sha256(raw['preflight-descriptor.json']).hexdigest()
+        base_pin = external['base_manifest_sha256']
+    else:
+        if 'body_seed' not in children:
+            raise ValueError('Perception has no sealed body seed')
+        base = _path(bridge, 'body_seed')
+        base_pin = children['body_seed']
+    if result.get('base_run') != str(base):
+        raise ValueError('Perception body result path differs from its sealed seed')
+    proposal, analysis_files = read_equipment_analysis(bridge / 'analysis')
+    if proposal['source_sha256'] != source or any(raw.get('analysis/'+name) != value for name, value in analysis_files.items()):
+        raise ValueError('Perception analysis differs from its exact sealed receipt')
+    base_files = child_manifests[base][1]
+    scene = _json(read_package_file(base, 'scene.json', max_bytes=16 << 20, expected_sha256=base_files.get('scene.json')))
+    anchor = body_tracking_anchor(base, scene, proposal)
+    if anchor != _json(raw['body-anchor.json']):
+        raise ValueError('Perception body anchor differs from its exact source landmarks')
+    evidence_files = child_manifests[equipment][1]
+    evidence = adapt_tracking_run(bridge / 'tracking')
+    initialized = sorted([[int(row['raw_model_id']), row['initialization']['frame'], *row['initialization']['roi']]
+                          for row in evidence['objects']])
+    if (evidence['source']['submitted_video_sha256'] != source or initialized != [*proposal['boxes'], anchor['prompt']]
+            or result.get('tracking_manifest_sha256') != children['tracking']
+            or evidence['provenance']['tracking_verification']['manifest_sha256'] != children['tracking']):
+        raise ValueError('Perception tracking does not bind the original analysis and body anchor')
+    for name, value in (('segmentation-evidence.json', evidence), ('scene-observations.json', adapt_segmentation(evidence))):
+        if name not in evidence_files or _json(read_package_file(equipment, name, max_bytes=64 << 20,
+                expected_sha256=evidence_files[name])) != value:
+            raise ValueError('Perception exported observations differ from their original tracking receipt')
+    inputs, proof = _validate_source_packages(source, base, base_pin, equipment, children['equipment_evidence'], [], deadline=deadline)
+    descriptor = {'schema_version': 1, 'profile': JOB_SOURCE_PROFILE, 'source_sha256': source,
+        'job_sha256': sha256(job_raw).hexdigest(), 'bridge': {'path': 'perception/bridge', 'manifest_sha256': sha256(manifest_raw).hexdigest()},
+        'base': {'path': base.relative_to(root).as_posix(), 'manifest_sha256': base_pin},
+        'equipment': {'path': equipment.relative_to(root).as_posix(), 'manifest_sha256': children['equipment_evidence']},
+        'mappings': [], 'assembly_inputs_ready': True, 'physical_validation': 'unverified',
+        'provenance': {'bridge_result_sha256': declared['result.json'], 'body_anchor_sha256': declared['body-anchor.json'],
+            'analysis_request_sha256': proposal['request_sha256'], 'analysis_response_sha256': declared['analysis/response.json'],
+            'analysis_receipt_sha256': declared['analysis/receipt.json'], 'tracking_manifest_sha256': children['tracking'],
+            'preflight_descriptor_sha256': preflight_pin}}
+    for directory, (encoded, members) in child_manifests.items():
+        _check(deadline)
+        if read_package_manifest(directory)[0] != encoded:
+            raise ValueError('Perception child changed during qualification')
+        for name, pin in members.items():
+            _check(deadline)
+            read_package_file(directory, name, max_bytes=64 << 20, expected_sha256=pin)
+    for name, encoded in raw.items():
+        read_package_file(bridge, name, max_bytes=max(1, len(encoded)), expected_sha256=sha256(encoded).hexdigest())
+    if read_package_manifest(bridge)[0] != manifest_raw or read_package_file(root, 'job.json', max_bytes=64 << 10) != job_raw:
+        raise ValueError('Perception bridge or job changed during qualification')
+    if _file_hash(root / job['source_file'], 37_000_000, deadline) != source:
+        raise ValueError('Uploaded source changed during perception qualification')
+    _check(deadline)
+    return descriptor, inputs, {**proof, 'source_kind': 'perception', 'bridge_manifest_sha256': descriptor['bridge']['manifest_sha256'],
+                               'provenance': descriptor['provenance']}
+
+
+def publish_perception_source(root, bridge, *, project=PROJECT_ROOT):
+    """Publish one immutable job-local descriptor; never write the administrator catalog."""
+    descriptor, _, _ = _perception_source(root, bridge, project=project, deadline=time.monotonic()+30)
+    encoded = (json.dumps(descriptor, sort_keys=True, indent=2)+'\n').encode()
+    target = Path(root) / JOB_SOURCE_PATH
+    if target.exists():
+        if read_package_file(root, JOB_SOURCE_PATH, max_bytes=16 << 10) != encoded:
+            raise ValueError('Job-local perception descriptor already binds different evidence')
+    else:
+        write_package_files(root, {JOB_SOURCE_PATH: encoded})
+    return descriptor
+
+
+def validate_job_source(root, *, project=PROJECT_ROOT):
+    """Resolve only the fixed descriptor and rederive every source/receipt join at action time."""
+    encoded = read_package_file(root, JOB_SOURCE_PATH, max_bytes=16 << 10)
+    descriptor, inputs, proof = _perception_source(root, Path(root)/'perception/bridge', project=project, deadline=time.monotonic()+30)
+    if encoded != (json.dumps(descriptor, sort_keys=True, indent=2)+'\n').encode() or read_package_file(root, JOB_SOURCE_PATH, max_bytes=16 << 10) != encoded:
+        raise ValueError('Job-local perception descriptor differs from its qualified source')
+    return inputs, {**proof, 'descriptor_sha256': sha256(encoded).hexdigest()}
 
 
 def register_equipment_source(root, *, source_sha256, base_run, evidence_run, source_mappings=(), label, project=PROJECT_ROOT):
@@ -275,13 +462,22 @@ def execute_equipment_job(root, *, project=PROJECT_ROOT):
         job = _json(read_package_file(root, 'job.json', max_bytes=64 << 10))
         request_raw = read_package_file(work, 'request.json', max_bytes=16 << 10)
         request = _json(request_raw)
-        if (request.get('profile') != PROFILE or request.get('source_sha256') != job['source_sha256']
-                or request.get('entry_sha256') != canonical_hash(request.get('entry'))):
+        if request.get('profile') != PROFILE or request.get('source_sha256') != job['source_sha256']:
             raise ValueError('Equipment request identity differs')
-        entry = _entry(request['entry'])
-        catalog = read_catalog(root.parent)
-        if entry not in catalog['entries'] or entry['source_sha256'] != job['source_sha256']:
-            raise ValueError('Prepared equipment registration changed after queuing')
+        perception = request.get('source_kind') == 'perception'
+        if perception:
+            if (set(request) != {'profile', 'source_kind', 'source_sha256', 'descriptor_sha256'}
+                    or not isinstance(request['descriptor_sha256'], str)
+                    or not re.fullmatch(r'[a-f0-9]{64}', request['descriptor_sha256'])):
+                raise ValueError('Perception equipment requests require only the exact job-local descriptor pin')
+            read_package_file(root, JOB_SOURCE_PATH, max_bytes=16 << 10, expected_sha256=request['descriptor_sha256'])
+        else:
+            if request.get('source_kind') not in (None, 'catalog') or request.get('entry_sha256') != canonical_hash(request.get('entry')):
+                raise ValueError('Equipment catalog request identity differs')
+            entry = _entry(request['entry'])
+            catalog = read_catalog(root.parent)
+            if entry not in catalog['entries'] or entry['source_sha256'] != job['source_sha256']:
+                raise ValueError('Prepared equipment registration changed after queuing')
         if read_package_file(root, 'status.json', max_bytes=32 << 10) != read_package_file(work, 'parent-status.json', max_bytes=32 << 10):
             raise ValueError('Parent project changed during equipment construction')
         if Path(job['source_file']).name != job['source_file']:
@@ -293,7 +489,9 @@ def execute_equipment_job(root, *, project=PROJECT_ROOT):
             atomic_json(work / 'status.json', {'status':'cancelled','message':'Cancelled before equipment construction; upload unchanged.'})
             return 0
         atomic_json(work / 'status.json', {'status':'running','message':'Verifying prepared source evidence and constructing bounded conditional alternatives.'})
-        inputs, proof = validate_source_entry(entry, project=project)
+        inputs, proof = validate_job_source(root, project=project) if perception else validate_source_entry(entry, project=project)
+        if perception and proof['descriptor_sha256'] != request['descriptor_sha256']:
+            raise ValueError('Perception descriptor changed after the equipment request')
         write_package_files(work, {'source-validation.json':(json.dumps(proof,sort_keys=True,indent=2)+'\n').encode()})
         if proof.get('role_status') == 'config_proposed':
             from weft.equipment_autoproposal import prepare_automatic_equipment_scene

@@ -27,7 +27,9 @@ The user starts/manages this server. No browser opens automatically. Use
    person-only sandbox; this is your scope declaration, not verified absence.
    If this exact video has registered prepared equipment evidence, **Build
    candidates** constructs the supported alternatives in the background.
-   Unfamiliar mixed-video reconstruction is not yet automatic.
+   Otherwise, **Check video locally** starts new source preparation. Passing
+   local checks offers separate consent for OpenAI images and Meta video tracking;
+   passing those stages still does not guarantee a playable world.
 3. Watch the processing stages. The original, sampled frames,
    scene proposal, API receipt, failure reasons and processing log are inspectable.
 4. For a completed simulation, select **Open interactive sandbox**. Inspect the source, tracks and geometry;
@@ -160,14 +162,36 @@ saved inputs does not establish arbitrary-video reconstruction.
 
 [Current verification and remaining work](handoffs/conditional-equipment-and-constraints.md).
 
+### Prepare an unfamiliar exercise video
+
+Choose **Exercise**, **Equipment/obstacles** or **Unsure**, and **Interactive scene
+simulation**. In the unresolved project, select **Check video locally**. Inspect
+the estimated body, pose evidence, clock and preview before paying for new media
+analysis. If local checks pass, inspect the separate provider reservations and
+explicitly choose both image and video permissions, then **Prepare with the displayed AI
+allowances**. The existing candidate cards handle selection and sandbox access.
+
+OpenAI receives sampled images; Meta tracking receives the whole original video
+and inferred regions. This tracking call is separate from the later **Muse review**
+of a completed world. Old upload consent does not authorize a new Meta upload.
+Duplicates, cancellation and restarts do not automatically repeat paid requests.
+
+The current path requires an MP4 ≤37 MB/500 frames/60 seconds and a usable initial
+person pose, with at most three equipment objects. Missing/uncertain regions,
+camera movement, source-quality failures and rejected geometry remain visible.
+No person-only simulation is substituted for a failed mixed scene. The current
+real squat test stops before payment because two initial landmarks have low
+visibility; its evidence is preserved. [Verified scope and limitations](handoffs/portal-perception.md).
+
 ### Prepare new equipment evidence offline
 
 The developer command `exercise-perceive` binds a saved OpenAI analysis to the
 exact original MP4 and prepares the existing tracking request. It verifies every
 sampled image/time and adds a tracking-only person anchor from a sealed body.
 It is offline by default; explicit execution uses the shared Meta budget.
-This bridge is not yet a button for unfamiliar uploads, and evidence preparation
-does not guarantee world admission. See the [command and supported limits](handoffs/conditional-equipment-and-constraints.md#source-pinned-perception-bridge).
+The portal now uses this same bridge after local preflight and separate consent.
+Evidence preparation does not guarantee world admission. See the
+[command and supported limits](handoffs/conditional-equipment-and-constraints.md#source-pinned-perception-bridge).
 
 ## API configuration and spending
 

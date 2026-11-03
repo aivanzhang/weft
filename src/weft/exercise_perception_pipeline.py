@@ -16,6 +16,177 @@ from weft.shared_world_packaging import read_package_file, read_package_manifest
 
 PROFILE = "exercise-perception-bridge-v1"
 SCOPE = "AI-proposed equipment regions and inferred poses/masks; inventory, identity, depth, contact and physical parameters remain unverified."
+PREFLIGHT_PROFILE = "exercise-perception-preflight-v1"
+
+
+def _check_deadline(deadline):
+    if type(deadline) not in (int, float) or not math.isfinite(deadline) or time.monotonic() >= deadline:
+        raise TimeoutError("Perception preflight deadline expired")
+
+
+def _preflight_metadata(value):
+    if (not isinstance(value, dict) or type(value.get("frame_count")) is not int or not 12 <= value["frame_count"] <= 500
+            or any(type(value.get(k)) is not int for k in ("width", "height"))
+            or not 64 <= value["width"] <= 4096 or not 64 <= value["height"] <= 2160
+            or value["width"]*value["height"] > 8_847_360
+            or type(value.get("fps")) not in (int, float) or not math.isfinite(value["fps"]) or not 1 <= value["fps"] <= 120
+            or value["frame_count"]/value["fps"] > 60):
+        raise ValueError("Perception preflight requires complete original tracking-sized source metadata")
+    times = value.get("decoder_timestamps_s")
+    if (not isinstance(times, list) or len(times) != value["frame_count"]
+            or any(type(t) not in (int, float) or not math.isfinite(t) or t < 0 for t in times)
+            or any(b <= a for a, b in zip(times, times[1:])) or times[-1]-times[0] > 60):
+        raise ValueError("Perception preflight requires complete increasing decoder times within sixty seconds")
+    return value
+
+
+def _preflight_seed(seed, metadata, *, deadline, expected_manifest_sha256=None):
+    from weft.shared_world_packaging import collect_shared_source_files
+
+    _check_deadline(deadline)
+    manifest, declared = read_package_manifest(seed)
+    pin = sha256(manifest).hexdigest()
+    if expected_manifest_sha256 is not None and pin != expected_manifest_sha256:
+        raise ValueError("Preflight body seed manifest changed")
+    seed_manifest = _json(manifest)
+    if (len(declared) > 511 or "construction-seed.json" not in declared
+            or seed_manifest.get("status") != "construction_only" or seed_manifest.get("simulation_ready") is not False
+            or (Path(seed)/"failure.json").exists() or (Path(seed)/"failure.json").is_symlink()):
+        raise ValueError("Preflight requires a bounded construction-only body seed")
+    scene = _json(read_package_file(seed, "scene.json", max_bytes=16 << 20, expected_sha256=declared["scene.json"]))
+    proof = collect_shared_source_files(scene, seed, expected_manifest_sha256=pin, deadline=deadline)
+    total = len(manifest)
+    for name, digest_value in declared.items():
+        _check_deadline(deadline)
+        if name in proof.files:
+            raw = proof.files[name]
+        else:
+            raw = read_package_file(seed, name, max_bytes=min(64 << 20, max(1, (128 << 20)-total)), expected_sha256=digest_value)
+        total += len(raw)
+        if total > 128 << 20:
+            raise ValueError("Preflight body seed exceeds its byte bound")
+    if scene["source_binding"]["source_sha256"] != metadata["source_sha256"]:
+        raise ValueError("Preflight body source differs from original video")
+    human = next(row for row in scene["source_binding"]["entity_bindings"] if row["world_entity_id"] == "human")
+    doc_pin = human["observation_document_sha256"]
+    doc = _json(proof.files[scene["source_binding"]["evidence_documents"][doc_pin]])
+    source = doc["source"]
+    if (source["decoded_frames"] != metadata["frame_count"] or source["width_px"] != metadata["width"]
+            or source["height_px"] != metadata["height"] or source.get("fps") != metadata["fps"]):
+        raise ValueError("Preflight body frame inventory differs from decoded source")
+    if "native_clock" in source:
+        for row, actual in zip(source["native_clock"]["rows"], metadata["decoder_timestamps_s"], strict=True):
+            if row["decoder_timestamp_s"] is not None and row["decoder_timestamp_s"] != actual:
+                raise ValueError("Preflight native capture and source decoder clock differ")
+    proposal = {**metadata, "boxes": []}
+    anchor = body_tracking_anchor(seed, scene, proposal)
+    return pin, anchor
+
+
+def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_source=None, max_seconds=210):
+    """Prepare source/body custody before either provider; never send or reserve API money."""
+    from weft.segmentation_lab import inspect_video
+    from weft.exercise_body_source import prepare_exercise_body_source
+    from weft.shared_world_lab import prepare_shared_world_seed
+
+    if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= 210:
+        raise ValueError("Perception preflight requires a 1–210 second bound")
+    if body_source is not None and pose_model is not None:
+        raise ValueError("Choose an existing body or a local pose model, not both")
+    started = time.monotonic(); deadline = started+max_seconds
+    video, out = _path(video), _path(out)
+    supplied = [_path(v) for v in (body_source, pose_model) if v is not None]
+    if out.exists() or any(out == p or out.is_relative_to(p) or p.is_relative_to(out) for p in [video, *supplied]):
+        raise ValueError("Choose a new preflight directory outside every input")
+    if body_source is None and (pose_model is None or not _path(pose_model).is_file()):
+        raise ValueError("Local pose model or exact sealed body is required before AI analysis")
+    metadata = _preflight_metadata(inspect_video(video, deadline=deadline, include_fps=True))
+    _check_deadline(deadline); out.mkdir(parents=True)
+    write_json(out/"metadata.json", metadata)
+    stage = "body"
+    try:
+        generated_body = body_source is None
+        if generated_body:
+            body_source = out/"body_source"
+            prepare_exercise_body_source(video, body_source, pose_model=pose_model, native_timing=True,
+                source_note="Local source-bound preflight before API analysis; no source rights claim",
+                max_seconds=min(180, deadline-time.monotonic()))
+        stage = "seed"
+        seed = prepare_shared_world_seed(body_source, out/"body_seed", deadline=deadline)
+        stage = "anchor"
+        seed_pin, anchor = _preflight_seed(seed, metadata, deadline=deadline)
+        write_json(out/"body-anchor.json", anchor)
+        if digest(video) != metadata["source_sha256"]:
+            raise ValueError("Original video changed during local preflight")
+        result = {"profile": PREFLIGHT_PROFILE, "status": "local_ready", "source_sha256": metadata["source_sha256"],
+            "metadata": metadata, "base_run": str(seed), "base_manifest_sha256": seed_pin,
+            "body_anchor": anchor, "preflight_directory": str(out), "api_calls": 0,
+            "inference_calls": int(generated_body), "simulation_ready": False, "seconds": time.monotonic()-started}
+        write_json(out/"result.json", result)
+        write_package_files(out, {"implementation/exercise_perception_pipeline.py": Path(__file__).read_bytes()})
+        names = ("metadata.json", "body-anchor.json", "result.json", "implementation/exercise_perception_pipeline.py")
+        children = {"body_seed": seed_pin}
+        if generated_body:
+            children["body_source"] = digest(out/"body_source/manifest.json")
+        _check_deadline(deadline)
+        write_json(out/"manifest.json", {"schema_version": 1, "profile": PREFLIGHT_PROFILE, "status": "local_ready",
+            "files": {name: digest(out/name) for name in names}, "children": children})
+        return {**result, "manifest_sha256": digest(out/"manifest.json")}
+    except Exception as error:
+        write_json(out/"failure.json", {"stage": stage, "error_type": type(error).__name__, "message": str(error)[:500],
+            "api_calls": 0, "retry": False, "scope": "Local source evidence retained; no provider call or reservation"})
+        raise
+
+
+def validate_perception_preflight(video, preflight, *, deadline):
+    """Revalidate sealed inputs without inference, source decoding or rebuilding the seed."""
+    _check_deadline(deadline)
+    video, preflight = _path(video), _path(preflight)
+    if (video.suffix.lower() != ".mp4" or not 1 <= video.stat().st_size <= 37_000_000
+            or (preflight/"failure.json").exists() or (preflight/"failure.json").is_symlink()):
+        raise ValueError("Preflight needs its unchanged original MP4 and no failure marker")
+    raw, declared = read_package_manifest(preflight)
+    manifest = _json(raw)
+    names = {"metadata.json", "body-anchor.json", "result.json", "implementation/exercise_perception_pipeline.py"}
+    if (set(declared) != names or manifest.get("profile") != PREFLIGHT_PROFILE or manifest.get("status") != "local_ready"
+            or set(manifest.get("children", {})) not in ({"body_seed"}, {"body_seed", "body_source"})):
+        raise ValueError("Preflight seal differs from the closed local preparation contract")
+    files = {name: read_package_file(preflight, name, max_bytes=(1 << 20), expected_sha256=pin) for name, pin in declared.items()}
+    if files["implementation/exercise_perception_pipeline.py"] != Path(__file__).read_bytes():
+        raise ValueError("Preflight implementation differs from this reviewed runtime; explicit compatibility is required")
+    metadata = _preflight_metadata(_json(files["metadata.json"]))
+    if digest(video) != metadata.get("source_sha256"):
+        raise ValueError("Preflight video differs from its original source")
+    seed = preflight/"body_seed"
+    pin, anchor = _preflight_seed(seed, metadata, deadline=deadline, expected_manifest_sha256=manifest["children"]["body_seed"])
+    result = _json(files["result.json"])
+    result_fields = {"profile", "status", "source_sha256", "metadata", "base_run", "base_manifest_sha256",
+                     "body_anchor", "preflight_directory", "api_calls", "inference_calls", "simulation_ready", "seconds"}
+    if (set(result) != result_fields or result.get("profile") != PREFLIGHT_PROFILE or result.get("status") != "local_ready"
+            or type(result.get("api_calls")) is not int or result["api_calls"] != 0
+            or type(result.get("seconds")) not in (int, float) or not math.isfinite(result["seconds"]) or not 0 <= result["seconds"] <= 210
+            or result.get("simulation_ready") is not False or type(result.get("inference_calls")) is not int
+            or result["inference_calls"] != int("body_source" in manifest["children"])
+            or result.get("metadata") != metadata or result.get("source_sha256") != metadata["source_sha256"]
+            or result.get("base_run") != str(seed) or result.get("base_manifest_sha256") != pin
+            or result.get("preflight_directory") != str(preflight) or result.get("body_anchor") != anchor
+            or _json(files["body-anchor.json"]) != anchor):
+        raise ValueError("Preflight result or body anchor differs from sealed source inputs")
+    if "body_source" in manifest["children"]:
+        if (preflight/"body_source/failure.json").exists() or (preflight/"body_source/failure.json").is_symlink():
+            raise ValueError("Preflight generated body gained a failure marker")
+        body_raw, body_files = read_package_manifest(preflight/"body_source")
+        if sha256(body_raw).hexdigest() != manifest["children"]["body_source"] or len(body_files) > 511:
+            raise ValueError("Preflight generated-body manifest changed")
+        body_bytes = len(body_raw)
+        for name, expected in body_files.items():
+            _check_deadline(deadline)
+            body_bytes += len(read_package_file(preflight/"body_source", name,
+                max_bytes=min(64 << 20, max(1, (128 << 20)-body_bytes)), expected_sha256=expected))
+            if body_bytes > 128 << 20:
+                raise ValueError("Preflight generated body exceeds its original bound")
+    _check_deadline(deadline)
+    return {**result, "manifest_sha256": sha256(raw).hexdigest()}
 
 
 def body_tracking_anchor(seed, scene, proposal):
@@ -139,24 +310,33 @@ def read_equipment_analysis(analysis):
 
 def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_source=None,
                                 saved_tracking=None, execute_tracking=False, max_meta_cost_usd=None,
-                                project_root=None, max_seconds=420):
+                                project_root=None, max_seconds=420, preflight=None, progress=None):
     """Prepare offline by default; explicit execution reuses the canonical one-call Meta adapter."""
     from weft.segmentation_lab import inspect_video, track_video
 
     if type(execute_tracking) is not bool or (execute_tracking and saved_tracking is not None):
         raise ValueError("Choose one new tracking request or a saved exact-source tracking run")
+    if preflight is not None and (pose_model is not None or body_source is not None):
+        raise ValueError("Reusable preflight owns its original body/model; do not override it")
+    if progress is not None and not callable(progress):
+        raise ValueError("Perception progress requires a bounded stage callback")
     if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= 420:
         raise ValueError("Perception preparation requires a 1–420 second bound")
     started = time.monotonic(); deadline = started + max_seconds
     def check():
         if time.monotonic() >= deadline:
             raise TimeoutError("Exercise perception exceeded its work deadline")
+    def report(stage, message):
+        check()
+        if progress is not None:
+            progress({"stage": stage, "message": message, "seconds": time.monotonic()-started})
     video, analysis, out = map(_path, (video, analysis, out))
-    inputs = [video, analysis, *(_path(v) for v in (body_source, saved_tracking, pose_model) if v is not None)]
+    inputs = [video, analysis, *(_path(v) for v in (body_source, saved_tracking, pose_model, preflight) if v is not None)]
     if out.exists() or any(out == p or out.is_relative_to(p) or p.is_relative_to(out) for p in inputs):
         raise ValueError("Choose a new perception directory outside every input")
+    report("validating_analysis", "Checking exact saved AI regions and source images")
     proposal, analysis_files = read_equipment_analysis(analysis)
-    needs_body = execute_tracking or saved_tracking is not None or body_source is not None
+    needs_body = execute_tracking or saved_tracking is not None or body_source is not None or preflight is not None
     if needs_body and len(proposal["boxes"]) > 3:
         raise ValueError("At most three AI equipment regions plus one sealed person anchor fit this route; no truncation")
     import cv2
@@ -179,7 +359,14 @@ def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_s
         if not ok or encoded.tobytes() != analysis_files[row["artifact"]]:
             raise ValueError("Analysis image differs from decoded source pixels")
         verified.add(index)
+    prepared = None
+    if preflight is not None:
+        report("validating_preflight", "Reusing sealed local body evidence; no repeated pose inference")
+        prepared = validate_perception_preflight(video, preflight, deadline=deadline)
     metadata = inspect_video(video, deadline=deadline, frame_inspector=inspect_frame, include_fps=True)
+    if prepared is not None and any(metadata[k] != prepared["metadata"][k]
+            for k in ("source_sha256", "width", "height", "frame_count", "fps", "decoder_timestamps_s")):
+        raise ValueError("Analyzed source differs from the reusable preflight decoder metadata")
     if (any(metadata[k] != proposal[k] for k in ("source_sha256", "width", "height", "frame_count"))
             or metadata["fps"] != frame_rows["fps"] or verified != set(wanted)):
         raise ValueError("Tracking video differs from the exact analyzed source; implicit conversion is unsupported")
@@ -201,7 +388,7 @@ def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_s
         saved = adapt_tracking_run(saved_tracking)
         check_tracking(saved, proposal["boxes"], equipment_only=True)
         tracking_pin = digest(_path(saved_tracking) / "manifest.json")
-    if (execute_tracking or saved_tracking is not None) and body_source is None and pose_model is None:
+    if (execute_tracking or saved_tracking is not None) and prepared is None and body_source is None and pose_model is None:
         raise ValueError("Executing perception requires a local pose model or exact sealed body source")
     check(); out.mkdir(parents=True)
     write_package_files(out, {"analysis/"+name: raw for name, raw in analysis_files.items()})
@@ -213,6 +400,13 @@ def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_s
             "tracking_reservation_usd": estimate, "maximum_seconds": max_seconds,
             "source_format": "original MP4 only; no implicit conversion or timing rewrite"}
     write_json(out / "plan.json", plan)
+    if prepared is not None:
+        preflight_path = _path(preflight)
+        descriptor = {"profile": "exercise-perception-preflight-reference-v1", "preflight_directory": str(preflight_path),
+            "preflight_manifest_sha256": prepared["manifest_sha256"], "base_run": prepared["base_run"],
+            "base_manifest_sha256": prepared["base_manifest_sha256"],
+            "metadata_sha256": digest(preflight_path/"metadata.json"), "body_anchor_sha256": digest(preflight_path/"body-anchor.json")}
+        write_json(out/"preflight-descriptor.json", descriptor)
     stage = "prepare_tracking"
     try:
         if not needs_body:
@@ -221,26 +415,34 @@ def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_s
                       "body_anchor_status": "required_before_assembly_or_paid_tracking", "assembly_inputs_ready": False}
         else:
             stage = "body"
+            report("preparing_body", "Checking source-bound body and person tracking anchor")
             from weft.shared_world_lab import prepare_shared_world_seed
             from weft.exercise_body_source import prepare_exercise_body_source
 
-            if body_source is None:
+            if prepared is None and body_source is None:
                 body_source = out / "body_source"
                 prepare_exercise_body_source(video, body_source, pose_model=pose_model, native_timing=True,
                     source_note="Exact source from saved AI analysis; source rights remain uploader responsibility",
                     max_seconds=min(180, deadline-time.monotonic()))
-            seed = prepare_shared_world_seed(body_source, out / "body_seed", deadline=deadline)
+            seed = (Path(prepared["base_run"]) if prepared is not None else
+                    prepare_shared_world_seed(body_source, out / "body_seed", deadline=deadline))
             scene = _json(read_package_file(seed, "scene.json", max_bytes=16 << 20))
             if scene["source_binding"]["source_sha256"] != proposal["source_sha256"]:
                 raise ValueError("Body source differs from the tracked original video")
             anchor = body_tracking_anchor(seed, scene, proposal)
+            if prepared is not None:
+                expected_anchor = {**prepared["body_anchor"], "prompt": [len(proposal["boxes"])+1, *prepared["body_anchor"]["prompt"][1:]]}
+                if anchor != expected_anchor:
+                    raise ValueError("Reusable preflight person ROI changed after AI analysis")
             boxes = [*proposal["boxes"], anchor["prompt"]]
             write_json(out / "body-anchor.json", anchor)
             if saved_tracking is not None:
                 check_tracking(saved, boxes)
             check(); stage = "tracking"
+            report("preparing_tracking", "Preparing exact original video and source-bound tracking regions")
             if saved_tracking is None:
                 saved_tracking = out / "tracking"
+                report("tracking" if execute_tracking else "preparing_tracking", "One bounded tracking request" if execute_tracking else "Preparing offline request; nothing sent")
                 track_video(video, saved_tracking, boxes, execute=execute_tracking,
                             max_cost_usd=max_meta_cost_usd, project_root=project_root, deadline=deadline)
                 tracking_pin = digest(saved_tracking / "manifest.json")
@@ -249,6 +451,7 @@ def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_s
                           "body_anchor_status": "sealed_pose_tracking_hypothesis", "assembly_inputs_ready": False}
             else:
                 check(); stage = "tracking_evidence"
+                report("exporting_evidence", "Preserving raw tracking slots, source clocks and unresolved identities")
                 from weft.segmentation_observations import export_tracking_evidence
                 export_tracking_evidence(saved_tracking, out / "equipment_evidence")
                 check_tracking(_json(read_package_file(out / "equipment_evidence", "segmentation-evidence.json", max_bytes=64_000_000)), boxes)
@@ -263,6 +466,11 @@ def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_s
         if digest(video) != proposal["source_sha256"]:
             raise ValueError("Original video changed during perception")
         check()
+        if prepared is not None:
+            if (digest(_path(preflight)/"manifest.json") != prepared["manifest_sha256"]
+                    or digest(Path(prepared["base_run"])/"manifest.json") != prepared["base_manifest_sha256"]):
+                raise ValueError("Reusable preflight or body seed changed during perception")
+            result["preflight_descriptor"] = "preflight-descriptor.json"
         result.update(profile=PROFILE, scope=SCOPE, source_sha256=proposal["source_sha256"],
                       seconds=time.monotonic()-started, physics_steps=0, simulation_ready=False)
         write_json(out / "result.json", result)
@@ -271,6 +479,8 @@ def prepare_exercise_perception(video, analysis, out, *, pose_model=None, body_s
                  *("analysis/"+name for name in analysis_files)]
         if (out / "body-anchor.json").is_file():
             names.append("body-anchor.json")
+        if prepared is not None:
+            names.append("preflight-descriptor.json")
         children = [name for name in ("body_source", "body_seed", "tracking", "equipment_evidence")
                     if (out/name/"manifest.json").is_file()]
         write_json(out / "manifest.json", {"schema_version": 1, "profile": PROFILE, "status": result["status"],

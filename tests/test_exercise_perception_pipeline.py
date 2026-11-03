@@ -24,7 +24,11 @@ def inputs(tmp_path):
         cv2.rectangle(frame, (20+i, 40), (40+i, 70), (40, 80, 100), -1)
         writer.write(frame)
     writer.release()
-    analysis = tmp_path / "analysis"
+    analysis = _fixture_analysis(video, tmp_path / "analysis")
+    return video, analysis, tmp_path / "output"
+
+
+def _fixture_analysis(video, analysis):
     frames = sample_video(video, analysis)
     plan = {"route":"exercise", "camera":"fixed", "people":1,
         "summary":"Synthetic response fixture; no real person or provider call", "warnings":[],
@@ -48,7 +52,7 @@ def inputs(tmp_path):
         "provider":"openai", "authentication":"server_project_api_key", "fixture":True}
     for name,value in (("plan.json",plan),("request.json",saved),("response.json",response),("receipt.json",receipt)):
         write_json(analysis/name,value)
-    return video, analysis, tmp_path / "output"
+    return analysis
 
 
 def test_real_offline_request_uses_exact_source_and_outward_rounded_regions(inputs, monkeypatch):
@@ -280,3 +284,163 @@ def test_existing_body_prepares_person_plus_equipment_without_inference_or_api(i
     assert '1<|box' in text and '2<|box' in text
     manifest=json.loads((out/'manifest.json').read_bytes())
     assert manifest['files']['body-anchor.json']==digest(out/'body-anchor.json')
+
+
+@pytest.fixture
+def local_preflight_source(tmp_path):
+    from test_exercise_body_source import pose_run, write_pose_files, seal
+    from weft.exercise_body_source import prepare_exercise_body_source_from_evidence
+    video=tmp_path/'original.mp4'
+    writer=cv2.VideoWriter(str(video),cv2.VideoWriter_fourcc(*'mp4v'),30,(640,480));assert writer.isOpened()
+    for _ in range(63):writer.write(np.full((480,640,3),180,np.uint8))
+    writer.release()
+    poses=pose_run(tmp_path/'poses')
+    (poses/'source.webm').write_bytes(video.read_bytes())
+    write_json(poses/'source.json',{'artifact':'source.webm','sha256':digest(video),'rights':'Analytical fixture, no physical person'})
+    write_pose_files(poses,dropped=());seal(poses)
+    body=tmp_path/'body';prepare_exercise_body_source_from_evidence(poses,body)
+    return video,body
+
+
+def test_real_sealed_preflight_revalidates_without_decode_inference_or_seed_rebuild(local_preflight_source,tmp_path,monkeypatch):
+    import time
+    import weft.exercise_body_source as bodies
+    import weft.shared_world_lab as worlds
+    import weft.segmentation_lab as tracking
+    video,body=local_preflight_source
+    prepared=bridge.prepare_exercise_perception_preflight(video,tmp_path/'preflight',body_source=body)
+    assert prepared['status']=='local_ready' and prepared['inference_calls']==prepared['api_calls']==0
+    assert prepared['body_anchor']['prompt'][0]==1 and prepared['metadata']['frame_count']==63
+    def forbidden(*a,**k):pytest.fail('Validation cannot decode, infer or rebuild seed')
+    monkeypatch.setattr(bodies,'prepare_exercise_body_source',forbidden)
+    monkeypatch.setattr(worlds,'prepare_shared_world_seed',forbidden)
+    monkeypatch.setattr(tracking,'inspect_video',forbidden)
+    monkeypatch.setattr(cv2,'VideoCapture',forbidden)
+    validated=bridge.validate_perception_preflight(video,tmp_path/'preflight',deadline=time.monotonic()+10)
+    assert validated==prepared
+    assert validated['base_manifest_sha256']==digest(tmp_path/'preflight/body_seed/manifest.json')
+
+
+@pytest.mark.parametrize('changed',['video','metadata','anchor','seed','failure','implementation'])
+def test_preflight_tampering_stops_reuse(local_preflight_source,tmp_path,changed):
+    import time
+    video,body=local_preflight_source;p=tmp_path/'preflight'
+    bridge.prepare_exercise_perception_preflight(video,p,body_source=body)
+    if changed=='video':video.write_bytes(video.read_bytes()+b'changed')
+    elif changed=='failure':write_json(p/'failure.json',{'error':'preserved failure'})
+    else:
+        path={'metadata':p/'metadata.json','anchor':p/'body-anchor.json','seed':p/'body_seed/human.json',
+              'implementation':p/'implementation/exercise_perception_pipeline.py'}[changed]
+        path.write_bytes(path.read_bytes()+b'changed')
+    with pytest.raises(ValueError):bridge.validate_perception_preflight(video,p,deadline=time.monotonic()+10)
+
+
+def test_preflight_no_model_stops_before_decode_or_output(inputs,monkeypatch):
+    video,_,out=inputs
+    import weft.segmentation_lab as tracking
+    monkeypatch.setattr(tracking,'inspect_video',lambda *a,**k:pytest.fail('Missing model precedes decoding'))
+    with pytest.raises(ValueError,match='Local pose model'):
+        bridge.prepare_exercise_perception_preflight(video,out)
+    assert not out.exists()
+
+
+@pytest.mark.parametrize('field,value',[('width',32),('height',2200),('frame_count',501),('fps',0),('fps',1)])
+def test_preflight_intersects_portal_sampling_envelope(inputs,monkeypatch,field,value):
+    video,_,out=inputs;body=video.parent/'body';body.mkdir()
+    import weft.segmentation_lab as tracking
+    metadata={'source_sha256':digest(video),'width':160,'height':100,'frame_count':63,'fps':30.,
+              'decoder_timestamps_s':[i/30 for i in range(63)]};metadata[field]=value
+    monkeypatch.setattr(tracking,'inspect_video',lambda *a,**k:metadata)
+    with pytest.raises(ValueError,match='metadata'):
+        bridge.prepare_exercise_perception_preflight(video,out,body_source=body)
+    assert not out.exists()
+
+
+def test_bridge_reuses_exact_preflight_without_copy_or_reconstruction(local_preflight_source,tmp_path,monkeypatch):
+    import weft.exercise_body_source as bodies
+    import weft.shared_world_lab as worlds
+    import weft.meta_segmentation as meta
+    video,body=local_preflight_source;p=tmp_path/'preflight'
+    prepared=bridge.prepare_exercise_perception_preflight(video,p,body_source=body)
+    analysis=_fixture_analysis(video,tmp_path/'analysis')
+    before={f.relative_to(p).as_posix():digest(f) for f in p.rglob('*') if f.is_file()}
+    def forbidden(*a,**k):pytest.fail('Prepared seed must be reused without inference, rebuild or API')
+    monkeypatch.setattr(bodies,'prepare_exercise_body_source',forbidden)
+    monkeypatch.setattr(worlds,'prepare_shared_world_seed',forbidden)
+    monkeypatch.setattr(meta,'resolve_key',forbidden)
+    events=[];out=tmp_path/'bridge'
+    result=bridge.prepare_exercise_perception(video,analysis,out,preflight=p,progress=events.append)
+    assert result['status']=='prepared_not_sent' and result['preflight_descriptor']=='preflight-descriptor.json'
+    descriptor=json.loads((out/'preflight-descriptor.json').read_bytes())
+    assert descriptor['preflight_manifest_sha256']==prepared['manifest_sha256']
+    assert descriptor['base_run']==str(p/'body_seed') and not (out/'body_seed').exists()
+    anchor=json.loads((out/'body-anchor.json').read_bytes())
+    assert anchor=={**prepared['body_anchor'],'prompt':[2,*prepared['body_anchor']['prompt'][1:]]}
+    manifest=json.loads((out/'manifest.json').read_bytes())
+    assert 'body_seed' not in manifest['children'] and manifest['files']['preflight-descriptor.json']==digest(out/'preflight-descriptor.json')
+    assert before=={f.relative_to(p).as_posix():digest(f) for f in p.rglob('*') if f.is_file()}
+    assert len(events)<=10 and 'validating_preflight' in [row['stage'] for row in events]
+    assert all(set(row)=={'stage','message','seconds'} for row in events)
+
+
+def test_preflight_cannot_be_combined_with_body_override(inputs):
+    video,analysis,out=inputs
+    with pytest.raises(ValueError,match='owns its original'):
+        bridge.prepare_exercise_perception(video,analysis,out,preflight=video.parent/'preflight',body_source=video.parent/'body')
+    assert not out.exists()
+
+
+def test_generated_preflight_prepares_body_once_and_preserves_failed_child(local_preflight_source,tmp_path,monkeypatch):
+    import time
+    from shutil import copytree
+    import weft.exercise_body_source as bodies
+    import weft.meta_segmentation as meta
+    video,body=local_preflight_source;model=tmp_path/'local-model.task';model.write_bytes(b'analytical stub only')
+    calls=[]
+    def fake_pose(source,out,**kwargs):
+        calls.append(kwargs);copytree(body,out);return out
+    monkeypatch.setattr(bodies,'prepare_exercise_body_source',fake_pose)
+    monkeypatch.setattr(meta,'resolve_key',lambda *a:pytest.fail('No provider credential access'))
+    p=tmp_path/'preflight';result=bridge.prepare_exercise_perception_preflight(video,p,pose_model=model)
+    assert len(calls)==1 and calls[0]['native_timing'] is True
+    assert result['inference_calls']==1 and result['api_calls']==0
+    assert bridge.validate_perception_preflight(video,p,deadline=time.monotonic()+10)==result
+    assert len(calls)==1
+    write_json(p/'body_source/failure.json',{'error':'late local failure'})
+    with pytest.raises(ValueError,match='failure marker'):
+        bridge.validate_perception_preflight(video,p,deadline=time.monotonic()+10)
+
+
+def test_preflight_seed_failure_marker_is_not_ignored(local_preflight_source,tmp_path):
+    import time
+    video,body=local_preflight_source;p=tmp_path/'preflight'
+    bridge.prepare_exercise_perception_preflight(video,p,body_source=body)
+    write_json(p/'body_seed/failure.json',{'error':'late failure'})
+    with pytest.raises(ValueError,match='construction-only'):
+        bridge.validate_perception_preflight(video,p,deadline=time.monotonic()+10)
+
+
+def test_progress_callback_cannot_bypass_source_or_body_options(inputs):
+    video,analysis,out=inputs
+    with pytest.raises(ValueError,match='callback'):
+        bridge.prepare_exercise_perception(video,analysis,out,progress='not callable')
+    assert not out.exists()
+
+
+@pytest.mark.parametrize('change',['anchor','metadata','api_type'])
+def test_resealed_preflight_cannot_reinterpret_body_source(local_preflight_source,tmp_path,change):
+    import time
+    video,body=local_preflight_source;p=tmp_path/'preflight'
+    bridge.prepare_exercise_perception_preflight(video,p,body_source=body)
+    result=json.loads((p/'result.json').read_bytes())
+    if change=='anchor':
+        anchor=json.loads((p/'body-anchor.json').read_bytes());anchor['prompt'][2]+=1
+        write_json(p/'body-anchor.json',anchor);result['body_anchor']=anchor
+    elif change=='metadata':
+        metadata=json.loads((p/'metadata.json').read_bytes());metadata['fps']=29.
+        write_json(p/'metadata.json',metadata);result['metadata']=metadata
+    else:result['api_calls']=False
+    write_json(p/'result.json',result)
+    manifest=json.loads((p/'manifest.json').read_bytes())
+    manifest['files']={name:digest(p/name) for name in manifest['files']};write_json(p/'manifest.json',manifest)
+    with pytest.raises(ValueError):bridge.validate_perception_preflight(video,p,deadline=time.monotonic()+10)

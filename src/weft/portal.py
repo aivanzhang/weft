@@ -28,6 +28,7 @@ from weft.portal_inventory import exercise_intent
 from weft.portal_equipment_candidates import (TERMINAL as EQUIPMENT_TERMINAL, read_catalog,
     availability as equipment_availability, read_status as equipment_status, read_report as equipment_report,
     select_candidate)
+from weft import portal_perception_jobs as perception_jobs
 
 MAX_UPLOAD = 100_000_000
 MAX_JOBS = 50
@@ -35,6 +36,14 @@ MAX_STORAGE = 2_000_000_000
 MAX_JOB_BYTES = 650_000_000
 TERMINAL = {"ready", "preview", "needs_input", "failed", "cancelled", "interrupted"}
 ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.css"}
+PERCEPTION_ARTIFACTS = {"perception/" + name for name in (
+    "preflight/metadata.json", "preflight/body-anchor.json", "preflight/result.json", "preflight/manifest.json",
+    "preflight/body_source/human.json", "preflight/body_source/human.xml", "preflight/body_source/evidence.json",
+    "preflight/body_source/native-clock.json", "preflight/body_source/tracks.gif", "preflight/body_source/tracks-contact-sheet.png",
+    "quote.json", "request.json", "status.json", "failure.json", "preflight-complete.json", "prepared-source.json",
+    "preflight-worker-receipt.json", "preparation-worker-receipt.json",
+    "analysis/frames.json", "analysis/plan.json", "analysis/request.json", "analysis/response.json", "analysis/receipt.json",
+    "bridge/result.json", "bridge/manifest.json", "bridge/plan.json", "bridge/body-anchor.json", "bridge/preflight-descriptor.json")}
 
 
 def bounded_json(path, maximum=128_000):
@@ -98,6 +107,10 @@ class Portal:
                 if equipment and equipment.get("status") not in EQUIPMENT_TERMINAL:
                     atomic_json(folder / "equipment/status.json", {**equipment, "status": "interrupted",
                         "message": "Portal restarted during equipment construction; upload and partial candidates preserved. No automatic retry."})
+                perception = perception_jobs.read_status(folder)
+                if perception.get("status") in perception_jobs.ACTIVE or perception.get("status") == "cancelling":
+                    atomic_json(folder / "perception/status.json", {**perception, "status": "interrupted",
+                        "message": "Portal restarted during perception; source evidence and uncertain charges are preserved. No automatic retry."})
             self.thread = threading.Thread(target=self._work, name="weft-portal-queue", daemon=True) if start else None
             if self.thread:
                 self.thread.start()
@@ -122,6 +135,12 @@ class Portal:
                 raise ValueError("Portal storage inventory exceeded its bounded preparation window")
         return _storage(self.root, bounded_inventory)
 
+    def _pending_jobs(self):
+        return sum(self._status(i)["status"] not in TERMINAL
+            or equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"}
+            or perception_jobs.read_status(self._folder(i)).get("status") in perception_jobs.ACTIVE
+            for i in self.jobs)
+
     def summary(self, identity):
         with self.lock:
             config = self.jobs[identity]
@@ -142,6 +161,8 @@ class Portal:
             result["source_available"] = (folder / config["source_file"]).is_file()
             status = self._status(identity)
             result.update(status)
+            result["perception"] = {**perception_jobs.summary(folder, config, status),
+                "busy": self.active == identity and perception_jobs.read_status(folder).get("status") not in {"not_started", None}}
             result["equipment_availability"] = equipment_availability(config, status, self.equipment_catalog)
             equipment = equipment_status(folder)
             if equipment:
@@ -233,7 +254,7 @@ class Portal:
             existing = next((j for j in self.jobs.values() if j.get("request_id") == request_id), None)
             if existing:
                 raise ValueError("This upload identifier already exists; reload the project list instead of resubmitting")
-            pending = sum(self._status(i)["status"] not in TERMINAL or equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"} for i in self.jobs)
+            pending = self._pending_jobs()
             if len(self.jobs) >= MAX_JOBS or pending >= 4:
                 raise ValueError("Portal job capacity reached; preserve existing projects before making room")
             if ai and (not credential_status(self.project)["configured"]
@@ -285,6 +306,7 @@ class Portal:
                 checks = False
                 repairs = False
                 equipment = False
+                perception = False
                 if identity is None:
                     identity = next((i for i in self.jobs if self._review_status(i).get("status") == "queued"), None)
                     review = identity is not None
@@ -297,16 +319,20 @@ class Portal:
                 if identity is None:
                     identity = next((i for i in self.jobs if equipment_status(self._folder(i)).get("status") == "queued"), None)
                     equipment = identity is not None
+                if identity is None:
+                    identity = next((i for i in self.jobs if perception_jobs.read_status(self._folder(i)).get("status") in {"queued_preflight", "queued"}), None)
+                    perception = identity is not None
                 if identity:
                     self.active = identity
                     target = self._folder(identity) / ("equipment/status.json" if equipment else "muse/repairs/status.json" if repairs else "muse/checks/status.json" if checks else "muse/status.json" if review else "status.json")
-                    if not repairs:
+                    if not repairs and not perception:
                         atomic_json(target, {"status": "running", "stage": "starting", "events": []})
             if identity is None:
                 self.wake.wait(1)
                 self.wake.clear()
                 continue
-            self._run(identity, review=review, checks=checks, **({"repairs": True} if repairs else {}), **({"equipment": True} if equipment else {}))
+            self._run(identity, review=review, checks=checks, **({"repairs": True} if repairs else {}),
+                **({"equipment": True} if equipment else {}), **({"perception": True} if perception else {}))
             with self.lock:
                 self.active, self.process = None, None
 
@@ -334,7 +360,7 @@ class Portal:
                 if existing.get("parent_id") != identity or existing.get("support_request_sha256") != request_sha:
                     raise ValueError("This request identifier belongs to a different experiment")
                 return self.summary(existing["id"])
-            pending = sum(self._status(i)["status"] not in TERMINAL or equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"} for i in self.jobs)
+            pending = self._pending_jobs()
             if len(self.jobs) >= MAX_JOBS or pending >= 4:
                 raise ValueError("Portal job capacity reached")
             stored = self._stored_bytes()
@@ -389,7 +415,7 @@ class Portal:
                 raise ValueError("No registered prepared evidence matches this upload")
             if sum(equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"} for i in self.jobs) >= 4:
                 raise ValueError("Equipment candidate queue is full")
-            pending = sum(self._status(i)["status"] not in TERMINAL or equipment_status(self._folder(i)).get("status") in {"queued", "running", "cancelling"} for i in self.jobs)
+            pending = self._pending_jobs()
             stored = self._stored_bytes()
             if stored + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
                 raise ValueError("Equipment candidate storage reservation exceeds the portal allowance")
@@ -410,6 +436,39 @@ class Portal:
                 raise ValueError("A project with an opened sandbox cannot switch equipment candidates")
             select_candidate(self._folder(identity), candidate_id)
             return self.summary(identity)
+
+    def preflight_perception(self, identity):
+        with self.lock:
+            folder = self._folder(identity)
+            if perception_jobs.read_status(folder):
+                perception_jobs.queue_preflight(folder)
+                return self.summary(identity)
+            if equipment_availability(self.jobs[identity], self._status(identity), self.equipment_catalog)["available"]:
+                raise ValueError("Verified prepared equipment evidence is already available; use its existing candidate path")
+            self._reserve_perception_slot()
+            perception_jobs.queue_preflight(folder)
+            self.wake.set()
+            return self.summary(identity)
+
+    def prepare_perception(self, identity, payload):
+        with self.lock:
+            folder = self._folder(identity)
+            if (folder / "perception/request.json").is_file():
+                perception_jobs.queue_prepare(folder, payload, project=self.project)
+                return self.summary(identity)
+            if self.active == identity:
+                raise ValueError("The local worker is finishing; refresh before starting the separately consented preparation")
+            self._reserve_perception_slot()
+            perception_jobs.queue_prepare(folder, payload, project=self.project)
+            self.wake.set()
+            return self.summary(identity)
+
+    def _reserve_perception_slot(self):
+        pending = self._pending_jobs()
+        if pending >= 4:
+            raise ValueError("The shared processing queue is full")
+        if self._stored_bytes() + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
+            raise ValueError("Perception preparation exceeds the portal storage reservation")
 
     def repair(self, identity):
         with self.lock:
@@ -473,30 +532,32 @@ class Portal:
             if action != "review":
                 raise ValueError("Imported construction attachments enable Muse review only; local checks and repairs are not qualified")
 
-    def _run(self, identity, *, review=False, checks=False, repairs=False, equipment=False):
+    def _run(self, identity, *, review=False, checks=False, repairs=False, equipment=False, perception=False):
         folder = self._folder(identity)
-        work = folder / "equipment" if equipment else folder / "muse/repairs" if repairs else folder / "muse/checks" if checks else folder / "muse" if review else folder
-        terminal = EQUIPMENT_TERMINAL if equipment else REPAIR_TERMINAL if repairs else CHECK_TERMINAL if checks else REVIEW_TERMINAL if review else TERMINAL
+        work = folder / "perception" if perception else folder / "equipment" if equipment else folder / "muse/repairs" if repairs else folder / "muse/checks" if checks else folder / "muse" if review else folder
+        terminal = perception_jobs.RESTING if perception else EQUIPMENT_TERMINAL if equipment else REPAIR_TERMINAL if repairs else CHECK_TERMINAL if checks else REVIEW_TERMINAL if review else TERMINAL
+        paid_perception = perception and (work / "request.json").is_file()
         env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "PYTHONPATH": str(Path(__file__).resolve().parent.parent),
                "PYTHONUNBUFFERED": "1", "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1",
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MPLCONFIGDIR": str(folder / "runtime/matplotlib")}
-        support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks or repairs)
-        if not (review or checks or repairs or support or equipment) and os.environ.get("OPENAI_API_KEY"):
+        support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks or repairs or equipment or perception)
+        if (paid_perception or not (review or checks or repairs or support or equipment or perception)) and os.environ.get("OPENAI_API_KEY"):
             env["OPENAI_API_KEY"] = os.environ["OPENAI_API_KEY"]
-        if review:
+        if review or paid_perception:
             for name in ("META_API_KEY", "MODEL_API_KEY"):
                 if os.environ.get(name):
                     env[name] = os.environ[name]
         process = None
         reason = None
         try:
-            with (work / "worker.log").open("xb") as log:
-                mode = ["equipment"] if equipment else ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else []
+            log_name = ("preparation-worker.log" if paid_perception else "preflight-worker.log") if perception else "worker.log"
+            with (work / log_name).open("xb") as log:
+                mode = ["perception"] if perception else ["equipment"] if equipment else ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else []
                 process = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.portal_worker", str(folder), str(self.project), *mode],
                                            stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, env=env)
                 with self.lock:
                     self.process = process
-                deadline = time.monotonic() + (120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
+                deadline = time.monotonic() + (450 if perception else 120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
                 next_inventory = 0
                 while process.poll() is None:
                     if self.stopping.wait(.5):
@@ -537,15 +598,38 @@ class Portal:
             current = bounded_json(work / "status.json")
             if current["status"] not in terminal:
                 atomic_json(work / "status.json", {**current, "status": "failed", "error": str(error)[:500]})
+        finally:
+            if perception:
+                with self.lock:
+                    self._cancel_perception_handoff(identity)
+
+    def _cancel_perception_handoff(self, identity):
+        folder = self._folder(identity)
+        equipment = equipment_status(folder)
+        if (folder / "perception/cancel-request.json").exists() and equipment.get("status") == "queued":
+            request = bounded_json(folder / "equipment/request.json")
+            if request.get("source_kind") == "perception":
+                atomic_json(folder / "equipment/cancel-request.json", {"requested_at": local_time()})
+                atomic_json(folder / "equipment/status.json", {**equipment, "status": "cancelled",
+                    "message": "Cancelled during perception handoff; prepared evidence is preserved."})
 
     def cancel(self, identity):
         with self.lock:
+            perception = perception_jobs.read_status(self._folder(identity))
+            if perception.get("status") in perception_jobs.ACTIVE or perception.get("status") == "cancelling":
+                folder = self._folder(identity) / "perception"
+                atomic_json(folder / "cancel-request.json", {"requested_at": local_time()})
+                atomic_json(folder / "status.json", {**perception,
+                    "status": "cancelling" if self.active == identity else "cancelled",
+                    "message": "Perception cancelled; original source, local evidence and any uncertain provider charges are preserved."})
+                self._cancel_perception_handoff(identity)
+                return self.summary(identity)
             equipment = equipment_status(self._folder(identity))
             if equipment and equipment.get("status") not in EQUIPMENT_TERMINAL:
                 folder = self._folder(identity) / "equipment"
                 atomic_json(folder / "cancel-request.json", {"requested_at": local_time()})
                 atomic_json(folder / "status.json", {**equipment,
-                    "status": "cancelling" if self.active == identity else "cancelled",
+                    "status": "cancelling" if equipment.get("status") in {"running", "cancelling"} else "cancelled",
                     "message": "Equipment preparation cancelled; parent upload and partial candidates preserved."})
                 return self.summary(identity)
             repairs = self._repair_status(identity)
@@ -605,6 +689,15 @@ class Portal:
 
     def artifact(self, identity, name):
         folder = self._folder(identity)
+        if name.startswith("perception/"):
+            if name not in PERCEPTION_ARTIFACTS and not re.fullmatch(r"perception/analysis/frame-\d{5}\.jpg", name):
+                raise ValueError("File is not a public perception artifact")
+            file = folder / name
+            if any(p.is_symlink() for p in (file, *file.parents)) or not file.is_file():
+                raise ValueError("Perception artifact is missing or unsafe")
+            if file.stat().st_size > ((16 << 20) if name.startswith("perception/preflight/body_source/") else 300_000 if file.suffix == ".jpg" else 1 << 20):
+                raise ValueError("Perception artifact exceeds its bounded download size")
+            return file
         if name.startswith("review-evidence/"):
             from weft.portal_evidence_attachment import attachment_artifact
 
@@ -722,6 +815,21 @@ class PortalHandler(LabHandler):
                     raise ValueError("Equipment choice accepts only a candidate identifier")
                 method = self.server.portal.prepare_equipment if match[2] == "prepare" else self.server.portal.choose_equipment
                 return self.reply(method(match[1], value["id"]), 202 if match[2] == "prepare" else 200)
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/perception/(preflight|prepare)", path)
+            if match:
+                length = int(self.headers.get("Content-Length", "0"))
+                if match[2] == "preflight":
+                    if length != 0:
+                        raise ValueError("Local preflight takes no arguments or paid consent")
+                    return self.reply(self.server.portal.preflight_perception(match[1]), 202)
+                if not 1 <= length <= 2048:
+                    raise ValueError("Perception consent must be bounded JSON")
+                self.connection.settimeout(10)
+                raw = self.rfile.read(length)
+                if len(raw) != length:
+                    raise ValueError("Perception consent upload was interrupted")
+                from weft.exercise_body_source import _json
+                return self.reply(self.server.portal.prepare_perception(match[1], _json(raw)), 202)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/muse", path)
             if match:
                 if int(self.headers.get("Content-Length", "0")) != 0:

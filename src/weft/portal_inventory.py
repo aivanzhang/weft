@@ -44,7 +44,7 @@ def inventory_report(intent, source_sha256, *, ai_inventory=None):
     message = {
         "human_only": "Person-only simulation under your declaration: one person, ground support only, no task-relevant equipment or obstacles. Absence is not independently verified.",
         "body_preview": "Body evidence preview only. Equipment, obstacles and their contacts are not reconstructed. No physics, learned controller or full-scene sandbox is created.",
-        "needs_input": "A full exercise scene needs an explicit inventory. Equipment/obstacle reconstruction additionally needs source-bound equipment evidence, a scene configuration and source mappings. This upload cannot silently become a person-only simulation.",
+        "needs_input": "This exercise scene is not ready for simulation. Use matching prepared evidence, or check the video locally before choosing whether to send media for equipment tracking. Mixed scenes cannot silently become person-only simulations.",
     }[route]
     if conflict:
         message += " AI proposed equipment or obstacles, which conflicts with the ground-only declaration; inspect the source before choosing a new scope."
@@ -53,5 +53,5 @@ def inventory_report(intent, source_sha256, *, ai_inventory=None):
         "absence_verified": False, "equipment_reconstructed": False, "physical_validation": "unverified",
         "message": message,
         "next_steps": (["Choose Body evidence preview to inspect poses without excluding equipment from a claimed full scene.",
-                        "Use a source-qualified mixed-scene package for equipment simulation; automatic mixed reconstruction is not available from this upload."]
+                        "Use Build candidates when prepared evidence matches, or Check video locally to begin new evidence preparation. Sending media requires separate provider consent."]
                        if route == "needs_input" else [])}

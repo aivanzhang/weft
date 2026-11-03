@@ -8,11 +8,13 @@
   let museAvailable = false, reviewing = false;
   let checking = false, repairing = false;
   let preparingEquipment = false, choosingEquipment = false;
+  let preflighting = false, preparingPerception = false, consentKey = "", perceptionRequest = null;
   let creatingSupport = false, selectedJob = null;
   const reviewActive = job => ["queued", "running", "cancelling"].includes(job.muse?.status);
   const checkActive = job => ["queued", "running", "cancelling"].includes(job.muse?.checks?.status);
   const repairActive = job => ["queued", "running", "cancelling"].includes(job.muse?.repairs?.status);
   const equipmentActive = job => ["queued", "running", "cancelling"].includes(job.equipment_candidates?.status);
+  const perceptionActive = job => !!job.perception?.busy || ["queued_preflight", "preflighting", "queued", "analyzing", "preparing_tracking", "tracking", "exporting_evidence", "cancelling"].includes(job.perception?.status);
   const terminal = new Set(["ready", "preview", "needs_input", "failed", "cancelled", "interrupted"]);
   const labels = {queued:"Queued",uploading:"Uploading",running:"Processing",ready:"Ready to explore",preview:"Body evidence ready · no physics",needs_input:"Scene inputs needed",failed:"Needs attention",cancelled:"Cancelled",interrupted:"Interrupted"};
   const error = message => { $("error").textContent = message; $("error").hidden = false; };
@@ -31,7 +33,7 @@
     if (!job) return;
     selected = job.id;
     selectedJob = job;
-    const signature = JSON.stringify([job, museAvailable, reviewing, checking, repairing]);
+    const signature = JSON.stringify([job, museAvailable, reviewing, checking, repairing, preflighting, preparingPerception]);
     if (lastDetail === signature) return;
     lastDetail = signature;
     $("project").hidden = false;
@@ -68,6 +70,24 @@
     }));
     $("equipment-selection-note").textContent = job.equipment_candidate_id ? `This project is locked to ${job.equipment_candidate_id}; all recordings use that world. Other alternatives remain preserved in the report.` : equipmentReport ? "Choose one admitted candidate before opening the sandbox. Selection locks this project; no score or automatic ranking makes the choice." : "";
     artifactLink("equipment-report-download", job, "equipment/candidates.json", !!equipmentReport);
+    const perception = job.perception, quote = perception?.quote;
+    const nextConsentKey = `${job.id}:${perception?.quote_sha256 || ""}`;
+    if (consentKey !== nextConsentKey) {
+      consentKey = nextConsentKey; perceptionRequest = null;
+      $("perception-openai").checked = false; $("perception-meta").checked = false;
+    }
+    $("perception-preparation").hidden = !perception || (!perception.available && perception.status === "not_started") || (perception.status === "not_started" && !!equipmentAvailable?.available);
+    $("perception-status").textContent = perception?.error || perception?.message || "";
+    $("perception-preflight").hidden = !perception?.available || perception.status !== "not_started";
+    $("perception-preflight").disabled = preflighting || perceptionActive(job);
+    $("perception-consent").hidden = perception?.status !== "awaiting_consent" || !quote;
+    $("perception-quote").textContent = quote ? `${quote.frame_count} source frames. OpenAI (${quote.openai_model}): reserve up to $${quote.openai_max_usd.toFixed(4)}. Meta (${quote.meta_model}): reserve up to $${quote.meta_max_usd.toFixed(4)}. ${quote.message}` : "";
+    updatePerceptionConsent();
+    $("perception-events").replaceChildren(...(perception?.events || []).slice(-40).map(event => { const li = document.createElement("li"); li.textContent = event.message; return li; }));
+    const artifactLabels = {body_model:"Estimated body model (no physics validation)",body_evidence:"Original inferred pose evidence",body_clock:"Native video timestamps",body_preview:"Source pose overlay (not simulation)",preflight_result:"Local check results",quote:"Saved cost and media quote",request:"Saved consent request",analysis_receipt:"OpenAI usage receipt",bridge_result:"Tracking preparation result",prepared_source:"Prepared source identities",failure:"Preparation failure details",preflight_receipt:"Local check resource receipt",preparation_receipt:"AI preparation resource receipt"};
+    $("perception-artifacts").replaceChildren(...Object.entries(perception?.artifacts || {}).filter(([key]) => artifactLabels[key]).map(([key,path]) => {
+      const a = document.createElement("a"); a.textContent = artifactLabels[key]; a.className = "text-link"; a.href = fileURL(job.id,path); a.download = path.split("/").pop(); return a;
+    }));
     const preview = job.status === "preview" ? job.body_preview : null;
     $("body-preview").hidden = !preview;
     $("body-preview-image").hidden = !preview?.image;
@@ -85,8 +105,8 @@
       $("readiness-retry").textContent = readiness.retry_reason;
     }
     artifactLink("readiness-download", job, "analysis/reconstruction-readiness.json", !!readiness);
-    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job) && !checkActive(job) && !repairActive(job) && !equipmentActive(job);
-    $("cancel").textContent = equipmentActive(job) ? "Cancel equipment candidates" : repairActive(job) ? "Cancel suggestion tests" : checkActive(job) ? "Cancel local checks" : reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
+    $("cancel").hidden = terminal.has(job.status) && !reviewActive(job) && !checkActive(job) && !repairActive(job) && !equipmentActive(job) && !perceptionActive(job);
+    $("cancel").textContent = perceptionActive(job) ? "Cancel video preparation" : equipmentActive(job) ? "Cancel equipment candidates" : repairActive(job) ? "Cancel suggestion tests" : checkActive(job) ? "Cancel local checks" : reviewActive(job) ? "Cancel Muse review" : "Cancel processing";
     const stage = {source:"reconstruct",observe:"reconstruct",world:"reconstruct",repair:"reconstruct",evaluate:"reconstruct",render:"train",starting:"analyze",queued:"upload"}[job.stage] || job.stage;
     const names = ["upload", "analyze", "reconstruct", "train", "ready"], current = names.indexOf(stage);
     document.querySelectorAll("#steps li").forEach(node => {
@@ -217,7 +237,7 @@
       if (!selected && data.jobs.length) selected = data.jobs[0].id;
       await show(data.jobs.find(job => job.id === selected));
       $("create").disabled = uploading;
-      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job) || equipmentActive(job));
+      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job) || equipmentActive(job) || perceptionActive(job));
       timer = setTimeout(refresh, active ? 1500 : 12000);
     } catch (e) { error(e.message); $("connection").textContent = "Connection needs attention"; timer = setTimeout(refresh, 12000); }
     finally { pending = false; }
@@ -279,6 +299,35 @@
       if (selected === identity) await show(job);
     } catch (e) { error(`${e.message}. Existing comparison evidence will not be retried or overwritten.`); }
     finally { repairing = false; lastDetail = ""; refresh(); }
+  };
+  function updatePerceptionConsent() {
+    const p = selectedJob?.perception;
+    $("perception-prepare").disabled = preparingPerception || p?.status !== "awaiting_consent" || !p?.quote || !p?.quote_sha256 || perceptionActive(selectedJob || {}) || !$("perception-openai").checked || !$("perception-meta").checked;
+  }
+  $("perception-openai").onchange = updatePerceptionConsent;
+  $("perception-meta").onchange = updatePerceptionConsent;
+  $("perception-preflight").onclick = async () => {
+    if (!selected || preflighting || selectedJob?.perception?.status !== "not_started" || !selectedJob.perception.available) return;
+    preflighting = true; $("perception-preflight").disabled = true;
+    const identity = selected;
+    try {
+      const job = await request(`/api/projects/${identity}/perception/preflight`, {method:"POST"});
+      if (selected === identity) await show(job);
+    } catch(e) { error(`${e.message}. Refresh to inspect local progress; no automatic retry was made.`); }
+    finally { preflighting = false; lastDetail = ""; refresh(); }
+  };
+  $("perception-prepare").onclick = async () => {
+    updatePerceptionConsent();
+    if (!selected || $("perception-prepare").disabled) return;
+    const identity = selected, p = selectedJob.perception;
+    perceptionRequest ||= {quote_sha256:p.quote_sha256, consent:{openai_sampled_images:true,meta_full_video_and_regions:true},
+      openai_max_usd:p.quote.openai_max_usd,meta_max_usd:p.quote.meta_max_usd,request_id:crypto.randomUUID().replaceAll("-", "")};
+    preparingPerception = true; updatePerceptionConsent();
+    try {
+      const job = await request(`/api/projects/${identity}/perception/prepare`, {method:"POST",body:JSON.stringify(perceptionRequest),headers:{"Content-Type":"application/json"}});
+      if (selected === identity) await show(job);
+    } catch(e) { error(`${e.message}. Inspect the saved request and receipts before taking another action; no automatic retry was made.`); }
+    finally { preparingPerception = false; lastDetail = ""; refresh(); }
   };
   async function equipmentAction(action, id) {
     if (!selected || preparingEquipment || choosingEquipment) return;

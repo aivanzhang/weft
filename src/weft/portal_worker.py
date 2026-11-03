@@ -18,6 +18,7 @@ def _limit(kind, requested):
 def main():
     repairs = len(sys.argv) == 4 and sys.argv[3] == "repairs"
     equipment = len(sys.argv) == 4 and sys.argv[3] == "equipment"
+    perception = len(sys.argv) == 4 and sys.argv[3] == "perception"
     cpu_limit = 110 if equipment else 65 if repairs else 360
     _limit(resource.RLIMIT_CPU, cpu_limit)
     _limit(resource.RLIMIT_FSIZE, 512 * 1024**2)
@@ -26,7 +27,8 @@ def main():
     review = len(sys.argv) == 4 and sys.argv[3] == "review"
     checks = len(sys.argv) == 4 and sys.argv[3] == "checks"
     supports = len(sys.argv) == 4 and sys.argv[3] == "supports"
-    work = root / "equipment" if equipment else root / "muse/repairs" if repairs else root / "muse/checks" if checks else root / "muse" if review else root
+    work = root / "perception" if perception else root / "equipment" if equipment else root / "muse/repairs" if repairs else root / "muse/checks" if checks else root / "muse" if review else root
+    receipt_name = ("preparation-worker-receipt.json" if (work / "request.json").is_file() else "preflight-worker-receipt.json") if perception else "worker-receipt.json"
     stopped = threading.Event()
     started = time.monotonic()
 
@@ -41,7 +43,10 @@ def main():
                 os._exit(74)
 
     threading.Thread(target=monitor, name="weft-resource-limit", daemon=True).start()
-    if equipment:
+    if perception:
+        from weft.portal_perception_jobs import execute_perception_job
+        result = execute_perception_job(root, project=Path(sys.argv[2]))
+    elif equipment:
         from weft.portal_equipment_candidates import execute_equipment_job
         result = execute_equipment_job(root, project=Path(sys.argv[2]))
     elif repairs:
@@ -60,7 +65,7 @@ def main():
         from weft.portal_pipeline import execute_job
         result = execute_job(root, project=Path(sys.argv[2]))
     stopped.set()
-    atomic_json(work / "worker-receipt.json", {"exit_code": result, "seconds": time.monotonic() - started,
+    atomic_json(work / receipt_name, {"exit_code": result, "seconds": time.monotonic() - started,
         "peak_rss_bytes": rss(), "rss_limit_kind": "250ms sampled peak, not a kernel allocation limit"})
     return result
 
