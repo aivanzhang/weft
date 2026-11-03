@@ -343,9 +343,11 @@ def unplanned_api_state(output, prepared, status, data, active, queued):
     require(status == 'awaiting_authorization' and data.get('operation') == 'plan'
             and data.get('ended') is not None and active is None and not queued,
             'Unplanned inspection requires a released awaiting-authorization planning job')
-    require('agent_backend' in prepared and prepared.get('reuse_model') is not None
-            and prepared.get('max_credits') == 0 and 'continuation' not in prepared,
-            'Unplanned inspection supports only a fresh saved API source-reuse request')
+    reuse = prepared.get('reuse_model') is not None
+    require('agent_backend' in prepared and 'continuation' not in prepared
+            and prepared.get('max_credits') == (0 if reuse else 35)
+            and (reuse or prepared.get('reference') is None),
+            'Unplanned inspection requires API source reuse or bounded35-credit text generation')
     for name in ('plan.json', 'agents', 'delivery.json', 'unsupported.json', 'runtime-revision.json',
                  'generation', 'inspection'):
         path = output/name
@@ -435,9 +437,15 @@ def inspect(job_id, *, allow_unplanned=False):
         generation = read_json(generation_path) if generation_path.exists() else None
         mode = "reused_generated_source"
     else:
-        generation, source_generation, extra = fresh_generation(state, job_id, output, request, prepared, plan,
-                                                               row["request_digest"])
-        files.extend(extra)
+        if unplanned:
+            require(request['reference'] is None, 'Unplanned fresh preparation is text-only')
+            generation = None
+            source_generation = {'mode':'text','plan_verified':False,'authorization_checked':False,
+                                 'execution_gate':'canonical_ledger_and_explicit_start'}
+        else:
+            generation, source_generation, extra = fresh_generation(state, job_id, output, request, prepared, plan,
+                                                                   row["request_digest"])
+            files.extend(extra)
         mode = "new_meshy_generation"
     plan_id = None if unplanned else _digest({"request": row["request_digest"], "plan": plan,
                        "generation": generation})

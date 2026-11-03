@@ -29,7 +29,7 @@ try {
     const bytes = await readFile(path.join(root, name));
     (report.sources ??= []).push({ path: name, sha256: createHash("sha256").update(bytes).digest("hex") });
   }
-  server = spawn(path.join(root, ".venv/bin/python"), ["-B", "scripts/verify_studio_live.py", "--job", parent, "--allow-unplanned", "--serve", "--max-seconds", "330"],
+  server = spawn(path.join(root, ".venv/bin/python"), ["-B", "scripts/verify_studio_live.py", "--job", parent, "--allow-unplanned", "--serve", "--max-seconds", "675"],
     { cwd: root, env: environment, stdio: ["ignore", "pipe", "pipe"] });
   report.server_pid = server.pid;
   origin = await new Promise((resolve, reject) => {
@@ -65,7 +65,7 @@ try {
     return route.continue();
   });
   const page = await context.newPage(); page.setDefaultTimeout(15000);
-  deadline = setTimeout(() => browser.close(), 300000);
+  deadline = setTimeout(() => browser.close(), 660000);
   await page.goto(origin, { waitUntil: "domcontentloaded" });
   await page.locator(`[data-job="${parent}"]`).click();
   report.job_id = child;
@@ -81,10 +81,13 @@ try {
       assert(response.ok(), "Canonical preparation status request failed");
       const value = await response.json(); return value.job ?? value;
     },
-    savePost: (response) => save("prepare-response.json", response), pause, maxMs: 270000,
+    savePost: (response) => save("prepare-response.json", response), pause, maxMs: 630000,
   });
-  await save("prepared.json", prepared); assert.equal(prepared.status, "planned", prepared.error ?? "Saved job did not plan");
+  await save("prepared.json", prepared);
   report.plan_id = prepared.plan_id ?? prepared.plan?.id;
+  assert(["planned", "awaiting_authorization"].includes(prepared.status) && /^[a-f0-9]{64}$/.test(report.plan_id || ""),
+    prepared.error ?? "Saved job did not produce a pinned plan");
+  report.awaiting_generation_authorization = prepared.status === "awaiting_authorization";
   await page.screenshot({ path: path.join(out, "prepared.png") });
   assert.equal(report.mutations.length, 1); report.status = "passed";
 } catch (error) { report.status = "failed"; report.errors.push(error.message); }

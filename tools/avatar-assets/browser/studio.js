@@ -76,6 +76,10 @@ export function explicitSceneRequest(title, first, second) {
   return { title: title.trim(), assets };
 }
 
+export function sceneListRefreshDue(lastRead, now) {
+  return lastRead === null || now < lastRead || now - lastRead >= 15000;
+}
+
 export async function selectedJobSnapshot(id, knownJob, read) {
   let job = knownJob?.id === id ? knownJob : null;
   if (!job?.scene?.id) {
@@ -107,7 +111,7 @@ export async function bootStudio() {
     resultSignature: "", result: null, mode: "portrait", clip: null, read: null, mutation: null, timer: null,
     pollBusy: false, reference: null, referenceURL: null, uploadedReference: null, acknowledgedPlan: null,
     preview: null, previewTimer: null, previewVersion: 0, modelReady: false, modelRuntime: null, raf: 0, lastPaint: 0,
-    scene: null, sceneSignature: null, secondReference: null, uploadedSecondReference: null, draftID: null, draftFingerprint: null };
+    scene: null, sceneSignature: null, sceneListReadAt: null, secondReference: null, uploadedSecondReference: null, draftID: null, draftFingerprint: null };
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   const model = $("result-model"), video = $("result-video"), portrait = $("result-portrait");
   const apiPath = (id, suffix = "") => `/api/studio/jobs/${encodeURIComponent(id)}${suffix}`;
@@ -538,10 +542,11 @@ export async function bootStudio() {
       if (controller.signal.aborted) return;
       if (!Array.isArray(payload.jobs)) throw new Error("The local service did not return a creation list.");
       state.jobs = payload.jobs.slice(0, 100);
-      if (state.session.capabilities?.explicit_asset_pairs === true) {
+      if (state.session.capabilities?.explicit_asset_pairs === true && sceneListRefreshDue(state.sceneListReadAt, Date.now())) {
         const groups = await request("/api/studio/scenes", { signal: controller.signal });
         if (controller.signal.aborted) return;
         state.scenes = Array.isArray(groups.scenes) ? groups.scenes.slice(0, 20) : [];
+        state.sceneListReadAt = Date.now();
       }
       renderList();
       if (selected && selected === state.selected) {
@@ -600,7 +605,7 @@ export async function bootStudio() {
     stopPolling(); state.busy = true; state.mutation = new AbortController(); message(); updateButtons();
     try { await operation(state.mutation.signal); }
     catch (error) { if (error.name !== "AbortError") message(error.message); }
-    finally { state.busy = false; state.mutation = null; updateButtons(); refresh(); }
+    finally { state.busy = false; state.mutation = null; state.sceneListReadAt = null; updateButtons(); refresh(); }
   }
   function removeReference() {
     if (state.referenceURL) URL.revokeObjectURL(state.referenceURL);
@@ -694,7 +699,7 @@ export async function bootStudio() {
   });
   for (const id of ["prompt", "style", "actions", "preset", "scene-title", "asset-one-name", "asset-two-name", "second-prompt", "second-style", "second-actions"]) $(id).addEventListener("input", () => { state.draftID = state.draftFingerprint = null; });
   $("actions").addEventListener("input", actionInput); $("preset").addEventListener("change", presetDescription);
-  $("estimate-ack").addEventListener("change", updateButtons); $("refresh").addEventListener("click", refresh);
+  $("estimate-ack").addEventListener("change", updateButtons); $("refresh").addEventListener("click", () => { state.sceneListReadAt = null; refresh(); });
   $("new-request").addEventListener("click", () => newRequest()); $("copy-request").addEventListener("click", () => newRequest(state.job?.request));
   for (const button of document.querySelectorAll("[data-view]")) button.addEventListener("click", () => showPreview(button.dataset.view));
   $("clip").addEventListener("change", () => { stopPlayback(); state.clip = $("clip").value; if (state.mode === "model") chooseModelClip(); else showPreview("video"); });

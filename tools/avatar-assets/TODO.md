@@ -1,6 +1,71 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 02, 2026, 08:06 PM PST
+## Current handoff — November 03, 2026, 12:14 AM PST
+
+- User: leave unrelated Weft work for another session; open owl/rabbit generations. User then said “looks good”; preserve appearance, do not expand fur/appearance work.
+- Both fresh independent Meshy sources completed. Owl `49e3a3e8dc164eab8a2f3b65` ended unsupported at region-occupancy rig checks; rabbit `3bd101e36b8745d598a948c4` reached native animation but ended unsupported on requested-action audit (November 3, 12:00:51 AM PST). Neither is accepted final animation. Original outputs and failures preserved.
+- Rabbit observer `93092` exited; exactly one Start, 346.138 seconds, browser/server exited, no worker cancellation, lease absent and owner not live. Owl observer `84073` likewise terminal unsupported. Earlier live statements below are historical and superseded.
+- Requested read-only gallery: http://127.0.0.1:59870/#owl and http://127.0.0.1:59870/#rabbit. PID66560, exec42487, began November 2, 11:59:56 PM PST, expires November 3, 12:59:56 AM PST. No dispatch or spending. Owl page opened in Chrome; browser inventory unavailable, native browser used. Rabbit source is selectable in the same gallery. Rabbit catalog's “in progress” label is stale; terminal status is unsupported, not running.
+- All three live parallel agents completed. Tested source-repair helper remains isolated/unintegrated: `outputs/generated-source-repair-helper-tests-v1/result.json`; 12 analytic checks and actual owl diagnostic authentication, no new provider calls. Remaining general repair wiring: source promotion, geometry-only continuation, independent evidence/financial ancestry, guarded website Retry. Do not bypass existing guards or manually lower occupancy requirements.
+- No new Meshy retry, budget reset, hold release, or runtime integration in this wrap-up. Paid receipts remain in `outputs/animal-pair-approval-v1`; current profile 3 calls/0 repairs. Recheck canonical ledgers before any further paid work.
+- Current uncommitted avatar harness/helper/verifier work is preserved; last published avatar checkpoint `def13821`. Unrelated Weft files untouched. Next safe action: inspect terminal scene verification, finish avatar-only evidence/checkpoint, then implement general repair if continuing; never report this pair as end-to-end animation success.
+
+## Session handoff — November 02, 2026, 11:45 PM PST
+
+- **Live owl planning:** real browser pair creation passed: scene `d5fd48dc1ede4c7792037015`, owl `49e3a3e8dc164eab8a2f3b65`, rabbit `3bd101e36b8745d598a948c4`. Both first Plan clicks stopped at zero-charge authorization as intended; `outputs/animal-pair-website-create-v1`. Root then retired the settled panda financial grant and granted owl 3 calls / $1.624276 within the unchanged $15 total; all old holds remain. Paid owl Plan passed (observer37573 exited); plan ID `c0ec1e9e78ed26cbf00d2fccf20d2097b3c058a37545896dcb90fed2edc75245`. Root applied the approved35-credit owl portion. Actual owl Start observer **66745** sent exactly ONE Start, then exited after17.63s on a stale single-job response observer (`verifyUI` timeout). Browser/server closed; detached worker **64084** remains live on canonical lease49e3.../run-0003 and Meshy task `01a1a060-106f-75bd-80cb-1b2c1869e8e0`. No worker cancellation or signal. `outputs/animal-owl-website-live-v1` preserves failure. Harness-only scene-response fix passed4 checks; read-only observer **84073** now watches the same worker in `outputs/animal-owl-website-observe-v2` WITHOUT `--start`. Mesh stage succeeded; texture stage running at last observation. Never duplicate generation. Root owns all calls/grants. Rabbit remains unfunded/unstarted. Runtime is frozen during execution.
+
+- **Approved and resuming real end-to-end tests:** user replied
+  “yes apprvoed!!! etst the end to end pipeline.” Approval covers **62 additional
+  Meshy credits**, plus the existing 8 for two independent 35-credit owl/rabbit
+  sources, no purchases or automatic Meshy retries. Approval receipt:
+  `outputs/animal-pair-approval-v1/approval.json`, SHA
+  `e32aa6ac60db32c9ff0805b4808e6006a76fafc4885ee8db18f2d3e5b26188ab`.
+  Earlier pending-approval entries below are historical, not a current blocker.
+- **Root is the only paid-execution/grant owner.** No new grant or generation
+  submission had been applied at this handoff. The fresh/unplanned-job and cached
+  checkpoint browser-harness fixes are awaiting focused verification, then root
+  will create, prepare and start the real pair through Studio. Canonical child
+  IDs/handles will be recorded after creation; do not invent them or execute the
+  noncanonical preflight folders. Recheck current ownership before action.
+- **Selected profile:** GPT-5.2-2025-12-11, medium reasoning, standard response,
+  600 s/call, 16,384 output tokens, **3 calls / zero repairs per animal**. Root
+  changed 7/2 → 3/0 under the worker lock with no owner/queue; prior settings retained.
+  Selected configuration SHA
+  `f0d3d3419c2d965074024fe47171aaea2693c01d6748716dad6dc3e3fd4595cc`;
+  `outputs/animal-pair-approval-v1/profile-selection.json`. This is configuration,
+  not a model call. A read-only provider balance returned 3,063 Meshy credits,
+  sufficient for 70; provider balance is distinct from the local approved allowance.
+- **OpenAI stays within the existing $15 total.** At the November 2, 11:39:47 PM PST
+  read-only check, exposure was $13.375724, including $6.548016 unknown holds;
+  $1.624276 remained. No hold, old grant or original request was reset.
+  `outputs/animal-pair-authorization-preflight-v1` manifest
+  `0154d1d62a82e174b9a13fb6a5539056e4300f83b4665aea3cee92a4d5be9a34`.
+  Financial route: retire fully settled completed 470 grant and authorize fresh
+  owl with up to 1,624,276 microdollars/3 calls, then retire settled owl/grant fresh
+  rabbit with the residual. This is ledger succession only, **not pipeline
+  continuation or reused panda geometry/rig/plan**. Unknown charges or a call
+  reservation that no longer fits must stop execution. Six calls are estimated
+  near $1.197, not guaranteed; each first reserves $0.929376.
+- **Inputs remain the source-free v2 specs:**
+  `outputs/different-animals-preflight-v1/owl-flight-request-v2.json` and
+  `rabbit-hop-request-v2.json`: one owl takeoff/flap/forward-travel action and one
+  rabbit repeated-hop/leg-articulation action. No fused companions, references,
+  shared sources or extra landing/return sequence. Meshy and OpenAI estimates use
+  different currencies; dollar cost per Meshy credit remains account-specific.
+- **Saved checkpoint:** `def13821aab58bd47298d4c29bbea54dddd97662`, private main
+  push/remote verified November 2, 8:15:35 PM PST; 77 avatar-only files/707,773 bytes,
+  subtree clean then, unrelated work preserved. Receipt
+  `outputs/separate-assets-publication-v1/receipt.json`. New harness/approval work
+  is later local work. Prior panda website success remains saved-source-only;
+  no fresh owl/rabbit or independent dragon is accepted yet.
+- **Next safe action:** finish the narrow harness checks, create two canonical
+  Studio jobs, preserve their exact requests/source pins, apply only the approved
+  targeted Meshy and bounded sequential API grants, then verify actual rigs,
+  meaningful motions, previews and separate downloads. Preserve failures and
+  checkpoint if the existing API cap stops either job. No Meta spend, deployment,
+  credential borrowing, credit purchase or unrelated Weft changes.
+
+## Historical handoff — November 02, 2026, 08:06 PM PST
 
 - **Current request:** test genuinely different animals/actions and keep independent
   characters as independent assets. Panda and dragon must not be fused into one
@@ -903,13 +968,15 @@ Tests include 10 continuation, 11 standing-policy, 71 Studio/HTTP/custody and
   independent identity/deformation/motion review, media/static fallback and download
   endpoint checks; job4701879a91cf42efbeebf16c, checkpoint9b637ff. This does not
   verify new text-to-geometry, an independent dragon, full copied downloads or physics.
-- [ ] Receive the pending62-credit Meshy decision; bind only approved exact jobs.
-  Keep OpenAI15total/unknown holds unchanged; checkpoint on insufficient reservation.
+- [x] Receive the62-credit Meshy approval; exact reply/receipt recorded above.
+- [ ] Bind only approved canonical owl/rabbit jobs and run sequentially. Keep
+  OpenAI15total/unknown holds unchanged; checkpoint on insufficient reservation.
 - [x] Seal local separate-asset contract, HTTP/UI, idempotency and partial-save
   tests; source-pinned component receipts are recorded in the current handoff.
-- [ ] Verify the actual guarded scene website save/recovery path and publish the
-  avatar-only checkpoint. Drafts must not dispatch, reset spend or claim fused
-  geometry has been separated; analytic UI checks are not actual browser proof.
+- [x] Publish tested separate-asset/allowance code: def13821, remote verified.
+- [ ] Verify the actual guarded scene website save/recovery and generation path.
+  Drafts must not dispatch, reset spend or claim fused geometry has been separated;
+  analytic UI checks are not actual browser or generated-animal proof.
 - [ ] Generate and verify two genuinely different fresh animal/action examples
   from the owl/rabbit v2 specs, with independent source/model hashes, real rigs,
   meaningful motion, appearance/deformation review, static fallbacks and separate

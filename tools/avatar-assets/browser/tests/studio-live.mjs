@@ -8,6 +8,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import { chromium } from "playwright-core";
+import { selectedResponse, observedBackendPath } from "./studio-live-response.mjs";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const usage = "node browser/tests/studio-live.mjs <new-output-folder> <job-id> [--start --plan-id HASH] [--max-seconds 900]";
@@ -58,7 +59,7 @@ let outputBytes = 0, eventBytes = 0, eventCount = 0, requestCount = 0;
 let server, browserLaunch, browserServer, browser, context, page, origin, before, latest, latestSignature;
 let serverLog = "", serverLogBytes = 0, deadline, monitorTimer, monitorTask, cancelled, cleanupStarted = false;
 let responseQueue = Promise.resolve(), firstStartAt = null, allowStart = false, startCount = 0;
-let backendInFlight = 0, maxBackendInFlight = 0;
+let backendInFlight = 0, maxBackendInFlight = 0, selectedSceneBinding = null;
 const contexts = new Set(), sourceFiles = new Map();
 const backendRequests = new Set(), pollTimes = [];
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -151,16 +152,20 @@ async function sampleMemory() {
 async function observeResponse(response) {
   if (cleanupStarted || !origin) return;
   const url = new URL(response.url()), target = `/api/studio/jobs/${jobID}`;
-  if (url.origin !== origin || ![target, `${target}/start`].includes(url.pathname)) return;
+  const scenePath = selectedSceneBinding && `/api/studio/scenes/${selectedSceneBinding.id}`;
+  if (url.origin !== origin || ![target, `${target}/start`, scenePath].includes(url.pathname)) return;
   const expectedStatus = response.request().method() === "POST" && url.pathname === `${target}/start` ? 202 : 200;
   assert.equal(response.status(), expectedStatus, `Actual job request failed: ${response.status()}`);
   const bytes = await response.body(); assert(bytes.length <= limits.json_bytes, "Job response exceeds 1 MiB");
-  const value = JSON.parse(bytes);
+  const selected = selectedResponse(url.pathname, response.request().method(), JSON.parse(bytes), jobID, selectedSceneBinding);
+  if (!selected) return;
+  const { value } = selected;
   assert.equal(value.id, jobID); assert.equal(value.provenance, "actual_pipeline");
   for (const key of ["prompt", "style", "custom_actions", "preset"]) assert.deepEqual(value.request?.[key], before.request[key], `HTTP changed ${key}`);
   assert.equal(value.request.reuse_model_selected, before.generation_mode === "reused_generated_source", "Geometry provenance differs");
   assert.equal(value.request.reference_selected, before.reference_selected, "Reference provenance differs");
   assert.equal(value.plan_id, before.plan_id, "Frozen plan changed");
+  selectedSceneBinding = selected.binding;
   latest = value;
   const signature = JSON.stringify({ status: value.status, stages: value.stages, reviews: value.reviews,
     previews: value.previews, result: value.result, error: value.error, plan_id: value.plan_id });
@@ -354,7 +359,7 @@ async function verifyAssets(snapshot) {
   report.delivery = { path: path.relative(root, delivery), sha256: digest(await readFile(delivery)) };
 }
 async function run() {
-  const sourceNames = ["browser/tests/studio-live.mjs", "scripts/verify_studio_live.py", "browser/studio.html", "browser/studio.js", "browser/studio.css",
+  const sourceNames = ["browser/tests/studio-live.mjs", "browser/tests/studio-live-response.mjs", "scripts/verify_studio_live.py", "browser/studio.html", "browser/studio.js", "browser/studio.css",
     "avatar_assets/studio.py", "avatar_assets/studio_jobs.py", "avatar_assets/studio_worker.py", "avatar_assets/pipeline.py",
     "avatar_assets/pipeline_prompts.py", "avatar_assets/agent_runner.py", "avatar_assets/openai_runner.py", "avatar_assets/agent_backend.py", "avatar_assets/action_intent.py", "avatar_assets/action_audit.py",
     "avatar_assets/quality_policy.py", "avatar_assets/pipeline_evidence.py"];
@@ -397,7 +402,7 @@ async function run() {
   page.on("response", (response) => { responseQueue = responseQueue.then(() => observeResponse(response)).catch((error) => cancel(error.message)); });
   page.on("request", (request) => {
     const url = new URL(request.url());
-    if (url.origin === origin && /^\/api\/studio\/(session|jobs(?:\/[a-f0-9]{24})?)$/.test(url.pathname) && request.method() === "GET") {
+    if (url.origin === origin && observedBackendPath(url.pathname) && request.method() === "GET") {
       backendRequests.add(request); backendInFlight++; maxBackendInFlight = Math.max(maxBackendInFlight, backendInFlight);
       pollTimes.push(performance.now());
     }
