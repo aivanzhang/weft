@@ -1,5 +1,10 @@
 # Dense body through the portal and real perception APIs
 
+**Continuation:** [Saved-only recovery](saved-perception-recovery.md) now passes
+ordinary source publication and equipment dispatch in 14.489 seconds without
+new provider calls. Construction abstains on unresolved person/equipment roles;
+the original failure below is preserved, not the current recovery status.
+
 ## Checkpoint — November 2, 2026, PST
 
 The complete generalizable video-to-world goal remains active. This continuation

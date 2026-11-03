@@ -22,7 +22,8 @@ MAX_ENTRIES = 12
 MAX_CANDIDATES = 3
 JOB_SOURCE_PROFILE = 'portal-job-perception-source-v1'
 JOB_SOURCE_PATH = 'perception/prepared-source.json'
-MAX_JOB_SOURCE_BYTES = 256 << 20
+# Complete retained body, seed and provider receipts are inventoried, not held as one buffer.
+MAX_JOB_SOURCE_BYTES = 320 << 20
 SCOPE = "Conditional equipment simulations from verified prepared evidence; identities, camera, ground, geometry and contact remain hypotheses. Not automatic reconstruction of an unfamiliar video."
 
 
@@ -314,9 +315,14 @@ def _perception_source(root, bridge, *, project, deadline):
                                'provenance': descriptor['provenance']}
 
 
-def publish_perception_source(root, bridge, *, project=PROJECT_ROOT):
+def publish_perception_source(root, bridge, *, project=PROJECT_ROOT, deadline=None):
     """Publish one immutable job-local descriptor; never write the administrator catalog."""
-    descriptor, _, _ = _perception_source(root, bridge, project=project, deadline=time.monotonic()+30)
+    if deadline is not None and (type(deadline) not in (int, float) or not math.isfinite(deadline)):
+        raise ValueError('Perception source deadline must be finite')
+    deadline = min(time.monotonic()+30, deadline) if deadline is not None else time.monotonic()+30
+    _check(deadline)
+    descriptor, _, _ = _perception_source(root, bridge, project=project, deadline=deadline)
+    _check(deadline)
     encoded = (json.dumps(descriptor, sort_keys=True, indent=2)+'\n').encode()
     target = Path(root) / JOB_SOURCE_PATH
     if target.exists():
@@ -324,6 +330,7 @@ def publish_perception_source(root, bridge, *, project=PROJECT_ROOT):
             raise ValueError('Job-local perception descriptor already binds different evidence')
     else:
         write_package_files(root, {JOB_SOURCE_PATH: encoded})
+    _check(deadline)
     return descriptor
 
 
@@ -463,6 +470,10 @@ def execute_equipment_job(root, *, project=PROJECT_ROOT):
     state = read_status(root)
     if state.get('status') in TERMINAL:return 0 if state['status'] == 'complete' else 1
     try:
+        if any((work/name).exists() or (work/name).is_symlink()
+               for name in ('recovery.json', 'recovery-inputs', 'recovery-start.json')):
+            from weft.portal_perception_recovery import start_recovery
+            start_recovery(root)
         from weft.equipment_conditional_assembly import prepare_conditional_equipment_scene
 
         job = _json(read_package_file(root, 'job.json', max_bytes=64 << 10))

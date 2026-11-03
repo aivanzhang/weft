@@ -64,6 +64,63 @@ def private_directory(path):
     return path.resolve()
 
 
+def equipment_recovery_summary(folder, config):
+    """Read only small recovery receipts; source qualification belongs to the worker."""
+    from weft.portal_perception_recovery import PROFILE, FIELDS, INPUTS, RECEIPT, SCOPE
+    from weft.portal_equipment_candidates import PROFILE as EQUIPMENT_PROFILE
+    from weft.shared_world_packaging import read_package_file
+    from weft.exercise_body_source import _json
+
+    if not any((folder/name).exists() or (folder/name).is_symlink()
+               for name in (RECEIPT, 'equipment/recovery-start.json', 'equipment/recovery-inputs')):
+        return None
+    try:
+        raw = read_package_file(folder, RECEIPT, max_bytes=64 << 10)
+        receipt = _json(raw)
+        if (set(receipt) != FIELDS or receipt.get('profile') != PROFILE or receipt.get('scope') != SCOPE
+                or type(receipt.get('schema_version')) is not int or receipt['schema_version'] != 1
+                or receipt.get('project_id') != config['id'] or receipt.get('source_sha256') != config['source_sha256']
+                or any(type(receipt.get(k)) is not int or receipt[k] != 0 for k in ('api_calls', 'inference_calls'))
+                or any(not isinstance(receipt.get(k), str) or not re.fullmatch('[a-f0-9]{64}', receipt[k])
+                       for k in ('source_sha256', 'bridge_manifest_sha256', 'descriptor_sha256', 'request_sha256'))
+                or not isinstance(receipt.get('inputs'), dict) or set(receipt['inputs']) != set(INPUTS)
+                or any(not isinstance(pin, str) or not re.fullmatch('[a-f0-9]{64}', pin) for pin in receipt['inputs'].values())):
+            raise ValueError('Recovery receipt differs from its closed source-bound contract')
+        saved = {}
+        for name, pin in receipt['inputs'].items():
+            saved[name] = read_package_file(folder, 'equipment/recovery-inputs/'+name, max_bytes=64 << 10, expected_sha256=pin)
+            # Explicit candidate selection changes the current root status, not the original receipt.
+            if name != 'status.json':
+                read_package_file(folder, name, max_bytes=64 << 10, expected_sha256=pin)
+        old_status = _json(saved['status.json'])
+        old_job = _json(saved['job.json'])
+        if (old_status.get('status') != 'needs_input' or old_status.get('route') != 'exercise' or old_status.get('lab')
+                or old_job.get('id') != config['id'] or old_job.get('source_sha256') != config['source_sha256']
+                or _json(saved['perception/status.json']).get('status') != 'failed'
+                or _json(saved['perception/status.json']) != _json(saved['perception/failure.json'])):
+            raise ValueError('Recovery must retain the original unresolved project and failed preparation')
+        request = _json(read_package_file(folder, 'equipment/request.json', max_bytes=16 << 10,
+                                         expected_sha256=receipt['request_sha256']))
+        if request != {'profile': EQUIPMENT_PROFILE, 'source_kind': 'perception',
+                       'source_sha256': receipt['source_sha256'], 'descriptor_sha256': receipt['descriptor_sha256']}:
+            raise ValueError('Recovery no longer names the original source-bound assembly request')
+        read_package_file(folder, 'perception/prepared-source.json', max_bytes=16 << 10,
+                          expected_sha256=receipt['descriptor_sha256'])
+        start = folder/'equipment/recovery-start.json'
+        started = start.exists() or start.is_symlink()
+        if started:
+            marker = _json(read_package_file(folder, 'equipment/recovery-start.json', max_bytes=8192))
+            if (set(marker) != {'profile', 'started_at', 'api_calls', 'inference_calls'} or marker.get('profile') != PROFILE
+                    or not isinstance(marker.get('started_at'), str) or not 1 <= len(marker['started_at']) <= 80
+                    or any(type(marker.get(k)) is not int or marker[k] != 0 for k in ('api_calls', 'inference_calls'))):
+                raise ValueError('Recovery start receipt differs from the recorded zero-provider operation')
+        return {'status': 'recorded', 'started': started, 'receipt_sha256': hashlib.sha256(raw).hexdigest(),
+                'artifact': RECEIPT, 'original_perception_status': 'failed', 'api_calls': 0, 'inference_calls': 0,
+                'validation_scope': 'bounded_metadata_only'}
+    except (ValueError, OSError, KeyError, TypeError, AttributeError):
+        return {'status': 'unavailable', 'reason': 'Recovery metadata is missing or changed; original failure and candidate records remain separate.'}
+
+
 class Portal:
     def __init__(self, root, *, project=PROJECT_ROOT, start=True):
         self.root = private_directory(root)
@@ -106,7 +163,11 @@ class Portal:
                 if repairs.is_file() and bounded_json(repairs)["status"] not in REPAIR_TERMINAL:
                     atomic_json(repairs, {"status": "interrupted", "message": "Portal restarted during candidate testing; partial results preserved, no automatic retry.", "applied": False})
                 equipment = equipment_status(folder)
-                if equipment and equipment.get("status") not in EQUIPMENT_TERMINAL:
+                resume_recovery = False
+                if equipment.get("status") == "queued" and (folder / "equipment/recovery.json").is_file():
+                    from weft.portal_perception_recovery import validate_pending_recovery
+                    resume_recovery = validate_pending_recovery(folder)
+                if equipment and not resume_recovery and equipment.get("status") not in EQUIPMENT_TERMINAL:
                     atomic_json(folder / "equipment/status.json", {**equipment, "status": "interrupted",
                         "message": "Portal restarted during equipment construction; upload and partial candidates preserved. No automatic retry."})
                 perception = perception_jobs.read_status(folder)
@@ -173,6 +234,9 @@ class Portal:
             equipment = equipment_status(folder)
             if equipment:
                 result["equipment_candidates"] = {**equipment, "report": equipment_report(folder, equipment)}
+                recovery = equipment_recovery_summary(folder, config)
+                if recovery is not None:
+                    result["equipment_candidates"]["recovery"] = recovery
             if status.get("equipment_candidate_id"):
                 from weft.portal_perception_review import attachment_summary
 
@@ -705,6 +769,13 @@ class Portal:
 
     def artifact(self, identity, name):
         folder = self._folder(identity)
+        if name == 'equipment/recovery.json':
+            from weft.shared_world_packaging import read_package_file
+            recovery = equipment_recovery_summary(folder, self.jobs[identity])
+            if not recovery or recovery.get('status') != 'recorded':
+                raise ValueError('Recovery receipt is unavailable or no longer matches this project')
+            read_package_file(folder, name, max_bytes=64 << 10, expected_sha256=recovery['receipt_sha256'])
+            return folder/name
         if name.startswith("perception/"):
             if name not in PERCEPTION_ARTIFACTS and not re.fullmatch(r"perception/analysis/frame-\d{5}\.jpg", name):
                 raise ValueError("File is not a public perception artifact")

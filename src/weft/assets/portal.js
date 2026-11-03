@@ -50,8 +50,15 @@
     $("inventory-next-steps").replaceChildren(...(inventory?.next_steps || []).map(value => {const li=document.createElement("li");li.textContent=value;return li;}));
     artifactLink("inventory-download", job, "analysis/scene-inventory.json", !!inventory);
     const equipment = job.equipment_candidates, equipmentReport = equipment?.report, equipmentAvailable = job.equipment_availability;
+    const recovery = equipment?.recovery, recovered = recovery?.status === "recorded";
     $("equipment-candidates").hidden = !equipment && !(job.status === "needs_input" && equipmentAvailable);
-    $("equipment-status").textContent = equipment?.message || equipmentAvailable?.reason || "";
+    const recoveryNote = recovered ? `Previous preparation failure retained. ${recovery.started ? "Saved evidence reused" : "Saved evidence queued for reuse"}; no new API call or pose inference. ` : recovery ? `${recovery.reason} ` : "";
+    const assemblyReasons = (equipmentReport?.assembly_reasons || []).map(reason => typeof reason === "string" ? reason : reason?.message || reason?.code || "Unspecified construction limitation");
+    const roleExplanation = assemblyReasons.some(reason => reason.startsWith("insufficient_role_margin:") || reason.startsWith("unresolved_body_correspondence:")) ? "Could not reliably separate the person from equipment in the saved tracks. " : "";
+    const proxyExplanation = assemblyReasons.includes("no_supported_rigid_proxy_candidates") ? "No supported equipment proxy could be proposed. " : "";
+    const outcomeLabel = equipmentReport?.assembly_status === "abstained" ? "No world constructed (abstained)" : equipmentReport?.assembly_status || "unavailable";
+    const assemblyOutcome = recovered && equipmentReport ? ` Assembly outcome: ${outcomeLabel}; ${(equipmentReport.candidates || []).filter(candidate => candidate.selectable).length} playable candidates. ${roleExplanation}${proxyExplanation}${assemblyReasons.join("; ")} Object identity, contact and physical accuracy remain unverified.` : "";
+    $("equipment-status").textContent = recoveryNote + (equipment?.message || equipmentAvailable?.reason || "") + assemblyOutcome;
     $("equipment-source-options").replaceChildren(...(!equipment ? equipmentAvailable?.matches || [] : []).map(match => {
       const button = document.createElement("button");button.type = "button";
       button.textContent = `Build candidates · ${match.label}`;button.disabled = preparingEquipment;
@@ -68,7 +75,7 @@
       choose.hidden = !candidate.selectable || !!job.equipment_candidate_id;choose.disabled = choosingEquipment;
       choose.onclick = () => equipmentAction("select", candidate.id);card.append(title, details, reasons, choose);return card;
     }));
-    $("equipment-selection-note").textContent = job.equipment_candidate_id ? `This project is locked to ${job.equipment_candidate_id}; all recordings use that world. Other alternatives remain preserved in the report.` : equipmentReport ? "Choose one admitted candidate before opening the sandbox. Selection locks this project; no score or automatic ranking makes the choice." : "";
+    $("equipment-selection-note").textContent = job.equipment_candidate_id ? `This project is locked to ${job.equipment_candidate_id}; all recordings use that world. Other alternatives remain preserved in the report.` : equipmentReport ? recovered && !(equipmentReport.candidates || []).some(candidate => candidate.selectable) ? "No candidate is available to select. Review the retained uncertainty and construction reasons; no sandbox was substituted." : "Choose one admitted candidate before opening the sandbox. Selection locks this project; no score or automatic ranking makes the choice." : "";
     artifactLink("equipment-report-download", job, "equipment/candidates.json", !!equipmentReport);
     const perception = job.perception, quote = perception?.quote;
     const nextConsentKey = `${job.id}:${perception?.quote_sha256 || ""}`;
@@ -102,7 +109,9 @@
     }));
     $("perception-pose-scope").textContent = poseDiagnostic?.scope || "";
     const artifactLabels = {person_region:"Person tracking region and excluded landmarks",body_model:"Estimated body model (no physics validation)",body_evidence:"Original inferred pose evidence",raw_poses:"All raw body estimates, including competing alternatives",pose_diagnostic:"Complete identity-break report and retained source poses",pose_diagnostic_summary:"Identity-break summary",pose_diagnostic_manifest:"Diagnostic source and failure identities",pose_diagnostic_error:"Why a pose diagnostic was unavailable",body_clock:"Native video timestamps",body_preview:"Source pose overlay (not simulation)",preflight_result:"Local check results",quote:"Saved cost and media quote",request:"Saved consent request",analysis_receipt:"OpenAI usage receipt",bridge_result:"Tracking preparation result",prepared_source:"Prepared source identities",failure:"Preparation failure details",preflight_receipt:"Local check resource receipt",preparation_receipt:"AI preparation resource receipt"};
-    $("perception-artifacts").replaceChildren(...Object.entries(perception?.artifacts || {}).filter(([key]) => artifactLabels[key]).map(([key,path]) => {
+    if (recovered) artifactLabels.saved_recovery = "Saved-evidence recovery receipt · no new API call";
+    const perceptionArtifacts = {...(perception?.artifacts || {}), ...(recovered ? {saved_recovery: recovery.artifact} : {})};
+    $("perception-artifacts").replaceChildren(...Object.entries(perceptionArtifacts).filter(([key]) => artifactLabels[key]).map(([key,path]) => {
       const a = document.createElement("a"); a.textContent = artifactLabels[key]; a.className = "text-link"; a.href = fileURL(job.id,path); a.download = path.split("/").pop(); return a;
     }));
     const preview = job.status === "preview" ? job.body_preview : null;

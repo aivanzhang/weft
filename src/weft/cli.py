@@ -50,6 +50,10 @@ def main():
     portal_reuse.add_argument("--parent-project", required=True)
     portal_reuse.add_argument("--body-source", required=True)
     portal_reuse.add_argument("--body-manifest-sha256", required=True)
+    portal_recover = commands.add_parser("portal-recover-perception", help="Queue saved perception evidence for candidate assembly without repeating provider calls")
+    portal_recover.add_argument("--root", default=".local/portal")
+    portal_recover.add_argument("--project-id", required=True)
+    portal_recover.add_argument("--bridge-manifest-sha256", required=True)
     portal_attach = commands.add_parser("portal-attach-evidence", help="Verify original body evidence for an imported portal world's Muse review")
     portal_attach.add_argument("--root", default=".local/portal")
     portal_attach.add_argument("--project-id", required=True)
@@ -1048,6 +1052,10 @@ def main():
         elif args.command == "portal-reuse-body":
             from weft.portal_body_reuse import reuse_body
             result = reuse_body(args.root, args.parent_project, args.body_source, args.body_manifest_sha256)
+        elif args.command == "portal-recover-perception":
+            from weft.portal_perception_recovery import recover_saved_perception
+            result = recover_saved_perception(args.root, args.project_id,
+                bridge_manifest_sha256=args.bridge_manifest_sha256)
         elif args.command == "portal-attach-evidence":
             from weft.portal_import import attach_existing_import
             result = attach_existing_import(args.root, args.project_id, args.body_source, max_seconds=args.max_seconds)

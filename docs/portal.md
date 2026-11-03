@@ -206,6 +206,34 @@ people were present. Screened time windows are diagnostic only, not playable
 shortcuts, and no retry or paid call happens automatically.
 [Verified scope and remaining reconstruction work](handoffs/dense-pose-and-contact-targets.md).
 
+### Recover a completed perception export
+
+If provider processing completed and the bridge was sealed, but publication
+failed afterward, stop the portal and queue the saved evidence explicitly:
+
+```sh
+.venv-lab/bin/python -m weft portal-recover-perception --root .local/portal \
+  --project-id PROJECT_ID --bridge-manifest-sha256 EXACT_BRIDGE_MANIFEST_SHA256
+```
+
+The manifest is `PROJECT_ID/perception/bridge/manifest.json` under the portal
+root. Recovery verifies the complete saved source proof and queues ordinary
+equipment construction in the **same project**. Restart the portal to process
+that queue. The original perception failure and provider receipts remain
+unchanged; recovery has a separate receipt and candidate status. It does not
+repeat OpenAI, Meta, pose inference or consent. Missing or changed evidence,
+existing candidate work and exhausted storage fail explicitly. A completed
+export still does not guarantee an admitted world; candidate selection and
+physical validation remain separate.
+
+The project shows **Previous preparation failure retained** beside the current
+equipment result. **Saved evidence queued for reuse** changes to **Saved evidence
+reused** after recovery starts; neither sends media again. The original error
+and **Saved-evidence recovery receipt** remain downloadable. An **abstained**
+result with zero playable candidates means the remaining identity or geometry
+uncertainty prevented construction—not that the recovery called the providers
+again. No candidate or sandbox is substituted for that refusal.
+
 ### Prepare new equipment evidence offline
 
 The developer command `exercise-perceive` binds a saved OpenAI analysis to the

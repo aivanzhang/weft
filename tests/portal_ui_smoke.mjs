@@ -32,6 +32,34 @@ function setup(jobs=[]) {
   vm.runInNewContext(code,context);
   return {elements,calls,timers,delays,document,listeners,info};
 }
+
+{
+  const id="3".repeat(32),f=setup([{id,name:"Recovered equipment.mp4",kind:"video",route:"exercise",status:"needs_input",events:[],
+    perception:{available:false,status:"failed",error:"Original source-publication bound exceeded",artifacts:{failure:"perception/failure.json"}},
+    equipment_candidates:{status:"complete",message:"No candidate passed the unchanged constructor.",
+      recovery:{status:"recorded",started:true,artifact:"equipment/recovery.json",api_calls:0,inference_calls:0},
+      report:{assembly_status:"abstained",assembly_reasons:["insufficient_role_margin:sam-1","no_supported_rigid_proxy_candidates",{code:"ambiguous_role",message:"sam-1 remains ambiguous <script>"}],candidates:[]}}}]);await tick();
+  const e=f.elements;
+  assert.match(e.get("equipment-status").textContent,/Previous preparation failure retained.*Saved evidence reused.*no new API call or pose inference/);
+  assert.match(e.get("equipment-status").textContent,/No world constructed \(abstained\); 0 playable candidates.*sam-1 remains ambiguous <script>/);
+  assert.match(e.get("equipment-status").textContent,/Could not reliably separate the person from equipment.*No supported equipment proxy/);
+  assert.match(e.get("equipment-status").textContent,/identity, contact and physical accuracy remain unverified/);
+  assert.match(e.get("equipment-selection-note").textContent,/No candidate is available.*no sandbox was substituted/);
+  assert.equal(e.get("perception-status").textContent,"Original source-publication bound exceeded");
+  assert.equal(e.get("perception-preflight").hidden,true);assert.equal(e.get("perception-consent").hidden,true);
+  assert.equal(e.get("sandbox").hidden,true);assert.equal(e.get("equipment-alternatives").children.length,0);
+  assert.ok(e.get("perception-artifacts").children.some(a=>a.href.includes("equipment/recovery.json")));
+  assert.ok(e.get("perception-artifacts").children.some(a=>a.href.includes("perception/failure.json")));
+  assert.equal(f.calls.length,1);
+  f.info.jobs[0].equipment_candidates.recovery.started=false;f.info.jobs[0].equipment_candidates.status="queued";
+  f.info.jobs[0].equipment_candidates.report=null;await e.get("refresh").onclick();await tick();
+  assert.match(e.get("equipment-status").textContent,/Saved evidence queued for reuse/);
+  f.info.jobs[0].equipment_candidates.recovery={status:"unavailable",reason:"Recovery metadata changed"};
+  await e.get("refresh").onclick();await tick();
+  assert.match(e.get("equipment-status").textContent,/Recovery metadata changed/);
+  assert.ok(!e.get("perception-artifacts").children.some(a=>a.href.includes("equipment/recovery.json")));
+  console.log("PASS recovered zero-candidate assembly preserves original failure, safe reasons and no paid retry");
+}
 {
   const id="8".repeat(32), readiness={usable_samples:353,sampled_frames:554,usable_fraction:353/554,minimum_usable_fraction:.65,competing_samples:2,
     time_basis:"native_pts_elapsed_time",longest_gap:{first_time_s:26.118,last_time_s:32.156,sample_count:91},retry_reason:"Five supported retries cannot reach the unchanged visibility requirement."};
