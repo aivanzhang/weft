@@ -50,3 +50,45 @@ Foundation published and independently remote-verified as `514ebbe251c23740f51f8
 - Source: `.local/portal-kettlebell-flip-01/portal/cb3ea4169eae4804bd0aa6f99d3453cb/perception/preflight/body_seed` plus sibling `perception/bridge/equipment_evidence`. Exact source manifest/runtime pins and results are in the acceptance directory. Process is terminal; do not repeat unchanged admission alone.
 
 Root is implementing `moving_equipment_pipeline.py` and `moving-equipment-build` CLI. Fourteen orchestration checks and twenty existing CLI checks pass; these use stub constructors and do not establish source-world readiness. Runtime and portal lanes continue their source-backed constructor and existing-portal integration. The next actual source run must use those integrated, tested interfaces, retain all branch refusals and never substitute source admission for a playable world.
+
+Source-admission code and this evidence checkpoint are published and remote-verified as `d9df4bd843966dd3770ff21c5f93fb9146dac16c`; `.local/moving-equipment-inputs-01/publication.json` records the verification.
+
+## Conditional constructor and actual refusal — November 2, 2026, 8:35 PM PST
+
+The released `moving_equipment_proposal.py` / `moving_equipment_world.py` implement a separate conditional free-body family. Twenty-six new checks and three affected regressions pass; exact receipts and source pins are in `.local/moving-equipment-constructor-01/release.json`. Independent source/runtime review cleared the implementation after a clock-label correction: body-native start and equipment-decoder start are distinct fields. Grid-aligned and partial-terminal worlds both remain excluded from old stationary task/learning paths.
+
+One actual saved-source geometry execution ran independently while portal work continued: `.venv-lab/bin/python .local/moving-equipment-construction-01/run.py`. It uses the same released source admission, original camera-distance prior 2, zero depth offset, an image-support-derived constant sphere, authored one-kilogram mass/friction, and explicit zero-velocity back-extrapolation from the first initialized box. All nonempty subsets of the two raw tracks remain visible; this family does not claim to exhaust physical interpretations.
+
+**All three candidates refused under unchanged physical limits:**
+
+| Candidate | Conditional equipment assignment | Refusal |
+| --- | --- | --- |
+| 1 | raw-0 (sam-1) | Initial sphere intersects `right_knee_geom`. |
+| 2 | raw-1 (sam-2) | Radius exceeds the existing 0.01–0.5 bound. |
+| 3 | Both tracks | Same oversized raw-1 sphere. |
+
+The sam-1 sphere radius is 0.152535 model units. Its assumed starting position uses frame 91 at 3.033 seconds, leaving a 91-slot unknown prefix. The sam-2 radius is 0.903152 model units; its identity remains uncertain, not silently reclassified as a person or discarded. These are limitations of the declared camera/shape/depth/initial-state family, not reasons to loosen collision or shape limits.
+
+The run took **7.433 seconds**, **727,924,736 peak RSS bytes**, and preserved all 33 consumed originals, 442 body references and 458 frames. It performed zero physics steps, API or inference calls; zero-step native initialization was attempted. Full proposals, raw clocks, hypotheses, runtime snapshots, failure messages and exact readback are retained in the acceptance directory. No candidate is selected or playable.
+
+Do not run the unchanged `.local/moving-equipment-source-acceptance-01/run.py` full-portal harness merely to rediscover these initialization failures: it is prepared but **never executed**. Next source progress needs a separately justified general initialization/depth method, not a per-clip position nudge or an easier replacement clip. Portal construction/import/manual recording/replay integration can finish independently using labelled analytic controls; that is not actual-source success.
+
+## Integrated command and portal checkpoint
+
+The `moving-equipment-build` command now connects one shared source admission to complete conditional proposals and the ordinary lab adapter. It preserves every refused/deferred branch, enforces one aggregate deadline and 832 MiB output envelope, performs one final original-file readback, and never chooses a candidate. A partial child failure cannot remove competing alternatives. [Usage and limitations](../moving-equipment.md).
+
+`shared_world_exploration.py` integrates the same simulator with existing portal import, manual controls, original video, all original kinematic reference poses, recording/export and saved replay evidence. It does not create a new task or learner. A global single background loader plus active-load eviction guards keep repeated opens bounded; heavy source/dependency validation stays off request handlers. Mutable files and current implementation are checked before/after admission; incompatible runtimes refuse. Recording uses a prepared runtime snapshot, and an avatar catalog cannot bypass its contract.
+
+The user interface shows manual exploration, hides unsupported reference/learned/actor-switch controls, retains raw failure diagnostics, and never labels the inherited parking condition exercise success. Source-fit preview shows the kinematic body with initial passive equipment—not driven equipment motion. Muse repair/scoring and appearance changes are not yet qualified for this new profile; existing profiles remain available.
+
+- Analytic construction → portal import → six controls → ordinary Recorder/export → exact replay → saved evidence inspection passes. The small fixture explicitly stubs full-body source admission; native construction, simulation and all downstream integration are real. This is not an actual-video or physical-accuracy result.
+- Integration lane: **109 distinct Python checks** and **77 DOM groups**, exact source/test pins in `.local/moving-exploration-integration-01/release.json`; final UI receipt `.local/moving-exploration-ui-06.log`.
+- Combined checkpoint: **188 distinct latest Python checks**, no failed/skipped cases, including source admission, proposal/world, orchestration, replay and relevant legacy checks. Inventory: `.local/moving-equipment-integration-checkpoint-01/tests.json`. Do not add historical counts together as though all were rerun against this tree.
+- Independent source/runtime and UI/resource reviews are clear. Earlier failed fixtures and review findings remain in lane handoffs; no source refusal or physical limit was changed to obtain passing tests. All released test processes are terminal.
+
+### Next parallel ownership
+
+- Source lane: new `moving_depth_geometry.py` and tests only. Extract exact original-start human collision primitives/floor/bounds once; do not shift the body, approximate unsupported shapes or step dynamics.
+- Numeric lane: new `moving_depth_intervals.py` and tests only. Analytically retain every feasible ray-depth component and numerical boundary uncertainty, without selected offsets, task scores or sampling sweeps. Final existing native geometry checks remain authoritative.
+- Portal lane: read-only design for offering this saved-input path and explicit factorized hypothesis selection through the existing portal, without extra API calls, source mutation or a second UI. Released code remains frozen during publication.
+- Root: integration, source acceptance, publication and durable handoff. The active goal is incomplete; real-source playability, contact/initialization, meaningful task learning and independent physical evidence remain unfinished. Keep unrelated avatar work and new unreviewed depth helpers out of this checkpoint.

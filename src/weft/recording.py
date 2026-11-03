@@ -966,6 +966,13 @@ def verify_recording(root, *, deadline=None):
     if (manifest.get("export_timing") != timing
             or timing is not None and canonical_hash(manifest.get("export_timing")) != canonical_hash(timing)):
         raise ValueError("Recording export timing differs from its exact event clocks")
+    exploration_proof = manifest.get("shared_world_action_replay")
+    if exploration_proof is not None:
+        from weft.shared_world_action_replay import METADATA_KEY, validate_replay_result as validate_exploration_replay
+        validate_exploration_replay(exploration_proof, data["metadata"].get(METADATA_KEY), data["scene"],
+            {name: manifest["files"][name] for name in ("scene.json", "recording.json", "events.jsonl")},
+            events=len(data["events"]), steps=sum(e["type"] == "step" for e in data["events"]),
+            resets=sum(e["type"] == "reset" for e in data["events"]))
     proof = manifest.get("action_replay")
     if proof is not None:
         from weft.spatial_recording import validate_replay_result
@@ -985,7 +992,7 @@ def verify_recording(root, *, deadline=None):
             "resets": sum(e["type"] == "reset" for e in data["events"]),
             "video_frames": manifest["video_frames"], "manifest_sha256": digest(root / "manifest.json"),
             "replay": str(root / "replay.html"), "video": str(root / "video.mp4"),
-            **({"action_replay": proof} if proof is not None else {}),
+            **({"action_replay": proof or exploration_proof} if proof is not None or exploration_proof is not None else {}),
             **({"export_timing": timing} if timing is not None else {}),
             "scope": "File integrity and complete recorded-state replay; not physical validation"}
 

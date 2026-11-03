@@ -485,6 +485,13 @@ class Lab:
         if self.session is None:
             if self.status()["status"] != "ready":
                 raise ValueError("The environment is not ready; inspect the pipeline status")
+            if self.config.get("control_profile") == "shared_world_exploration":
+                from weft.shared_world_exploration import create_session
+                self.session = create_session(self.root / "run", self.config)
+                self.artifacts = self.session.artifacts
+                return self.session
+            if (self.root / "run" / "exploration-lab.json").exists():
+                raise ValueError("A sealed exploration lab cannot switch to another control profile")
             if self.config.get("control_profile") == "shared_exercise":
                 if self.config["profile"] != "shared-world":
                     raise ValueError("Human-only shared exercise requires a shared-world lab")
@@ -608,7 +615,7 @@ class Lab:
             or bool(getattr(session, "spec", {}).get("reference"))
             or bool(session.scene.get("human_spec", {}).get("reference"))
         )
-        return describe_capabilities(
+        described = describe_capabilities(
             session.scene,
             lab_profile=self.config.get("control_profile") or self.config["profile"],
             learned_policy_available=policy_ready,
@@ -616,6 +623,11 @@ class Lab:
             source_video_present=has_video,
             reference_available=has_reference,
         )
+        if getattr(session, "control_profile", None) == "shared_world_exploration":
+            described["controllers"].update(learned_policy_available=False, authored_reference_controller=False,
+                fitted_reference_controller=False, coast=False)
+            described["exploration"] = session.exploration_summary()
+        return described
 
     def evidence_provenance(self, capabilities):
         if self._evidence_provenance is not None:
@@ -762,6 +774,8 @@ class Lab:
                           evidence_provenance=self.evidence_provenance(capabilities))
             if result["scene"].get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
                 result["appearance"] = self.avatars.summary(self.appearance)
+            if getattr(session, "control_profile", None) == "shared_world_exploration":
+                result.update(control_profile="shared_world_exploration", exploration=session.exploration_summary())
             if _shared_exercise(session):
                 result.update(control_profile="shared_exercise", exercise_task=session.exercise_task,
                               action_contract=session.action_contract(), exercise_policy=session.exercise_policy())
@@ -787,7 +801,10 @@ class Lab:
         from weft.recording_receipt import export_recording_with_receipt
 
         self.export_path = recorder.root.name
-        if _shared_exercise(session):
+        if getattr(session, "control_profile", None) == "shared_world_exploration":
+            from weft.shared_world_exploration import export_exploration_session
+            export = partial(export_exploration_session, expected_contract_sha256=canonical_hash(recorder._shared_world_action_replay_contract))
+        elif _shared_exercise(session):
             from weft.shared_exercise_lab import export_shared_exercise_session
             export = export_shared_exercise_session
         else:
@@ -804,6 +821,18 @@ class Lab:
 
     def control(self, path, data):
         session = self.load_session()
+        exploration = getattr(session, "control_profile", None) == "shared_world_exploration"
+        if exploration:
+            if path == "/api/step" and (set(data) != {"action", "steps"} or not isinstance(data.get("action"), list)):
+                raise ValueError("Manual exploration accepts only explicit action vectors and step counts")
+            if path in ("/api/record/start", "/api/record/stop") and data:
+                raise ValueError("Exploration recording cannot override its source, reset or controls")
+            if path == "/api/reset" and set(data) - {"seed"}:
+                raise ValueError("Exploration resets accept only a seed")
+            if path == "/api/appearance":
+                raise ValueError("Exploration avatar recording is not yet qualified")
+            if path == "/api/actor":
+                raise ValueError("Exploration uses named channels with a fixed recorded actor")
         if path == "/api/appearance":
             from weft.avatar_lab import validate_appearance
             if getattr(session, "scene_profile", None) in ("shared-world-v4", "shared-world-v5", "shared-world-v6"):
@@ -925,6 +954,8 @@ class Lab:
                             'warning': 'Simulation stopped after a failed action. Last valid state and failed attempt preserved.'}
                 event = {"type": "step", "action": chosen, "reward": float(reward),
                          "terminated": bool(terminated), "truncated": bool(truncated), "snapshot": session.snapshot()}
+                if exploration:
+                    event["controller"] = "manual"
                 if _shared_exercise(session):
                     event["controller"] = ("learned" if data.get("policy", False) else
                         {"reference": "authored", "coast": "coast", 'reference_proposal': 'reference_proposal'}.get(data.get("controller"), "manual"))
@@ -960,7 +991,14 @@ class Lab:
                 else self.config["profile"]
             )
             recording_scene = session.recording_scene() if _shared_exercise(session) else session.scene
-            if self.avatars.packages:
+            if exploration:
+                from weft.shared_world_action_replay import recording_contract
+                contract = recording_contract(recording_scene, source_run_manifest_sha256=self.config["manifest_sha256"],
+                    motion_ledger_sha256=session.exploration_contract["motion_ledger_sha256"], seed=self.seed,
+                    runtime_snapshot=session.replay_runtime)
+                recorder = Recorder(self.root / "sessions" / name, recording_scene, profile=recorder_profile,
+                                    shared_world_action_replay_contract=contract)
+            elif self.avatars.packages:
                 from weft.avatar_recording import AppearanceRecorder
                 recorder = AppearanceRecorder(self.root / "sessions" / name, recording_scene,
                     profile=recorder_profile, catalog=self.avatars, settings=self.appearance, executor=self.executor)

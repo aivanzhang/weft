@@ -52,9 +52,15 @@ def _json(raw):
 
 
 def _runtime_modules(scene):
-    from weft.shared_world_lab import _lab_runtime_modules
-
-    names = set(_lab_runtime_modules(scene)) | {"shared_world_action_replay.py", "recording.py", "io.py"}
+    # Keep receipt inspection pure; the versioned generic closure is checked against its producer in tests.
+    names = {"shared_world_lab.py", "shared_world.py", "shared_world_observation.py", "shared_world_packaging.py",
+        "shared_world_evidence.py", "source_equivalence.py", "world_evidence.py", "observations.py", "human.py",
+        "mobile_human.py", "whole_body.py", "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py",
+        "spatial_rigid.py", "shared_world_action_replay.py", "recording.py", "io.py"}
+    if "human_provenance" in scene:
+        names.add("shared_human_projection.py")
+    if scene.get("task", {}).get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1":
+        names.update({"native_interval.py", "dynamic_native_interval.py"})
     if "native_clock" in scene.get("human_spec", {}):
         names.add("source_clock.py")
     return names
@@ -75,17 +81,19 @@ def runtime_identity(scene):
         **{name: version(name) for name in ("mujoco", "numpy", "gymnasium")}}}
 
 
-def recording_contract(scene, *, source_run_manifest_sha256, motion_ledger_sha256, seed=0):
+def recording_contract(scene, *, source_run_manifest_sha256, motion_ledger_sha256, seed=0, runtime_snapshot=None):
     from weft.shared_world import validate_shared_world
 
     scene = validate_shared_world(scene)
+    _require(runtime_snapshot is None or isinstance(runtime_snapshot, dict) and set(runtime_snapshot) == {"runtime_sha256", "runtime_versions"},
+        "Exploration cached runtime snapshot has unexpected fields")
     result = {"schema_version": 1, "profile": PROFILE, "scene_sha256": canonical_hash(scene),
         "source_binding_sha256": canonical_hash(scene["source_binding"]),
         "native_interval_sha256": canonical_hash(scene["task"].get("native_interval")),
         "source_run_manifest_sha256": source_run_manifest_sha256, "motion_ledger_sha256": motion_ledger_sha256,
         "controlled_id": scene["controlled_id"], "action_names": scene["action_contract"]["names"],
         "initial_seed": seed, "reset_options": {"jitter": False}, "controller": "manual", "evaluation_status": "not_configured",
-        **runtime_identity(scene)}
+        **(runtime_identity(scene) if runtime_snapshot is None else runtime_snapshot)}
     return validate_contract(result, scene)
 
 
@@ -240,3 +248,24 @@ def verify_action_replay(directory, *, max_seconds=60, max_steps=MAX_STEPS, expe
         "expected_contract_pin_supplied": expected_contract_sha256 is not None,
         "qualification": "caller_pinned_simulation_replay" if expected_contract_sha256 else "unbound_self_consistency",
         "source_admission_verified": False, "task_success_available": False, "scope": SCOPE}
+
+
+def validate_replay_result(proof, contract, scene, sources, *, events, steps, resets):
+    validate_contract(contract, scene)
+    keys = {"schema_version", "profile", "exact_state_replay", "events", "steps", "resets", "scene_sha256",
+        "contract_sha256", "source_sha256", "runtime_sha256", "runtime_versions", "controlled_id",
+        "expected_contract_pin_supplied", "qualification", "source_admission_verified", "task_success_available", "scope"}
+    _require(isinstance(proof, dict) and set(proof) == keys and type(proof["schema_version"]) is int
+        and proof["schema_version"] == 1 and proof["profile"] == PROFILE and proof["exact_state_replay"] is True,
+        "Exploration replay proof is incomplete")
+    for key, value in (("events", events), ("steps", steps), ("resets", resets)):
+        _require(type(proof[key]) is int and proof[key] == value, "Exploration replay counts differ")
+    _require(events == 1 + steps + resets and events <= MAX_EVENTS and steps <= MAX_STEPS,
+        "Exploration replay proof exceeds its bounds")
+    _require(proof["source_sha256"] == sources and proof["contract_sha256"] == canonical_hash(contract)
+        and all(proof[name] == contract[name] for name in ("scene_sha256", "controlled_id", "runtime_sha256", "runtime_versions"))
+        and proof["scope"] == SCOPE and proof["source_admission_verified"] is False
+        and proof["task_success_available"] is False and type(proof["expected_contract_pin_supplied"]) is bool
+        and proof["qualification"] == ("caller_pinned_simulation_replay" if proof["expected_contract_pin_supplied"] else "unbound_self_consistency"),
+        "Exploration replay proof identities or scope differ")
+    return proof

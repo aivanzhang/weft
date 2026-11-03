@@ -301,6 +301,7 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
     _require(scene["profile"] != "shared-world-v6" or camera, "Camera scenes require their explicit recording profile")
     native, versions, task_sha, policy_sha = {}, {}, None, None
     spatial_contract, spatial_proof = None, None
+    exploration_contract, exploration_proof = None, None
     shared = envelope.get("profile") == SHARED_PROFILE or feet or camera
     foot_identities, base_profile = {}, None
     if shared:
@@ -368,6 +369,34 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
                     native[name] = digest
         else:
             _require(embedded is None and "policy.json" not in members, "Unbound recording policy")
+    elif "shared_world_action_replay_contract" in closed:
+        from weft.shared_world_action_replay import validate_contract
+
+        exploration_contract = validate_contract(closed["shared_world_action_replay_contract"], envelope)
+        lab_contract = source("exploration-lab.json", 256 << 10)
+        source("motion-evidence.json", 16 << 20)
+        _require(manifest.get("profile") == "shared-world-exploration-lab-v1"
+                 and manifest.get("control_profile") == "shared_world_exploration"
+                 and lab_contract.get("profile") == "shared-world-exploration-lab-v1"
+                 and lab_contract.get("scene_sha256") == engine_scene
+                 and lab_contract.get("evaluation_status") == "not_configured"
+                 and lab_contract.get("task_success_available") is False
+                 and lab_contract.get("learned_policy_available") is False
+                 and exploration_contract["source_run_manifest_sha256"] == metadata["run/manifest.json"]["sha256"]
+                 and exploration_contract["motion_ledger_sha256"] == lab_contract.get("motion_ledger_sha256")
+                 == metadata["run/motion-evidence.json"]["sha256"]
+                 and recording_scene == engine_scene
+                 and "policy.json" not in members and "exercise-task.json" not in members,
+                 "Exploration recording differs from its unscored source/ledger contract")
+        native = _hashes(exploration_contract["runtime_sha256"])
+        versions = dict(exploration_contract["runtime_versions"])
+        _require(lab_contract.get("replay_runtime") == {"runtime_sha256": native, "runtime_versions": versions},
+                 "Exploration recording runtime differs from its admitted lab")
+        exporter_hash = _hash(lab_contract.get("implementation_sha256", {}).get("shared_world_exploration.py"))
+        _require(members.get("implementation/shared_world_exploration.py") == exporter_hash,
+                 "Exploration exporter is not sealed to its lab")
+        read(run / "implementation", "shared_world_exploration.py", 2 << 20, "run/implementation/", exporter_hash, keep=False)
+        native["shared_world_exploration.py"] = exporter_hash
     elif scene["profile"] == "spatial-rigid-v1" and "action_replay_contract" in closed:
         from weft.spatial_recording import MAX_POLICY_BYTES, policy_document, validate_contract
 
@@ -410,6 +439,15 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
                 _require(digest == metadata[session_prefix + name]["sha256"], "Recording member differs from its original seal")
         _require(type(base.get("video_frames")) is int and base["video_frames"] == events,
                  "Recording frame count differs from its closed event count")
+        if exploration_contract is not None:
+            from weft.shared_world_action_replay import validate_replay_result
+            exploration_proof = base.get("shared_world_action_replay")
+            _require(isinstance(exploration_proof, dict), "Exploration export lacks exact replay proof")
+            validate_replay_result(exploration_proof, exploration_contract, envelope,
+                {name: metadata[session_prefix + name]["sha256"] for name in ("scene.json", "recording.json", "events.jsonl")},
+                events=events, steps=exploration_proof.get("steps"), resets=exploration_proof.get("resets"))
+            _require(exploration_proof["expected_contract_pin_supplied"] is True,
+                     "Exploration export needs its caller-pinned start contract")
         if spatial_contract is not None and base.get("action_replay") is not None:
             from weft.spatial_recording import validate_replay_result
 
@@ -423,7 +461,8 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
             "events": events, "shared": shared, "feet": feet, "camera": camera, "camera_policy": camera_policy,
             'camera_reference': camera_reference,
             "base_profile": base_profile, "engine_profile": scene["profile"],
-            "spatial_contract": spatial_contract, "spatial_proof": spatial_proof}
+            "spatial_contract": spatial_contract, "spatial_proof": spatial_proof,
+            "exploration_contract": exploration_contract, "exploration_proof": exploration_proof}
 
 
 def _evaluator_identity(binding):
@@ -456,6 +495,8 @@ def _runtime(binding, budget):
         names.add("spatial_rigid.py")
         if binding.get("spatial_contract") is not None:
             names.update(binding["native_sha256"])
+    if binding.get("exploration_contract") is not None:
+        names.add("shared_world_exploration.py")
     observed = {}
     for name in sorted(names | set(binding["native_sha256"])):
         _, item = budget.read(_PACKAGE, name, 1024 * 1024, keep=False)
@@ -469,7 +510,9 @@ def _runtime(binding, budget):
             versions[name] = version(name)
         except PackageNotFoundError:
             versions[name] = "unavailable"
-    if binding["shared"] or binding.get("spatial_contract") is not None:
+    if binding.get("exploration_contract") is not None:
+        versions.update(system=platform.system(), machine=platform.machine())
+    if binding["shared"] or binding.get("spatial_contract") is not None or binding.get("exploration_contract") is not None:
         _require(versions == binding["runtime_versions"], "Export dependency versions differ from the source lab")
     return {"implementation_sha256": {name: observed[name] for name in sorted(names)},
             "native_sha256": dict(binding["native_sha256"]), "versions": versions,
@@ -498,7 +541,8 @@ def _replay(value, recorded, binding):
         spatial = (binding.get("spatial_proof") is not None
                    and value["protocol"] in {SPATIAL_PROTOCOL, SPATIAL_POLICY_PROTOCOL}
                    and value["protocol"] == binding["spatial_proof"]["protocol"])
-        _require(value["status"] == "passed" and (shared or spatial), "Exact replay requires its bound supported protocol")
+        exploration = binding.get("exploration_proof") is not None and value["protocol"] == "shared-world-exploration-recording-v1"
+        _require(value["status"] == "passed" and (shared or spatial or exploration), "Exact replay requires its bound supported protocol")
         for name in ("events", "actions", "resets"):
             _require(_integer(value[name + "_checked"], "replay count") == recorded[name], "Replay count differs from recording")
         learned = value["learned_actions_verified"]
@@ -513,6 +557,8 @@ def _replay(value, recorded, binding):
                      and proof["resets"] == recorded["resets"], "Spatial proof counts differ from the receipt")
             _require(learned == proof["learned_actions_verified"] and type(learned) is type(proof["learned_actions_verified"]),
                      "Spatial learned count differs from its bound replay/decision proof")
+        if exploration:
+            _require(learned is None, "Manual exploration cannot claim learned decisions")
         if learned is not None:
             _require(binding["identities"]["policy_sha256"] is not None, "Learned replay count requires a bound policy")
             _integer(learned, "learned replay actions", recorded["actions"])
@@ -533,7 +579,17 @@ def _from_export(result, binding, export, session):
     if binding.get('camera_reference'):
         replay['reference_actions_verified'] = None
     returned = result.get("action_replay")
-    if binding.get("spatial_proof") is not None:
+    if binding.get("exploration_proof") is not None:
+        function = getattr(export, "func", None)
+        _require(returned == binding["exploration_proof"] and function is not None
+                 and getattr(function, "__module__", None) == "weft.shared_world_exploration"
+                 and getattr(function, "__qualname__", None) == "export_exploration_session"
+                 and export.keywords == {"expected_contract_sha256": _canonical(binding["exploration_contract"])},
+                 "Exploration exact replay needs its trusted exporter and start-time contract pin")
+        replay = {"status": "passed", "protocol": "shared-world-exploration-recording-v1",
+                  "events_checked": returned["events"], "actions_checked": returned["steps"],
+                  "resets_checked": returned["resets"], "learned_actions_verified": None}
+    elif binding.get("spatial_proof") is not None:
         _require(returned == binding["spatial_proof"] and getattr(export, "__module__", None) == "weft.recording"
                  and getattr(export, "__qualname__", None) == "export_recording",
                  "Spatial exact replay requires its sealed proof and trusted exporter")
@@ -666,17 +722,18 @@ def export_recording_with_receipt(directory, *, export, run_directory, expected_
         comparison = {**after, "identities": {key: value for key, value in after["identities"].items()
                                               if key != "recording_manifest_sha256"},
                       "metadata": {key: value for key, value in after["metadata"].items()
-                                   if key != f"sessions/{name}/manifest.json"}, "spatial_proof": None}
+                                   if key != f"sessions/{name}/manifest.json"}, "spatial_proof": None, "exploration_proof": None}
         _require(comparison == before, "Source or recording changed during export")
         runtime_after = _runtime(after, budget)
         _require(runtime_before == runtime_after, "Export runtime changed while generating the recording")
         recorded, replay = _from_export(result, after, export, session)
+        exporter = getattr(export, "func", export) if after.get("exploration_contract") is not None else export
         receipt = {"schema_version": 1, "profile": PROFILE, "status": "completed", "session": name,
                    "created_at": datetime.now(ZoneInfo("America/Los_Angeles")).isoformat(),
                    "identities": after["identities"], "recorded": recorded, "replay": replay,
                    "metadata": after["metadata"], "runtime": runtime_after,
-                   "exporter": {"module": _text(getattr(export, "__module__", "unknown")),
-                                "name": _text(getattr(export, "__qualname__", "unknown"))},
+                   "exporter": {"module": _text(getattr(exporter, "__module__", "unknown")),
+                                "name": _text(getattr(exporter, "__qualname__", "unknown"))},
                    "partition": "exposed_development", "physical_validation": "unverified", "scope": SCOPE}
         budget.check()
         seals = _publish(session, receipt)
@@ -736,18 +793,25 @@ def load_recording_evidence(lab_root, session_name, *, expected_run_manifest_sha
             required.add("spatial_rigid.py")
             if bound.get("spatial_contract") is not None:
                 required.update(bound["native_sha256"])
+        if bound.get("exploration_contract") is not None:
+            required.add("shared_world_exploration.py")
         _require(set(implementations) == required, "Saved export implementation identity is incomplete")
-        if bound.get("feet") or bound.get("camera"):
+        if bound.get("feet") or bound.get("camera") or bound.get("exploration_contract") is not None:
             _require(all(implementations[name] == bound["native_sha256"][name]
                          for name in implementations.keys() & bound["native_sha256"].keys()),
-                     "Saved feet implementation identities differ from the frozen lab runtime")
-        versions = _versions(runtime.get("versions"))
+                     "Saved implementation identities differ from the frozen lab runtime")
+        if bound.get("exploration_contract") is not None:
+            versions = runtime.get("versions")
+            _require(versions == bound["runtime_versions"], "Saved exploration dependency versions differ")
+        else:
+            versions = _versions(runtime.get("versions"))
         _require(runtime.get("evaluator_sha256") == _evaluator_identity(bound),
                  "Saved evaluator identity differs from source runtime")
-        if bound["shared"] or bound.get("spatial_contract") is not None:
+        if bound["shared"] or bound.get("spatial_contract") is not None or bound.get("exploration_contract") is not None:
             _require(versions == bound["runtime_versions"], "Saved dependency versions differ from the sealed lab")
         if receipt["replay"]["status"] == "passed":
-            expected_exporter = ({"module": "weft.shared_exercise_lab", "name": "export_shared_exercise_session"}
+            expected_exporter = ({"module": "weft.shared_world_exploration", "name": "export_exploration_session"}
+                                 if bound.get("exploration_contract") is not None else {"module": "weft.shared_exercise_lab", "name": "export_shared_exercise_session"}
                                  if bound["shared"] else {"module": "weft.recording", "name": "export_recording"})
             _require(receipt.get("exporter") == expected_exporter,
                      "Saved exact replay requires its existing trusted exporter")

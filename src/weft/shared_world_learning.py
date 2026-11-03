@@ -87,8 +87,15 @@ def _action_from_weights(weights, env):
     return act
 
 
+def _unqualified_moving(scene):
+    return isinstance(scene, dict) and (
+        scene.get("task", {}).get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1"
+        or any(isinstance(obj, dict) and isinstance(obj.get("provenance"), dict)
+               and obj["provenance"].get("profile") == "moving-equipment-free-body-v1" for obj in scene.get("objects", [])))
+
+
 def validate_shared_policy(policy, scene=None):
-    if isinstance(scene, dict) and scene.get("task", {}).get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1":
+    if _unqualified_moving(scene):
         raise ValueError("Dynamic native interval learning is not qualified")
     if isinstance(scene, dict) and scene.get("profile") == CAMERA_PROFILE:
         raise ValueError("Camera-coupled worlds require separately qualified policies; existing coupled policies are unsupported")
@@ -112,7 +119,7 @@ def validate_shared_policy(policy, scene=None):
 
 def policy_action(policy, env):
     # The environment already validated its model; never compile MuJoCo again per action.
-    if env.scene.get("task", {}).get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1":
+    if _unqualified_moving(env.scene):
         raise ValueError("Dynamic native interval learning is not qualified")
     if env.scene.get("profile") == CAMERA_PROFILE:
         raise ValueError("Camera-coupled worlds require separately qualified policies; existing coupled policies are unsupported")
@@ -224,7 +231,7 @@ def train_shared_world_policy(
         scene = deepcopy(scene_or_dir)
 
     scene = validate_shared_world(scene)
-    if scene["task"].get("native_interval", {}).get("profile") == "native-dynamic-terminal-control-interval-v1":
+    if _unqualified_moving(scene):
         raise ValueError("Dynamic native interval learning is not qualified")
     if "native_clock" in scene.get("human_spec", {}):
         raise ValueError("Native-clock learning requires the source-bound shared-exercise pipeline; this legacy learner does not preserve clock custody")

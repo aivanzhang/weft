@@ -216,3 +216,13 @@ def test_grid_aligned_native_replay_pins_clock_without_changing_legacy_closure()
     contract["runtime_sha256"].pop("source_clock.py")
     with pytest.raises(ValueError, match="closure"):
         validate_contract(contract, scene)
+
+
+def test_pure_replay_module_closure_matches_generic_producer_plus_explicit_dependencies():
+    from test_dynamic_native_interval import dynamic_scene
+    from weft.shared_world_lab import _lab_runtime_modules
+    from weft.shared_world_action_replay import _runtime_modules
+    for scene in (authored_shared_world_scene(), dynamic_scene()):
+        expected = set(_lab_runtime_modules(scene)) | {"shared_world_action_replay.py", "recording.py", "io.py"}
+        if "native_clock" in scene["human_spec"]: expected.add("source_clock.py")
+        assert _runtime_modules(scene) == expected

@@ -23,6 +23,7 @@ HELP = """Nothing moves until you enter step.
   record stop               Save actions and export video/interactive replay
   record evidence [SESSION] Inspect saved action counts and replay verification
   status | files | help | quit
+Exploration labs admit manual controls only; engine parking metrics are not exercise success.
 Reference is original authored feedback. Fitted uses attached fitted joint targets, not learning
 or necessarily better control. Starting a recording resets the trial.
 Quit or Ctrl+C saves an active recording. No server, browser or training starts."""
@@ -53,6 +54,8 @@ class Controls:
 
     def select_mode(self, name):
         modes = self.capabilities["controllers"]
+        if self.capabilities.get("exploration") and name != "manual":
+            raise ValueError("Manual exploration admits only manual mode; release commands to coast")
         if name not in {"manual", "coast", "learned", "reference", 'fitted'}:
             raise ValueError("Choose manual, coast, learned, reference (authored), or fitted")
         if name == "learned" and not modes["learned_policy_available"]:

@@ -218,7 +218,11 @@ class Portal:
             if result["kind"] == "imported_lab":
                 from weft.portal_evidence_attachment import attachment_summary
 
-                attachment = attachment_summary(folder, config)
+                attachment = ({"available": False, "reason": "Manual exploration has no qualified Muse review or repair contract"}
+                    if config.get("control_profile") == "shared_world_exploration" else attachment_summary(folder, config))
+                if config.get("control_profile") == "shared_world_exploration":
+                    result["exploration"] = {"evaluation_status": "not_configured", "task_success_available": False,
+                        "scope": "Manual conditional exploration; no exercise success or learned policy"}
                 result["review_attachment"] = attachment
                 result["review_unavailable_reason"] = None if attachment["available"] else attachment["reason"]
                 result["learned_policy_available"] = config.get("learned_policy_available", False)
@@ -595,6 +599,8 @@ class Portal:
             return self.summary(identity)
 
     def _require_review_body(self, identity, *, action="review"):
+        if self.jobs[identity].get("control_profile") == "shared_world_exploration":
+            raise ValueError("Manual exploration has no qualified Muse review, scoring or repair contract")
         if self._status(identity).get("equipment_candidate_id"):
             from weft.portal_perception_review import attachment_summary
 
@@ -752,7 +758,7 @@ class Portal:
                 raise ValueError("Sandbox is not ready; inspect this project's progress and failure details")
             if identity not in self.labs:
                 if len(self.labs) >= 3:
-                    idle = next((key for key, lab in self.labs.items() if lab.recorder is None
+                    idle = next((key for key, lab in self.labs.items() if not getattr(lab, "loading", False) and lab.recorder is None
                                  and (lab.export_future is None or lab.export_future.done())), None)
                     if idle is None:
                         raise ValueError("Finish recording in another sandbox before opening a fourth")
@@ -761,7 +767,11 @@ class Portal:
                 lab_path = (folder / self._status(identity).get("lab", "lab")).resolve()
                 if not lab_path.is_relative_to(folder):
                     raise ValueError("Sandbox path is outside this project")
-                lab = open_portal_lab(lab_path, project=self.project)
+                if self.jobs[identity].get("control_profile") == "shared_world_exploration":
+                    from weft.shared_world_exploration import LoadingExplorationLab
+                    lab = LoadingExplorationLab(lab_path, project=self.project)
+                else:
+                    lab = open_portal_lab(lab_path, project=self.project)
                 lab.token = self.token
                 self.labs[identity] = lab
             self.labs.move_to_end(identity)

@@ -62,8 +62,9 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
     config = json.loads(config_raw)
     manifest_raw, files = read_package_manifest(source / "run")
     manifest_hash = sha256(manifest_raw).hexdigest()
+    exploration = config.get("control_profile") == "shared_world_exploration"
     if (len(manifest_raw) > 1 << 20 or len(files) > 6000
-            or config.get("control_profile") != "shared_exercise"
+            or config.get("control_profile") not in {"shared_exercise", "shared_world_exploration"}
             or config.get("manifest_sha256") != manifest_hash
             or json.loads(manifest_raw).get("status") != "ready"):
         raise ValueError("Import requires an exact ready shared-exercise lab")
@@ -129,7 +130,7 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
         lab = open_portal_lab(target, project=project)
         try:
             summary = lab.summary()
-            if summary.get("control_profile") != "shared_exercise" or summary.get("scene") != scene:
+            if summary.get("control_profile") != config["control_profile"] or summary.get("scene") != scene:
                 raise ValueError("Imported lab admission changed the saved world")
             learned = summary.get("learned_policy_available") is True
         finally:
@@ -140,7 +141,8 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
             raise ValueError("Original lab seals changed during import")
         job = {"id": identity, "name": name, "created_at": local_time(), "ai": False, "mode": "exercise",
                "kind": "imported_lab", "source_file": media, "source_sha256": source_hash, "import_identity": key,
-               "inventory_method": "saved_world", "learned_policy_available": learned}
+               "inventory_method": "saved_world", "learned_policy_available": learned,
+               **({"control_profile": "shared_world_exploration", "task_success_available": False} if exploration else {})}
         write_json(stage / "job.json", job)
         (stage / "analysis").mkdir(mode=0o700)
         receipt = {"profile": "portal-lab-import-v1", "source_manifest_sha256": manifest_hash,

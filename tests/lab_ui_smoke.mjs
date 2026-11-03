@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, partialPixels = false, jointPixels = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
+function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, partialPixels = false, jointPixels = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, sharedExploration = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -273,6 +273,7 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
     },
   });
   const status = () => ({status: backendReady ? generationFailed ? 'failed' : 'ready' : 'running', profile, directory: '/synthetic/lab',
+    ...(sharedExploration?{control_profile:"shared_world_exploration",exploration:{evaluation_status:"not_configured",task_success_available:false,manual_only:true}}:{}),
     ...(sharedExercise?{control_profile:'shared_exercise',exercise_task:exerciseTask,action_contract:missingExerciseContract?null:exerciseActionContract,exercise_policy:exercisePolicy}:{}),
     learned_policy_available: sharedExercise ? exercisePolicyAvailable : !noPolicy,
     ...(backendReady && !generationFailed ? {capabilities: buildCapabilities(), evidence_provenance: buildEvidenceProvenance()} : {}),
@@ -415,6 +416,7 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
     backendState:()=>clone(state),
     backendTaskState:()=>clone(wireState()),
     finish(){state=clone(state);state.terminated=true;state.success=true;},
+    engineDiagnostic(value){state=clone(state);state.coupled_metrics={...state.coupled_metrics,failure:value};state.terminated=true;},
     finishExport(){exportStatus='ready';savedSessions[0].complete=true;},
     setReady() { backendReady = true; },
     maxActiveSteps:()=>maxActiveSteps,
@@ -1845,6 +1847,27 @@ async function savedTrialMissingEquipmentFailureIsNotAPassOrANativeClock() {
   explainButton(bad).click();await drain();assert.equal(bad.ids.get('recording-diagnosis-content').hidden,true);
   assert.match(bad.ids.get('recording-diagnosis-status').textContent,/unavailable.*No time or success is inferred/);
 }
+
+async function movingExplorationUsesManualChannelsAndNeverClaimsTaskSuccess() {
+  const ui=fixture('shared-world',{sharedExploration:true});await ui.ready();
+  assert.match(ui.ids.get('goal-summary').textContent,/Manual exploration.*no exercise-success task/i);
+  assert.doesNotMatch(ui.ids.get('training-caption').textContent,/verified.*probe/i);
+  assert.doesNotMatch(ui.ids.get('start-help').textContent,/authored.*feedback|learned controller.*ready/i);
+  assert.equal(ui.ids.get('reference-servo').disabled,true);assert.equal(ui.ids.get('policy').disabled,true);
+  assert.equal(ui.ids.get('actor').disabled,true);
+  assert.equal(ui.ids.get('joint').children.length,ui.backendState().last_action?.length || 28);
+  ui.ids.get('joint').value='root_y';ui.ids.get('joint').dispatch('change');await drain();
+  ui.ids.get('step').click();await drain();
+  const steps=ui.requests.filter(row=>row.path==='/api/step');assert.equal(steps.length,1);
+  assert(Array.isArray(steps[0].data.action));assert.equal(steps[0].data.controller,undefined);
+  ui.resolveNext("/api/step");await drain();
+  ui.finish();ui.engineDiagnostic("human_velocity_envelope_exceeded");ui.ids.get("step").click();await drain();ui.resolveNext("/api/step");await drain();
+  assert.doesNotMatch(ui.ids.get('play-state').textContent,/Goal reached/);
+  assert.doesNotMatch(ui.ids.get('readout').textContent,/TASK SUCCESS/);
+  assert.match(ui.ids.get('readout').textContent,/Engine diagnostic: human_velocity_envelope_exceeded/);
+}
+
+checks.push(movingExplorationUsesManualChannelsAndNeverClaimsTaskSuccess);
 
 checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistance,sharedExerciseManualCoastAndAuthoredRequestsStayDistinct,
   sourceAndSimulationWindowsKeepPlaybackIndependent,sourceWindowPreservesUnknownAndFailedGeometryClocks,

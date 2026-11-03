@@ -423,6 +423,14 @@ def main():
     exercise_conditional.add_argument("--out", required=True)
     exercise_conditional.add_argument("--max-candidates", type=int, choices=(2, 3, 4), default=3)
     exercise_conditional.add_argument("--max-seconds", type=float, default=90)
+    moving_build = commands.add_parser("moving-equipment-build", help="Build conditional moving-object exploration labs from saved evidence; no training or API calls")
+    moving_build.add_argument("--run", required=True, help="Sealed source-qualified body base")
+    moving_build.add_argument("--evidence-run", required=True, help="Sealed equipment tracking evidence")
+    moving_build.add_argument("--settings", required=True, help="Explicit camera, depth, shape and initial-state priors JSON")
+    moving_build.add_argument("--out", required=True, help="New output directory; preserves all candidates and refusals")
+    moving_build.add_argument("--source-mapping", action="append", default=[])
+    moving_build.add_argument("--max-candidates", type=int, choices=(1, 2, 3), default=3)
+    moving_build.add_argument("--max-seconds", type=float, default=120)
     exercise_build = commands.add_parser("shared-exercise-build", help="Build one exercise world and lab from video or saved body evidence")
     exercise_source = exercise_build.add_mutually_exclusive_group(required=True)
     exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
@@ -892,6 +900,13 @@ def main():
             from weft.equipment_conditional_assembly import prepare_conditional_equipment_scene
             result = prepare_conditional_equipment_scene(args.run, args.evidence_run, args.out,
                 source_mappings=args.source_mapping, max_seconds=args.max_seconds, max_candidates=args.max_candidates)
+        elif args.command == "moving-equipment-build":
+            from weft.moving_equipment_pipeline import prepare_moving_equipment_scene
+            labels = {"inputs": "Validate saved video evidence", "proposals": "Prepare conditional moving worlds",
+                      "candidate": "Build interactive candidate", "seal": "Save candidates and refusals"}
+            result = prepare_moving_equipment_scene(args.run, args.evidence_run, args.settings, args.out,
+                source_mappings=args.source_mapping, max_seconds=args.max_seconds, max_candidates=args.max_candidates,
+                progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             if args.native_timing and args.video is None:
@@ -1212,6 +1227,8 @@ def main():
             parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
         if args.command == "shared-exercise-alternatives" and result.get("status") != "candidates_ready":
             parser.exit(1, f"weft: no admitted equipment candidate; inspect {Path(args.out) / 'result.json'}\n")
+        if args.command == "moving-equipment-build" and result.get("status") != "candidates_ready":
+            parser.exit(1, f"weft: moving-equipment build {result.get('status', 'not_ready')}; inspect {Path(args.out) / 'result.json'}\n")
         if args.command == "shared-exercise-config":
             pin = result.get("manifest_sha256")
             if (result.get("profile") != "shared-exercise-config-package-v1" or result.get("sealed") is not True
