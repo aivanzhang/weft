@@ -43,6 +43,7 @@ function handle(message) {
   if (message.type !== "frame" || !config) fail("Avatar bridge expects initialization followed by frames");
   const selected = settings(message.settings), body = math.bodyFrames(config, message.snapshot);
   const pose = selected.asset === null ? null : math.retarget(assets.get(selected.asset), body);
+  const matrices = math.worldMatrices(world, body.state);
   const segments = body.state.human.segments || [], muscles = body.state.human.muscles || [];
   if (segments.length > 32 || muscles.length > 64) fail("Avatar overlay exceeds its element bound");
   const segmentRows = segments.map(segment => {
@@ -54,8 +55,8 @@ function handle(message) {
     return {a: vector(muscle.a, 3, "muscle start"), b: vector(muscle.b, 3, "muscle end"), activation: muscle.activation};
   }) : [];
   send({type: "frame", nodes: pose ? Array.from(pose.nodes.entries()) : [], palette: pose ? pose.palette : [],
-    world_matrices: math.worldMatrices(world, body.state),
-    views: math.cameraViews(config, body.state, selected.camera, width, height),
+    world_matrices: matrices,
+    views: math.cameraViews(config, body.state, selected.camera, width, height, pose ? math.posedBounds(assets.get(selected.asset), pose, world, matrices,body.state) : null),
     segments: segmentRows, muscles: muscleRows, controlled_human: body.state.controlled_id === "human"});
 }
 process.stdin.on("data", chunk => {

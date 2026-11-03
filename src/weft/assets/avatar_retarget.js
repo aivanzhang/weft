@@ -221,7 +221,7 @@
       return {node:primitive.node,skin:primitive.skin,positions,normals,texcoords,joints,weights,indices,material};
     });
     if(vertices>LIMITS.vertices||triangles>LIMITS.triangles)fail("Avatar geometry exceeds supported bounds");
-    return {nodes:byId,order,root_node:rig.root_node,bindings,skin:{joints:[...skin.joints],inverseBind},primitives:meshes,materials:materialInfo,textures:textureInfo,stats:{vertices,triangles,pixels},basis,restRelative,rest,restInverse,roles};
+    return {nodes:byId,order,root_node:rig.root_node,bindings,skin:{joints:[...skin.joints],inverseBind},primitives:meshes,framing:prepareFraming(meshes,skin.joints.length),materials:materialInfo,textures:textureInfo,stats:{vertices,triangles,pixels},basis,restRelative,rest,restInverse,roles};
   }
   function retarget(asset, body) {
     if(asset.restRelative)return retargetRest(asset,body);
@@ -269,21 +269,70 @@
       return {...primitive,positions,normals};
     });
   }
-  function cameraViews(config, snapshot, camera={}, width=1080, height=420) {
+  const emptyBounds=()=>({min:[Infinity,Infinity,Infinity],max:[-Infinity,-Infinity,-Infinity]});
+  function includePoint(bounds,xyz){for(let i=0;i<3;i++){const value=finite(xyz[i],"avatar framing coordinate",1e12);bounds.min[i]=Math.min(bounds.min[i],value);bounds.max[i]=Math.max(bounds.max[i],value);}}
+  function boundsCorners(bounds){return Array.from({length:8},(_,mask)=>[0,1,2].map(i=>(mask&(1<<i))?bounds.max[i]:bounds.min[i]));}
+  function prepareFraming(meshes,joints){
+    const skin=Array.from({length:joints},emptyBounds),statics=new Map();
+    for(const mesh of meshes){
+      if(mesh.skin===null&&!statics.has(mesh.node))statics.set(mesh.node,emptyBounds());
+      for(let vertex=0;vertex<mesh.positions.length/3;vertex++){
+        const xyz=mesh.positions.subarray(vertex*3,vertex*3+3);
+        if(mesh.skin===null)includePoint(statics.get(mesh.node),xyz);
+        else for(let influence=0;influence<4;influence++)if(mesh.weights[vertex*4+influence]>0)includePoint(skin[mesh.joints[vertex*4+influence]],xyz);
+      }
+    }
+    return {skin:skin.map(bounds=>Number.isFinite(bounds.min[0])?boundsCorners(bounds):[]),statics:[...statics].map(([node,bounds])=>({node,corners:boundsCorners(bounds)}))};
+  }
+  function posedBounds(asset,pose,world=null,matrices=null,snapshot=null){
+    const bounds=emptyBounds();let corners=0;
+    const add=(points,m)=>{
+      for(const xyz of points){
+        const w=m[3]*xyz[0]+m[7]*xyz[1]+m[11]*xyz[2]+m[15];
+        if(!(w>1e-12))fail("Unsupported projective avatar framing");
+        includePoint(bounds,point(m,xyz));corners++;
+      }
+    };
+    // Positive skin weights place every vertex inside its transformed influence boxes.
+    asset.framing.skin.forEach((points,index)=>add(points,pose.palette[index]));
+    for(const row of asset.framing.statics)add(row.corners,pose.nodes.get(row.node));
+    if(world!==null){
+      if(!Array.isArray(matrices)||matrices.length!==world.meshes.length)fail("Incomplete framed world transforms");
+      world.meshes.forEach((mesh,index)=>{if(mesh.id!==null)add(mesh.framing,matrices[index]);});
+    }
+    if(snapshot!==null){
+      const state=snapshot?.profile==="shared-exercise-state-v1"?snapshot.engine_state:snapshot,segments=state?.human?.segments||[];
+      if(!Array.isArray(segments)||segments.length>32)fail("Body framing exceeds its segment bound");
+      for(const segment of segments){const radius=finite(segment.radius,"body framing radius",1);if(radius<=0)fail("Invalid body framing radius");for(const endpoint of [segment.a,segment.b]){const xyz=vector(endpoint,3,"body framing point");includePoint(bounds,xyz.map(v=>v-radius));includePoint(bounds,xyz.map(v=>v+radius));}}
+    }
+    if(!corners)fail("Avatar has no frameable geometry");
+    for(let i=0;i<3;i++){const pad=Math.max(1e-5,Math.max(Math.abs(bounds.min[i]),Math.abs(bounds.max[i]))*2e-6);bounds.min[i]-=pad;bounds.max[i]+=pad;}
+    return {min:bounds.min,max:bounds.max,corners};
+  }
+  function cameraViews(config, snapshot, camera={}, width=1080, height=420, framing=null) {
     integer(width,3,2048,"avatar viewport width");integer(height,1,2048,"avatar viewport height");
     const state=snapshot?.profile==="shared-exercise-state-v1"?snapshot.engine_state:snapshot;
     const yaw=finite(camera.yaw??.5,"camera yaw",100),zoom=finite(camera.zoom??1,"camera zoom",3);
     if(zoom<1)fail("Invalid camera zoom");
-    const moving=(state?.objects||[]).filter(object=>object.role!=="static"), center=camera.follow&&moving.length
+    const moving=(state?.objects||[]).filter(object=>object.role!=="static");let center=camera.follow&&moving.length
       ? [0,1,2].map(i=>moving.reduce((sum,object)=>sum+finite(object.position[i],"camera object position"),0)/moving.length)
       :config.bounds.map(value=>value/2);
     const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(.5),sp=Math.sin(.5),pane=width/3;
-    const scale=zoom*Math.min(pane*.84/Math.max(config.bounds[0],config.bounds[1]),height*.76/Math.max(...config.bounds));
+    let scale=zoom*Math.min(pane*.84/Math.max(config.bounds[0],config.bounds[1]),height*.76/Math.max(...config.bounds));
     const views=[{name:"Front: x / height",x:[1,0,0],y:[0,0,-1],depth:[0,1,0]},
       {name:"Top: x / depth",x:[1,0,0],y:[0,-1,0],depth:[0,0,1]},
       {name:"3D: coupled world",x:[cy,-sy,0],y:[sy*sp,cy*sp,-cp],depth:[sy*cp,cy*cp,sp]}];
+    let half=null;
+    if(framing!==null){
+      const low=vector(framing.min,3,"camera lower bound",1e12),high=vector(framing.max,3,"camera upper bound",1e12);
+      if(low.some((value,i)=>value>high[i]))fail("Camera framing bounds are reversed");
+      if(!camera.follow)for(let i=0;i<3;i++){low[i]=Math.min(0,low[i]);high[i]=Math.max(config.bounds[i],high[i]);}
+      center=low.map((value,i)=>(value+high[i])/2);half=low.map((value,i)=>(high[i]-value)/2);
+      scale=zoom*Math.min(...views.flatMap(view=>[pane*.84/Math.max(1e-6,2*dot(view.x.map(Math.abs),half)),height*.76/Math.max(1e-6,2*dot(view.y.map(Math.abs),half))]));
+    }
     return views.map((view,index)=>{
-      const x=view.x.map(value=>value*2*scale/pane),y=view.y.map(value=>-value*2*scale/height),z=view.depth.map(value=>-value/512);
+      const depth=half?Math.max(512,dot(view.depth.map(Math.abs),half)*1.1):512;
+      const x=view.x.map(value=>value*2*scale/pane),y=view.y.map(value=>-value*2*scale/height),z=view.depth.map(value=>-value/depth);
       return {name:view.name,viewport:[Math.round(index*pane),0,Math.round((index+1)*pane)-Math.round(index*pane),height],
         matrix:[x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-dot(x,center),-.08-dot(y,center),-dot(z,center),1]};
     });
@@ -330,7 +379,8 @@
       }
       vertices+=positions.length/3;triangles+=indices.length/3;
       if(vertices>200000||triangles>250000)fail("World render geometry exceeds supported bounds");
-      meshes.push({id:object.id,positions:new Float32Array(positions),normals:new Float32Array(normals),indices:new Uint32Array(indices),color:worldColor(object.color)});
+      const bounds=emptyBounds();for(let i=0;i<positions.length;i+=3)includePoint(bounds,positions.slice(i,i+3));
+      meshes.push({id:object.id,positions:new Float32Array(positions),normals:new Float32Array(normals),indices:new Uint32Array(indices),color:worldColor(object.color),framing:boundsCorners(bounds)});
     }
     const span=Math.max(...config.bounds)*2,n=config.floor_normal,q=n[2]<-.999999?[1,0,0,0]:normalize([-n[1],n[0],0,1+n[2]]);
     meshes.push({id:null,positions:new Float32Array([-span,-span,0,span,-span,0,span,span,0,-span,span,0]),normals:new Float32Array([0,0,1,0,0,1,0,0,1,0,0,1]),indices:new Uint32Array([0,1,2,0,2,3]),color:worldColor("#E6D8C8")});
@@ -347,7 +397,7 @@
     }
     return world.meshes.map(mesh=>mesh.id===null?world.floor_matrix:matrices.get(mesh.id));
   }
-  const api=Object.freeze({LIMITS,BODY_FRAMES,identity,multiply,transform,axisRotation,point,inverse,normalVector,compileScene,bodyFrames,prepareAsset,retarget,posedGeometry,cameraViews,prepareWorld,worldMatrices,srgbToLinear});
+  const api=Object.freeze({LIMITS,BODY_FRAMES,identity,multiply,transform,axisRotation,point,inverse,normalVector,compileScene,bodyFrames,prepareAsset,retarget,posedGeometry,posedBounds,cameraViews,prepareWorld,worldMatrices,srgbToLinear});
   root.WeftAvatarRetarget=api;
   if(typeof module!=="undefined"&&module.exports)module.exports=api;
 })(globalThis);

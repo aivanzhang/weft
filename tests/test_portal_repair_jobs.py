@@ -164,7 +164,11 @@ def test_worker_dispatches_repairs_with_own_receipt_and_cpu_allowance(tmp_path, 
     monkeypatch.setattr(sys, "argv", ["worker", str(root), str(tmp_path), "repairs"])
     monkeypatch.setattr(portal_worker.resource, "setrlimit", lambda key, value: limits.append((key, value)))
     monkeypatch.setattr(portal_worker.threading.Thread, "start", lambda self: None)
-    monkeypatch.setattr(jobs, "execute_repair_job", lambda folder: calls.append(folder) or 0)
+    def execute(folder, *, project):
+        assert project == tmp_path
+        calls.append(folder)
+        return 0
+    monkeypatch.setattr(jobs, "execute_repair_job", execute)
     assert portal_worker.main() == 0 and calls == [root]
     assert (portal_worker.resource.RLIMIT_CPU, (65, 65)) in limits
     assert (root / "muse/repairs/worker-receipt.json").is_file()

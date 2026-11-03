@@ -22,7 +22,7 @@ for(const [side,sign] of [["left",-1],["right",1]])for(const [proximal,distal,ti
   for(const suffix of ["","_twist","_lateral"])angles[`${side}_${proximal}${suffix}`]=0;angles[`${side}_${distal}`]=0;
   joints[`${side}_${proximal}`]=[1+sign*width/2,1,z];joints[`${side}_${distal}`]=[1+sign*width/2,1,z-length1];joints[`${side}_${tip}`]=[1+sign*width/2,1,z-length1-length2];
 }
-const snapshot={human:{angles,joints,mobility:{translation:[0,0,0]},segments:[{a:joints.pelvis,b:joints.neck}],muscles:[{a:joints.left_shoulder,b:joints.left_elbow,activation:.7}]},objects:scene.objects};
+const snapshot={human:{angles,joints,mobility:{translation:[0,0,0]},segments:[{a:joints.pelvis,b:joints.neck,radius:.03}],muscles:[{a:joints.left_shoulder,b:joints.left_elbow,activation:.7}]},objects:scene.objects};
 
 function controllerHarness({supported=true}={}){
   const workers=[],timers=new Map(),listeners=new Map(),statuses=[];let nextTimer=0;

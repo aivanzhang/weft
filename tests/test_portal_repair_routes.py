@@ -81,3 +81,51 @@ def test_queue_leaves_attempt_admission_to_the_repair_worker(ready, monkeypatch)
     monkeypatch.setattr(portal, "_run", run)
     portal._work()
     assert calls == [identity] and portal.active is None
+
+
+def test_explicit_choice_has_separate_consent_and_never_requeues(ready, monkeypatch):
+    portal, identity, root = ready
+    monkeypatch.setattr(module, "repair_choice_availability",
+                        lambda root, **kw: {"available": True, "reason": "Qualified choice"})
+    monkeypatch.setattr(module, "muse_availability", lambda project: {"available": True})
+    portal.jobs[identity]["kind"] = "saved_body"
+    original = (root / "status.json").read_bytes()
+    with serving(portal) as server:
+        path = f"/api/projects/{identity}/muse/repairs/choose"
+        assert request(server, path, "POST", auth=False)[0] == 401
+        assert request(server, path, "POST", headers={"Origin": "https://foreign.invalid"})[0] == 403
+        assert request(server, path, "POST", b"{}")[0] == 400
+        assert not (root / "muse/repairs").exists()
+        # Summary validates actual saved-body receipts; this fixture only exercises queue authorization.
+        monkeypatch.setattr(portal, "summary", lambda selected: {"id": selected})
+        assert request(server, path, "POST")[0] == 202
+        marker = root / "muse/repairs/request.json"
+        first = marker.read_bytes()
+        assert json.loads(first) == {"schema_version": 1, "profile": "muse-controller-choice-v1"}
+        assert request(server, path, "POST")[0] == 202
+        assert marker.read_bytes() == first
+    assert (root / "status.json").read_bytes() == original
+
+
+def test_choice_no_allowance_does_not_create_work(ready, monkeypatch):
+    portal, identity, root = ready
+    monkeypatch.setattr(module, "repair_choice_availability",
+                        lambda root, **kw: {"available": True, "reason": "Qualified choice"})
+    monkeypatch.setattr(module, "muse_availability", lambda project: {"available": False})
+    with pytest.raises(ValueError, match="allowance"):
+        portal.repair(identity, model_choice=True)
+    assert not (root / "muse/repairs").exists()
+
+
+def test_choice_artifacts_are_closed_and_no_symlink_escape(ready):
+    portal, identity, root = ready
+    advice = root / "muse/repairs/proposal/advice"
+    advice.mkdir(parents=True)
+    (advice / "advisor-call.json").write_text("{}")
+    assert portal.artifact(identity, "muse/repairs/proposal/advice/advisor-call.json") == advice / "advisor-call.json"
+    (advice / "private.json").write_text("{}")
+    with pytest.raises(ValueError, match="public controller"):
+        portal.artifact(identity, "muse/repairs/proposal/advice/private.json")
+    (advice / "request.json").symlink_to(advice / "advisor-call.json")
+    with pytest.raises(ValueError, match="public controller"):
+        portal.artifact(identity, "muse/repairs/proposal/advice/request.json")

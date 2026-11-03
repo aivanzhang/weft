@@ -4,7 +4,7 @@
 
 Generate executable training environments from evidence. Test them against observed outcomes. Repair the environment when the evidence disagrees.
 
-Weft generates and repairs reinforcement-learning environments using real-world evidence. It is a Loom-adjacent project with its own identity. This **separate hackathon repository** is adjacent to, not a fork of, the existing `../loom` data-ingestion product.
+Weft is a developer tool for constructing and testing conditional reinforcement-learning environments from video evidence. Supported inputs yield inspectable simulations; bounded proposals and tests remain separate from claims of physical accuracy. It is a Loom-adjacent project with its own identity. This **separate hackathon repository** is adjacent to, not a fork of, the existing `../loom` data-ingestion product.
 
 The original application used the name Loom. Historical application text and source snapshots retain that name; the project is now called **Weft**.
 
@@ -14,6 +14,7 @@ The original application used the name Loom. Historical application text and sou
 
 - [Product goal](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/goal.md): the full A–E design, physics-grounded relationships, and independent evaluation informed by WorldBench.
 - [First-version scope](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/v1.md): the bounded product milestone, deliverables, build order, and completion criteria.
+- [Demo notes and final-submission checklist](hackathon/analysis/demo-plan.md): the three-minute script, evidence and remaining steps; also saved in Apple Notes.
 - [Hackathon pitch](hackathon/pitch.md): polished vision and prototype copy, with evidence boundaries and a demo storyboard.
 
 These describe the target and its presentation. The implementation status below remains separate.

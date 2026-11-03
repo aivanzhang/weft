@@ -28,6 +28,16 @@ def _directory(value):
 
 
 def _storage(root, check):
+    # Atomic status replacement can rename a file after walk lists it; recount, never omit it.
+    for _ in range(3):
+        try:
+            return _storage_snapshot(root, check)
+        except FileNotFoundError:
+            check()
+    raise ValueError("Portal storage is changing; retry after the current update")
+
+
+def _storage_snapshot(root, check):
     size = count = 0
     for directory, children, files in os.walk(root, followlinks=False):
         check()

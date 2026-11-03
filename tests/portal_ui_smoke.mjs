@@ -525,3 +525,32 @@ const taskOptions = task => ({status:"ready",profile:"portal-moving-task-options
   assert.equal(f.calls.find(c=>c.path.endsWith('/avatars/attach')).options.headers.Authorization,'Bearer test-owner-token');
   console.log('PASS explicit avatar prepare/attach is authenticated and deduplicated; safe names, upload cap and no AI calls');
 }
+
+{
+  const id="9".repeat(32), parent={id,name:"Conditional body",kind:"saved_body",route:"exercise",status:"ready",events:[],
+    muse:{status:"proposed",repair_availability:{available:false},choice_availability:{available:true,estimated_external_api_usd:.058368}}};
+  const f=setup([parent],{fetch:async(path,options,info)=>{
+    if(path.endsWith("/muse/repairs/choose")){
+      info.jobs[0].muse.repairs={status:"queued",model_choice:true,message:"Waiting for one bounded request"};
+      return {ok:true,json:async()=>structuredClone(info.jobs[0])};
+    }
+  }});
+  await tick(); const e=f.elements;
+  assert.equal(e.get("repair-comparison").hidden,false);
+  assert.equal(e.get("choose-repair").hidden,false);
+  assert.equal(e.get("run-repairs").hidden,true);
+  assert.match(e.get("choice-cost").textContent,/additional Meta request.*0.0584.*no automatic retry/);
+  assert.ok(!f.calls.some(c=>c.path.endsWith("/choose")));
+  await Promise.all([e.get("choose-repair").onclick(),e.get("choose-repair").onclick()]);
+  await tick();
+  assert.equal(f.calls.filter(c=>c.path.endsWith("/choose")).length,1);
+  assert.equal(e.get("choose-repair").hidden,true);
+  f.info.jobs[0].muse.repairs={status:"abstained",model_choice:true,proposal_available:true,message:"Additional physical evidence required"};
+  await e.get("refresh").onclick(); await tick();
+  assert.match(e.get("repairs-outcome").textContent,/Muse abstained.*No controller candidate/);
+  assert.equal(e.get("repairs-report-download").hidden,true);
+  assert.equal(e.get("choice-receipt-download").hidden,false);
+  assert.match(e.get("choice-receipt-download").href,/repairs\/proposal\/advice\/advisor-call.json/);
+  assert.ok(!f.calls.some(c=>c.path.includes("/files/muse/repairs")));
+  console.log("PASS explicit paid controller choice is bounded, deduplicated and shows abstention without fake comparison links");
+}

@@ -1,6 +1,7 @@
 """Muse-linked controller candidates are tested against a frozen world, task and scorer."""
 
 from copy import deepcopy
+import base64
 from hashlib import sha256
 import json
 import math
@@ -27,12 +28,23 @@ MAX_CONTROL_STEPS = 7200
 MAX_OUTPUT_BYTES = 32 * 1024 * 1024
 MIN_SCORE_IMPROVEMENT = .01
 DELTAS = (-.1, .1, .2)
+CHOICE_PROFILE = "muse-controller-choice-v1"
+CHOICE_QUESTIONS = (
+    "Choose a falsifiable SIMULATOR control hypothesis, or abstain. Available local tests add the same bounded joint velocity-feedback correction to three existing joint groups: feedback-1=-0.1, feedback-2=+0.1, feedback-3=+0.2. These numbers are authored options, not measurements or model-generated code.",
+    "For each selected option, put exactly weft:test:feedback-1, weft:test:feedback-2 or weft:test:feedback-3 as a required_tests item in an evidence-linked control hypothesis about person/world:human. Select at most three. If none is justified, return no such token; do not force a choice.",
+    "Explain why the selected correction could improve tracking and what would falsify it. The independent test keeps the original world, full reference interval, force limits, task, scorer and gates unchanged, uses paired starts, and rejects absent strict improvement. No physical validation or automatic application follows.",
+    "Keep gravity/contact/anatomy and omitted scene inventory uncertainties explicit. A body-only approximation does not establish absence of equipment or other people. No scores, previous candidate outcomes or held-out measurements are supplied.",
+)
 SOURCE_SCOPE = "construction_only; no held-out scores or audit observations supplied"
 SCOPE = ("Authored numerical controller candidates prompted by evidence-linked Muse hypotheses. "
          "Only bounded joint velocity-feedback corrections vary; world, reference, task, gates, "
          "root assistance and equipment force authority stay unchanged. Paired exposed-development "
          "simulation is not recovered physics, measured force, a new-video holdout or physical validation. "
          "Muse's physical measurement requests remain unresolved; no selected candidate is automatically applied.")
+
+
+class MuseAbstained(ValueError):
+    """A valid response selected no supported simulator test."""
 
 
 def _require(condition, message):
@@ -67,10 +79,28 @@ def prepare_repair_plan(scene, task, advice, context):
     eligible = [row for row in advice["hypotheses"] if row["status"] == "hypothesis"
                 and row["concept"] in {"control", "articulation"} and row["evidence_ids"]
                 and set(row["object_ids"]) & {"person", "world:human"}]
+    choice_mode = context.get("questions") == list(CHOICE_QUESTIONS)
+    if choice_mode and not eligible:
+        raise MuseAbstained("Muse selected no supported controller hypothesis; no simulation will run")
     _require(eligible, "no supported evidence-linked control/articulation hypothesis; physical measurements cannot become simulator repairs")
+    selections = {}
+    if choice_mode:
+        for row in eligible:
+            for test in row["required_tests"]:
+                if test.startswith("weft:test:"):
+                    candidate = test.removeprefix("weft:test:")
+                    _require(row["concept"] == "control" and candidate in {"feedback-1", "feedback-2", "feedback-3"}
+                             and candidate not in selections, "invalid or duplicate explicit Muse candidate selection")
+                    selections[candidate] = row
+        if not selections:
+            raise MuseAbstained("Muse abstained from the bounded controller options; no simulation will run")
     hypothesis = eligible[0]
     candidates = []
     for index, delta in enumerate(DELTAS):
+        if choice_mode:
+            if f"feedback-{index + 1}" not in selections:
+                continue
+            hypothesis = selections[f"feedback-{index + 1}"]
         weights = [[0., delta] for _ in range(3)]
         coefficients(weights)
         candidates.append({"id": f"feedback-{index + 1}", "kind": "joint_velocity_feedback_sensitivity",
@@ -89,6 +119,8 @@ def prepare_repair_plan(scene, task, advice, context):
         "score": "existing_shared_exercise_learning._score", "tie_break": "first_frozen_candidate",
         "evidence_partition": "exposed_development_simulation_not_independent_physical_or_new_video_evidence"}
     return {"schema_version": 1, "profile": PLAN_PROFILE, "source_sha256": source,
+        **({"model_choice": {"profile": CHOICE_PROFILE, "selected_ids": list(selections),
+                            "authority": "Muse selected authored options; independent scorer decides acceptance"}} if choice_mode else {}),
         "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task),
         "advice_sha256": canonical_hash(advice), "context_sha256": canonical_hash(context),
         "runtime_sha256": _runtime(scene), "runtime_versions": _runtime_versions(), "candidates": candidates, "protocol": protocol,
@@ -187,6 +219,7 @@ def run_repair_plan(scene, task, advice, context, plan, out, *, max_seconds=60,
         accepted = [row for row in runs[1:] if row["comparison"]["accepted_in_simulation"]]
         selected = max(accepted, key=lambda row: row["comparison"]["candidate_score"]) if accepted else None
         report = {"schema_version": 1, "profile": PROFILE, "status": "complete", "created_at": local_time(),
+            **({"model_choice": expected["model_choice"]} if "model_choice" in expected else {}),
             "plan_sha256": canonical_hash(expected), "scene_sha256": expected["scene_sha256"],
             "task_sha256": expected["task_sha256"], "runtime_sha256": expected["runtime_sha256"],
             "selected_candidate": selected["id"] if selected else None, "applied": False,
@@ -194,6 +227,10 @@ def run_repair_plan(scene, task, advice, context, plan, out, *, max_seconds=60,
             "candidates": [{"id": row["id"], **row["comparison"]} for row in runs[1:]],
             "physical_hypotheses": expected["physical_hypotheses"], "control_steps": budget.used,
             "seconds": time.monotonic() - started, "external_api_usd": 0, "scope": SCOPE}
+        if "model_choice" in expected:
+            proposal_cost = (_source_receipt or {}).get("provider_call", {}).get("cost_usd")
+            report.update(proposal_external_api_usd=proposal_cost, comparison_external_api_usd=0,
+                          external_api_usd=proposal_cost)
         writer.save("report.json", report)
         writer.save("manifest.json", {"schema_version": 1, "status": "complete",
                     "files": {path.name: digest(path) for path in sorted(out.iterdir()) if path.is_file()}})
@@ -236,3 +273,111 @@ def run_review_repairs(root, out, *, max_seconds=60):
         _require(current.files == proof.files, "source evidence changed during comparison")
     return run_repair_plan(scene, task, advice, context, plan, out, max_seconds=deadline - time.monotonic(),
         _source_receipt={"review_binding": binding, "source_verification": proof.report}, _before_seal=unchanged)
+
+
+def request_controller_review(root, out, *, project, execute=False):
+    """Keep the optional paid controller-choice review separate from the original physical advice."""
+    from weft.portal_checks import inputs
+    from weft.portal_review import review_input
+    from weft.scene_advisor import advise_run, ESTIMATE
+    from weft.shared_world_packaging import collect_shared_source_files
+
+    root, out = Path(root).absolute(), Path(out).absolute()
+    _require(not out.exists() and not any(p.is_symlink() for p in (out, *out.parents)), "fresh unlinked review output required")
+    _require(not root.is_relative_to(out) and (not out.is_relative_to(root)
+             or out.is_relative_to(root / "muse/repairs")), "review output must not replace original project evidence")
+    scene, task, _, binding = inputs(root)
+    _require(task is not None, "controller choice requires an exercise task")
+    _context(scene, task)
+    _require(task["interval"]["horizon_steps"] * 8 <= MAX_CONTROL_STEPS, "full comparison exceeds action bound")
+    proof = collect_shared_source_files(scene, root / binding["run"], expected_manifest_sha256=binding["run_manifest_sha256"])
+    source, construction, world = review_input(root, project=project)
+    _require(construction == binding["construction"], "construction changed before controller review")
+    out.mkdir(parents=True, exist_ok=False)
+    (out / "binding.json").write_bytes(_bytes({"profile": CHOICE_PROFILE, "review_binding": binding,
+        "source_verification": proof.report, "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task)}))
+    record = advise_run(source, out / "advice", questions=list(CHOICE_QUESTIONS), execute=execute,
+                        max_cost_usd=ESTIMATE if execute else None, project_root=project, scene_context=world)
+    _require(inputs(root)[3] == binding, "construction changed during controller review")
+    return record
+
+
+def run_controller_review_repairs(root, review, out, *, max_seconds=60):
+    """Validate the exact separate provider response, then test only its explicit allowed choices."""
+    from weft.portal_checks import inputs, read_json
+    from weft.portal_review import review_input
+    from weft.scene_advisor import prepare_context, MODEL, SYSTEM, PROPOSAL_SCHEMA, OUTPUT_TOKEN_LIMIT, _sample, _cost
+    from weft.shared_world_packaging import collect_shared_source_files
+
+    _require(type(max_seconds) in (int, float) and 0 < max_seconds <= MAX_SECONDS, "invalid comparison deadline")
+    deadline = time.monotonic() + max_seconds
+    root, review, out = Path(root).absolute(), Path(review).absolute(), Path(out).absolute()
+    _require(out != review and not review.is_relative_to(out) and not out.is_relative_to(review), "comparison must be separate from advice")
+    _require(not root.is_relative_to(out) and (not out.is_relative_to(root)
+             or out.is_relative_to(root / "muse/repairs")), "comparison cannot replace project evidence")
+    scene, task, _, binding = inputs(root)
+    source, _, world = review_input(root)
+    stored, stored_pin = read_json(review / "binding.json", 128 << 10)
+    _require(stored.get("profile") == CHOICE_PROFILE, "controller review profile differs")
+    _require(stored.get("review_binding") == binding and stored.get("scene_sha256") == canonical_hash(scene)
+             and stored.get("task_sha256") == canonical_hash(task), "controller review source/world/task differs")
+    pins = {"binding.json": stored_pin}
+    documents = {}
+    for name, limit in (("context.json", 32 << 10), ("request.json", 4 << 20), ("response.json", 140000),
+                        ("hypotheses.json", 140000), ("advisor-call.json", 128 << 10)):
+        documents[name], pins["advice/" + name] = read_json(review / "advice" / name, limit)
+    context, request, response, proposal, call = (documents[n] for n in
+        ("context.json", "request.json", "response.json", "hypotheses.json", "advisor-call.json"))
+    _require(context == prepare_context(source, list(CHOICE_QUESTIONS), scene_context=world), "controller context differs from original construction")
+    _require(set(request) == {"model", "messages", "response_format", "max_completion_tokens", "reasoning_effort"}
+             and request["model"] == MODEL and request["max_completion_tokens"] == OUTPUT_TOKEN_LIMIT
+             and request["reasoning_effort"] == "low" and request["response_format"] ==
+             {"type": "json_schema", "json_schema": {"name": "WeftSceneAdvice", "schema": PROPOSAL_SCHEMA}}, "controller request contract differs")
+    messages = request["messages"]
+    _require(isinstance(messages, list) and len(messages) == 2 and messages[0] == {"role": "developer", "content": SYSTEM}
+             and messages[1].get("role") == "user" and isinstance(messages[1].get("content"), list)
+             and messages[1]["content"] and messages[1]["content"][0] ==
+             {"type": "text", "text": json.dumps(context, sort_keys=True, allow_nan=False)}, "controller request context differs")
+    _require(call.get("status") == "proposed" and call.get("schema_validated") is True
+             and call.get("request_count") == 1 and call.get("retries") == 0 and call.get("live_access_verified") is True
+             and call.get("model") == MODEL and call.get("model_returned") == MODEL and response.get("model") == MODEL
+             and call.get("usage") == response.get("usage") and call.get("cost_usd") == _cost(response.get("usage"))
+             and call.get("request_sha256") == canonical_hash(request)
+             and call.get("source_sha256") == binding["source_sha256"]
+             and call.get("simulation_world_sha256") == canonical_hash(world), "completed controller provider receipt required")
+    rows = _sample(list({row["frame"]: row for row in context["observations"]}.values()), 3)
+    content = messages[1]["content"]
+    _require(len(content) == 1 + 2 * len(rows) and call.get("frame_ids") == [row["id"] for row in rows]
+             and isinstance(call.get("frame_jpeg_sha256"), list) and len(call["frame_jpeg_sha256"]) == len(rows),
+             "controller images differ from the declared construction frames")
+    for index, row in enumerate(rows):
+        caption, image = content[1 + 2 * index:3 + 2 * index]
+        _require(caption == {"type": "text", "text": f"Construction frame {row['frame']}; evidence {row['id']}"}
+                 and isinstance(image, dict) and set(image) == {"type", "image_url"} and image["type"] == "image_url"
+                 and isinstance(image["image_url"], dict) and set(image["image_url"]) == {"url", "detail"}
+                 and image["image_url"]["detail"] == "low", "controller frame caption or image fields differ")
+        url = image["image_url"]["url"]
+        _require(isinstance(url, str) and url.startswith("data:image/jpeg;base64,") and len(url) <= 175000,
+                 "controller image must be a bounded inline JPEG")
+        raw = base64.b64decode(url.split(",", 1)[1], validate=True)
+        _require(0 < len(raw) <= 131072 and sha256(raw).hexdigest() == call["frame_jpeg_sha256"][index],
+                 "controller image differs from the provider receipt")
+    choices = response.get("choices")
+    _require(isinstance(choices, list) and len(choices) == 1 and choices[0].get("finish_reason") == "stop"
+             and not choices[0].get("message", {}).get("refusal"), "controller provider response incomplete")
+    _require(proposal.get("source") == "model_proposal" and proposal.get("accepted") is False
+             and proposal.get("advice") == json.loads(choices[0]["message"]["content"]), "controller advice differs from provider response")
+    advice = proposal["advice"]
+    plan = prepare_repair_plan(scene, task, advice, context)
+    proof = collect_shared_source_files(scene, root / binding["run"], expected_manifest_sha256=binding["run_manifest_sha256"])
+    def unchanged():
+        _require(inputs(root)[3] == binding, "original review changed during comparison")
+        for name, pin in pins.items():
+            _require(digest(review / name) == pin, "controller review changed during comparison")
+        current = collect_shared_source_files(scene, root / binding["run"], expected_manifest_sha256=binding["run_manifest_sha256"])
+        _require(current.files == proof.files, "source proof changed during comparison")
+    return run_repair_plan(scene, task, advice, context, plan, out, max_seconds=deadline - time.monotonic(),
+        _source_receipt={"review_binding": binding, "controller_review_files": pins, "source_verification": proof.report,
+                         "provider_call": {key: call.get(key) for key in
+                             ("model", "request_sha256", "request_count", "cost_usd", "usage", "budget_reservation")}},
+        _before_seal=unchanged)

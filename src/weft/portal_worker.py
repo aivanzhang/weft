@@ -67,7 +67,7 @@ def main():
         result = execute_equipment_job(root, project=Path(sys.argv[2]))
     elif repairs:
         from weft.portal_repair_jobs import execute_repair_job
-        result = execute_repair_job(root)
+        result = execute_repair_job(root, project=Path(sys.argv[2]))
     elif supports:
         from weft.portal_supports import execute_support_job
         result = execute_support_job(root)

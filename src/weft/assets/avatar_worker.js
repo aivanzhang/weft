@@ -140,7 +140,7 @@ precision highp float;in vec3 vColor;out vec4 color;void main(){color=vec4(vColo
   function frame(message){
     try{
       if(!visible||!asset||!world){send({type:"frame",sequence:message.sequence});return;}
-      const body=math.bodyFrames(config,message.snapshot),pose=math.retarget(asset,body),matrices=math.worldMatrices(world,body.state),views=math.cameraViews(config,body.state,message.camera,canvas.width,canvas.height);
+      const body=math.bodyFrames(config,message.snapshot),pose=math.retarget(asset,body),matrices=math.worldMatrices(world,body.state),views=math.cameraViews(config,body.state,message.camera,canvas.width,canvas.height,math.posedBounds(asset,pose,world,matrices,body.state));
       const overlays=overlayData(body.state,message.overlay,message.showMuscles);
       gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,paletteTexture);gl.texSubImage2D(gl.TEXTURE_2D,0,0,0,4,pose.palette.length,gl.RGBA,gl.FLOAT,new Float32Array(pose.palette.flat()));
       gl.disable(gl.SCISSOR_TEST);gl.clearColor(251/255,247/255,241/255,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);

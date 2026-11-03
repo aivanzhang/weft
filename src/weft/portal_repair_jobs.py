@@ -12,7 +12,7 @@ from weft.io import local_time
 from weft.lab_worker import atomic_json
 
 PROFILE = "portal-controller-repair-job-v1"
-TERMINAL = frozenset({"complete", "failed", "cancelled", "interrupted"})
+TERMINAL = frozenset({"complete", "failed", "cancelled", "interrupted", "abstained"})
 MAX_SECONDS = 60.
 MAX_REPORT_BYTES = 128 * 1024
 MAX_MANIFEST_BYTES = 64 * 1024
@@ -34,7 +34,7 @@ def _read(path, maximum):
     return value, sha256(raw).hexdigest()
 
 
-def _eligibility(root):
+def _eligibility(root, *, model_choice=False):
     status, _ = _read(root / "status.json", 64 * 1024)
     if status.get("status") != "ready" or status.get("route") != "exercise":
         return False, "A completed exercise simulation is required."
@@ -47,6 +47,10 @@ def _eligibility(root):
         return False, "This world needs a separately qualified controller adapter; its task will not be changed."
     if proposal.get("source") != "model_proposal" or proposal.get("accepted") is not False:
         return False, "An unchanged, unaccepted Muse proposal is required."
+    if (root / "job.json").exists():
+        job, _ = _read(root / "job.json", 64 << 10)
+        if job.get("kind") == "saved_body" and not model_choice:
+            return False, "Body approximations require an explicit new Muse controller-choice request."
     observations, objects = context.get("observations", []), context.get("objects", [])
     hypotheses = proposal.get("advice", {}).get("hypotheses", [])
     if (not isinstance(observations, list) or len(observations) > 12 or not isinstance(objects, list) or len(objects) > 14
@@ -54,6 +58,8 @@ def _eligibility(root):
         return False, "The saved review does not meet the bounded candidate contract."
     evidence_ids = {row.get("id") for row in observations if isinstance(row, dict) and isinstance(row.get("id"), str)}
     object_ids = {row.get("id") for row in objects if isinstance(row, dict) and isinstance(row.get("id"), str)}
+    if model_choice:
+        return bool(evidence_ids and object_ids & {"person", "world:human"}), "Ask Muse to choose bounded simulator tests or abstain; all source/task checks run again before the request."
     for row in hypotheses:
         if not isinstance(row, dict):
             continue
@@ -66,16 +72,20 @@ def _eligibility(root):
     return False, "No supported evidence-linked control or articulation hypothesis; physical measurements cannot be replaced by simulation."
 
 
-def availability(root):
+def availability(root, *, model_choice=False):
     """Small metadata-only preview; the worker independently verifies full source custody."""
     root = Path(root).absolute()
     result = {"available": False, "reason": "A completed exercise simulation and Muse review are required.",
               "estimated_external_api_usd": 0, "maximum_seconds": MAX_SECONDS, "maximum_candidates": 3,
               "requires_new_ai_request": False}
+    if model_choice:
+        from weft.scene_advisor import ESTIMATE
+        result.update(estimated_external_api_usd=ESTIMATE, requires_new_ai_request=True,
+                      maximum_seconds=120, maximum_provider_calls=1)
     if (root / "muse/repairs").exists():
         return result | {"reason": "A comparison already exists; it will not be rerun or overwrite its evidence."}
     try:
-        available, reason = _eligibility(root)
+        available, reason = _eligibility(root, model_choice=model_choice)
         return result | {"available": available, "reason": reason}
     except (OSError, ValueError, TypeError, AttributeError):
         return result
@@ -108,15 +118,28 @@ def read_small_report(root):
 def _complete(report, manifest, *, recovered=False):
     return {"profile": PROFILE, "status": "complete", "message":
         "A candidate improved the fixed simulator score; nothing was applied." if report["accepted_in_simulation"] else
-        "No candidate improved the fixed simulator score; the original controller is unchanged.",
+        "No candidate passed all acceptance checks; the original controller is unchanged.",
         "run": "muse/repairs/run", "report": "muse/repairs/run/report.json", "manifest_sha256": manifest,
         "seconds": report.get("seconds"), "selected_candidate": report.get("selected_candidate"),
         "accepted_in_simulation": report["accepted_in_simulation"], "candidates_tested": len(report["candidates"]),
         "control_steps": report.get("control_steps"), "applied": False, "physical_validation": "unverified",
-        "lifecycle_recovered_from_sealed_run": recovered}
+        "lifecycle_recovered_from_sealed_run": recovered,
+        "model_choice": "model_choice" in report, "proposal_available": "model_choice" in report,
+        "external_api_usd": report.get("external_api_usd", 0)}
 
 
-def execute_repair_job(root, *, max_seconds=60):
+def choice_requested(root):
+    """Only an explicit closed request can authorize the separate paid proposal phase."""
+    path = Path(root) / "muse/repairs/request.json"
+    if not path.exists():
+        return False
+    value, _ = _read(path, 4096)
+    if value != {"schema_version": 1, "profile": "muse-controller-choice-v1"}:
+        raise ValueError("Unknown controller-choice request")
+    return True
+
+
+def execute_repair_job(root, *, max_seconds=60, project=None):
     """Never retry a prior attempt, including an interrupted one with partial artifacts."""
     if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 0 < max_seconds <= MAX_SECONDS:
         raise ValueError("Repair jobs require a positive runtime bound of at most 60 seconds")
@@ -147,27 +170,48 @@ def execute_repair_job(root, *, max_seconds=60):
             atomic_json(work / "status.json", {"profile": PROFILE, "status": "interrupted", "applied": False,
                 "message": "A prior worker attempt cannot be resumed safely; existing evidence is preserved."})
             return 1
+        choice = False
         try:
+            choice = choice_requested(root)
             if (work / "cancel-request.json").exists():
                 raise InterruptedError("Comparison cancelled before simulation; the original project is unchanged")
-            allowed, reason = _eligibility(root)
+            allowed, reason = _eligibility(root, model_choice=choice)
             if not allowed:
                 raise ValueError(reason)
             with (work / "attempt.json").open("x") as stream:
                 json.dump({"profile": PROFILE, "started_at": local_time(), "pid": os.getpid(),
-                           "maximum_seconds": float(max_seconds), "external_api_usd": 0}, stream)
+                           "maximum_comparison_seconds": float(max_seconds),
+                           "maximum_provider_calls": 1 if choice else 0,
+                           **({"external_api_usd": 0} if not choice else {})}, stream)
             atomic_json(work / "status.json", {"profile": PROFILE, "status": "running", "applied": False,
                 "message": "Testing three fixed authored controller candidates against the unchanged task; no AI calls or policy changes.",
                 "started_at": local_time(), "maximum_seconds": float(max_seconds)})
-            from weft.portal_repairs import run_review_repairs
-            run_review_repairs(root, work / "run", max_seconds=max_seconds - (time.monotonic() - started))
+            from weft.portal_repairs import run_review_repairs, request_controller_review, run_controller_review_repairs
+            if choice:
+                if project is None:
+                    raise ValueError("Controller-choice execution requires the canonical project budget")
+                atomic_json(work / "status.json", {"profile": PROFILE, "status": "running", "applied": False,
+                    "model_choice": True, "proposal_available": False,
+                    "message": "Muse is selecting bounded authored simulator tests; no physical repair or automatic application."})
+                request_controller_review(root, work / "proposal", project=project, execute=True)
+                if (work / "cancel-request.json").exists():
+                    raise InterruptedError("Cancelled after proposal; saved provider evidence retained, no simulation")
+                atomic_json(work / "status.json", {"profile": PROFILE, "status": "running", "applied": False,
+                    "model_choice": True, "proposal_available": True,
+                    "message": "Testing Muse's explicit choices against the unchanged task and scorer."})
+                run_controller_review_repairs(root, work / "proposal", work / "run", max_seconds=max_seconds)
+            else:
+                run_review_repairs(root, work / "run", max_seconds=max_seconds - (time.monotonic() - started))
             report, manifest = _report(root)
             atomic_json(work / "status.json", _complete(report, manifest))
             return 0
         except Exception as error:
+            from weft.portal_repairs import MuseAbstained
             atomic_json(work / "status.json", {"profile": PROFILE,
-                "status": "cancelled" if isinstance(error, InterruptedError) else "failed",
+                "status": "abstained" if isinstance(error, MuseAbstained) else "cancelled" if isinstance(error, InterruptedError) else "failed",
                 "message": str(error)[:500], "error_type": type(error).__name__, "applied": False,
                 "physical_validation": "unverified", "partial_evidence_preserved": True,
+                "model_choice": choice,
+                "proposal_available": choice and (work / "proposal/advice/hypotheses.json").is_file(),
                 "seconds": time.monotonic() - started})
             return 1

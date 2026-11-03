@@ -22,6 +22,8 @@ from weft.openai_access import MODEL, PROJECT_ROOT, OpenAIBudget, credential_sta
 from weft.portal_review import TERMINAL as REVIEW_TERMINAL, availability as muse_availability
 from weft.portal_checks import TERMINAL as CHECK_TERMINAL
 from weft.portal_repair_jobs import TERMINAL as REPAIR_TERMINAL, availability as repair_availability, read_small_report
+from weft.portal_repair_jobs import choice_requested
+from weft.portal_repair_jobs import availability as repair_choice_availability
 from weft.portal_supports import body_path
 from weft.portal_lab_runtime import open_portal_lab
 from weft.portal_inventory import exercise_intent
@@ -360,6 +362,10 @@ class Portal:
                 result["muse"]["repair_availability"] = ({"available": False,
                     "reason": "Body approximations support review only; local repairs are not qualified"}
                     if result["kind"] == "saved_body" else repair_availability(folder))
+                choice_supported = (result["kind"] in {"video", "saved_body", "support_experiment"}
+                    and not status.get("equipment_candidate_id") and not status.get("moving_candidate_id"))
+                result["muse"]["choice_availability"] = (repair_choice_availability(folder, model_choice=True)
+                    if choice_supported else {"available": False, "reason": "This world has no qualified controller-choice adapter."})
                 for field, name in (("receipt", "advisor-call"), ("proposal", "hypotheses")):
                     path = folder / "muse/advice" / (name + ".json")
                     if path.is_file():
@@ -377,6 +383,9 @@ class Portal:
                 repairs = folder / "muse/repairs/status.json"
                 if repairs.is_file():
                     result["muse"]["repairs"] = bounded_json(repairs)
+                    if result["muse"]["repairs"].get("proposal_available"):
+                        choice = bounded_json(folder / "muse/repairs/proposal/advice/hypotheses.json", maximum=140_000)
+                        result["muse"]["repairs"]["choice_summary"] = choice.get("advice", {}).get("summary", "")
                     if result["muse"]["repairs"]["status"] == "complete":
                         result["muse"]["repairs"]["report"] = read_small_report(folder)
             return result
@@ -716,20 +725,26 @@ class Portal:
         if self._stored_bytes() + self._reserved_growth() + MAX_JOB_BYTES > MAX_STORAGE:
             raise ValueError("Perception preparation exceeds the portal storage reservation")
 
-    def repair(self, identity):
+    def repair(self, identity, *, model_choice=False):
         with self.lock:
             root = self._folder(identity)
-            self._require_review_body(identity, action="repairs")
+            self._require_review_body(identity, action="repair_choice" if model_choice else "repairs")
             folder = root / "muse/repairs"
             if folder.exists():
                 return self.summary(identity)
-            available = repair_availability(root)
+            available = repair_choice_availability(root, model_choice=True) if model_choice else repair_availability(root)
             if not available["available"]:
                 raise ValueError(available["reason"])
+            if model_choice and not muse_availability(self.project)["available"]:
+                raise ValueError("Meta project key or remaining allowance is unavailable")
             if sum(self._repair_status(i).get("status") in {"queued", "running"} for i in self.jobs) >= 4:
                 raise ValueError("Candidate comparison queue is full")
             folder.mkdir(mode=0o700)
-            atomic_json(folder / "status.json", {"status": "queued", "message": "Waiting to test bounded suggestions; no new AI request and no automatic application.",
+            if model_choice:
+                atomic_json(folder / "request.json", {"schema_version": 1, "profile": "muse-controller-choice-v1"})
+            message = ("Waiting for one bounded Muse controller choice and fixed tests; no automatic application."
+                       if model_choice else "Waiting to test bounded suggestions; no new AI request and no automatic application.")
+            atomic_json(folder / "status.json", {"status": "queued", "message": message,
                 "requested_at": local_time(), "applied": False})
             self.wake.set()
             return self.summary(identity)
@@ -767,7 +782,7 @@ class Portal:
             return self.summary(identity)
 
     def _require_review_body(self, identity, *, action="review"):
-        if self.jobs[identity].get("kind") == "saved_body" and action != "review":
+        if self.jobs[identity].get("kind") == "saved_body" and action not in {"review", "repair_choice"}:
             raise ValueError("Body approximations support Muse review only; local checks and repairs are not qualified")
         if self.jobs[identity].get("kind") == "task_job" and not self._placement(identity):
             raise ValueError("Task-learning reports have no qualified Muse review or repair contract")
@@ -799,6 +814,12 @@ class Portal:
         work = folder / "moving-equipment" if moving else folder / "perception" if perception else folder / "equipment" if equipment else folder / "muse/repairs" if repairs else folder / "muse/checks" if checks else folder / "muse" if review else folder
         terminal = moving_jobs.TERMINAL if moving else perception_jobs.RESTING if perception else EQUIPMENT_TERMINAL if equipment else REPAIR_TERMINAL if repairs else CHECK_TERMINAL if checks else REVIEW_TERMINAL if review else TERMINAL
         paid_perception = perception and (work / "request.json").is_file()
+        try:
+            paid_repair = repairs and choice_requested(folder)
+        except (OSError, ValueError) as error:
+            atomic_json(work / "status.json", {"status": "failed", "message": str(error),
+                "applied": False, "partial_evidence_preserved": True})
+            return
         env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "PYTHONPATH": str(Path(__file__).resolve().parent.parent),
                "PYTHONUNBUFFERED": "1", "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1",
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MPLCONFIGDIR": str(folder / "runtime/matplotlib")}
@@ -807,7 +828,7 @@ class Portal:
         saved_body = self.jobs[identity].get("kind") == "saved_body" and not (review or checks or repairs or equipment or perception or moving)
         if (paid_perception or not (review or checks or repairs or support or tasks or saved_body or equipment or perception or moving)) and os.environ.get("OPENAI_API_KEY"):
             env["OPENAI_API_KEY"] = os.environ["OPENAI_API_KEY"]
-        if review or paid_perception:
+        if review or paid_perception or paid_repair:
             for name in ("META_API_KEY", "MODEL_API_KEY"):
                 if os.environ.get(name):
                     env[name] = os.environ[name]
@@ -840,7 +861,7 @@ class Portal:
                     output_thread.start()
                 with self.lock:
                     self.process = process
-                deadline = time.monotonic() + (195 if moving or tasks else 135 if saved_body else 450 if perception else 120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
+                deadline = time.monotonic() + (195 if moving or tasks else 135 if saved_body else 450 if perception else 120 if equipment else 125 if paid_repair else 65 if repairs else 60 if checks else 90 if review else 420)
                 next_inventory = 0
                 while process.poll() is None:
                     if moving and output_limit.is_set():
@@ -1071,6 +1092,13 @@ class Portal:
         if not file.is_relative_to(folder) or not file.is_file():
             raise ValueError("Artifact is outside this project")
         relative = file.relative_to(folder).as_posix()
+        if relative.startswith("muse/repairs/proposal/"):
+            allowed = {"binding.json", *("advice/" + value for value in ("context.json", "hypotheses.json", "advisor-call.json", "request.json", "response.json"))}
+            if (any(p.is_symlink() for p in ((folder / name), *(folder / name).parents))
+                    or relative.removeprefix("muse/repairs/proposal/") not in allowed
+                    or file.stat().st_size > (2 << 20)):
+                raise ValueError("File is not a public controller-choice artifact")
+            return file
         if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "muse/repairs/run/", "equipment/run/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity].get("source_file"), "failure.json", "worker.log", "muse/binding.json", "support-priors.json", "body-reuse.json", "equipment/candidates.json", "equipment/source-validation.json", "equipment/selection.json"}:
             raise ValueError("File is not a public project artifact")
         return file
@@ -1260,11 +1288,12 @@ class PortalHandler(LabHandler):
                 if int(self.headers.get("Content-Length", "0")) != 0:
                     raise ValueError("Local checks take no arguments")
                 return self.reply(self.server.portal.check(match[1]), 202)
-            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/muse/repairs", path)
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/muse/repairs(/choose)?", path)
             if match:
                 if int(self.headers.get("Content-Length", "0")) != 0:
                     raise ValueError("Candidate testing takes no arguments")
-                return self.reply(self.server.portal.repair(match[1]), 202)
+                return self.reply(self.server.portal.repair(match[1], model_choice=True)
+                                  if match[2] else self.server.portal.repair(match[1]), 202)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/supports", path)
             if match:
                 length = int(self.headers.get("Content-Length", "0"))

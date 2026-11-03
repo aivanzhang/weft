@@ -302,7 +302,7 @@ def export_avatar_recording(root, *, max_seconds=180):
     files = dict(appearance["assets"]["files"])
     for name in ("appearance.json", "appearance-events.jsonl", "appearance-assets.json", "avatar-video.mp4", "avatar-replay.html"):
         files[name] = digest(root / name)
-    modules = ("avatar_recording.py", "avatar_replay.py", "avatar_offscreen.py", "avatar_assets.py", "avatar_gltf.py")
+    modules = ("avatar_recording.py", "avatar_replay.py", "avatar_offscreen.py", "avatar_assets.py", "avatar_gltf.py", "assets/avatar_offscreen_bridge.cjs")
     implementation = {name: digest(Path(__file__).parent / name) for name in modules}
     manifest = {"schema_version": 1, "profile": "weft-appearance-export-v1", "created_at": local_time(),
                 "physical_manifest_sha256": digest(root / "manifest.json"), "files": files,

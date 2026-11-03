@@ -4,7 +4,7 @@
 <body>
 <header><a href="/" aria-label="Weft home"><img src="/weft-logo.png" width="76" height="76" alt="Weft"></a><span>VIDEO → SIMULATION</span><span id="connection" role="status">Connecting…</span></header>
 <main>
-<section class="hero"><p class="eyebrow">YOUR VIDEO IS THE STARTING POINT</p><h1>See it. Build it.<br>Try it yourself.</h1><p>Turn a short video into a simulation you can inspect, control and record. Follow every step from source evidence to the final result.</p></section>
+<section class="hero"><p class="eyebrow">VIDEO EVIDENCE FOR SIMULATION DEVELOPERS</p><h1>From a video to<br>a world you can test.</h1><p>Build an inspectable simulation from a short video. For developers exploring reinforcement learning: inspect the assumptions, change actions, compare results and record what happens. Supported scenes produce conditional models, not verified copies of the physical world.</p></section>
 <p id="error" class="notice" role="alert" hidden></p>
 <div class="workspace">
 <section class="upload-panel" aria-labelledby="new-heading"><h2 id="new-heading">Create a simulation</h2>
@@ -95,11 +95,13 @@
 <div class="actions"><a id="muse-proposal-download" class="text-link" hidden>Full proposals</a><a id="muse-context-download" class="text-link" hidden>Evidence sent to Muse</a><a id="muse-receipt-download" class="text-link" hidden>Meta API receipt</a></div>
 <button id="run-checks" type="button" class="secondary" hidden>Run local comparisons · no API charge</button><p id="checks-status" role="status"></p><ul id="checks-results"></ul><a id="checks-report-download" class="text-link" hidden>Comparison report</a><div id="checks-traces" class="actions"></div>
 <p id="checks-help" class="hint" hidden>These are fixed simulation experiments under the original task, not model-generated code or execution of Muse’s requested physical measurements. They do not apply repairs, establish real contact, or prove biomechanics.</p>
-<section id="repair-comparison" hidden aria-labelledby="repair-heading"><h4 id="repair-heading">Test Muse suggestions</h4>
-<p class="hint">Compare up to three locally authored controller settings prompted by Muse’s review. At most one minute, no API charge. The world, task and original policy stay unchanged.</p>
-<button id="run-repairs" type="button" class="secondary" hidden>Test Muse suggestions · no API charge</button>
-<p id="repairs-status" role="status"></p><p id="repairs-outcome"></p><ul id="repairs-results"></ul>
+<section id="repair-comparison" hidden aria-labelledby="repair-heading"><h4 id="repair-heading">Choose and test a controller change</h4>
+<p class="hint">Ask Muse to choose from bounded controller tests, or abstain. Its choice is checked against the unchanged task and baseline; nothing is installed. This tests simulated control, not anatomy or real contact.</p>
+<button id="choose-repair" type="button" class="secondary" hidden>Ask Muse to choose a controller test</button><p id="choice-cost" class="hint" hidden></p>
+<button id="run-repairs" type="button" class="secondary" hidden>Compare authored settings · no API charge</button>
+<p id="repairs-status" role="status"></p><p id="choice-summary"></p><p id="repairs-outcome"></p><ul id="repairs-results"></ul>
 <div class="actions"><a id="repairs-report-download" class="text-link" hidden>Candidate comparison</a><a id="repairs-plan-download" class="text-link" hidden>Frozen test plan</a><a id="repairs-runtime-download" class="text-link" hidden>Saved runtime source</a><a id="repairs-manifest-download" class="text-link" hidden>Artifact manifest</a></div>
+<div class="actions"><a id="choice-proposal-download" class="text-link" hidden>Muse controller choice</a><a id="choice-context-download" class="text-link" hidden>Controller-choice evidence</a><a id="choice-receipt-download" class="text-link" hidden>Controller-choice API receipt</a></div>
 <p class="hint">A better simulator score does not verify Muse’s physical claims, recover equipment contact or apply a new controller.</p></section>
 <p class="hint">Proposals are untested and not applied. Suggested experiments are not results; no physical accuracy or measured muscle activity is established by this review.</p></section>
 <details><summary>Processing log</summary><ol id="events" class="events"></ol></details>

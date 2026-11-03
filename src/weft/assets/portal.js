@@ -230,12 +230,17 @@
       const a = document.createElement("a"); a.textContent = `${controls[trial.condition] || trial.condition} actions and states`; a.className = "text-link";
       a.href = fileURL(job.id, "muse/checks/" + trial.trace); a.download = trial.trace; return a;
     }));
-    const repairs = job.muse?.repairs, repairReport = repairs?.report, repairAvailability = job.muse?.repair_availability;
-    $("repair-comparison").hidden = reviewOnly || (job.muse?.status !== "proposed" && !repairs);
+    const repairs = job.muse?.repairs, repairReport = repairs?.report, repairAvailability = job.muse?.repair_availability, choiceAvailability = job.muse?.choice_availability;
+    $("repair-comparison").hidden = (reviewOnly && !choiceAvailability?.available && !repairs) || (job.muse?.status !== "proposed" && !repairs);
+    $("choose-repair").hidden = !choiceAvailability?.available || !!repairs;
+    $("choose-repair").disabled = repairing || !museAvailable;
+    $("choice-cost").hidden = !choiceAvailability?.available || !!repairs;
+    $("choice-cost").textContent = `One additional Meta request, estimated up to $${Number(choiceAvailability?.estimated_external_api_usd || 0).toFixed(4)}, then bounded local tests. Charged to the existing allowance; no automatic retry.`;
+    $("choice-summary").textContent = repairs?.choice_summary ? `Muse's interpretation (not verified): ${repairs.choice_summary}` : "";
     $("run-repairs").hidden = !repairAvailability?.available || !!repairs;
     $("run-repairs").disabled = repairing;
     $("repairs-status").textContent = repairs?.message || repairs?.error || repairs?.status || repairAvailability?.reason || "A supported evidence-linked control or articulation hypothesis is required.";
-    $("repairs-outcome").textContent = repairReport ? (repairReport.accepted_in_simulation
+    $("repairs-outcome").textContent = repairs?.status === "abstained" ? "Muse abstained. No controller candidate was tested or applied." : repairReport ? (repairReport.model_abstained ? "Muse abstained. No controller candidate was tested or applied." : repairReport.accepted_in_simulation
       ? `Candidate ${repairReport.selected_candidate} improved the fixed simulator score. Nothing was applied.`
       : "No candidate improved enough. The original controller remains unchanged.") : "";
     const score = value => Number.isFinite(value) ? value.toFixed(4) : "not available";
@@ -248,6 +253,9 @@
     artifactLink("repairs-plan-download", job, "muse/repairs/run/plan.json", !!repairReport);
     artifactLink("repairs-runtime-download", job, "muse/repairs/run/runtime-source.json", !!repairReport);
     artifactLink("repairs-manifest-download", job, "muse/repairs/run/manifest.json", !!repairReport);
+    artifactLink("choice-proposal-download", job, "muse/repairs/proposal/advice/hypotheses.json", !!repairs?.proposal_available);
+    artifactLink("choice-context-download", job, "muse/repairs/proposal/advice/context.json", !!repairs?.proposal_available);
+    artifactLink("choice-receipt-download", job, "muse/repairs/proposal/advice/advisor-call.json", !!repairs?.proposal_available);
     if (job.plan && $("frame-previews").dataset.job !== job.id) {
       $("frame-previews").dataset.job = job.id;
       $("frame-previews").replaceChildren();
@@ -373,6 +381,16 @@
       if (selected === identity) await show(job);
     } catch (e) { error(e.message); }
     finally { checking = false; lastDetail = ""; refresh(); }
+  };
+  $("choose-repair").onclick = async () => {
+    if (!selected || repairing || !museAvailable || !selectedJob?.muse?.choice_availability?.available || selectedJob?.muse?.repairs) return;
+    repairing = true; $("choose-repair").disabled = true;
+    const identity = selected;
+    try {
+      const job = await request(`/api/projects/${identity}/muse/repairs/choose`, {method:"POST"});
+      if (selected === identity) await show(job);
+    } catch (e) { error(`${e.message}. Refresh to inspect the saved request; no automatic paid retry was made.`); }
+    finally { repairing = false; lastDetail = ""; refresh(); }
   };
   $("run-repairs").onclick = async () => {
     if (!selected || repairing || !selectedJob?.muse?.repair_availability?.available || selectedJob?.muse?.repairs) return;

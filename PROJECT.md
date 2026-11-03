@@ -1,8 +1,6 @@
 # Weft project guide
 
-Current working guide, consolidated November 3, 2026 (PST). Older studies and
-handoffs describe dated checkpoints, not the latest product status. Repository
-instructions remain in [AGENTS.md](AGENTS.md).
+Repository instructions remain in [AGENTS.md](AGENTS.md).
 
 ## Goal and current scope
 
@@ -103,7 +101,7 @@ active jobs or assume an old handoff's worker ownership is still current.
 
 ## Verified status and limits
 
-These are recorded results, not checks rerun by documentation consolidation.
+These are recorded results. The November 3 demo acceptance below was run after documentation consolidation; older studies retain their dated limits.
 
 | Capability | What exists | What remains unverified or incomplete |
 | --- | --- | --- |
@@ -124,7 +122,7 @@ These are recorded results, not checks rerun by documentation consolidation.
 - Continuous robot recording: `lab/sessions/session-fafeb2ffe374` under that
   project, with 234 controls / 235 frames and 7.8 seconds of simulation. Exact
   physical replay and appearance export pass. **Task success is false:** mean
-  and peak body-position tracking fail; the fixed camera can crop the avatar.
+  and peak body-position tracking fail. The original export crops; the new camera-only derivative below fixes framing without changing that failed result.
 - The earlier seven-frame, three-avatar clip is a 0.233-second integration test,
   not a useful animation demo. Paused wall-clock time adds no simulated frames.
 - Studio panda import plumbing passes, but bad source skin weights cause severe
@@ -137,6 +135,52 @@ These are recorded results, not checks rerun by documentation consolidation.
   controller candidates and rejected all three. Both facts must remain visible.
   [Demo evidence](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/handoffs/hackathon-demo.md),
   [candidate-test scope](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/handoffs/portal-native-and-repair.md).
+
+### November 3 demo acceptance
+
+- **Camera and preview:** [source beside continuous robot](.local/demo-camera-20261103/source-and-robot.html),
+  [MP4](.local/demo-camera-20261103/recording/avatar-video.mp4) and standalone
+  [saved replay](.local/demo-camera-20261103/recording/avatar-replay.html).
+  All 235 original states; zero new physics/inference/API calls. Full vertex audit:
+  robot cropped 202→0 frames; built-in panda 192→0. Mean bounded camera work
+  0.0166/0.0302 ms in the recorded Node sample, not sustained browser latency.
+  Export 2.593 s / 315 MB peak self RSS; original physical journal/runtime unchanged.
+  Actual contact sheet inspected; pose/root differences remain visible.
+  Evidence: .local/demo-camera-20261103/{release,continuous-audit,render-result}.json.
+  Existing loaded avatar libraries pin viewer bytes: user reloads server/page and
+  reopens/reattaches characters to use current live framing. Old recordings stay immutable.
+- **Actual Muse decision:** normal authenticated POST /muse/repairs/choose →
+  one muse-spark-1.3 request → only its explicit feedback-1 option → unchanged
+  scorer. Candidate rejected: 0.02523263→0.02513716 score; original root gates fail.
+  936 controls across two paired starts, 2.476 s comparison / 34.345 s full HTTP.
+  All 578 source/run/original-review files unchanged; duplicate POST caused no
+  new reservation. Model rationale is unverified, including activity labels.
+  Provider charge $0.01911325; ledger rounds to $0.019114. Last observed Meta
+  total **$0.500710/$5, 16 settled, zero unknown**, November 3, 2026, 10:04 AM PST.
+  No OpenAI call. Source bound to the existing licensed clip; no scores sent.
+  Evidence: .local/hackathon-controller-choice-20261103-01/{result,comparison,advisor-call,hypotheses}.json.
+  An invalid tuple/list dry-run request was fixed before any paid send; its
+  failure remains saved. Original physical review remains separate.
+- **New inputs:** [offline three-video report](.local/hackathon-unseen-20261103-01/report.html).
+  0/3 preflight/body/world/lab admissions; task success was **not evaluated**.
+  Aerobic: 26/143 usable poses, 91 competing samples, 14.632 s. Sots Press:
+  186/190 usable, one competing sample, 15.205 s. Overhead Squat: 187/193 usable,
+  one competing sample, 16.008 s. 1,050 decoded frames; total 46.631 s,
+  peak 397.7 MB, $0 API. Original and normalized sources/runtime hashes unchanged.
+  Full-span lossy MP4 normalization was frozen for all three before outcomes;
+  source clocks/counts matched. No prior repository exposure found; two sources
+  share a performer, so this small study is not universal generalization.
+  Evidence: .local/hackathon-unseen-20261103-01/{assessment,seal}.json; all three
+  workers reaped, no post-outcome inference retries or relaxed gates.
+- **Portal reliability:** storage inventory now retries a bounded complete recount
+  when atomic status replacement races the scan; it never omits missing files
+  from a successful count. Continuous churn refuses. Three focused race/guard
+  checks pass; the formerly racing upload check and 17 import checks pass.
+- **Verification:** 70 choice-backend checks; 43 scoped portal/review/worker checks
+  pass after fixing the storage race (initial failures retained); 18 unfamiliar
+  evaluation/report checks; camera analytic/export/retarget/lifecycle checks;
+  28 portal DOM journeys. These are scoped checks, not whole-repository/browser QA.
+  No deployment, public release, submission or new persistent server.
 
 ### Evidence that must not be overstated
 
@@ -155,19 +199,22 @@ These are recorded results, not checks rerun by documentation consolidation.
 
 ### Immediate usable demo
 
-1. [ ] Repair generic avatar skin/mapping compatibility and camera framing.
-   Require continuous representative poses, visual inspection, no severe stretch,
-   and unchanged seeded physics/reward. Preserve the failed Studio derivative.
-2. [ ] Verify one complete user journey with an unfamiliar supported video and
-   explicit assumptions. Retain full source coverage, failure states and a
-   meaningful continuous recording; do not hide manual setup or shorten a failed
-   source to claim whole-video success.
-3. [ ] Make Meta's contribution visible and consequential. Keep existing critique
-   and bounded rejection evidence; any accepted repair needs a supported
-   hypothesis and an unchanged independent comparison, not only model approval.
-4. [ ] Prepare a reproducible, concise demo and release package when requested.
-   Public publication, hosting restoration and submission require their own
-   authorization. Preserve source/asset rights and prior-work attribution.
+1. [x] Fit the live/offline avatar camera to visible geometry. All 235 saved states
+   stay in frame for robot and built-in panda; preserve failed body tracking.
+2. [ ] Repair generic Studio skin/mapping compatibility. Require continuous
+   representative poses, no severe stretch and unchanged physics/reward.
+3. [x] Run a frozen three-video unfamiliar-input study. **0/3 admitted**; failures,
+   raw competing hypotheses and all selected cases remain visible.
+4. [ ] Qualify one new supported video through reconstruction, meaningful controls
+   and continuous recording without bypassing identity/geometry checks. The
+   frozen study's two high-coverage clips still reject one ambiguous sample.
+5. [x] Make Meta's contribution consequential: one actual Muse-selected controller
+   option tested and rejected under unchanged scoring. No accepted repair claimed.
+6. [x] Save the demo script and submission checklist in Apple Notes and
+   [the project copy](hackathon/analysis/demo-plan.md); update developer-tool copy.
+7. [ ] Record the final three-minute product video and prepare judge access/public
+   release after separate authorization. The short simulation preview is not
+   the final narrated submission video.
 
 ### Broader product, not completed by a demo
 
@@ -289,22 +336,26 @@ it development evidence. Hash manifests detect changes, not an author's honesty.
 
 ## Resume record
 
-- Last published launch checkpoint before this documentation cleanup:
-  `d0338eb` on `main`. It includes the separate landing/sandbox commands.
-- The inherited avatar helper checkpoint `5caca13` passed 58 Python and eight
-  Node checks; it does not qualify generated-source repair or new animations.
-- `db33fa3` preserves `src/weft/moving_equipment_body_sweep.py` as an untested,
-  unintegrated research draft. Do not call its presence a completed feature.
-- At cleanup intake, `avatar_offscreen_bridge.cjs`, `avatar_retarget.js` and
-  `avatar_worker.js` under `src/weft/assets/` had separate uncommitted edits.
-  Coordinate their owner before staging or replacing them; current quality
-  claims above do not include that unfinished work.
-- Update this section and the affected status/backlog entry at meaningful
-  milestones. Include exact commands, evidence paths, failures and live ownership
-  when needed to resume; do not create another overlapping status document.
-- Historical narratives are retained through the versioned index in
-  [documentation history](docs/HISTORY.md). Their old pending tasks and ownership
-  assignments are dated evidence, not current instructions.
+- Documentation consolidation checkpoint: 1dbc204; launch checkpoint: d0338eb.
+  This demo integration follows both and preserves their archived evidence.
+- Current demo script/checklist: [hackathon/analysis/demo-plan.md](hackathon/analysis/demo-plan.md);
+  Apple Notes title **Weft — Hackathon demo & submission**: script and item 5
+  checklist were saved and read back. Native app access later failed, so final
+  result synchronization is pending; this repository copy is current. Do not confuse its
+  pending final video/publication checklist with completed implementation.
+- Runtime/code acceptance inputs are under .local/demo-camera-20261103,
+  .local/hackathon-controller-choice-20261103-01 and
+  .local/hackathon-unseen-20261103-01. Reuse these results; do not repeat paid
+  reviews or re-infer rejected clips to obtain a preferred outcome.
+- All three implementation lanes released; temporary acceptance server and
+  workers closed/reaped. User's existing persistent servers were not restarted.
+- Remaining product work: source identity/geometry/contact, successful new-video
+  reconstruction, Studio skin deformation, body tracking and useful learned control.
+  The new camera and real Muse rejection do not complete those goals.
+- 5caca13 preserves prior avatar helpers; db33fa3 preserves the untested
+  moving_equipment_body_sweep.py research draft. Neither is newly qualified here.
+- Keep historical narratives in [documentation history](docs/HISTORY.md), not
+  duplicate current handoffs. Source/license records and immutable evidence stay separate.
 
 Keep scoped `AGENTS.md` files, source/license records, model/data provenance and
 immutable evidence inventories separate where their function requires it. This
