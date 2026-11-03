@@ -41,7 +41,7 @@ playback and programmed reference controllers are different modes, not learned p
 | Interaction | Manual controls, explicit tasks, reset, recording and action replay; disclosed root assistance | Physical accuracy of changed-action predictions |
 | Learning | Bounded training, baselines and evaluation on supported profiles | Consistent improvement over simple controllers |
 | Meta integration | SAM tracking, Muse review and constrained controller-choice tests | General autonomous physical repair |
-| Avatars | Built-in appearances, compatible-rig imports, state-driven motion and a re-skinned Studio derivative (`studio-panda-470-weft-reskin`) | Automatic compatibility for arbitrary models; the robot remains the default avatar |
+| Avatars | Built-in appearances, state-driven motion, a re-skinned Studio derivative, and automatic delivery of generated avatars: roles, scale and orientation are derived from the rig itself across four naming conventions | Rigs without elbow/knee joints are refused by design; quadruped proportions still read oddly under human joint angles |
 
 Intake supports videos up to **60 seconds, 1,800 frames and 100 MB**, with further
 checks for each reconstruction path. Keep observed, inferred, assumed and unknown
@@ -80,6 +80,15 @@ not an external benchmark or a guarantee for new inputs.
   with every attempt preserved. Evidence: `.local/portal-generalized-05/result.json`.
 - A real Muse-selected controller candidate was tested and rejected under the
   unchanged scoring rules. No accepted physical repair was demonstrated.
+- Generated avatars no longer need hand-written delivery configuration. An automatic
+  resolver maps a rig's bones to Weft's ten body roles by name synonyms checked against
+  skeleton structure, and derives scale and orientation from the rig's own measured
+  up direction. It reproduces the hand-authored panda mapping exactly and its
+  orientation within 4 degrees, resolves 10 of 12 saved Studio rigs across four naming
+  conventions (including Mixamo, where it correctly prefers the humerus over the
+  clavicle), and refuses the 2 that genuinely lack elbow or knee joints. A native
+  generated model was delivered and imported with no authored config.
+  Evidence: `.local/avatar-autopack-02/`.
 - Three bounded Studio-panda weight-space repairs failed, but a Blender bone-heat
   re-skin through a watertight proxy (`tools/avatar-assets/scripts/blender_reskin_proxy.py`)
   produced a clean labeled derivative: mapped-role severe stretch 752→80, recorded-pose
