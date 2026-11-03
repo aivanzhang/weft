@@ -1,35 +1,50 @@
 # Weft website
 
-## Run locally
+The product landing page pairs source video with a reconstructed rolling-motion
+example. It runs independently of the [interactive sandbox](../sandbox/README.md).
 
-From the repository root, run `npm run dev` and open `http://127.0.0.1:3000/`.
-Requires Node.js 22+; no install, Python or build step. Refresh after edits.
-Use `npm run dev -- --port 3001` if needed. The user manages the server.
+## Quick start
 
-The landing server exposes only files listed in `public-assets.mjs`, supports video seeking and
-disables uploads. It never starts Python, proxies the sandbox or exposes private
-projects. Run the [sandbox](../sandbox/README.md) separately on port 8765.
-The [hosted service](../hosting/README.md) remains offline; local commands do not deploy it.
+Requires **Node.js 22 or later**. From the repository root:
 
-[index.html](index.html) also opens directly without a server or network access;
-its gallery works offline, but hosted visitor uploads do not.
+```sh
+npm run dev
+```
 
-## Maintain
+Open `http://127.0.0.1:3000/`. No dependency installation or build step is needed;
+refresh the page after editing. To choose another port, use
+`npm run dev -- --port 3001`.
 
-- Keep this as the single website source. [AGENTS.md](AGENTS.md) defines the approved layout, finite/reduced-motion animation and footer behavior.
-- `site.js` owns hero/research interactions; `environments.*` owns the gallery; `footer.*` owns the hidden story.
-- Reuse [the simulation engine](../src/weft/assets/engine.js) and canonical [brand assets](../assets/brand/README.md). Do not duplicate them for styling.
-- Keep bundled [Inter and its license](fonts/README.md); no font CDN or analytics.
-- Generate the public catalog only from a verified, approved source run:
+You can also open [index.html](index.html) directly for the offline gallery.
+Local landing-page uploads are disabled; use the sandbox to process a video.
+The server exposes only files listed in [public-assets.mjs](public-assets.mjs),
+not private projects or the simulation API.
+
+## Source layout
+
+| Files | Purpose |
+| --- | --- |
+| `index.html`, `styles.css`, `site.js` | Page content, layout and interactions |
+| `environments.*`, `environments/` | Source/simulation gallery and exported example |
+| `footer.*` | Animated mascot story |
+| `fonts/` | Bundled Inter font and license |
+
+Use the shared [simulation engine](../src/weft/assets/engine.js) and
+[brand assets](../assets/brand/README.md). Keep animation finite and respect
+reduced-motion preferences. Font attribution is in [fonts/README.md](fonts/README.md).
+
+## Update and verify the gallery
+
+Export a verified, supported source run from the repository root:
 
 ```sh
 PYTHONPATH=src python scripts/export_website_environment.py <verified-run> --out website/environments
+npm run test:local
 ```
 
-The gallery represents one CC0 rolling-ball scene with two model stages, not
-multiple observed worlds. Push/brake controls are authored; research graphics
-are conceptual. Private visitor results never enter the public catalog automatically.
+The gallery contains one CC0 scene with two model stages. Push/brake controls
+are authored additions; research graphics are conceptual. Private upload results
+are never added to the public catalog automatically.
 
-`npm run test:local` checks launchers, public routes and video ranges using a
-short-lived loopback listener, without AI calls. These checks do not qualify
-browser animation, real-device behavior or sustained performance.
+The local checks cover routes, launchers and video seeking. Browser animation,
+accessibility and device behavior require separate review before release.
