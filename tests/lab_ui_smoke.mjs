@@ -56,8 +56,9 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, partialPixels = false, jointPixels = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, sharedExploration = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
+function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, partialPixels = false, jointPixels = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, sharedExploration = false, movingPlacement = null, placementState = null, taskRecordingAvailable = false, asyncTaskRecording = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, recordingEvidence = null, trainingDisabled = false} = {}) {
   const shared = profile === 'shared-world';
+  let taskPreparation = null;
   const elements = [];
   const ids = new Map();
   for (const match of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)) {
@@ -223,7 +224,7 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
   let exerciseMetrics = {...freshExerciseMetrics(),...exerciseInitialMetrics};
   let lastExerciseAction = Array(rootAssistance?22:19).fill(0);
   if(sharedExercise){scene.dt=1/30;scene.learned_policy_available=false;state.substeps=8;state.success=!exerciseMetrics.success;state.time_s=exerciseGeometryTime;state.human.mobility.support_force=[0,0,0];}
-  const wireState = () => sharedExercise ? {profile:'shared-exercise-state-v1',engine_state:state,engine_state_status:exerciseEngineStatus,
+  const wireState = () => movingPlacement ? {...state, task: placementState} : sharedExercise ? {profile:'shared-exercise-state-v1',engine_state:state,engine_state_status:exerciseEngineStatus,
     ...(missingExerciseState?{}:{task_metrics:exerciseMetrics}),last_action:lastExerciseAction,
     terminated:Boolean(exerciseMetrics.failure||exerciseMetrics.success),truncated:Boolean(exerciseMetrics.completed_interval&&!exerciseMetrics.success&&!exerciseMetrics.failure)} : state;
   let backendReady = false, backendRecording = false, exportStatus = null;
@@ -273,8 +274,10 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
     },
   });
   const status = () => ({status: backendReady ? generationFailed ? 'failed' : 'ready' : 'running', profile, directory: '/synthetic/lab',
+    ...(movingPlacement?{control_profile:"moving_equipment_task",placement_task:movingPlacement,placement_task_sha256:"a".repeat(64),task_recording_available:taskRecordingAvailable}:{}),
     ...(sharedExploration?{control_profile:"shared_world_exploration",exploration:{evaluation_status:"not_configured",task_success_available:false,manual_only:true}}:{}),
     ...(sharedExercise?{control_profile:'shared_exercise',exercise_task:exerciseTask,action_contract:missingExerciseContract?null:exerciseActionContract,exercise_policy:exercisePolicy}:{}),
+    ...(taskPreparation ? {recording_preparation:{status:taskPreparation}} : {}),
     learned_policy_available: sharedExercise ? exercisePolicyAvailable : !noPolicy,
     ...(backendReady && !generationFailed ? {capabilities: buildCapabilities(), evidence_provenance: buildEvidenceProvenance()} : {}),
     ...(generationFailed ? {error:{message:'Synthetic missing source poses'}} : {}),
@@ -337,6 +340,7 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
       if (deferRecordingInspection) return new Promise(resolve => pending.push({...request, resolve}));
       return Promise.resolve(response(recordingInspectionLoading-- > 0 ? {status:'loading'} : recordingInspection || {status:'unavailable',reason:'Synthetic recording has no failure summary'}));
     }
+    if (path.startsWith('/api/recording-evidence?')) return Promise.resolve(response(recordingEvidence || {status:'unavailable'}));
     if (path.startsWith('/files/')) {
       const filename = decodeURIComponent(path.split('/').at(-1).split('?')[0]);
       assert(filename in artifacts, `Unexpected artifact fetch: ${filename}`);
@@ -400,9 +404,9 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
       delete state.simulation_failure;
       if(sharedExercise){exerciseMetrics=freshExerciseMetrics();exerciseEngineStatus='current';lastExerciseAction=Array(rootAssistance?22:19).fill(0);}
     }
-    if (path === '/api/record/start') backendRecording = true;
+    if (path === '/api/record/start') {backendRecording = !asyncTaskRecording;if(asyncTaskRecording)taskPreparation='running';}
     if (path === '/api/record/stop') {backendRecording = false;exportStatus = 'running';savedSessions = [{name:'trial-001',complete:false}];}
-    request.resolve(response({snapshot: wireState(), ...((path==='/api/joint'||path==='/api/actor')?{scene, capabilities: buildCapabilities()}:{}), ...(path.includes('/record/') ? {recording:backendRecording} : {}), ...(path==='/api/record/stop'?{export:'running'}:{})}));
+    request.resolve(response({snapshot: wireState(), ...(path==='/api/record/start'&&asyncTaskRecording?{preparing:true}:{}), ...((path==='/api/joint'||path==='/api/actor')?{scene, capabilities: buildCapabilities()}:{}), ...(path.includes('/record/') ? {recording:backendRecording} : {}), ...(path==='/api/record/stop'?{export:'running'}:{})}));
   }
   const storage = new Map();
   vm.runInNewContext(script, {document, window, location: {hash:'#token=synthetic-token',pathname:basePath + '/'},
@@ -414,6 +418,7 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
     resolveArtifacts(){for(const request of [...pending])if('artifactValue' in request)resolveNext(request.path);},
     resolveRecording(value) {const index=pending.findIndex(request=>request.path.startsWith('/api/recording-inspection?'));assert(index>=0);pending.splice(index,1)[0].resolve(response(value));},
     backendState:()=>clone(state),
+    finishTaskPreparation(){taskPreparation='ready';backendRecording=true;},
     backendTaskState:()=>clone(wireState()),
     finish(){state=clone(state);state.terminated=true;state.success=true;},
     engineDiagnostic(value){state=clone(state);state.coupled_metrics={...state.coupled_metrics,failure:value};state.terminated=true;},
@@ -426,7 +431,7 @@ function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spa
     action(value) { (select('[data-action]').find(element => !element.hidden && element.dataset.action === String(value)) || select('[data-action]').find(element => element.dataset.action === String(value))).click(); },
     async nextTimer() { const entry = [...timers].sort((a,b)=>a[1].at-b[1].at)[0]; assert(entry, 'Expected scheduled timer'); timers.delete(entry[0]); now=entry[1].at; entry[1].callback(); await drain(); },
     async ready() { await drain(); assert.match(ids.get('status').textContent,/running/); backendReady=true; await this.nextTimer(); await drain();
-      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract); assert.equal(ids.get('objects').children.length,rigidObjects?.length ?? (sharedProfile==='shared-world-v3'?0:(profile==='spatial-rigid'||shared||multiObject)?3:1));
+      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract||Boolean(movingPlacement && placementState?.task_sha256 !== 'a'.repeat(64))); assert.equal(ids.get('objects').children.length,rigidObjects?.length ?? (sharedProfile==='shared-world-v3'?0:(profile==='spatial-rigid'||shared||multiObject)?3:1));
       if(!sharedExercise)assert.equal(ids.get('scores').children.length,noPolicy?0:(wholeBody||spatialTrained||sharedTrained)?4:2); this.stage('play'); }
   };
 }
@@ -1850,6 +1855,7 @@ async function savedTrialMissingEquipmentFailureIsNotAPassOrANativeClock() {
 
 async function movingExplorationUsesManualChannelsAndNeverClaimsTaskSuccess() {
   const ui=fixture('shared-world',{sharedExploration:true});await ui.ready();
+  assert.equal(ui.ids.get('actor-controls').hidden,true);
   assert.match(ui.ids.get('goal-summary').textContent,/Manual exploration.*no exercise-success task/i);
   assert.doesNotMatch(ui.ids.get('training-caption').textContent,/verified.*probe/i);
   assert.doesNotMatch(ui.ids.get('start-help').textContent,/authored.*feedback|learned controller.*ready/i);
@@ -1868,6 +1874,67 @@ async function movingExplorationUsesManualChannelsAndNeverClaimsTaskSuccess() {
 }
 
 checks.push(movingExplorationUsesManualChannelsAndNeverClaimsTaskSuccess);
+
+async function movingPlacementUsesItsOwnTaskAndLocksUnsupportedControls() {
+  const movingPlacement={profile:'moving-equipment-placement-task-v1',goal:{object_id:'ball',position_world:[.2,.3,.4],position_tolerance_world:.03,speed_tolerance_world_s:.1,terminal_consecutive_hold_s:.5},body_gates:{angular_rmse_rad:.35}};
+  const placementState={profile:movingPlacement.profile,task_sha256:'a'.repeat(64),success:false,completed_interval:false,failure:null,failed_criteria:[],elapsed_s:0,duration_s:3,object_distance_world:.2,object_speed_world_s:0,terminal_consecutive_hold_s:0};
+  const ui=fixture('shared-world',{movingPlacement,placementState});await ui.ready();
+  assert.equal(ui.ids.get('actor-controls').hidden,true);
+  assert.equal(ui.ids.get('placement-task-card').hidden,false);
+  assert.match(ui.ids.get('goal-summary').textContent,/Authored placement.*\[0.2, 0.3, 0.4\]/);
+  assert.match(ui.ids.get('placement-outcome').textContent,/interval incomplete/);
+  assert.match(ui.ids.get('readout').textContent,/ball dist 0\.200/);
+  assert.match(ui.ids.get('training-caption').textContent,/learning not connected/);
+  assert.equal(ui.ids.get('joint').children.length,28);
+  for(const id of ['actor','reference-servo','policy','record'])assert.equal(ui.ids.get(id).disabled,true,id);
+  ui.ids.get('step').click();await drain();
+  assert.equal(ui.requests.filter(r=>r.path==='/api/step').length,1);
+  assert.equal(ui.requests.find(r=>r.path==='/api/step').data.action.length,28);
+  ui.resolveNext('/api/step');await drain();
+  const bad=fixture('shared-world',{movingPlacement,placementState:{...placementState,task_sha256:'b'.repeat(64),success:true,completed_interval:true},taskRecordingAvailable:true});await bad.ready();
+  assert.match(bad.ids.get('play-state').textContent,/Task unavailable/);
+  assert.equal(bad.ids.get('step').disabled,true);assert.equal(bad.ids.get('record').disabled,true);
+  assert.doesNotMatch(bad.ids.get('readout').textContent,/TASK SUCCESS/);
+}
+
+checks.push(movingPlacementUsesItsOwnTaskAndLocksUnsupportedControls);
+
+async function movingTaskWaitsForRecordingPreparationBeforeAnyAction() {
+  const movingPlacement={profile:'moving-equipment-placement-task-v1',goal:{object_id:'ball',position_world:[.2,.3,.4],position_tolerance_world:.03,speed_tolerance_world_s:.1,terminal_consecutive_hold_s:.5},body_gates:{}};
+  const placementState={profile:movingPlacement.profile,task_sha256:'a'.repeat(64),success:false,completed_interval:false,failure:null,failed_criteria:[],elapsed_s:0,duration_s:3,object_distance_world:.2,object_speed_world_s:0,terminal_consecutive_hold_s:0};
+  const ui=fixture('shared-world',{movingPlacement,placementState,taskRecordingAvailable:true,asyncTaskRecording:true});await ui.ready();
+  ui.ids.get('record').click();await drain();ui.resolveNext('/api/record/start');await drain();
+  assert.match(ui.ids.get('record-status').textContent,/Preparing task recording/);
+  for(const id of ['reset','step','toggle','record','stop-record'])assert.equal(ui.ids.get(id).disabled,true,id);
+  assert.equal(ui.requests.filter(r=>r.path==='/api/step').length,0);
+  await ui.nextTimer();
+  assert.equal(ui.requests.filter(r=>r.path==='/api/step').length,0);
+  ui.finishTaskPreparation();await ui.nextTimer();
+  assert.match(ui.ids.get('record-status').textContent,/● Recording/);
+  assert.equal(ui.requests.filter(r=>r.path==='/api/step').length,1);
+  ui.resolveNext('/api/step');await drain();ui.visibility(true);
+}
+
+checks.push(movingTaskWaitsForRecordingPreparationBeforeAnyAction);
+
+async function placementReceiptSeparatesTrustedReplayFromSavedClaims() {
+  const movingPlacement={profile:'moving-equipment-placement-task-v1',goal:{object_id:'ball',position_world:[.2,.3,.4],position_tolerance_world:.03,speed_tolerance_world_s:.1,terminal_consecutive_hold_s:.5},body_gates:{}};
+  const placementState={profile:movingPlacement.profile,task_sha256:'a'.repeat(64),success:false,completed_interval:false,failure:null,failed_criteria:[],elapsed_s:0,duration_s:3,object_distance_world:.2,object_speed_world_s:0,terminal_consecutive_hold_s:0};
+  const session='session-abcdef012345', proof={profile:'moving-equipment-task-recording-v1',contract_sha256:'b'.repeat(64),final_episode_metrics:placementState,steps:6,resets:0,events:7,completed_interval:false,success:false,exact_state_replay:true,exact_task_reward_replay:true};
+  for(const trusted of [true,false]) {
+    const recordingEvidence={status:'available',session,receipt_sha256:'c'.repeat(64),contract_sha256:proof.contract_sha256,
+      exact_replay_verified:trusted,receipt_pin_supplied:trusted,verification:trusted?'trusted_saved_receipt_not_a_new_physics_replay':'self_consistent_saved_claim_only',
+      [trusted?'proof':'claimed_proof']:proof};
+    const ui=fixture('shared-world',{movingPlacement,placementState,savedRecordings:[{name:session,complete:true}],recordingEvidence});await ui.ready();
+    const row=ui.ids.get('recordings').children[0];row.children.find(n=>n.textContent==='Recording evidence').click();await drain();
+    assert.equal(ui.ids.get('recording-evidence-content').hidden,false);
+    assert.match(ui.ids.get('recording-evidence-replay').textContent,/task interval is incomplete/);
+    assert.match(ui.ids.get('recording-evidence-replay').textContent,trusted?/Exact state, reward and task metrics matched/:/Unverified saved claim only/);
+    assert.equal(ui.requests.filter(r=>r.path==='/api/step').length,0);
+  }
+}
+
+checks.push(placementReceiptSeparatesTrustedReplayFromSavedClaims);
 
 checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistance,sharedExerciseManualCoastAndAuthoredRequestsStayDistinct,
   sourceAndSimulationWindowsKeepPlaybackIndependent,sourceWindowPreservesUnknownAndFailedGeometryClocks,

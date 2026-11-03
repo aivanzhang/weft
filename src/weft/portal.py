@@ -231,6 +231,9 @@ class Portal:
         return (self.jobs[identity].get("control_profile") == "shared_world_exploration"
                 or moving_jobs.selected_profile(self._folder(identity), self._status(identity)) == "shared_world_exploration")
 
+    def _placement(self, identity):
+        return self.jobs[identity].get("control_profile") == "moving_equipment_task"
+
     def summary(self, identity):
         with self.lock:
             config = self.jobs[identity]
@@ -242,7 +245,7 @@ class Portal:
                 from weft.portal_evidence_attachment import attachment_summary
 
                 attachment = ({"available": False, "reason": "Manual exploration has no qualified Muse review or repair contract"}
-                    if config.get("control_profile") == "shared_world_exploration" else attachment_summary(folder, config))
+                    if config.get("control_profile") in {"shared_world_exploration", "moving_equipment_task"} else attachment_summary(folder, config))
                 if config.get("control_profile") == "shared_world_exploration":
                     result["exploration"] = {"evaluation_status": "not_configured", "task_success_available": False,
                         "scope": "Manual conditional exploration; no exercise success or learned policy"}
@@ -261,6 +264,9 @@ class Portal:
             if self._exploration(identity):
                 result["control_profile"] = "shared_world_exploration"
                 result["review_unavailable_reason"] = "Manual exploration has no qualified Muse review, scoring or repair contract"
+            if self._placement(identity):
+                result["control_profile"] = "moving_equipment_task"
+                result["review_unavailable_reason"] = "Authored placement tasks have no qualified Muse review or repair contract"
             result["equipment_availability"] = equipment_availability(config, status, self.equipment_catalog)
             equipment = equipment_status(folder)
             if equipment:
@@ -664,6 +670,8 @@ class Portal:
             return self.summary(identity)
 
     def _require_review_body(self, identity, *, action="review"):
+        if self._placement(identity):
+            raise ValueError("Authored placement tasks have no qualified Muse review or repair contract")
         if self._exploration(identity):
             raise ValueError("Manual exploration has no qualified Muse review, scoring or repair contract")
         if self._status(identity).get("equipment_candidate_id"):
@@ -868,7 +876,10 @@ class Portal:
                 lab_path = (folder / self._status(identity).get("lab", "lab")).resolve()
                 if not lab_path.is_relative_to(folder):
                     raise ValueError("Sandbox path is outside this project")
-                if self._exploration(identity):
+                if self._placement(identity):
+                    from weft.moving_equipment_task_lab import LoadingTaskLab
+                    lab = LoadingTaskLab(lab_path, project=self.project)
+                elif self._exploration(identity):
                     from weft.shared_world_exploration import LoadingExplorationLab
                     lab = LoadingExplorationLab(lab_path, project=self.project)
                 else:

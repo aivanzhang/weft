@@ -121,3 +121,39 @@ def test_capacity_preserves_existing_files(source, tmp_path, monkeypatch):
     with pytest.raises(ValueError, match="capacity|storage"):
         import_lab(source, tmp_path / "portal")
     assert not list((tmp_path / "portal").glob(".import-*"))
+
+
+def test_task_import_uses_closed_child_reservation_and_task_loader(source, tmp_path, monkeypatch):
+    import sys
+    from types import ModuleType, SimpleNamespace
+    config = json.loads((source / "lab-config.json").read_bytes())
+    config["control_profile"] = "moving_equipment_task"
+    write_json(source / "lab-config.json", config)
+    task_module = ModuleType("weft.moving_equipment_task_lab")
+    calls = []
+    def load(path, *, max_seconds):
+        assert 0 < max_seconds <= 60
+        calls.append(path)
+        return SimpleNamespace(summary=lambda: {"control_profile": "moving_equipment_task",
+            "scene": json.loads((path / "run/scene.json").read_bytes()), "learned_policy_available": False}, close=lambda: None)
+    task_module.TaskLab = load
+    monkeypatch.setitem(sys.modules, task_module.__name__, task_module)
+    monkeypatch.setattr(module, "MAX_STORAGE", 400 << 20)
+    result = import_lab(source, tmp_path / "portal")
+    assert result["status"] == "ready" and len(calls) == 1
+    job = json.loads((Path(result["directory"]) / "job.json").read_bytes())
+    assert job["control_profile"] == "moving_equipment_task" and not job["learned_policy_available"]
+
+
+def test_queued_moving_expansion_is_reserved_even_when_parent_needs_input(source, tmp_path, monkeypatch):
+    from weft import portal_moving_equipment
+    root = tmp_path / "portal"
+    root.mkdir(mode=0o700)
+    parent = root / ("1" * 32)
+    parent.mkdir(mode=0o700)
+    write_json(parent / "job.json", {"id": parent.name})
+    write_json(parent / "status.json", {"status": "needs_input"})
+    monkeypatch.setattr(portal_moving_equipment, "reserved_growth", lambda _: module.MAX_STORAGE)
+    with pytest.raises(ValueError, match="capacity"):
+        import_lab(source, root)
+    assert not list(root.glob(".import-*"))

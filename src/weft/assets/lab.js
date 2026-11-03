@@ -11,6 +11,7 @@
   let statusTimer = null, playbackTimer = null, lastEvents = "", lastFiles = "", loadedReady = false;
   let playbackGeneration = 0, stepPromise = Promise.resolve(), controlBusy = false, mutationEpoch = 0;
   let pollPending = false, pollAgain = false, referenceFrames = [], referenceState = null;
+  let recordPreparation = false, recordPreparationIntent = null, recordPreparationAttempts = 0;
   let mode = "manual", trainedJoint = null, trainedActor = null, capabilities = null, exporting = false, referenceTimer = null;
   let selectedMotor = null, wholeBodyPolicyReady = false, simulationFailureMessage = null, learnedPolicyAvailable = true;
   let coverageLoaded = false;
@@ -40,10 +41,14 @@
   const personOnly = () => baseSceneProfile() === "shared-world-v3";
   const staticSupport = () => baseSceneProfile() === "shared-world-v4";
   const sharedExploration = () => current?.control_profile === "shared_world_exploration";
+  const movingTask = () => current?.control_profile === "moving_equipment_task";
+  const explicitMoving = () => sharedExploration() || movingTask();
+  const placementMetrics = () => movingTask() && snapshot?.task?.profile === "moving-equipment-placement-task-v1"
+    && snapshot.task.task_sha256 === current?.placement_task_sha256 ? snapshot.task : null;
   const sharedExercise = () => current?.control_profile === "shared_exercise" || staticSupport() || cameraWorld();
   const engineState = state => ["shared-exercise-state-v1", "shared-exercise-feet-state-v1", "camera-shared-state-v1"].includes(state?.profile) ? state.engine_state : state;
   const exerciseMetrics = () => sharedExercise() && exerciseStateReady ? snapshot.task_metrics : null;
-  const sharedHumanTarget = () => sharedWorld() && (sharedExploration() || sharedExercise() || (snapshot?.controlled_id || scene?.controlled_id) === "human");
+  const sharedHumanTarget = () => sharedWorld() && (explicitMoving() || sharedExercise() || (snapshot?.controlled_id || scene?.controlled_id) === "human");
   const sharedObjectTarget = () => sharedWorld() && !sharedHumanTarget();
   const dynamicObjects = () => (scene?.objects || []).filter((obj) => obj.role !== "static");
   const number = (value, places = 3) => typeof value === "number" && Number.isFinite(value) ? value.toFixed(places) : "unavailable";
@@ -349,11 +354,11 @@
         const extent = (model.radius || Math.max(...(model.size || [0.05])) / 2) * scale + 5;
         ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.lineWidth = 2; ctx.arc(cx, cyPos, extent, 0, 2 * Math.PI); ctx.stroke();
       }
-      const target = sharedExploration() ? null : state.target || scene.target;
+      const target = movingTask() ? current.placement_task?.goal?.position_world : sharedExploration() ? null : state.target || scene.target;
       if (target) {
         const [tx, ty] = project(target);
         ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.setLineDash([6, 4]); ctx.lineWidth = 2;
-        ctx.arc(tx, ty, (scene.task.position_tolerance || 0.03) * scale, 0, 2 * Math.PI); ctx.stroke(); ctx.setLineDash([]);
+        ctx.arc(tx, ty, (movingTask() ? current.placement_task.goal.position_tolerance_world : scene.task.position_tolerance || 0.03) * scale, 0, 2 * Math.PI); ctx.stroke(); ctx.setLineDash([]);
       }
       for (const contact of state.contact_details || []) {
         const [x, y] = project(contact.position);
@@ -376,7 +381,7 @@
       ? [0, 1, 2].map((i) => movingObjects.reduce((sum, o) => sum + o.position[i], 0) / movingObjects.length)
       : scene.bounds.map((v) => v / 2);
     const floorZ = state.human?.mobility?.floor_height ?? 0;
-    const goalTol = scene.task?.object_goal?.position_tolerance || 0.05;
+    const goalTol = movingTask() ? current.placement_task?.goal?.position_tolerance_world || 0.05 : scene.task?.object_goal?.position_tolerance || 0.05;
     const controlledId = state.controlled_id || scene.controlled_id;
     const models = new Map(scene.objects.map(obj => [obj.id, obj]));
     const geometry = sharedGeometry(state.objects.map(body => ({...models.get(body.id), ...body})));
@@ -458,7 +463,7 @@
           ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.lineWidth = 2; ctx.arc(cx, cyPos, extent, 0, 2 * Math.PI); ctx.stroke();
         }
       }
-      const target = sharedExploration() ? null : state.target || scene.target;
+      const target = movingTask() ? current.placement_task?.goal?.position_world : sharedExploration() ? null : state.target || scene.target;
       if (target && !sharedExercise() && !staticSupport()) {
         const [tx, ty] = project(target);
         ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.setLineDash([6, 4]); ctx.lineWidth = 2;
@@ -1093,11 +1098,13 @@
     if (sharedWorld()) {
       const h = state.human, cm = state.coupled_metrics || {}, root = h?.mobility;
       const hoCount = state.contact_summary?.human_object ?? 0;
-      const targetId = scene.task?.object_goal?.target_object_id || state.controlled_id;
-      const suffix = (sharedExploration() ? (cm.failure ? `Engine diagnostic: ${cm.failure} · no exercise-success task` : state.terminated || state.truncated ? "Exploration ended · no exercise-success task" : "Manual exploration · no exercise-success task") : cm.failure) || (!sharedExploration() && state.success ? "TASK SUCCESS — reset to continue" : state.terminated || state.truncated ? "TRIAL ENDED — reset to continue" : `target: ${state.controlled_id}`);
+      const targetId = movingTask() ? current.placement_task?.goal?.object_id : scene.task?.object_goal?.target_object_id || state.controlled_id;
+      const measured = movingTask() ? placementMetrics() || {} : cm;
+      const suffix = movingTask() ? "Authored placement task · inspect whole-interval results"
+        : (sharedExploration() ? (cm.failure ? `Engine diagnostic: ${cm.failure} · no exercise-success task` : state.terminated || state.truncated ? "Exploration ended · no exercise-success task" : "Manual exploration · no exercise-success task") : cm.failure) || (!sharedExploration() && state.success ? "TASK SUCCESS — reset to continue" : state.terminated || state.truncated ? "TRIAL ENDED — reset to continue" : `target: ${state.controlled_id}`);
       text($("readout"), personOnly()
         ? `t ${number(state.time_s, 2)}s · step ${state.steps} · angular RMSE ${number(cm.angular_rmse_rad)} rad · root RMSE ${number(cm.root_rmse_model_units)} · ${state.contact_count ?? 0} simulated ground contacts · equipment not applicable · ${suffix}`
-        : `t ${number(state.time_s, 2)}s · step ${state.steps} · angular RMSE ${number(cm.angular_rmse_rad)} rad · root RMSE ${number(cm.root_rmse_model_units)} · ${targetId} dist ${number(cm.object_distance_world)} · contacts ${state.contact_count ?? 0} (${hoCount} human↔object) · ${suffix}`);
+        : `t ${number(state.time_s, 2)}s · step ${state.steps} · angular RMSE ${number(measured.angular_rmse_rad)} rad · root RMSE ${number(measured.root_rmse_model_units)} · ${targetId} dist ${number(measured.object_distance_world)} · contacts ${state.contact_count ?? 0} (${hoCount} human↔object) · ${suffix}`);
       const forceUnits = cm.contact_force_units || scene.action_contract?.units?.[19] || "uncalibrated model force units";
       text($("whole-body-status"), `Virtual root forces [${(root?.support_force || []).map((v) => number(v, 1)).join(", ")}] ${forceUnits} · ${root?.contact_count ?? 0} simulated floor contacts · ${cm.human_object_contacts_total ?? 0} cumulative human↔object contacts.`);
       text($("muscle-readout"), `${h?.muscles?.length ?? 38} illustrative muscle bands show joint motor commands, not measured activation.`);
@@ -1156,11 +1163,13 @@
     if (state.terminated || state.truncated) pause();
   }
   function updateControls() {
-    const taskMetrics = exerciseMetrics(), blockedTask = sharedExercise() && (!exerciseContractReady || !exerciseStateReady || mode === "fitted" && !fittedReference);
+    const taskMetrics = exerciseMetrics(), placement = placementMetrics();
+    const blockedTask = recordPreparation || (movingTask() && !placement) || sharedExercise() && (!exerciseContractReady || !exerciseStateReady || mode === "fitted" && !fittedReference);
     const ended = snapshot?.terminated || snapshot?.truncated || (sharedExercise() && !!taskMetrics?.failure);
-    const success = !sharedExploration() && (sharedExercise() ? taskMetrics?.success && taskMetrics.completed_interval && !taskMetrics.failure : snapshot?.success);
+    const success = movingTask() ? placement?.success === true && placement.completed_interval === true && !placement.failure
+      : !sharedExploration() && (sharedExercise() ? taskMetrics?.success && taskMetrics.completed_interval && !taskMetrics.failure : snapshot?.success);
     text($("toggle"), running ? "Pause" : ended ? "Start again" : "Start");
-    text($("play-state"), !scene ? "Preparing environment" : blockedTask ? "Task unavailable · controls paused" : running ? "Running" : success ? "Goal reached" : ended ? "Trial finished" : "Paused — ready to try");
+    text($("play-state"), !scene ? "Preparing environment" : recordPreparation ? "Preparing recording · controls paused" : blockedTask ? "Task unavailable · controls paused" : running ? "Running" : success ? "Goal reached" : ended ? "Trial finished" : "Paused — ready to try");
     if (sharedExercise()) {
       actionNames = ["Release all motors", "Motor +0.25", "Motor −0.25"];
       for (const button of document.querySelectorAll("[data-action]")) {
@@ -1200,13 +1209,22 @@
     if (!sharedWorld()) text($("mode-description"), wholeBody() ? (mode === "manual" ? "Choose one of 22 motors. Apply +0.25 or −0.25 of its force limit; every other motor stays at zero. Release sets all motors to zero." : mode === "reference" ? "Authored feedback follows the known full-body reference. Every joint torque and virtual root force is explicit; this baseline is not learned." : "The learned full-body controller follows a known reference using 19 joint torques and 3 virtual root forces. It has not learned unassisted balance or human intent.") : mode === "manual" ? "You control the movement. Tap a direction for a small move, or start and hold a direction." : mode === "reference" ? "A programmed controller follows the video’s estimated poses. This is simulated movement, not learned exercise behavior." : current?.profile === "exercise" ? `The learned controller moves the ${(trainedJoint || "trained joint").replaceAll("_", " ")} toward one target angle. It has not learned the whole exercise.` : "The learned controller attempts the target task. Watch its choices, or pause to inspect a step.");
     for (const [id, value] of [["mode-manual", "manual"], ["mode-coast", "coast"], ["reference-servo", "reference"], ["policy", "learned"]]) {
       $(id).setAttribute("aria-pressed", String(mode === value));
-      $(id).disabled = !scene || controlBusy || blockedTask || (sharedExploration() && value !== "manual") || (value === "coast" && !sharedExercise()) || (value === "learned" && (!learnedPolicyAvailable || (current?.profile === "exercise" && (wholeBody() ? !wholeBodyPolicyReady : !trainedJoint))));
+      $(id).disabled = !scene || controlBusy || blockedTask || (explicitMoving() && value !== "manual") || (value === "coast" && !sharedExercise()) || (value === "learned" && (!learnedPolicyAvailable || (current?.profile === "exercise" && (wholeBody() ? !wholeBodyPolicyReady : !trainedJoint))));
     }
     if (sharedExploration()) {
       text($("goal-summary"), "Manual exploration — no exercise-success task is configured. Move explicit body or equipment force channels; this is not learning or recovered physical behavior.");
       text($("mode-description"), "Choose one named motor or equipment-force channel. Apply +0.25 or −0.25; every other command stays zero. Body/floor tracking and contact diagnostics remain visible.");
       $("start-learned").disabled = true;
       $("reference-servo").disabled = true;
+    }
+    if (movingTask()) {
+      const goal = current.placement_task?.goal;
+      text($("goal-summary"), goal ? `Authored placement: keep ${goal.object_id} within ${goal.position_tolerance_world} world units of [${goal.position_world.join(", ")}], below ${goal.speed_tolerance_world_s} world units/s for the final ${goal.terminal_consecutive_hold_s}s. Body and floor limits apply across the full interval.` : "Placement task unavailable.");
+      text($("mode-description"), "Manual virtual-force control. Choose a body motor or equipment-force channel; every other command stays zero. This task is authored, not recovered exercise intent or grasp.");
+      $("start-learned").disabled = true;
+      $("reference-servo").disabled = true;
+      text($("placement-progress"), placement ? `Time ${number(placement.elapsed_s)} / ${number(placement.duration_s)}s · target distance ${number(placement.object_distance_world)} · speed ${number(placement.object_speed_world_s)} · consecutive hold ${number(placement.terminal_consecutive_hold_s)}s` : "Task metrics unavailable; controls are paused.");
+      text($("placement-outcome"), !placement ? "Unavailable" : placement.failure ? `Stopped: ${placement.failure}` : !placement.completed_interval ? "Task interval incomplete" : success ? "Authored simulation task passed" : `Task criteria not met: ${placement.failed_criteria.join(", ")}`);
     }
     if (sharedExercise()) $("start-learned").disabled = controlBusy || blockedTask || !learnedPolicyAvailable;
     if (fittedButton) {
@@ -1225,12 +1243,12 @@
       button.hidden = spatialMismatch || mobileOnly || incompatible || exerciseServo;
     }
     $("joint").disabled = (recording && !(wholeBody() || sharedWorld())) || controlBusy || blockedTask || mode !== "manual" || sharedObjectTarget();
-    $("actor").disabled = recording || controlBusy || mode !== "manual" || sharedExercise() || sharedExploration();
-    $("record").disabled = recording || exporting || !scene || controlBusy || blockedTask;
+    $("actor").disabled = recording || controlBusy || mode !== "manual" || sharedExercise() || explicitMoving();
+    $("record").disabled = recording || exporting || !scene || controlBusy || blockedTask || (movingTask() && current.task_recording_available !== true);
     $("stop-record").disabled = !recording || controlBusy;
-    for (const id of ["toggle", "reset", "step"]) $(id).disabled = !scene || controlBusy || (blockedTask && id !== "reset") || (id === "step" && !!ended);
+    for (const id of ["toggle", "reset", "step"]) $(id).disabled = !scene || controlBusy || recordPreparation || (blockedTask && id !== "reset") || (id === "step" && !!ended);
     const recordedTime = sharedExercise() ? taskMetrics?.simulated_duration_s : snapshot?.time_s || 0;
-    text($("record-status"), recording ? `● Recording · ${number(recordedTime, 1)}s of simulation` : exporting ? "Saving recording…" : "Not recording");
+    text($("record-status"), recordPreparation ? "Preparing task recording…" : recording ? `● Recording · ${number(recordedTime, 1)}s of simulation` : exporting ? "Saving recording…" : "Not recording");
   }
   function setRecording(value) {
     recording = value; $("record-status").classList.toggle("active", value); updateControls();
@@ -1240,7 +1258,8 @@
     clearTimeout(playbackTimer); updateControls();
   }
   function step(count = 1) {
-    if (requestPending || controlBusy || !scene || document.hidden) return;
+    if (requestPending || controlBusy || recordPreparation || !scene || document.hidden) return;
+    if (movingTask() && (!placementMetrics() || mode !== "manual")) return;
     if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || snapshot.terminated || snapshot.truncated || exerciseMetrics()?.failure || mode === "learned" && !learnedPolicyAvailable || mode === "fitted" && !fittedReference)) return;
     requestPending = true;
     stepPromise = (async () => {
@@ -1279,18 +1298,19 @@
     if (running && generation === playbackGeneration) playbackTimer = setTimeout(() => tick(generation), Math.max(0, scene.dt * 3000 - (performance.now() - begin)));
   }
   function start() {
-    if (!scene || controlBusy || document.hidden || activePanel !== "play" || snapshot.terminated || snapshot.truncated) return;
+    if (!scene || controlBusy || recordPreparation || document.hidden || activePanel !== "play" || snapshot.terminated || snapshot.truncated) return;
+    if (movingTask() && (!placementMetrics() || mode !== "manual")) return;
     if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || exerciseMetrics()?.failure || mode === "learned" && !learnedPolicyAvailable || mode === "fitted" && !fittedReference)) return;
     usePolicy = mode === "learned"; action = mode === "reference" ? 5 : 0;
     running = true; clearError(); updateControls(); tick(++playbackGeneration);
   }
   function selectMode(value) {
-    if (controlBusy) return;
+    if (controlBusy || recordPreparation || (explicitMoving() && value !== "manual")) return;
     if (sharedExercise() ? !["manual", "coast", "reference", "learned", "fitted"].includes(value) || value === "learned" && !learnedPolicyAvailable || value === "fitted" && !fittedReference : ["coast", "fitted"].includes(value)) return;
     pause(); mode = value; usePolicy = mode === "learned"; updateControls();
   }
   async function mutate(path, data = {}, prepareLearned = false) {
-    if (controlBusy) return;
+    if (controlBusy || recordPreparation) return;
     if (sharedExercise() && (["/api/actor", "/api/joint"].includes(path) || (path === "/api/record/start" && (!exerciseContractReady || !exerciseStateReady)))) return;
     pause(); controlBusy = true; mutationEpoch++; updateControls();
     try {
@@ -1319,6 +1339,7 @@
         if (!referenceState && (result.snapshot || snapshot)) draw($("world-canvas"), result.snapshot || snapshot);
       }
       if (result.snapshot) updateSnapshot(result.snapshot);
+      if (movingTask() && result.preparing) { recordPreparation = true; recordPreparationAttempts = 0; }
       if ("recording" in result) setRecording(result.recording);
       if (result.export === "running") exporting = true;
       scheduleStatus(0); return result;
@@ -1330,7 +1351,7 @@
     finally { requestPending = false; controlBusy = false; if (sharedWorld() && mode === "manual") chooseAction(action); updateControls(); }
   }
   async function begin({fresh = false, record = false} = {}) {
-    if (controlBusy) return;
+    if (controlBusy || recordPreparation) return;
     try { await appearanceView?.flush(); } catch (e) { error(e.message); return; }
     if (controlBusy) return;
     const needsJoint = mode === "learned" && current?.profile === "exercise" && !wholeBody() && snapshot?.human?.selected_joint !== trainedJoint;
@@ -1338,7 +1359,9 @@
     if (fresh || record || needsJoint || needsActor || snapshot?.terminated || snapshot?.truncated) {
       const pending = mutate(record ? "/api/record/start" : "/api/reset", {}, true);
       const generation = playbackGeneration;
-      if (!await pending || generation !== playbackGeneration) return;
+      const result = await pending;
+      if (!result || generation !== playbackGeneration) return;
+      if (result.preparing) { recordPreparationIntent = generation; return; }
     }
     start();
   }
@@ -1446,7 +1469,7 @@
   async function artifact(name) {
     const response = await fetch(fileURL(`run/${name}`), {signal: AbortSignal.timeout(10000)});
     if (!response.ok) throw new Error(`Artifact is not available yet: ${name}`);
-    if (Number(response.headers.get("Content-Length")) > (name === "human-reference.json" ? (sharedExploration() ? 16 * 1024 * 1024 : 8_000_000) : 2_000_000)) throw new Error("This artifact is large; download it from the Files tab.");
+    if (Number(response.headers.get("Content-Length")) > (name === "human-reference.json" ? (explicitMoving() ? 16 * 1024 * 1024 : 8_000_000) : 2_000_000)) throw new Error("This artifact is large; download it from the Files tab.");
     return response.json();
   }
   async function inspect(name) {
@@ -1492,7 +1515,7 @@
     const controllable = sharedExercise() ? [{id: "human", label: cameraWorld() ? "Human · supplied camera/ground priors" : staticSupport() ? "Human · supports stay fixed" : personOnly() ? "Human · ground only" : "Human · equipment stays passive"}] : sharedWorld()
       ? [{id: "human", label: "Articulated human (22 motors)"}, ...dynamicObjects()]
       : dynamicObjects();
-    $("actor-controls").hidden = sharedExercise() || (!sharedWorld() && Boolean(data.snapshot?.human)) || controllable.length < 2;
+    $("actor-controls").hidden = explicitMoving() || sharedExercise() || (!sharedWorld() && Boolean(data.snapshot?.human)) || controllable.length < 2;
     $("actor").replaceChildren();
     for (const obj of controllable) {
       const option = document.createElement("option");
@@ -1526,8 +1549,8 @@
       $("spatial-controls").hidden = false; $("spatial-world-controls").hidden = false;
       $("human-controls").hidden = false; $("human-reference-controls").hidden = false;
       $("whole-body-status").hidden = false; $("reference-servo").hidden = false;
-      text($("joint-label"), sharedExploration() ? "Explicit motor or equipment-force channel" : sharedExercise() ? "Human motor to move" : "Human motor (when human selected)");
-      const humanMotorNames = sharedExploration() ? (scene.action_contract?.names || []) : sharedExercise() ? (exerciseContractReady ? exerciseActions.names : []) : (scene.action_contract?.names || []).slice(0, 22);
+      text($("joint-label"), explicitMoving() ? "Explicit motor or equipment-force channel" : sharedExercise() ? "Human motor to move" : "Human motor (when human selected)");
+      const humanMotorNames = explicitMoving() ? (scene.action_contract?.names || []) : sharedExercise() ? (exerciseContractReady ? exerciseActions.names : []) : (scene.action_contract?.names || []).slice(0, 22);
       $("joint").replaceChildren();
       for (const name of humanMotorNames) {
         const option = document.createElement("option");
@@ -1561,13 +1584,21 @@
         text($("start-help"), "Coupled 3D world and learned policy ready. Try manual human/object control, authored human reference feedback, or the trained coupled controller.");
         text($("learning-description"), "Compare the learned coupled controller against zero force, random actions, and authored human feedback on identical seeded resets.");
       }
-      if (sharedExploration()) {
+      if (explicitMoving()) {
         text($("start-help"), "Manual exploration is ready. Compare the source and full kinematic body projection, then try explicit motor or equipment-force controls.");
         text($("control-help"), "Choose a named body motor or equipment-force channel and apply +0.25 or −0.25. All other commands stay zero. No Follow video controller is admitted.");
         text($("training-caption"), "Not trained · no exercise-success task or intervention-probe qualification is packaged.");
         text($("learning-description"), "This is manual conditional exploration, not reinforcement-learning evaluation or recovered moving-exercise success.");
         text($("play-boundary"), "Shared simulated contacts, explicit motor and equipment forces, and unchanged body/floor diagnostics. No hidden tracking assistance or learned policy.");
         $("live").setAttribute("aria-label", "Manual body and moving-equipment exploration. Select a named force channel. Escape pauses.");
+      }
+      $("placement-task-card").hidden = !movingTask();
+      if (movingTask()) {
+        text($("start-help"), "Authored placement task ready. Inspect the target and full-interval limits, then use explicit motor or equipment-force controls.");
+        text($("training-caption"), "Manual virtual-force task · learning not connected to this sandbox.");
+        text($("learning-description"), "Task criteria are authored. Manual task results do not establish learned behavior, changed-start generalization or physical accuracy.");
+        text($("placement-recording"), data.task_recording_available === true ? "Record from reset; stopping early preserves an incomplete task, not a pass." : "Task-bound recording is unavailable in this runtime.");
+        text($("placement-body-limits"), `Body and floor limits: ${Object.entries(data.placement_task?.body_gates || {}).map(([name, value]) => `${name.replaceAll("_", " ")} ≤ ${value}`).join("; ")}`);
       }
       if (sharedExercise()) {
         text($("start-help"), `Human-only task selected. Inspect the source and assumptions, then try manual motors, coast or authored body feedback${learnedPolicyAvailable ? ", or the attached selected policy" : ""}. Equipment is passive; record a trial to inspect the complete task result.`);
@@ -2041,7 +2072,7 @@
   function artifactEntries(data) {
     return [...new Map([...(data.artifacts || []), ...(inspection?.artifact_links || [])].map(file => [file.name, file])).values()];
   }
-  const inspectLimit = name => name === "human-reference.json" ? (sharedExploration() ? 16 * 1024 * 1024 : 8_000_000) : 2_000_000;
+  const inspectLimit = name => name === "human-reference.json" ? (explicitMoving() ? 16 * 1024 * 1024 : 8_000_000) : 2_000_000;
   function refreshArtifactButtons(data) {
     const entries = new Map(artifactEntries(data).map(file => [file.name, file]));
     for (const button of document.querySelectorAll("[data-json]")) {
@@ -2415,6 +2446,36 @@
     text($("recording-evidence-status"), "Saved receipt and bound file hashes checked. Replay was not rerun by this view.");
     $("recording-evidence-content").hidden = false; $("recording-evidence-retry").hidden = true;
   }
+  function applyPlacementRecordingEvidence(data, name) {
+    const trusted = data.exact_replay_verified === true && data.receipt_pin_supplied === true;
+    const proof = trusted ? data.proof : data.claimed_proof;
+    const hash = value => typeof value === "string" && /^[a-f0-9]{64}$/.test(value);
+    if (!movingTask() || data.session !== name || !/^session-[a-f0-9]{12}$/.test(name)
+      || !hash(data.receipt_sha256) || !hash(data.contract_sha256)
+      || proof?.profile !== "moving-equipment-task-recording-v1" || proof.contract_sha256 !== data.contract_sha256
+      || proof.final_episode_metrics?.task_sha256 !== current.placement_task_sha256
+      || !["steps", "resets", "events"].every(key => Number.isSafeInteger(proof[key]) && proof[key] >= 0 && proof[key] <= 3601)
+      || proof.steps > 1800 || proof.events !== proof.steps + proof.resets + 1
+      || typeof proof.completed_interval !== "boolean" || typeof proof.success !== "boolean" || (proof.success && !proof.completed_interval)
+      || proof.completed_interval !== proof.final_episode_metrics.completed_interval || proof.success !== proof.final_episode_metrics.success
+      || (trusted ? data.verification !== "trusted_saved_receipt_not_a_new_physics_replay" || proof.exact_state_replay !== true || proof.exact_task_reward_replay !== true
+        : data.exact_replay_verified !== false || data.verification !== "self_consistent_saved_claim_only")) return false;
+    clearRecordingEvidence();
+    text($("recording-evidence-session"), `Selected task recording: ${name}`);
+    text($("recording-evidence-counts"), `${trusted ? "Recorded" : "Claimed"}: ${proof.steps} actions · ${proof.resets} resets · ${proof.events} events.`);
+    const outcome = !proof.completed_interval ? "The task interval is incomplete." : proof.success ? "The authored simulation task passed." : "The complete interval did not meet every authored task criterion.";
+    text($("recording-evidence-replay"), trusted
+      ? `Exact state, reward and task metrics matched the saved replay check. ${outcome} This is not physical accuracy, learned behavior or grasp validation.`
+      : `Unverified saved claim only. ${outcome} No trusted export receipt is retained in this session; use moving-equipment-replay with your trusted contract pin for a new bounded replay check.`);
+    for (const [label, value] of [["Task", current.placement_task_sha256], ["Recording contract", data.contract_sha256], ["Export receipt", data.receipt_sha256]]) {
+      const row = document.createElement("tr"), heading = document.createElement("th");
+      heading.setAttribute("scope", "row"); text(heading, label); row.append(heading); cell(row, value); $("recording-evidence-identities").append(row);
+    }
+    $("recording-evidence-links").replaceChildren(link("Task replay receipt", `sessions/${name}/task-export-receipt.json`), link("Recording contract", `sessions/${name}/task-recording-contract.json`));
+    text($("recording-evidence-status"), trusted ? "Trusted saved receipt checked; this view did not rerun physics." : "Saved files agree with each other; exact replay is not verified by this view.");
+    $("recording-evidence-content").hidden = false; $("recording-evidence-retry").hidden = true;
+    return true;
+  }
   function suspendRecordingEvidence() {
     const reading = recordingEvidenceRequest || recordingEvidenceTimer !== null;
     clearTimeout(recordingEvidenceTimer); recordingEvidenceTimer = null;
@@ -2439,6 +2500,8 @@
       if (result?.status === "loading" && result.session === name && recordingEvidenceAttempts < 12) {
         text($("recording-evidence-status"), "Checking the selected saved receipt in the background. Live controls are unchanged.");
         recordingEvidenceTimer = setTimeout(readRecordingEvidence, 900);
+      } else if (result?.status === "available" && movingTask() && applyPlacementRecordingEvidence(result, name)) {
+        // Task receipts have their own trust and incomplete-interval contract.
       } else if (result?.status === "available" && recordingEvidenceValid(result, name)) applyRecordingEvidence(result);
       else {
         clearRecordingEvidence();
@@ -2572,6 +2635,20 @@
       const stages = {source: 1, observe: 2, tracking: 2, world: 3, repair: 4, evaluate: 5, evaluation: 5, train: 6, training: 6, render: 6, ready: 7};
       $("progress").value = data.status === "ready" ? 7 : stages[last?.stage] || 0;
       files(data); sessions(data); await showCoverage(data); await showExerciseCoverage(data); if (epoch === mutationEpoch && !controlBusy) setRecording(data.recording);
+      if (movingTask() && epoch === mutationEpoch && !controlBusy) {
+        const preparing = data.recording_preparation?.status === "running";
+        const wasPreparing = recordPreparation;
+        recordPreparation = preparing;
+        if (preparing) recordPreparationAttempts++;
+        else if (wasPreparing) {
+          if (data.snapshot) updateSnapshot(data.snapshot);
+          if (data.recording_preparation?.status === "failed") error(data.recording_preparation.error || "Task recording preparation failed; no actions were recorded.");
+          if (data.recording && recordPreparationIntent === playbackGeneration && !document.hidden && activePanel === "play") start();
+          recordPreparationIntent = null;
+        }
+        if (preparing && recordPreparationAttempts >= 40) error("Recording preparation is still pending. Refresh to inspect its state; do not start another recording.");
+        updateControls();
+      }
       if (data.status === "ready" && !loadedReady) { loadedReady = true; await readyDetails(data); if (epoch === mutationEpoch && !controlBusy) setRecording(data.recording); }
       await showInspection(data);
       if (data.status === "failed" || data.status === "cancelled") {
@@ -2579,7 +2656,7 @@
         text($("build-status"), "· stopped"); text($("start-help"), "Generation stopped before an interactive environment was ready. Inspect Video for tracking issues and Files for the saved evidence.");
         if ($("tracks").hidden) text($("tracks-empty"), "No tracking preview was saved. Inspect the original video, tracking issues and frame measurements instead.");
       }
-      if (!["ready", "failed", "cancelled"].includes(data.status) || data.export?.status === "running" || poseCoveragePending || inspectionPending) scheduleStatus();
+      if (!["ready", "failed", "cancelled"].includes(data.status) || data.export?.status === "running" || (recordPreparation && recordPreparationAttempts < 40) || poseCoveragePending || inspectionPending) scheduleStatus();
     } catch (e) { error(`Cannot reach the local lab: ${e.message}. Keep the CLI process running.`); pause(); }
     finally { pollPending = false; if (pollAgain) { pollAgain = false; scheduleStatus(0); } }
   }

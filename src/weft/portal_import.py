@@ -46,6 +46,8 @@ def _storage(root, check):
 
 def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60):
     """Hold the portal lease; publish only after ordinary lab admission succeeds."""
+    from weft import portal_moving_equipment, portal_perception_jobs
+
     if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 0 < max_seconds <= 60:
         raise ValueError("Import deadline must be positive and at most 60 seconds")
     started = time.monotonic()
@@ -63,11 +65,12 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
     manifest_raw, files = read_package_manifest(source / "run")
     manifest_hash = sha256(manifest_raw).hexdigest()
     exploration = config.get("control_profile") == "shared_world_exploration"
+    placement = config.get("control_profile") == "moving_equipment_task"
     if (len(manifest_raw) > 1 << 20 or len(files) > 6000
-            or config.get("control_profile") not in {"shared_exercise", "shared_world_exploration"}
+            or config.get("control_profile") not in {"shared_exercise", "shared_world_exploration", "moving_equipment_task"}
             or config.get("manifest_sha256") != manifest_hash
             or json.loads(manifest_raw).get("status") != "ready"):
-        raise ValueError("Import requires an exact ready shared-exercise lab")
+        raise ValueError("Import requires an exact ready source-bound exercise or moving-task lab")
     scene = json.loads(read_package_file(source / "run", "scene.json", max_bytes=16 << 20,
                                        expected_sha256=files.get("scene.json")))
     binding = scene.get("source_binding", {})
@@ -78,6 +81,8 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
     if len(media) != 1:
         raise ValueError("Import requires one sealed original source video at the lab run root")
     media = media[0]
+    # A closed 256 MiB task child needs only one additional source copy and small import receipts.
+    import_limit = min(MAX_JOB_BYTES, (256 << 20) + (64 << 20) + 1_000_000) if placement else MAX_JOB_BYTES
     name = name or "Imported world" + Path(media).suffix
     if (not isinstance(name, str) or not 1 <= len(name) <= 180 or Path(name).name != name
             or any(ord(c) < 32 for c in name) or Path(name).suffix.lower() != Path(media).suffix):
@@ -91,7 +96,7 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
             fcntl.flock(lease, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except OSError:
             raise ValueError("Stop the portal before importing; its active jobs and recordings must not be interrupted") from None
-        jobs, pending = [], 0
+        jobs, pending_bytes = [], 0
         for folder in root.iterdir():
             check()
             if not re.fullmatch(r"[a-f0-9]{32}", folder.name):
@@ -103,8 +108,14 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
             if job.get("import_identity") == key and status.get("status") == "ready":
                 return {"id": folder.name, "status": "already_imported", "directory": str(folder),
                         "manifest_sha256": manifest_hash, "revalidated": False, "api_calls": 0}
-            pending += status.get("status") not in TERMINAL
-        if len(jobs) >= MAX_JOBS or _storage(root, check) + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
+            moving_growth = portal_moving_equipment.reserved_growth(folder)
+            active = status.get("status") not in TERMINAL
+            for relative in ("equipment/status.json", "muse/status.json", "muse/checks/status.json", "muse/repairs/status.json"):
+                if (folder / relative).is_file():
+                    active |= bounded_json(folder / relative).get("status") in {"queued", "running", "cancelling"}
+            active |= portal_perception_jobs.read_status(folder).get("status") in portal_perception_jobs.ACTIVE
+            pending_bytes += moving_growth or (MAX_JOB_BYTES if active else 0)
+        if len(jobs) >= MAX_JOBS or _storage(root, check) + pending_bytes + import_limit > MAX_STORAGE:
             raise ValueError("Portal capacity is full; existing projects and queued reservations are preserved")
         identity = uuid4().hex
         stage = root / (".import-" + identity)
@@ -116,7 +127,7 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
             check()
             raw = read_package_file(source / "run", filename, max_bytes=64 << 20, expected_sha256=expected)
             total += len(raw) * (2 if filename == media else 1)
-            if total > MAX_JOB_BYTES - 1_000_000:
+            if total > import_limit - 1_000_000:
                 raise ValueError("Imported lab exceeds the portal project byte limit")
             write_package_files(target / "run", {filename: raw})
             if filename == media:
@@ -127,7 +138,11 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
         write_json(target / "status.json", {"status": "ready", "events": [{"stage": "import",
                    "message": "Copied sealed run; ordinary admission required before portal publication", "time": local_time()}]})
         check()
-        lab = open_portal_lab(target, project=project)
+        if placement:
+            from weft.moving_equipment_task_lab import TaskLab
+            lab = TaskLab(target, max_seconds=max(.01, max_seconds - (time.monotonic() - started)))
+        else:
+            lab = open_portal_lab(target, project=project)
         try:
             summary = lab.summary()
             if summary.get("control_profile") != config["control_profile"] or summary.get("scene") != scene:
@@ -142,7 +157,8 @@ def import_lab(source, root, *, name=None, project=PROJECT_ROOT, max_seconds=60)
         job = {"id": identity, "name": name, "created_at": local_time(), "ai": False, "mode": "exercise",
                "kind": "imported_lab", "source_file": media, "source_sha256": source_hash, "import_identity": key,
                "inventory_method": "saved_world", "learned_policy_available": learned,
-               **({"control_profile": "shared_world_exploration", "task_success_available": False} if exploration else {})}
+               **({"control_profile": "shared_world_exploration", "task_success_available": False} if exploration else {}),
+               **({"control_profile": "moving_equipment_task", "task_scope": "authored_virtual_force_placement"} if placement else {})}
         write_json(stage / "job.json", job)
         (stage / "analysis").mkdir(mode=0o700)
         receipt = {"profile": "portal-lab-import-v1", "source_manifest_sha256": manifest_hash,

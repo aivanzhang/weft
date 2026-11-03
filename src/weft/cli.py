@@ -431,6 +431,23 @@ def main():
     moving_build.add_argument("--source-mapping", action="append", default=[])
     moving_build.add_argument("--max-candidates", type=int, choices=(1, 2, 3), default=3)
     moving_build.add_argument("--max-seconds", type=float, default=120)
+    moving_task = commands.add_parser("moving-equipment-task", help="Create an explicitly authored placement-task child from a sealed exploration; no training or API calls")
+    moving_task.add_argument("--lab", required=True, help="Existing source-qualified exploration lab; remains unchanged")
+    moving_task.add_argument("--parent-manifest-sha256", required=True)
+    moving_task.add_argument("--task", required=True, help="Explicit target, position/speed tolerances and hold duration JSON")
+    moving_task.add_argument("--out", required=True, help="New child lab directory")
+    moving_task.add_argument("--max-seconds", type=float, default=90)
+    moving_train = commands.add_parser("moving-equipment-train", help="Train bounded feedback for an authored placement task; exact-start comparisons are not changed-start validation")
+    moving_train.add_argument("--lab", required=True, help="Sealed authored placement-task child")
+    moving_train.add_argument("--out", required=True, help="New learning output; leaves task and sandbox unchanged")
+    moving_train.add_argument("--seed", type=int, default=1729)
+    moving_train.add_argument("--generations", type=int, choices=range(1, 5), default=2)
+    moving_train.add_argument("--population", type=int, choices=range(4, 13), default=6)
+    moving_train.add_argument("--max-seconds", type=float, default=90, help="Aggregate source-admission and learning bound, at most 90 seconds")
+    moving_replay = commands.add_parser("moving-equipment-replay", help="Re-execute a task recording and compare exact state, reward and task metrics")
+    moving_replay.add_argument("directory")
+    moving_replay.add_argument("--contract-sha256", required=True, help="Trusted recording contract pin retained at export")
+    moving_replay.add_argument("--max-seconds", type=float, default=60)
     exercise_build = commands.add_parser("shared-exercise-build", help="Build one exercise world and lab from video or saved body evidence")
     exercise_source = exercise_build.add_mutually_exclusive_group(required=True)
     exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
@@ -907,6 +924,22 @@ def main():
             result = prepare_moving_equipment_scene(args.run, args.evidence_run, args.settings, args.out,
                 source_mappings=args.source_mapping, max_seconds=args.max_seconds, max_candidates=args.max_candidates,
                 progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
+        elif args.command == "moving-equipment-replay":
+            from weft.moving_equipment_task_recording import verify_task_replay
+            result = verify_task_replay(args.directory, expected_contract_sha256=args.contract_sha256,
+                max_seconds=args.max_seconds)
+        elif args.command == "moving-equipment-train":
+            from weft.moving_equipment_learning import train_saved_moving_equipment_policy
+            result = train_saved_moving_equipment_policy(args.lab, args.out, seed=args.seed,
+                generations=args.generations, population=args.population, max_seconds=args.max_seconds)
+        elif args.command == "moving-equipment-task":
+            from weft.moving_equipment_task_lab import prepare_moving_equipment_task_lab
+            from weft.shared_world_action_replay import _json
+            from weft.shared_world_packaging import read_package_file
+            path = Path(args.task)
+            parameters = _json(read_package_file(path.parent, path.name, max_bytes=16 << 10))
+            result = prepare_moving_equipment_task_lab(args.lab, parameters, args.out,
+                parent_manifest_sha256=args.parent_manifest_sha256, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             if args.native_timing and args.video is None:
