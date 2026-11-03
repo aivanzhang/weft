@@ -82,9 +82,16 @@
 <section id="avatar-tools" hidden aria-labelledby="avatar-heading"><h3 id="avatar-heading">Choose your character</h3>
 <p>Your character follows the simulated body, not a separate animation. Controls, collisions and rewards stay unchanged. Keep the body overlay visible to compare proportions.</p>
 <div class="actions"><button id="avatar-builtins" type="button" class="secondary">Prepare Muse panda + robot</button><button id="avatar-attach" type="button" class="secondary" disabled>Add characters to this sandbox</button></div>
+<div id="avatar-library-block" hidden><h4>Character library</h4><ul id="avatar-library" class="avatar-library"></ul><p class="hint">Pre-generated characters import locally with no AI calls.</p></div>
 <form id="avatar-upload-form"><label>Custom character delivery (.zip)<input id="avatar-upload" type="file" accept=".zip,application/zip" required></label><button id="avatar-import" type="submit" class="secondary">Import character</button></form>
-<p class="hint">Use an Avatar Studio Weft delivery containing model.glb and mapping.json (32 MiB maximum). A compatible mapped humanoid rig is required; an arbitrary model or animation clip cannot be substituted automatically. Up to two custom characters.</p>
-<details><summary>Create a new character in Avatar Studio</summary><p>Use the existing local Avatar Studio, then export a Weft delivery and import it here. Generation uses Studio’s separate API keys and budget; importing or switching characters makes no AI calls.</p><p>Start Studio separately with <code>./tools/avatar-assets/run studio --help</code> for its launch options. Your portal session does not start another server.</p></details>
+<p class="hint">Use an Avatar Studio Weft delivery containing model.glb and mapping.json (32 MiB maximum). A compatible mapped humanoid rig is required; an arbitrary model or animation clip cannot be substituted automatically. Up to six custom characters.</p>
+<details id="avatar-create-block"><summary>Create a new character from text</summary>
+<form id="avatar-create-form"><label>Describe the character<textarea id="avatar-create-prompt" rows="2" maxlength="4000" placeholder="a small turquoise axolotl explorer with a tiny backpack" required></textarea></label>
+<label>Style (optional)<input id="avatar-create-style" type="text" maxlength="800" placeholder="soft matte toy look"></label>
+<label class="check"><input id="avatar-create-consent" type="checkbox" required> I approve spending up to 35 Meshy credits plus bounded agent calls for this one generation</label>
+<button id="avatar-create-submit" type="submit" class="secondary">Generate character</button></form>
+<p class="hint">Generation runs in the local Avatar Studio with its own keys and canonical budgets, takes about ten minutes, and the finished character lands in this library automatically. Rigging, mapping, scale and orientation are derived from the generated model; an incompatible rig is refused rather than guessed.</p>
+<ul id="avatar-creations"></ul></details>
 <p id="avatar-status" role="status"></p><ul id="avatar-choices"></ul><p class="hint">Open the sandbox once to load its body, then return here to add characters. In the sandbox, use Appearance to choose one. Stop recording before changing the available character library; appearance switches during recording are saved.</p></section>
 <section id="muse-review" hidden aria-labelledby="muse-heading"><h3 id="muse-heading">Review the physics with Muse</h3>
 <p class="hint">Muse Spark examines construction observations and up to three source thumbnails to propose missing constraints, alternative explanations and tests. It does not see evaluation scores or change your simulation.</p>

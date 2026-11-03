@@ -19,7 +19,7 @@ import numpy as np
 from PIL import Image
 
 
-MAX_PACKAGES, MAX_RENDER_BYTES = 4, 32 * 1024 * 1024
+MAX_PACKAGES, MAX_RENDER_BYTES = 8, 32 * 1024 * 1024
 MAX_FRAMES, MAX_SECONDS = 18001, 120
 _ACTIVE_THREADS = set()
 _ACTIVE_LOCK = threading.Lock()
@@ -150,7 +150,7 @@ class _PoseBridge:
 
 def _packages(packages):
     if not isinstance(packages, dict) or len(packages) > MAX_PACKAGES:
-        raise AvatarRenderError("Offscreen rendering supports at most four admitted avatar packages")
+        raise AvatarRenderError("Offscreen rendering supports at most eight admitted avatar packages")
     output, total = {}, 0
     for key, package in packages.items():
         if not isinstance(key, str) or not re.fullmatch(r"[0-9a-f]{64}", key):

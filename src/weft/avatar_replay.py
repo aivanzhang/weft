@@ -13,7 +13,7 @@ from weft.avatar_lab import validate_appearance
 
 
 MAX_HTML_BYTES = 256 * 1024 * 1024
-MAX_EVENTS, MAX_CHANGES, MAX_PACKAGES = 18001, 1024, 4
+MAX_EVENTS, MAX_CHANGES, MAX_PACKAGES = 18001, 1024, 8
 MAX_EVENT_BYTES, MAX_JOURNAL_BYTES = 65536, 128 * 1024 * 1024
 MAX_SCENE_BYTES, MAX_RENDER_BYTES, MAX_TEXTURE_BYTES = 8 * 1024 * 1024, 8 * 1024 * 1024, 32 * 1024 * 1024
 MAX_SCRIPT_BYTES = 512 * 1024
@@ -156,7 +156,7 @@ def build_avatar_replay(scene, events, changes, packages_by_hash, viewer_files) 
         validate_appearance(change['settings'], {asset: True} if asset is not None else {})
         previous = anchor
     if not hasattr(packages_by_hash, 'items') or len(packages_by_hash) > MAX_PACKAGES:
-        raise ValueError('Replay supports at most four avatar packages')
+        raise ValueError('Replay supports at most eight avatar packages')
     if set(viewer_files) != set(VIEWER_FILES):
         raise ValueError('Replay requires all three frozen viewer files, including for null selection')
     scripts = {name: _script(viewer_files[name], name) for name in VIEWER_FILES}

@@ -10,7 +10,8 @@ from weft.avatar_assets import load_imported_avatar
 
 
 MAX_AVATARS = 4
-MAX_CATALOG_BYTES = 128 * 1024 * 1024
+# Eight assets at up to ~17 MiB of originals, render JSON and textures each.
+MAX_CATALOG_BYTES = 160 * 1024 * 1024
 DEFAULT_APPEARANCE = {"asset": None, "overlay": True, "show_muscles": True,
                       "camera": {"yaw": 0.5, "zoom": 1.0, "follow": False}}
 VIEWER_FILES = ("avatar_retarget.js", "avatar_worker.js", "avatar_viewer.js")
@@ -40,7 +41,7 @@ class AvatarCatalog:
     def __init__(self, directories=()):
         directories = tuple(directories)
         if len(directories) > MAX_AVATARS:
-            raise ValueError("Load at most four local avatars per lab")
+            raise ValueError("Load at most eight local avatars per lab")
         packages, entries, total = {}, [], 0
         names = set()
         for directory in directories:

@@ -170,3 +170,24 @@ def can_pack(model):
         return {"supported": True, "reason": None, "mapping": mapping, "bones": report["bones"]}
     except (RigMappingError, ValueError) as error:
         return {"supported": False, "reason": str(error)[:400], "mapping": None, "bones": None}
+
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("model")
+    parser.add_argument("out")
+    parser.add_argument("--asset-id", required=True)
+    parser.add_argument("--name", required=True)
+    args = parser.parse_args()
+    receipt = autopack(Path(args.model).absolute(), Path(args.out).absolute(),
+        asset_id=args.asset_id, display_name=args.name,
+        rights={"holder": "Studio generation", "license": "internal development",
+                "source": "avatar-assets studio",
+                "declaration": "Generated asset; rights not independently verified"},
+        provenance={"scope": "Automatic rig-role delivery of a studio generation"})
+    print(json.dumps({"zip": receipt["zip"], "zip_bytes": receipt["zip_bytes"]}))
+
+
+if __name__ == "__main__":
+    main()

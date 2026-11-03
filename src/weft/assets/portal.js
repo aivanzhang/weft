@@ -10,7 +10,7 @@
   let preparingEquipment = false, choosingEquipment = false;
   let preflighting = false, preparingPerception = false, consentKey = "", perceptionRequest = null;
   let bodyDetailBusy = false, bodyDetailKey = "", bodyDetailRequest = null;
-  let avatarState = {}, avatarBusy = false;
+  let avatarState = {}, avatarBusy = false, avatarLibrary = [], avatarCreationState = {};
   let savedBodyBusy = false, savedBodyKey = "", savedBodyRequest = null;
   let taskKey = "", taskMode = "", taskOptionsValue = null, taskOptionsWanted = false, taskOptionsTimer = null;
   let taskOptionsFlight = null, taskOptionsController = null, taskGeneration = 0, taskBusy = false, taskActionRequest = null;
@@ -275,16 +275,49 @@
     const supported = job.status === "ready" && job.route === "exercise" && !job.moving_candidate_id && !job.equipment_candidate_id && !["shared_world_exploration", "moving_equipment_task"].includes(job.control_profile);
     $("avatar-tools").hidden = !supported;
     const busy = avatarBusy || avatarState.status === "running";
+    const slotsLeft = (avatarState.custom_slots_remaining ?? (6 - (avatarState.custom_count || 0)));
     $("avatar-builtins").disabled = busy || !!avatarState.builtins_ready;
-    $("avatar-import").disabled = busy || (avatarState.custom_count || 0) >= 2;
+    $("avatar-import").disabled = busy || slotsLeft <= 0;
     $("avatar-attach").disabled = busy || !(avatarState.choices || []).length;
     const attachment = avatarState.attachments?.[job.id];
-    $("avatar-status").textContent = attachment?.error || avatarState.error || (attachment?.status === "ready" ? "Characters added. Open the sandbox and choose Appearance." : attachment?.status === "running" ? "Adding characters to this sandbox…" : avatarState.status === "running" ? "Preparing the character library locally…" : (avatarState.choices || []).length ? "Characters ready. Add them to this sandbox to choose one." : "Prepare the built-in characters or import a Studio delivery.");
+    $("avatar-status").textContent = attachment?.error || avatarState.error || (attachment?.status === "ready" ? "Characters added. Open the sandbox and choose Appearance." : attachment?.status === "running" ? "Adding characters to this sandbox…" : avatarState.status === "running" ? "Preparing the character library locally…" : (avatarState.choices || []).length ? "Characters ready. Add them to this sandbox to choose one." : "Prepare the built-in characters, pick from the library, or create one from text.");
     const signature = JSON.stringify(avatarState.choices || []);
     if ($("avatar-choices").dataset.signature !== signature) {
       $("avatar-choices").dataset.signature = signature;
       $("avatar-choices").replaceChildren(...(avatarState.choices || []).map(item => { const li = document.createElement("li"); li.textContent = item.display_name; return li; }));
     }
+    const imported = new Set((avatarState.choices || []).map(item => item.asset_id));
+    $("avatar-library-block").hidden = !(avatarLibrary || []).length;
+    const librarySignature = JSON.stringify([avatarLibrary, [...imported], busy, slotsLeft]);
+    if ($("avatar-library").dataset.signature !== librarySignature) {
+      $("avatar-library").dataset.signature = librarySignature;
+      $("avatar-library").replaceChildren(...(avatarLibrary || []).map(item => {
+        const li = document.createElement("li");
+        const button = document.createElement("button"); button.type = "button"; button.className = "secondary";
+        const already = imported.has(item.id);
+        button.textContent = already ? `${item.display_name} ✓` : item.display_name;
+        button.disabled = busy || already || slotsLeft <= 0;
+        button.onclick = () => avatarAction("/api/avatars/library", {headers: {"Content-Type": "application/json"}, body: JSON.stringify({id: item.id})});
+        li.append(button); return li;
+      }));
+    }
+    const creations = avatarCreationState.creations || [];
+    const creationSignature = JSON.stringify(creations);
+    if ($("avatar-creations").dataset.signature !== creationSignature) {
+      $("avatar-creations").dataset.signature = creationSignature;
+      $("avatar-creations").replaceChildren(...creations.map(row => {
+        const li = document.createElement("li");
+        const stages = (row.stages || []).filter(s => s.status === "running" || s.status === "complete");
+        const current = stages.length ? ` · ${stages[stages.length - 1].stage}` : "";
+        const label = {planning: "Planning", authorized: "Authorized, starting", generating: "Generating (about ten minutes)",
+                       adopting: "Importing into the library", ready: "Ready in the character list",
+                       failed: "Failed", unsupported: "Finished without a usable rig",
+                       adopt_failed: "Generated, but import failed", needs_inspection: "Needs inspection"}[row.state] || row.state;
+        li.textContent = `“${row.prompt}” — ${label}${row.state === "generating" ? current : ""}${row.error ? ` · ${row.error}` : ""}`;
+        return li;
+      }));
+    }
+    $("avatar-create-submit").disabled = avatarBusy || !(avatarCreationState.available ?? true);
   }
   async function avatarAction(path, options) {
     if (avatarBusy || avatarState.status === "running") return;
@@ -300,6 +333,21 @@
     if (!file || file.size < 1 || file.size > 32 * 1024 * 1024) { error("Choose a character ZIP no larger than 32 MiB."); return; }
     avatarAction("/api/avatars/import", {headers: {"Content-Type": "application/zip"}, body: file});
   };
+  $("avatar-create-form").onsubmit = async event => {
+    event.preventDefault();
+    const prompt = $("avatar-create-prompt").value.trim();
+    if (!prompt) { error("Describe the character first."); return; }
+    if (!$("avatar-create-consent").checked) { error("Approve the one-generation spend first."); return; }
+    const requestId = [...crypto.getRandomValues(new Uint8Array(16))].map(b => b.toString(16).padStart(2, "0")).join("");
+    try {
+      avatarCreationState = await request("/api/avatars/create", {method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({prompt, style: $("avatar-create-style").value.trim(), request_id: requestId,
+          spend_approval: "Approved in the portal: up to 35 Meshy credits plus bounded agent calls for this one generation. Prompt: " + prompt.slice(0, 200)})});
+      $("avatar-create-prompt").value = ""; $("avatar-create-consent").checked = false;
+      if (selectedJob) showAvatars(selectedJob);
+    } catch (e) { error(e.message); }
+    await refresh();
+  };
   async function refresh() {
     if (pending || document.hidden) return;
     pending = true;
@@ -311,6 +359,8 @@
       $("budget").textContent = data.budget.configured ? `$${data.budget.remaining_usd.toFixed(3)} remaining of $${data.budget.total_usd.toFixed(2)} · ${data.budget.calls} requests · ${data.budget.unsettled_calls} uncertain. Up to $${data.budget.reservation_usd.toFixed(4)} is reserved per request; known unused cost is released.` : "No OpenAI allowance configured. Local mode remains available with an explicit scene type.";
       museAvailable = !!data.muse?.available;
       avatarState = data.avatars || {};
+      avatarLibrary = data.avatar_library || [];
+      avatarCreationState = data.avatar_studio || {};
       $("muse-budget").textContent = data.muse?.budget_configured ? `Meta / Muse: $${data.muse.remaining_usd.toFixed(3)} remaining of $${data.muse.total_budget_usd.toFixed(2)} · ${data.muse.unsettled_count} uncertain. Estimated reservation $${data.muse.estimated_one_call_usd.toFixed(4)} per review; this is not a provider hard cap.` : "Meta / Muse allowance unavailable. No review will be sent.";
       const signature = JSON.stringify(data.jobs.map(job => [job.id,job.name,job.status,job.stage,selected]));
       if (signature !== lastProjects) {
@@ -329,7 +379,8 @@
       if (!selected && data.jobs.length) selected = data.jobs[0].id;
       await show(data.jobs.find(job => job.id === selected));
       $("create").disabled = uploading;
-      const active = avatarState.status === "running" || data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job) || equipmentActive(job) || perceptionActive(job) || movingActive(job));
+      const creating = (avatarCreationState.creations || []).some(row => !["ready","failed","unsupported","adopt_failed","needs_inspection","cancelled"].includes(row.state));
+      const active = creating || avatarState.status === "running" || data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job) || equipmentActive(job) || perceptionActive(job) || movingActive(job));
       timer = setTimeout(refresh, active ? 1500 : 12000);
     } catch (e) { error(e.message); $("connection").textContent = "Connection needs attention"; timer = setTimeout(refresh, 12000); }
     finally { pending = false; }

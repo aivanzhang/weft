@@ -46,8 +46,8 @@ def test_catalog_serves_only_verified_bytes_and_no_paths(tmp_path):
             catalog.resource(key, name)
     with pytest.raises(ValueError, match="unique"):
         AvatarCatalog([source, source])
-    with pytest.raises(ValueError, match="four"):
-        AvatarCatalog([source] * 5)
+    with pytest.raises(ValueError, match="eight"):
+        AvatarCatalog([source] * 9)
 
 
 @pytest.mark.parametrize("change", [

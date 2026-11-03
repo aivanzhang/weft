@@ -13,7 +13,9 @@ from weft.portal_avatar import MAX_UPLOAD_BYTES, PortalAvatarLab, import_avatar_
 from weft.shared_world_packaging import read_package_file, write_package_files
 
 RESERVE_PER_ASSET = 97 * 1024 * 1024
-MAX_CUSTOM = 2
+# Two builtins plus library picks and created characters; the catalog, offscreen and
+# replay caps below track the same total of eight.
+MAX_CUSTOM = 6
 MAX_ATTACHMENTS = 3
 
 
@@ -47,8 +49,8 @@ class PortalAvatarManager:
             atomic_json(self.root / 'status.json', self._state)
 
     def _load_entries(self, entries):
-        if not isinstance(entries, list) or len(entries) > 4:
-            raise ValueError('Avatar registry exceeds four assets')
+        if not isinstance(entries, list) or len(entries) > 8:
+            raise ValueError('Avatar registry exceeds eight assets')
         seen = set()
         directories = []
         for row in entries:

@@ -191,6 +191,8 @@ class Portal:
                         "message": "Portal restarted during perception; source evidence and uncertain charges are preserved. No automatic retry."})
             from weft.portal_avatar_jobs import PortalAvatarManager
             self.avatar_manager = PortalAvatarManager(self.root / "avatars", self.project)
+            from weft.portal_avatar_studio import AvatarStudioBridge
+            self.avatar_studio = AvatarStudioBridge(self.root, self.project, self.prepare_avatars)
             self.thread = threading.Thread(target=self._work, name="weft-portal-queue", daemon=True) if start else None
             if self.thread:
                 self.thread.start()
@@ -393,9 +395,12 @@ class Portal:
     def info(self):
         with self.lock:
             ids = list(self.jobs)
+        from weft.portal_avatar_studio import list_library
         return {"provider": "openai", "model": MODEL, "credential": credential_status(self.project),
                 "muse": muse_availability(self.project),
                 "avatars": self.avatar_manager.status(),
+                "avatar_library": list_library(self.project),
+                "avatar_studio": self.avatar_studio.poll(),
                 "budget": self.budget.status(), "local_only": True, "max_upload_bytes": MAX_UPLOAD,
                 "jobs": [self.summary(identity) for identity in reversed(ids)],
                 "limits": "60-second videos, 1,800 frames, one processing job at a time; failed reconstructions remain inspectable"}
@@ -1108,6 +1113,8 @@ class Portal:
         self.wake.set()
         if self.thread:
             self.thread.join(timeout=10)
+        if getattr(self, "avatar_studio", None) is not None:
+            self.avatar_studio.close()
         if self.avatar_manager is not None:
             self.avatar_manager.close()
         for identity, lab in self.labs.items():
@@ -1181,6 +1188,31 @@ class PortalHandler(LabHandler):
             path = urlsplit(self.path).path
             if self.headers.get("Transfer-Encoding"):
                 raise ValueError("Use a fixed-length upload")
+            if path in {"/api/avatars/library", "/api/avatars/create"}:
+                length = int(self.headers.get("Content-Length", "0"))
+                if not 1 <= length <= 8192:
+                    raise ValueError("Avatar request must be bounded JSON")
+                self.connection.settimeout(30)
+                raw = self.rfile.read(length)
+                if len(raw) != length:
+                    raise ValueError("Avatar request upload was interrupted")
+                from weft.exercise_body_source import _json as bounded_json
+                body = bounded_json(raw)
+                if not isinstance(body, dict):
+                    raise ValueError("Avatar request must be a JSON object")
+                if path == "/api/avatars/library":
+                    from weft.portal_avatar_studio import read_library_zip
+                    if set(body) != {"id"}:
+                        raise ValueError("Library import takes exactly the character id")
+                    payload = read_library_zip(self.server.portal.project, body["id"])
+                    return self.reply(self.server.portal.prepare_avatars(payload), 202)
+                if (not {"prompt", "request_id", "spend_approval"} <= set(body)
+                        or set(body) - {"prompt", "style", "request_id", "spend_approval"}):
+                    raise ValueError("Creation takes prompt, optional style, request_id and spend_approval")
+                result = self.server.portal.avatar_studio.create(
+                    body["prompt"], style=body.get("style", ""), request_id=body["request_id"],
+                    spend_approval=body["spend_approval"])
+                return self.reply(result, 202)
             avatar_attach = re.fullmatch(r"/api/projects/([a-f0-9]{32})/avatars/attach", path)
             if path in {"/api/avatars/builtins", "/api/avatars/import"} or avatar_attach:
                 length = int(self.headers.get("Content-Length", "0"))

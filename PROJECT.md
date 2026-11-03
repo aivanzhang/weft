@@ -41,7 +41,7 @@ playback and programmed reference controllers are different modes, not learned p
 | Interaction | Manual controls, explicit tasks, reset, recording and action replay; disclosed root assistance | Physical accuracy of changed-action predictions |
 | Learning | Bounded training, baselines and evaluation on supported profiles | Consistent improvement over simple controllers |
 | Meta integration | SAM tracking, Muse review and constrained controller-choice tests | General autonomous physical repair |
-| Avatars | Built-in appearances, state-driven motion, a re-skinned Studio derivative, and automatic delivery of generated avatars: roles, scale and orientation are derived from the rig itself across four naming conventions | Rigs without elbow/knee joints are refused by design; quadruped proportions still read oddly under human joint angles |
+| Avatars | Built-in appearances plus a one-click pre-generated library; prompt-to-avatar creation in the portal through the managed local Avatar Studio with recorded per-job spending grants; finished models auto-pack (derived roles, scale, orientation) and land in the chooser | Fresh generation waits on administrator allowance (the avatar OpenAI ceiling is fully allocated); rigs without elbow/knee joints are refused by design |
 
 Intake supports videos up to **60 seconds, 1,800 frames and 100 MB**, with further
 checks for each reconstruction path. Keep observed, inferred, assumed and unknown
@@ -80,6 +80,15 @@ not an external benchmark or a guarantee for new inputs.
   with every attempt preserved. Evidence: `.local/portal-generalized-05/result.json`.
 - A real Muse-selected controller candidate was tested and rejected under the
   unchanged scoring rules. No accepted physical repair was demonstrated.
+- The portal now offers a pre-generated character library (one-click import, no AI
+  calls) and text-to-avatar creation: a prompt starts a managed local Avatar Studio
+  job, the user's verbatim approval is recorded as the targeted OpenAI/Meshy grants,
+  progress streams into the portal, and the finished model auto-packs into the
+  chooser. Library import and the adoption tail (completed studio job to chooser)
+  are live-verified; a fresh paid generation stops at the studio's allowance gate
+  because the avatar OpenAI ceiling (reduced to $15) is fully allocated — an
+  administrator decision, not a code path. Evidence: `.local/avatar-create-01/`,
+  `.local/avatar-adopt-01/`.
 - Generated avatars no longer need hand-written delivery configuration. An automatic
   resolver maps a rig's bones to Weft's ten body roles by name synonyms checked against
   skeleton structure, and derives scale and orientation from the rig's own measured

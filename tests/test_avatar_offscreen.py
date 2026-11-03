@@ -106,8 +106,8 @@ def test_unsupported_inputs_fail_before_native_context(case, package, monkeypatc
         module.AvatarOffscreen(case["scene"], {KEY: package}, width=4096)
     with pytest.raises(module.AvatarRenderError, match="exact hashes"):
         module.AvatarOffscreen(case["scene"], {"not-a-hash": package})
-    with pytest.raises(module.AvatarRenderError, match="four"):
-        module.AvatarOffscreen(case["scene"], {str(i) * 64: package for i in range(5)})
+    with pytest.raises(module.AvatarRenderError, match="eight"):
+        module.AvatarOffscreen(case["scene"], {str(i) * 64: package for i in range(9)})
 
 
 def test_frame_failure_closes_bridge_without_starting_gpu_work(case, package, monkeypatch):
