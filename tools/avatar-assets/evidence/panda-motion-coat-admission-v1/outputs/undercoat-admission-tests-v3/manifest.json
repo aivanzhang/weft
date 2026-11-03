@@ -1,0 +1,67 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1135,
+      "path": "job.json",
+      "sha256": "220c3d8c74fa8d18d69b023c7feac8a602f63d24f5fd7b74bfcc0492291622a7"
+    },
+    {
+      "bytes": 2358,
+      "path": "prepared.json",
+      "sha256": "848654d9e275f9a08cada24959f736025174ee9c58b4943c3c935b939849efc8"
+    },
+    {
+      "bytes": 1422,
+      "path": "result.json",
+      "sha256": "68d292e68732ece4df600c0e52878e1140faf0f69f525c59dbdf60c0de1dd4fb"
+    },
+    {
+      "bytes": 42039,
+      "path": "sources/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "bytes": 10330,
+      "path": "sources/blender_undercoat_admission.py",
+      "sha256": "12cbe32fb4c5d873681124e51a23b2103f7fc673aba7f0cf199c6c130dda6090"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 19957,
+      "path": "sources/test_undercoat_admission.py",
+      "sha256": "88d98db323743d327a823ead079b30f6d381d327b410e3e588258c36ce5a39a6"
+    },
+    {
+      "bytes": 13488,
+      "path": "sources/undercoat_admission.py",
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2"
+    },
+    {
+      "bytes": 14944,
+      "path": "sources/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 293,
+      "path": "tests-handle.json",
+      "sha256": "2e2ee84d68cba9c542a35b474e02f6940258e6f4304058399ff4db600a97b7ba"
+    },
+    {
+      "bytes": 1031,
+      "path": "tests-monitor.json",
+      "sha256": "dfcf81160eb4b2a1a73390f419ed24b1af865431e1e5e9626ddd3fd13f7c5c47"
+    },
+    {
+      "bytes": 298,
+      "path": "tests.log",
+      "sha256": "2a5141bc1520965e6c772cd867b05234e9cab6d78f2743e02dd9c35f2a14451f"
+    }
+  ],
+  "kind": "undercoat_admission_import_test",
+  "schema_version": 1,
+  "status": "passed"
+}

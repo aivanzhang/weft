@@ -1,0 +1,43 @@
+{
+  "capacity_is_admission": false,
+  "counts_or_budget_changed": false,
+  "job": {
+    "elapsed_seconds": 0.262,
+    "exit_code": 0,
+    "process_exit_verified": true,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null
+  },
+  "methods": 8,
+  "native_executed": false,
+  "new_unique_methods": 5,
+  "prior_native_v2_preserved": true,
+  "schema_version": 1,
+  "source_pins": {
+    "avatar_assets/undercoat_admission.py": {
+      "bytes": 13488,
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2"
+    },
+    "scripts/blender_fur_undercoat.py": {
+      "bytes": 42039,
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    "scripts/blender_undercoat_admission.py": {
+      "bytes": 13636,
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7"
+    },
+    "scripts/groom_flow.py": {
+      "bytes": 7179,
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    "scripts/undercoat_uv_atlas.py": {
+      "bytes": 14944,
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    "tests/test_undercoat_admission.py": {
+      "bytes": 25255,
+      "sha256": "f2531abb133abaf50d1e658a82c221042213aa3bf52cbb7ec6b604012fcaf93c"
+    }
+  },
+  "status": "passed"
+}

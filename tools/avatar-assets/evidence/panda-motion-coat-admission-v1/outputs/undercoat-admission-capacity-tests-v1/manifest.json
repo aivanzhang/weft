@@ -1,0 +1,67 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1444,
+      "path": "job.json",
+      "sha256": "b9f728c5557663df009dafb2e41529d324de0f287d9160d1c539f288ea343703"
+    },
+    {
+      "bytes": 2547,
+      "path": "prepared.json",
+      "sha256": "06a8c7379ba765936cddb053ba3dbc2ce42d7a2ede6c58082d3f6fb399988fd8"
+    },
+    {
+      "bytes": 1328,
+      "path": "result.json",
+      "sha256": "1c05ce77aeb0783ec7f641a145da9e24aa63c1f410180230f081706dd0f28605"
+    },
+    {
+      "bytes": 42039,
+      "path": "sources/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "bytes": 13636,
+      "path": "sources/blender_undercoat_admission.py",
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 25255,
+      "path": "sources/test_undercoat_admission.py",
+      "sha256": "f2531abb133abaf50d1e658a82c221042213aa3bf52cbb7ec6b604012fcaf93c"
+    },
+    {
+      "bytes": 13488,
+      "path": "sources/undercoat_admission.py",
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2"
+    },
+    {
+      "bytes": 14944,
+      "path": "sources/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 590,
+      "path": "tests-handle.json",
+      "sha256": "20a47bf69179d7a02ada11710389aa98577a9d472ae5b4563ef9f13e59f3e6ea"
+    },
+    {
+      "bytes": 1328,
+      "path": "tests-monitor.json",
+      "sha256": "ae565cf3089713f12b5ad9d850ebe8d634bec85cdbac339b36962181b6430534"
+    },
+    {
+      "bytes": 1691,
+      "path": "tests.log",
+      "sha256": "629a371ad31097673392df482cdd2eff093b1f2467ebea6e7cecc0387e755957"
+    }
+  ],
+  "kind": "undercoat_admission_capacity_tests",
+  "schema_version": 1,
+  "status": "passed"
+}

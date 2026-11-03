@@ -1,0 +1,36 @@
+{
+  "artifacts": [
+    {
+      "bytes": 5205,
+      "path": "request-source-pins.json",
+      "sha256": "abc76ca9385bb7b5e986e8b46eb953081bbfe2d7fd3b735b614d0752bf0b391c"
+    },
+    {
+      "bytes": 3885,
+      "path": "result.json",
+      "sha256": "89dd4891f0d19bbe0be74c8c9ded189fabf2f7063ce4b081a896accae01853a2"
+    },
+    {
+      "bytes": 10388,
+      "path": "sources/avatar_assets/coat_representation.py",
+      "sha256": "1a750a54a21f658809bf0cb016fba0d2c3295ca1207da2babcbd83567f2c026b"
+    },
+    {
+      "bytes": 101979,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "4f1b18560ee62c06eeaa209a13b05195242988497c45eccc94c7480bcf57cfd9"
+    },
+    {
+      "bytes": 11975,
+      "path": "sources/avatar_assets/repair_admission.py",
+      "sha256": "5df94acdba444540270f70aab67412fe89bdceb78893ff65ee9be064045cd862"
+    },
+    {
+      "bytes": 10221,
+      "path": "sources/tests/test_repair_admission.py",
+      "sha256": "582eeb818de6f78298a42e35651d9b6829b41d815af388c0a3cd2615c5078b99"
+    }
+  ],
+  "classification": "Analytic automatic-probe integration tests; no actual native or provider dispatch in this lane",
+  "schema_version": 1
+}

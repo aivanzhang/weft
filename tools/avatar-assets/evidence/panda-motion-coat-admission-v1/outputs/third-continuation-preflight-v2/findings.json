@@ -1,0 +1,1603 @@
+{
+  "author_image_layout": {
+    "repair_images_start": 5,
+    "source_guides": [
+      1,
+      2,
+      3
+    ],
+    "user_reference": 4
+  },
+  "historical_visual_reviews": [
+    {
+      "answer_sha256": "3557b30001110977d9a36f4bb1dc424d8848e56aa11bd32fc2c84a159bbdba87",
+      "attempt": 0,
+      "evidence": [
+        {
+          "bytes": 1412872,
+          "id": "evidence-native-views",
+          "path": "final-evidence-0/native-views.png",
+          "sha256": "fbb5acccae0c530fcd4aa06dcd77f621a08dead54b33cc51c2016f0801a6ed7c"
+        },
+        {
+          "bytes": 1210211,
+          "id": "evidence-exported-views",
+          "path": "final-evidence-0/exported-views.png",
+          "sha256": "b9a6af933393e6e59a02ba63a68d6fc847f2ab5ede0dd0b66d7da66d372f8a3d"
+        },
+        {
+          "bytes": 4950473,
+          "id": "evidence-motion-00",
+          "path": "final-evidence-0/motion-00.png",
+          "sha256": "7099eff2c291b98bd3e1c84a79b363b86c6922d82059424d2aa04e6c2f0b5ba5"
+        },
+        {
+          "bytes": 792832,
+          "id": "evidence-delivered-portrait",
+          "path": "final-evidence-0/delivered-portrait.webp",
+          "sha256": "03cecffc73b1b85fcfc567fca52a138d9ae633e433ffaffee7672ad17feb1900"
+        },
+        {
+          "bytes": 1051974,
+          "id": "evidence-selected-reference",
+          "path": "final-evidence-0/selected-reference.png",
+          "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+        },
+        {
+          "bytes": 464672,
+          "id": "evidence-isolated-native-toy_dance",
+          "path": "final-evidence-0/isolated-native-toy_dance.png",
+          "sha256": "2989f42ec8199f70a81ce6ffb5d9e4efa9e08494dbe6238d83d25a6ca5e04999"
+        },
+        {
+          "bytes": 435522,
+          "id": "evidence-isolated-exported-toy_dance",
+          "path": "final-evidence-0/isolated-exported-toy_dance.png",
+          "sha256": "0bc440909d1a478b0c0f12fd421059fdfe10edb21455590e722af350017beb98"
+        }
+      ],
+      "failed_checks": [
+        {
+          "evidence_ids": [
+            "evidence-native-views",
+            "evidence-exported-views",
+            "evidence-delivered-portrait"
+          ],
+          "name": "appearance",
+          "passed": false,
+          "reason": "Native render reads as soft, short plush fur, but the exported representation shows conspicuous portable-coat artifacts: sparse, dark dot/card speckling across the white and black regions plus many short spike-like tufts sticking out along the silhouette (head, torso, limbs), giving a “prickly/porcupine” look rather than neatly groomed short fur. There is also a small ridge/tuft cluster on top of the head visible in both native and exported that looks like an unintended groom lump rather than tidy plush fur. Dragon remains distinct and not covered in panda fur, but overall exported coat look violates the requested neat short-fur appearance."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-toy_dance",
+            "evidence-isolated-exported-toy_dance"
+          ],
+          "name": "deformation",
+          "passed": false,
+          "reason": "During the toy_dance pose sample (notably around the provided isolated frame), the torso/belly shows a strong, sharp fold/crease and surface shearing that reads as deformation rather than plush squash. The exported isolated pose in particular shows the white belly region and torso silhouette warping with visible creasing while the portable coat accentuates the distortion, which counts as major deformation for this stylized plush character."
+        }
+      ],
+      "model_manifest_sha256": "94212e06d51f06a655e78a84089d6f28448bb0441abf0b8d43234094811fdacd",
+      "parent_output": "outputs/studio-45757c9565b545119553baca",
+      "passed_checks": [
+        "identity",
+        "framing"
+      ],
+      "portable_geometry_facts": {
+        "bands": [
+          {
+            "cards": 3825,
+            "derived_scope": "Density = roots/eligible area; nominal sqrt(area/roots) is not measured spacing or coverage.",
+            "eligible_area_m2": 0.24943716849370817,
+            "index": 0,
+            "length_range_m": [
+              0.0024195004140888116,
+              0.005898118834266147
+            ],
+            "missing_fields": [],
+            "nominal_sqrt_area_per_root_m": 0.008075415260674958,
+            "roots": 3825,
+            "roots_per_m2": 15334.523010737601,
+            "status": "available",
+            "width_range_m": [
+              0.0025650477768143025,
+              0.005354993556003738
+            ]
+          }
+        ],
+        "coat_representation": {
+          "capabilities": [
+            "Native fiber upper bounds and portable card counts are not one-to-one density or coverage measures; a card can depict multiple fibers.",
+            "Normal detail changes lighting, not strands or silhouette. An absent undercoat does not mean absent normal maps or a flat surface.",
+            "Export headroom is a conservative arithmetic allowance, not proof of UV eligibility, material compatibility or visual quality; capacity and UV admission require a probe."
+          ],
+          "export_capacity": {
+            "base_export_vertices": 50004,
+            "cards": 3825,
+            "exported_corners_per_card": 12,
+            "incremental_split_headroom_vertices": 0,
+            "limit": 100000,
+            "maximum_cards": 3825,
+            "projected_max_vertices": 100000,
+            "reserve_vertices": 4096,
+            "scope": "Unused conservative allowance after base, card corners and reserved vertices; not measured export size or admission",
+            "status": "available"
+          },
+          "native_groom": {
+            "count_scope": "Configured upper bound, not independently counted visible fibers",
+            "export_supported": false,
+            "missing_fields": [],
+            "native_only": true,
+            "render_fiber_upper_bound": 98800,
+            "status": "available"
+          },
+          "normal_detail": {
+            "authored_strength": 0.3,
+            "original_source_strength": {
+              "status": "unavailable"
+            },
+            "reported_strength": 0.3,
+            "routes": [
+              {
+                "admission": "coherent_uv0",
+                "material": "Material_0__surface_base_plush",
+                "normal_map_reported": true,
+                "normal_uv_index": 0,
+                "object": "Mesh_0",
+                "texture_uv_index": 0
+              },
+              {
+                "admission": "coherent_uv0",
+                "material": "Material_0__surface_eyes_gloss",
+                "normal_map_reported": true,
+                "normal_uv_index": 0,
+                "object": "Mesh_0",
+                "texture_uv_index": 0
+              },
+              {
+                "admission": "coherent_uv0",
+                "material": "Material_0__surface_nose_satin",
+                "normal_map_reported": true,
+                "normal_uv_index": 0,
+                "object": "Mesh_0",
+                "texture_uv_index": 0
+              },
+              {
+                "admission": "coherent_uv0",
+                "material": "Material_0__surface_dragon_matte_satin",
+                "normal_map_reported": true,
+                "normal_uv_index": 0,
+                "object": "Mesh_0",
+                "texture_uv_index": 0
+              },
+              {
+                "admission": "no_live_normal_map",
+                "material": "PortableCoat_0_cutout_fur",
+                "normal_map_reported": false,
+                "object": "PortableCoat_0"
+              }
+            ],
+            "scope": "Authored settings and measured finished-model routes; original source settings are not reconstructed",
+            "status": "available"
+          },
+          "portable_geometry": {
+            "bands": [
+              {
+                "cards": 3825,
+                "geometry_profile": "tuft-v1",
+                "index": 0,
+                "status": "available"
+              }
+            ],
+            "count_scope": "Reported geometry cards, not counted fibers or measured coverage",
+            "status": "available",
+            "total_cards": 3825
+          },
+          "references": [
+            {
+              "bytes": 26496,
+              "path": "sources/finish-design.json",
+              "sha256": "cad661bc96cc2b86a2cab0bef085209b93981940ce08a46fc09b97eed577a2f8"
+            },
+            {
+              "bytes": 162033,
+              "path": "finish-report.json",
+              "sha256": "b79bf00585ab64b37d522ad26542ffd8eb87ced80071d8326f38d6347d75fd6b"
+            },
+            {
+              "bytes": 2148,
+              "path": "normal-uv-export.json",
+              "sha256": "30af344c317fe8ae1f54a57adf4a455aad247a346cbb302566b07dd94b1a951c"
+            },
+            {
+              "bytes": 290,
+              "path": "tuft-export-budget.json",
+              "sha256": "a3e0094030245d221c1986e24ebf002d7c52cce191da99fcf3b5f9f374113f57"
+            }
+          ],
+          "schema_version": 1,
+          "scope": "Facts about this saved recipe only, not a current quality verdict or a prescribed repair.",
+          "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+          "status": "available",
+          "undercoat": {
+            "configured": false,
+            "reported": false,
+            "scope": "Optional lighting detail; absence does not establish a flat surface or absent source normals",
+            "status": "available"
+          }
+        },
+        "finish_config_reference": {
+          "bytes": 26496,
+          "path": "finish-0.json",
+          "sha256": "cad661bc96cc2b86a2cab0bef085209b93981940ce08a46fc09b97eed577a2f8"
+        },
+        "groom_comb": 0.35,
+        "groom_flow_regions": [
+          {
+            "comb": 0.3,
+            "direction": [
+              0,
+              0.25,
+              -0.75
+            ],
+            "index": 0,
+            "length_scale": 1,
+            "name": "body"
+          },
+          {
+            "comb": 0.28,
+            "direction": [
+              0,
+              -0.2,
+              -0.9
+            ],
+            "index": 1,
+            "length_scale": 0.8,
+            "name": "head_face"
+          },
+          {
+            "comb": 0.32,
+            "direction": [
+              0,
+              0.2,
+              -0.85
+            ],
+            "index": 2,
+            "length_scale": 0.95,
+            "name": "limbs"
+          }
+        ],
+        "report_reference": {
+          "bytes": 162033,
+          "path": "model-0/finish-report.json",
+          "sha256": "b79bf00585ab64b37d522ad26542ffd8eb87ced80071d8326f38d6347d75fd6b"
+        },
+        "scope": "Historical authored coat geometry; not current acceptance or measured root spacing.",
+        "status": "available"
+      },
+      "receipt_sha256": "0e207e61c0f6f7dc7b824cf8853128c31cb145d0f0bbd5d0221361f6251afa04",
+      "required_repairs": [
+        "Fix exported portable fur/coat appearance to match the native short, neatly groomed plush look: eliminate the pervasive dark speckling and spike-like cards/tufts along the silhouette (head/torso/limbs), increase uniform coverage, and reduce protruding card ends so the coat reads as smooth short fur rather than prickly stubble.",
+        "Address the top-of-head groom lump/ridge so the head silhouette is clean and evenly groomed in both native and exported views.",
+        "Reduce torso/belly creasing in toy_dance (around the worst-stretch pose): adjust skin weights and/or limit chest/spine deformation so plush squash does not create a sharp fold/shear; re-check in both native and exported motion renders."
+      ],
+      "review_reference": {
+        "path": "review-0.json",
+        "sha256": "ed58fb89bb4cdf41fb3e061d52602a91a14619017d22c6e0cc079b5e86e08ae3"
+      },
+      "role": "reviewer-0",
+      "scope": "Historical repair targets for this earlier reviewed model, not a verdict on the latest recipe. Recheck after repair.",
+      "state_results": [
+        {
+          "id": "toy_dance",
+          "meaning_passed": true,
+          "motion_passed": true
+        }
+      ],
+      "summary": "Identity and framing match the requested plush panda with attached shoulder dragon, and the toy_dance action is readable in sampled frames. However, exported appearance has strong portable-coat speckling/spike artifacts that break the requested neatly groomed short-fur look, and the dance includes a visibly harsh torso/belly crease at the worst-stretch pose. Requires repair before acceptance."
+    },
+    {
+      "answer_sha256": "06d291f40bf49ee2f4a33508e203752617f1a5730901721a0ba4cb68333b4b92",
+      "attempt": 1,
+      "evidence": [
+        {
+          "bytes": 1410711,
+          "id": "evidence-native-views",
+          "path": "final-evidence-1/native-views.png",
+          "sha256": "e17f329c7c0c40c7f78eee233f1bb0aab261127461e152f271c7484dced401f6"
+        },
+        {
+          "bytes": 1203924,
+          "id": "evidence-exported-views",
+          "path": "final-evidence-1/exported-views.png",
+          "sha256": "e425b8d409a9ce5f5d8316029b5322fa2f0df4b76f45f3c1eb109d869055a5b3"
+        },
+        {
+          "bytes": 4951469,
+          "id": "evidence-motion-00",
+          "path": "final-evidence-1/motion-00.png",
+          "sha256": "038aea8217d6090ace0180a78519d622e3ceedfd73676d4fe9aef8096f1343be"
+        },
+        {
+          "bytes": 793720,
+          "id": "evidence-delivered-portrait",
+          "path": "final-evidence-1/delivered-portrait.webp",
+          "sha256": "a65b271c1ecd36fcad6422c0964ee9c22a8f45e114f4aa22d1bf838848774b67"
+        },
+        {
+          "bytes": 1051974,
+          "id": "evidence-selected-reference",
+          "path": "final-evidence-1/selected-reference.png",
+          "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+        },
+        {
+          "bytes": 467576,
+          "id": "evidence-isolated-native-toy_dance",
+          "path": "final-evidence-1/isolated-native-toy_dance.png",
+          "sha256": "4aa08448295a298ff15d1b04e9fdb376c659bbdd5c5b429228939273a3fa430d"
+        },
+        {
+          "bytes": 435883,
+          "id": "evidence-isolated-exported-toy_dance",
+          "path": "final-evidence-1/isolated-exported-toy_dance.png",
+          "sha256": "96270ca92264063c8836498cba2daf4ced13cb47dd1b4f1d3f8c931b0c3c877c"
+        }
+      ],
+      "failed_checks": [
+        {
+          "evidence_ids": [
+            "evidence-native-views",
+            "evidence-exported-views",
+            "evidence-motion-00",
+            "evidence-delivered-portrait",
+            "evidence-isolated-exported-toy_dance"
+          ],
+          "name": "appearance",
+          "passed": false,
+          "reason": "Native render reads as a plush panda with short groomed fur and clean black/ivory boundaries, and the green shoulder dragon remains distinct (native-views). However, the exported representation shows conspicuous portable-coat/card artifacts: patchy/broken silhouette with visible dotting/speckle and sparse tufts across the white areas and along color boundaries, reading less like “neatly groomed short fur” and more like scattered cards (exported-views, motion-00). In the exported peak-stretch pose there is also an obvious visual discontinuity/patch on the torso/side region that reads like coat/skin breakup rather than continuous plush fur (isolated-exported-toy_dance)."
+        },
+        {
+          "evidence_ids": [
+            "evidence-motion-00",
+            "evidence-isolated-native-toy_dance",
+            "evidence-isolated-exported-toy_dance"
+          ],
+          "name": "deformation",
+          "passed": false,
+          "reason": "During the dance, the exported model exhibits a noticeable surface breakup in the greatest-recorded-stretch pose (a large irregular light patch/discontinuity on the side/torso near the moving arm area), indicating problematic deformation/coverage under articulation in the exported representation (isolated-exported-toy_dance). Native looks more stable in the comparable pose, suggesting the issue is export/portable-coat/weighting related rather than purely the authored motion (isolated-native-toy_dance, motion-00)."
+        }
+      ],
+      "model_manifest_sha256": "7954bbde61094a6129fe79fb96938b502982797040085fbd3ba1d177f1f5c5bb",
+      "parent_output": "outputs/studio-45757c9565b545119553baca",
+      "passed_checks": [
+        "identity",
+        "framing"
+      ],
+      "portable_geometry_facts": {
+        "bands": [
+          {
+            "cards": 3825,
+            "derived_scope": "Density = roots/eligible area; nominal sqrt(area/roots) is not measured spacing or coverage.",
+            "eligible_area_m2": 0.2577824640536111,
+            "index": 0,
+            "length_range_m": [
+              0.0013517328389369104,
+              0.003878000381035997
+            ],
+            "missing_fields": [],
+            "nominal_sqrt_area_per_root_m": 0.008209391466443179,
+            "roots": 3825,
+            "roots_per_m2": 14838.092319594374,
+            "status": "available",
+            "width_range_m": [
+              0.004104076442902884,
+              0.008567989689605978
+            ]
+          }
+        ],
+        "coat_representation": {
+          "capabilities": [
+            "Native fiber upper bounds and portable card counts are not one-to-one density or coverage measures; a card can depict multiple fibers.",
+            "Normal detail changes lighting, not strands or silhouette. An absent undercoat does not mean absent normal maps or a flat surface.",
+            "Export headroom is a conservative arithmetic allowance, not proof of UV eligibility, material compatibility or visual quality; capacity and UV admission require a probe."
+          ],
+          "export_capacity": {
+            "base_export_vertices": 50004,
+            "cards": 3825,
+            "exported_corners_per_card": 12,
+            "incremental_split_headroom_vertices": 0,
+            "limit": 100000,
+            "maximum_cards": 3825,
+            "projected_max_vertices": 100000,
+            "reserve_vertices": 4096,
+            "scope": "Unused conservative allowance after base, card corners and reserved vertices; not measured export size or admission",
+            "status": "available"
+          },
+          "native_groom": {
+            "count_scope": "Configured upper bound, not independently counted visible fibers",
+            "export_supported": false,
+            "missing_fields": [],
+            "native_only": true,
+            "render_fiber_upper_bound": 78000,
+            "status": "available"
+          },
+          "normal_detail": {
+            "authored_strength": 0.3,
+            "original_source_strength": {
+              "status": "unavailable"
+            },
+            "reported_strength": 0.3,
+            "routes": [
+              {
+                "admission": "coherent_uv0",
+                "material": "Material_0__surface_base_plush",
+                "normal_map_reported": true,
+                "normal_uv_index": 0,
+                "object": "Mesh_0",
+                "texture_uv_index": 0
+              },
+              {
+                "admission": "coherent_uv0",
+                "material": "Material_0__surface_eyes_gloss",
+                "normal_map_reported": true,
+                "normal_uv_index": 0,
+                "object": "Mesh_0",
+                "texture_uv_index": 0
+              },
+              {
+                "admission": "coherent_uv0",
+                "material": "Material_0__surface_nose_satin",
+                "normal_map_reported": true,
+                "normal_uv_index": 0,
+                "object": "Mesh_0",
+                "texture_uv_index": 0
+              },
+              {
+                "admission": "no_live_normal_map",
+                "material": "PortableCoat_0_cutout_fur",
+                "normal_map_reported": false,
+                "object": "PortableCoat_0"
+              }
+            ],
+            "scope": "Authored settings and measured finished-model routes; original source settings are not reconstructed",
+            "status": "available"
+          },
+          "portable_geometry": {
+            "bands": [
+              {
+                "cards": 3825,
+                "geometry_profile": "tuft-v1",
+                "index": 0,
+                "status": "available"
+              }
+            ],
+            "count_scope": "Reported geometry cards, not counted fibers or measured coverage",
+            "status": "available",
+            "total_cards": 3825
+          },
+          "references": [
+            {
+              "bytes": 26384,
+              "path": "sources/finish-design.json",
+              "sha256": "035c263247c11ccf983c31a77bdb8302de3630a467fb01af185bbe2a7e538b09"
+            },
+            {
+              "bytes": 160474,
+              "path": "finish-report.json",
+              "sha256": "1b53029583808ebde580b4349d577573d471a1d8e3751e2794c9f822b55e9d12"
+            },
+            {
+              "bytes": 1769,
+              "path": "normal-uv-export.json",
+              "sha256": "bc8b3d8a74cd826a8dcb7be47397534e04194c1987274052433b746fb5eab238"
+            },
+            {
+              "bytes": 290,
+              "path": "tuft-export-budget.json",
+              "sha256": "a3e0094030245d221c1986e24ebf002d7c52cce191da99fcf3b5f9f374113f57"
+            }
+          ],
+          "schema_version": 1,
+          "scope": "Facts about this saved recipe only, not a current quality verdict or a prescribed repair.",
+          "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+          "status": "available",
+          "undercoat": {
+            "configured": false,
+            "reported": false,
+            "scope": "Optional lighting detail; absence does not establish a flat surface or absent source normals",
+            "status": "available"
+          }
+        },
+        "finish_config_reference": {
+          "bytes": 26384,
+          "path": "finish-1.json",
+          "sha256": "035c263247c11ccf983c31a77bdb8302de3630a467fb01af185bbe2a7e538b09"
+        },
+        "groom_comb": 0.28,
+        "groom_flow_regions": [
+          {
+            "comb": 0.28,
+            "direction": [
+              0,
+              0.25,
+              -0.75
+            ],
+            "index": 0,
+            "length_scale": 1,
+            "name": "body"
+          },
+          {
+            "comb": 0.24,
+            "direction": [
+              0,
+              -0.2,
+              -0.9
+            ],
+            "index": 1,
+            "length_scale": 0.8,
+            "name": "head_face"
+          },
+          {
+            "comb": 0.18,
+            "direction": [
+              0,
+              0.05,
+              -0.95
+            ],
+            "index": 2,
+            "length_scale": 0.65,
+            "name": "head_crown"
+          },
+          {
+            "comb": 0.3,
+            "direction": [
+              0,
+              0.2,
+              -0.85
+            ],
+            "index": 3,
+            "length_scale": 0.95,
+            "name": "limbs"
+          }
+        ],
+        "report_reference": {
+          "bytes": 160474,
+          "path": "model-1/finish-report.json",
+          "sha256": "1b53029583808ebde580b4349d577573d471a1d8e3751e2794c9f822b55e9d12"
+        },
+        "scope": "Historical authored coat geometry; not current acceptance or measured root spacing.",
+        "status": "available"
+      },
+      "receipt_sha256": "a76b431f4ebc2e0f2ec5ce38f85179f57797e3eeac94cd083b196a3c0a88a030",
+      "required_repairs": [
+        "Fix exported portable-fur/coat continuity and density: reduce visible card speckling/bald patches, especially on white fur areas and along black/white boundaries; ensure the exported look matches the native “short neatly groomed plush fur” (evidence-exported-views, evidence-motion-00).",
+        "Resolve the exported deformation/coverage failure visible at peak stretch (side/torso near the arm): adjust skin weights and/or coat masking/attachment so articulation does not expose a discontinuity/patch; re-check the worst-pose frame after repair (evidence-isolated-exported-toy_dance)."
+      ],
+      "review_reference": {
+        "path": "review-1.json",
+        "sha256": "396ff57d160caebd0794a9b6c17cdbb2bff9b34f3f4e0883f4949fef61a4df9b"
+      },
+      "role": "reviewer-1",
+      "scope": "Historical repair targets for this earlier reviewed model, not a verdict on the latest recipe. Recheck after repair.",
+      "state_results": [
+        {
+          "id": "toy_dance",
+          "meaning_passed": true,
+          "motion_passed": true
+        }
+      ],
+      "summary": "Identity, framing, and the intended dance meaning read correctly, with the dragon staying perched. The attempt fails visual quality in the exported representation: portable fur/coat appears patchy/speckled and a clear exported deformation/coverage discontinuity appears at the peak-stretch pose. Verdict requires repair focused on exported coat appearance and the torso/arm deformation area."
+    },
+    {
+      "answer_sha256": "2419a0a0575f29350280b26b4d86941471a9cfaec716d2622f424d2a14612615",
+      "attempt": 2,
+      "evidence": [
+        {
+          "bytes": 1408532,
+          "id": "evidence-native-views",
+          "path": "final-evidence-2/native-views.png",
+          "sha256": "f24aa73afa035b7b055378e7a83f02ed1cb316d687ac7a13fae24fea9d74eb04"
+        },
+        {
+          "bytes": 1242059,
+          "id": "evidence-exported-views",
+          "path": "final-evidence-2/exported-views.png",
+          "sha256": "f8534cc9d00f6919b33b4cae2738ec4f155b652281a5528ed4efc5d85b368069"
+        },
+        {
+          "bytes": 4997816,
+          "id": "evidence-motion-00",
+          "path": "final-evidence-2/motion-00.png",
+          "sha256": "01b852217e6d54f059c8c67363ac348e8098e151169c75b492f6433a063b72f0"
+        },
+        {
+          "bytes": 793826,
+          "id": "evidence-delivered-portrait",
+          "path": "final-evidence-2/delivered-portrait.webp",
+          "sha256": "d0215a7cd3535d51e153511717d094f9b04766ff59a48e8122389cd5f2894c5b"
+        },
+        {
+          "bytes": 1051974,
+          "id": "evidence-selected-reference",
+          "path": "final-evidence-2/selected-reference.png",
+          "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+        },
+        {
+          "bytes": 465669,
+          "id": "evidence-isolated-native-toy_dance",
+          "path": "final-evidence-2/isolated-native-toy_dance.png",
+          "sha256": "da160d402c8817ad6cd3e7e053cf1ca16d7ac57d6bced8e076793d99987519f8"
+        },
+        {
+          "bytes": 442425,
+          "id": "evidence-isolated-exported-toy_dance",
+          "path": "final-evidence-2/isolated-exported-toy_dance.png",
+          "sha256": "44745c6c893109957a4fbae3d657cb3a7f68e906db76ed61fc4ac98d9bb6ed3f"
+        }
+      ],
+      "failed_checks": [
+        {
+          "evidence_ids": [
+            "evidence-native-views",
+            "evidence-exported-views",
+            "evidence-delivered-portrait",
+            "evidence-selected-reference"
+          ],
+          "name": "appearance",
+          "passed": false,
+          "reason": "Native render reads as soft, short plush fur with clean black/ivory boundaries and non-plastic finish, broadly matching the requested Muse-style panda. However the exported representation shows conspicuous short-card/stubble artifacts and streaky/patchy-looking coat marks across the white and black regions, with a visibly rougher silhouette that does not match the requested “soft, neatly groomed short fur” look. Dragon remains distinct green and not covered in panda fur in both representations, but overall appearance fails due to the exported coat quality mismatch versus the requested style/reference."
+        }
+      ],
+      "model_manifest_sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+      "parent_output": "outputs/studio-45757c9565b545119553baca",
+      "passed_checks": [
+        "identity",
+        "framing",
+        "deformation"
+      ],
+      "portable_geometry_facts": {
+        "bands": [
+          {
+            "cards": 3825,
+            "derived_scope": "Density = roots/eligible area; nominal sqrt(area/roots) is not measured spacing or coverage.",
+            "eligible_area_m2": 0.2577824640536111,
+            "index": 0,
+            "length_range_m": [
+              0.0016059021675393077,
+              0.004548818739499186
+            ],
+            "missing_fields": [],
+            "nominal_sqrt_area_per_root_m": 0.008209391466443179,
+            "roots": 3825,
+            "roots_per_m2": 14838.092319594374,
+            "status": "available",
+            "width_range_m": [
+              0.005557603516430989,
+              0.011602486038008097
+            ]
+          }
+        ],
+        "coat_representation": {
+          "capabilities": [
+            "Native fiber upper bounds and portable card counts are not one-to-one density or coverage measures; a card can depict multiple fibers.",
+            "Normal detail changes lighting, not strands or silhouette. An absent undercoat does not mean absent normal maps or a flat surface.",
+            "Export headroom is a conservative arithmetic allowance, not proof of UV eligibility, material compatibility or visual quality; capacity and UV admission require a probe."
+          ],
+          "export_capacity": {
+            "base_export_vertices": 50004,
+            "cards": 3825,
+            "exported_corners_per_card": 12,
+            "incremental_split_headroom_vertices": 0,
+            "limit": 100000,
+            "maximum_cards": 3825,
+            "projected_max_vertices": 100000,
+            "reserve_vertices": 4096,
+            "scope": "Unused conservative allowance after base, card corners and reserved vertices; not measured export size or admission",
+            "status": "available"
+          },
+          "native_groom": {
+            "count_scope": "Configured upper bound, not independently counted visible fibers",
+            "export_supported": false,
+            "missing_fields": [],
+            "native_only": true,
+            "render_fiber_upper_bound": 78000,
+            "status": "available"
+          },
+          "normal_detail": {
+            "authored_strength": 0.3,
+            "original_source_strength": {
+              "status": "unavailable"
+            },
+            "reported_strength": 0.3,
+            "routes": [
+              {
+                "admission": "coherent_uv0",
+                "material": "Material_0",
+                "normal_map_reported": true,
+                "normal_uv_index": 0,
+                "object": "Mesh_0",
+                "texture_uv_index": 0
+              },
+              {
+                "admission": "no_live_normal_map",
+                "material": "PortableCoat_0_cutout_fur",
+                "normal_map_reported": false,
+                "object": "PortableCoat_0"
+              }
+            ],
+            "scope": "Authored settings and measured finished-model routes; original source settings are not reconstructed",
+            "status": "available"
+          },
+          "portable_geometry": {
+            "bands": [
+              {
+                "cards": 3825,
+                "geometry_profile": "tuft-v1",
+                "index": 0,
+                "status": "available"
+              }
+            ],
+            "count_scope": "Reported geometry cards, not counted fibers or measured coverage",
+            "status": "available",
+            "total_cards": 3825
+          },
+          "references": [
+            {
+              "bytes": 24960,
+              "path": "sources/finish-design.json",
+              "sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293"
+            },
+            {
+              "bytes": 155005,
+              "path": "finish-report.json",
+              "sha256": "5fab3cf97fb50c2114e6c7f190b4863dfb4609861f6ee36ce623e60c3af29aec"
+            },
+            {
+              "bytes": 1018,
+              "path": "normal-uv-export.json",
+              "sha256": "0ab747487f437e5f254f750c91f34ac122bafa46c53c065fb8d840e070f380ee"
+            },
+            {
+              "bytes": 290,
+              "path": "tuft-export-budget.json",
+              "sha256": "a3e0094030245d221c1986e24ebf002d7c52cce191da99fcf3b5f9f374113f57"
+            }
+          ],
+          "schema_version": 1,
+          "scope": "Facts about this saved recipe only, not a current quality verdict or a prescribed repair.",
+          "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+          "status": "available",
+          "undercoat": {
+            "configured": false,
+            "reported": false,
+            "scope": "Optional lighting detail; absence does not establish a flat surface or absent source normals",
+            "status": "available"
+          }
+        },
+        "finish_config_reference": {
+          "bytes": 24960,
+          "path": "finish-2.json",
+          "sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293"
+        },
+        "groom_comb": 0.28,
+        "groom_flow_regions": [
+          {
+            "comb": 0.28,
+            "direction": [
+              0,
+              0.25,
+              -0.75
+            ],
+            "index": 0,
+            "length_scale": 1,
+            "name": "body"
+          },
+          {
+            "comb": 0.24,
+            "direction": [
+              0,
+              -0.2,
+              -0.9
+            ],
+            "index": 1,
+            "length_scale": 0.8,
+            "name": "head_face"
+          },
+          {
+            "comb": 0.18,
+            "direction": [
+              0,
+              0.05,
+              -0.95
+            ],
+            "index": 2,
+            "length_scale": 0.65,
+            "name": "head_crown"
+          },
+          {
+            "comb": 0.3,
+            "direction": [
+              0,
+              0.2,
+              -0.85
+            ],
+            "index": 3,
+            "length_scale": 0.95,
+            "name": "limbs"
+          }
+        ],
+        "report_reference": {
+          "bytes": 155005,
+          "path": "model-2/finish-report.json",
+          "sha256": "5fab3cf97fb50c2114e6c7f190b4863dfb4609861f6ee36ce623e60c3af29aec"
+        },
+        "scope": "Historical authored coat geometry; not current acceptance or measured root spacing.",
+        "status": "available"
+      },
+      "receipt_sha256": "06e5b83bc5e6dd9caed22fadb5bae8d317ab9e79fe0893ca50dc04b0861a9b1c",
+      "required_repairs": [
+        "Fix exported fur/coat appearance to match the requested soft, neatly groomed short-fur plush look: remove the obvious stubbly card tips/streaking and patchy marks across the body, and restore a clean, continuous short-fur silhouette comparable to native. (evidence-exported-views, evidence-motion-00)",
+        "Adjust the toy_dance animation so the “small whole-body hops” are visibly readable (clear up-and-down body motion, not just side leans/sways), while keeping the dragon perched/attached and ending in the starting pose. (evidence-motion-00)"
+      ],
+      "review_reference": {
+        "path": "review-2.json",
+        "sha256": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39"
+      },
+      "role": "reviewer-2",
+      "scope": "Historical repair targets for this earlier reviewed model, not a verdict on the latest recipe. Recheck after repair.",
+      "state_results": [
+        {
+          "id": "toy_dance",
+          "meaning_passed": false,
+          "motion_passed": true
+        }
+      ],
+      "summary": "Identity, framing, and deformation are acceptable in the sampled evidence, and the dragon stays perched. Acceptance fails because (1) exported fur/coat quality does not match the requested soft, neatly groomed plush fur (visible stubbly/streaky coat artifacts), and (2) the toy_dance meaning requirement for readable small hops is not met from the provided motion frames."
+    }
+  ],
+  "known_source_failures": [
+    {
+      "evidence": {
+        "manifest_sha256": "44813b02545ff2afdc90d63e4ff0109de7286e4cf1be02896094a8c3c7cdc488",
+        "receipt": {
+          "bytes": 606,
+          "path": "native-failure.json",
+          "sha256": "254bc9634b9d29d43a64226facc55f91f5fe67e12848edb2063f0b514f4444a5"
+        }
+      },
+      "failure_type": "ValueError",
+      "finish_config_sha256": "d93cad1e2366f9a0de07417a993518fd4e534454c9645fab46e6e396b5c58718",
+      "message": "Surface profile nose_satin selected 18 final faces outside its bounds",
+      "message_truncated": false,
+      "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    {
+      "evidence": {
+        "manifest_sha256": "27e5d30840451d43313e188cbdbe70636ab0be0ced0989f3dc92c67a9d4de0d1",
+        "receipt": {
+          "bytes": 617,
+          "path": "native-failure.json",
+          "sha256": "f2eed9a09b6d9333631bb5cda3be01cc3daf4186e363ab5b73d188aeb10b2398"
+        }
+      },
+      "failure_type": "ValueError",
+      "finish_config_sha256": "1f6030774162e9a92dbd275e178419ef4dcc6d5fb65dec448781d2ff3a11d776",
+      "message": "Surface profile dragon_matte_satin selected 21279 final faces outside its bounds",
+      "message_truncated": false,
+      "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    }
+  ],
+  "measurements": {
+    "portable_attachment": {
+      "evidence": {
+        "manifest_sha256": "2e0b3971c1ee5f0283bb0c452f462c36db1df10b00209568424e75dc9ff4990b",
+        "report": "portable-root-audit-2/report.json",
+        "sha256": "435e2311a1c779a0e77aacd3b664c2bfd61efea1abe340fef7fdb417b9e9bd21"
+      },
+      "gates": {
+        "animated_attachment_m": 1e-05,
+        "authored_inset_m": 0.0005,
+        "named_weight": 1e-06,
+        "rest_midpoint_m": 1e-06
+      },
+      "metrics": {
+        "attachment_failures": 0,
+        "body_vertices": 50004,
+        "coat_vertices": 22950,
+        "exported_vertices": 90431,
+        "max_attachment_error_m": 1.4182898688819279e-08,
+        "max_inset_m": 0.00022744093697495932,
+        "max_named_weight_error": 1.1239699060361374e-08,
+        "max_rest_midpoint_error_m": 1.4178122287322736e-08,
+        "named_weight_failures": 0,
+        "rest_midpoint_failures": 0,
+        "root_pose_checks": 371025,
+        "triangles": 77417,
+        "unique_attachment_failed_roots": 0
+      },
+      "passed": true,
+      "policy": "portable-fur-attachment-v1",
+      "reason": "Attachment measured against the final exported body",
+      "retained_witnesses": 0,
+      "roots": 3825,
+      "schema_version": 1,
+      "scope": "Portable root attachment only; not body-skin fidelity, density, appearance or physics.",
+      "states": [
+        {
+          "id": "toy_dance",
+          "sample_count": 97
+        }
+      ],
+      "status": "measured",
+      "witnesses": []
+    },
+    "sampled_states": [
+      {
+        "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+        "deformation_outliers": [
+          {
+            "endpoint_indices": [
+              40843,
+              40848
+            ],
+            "endpoint_influences": [
+              {
+                "chest": 0.6183788776397705,
+                "hand_r": 0.09127090871334076,
+                "leg_r_lower": 0.13579489290714264,
+                "leg_r_upper": 0.1545553207397461
+              },
+              {
+                "chest": 0.28633832931518555,
+                "hand_r": 0.5699344873428345,
+                "leg_r_lower": 0.06692925095558167,
+                "leg_r_upper": 0.07679793238639832
+              }
+            ],
+            "excess_length": 0.040574659500180785,
+            "posed_length": 0.052161563313497694,
+            "rest_length": 0.011586903813316913,
+            "rest_normalized_bounds": [
+              [
+                0.8506426322721894,
+                0.613302312800544,
+                0.23252944704770348
+              ],
+              [
+                0.8594522206491004,
+                0.5695766770202361,
+                0.24168526959024317
+              ]
+            ],
+            "second": 2.0,
+            "stretch_ratio": 4.501768906853963
+          },
+          {
+            "endpoint_indices": [
+              40862,
+              41178
+            ],
+            "endpoint_influences": [
+              {
+                "chest": 0.39007970690727234,
+                "hand_r": 0.4759346842765808,
+                "leg_r_lower": 0.06197976693511009,
+                "leg_r_upper": 0.07200584560632706
+              },
+              {
+                "chest": 0.7354532480239868,
+                "leg_r_lower": 0.12088394910097122,
+                "leg_r_upper": 0.14366278052330017
+              }
+            ],
+            "excess_length": 0.04002095618476772,
+            "posed_length": 0.0534527083798869,
+            "rest_length": 0.013431752195119183,
+            "rest_normalized_bounds": [
+              [
+                0.8602725829815397,
+                0.5794045454963911,
+                0.2453086830479055
+              ],
+              [
+                0.851802672847056,
+                0.6330896144193784,
+                0.24492646825848716
+              ]
+            ],
+            "second": 2.0,
+            "stretch_ratio": 3.979578211643191
+          },
+          {
+            "endpoint_indices": [
+              39939,
+              40100
+            ],
+            "endpoint_influences": [
+              {
+                "chest": 0.2931371331214905,
+                "hand_r": 0.7061762809753418,
+                "leg_r_upper": 0.0006865549366921186
+              },
+              {
+                "chest": 0.7807255387306213,
+                "hand_r": 0.21697744727134705,
+                "leg_r_upper": 0.002297030296176672
+              }
+            ],
+            "excess_length": 0.03282314131815509,
+            "posed_length": 0.039229537402221834,
+            "rest_length": 0.006406396084066744,
+            "rest_normalized_bounds": [
+              [
+                0.8832627276494462,
+                0.5069155329213891,
+                0.26048794715640355
+              ],
+              [
+                0.9010082475079295,
+                0.5087466352514449,
+                0.25036686267183783
+              ]
+            ],
+            "second": 2.0,
+            "stretch_ratio": 6.1234954703767155
+          },
+          {
+            "endpoint_indices": [
+              40843,
+              40862
+            ],
+            "endpoint_influences": [
+              {
+                "chest": 0.6183788776397705,
+                "hand_r": 0.09127090871334076,
+                "leg_r_lower": 0.13579489290714264,
+                "leg_r_upper": 0.1545553207397461
+              },
+              {
+                "chest": 0.39007970690727234,
+                "hand_r": 0.4759346842765808,
+                "leg_r_lower": 0.06197976693511009,
+                "leg_r_upper": 0.07200584560632706
+              }
+            ],
+            "excess_length": 0.032641423333744944,
+            "posed_length": 0.04268167465376812,
+            "rest_length": 0.010040251320023176,
+            "rest_normalized_bounds": [
+              [
+                0.8506426322721894,
+                0.613302312800544,
+                0.23252944704770348
+              ],
+              [
+                0.8602725829815397,
+                0.5794045454963911,
+                0.2453086830479055
+              ]
+            ],
+            "second": 2.0,
+            "stretch_ratio": 4.251056402208625
+          }
+        ],
+        "deformation_rest_sha256": "bb773aec26ff6931656d92d0aace335ea38b3aa81513f981c2f141c635994924",
+        "deformation_samples_measured": 8,
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          24.0,
+          36.0,
+          48.0,
+          60.0,
+          72.0,
+          84.0,
+          96.0
+        ],
+        "id": "toy_dance",
+        "loop_verified": false,
+        "sampling_method": "authored_keyframes_bounded_pose_error",
+        "seconds": [
+          0.0,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0,
+          3.5,
+          4.0
+        ]
+      }
+    ],
+    "skin_motion": {
+      "animation_verified": true,
+      "animations": [
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.09600704565642576,
+          "motion_observed": true,
+          "name": "toy_dance",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        }
+      ],
+      "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+      "probe_vertices": 128
+    },
+    "weight_coverage": {
+      "input_world_bounds": {
+        "max": [
+          0.7209079265594482,
+          0.6167859435081482,
+          0.950253963470459
+        ],
+        "min": [
+          -0.7186660170555115,
+          -0.6147109270095825,
+          -0.9518150091171265
+        ]
+      },
+      "layers": [
+        {
+          "bones": [
+            "root",
+            "spine",
+            "chest",
+            "neck",
+            "head",
+            "arm_l_upper",
+            "arm_l_lower",
+            "hand_l",
+            "arm_r_upper",
+            "arm_r_lower",
+            "hand_r",
+            "leg_l_upper",
+            "leg_l_lower",
+            "foot_l",
+            "leg_r_upper",
+            "leg_r_lower",
+            "foot_r",
+            "tail",
+            "dragon_root",
+            "dragon_body",
+            "dragon_head",
+            "dragon_tail1",
+            "dragon_tail2",
+            "dragon_wing_l",
+            "dragon_wing_r",
+            "ear_l",
+            "ear_r"
+          ],
+          "selected_vertices": 50004
+        },
+        {
+          "bones": [
+            "root",
+            "spine",
+            "chest"
+          ],
+          "selected_vertices": 9761
+        },
+        {
+          "bones": [
+            "neck",
+            "head"
+          ],
+          "selected_vertices": 13178
+        },
+        {
+          "bones": [
+            "ear_l"
+          ],
+          "selected_vertices": 1717
+        },
+        {
+          "bones": [
+            "ear_r"
+          ],
+          "selected_vertices": 2129
+        },
+        {
+          "bones": [
+            "arm_l_upper",
+            "arm_l_lower",
+            "hand_l"
+          ],
+          "selected_vertices": 31372
+        },
+        {
+          "bones": [
+            "arm_r_upper",
+            "arm_r_lower",
+            "hand_r"
+          ],
+          "selected_vertices": 5638
+        },
+        {
+          "bones": [
+            "leg_l_upper",
+            "leg_l_lower",
+            "foot_l"
+          ],
+          "selected_vertices": 3291
+        },
+        {
+          "bones": [
+            "leg_r_upper",
+            "leg_r_lower",
+            "foot_r"
+          ],
+          "selected_vertices": 3411
+        },
+        {
+          "bones": [
+            "tail"
+          ],
+          "selected_vertices": 994
+        },
+        {
+          "bones": [
+            "dragon_root",
+            "dragon_body",
+            "dragon_head",
+            "dragon_tail1",
+            "dragon_tail2",
+            "dragon_wing_l",
+            "dragon_wing_r"
+          ],
+          "selected_vertices": 29325
+        }
+      ],
+      "positive_vertices_per_bone": {
+        "arm_l_lower": 7441,
+        "arm_l_upper": 6510,
+        "arm_r_lower": 5345,
+        "arm_r_upper": 5839,
+        "chest": 1629,
+        "dragon_body": 26047,
+        "dragon_head": 20483,
+        "dragon_root": 7790,
+        "dragon_tail1": 19964,
+        "dragon_tail2": 15961,
+        "dragon_wing_l": 12392,
+        "dragon_wing_r": 5041,
+        "ear_l": 2052,
+        "ear_r": 2886,
+        "foot_l": 2484,
+        "foot_r": 2418,
+        "hand_l": 6415,
+        "hand_r": 4798,
+        "head": 6603,
+        "leg_l_lower": 2595,
+        "leg_l_upper": 3059,
+        "leg_r_lower": 3232,
+        "leg_r_upper": 4326,
+        "neck": 6741,
+        "root": 864,
+        "spine": 3469,
+        "tail": 1840
+      }
+    }
+  },
+  "optional_coat_probe": {
+    "counts": {
+      "edges": 109672,
+      "excluded_triangles": 22356,
+      "excluded_vertices": 20111,
+      "selected_triangles": 39761,
+      "selected_vertices": 29893,
+      "triangles": 62117,
+      "vertices": 50004
+    },
+    "export_vertex_budget": {
+      "portable_export_vertices": 45900,
+      "reserve_vertices": 4096,
+      "source_export_vertices": 50004
+    },
+    "material_seam_capacity": {
+      "additional_uv_atlas_cost_included": false,
+      "admission_verified": false,
+      "current_cards": 3825,
+      "current_portable_export_vertices": 45900,
+      "current_vertex_ceiling_before_additional_uv_atlas": 100854,
+      "exported_corners_per_card": 12,
+      "limit": 100000,
+      "material_boundary_corner_reserve": 854,
+      "materials": [
+        {
+          "boundary_corner_reserve": 854,
+          "material_id": 0,
+          "selected_triangles": 39761,
+          "shared_source_vertices": 460,
+          "unselected_triangles": 22356
+        }
+      ],
+      "maximum_cards_before_additional_uv_atlas": 3753,
+      "policy": "material-boundary-corner-capacity-v1",
+      "profile_card_limit": 5000,
+      "reserve_vertices": 4096,
+      "scope": "Count ceiling only; additional atlas splits can lower it. No masks, counts or planner policy changed.",
+      "source_export_vertices": 50004,
+      "source_reserve_and_seams_fit_without_cards": true,
+      "upper_bound_only": true,
+      "vertices_available_for_cards_before_additional_uv_atlas": 45046
+    },
+    "model_manifest_sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+    "policy": "automatic-coat-admission-feedback-v1",
+    "probe_manifest_sha256": "6b8b73eb09bf192da44956aedf67b14283df2aa1ceef9131db6bc09b7f247373",
+    "quality_approved": false,
+    "reason": "Normal-only atlas exceeds the100000vertex aggregate export budget",
+    "receipt_reference": {
+      "bytes": 333,
+      "path": "coat-probe-receipt-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08.json",
+      "sha256": "64440085f6711268f60c4319282a31deee05ff44e373e8e5f042f066e1f56cce"
+    },
+    "result_reference": {
+      "bytes": 9452,
+      "path": "coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/result.json",
+      "sha256": "53523c433ac7abbb79f8cb6a6d984ab1d349e5dcdb2dbc5b91f6a5b748eafd41"
+    },
+    "scope": "Optional read-only UV/resource probe, not a requested recipe change, actual hair, visible coverage or quality approval. Do not automatically reduce counts.",
+    "settings": {
+      "max_faces": 39761,
+      "min_faces": 39761,
+      "pitch_m": 0.004,
+      "profile": "short-pile-v1",
+      "resolution": 1024,
+      "roughness": 0.92,
+      "seed": 4517,
+      "strength": 0.22,
+      "uv_policy": "material-adaptive-v1"
+    },
+    "status": "refused"
+  },
+  "repair_images": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/exported-views.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/isolated-exported-toy_dance.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/native-views.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/isolated-native-toy_dance.png"
+  ],
+  "repair_visual_inputs": {
+    "images": [
+      {
+        "bytes": 1242059,
+        "height": 1496,
+        "id": "evidence-exported-views",
+        "kind": "multiview",
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/exported-views.png",
+        "sha256": "f8534cc9d00f6919b33b4cae2738ec4f155b652281a5528ed4efc5d85b368069",
+        "state_ids": [],
+        "width": 1440
+      },
+      {
+        "bytes": 442425,
+        "height": 720,
+        "id": "evidence-isolated-exported-toy_dance",
+        "kind": "isolated_motion_pose",
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/isolated-exported-toy_dance.png",
+        "representation": "exported",
+        "sample_index": 3,
+        "second": 2.0,
+        "selection": "greatest_recorded_edge_stretch",
+        "sha256": "44745c6c893109957a4fbae3d657cb3a7f68e906db76ed61fc4ac98d9bb6ed3f",
+        "state_ids": [
+          "toy_dance"
+        ],
+        "width": 720
+      },
+      {
+        "bytes": 1408532,
+        "height": 1496,
+        "id": "evidence-native-views",
+        "kind": "multiview",
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/native-views.png",
+        "sha256": "f24aa73afa035b7b055378e7a83f02ed1cb316d687ac7a13fae24fea9d74eb04",
+        "state_ids": [],
+        "width": 1440
+      },
+      {
+        "bytes": 465669,
+        "height": 720,
+        "id": "evidence-isolated-native-toy_dance",
+        "kind": "isolated_motion_pose",
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/isolated-native-toy_dance.png",
+        "representation": "native",
+        "sample_index": 3,
+        "second": 2.0,
+        "selection": "greatest_recorded_edge_stretch",
+        "sha256": "da160d402c8817ad6cd3e7e053cf1ca16d7ac57d6bced8e076793d99987519f8",
+        "state_ids": [
+          "toy_dance"
+        ],
+        "width": 720
+      }
+    ],
+    "motion_images": 2,
+    "reason": "Bound critic failure images, including sampled pose or motion evidence.",
+    "status": "available",
+    "total_agent_image_bytes": 5446699,
+    "total_agent_images": 8
+  },
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "evidence-selected-reference",
+          "evidence-delivered-portrait",
+          "evidence-native-views",
+          "evidence-exported-views"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Character reads as the intended plush toy-style panda with black eye patches and black/ivory palette, plus the small green shoulder dragon companion perched on the shoulder. The overall proportions (large head/compact body) and companion presence match the provided reference intent."
+      },
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-delivered-portrait",
+          "evidence-selected-reference"
+        ],
+        "name": "appearance",
+        "passed": false,
+        "reason": "Native render reads as soft, short plush fur with clean black/ivory boundaries and non-plastic finish, broadly matching the requested Muse-style panda. However the exported representation shows conspicuous short-card/stubble artifacts and streaky/patchy-looking coat marks across the white and black regions, with a visibly rougher silhouette that does not match the requested “soft, neatly groomed short fur” look. Dragon remains distinct green and not covered in panda fur in both representations, but overall appearance fails due to the exported coat quality mismatch versus the requested style/reference."
+      },
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-motion-00"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "Full-body panda and perched shoulder dragon are visible in front/side/back/three-quarter views for both native and exported, and the motion contact sheet keeps the character in frame without added props/clothing/scenery."
+      },
+      {
+        "evidence_ids": [
+          "evidence-motion-00",
+          "evidence-isolated-native-toy_dance",
+          "evidence-isolated-exported-toy_dance",
+          "action-audit-toy_dance"
+        ],
+        "name": "deformation",
+        "passed": true,
+        "reason": "Sampled motion frames and the isolated “greatest recorded edge stretch” pose do not show a clear catastrophic collapse/tearing; proportions stay coherent through the dance poses in both native and exported snapshots. Numeric deformation gate reports no severe spike failure for the sampled poses (not a full visual guarantee)."
+      }
+    ],
+    "limitations": [
+      "Motion review is based on the provided contact sheet and isolated pose snapshots; it does not prove all frames are collision-free or physically plausible. (evidence-motion-00, evidence-isolated-native-toy_dance, evidence-isolated-exported-toy_dance)",
+      "Return-to-start and deformation assessments are sampled/endpoint-based per the provided numeric proofs, not a certified seamless loop or full-frame deformation audit. (action-audit-toy_dance)"
+    ],
+    "required_repairs": [
+      "Fix exported fur/coat appearance to match the requested soft, neatly groomed short-fur plush look: remove the obvious stubbly card tips/streaking and patchy marks across the body, and restore a clean, continuous short-fur silhouette comparable to native. (evidence-exported-views, evidence-motion-00)",
+      "Adjust the toy_dance animation so the “small whole-body hops” are visibly readable (clear up-and-down body motion, not just side leans/sways), while keeping the dragon perched/attached and ending in the starting pose. (evidence-motion-00)"
+    ],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "evidence-motion-00",
+          "evidence-isolated-native-toy_dance",
+          "evidence-isolated-exported-toy_dance",
+          "action-audit-toy_dance"
+        ],
+        "id": "toy_dance",
+        "meaning_passed": false,
+        "motion_passed": true,
+        "reason": "The clip reads as a gentle side-to-side toy sway with head tilts and some arm movement, and the dragon stays perched/attached. However the required “small whole-body hops” are not clearly readable in the provided motion frames (feet/body do not visibly hop; motion reads primarily as leaning/swaying). Geometry does change over time (not constant), and endpoint return is supported by the audit.",
+        "requirement_reviews": [
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "three_beats_rhythm",
+            "passed": true,
+            "reason": "The motion frames show alternating side-to-side beats across the 4 seconds, and the audit reports rhythmic reversals consistent with a three-beat pattern."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "hops_and_sways",
+            "passed": false,
+            "reason": "Side-to-side sway is visible, but the requested small whole-body hops are not clearly readable in the provided frames (no obvious hop/airtime or distinct up-down beat accent apparent). Audit travel/vertical rise alone is not sufficient to establish visually readable hops."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "arm_swings",
+            "passed": true,
+            "reason": "Arms show coordinated motion with the beats (subtle but visible changes in arm positions across sampled frames), consistent with toy-style arm swings."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "head_tilts",
+            "passed": true,
+            "reason": "Head tilt/rotation is visibly present across the beat frames, reading as gentle toy-like tilts."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "evidence-native-views",
+              "evidence-exported-views",
+              "action-audit-toy_dance"
+            ],
+            "id": "dragon_attached",
+            "passed": true,
+            "reason": "Dragon remains perched on the shoulder throughout the shown frames with no separation or flight; it follows the body/shoulder motion as required."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "return_body_pose",
+            "passed": true,
+            "reason": "End pose appears to return to the start in the motion sheet, and the audit reports low endpoint displacement for the body."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "return_arm_pose",
+            "passed": true,
+            "reason": "Arms appear back in the starting/rest position at clip end; audit supports endpoint return within threshold."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "return_head_pose",
+            "passed": true,
+            "reason": "Head returns to a neutral/starting orientation by the end frame set; audit supports endpoint return within threshold."
+          }
+        ]
+      }
+    ],
+    "summary": "Identity, framing, and deformation are acceptable in the sampled evidence, and the dragon stays perched. Acceptance fails because (1) exported fur/coat quality does not match the requested soft, neatly groomed plush fur (visible stubbly/streaky coat artifacts), and (2) the toy_dance meaning requirement for readable small hops is not met from the provided motion frames.",
+    "verdict": "repair"
+  }
+}

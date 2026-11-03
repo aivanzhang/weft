@@ -1,0 +1,122 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2040,
+      "path": "admission-handle.json",
+      "sha256": "12d5dfbb36a9c88a958a18aca0d3efa712dab52665996c9c182cd36afbba44cb"
+    },
+    {
+      "bytes": 5098,
+      "path": "admission-inputs.json",
+      "sha256": "2ac1474f4cf984711191eedb8bd933a0bf1d17c805d154e27f5cd0da47d2dedd"
+    },
+    {
+      "bytes": 2825,
+      "path": "admission-monitor.json",
+      "sha256": "1ee74fa2a58667dec205495aeeab25541e04b1cc718d2b5c6ab60dbb6ba4ffda"
+    },
+    {
+      "bytes": 275,
+      "path": "admission.log",
+      "sha256": "7ba464c1c2b6cb314c78902bbb50abbb5f67f119e098392c83f1fff6bb0f07e1"
+    },
+    {
+      "bytes": 3007,
+      "path": "job.json",
+      "sha256": "f692a10f012b51624c95f3b5ff070523cb1eb321f9ac36acd54dca7ff703ec36"
+    },
+    {
+      "bytes": 3484,
+      "path": "native-admission.json",
+      "sha256": "88a18cb709ad268762be51ce1f9052021e77028fda7b05388b18da5e1a9047b3"
+    },
+    {
+      "bytes": 6165,
+      "path": "prepared.json",
+      "sha256": "e590a069ea44d8655f282853e1278a64f07074e6727c503e41999bf380fbd2f5"
+    },
+    {
+      "bytes": 9452,
+      "path": "result.json",
+      "sha256": "53523c433ac7abbb79f8cb6a6d984ab1d349e5dcdb2dbc5b91f6a5b748eafd41"
+    },
+    {
+      "bytes": 215,
+      "path": "settings.json",
+      "sha256": "ea89a640e1198a25532154c09363f6a56bf1a81b935b6c72b8a392701ad9fab3"
+    },
+    {
+      "bytes": 650,
+      "path": "source-preflight.json",
+      "sha256": "b40f758e85909e3f7474dc7ca21d53b62d6ac0fd510e833c8d1791ee855013a7"
+    },
+    {
+      "bytes": 74264,
+      "path": "sources/__pycache__/blender_fur_undercoat.cpython-311.pyc",
+      "sha256": "37d5e08d98d9558baf6543479283d6099d7887a10723e5ab3865705bcae18f5b"
+    },
+    {
+      "bytes": 13391,
+      "path": "sources/__pycache__/groom_flow.cpython-311.pyc",
+      "sha256": "f8a37e34ba2f2567123047e7d33121336d158ae37ce439d7b4ba934dc96525ad"
+    },
+    {
+      "bytes": 28068,
+      "path": "sources/__pycache__/undercoat_uv_atlas.cpython-311.pyc",
+      "sha256": "e62fa29376c455848c91738b848165183bc951ebf42503976199668697032940"
+    },
+    {
+      "bytes": 26295,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 42039,
+      "path": "sources/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "bytes": 13636,
+      "path": "sources/blender_undercoat_admission.py",
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 13488,
+      "path": "sources/undercoat_admission.py",
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2"
+    },
+    {
+      "bytes": 14944,
+      "path": "sources/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    }
+  ],
+  "kind": "read_only_undercoat_admission",
+  "schema_version": 1,
+  "status": "refused"
+}

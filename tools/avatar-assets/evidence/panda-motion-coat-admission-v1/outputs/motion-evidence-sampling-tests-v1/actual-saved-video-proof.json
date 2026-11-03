@@ -1,0 +1,276 @@
+{
+  "classification": "read_only_saved_video_decode_not_new_animation_or_quality_acceptance",
+  "decoded_images": [
+    {
+      "bytes": 235371,
+      "index": 0,
+      "path": "delivered-frame-0000.png",
+      "sha256": "930e5bfae2ab2a3e892ebdfb8d3a35f1bdaa452e2ffbc358ef6e327766a5a1c8",
+      "size": [
+        720,
+        720
+      ]
+    },
+    {
+      "bytes": 260561,
+      "index": 24,
+      "path": "delivered-frame-0024.png",
+      "sha256": "3d7b954c92555100a8589cbf7491496a21bf690162e7eca1bf30cbbdbfc265d3",
+      "size": [
+        720,
+        720
+      ]
+    },
+    {
+      "bytes": 259521,
+      "index": 36,
+      "path": "delivered-frame-0036.png",
+      "sha256": "e489ec4d3168a257c2092ed29d2e7b46a2a032f64e4417006cdc2f484c2b2fd1",
+      "size": [
+        720,
+        720
+      ]
+    },
+    {
+      "bytes": 258310,
+      "index": 95,
+      "path": "delivered-frame-0095.png",
+      "sha256": "edd783bbc017e2b64379bd134f37e7f536a324e8d9425adb2a9f912f2d90a235",
+      "size": [
+        720,
+        720
+      ]
+    }
+  ],
+  "native_calls": 0,
+  "original_source_hashes": {
+    "outputs/studio-45757c9565b545119553baca/action-audit-2/audit-handle.json": "d374fdbcaf4b3f5fb557aa1b40971a389539423ef8b30f0576cfd9ebe34194f2",
+    "outputs/studio-45757c9565b545119553baca/action-audit-2/audit-monitor.json": "a80d99f08eb4ee29ebcf470e14cd21796f5ec739eb31d585b40d072ecbc642d3",
+    "outputs/studio-45757c9565b545119553baca/action-audit-2/audit.log": "63acc9450ce40c076192ceefa7034ee2e1a6f2181185982c5f7a4ca952c54ea2",
+    "outputs/studio-45757c9565b545119553baca/action-audit-2/intent.json": "ce21ea3635cbc0b0e93cd5c3a24dac38d8645826185bd6df6e40a780d3abe394",
+    "outputs/studio-45757c9565b545119553baca/action-audit-2/job.json": "278eb437e7ddd24f24271eb26d7e392d6504fe0fba904cac7735e128b9502b60",
+    "outputs/studio-45757c9565b545119553baca/action-audit-2/manifest.json": "9d3fddca170c12e0f3def2841b6c469a604675b1b54d4fd14c45b6aeff734a56",
+    "outputs/studio-45757c9565b545119553baca/action-audit-2/report.json": "75282c0fabfeecf62f0ffa853c511fa58fde416f6d69b041c3e006c305e6b8c2",
+    "outputs/studio-45757c9565b545119553baca/media-2/animations/toy_dance.mp4": "e1908eee2443aa31611026c589758d8183a9830138e302307857c3c15a24e0ac",
+    "outputs/studio-45757c9565b545119553baca/media-2/manifest.json": "415c43079d7e144bf36f11096048b91bdedbdc58871b444b08a175efb5391191",
+    "outputs/studio-45757c9565b545119553baca/model-2/manifest.json": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+    "outputs/studio-45757c9565b545119553baca/model-2/model.glb": "95088085cc205911f493203ef830f7045d79637cf659a19c89c77cfcebf60a54",
+    "outputs/studio-45757c9565b545119553baca/model-2/sources/finish-design.json": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293"
+  },
+  "original_sources_unchanged": true,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "seconds": 0.18580662505701184,
+  "selected_existing_peak": true,
+  "selection": {
+    "foot_clearance": "unverified; role-root rise is not foot-ground clearance or airtime",
+    "frames": [
+      {
+        "index": 0,
+        "rationale": [
+          "baseline"
+        ],
+        "source_second": 0.0,
+        "video_second": 0.0
+      },
+      {
+        "index": 24,
+        "rationale": [
+          "authored_extremum"
+        ],
+        "source_second": 1.0,
+        "video_second": 1.0
+      },
+      {
+        "index": 36,
+        "rationale": [
+          "authored_recovery_nearest_baseline"
+        ],
+        "source_second": 1.5,
+        "video_second": 1.5
+      },
+      {
+        "index": 95,
+        "rationale": [
+          "delivered_final_frame"
+        ],
+        "source_second": 3.9583333333333335,
+        "video_second": 3.9583333333333335
+      }
+    ],
+    "indices": [
+      0,
+      24,
+      36,
+      95
+    ],
+    "observations": [
+      {
+        "authored_root_translation_excursion_m": 0.0,
+        "authored_root_vertical_rise_m": 0,
+        "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+        "measured_role_root_travel_m": 0.013373781638501205,
+        "measured_role_root_vertical_rise_m": 0.013104878187226526,
+        "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+        "requirement_kinds": [
+          "articulation",
+          "return_pose"
+        ],
+        "role": "arms",
+        "root_bone": "chest"
+      },
+      {
+        "authored_root_translation_excursion_m": 0.0,
+        "authored_root_vertical_rise_m": 0,
+        "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+        "measured_role_root_travel_m": 0.013373781638501205,
+        "measured_role_root_vertical_rise_m": 0.013104878187226526,
+        "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+        "requirement_kinds": [
+          "articulation"
+        ],
+        "role": "dragon",
+        "root_bone": "chest"
+      },
+      {
+        "authored_root_translation_excursion_m": 0.0,
+        "authored_root_vertical_rise_m": 0,
+        "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+        "measured_role_root_travel_m": 0.013373781638501205,
+        "measured_role_root_vertical_rise_m": 0.013104878187226526,
+        "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+        "requirement_kinds": [
+          "articulation",
+          "return_pose"
+        ],
+        "role": "head",
+        "root_bone": "chest"
+      },
+      {
+        "authored_root_translation_excursion_m": 0.020518284528683192,
+        "authored_root_vertical_rise_m": 0.014,
+        "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+        "measured_role_root_travel_m": 0.020518284578430513,
+        "measured_role_root_vertical_rise_m": 0.014000000432133675,
+        "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+        "requirement_kinds": [
+          "return_pose",
+          "rhythm",
+          "travel"
+        ],
+        "role": "panda_body",
+        "root_bone": "root"
+      }
+    ],
+    "omitted_candidate_count": 10,
+    "omitted_candidates": [
+      {
+        "bone": "arm_l_upper",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 22.360679774997898,
+        "role": "arms",
+        "second": 1,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      },
+      {
+        "bone": "arm_r_upper",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 22.360679774997898,
+        "role": "arms",
+        "second": 2,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      },
+      {
+        "bone": "head",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 13.0,
+        "role": "head",
+        "second": 1,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      },
+      {
+        "bone": "arm_l_lower",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 10.0,
+        "role": "arms",
+        "second": 1,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      },
+      {
+        "bone": "chest",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 10.0,
+        "role": "panda_body",
+        "second": 1,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      },
+      {
+        "bone": "arm_r_lower",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 10.0,
+        "role": "arms",
+        "second": 2,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      },
+      {
+        "bone": "spine",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 7.211102550927978,
+        "role": "panda_body",
+        "second": 1,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      },
+      {
+        "bone": "neck",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 6.324555320336759,
+        "role": "head",
+        "second": 1,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      },
+      {
+        "bone": "hand_l",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 5.0,
+        "role": "arms",
+        "second": 1,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      },
+      {
+        "bone": "hand_r",
+        "control": "authored_euler_control_excursion",
+        "magnitude": 5.0,
+        "role": "arms",
+        "second": 2,
+        "units": "degrees; authored Euler components, not measured angular distance"
+      }
+    ],
+    "omitted_candidates_truncated": false,
+    "policy": "bound-control-extrema-v1",
+    "primary_extremum": {
+      "bone": "root",
+      "control": "authored_vertical_translation",
+      "magnitude": 0.014,
+      "role": "panda_body",
+      "second": 1,
+      "units": "meters"
+    },
+    "reason": "Audited-role-bound authored control extrema; not semantic approval",
+    "selection": "baseline_extremum_recovery_end",
+    "selection_limit": 4,
+    "semantic_approval": false,
+    "source_duration_seconds": 4,
+    "source_hashes": {
+      "action_audit_manifest": "9d3fddca170c12e0f3def2841b6c469a604675b1b54d4fd14c45b6aeff734a56",
+      "action_audit_report": "75282c0fabfeecf62f0ffa853c511fa58fde416f6d69b041c3e006c305e6b8c2",
+      "action_intent": "ce21ea3635cbc0b0e93cd5c3a24dac38d8645826185bd6df6e40a780d3abe394",
+      "authored_config": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293",
+      "model_glb": "95088085cc205911f493203ef830f7045d79637cf659a19c89c77cfcebf60a54",
+      "model_manifest": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08"
+    },
+    "source_start_second": 0,
+    "state_id": "toy_dance",
+    "timing_map": "video_second=(source_second-source_start_second)*video_duration/source_duration",
+    "video_duration_seconds": 4.0
+  }
+}

@@ -82,10 +82,15 @@ class VisualContinuationTests(unittest.TestCase):
         self.seal(evidence,model_manifest_sha256=model_pin,exported_manifest_sha256=sha256(p/'exported-preview-0/manifest.json'),
                   media_manifest_sha256=sha256(media/'manifest.json'),sources={str(media/'dance.mp4'):sha256(media/'dance.mp4')},
                   images=images,coverage=coverage)
+        inspection=read_json(p/'inspection/manifest.json')
+        for name in ('guide-front.png','guide-side.png','three-quarter.png'):
+            shutil.copyfile(evidence/'front.png',p/'inspection'/name)
+        self.seal(p/'inspection',**inspection)
         contacts=p/'evidence-0';contacts.mkdir();shutil.copyfile(evidence/'front.png',contacts/'front.png')
         write_json(contacts/'evidence.json',{'finish_report_sha256':sha256(pack/'finish-report.json'),'images':artifacts(contacts)})
         self.review=fixture_review();self.review['verdict']='repair';self.review['checks'][1]['passed']=False
         self.review['required_repairs']=['Repair the visible surface defect.']
+        self.review['checks'][1]['evidence_ids']=['front']
         for state in self.review['state_reviews']:state['evidence_ids']=['front']
         bound_images=[{**row,'path':str(evidence/row['path'])} for row in images]
         quality=read_json(p/'quality-policy.json')

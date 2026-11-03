@@ -1,0 +1,76 @@
+{
+  "artifacts": [
+    {
+      "bytes": 3313,
+      "path": "actual-facts.json",
+      "sha256": "9e487969e38e55fb7ddd42d339d05026c5ce6f7463d29c8f93a48e4e38946373"
+    },
+    {
+      "bytes": 1677,
+      "path": "actual-readonly-check.json",
+      "sha256": "0153397f1b858062bb38604ba72db4bb18c1bb067dc72d0fbce3f9d7610be0dd"
+    },
+    {
+      "bytes": 2761,
+      "path": "result.json",
+      "sha256": "3ed82183d732a9a75206b470604aa41e112a9234b832f57f9b7e9ccd00c96144"
+    },
+    {
+      "bytes": 24960,
+      "path": "retained-inputs/finish-2.json",
+      "sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293"
+    },
+    {
+      "bytes": 155005,
+      "path": "retained-inputs/model-2/finish-report.json",
+      "sha256": "5fab3cf97fb50c2114e6c7f190b4863dfb4609861f6ee36ce623e60c3af29aec"
+    },
+    {
+      "bytes": 187704,
+      "path": "retained-inputs/model-2/manifest.json",
+      "sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08"
+    },
+    {
+      "bytes": 1018,
+      "path": "retained-inputs/model-2/normal-uv-export.json",
+      "sha256": "0ab747487f437e5f254f750c91f34ac122bafa46c53c065fb8d840e070f380ee"
+    },
+    {
+      "bytes": 24960,
+      "path": "retained-inputs/model-2/sources/finish-design.json",
+      "sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293"
+    },
+    {
+      "bytes": 290,
+      "path": "retained-inputs/model-2/tuft-export-budget.json",
+      "sha256": "a3e0094030245d221c1986e24ebf002d7c52cce191da99fcf3b5f9f374113f57"
+    },
+    {
+      "bytes": 11270,
+      "path": "retained-inputs/review-2.json",
+      "sha256": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39"
+    },
+    {
+      "bytes": 10378,
+      "path": "sources/avatar_assets/coat_representation.py",
+      "sha256": "51f1921d218db790f17b7208acc50172d743cd6b905d7e66877ad0628bb780bc"
+    },
+    {
+      "bytes": 100803,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "a479d28ddd4d189d355ac61ae98309b197d077a4924614f3d1f238c6a7564d6b"
+    },
+    {
+      "bytes": 55811,
+      "path": "sources/avatar_assets/pipeline_continuation.py",
+      "sha256": "12959290ded8c998c8057a5bc59793fd42d6f1c088ae64c5cc3f073bac2249ce"
+    },
+    {
+      "bytes": 9116,
+      "path": "sources/tests/test_coat_representation.py",
+      "sha256": "a110025ac00295fa91c49d2a46b9fa7396e304a30f570f846f61bce2347ce090"
+    }
+  ],
+  "classification": "Bounded analytic tests and read-only rejected generated asset facts",
+  "schema_version": 1
+}

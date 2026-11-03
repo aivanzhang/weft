@@ -1,0 +1,220 @@
+{
+  "evidence": [
+    {
+      "height": 1496,
+      "id": "evidence-native-views",
+      "kind": "multiview",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-0/native-views.png",
+      "sha256": "fbb5acccae0c530fcd4aa06dcd77f621a08dead54b33cc51c2016f0801a6ed7c",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 1496,
+      "id": "evidence-exported-views",
+      "kind": "multiview",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-0/exported-views.png",
+      "sha256": "b9a6af933393e6e59a02ba63a68d6fc847f2ab5ede0dd0b66d7da66d372f8a3d",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00",
+      "kind": "native_exported_and_delivered_motion",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-0/motion-00.png",
+      "sha256": "7099eff2c291b98bd3e1c84a79b363b86c6922d82059424d2aa04e6c2f0b5ba5",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "delivered_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-0/delivered-portrait.webp",
+      "sha256": "03cecffc73b1b85fcfc567fca52a138d9ae633e433ffaffee7672ad17feb1900",
+      "state_ids": [],
+      "width": 1600
+    },
+    {
+      "height": 1024,
+      "id": "evidence-selected-reference",
+      "kind": "user_reference",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-0/selected-reference.png",
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422",
+      "state_ids": [],
+      "width": 1024
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-native-toy_dance",
+      "kind": "isolated_motion_pose",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-0/isolated-native-toy_dance.png",
+      "representation": "native",
+      "sample_index": 3,
+      "second": 2.0,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "2989f42ec8199f70a81ce6ffb5d9e4efa9e08494dbe6238d83d25a6ca5e04999",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-exported-toy_dance",
+      "kind": "isolated_motion_pose",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-0/isolated-exported-toy_dance.png",
+      "representation": "exported",
+      "sample_index": 3,
+      "second": 2.0,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "0bc440909d1a478b0c0f12fd421059fdfe10edb21455590e722af350017beb98",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 720
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "94212e06d51f06a655e78a84089d6f28448bb0441abf0b8d43234094811fdacd",
+  "portable_attachment_manifest_sha256": "c3f66a30be55d99c3ef3764ee5aed6fed92d05ec5c6bf0c8c117cac19c8d3778",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "evidence-selected-reference",
+          "evidence-delivered-portrait",
+          "evidence-native-views",
+          "evidence-exported-views"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Character identity matches the requested subject: a plush toy-style black-and-ivory panda with black eye patches plus a small green shoulder dragon companion. Proportions read as toy-like (large head, compact limbs), and the dragon remains present on the shoulder across views."
+      },
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-delivered-portrait"
+        ],
+        "name": "appearance",
+        "passed": false,
+        "reason": "Native render reads as soft, short plush fur, but the exported representation shows conspicuous portable-coat artifacts: sparse, dark dot/card speckling across the white and black regions plus many short spike-like tufts sticking out along the silhouette (head, torso, limbs), giving a “prickly/porcupine” look rather than neatly groomed short fur. There is also a small ridge/tuft cluster on top of the head visible in both native and exported that looks like an unintended groom lump rather than tidy plush fur. Dragon remains distinct and not covered in panda fur, but overall exported coat look violates the requested neat short-fur appearance."
+      },
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-motion-00"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "Native and exported multiviews include front/side/back/three-quarter with full character coverage, and the motion contact sheet keeps the panda and shoulder dragon in frame sufficiently to evaluate the action."
+      },
+      {
+        "evidence_ids": [
+          "evidence-motion-00",
+          "evidence-isolated-native-toy_dance",
+          "evidence-isolated-exported-toy_dance"
+        ],
+        "name": "deformation",
+        "passed": false,
+        "reason": "During the toy_dance pose sample (notably around the provided isolated frame), the torso/belly shows a strong, sharp fold/crease and surface shearing that reads as deformation rather than plush squash. The exported isolated pose in particular shows the white belly region and torso silhouette warping with visible creasing while the portable coat accentuates the distortion, which counts as major deformation for this stylized plush character."
+      }
+    ],
+    "limitations": [
+      "Only sampled frames/poses are visible here; contact sheets do not prove all-frame collisions, ground contact, or seamless looping.",
+      "No claim is made about runtime rendering parity; this review is based on the provided native/exported evidence images."
+    ],
+    "required_repairs": [
+      "Fix exported portable fur/coat appearance to match the native short, neatly groomed plush look: eliminate the pervasive dark speckling and spike-like cards/tufts along the silhouette (head/torso/limbs), increase uniform coverage, and reduce protruding card ends so the coat reads as smooth short fur rather than prickly stubble.",
+      "Address the top-of-head groom lump/ridge so the head silhouette is clean and evenly groomed in both native and exported views.",
+      "Reduce torso/belly creasing in toy_dance (around the worst-stretch pose): adjust skin weights and/or limit chest/spine deformation so plush squash does not create a sharp fold/shear; re-check in both native and exported motion renders."
+    ],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "evidence-motion-00",
+          "evidence-isolated-native-toy_dance",
+          "evidence-isolated-exported-toy_dance",
+          "action-audit-toy_dance"
+        ],
+        "id": "toy_dance",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "The contact sheet shows a readable cheerful side-to-side toy sway with coordinated arm movement and head tilts; small vertical/hop-like body bobbing is suggested but not physically validated. Dragon stays perched on the shoulder throughout the sampled frames and does not fly off. Note: this does not override the separate visual-fidelity failures (exported coat artifacts) and deformation issues.",
+        "requirement_reviews": [
+          {
+            "evidence_ids": [
+              "evidence-motion-00"
+            ],
+            "id": "three_beats_rhythm",
+            "passed": true,
+            "reason": "Across the sampled frames, the panda alternates side-to-side multiple times with a readable repeating beat pattern consistent with the requested three-beat toy dance."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00"
+            ],
+            "id": "hops_and_sways",
+            "passed": true,
+            "reason": "Body shows side-to-side sway and some up/down bobbing in the sampled motion frames, reading as modest toy-like hops/sways (not a travel-heavy move)."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00"
+            ],
+            "id": "arm_swings",
+            "passed": true,
+            "reason": "Arms change pose in coordination with the sway; the forearms/paws swing inward/outward between beats in the sampled frames."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00"
+            ],
+            "id": "head_tilts",
+            "passed": true,
+            "reason": "Head angle visibly tilts with the side-to-side rhythm in the sampled frames."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00"
+            ],
+            "id": "dragon_attached",
+            "passed": true,
+            "reason": "Dragon remains on the shoulder and follows the panda’s motion without separating or flying; no drifting away is observed in the sampled frames."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00"
+            ],
+            "id": "return_body_pose",
+            "passed": true,
+            "reason": "Start and end frames shown on the contact sheet read as the same neutral stance/orientation overall."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00"
+            ],
+            "id": "return_arm_pose",
+            "passed": true,
+            "reason": "Arms return to the neutral/rest-like pose by the end frame shown on the contact sheet."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00"
+            ],
+            "id": "return_head_pose",
+            "passed": true,
+            "reason": "Head returns to a neutral upright orientation by the end frame shown on the contact sheet."
+          }
+        ]
+      }
+    ],
+    "summary": "Identity and framing match the requested plush panda with attached shoulder dragon, and the toy_dance action is readable in sampled frames. However, exported appearance has strong portable-coat speckling/spike artifacts that break the requested neatly groomed short-fur look, and the dance includes a visibly harsh torso/belly crease at the worst-stretch pose. Requires repair before acceptance.",
+    "verdict": "repair"
+  }
+}

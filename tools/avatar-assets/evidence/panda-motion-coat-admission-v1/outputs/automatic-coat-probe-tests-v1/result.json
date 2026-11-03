@@ -1,0 +1,63 @@
+{
+  "classification": "Analyst-recorded analytic tests; native transport mocked, no provider calls, no generated-asset quality claim",
+  "independent_root_runtime_proof": "outputs/third-continuation-preflight-v2/completed-result.json (root-owned actual native proof, not included in this mock-test classification)",
+  "ledger_mutations": 0,
+  "limits": {
+    "output_mb": 64,
+    "probes_per_job": 3,
+    "rss_mb": 2048,
+    "seconds_per_probe": 120,
+    "summary_bytes": 16384
+  },
+  "native_processes": 0,
+  "policy": "Read-only optional capability diagnostic; unsupported routes not_applicable; no automatic count changes, no forced undercoat, no quality acceptance. Missing/failed/uncertain custody halts before author. Existing complete results require request/model/manifest receipt and source/input checks; never replay uncertain probes.",
+  "progress": "Checking the exported coat",
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T18:32:13.304582-08:00",
+  "schema_version": 1,
+  "settings": {
+    "max_faces": "same exact count",
+    "min_faces": "exact manifest-bound eligible triangle count",
+    "pitch_m": 0.004,
+    "profile": "short-pile-v1",
+    "resolution": 1024,
+    "roughness": 0.92,
+    "seed": 4517,
+    "strength": 0.22,
+    "uv_policy": "material-adaptive-v1"
+  },
+  "source_pins": {
+    "avatar_assets/coat_representation.py": "1a750a54a21f658809bf0cb016fba0d2c3295ca1207da2babcbd83567f2c026b",
+    "avatar_assets/pipeline.py": "4f1b18560ee62c06eeaa209a13b05195242988497c45eccc94c7480bcf57cfd9",
+    "avatar_assets/repair_admission.py": "5df94acdba444540270f70aab67412fe89bdceb78893ff65ee9be064045cd862",
+    "tests/test_repair_admission.py": "582eeb818de6f78298a42e35651d9b6829b41d815af388c0a3cd2615c5078b99"
+  },
+  "tests": {
+    "affected_unique_passed": 32,
+    "new_unique_passed": 13,
+    "runs": [
+      {
+        "command": ".venv/bin/python -m unittest discover -s tests -p test_repair_admission.py -v",
+        "failed": 8,
+        "failures": "Existing coat summary incorrectly omitted the current5000card cap for small meshes; one fixture also captured its pre-reseal manifest. Fixed arithmetic verification and fixture binding without changing native limits.",
+        "passed": 4,
+        "seconds": 0.056,
+        "tests": 12
+      },
+      {
+        "command": ".venv/bin/python - <<'PY'\nimport unittest,sys\nsys.path.insert(0,'tests')\nnames=['test_repair_admission.RepairAdmissionTests.'+name for name in [\n 'test_cache_receipt_and_output_tamper_stop_without_replay','test_continuation_uses_bound_lineage_and_no_freeform_pack',\n 'test_exact_valid_settings_and_automatic_refusal_cached_once','test_failed_native_has_no_paid_repair_or_automatic_probe_retry',\n 'test_missing_exact_mask_count_is_not_guessed','test_no_review_and_nonfur_routes_do_not_dispatch',\n 'test_three_probe_job_bound_includes_incomplete_attempts','test_unknown_process_custody_cannot_be_a_refusal']]\nsuite=unittest.defaultTestLoader.loadTestsFromNames(names)\nfor name in ['test_coat_representation.py','test_pipeline_progress.py','test_visual_history_memory.py','test_source_failure_memory.py']:\n suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=name))\nr=unittest.TextTestRunner(verbosity=2).run(suite)\nraise SystemExit(not r.wasSuccessful())\nPY",
+        "passed": 40,
+        "seconds": 0.682,
+        "tests": 40
+      },
+      {
+        "command": ".venv/bin/python - <<'PY'\nimport sys,unittest\nsys.path.insert(0,'tests')\nr=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromName('test_repair_admission.RepairAdmissionTests.test_actual_coordinator_stops_before_author_on_probe_custody_failure'))\nraise SystemExit(not r.wasSuccessful())\nPY",
+        "passed": 1,
+        "seconds": 0.089,
+        "tests": 1
+      }
+    ],
+    "unchanged_passing_checks_repeated": false,
+    "unique_passed": 45
+  }
+}

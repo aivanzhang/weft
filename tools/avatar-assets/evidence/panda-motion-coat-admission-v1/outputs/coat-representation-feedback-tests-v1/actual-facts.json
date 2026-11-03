@@ -1,0 +1,97 @@
+{
+  "capabilities": [
+    "Native fiber upper bounds and portable card counts are not one-to-one density or coverage measures; a card can depict multiple fibers.",
+    "Normal detail changes lighting, not strands or silhouette. An absent undercoat does not mean absent normal maps or a flat surface.",
+    "Export headroom is a conservative arithmetic allowance, not proof of UV eligibility, material compatibility or visual quality; capacity and UV admission require a probe."
+  ],
+  "export_capacity": {
+    "base_export_vertices": 50004,
+    "cards": 3825,
+    "exported_corners_per_card": 12,
+    "incremental_split_headroom_vertices": 0,
+    "limit": 100000,
+    "maximum_cards": 3825,
+    "projected_max_vertices": 100000,
+    "reserve_vertices": 4096,
+    "scope": "Unused conservative allowance after base, card corners and reserved vertices; not measured export size or admission",
+    "status": "available"
+  },
+  "native_groom": {
+    "count_scope": "Configured upper bound, not independently counted visible fibers",
+    "export_supported": false,
+    "missing_fields": [],
+    "native_only": true,
+    "render_fiber_upper_bound": 78000,
+    "status": "available"
+  },
+  "normal_detail": {
+    "authored_strength": 0.3,
+    "original_source_strength": {
+      "status": "unavailable"
+    },
+    "reported_strength": 0.3,
+    "routes": [
+      {
+        "admission": "coherent_uv0",
+        "material": "Material_0",
+        "normal_map_reported": true,
+        "normal_uv_index": 0,
+        "object": "Mesh_0",
+        "texture_uv_index": 0
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "PortableCoat_0_cutout_fur",
+        "normal_map_reported": false,
+        "object": "PortableCoat_0"
+      }
+    ],
+    "scope": "Authored settings and measured finished-model routes; original source settings are not reconstructed",
+    "status": "available"
+  },
+  "portable_geometry": {
+    "bands": [
+      {
+        "cards": 3825,
+        "geometry_profile": "tuft-v1",
+        "index": 0,
+        "status": "available"
+      }
+    ],
+    "count_scope": "Reported geometry cards, not counted fibers or measured coverage",
+    "status": "available",
+    "total_cards": 3825
+  },
+  "references": [
+    {
+      "bytes": 24960,
+      "path": "sources/finish-design.json",
+      "sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293"
+    },
+    {
+      "bytes": 155005,
+      "path": "finish-report.json",
+      "sha256": "5fab3cf97fb50c2114e6c7f190b4863dfb4609861f6ee36ce623e60c3af29aec"
+    },
+    {
+      "bytes": 1018,
+      "path": "normal-uv-export.json",
+      "sha256": "0ab747487f437e5f254f750c91f34ac122bafa46c53c065fb8d840e070f380ee"
+    },
+    {
+      "bytes": 290,
+      "path": "tuft-export-budget.json",
+      "sha256": "a3e0094030245d221c1986e24ebf002d7c52cce191da99fcf3b5f9f374113f57"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Facts about this saved recipe only, not a current quality verdict or a prescribed repair.",
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "status": "available",
+  "undercoat": {
+    "configured": false,
+    "reported": false,
+    "scope": "Optional lighting detail; absence does not establish a flat surface or absent source normals",
+    "status": "available"
+  }
+}

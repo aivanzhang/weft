@@ -1,0 +1,36 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1075,
+      "path": "actual-collect.json",
+      "sha256": "dc6c3aee4c3a1757915245159d142b3b2b8153514f50e2b9032446193fc7678d"
+    },
+    {
+      "bytes": 106425,
+      "path": "collected-context.json",
+      "sha256": "7ddef75dd1d5baee5c8e0bd77a6e096d9e97497b6487e9874522026ea50af463"
+    },
+    {
+      "bytes": 2191,
+      "path": "result.json",
+      "sha256": "444e2891d5e16f4dc22a8c6b7cabd01f74e7d1e7b621341f00ff057e73195118"
+    },
+    {
+      "bytes": 59485,
+      "path": "sources/avatar_assets/pipeline_continuation.py",
+      "sha256": "3d15b976c7c876549852dcb955b9d3f1ada3299383756d7b54d337eb2b4de8ac"
+    },
+    {
+      "bytes": 4431,
+      "path": "sources/tests/test_visual_continuation_image_routes.py",
+      "sha256": "c16d621f89848b9c58876ed815387034e92aa454dae45fbd2bf77c4b0dc0e7f7"
+    },
+    {
+      "bytes": 12919,
+      "path": "sources/tests/test_visual_repair_continuation.py",
+      "sha256": "a168f991b70e3c0188925d98bd05fb3dfd1695d2a6b6a5489da40a20f7c963f6"
+    }
+  ],
+  "classification": "Analytic tests and real rejected-result continuation custody; no new generation",
+  "schema_version": 1
+}

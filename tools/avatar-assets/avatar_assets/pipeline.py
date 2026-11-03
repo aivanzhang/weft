@@ -26,12 +26,12 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
-PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'openai_models.py', 'openai_grant_closure.py', 'openai_stream.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
+PIPELINE_SOURCES = ('pipeline.py', 'coat_representation.py', 'repair_admission.py', 'undercoat_admission.py', 'provider_model.py', 'runner.py', 'safety.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'repair_visual_inputs.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'openai_models.py', 'openai_grant_closure.py', 'openai_stream.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
                     'fur_attachment.py')
-PIPELINE_SCRIPT_SOURCES = ('motion_samples.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py',
+PIPELINE_SCRIPT_SOURCES = ('motion_samples.py', 'blender_undercoat_admission.py', 'groom_flow.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py',
                           'edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py',
                           'fur_root_sampling.py', 'blender_finish_generated.py', 'native_render_tasks.py',
                           'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py',
@@ -110,7 +110,9 @@ def _current_visual_memory(source_sha256, pack, review_path, receipt):
     """Call only after review validation/binding; preserve references, not duplicate image data."""
     require(read_json(review_path) == receipt and receipt['model_manifest_sha256'] == sha256(pack/'manifest.json'),
             'Current visual review receipt/model changed')
-    memory = {'source_sha256': source_sha256, 'model_manifest_sha256': receipt['model_manifest_sha256'],
+    from avatar_assets.coat_representation import summarize_coat
+    coat = summarize_coat(pack, read_json(pack/'manifest.json'), source_sha256)
+    memory = {'coat_representation': coat, 'source_sha256': source_sha256, 'model_manifest_sha256': receipt['model_manifest_sha256'],
               'scope': 'Earlier reviewed recipe only; repair targets remain evidence, not acceptance of the current recipe.',
               'review': receipt['review'],
               'evidence': [{key: row[key] for key in ('id', 'path', 'sha256') if key in row}
@@ -597,6 +599,23 @@ class Pipeline:
         if not path.exists():
             write_json(path, value)
         return value
+
+    def _coat_admission_feedback(self, source_sha256, current_review, attempt):
+        from avatar_assets.repair_admission import feedback
+        started = False
+        def before_probe():
+            nonlocal started
+            self.guard(64)
+            self.event('inspection','running',attempt=attempt,reason='Checking the exported coat')
+            started = True
+        try:
+            result = feedback(ROOT,self.root,self.request,self.continuation,current_review,source_sha256,
+                              before_probe=before_probe)
+            if started:
+                self.event('inspection','complete',attempt=attempt,reason='Coat check recorded; appearance review is still required')
+            return result
+        except (ValueError,OSError,KeyError,TypeError) as error:
+            raise EvidenceCustodyError('Optional coat check requires inspection: '+str(error)) from error
 
     def _pack(self, path, create):
         from avatar_assets.cli import verify_pack
@@ -1163,7 +1182,6 @@ class Pipeline:
         last_visual_review = None
         for attempt in range(self.request['max_repairs']+1):
             self.guard()
-            self.event('author', 'running', attempt=attempt)
             if source_failures:
                 findings = {**(findings or {}), 'known_source_failures': source_failures}
             if visual_history:
@@ -1176,6 +1194,8 @@ class Pipeline:
             findings = {**(findings or {}), 'repair_visual_inputs': deepcopy(visual_inputs),
                         'author_image_layout': {'source_guides': [1,2,3], 'user_reference': reference_index,
                                                 'repair_images_start': len(source_guides)+1}}
+            findings['optional_coat_probe'] = self._coat_admission_feedback(source['sha256'], last_visual_review, attempt)
+            self.event('author', 'running', attempt=attempt)
             author_prompt = prompts.author_prompt(self.request, plan, context, previous, findings)
             if self.continuation is not None:
                 if self.continuation.get('replan'):

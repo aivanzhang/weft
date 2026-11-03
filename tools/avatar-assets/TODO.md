@@ -1,6 +1,71 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 02, 2026, 05:33 PM PST
+## Session handoff — November 02, 2026, 06:32 PM PST
+
+- **No accepted hands-off delivery.** Studio `45757c9565b545119553baca` is terminal
+  `unsupported` / `repair_budget`. Its one website Start ran 1,314.403 s; browser,
+  server and worker ownership were released. Three builds, actual dance media and
+  three valid typed reviews completed. Final identity/framing/deformation passed;
+  exported coat quality and clearly visible hops failed. Preserve every attempt.
+  Shoulder dragon remains perched in this trial; no flying result is claimed.
+- **Accounting unchanged:** run cost $0.850094 / six settled calls. Cumulative
+  settled **$6.024623** + unknown holds **$6.548016** = **$12.572639 exposure**;
+  **$2.427361 remains** under the existing $15 total. Holds are not confirmed bills.
+  The final reference-bound lineage successor is now in progress (below). No new Meshy work,
+  credit purchase, Meta spend, deployment or repeated approval question.
+- **Verified local fixes, no provider calls:** motion evidence now selects bounded,
+  authenticated baseline/extremum/recovery/end samples. The saved video yields
+  frames **0/24/36/95**, including the authored 14 mm peak at 1 s; measured root
+  rise is 14.0000004 mm. Foot clearance and visually readable hops remain unverified.
+  Original native/exported pose evidence and acceptance gates are unchanged.
+  Eighteen distinct focused methods pass; saved-video decode took 0.186 s.
+- Coat feedback now distinguishes native strands, exported tufts and existing
+  normal texture; it does not prescribe a new feature or force a pass. Forty-five
+  focused methods pass. Authenticated continuation image routing passes 34 distinct
+  methods and collects the real terminal job, preserving all three paid reviews.
+- **Actual undercoat probe refused, not admitted:** v4 completed in 2.55 s with
+  348,585,984 bytes sampled direct-child peak RSS. The selected mask needs an
+  additional 854 material-boundary corner reserve. At the unchanged 100,000-vertex
+  budget, **3,753 cards is only an upper bound before additional UV-atlas cost**,
+  not an approved recipe (current recipe has 3,825). No bake/render/source change.
+  v3 startup SIGSEGV occurred before input loading and remains preserved separately.
+- **Automatic-probe consumer passed locally:** root-owned
+  `outputs/third-continuation-preflight-v2/completed-result.json` records the
+  source-bound refusal, eight trusted images and a **103,595-byte prompt + 1,024-byte
+  allowance < 128 KiB**. Rechecking its cache took 0.094 s with no native replay or
+  ledger change. Initial partial `result.json` serialization failure is preserved;
+  only `completed-result.json` is authoritative. Automatic integration is frozen:
+  **45 distinct analytic tests pass** (13 new,
+  32 affected), with independent review finding no blockers. The native transport
+  is mocked in those tests; the separate actual probe supplies native evidence.
+- **Evidence:** [motion/coat/admission milestone](docs/motion-coat-admission.md) and
+  new `evidence/panda-motion-coat-admission-v1/manifest.json` (120 copied files /
+  3,402,029 bytes; manifest SHA
+  `1fc0603e4077bf08b8e6d3a966685d0ae5024e0f16726c61014566cb727b37a6`). Large/private-shaped
+  originals are hash-referenced, not copied; prior frozen bundles remain unchanged.
+  Exact test commands and classification are retained in the copied result receipts.
+- **Save status:** last avatar-only checkpoint `2acd5f26dae412a10ce54e076962aa5e62ff8781`
+  has a verified publication receipt. Root reports another owner advanced HEAD to
+  `f7a2030`; these new avatar fixes/evidence still need an owner-coordinated checkpoint.
+  This documentation task performs no Git writes. Preserve unrelated dirty work.
+- **New root-owned Start is active:** child `6c2aeac484bd4d4597fb71f3`, observer
+  **17227**, `outputs/gpt52-panda-studio-live-v5`, at most 1,800 s and one Start.
+  Retry→Prepare v5 passed with no planner charge; its browser/server exited.
+  PlanID `10c9730dd4a553d4545cdebf75a40c86b43c796b7283e783700e7a90b54293f4`;
+  request SHA `9d17db581c762429d06c7eb51bbdcacf796eefdf487538b78776e7d868abab98`.
+  All 54 runtime source pins matched before Start. Website automatic admission
+  refused in 2.553 s with unchanged inputs; author-0 is in flight as of this handoff.
+  Do not duplicate, cancel or edit pinned runtime. Pre-run cost preparation is
+  `outputs/third-continuation-cost-envelope-v1`; accounting above is the last
+  settled checkpoint, not a live cost estimate. No new result is accepted.
+- **Next safe action:** root observes the existing bounded job, preserves its
+  exact paid answers and generated artifacts, then verifies final quality and
+  delivery or records terminal unsupported. Other work can save this completed
+  evidence/docs checkpoint without touching active sources or outputs. No automatic
+  count reduction, hand-edited AI recipe or quality promotion. Final acceptance
+  still requires rig, meaningful motion, media, static fallback and downloads.
+
+## Historical handoff — November 02, 2026, 05:33 PM PST
 
 - **Actual website continuation is running**, job `45757c9565b545119553baca`,
   observer **7212**, evidence `outputs/gpt52-panda-studio-live-v4`.

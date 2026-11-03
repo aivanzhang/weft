@@ -198,6 +198,8 @@ def _portable_geometry_facts(parent,pack,manifest,pinned,config,attempt):
             row['direction']=[number(x,'flow direction') for x in region['direction']]
         facts['groom_flow_regions'].append(row)
     if report_path not in pinned:
+        from avatar_assets.coat_representation import summarize_coat
+        facts['coat_representation']=summarize_coat(pack,manifest,config['source_sha256'])
         facts['reason']='No preserved finish report';return facts
     pin=pinned[report_path]
     require({**pin,'path':'finish-report.json'} in manifest['artifacts'],'Historical coat report is not model-manifest bound')
@@ -206,6 +208,8 @@ def _portable_geometry_facts(parent,pack,manifest,pinned,config,attempt):
     facts['report_reference']=pin
     bands=report.get('portable_fur')
     if bands is None or bands==[]:
+        from avatar_assets.coat_representation import summarize_coat
+        facts['coat_representation']=summarize_coat(pack,manifest,config['source_sha256'])
         facts['reason']='No portable fur geometry facts in preserved report';return facts
     require(isinstance(bands,list) and len(bands)<=4,'Historical portable geometry exceeds4 bands')
     for index,band in enumerate(bands):
@@ -229,6 +233,8 @@ def _portable_geometry_facts(parent,pack,manifest,pinned,config,attempt):
         row['status']='available' if not row['missing_fields'] else 'unavailable'
         facts['bands'].append(row)
     facts['status']='available' if all(row['status']=='available' for row in facts['bands']) else 'partial'
+    from avatar_assets.coat_representation import summarize_coat
+    facts['coat_representation']=summarize_coat(pack,manifest,config['source_sha256'])
     return facts
 
 
@@ -451,6 +457,67 @@ def _rejected_review(parent,request,plan,review,inventory,attempt,terminal):
     return result
 
 
+def _visual_repair_paths(parent,request,attempt,receipt,pinned,inventory,finish_report_sha256):
+    """Reproduce the pinned selection branch, never trust terminal freeform image paths."""
+    from avatar_assets import pipeline,repair_visual_inputs,agent_runner
+    def source_tree(name):
+        path=local_file(parent/'sources'/name,1024**2)
+        require(pinned.get('sources/'+name)=={'path':'sources/'+name,'bytes':path.stat().st_size,'sha256':sha256(path)},
+                'Visual repair selection source binding changed')
+        return ast.parse(path.read_text())
+    def selection_branch(tree):
+        branches=[]
+        for node in ast.walk(tree):
+            for value in vars(node).values():
+                if not isinstance(value,list):continue
+                for index,item in enumerate(value):
+                    call=getattr(item,'value',None)
+                    if (isinstance(item,ast.Assign) and isinstance(call,ast.Call)
+                            and isinstance(call.func,ast.Attribute) and call.func.attr=='from_current_review'):
+                        branches.append([ast.dump(x,include_attributes=False) for x in value[index:index+3]])
+        require(len(branches)<=1,'Ambiguous visual repair selection branch')
+        return branches
+    saved=selection_branch(source_tree('pipeline.py'))
+    if saved:
+        require(saved==selection_branch(ast.parse(Path(pipeline.__file__).read_text())),
+                'Visual repair caller selection semantics changed')
+        groups={'repair_visual_inputs.py':(repair_visual_inputs.__file__,
+            ('_file','author_base_images','_pins','_bound','_review_evidence','_image_evidence','_selected','_select_images','from_current_review')),
+            'agent_runner.py':(agent_runner.__file__,('_image_inputs','MAX_IMAGE_BYTES','MAX_IMAGE_TOTAL_BYTES'))}
+        def definitions(tree,names):
+            selected={}
+            for node in tree.body:
+                if isinstance(node,ast.FunctionDef) and node.name in names:selected[node.name]=ast.dump(node,include_attributes=False)
+                if isinstance(node,ast.Assign):
+                    for target in node.targets:
+                        if isinstance(target,ast.Name) and target.id in names:selected[target.id]=ast.dump(node,include_attributes=False)
+            require(set(selected)==set(names),'Incomplete visual repair selection semantics')
+            return selected
+        for name,(current,names) in groups.items():
+            require(definitions(source_tree(name),names)==definitions(ast.parse(Path(current).read_text()),names),
+                    'Visual repair selector semantics changed')
+        inspection=_sealed_folder(parent,parent/'inspection',inventory)
+        require(inspection.get('source_glb_sha256')==request['reuse_model']['sha256'],
+                'Visual repair guides belong to another source')
+        base=repair_visual_inputs.author_base_images(parent,request.get('reference'))
+        for path in base:
+            relative=str(path.relative_to(parent))
+            require(pinned.get(relative)=={'path':relative,'bytes':path.stat().st_size,'sha256':sha256(path)},
+                    'Visual repair guide/reference changed')
+        selected=repair_visual_inputs.from_current_review(parent,request['reuse_model']['sha256'],attempt,
+            receipt['review'],receipt['evidence'],base)
+        if selected['images']:return [row['path'] for row in selected['images'][:5]]
+    contacts=read_json(parent/f'evidence-{attempt}/evidence.json')
+    require(contacts.get('finish_report_sha256')==finish_report_sha256,
+            'Visual repair contacts belong to another model')
+    images=contacts.get('images')
+    require(isinstance(images,list) and len(images)<=8,'Visual repair contact list exceeds bound')
+    for row in images:
+        require(pinned.get(f'evidence-{attempt}/'+row['path'])=={**row,'path':f'evidence-{attempt}/'+row['path']},
+                'Visual repair contact image changed')
+    return [str(parent/f'evidence-{attempt}'/row['path']) for row in images[:5]]
+
+
 def _visual_terminal(parent,request,plan,answer,inventory,attempt,terminal,prior_context,*,rejected_review=None):
     """Authenticate a completed review's inputs; never rerun rendering or numerical audits."""
     from avatar_assets.pipeline import Pipeline,_remember_source_failures
@@ -538,13 +605,8 @@ def _visual_terminal(parent,request,plan,answer,inventory,attempt,terminal,prior
     require(supplied.get('independent_proofs')==expected_proofs,'Visual reviewer independent proofs differ from measured files')
     findings={'measurements':worker._diagnostics(pack)}
     if rejected_review is None:
-        contacts=read_json(parent/f'evidence-{attempt}/evidence.json')
-        require(contacts.get('finish_report_sha256')==expected['finish_report_sha256'],'Visual repair contacts belong to another model')
-        for row in contacts['images']:
-            require(pinned.get(f'evidence-{attempt}/'+row['path'])=={**row,'path':f'evidence-{attempt}/'+row['path']},
-                    'Visual repair contact image changed')
-        findings.update(review=review_receipt['review'],
-            repair_images=[str(parent/f'evidence-{attempt}'/row['path']) for row in contacts['images'][:5]])
+        findings.update(review=review_receipt['review'],repair_images=_visual_repair_paths(
+            parent,request,attempt,review_receipt,pinned,inventory,expected['finish_report_sha256']))
     else:
         findings.update(rejected_review=rejected_review,validation_failure=terminal['reason'])
     findings['measurements']['portable_attachment']=summary

@@ -19,14 +19,20 @@ weight repairs, but **did not pass final review**. The critic identified patchy
 exported fur and unclear hops; its response also repeated one review category,
 so the backend rejected it. A fixed four-category response contract and safe
 continuation of rejected review evidence now pass focused tests. Website retry
-`45757c9565b545119553baca` is running with the authenticated prior images. No validator
-was relaxed and no old recipe was manually edited.
+`45757c9565b545119553baca` ran all three builds/reviews correctly but remained
+unsupported: exported coat quality and visible hops still failed. Local checks now
+preserve motion peaks in review samples and distinguish native from exported coat.
+The source-bound undercoat probe **refused** the current export budget; its capacity
+ceiling is not an admitted recipe. The automatic continuation preflight passes
+without a paid call. See the [motion/coat milestone](docs/motion-coat-admission.md).
+No validator was relaxed and no old recipe was manually edited.
 This trial keeps the shoulder dragon perched, not flying.
 
 [GPT-5.2 model profiles](docs/api-model-profiles.md) and standard responses keep
 per-call reservations within the existing $15 total cap. After the stopped run,
-$5.174529 was settled and $6.548016 remained in uncertain charge holds; those
-holds are conservative exposure, not confirmed bills. No new Meshy work or
+$6.024623 was settled and $6.548016 remained in uncertain charge holds; those
+holds are conservative exposure, not confirmed bills. Total exposure is $12.572639,
+leaving $2.427361 under the unchanged cap. No new Meshy work or
 hosted deployment. The [handoff](TODO.md) records exact sources, ownership,
 commands, failures and the next safe action. [Backend details](docs/api-website-backend.md).
 

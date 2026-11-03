@@ -1,0 +1,32 @@
+{
+  "actual_check": "actual-collect.json",
+  "actual_command": "collect(Path.cwd(), Path.cwd()/'outputs/studio-45757c9565b545119553baca')",
+  "classification": "Analyst-recorded analytic tests plus separately saved authenticated read-only actual collection",
+  "ledger_mutations": 0,
+  "native_calls": 0,
+  "preserved": [
+    "All original artifacts and terminal findings",
+    "Paid answers and receipts",
+    "Diagnostics and quality gates",
+    "Spending/grant/custody state"
+  ],
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T18:17:15.151613-08:00",
+  "remaining_check": "Root-owned next prepared request consumer and full author prompt verification before actual execution",
+  "schema_version": 1,
+  "semantics": "AST-compare the pinned current-review selection branch and bounded selector/image-validation helpers; never execute retained source. Reproduce exact paid-review/model/source-bound image selection. Use legacy contacts only for a recorded pre-selector caller or a reproduced empty selection.",
+  "source_pins": {
+    "avatar_assets/pipeline_continuation.py": "3d15b976c7c876549852dcb955b9d3f1ada3299383756d7b54d337eb2b4de8ac",
+    "tests/test_visual_continuation_image_routes.py": "c16d621f89848b9c58876ed815387034e92aa454dae45fbd2bf77c4b0dc0e7f7",
+    "tests/test_visual_repair_continuation.py": "a168f991b70e3c0188925d98bd05fb3dfd1695d2a6b6a5489da40a20f7c963f6"
+  },
+  "tests": {
+    "command": ".venv/bin/python - <<'PY'\nimport unittest\nsuite=unittest.TestSuite()\nfor name in ('test_visual_continuation_image_routes.py','test_visual_repair_continuation.py','test_rejected_review_continuation.py'):\n suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=name))\nr=unittest.TextTestRunner(verbosity=2).run(suite)\nraise SystemExit(not r.wasSuccessful())\nPY",
+    "distinct_test_ids_passed": 34,
+    "duplicate_discovery_executions": 9,
+    "duplicate_reason": "A TestCase imported as a fixture was additionally discovered. Changed to module-qualified fixture aliases after the passing run; no test bodies or production behavior changed and no passing tests rerun.",
+    "executions_passed": 43,
+    "new_tests_passed": 7,
+    "seconds": 3.088
+  }
+}

@@ -28,6 +28,12 @@ New OpenAI author jobs use typedv2 designs; do not embed rig JSON inside a strin
 or hand-repair a rejected response. The adapter only converts declared transform
 lists/optional nulls; geometry, action and quality validators remain authoritative.
 Plan-bound schemas forbid invented states; local order/uniqueness gates remain.
+New critics use [four required review categories](../../docs/typed-review-recovery.md),
+then decode into the unchanged canonical review. Preserve raw replies; never fill
+missing votes by hand. A settled malformed review may seed a new authenticated
+continuation, but its votes remain invalid and all quality checks run again.
+Use [reference-bound standing retries](../../docs/standing-reference-retries.md)
+for an authorized exact source/reference lineage without repeating budget questions.
 Repairs receive authenticated `native-failure.json` data, never guessed log text.
 A modern failed native process without a valid receipt requires inspection; do
 not buy another repair, rewrite counts, or drop requested features to bypass it.

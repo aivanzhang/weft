@@ -1,0 +1,739 @@
+{
+  "schema_version": 1,
+  "policy": "bounded-terminal-motion-coat-admission-v1",
+  "copied_files": 120,
+  "copied_bytes": 3402029,
+  "copied_limit_bytes": 20971520,
+  "copied": [
+    {
+      "path": "avatar_assets/pipeline_evidence.py",
+      "bytes": 22599,
+      "sha256": "49b9682cc02e6e5ce79373486767bc392a03601bf62f8f452dda2a1b0d92ecc8",
+      "source": "avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/admission.log",
+      "bytes": 431,
+      "sha256": "74ca8ef202c702fb03d4f8e629323fc7f6246ab16c1b1fac092f5305f38e1177",
+      "source": "outputs/45757-undercoat-admission-native-v3/admission.log"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/manifest.json",
+      "bytes": 3261,
+      "sha256": "025a16a2d4a9223b5069f751843e01ed606efe630cb4dfedc8c1d5baf1f47cb5",
+      "source": "outputs/45757-undercoat-admission-native-v3/manifest.json"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/settings.json",
+      "bytes": 215,
+      "sha256": "ea89a640e1198a25532154c09363f6a56bf1a81b935b6c72b8a392701ad9fab3",
+      "source": "outputs/45757-undercoat-admission-native-v3/settings.json"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/source-preflight.json",
+      "bytes": 650,
+      "sha256": "b40f758e85909e3f7474dc7ca21d53b62d6ac0fd510e833c8d1791ee855013a7",
+      "source": "outputs/45757-undercoat-admission-native-v3/source-preflight.json"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/blender_fur_cards.py",
+      "bytes": 26295,
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/blender_fur_cards.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/blender_fur_undercoat.py",
+      "bytes": 42039,
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/blender_fur_undercoat.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/blender_undercoat_admission.py",
+      "bytes": 13636,
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/blender_undercoat_admission.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/groom_flow.py",
+      "bytes": 7179,
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/groom_flow.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/provider_model.py",
+      "bytes": 8121,
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/provider_model.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/runner.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/safety.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/three_d.py",
+      "bytes": 35323,
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/three_d.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/undercoat_admission.py",
+      "bytes": 13488,
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/undercoat_admission.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v3/sources/undercoat_uv_atlas.py",
+      "bytes": 14944,
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "source": "outputs/45757-undercoat-admission-native-v3/sources/undercoat_uv_atlas.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/admission.log",
+      "bytes": 275,
+      "sha256": "7ba464c1c2b6cb314c78902bbb50abbb5f67f119e098392c83f1fff6bb0f07e1",
+      "source": "outputs/45757-undercoat-admission-native-v4/admission.log"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/manifest.json",
+      "bytes": 3801,
+      "sha256": "46f25a597a4baf5ae6de5d7f145c243be2a5a173d6debac4192676a1212b393b",
+      "source": "outputs/45757-undercoat-admission-native-v4/manifest.json"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/native-admission.json",
+      "bytes": 3484,
+      "sha256": "88a18cb709ad268762be51ce1f9052021e77028fda7b05388b18da5e1a9047b3",
+      "source": "outputs/45757-undercoat-admission-native-v4/native-admission.json"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/result.json",
+      "bytes": 8769,
+      "sha256": "094ff29d4e8315b0fc8ca4d302c4e780fb9edde03544502a1cf1842730822aba",
+      "source": "outputs/45757-undercoat-admission-native-v4/result.json"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/settings.json",
+      "bytes": 215,
+      "sha256": "ea89a640e1198a25532154c09363f6a56bf1a81b935b6c72b8a392701ad9fab3",
+      "source": "outputs/45757-undercoat-admission-native-v4/settings.json"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/source-preflight.json",
+      "bytes": 650,
+      "sha256": "b40f758e85909e3f7474dc7ca21d53b62d6ac0fd510e833c8d1791ee855013a7",
+      "source": "outputs/45757-undercoat-admission-native-v4/source-preflight.json"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/blender_fur_cards.py",
+      "bytes": 26295,
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/blender_fur_cards.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/blender_fur_undercoat.py",
+      "bytes": 42039,
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/blender_fur_undercoat.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/blender_undercoat_admission.py",
+      "bytes": 13636,
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/blender_undercoat_admission.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/groom_flow.py",
+      "bytes": 7179,
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/groom_flow.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/provider_model.py",
+      "bytes": 8121,
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/provider_model.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/runner.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/safety.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/three_d.py",
+      "bytes": 35323,
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/three_d.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/undercoat_admission.py",
+      "bytes": 13488,
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/undercoat_admission.py"
+    },
+    {
+      "path": "outputs/45757-undercoat-admission-native-v4/sources/undercoat_uv_atlas.py",
+      "bytes": 14944,
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "source": "outputs/45757-undercoat-admission-native-v4/sources/undercoat_uv_atlas.py"
+    },
+    {
+      "path": "outputs/automatic-coat-probe-tests-v1/manifest.json",
+      "bytes": 1171,
+      "sha256": "a66b7e4f85f44faa2d956a263c8c4db448b6b91e725157ac1fc018134799afbb",
+      "source": "outputs/automatic-coat-probe-tests-v1/manifest.json"
+    },
+    {
+      "path": "outputs/automatic-coat-probe-tests-v1/result.json",
+      "bytes": 3885,
+      "sha256": "89dd4891f0d19bbe0be74c8c9ded189fabf2f7063ce4b081a896accae01853a2",
+      "source": "outputs/automatic-coat-probe-tests-v1/result.json"
+    },
+    {
+      "path": "outputs/automatic-coat-probe-tests-v1/sources/avatar_assets/coat_representation.py",
+      "bytes": 10388,
+      "sha256": "1a750a54a21f658809bf0cb016fba0d2c3295ca1207da2babcbd83567f2c026b",
+      "source": "outputs/automatic-coat-probe-tests-v1/sources/avatar_assets/coat_representation.py"
+    },
+    {
+      "path": "outputs/automatic-coat-probe-tests-v1/sources/avatar_assets/pipeline.py",
+      "bytes": 101979,
+      "sha256": "4f1b18560ee62c06eeaa209a13b05195242988497c45eccc94c7480bcf57cfd9",
+      "source": "outputs/automatic-coat-probe-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "path": "outputs/automatic-coat-probe-tests-v1/sources/avatar_assets/repair_admission.py",
+      "bytes": 11975,
+      "sha256": "5df94acdba444540270f70aab67412fe89bdceb78893ff65ee9be064045cd862",
+      "source": "outputs/automatic-coat-probe-tests-v1/sources/avatar_assets/repair_admission.py"
+    },
+    {
+      "path": "outputs/automatic-coat-probe-tests-v1/sources/tests/test_repair_admission.py",
+      "bytes": 10221,
+      "sha256": "582eeb818de6f78298a42e35651d9b6829b41d815af388c0a3cd2615c5078b99",
+      "source": "outputs/automatic-coat-probe-tests-v1/sources/tests/test_repair_admission.py"
+    },
+    {
+      "path": "outputs/coat-representation-feedback-tests-v1/actual-facts.json",
+      "bytes": 3313,
+      "sha256": "9e487969e38e55fb7ddd42d339d05026c5ce6f7463d29c8f93a48e4e38946373",
+      "source": "outputs/coat-representation-feedback-tests-v1/actual-facts.json"
+    },
+    {
+      "path": "outputs/coat-representation-feedback-tests-v1/actual-readonly-check.json",
+      "bytes": 1677,
+      "sha256": "0153397f1b858062bb38604ba72db4bb18c1bb067dc72d0fbce3f9d7610be0dd",
+      "source": "outputs/coat-representation-feedback-tests-v1/actual-readonly-check.json"
+    },
+    {
+      "path": "outputs/coat-representation-feedback-tests-v1/manifest.json",
+      "bytes": 2535,
+      "sha256": "431ae535074b3dec90e52aef047e51e7c62a4273eb88cb1fb8a6f1fc544339fc",
+      "source": "outputs/coat-representation-feedback-tests-v1/manifest.json"
+    },
+    {
+      "path": "outputs/coat-representation-feedback-tests-v1/result.json",
+      "bytes": 2761,
+      "sha256": "3ed82183d732a9a75206b470604aa41e112a9234b832f57f9b7e9ccd00c96144",
+      "source": "outputs/coat-representation-feedback-tests-v1/result.json"
+    },
+    {
+      "path": "outputs/coat-representation-feedback-tests-v1/sources/avatar_assets/coat_representation.py",
+      "bytes": 10378,
+      "sha256": "51f1921d218db790f17b7208acc50172d743cd6b905d7e66877ad0628bb780bc",
+      "source": "outputs/coat-representation-feedback-tests-v1/sources/avatar_assets/coat_representation.py"
+    },
+    {
+      "path": "outputs/coat-representation-feedback-tests-v1/sources/avatar_assets/pipeline.py",
+      "bytes": 100803,
+      "sha256": "a479d28ddd4d189d355ac61ae98309b197d077a4924614f3d1f238c6a7564d6b",
+      "source": "outputs/coat-representation-feedback-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "path": "outputs/coat-representation-feedback-tests-v1/sources/avatar_assets/pipeline_continuation.py",
+      "bytes": 55811,
+      "sha256": "12959290ded8c998c8057a5bc59793fd42d6f1c088ae64c5cc3f073bac2249ce",
+      "source": "outputs/coat-representation-feedback-tests-v1/sources/avatar_assets/pipeline_continuation.py"
+    },
+    {
+      "path": "outputs/coat-representation-feedback-tests-v1/sources/tests/test_coat_representation.py",
+      "bytes": 9116,
+      "sha256": "a110025ac00295fa91c49d2a46b9fa7396e304a30f570f846f61bce2347ce090",
+      "source": "outputs/coat-representation-feedback-tests-v1/sources/tests/test_coat_representation.py"
+    },
+    {
+      "path": "outputs/motion-evidence-sampling-tests-v1/actual-saved-video-proof.json",
+      "bytes": 10209,
+      "sha256": "96038a37f4c4c4f71c6f574bfd770e5a04497a6f649c095b83d3db272abbc657",
+      "source": "outputs/motion-evidence-sampling-tests-v1/actual-saved-video-proof.json"
+    },
+    {
+      "path": "outputs/motion-evidence-sampling-tests-v1/delivered-frame-0000.png",
+      "bytes": 235371,
+      "sha256": "930e5bfae2ab2a3e892ebdfb8d3a35f1bdaa452e2ffbc358ef6e327766a5a1c8",
+      "source": "outputs/motion-evidence-sampling-tests-v1/delivered-frame-0000.png"
+    },
+    {
+      "path": "outputs/motion-evidence-sampling-tests-v1/delivered-frame-0024.png",
+      "bytes": 260561,
+      "sha256": "3d7b954c92555100a8589cbf7491496a21bf690162e7eca1bf30cbbdbfc265d3",
+      "source": "outputs/motion-evidence-sampling-tests-v1/delivered-frame-0024.png"
+    },
+    {
+      "path": "outputs/motion-evidence-sampling-tests-v1/delivered-frame-0036.png",
+      "bytes": 259521,
+      "sha256": "e489ec4d3168a257c2092ed29d2e7b46a2a032f64e4417006cdc2f484c2b2fd1",
+      "source": "outputs/motion-evidence-sampling-tests-v1/delivered-frame-0036.png"
+    },
+    {
+      "path": "outputs/motion-evidence-sampling-tests-v1/delivered-frame-0095.png",
+      "bytes": 258310,
+      "sha256": "edd783bbc017e2b64379bd134f37e7f536a324e8d9425adb2a9f912f2d90a235",
+      "source": "outputs/motion-evidence-sampling-tests-v1/delivered-frame-0095.png"
+    },
+    {
+      "path": "outputs/motion-evidence-sampling-tests-v1/result.json",
+      "bytes": 1785,
+      "sha256": "517d17485cddc76c687e0065ad6e5b1640418e834e7ed9d62d860a310ce2b72a",
+      "source": "outputs/motion-evidence-sampling-tests-v1/result.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/action-audit-0/manifest.json",
+      "bytes": 1169,
+      "sha256": "58cb680b88b9cae25c46d6982e84fe1a107c966a71363c3490a1715b33dd4645",
+      "source": "outputs/studio-45757c9565b545119553baca/action-audit-0/manifest.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/action-audit-1/manifest.json",
+      "bytes": 1169,
+      "sha256": "0270e5e026236c8e50d9c47d0de190869ba4316198b096b10c677bb28d5d9ee9",
+      "source": "outputs/studio-45757c9565b545119553baca/action-audit-1/manifest.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/action-audit-2/manifest.json",
+      "bytes": 1169,
+      "sha256": "9d3fddca170c12e0f3def2841b6c469a604675b1b54d4fd14c45b6aeff734a56",
+      "source": "outputs/studio-45757c9565b545119553baca/action-audit-2/manifest.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/agents/author-0/answer.json",
+      "bytes": 35713,
+      "sha256": "4e70dbcb9417ca89d2b325188f90efdbb0a0b59c4af81104ad6024aa3babd350",
+      "source": "outputs/studio-45757c9565b545119553baca/agents/author-0/answer.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/agents/author-0/prompt.txt",
+      "bytes": 77525,
+      "sha256": "bdd829cc2682c1ceb2fa7c1627e66e478161660095aee54b8677e62a2334ac0c",
+      "source": "outputs/studio-45757c9565b545119553baca/agents/author-0/prompt.txt"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/agents/author-0/schema.json",
+      "bytes": 37038,
+      "sha256": "9125cd82f037ffabf21e7a9fa95fc459599dfb0f77b7c455479e245941a0f6de",
+      "source": "outputs/studio-45757c9565b545119553baca/agents/author-0/schema.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/agents/author-1/answer.json",
+      "bytes": 36219,
+      "sha256": "d078054ff8b686c70a93017f559a334aaa69057f929623e74a7ec74efcdf5190",
+      "source": "outputs/studio-45757c9565b545119553baca/agents/author-1/answer.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/agents/author-1/prompt.txt",
+      "bytes": 83216,
+      "sha256": "a9a823dcd00af15f72b2640188cf3221eecf76d370a85ed6a6475405e7f0072b",
+      "source": "outputs/studio-45757c9565b545119553baca/agents/author-1/prompt.txt"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/agents/author-1/schema.json",
+      "bytes": 37038,
+      "sha256": "9125cd82f037ffabf21e7a9fa95fc459599dfb0f77b7c455479e245941a0f6de",
+      "source": "outputs/studio-45757c9565b545119553baca/agents/author-1/schema.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/agents/author-2/answer.json",
+      "bytes": 34620,
+      "sha256": "3d89188c2901deff66c4ff0c4a3a0d4a45393a2c35beaa9f177c37ab167815d8",
+      "source": "outputs/studio-45757c9565b545119553baca/agents/author-2/answer.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/agents/author-2/prompt.txt",
+      "bytes": 84842,
+      "sha256": "c5a66b27ef943fadd913610ee9018b37770c8bb25b31282e1c06b24cab25a3b0",
+      "source": "outputs/studio-45757c9565b545119553baca/agents/author-2/prompt.txt"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/agents/author-2/schema.json",
+      "bytes": 37038,
+      "sha256": "9125cd82f037ffabf21e7a9fa95fc459599dfb0f77b7c455479e245941a0f6de",
+      "source": "outputs/studio-45757c9565b545119553baca/agents/author-2/schema.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/deformation-gate-0.json",
+      "bytes": 3413,
+      "sha256": "a6d40ae0d309e2e79cb276ff6795417123407ed202994d13d9d1c429571f6693",
+      "source": "outputs/studio-45757c9565b545119553baca/deformation-gate-0.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/deformation-gate-1.json",
+      "bytes": 3415,
+      "sha256": "1c151b0b5447147a36b8c6e0939447b4d955f8147d2260a2cccece8a80e51538",
+      "source": "outputs/studio-45757c9565b545119553baca/deformation-gate-1.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/deformation-gate-2.json",
+      "bytes": 3417,
+      "sha256": "c021c4f810023146563ad21727e7028b531248750e2804c757ee76b2d6c06fbc",
+      "source": "outputs/studio-45757c9565b545119553baca/deformation-gate-2.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/final-evidence-0/manifest.json",
+      "bytes": 11635,
+      "sha256": "912a460ad0149b404ed7f2ab740ad774c55706c1612021a23d0ae62c96e9612d",
+      "source": "outputs/studio-45757c9565b545119553baca/final-evidence-0/manifest.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/final-evidence-1/manifest.json",
+      "bytes": 11635,
+      "sha256": "0b92886c10aa35e165e40ea350efd61844ec271218e8d73b419f18cd5db3075f",
+      "source": "outputs/studio-45757c9565b545119553baca/final-evidence-1/manifest.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/final-evidence-2/manifest.json",
+      "bytes": 11635,
+      "sha256": "60923062862bf29c008bc1e2be9e3fb71522ecc73e50f231094060c9bdf7c5ae",
+      "source": "outputs/studio-45757c9565b545119553baca/final-evidence-2/manifest.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/finish-0.json",
+      "bytes": 26496,
+      "sha256": "cad661bc96cc2b86a2cab0bef085209b93981940ce08a46fc09b97eed577a2f8",
+      "source": "outputs/studio-45757c9565b545119553baca/finish-0.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/finish-1.json",
+      "bytes": 26384,
+      "sha256": "035c263247c11ccf983c31a77bdb8302de3630a467fb01af185bbe2a7e538b09",
+      "source": "outputs/studio-45757c9565b545119553baca/finish-1.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/finish-2.json",
+      "bytes": 24960,
+      "sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293",
+      "source": "outputs/studio-45757c9565b545119553baca/finish-2.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/input-receipt.json",
+      "bytes": 7400,
+      "sha256": "11a84ffdc5bba7fe4e40d04c5fb626d4fef571878cb0f8197ce9974623abea19",
+      "source": "outputs/studio-45757c9565b545119553baca/input-receipt.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/model-0/manifest.json",
+      "bytes": 195611,
+      "sha256": "94212e06d51f06a655e78a84089d6f28448bb0441abf0b8d43234094811fdacd",
+      "source": "outputs/studio-45757c9565b545119553baca/model-0/manifest.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/model-1/manifest.json",
+      "bytes": 193952,
+      "sha256": "7954bbde61094a6129fe79fb96938b502982797040085fbd3ba1d177f1f5c5bb",
+      "source": "outputs/studio-45757c9565b545119553baca/model-1/manifest.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/model-2/manifest.json",
+      "bytes": 187704,
+      "sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+      "source": "outputs/studio-45757c9565b545119553baca/model-2/manifest.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/plan.json",
+      "bytes": 7319,
+      "sha256": "67cdf0c89632ff84513a724e4830e819c7c8e40b70f0dc52e82bdbe13500127c",
+      "source": "outputs/studio-45757c9565b545119553baca/plan.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/portable-root-audit-0.json",
+      "bytes": 468,
+      "sha256": "48de0c2d0b24efae9fcc339d9ef9eafe2185022b6975715cc1263141a7592612",
+      "source": "outputs/studio-45757c9565b545119553baca/portable-root-audit-0.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/portable-root-audit-1.json",
+      "bytes": 468,
+      "sha256": "57fc154a89facf36603166500c80619be77f5d4579ac011266b896ef1b05ef00",
+      "source": "outputs/studio-45757c9565b545119553baca/portable-root-audit-1.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/portable-root-audit-2.json",
+      "bytes": 468,
+      "sha256": "62308ce2ad62af99b379661d9040ff82d6e5ddbec420d519db4b3ed551a66853",
+      "source": "outputs/studio-45757c9565b545119553baca/portable-root-audit-2.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/quality-policy.json",
+      "bytes": 4275,
+      "sha256": "250c3d052b7aeea0b8b74c5e38422a9eb82a1ce1f8a9ed5e5238e3d8980383d1",
+      "source": "outputs/studio-45757c9565b545119553baca/quality-policy.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/request.json",
+      "bytes": 2483,
+      "sha256": "a44e2d2e20e8ac289662060b0751e0faa805a9ea87a680262cff2d0744455198",
+      "source": "outputs/studio-45757c9565b545119553baca/request.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/review-0.json",
+      "bytes": 10686,
+      "sha256": "ed58fb89bb4cdf41fb3e061d52602a91a14619017d22c6e0cc079b5e86e08ae3",
+      "source": "outputs/studio-45757c9565b545119553baca/review-0.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/review-1.json",
+      "bytes": 11690,
+      "sha256": "396ff57d160caebd0794a9b6c17cdbb2bff9b34f3f4e0883f4949fef61a4df9b",
+      "source": "outputs/studio-45757c9565b545119553baca/review-1.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/review-2.json",
+      "bytes": 11270,
+      "sha256": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39",
+      "source": "outputs/studio-45757c9565b545119553baca/review-2.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/status.json",
+      "bytes": 205,
+      "sha256": "7ef78cb5ffb3819e91b6f887447ffdc6a4a8024b13d909276e682a22da775a3a",
+      "source": "outputs/studio-45757c9565b545119553baca/status.json"
+    },
+    {
+      "path": "outputs/studio-45757c9565b545119553baca/unsupported.json",
+      "bytes": 23164,
+      "sha256": "0c92f3d68bbffd916f029c78608cab3cc414a1f212be349d7e644fa28cde1a2b",
+      "source": "outputs/studio-45757c9565b545119553baca/unsupported.json"
+    },
+    {
+      "path": "outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/admission.log",
+      "bytes": 275,
+      "sha256": "7ba464c1c2b6cb314c78902bbb50abbb5f67f119e098392c83f1fff6bb0f07e1",
+      "source": "outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/admission.log"
+    },
+    {
+      "path": "outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/manifest.json",
+      "bytes": 3801,
+      "sha256": "6b8b73eb09bf192da44956aedf67b14283df2aa1ceef9131db6bc09b7f247373",
+      "source": "outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/manifest.json"
+    },
+    {
+      "path": "outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/native-admission.json",
+      "bytes": 3484,
+      "sha256": "88a18cb709ad268762be51ce1f9052021e77028fda7b05388b18da5e1a9047b3",
+      "source": "outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/native-admission.json"
+    },
+    {
+      "path": "outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/result.json",
+      "bytes": 9452,
+      "sha256": "53523c433ac7abbb79f8cb6a6d984ab1d349e5dcdb2dbc5b91f6a5b748eafd41",
+      "source": "outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/result.json"
+    },
+    {
+      "path": "outputs/third-continuation-preflight-v2/coat-probe-receipt-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08.json",
+      "bytes": 333,
+      "sha256": "64440085f6711268f60c4319282a31deee05ff44e373e8e5f042f066e1f56cce",
+      "source": "outputs/third-continuation-preflight-v2/coat-probe-receipt-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08.json"
+    },
+    {
+      "path": "outputs/third-continuation-preflight-v2/completed-result.json",
+      "bytes": 1774,
+      "sha256": "47638eb4174b80527ca0eb533593761cf3566889cd07991c6b79863d9f86a606",
+      "source": "outputs/third-continuation-preflight-v2/completed-result.json"
+    },
+    {
+      "path": "outputs/third-continuation-preflight-v2/findings.json",
+      "bytes": 63181,
+      "sha256": "ab0a432912e288e58d197bc66c5815e1c1191b105b7b3295c1562849b9a7515c",
+      "source": "outputs/third-continuation-preflight-v2/findings.json"
+    },
+    {
+      "path": "outputs/third-continuation-preflight-v2/result.json",
+      "bytes": 168,
+      "sha256": "7cdc1ed8faca93de06b0869c76cd9713545022fd9490a850e7a89c084b4a5e5c",
+      "source": "outputs/third-continuation-preflight-v2/result.json"
+    },
+    {
+      "path": "outputs/undercoat-admission-capacity-tests-v1/manifest.json",
+      "bytes": 2002,
+      "sha256": "8c37404d402c0ae67bd364721945f161c3644b2b770410ebbaaecb2f11f80b33",
+      "source": "outputs/undercoat-admission-capacity-tests-v1/manifest.json"
+    },
+    {
+      "path": "outputs/undercoat-admission-capacity-tests-v1/result.json",
+      "bytes": 1328,
+      "sha256": "1c05ce77aeb0783ec7f641a145da9e24aa63c1f410180230f081706dd0f28605",
+      "source": "outputs/undercoat-admission-capacity-tests-v1/result.json"
+    },
+    {
+      "path": "outputs/undercoat-admission-capacity-tests-v1/sources/blender_fur_undercoat.py",
+      "bytes": 42039,
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1",
+      "source": "outputs/undercoat-admission-capacity-tests-v1/sources/blender_fur_undercoat.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-capacity-tests-v1/sources/blender_undercoat_admission.py",
+      "bytes": 13636,
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7",
+      "source": "outputs/undercoat-admission-capacity-tests-v1/sources/blender_undercoat_admission.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-capacity-tests-v1/sources/groom_flow.py",
+      "bytes": 7179,
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "source": "outputs/undercoat-admission-capacity-tests-v1/sources/groom_flow.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-capacity-tests-v1/sources/test_undercoat_admission.py",
+      "bytes": 25255,
+      "sha256": "f2531abb133abaf50d1e658a82c221042213aa3bf52cbb7ec6b604012fcaf93c",
+      "source": "outputs/undercoat-admission-capacity-tests-v1/sources/test_undercoat_admission.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-capacity-tests-v1/sources/undercoat_admission.py",
+      "bytes": 13488,
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2",
+      "source": "outputs/undercoat-admission-capacity-tests-v1/sources/undercoat_admission.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-capacity-tests-v1/sources/undercoat_uv_atlas.py",
+      "bytes": 14944,
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "source": "outputs/undercoat-admission-capacity-tests-v1/sources/undercoat_uv_atlas.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-capacity-tests-v1/tests.log",
+      "bytes": 1691,
+      "sha256": "629a371ad31097673392df482cdd2eff093b1f2467ebea6e7cecc0387e755957",
+      "source": "outputs/undercoat-admission-capacity-tests-v1/tests.log"
+    },
+    {
+      "path": "outputs/undercoat-admission-tests-v3/manifest.json",
+      "bytes": 1998,
+      "sha256": "5c8a7330135aef43ccb70fbac06991c05f0abb3951fd95cd8c0079719c36a7d3",
+      "source": "outputs/undercoat-admission-tests-v3/manifest.json"
+    },
+    {
+      "path": "outputs/undercoat-admission-tests-v3/result.json",
+      "bytes": 1422,
+      "sha256": "68d292e68732ece4df600c0e52878e1140faf0f69f525c59dbdf60c0de1dd4fb",
+      "source": "outputs/undercoat-admission-tests-v3/result.json"
+    },
+    {
+      "path": "outputs/undercoat-admission-tests-v3/sources/blender_fur_undercoat.py",
+      "bytes": 42039,
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1",
+      "source": "outputs/undercoat-admission-tests-v3/sources/blender_fur_undercoat.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-tests-v3/sources/blender_undercoat_admission.py",
+      "bytes": 10330,
+      "sha256": "12cbe32fb4c5d873681124e51a23b2103f7fc673aba7f0cf199c6c130dda6090",
+      "source": "outputs/undercoat-admission-tests-v3/sources/blender_undercoat_admission.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-tests-v3/sources/groom_flow.py",
+      "bytes": 7179,
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "source": "outputs/undercoat-admission-tests-v3/sources/groom_flow.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-tests-v3/sources/test_undercoat_admission.py",
+      "bytes": 19957,
+      "sha256": "88d98db323743d327a823ead079b30f6d381d327b410e3e588258c36ce5a39a6",
+      "source": "outputs/undercoat-admission-tests-v3/sources/test_undercoat_admission.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-tests-v3/sources/undercoat_admission.py",
+      "bytes": 13488,
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2",
+      "source": "outputs/undercoat-admission-tests-v3/sources/undercoat_admission.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-tests-v3/sources/undercoat_uv_atlas.py",
+      "bytes": 14944,
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "source": "outputs/undercoat-admission-tests-v3/sources/undercoat_uv_atlas.py"
+    },
+    {
+      "path": "outputs/undercoat-admission-tests-v3/tests.log",
+      "bytes": 298,
+      "sha256": "2a5141bc1520965e6c772cd867b05234e9cab6d78f2743e02dd9c35f2a14451f",
+      "source": "outputs/undercoat-admission-tests-v3/tests.log"
+    },
+    {
+      "path": "outputs/visual-continuation-image-route-tests-v1/actual-collect.json",
+      "bytes": 1075,
+      "sha256": "dc6c3aee4c3a1757915245159d142b3b2b8153514f50e2b9032446193fc7678d",
+      "source": "outputs/visual-continuation-image-route-tests-v1/actual-collect.json"
+    },
+    {
+      "path": "outputs/visual-continuation-image-route-tests-v1/manifest.json",
+      "bytes": 1164,
+      "sha256": "d79bdfbbc036bc02ee72c08031d2052691faee6338bcf6ffbf459f88e6c58f20",
+      "source": "outputs/visual-continuation-image-route-tests-v1/manifest.json"
+    },
+    {
+      "path": "outputs/visual-continuation-image-route-tests-v1/result.json",
+      "bytes": 2191,
+      "sha256": "444e2891d5e16f4dc22a8c6b7cabd01f74e7d1e7b621341f00ff057e73195118",
+      "source": "outputs/visual-continuation-image-route-tests-v1/result.json"
+    },
+    {
+      "path": "outputs/visual-continuation-image-route-tests-v1/sources/avatar_assets/pipeline_continuation.py",
+      "bytes": 59485,
+      "sha256": "3d15b976c7c876549852dcb955b9d3f1ada3299383756d7b54d337eb2b4de8ac",
+      "source": "outputs/visual-continuation-image-route-tests-v1/sources/avatar_assets/pipeline_continuation.py"
+    },
+    {
+      "path": "outputs/visual-continuation-image-route-tests-v1/sources/tests/test_visual_continuation_image_routes.py",
+      "bytes": 4431,
+      "sha256": "c16d621f89848b9c58876ed815387034e92aa454dae45fbd2bf77c4b0dc0e7f7",
+      "source": "outputs/visual-continuation-image-route-tests-v1/sources/tests/test_visual_continuation_image_routes.py"
+    },
+    {
+      "path": "outputs/visual-continuation-image-route-tests-v1/sources/tests/test_visual_repair_continuation.py",
+      "bytes": 12919,
+      "sha256": "a168f991b70e3c0188925d98bd05fb3dfd1695d2a6b6a5489da40a20f7c963f6",
+      "source": "outputs/visual-continuation-image-route-tests-v1/sources/tests/test_visual_repair_continuation.py"
+    },
+    {
+      "path": "tests/test_motion_evidence_sampling.py",
+      "bytes": 9640,
+      "sha256": "d67cdb980164bf5f556be82fe80fa844ee2b3ee195f178aa362adcd4022cef7c",
+      "source": "tests/test_motion_evidence_sampling.py"
+    }
+  ],
+  "summary_sha256": "ec56f39b9d36d7a40ac1edfbfaa2a9896252ecdb6ca893fbc74c270c4656d53d",
+  "excluded": [
+    "credentials",
+    ".local databases and policies",
+    "worker tokens",
+    "runtime homes/temp",
+    "active successor outputs",
+    "large originals; see summary references"
+  ],
+  "classification": "Original frozen receipts and source snapshots; analytic checks distinguished from actual local probe/decode. No accepted avatar."
+}

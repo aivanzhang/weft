@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded tool stdout",
+  "distinct_methods_passed": 18,
+  "runs": [
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_motion_evidence_sampling.MotionSamplingTests tests.test_motion_evidence_sampling.SamplingCustodyTests tests.test_pipeline_evidence.FullEvidenceTests -q",
+      "tests": 15,
+      "passed": 15,
+      "seconds": 0.46
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_motion_evidence_sampling.MotionSamplingTests.test_missing_or_nonlinear_controls_use_honest_uniform_fallback tests.test_motion_evidence_sampling.MotionSamplingTests.test_invalid_cues_and_timing_fail_closed -q",
+      "tests": 2,
+      "passed": 2,
+      "seconds": 0.0
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_motion_evidence_sampling.MotionSamplingTests.test_motion_cues_reach_review_image_metadata_without_changing_native_poses -q",
+      "tests": 1,
+      "passed": 1,
+      "seconds": 0.118
+    },
+    {
+      "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_motion_evidence_sampling.SamplingCustodyTests.test_missing_source_binding_cannot_be_resealed_as_valid -q",
+      "tests": 1,
+      "passed": 1
+    }
+  ],
+  "provider_calls": 0,
+  "native_calls": 0,
+  "original_asset_changes": false,
+  "actual_read_only_decode_proof": "actual-saved-video-proof.json",
+  "sources": [
+    {
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "49b9682cc02e6e5ce79373486767bc392a03601bf62f8f452dda2a1b0d92ecc8"
+    },
+    {
+      "path": "tests/test_motion_evidence_sampling.py",
+      "sha256": "d67cdb980164bf5f556be82fe80fa844ee2b3ee195f178aa362adcd4022cef7c"
+    }
+  ]
+}

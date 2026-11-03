@@ -1,0 +1,58 @@
+{
+  "actual_evidence": "actual-readonly-check.json",
+  "changes": [
+    "New manifest-bound coat representation helper",
+    "Additive current/historical visual summary fields",
+    "New source pin"
+  ],
+  "classification": "Analyst-recorded unittest outcomes plus separately saved real-asset read-only facts; no model generation or quality approval",
+  "limits": {
+    "artifact_json_bytes": 1048576,
+    "manifest_rows": 4096,
+    "normal_materials": 32,
+    "portable_bands": 4,
+    "summary_bytes": 16384
+  },
+  "native_calls": 0,
+  "paid_cost": 0,
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T18:10:28.366570-08:00",
+  "schema_version": 1,
+  "source_pins": {
+    "avatar_assets/coat_representation.py": "51f1921d218db790f17b7208acc50172d743cd6b905d7e66877ad0628bb780bc",
+    "avatar_assets/pipeline.py": "a479d28ddd4d189d355ac61ae98309b197d077a4924614f3d1f238c6a7564d6b",
+    "avatar_assets/pipeline_continuation.py": "12959290ded8c998c8057a5bc59793fd42d6f1c088ae64c5cc3f073bac2249ce",
+    "tests/test_coat_representation.py": "a110025ac00295fa91c49d2a46b9fa7396e304a30f570f846f61bce2347ce090"
+  },
+  "tests": {
+    "existing_unique_passed": 33,
+    "new_unique_passed": 12,
+    "runs": [
+      {
+        "command": "python3 -m unittest discover -s tests -p test_coat_representation.py -v",
+        "result": "Import failed: system Python lacks PIL; no tests executed. Switched to existing project .venv without installation."
+      },
+      {
+        "command": ".venv/bin/python -m unittest discover -s tests -p test_coat_representation.py -v",
+        "failed": 1,
+        "failure": "Analytic normal-route fixture deliberately lacked full diagnostic schema. Changed test to forbid invoking _diagnostics; production source unchanged.",
+        "passed": 11,
+        "seconds": 0.024,
+        "tests": 12
+      },
+      {
+        "command": ".venv/bin/python - <<'PY'\nimport unittest,sys\nsys.path.insert(0,'tests')\nsuite=unittest.TestSuite()\nsuite.addTests(unittest.defaultTestLoader.loadTestsFromName('test_coat_representation.CoatRepresentationTests.test_both_summary_consumers_preserve_sources_and_legacy_diagnostics'))\nfor name in ['test_pipeline_continuation.py','test_visual_history_memory.py','test_visual_repair_continuation.py']:\n suite.addTests(unittest.defaultTestLoader.discover('tests',pattern=name))\nr=unittest.TextTestRunner(verbosity=2).run(suite)\nraise SystemExit(not r.wasSuccessful())\nPY",
+        "passed": 34,
+        "seconds": 2.368,
+        "tests": 34
+      }
+    ],
+    "unchanged_passing_tests_repeated": false,
+    "unique_passed": 45
+  },
+  "unchanged": [
+    "Historical raw reviews and source artifacts",
+    "_diagnostics AST",
+    "Native algorithms, gates, budgets, pricing, configuration, ledger"
+  ]
+}

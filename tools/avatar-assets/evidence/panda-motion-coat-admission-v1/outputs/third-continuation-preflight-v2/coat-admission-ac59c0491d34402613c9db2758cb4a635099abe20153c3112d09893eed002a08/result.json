@@ -1,0 +1,250 @@
+{
+  "baked": false,
+  "blender_version": "4.5.13 LTS",
+  "counts": {
+    "edges": 109672,
+    "excluded_triangles": 22356,
+    "excluded_vertices": 20111,
+    "selected_triangles": 39761,
+    "selected_vertices": 29893,
+    "triangles": 62117,
+    "vertices": 50004
+  },
+  "exception_type": "ValueError",
+  "export_vertex_budget": {
+    "portable_export_vertices": 45900,
+    "reserve_vertices": 4096,
+    "source_export_vertices": 50004
+  },
+  "geometry": {
+    "edges_sha256": "30749e08ef85fac9996930ee42eecb8bde638a592b4be6c43e87c0ea129c6f06",
+    "mask_sha256": "8f92b032646b6b9cebc66fb2b3cd247b90841c90c7b3283b2fda9ad6c9854c95",
+    "rest_sha256": "bb773aec26ff6931656d92d0aace335ea38b3aa81513f981c2f141c635994924",
+    "triangles_sha256": "74ac476c34f2f5db345983ce308ec517fae07d33fbfa07b2097f87dc83e79688"
+  },
+  "input_writes": false,
+  "inputs": {
+    "finish-config.json": {
+      "bytes": 25009,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/model-2/finish-config.json",
+      "sha256": "b77d47d2fec325a7c108a1fa65ef8e77ef4b86d8f431d52f353ae29fd3e27d24"
+    },
+    "finish-report.json": {
+      "bytes": 155005,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/model-2/finish-report.json",
+      "sha256": "5fab3cf97fb50c2114e6c7f190b4863dfb4609861f6ee36ce623e60c3af29aec"
+    },
+    "job.json": {
+      "bytes": 1562,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/model-2/job.json",
+      "sha256": "26b09af06e8e80ebb9c07e75a80ecafcaa5759c594732b249880b9a2e46054d8"
+    },
+    "manifest": {
+      "bytes": 187704,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/model-2/manifest.json",
+      "sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08"
+    },
+    "source.blend": {
+      "bytes": 50732169,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/model-2/source.blend",
+      "sha256": "f0ce473e05342fb696c5a0250022d3bdc14aa2c64159d804cc83aad30d2a072e"
+    },
+    "source_model": {
+      "bytes": 25557832,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/inputs/source-model.glb",
+      "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    "tuft-export-budget.json": {
+      "bytes": 290,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/model-2/tuft-export-budget.json",
+      "sha256": "a3e0094030245d221c1986e24ebf002d7c52cce191da99fcf3b5f9f374113f57"
+    }
+  },
+  "inputs_sha256": "2ac1474f4cf984711191eedb8bd933a0bf1d17c805d154e27f5cd0da47d2dedd",
+  "inputs_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "-i",
+      "PATH=/usr/bin:/bin:/usr/sbin:/sbin",
+      "HOME=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/runtime-home",
+      "TMPDIR=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/runtime-tmp",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "OMP_NUM_THREADS=1",
+      "OPENBLAS_NUM_THREADS=1",
+      "VECLIB_MAXIMUM_THREADS=1",
+      "BLENDER_USER_CONFIG=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/blender-config",
+      "BLENDER_USER_SCRIPTS=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/blender-scripts",
+      "BLENDER_USER_EXTENSIONS=/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/blender-extensions",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/sources/blender_undercoat_admission.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/admission-inputs.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08/native-admission.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 2.556,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 312619,
+    "last_rss_sample_elapsed_seconds": 2.3,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 64,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "admission-monitor.json",
+    "monitor_errors": [],
+    "pid": 15026,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 9,
+    "sampled_max_output_bytes": 312619,
+    "sampled_peak_rss_bytes": 348454912,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "material_seam_capacity": {
+    "additional_uv_atlas_cost_included": false,
+    "admission_verified": false,
+    "current_cards": 3825,
+    "current_portable_export_vertices": 45900,
+    "current_vertex_ceiling_before_additional_uv_atlas": 100854,
+    "exported_corners_per_card": 12,
+    "limit": 100000,
+    "material_boundary_corner_reserve": 854,
+    "materials": [
+      {
+        "boundary_corner_reserve": 854,
+        "material_id": 0,
+        "selected_triangles": 39761,
+        "shared_source_vertices": 460,
+        "unselected_triangles": 22356
+      }
+    ],
+    "maximum_cards_before_additional_uv_atlas": 3753,
+    "policy": "material-boundary-corner-capacity-v1",
+    "profile_card_limit": 5000,
+    "reserve_vertices": 4096,
+    "scope": "Count ceiling only; additional atlas splits can lower it. No masks, counts or planner policy changed.",
+    "source_export_vertices": 50004,
+    "source_reserve_and_seams_fit_without_cards": true,
+    "upper_bound_only": true,
+    "vertices_available_for_cards_before_additional_uv_atlas": 45046
+  },
+  "materials": [
+    {
+      "name": "Material_0",
+      "selected_triangles": 39761,
+      "slot": 0,
+      "triangles": 62117
+    }
+  ],
+  "not_verified": [
+    "baked pixels",
+    "tangent frames",
+    "shader compatibility",
+    "visible fur",
+    "animation quality"
+  ],
+  "original_uv_layers": [
+    {
+      "active_render": true,
+      "index": 0,
+      "max": [
+        0.9999989867210388,
+        0.9994770288467407
+      ],
+      "min": [
+        2.700000004551839e-05,
+        2.5987625122070312e-05
+      ],
+      "name": "UVMap",
+      "sha256": "99b023744276a3dd3a9ef07b690df5134dbaa494865e690fa3b1f9c1d786a1f9"
+    }
+  ],
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/third-continuation-preflight-v2/coat-admission-ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+  "policy": "saved-undercoat-admission-v1",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "reason": "Normal-only atlas exceeds the100000vertex aggregate export budget",
+  "rendered": false,
+  "saved_scene": false,
+  "scope": "UV, mask and export-budget admission only; no bake, tangent, shader, render or quality approval",
+  "selection_diagnostic": null,
+  "settings": {
+    "max_faces": 39761,
+    "min_faces": 39761,
+    "pitch_m": 0.004,
+    "profile": "short-pile-v1",
+    "resolution": 1024,
+    "roughness": 0.92,
+    "seed": 4517,
+    "strength": 0.22,
+    "uv_policy": "material-adaptive-v1"
+  },
+  "source_preflight": {
+    "animations": 0,
+    "attributes": [
+      [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ]
+    ],
+    "schema_version": 1,
+    "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+    "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+    "skins": 0,
+    "source_unchanged": true,
+    "textures": [
+      {
+        "format": "PNG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 2048,
+        "width": 2048
+      }
+    ],
+    "triangles": 62117,
+    "vertices": 50004
+  },
+  "status": "refused",
+  "uv_layer_allocation": {
+    "authored_index": 1,
+    "authored_name": "AuthoredUndercoatUV1",
+    "max_source_layers": 2,
+    "max_total_layers": 3,
+    "original_indices": [
+      0
+    ],
+    "original_names": [
+      "UVMap"
+    ]
+  }
+}
