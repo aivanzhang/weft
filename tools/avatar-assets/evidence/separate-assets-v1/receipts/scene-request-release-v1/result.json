@@ -1,0 +1,51 @@
+{
+  "actual_ledger_mutations": 0,
+  "api": [
+    "validate_explicit_assets(assets)",
+    "validate_scene(data)",
+    "child_requests(scene)",
+    "plan_scene(scene)",
+    "validate_deliveries(scene, deliveries) metadata-only",
+    "prepare(config_path, output, *, root=ROOT)"
+  ],
+  "integration_files_changed": false,
+  "limits": {
+    "assets": 3,
+    "automatic_split": false,
+    "combined_renderer": false,
+    "paid_dispatch": false,
+    "relationships": 2,
+    "scene_json_bytes": 65536,
+    "source_bytes_each": 67108864,
+    "source_hash_seconds": 10
+  },
+  "native_calls": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "scope": "Bounded pure scene planning, separate child request metadata, explicit ownership/refusal, local snapshot custody. Analytic source bytes are not rendered or generated assets.",
+  "sources": [
+    {
+      "bytes": 16568,
+      "path": "avatar_assets/scene_requests.py",
+      "sha256": "6d91683f6d867c13ea0e3800fdafd8a71d61feefe91bbcc3631dedb6a184097c"
+    },
+    {
+      "bytes": 12599,
+      "path": "tests/test_scene_requests.py",
+      "sha256": "4bf44cd9c98a33050aa574f114dcf6da76e9e2d27c55ca6997d188f3e383f748"
+    }
+  ],
+  "status": "frozen",
+  "tests": {
+    "module": "test_scene_requests",
+    "passed": true,
+    "receipt": "outputs/scene-request-tests-v1/manifest.json",
+    "receipt_sha256": "5a7e8b6146d50124aa83aa078c96b474cfb30d8dac8d1eb9d3f32c9d292de5ce",
+    "rss_note": "Child exited before first sampling interval; no measured peak RSS claim.",
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null,
+    "unique_methods": 12,
+    "wall_seconds": 0.262
+  },
+  "wrapper_metadata_erratum": "The unchanged test runner template labels its generic manifest kind/scope as composed-continuation tests. The saved command and log are test_scene_requests; this release identifies the actual scene-contract scope."
+}

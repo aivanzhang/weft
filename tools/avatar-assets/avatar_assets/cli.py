@@ -53,6 +53,9 @@ def main():
     compose = sub.add_parser("compose-sources", help="Combine explicit unrigged source parts locally; does not generate or animate")
     compose.add_argument("config")
     compose.add_argument("--out", required=True)
+    scene_plan = sub.add_parser("scene-prepare", help="Save separate subject requests and aggregate bounds; no provider calls or fused mesh")
+    scene_plan.add_argument("config")
+    scene_plan.add_argument("--out", required=True)
     build = sub.add_parser("build3d", help="Build an authored scene JSON into a real rigged GLB and Blender source")
     build.add_argument("scene")
     build.add_argument("--out", required=True)
@@ -124,6 +127,9 @@ def main():
         elif args.command == "compose-sources":
             from avatar_assets.compose_sources import compose
             result = compose(args.config, args.out)
+        elif args.command == "scene-prepare":
+            from avatar_assets.scene_requests import prepare as prepare_scene
+            result = prepare_scene(args.config, args.out)
         elif args.command == "build3d":
             from avatar_assets.build3d import build_3d
             result = build_3d(args.scene, args.out, args.blender, args.resolution, args.samples, args.timeout, args.portrait_only)

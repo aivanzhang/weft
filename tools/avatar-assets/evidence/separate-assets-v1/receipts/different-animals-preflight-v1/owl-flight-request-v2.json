@@ -1,0 +1,28 @@
+{
+  "agent_backend": {
+    "max_calls": 3,
+    "max_output_tokens": 16384,
+    "max_repairs": 0,
+    "model": "gpt-5.2-2025-12-11",
+    "provider": "openai",
+    "reasoning_effort": "medium",
+    "timeout": 600
+  },
+  "agent_model": "gpt-5.2-2025-12-11",
+  "agent_timeout": 600,
+  "custom_actions": [
+    "The owl takes off, flaps both wings repeatedly, and travels visibly forward through the air."
+  ],
+  "max_agent_calls": 3,
+  "max_credits": 35,
+  "max_repairs": 0,
+  "output": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/animal-owl-flight-preflight-v2",
+  "preset": "preview",
+  "prompt": "Create one independent small barn owl avatar, with cream heart-shaped facial disc, warm brown back, layered feather shapes, gold eyes, short beak, two broad wings and two small feet. No panda, dragon, rider, companion, perch, floor, scenery or fused second creature. Rest geometry must show wings separated from the body so a local rig can articulate both wings. Keep the owl as its own downloadable asset.",
+  "reference": null,
+  "reuse_model": null,
+  "states": [
+    "takeoff_flight"
+  ],
+  "style": "Polished stylized animal with modeled feather shapes and painted feather detail; consistent cream and warm-brown palette, readable eyes and soft lighting. Do not add mammal fur. Full body and both wing tips remain in frame."
+}

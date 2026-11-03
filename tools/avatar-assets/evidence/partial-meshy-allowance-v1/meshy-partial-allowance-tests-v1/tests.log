@@ -1,0 +1,18 @@
+test_concurrent_targets_cannot_both_consume_the_same_base_eight (test_meshy_partial_allowance.PartialMeshyAllowanceTests.test_concurrent_targets_cannot_both_consume_the_same_base_eight) ... ok
+test_existing_studio_authorization_accepts_partial_grant_read_only (test_meshy_partial_allowance.PartialMeshyAllowanceTests.test_existing_studio_authorization_accepts_partial_grant_read_only) ... ok
+test_full_grants_still_work_and_partial_grants_cannot_be_retroactive (test_meshy_partial_allowance.PartialMeshyAllowanceTests.test_full_grants_still_work_and_partial_grants_cannot_be_retroactive) ... ok
+test_invalid_partial_or_nonfinite_ceiling_rejects_before_binding (test_meshy_partial_allowance.PartialMeshyAllowanceTests.test_invalid_partial_or_nonfinite_ceiling_rejects_before_binding) ... ok
+test_partial_grant_idempotency_preserves_approval_and_rejects_top_up (test_meshy_partial_allowance.PartialMeshyAllowanceTests.test_partial_grant_idempotency_preserves_approval_and_rejects_top_up) ... ok
+test_twenty_seven_targeted_plus_eight_base_funds_exact_thirty_five (test_meshy_partial_allowance.PartialMeshyAllowanceTests.test_twenty_seven_targeted_plus_eight_base_funds_exact_thirty_five) ... ok
+test_unknown_reservation_keeps_its_base_and_partial_allowance (test_meshy_partial_allowance.PartialMeshyAllowanceTests.test_unknown_reservation_keeps_its_base_and_partial_allowance) ... ok
+test_unused_other_job_grant_cannot_replace_missing_base_or_expand_target (test_meshy_partial_allowance.PartialMeshyAllowanceTests.test_unused_other_job_grant_cannot_replace_missing_base_or_expand_target) ... ok
+test_explicit_job_grant_is_idempotent_and_cannot_fund_other_jobs (test_meshy.MeshyTests.test_explicit_job_grant_is_idempotent_and_cannot_fund_other_jobs) ... ok
+test_job_grant_rejects_wrong_plan_and_retroactive_authorization (test_meshy.MeshyTests.test_job_grant_rejects_wrong_plan_and_retroactive_authorization) ... ok
+test_shared_ledger_cannot_overspend_or_reset (test_meshy.MeshyTests.test_shared_ledger_cannot_overspend_or_reset) ... ok
+test_unknown_submission_keeps_reservation_and_blocks_retry (test_meshy.MeshyTests.test_unknown_submission_keeps_reservation_and_blocks_retry) ... ok
+test_unexpected_provider_cost_persists_and_stops_new_paid_work (test_meshy.MeshyTests.test_unexpected_provider_cost_persists_and_stops_new_paid_work) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.051s
+
+OK

@@ -1,0 +1,37 @@
+{
+  "cleanup_events": [],
+  "cleanup_status": "not_required",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-c",
+    "import sys,unittest;sys.path.insert(0,'tests');unittest.main(module=None,argv=['unittest', 'test_meshy_partial_allowance', 'test_meshy.MeshyTests.test_explicit_job_grant_is_idempotent_and_cannot_fund_other_jobs', 'test_meshy.MeshyTests.test_job_grant_rejects_wrong_plan_and_retroactive_authorization', 'test_meshy.MeshyTests.test_shared_ledger_cannot_overspend_or_reset', 'test_meshy.MeshyTests.test_unknown_submission_keeps_reservation_and_blocks_retry', 'test_meshy.MeshyTests.test_unexpected_provider_cost_persists_and_stops_new_paid_work'],verbosity=2)"
+  ],
+  "descendant_exit_verified": false,
+  "elapsed_seconds": 0.262,
+  "exit_code": 0,
+  "failure": null,
+  "failure_reasons": [],
+  "final_output_bytes": 115034,
+  "limits": {
+    "cleanup_grace_seconds": 7,
+    "log_bytes": 16777216,
+    "output_inventory_entries": 100000,
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "manual_stop_required": false,
+  "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+  "monitor_checkpoint": "tests-monitor.json",
+  "monitor_errors": [],
+  "pid": 36909,
+  "process_exit_verified": true,
+  "rss_exit_race_observed": true,
+  "rss_samples": 0,
+  "sampled_max_output_bytes": 115034,
+  "sampled_peak_rss_bytes": null,
+  "sampling_interval_seconds": 0.25,
+  "schema_version": 1,
+  "status": "finished"
+}

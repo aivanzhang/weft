@@ -1,0 +1,1185 @@
+{
+  "classification": "Immutable free prepared request/source snapshots; no generated assets",
+  "files": [
+    {
+      "bytes": 1680,
+      "path": "outputs/animal-owl-flight-preflight-v1/estimate.json",
+      "sha256": "e407fbcf3a92ef67f82733565f8799b1f6cabe761601776cba6280071fda777b"
+    },
+    {
+      "bytes": 8956,
+      "path": "outputs/animal-owl-flight-preflight-v1/input-receipt.json",
+      "sha256": "34df3e06b7ce2de18c9bd6238e7578dd2af39084f71f6e8e3dd80b4f232e032a"
+    },
+    {
+      "bytes": 1449,
+      "path": "outputs/animal-owl-flight-preflight-v1/request.json",
+      "sha256": "ec0110495c977ff2a6e69163a51e505e777ab7b3611f898e51a531d3c58da404"
+    },
+    {
+      "bytes": 35083,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "bytes": 17776,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 8563,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/agent_backend.py",
+      "sha256": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44"
+    },
+    {
+      "bytes": 26471,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 12551,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/appearance_policy.py",
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "bytes": 12872,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "bytes": 8595,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "bytes": 10388,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/coat_representation.py",
+      "sha256": "1a750a54a21f658809bf0cb016fba0d2c3295ca1207da2babcbd83567f2c026b"
+    },
+    {
+      "bytes": 16614,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 38146,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 13676,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 40332,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 19539,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 16931,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 17295,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 14628,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/openai_grant_closure.py",
+      "sha256": "2b9879c3d9cd8fbafcbb126b3c87930c12e92554e18bf60fc7ebe358cd67b895"
+    },
+    {
+      "bytes": 2221,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/openai_models.py",
+      "sha256": "f78f56067079d163507c4b47f5a28b6458304bf26b52cda8a475156849aba633"
+    },
+    {
+      "bytes": 41455,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/openai_runner.py",
+      "sha256": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f"
+    },
+    {
+      "bytes": 13672,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/openai_stream.py",
+      "sha256": "cd249d535fdf81e1e2b39177d4d7c9767ed0be6717527a80c2a42016b5fb7e9c"
+    },
+    {
+      "bytes": 105705,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/pipeline.py",
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "bytes": 66399,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/pipeline_continuation.py",
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "bytes": 25933,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/pipeline_evidence.py",
+      "sha256": "edc3530f0c967bed770d4dfcae81e2eae28db1109b1b4cc3724d866955a697ed"
+    },
+    {
+      "bytes": 76785,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/pipeline_prompts.py",
+      "sha256": "fcba5343a6549e3aaea7e319a120492ce581676c1cf62d38ebf2af387a262305"
+    },
+    {
+      "bytes": 13968,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/pipeline_recovery.py",
+      "sha256": "52849e9a991c88db03751a8a4ba6b51a9bc6eaf9b0ab94f0d331ad80bd358a5f"
+    },
+    {
+      "bytes": 1326,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 8121,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 14626,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "bytes": 11975,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/repair_admission.py",
+      "sha256": "5df94acdba444540270f70aab67412fe89bdceb78893ff65ee9be064045cd862"
+    },
+    {
+      "bytes": 29392,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/repair_composition.py",
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "bytes": 14156,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/repair_visual_inputs.py",
+      "sha256": "142488c2a181637a76643e484ffc1f3bdd795968905a474ffc5649ee291c2934"
+    },
+    {
+      "bytes": 11421,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 20746,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "bytes": 59927,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    {
+      "bytes": 26295,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 6657,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "bytes": 42039,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "bytes": 5450,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 8894,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 31282,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 6885,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 10304,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 13636,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/blender_undercoat_admission.py",
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7"
+    },
+    {
+      "bytes": 17397,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 4687,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 8834,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 6002,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 7179,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 9487,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 5273,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 6129,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 9560,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 14944,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 35323,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 13488,
+      "path": "outputs/animal-owl-flight-preflight-v1/sources/undercoat_admission.py",
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2"
+    },
+    {
+      "bytes": 1680,
+      "path": "outputs/animal-owl-flight-preflight-v2/estimate.json",
+      "sha256": "e407fbcf3a92ef67f82733565f8799b1f6cabe761601776cba6280071fda777b"
+    },
+    {
+      "bytes": 8956,
+      "path": "outputs/animal-owl-flight-preflight-v2/input-receipt.json",
+      "sha256": "db6cd9fd67872873b8df5bcf797200b8b51dd7991c3c94cedbe62508ccb635c4"
+    },
+    {
+      "bytes": 1449,
+      "path": "outputs/animal-owl-flight-preflight-v2/request.json",
+      "sha256": "a7fd597514aefebfb0fa041debe756049fffa5bb15bee35225e25b4955a59cd1"
+    },
+    {
+      "bytes": 35083,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "bytes": 17776,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 8563,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/agent_backend.py",
+      "sha256": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44"
+    },
+    {
+      "bytes": 26471,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 12551,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/appearance_policy.py",
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "bytes": 12872,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "bytes": 8595,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "bytes": 10388,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/coat_representation.py",
+      "sha256": "1a750a54a21f658809bf0cb016fba0d2c3295ca1207da2babcbd83567f2c026b"
+    },
+    {
+      "bytes": 16614,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 38146,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 13676,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 40332,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 19539,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 16931,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 17295,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 14628,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/openai_grant_closure.py",
+      "sha256": "2b9879c3d9cd8fbafcbb126b3c87930c12e92554e18bf60fc7ebe358cd67b895"
+    },
+    {
+      "bytes": 2221,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/openai_models.py",
+      "sha256": "f78f56067079d163507c4b47f5a28b6458304bf26b52cda8a475156849aba633"
+    },
+    {
+      "bytes": 41455,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/openai_runner.py",
+      "sha256": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f"
+    },
+    {
+      "bytes": 13672,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/openai_stream.py",
+      "sha256": "cd249d535fdf81e1e2b39177d4d7c9767ed0be6717527a80c2a42016b5fb7e9c"
+    },
+    {
+      "bytes": 105705,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/pipeline.py",
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "bytes": 66399,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/pipeline_continuation.py",
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "bytes": 25933,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/pipeline_evidence.py",
+      "sha256": "edc3530f0c967bed770d4dfcae81e2eae28db1109b1b4cc3724d866955a697ed"
+    },
+    {
+      "bytes": 76883,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/pipeline_prompts.py",
+      "sha256": "5e10705b24cb349f99609ad5c2ba40a7fd47e9b3f1fc3dfb0a85ceb1a54b0aa4"
+    },
+    {
+      "bytes": 13968,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/pipeline_recovery.py",
+      "sha256": "52849e9a991c88db03751a8a4ba6b51a9bc6eaf9b0ab94f0d331ad80bd358a5f"
+    },
+    {
+      "bytes": 1326,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 8121,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 14626,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "bytes": 11975,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/repair_admission.py",
+      "sha256": "5df94acdba444540270f70aab67412fe89bdceb78893ff65ee9be064045cd862"
+    },
+    {
+      "bytes": 29392,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/repair_composition.py",
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "bytes": 14156,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/repair_visual_inputs.py",
+      "sha256": "142488c2a181637a76643e484ffc1f3bdd795968905a474ffc5649ee291c2934"
+    },
+    {
+      "bytes": 11421,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 20746,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "bytes": 59927,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_finish_generated.py",
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    {
+      "bytes": 26295,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 6657,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "bytes": 42039,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "bytes": 5450,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 8894,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 31282,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 6885,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 10304,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 13636,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/blender_undercoat_admission.py",
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7"
+    },
+    {
+      "bytes": 17397,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 4687,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 8834,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 6002,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 7179,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 9487,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 5273,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 6129,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 9560,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 14944,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 35323,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 13488,
+      "path": "outputs/animal-owl-flight-preflight-v2/sources/undercoat_admission.py",
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2"
+    },
+    {
+      "bytes": 1680,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/estimate.json",
+      "sha256": "e407fbcf3a92ef67f82733565f8799b1f6cabe761601776cba6280071fda777b"
+    },
+    {
+      "bytes": 8956,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/input-receipt.json",
+      "sha256": "220083eb4219f5d105f1f07efcaa30b9b7c9cc181581a0f17470330296a85612"
+    },
+    {
+      "bytes": 1529,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/request.json",
+      "sha256": "60e54d8a4cf5f2e2ba585d786c1929cca75401d6473998fa858e73191f2ec8ce"
+    },
+    {
+      "bytes": 35083,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "bytes": 17776,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 8563,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/agent_backend.py",
+      "sha256": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44"
+    },
+    {
+      "bytes": 26471,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 12551,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/appearance_policy.py",
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "bytes": 12872,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "bytes": 8595,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "bytes": 10388,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/coat_representation.py",
+      "sha256": "1a750a54a21f658809bf0cb016fba0d2c3295ca1207da2babcbd83567f2c026b"
+    },
+    {
+      "bytes": 16614,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 38146,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 13676,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 40332,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 19539,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 16931,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 17295,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 14628,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/openai_grant_closure.py",
+      "sha256": "2b9879c3d9cd8fbafcbb126b3c87930c12e92554e18bf60fc7ebe358cd67b895"
+    },
+    {
+      "bytes": 2221,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/openai_models.py",
+      "sha256": "f78f56067079d163507c4b47f5a28b6458304bf26b52cda8a475156849aba633"
+    },
+    {
+      "bytes": 41455,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/openai_runner.py",
+      "sha256": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f"
+    },
+    {
+      "bytes": 13672,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/openai_stream.py",
+      "sha256": "cd249d535fdf81e1e2b39177d4d7c9767ed0be6717527a80c2a42016b5fb7e9c"
+    },
+    {
+      "bytes": 105705,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/pipeline.py",
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "bytes": 66399,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/pipeline_continuation.py",
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "bytes": 25933,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/pipeline_evidence.py",
+      "sha256": "edc3530f0c967bed770d4dfcae81e2eae28db1109b1b4cc3724d866955a697ed"
+    },
+    {
+      "bytes": 76785,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/pipeline_prompts.py",
+      "sha256": "fcba5343a6549e3aaea7e319a120492ce581676c1cf62d38ebf2af387a262305"
+    },
+    {
+      "bytes": 13968,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/pipeline_recovery.py",
+      "sha256": "52849e9a991c88db03751a8a4ba6b51a9bc6eaf9b0ab94f0d331ad80bd358a5f"
+    },
+    {
+      "bytes": 1326,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 8121,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 14626,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "bytes": 11975,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/repair_admission.py",
+      "sha256": "5df94acdba444540270f70aab67412fe89bdceb78893ff65ee9be064045cd862"
+    },
+    {
+      "bytes": 29392,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/repair_composition.py",
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "bytes": 14156,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/repair_visual_inputs.py",
+      "sha256": "142488c2a181637a76643e484ffc1f3bdd795968905a474ffc5649ee291c2934"
+    },
+    {
+      "bytes": 11421,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 20746,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "bytes": 59927,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    {
+      "bytes": 26295,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 6657,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "bytes": 42039,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "bytes": 5450,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 8894,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 31282,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 6885,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 10304,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 13636,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/blender_undercoat_admission.py",
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7"
+    },
+    {
+      "bytes": 17397,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 4687,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 8834,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 6002,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 7179,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 9487,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 5273,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 6129,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 9560,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 14944,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 35323,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 13488,
+      "path": "outputs/animal-rabbit-hop-preflight-v1/sources/undercoat_admission.py",
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2"
+    },
+    {
+      "bytes": 1680,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/estimate.json",
+      "sha256": "e407fbcf3a92ef67f82733565f8799b1f6cabe761601776cba6280071fda777b"
+    },
+    {
+      "bytes": 8956,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/input-receipt.json",
+      "sha256": "26dbc43400ef6f31fa41f745d01da9036de836d27149a59737a90fda1f4cce49"
+    },
+    {
+      "bytes": 1529,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/request.json",
+      "sha256": "e1276f63a10e0947a478136232fec08d53c9e662003ebf65a6aef1c7df4e21d3"
+    },
+    {
+      "bytes": 35083,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "bytes": 17776,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 8563,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/agent_backend.py",
+      "sha256": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44"
+    },
+    {
+      "bytes": 26471,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 12551,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/appearance_policy.py",
+      "sha256": "07799e0d76e9b3a8d5d5688407f8f1e5a75f09169b35e68004bdf0a0c90c6823"
+    },
+    {
+      "bytes": 12872,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "bytes": 8595,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "bytes": 10388,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/coat_representation.py",
+      "sha256": "1a750a54a21f658809bf0cb016fba0d2c3295ca1207da2babcbd83567f2c026b"
+    },
+    {
+      "bytes": 16614,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f"
+    },
+    {
+      "bytes": 38146,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "bytes": 13676,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 40332,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/fur_attachment.py",
+      "sha256": "7e7d0908f7a9faf56c0538efda9f75abd8d57e79a600a8dd46807e462682b5ac"
+    },
+    {
+      "bytes": 19539,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/fur_bindings.py",
+      "sha256": "3199ebadfa4bb9963848c4f9e5e3ecc37a43301f929ab9a481d59678278e5d38"
+    },
+    {
+      "bytes": 16931,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 17295,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 14628,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/openai_grant_closure.py",
+      "sha256": "2b9879c3d9cd8fbafcbb126b3c87930c12e92554e18bf60fc7ebe358cd67b895"
+    },
+    {
+      "bytes": 2221,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/openai_models.py",
+      "sha256": "f78f56067079d163507c4b47f5a28b6458304bf26b52cda8a475156849aba633"
+    },
+    {
+      "bytes": 41455,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/openai_runner.py",
+      "sha256": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f"
+    },
+    {
+      "bytes": 13672,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/openai_stream.py",
+      "sha256": "cd249d535fdf81e1e2b39177d4d7c9767ed0be6717527a80c2a42016b5fb7e9c"
+    },
+    {
+      "bytes": 105705,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/pipeline.py",
+      "sha256": "474f5cf831feff6361cc44ab7e642b2d6ca23691849ca158ca200c0a31aa80dd"
+    },
+    {
+      "bytes": 66399,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/pipeline_continuation.py",
+      "sha256": "911679edb3ee8a09e715a1ef80afb60733438c3821d48cece59efcc3080cf598"
+    },
+    {
+      "bytes": 25933,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/pipeline_evidence.py",
+      "sha256": "edc3530f0c967bed770d4dfcae81e2eae28db1109b1b4cc3724d866955a697ed"
+    },
+    {
+      "bytes": 76883,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/pipeline_prompts.py",
+      "sha256": "5e10705b24cb349f99609ad5c2ba40a7fd47e9b3f1fc3dfb0a85ceb1a54b0aa4"
+    },
+    {
+      "bytes": 13968,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/pipeline_recovery.py",
+      "sha256": "52849e9a991c88db03751a8a4ba6b51a9bc6eaf9b0ab94f0d331ad80bd358a5f"
+    },
+    {
+      "bytes": 1326,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f"
+    },
+    {
+      "bytes": 8121,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 14626,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "bytes": 11975,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/repair_admission.py",
+      "sha256": "5df94acdba444540270f70aab67412fe89bdceb78893ff65ee9be064045cd862"
+    },
+    {
+      "bytes": 29392,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/repair_composition.py",
+      "sha256": "75aead5d0bf2dade7e819dbb58208590cad645e7e8a79101668eb8f88182c339"
+    },
+    {
+      "bytes": 14156,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/repair_visual_inputs.py",
+      "sha256": "142488c2a181637a76643e484ffc1f3bdd795968905a474ffc5649ee291c2934"
+    },
+    {
+      "bytes": 11421,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 20746,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "bytes": 59927,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_finish_generated.py",
+      "sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081"
+    },
+    {
+      "bytes": 26295,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "bytes": 6657,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_fur_identity.py",
+      "sha256": "100493742b674dfd48048a10b05018be0dbd767becb17f6e4ac95b490d562a55"
+    },
+    {
+      "bytes": 42039,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1"
+    },
+    {
+      "bytes": 5450,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_material_coat.py",
+      "sha256": "240c0490f1303b5402c4a522c8b6a56ca5a3a890abfccc59c31555fb7fa9205c"
+    },
+    {
+      "bytes": 8894,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_material_colors.py",
+      "sha256": "0a090812db90fec2d153911baaf723584f61644cf460e27a23146161b82c3187"
+    },
+    {
+      "bytes": 31282,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_material_groom.py",
+      "sha256": "6a836003afed4d31de6239c4f77e5f13469fb19cc2960579f4c1f4ec39423979"
+    },
+    {
+      "bytes": 6885,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 10304,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 13636,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/blender_undercoat_admission.py",
+      "sha256": "6ec5d825d279212f2312dcda841f0def60ce7e61339a38b793e0945353685bd7"
+    },
+    {
+      "bytes": 17397,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 16114,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 4687,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "bytes": 8834,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/fur_skin_roots.py",
+      "sha256": "f75e03762890328a116e1030923f15075861552a7369514aabaf254f3f7669eb"
+    },
+    {
+      "bytes": 6002,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/fur_vertex_roots.py",
+      "sha256": "563dbe5d094f49a9857f801335bf6577b347615f927cd9ed5534103b212500a4"
+    },
+    {
+      "bytes": 7179,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 9487,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/material_fur.py",
+      "sha256": "5193fa76956b3f5b07b23dc78f3f3eed5ebe401cac89ebf7925f6a9c975222b7"
+    },
+    {
+      "bytes": 5273,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 6129,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 9560,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 14944,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 35323,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 13488,
+      "path": "outputs/animal-rabbit-hop-preflight-v2/sources/undercoat_admission.py",
+      "sha256": "9034216d8766fcca149fc7ccdbd1ea1546121f2c88238d6ec91bb45fa6bcc6d2"
+    }
+  ]
+}

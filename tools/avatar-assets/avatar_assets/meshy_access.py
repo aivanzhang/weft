@@ -218,8 +218,10 @@ class Ledger:
                 and approval.get('job_id') == plan['id'] and approval.get('plan_digest') == digest(plan),
                 'Approval must identify the exact prepared job')
         credits = approval.get('additional_credits')
-        require(type(credits) is int and 1 <= credits <= 500 and credits == plan['max_credits'],
-                'Additional allowance must match the finite job ceiling')
+        ceiling = plan.get('max_credits')
+        require(type(ceiling) is int and 1 <= ceiling <= 500
+                and type(credits) is int and 1 <= credits <= ceiling,
+                'Additional allowance must fit within the finite job ceiling')
         require(isinstance(approval.get('user_reply'), str) and 0 < len(approval['user_reply']) <= 4000
                 and len(canonical(approval)) <= 8192, 'Preserve the explicit user approval')
         self.bind_job(plan, output)

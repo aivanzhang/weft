@@ -1,0 +1,53 @@
+{
+  "actual_ledger_mutations": 0,
+  "base_headroom_proof": {
+    "base_limit": 140,
+    "base_remaining": 8,
+    "base_used": 132,
+    "path": "outputs/meshy-partial-allowance-readonly-v1/manifest.json",
+    "sha256": "0717015270a2efc85918b5f7daa0f5385bdd06a1812bf4c2c7f60f74e3d62925",
+    "unknown_submissions": 0,
+    "unused_targeted_grants": {}
+  },
+  "change": "authorize_job permits strict integer additional_credits from1 through the validated finite job ceiling (at most500), preserving immutable per-job approval and all existing reserve accounting.",
+  "no_paid_retry_or_budget_reset": true,
+  "pending_cost_scope": {
+    "additional_credits": 62,
+    "approval_applied": false,
+    "dollar_price_verified": false,
+    "existing_base_contribution": 8,
+    "new_targeted_allowances": [
+      35,
+      27
+    ],
+    "two_child_generation_total_credits": 70
+  },
+  "provider_calls": 0,
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 15306,
+      "path": "avatar_assets/meshy_access.py",
+      "sha256": "9232e5d23d2af11b6c539d004e51615d20409e7e71e26e52077fe38003847df3"
+    },
+    {
+      "bytes": 8093,
+      "path": "tests/test_meshy_partial_allowance.py",
+      "sha256": "4bf2927dbc03a0498744c86dfe3342eea892a9943b7b2c9b8917f25ffb05fab8"
+    }
+  ],
+  "status": "frozen",
+  "studio_compatibility": "Existing _authorization read-only calculation accepts partial targeted grant plus base headroom; focused test passed without Studio changes.",
+  "tests": {
+    "affected_legacy_methods": 5,
+    "bounded_seconds": 0.262,
+    "new_methods": 8,
+    "passed": true,
+    "receipt": "outputs/meshy-partial-allowance-tests-v1/manifest.json",
+    "receipt_sha256": "729ecd2d889ba8c79420de1e8ae5e30687af0c2738da6e79b5cd7eb0fd3f9eff",
+    "rss_note": "Child exited before sampling; peak memory not measured.",
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null,
+    "unique_methods": 13
+  }
+}

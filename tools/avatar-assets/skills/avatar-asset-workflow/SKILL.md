@@ -9,6 +9,13 @@ Run module commands from `tools/avatar-assets`; from the Weft root use `./tools/
 
 ## Prompt-to-assets agent pipeline
 
+For multiple independently controllable characters, use [separate asset jobs](../../docs/separate-assets.md),
+one explicit subject and its actions per card. Never send the whole cast in one Meshy prompt,
+reuse a fused source for two subjects, or count renamed copies as separate assets.
+Scene grouping preserves child progress and downloads; it does not implement attachment,
+release/reattachment timing or automatic free-text character decomposition. Record those
+unsupported requirements explicitly. Estimate the sum of all child generations and AI calls.
+
 For website jobs, use the [OpenAI API backend](../../docs/api-website-backend.md),
 not a personal ChatGPT/CLI login. Server-only keys, exact-request dollar grants
 and Meshy credits are separate. Preserve failed responses and actual token costs;

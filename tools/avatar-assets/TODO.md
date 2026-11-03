@@ -1,6 +1,136 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 02, 2026, 07:42 PM PST
+## Session handoff — November 02, 2026, 08:06 PM PST
+
+- **Current request:** test genuinely different animals/actions and keep independent
+  characters as independent assets. Panda and dragon must not be fused into one
+  model or mislabeled mesh parts. Stop fur tuning; prioritize the hands-off
+  website/backend, meaningful motion, preview and separate downloads.
+- **Prior scoped goal passed and is saved:** the reused-source appearance-preserving
+  panda dance completed, including the perched shoulder dragon, at job
+  `4701879a91cf42efbeebf16c`. This is NOT fresh text-to-geometry validation or a
+  separate flying dragon. Final checkpoint **`9b637ff4f1adc2934cd758058d2ac7b2e03c796b`**
+  was pushed and exact private remote main verified November 2, 2026, 7:50:01 PM PST;
+  65 avatar-only files / 3,945,278 bytes, avatar subtree clean then, unrelated
+  owner parent 494631a preserved. Receipt:
+  `outputs/preserve-current-final-publication-v1/receipt.json`. New scene work is
+  local and not included in that checkpoint. No deployment is authorized.
+- **No active generation job:** last observed by root at this handoff; the prior
+  browser/server/worker exited and no lease or queue remained. Before another
+  Start, recheck canonical ownership and exact request/source pins. No new API,
+  Meshy or native generation occurred in the animal preflight lane.
+- **Two concrete independent requests are prepared:**
+  `outputs/different-animals-preflight-v1/owl-flight-request-v2.json` asks for one
+  barn owl with modeled/painted feathers, taking off, repeatedly flapping and
+  traveling forward. `rabbit-hop-request-v2.json` asks for one cream rabbit with
+  modest short fur, repeatedly hopping forward with visible leg articulation.
+  One action each; no added landing/return sequence, references, reused models,
+  companions, shared geometry or scene props. Free production preparation passed
+  in 0.028 s / 0.011 s; these are requests, not AI plans or generated examples.
+- **Exact resume inputs:** prepared folders
+  `outputs/animal-owl-flight-preflight-v2` and
+  `outputs/animal-rabbit-hop-preflight-v2`; request SHAs respectively
+  `a7fd597514aefebfb0fa041debe756049fffa5bb15bee35225e25b4955a59cd1` and
+  `e1276f63a10e0947a478136232fec08d53c9e662003ebf65a6aef1c7df4e21d3`.
+  Current single-actor planner guide SHA
+  `5e10705b24cb349f99609ad5c2ba40a7fd47e9b3f1fc3dfb0a85ceb1a54b0aa4`.
+  V1 prepares predate that guide and remain preserved; do not overwrite or run them.
+  Package manifest `e72b134aa9a9d97f573377439b0b97b13acb05e412e29d3c3803037f56d12013`.
+  Exact free commands and source-reference inventory are in the package README.
+- **One credit decision is pending:** root asked through `request_user_input_async`
+  for **62 additional Meshy credits**: two 35-credit independent geometry/texture
+  jobs need 70, with 8 already remaining. No answer or grant is recorded at this
+  handoff; do not treat silence as approval, purchase credits or submit generation.
+  Each request uses current Meshy 7.1 Ultra 4K mesh + 4K texture, two paid submissions,
+  no provider rig/animation or paid retry. Account dollars per credit are unknown.
+  Bounded partial-targeted allowance support is now tested: 35 new credits +
+  27 new credits + 8 existing credits, preserving the exact two job ceilings and
+  all old grants. No actual grant or ledger change is authorized by its fixtures.
+- **OpenAI ceiling stays $15 total.** Read-only `budget-effective.json`, observed
+  November 2, 2026, 7:59:20 PM PST: settled $6.827708 + retained unknown holds $6.548016
+  = exposure $13.375724, remaining $1.624276. Use the append-only effective ceiling,
+  not the original historical $17 budget row. The raw initial budget observation is
+  preserved with its explicit correction. Unknown holds are not confirmed bills
+  and cannot be erased to fund new animals. No ledger/configuration was changed.
+- Proposed bounded first-pass profile: GPT-5.2 snapshot, medium reasoning,
+  16,384 output tokens, 600 s/call, **3 calls / zero repairs per animal**. Owner server
+  settings are unchanged; guarded website creation needs an explicitly matching
+  profile and exact-job grants. Six calls are estimated at $1.197 using 50k input
+  and 8k total output tokens each, including reasoning; this is not measured or
+  guaranteed. Each call first reserves $0.929376. Run sequentially; the remaining
+  $15 allowance may checkpoint before all six calls despite lower expected usage.
+- **Local scene implementation is frozen and tested:**
+  `pipeline_contracts` owns `scene_requests.py`, explicit separate-asset drafts,
+  safe source/intent references and unsupported fused-source/interaction cases.
+  `api_studio_integration` owns scene creation/HTTP/browser cards and per-child
+  progress/downloads. Saving a pair must not dispatch or grant spend. Independent
+  review found reference reselection and partial-save slot races; exact child
+  binding/membership now share the creation transaction, and pending slots are
+  reserved. Immutable finish-save recovery is implemented and tested, including
+  restart recovery before the first child exists. Publication is recorded in the
+  checkpoint receipt below; this implementation alone is not fresh-generation proof.
+- **Scene UI/HTTP/lifecycle checks passed:** 57 unique analytic checks in that lane
+  (14 new Python, 4 new Node, 29 existing lifecycle, 10 existing UI).
+  `outputs/studio-scene-integration-tests-v1/manifest.json` SHA
+  `d46dee936bfb76bd3e904cbed31d2cddbd9743e13857bea33021f162b31701c2`.
+  Exactly two explicit cards create two distinct fresh-source requests without
+  dispatch. Group status `children_complete` still has `separation_verified:false`;
+  it is not aggregate quality, synchronized scene or fused-mesh separation proof.
+  These tests used no actual browser, API, native work or production ledger mutation.
+- **Scene contract frozen and tested:** 12 analytic methods passed in 0.042 s;
+  bounded runner 0.262 s, exit0, no RSS sample before exit (no measured peak claim).
+  `outputs/scene-request-tests-v1`; authoritative release manifest
+  `f9ac67efcdf056863a72b4bce6d85548e9a9662ee371dbe6dadff337ce5455e4`
+  at `outputs/scene-request-release-v1` clarifies the test wrapper's stale generic
+  scope label. Source `scene_requests.py` SHA
+  `6d91683f6d867c13ea0e3800fdafd8a71d61feefe91bbcc3631dedb6a184097c`.
+  Root separately observed 44 existing pipeline/prompt checks pass in 0.795 s;
+  this observation has tool output, not a dedicated durable test log. Counts may
+  overlap other component suites; do not sum as a universal coverage claim.
+- **Actual free scene CLI drafts passed:** `outputs/owl-rabbit-scene-plan-v1`
+  manifest `5851b8a6ff73f383f4caff67ebd01a1c243849895aa4f25cce2313429dedff69`
+  and `outputs/panda-dragon-scene-plan-v1` manifest
+  `8d334ba278e894570ebb0cdba96ed379a452d7f587fbdd4bf9a5c44df61107fa`,
+  nine hashes checked each. These preserve two separate child requests and explicit
+  unsupported interactions; no child jobs, geometry, provider calls or spend.
+  Root owns README/docs/skill, integration proof and later publication;
+  `openai_backend` owns only this TODO handoff after the read-only review/preflight.
+- **Limits remain explicit:** feather appearance currently uses generated mesh/
+  painted detail (`other` surface intent), not a dedicated feather-strand system.
+  Animal topology, meaningful wings/legs, skin deformation and quality must pass
+  the normal real-output gates. A scene draft is not a synchronized scene renderer,
+  attachment solution or physical interaction. Existing fused panda/dragon input
+  cannot prove independent assets; automatic decomposition is unsupported.
+- **Partial allowance support now passes 13 focused tests** (8 new, 5 affected
+  legacy), with no real ledger changes or grants applied. Read-only verification
+  confirms the 8 credits are base headroom, not another job's targeted credits.
+  A 35-credit grant plus a 27-credit grant and that existing 8 can fund the proposed
+  pair if approved; job ceilings, uncertain holds and grant isolation remain.
+  Receipt `outputs/meshy-partial-allowance-release-v1/manifest.json` SHA
+  `8cb5e5f622969c3032976a157b5c4c67e937a06bb7cab9ad4c3bf188ce3f0385`.
+- **Portable verification evidence:** `evidence/separate-assets-v1/manifest.json`
+  SHA `7f35f60865eb4de9e812dc2f6d388ecfb50dcfeda539207cbd062e3356bdc79f`
+  (42 artifact hashes checked), plus `evidence/partial-meshy-allowance-v1`.
+  No live browser or generated-animal success is claimed.
+- **Polling follow-up:** three additional request/binding checks pass against
+  `browser/studio.js` SHA `993d9ad68dbb2c365d7d7b00dd63e5dda08d4b73f56959ab6c2fe400a6a6b62a`.
+  Twenty known-scene refreshes made 20 scene-detail reads and zero duplicate
+  selected-job reads; library reads are unchanged. This is an analytic count,
+  not measured live latency. `outputs/studio-scene-integration-tests-v2` manifest
+  `281a1e505a15d7aa00c47e3b9907ce71999e7202969d7d866446ac1c552555af`;
+  portable receipts in `evidence/separate-assets-polling-v1`.
+- **Publication receipt:** root saves the avatar-only checkpoint in
+  `outputs/separate-assets-publication-v1/receipt.json` after commit/push. If absent,
+  finish that reviewed save; preserve unrelated Weft work. The receipt records
+  the exact commit, remote result and remaining scope without changing this history.
+- **Next safe action:** the 62-credit question remains pending. After actual
+  approval, create separate canonical
+  website jobs from the v2 request values, recheck budgets/ownership, and execute
+  bounded runs without changing prior evidence. These free preflight folders are
+  not canonical website jobs. Save tested code/evidence with an avatar-only
+  checkpoint; preserve unrelated Weft work and all old outputs.
+
+## Historical handoff — November 02, 2026, 07:42 PM PST
 
 - **The appearance-preserving website/backend run passed end to end.** Job
   `4701879a91cf42efbeebf16c` completed on attempt0 at November 2, 2026,
@@ -769,8 +899,24 @@ Tests include 10 continuation, 11 standing-policy, 71 Studio/HTTP/custody and
 
 - [x] Typed author response and different-subject transport fixtures.
 - [x] Explicit bounded retry authorization and exact-request grant.
-- [ ] Actual website/backend delivery: accepted rig, meaningful requested dance,
-  fur/identity checks, final media, static fallback and editable-source downloads.
+- [x] Saved-source website/backend delivery: preservation-scoped panda dance,
+  independent identity/deformation/motion review, media/static fallback and download
+  endpoint checks; job4701879a91cf42efbeebf16c, checkpoint9b637ff. This does not
+  verify new text-to-geometry, an independent dragon, full copied downloads or physics.
+- [ ] Receive the pending62-credit Meshy decision; bind only approved exact jobs.
+  Keep OpenAI15total/unknown holds unchanged; checkpoint on insufficient reservation.
+- [x] Seal local separate-asset contract, HTTP/UI, idempotency and partial-save
+  tests; source-pinned component receipts are recorded in the current handoff.
+- [ ] Verify the actual guarded scene website save/recovery path and publish the
+  avatar-only checkpoint. Drafts must not dispatch, reset spend or claim fused
+  geometry has been separated; analytic UI checks are not actual browser proof.
+- [ ] Generate and verify two genuinely different fresh animal/action examples
+  from the owl/rabbit v2 specs, with independent source/model hashes, real rigs,
+  meaningful motion, appearance/deformation review, static fallbacks and separate
+  preview/downloads. Unexecuted requests or analytic fixtures do not complete this.
+- [ ] Resolve the independent panda/dragon deliverable through separate authenticated
+  assets, or explicitly retain fused-source decomposition as unsupported. A perched
+  companion in the successful panda GLB is not an independently controllable dragon.
 - [x] Save standing-policy/native continuation checkpoint: `db460a3c18930c9d41f80be7ac2353b1bd69151a`,
   492 files / 20,139,155 bytes, private push and remote SHA verified. Receipt
   `outputs/standing-website-publication-v1/receipt.json`.

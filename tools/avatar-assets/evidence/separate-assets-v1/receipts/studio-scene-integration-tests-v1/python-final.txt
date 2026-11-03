@@ -1,0 +1,19 @@
+test_finish_save_routes_saved_inputs_only_and_scene_list_is_read_only (test_studio_scene_http.SceneHTTPTests.test_finish_save_routes_saved_inputs_only_and_scene_list_is_read_only) ... ok
+test_no_token_unknown_reference_or_path_budget_source_injection (test_studio_scene_http.SceneHTTPTests.test_no_token_unknown_reference_or_path_budget_source_injection) ... ok
+test_partial_invalid_pair_and_stale_request_id_do_not_duplicate (test_studio_scene_http.SceneHTTPTests.test_partial_invalid_pair_and_stale_request_id_do_not_duplicate) ... ok
+test_post_and_get_return_two_separate_safe_jobs_without_start (test_studio_scene_http.SceneHTTPTests.test_post_and_get_return_two_separate_safe_jobs_without_start) ... ok
+test_all_cards_validate_before_any_job_is_saved (test_studio_scene_jobs.StudioSceneJobsTests.test_all_cards_validate_before_any_job_is_saved) ... ok
+test_both_children_ready_are_not_claimed_as_verified_separate_geometry (test_studio_scene_jobs.StudioSceneJobsTests.test_both_children_ready_are_not_claimed_as_verified_separate_geometry) ... ok
+test_child_reference_race_is_rejected_before_creation_or_binding (test_studio_scene_jobs.StudioSceneJobsTests.test_child_reference_race_is_rejected_before_creation_or_binding) ... ok
+test_pair_creates_distinct_immutable_jobs_without_dispatch (test_studio_scene_jobs.StudioSceneJobsTests.test_pair_creates_distinct_immutable_jobs_without_dispatch) ... ok
+test_partial_save_repeats_exact_child_keys_without_dispatch (test_studio_scene_jobs.StudioSceneJobsTests.test_partial_save_repeats_exact_child_keys_without_dispatch) ... ok
+test_references_are_distinct_bound_and_unsafe_second_rejected_before_save (test_studio_scene_jobs.StudioSceneJobsTests.test_references_are_distinct_bound_and_unsafe_second_rejected_before_save) ... ok
+test_reserved_slots_survive_interrupt_and_finish_after_restart (test_studio_scene_jobs.StudioSceneJobsTests.test_reserved_slots_survive_interrupt_and_finish_after_restart) ... ok
+test_row_progress_never_promotes_other_subject_or_exposes_paths (test_studio_scene_jobs.StudioSceneJobsTests.test_row_progress_never_promotes_other_subject_or_exposes_paths) ... ok
+test_scene_before_first_child_remains_discoverable_and_finishable (test_studio_scene_jobs.StudioSceneJobsTests.test_scene_before_first_child_remains_discoverable_and_finishable) ... ok
+test_scene_row_cannot_be_redirected_to_an_unrelated_job (test_studio_scene_jobs.StudioSceneJobsTests.test_scene_row_cannot_be_redirected_to_an_unrelated_job) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.093s
+
+OK

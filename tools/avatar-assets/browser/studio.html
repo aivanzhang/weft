@@ -29,6 +29,11 @@
         <div class="page-heading"><p class="eyebrow">MAKE SOMETHING YOURS</p><h2 id="composer-title">Bring a character to life.</h2><p class="intro">Describe an avatar and what it should do. Review the plan and cost before starting generation.</p></div>
         <form id="request-form">
           <div class="form-card">
+            <label class="checkbox-label"><input id="separate-assets" type="checkbox" disabled> Two separate assets</label>
+            <p class="field-help">One creature or object per card, with its own actions and downloads. No new appearance tuning. Automatic free-text splitting and synchronized interactions are not available; no fused model is split by this option.</p>
+            <div id="scene-fields" hidden><label for="scene-title">Collection name</label><input id="scene-title" maxlength="120" value="My asset pair"><label for="asset-one-name">First asset name</label><input id="asset-one-name" maxlength="120" value="First asset"></div>
+          </div>
+          <div class="form-card">
             <label for="prompt">What would you like to create? <span class="required">Required</span></label>
             <textarea id="prompt" name="prompt" rows="4" maxlength="4000" required placeholder="A small copper robot gardener, with round glass eyes, worn teal overalls, and a leaf growing from its antenna…"></textarea>
             <label for="style">Look and materials <span class="optional">Optional</span></label>
@@ -40,9 +45,9 @@
           </div>
           <div class="form-card two-up">
             <div>
-              <label for="reference">Reference image <span class="optional">Optional</span></label>
+              <label for="reference">Reference image (first asset when creating a pair) <span class="optional">Optional</span></label>
               <input id="reference" type="file" accept="image/png,image/jpeg,image/webp" disabled aria-describedby="reference-help">
-              <p id="reference-help" class="field-help">PNG, JPEG, or WebP. Up to 8 MiB and 16 megapixels. Use an image you are allowed to provide.</p>
+              <p id="reference-help" class="field-help">PNG, JPEG, or WebP. Up to 8 MiB and 16 megapixels. Use an image you are allowed to provide. For a pair, show only the first subject here—not a combined panda-and-dragon image.</p>
               <div id="reference-preview" class="reference-preview" hidden><img id="reference-image" alt="Selected reference"><span id="reference-name"></span><button id="remove-reference" class="text-button" type="button">Remove</button></div>
             </div>
             <div>
@@ -51,12 +56,23 @@
               <p id="preset-description" class="field-help">Loading available output sizes…</p>
             </div>
           </div>
+          <div id="second-asset-fields" class="form-card" hidden>
+            <h3>Second independent asset</h3>
+            <label for="asset-two-name">Asset name</label><input id="asset-two-name" maxlength="120" value="Second asset">
+            <label for="second-prompt">Describe this creature or object</label><textarea id="second-prompt" maxlength="4000" rows="3" placeholder="One subject only, separate from the first asset"></textarea>
+            <label for="second-style">Look and materials</label><textarea id="second-style" maxlength="800" rows="2"></textarea>
+            <label for="second-actions">This asset's actions</label><textarea id="second-actions" maxlength="4807" rows="3" placeholder="One action per line, up to 8"></textarea>
+            <label for="second-reference">This asset's reference (optional)</label><input id="second-reference" type="file" accept="image/png,image/jpeg,image/webp">
+            <p class="field-help">Uses the same output preset. Each asset has separate AI and geometry costs; saving starts no paid work. Use a reference showing only this second subject, not the same combined image as the first card. Image-to-3D derives geometry from the reference; distinct file hashes alone do not verify subject separation.</p>
+          </div>
           <div class="form-footer"><p class="field-help">Saving a request does not start AI work or authorize spending.</p><button id="save-request" class="primary-button" type="submit" disabled>Save request <span aria-hidden="true">→</span></button></div>
         </form>
       </section>
+        <section id="scene-panel" class="panel" aria-label="Independent assets" hidden><h3 id="scene-heading">Separate assets</h3><p id="scene-note" class="field-help"></p><div id="scene-assets" class="downloads"></div></section>
       <section id="job-detail" aria-labelledby="job-title" hidden>
         <div class="job-heading"><div><p id="job-eyebrow" class="eyebrow">YOUR CREATION</p><h2 id="job-title"></h2><p id="job-description" class="intro"></p></div><span id="job-status" class="status-badge" role="status"></span></div>
         <p id="fixture-notice" class="notice" hidden>Interface test fixture — these are not generated assets.</p>
+
         <div class="job-layout">
           <div class="job-main">
             <section id="result-panel" class="result-panel" aria-label="Finished assets" hidden>

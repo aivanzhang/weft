@@ -1,0 +1,53 @@
+{
+  "artifacts": [
+    {
+      "bytes": 996,
+      "path": "children/owl/request.json",
+      "sha256": "0ee9351caae38d33af1244bdcbe9a7defff86a9f9dfcfffacc042dd2e1d610d8"
+    },
+    {
+      "bytes": 1087,
+      "path": "children/rabbit/request.json",
+      "sha256": "da5fb9bc214811d0c1cb4020f67c4f57d7d3315060d1b7b3cd0703f2fb77bb18"
+    },
+    {
+      "bytes": 1998,
+      "path": "inputs/config.json",
+      "sha256": "d67a6f86f31c5f1046f9a3a75132d0d236cd106b0e217c11f6d0b20cf5cc37e5"
+    },
+    {
+      "bytes": 6795,
+      "path": "plan.json",
+      "sha256": "db111cadf58e5d1f8c60ea3b12c5385d144904bffb958269e9f726a5f3b4d670"
+    },
+    {
+      "bytes": 1039,
+      "path": "receipt.json",
+      "sha256": "dae4c31afa5e0569ee906d7765fac60b0da1a2249e1d81f90d174e76599a5ebb"
+    },
+    {
+      "bytes": 2256,
+      "path": "scene-request.json",
+      "sha256": "ba38ca0759837d32dd9e3011b3c6dbc2f1829bc5f83861e857362320defcedeb"
+    },
+    {
+      "bytes": 17776,
+      "path": "sources/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 16568,
+      "path": "sources/scene_requests.py",
+      "sha256": "6d91683f6d867c13ea0e3800fdafd8a71d61feefe91bbcc3631dedb6a184097c"
+    }
+  ],
+  "kind": "independent_asset_scene_draft",
+  "policy": "independent-avatar-assets-v1",
+  "schema_version": 1,
+  "status": "planned_separate_assets"
+}

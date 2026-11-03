@@ -1,0 +1,53 @@
+{
+  "artifacts": [
+    {
+      "bytes": 675,
+      "path": "children/dragon/request.json",
+      "sha256": "161ace7ba73e6c2ad7c4f425ddb3c208ce131832bde94ddd30799c6454ca0fd6"
+    },
+    {
+      "bytes": 622,
+      "path": "children/panda/request.json",
+      "sha256": "0bceb894667d9f7a10bf86319e8467067f5dd11acb821d2ee0d3769855d4e3a1"
+    },
+    {
+      "bytes": 1472,
+      "path": "inputs/config.json",
+      "sha256": "0d6b50f14f6b1376bdaa8a60ba245b63522afadd3aa04d872f073344cf4217e1"
+    },
+    {
+      "bytes": 6048,
+      "path": "plan.json",
+      "sha256": "66034a68a8cfa601e4f3e985715c4a76d73868ccb00f93f41454c206bb895164"
+    },
+    {
+      "bytes": 1039,
+      "path": "receipt.json",
+      "sha256": "a96d82ca55d1a0626a3eb1cb90eb3759626df6556221bcebf8d14f05e5586856"
+    },
+    {
+      "bytes": 1762,
+      "path": "scene-request.json",
+      "sha256": "59fa89b7bc7900dd12c3c3b6495bbf3bd6ba2c94970bad243caaf1053d5fcf45"
+    },
+    {
+      "bytes": 17776,
+      "path": "sources/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 16568,
+      "path": "sources/scene_requests.py",
+      "sha256": "6d91683f6d867c13ea0e3800fdafd8a71d61feefe91bbcc3631dedb6a184097c"
+    }
+  ],
+  "kind": "independent_asset_scene_draft",
+  "policy": "independent-avatar-assets-v1",
+  "schema_version": 1,
+  "status": "planned_separate_assets"
+}

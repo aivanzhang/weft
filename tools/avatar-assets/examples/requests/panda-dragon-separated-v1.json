@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "panda-dragon",
+  "title": "Independent panda and dragon",
+  "assets": [
+    {
+      "id": "panda",
+      "name": "Panda",
+      "prompt": "One independent round panda avatar with black and cream markings, small ears, readable eyes and clearly separated arms and legs. Generate the panda alone: no shoulder companion, dragon, props or scenery.",
+      "style": "Polished stylized character with modest short fur and a soft rounded silhouette.",
+      "custom_actions": ["Dance with alternating arm swings and rhythmic body movement."],
+      "preset": "preview"
+    },
+    {
+      "id": "dragon",
+      "name": "Dragon",
+      "prompt": "One independent small green dragon avatar with two distinct wings, four limbs, a long tail, small horns and readable eyes. Generate the dragon alone: no panda, rider, props or scenery. Keep the wings separated from the torso in the rest geometry.",
+      "style": "Polished stylized creature with green scales, lighter belly and delicate wing membranes.",
+      "custom_actions": ["Fly upward and forward while repeatedly flapping both wings."],
+      "preset": "preview"
+    }
+  ],
+  "relationships": [
+    {
+      "id": "shoulder-takeoff",
+      "kind": "attachment",
+      "parent": "panda",
+      "child": "dragon",
+      "parent_anchor": null,
+      "child_anchor": null,
+      "user_request": "The dragon starts on the panda's shoulder, takes off, and flies while the panda dances."
+    }
+  ]
+}

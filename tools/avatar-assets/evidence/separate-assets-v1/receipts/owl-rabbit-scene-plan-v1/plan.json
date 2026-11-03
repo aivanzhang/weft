@@ -1,0 +1,134 @@
+{
+  "aggregate_estimate": {
+    "automatic_paid_geometry_retries": false,
+    "execution": "Re-estimate under the current server limits and shared project ledger before each explicit start.",
+    "expected_ai_calls": 6,
+    "fresh_subjects": 2,
+    "new_meshy_credits": 70,
+    "reused_source_count": 0,
+    "scope": "Current child geometry-plus-texture plan and one planner/author/critic per child; not a grant, provider price quote or guaranteed call count.",
+    "suggested_concurrency": 1
+  },
+  "children": [
+    {
+      "name": "Barn owl",
+      "output_key": "scene-owl-rabbit-owl",
+      "request": {
+        "custom_actions": [
+          "The owl takes off, flaps both wings repeatedly, and travels visibly forward through the air."
+        ],
+        "preset": "preview",
+        "prompt": "Create one independent small barn owl avatar, with cream heart-shaped facial disc, warm brown back, layered feather shapes, gold eyes, short beak, two broad wings and two small feet. No panda, dragon, rider, companion, perch, floor, scenery or fused second creature. Rest geometry must show wings separated from the body so a local rig can articulate both wings. Keep the owl as its own downloadable asset.",
+        "reference_id": null,
+        "style": "Polished stylized animal with modeled feather shapes and painted feather detail; consistent cream and warm-brown palette, readable eyes and soft lighting. Do not add mammal fur. Full body and both wing tips remain in frame."
+      },
+      "source": {
+        "mode": "generate"
+      },
+      "subject_id": "owl"
+    },
+    {
+      "name": "Cream rabbit",
+      "output_key": "scene-owl-rabbit-rabbit",
+      "request": {
+        "custom_actions": [
+          "The rabbit makes repeated forward hops, visibly bending and extending its hind legs and moving its forelegs with each hop."
+        ],
+        "preset": "preview",
+        "prompt": "Create one independent small cream rabbit avatar, with long upright ears, dark brown eyes, pink nose, compact rounded body, four clearly separated legs, large hind feet and one small round tail. No panda, dragon, rider, companion, props, floor, scenery or fused second creature. Keep legs and feet separated from the torso in the rest geometry so a local rig can articulate them. Keep the rabbit as its own downloadable asset.",
+        "reference_id": null,
+        "style": "Polished stylized animal with a consistent cream coat and modest short fur detail, soft lighting and a clear rounded silhouette. Prioritize clean identity and believable movement rather than maximal hair density. Full body, feet and ears remain in frame."
+      },
+      "source": {
+        "mode": "generate"
+      },
+      "subject_id": "rabbit"
+    }
+  ],
+  "complete": false,
+  "credits_reserved": 0,
+  "deliverables": [
+    {
+      "kind": "independently_rigged_glb",
+      "relative_output": "outputs/scene-owl-rabbit-owl",
+      "status": "not_created",
+      "subject_id": "owl"
+    },
+    {
+      "kind": "independently_rigged_glb",
+      "relative_output": "outputs/scene-owl-rabbit-rabbit",
+      "status": "not_created",
+      "subject_id": "rabbit"
+    }
+  ],
+  "execution_ready": false,
+  "paid_calls": 0,
+  "policy": "independent-avatar-assets-v1",
+  "request_sha256": "ad1212fb05aca7ae3bc98417c653b6c1adf92b41f5e4e2b6303f83a3d2618ec6",
+  "requirements": [
+    "Estimate and authorize aggregate child generation/AI cost before dispatch; a scene draft grants no spending.",
+    "Run each child through the existing source, rig, action, attachment, media and critic gates.",
+    "Verify that each final asset contains only its requested subject; declarations and distinct hashes do not prove semantic separation.",
+    "Resolve and verify reference IDs before child preparation; no image is silently reused across subjects."
+  ],
+  "scene": {
+    "assets": [
+      {
+        "custom_actions": [
+          "The owl takes off, flaps both wings repeatedly, and travels visibly forward through the air."
+        ],
+        "id": "owl",
+        "name": "Barn owl",
+        "placement": null,
+        "preset": "preview",
+        "prompt": "Create one independent small barn owl avatar, with cream heart-shaped facial disc, warm brown back, layered feather shapes, gold eyes, short beak, two broad wings and two small feet. No panda, dragon, rider, companion, perch, floor, scenery or fused second creature. Rest geometry must show wings separated from the body so a local rig can articulate both wings. Keep the owl as its own downloadable asset.",
+        "reference_id": null,
+        "source": {
+          "mode": "generate"
+        },
+        "style": "Polished stylized animal with modeled feather shapes and painted feather detail; consistent cream and warm-brown palette, readable eyes and soft lighting. Do not add mammal fur. Full body and both wing tips remain in frame."
+      },
+      {
+        "custom_actions": [
+          "The rabbit makes repeated forward hops, visibly bending and extending its hind legs and moving its forelegs with each hop."
+        ],
+        "id": "rabbit",
+        "name": "Cream rabbit",
+        "placement": null,
+        "preset": "preview",
+        "prompt": "Create one independent small cream rabbit avatar, with long upright ears, dark brown eyes, pink nose, compact rounded body, four clearly separated legs, large hind feet and one small round tail. No panda, dragon, rider, companion, props, floor, scenery or fused second creature. Keep legs and feet separated from the torso in the rest geometry so a local rig can articulate them. Keep the rabbit as its own downloadable asset.",
+        "reference_id": null,
+        "source": {
+          "mode": "generate"
+        },
+        "style": "Polished stylized animal with a consistent cream coat and modest short fur detail, soft lighting and a clear rounded silhouette. Prioritize clean identity and believable movement rather than maximal hair density. Full body, feet and ears remain in frame."
+      }
+    ],
+    "id": "owl-rabbit",
+    "relationships": [],
+    "schema_version": 1,
+    "space": "gltf_y_up_right_handed_meters",
+    "title": "Owl flight and rabbit hops"
+  },
+  "scene_manifest": {
+    "placements": [
+      {
+        "subject_id": "owl",
+        "transform": null
+      },
+      {
+        "subject_id": "rabbit",
+        "transform": null
+      }
+    ],
+    "relationships": [],
+    "space": "gltf_y_up_right_handed_meters",
+    "status": "references_only_no_combined_renderer"
+  },
+  "schema_version": 1,
+  "status": "planned_separate_assets",
+  "unsupported": [
+    "No automatic decomposition of fused geometry, hidden-surface repair, welding or identity substitution.",
+    "No synchronized scene timeline, attachment solve, physical interaction or combined scene acceptance."
+  ]
+}

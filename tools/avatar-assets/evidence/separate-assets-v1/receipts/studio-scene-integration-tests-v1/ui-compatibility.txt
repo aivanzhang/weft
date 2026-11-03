@@ -1,0 +1,18 @@
+✔ unknown charge is explicit without offering an automatic retry (0.637083ms)
+✔ settled refusal and invalid response never show unknown-charge text (0.069292ms)
+✔ old jobs, active jobs and unverified claims preserve the fallback display (0.054125ms)
+✔ old awaiting DOM cannot finish observation before the accepted POST and new worker (1.415ms)
+✔ a new post-submit authorization refusal is preserved, not retried (0.087917ms)
+✔ failed mutation and bounded timeout never start a second preparation (0.251083ms)
+✔ keeping the current look requires an explicit supported owner choice (1.212791ms)
+✔ missing, advisory-false and nonterminal jobs cannot opt in (0.108791ms)
+✔ ordinary retry and the explicit harness mode have disjoint exact payloads (0.1355ms)
+✔ new action starts hidden and explains preserved appearance without claiming acceptance (2.836458ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 73.929959

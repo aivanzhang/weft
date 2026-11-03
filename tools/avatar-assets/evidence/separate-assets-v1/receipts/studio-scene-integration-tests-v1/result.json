@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "provenance": "analytic_fixtures_only",
+  "recorded_local": "2026-11-02 20:07:48 PST",
+  "tests": {
+    "new_python_manager_http": 14,
+    "new_node": 4,
+    "existing_python_lifecycle": 29,
+    "existing_node_ui": 10,
+    "unique_total": 57
+  },
+  "commands": [
+    ".venv/bin/python -m unittest discover -s tests -p 'test_studio_scene*.py' -v",
+    "node --test browser/tests/studio-scenes.test.mjs",
+    ".venv/bin/python -m unittest discover -s tests -p test_studio_jobs.py -v",
+    "node --test browser/tests/studio-preserve-current.test.mjs browser/tests/studio-ai-failure.test.mjs browser/tests/studio-prepare-observation.test.mjs",
+    "node --check browser/studio.js"
+  ],
+  "api": {
+    "create": "POST /api/studio/scenes; {title, assets:[id,name,prompt,style,custom_actions,preset,reference_id?]}; exactly2; session token and request-ID required",
+    "list": "GET /api/studio/scenes; latest20 immutable scene identities",
+    "read": "GET /api/studio/scenes/:id; per-child safe progress/downloads",
+    "finish_save": "POST /api/studio/scenes/:id/finish-save {}; session token; immutable saved inputs only; no planning or generation"
+  },
+  "checks": [
+    "Every pair saves two distinct ordinary jobs; pipeline request shape unchanged.",
+    "Shared explicit asset contract validates before any save; HTTP rejects budget/key/source/path injection.",
+    "No Plan/Start/provider dispatch on create or finish-save.",
+    "Reference selection checked against saved scene inside child insertion transaction.",
+    "Child membership and metadata committed atomically; pending scene slots reserved.",
+    "Failure before first child is discoverable and resumable after restart.",
+    "Unknown/foreign child bindings rejected; reference symlinks rejected.",
+    "Each asset retains own actions, optional reference, status and opaque download links.",
+    "Unchanged row render signature excludes ticking elapsed time.",
+    "children_complete is not verified geometry separation or a combined scene."
+  ],
+  "limits": [
+    "Exactly2 explicit cards in UI/API; free-text decomposition unavailable.",
+    "No combined renderer, synchronized timeline, interaction solver or fused-mesh splitting.",
+    "Both sources fresh in HTTP mode; estimated70 Meshy credits requires existing/new explicit authorization independently of saved jobs.",
+    "Separate grants, existing sequential worker ownership and quality gates unchanged.",
+    "No actual browser, API, native, production job/ledger or Git changes performed by this test lane."
+  ],
+  "initial_fixture_failures": [
+    "System python lacked Pillow; used existing isolated .venv, installed nothing.",
+    "macOS temporary-path symlink fixture fixed by resolving test root; production symlink guard unchanged.",
+    "HTTP reference fixture unnecessarily rewrote its file between idempotent calls; fixture stopped mutation, production binding unchanged."
+  ],
+  "independent_review": "openai_backend read-only review found reference/slot race; fixed, then no remaining concrete blocker reported. No reviewer tests rerun.",
+  "sources": [
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "bytes": 74517,
+      "sha256": "9c0529e44231c09ed96ddb6a8d26b0b093d6a30763acc8f4f6e6766fa2d055ed"
+    },
+    {
+      "path": "avatar_assets/studio.py",
+      "bytes": 21236,
+      "sha256": "3d88d2eab58f6de3c37af9bb0263126a4be918909994157c7d4f937f1191f0a9"
+    },
+    {
+      "path": "browser/studio.js",
+      "bytes": 49469,
+      "sha256": "500fa3f4b89bbfe662479058a7e942343f63e7ddc30191a1ee26da9faad4fe5d"
+    },
+    {
+      "path": "browser/studio.html",
+      "bytes": 12753,
+      "sha256": "c47a96b672ef87e3e2395ce09f4c99cdded984b8244814b77c71264556f8042c"
+    },
+    {
+      "path": "avatar_assets/scene_requests.py",
+      "bytes": 16568,
+      "sha256": "6d91683f6d867c13ea0e3800fdafd8a71d61feefe91bbcc3631dedb6a184097c"
+    },
+    {
+      "path": "tests/test_studio_scene_jobs.py",
+      "bytes": 9422,
+      "sha256": "d7f76449a1f501fc71a38f9cb9e89889dc3a2e73e90fd172f3714f0acd33dbcb"
+    },
+    {
+      "path": "tests/test_studio_scene_http.py",
+      "bytes": 5443,
+      "sha256": "9a8eb4d7260c126ef0d3c3b1a177759749bc17783df9d8c62f7ec3160fe44ee6"
+    },
+    {
+      "path": "browser/tests/studio-scenes.test.mjs",
+      "bytes": 2489,
+      "sha256": "3d89389c359c30839f2905807c3af14bb6052dee9c3b8c10cb364c6909e276fa"
+    }
+  ]
+}

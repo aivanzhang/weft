@@ -1,0 +1,66 @@
+{
+  "artifacts": [
+    {
+      "bytes": 310,
+      "path": "command.json",
+      "sha256": "fed26728ff066915887b3f224c18e9adee569de63430b8f16d5c5cda3bb51858"
+    },
+    {
+      "bytes": 1118,
+      "path": "job.json",
+      "sha256": "d503d479bc455aee58e129261cb739bb6d1e4ea990d03d8440743f50953a1455"
+    },
+    {
+      "bytes": 929,
+      "path": "prepared.json",
+      "sha256": "cc30ff877cd4d4646fe99c119898cf397a64ab12ab1c334f88dd6eb369cb8bca"
+    },
+    {
+      "bytes": 1450,
+      "path": "result.json",
+      "sha256": "81ae619601d7edaaf271a28dd21ab5924bf3eba059a2fced5ad2fcbbc1a3f133"
+    },
+    {
+      "bytes": 1584,
+      "path": "run.py",
+      "sha256": "ca7c5ff37cef9fed0818f41a2ce54b8419f6483368a28c3c7d05e0c0f5c16ac0"
+    },
+    {
+      "bytes": 17776,
+      "path": "sources/avatar_assets/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 16568,
+      "path": "sources/avatar_assets/scene_requests.py",
+      "sha256": "6d91683f6d867c13ea0e3800fdafd8a71d61feefe91bbcc3631dedb6a184097c"
+    },
+    {
+      "bytes": 12599,
+      "path": "sources/tests/test_scene_requests.py",
+      "sha256": "4bf44cd9c98a33050aa574f114dcf6da76e9e2d27c55ca6997d188f3e383f748"
+    },
+    {
+      "bytes": 286,
+      "path": "tests-handle.json",
+      "sha256": "4fe343d9c35127b1a1aed41b880c597488775c9048653f841c6db37886c4e6fc"
+    },
+    {
+      "bytes": 1022,
+      "path": "tests-monitor.json",
+      "sha256": "fe650dd40df509ffce9a0ccd5847535762515397b19b37a384839f42c65e6095"
+    },
+    {
+      "bytes": 2428,
+      "path": "tests.log",
+      "sha256": "d0123348b6655760a6bd471b3a363efcfc49227c42bb6e5834477c2fbb9ae906"
+    }
+  ],
+  "kind": "analytic_composed_continuation_tests",
+  "schema_version": 1
+}

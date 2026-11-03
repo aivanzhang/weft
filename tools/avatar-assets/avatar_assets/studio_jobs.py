@@ -208,7 +208,11 @@ class StudioJobs:
                 request TEXT NOT NULL, output TEXT UNIQUE NOT NULL, created REAL NOT NULL,
                 status TEXT NOT NULL, queued_at REAL, data TEXT NOT NULL);
                 CREATE TABLE IF NOT EXISTS active(id INTEGER PRIMARY KEY CHECK(id=1), job TEXT, token TEXT);
-                CREATE TABLE IF NOT EXISTS journal(seq INTEGER PRIMARY KEY, job TEXT, event TEXT NOT NULL);''')
+                CREATE TABLE IF NOT EXISTS journal(seq INTEGER PRIMARY KEY, job TEXT, event TEXT NOT NULL);
+                CREATE TABLE IF NOT EXISTS scenes(id TEXT PRIMARY KEY, idempotency TEXT UNIQUE NOT NULL,
+                    request_digest TEXT NOT NULL, request TEXT NOT NULL, created REAL NOT NULL);
+                CREATE TABLE IF NOT EXISTS scene_assets(scene TEXT NOT NULL, asset TEXT NOT NULL,
+                    job TEXT UNIQUE NOT NULL, PRIMARY KEY(scene,asset));''')
         self._dispatch()  # Only explicitly queued, never previously running/uncertain, work can resume.
 
     @contextmanager
@@ -263,7 +267,7 @@ class StudioJobs:
                 'device':info.st_dev, 'inode':info.st_ino}
 
     def create(self, prompt, style='', custom_actions=(), preset='preview', reference=None, reuse_model=None,
-               *, idempotency_key=None):
+               *, idempotency_key=None, _scene_asset=None):
         _require(isinstance(prompt, str) and 1 <= len(prompt.strip()) and len(prompt) <= 4000, 'Prompt must be1–4000 characters')
         _require(isinstance(style, str) and len(style) <= 800, 'Style must be at most800 characters')
         _require(isinstance(custom_actions, (list,tuple)) and len(custom_actions) <= 8
@@ -278,22 +282,125 @@ class StudioJobs:
                    'reference':self._selected(reference,True), 'reuse_model':self._selected(reuse_model,False)}
         checksum = _digest(request)
         with self._db(True) as db:
+            scene_binding=None
+            if _scene_asset is not None:
+                scene_id,asset_id=_scene_asset
+                scene=db.execute('SELECT * FROM scenes WHERE id=?',(scene_id,)).fetchone()
+                _require(scene is not None,'Unknown scene reservation')
+                saved=json.loads(scene['request']);_require(_digest(saved)==scene['request_digest'],'Scene request changed')
+                asset=next((a for a in saved['assets'] if a['id']==asset_id),None)
+                _require(asset is not None and idempotency_key=='scene-'+scene_id+'-'+asset_id,'Invalid scene child reservation')
+                expected={k:v for k,v in asset.items() if k not in ('id','name')};expected['reuse_model']=None
+                _require(_digest(expected)==checksum,'Scene child inputs changed before save')
+                scene_binding={'id':scene_id,'title':saved['title'],'asset_id':asset_id,'asset_name':asset['name']}
             existing = db.execute('SELECT * FROM jobs WHERE idempotency=?',(idempotency_key,)).fetchone() if idempotency_key else None
             if existing:
                 _require(existing['request_digest'] == checksum, 'Idempotency key already belongs to a different immutable request')
                 job_id = existing['id']
             else:
-                _require(db.execute('SELECT COUNT(*) FROM jobs').fetchone()[0] < MAX_JOBS, 'Studio retains at most256 jobs; preserve/export history before creating more')
+                pending=db.execute('SELECT COUNT(*)*2-(SELECT COUNT(*) FROM scene_assets) FROM scenes').fetchone()[0]
+                _require(type(pending) is int and pending>=0,'Scene slot accounting changed')
+                _require(db.execute('SELECT COUNT(*) FROM jobs').fetchone()[0]+pending-(1 if scene_binding else 0) < MAX_JOBS,
+                         'Studio retains at most256 jobs including reserved scene slots; preserve/export history before creating more')
                 job_id = uuid.uuid4().hex[:24]
                 folder = _private_directory(self.jobs_dir/job_id)
                 _write_private(folder/'request.json', request)
                 created = time.time()
-                data = {'updated':created,'operation':None,'invocations':0,'cancel_requested':False,
+                data = {'updated':created,**({'scene':scene_binding} if scene_binding else {}),'operation':None,'invocations':0,'cancel_requested':False,
                         'provenance':getattr(self.executor,'provenance','analytic_fixture')}
                 db.execute('INSERT INTO jobs VALUES(?,?,?,?,?,?,?,?,?)',
                     (job_id,idempotency_key,checksum,_canonical(request),'studio-'+job_id,created,'created',None,_canonical(data)))
                 self._journal(db,job_id,{'status':'created','request_digest':checksum})
+            if scene_binding:
+                bound=db.execute('SELECT job FROM scene_assets WHERE scene=? AND asset=?',_scene_asset).fetchone()
+                _require(bound is None or bound['job']==job_id,'Scene child binding changed')
+                _require(json.loads(self._row(db,job_id)['data']).get('scene')==scene_binding,'Child scene metadata changed')
+                db.execute('INSERT OR IGNORE INTO scene_assets VALUES(?,?,?)',(*_scene_asset,job_id))
         return self.get(job_id)
+
+    def create_scene(self, title, assets, *, idempotency_key):
+        """Save independent jobs; a repeated request finishes a partially saved group without dispatch."""
+        _require(isinstance(title,str) and 1 <= len(title.strip()) <= 120, 'Scene title must be1–120 characters')
+        _require(isinstance(idempotency_key,str) and re.fullmatch(r'[A-Za-z0-9_-]{1,100}',idempotency_key),
+                 'Invalid scene request ID')
+        _require(isinstance(assets,list) and len(assets)==2, 'A scene currently requires exactly two explicit assets')
+        normalized=[]
+        for asset in assets:
+            _require(isinstance(asset,dict) and set(asset) <= {'id','name','prompt','style','custom_actions','preset','reference'}
+                     and {'id','name','prompt'} <= set(asset), 'Unsupported scene asset fields')
+            _require(isinstance(asset['id'],str) and re.fullmatch(r'[a-z][a-z0-9_-]{0,63}',asset['id']), 'Invalid asset ID')
+            _require(isinstance(asset['name'],str) and 1<=len(asset['name'].strip())<=120, 'Invalid asset name')
+            prompt,style,actions,preset=asset['prompt'],asset.get('style',''),asset.get('custom_actions',[]),asset.get('preset','preview')
+            _require(isinstance(prompt,str) and prompt.strip() and len(prompt)<=4000, 'Invalid asset prompt')
+            _require(isinstance(style,str) and len(style)<=800, 'Invalid asset style')
+            _require(isinstance(actions,list) and len(actions)<=8 and all(isinstance(a,str) and a.strip() and len(a)<=600 for a in actions)
+                     and len(set(actions))==len(actions), 'Invalid asset actions')
+            _require(preset in ('draft','preview','muse'), 'Unknown asset preset')
+            normalized.append({'id':asset['id'],'name':asset['name'],'prompt':prompt,'style':style,
+                               'custom_actions':actions,'preset':preset,'reference':self._selected(asset.get('reference'),True)})
+        from avatar_assets.scene_requests import validate_explicit_assets
+        validate_explicit_assets([{k:v for k,v in a.items() if k!='reference'} for a in normalized])
+        _require(len({a['id'] for a in normalized})==2 and len({a['name'].strip().casefold() for a in normalized})==2,
+                 'Scene assets need distinct IDs and names')
+        request={'schema_version':1,'title':title,'assets':normalized,'mode':'explicit_independent_assets'}
+        checksum=_digest(request)
+        with self._db(True) as db:
+            row=db.execute('SELECT * FROM scenes WHERE idempotency=?',(idempotency_key,)).fetchone()
+            if row:
+                _require(row['request_digest']==checksum,'Scene request ID belongs to different inputs')
+                scene_id=row['id']
+            else:
+                _require(db.execute('SELECT COUNT(*) FROM scenes').fetchone()[0]<128, 'Scene retention bound reached')
+                pending=db.execute('SELECT COUNT(*)*2-(SELECT COUNT(*) FROM scene_assets) FROM scenes').fetchone()[0]
+                _require(db.execute('SELECT COUNT(*) FROM jobs').fetchone()[0]+pending+2<=MAX_JOBS,'Two unreserved job slots are required')
+                scene_id=uuid.uuid4().hex[:24]
+                db.execute('INSERT INTO scenes VALUES(?,?,?,?,?)',(scene_id,idempotency_key,checksum,_canonical(request),time.time()))
+        for asset in normalized:
+            # Deterministic child keys preserve a partial save if the HTTP connection or process stops.
+            if asset['reference'] is not None:
+                _require(self._selected(asset['reference']['path'],True)==asset['reference'],'Scene reference changed before child save')
+            self.create(asset['prompt'],style=asset['style'],custom_actions=asset['custom_actions'],
+                preset=asset['preset'],reference=asset['reference']['path'] if asset['reference'] else None,
+                idempotency_key='scene-'+scene_id+'-'+asset['id'],_scene_asset=(scene_id,asset['id']))
+        return self.get_scene(scene_id)
+
+    def list_scenes(self):
+        with self._db() as db:
+            rows=list(db.execute('SELECT id,request FROM scenes ORDER BY created DESC,id LIMIT 20'))
+        return {'scenes':[{'id':row['id'],'title':_safe_text(json.loads(row['request'])['title'],120)} for row in rows]}
+
+    def finish_scene_save(self, scene_id):
+        _require(isinstance(scene_id,str) and re.fullmatch(r'[a-f0-9]{24}',scene_id),'Invalid scene ID')
+        with self._db() as db:
+            row=db.execute('SELECT * FROM scenes WHERE id=?',(scene_id,)).fetchone()
+            _require(row is not None,'Unknown scene')
+            saved=json.loads(row['request']);_require(_digest(saved)==row['request_digest'],'Scene request changed')
+        assets=[{**asset,'reference':asset['reference']['path'] if asset['reference'] else None} for asset in saved['assets']]
+        return self.create_scene(saved['title'],assets,idempotency_key=row['idempotency'])
+
+    def get_scene(self, scene_id):
+        _require(isinstance(scene_id,str) and re.fullmatch(r'[a-f0-9]{24}',scene_id),'Invalid scene ID')
+        with self._db() as db:
+            row=db.execute('SELECT * FROM scenes WHERE id=?',(scene_id,)).fetchone()
+            _require(row is not None,'Unknown scene')
+            request=json.loads(row['request']);_require(_digest(request)==row['request_digest'],'Scene request changed')
+            bound=dict(db.execute('SELECT asset,job FROM scene_assets WHERE scene=?',(scene_id,)))
+            _require(set(bound)<={a['id'] for a in request['assets']},'Scene contains an unknown child binding')
+            for asset in request['assets']:
+                if asset['id'] not in bound:continue
+                child=self._row(db,bound[asset['id']]);saved_child=json.loads(child['request'])
+                expected={k:v for k,v in asset.items() if k not in ('id','name')};expected['reuse_model']=None
+                _require(_digest(saved_child)==child['request_digest']==_digest(expected),'Scene child request changed')
+                _require(json.loads(child['data']).get('scene')=={'id':scene_id,'title':request['title'],
+                         'asset_id':asset['id'],'asset_name':asset['name']},'Scene child membership changed')
+        assets=[{'id':a['id'],'name':_safe_text(a['name'],120),'job':self.get(bound[a['id']]) if a['id'] in bound else None}
+                for a in request['assets']]
+        complete=all(a['job'] and a['job']['status']=='complete' for a in assets)
+        return {'id':scene_id,'title':_safe_text(request['title'],120),'mode':request['mode'],
+                'status':'children_complete' if complete else 'saved' if len(bound)==2 else 'partially_saved',
+                'assets':assets,'automatic_decomposition':False,'separation_verified':False,'combined_scene_verified':False,
+                'estimate':{'meshy_credits':70,'openai_dollars':'Separate per-job grants; no allowance added'},
+                'note':'Separate requests and downloads, not a verified mesh split or synchronized interaction. Fresh pair geometry estimate:70 Meshy credits, plus separate OpenAI grants. Prepare and Start each asset separately; saving adds no allowance.'}
 
     def resolve_job(self, job_id):
         with self._db() as db:
@@ -889,6 +996,7 @@ class StudioJobs:
         if status=='needs_inspection' and not error:error='Worker heartbeat or ownership is uncertain. Inspect preserved handles; no automatic duplicate will start.'
         can_resume=status in ('planned','awaiting_authorization','cancelled') and plan_id is not None
         return {'id':row['id'],'title':_safe_text(request['prompt'],80),'status':status,
+            **({'scene':data['scene']} if 'scene' in data else {}),
             'created_at':_local_time(row['created']),'updated_at':_local_time(data['updated']),
             'elapsed_seconds':round(max(0,(data.get('ended') or time.time())-data['started']),2) if data.get('started') else 0,
             'request':{'prompt':_safe_text(request['prompt'],4000),'style':_safe_text(request['style'],800),

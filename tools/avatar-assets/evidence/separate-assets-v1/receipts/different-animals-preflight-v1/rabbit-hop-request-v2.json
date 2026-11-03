@@ -1,0 +1,28 @@
+{
+  "agent_backend": {
+    "max_calls": 3,
+    "max_output_tokens": 16384,
+    "max_repairs": 0,
+    "model": "gpt-5.2-2025-12-11",
+    "provider": "openai",
+    "reasoning_effort": "medium",
+    "timeout": 600
+  },
+  "agent_model": "gpt-5.2-2025-12-11",
+  "agent_timeout": 600,
+  "custom_actions": [
+    "The rabbit makes repeated forward hops, visibly bending and extending its hind legs and moving its forelegs with each hop."
+  ],
+  "max_agent_calls": 3,
+  "max_credits": 35,
+  "max_repairs": 0,
+  "output": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/animal-rabbit-hop-preflight-v2",
+  "preset": "preview",
+  "prompt": "Create one independent small cream rabbit avatar, with long upright ears, dark brown eyes, pink nose, compact rounded body, four clearly separated legs, large hind feet and one small round tail. No panda, dragon, rider, companion, props, floor, scenery or fused second creature. Keep legs and feet separated from the torso in the rest geometry so a local rig can articulate them. Keep the rabbit as its own downloadable asset.",
+  "reference": null,
+  "reuse_model": null,
+  "states": [
+    "repeated_hops"
+  ],
+  "style": "Polished stylized animal with a consistent cream coat and modest short fur detail, soft lighting and a clear rounded silhouette. Prioritize clean identity and believable movement rather than maximal hair density. Full body, feet and ears remain in frame."
+}

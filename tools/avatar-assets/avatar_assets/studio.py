@@ -99,6 +99,12 @@ def _wire(snapshot):
     return value
 
 
+def _scene_wire(snapshot):
+    value=deepcopy(snapshot)
+    value['assets']=[{**asset,'job':_wire(asset['job']) if asset.get('job') else None} for asset in value['assets']]
+    return value
+
+
 class References:
     def __init__(self, root, state_dir):
         self.root = root
@@ -201,6 +207,9 @@ class StudioHandler(gallery._Handler):
                 return self._serve_resource(self.server.root, gallery._Resource(file, gallery._MIME[Path(file).suffix]))
             if path == '/api/studio/session':
                 return self._reply(200, self.server.session)
+            if path == '/api/studio/scenes':
+                require(not parsed.query,'Unexpected scene list query')
+                return self._reply(200,self.server.manager.list_scenes())
             if path == '/api/studio/jobs':
                 query = parse_qs(parsed.query, strict_parsing=True)
                 require(set(query) <= {'limit', 'offset'} and all(len(v) == 1 for v in query.values()), 'Invalid list query')
@@ -210,6 +219,8 @@ class StudioHandler(gallery._Handler):
                     result = {'jobs': result}
                 return self._reply(200, {**result, 'jobs': [_wire(job) for job in result['jobs']]})
             require(not parsed.query, 'Unexpected request query')
+            if match := re.fullmatch('/api/studio/scenes/('+JOB_ID+')', path):
+                return self._reply(200, _scene_wire(self.server.manager.get_scene(match[1])))
             if match := re.fullmatch('/api/studio/jobs/('+JOB_ID+')', path):
                 return self._reply(200, _wire(self.server.manager.get(match[1])))
             if match := re.fullmatch('/api/studio/references/('+REFERENCE_ID+')', path):
@@ -273,6 +284,22 @@ class StudioHandler(gallery._Handler):
                 return self._reply(201, self.server.references.add(part[split+4:], headers.get_filename()))
             require(content_types[0].split(';')[0].strip().lower() == 'application/json', 'Use application/json')
             body = _json(self._body(MAX_JSON))
+            if match := re.fullmatch('/api/studio/scenes/('+JOB_ID+')/finish-save',parsed.path):
+                require(not body,'Finish save accepts no new inputs or spending fields')
+                return self._reply(200,_scene_wire(self.server.manager.finish_scene_save(match[1])))
+            if parsed.path == '/api/studio/scenes':
+                require(set(body)=={'title','assets'} and isinstance(body['assets'],list) and len(body['assets'])==2,
+                        'Use a title and exactly two explicit asset cards')
+                assets=[]
+                for asset in body['assets']:
+                    require(isinstance(asset,dict) and set(asset)<={'id','name','prompt','style','custom_actions','preset','reference_id'}
+                            and {'id','name','prompt'}<=set(asset), 'Unsupported scene asset fields')
+                    item={k:v for k,v in asset.items() if k!='reference_id'}
+                    item['reference']=self.server.references.resolve(asset['reference_id']) if asset.get('reference_id') else None
+                    assets.append(item)
+                keys=self.headers.get_all('X-Avatar-Request-Id',[])
+                require(len(keys)==1,'A unique scene request ID is required')
+                return self._reply(201,_scene_wire(self.server.manager.create_scene(body['title'],assets,idempotency_key=keys[0])))
             if parsed.path == '/api/studio/jobs':
                 require(set(body) <= {'prompt', 'style', 'custom_actions', 'preset', 'reference_id'} and 'prompt' in body,
                         'Unsupported creation fields')
@@ -327,7 +354,7 @@ class StudioServer(gallery._Server):
                         {'id': 'muse', 'label': 'Long HD clips', 'description': 'Eight-second clips; not a quality guarantee'}],
             'limits': {'subject_chars': 4000, 'style_chars': 800, 'actions': 8, 'action_chars': 600,
                        'reference_bytes': MAX_REFERENCE},
-            'capabilities': {'reference_upload': True},
+            'capabilities': {'reference_upload': True, 'explicit_asset_pairs': callable(getattr(manager,'create_scene',None))},
             'planning_cost_note': 'Planning, rigging instructions and review use the server OpenAI API, not a personal AI login. '
                 'Saving a prompt is free. Planning requires a saved-request dollar grant; an enabled owner standing policy can grant an exact saved-work retry. '
                 'Meshy generation credits are separate from OpenAI dollars. Retry reuses the saved source and plan; it never buys credits or increases the allowance. '

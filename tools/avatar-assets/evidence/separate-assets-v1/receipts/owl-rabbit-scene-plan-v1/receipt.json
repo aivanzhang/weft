@@ -1,0 +1,32 @@
+{
+  "child_jobs_created": 0,
+  "complete": false,
+  "config_sha256": "d67a6f86f31c5f1046f9a3a75132d0d236cd106b0e217c11f6d0b20cf5cc37e5",
+  "credits_reserved": 0,
+  "execution_ready": false,
+  "input_sources_modified": false,
+  "paid_calls": 0,
+  "plan_sha256": "db111cadf58e5d1f8c60ea3b12c5385d144904bffb958269e9f726a5f3b4d670",
+  "policy": "independent-avatar-assets-v1",
+  "request_sha256": "ba38ca0759837d32dd9e3011b3c6dbc2f1829bc5f83861e857362320defcedeb",
+  "schema_version": 1,
+  "source_checks": [],
+  "sources": [
+    {
+      "bytes": 16568,
+      "path": "sources/scene_requests.py",
+      "sha256": "6d91683f6d867c13ea0e3800fdafd8a71d61feefe91bbcc3631dedb6a184097c"
+    },
+    {
+      "bytes": 17776,
+      "path": "sources/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "status": "planned_separate_assets"
+}

@@ -1,0 +1,11 @@
+✔ twenty known-scene refreshes use twenty scene reads and zero duplicate selected-job reads (0.816417ms)
+✔ initial discovery uses job then scene; ordinary single job uses exactly one read (0.722875ms)
+✔ missing or changed scene binding fails without extra fetch or silent fallback (0.21875ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 68.307541

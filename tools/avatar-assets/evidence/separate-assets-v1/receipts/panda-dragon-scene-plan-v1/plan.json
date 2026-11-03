@@ -1,0 +1,156 @@
+{
+  "aggregate_estimate": {
+    "automatic_paid_geometry_retries": false,
+    "execution": "Re-estimate under the current server limits and shared project ledger before each explicit start.",
+    "expected_ai_calls": 6,
+    "fresh_subjects": 2,
+    "new_meshy_credits": 70,
+    "reused_source_count": 0,
+    "scope": "Current child geometry-plus-texture plan and one planner/author/critic per child; not a grant, provider price quote or guaranteed call count.",
+    "suggested_concurrency": 1
+  },
+  "children": [
+    {
+      "name": "Panda",
+      "output_key": "scene-panda-dragon-panda",
+      "request": {
+        "custom_actions": [
+          "Dance with alternating arm swings and rhythmic body movement."
+        ],
+        "preset": "preview",
+        "prompt": "One independent round panda avatar with black and cream markings, small ears, readable eyes and clearly separated arms and legs. Generate the panda alone: no shoulder companion, dragon, props or scenery.",
+        "reference_id": null,
+        "style": "Polished stylized character with modest short fur and a soft rounded silhouette."
+      },
+      "source": {
+        "mode": "generate"
+      },
+      "subject_id": "panda"
+    },
+    {
+      "name": "Dragon",
+      "output_key": "scene-panda-dragon-dragon",
+      "request": {
+        "custom_actions": [
+          "Fly upward and forward while repeatedly flapping both wings."
+        ],
+        "preset": "preview",
+        "prompt": "One independent small green dragon avatar with two distinct wings, four limbs, a long tail, small horns and readable eyes. Generate the dragon alone: no panda, rider, props or scenery. Keep the wings separated from the torso in the rest geometry.",
+        "reference_id": null,
+        "style": "Polished stylized creature with green scales, lighter belly and delicate wing membranes."
+      },
+      "source": {
+        "mode": "generate"
+      },
+      "subject_id": "dragon"
+    }
+  ],
+  "complete": false,
+  "credits_reserved": 0,
+  "deliverables": [
+    {
+      "kind": "independently_rigged_glb",
+      "relative_output": "outputs/scene-panda-dragon-panda",
+      "status": "not_created",
+      "subject_id": "panda"
+    },
+    {
+      "kind": "independently_rigged_glb",
+      "relative_output": "outputs/scene-panda-dragon-dragon",
+      "status": "not_created",
+      "subject_id": "dragon"
+    }
+  ],
+  "execution_ready": false,
+  "paid_calls": 0,
+  "policy": "independent-avatar-assets-v1",
+  "request_sha256": "faeb096862d4eba56988f41014f31e1d18c52bb536bb7dead526824eac5e7f99",
+  "requirements": [
+    "Estimate and authorize aggregate child generation/AI cost before dispatch; a scene draft grants no spending.",
+    "Run each child through the existing source, rig, action, attachment, media and critic gates.",
+    "Verify that each final asset contains only its requested subject; declarations and distinct hashes do not prove semantic separation.",
+    "Resolve and verify reference IDs before child preparation; no image is silently reused across subjects."
+  ],
+  "scene": {
+    "assets": [
+      {
+        "custom_actions": [
+          "Dance with alternating arm swings and rhythmic body movement."
+        ],
+        "id": "panda",
+        "name": "Panda",
+        "placement": null,
+        "preset": "preview",
+        "prompt": "One independent round panda avatar with black and cream markings, small ears, readable eyes and clearly separated arms and legs. Generate the panda alone: no shoulder companion, dragon, props or scenery.",
+        "reference_id": null,
+        "source": {
+          "mode": "generate"
+        },
+        "style": "Polished stylized character with modest short fur and a soft rounded silhouette."
+      },
+      {
+        "custom_actions": [
+          "Fly upward and forward while repeatedly flapping both wings."
+        ],
+        "id": "dragon",
+        "name": "Dragon",
+        "placement": null,
+        "preset": "preview",
+        "prompt": "One independent small green dragon avatar with two distinct wings, four limbs, a long tail, small horns and readable eyes. Generate the dragon alone: no panda, rider, props or scenery. Keep the wings separated from the torso in the rest geometry.",
+        "reference_id": null,
+        "source": {
+          "mode": "generate"
+        },
+        "style": "Polished stylized creature with green scales, lighter belly and delicate wing membranes."
+      }
+    ],
+    "id": "panda-dragon",
+    "relationships": [
+      {
+        "child": "dragon",
+        "child_anchor": null,
+        "id": "shoulder-takeoff",
+        "kind": "attachment",
+        "parent": "panda",
+        "parent_anchor": null,
+        "user_request": "The dragon starts on the panda's shoulder, takes off, and flies while the panda dances."
+      }
+    ],
+    "schema_version": 1,
+    "space": "gltf_y_up_right_handed_meters",
+    "title": "Independent panda and dragon"
+  },
+  "scene_manifest": {
+    "placements": [
+      {
+        "subject_id": "panda",
+        "transform": null
+      },
+      {
+        "subject_id": "dragon",
+        "transform": null
+      }
+    ],
+    "relationships": [
+      {
+        "child": "dragon",
+        "child_anchor": null,
+        "id": "shoulder-takeoff",
+        "kind": "attachment",
+        "parent": "panda",
+        "parent_anchor": null,
+        "reason": "Separate child assets are planned, but cross-asset anchor binding, attachment motion and interaction verification are not implemented.",
+        "status": "unsupported",
+        "user_request": "The dragon starts on the panda's shoulder, takes off, and flies while the panda dances."
+      }
+    ],
+    "space": "gltf_y_up_right_handed_meters",
+    "status": "references_only_no_combined_renderer"
+  },
+  "schema_version": 1,
+  "status": "planned_separate_assets",
+  "unsupported": [
+    "No automatic decomposition of fused geometry, hidden-surface repair, welding or identity substitution.",
+    "No synchronized scene timeline, attachment solve, physical interaction or combined scene acceptance."
+  ]
+}

@@ -137,6 +137,11 @@ def plan_prompt(request):
     validate_custom_actions(request.get("custom_actions", []))
     return _BOUNDARY + """
 ROLE: planner. Convert the user's text into a subject-specific generation brief and meaningful animation states.
+This job delivers ONE independently controllable asset, not a cast of separate characters.
+If the request needs two or more independent characters/animals/objects, return unsupported and direct the caller
+to separate asset jobs in a scene. Do not ask Meshy for both, fuse them, rename mesh parts as separate assets,
+or omit a requested character. Body parts and permanently worn accessories are not separate characters.
+An explicitly reused combined source may preserve a carried companion, but cannot establish independent assets.
 Return all PLAN_SCHEMA fields. For ready, subject is <=400 characters, style <=800, generation_prompt <=800,
 and height_meters is a finite authored height between0.05 and10. Copy an explicitly provided style exactly.
 When style is not specified, infer a nonempty descriptive style from the subject/prompt; never return an empty ready style.
@@ -166,7 +171,8 @@ motion needs distinct roles. Never attach every requirement to the main body to 
 Preserving an existing attached accessory while it is carried with the body belongs in appearance_checks; the main moving
 role may include that attached companion. Staying perched relative to a moving body is not world-space stability or
 new-prop interaction. This does not add attachment repair, separation or physical-contact simulation capability.
-If the companion must fly, flap or otherwise move independently, give that requested motion its own roles and requirements.
+If a companion must fly, flap or otherwise move independently from another character, this single-asset job is
+unsupported: require a separate asset job for each character instead of one multi-character generation prompt.
 Use stability only when the user's action explicitly requests world-stationary geometry, such as a fixed base or planted feet.
 Never invent a stationary torso for a whole-body dance, hop or travel. Readable, supportive or upright does not mean motionless.
 Do not classify genuinely requested stationary torso/planted feet as articulation: they must remain still, not pass a movement test.

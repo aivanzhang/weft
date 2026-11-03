@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "recorded_local": "2026-11-02 20:13:44 PST",
+  "provenance": "analytic_request_count_fixture_no_browser",
+  "prior_evidence": {
+    "path": "outputs/studio-scene-integration-tests-v1/manifest.json",
+    "sha256": "d46dee936bfb76bd3e904cbed31d2cddbd9743e13857bea33021f162b31701c2",
+    "checks": 57,
+    "rerun": false
+  },
+  "new_checks": 3,
+  "commands": [
+    "node --test browser/tests/studio-scene-refresh.test.mjs",
+    "node --check browser/studio.js"
+  ],
+  "measurement": {
+    "known_scene_refreshes": 20,
+    "scene_detail_reads": 20,
+    "duplicate_selected_job_reads": 0,
+    "previous_code_detail_requests_for_same_iterations": 40,
+    "previous_count_scope": "Derived from replaced GET selected job + GET scene path, not a measured before-run",
+    "scope": "Selected detail refresh only; existing bounded jobs/scene library reads are unchanged. Not a live output-heavy latency or RSS benchmark."
+  },
+  "behavior": [
+    "Known immutable scene uses one scene response for selected child and sibling.",
+    "Initial discovery can still request job then scene.",
+    "Ordinary single asset remains one selected-job read.",
+    "Missing or mismatched scene membership fails without fallback/retry."
+  ],
+  "sources": [
+    {
+      "path": "browser/studio.js",
+      "bytes": 50472,
+      "sha256": "993d9ad68dbb2c365d7d7b00dd63e5dda08d4b73f56959ab6c2fe400a6a6b62a"
+    },
+    {
+      "path": "browser/tests/studio-scene-refresh.test.mjs",
+      "bytes": 2008,
+      "sha256": "66e1b9baa191e6dfcbab729ad0ebe47082234cda724c546efd9b2950cb0ffe31"
+    }
+  ]
+}

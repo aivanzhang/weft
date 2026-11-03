@@ -63,6 +63,35 @@ export function retryRequestBody(job, preserveCurrent = false) {
   return {};
 }
 
+export function explicitSceneRequest(title, first, second) {
+  if (typeof title !== "string" || !title.trim() || title.length > 120) throw new Error("Name this asset pair (up to 120 characters).");
+  const assets = [first, second].map((asset, index) => {
+    if (!asset || typeof asset.name !== "string" || !asset.name.trim() || asset.name.length > 120) throw new Error("Give each asset a short name.");
+    if (typeof asset.prompt !== "string" || !asset.prompt.trim() || asset.prompt.length > 4000) throw new Error("Describe one subject in each asset card.");
+    return { id: `asset-${index + 1}`, name: asset.name.trim(), prompt: asset.prompt.trim(),
+      style: text(asset.style, 800), custom_actions: parseActions((asset.custom_actions || []).join("\n")),
+      preset: asset.preset, ...(asset.reference_id ? { reference_id: asset.reference_id } : {}) };
+  });
+  if (assets[0].name.toLocaleLowerCase() === assets[1].name.toLocaleLowerCase()) throw new Error("Use distinct asset names.");
+  return { title: title.trim(), assets };
+}
+
+export async function selectedJobSnapshot(id, knownJob, read) {
+  let job = knownJob?.id === id ? knownJob : null;
+  if (!job?.scene?.id) {
+    const response = await read(`/api/studio/jobs/${encodeURIComponent(id)}`);
+    job = response?.job || response;
+    if (!job || job.id !== id || typeof job.status !== "string") throw new Error("The selected job snapshot changed.");
+    if (!job.scene?.id) return { job, scene: null };
+  }
+  const sceneId = job.scene.id;
+  if (typeof sceneId !== "string" || !/^[a-f0-9]{24}$/.test(sceneId)) throw new Error("Invalid selected scene.");
+  const scene = await read(`/api/studio/scenes/${sceneId}`);
+  const selected = Array.isArray(scene?.assets) ? scene.assets.find(asset => asset.job?.id === id)?.job : null;
+  if (scene?.id !== sceneId || !selected || selected.scene?.id !== sceneId || typeof selected.status !== "string") throw new Error("The selected job is missing from its bound scene.");
+  return { job: selected, scene };
+}
+
 export function canStart(job) {
   return ["planned", "awaiting_authorization"].includes(job?.status) &&
     job?.capabilities?.start !== false && job?.plan?.authorization?.can_start === true && Boolean(planID(job));
@@ -74,11 +103,11 @@ function planID(job) {
 
 export async function bootStudio() {
   const $ = (id) => document.getElementById(id);
-  const state = { session: null, jobs: [], selected: null, job: null, busy: false, jobSignature: "", listSignature: "",
+  const state = { session: null, jobs: [], scenes: [], selected: null, job: null, busy: false, jobSignature: "", listSignature: "",
     resultSignature: "", result: null, mode: "portrait", clip: null, read: null, mutation: null, timer: null,
     pollBusy: false, reference: null, referenceURL: null, uploadedReference: null, acknowledgedPlan: null,
     preview: null, previewTimer: null, previewVersion: 0, modelReady: false, modelRuntime: null, raf: 0, lastPaint: 0,
-    draftID: null, draftFingerprint: null };
+    scene: null, sceneSignature: null, secondReference: null, uploadedSecondReference: null, draftID: null, draftFingerprint: null };
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   const model = $("result-model"), video = $("result-video"), portrait = $("result-portrait");
   const apiPath = (id, suffix = "") => `/api/studio/jobs/${encodeURIComponent(id)}${suffix}`;
@@ -162,8 +191,12 @@ export async function bootStudio() {
     $("estimate-ack").disabled = state.busy || !canStart(job);
     $("refresh").disabled = state.busy || state.pollBusy;
     $("new-request").disabled = $("copy-request").disabled = state.busy;
+    for (const button of $("scene-panel").querySelectorAll("button")) button.disabled = state.busy;
     for (const id of ["prompt", "style", "actions", "preset", "remove-reference"]) $(id).disabled = state.busy || !state.session;
     $("reference").disabled = state.busy || state.session?.capabilities?.reference_upload !== true;
+    $("separate-assets").disabled = state.busy || state.session?.capabilities?.explicit_asset_pairs !== true;
+    for (const id of ["scene-title", "asset-one-name", "asset-two-name", "second-prompt", "second-style", "second-actions", "second-reference"]) $(id).disabled = state.busy || !state.session;
+    $("second-reference").disabled ||= state.session?.capabilities?.reference_upload !== true;
   }
   function presetDescription() {
     const preset = state.session?.presets?.find((item) => (typeof item === "string" ? item : item.id) === $("preset").value);
@@ -191,17 +224,22 @@ export async function bootStudio() {
     return job;
   }
   function renderList() {
-    const signature = JSON.stringify([state.selected, state.jobs.map((job) => [job.id, job.title, job.status])]);
+    const signature = JSON.stringify([state.selected, state.jobs.map((job) => [job.id, job.title, job.status]), state.scenes]);
     if (signature === state.listSignature) return;
     state.listSignature = signature;
     const fragment = document.createDocumentFragment();
+    for (const scene of state.scenes.slice(0, 20)) {
+      const button = node("button", null, "job-card"); button.type = "button";
+      button.append(node("strong", text(scene.title, 120)), node("small", "Separate asset pair"));
+      button.addEventListener("click", () => selectScene(scene.id)); fragment.append(button);
+    }
     for (const job of state.jobs.slice(0, 100)) {
       const button = node("button", null, "job-card"); button.type = "button"; button.dataset.job = job.id;
       button.setAttribute("aria-pressed", String(job.id === state.selected));
-      button.append(node("strong", text(job.title || job.request?.prompt, 160) || "Untitled creation"), node("small", statusLabel(job.status)));
+      button.append(node("strong", text(job.title || job.request?.prompt, 160) || "Untitled creation"), node("small", `${job.scene?.asset_name ? `${text(job.scene.asset_name, 120)} · ` : ""}${statusLabel(job.status)}`));
       button.addEventListener("click", () => selectJob(job.id)); fragment.append(button);
     }
-    $("job-list").replaceChildren(fragment); $("empty-jobs").hidden = state.jobs.length > 0;
+    $("job-list").replaceChildren(fragment); $("empty-jobs").hidden = state.jobs.length > 0 || state.scenes.length > 0;
   }
   function addFact(container, label, value) {
     if (value == null || value === "") return;
@@ -303,6 +341,37 @@ export async function bootStudio() {
       group.append(node("strong", `Review ${review.attempt ?? i + 1} · ${statusLabel(review.status)}`), node("p", text(review.summary)));
       return group;
     }));
+  }
+  function renderScene(scene) {
+    state.scene = scene; $("scene-panel").hidden = !scene;
+    const signature = scene ? JSON.stringify([scene.id,scene.title,scene.note,scene.status,
+      scene.assets.map(a => [a.id,a.name,a.job?.id,a.job?.status,a.job?.result?.downloads])]) : null;
+    if (signature === state.sceneSignature) return;
+    state.sceneSignature = signature;
+    if (!scene) { $("scene-assets").replaceChildren(); return; }
+    $("scene-heading").textContent = text(scene.title, 120);
+    $("scene-note").textContent = text(scene.note, 800);
+    $("scene-assets").replaceChildren(...scene.assets.slice(0, 2).map((asset) => {
+      const row = node("div", null, "panel"), job = asset.job;
+      row.append(node("strong", text(asset.name, 120)), node("p", job ? statusLabel(job.status) : "Not saved yet. Finish saving this pair without starting paid work."));
+      if (!job) {
+        const finish = node("button", "Finish saving pair", "quiet-button"); finish.type = "button";
+        finish.addEventListener("click", () => mutate(async signal => renderScene(await request(`/api/studio/scenes/${encodeURIComponent(scene.id)}/finish-save`, { method: "POST", body: {}, signal }))));
+        row.append(finish); return row;
+      }
+      const button = node("button", "Open progress and downloads", "quiet-button"); button.type = "button";
+      button.disabled = state.busy; button.addEventListener("click", () => selectJob(job.id)); row.append(button);
+      for (const item of (job.result?.downloads || []).slice(0, 4)) {
+        const url = assetURL(item.url); if (!url) continue;
+        const link = node("a", `${text(item.label, 120)} ↓`); link.href = url; row.append(link);
+      }
+      return row;
+    }));
+  }
+  async function loadScene(job, signal) {
+    if (!job.scene?.id) return renderScene(null);
+    const scene = await request(`/api/studio/scenes/${encodeURIComponent(job.scene.id)}`, { signal });
+    if (!signal.aborted && state.selected === job.id) renderScene(scene);
   }
   function renderJob(job) {
     state.job = job;
@@ -468,33 +537,55 @@ export async function bootStudio() {
       const payload = await request("/api/studio/jobs", { signal: controller.signal });
       if (controller.signal.aborted) return;
       if (!Array.isArray(payload.jobs)) throw new Error("The local service did not return a creation list.");
-      state.jobs = payload.jobs.slice(0, 100); renderList();
+      state.jobs = payload.jobs.slice(0, 100);
+      if (state.session.capabilities?.explicit_asset_pairs === true) {
+        const groups = await request("/api/studio/scenes", { signal: controller.signal });
+        if (controller.signal.aborted) return;
+        state.scenes = Array.isArray(groups.scenes) ? groups.scenes.slice(0, 20) : [];
+      }
+      renderList();
       if (selected && selected === state.selected) {
-        const job = unwrapJob(await request(apiPath(selected), { signal: controller.signal }));
-        if (!controller.signal.aborted && selected === state.selected) renderJob(job);
+        const snapshot = await selectedJobSnapshot(selected, state.job, path => request(path, { signal: controller.signal }));
+        if (!controller.signal.aborted && selected === state.selected) { renderJob(snapshot.job); renderScene(snapshot.scene); }
       }
       connection();
     } catch (error) { if (error.name !== "AbortError") connection(error.message); }
     finally { if (state.read === controller) state.read = null; state.pollBusy = false; updateButtons(); schedulePoll(); }
   }
+  async function selectScene(id) {
+    if (state.busy || typeof id !== "string" || !/^[a-f0-9]{24}$/.test(id)) return;
+    stopPolling(); clearPreview(); state.selected = null; state.job = null; state.jobSignature = "";
+    state.resultSignature = ""; state.acknowledgedPlan = null; $("estimate-ack").checked = false;
+    $("composer").hidden = $("job-detail").hidden = true;
+    const controller = new AbortController(); state.read = controller;
+    try {
+      const scene = await request(`/api/studio/scenes/${encodeURIComponent(id)}`, { signal: controller.signal });
+      if (controller.signal.aborted) return;
+      const job = scene.assets.find(asset => asset.job)?.job;
+      if (job) { state.selected = job.id; renderJob(job); }
+      renderScene(scene); renderList(); updateButtons();
+    } catch (error) { if (error.name !== "AbortError") message(error.message); }
+    finally { if (state.read === controller) state.read = null; schedulePoll(); }
+  }
   async function selectJob(id) {
     if (typeof id !== "string" || !id || id.length > 160) return;
-    stopPolling(); clearPreview(); message(); state.selected = id; state.job = null; state.jobSignature = ""; state.resultSignature = "";
+    stopPolling(); clearPreview(); renderScene(null); message(); state.selected = id; state.job = null; state.jobSignature = ""; state.resultSignature = "";
     state.acknowledgedPlan = null; $("estimate-ack").checked = false;
     const controller = new AbortController(); state.read = controller; renderList();
     $("composer").hidden = true; $("job-detail").hidden = true; updateButtons();
     try {
       const job = unwrapJob(await request(apiPath(id), { signal: controller.signal }));
-      if (!controller.signal.aborted && state.selected === id) { renderJob(job); connection(); }
+      if (!controller.signal.aborted && state.selected === id) { renderJob(job); await loadScene(job, controller.signal); connection(); }
     } catch (error) { if (error.name !== "AbortError" && state.selected === id) message(`Could not load this creation. ${error.message}`); }
     finally { if (state.read === controller) state.read = null; schedulePoll(); }
   }
   function newRequest(copy = null) {
     if (state.busy) return;
-    stopPolling(); clearPreview(); state.selected = null; state.job = null; state.result = null;
+    stopPolling(); clearPreview(); renderScene(null); state.selected = null; state.job = null; state.result = null;
     state.jobSignature = ""; state.resultSignature = ""; message();
     $("composer").hidden = false; $("job-detail").hidden = true;
     if (copy) {
+      $("separate-assets").checked = false; pairMode();
       state.draftID = state.draftFingerprint = null;
       $("prompt").value = text(copy.prompt, 4000); $("style").value = text(copy.style, 800);
       $("actions").value = (Array.isArray(copy.custom_actions) ? copy.custom_actions : []).filter((action) => typeof action === "string").slice(0, 8).join("\n");
@@ -527,12 +618,32 @@ export async function bootStudio() {
   });
   $("reference-image").addEventListener("error", () => { if (state.reference) { removeReference(); message("This image could not be previewed. Select another reference."); } });
   $("remove-reference").addEventListener("click", removeReference);
+  function pairMode() {
+    const enabled = $("separate-assets").checked;
+    $("scene-fields").hidden = $("second-asset-fields").hidden = !enabled;
+    for (const id of ["scene-title", "asset-one-name", "asset-two-name", "second-prompt"]) $(id).required = enabled;
+    state.draftID = state.draftFingerprint = null;
+  }
+  $("separate-assets").addEventListener("change", pairMode);
+  $("second-reference").addEventListener("change", () => {
+    state.secondReference = $("second-reference").files[0] || null; state.uploadedSecondReference = null;
+    state.draftID = state.draftFingerprint = null;
+  });
   $("request-form").addEventListener("submit", (event) => {
     event.preventDefault(); const customActions = actionInput(); if (!customActions || !$("request-form").reportValidity()) return;
     const prompt = $("prompt").value.trim(); if (!prompt) { $("prompt").focus(); return message("Describe the avatar you want to create."); }
     const payload = { prompt, style: $("style").value.trim(), custom_actions: customActions, preset: $("preset").value };
-    const reference = state.reference;
-    const fingerprint = JSON.stringify([payload, reference && [reference.name, reference.size, reference.lastModified]]);
+    const reference = state.reference, pair = $("separate-assets").checked;
+    const secondReference = pair ? state.secondReference : null;
+    let scene;
+    try { if (pair) scene = explicitSceneRequest($("scene-title").value,
+      { ...payload, name: $("asset-one-name").value },
+      { name: $("asset-two-name").value, prompt: $("second-prompt").value, style: $("second-style").value,
+        custom_actions: parseActions($("second-actions").value), preset: payload.preset }); }
+    catch (error) { return message(error.message); }
+    if (secondReference && (!/^image\/(png|jpeg|webp)$/.test(secondReference.type) || !secondReference.size || secondReference.size > limit("reference_bytes", 8 * 1024 * 1024))) return message("The second reference must be a PNG, JPEG or WebP up to 8 MiB.");
+    const fingerprint = JSON.stringify([scene || payload, reference && [reference.name, reference.size, reference.lastModified],
+      secondReference && [secondReference.name, secondReference.size, secondReference.lastModified]]);
     if (fingerprint !== state.draftFingerprint) { state.draftID = crypto.randomUUID(); state.draftFingerprint = fingerprint; }
     const requestID = state.draftID;
     mutate(async (signal) => {
@@ -541,7 +652,16 @@ export async function bootStudio() {
         if (!text(state.uploadedReference.id, 160)) throw new Error("The reference could not be attached to this request.");
         payload.reference_id = state.uploadedReference.id;
       }
-      const job = unwrapJob(await request("/api/studio/jobs", { method: "POST", body: payload, signal, requestID }));
+      let job;
+      if (scene) {
+        if (payload.reference_id) scene.assets[0].reference_id = payload.reference_id;
+        if (secondReference) {
+          if (!state.uploadedSecondReference) { const form = new FormData(); form.set("file", secondReference); state.uploadedSecondReference = await request("/api/studio/references", { method: "POST", body: form, signal }); }
+          scene.assets[1].reference_id = state.uploadedSecondReference.id;
+        }
+        const saved = await request("/api/studio/scenes", { method: "POST", body: scene, signal, requestID });
+        job = unwrapJob(saved.assets?.[0]?.job); renderScene(saved);
+      } else { job = unwrapJob(await request("/api/studio/jobs", { method: "POST", body: payload, signal, requestID })); renderScene(null); }
       state.draftID = state.draftFingerprint = null;
       state.selected = job.id; state.jobSignature = ""; state.resultSignature = ""; renderJob(job); renderList();
       $("job-title").scrollIntoView({ block: "nearest" });
@@ -572,7 +692,7 @@ export async function bootStudio() {
     const id = state.selected; if (!id || !LIVE.has(state.job?.status)) return;
     mutate(async (signal) => { const job = unwrapJob(await request(apiPath(id, "/cancel"), { method: "POST", body: {}, signal })); if (state.selected === id) renderJob(job); });
   });
-  for (const id of ["prompt", "style", "actions", "preset"]) $(id).addEventListener("input", () => { state.draftID = state.draftFingerprint = null; });
+  for (const id of ["prompt", "style", "actions", "preset", "scene-title", "asset-one-name", "asset-two-name", "second-prompt", "second-style", "second-actions"]) $(id).addEventListener("input", () => { state.draftID = state.draftFingerprint = null; });
   $("actions").addEventListener("input", actionInput); $("preset").addEventListener("change", presetDescription);
   $("estimate-ack").addEventListener("change", updateButtons); $("refresh").addEventListener("click", refresh);
   $("new-request").addEventListener("click", () => newRequest()); $("copy-request").addEventListener("click", () => newRequest(state.job?.request));

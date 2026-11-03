@@ -4,11 +4,23 @@ Local workflow for editable, rigged 3D avatars and their 2D portrait/animation e
 
 **Budget:** standing authorization permits further bounded retries within **$15
 total OpenAI spend**, including prior use, without repeated approval questions.
-The append-only ledger cap is active; no new Meshy work.
+The append-only ledger cap is active. The new owl/rabbit trial needs a separate
+62-credit Meshy allowance increase; no new paid work has run for it yet.
+
+**Current request:** [separate characters and different animals](docs/separate-assets.md).
+The next checks are an owl taking off/flying and a rabbit hopping, each with its
+own model, rig and motion. The previous panda/dragon source is combined and
+remains unchanged; its accepted dance does not prove independent dragon control.
+Separate-asset Studio cards pass local analytic checks. Fresh animal generation awaits
+the additional Meshy allowance; prepared requests are not completed assets.
+Use **Two separate assets** in Studio for individual prompts, actions, references,
+progress and downloads. [Tests and prepared requests](evidence/separate-assets-v1/manifest.json)
+do not yet prove the new animals' appearance or motion.
 
 **Current direction:** the website uses the server OpenAI API for planning,
 authoring and review; Meshy supplies geometry/textures. The active priority is a
-fully hands-off Studio delivery using the already accepted panda appearance.
+fully hands-off Studio delivery, now extending the accepted panda test to distinct
+subjects and separate assets without further panda fur tuning.
 Earlier accepted authored panda/dragon assets remain intact. On **November 2, 2026,
 19:39:23 PST**, the saved-source preservation run completed automatically and
 passed its numeric gates, final review and actual website verification.
@@ -50,8 +62,8 @@ hosted deployment. The [handoff](TODO.md) records exact sources, ownership,
 commands, failures and the next safe action. [Backend details](docs/api-website-backend.md).
 
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.
-The user has accepted the previous appearance; the active priority is now a
-hands-off Studio delivery, not further appearance upgrades. One real saved-source
+The user has accepted the previous appearance; the active priority is now
+separate assets and broader animal/motion tests, not further appearance upgrades. One real saved-source
 preservation delivery now passes; fresh geometry generation and broader prompt
 coverage remain separate, unproven acceptance cases. The earlier [texture-preserving undercoat improvement](docs/undercoat-uv2-preservation.md)
 passes component checks; it is not a newly accepted avatar.

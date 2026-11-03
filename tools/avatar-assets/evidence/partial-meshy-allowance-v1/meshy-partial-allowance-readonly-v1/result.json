@@ -1,0 +1,47 @@
+{
+  "base_consumed_or_reserved": 132,
+  "base_credit_limit": 140,
+  "base_remaining": 8,
+  "call_count": 18,
+  "job_usage": [
+    {
+      "base_usage": 0,
+      "credits": 35,
+      "job": "emerald-dragon-meshy-v1",
+      "targeted_grant": 35
+    },
+    {
+      "base_usage": 92,
+      "credits": 92,
+      "job": "muse-panda-meshy-v1",
+      "targeted_grant": 0
+    },
+    {
+      "base_usage": 0,
+      "credits": 35,
+      "job": "muse-panda-smooth-base-v2",
+      "targeted_grant": 35
+    },
+    {
+      "base_usage": 0,
+      "credits": 35,
+      "job": "studio-2fa07fbb61ef4da4bc8f7f70-mesh",
+      "targeted_grant": 35
+    },
+    {
+      "base_usage": 40,
+      "credits": 40,
+      "job": "workshop-robot-meshy-v1",
+      "targeted_grant": 0
+    }
+  ],
+  "ledger_sha256_after": "b4b3a06c204457d8dff88e6ea631eeeb134c55a9444e54a02f211def1f60aa5a",
+  "ledger_sha256_before": "b4b3a06c204457d8dff88e6ea631eeeb134c55a9444e54a02f211def1f60aa5a",
+  "schema_version": 1,
+  "scope": "Read-only canonical Meshy credit provenance; no key/provider access or grant mutation.",
+  "targeted_grant_total": 105,
+  "total_consumed_or_reserved": 237,
+  "unchanged": true,
+  "unknown_submissions": 0,
+  "unused_targeted_grants": {}
+}

@@ -1,0 +1,69 @@
+{
+  "artifacts": [
+    {
+      "bytes": 6273,
+      "path": "README.md",
+      "sha256": "0d2969342d24d5d01c2765b20d2e75d8838d72a89978c45a05b99ddc6d70b2a7"
+    },
+    {
+      "bytes": 522,
+      "path": "budget-effective.json",
+      "sha256": "5a226161575b608f1ab4ae4ba129a41c0c562aa74b42bd3a85de4dda9005b16d"
+    },
+    {
+      "bytes": 1307,
+      "path": "budget-readonly.json",
+      "sha256": "d73bbf8f19ca223ef3bbd3234f0fa875176545280792e5f09170bd6af0be33a3"
+    },
+    {
+      "bytes": 1338,
+      "path": "owl-flight-request-v2.json",
+      "sha256": "25ea3812d386885e30e679381a7735b34b1adfd30c8b2055666a56eb4f89d607"
+    },
+    {
+      "bytes": 1338,
+      "path": "owl-flight-request.json",
+      "sha256": "0f03e7fbe9e92c66f361c597c858d79688dea79d26ac4d65f4ee6ec2f3607d4b"
+    },
+    {
+      "bytes": 5149,
+      "path": "preflight-results-v2.json",
+      "sha256": "071bc520a1643d3312befb6edb69bb40c15dd490761248f7c1a83c1e5c84d3bf"
+    },
+    {
+      "bytes": 5445,
+      "path": "preflight-results.json",
+      "sha256": "b147d9b364690471472eb17a84822488c313225856a47f4aaf6ad39b6b349b94"
+    },
+    {
+      "bytes": 1527,
+      "path": "prepare-current-sources.py",
+      "sha256": "c65bb3fec4033dcdfbd3aeb2bc485e861302561105b17516b978567b0140b46b"
+    },
+    {
+      "bytes": 3755,
+      "path": "prepare_requests.py",
+      "sha256": "a637b3148c3754f243253d0bf15b8f41417d52637a8530fe43712ce555192fb6"
+    },
+    {
+      "bytes": 48285,
+      "path": "prepared-output-refs.json",
+      "sha256": "fc3630edb4d1945796d1cab229d12d7d5afff53b46b42af68e7a06cfceb6412c"
+    },
+    {
+      "bytes": 1418,
+      "path": "rabbit-hop-request-v2.json",
+      "sha256": "6d78c11e88912c04921e9421896489930613e3c80a9403f4877314dc44519221"
+    },
+    {
+      "bytes": 1418,
+      "path": "rabbit-hop-request.json",
+      "sha256": "ca2aab4a2da21e5bb06297553b352a4d46f940520c46f7cfbf981ee872269917"
+    }
+  ],
+  "classification": "Source-free request preflight and read-only cost research; not generated animal assets",
+  "ledger_mutations": 0,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "schema_version": 1
+}

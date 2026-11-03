@@ -1,0 +1,12 @@
+{
+  "budget": {
+    "effective_ceiling_microdollars": 15000000,
+    "original_ceiling_microdollars": 17000000,
+    "policy": "append-only-lower-ceiling-v1",
+    "reductions": 1
+  },
+  "correction": "budget-readonly.json SELECT budget.ceiling exposed historical17 ceiling only. This authoritative helper applies append-only tightening to15. No ledger mutation; previous observation preserved.",
+  "exposure_microdollars": 13375724,
+  "recorded_at": "2026-11-02T19:59:20.358556-08:00",
+  "remaining_microdollars": 1624276
+}

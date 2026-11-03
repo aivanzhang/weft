@@ -1,0 +1,9 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-c",
+    "import sys, unittest; sys.path.insert(0, 'tests'); unittest.main(module=None, argv=['unittest', 'test_scene_requests'], verbosity=2)"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets"
+}
