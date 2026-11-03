@@ -74,7 +74,9 @@ def _metadata(parent,deadline):
     _require(re.fullmatch('[0-9a-f]{32}',parent.name),'exact parent ID required')
     files={n:_read(parent,n) for n in ('job.json','status.json','perception/status.json','perception/preflight/manifest.json')}
     job,state,perception,manifest=(_json(files[n]) for n in files)
-    _require(job.get('id')==parent.name and job.get('mode')=='exercise','original exercise upload required')
+    _require(job.get('id')==parent.name and job.get('kind','video')=='video'
+             and job.get('mode') in {'auto','exercise'} and state.get('route')=='exercise',
+             'resolved original exercise upload required')
     _require(type(job.get('source_sha256')) is str and re.fullmatch('[0-9a-f]{64}',job['source_sha256']),'original source hash required')
     _require(job.get('source_file')=='source.mp4','original fixed MP4 required')
     _require(state.get('status') not in ACTIVE and perception.get('status') not in ACTIVE,'parent work is active')

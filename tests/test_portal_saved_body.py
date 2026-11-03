@@ -25,7 +25,7 @@ def setup(tmp_path):
     root=tmp_path/'portal';root.mkdir();fd=os.open(root/'portal.lock',os.O_RDWR|os.O_CREAT,0o600)
     parent=root/('a'*32);parent.mkdir();write(parent/'source.mp4',b'analytic media fixture, not a video')
     job={'id':parent.name,'mode':'exercise','source_file':'source.mp4','source_sha256':pin(parent/'source.mp4'),'exercise_intent':exercise_intent('unknown','simulation')}
-    write(parent/'job.json',job);write(parent/'status.json',{'status':'needs_input'})
+    write(parent/'job.json',job);write(parent/'status.json',{'status':'needs_input','route':'exercise'})
     write(parent/'perception/status.json',{'status':'awaiting_consent'})
     preflight=parent/'perception/preflight';body=preflight/'body_source';seed=preflight/'body_seed'
     write(body/'body-source.json',{'fixture':'analytical body'});body_pin=seal(body,profile='exercise-body-source-v1',status='construction_only',simulation_ready=False)
@@ -80,6 +80,30 @@ def test_unsealed_metadata_never_advertises_available(setup):
     _,parent,_,_=setup;path=parent/'perception/preflight/manifest.json'
     value=json.loads(path.read_bytes());value['files']['metadata.json']=None;write(path,value)
     assert jobs.availability(parent)['available'] is False
+
+
+@pytest.mark.parametrize('perception_status',['awaiting_consent','failed'])
+def test_ai_routed_exercise_reuses_body_after_equipment_refusal(setup,perception_status):
+    _,parent,_,options=setup
+    job=options['existing_jobs'][parent.name];job['mode']='auto';write(parent/'job.json',job)
+    write(parent/'perception/status.json',{'status':perception_status,'error':'No equipment regions' if perception_status=='failed' else None})
+    before={str(p):p.read_bytes() for p in parent.rglob('*') if p.is_file()}
+    assert jobs.availability(parent)['available']
+    child,_=queue(setup)
+    request=json.loads((child/'saved-body/request.json').read_bytes())
+    assert request['original_exercise_intent']['inventory']=='unknown'
+    assert request['api_calls_authorized']==0
+    assert all(Path(n).read_bytes()==raw for n,raw in before.items())
+
+
+@pytest.mark.parametrize('mode,route,kind',[('auto','objects','video'),('auto',None,'video'),('objects','exercise','video'),('auto','exercise','imported_lab')])
+def test_body_approximation_requires_resolved_original_exercise(setup,mode,route,kind):
+    _,parent,_,options=setup
+    job=options['existing_jobs'][parent.name];job.update(mode=mode,kind=kind);write(parent/'job.json',job)
+    write(parent/'status.json',{'status':'needs_input','route':route})
+    assert not jobs.availability(parent)['available']
+    with pytest.raises(ValueError,match='resolved original exercise'):
+        queue(setup)
 
 
 def test_queue_idempotent_before_capacity_and_no_parent_mutation(setup):
