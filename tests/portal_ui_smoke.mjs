@@ -485,3 +485,43 @@ const taskOptions = task => ({status:"ready",profile:"portal-moving-task-options
   assert.equal(e.get("cancel").hidden,false);assert.equal(e.get("sandbox").hidden,true);
   console.log("PASS saved moving preparation requires explicit authored priors and queues no provider request");
 }
+
+{
+  const id='e'.repeat(32), parent={id,name:'Saved exercise',status:'needs_input',route:'exercise',events:[],saved_body:{available:true,preflight_manifest_sha256:'a'.repeat(64)}};
+  const f=setup([parent],{fetch:async(path,options,info)=>{
+    if(path.endsWith('/saved-body')) {
+      const child={id:'f'.repeat(32),kind:'saved_body',name:'Body approximation',status:'ready',route:'exercise',events:[],sandbox:'/labs/'+'f'.repeat(32)+'/',saved_body:{report:{status:'ready',reference_feasible:false},artifacts:['saved-body/report.json','saved-body/../job.json']}};
+      info.jobs.push(child);return {ok:true,json:async()=>child};
+    }
+  }});await tick();const e=f.elements;
+  assert.equal(e.get('saved-body-option').hidden,false);
+  await e.get('saved-body-form').onsubmit({preventDefault(){}});
+  assert.ok(!f.calls.some(c=>c.path.endsWith('/saved-body')));
+  e.get('saved-body-confirm').checked=true;
+  await Promise.all([e.get('saved-body-form').onsubmit({preventDefault(){}}),e.get('saved-body-form').onsubmit({preventDefault(){}})]);await tick();
+  const calls=f.calls.filter(c=>c.path.endsWith('/saved-body'));assert.equal(calls.length,1);
+  assert.equal(JSON.parse(calls[0].options.body).modeling_scope,'body_authored_ground_only');
+  assert.match(e.get('saved-body-result').textContent,/geometry warnings/);
+  assert.equal(e.get('saved-body-artifacts').children.length,1);
+  assert.equal(e.get('sandbox').hidden,false);
+  console.log('PASS saved-body approximation requires explicit scope, queues once, preserves warnings and filters artifacts');
+}
+{
+  const id='a'.repeat(32),job={id,name:'Avatar demo',status:'ready',route:'exercise',kind:'saved_body',events:[],sandbox:`/labs/${id}/`,muse:{status:'proposed',review_scope:'conditional_body_authored_ground'}};
+  const f=setup([job],{fetch:async(path,options,info)=>{
+    info.avatars ||= {status:'idle',choices:[],attachments:{}};
+    if(path==='/api/avatars/builtins') {info.avatars={status:'ready',builtins_ready:true,choices:[{display_name:'<script>Panda</script>'}],attachments:{}};return {ok:true,json:async()=>structuredClone(info.avatars)};}
+    if(path.endsWith('/avatars/attach')) {info.avatars.attachments[id]={status:'ready'};return {ok:true,json:async()=>structuredClone(info.avatars)};}
+  }});await tick();const e=f.elements;
+  assert.equal(e.get('avatar-tools').hidden,false);assert.equal(e.get('avatar-attach').disabled,true);
+  assert.equal(e.get('run-checks').hidden,true);assert.match(e.get('muse-scope').textContent,/unknown, not absent/);
+  await Promise.all([e.get('avatar-builtins').onclick(),e.get('avatar-builtins').onclick()]);await tick();
+  assert.equal(f.calls.filter(c=>c.path==='/api/avatars/builtins').length,1);
+  assert.equal(e.get('avatar-choices').children[0].textContent,'<script>Panda</script>');
+  assert.equal(e.get('avatar-builtins').disabled,true);assert.equal(e.get('avatar-attach').disabled,false);
+  await e.get('avatar-attach').onclick();await tick();assert.match(e.get('avatar-status').textContent,/Characters added/);
+  e.get('avatar-upload').files=[{size:33*1024*1024}];e.get('avatar-upload-form').onsubmit({preventDefault(){}});await tick();
+  assert.ok(!f.calls.some(c=>c.path==='/api/avatars/import'||c.path.includes('/muse')));
+  assert.equal(f.calls.find(c=>c.path.endsWith('/avatars/attach')).options.headers.Authorization,'Bearer test-owner-token');
+  console.log('PASS explicit avatar prepare/attach is authenticated and deduplicated; safe names, upload cap and no AI calls');
+}

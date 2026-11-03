@@ -63,7 +63,7 @@
   const cross = (a,b) => [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
   const normalize = value => { const n = Math.hypot(...value); if (n < 1e-12) fail("Degenerate avatar axis"); return value.map(x => x/n); };
   function compileScene(scene) {
-    if (!["shared-world-v1", "shared-world-v2"].includes(scene?.profile)) fail("Avatar requires a shared-world scene");
+    if (!["shared-world-v1", "shared-world-v2", "shared-world-v3"].includes(scene?.profile)) fail("Avatar requires a shared-world scene");
     const bridge = scene.coordinate_frame?.scale_bridge, human = scene.human_spec;
     if (!bridge || !human?.mobility || !human.lengths) fail("Missing avatar body frame");
     const scale = finite(bridge.body_height_to_world_scale,"body scale",1000);
@@ -138,12 +138,15 @@
     }
     for (const id of byId.keys()) visit(id);
     const rig = document.retargeting;
-    if (rig?.profile !== "weft-avatar-retarget-v1" || !Array.isArray(rig.bindings) || !rig.bindings.length || rig.bindings.length > LIMITS.nodes || !byId.has(rig.root_node)) fail("Missing explicit avatar rig mapping");
+    const restRelative = rig?.profile === "weft-avatar-retarget-v2";
+    if (!["weft-avatar-retarget-v1", "weft-avatar-retarget-v2"].includes(rig?.profile) || !Array.isArray(rig.bindings) || !rig.bindings.length || rig.bindings.length > LIMITS.nodes || !byId.has(rig.root_node)) fail("Missing explicit avatar rig mapping");
+    if(restRelative&&Object.keys(rig).sort().join(",")!=="bindings,orientation_xyzw,profile,root_node,scale")fail("Unknown rest-relative mapping field");
     const scale = finite(rig.scale,"avatar scale",1000); if (scale <= 0) fail("Avatar scale must be positive");
     const basis = transform([0,0,0],quaternion(rig.orientation_xyzw,"avatar orientation"),scale), bindings = new Map();
     for (const binding of rig.bindings) {
       if (!byId.has(binding.node) || bindings.has(binding.node) || !BODY_FRAMES.includes(binding.body)) fail("Invalid avatar body binding");
-      bindings.set(binding.node,{body:binding.body,offset:multiply(transform(vector(binding.translation,3,"avatar offset",100),quaternion(binding.rotation_xyzw,"avatar bone orientation")),basis)});
+      if(restRelative && (Object.keys(binding).sort().join(",")!=="body,node")) fail("Rest-relative bindings only declare node and body");
+      bindings.set(binding.node,{body:binding.body,offset:restRelative?null:multiply(transform(vector(binding.translation,3,"avatar offset",100),quaternion(binding.rotation_xyzw,"avatar bone orientation")),basis)});
     }
     if (!bindings.has(rig.root_node)) fail("Avatar root must be explicitly mapped");
     const underRoot = id => { while (id !== null) { if (id === rig.root_node) return true; id=byId.get(id)?.parent ?? null; } return false; };
@@ -152,6 +155,30 @@
     if (!Array.isArray(skin.joints) || !skin.joints.length || skin.joints.length > LIMITS.joints || new Set(skin.joints).size !== skin.joints.length || !Array.isArray(skin.inverse_bind_matrices) || skin.inverse_bind_matrices.length !== skin.joints.length) fail("Invalid avatar skin");
     for (const id of skin.joints) if (!byId.has(id) || !underRoot(id)) fail("Skin joint lies outside mapped root");
     const inverseBind = skin.inverse_bind_matrices.map(value => matrix(value,"inverse bind matrix"));
+    const rest=new Map(),restInverse=new Map(),roles=new Map();
+    if(restRelative){
+      for(const id of order){const node=byId.get(id);rest.set(id,multiply(node.parent===null?basis:rest.get(node.parent),node.local));}
+      for(const [id,binding] of bindings){if(roles.has(binding.body))fail("Duplicate rest-relative body role");roles.set(binding.body,id);}
+      if(roles.size!==BODY_FRAMES.length||roles.get("mobile_root")!==rig.root_node)fail("Rest-relative avatars require exactly ten body roles");
+      for(const [role,id] of roles){
+        if(role!=="mobile_root"&&!skin.joints.includes(id))fail("Controlled avatar bone is not skinned");
+        const expected=role==="torso"?"mobile_root":role.includes("shoulder")?"torso":role.includes("elbow")?role.replace("elbow","shoulder"):role.includes("knee")?role.replace("knee","hip"):null;
+        if(expected){let parent=byId.get(id).parent;while(parent!==null&&!bindings.has(parent))parent=byId.get(parent).parent;if(parent!==roles.get(expected))fail("Incompatible rest-relative limb topology");}
+      }
+      for(const m of rest.values()){
+        if(m.some(v=>!Number.isFinite(v)||Math.abs(v)>1e9))fail("Avatar accumulated rest transform exceeds its numeric bound");
+        const cols=[0,4,8].map(i=>m.slice(i,i+3)),lengths=cols.map(v=>Math.hypot(...v));
+        if(lengths.some(v=>Math.abs(v-lengths[0])>1e-5*Math.max(1,lengths[0]))||cols.some((a,i)=>cols.some((b,j)=>Math.abs(dot(a,b)/(lengths[i]*lengths[j])-Number(i===j))>1e-5))||dot(cross(cols[0],cols[1]),cols[2])<=0)fail("Rest-relative avatar requires uniform nonsheared rest transforms");
+      }
+      const bind=skin.joints.map((id,i)=>multiply(rest.get(id),inverseBind[i]));
+      if(bind.some(m=>m.some((v,i)=>Math.abs(v-bind[0][i])>2e-5*Math.max(1,Math.abs(bind[0][i])))))fail("Rest-relative avatar default pose disagrees with skin bind pose");
+      if(["left","right"].reduce((sum,side)=>sum+rest.get(roles.get(`${side}_shoulder_body`))[14]-rest.get(roles.get(`${side}_hip_body`))[14],0)<=2e-6)fail("Avatar orientation must place shoulders above hips");
+      for(const [side,sign] of [["left",-1],["right",1]]){
+        for(const joint of ["shoulder","hip"])if(sign*(rest.get(roles.get(`${side}_${joint}_body`))[12]-rest.get(roles.get("torso"))[12])<=1e-6)fail("Avatar left/right mapping contradicts simulation lateral convention");
+        for(const [joint,parent] of [["elbow","shoulder"],["knee","hip"]])if(Math.hypot(...[12,13,14].map(i=>rest.get(roles.get(`${side}_${joint}_body`))[i]-rest.get(roles.get(`${side}_${parent}_body`))[i]))<=1e-6)fail("Avatar limb has coincident pivots");
+      }
+    }
+    if(restRelative)for(const [id,m] of rest)restInverse.set(id,inverse(m));
     let pixels=0;
     const textureInfo = textures.map(texture => {
       if (!/^[0-9a-f]{64}$/.test(texture.sha256) || !["image/png","image/jpeg"].includes(texture.mime_type)) fail("Unsupported avatar texture");
@@ -194,9 +221,10 @@
       return {node:primitive.node,skin:primitive.skin,positions,normals,texcoords,joints,weights,indices,material};
     });
     if(vertices>LIMITS.vertices||triangles>LIMITS.triangles)fail("Avatar geometry exceeds supported bounds");
-    return {nodes:byId,order,root_node:rig.root_node,bindings,skin:{joints:[...skin.joints],inverseBind},primitives:meshes,materials:materialInfo,textures:textureInfo,stats:{vertices,triangles,pixels},basis};
+    return {nodes:byId,order,root_node:rig.root_node,bindings,skin:{joints:[...skin.joints],inverseBind},primitives:meshes,materials:materialInfo,textures:textureInfo,stats:{vertices,triangles,pixels},basis,restRelative,rest,restInverse,roles};
   }
   function retarget(asset, body) {
+    if(asset.restRelative)return retargetRest(asset,body);
     const nodes=new Map();
     for(const id of asset.order){
       const node=asset.nodes.get(id),binding=asset.bindings.get(id);
@@ -205,6 +233,29 @@
     }
     const palette=asset.skin.joints.map((id,i)=>multiply(nodes.get(id),asset.skin.inverseBind[i]));
     return {nodes,palette};
+  }
+  function retargetRest(asset,body){
+    const nodes=new Map(),desired=new Map(),torso=body.frames.torso;
+    if(!torso)fail("Missing simulated torso frame");
+    const restTorso=asset.rest.get(asset.roles.get("torso"));
+    const pivot=transform(restTorso.slice(12,15).map(v=>-v));
+    desired.set(asset.root_node,multiply(multiply(torso,pivot),asset.rest.get(asset.root_node)));
+    // Joint rotations come from physics; pivot offsets remain the avatar's rest geometry.
+    for(const role of BODY_FRAMES.slice(1)){
+      const id=asset.roles.get(role),rest=asset.rest.get(id),frame=body.frames[role];
+      if(!frame)fail("Missing simulated bone frame");
+      const rotation=frame.slice();rotation[12]=rotation[13]=rotation[14]=0;
+      const result=multiply(rotation,rest);
+      let position=torso.slice(12,15);
+      if(role!=="torso"){
+        const parent=role.includes("elbow")?role.replace("elbow","shoulder"):role.includes("knee")?role.replace("knee","hip"):"torso";
+        const parentId=asset.roles.get(parent);
+        position=point(multiply(desired.get(parentId),asset.restInverse.get(parentId)),rest.slice(12,15));
+      }
+      result.splice(12,3,...position);desired.set(id,result);
+    }
+    for(const id of asset.order){const node=asset.nodes.get(id);nodes.set(id,desired.get(id) || multiply(node.parent===null?asset.basis:nodes.get(node.parent),node.local));}
+    return {nodes,palette:asset.skin.joints.map((id,i)=>multiply(nodes.get(id),asset.skin.inverseBind[i]))};
   }
   function posedGeometry(asset, pose) {
     return asset.primitives.map(primitive=>{

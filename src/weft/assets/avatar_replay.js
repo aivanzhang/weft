@@ -13,7 +13,16 @@
     const value=scene.engine_scene||scene,h=value.human_spec;
     return {profile:value.profile,bounds:value.bounds,dt:value.dt,coordinate_frame:{scale_bridge:value.coordinate_frame?.scale_bridge},
       human_spec:{lengths:h?.lengths,body_frame:h?.body_frame,mobility:{base_height:h?.mobility?.base_height,ground_plane:h?.mobility?.ground_plane}},
-      objects:value.objects?.map(object=>Object.fromEntries(["id","shape","role","size","radius","length","color","position","quaternion","parts"].filter(key=>object[key]!==undefined).map(key=>[key,object[key]])))};
+      objects:value.objects?.map(object=>{
+        const out=Object.fromEntries(["id","shape","role","size","radius","length","color","position","quaternion"].filter(key=>object[key]!==undefined).map(key=>[key,object[key]]));
+        if(object.shape==="compound"){
+          const parts=object.geometry?.parts??object.parts;
+          if(!Array.isArray(parts)||!parts.length||parts.length>32)throw new Error("Avatar compound bound exceeded");
+          // Preserve render geometry, not the source's inertia or provenance metadata.
+          out.parts=parts.map(part=>Object.fromEntries(["shape","size","radius","length","position","quaternion"].filter(key=>part?.[key]!==undefined).map(key=>[key,part[key]])));
+        }
+        return out;
+      })};
   }
   function describe(event) {
     const snapshot=event.snapshot,state=unwrap(snapshot),metrics=event.exercise_metrics||snapshot.task_metrics;

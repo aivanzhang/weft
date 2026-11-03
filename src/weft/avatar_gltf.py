@@ -15,6 +15,7 @@ from PIL import Image
 
 RENDER_PROFILE = "weft-avatar-render-v1"
 RETARGET_PROFILE = "weft-avatar-retarget-v1"
+REST_RETARGET_PROFILE = "weft-avatar-retarget-v2"
 MAX_NODES, MAX_JOINTS, MAX_VERTICES, MAX_TRIANGLES, MAX_PRIMITIVES = 128, 64, 20000, 40000, 16
 MAX_TEXTURES, MAX_TEXTURE_SIDE, MAX_TEXTURE_PIXELS = 8, 2048, 8 * 1024 * 1024
 MAX_RENDER_BYTES = 8 * 1024 * 1024
@@ -361,10 +362,11 @@ def _nodes(document):
 
 def _retarget(mapping, nodes, parents, rendered, skin_joints):
     keys = {"profile", "root_node", "scale", "orientation_xyzw", "bindings"}
-    if not isinstance(mapping, dict) or set(mapping) != keys or mapping.get("profile") != RETARGET_PROFILE:
+    if not isinstance(mapping, dict) or set(mapping) != keys or mapping.get("profile") not in (RETARGET_PROFILE, REST_RETARGET_PROFILE):
         fail("Avatar requires an explicit versioned retargeting contract")
     root = integer(mapping["root_node"], 0, len(nodes) - 1, "Retarget root")
-    result = {"profile": RETARGET_PROFILE, "root_node": root,
+    rest_relative = mapping["profile"] == REST_RETARGET_PROFILE
+    result = {"profile": mapping["profile"], "root_node": root,
               "scale": number(mapping["scale"], 1e-4, 1000, "Retarget scale"),
               "orientation_xyzw": quaternion(mapping["orientation_xyzw"], "Retarget orientation"), "bindings": []}
     bindings = mapping["bindings"]
@@ -372,15 +374,17 @@ def _retarget(mapping, nodes, parents, rendered, skin_joints):
         fail("Retarget bindings exceed their bound or are missing")
     seen = set()
     for binding in bindings:
-        if not isinstance(binding, dict) or set(binding) != {"node", "body", "translation", "rotation_xyzw"}:
+        if not isinstance(binding, dict) or set(binding) != ({"node", "body"} if rest_relative else {"node", "body", "translation", "rotation_xyzw"}):
             fail("Retarget binding has unknown or missing fields")
         node = integer(binding["node"], 0, len(nodes) - 1, "Retarget bone node")
         if node in seen or not isinstance(binding["body"], str) or binding["body"] not in BODY_FRAMES:
             fail("Retarget node is duplicated or simulation body is unsupported")
         seen.add(node)
-        result["bindings"].append({"node": node, "body": binding["body"],
-            "translation": vector(binding["translation"], 3, "Retarget offset", 100),
-            "rotation_xyzw": quaternion(binding["rotation_xyzw"], "Retarget bone rotation")})
+        item = {"node": node, "body": binding["body"]}
+        if not rest_relative:
+            item.update(translation=vector(binding["translation"], 3, "Retarget offset", 100),
+                        rotation_xyzw=quaternion(binding["rotation_xyzw"], "Retarget bone rotation"))
+        result["bindings"].append(item)
     if root not in seen:
         fail("Retarget root must be explicitly mapped")
     for node in set(rendered) | set(skin_joints) | seen:
@@ -389,7 +393,60 @@ def _retarget(mapping, nodes, parents, rendered, skin_joints):
             current = parents[current]
         if current != root:
             fail("All rendered, skinned and mapped nodes must descend from the retarget root")
+    if rest_relative:
+        roles = {item["body"]: item["node"] for item in result["bindings"]}
+        if set(roles) != BODY_FRAMES or len(roles) != len(bindings) or roles["mobile_root"] != root:
+            fail("Rest-relative avatars require exactly ten distinct body roles")
+        for role, node in roles.items():
+            if role != "mobile_root" and node not in skin_joints:
+                fail("Rest-relative controlled bones must belong to the skin")
+            expected = ("mobile_root" if role == "torso" else "torso" if "shoulder" in role else
+                        role.replace("elbow", "shoulder") if "elbow" in role else
+                        role.replace("knee", "hip") if "knee" in role else None)
+            if expected:
+                ancestor = parents[node]
+                while ancestor is not None and ancestor not in seen:
+                    ancestor = parents[ancestor]
+                if ancestor != roles[expected]:
+                    fail("Rest-relative limb topology is incompatible", unsupported=True)
     return result
+
+
+def _rest_relative(mapping, parents, local, joints, inverse):
+    if mapping["profile"] != REST_RETARGET_PROFILE:
+        return
+    world = {}
+    def visit(index):
+        if index not in world:
+            parent = parents[index]
+            world[index] = local[index] if parent is None else visit(parent) @ local[index]
+        return world[index]
+    for index in range(len(local)):
+        value = visit(index)
+        if not np.isfinite(value).all() or np.max(np.abs(value)) > 1e9:
+            fail("Rest-relative accumulated transform exceeds its numeric bound", unsupported=True)
+        lengths = np.linalg.norm(value[:3, :3], axis=0)
+        if (not np.allclose(lengths, lengths[0], atol=1e-5, rtol=1e-5)
+                or not np.allclose((value[:3, :3] / lengths).T @ (value[:3, :3] / lengths),
+                                   np.eye(3), atol=1e-5, rtol=0)):
+            fail("Rest-relative avatars require uniform nonsheared rest transforms", unsupported=True)
+    bind = [world[node] @ np.asarray(value).reshape((4, 4), order="F") for node, value in zip(joints, inverse)]
+    if any(not np.allclose(value, bind[0], atol=2e-5, rtol=2e-5) for value in bind[1:]):
+        fail("Rest-relative skin default pose must match a common bind pose", unsupported=True)
+    basis = _trs({"rotation": mapping["orientation_xyzw"], "scale": [mapping["scale"]] * 3})
+    roles = {item["body"]: basis @ world[item["node"]] for item in mapping["bindings"]}
+    shoulder_height = sum(roles[f"{side}_shoulder_body"][2, 3] for side in ("left", "right"))
+    hip_height = sum(roles[f"{side}_hip_body"][2, 3] for side in ("left", "right"))
+    if shoulder_height - hip_height <= 2e-6:
+        fail("Rest-relative orientation must place shoulders above hips", unsupported=True)
+    for side, sign in (("left", -1), ("right", 1)):
+        for joint in ("shoulder", "hip"):
+            delta = roles[f"{side}_{joint}_body"][0, 3] - roles["torso"][0, 3]
+            if sign * delta <= 1e-6:
+                fail("Rest-relative left/right mapping contradicts the simulation lateral convention", unsupported=True)
+        for joint, parent in (("elbow", "shoulder"), ("knee", "hip")):
+            if np.linalg.norm(roles[f"{side}_{joint}_body"][:3, 3] - roles[f"{side}_{parent}_body"][:3, 3]) <= 1e-6:
+                fail("Rest-relative limb has coincident pivots", unsupported=True)
 
 
 def _textures(document, reader):
@@ -663,6 +720,7 @@ def normalize_avatar_gltf(entrypoint, files, retargeting, *, deadline):
     if len(used_meshes) != len(meshes):
         fail("Unreferenced meshes are unsupported by this import profile", unsupported=True)
     mapping = _retarget(retargeting, nodes, parents, rendered, joints)
+    _rest_relative(mapping, parents, local, joints, inverse)
     animations = _animations(document, reader, nodes)
     result = {"schema_version": 1, "profile": RENDER_PROFILE,
               "nodes": [{"index": i, "parent": parents[i], "local_matrix": local[i].reshape(16, order="F").tolist()}

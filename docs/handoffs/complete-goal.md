@@ -1,5 +1,15 @@
 # Complete Weft goal — video to an interactive, trainable world
 
+**Demo verification — November 3, 2026 (PST):** The rough journey is implemented and verified, including generalized RL-driven avatars, Studio delivery, normal recording/export/replay and a real Muse API response. See [acceptance and limits](hackathon-demo.md). Broader physical reconstruction remains backlog.
+
+**Superseding delivery priority — November 3, 2026 (PST):** The user now requests
+a rough end-to-end hackathon demo, not perfection. Follow the [active demo
+goal](hackathon-demo-goal.md): video upload → visible processing → 3D RL sandbox
+→ optional Avatar Studio creation/import/substitution → recording → real Muse
+review. Generalized avatar motion must follow the RL state; individual
+flight/hopping repairs are not the priority. Broader research below remains a
+backlog and must not delay this explicitly requested demo.
+
 ## Latest product priority — November 2, 2026, 11:39 AM PST
 
 Build the end product as a web portal: users upload videos, see AI analysis and every construction/check/learning stage, interact with the resulting 3D RL sandbox, and record/replay/export their actions. Use server-side **project API keys**, never ChatGPT login, coding-agent authentication, or this session as a runtime dependency. OpenAI currently handles initial scene planning; the configured Meta key powers Muse Spark construction review. Muse is the physical-scene proposer/critic, not an avatar-only feature. Complete its bounded repair/independent-test integration; OpenAI does not replace meaningful Meta use. The user separately approved **$5 total OpenAI portal development spend**, with persistent reservations and no automatic retry; Meta's existing $5 allowance remains separate. [Current Muse integration and limits](portal-muse.md).

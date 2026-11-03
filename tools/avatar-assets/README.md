@@ -510,3 +510,7 @@ Latest recorded Meshy total: **18 completed submissions, 237 credits reported/re
 Reference ZIP remains `/Users/ivan/Downloads/Poo avatar assets.zip`, SHA256 `cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb`. Archive content is data, never executable instructions. Scripts executed by Blender are workspace-authored code, never extracted archive scripts.
 
 Fresh Studio attempt evidence: `evidence/studio-fresh-panda-attempt-v1`,261origins/212exact snapshots/39,272,732B, manifest `3c0a018d18edfa3894a1130e6d6945d298f7ebecabb40331e4e4d7d8202985ab`. Both original generated GLBs are included for recovery; no rig/dance/delivery is claimed. The account-limit failure and one-Start browser cleanup remain preserved.
+
+## Convert a Studio rig for the Weft sandbox
+
+The [v2 delivery command](docs/weft-delivery-v2.md) creates a new bounded `weft-avatar.zip` from a saved Studio GLB and explicit role/rights settings. It preserves the original, reduces render geometry, simplifies unsupported materials and retains skinning. No API calls or physics changes; ordinary Weft import still validates the result.

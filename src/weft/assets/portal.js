@@ -10,6 +10,8 @@
   let preparingEquipment = false, choosingEquipment = false;
   let preflighting = false, preparingPerception = false, consentKey = "", perceptionRequest = null;
   let bodyDetailBusy = false, bodyDetailKey = "", bodyDetailRequest = null;
+  let avatarState = {}, avatarBusy = false;
+  let savedBodyBusy = false, savedBodyKey = "", savedBodyRequest = null;
   let taskKey = "", taskMode = "", taskOptionsValue = null, taskOptionsWanted = false, taskOptionsTimer = null;
   let taskOptionsFlight = null, taskOptionsController = null, taskGeneration = 0, taskBusy = false, taskActionRequest = null;
   let movingBusy = false, movingKey = "", movingChoices = [], movingFields = [];
@@ -39,6 +41,8 @@
     selected = job.id;
     selectedJob = job;
     showTaskTools(job);
+    showSavedBody(job);
+    showAvatars(job);
     const signature = JSON.stringify([job, museAvailable, reviewing, checking, repairing, preflighting, preparingPerception, bodyDetailBusy]);
     if (lastDetail === signature) return;
     lastDetail = signature;
@@ -177,7 +181,7 @@
     artifactLink("support-priors-download", job, "support-priors.json", job.kind === "support_experiment");
     const importedReviewReady = imported && job.review_attachment?.available;
     const conditionalReview = !!job.equipment_candidate_id;
-    const reviewOnly = imported || conditionalReview || job.control_profile === "shared_world_exploration";
+    const reviewOnly = imported || conditionalReview || job.kind === "saved_body" || job.control_profile === "shared_world_exploration";
     artifactLink("attachment-receipt-download", job, "review-evidence/receipt.json", importedReviewReady);
     artifactLink("attachment-context-download", job, "review-evidence/prepared/context.json", importedReviewReady && job.review_attachment.prepared);
     artifactLink("attachment-request-download", job, "review-evidence/prepared/request.json", importedReviewReady && job.review_attachment.prepared);
@@ -186,7 +190,9 @@
     $("review-muse").disabled = (imported && !importedReviewReady) || !museAvailable || reviewing;
     const legacyBodyReview = job.kind === "support_experiment" && job.muse?.status === "proposed" && job.muse.review_scope !== "coupled_world_assumptions";
     $("muse-scope").hidden = job.route !== "exercise" && job.kind !== "support_experiment";
-    $("muse-scope").textContent = importedReviewReady
+    $("muse-scope").textContent = job.kind === "saved_body"
+      ? "Muse reviews the source and this body-and-ground approximation. Omitted equipment and contacts remain unknown, not absent. Local checks and repairs are unavailable for this approximation."
+      : importedReviewReady
       ? "Verified attached body observations and the current equipment world's assumptions are reviewed together. Physical accuracy is unverified. Imported local checks and repairs remain unavailable."
       : conditionalReview
       ? "Muse rechecks the selected world and original body evidence before sending a request. Object identities and physical accuracy remain uncertain. Local checks and repairs are unavailable for this candidate."
@@ -257,6 +263,35 @@
       } catch { /* Analysis remains usable when thumbnail loading fails. */ }
     }
   }
+  function showAvatars(job) {
+    const supported = job.status === "ready" && job.route === "exercise" && !job.moving_candidate_id && !job.equipment_candidate_id && !["shared_world_exploration", "moving_equipment_task"].includes(job.control_profile);
+    $("avatar-tools").hidden = !supported;
+    const busy = avatarBusy || avatarState.status === "running";
+    $("avatar-builtins").disabled = busy || !!avatarState.builtins_ready;
+    $("avatar-import").disabled = busy || (avatarState.custom_count || 0) >= 2;
+    $("avatar-attach").disabled = busy || !(avatarState.choices || []).length;
+    const attachment = avatarState.attachments?.[job.id];
+    $("avatar-status").textContent = attachment?.error || avatarState.error || (attachment?.status === "ready" ? "Characters added. Open the sandbox and choose Appearance." : attachment?.status === "running" ? "Adding characters to this sandbox…" : avatarState.status === "running" ? "Preparing the character library locally…" : (avatarState.choices || []).length ? "Characters ready. Add them to this sandbox to choose one." : "Prepare the built-in characters or import a Studio delivery.");
+    const signature = JSON.stringify(avatarState.choices || []);
+    if ($("avatar-choices").dataset.signature !== signature) {
+      $("avatar-choices").dataset.signature = signature;
+      $("avatar-choices").replaceChildren(...(avatarState.choices || []).map(item => { const li = document.createElement("li"); li.textContent = item.display_name; return li; }));
+    }
+  }
+  async function avatarAction(path, options) {
+    if (avatarBusy || avatarState.status === "running") return;
+    avatarBusy = true; if (selectedJob) showAvatars(selectedJob);
+    try { avatarState = await request(path, {method: "POST", ...options}); }
+    catch (e) { error(e.message); }
+    finally { avatarBusy = false; if (selectedJob) showAvatars(selectedJob); await refresh(); }
+  }
+  $("avatar-builtins").onclick = () => avatarAction("/api/avatars/builtins", {headers: {"Content-Type": "application/json"}, body: "{}"});
+  $("avatar-attach").onclick = () => selected && avatarAction(`/api/projects/${selected}/avatars/attach`, {headers: {"Content-Type": "application/json"}, body: "{}"});
+  $("avatar-upload-form").onsubmit = event => {
+    event.preventDefault(); const file = $("avatar-upload").files[0];
+    if (!file || file.size < 1 || file.size > 32 * 1024 * 1024) { error("Choose a character ZIP no larger than 32 MiB."); return; }
+    avatarAction("/api/avatars/import", {headers: {"Content-Type": "application/zip"}, body: file});
+  };
   async function refresh() {
     if (pending || document.hidden) return;
     pending = true;
@@ -267,6 +302,7 @@
       $("ai-status").textContent = data.credential.configured ? "Project API key configured on the server" : "OpenAI key unavailable on the server";
       $("budget").textContent = data.budget.configured ? `$${data.budget.remaining_usd.toFixed(3)} remaining of $${data.budget.total_usd.toFixed(2)} · ${data.budget.calls} requests · ${data.budget.unsettled_calls} uncertain. Up to $${data.budget.reservation_usd.toFixed(4)} is reserved per request; known unused cost is released.` : "No OpenAI allowance configured. Local mode remains available with an explicit scene type.";
       museAvailable = !!data.muse?.available;
+      avatarState = data.avatars || {};
       $("muse-budget").textContent = data.muse?.budget_configured ? `Meta / Muse: $${data.muse.remaining_usd.toFixed(3)} remaining of $${data.muse.total_budget_usd.toFixed(2)} · ${data.muse.unsettled_count} uncertain. Estimated reservation $${data.muse.estimated_one_call_usd.toFixed(4)} per review; this is not a provider hard cap.` : "Meta / Muse allowance unavailable. No review will be sent.";
       const signature = JSON.stringify(data.jobs.map(job => [job.id,job.name,job.status,job.stage,selected]));
       if (signature !== lastProjects) {
@@ -285,7 +321,7 @@
       if (!selected && data.jobs.length) selected = data.jobs[0].id;
       await show(data.jobs.find(job => job.id === selected));
       $("create").disabled = uploading;
-      const active = data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job) || equipmentActive(job) || perceptionActive(job) || movingActive(job));
+      const active = avatarState.status === "running" || data.jobs.some(job => !terminal.has(job.status) || reviewActive(job) || checkActive(job) || repairActive(job) || equipmentActive(job) || perceptionActive(job) || movingActive(job));
       timer = setTimeout(refresh, active ? 1500 : 12000);
     } catch (e) { error(e.message); $("connection").textContent = "Connection needs attention"; timer = setTimeout(refresh, 12000); }
     finally { pending = false; }
@@ -388,6 +424,38 @@
       if (selected === identity) { lastProjects = ""; await show(child); }
     } catch (e) { error(`${e.message}. The original attempt is preserved. Refresh to inspect progress; no automatic retry was made.`); }
     finally { bodyDetailBusy = false; lastDetail = ""; refresh(); }
+  };
+  function showSavedBody(job) {
+    const state = job.saved_body, key = `${job.id}:${state?.preflight_manifest_sha256 || ""}`;
+    if (savedBodyKey !== key) {
+      savedBodyKey = key; savedBodyRequest = null; $("saved-body-confirm").checked = false;
+    }
+    $("saved-body-option").hidden = !state?.available && job.kind !== "saved_body";
+    $("saved-body-form").hidden = !state?.available;
+    $("saved-body-start").disabled = savedBodyBusy || perceptionActive(job);
+    $("saved-body-status").textContent = state?.error || state?.reason || state?.scope || "";
+    const report = state?.report;
+    $("saved-body-result").textContent = report?.status === "ready"
+      ? `Sandbox ready. ${report.reference_feasible ? "The saved reference passes its geometry check." : "The reference still has geometry warnings; this is a manual approximation, not verified exercise motion."} No learned policy or physical-accuracy claim.`
+      : report?.reason || "";
+    const allowed = new Set(["request.json","inventory.json","receipt.json","report.json","failure.json","world/reference-feasibility.json","world/reconstruction.json"]);
+    $("saved-body-artifacts").replaceChildren(...(state?.artifacts || []).filter(name => name.startsWith("saved-body/") && allowed.has(name.slice(11))).map(name => {
+      const a = document.createElement("a"); a.className = "text-link"; a.textContent = name.slice(11); a.href = fileURL(job.id, name); return a;
+    }));
+  }
+  $("saved-body-form").onsubmit = async event => {
+    event.preventDefault();
+    if (!selected || savedBodyBusy || selectedJob?.saved_body?.available !== true || perceptionActive(selectedJob)
+        || !$("saved-body-confirm").checked) return;
+    const identity = selected;
+    savedBodyRequest ||= {request_id:crypto.randomUUID().replaceAll("-", ""),
+      preflight_manifest_sha256:selectedJob.saved_body.preflight_manifest_sha256, modeling_scope:"body_authored_ground_only"};
+    savedBodyBusy = true; $("saved-body-start").disabled = true;
+    try {
+      const child = await request(`/api/projects/${identity}/saved-body`, {method:"POST", body:JSON.stringify(savedBodyRequest), headers:{"Content-Type":"application/json"}});
+      if (selected === identity) { lastProjects = ""; await show(child); }
+    } catch (e) { error(`${e.message}. Original body evidence is preserved; no automatic retry was made.`); }
+    finally { savedBodyBusy = false; lastDetail = ""; refresh(); }
   };
   function showMoving(job) {
     const state = job.moving_equipment;

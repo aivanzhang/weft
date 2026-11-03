@@ -38,13 +38,60 @@ def _script(raw, name):
     return code
 
 
+def _normalized_render(package, raw):
+    from weft.avatar_assets import AvatarPackage
+    from weft.avatar_gltf import MAX_VERTICES, MAX_TRIANGLES, MAX_PRIMITIVES, MAX_NODES, MAX_JOINTS
+
+    if not isinstance(package, AvatarPackage):
+        return json_document(raw, maximum=MAX_RENDER_BYTES)
+    # Imported numeric arrays exceed the source-GLTF metadata node cap; do not parse them twice.
+    render = package.render
+    fields = {'schema_version', 'profile', 'nodes', 'skins', 'primitives', 'materials', 'textures', 'retargeting', 'counts', 'scope'}
+    if not isinstance(render, dict) or set(render) != fields:
+        raise ValueError('Normalized replay render fields differ')
+    for name, maximum in (('nodes', MAX_NODES), ('skins', 1), ('primitives', MAX_PRIMITIVES), ('materials', 16), ('textures', 8)):
+        if not isinstance(render[name], list) or len(render[name]) > maximum:
+            raise ValueError('Normalized replay render inventory exceeds its bound')
+    vertices = triangles = 0
+    for primitive in render['primitives']:
+        if not isinstance(primitive, dict):
+            raise ValueError('Normalized replay primitive is invalid')
+        positions, indices = primitive.get('positions'), primitive.get('indices')
+        if not isinstance(positions, list) or len(positions) % 3 or not isinstance(indices, list) or len(indices) % 3:
+            raise ValueError('Normalized replay geometry dimensions differ')
+        count = len(positions) // 3; vertices += count; triangles += len(indices) // 3
+        if vertices > MAX_VERTICES or triangles > MAX_TRIANGLES:
+            raise ValueError('Normalized replay geometry exceeds importer bounds')
+        for name, width in (('normals', 3), ('texcoords', 2), ('joints', 4), ('weights', 4)):
+            value = primitive.get(name)
+            if value is None and name != 'normals':
+                continue
+            if not isinstance(value, list) or len(value) != count * width:
+                raise ValueError('Normalized replay vertex attributes differ')
+    for skin in render['skins']:
+        if not isinstance(skin, dict) or not isinstance(skin.get('joints'), list) or len(skin['joints']) > MAX_JOINTS:
+            raise ValueError('Normalized replay skin exceeds its bound')
+    pending = [(render, 0)]; elements = 0
+    while pending:
+        value, depth = pending.pop(); elements += 1
+        if depth > 24 or elements > 600000:
+            raise ValueError('Normalized replay render exceeds its derived element bound')
+        children = list(value.values()) if isinstance(value, dict) else value if isinstance(value, list) else ()
+        if len(children) + elements + len(pending) > 600000:
+            raise ValueError('Normalized replay render exceeds its derived element bound')
+        pending.extend((child, depth + 1) for child in children)
+    if json.dumps(render, sort_keys=True, separators=(',', ':'), allow_nan=False).encode() != raw:
+        raise ValueError('Normalized replay data differs from its verified render bytes')
+    return render
+
+
 def _asset(key, package):
     if not isinstance(key, str) or not SHA.fullmatch(key) or package.source_manifest_sha256 != key:
         raise ValueError('Replay avatar source identity differs')
     raw = package.render_json
     if type(raw) is not bytes or not 0 < len(raw) <= MAX_RENDER_BYTES or _sha(raw) != package.render_sha256:
         raise ValueError('Replay avatar render identity or bound differs')
-    render = json_document(raw, maximum=MAX_RENDER_BYTES)
+    render = _normalized_render(package, raw)
     textures = render.get('textures')
     if render.get('profile') != 'weft-avatar-render-v1' or not isinstance(textures, list) or len(textures) > 8:
         raise ValueError('Replay requires a normalized bounded avatar render document')
@@ -73,7 +120,7 @@ STYLE = """html{color-scheme:light;background:#F5EADC;color:#214F50;font:16px sy
 def build_avatar_replay(scene, events, changes, packages_by_hash, viewer_files) -> str:
     """Embed exact physical events, their anchored appearance changes and pinned local render code."""
     engine = scene.get('engine_scene', scene) if isinstance(scene, dict) else {}
-    if not isinstance(engine, dict) or engine.get('profile') not in ('shared-world-v1', 'shared-world-v2'):
+    if not isinstance(engine, dict) or engine.get('profile') not in ('shared-world-v1', 'shared-world-v2', 'shared-world-v3'):
         raise ValueError('Avatar replay requires a shared-world recording')
     if len(_encoded(scene).encode()) > MAX_SCENE_BYTES:
         raise ValueError('Replay scene exceeds its byte bound')

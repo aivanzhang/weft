@@ -142,6 +142,7 @@ class Portal:
             raise ValueError("Another portal owns this job directory") from None
         self.jobs = {}
         self.body_detail_children = {}
+        self.avatar_manager = None
         try:
             self.equipment_catalog = read_catalog(self.root)
             for folder in sorted(self.root.iterdir()):
@@ -186,10 +187,14 @@ class Portal:
                 if not resume_reuse and (perception.get("status") in perception_jobs.ACTIVE or perception.get("status") == "cancelling"):
                     atomic_json(folder / "perception/status.json", {**perception, "status": "interrupted",
                         "message": "Portal restarted during perception; source evidence and uncertain charges are preserved. No automatic retry."})
+            from weft.portal_avatar_jobs import PortalAvatarManager
+            self.avatar_manager = PortalAvatarManager(self.root / "avatars", self.project)
             self.thread = threading.Thread(target=self._work, name="weft-portal-queue", daemon=True) if start else None
             if self.thread:
                 self.thread.start()
         except Exception:
+            if self.avatar_manager is not None:
+                self.avatar_manager.close()
             os.close(self.lease)
             raise
 
@@ -218,7 +223,8 @@ class Portal:
             for i in self.jobs)
 
     def _reserved_growth(self):
-        total = 0
+        manager = getattr(self, "avatar_manager", None)
+        total = manager.status().get("reserved_bytes", 0) if manager else 0
         for identity in self.jobs:
             folder = self._folder(identity)
             moving = moving_jobs.reserved_growth(folder)
@@ -268,6 +274,14 @@ class Portal:
             if result["kind"] == "task_job":
                 from weft.portal_task_jobs import summary as task_summary
                 result["task_job"] = task_summary(folder)
+            from weft import portal_saved_body
+            result["saved_body"] = (portal_saved_body.summary(folder) if result["kind"] == "saved_body"
+                else portal_saved_body.availability(folder) if result["kind"] == "video"
+                and status["status"] == "needs_input" and (folder / "perception/preflight-complete.json").is_file()
+                else {"available": False})
+            if result["kind"] == "saved_body":
+                result["route"] = "exercise"
+                result["review_scope"] = "conditional_body_authored_ground"
             result["perception"] = {**perception_jobs.summary(folder, config, status),
                 "busy": self.active == identity and perception_jobs.read_status(folder).get("status") not in {"not_started", None}}
             result["body_detail"] = {"available": False}
@@ -343,7 +357,9 @@ class Portal:
             review = folder / "muse/status.json"
             if review.is_file():
                 result["muse"] = bounded_json(review)
-                result["muse"]["repair_availability"] = repair_availability(folder)
+                result["muse"]["repair_availability"] = ({"available": False,
+                    "reason": "Body approximations support review only; local repairs are not qualified"}
+                    if result["kind"] == "saved_body" else repair_availability(folder))
                 for field, name in (("receipt", "advisor-call"), ("proposal", "hypotheses")):
                     path = folder / "muse/advice" / (name + ".json")
                     if path.is_file():
@@ -370,6 +386,7 @@ class Portal:
             ids = list(self.jobs)
         return {"provider": "openai", "model": MODEL, "credential": credential_status(self.project),
                 "muse": muse_availability(self.project),
+                "avatars": self.avatar_manager.status(),
                 "budget": self.budget.status(), "local_only": True, "max_upload_bytes": MAX_UPLOAD,
                 "jobs": [self.summary(identity) for identity in reversed(ids)],
                 "limits": "60-second videos, 1,800 frames, one processing job at a time; failed reconstructions remain inspectable"}
@@ -464,7 +481,7 @@ class Portal:
                 if identity:
                     self.active = identity
                     target = self._folder(identity) / ("moving-equipment/status.json" if moving else "equipment/status.json" if equipment else "muse/repairs/status.json" if repairs else "muse/checks/status.json" if checks else "muse/status.json" if review else "status.json")
-                    if not repairs and not perception and not moving and self.jobs[identity].get("kind") != "task_job":
+                    if not repairs and not perception and not moving and self.jobs[identity].get("kind") not in {"task_job", "saved_body"}:
                         atomic_json(target, {"status": "running", "stage": "starting", "events": []})
             if identity is None:
                 self.wake.wait(1)
@@ -657,6 +674,20 @@ class Portal:
                 raise ValueError("Task settings require a ready moving exploration or authored placement world")
             return self.lab(identity).task_options()
 
+    def prepare_saved_body(self, identity, payload):
+        from weft.portal_saved_body import queue_saved_body_child
+
+        with self.lock:
+            self._folder(identity)
+            if self.active == identity:
+                raise ValueError("The source worker is finishing; refresh before creating a separate sandbox")
+            config = queue_saved_body_child(self.root, identity, payload, lease_fd=self.lease,
+                existing_jobs=self.jobs, stored_bytes=self._stored_bytes(), reserved_bytes=self._reserved_growth(),
+                pending_jobs=self._pending_jobs(), deadline=time.monotonic()+2)
+            self.jobs[config["id"]] = config
+            self.wake.set()
+            return self.summary(config["id"])
+
     def task_action(self, identity, operation, payload):
         from weft.portal_task_jobs import create_task_child, create_learning_child
 
@@ -736,6 +767,8 @@ class Portal:
             return self.summary(identity)
 
     def _require_review_body(self, identity, *, action="review"):
+        if self.jobs[identity].get("kind") == "saved_body" and action != "review":
+            raise ValueError("Body approximations support Muse review only; local checks and repairs are not qualified")
         if self.jobs[identity].get("kind") == "task_job" and not self._placement(identity):
             raise ValueError("Task-learning reports have no qualified Muse review or repair contract")
         if self._spatial_import(identity):
@@ -771,7 +804,8 @@ class Portal:
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MPLCONFIGDIR": str(folder / "runtime/matplotlib")}
         support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks or repairs or equipment or perception or moving)
         tasks = self.jobs[identity].get("kind") == "task_job" and not (review or checks or repairs or equipment or perception or moving)
-        if (paid_perception or not (review or checks or repairs or support or tasks or equipment or perception or moving)) and os.environ.get("OPENAI_API_KEY"):
+        saved_body = self.jobs[identity].get("kind") == "saved_body" and not (review or checks or repairs or equipment or perception or moving)
+        if (paid_perception or not (review or checks or repairs or support or tasks or saved_body or equipment or perception or moving)) and os.environ.get("OPENAI_API_KEY"):
             env["OPENAI_API_KEY"] = os.environ["OPENAI_API_KEY"]
         if review or paid_perception:
             for name in ("META_API_KEY", "MODEL_API_KEY"):
@@ -786,7 +820,7 @@ class Portal:
             if moving:
                 log_name = moving_jobs.read_status(folder)["phase"] + "-worker.log"
             with (work / log_name).open("xb") as log:
-                mode = ["moving"] if moving else ["perception"] if perception else ["equipment"] if equipment else ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else ["tasks"] if tasks else []
+                mode = ["moving"] if moving else ["perception"] if perception else ["equipment"] if equipment else ["repairs"] if repairs else ["checks"] if checks else ["review"] if review else ["supports"] if support else ["tasks"] if tasks else ["saved-body"] if saved_body else []
                 process = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.portal_worker", str(folder), str(self.project), *mode],
                                            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE if moving else log, stderr=subprocess.STDOUT, env=env)
                 if moving:
@@ -806,7 +840,7 @@ class Portal:
                     output_thread.start()
                 with self.lock:
                     self.process = process
-                deadline = time.monotonic() + (195 if moving or tasks else 450 if perception else 120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
+                deadline = time.monotonic() + (195 if moving or tasks else 135 if saved_body else 450 if perception else 120 if equipment else 65 if repairs else 60 if checks else 90 if review else 420)
                 next_inventory = 0
                 while process.poll() is None:
                     if moving and output_limit.is_set():
@@ -932,17 +966,35 @@ class Portal:
                 "error": "Cancelled; retained evidence and any uncertain API charges remain available"})
         return self.summary(identity)
 
+    def prepare_avatars(self, raw=None):
+        with self.lock:
+            reserve = self.avatar_manager.reserve_for(raw)
+            if self._stored_bytes() + self._reserved_growth() + reserve > MAX_STORAGE:
+                raise ValueError("Avatar preparation would exceed portal storage capacity")
+            return self.avatar_manager.submit(raw)
+
+    def attach_avatars(self, identity):
+        with self.lock:
+            self._folder(identity)
+            if identity not in self.labs or getattr(self.labs[identity], "loading", False):
+                raise ValueError("Open this sandbox first, wait for its body to load, then return here to add characters")
+            lab = self.lab(identity)
+            return self.avatar_manager.attach_async(identity, lab)
+
     def lab(self, identity):
         with self.lock:
             if self._status(identity)["status"] != "ready":
                 raise ValueError("Sandbox is not ready; inspect this project's progress and failure details")
             if identity not in self.labs:
                 if len(self.labs) >= 3:
+                    attachments = self.avatar_manager.status()["attachments"]
                     idle = next((key for key, lab in self.labs.items() if not getattr(lab, "loading", False) and lab.recorder is None
+                                 and attachments.get(key, {}).get("status") != "running"
                                  and (lab.export_future is None or lab.export_future.done())), None)
                     if idle is None:
                         raise ValueError("Finish recording in another sandbox before opening a fourth")
-                    self.labs.pop(idle).close()
+                    evicted = self.labs.pop(idle)
+                    (self.avatar_manager.attached(idle) or evicted).close()
                 folder = self._folder(identity)
                 lab_path = (folder / self._status(identity).get("lab", "lab")).resolve()
                 if not lab_path.is_relative_to(folder):
@@ -961,10 +1013,19 @@ class Portal:
                 lab.token = self.token
                 self.labs[identity] = lab
             self.labs.move_to_end(identity)
-            return self.labs[identity]
+            manager = getattr(self, "avatar_manager", None)
+            return (manager.attached(identity) if manager else None) or self.labs[identity]
 
     def artifact(self, identity, name):
         folder = self._folder(identity)
+        if name.startswith("saved-body/"):
+            from weft.portal_saved_body import ARTIFACTS
+            from weft.shared_world_packaging import read_package_file
+            relative = name.removeprefix("saved-body/")
+            if self.jobs[identity].get("kind") != "saved_body" or relative not in ARTIFACTS:
+                raise ValueError("File is not a public saved-body artifact")
+            read_package_file(folder / "saved-body", relative, max_bytes=16 << 20)
+            return folder / name
         if name.startswith("task-job/"):
             from weft.portal_task_jobs import ARTIFACTS
             from weft.shared_world_packaging import read_package_file
@@ -1019,8 +1080,10 @@ class Portal:
         self.wake.set()
         if self.thread:
             self.thread.join(timeout=10)
-        for lab in self.labs.values():
-            lab.close()
+        if self.avatar_manager is not None:
+            self.avatar_manager.close()
+        for identity, lab in self.labs.items():
+            (self.avatar_manager.attached(identity) or lab).close()
         os.close(self.lease)
 
 
@@ -1090,6 +1153,21 @@ class PortalHandler(LabHandler):
             path = urlsplit(self.path).path
             if self.headers.get("Transfer-Encoding"):
                 raise ValueError("Use a fixed-length upload")
+            avatar_attach = re.fullmatch(r"/api/projects/([a-f0-9]{32})/avatars/attach", path)
+            if path in {"/api/avatars/builtins", "/api/avatars/import"} or avatar_attach:
+                length = int(self.headers.get("Content-Length", "0"))
+                maximum = 32 << 20 if path == "/api/avatars/import" else 2
+                if not 1 <= length <= maximum:
+                    raise ValueError("Avatar upload exceeds its bound")
+                self.connection.settimeout(30)
+                raw = self.rfile.read(length)
+                if len(raw) != length:
+                    raise ValueError("Avatar upload was interrupted")
+                if path != "/api/avatars/import" and raw != b"{}":
+                    raise ValueError("This avatar operation takes an empty JSON object")
+                result = (self.server.portal.attach_avatars(avatar_attach[1]) if avatar_attach else
+                    self.server.portal.prepare_avatars(raw if path == "/api/avatars/import" else None))
+                return self.reply(result, 202)
             if path == "/api/projects":
                 query = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
                 if (not {"name", "mode", "ai", "request_id"} <= query.keys()
@@ -1144,6 +1222,17 @@ class PortalHandler(LabHandler):
                     raise ValueError("Equipment choice accepts only a candidate identifier")
                 method = self.server.portal.prepare_equipment if match[2] == "prepare" else self.server.portal.choose_equipment
                 return self.reply(method(match[1], value["id"]), 202 if match[2] == "prepare" else 200)
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/saved-body", path)
+            if match:
+                length = int(self.headers.get("Content-Length", "0"))
+                if not 1 <= length <= 2048:
+                    raise ValueError("Saved-body scope requires bounded JSON")
+                self.connection.settimeout(10)
+                raw = self.rfile.read(length)
+                if len(raw) != length:
+                    raise ValueError("Saved-body request was interrupted")
+                from weft.exercise_body_source import _json
+                return self.reply(self.server.portal.prepare_saved_body(match[1], _json(raw)), 202)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/perception/(preflight|prepare|body-detail)", path)
             if match:
                 length = int(self.headers.get("Content-Length", "0"))

@@ -130,9 +130,44 @@ async function fallbackUsesRecordedEndpointsAndSharedCameraForAllThreeViews(){
   assert.match(replay.describe(event).outcome,/0\.075 s.*not passed.*last valid geometry/);
 }
 
+async function compoundReplayRetainsGeometryTransformsAndFallback(){
+  const data=dataFixture(),scene=data.scene.engine_scene,object=scene.objects[0];
+  const parts=[
+    {id:"bar",shape:"box",size:[.24,.08,.06],position:[.12,0,.08],quaternion:[Math.cos(Math.PI/8),0,0,Math.sin(Math.PI/8)]},
+    {id:"round",shape:"sphere",radius:.04,position:[-.12,.05,.11],quaternion:[1,0,0,0]},
+    {id:"stem",shape:"capsule",radius:.025,length:.14,position:[-.02,0,.24],quaternion:[Math.cos(Math.PI/4),0,Math.sin(Math.PI/4),0]},
+  ];
+  scene.objects[0]={id:object.id,role:object.role,shape:"compound",color:object.color,position:object.position,quaternion:object.quaternion,
+    geometry:{profile:"rigid-compound-v1",origin:"authored_hypothesis",assumptions:["Analytic compound equipment for replay custody, not a measured object."],
+      inertia:{mode:"authored_centered_diagonal",diagonal:[.01,.01,.01]},parts}};
+  const before=JSON.stringify(data),compact=replay.compactScene(data.scene),direct=math.compileScene(scene),config=math.compileScene(compact);
+  assert.equal(compact.objects[0].shape,"compound");assert.equal(compact.objects[0].parts.length,3);
+  assert(!("geometry" in compact.objects[0]));
+  for(const part of compact.objects[0].parts)assert(Object.keys(part).every(key=>["shape","size","radius","length","position","quaternion"].includes(key)));
+  assert.deepEqual(math.prepareWorld(config),math.prepareWorld(direct),"Compaction retains actual rendered vertices, normals and indices");
+  const state=data.events[1].snapshot,camera=data.changes[1].settings.camera;
+  const expected=replay.fallbackFrame(math,direct,replay.prepareOutlines(math,direct),state,camera,true);
+  const actual=replay.fallbackFrame(math,config,replay.prepareOutlines(math,config),state,camera,true);
+  assert.deepEqual(actual,expected,"All three original-body fallback views retain transformed compound outlines");
+  assert.equal(actual.length,3);assert(actual.every(view=>view.paths.length===30));
+  assert.deepEqual(math.prepareWorld(math.compileScene(replay.compactScene(compact))),math.prepareWorld(direct),"Already compact parts remain supported");
+  const ui=mountFixture({fallback:true,data});ui.select(1);await ui.settle();
+  assert.match(ui.element("appearance-status").textContent,/WebGL2 unavailable.*showing original recorded body/);
+  assert(ui.element("avatar-canvas").hidden&&!ui.element("fallback-canvas").hidden);
+  assert.equal(ui.viewers[0].scene.objects[0].parts.length,3);
+  assert.deepEqual(ui.event().event,data.events[1]);assert(ui.draws.length>0);
+  ui.listeners.pagehide({persisted:false});assert(ui.workers[0].terminated&&ui.viewers[0].disposed);
+  assert.equal(JSON.stringify(data),before,"Compaction and fallback cannot mutate recorded scene or events");
+  const excessive=structuredClone(scene);excessive.objects[0].geometry.parts=Array.from({length:33},()=>parts[0]);
+  assert.throws(()=>replay.compactScene(excessive),/compound bound/);
+  const malformed=structuredClone(scene);malformed.objects[0].geometry.parts[0].quaternion=[2,0,0,0];
+  assert.throws(()=>replay.prepareOutlines(math,math.compileScene(replay.compactScene(malformed))),/Invalid recorded equipment transform/);
+}
+
 const checks=[everyPhysicalEventAndLastAnchoredAppearanceAreRetained,seeksCoalesceAndOldResponsesCannotOverwriteTheLatestEvent,
   playbackPausesWhenHiddenAndDisposesItsBoundedResources,fallbackAndInspectionCameraAreExplicitWithoutChangingTheEvent,
-  blobWorkersHavePinnedMathAndCannotImportNetworkCode,fallbackUsesRecordedEndpointsAndSharedCameraForAllThreeViews];
+  blobWorkersHavePinnedMathAndCannotImportNetworkCode,fallbackUsesRecordedEndpointsAndSharedCameraForAllThreeViews,
+  compoundReplayRetainsGeometryTransformsAndFallback];
 let failed=0;const started=performance.now();
 for(const check of checks){try{await check();console.log(`PASS ${check.name}`);}catch(error){failed++;console.error(`FAIL ${check.name}: ${error.stack}`);}}
 console.log(JSON.stringify({checks:checks.length,failed,seconds:(performance.now()-started)/1000,scope:"Fake DOM/worker lifecycle and pure recorded-state geometry; no browser, GPU, physics, media export or source study"}));

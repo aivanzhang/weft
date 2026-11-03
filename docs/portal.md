@@ -1,5 +1,7 @@
 # Weft web portal
 
+For the shortest tested exercise-and-avatar walkthrough, see [the local demo guide](hackathon-demo.md).
+
 Upload a video, follow its reconstruction, open the interactive 3D sandbox, and
 save your actions. OpenAI scene analysis and Muse physics review use **server-side project API keys**, never a
 ChatGPT login, browser session, coding-agent CLI, or subscription token.

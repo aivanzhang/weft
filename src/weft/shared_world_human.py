@@ -14,7 +14,7 @@ import numpy as np
 from weft import exercise_body_source
 from weft.io import canonical_hash, local_time
 from weft.mobile_human import ground_normal
-from weft.person_inventory import validate_person_inventory
+from weft.person_inventory import CONDITIONAL_PROFILE, validate_person_inventory
 from weft.shared_world import (
     HUMAN_ONLY_PROFILE, audit_shared_world_feasibility, full_reference_horizon, validate_shared_world,
 )
@@ -172,7 +172,9 @@ def _scene(human, observations, inventory, binding, scale):
                  **({"native_interval": interval} if interval else {}),
                  "human_limits": dict(SUCCESS_LIMITS), "object_goal": None},
         "assumptions": [
-            "Person-only scope is an explicit user declaration, not verified absence of equipment or obstacles.",
+            ("Conditional body/ground approximation: original scene inventory is retained; equipment, obstacles, other people and their contacts are omitted, not absent."
+             if inventory.get("profile") == CONDITIONAL_PROFILE else
+             "Person-only scope is an explicit user declaration, not verified absence of equipment or obstacles."),
             "One articulated human and the authored ground plane share one MuJoCo world; no rigid prop is introduced.",
             "Ground, mass, friction, scale and monocular depth remain priors; physical accuracy is unverified.",
             ("Native presentation timing drives derived body references; original detector clocks and missing/unsampled source slots remain preserved."
@@ -317,7 +319,8 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
             **({"native_interval": scene["task"]["native_interval"]} if "native_interval" in scene["task"] else {}),
             "scope": "Complete retained reference interval; missing source observations remain missing, with no native-clock accuracy claim."}
         report = {"schema_version": 1, "profile": PROFILE, "status": status, "created_at": local_time(),
-            "mode": "source_person_only", "physical_validation": "unverified", "lab_status": "not_created",
+            "mode": "conditional_body_ground" if inventory.get("profile") == CONDITIONAL_PROFILE else "source_person_only",
+            "physical_validation": "unverified", "lab_status": "not_created",
             "readiness": "candidate_constructed_not_lab_admitted", "simulation_ready": False,
             "scene_sha256": canonical_hash(scene), "source_sha256": inventory["source_sha256"],
             "source_manifest_sha256": _sha(manifest_raw), "source_verification": {
@@ -334,7 +337,9 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
             "bounds": {"maximum_seconds": max_seconds, "maximum_bytes": MAX_OUTPUT_BYTES,
                        "maximum_files": MAX_OUTPUT_FILES, "maximum_file_bytes": MAX_FILE_BYTES,
                        "deadline_scope": "Cooperative bounded native calls; no hard process interruption"},
-            "scope": "Declared person-only simulator candidate, not verified equipment absence, recovered biomechanics or physical exercise success."}
+            "scope": ("Authored body/ground approximation with original inventory retained; omitted scene contacts are unsupported, not verified absent. No recovered biomechanics or physical exercise success."
+                      if inventory.get("profile") == CONDITIONAL_PROFILE else
+                      "Declared person-only simulator candidate, not verified equipment absence, recovered biomechanics or physical exercise success.")}
         write({"reference-feasibility.json": _bytes(feasibility), "source-binding-verification.json": _bytes(source_check),
                "reconstruction.json": _bytes(report)})
         for name, expected in owned.items():

@@ -1,5 +1,9 @@
 # Weft — from observation to an executable world
 
+**Demo verification — November 3, 2026 (PST):** The rough journey is implemented and verified, including generalized RL-driven avatars, Studio delivery, normal recording/export/replay and a real Muse API response. See [acceptance and limits](docs/handoffs/hackathon-demo.md). Broader physical reconstruction remains backlog.
+
+**Active delivery goal — November 3, 2026 (PST):** Ship the [rough hackathon demo](docs/handoffs/hackathon-demo-goal.md): video upload → processing stages → interactive 3D RL environment → optional Avatar Studio creation/import and correctly retargeted avatar → recording/replay → Muse review. The user explicitly prioritizes this complete usable journey over perfection and further reconstruction research. Preserve the broader target below as backlog; it no longer blocks demo completion.
+
 **Current product priority (November 2, 2026):** deliver the interactive [web portal](docs/portal.md), backed by server-side AI API keys—not a ChatGPT login or coding-session runtime. Upload → AI analysis → reconstruction/checks → RL simulation → interaction/recording/export must be one user journey. The user approved a separate $5 total OpenAI portal development allowance. Both reconstruction and simulation tracks remain in scope; generalization and physical-accuracy gaps are not waived. Hosted publication remains explicitly deferred.
 
 **Meta integration priority:** Muse Spark is the physical-scene proposer/critic, separate from avatar generation. The portal now exposes construction review; completing bounded repair proposals and independent tests remains part of the full goal. OpenAI planning does not replace meaningful Meta use. [Current evidence](docs/handoffs/portal-muse.md).
