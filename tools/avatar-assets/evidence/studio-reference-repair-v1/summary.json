@@ -1,0 +1,69 @@
+{
+  "actions": {
+    "browser_calls": 0,
+    "git_operations": 0,
+    "ledger_or_config_changes": 0,
+    "native_calls": 0,
+    "provider_calls": 0,
+    "runtime_code_or_root_document_changes": 0
+  },
+  "groups": [
+    {
+      "classification": "analytic_surface_count_tests",
+      "source": "outputs/surface-count-diagnostics-tests-v1"
+    },
+    {
+      "classification": "analytic_author_resource_envelope_tests",
+      "source": "outputs/author-resource-envelope-tests-v1"
+    },
+    {
+      "classification": "analytic_policy_tests_and_readonly_retained_context",
+      "source": "outputs/standing-reference-policy-tests-v1"
+    },
+    {
+      "classification": "completed_owner_policy_activation_receipts",
+      "source": "outputs/openai-standing-reference-policy-v2"
+    },
+    {
+      "classification": "actual_completed_website_retry_prepare_only",
+      "source": "outputs/gpt52-panda-website-retry-v3"
+    },
+    {
+      "classification": "actual_terminal_447a_website_run_unsupported",
+      "source": "outputs/gpt52-panda-studio-live-v2"
+    }
+  ],
+  "limitations": [
+    "No current d879 run files, .local databases, credentials or raw worker tokens are included.",
+    "Policy snapshots are historical evidence, not an authorization command.",
+    "Surface/resource tests are analytic fixtures, not generated avatars or native rendering.",
+    "This bundle does not claim a successful hands-off avatar delivery."
+  ],
+  "recorded_local": "2026-11-02 17:15:36 PST",
+  "results": {
+    "local_tests": {
+      "author_resource_envelope": 14,
+      "standing_reference_policy": 28,
+      "status": "saved receipts report passed; no tests rerun by packaging",
+      "surface_count_diagnostics": 8
+    },
+    "policy": "Preserved historical activation receipts for exact source/reference under existing15000000microUSD total cap; no current private configuration read or change",
+    "website_retry_prepare": {
+      "child": "d8795ec6c273489da37954ab",
+      "generation_started_in_this_prepare_receipt": false,
+      "interpretation": "Proof of completed website retry/prepare only; not the active child run outcome",
+      "parent": "447a849b435b4d2e962b3763",
+      "saved_status": "passed"
+    },
+    "website_terminal": {
+      "browser_exit_verified": true,
+      "elapsed_seconds": 251.649999958,
+      "job": "447a849b435b4d2e962b3763",
+      "result": "Actual worker stopped without a completed delivery; preserved attempts are not a pass",
+      "server_exit_verified": true,
+      "status": "unsupported"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Completed selected evidence only; no active worker output was inspected or copied"
+}

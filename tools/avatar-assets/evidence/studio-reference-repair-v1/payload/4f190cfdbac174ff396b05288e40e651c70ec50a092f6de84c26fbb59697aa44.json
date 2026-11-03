@@ -1,0 +1,77 @@
+{
+  "actual_prompt_checks": [
+    {
+      "attempt": 0,
+      "directive_allowance_bytes": 1024,
+      "envelope": {
+        "portable_fur": {
+          "base_export_vertices": 50004,
+          "exported_corners_per_card": 12,
+          "limit": 100000,
+          "maximum_cards": 3825,
+          "profile": "tuft-v1",
+          "reserve_vertices": 4096,
+          "scope": "Global count across all bands/materials. Zero capacity cannot support a portable tuft coat; additional undercoat seams and actual exported geometry still require validation. This bound does not establish visible fur coverage or quality."
+        },
+        "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+        "status": "available"
+      },
+      "full_limit_bytes": 131072,
+      "new_bytes": 47940,
+      "old_bytes": 46478,
+      "source_inputs_and_previous_design_unchanged": true,
+      "source_prompt": "outputs/studio-447a849b435b4d2e962b3763/agents/author-0/prompt.txt",
+      "source_prompt_sha256": "e7eb4b1844d9f33844cf59c72d2dccec7848b65ef7ae9ba26de249cb2ed40df1"
+    },
+    {
+      "attempt": 1,
+      "directive_allowance_bytes": 1024,
+      "envelope": {
+        "portable_fur": {
+          "base_export_vertices": 50004,
+          "exported_corners_per_card": 12,
+          "limit": 100000,
+          "maximum_cards": 3825,
+          "profile": "tuft-v1",
+          "reserve_vertices": 4096,
+          "scope": "Global count across all bands/materials. Zero capacity cannot support a portable tuft coat; additional undercoat seams and actual exported geometry still require validation. This bound does not establish visible fur coverage or quality."
+        },
+        "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+        "status": "available"
+      },
+      "full_limit_bytes": 131072,
+      "new_bytes": 62534,
+      "old_bytes": 61072,
+      "source_inputs_and_previous_design_unchanged": true,
+      "source_prompt": "outputs/studio-447a849b435b4d2e962b3763/agents/author-1/prompt.txt",
+      "source_prompt_sha256": "5156140d750a2054bf5f47894b3fa39a90b9091465390ba89b7ac8940936a567"
+    },
+    {
+      "attempt": 2,
+      "directive_allowance_bytes": 1024,
+      "envelope": {
+        "portable_fur": {
+          "base_export_vertices": 50004,
+          "exported_corners_per_card": 12,
+          "limit": 100000,
+          "maximum_cards": 3825,
+          "profile": "tuft-v1",
+          "reserve_vertices": 4096,
+          "scope": "Global count across all bands/materials. Zero capacity cannot support a portable tuft coat; additional undercoat seams and actual exported geometry still require validation. This bound does not establish visible fur coverage or quality."
+        },
+        "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+        "status": "available"
+      },
+      "full_limit_bytes": 131072,
+      "new_bytes": 63525,
+      "old_bytes": 62063,
+      "source_inputs_and_previous_design_unchanged": true,
+      "source_prompt": "outputs/studio-447a849b435b4d2e962b3763/agents/author-2/prompt.txt",
+      "source_prompt_sha256": "363bb5351284a9c6e4bfbd9c759ee0859a2b4348be4ccfa87eb9c6b1a11c3106"
+    }
+  ],
+  "errors": 0,
+  "failures": 0,
+  "passed": true,
+  "tests_run": 14
+}

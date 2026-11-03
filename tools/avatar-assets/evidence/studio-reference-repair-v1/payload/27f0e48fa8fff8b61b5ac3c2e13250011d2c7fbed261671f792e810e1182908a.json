@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "evidence_kind": "analyst-recorded tool stdout",
+  "command": "PYTHONPATH=tests:. .venv/bin/python -m unittest tests.test_standing_authorization.StandingAuthorizationTests tests.test_standing_reference_authorization.StandingReferenceAuthorizationTests tests.test_standing_reference_authorization.StandingOptionalReferenceTests -q",
+  "tests": 28,
+  "seconds": 0.225,
+  "provider_calls": 0,
+  "native_calls": 0,
+  "active_policy_changes": false,
+  "live_ledger_changes": false,
+  "actual_read_only_proof": "actual-read-only.json",
+  "sources": [
+    {
+      "path": "avatar_assets/standing_authorization.py",
+      "sha256": "68e309429c7d48d54de546c807cbbc5d56b970abcb4d541bc5ffe451dd1811d5"
+    },
+    {
+      "path": "tests/test_standing_reference_authorization.py",
+      "sha256": "1c4c08f66e2faf9cfbd6dcc168dd4ec8158aef45b63473580ae95c91872a33ef"
+    }
+  ]
+}

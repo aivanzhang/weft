@@ -1,0 +1,1972 @@
+{
+  "schema_version": 1,
+  "status": "unsupported",
+  "provenance": "actual_pipeline",
+  "recorded_local": "11/02/2026, 16:57:46 PST",
+  "timezone": "America/Los_Angeles",
+  "job_id": "447a849b435b4d2e962b3763",
+  "explicit_start_requested": true,
+  "limits": {
+    "wall_seconds": 1800,
+    "operation_ms": 15000,
+    "sampled_browser_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "server_log_bytes": 1048576,
+    "json_bytes": 1048576,
+    "requests": 2056,
+    "snapshots": 128,
+    "events": 4096,
+    "event_bytes": 1048576
+  },
+  "scope": "Actual local HTML/HTTP/canonical job manager, UI progress and real delivered GLB/video/static assets. Geometry provenance is bound to the inspected job. This does not establish visual quality, physical action, seamless loops or sustained FPS.",
+  "sources": [
+    {
+      "path": "browser/tests/studio-live.mjs",
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "scripts/verify_studio_live.py",
+      "sha256": "57f575f69a2cf7388b40ab8ece65fe9679e87d576febefb5ebdec15ae7671389"
+    },
+    {
+      "path": "browser/studio.html",
+      "sha256": "cc6d2ef78f748138c422d15ad01bdb013e2ef7dd8927c55550e9eb95cd988af1"
+    },
+    {
+      "path": "browser/studio.js",
+      "sha256": "386a9cff64fa419b9d1b2b744711c439c6346882b35f5a26f7c75dd07fc80e87"
+    },
+    {
+      "path": "browser/studio.css",
+      "sha256": "7c14ae8ba8fc041dd404dfe5a4d0655f16522997b23d19281d769b01818e6a04"
+    },
+    {
+      "path": "avatar_assets/studio.py",
+      "sha256": "cf7ee42f824d3a736504059bc002b3f4f2857bad88dd5f6126c2b61c3814da7c"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "1789c0acd9b73cf94d083cad70b54f39bc1dccc4bca33de939b7845201abeacc"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "91d741d31debaaddb9ec2424fe7239d4988783b6e0e716231d722bc5ef677e02"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "4fb3aafa5004a988a64e43406d5e44010469683fdee790486709239f959153f1"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "c9ef2904fe93476df3448bd78b131eaa7001da75bb72b771158cb19ae0c4f259"
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "5ca056d560e72804ac38f0910e469336212820b2843c32597b74cb88b8ad563f"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "93e638d39b77a4817ec14f6a2bb263b3c48def6d8de734a5ac0b804a98a4bf44"
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "9ffe985d2a357380f517c674523ba0ee2a4c9348893b34faae2019962bf7bbad"
+    },
+    {
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "2dda88ed056e107fa0c8cdaf43e71a5858ed4b78f97a7e20e9c0c9b15bbde36d"
+    },
+    {
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "job-000.json",
+      "status": "planned",
+      "observed_seconds": 1.420425,
+      "elapsed_seconds_measured": 37.22,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 36.764
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-001.json",
+      "status": "launching",
+      "observed_seconds": 2.0044463329999997,
+      "elapsed_seconds_measured": 0.01,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 36.764
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-002.json",
+      "status": "running",
+      "observed_seconds": 2.064202625,
+      "elapsed_seconds_measured": 0.11,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 36.764
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-003.json",
+      "status": "running",
+      "observed_seconds": 4.6503686669999995,
+      "elapsed_seconds_measured": 2.69,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.008
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "running",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-004.json",
+      "status": "running",
+      "observed_seconds": 7.241480332999999,
+      "elapsed_seconds_measured": 5.29,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.008
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.758
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "running",
+          "detail": "",
+          "attempt": 0
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-005.json",
+      "status": "running",
+      "observed_seconds": 105.65086383300002,
+      "elapsed_seconds_measured": 103.7,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.008
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.758
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 98.976
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "failed",
+          "detail": "Tuft coat exceeds the aggregate 100000 exported vertex budget",
+          "attempt": 0,
+          "elapsed_seconds": 0.068
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Tuft coat exceeds the aggregate 100000 exported vertex budget",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "running",
+          "detail": "",
+          "attempt": 1
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-006.json",
+      "status": "running",
+      "observed_seconds": 191.14717054199997,
+      "elapsed_seconds_measured": 189.19,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.008
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.758
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 98.976
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "failed",
+          "detail": "Tuft coat exceeds the aggregate 100000 exported vertex budget",
+          "attempt": 0,
+          "elapsed_seconds": 0.068
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Tuft coat exceeds the aggregate 100000 exported vertex budget",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 84.874
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "failed",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 1,
+          "elapsed_seconds": 1.36
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-007.json",
+      "status": "running",
+      "observed_seconds": 248.136854917,
+      "elapsed_seconds_measured": 246.18,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.008
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.758
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 98.976
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "failed",
+          "detail": "Tuft coat exceeds the aggregate 100000 exported vertex budget",
+          "attempt": 0,
+          "elapsed_seconds": 0.068
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Tuft coat exceeds the aggregate 100000 exported vertex budget",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 84.874
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "failed",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 1,
+          "elapsed_seconds": 1.36
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 56.483
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "failed",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 2,
+          "elapsed_seconds": 1.354
+        },
+        {
+          "id": "attempt:2",
+          "stage": "attempt",
+          "label": "Attempt · attempt 3",
+          "status": "rejected",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 2
+        },
+        {
+          "id": "repair_budget",
+          "stage": "repair_budget",
+          "label": "Repair Budget",
+          "status": "unsupported",
+          "detail": "No accepted model within the bounded local repair attempts",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-008.json",
+      "status": "unsupported",
+      "observed_seconds": 250.734640833,
+      "elapsed_seconds_measured": 246.42,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.008
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.758
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 98.976
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "failed",
+          "detail": "Tuft coat exceeds the aggregate 100000 exported vertex budget",
+          "attempt": 0,
+          "elapsed_seconds": 0.068
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Tuft coat exceeds the aggregate 100000 exported vertex budget",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 84.874
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "failed",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 1,
+          "elapsed_seconds": 1.36
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 56.483
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "failed",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 2,
+          "elapsed_seconds": 1.354
+        },
+        {
+          "id": "attempt:2",
+          "stage": "attempt",
+          "label": "Attempt · attempt 3",
+          "status": "rejected",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 2
+        },
+        {
+          "id": "repair_budget",
+          "stage": "repair_budget",
+          "label": "Repair Budget",
+          "status": "unsupported",
+          "detail": "No accepted model within the bounded local repair attempts",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    }
+  ],
+  "checks": [
+    "Saved OpenAI backend is pinned to 7 calls and 2 repairs; dollar authorization remains an action-time worker check",
+    "Real HTTP/UI preserve the saved exact prompt/style/actions and disclose source reuse, 0 estimated Meshy credits and unknown Meshy account dollar conversion",
+    "OpenAI dollar reservation is recorded separately from Meshy generation credits; this verifier creates no API allowance",
+    "One explicit UI Start sent the pinned plan_id with a session token; no plan/create/cancel/retry mutation"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "at_seconds": 0.632232833
+    },
+    {
+      "method": "GET",
+      "path": "/studio.css",
+      "at_seconds": 0.6527485420000001
+    },
+    {
+      "method": "GET",
+      "path": "/studio.js",
+      "at_seconds": 0.653659625
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 0.6543179579999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/session",
+      "at_seconds": 0.670949125
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 0.682156958
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 0.68239175
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 1.41044825
+    },
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763/start",
+      "at_seconds": 1.9488970829999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 2.0008421669999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 2.060151833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 4.567248666999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 4.642939167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763/files/cd342ed82427eb6aacba66d7f3662703",
+      "at_seconds": 4.647291957999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 7.152114792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 7.236148833000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 9.744323292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 9.827869708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 12.336076
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 12.418808375000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 14.927055583000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 15.009949125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 17.518644792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 17.602134
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 20.109073916999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 20.177245083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 22.685023917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 22.766747332999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 25.276195917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 25.358300542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 27.866052417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 27.947873708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 30.456280666999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 30.538605792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 33.046200875000004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 33.128669708000004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 35.637299583
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 35.720520083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 38.228606207999995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 38.31149825
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 40.81968929199999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 40.901832125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 43.410008958
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 43.4939095
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 46.002053042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 46.084528082999995
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 48.593173792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 48.674141417
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 51.182396833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 51.266759292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 53.775518542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 53.858814375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 56.366678375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 56.449333708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 58.957809000000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 59.039868541999994
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 61.548430167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 61.629400958
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 64.13589570799999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 64.200094917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 66.70869983300001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 66.789976708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 69.29809945800001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 69.37976991700002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 71.887716083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 71.971426042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 74.47851316700002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 74.559963917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 77.068414375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 77.15097691700001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 79.658007375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 79.74018120800001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 82.24791020800001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 82.32967766700001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 84.838004583
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 84.919665875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 87.42707325
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 87.51116570800001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 90.019597583
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 90.101568458
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 92.61000712500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 92.69340025000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 95.201370125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 95.283499125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 97.79159191700002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 97.87084741700001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 100.37884675000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 100.461800875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 102.97024537500002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 103.05334533300001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 105.561676
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 105.645215875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 108.153943708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 108.236141625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 110.744416375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 110.82648525000002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 113.335545542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 113.41940516700001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 115.927432625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 116.01037679200002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 118.518684625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 118.602457125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 121.110732833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 121.192976125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 123.70133187500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 123.78383879200001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 126.29119220800001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 126.368226542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 128.87758325000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 128.959546292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 131.468673542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 131.551504792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 134.059737708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 134.145487917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 136.654344667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 136.7402445
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 139.249196792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 139.330737167
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 141.83919445799998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 141.92058337499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 144.42822829199997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 144.51107870799999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 147.01895424999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 147.10229887499997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 149.6105925
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 149.693960042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 152.201655375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 152.28645762499997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 154.795172042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 154.877045125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 157.385299792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 157.46701124999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 159.976011667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 160.05786891699998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 162.56655512499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 162.649582375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 165.157824625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 165.23925983299998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 167.747715208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 167.830281792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 170.33889225000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 170.413799458
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 172.92368
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 173.007139083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 175.51683275
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 175.59842475
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 178.10704199999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 178.190145292
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 180.697872833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 180.775053708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 183.28324654199997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 183.367103042
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 185.87560554200002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 185.95692258299997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 188.465945833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 188.54795
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 191.056212917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 191.141342875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 193.65052345799998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 193.73361974999997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 196.24308962499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 196.32642108299999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 198.83514295799998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 198.917652625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 201.42630499999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 201.509515667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 204.01860416699998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 204.101959375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 206.610353458
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 206.6937755
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 209.202068542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 209.285678833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 211.79453079200002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 211.877200125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 214.384367208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 214.455244542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 216.96377620799998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 217.04573258300002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 219.554798125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 219.63664087499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 222.14566162499997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 222.228500875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 224.738174833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 224.8207655
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 227.32958345799997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 227.41341370799998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 229.92156175
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 230.00702433299998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 232.51616483299998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 232.600166667
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 235.108499542
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 235.19190933299998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 237.69959733299999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 237.78175383299998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 240.29095083299998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 240.374663083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 242.883728917
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 242.966910792
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 245.476586125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 245.559587833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 248.06659912499998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 248.130679458
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 250.640543833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763",
+      "at_seconds": 250.72570245799997
+    }
+  ],
+  "errors": [],
+  "external_requests": [],
+  "request_failures": [],
+  "mutations": [
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/447a849b435b4d2e962b3763/start",
+      "plan_id": "f53421af99019756334cc481a799f8ce4582e09f2ea8eb8b43bdab1b0171f6fd",
+      "csrf_present": true
+    }
+  ],
+  "assets": {},
+  "artifacts": [
+    {
+      "path": "source-test.mjs",
+      "bytes": 38951,
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "source-helper.py",
+      "bytes": 31642,
+      "sha256": "57f575f69a2cf7388b40ab8ece65fe9679e87d576febefb5ebdec15ae7671389"
+    },
+    {
+      "path": "ownership-before.json",
+      "bytes": 3528,
+      "sha256": "9cf74a468d7ecba3eb611005c0ea18ac003a32f14d1363aba406c584665c6f2d"
+    },
+    {
+      "path": "job-000.json",
+      "bytes": 4007,
+      "sha256": "66d376448af58d5e65eeee0aecc22a7be8d5e755b2b657f2c25a814a4be4289f"
+    },
+    {
+      "path": "initial-job.png",
+      "bytes": 369077,
+      "sha256": "d431b9f1e58d438c3f4cded470033282a6ff0d6da04ca4c4b29c7d69fb59fc21"
+    },
+    {
+      "path": "job-001.json",
+      "bytes": 4012,
+      "sha256": "04736a9af882dc091ca7696be6119ba1b78292c2eabb2721c4d5e51d0533cb52"
+    },
+    {
+      "path": "job-002.json",
+      "bytes": 4010,
+      "sha256": "25e4f407c50acc7404c3138a300579f717204bdf12796007150090dd97110daf"
+    },
+    {
+      "path": "progress-00.png",
+      "bytes": 374198,
+      "sha256": "7e65d96dfee2d1d76fa649a2e61e16a830a0c2950492dcf3f7e7007bfb0718e1"
+    },
+    {
+      "path": "job-003.json",
+      "bytes": 4623,
+      "sha256": "f1f8ee487490205e7acf0c3a684df7f4b1d88092358e6d20d68f80c596edef14"
+    },
+    {
+      "path": "progress-01.png",
+      "bytes": 555459,
+      "sha256": "bab22dd308db50d2a1f7b55a4dafd38d644602b63f43710beba18889e8e3dd5b"
+    },
+    {
+      "path": "job-004.json",
+      "bytes": 4888,
+      "sha256": "f3cd48eba6133b02b194c02c7bab9fd11e883f3154f31e04831cbd6e2071c682"
+    },
+    {
+      "path": "progress-02.png",
+      "bytes": 562802,
+      "sha256": "34f8809e3f6018dbf99ebbbcca8bc3e39820f865625329ce149c97f17243ab88"
+    },
+    {
+      "path": "job-005.json",
+      "bytes": 5652,
+      "sha256": "6d149ac22a8218b8f971e311d547be2f6ffc35e9802caef7f6c8af536b66474c"
+    },
+    {
+      "path": "progress-03.png",
+      "bytes": 589317,
+      "sha256": "b6f0c3587ece5ea8f0fbf5d73023734fe38ddbcd2cfdb90dcd6aee677ce7fbc3"
+    },
+    {
+      "path": "job-006.json",
+      "bytes": 6379,
+      "sha256": "9b9e452561ab7e12f178be564ea30ec33fc14ff61a230a76bf4b2628acb4a7d9"
+    },
+    {
+      "path": "progress-04.png",
+      "bytes": 614003,
+      "sha256": "d86f833305295d01665e410d8b3aff1146305ae88c8525efd45ee07acdfc7643"
+    },
+    {
+      "path": "job-007.json",
+      "bytes": 7177,
+      "sha256": "1224ceb91498feb879c3b2a87ec3a99a4f12e0e2a1a4b98e77da7f91783b4dcb"
+    },
+    {
+      "path": "progress-05.png",
+      "bytes": 643823,
+      "sha256": "e7c6ecba56db11269278f051e2fc4064420463f39b83bf2c5207615d01ee789d"
+    },
+    {
+      "path": "job-008.json",
+      "bytes": 7258,
+      "sha256": "ce96ce3f0e79e69170408f57608707e07dcecc76f0baa77870bf83ec29d509fa"
+    },
+    {
+      "path": "progress-06.png",
+      "bytes": 656267,
+      "sha256": "862a057e45a50bbd6711bd0fa36210bfde30eaee173cb609b59a2add16f5c770"
+    },
+    {
+      "path": "terminal-job.json",
+      "bytes": 7258,
+      "sha256": "ce96ce3f0e79e69170408f57608707e07dcecc76f0baa77870bf83ec29d509fa"
+    },
+    {
+      "path": "ownership-after.json",
+      "bytes": 5140,
+      "sha256": "5f2fa310307fba1b02ac6c71b45c6d875e292381c20cb8c6ba2ecb36a7acbcfa"
+    },
+    {
+      "path": "server.log",
+      "bytes": 108,
+      "sha256": "fd8672f91bb5108f6f9ebeda78d1c5539e7d9e681150072892ea9309ee7fc780"
+    }
+  ],
+  "cleanup": {
+    "browser_exit_verified": true,
+    "server_exit_verified": true,
+    "worker_cancel_requested": false,
+    "worker_signalled": false
+  },
+  "resources": {
+    "sampled_peak_rss_bytes": 1707524096,
+    "samples": 125,
+    "sampling_interval_ms": 2000,
+    "scope": "Tester Node + direct HTTP server + owned Chrome subtree; detached generation workers are EXCLUDED and keep their own bounds. RSS is sampled and shared pages may be double-counted."
+  },
+  "initial_status": "planned",
+  "frozen_plan_id": "f53421af99019756334cc481a799f8ce4582e09f2ea8eb8b43bdab1b0171f6fd",
+  "generation_mode": "reused_generated_source",
+  "source_reuse": {
+    "bytes": 25557832,
+    "path": "inputs/source-model.glb",
+    "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+  },
+  "source_generation": null,
+  "agent_backend": {
+    "authorization_checked": false,
+    "automatic_paid_retries": 0,
+    "currency": "USD",
+    "execution_gate": "exact_request_dollar_grant_and_explicit_start",
+    "historical_plan_semantics_revalidated": true,
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "maximum_reservation_microdollars": 6505632,
+    "model": "gpt-5.2-2025-12-11",
+    "plan_verified": true,
+    "provider": "openai",
+    "reasoning_effort": "medium",
+    "reservation_microdollars_per_call": 929376,
+    "timeout": 600
+  },
+  "server_pid": 93843,
+  "server": {
+    "port": 50096,
+    "pid": 93843,
+    "job_id": "447a849b435b4d2e962b3763",
+    "canonical_state_dir": ".local/studio"
+  },
+  "browser_pid": 93844,
+  "browser": {
+    "version": "156.0.8078.76",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "software_webgl": true
+  },
+  "initial_ui": {
+    "status": "planned",
+    "timeline_entries": 3,
+    "reviews": 0,
+    "elapsed_label": "37s elapsed"
+  },
+  "last_ui": {
+    "status": "unsupported",
+    "timeline_entries": 14,
+    "reviews": 0,
+    "elapsed_label": "4m 6s elapsed"
+  },
+  "terminal_status": "unsupported",
+  "result": "Actual worker stopped without a completed delivery; preserved attempts are not a pass",
+  "worker_handoff": {
+    "status": "unsupported",
+    "output": "outputs/studio-447a849b435b4d2e962b3763",
+    "owner": {
+      "active_lease_job": null,
+      "cancel_requested": false,
+      "ended_local": "2026-11-02T17:01:55.141558-08:00",
+      "heartbeat_local": "2026-11-02T17:01:55.141558-08:00",
+      "identity_verified_live": false,
+      "invocation_dir": "jobs/447a849b435b4d2e962b3763/run-0003",
+      "invocations": 3,
+      "operation": "execute",
+      "owner_identity": "darwin-start:1793667468:725711",
+      "owner_pid": 93859,
+      "queued_jobs": []
+    },
+    "next_action": "Inspect the canonical status and preserved receipts before any next action; this verifier issued no worker cancellation."
+  },
+  "start_requests": 1,
+  "request_count": 204,
+  "observed_rejected_reviews": [],
+  "elapsed_seconds": 251.649999958,
+  "finished_local": "11/02/2026, 17:01:58 PST"
+}

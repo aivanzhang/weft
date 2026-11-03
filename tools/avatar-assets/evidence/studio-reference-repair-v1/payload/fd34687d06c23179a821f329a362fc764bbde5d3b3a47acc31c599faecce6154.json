@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "recorded_at_local": "2026-11-02 17:04:51 PST",
+  "scope": "Batch all surface profile final face-count violations after unchanged last-match ownership assignment",
+  "source_sha256": {
+    "scripts/blender_surface_profiles.py": "5a69313dc60113d2eab6b4aacb5c265fc351fe20d29c05b0f5877e743e74b28a",
+    "tests/test_surface_profiles.py": "5e09ba153f7640b9c5472f0864955b1161d43ee4705e2898c5e68007cfb91a73"
+  },
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_surface_profiles.py",
+    "-v"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 0.07864804100245237,
+  "tests": 8,
+  "test_log_sha256": "5e39ea2d16bd8093b7ec1006d1fb50185fcad6f5450570816bfa0b8a22b6f291",
+  "diff_check_exit_code": 0,
+  "fixture_kind": "Analytic arrays and mocked material objects; not an actual Blender run or regenerated asset",
+  "coverage": [
+    "Both under-count and over-count failures appear in one deterministic ordered message",
+    "Counts are final ownership counts, not initial overlapping matches",
+    "All8allowed profile names/counts/ranges are retained below1024bytes",
+    "Selection failure leaves material copies, slots, original profiles unchanged",
+    "Existing centroid/RGB/chroma/region and last-match tests remain unchanged in behavior"
+  ],
+  "actions": {
+    "native_calls": 0,
+    "provider_calls": 0,
+    "ledger_changes": 0,
+    "authored_parameter_changes": 0,
+    "count_bound_changes": 0
+  }
+}

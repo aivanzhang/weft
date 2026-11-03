@@ -1,6 +1,56 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 02, 2026, 4:59 PM PST
+## Session handoff — November 2, 2026, 5:12 PM PST
+
+- **Actual website continuation is running**, job `d8795ec6c273489da37954ab`,
+  output `outputs/studio-d8795ec6c273489da37954ab`, observer session **17883**.
+  One Start; do not duplicate. Worker PID97703; direct-child RSS/wall/output monitor
+  is in `.local/studio/jobs/d8795ec6c273489da37954ab/run-0002/`.
+  Request SHA `2513b8838b4566ed4aaea41247ece4044776e2dcc3b182a150a9060c28c96df9`;
+  planID `28492e655c31627c709f57daca53e4a9d09d0192e8f7744df0da93ccd8a78ba3`.
+- The actual website **Retry saved work → Prepare** passed, with zero new planner
+  call and automatic exact-bound grant under the existing $15 total approval.
+  `outputs/gpt52-panda-website-retry-v3`; browser/server exited after preparation.
+  Active Start evidence: `outputs/gpt52-panda-studio-live-v3`.
+  Same GPT-5.2 snapshot, standard responses, medium reasoning, 600 s/call,
+  seven-call/two-repair limits; every call rechecks dollars. No new Meshy work.
+- Parent447a is **unsupported**, not running or accepted. Four settled calls cost
+  $0.495499: planner$0.039626, authors$0.179066/$0.157236/$0.119571.
+  Rejected attempts: excessive tuft vertices, nose profile18faces below minimum30,
+  then dragon profile21,279faces above maximum12,000. These are count guards,
+  not spatial bounds. Original designs, responses and native failures remain intact.
+- New author prompts expose the exact source-specific tuft capacity (50,004base
+  vertices, 12exported corners/card, 4,096reserve → maximum3,825cards) and explain
+  final material ownership/count guards. Native feedback now reports every failing
+  surface profile together. No authored recipe or independent quality check was
+  altered to force a pass.14 prompt checks and8 surface checks pass.
+  `outputs/author-resource-envelope-tests-v1`, `surface-count-diagnostics-tests-v1`.
+- Standing authorization v2 binds this exact paid source, accepted reference,
+  model and parent lineage; at most3successors. Old v1 policy bytes are preserved.
+  `outputs/openai-standing-reference-policy-v2`; installed policy SHA
+  `f43d5ede22c8c6f0a216db021295b0e04f3bc8558fe751e68fb1416981d9d826`.
+ 28 focused checks plus real read-only eligibility pass; no extra approval requested.
+- Before this continuation: settled **$4.529554**; unknown holds **$6.548016**;
+  conservative exposure **$11.077570**, remaining **$3.922430**. Unknown holds
+  are not actual bills and remain unchanged. Expected two to six remaining calls
+  roughly$0.35–$1.20; actual aggregate remains bounded by the same$15 cap.
+- **Next safe action:** observe session17883; verify rig/motion/media and independent
+  visual review. No accepted hands-off avatar yet. This trial keeps the dragon
+  perched, not flying. Earlier accepted authored panda/dragon remain preserved.
+- Completed pre-run fixes/evidence are frozen in `evidence/studio-reference-repair-v1`,
+  manifest SHA `c01f6d2ff970df592010e3737d6e1506168b96b232db9d2615ec97297463eefc`,
+  60files /5,076,792bytes.50 focused analytic checks (8+14+28), actual website
+  retry/Prepare and terminal447a failure are distinguished from generated results.
+- First child native build completed; its deformation gate rejected belly vertices
+  controlled by opposite arms (maximum10.71× stretch). Automatic author repair1
+  returned and reduced maximum excess edge length from74.5mm to13.2mm, but still
+  failed the unchanged gate. Automatic repair2 is running. No manual rig edits or acceptance.
+- Last avatar checkpoint pushed: `97eee37341f3fb29750a6089d3362fa12bfe5244`.
+  Current diagnostics/prompt/policy changes and results need a new evidence bundle
+  and avatar-only commit. Preserve unrelated Weft dirty files and concurrent work.
+  Thread `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; no deployment/Meta spend.
+
+## Historical handoff — November 02, 2026, 4:59 PM PST
 
 - **Resumed; actual standard-response website Start is running.** New Studio job `447a849b435b4d2e962b3763`,
   output `outputs/studio-447a849b435b4d2e962b3763`, observer session **21910** (one Start, at most1,800 seconds).

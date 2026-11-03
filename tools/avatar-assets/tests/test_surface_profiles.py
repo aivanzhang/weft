@@ -98,8 +98,39 @@ class SurfaceProfileTests(unittest.TestCase):
         np.testing.assert_array_equal(owners, [0, 1])
         self.assertEqual([row['matched_faces'] for row in reports], [2, 1])
         self.assertEqual([row['selected_faces'] for row in reports], [1, 1])
-        with self.assertRaisesRegex(ValueError, 'selected 0 final faces'):
+        with self.assertRaisesRegex(ValueError, r'matte=0 allowed\[1,100000\]'):
             select_surface_faces(faces, colors, points, [0]*3, [1]*3, [profile(), profile('override')])
+
+    def test_all_final_count_violations_are_reported_after_overlap_assignment(self):
+        points, colors, faces = geometry()
+        faces = np.array([faces[0]]*3+[faces[1]])
+        profiles = [profile('base', max_faces=2),
+                    profile('bright', brightness=[.7,1.01], min_faces=2, max_faces=3)]
+        original = deepcopy(profiles)
+        with self.assertRaises(ValueError) as caught:
+            select_surface_faces(faces, colors, points, [0]*3, [1]*3, profiles)
+        self.assertEqual(str(caught.exception),
+            'Surface profile final face counts outside declared bounds: '
+            'base=3 allowed[1,2]; bright=1 allowed[2,3]')
+        self.assertEqual(profiles, original)
+        obj = mesh(points, faces.tolist(), [Material()]); copies = Material.copies
+        with self.assertRaises(ValueError) as applied:
+            apply_surface_profiles(obj, colors, points, [0]*3, [1]*3, profiles)
+        self.assertEqual(str(applied.exception), str(caught.exception))
+        self.assertEqual(Material.copies, copies)
+        self.assertEqual(len(obj.data.materials), 1)
+        self.assertTrue(all(face.material_index == 0 for face in obj.data.polygons))
+
+    def test_eight_maximum_length_profile_failures_fit_bounded_message(self):
+        points, colors, faces = geometry()
+        profiles = [profile(f'p{i}'+'x'*62, min_faces=3) for i in range(8)]
+        with self.assertRaises(ValueError) as caught:
+            select_surface_faces(faces, colors, points, [0]*3, [1]*3, profiles)
+        message = str(caught.exception)
+        self.assertLess(len(message.encode()), 1024)
+        for index, row in enumerate(profiles):
+            self.assertIn(f"{row['name']}={2 if index == 7 else 0} allowed[3,100000]",message)
+        self.assertEqual(message.count('allowed['),8)
 
     def test_chroma_filter_and_invalid_geometry_fail_explicitly(self):
         points, colors, faces = geometry()
@@ -157,7 +188,7 @@ class SurfaceProfileTests(unittest.TestCase):
         points, colors, faces = geometry()
         obj = mesh(points, faces, [Material()])
         before = Material.copies
-        with self.assertRaisesRegex(ValueError, 'outside its bounds'):
+        with self.assertRaisesRegex(ValueError, 'final face counts outside declared bounds'):
             apply_surface_profiles(obj, colors, points, [0]*3, [1]*3, [profile(min_faces=3)])
         self.assertEqual(Material.copies, before)
         many = mesh(points, [faces[0]]*33, [Material(str(i)) for i in range(33)], list(range(33)))

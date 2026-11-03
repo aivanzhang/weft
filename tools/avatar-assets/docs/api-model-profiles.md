@@ -25,4 +25,15 @@ Local lease release and closing unused grant capacity are separate operations. N
 
 Job `15105a1353404792a185d61d`: streamed planner completed in31.228 s for$0.034400. First author stopped at31.468 s because the local parser rejected an unsupported event. The original trace did not capture its name; its$0.929376 hold remains unknown. New traces record a sanitized event name without accepting additional types.
 
-Fresh job `447a849b435b4d2e962b3763` explicitly uses standard responses and a600-second deadline. Its actual website planner passed in36.738 s for$0.039626; authoring is in progress. The new grant is$4.417929 before that planner, constrained by the unchanged$15 cap and both retained holds. This is not a recovered response or accepted avatar. Both preparation folders and rejected attempts remain immutable.
+Job `447a849b435b4d2e962b3763` used standard responses with a600-second deadline.
+Its planner and three author calls all completed and settled: total$0.495499.
+Native finishing rejected all three designs (tuft vertex bound, nose face-count
+minimum, then dragon face-count maximum); this is not a transport failure or an
+accepted avatar. All preparation folders and rejected attempts remain immutable.
+
+Website continuation `d8795ec6c273489da37954ab` reuses the authenticated plan and
+native failure history, with no new planner call. It is running with exact tuft
+capacity and combined count-error feedback. Before this run, settled usage was
+$4.529554 plus$6.548016 unknown holds: conservative exposure$11.077570, leaving
+$3.922430. Expected two to six calls cost roughly$0.35–$1.20; this estimate is
+not permission to exceed the$15 aggregate cap or discard uncertain charges.

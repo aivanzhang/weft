@@ -6,32 +6,26 @@ Local workflow for editable, rigged 3D avatars and their 2D portrait/animation e
 total OpenAI spend**, including prior use, without repeated approval questions.
 The append-only ledger cap is active; no new Meshy work.
 
-**Current direction:** Studio uses the server OpenAI API, not a personal AI login;
-Meshy remains the geometry/texture provider. The website now supports authenticated
-**Retry saved work → Prepare → Start** under an owner-approved standing budget.
-The recent fresh panda base repeatedly failed final appearance review, despite
-real rigs, motion and media. Medium reasoning runs correctly, but did not make
-that source acceptable. All rejected attempts remain preserved.
-A new request uses the **unrigged generated base behind the previously accepted
-panda appearance**, plus its accepted portrait reference. No old rig is copied;
-the shoulder dragon stays perched in this trial. Its first planner exceeded a
-text limit. The corrected website Prepare passed, but the rigging API call then
-timed out after 240 seconds before returning a rig. No hands-off delivery is accepted.
-Recorded use is **$3.999655 settled**, plus a **$5.618640 uncertain reservation**;
-the latter is a conservative hold, not a known bill. The unchanged **$15 total cap**
-still blocks another full GPT-5.4 reservation. A new explicit
-[GPT-5.2 model profile](docs/api-model-profiles.md) reserves $0.929376 per call
-without reducing that unknown hold. Its actual website planner passed, but the first
-author stopped on an unsupported streaming event. Both unknown holds remain.
-A new standard-response trial passed website planning and is now authoring
-(`447a849b435b4d2e962b3763`); it has not delivered an accepted avatar yet. The stopped job and earlier accepted assets remain preserved.
-No new Meshy call or deployment.
-The new [bounded streaming transport](docs/api-streaming.md) preserves early
-request IDs for future jobs; clearer website failure messages are implemented.
-Streaming has now passed a real planner call. This is not a recovered or
-completed avatar run.
-The [handoff](TODO.md) contains exact ownership, source hashes and recovery status.
-[Backend results](docs/api-website-backend.md).
+**Current direction:** the website uses the server OpenAI API for planning,
+authoring and review; Meshy supplies geometry/textures. The active priority is a
+fully hands-off Studio delivery using the already accepted panda appearance.
+Earlier accepted authored panda/dragon assets remain intact; no new hands-off
+result has passed final acceptance yet.
+
+Actual website **Retry saved work → Prepare** now reuses the previous AI plan
+and failure history without another planner charge. The current continuation
+`d8795ec6c273489da37954ab` is authoring after fixes for exact fur capacity and
+combined material face-count feedback. Its parent returned valid API answers,
+but all three designs failed finishing checks. No validator was relaxed.
+The saved source and accepted portrait are bound to a finite standing retry policy.
+This trial keeps the shoulder dragon perched, not flying.
+
+[GPT-5.2 model profiles](docs/api-model-profiles.md) and standard responses keep
+per-call reservations within the existing $15 total cap. Before the continuation,
+$4.529554 was settled and $6.548016 remained in uncertain charge holds; those
+holds are conservative exposure, not confirmed bills. No new Meshy work or
+hosted deployment. The [handoff](TODO.md) records exact sources, ownership,
+commands, failures and the next safe action. [Backend details](docs/api-website-backend.md).
 
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.
 The user has accepted the previous appearance; the active priority is now a

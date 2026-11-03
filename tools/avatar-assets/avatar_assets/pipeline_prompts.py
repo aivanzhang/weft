@@ -288,6 +288,10 @@ normal_strength,min_faces,max_faces. name is a unique lowercase slug. regions is
 brightness:[low,high] uses0<=low<high<=1.01; max_chroma:0..1; roughness:0.04..1; metallic:0..1;
 normal_strength:0..1; min_faces/max_faces are integers with1<=min<=max<=100000. Last matching profile wins.
 Selection uses face centers and mean source-texture vertex colors. At most32 material copies; preserve source basecolor/UV.
+min_faces/max_faces guard the final owned face COUNT after every later profile has matched; they are not spatial bounds.
+Choose count expectations from measured masks, not guessed anatomical size. On failure, inspect all reported final counts
+and allowed ranges together. Correct demonstrated mask mistakes or unjustified count assumptions; do not blindly expand
+masks or widen count guards to force a pass. Material identity and independent appearance checks still apply.
 These explicit material-response adjustments do not add texture detail. Use measured appearance; avoid globally flattening
 eyes, metal or scales. Do not assume every generated material is metallic or that higher normal strength adds fidelity.
 smoothing:{iterations:1..30 integer,strength:0.01..0.8}.
@@ -351,7 +355,11 @@ portable_fur:{settings:{seed:0..2147483643 integer,length:0.001..0.04,width:0.00
 bands:[{brightness:[low,high],color:[r,g,b,a],count:integer}]} with1–4 bands,0<=low<high<=1.01,
 For new high-quality fur/hair jobs require profile:"tuft-v1", sample_root_color:true and root_placement:"skin-consistent-v1".
 Keep direction equal to the native groom and use shared regional flow. This does not require material_fur.
-color channels0..1,each count1..5000,total count<=5000. Cards can add12 exported corners each; keep total under100k vertices.
+color channels0..1,each count1..5000,total count<=5000. Use resource_envelope's source-specific maximum_cards BEFORE choosing counts:
+tuft-v1 requires base_export_vertices + 12*sum(all band counts) + 4096 reserve <= 100000.
+The count is global across all bands/materials, not per material; native parent/child strand counts are a separate limit.
+The reserve is mandatory even without undercoat. Optional adaptive undercoat must also pass its measured seam/split budget.
+This is a conservative exported-corner bound, not measured visible coverage; do not silently drop roots to fit it.
 The required skin-consistent-v1 placement keeps interior roots where the three triangle vertices have
 exactly equal normalized named skin weights. Varying-weight faces instead contribute to area-weighted source-vertex anchors.
 Keep all regions and the requested total: insufficient varying-domain vertices or more than four positive source influences
@@ -508,6 +516,32 @@ def _repair_prompt_view(findings, *, continuation=False):
     return view
 
 
+def _author_resource_envelope(inspection):
+    """Expose the finisher's existing budget before an author chooses coat counts."""
+    from scripts.blender_fur_cards import tuft_export_budget
+
+    require(isinstance(inspection, dict), "Invalid resource inspection")
+    preflight = inspection.get("preflight", {})
+    require(isinstance(preflight, dict), "Invalid resource preflight")
+    if "vertices" not in preflight:
+        return {"status": "unavailable", "reason": "Source export vertex count was not supplied"}
+    base, digest = preflight["vertices"], preflight.get("sha256")
+    require(type(base) is int and 1 <= base <= 100000, "Invalid inspected export vertex count")
+    require(isinstance(digest, str) and re.fullmatch(r"[a-f0-9]{64}", digest)
+            and preflight.get("source_unchanged") is True, "Resource preflight source binding is unavailable")
+    baseline = tuft_export_budget(0, 0)
+    if base + baseline["reserve_vertices"] > baseline["limit"]:
+        budget = {**baseline, "base_export_vertices": base, "maximum_cards": 0}
+    else:
+        budget = tuft_export_budget(base, 0)
+    return {"status": "available", "source_sha256": digest,
+            "portable_fur": {"profile": "tuft-v1", **{key: budget[key] for key in
+                ("base_export_vertices", "exported_corners_per_card", "reserve_vertices", "limit", "maximum_cards")},
+                "scope": "Global count across all bands/materials. Zero capacity cannot support a portable tuft coat; "
+                         "additional undercoat seams and actual exported geometry still require validation. "
+                         "This bound does not establish visible fur coverage or quality."}}
+
+
 def author_prompt(request, plan, inspection, previous=None, findings=None):
     return _BOUNDARY + "\nROLE: appearance, material, groom, rig and motion author.\n" + _author_guide(request) + """
 Use supplied independent findings to repair only demonstrated defects. Preserve the same source identity, palette and planned states.
@@ -533,6 +567,7 @@ ceramic must retain their intended response and details, without unrequested fur
 Full-resolution, multiview state review checks both native and exported appearances. Do not optimize only the front portrait.
 """ + _payload({"request": request, "plan": plan, "inspection": inspection, "previous_design": previous,
                     "repair_findings": _repair_prompt_view(findings, continuation=bool(request.get("continuation"))),
+                    "resource_envelope": _author_resource_envelope(inspection),
                     "quality_policy": build_quality_policy(request, plan, inspection)})
 
 

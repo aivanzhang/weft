@@ -1,0 +1,97 @@
+{
+  "actual_source_checks": "observations.json",
+  "diagnosis": {
+    "attempt0_cards": 4500,
+    "attempt1_cards": 3000,
+    "attempt1_projected_max_vertices": 90100,
+    "formula": "base_export_vertices + 12 * sum(all band counts) + 4096 <= 100000",
+    "limit": 100000,
+    "maximum_cards": 3825,
+    "projected_max_vertices": 108100,
+    "reserve_vertices": 4096,
+    "source_export_vertices": 50004,
+    "surface_failure_counts": {
+      "attempt1_nose_declared_range": [
+        30,
+        6000
+      ],
+      "attempt1_nose_final_faces": 18,
+      "attempt2_dragon_declared_range": [
+        200,
+        12000
+      ],
+      "attempt2_dragon_final_faces": 21279
+    }
+  },
+  "resource_measurement": {
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.263,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "process_exit_verified": true,
+    "rss_samples": 0,
+    "sampled_peak_rss_bytes": null
+  },
+  "schema_version": 1,
+  "scope": [
+    "Only prompt resource metadata/guidance and focused tests changed.",
+    "Existing tuft_export_budget remains authoritative; no threshold, profile, source geometry, counts or author answer is changed.",
+    "author_geometry returned fields and historical source/job files remain unchanged.",
+    "14 analytic tests; three actual saved prompt reconstructions measured, not three additional tests or paid role runs.",
+    "No provider/native/browser/DB/Git mutation; no quality or generated-output acceptance claim."
+  ],
+  "source_pins": {
+    "avatar_assets/author_geometry.py": {
+      "bytes": 8595,
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    "avatar_assets/finish_generated.py": {
+      "bytes": 38146,
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    "avatar_assets/pipeline_prompts.py": {
+      "bytes": 66002,
+      "sha256": "db92c5b07f9edb5f42c68e2294115b7d4fa67c4610f51240ba93f621ef197204"
+    },
+    "scripts/blender_fur_cards.py": {
+      "bytes": 26295,
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    "tests/test_author_contract.py": {
+      "bytes": 17129,
+      "sha256": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f"
+    },
+    "tests/test_author_resource_envelope.py": {
+      "bytes": 4315,
+      "sha256": "8f61db5860d0f802f51b26788c17fc3881a8b70230426fbf66a5d2fbc116857c"
+    },
+    "tests/test_pipeline_prompts.py": {
+      "bytes": 22274,
+      "sha256": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+    },
+    "tests/test_repair_prompt_view.py": {
+      "bytes": 7047,
+      "sha256": "1162c534d2bfbd92ba35d4fe558afe0a2026e8cf71847d2520aa964bdd65b418"
+    }
+  },
+  "status": "passed",
+  "tests": {
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/author-resource-envelope-tests-v1/check.py",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/author-resource-envelope-tests-v1",
+      "[\"test_author_resource_envelope\", \"test_repair_prompt_view\", \"test_author_contract.TypedAuthorContractTests.test_new_api_selects_typed_schema_and_unambiguous_prompt_legacy_unchanged\", \"test_pipeline_prompts.AuthorContractTests.test_author_prompt_includes_actual_inspection_and_repair\", \"test_pipeline_prompts.AuthorContractTests.test_author_owns_finishing_repairs_without_removing_required_fur\"]"
+    ],
+    "errors": 0,
+    "failures": 0,
+    "log": "tests.log",
+    "unique_methods": 14
+  }
+}

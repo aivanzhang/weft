@@ -1,0 +1,107 @@
+{
+  "all_selected_source_bytes_unchanged": true,
+  "all_source_and_payload_hashes_verified": true,
+  "elapsed_seconds": 0.19589391723275185,
+  "hash_reference_records": 0,
+  "limits": {
+    "max_file_bytes": 8388608,
+    "max_files": 256,
+    "max_total_source_bytes": 33554432,
+    "max_wall_seconds": 30
+  },
+  "marker_categories": [
+    "provider_key",
+    "bearer",
+    "private_key",
+    "invocation",
+    "query_token",
+    "worker_argument"
+  ],
+  "receipt_source_checks": [
+    {
+      "path": "outputs/surface-count-diagnostics-tests-v1/sources/scripts/blender_surface_profiles.py",
+      "sha256": "5a69313dc60113d2eab6b4aacb5c265fc351fe20d29c05b0f5877e743e74b28a"
+    },
+    {
+      "path": "outputs/surface-count-diagnostics-tests-v1/sources/tests/test_surface_profiles.py",
+      "sha256": "5e09ba153f7640b9c5472f0864955b1161d43ee4705e2898c5e68007cfb91a73"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/README.md",
+      "sha256": "4793f5dc863dd6a92571986dba6c8a26b4ba327a4666c632cfbc0527fef89fe2"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/check.py",
+      "sha256": "e91fdd9de2dbe23885a3667a6fe5bf0e127c25a4b71b56bad7111e3761585499"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/job.json",
+      "sha256": "40b364be13a55d6d845ceb54add4617bc57cb4fd1650735b72ad7cd2a041f343"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/observations.json",
+      "sha256": "4f190cfdbac174ff396b05288e40e651c70ec50a092f6de84c26fbb59697aa44"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/prepared.json",
+      "sha256": "3f7b4b1cd1eb07ee5ee79f7bad9f76ab43b01c47dfa8fb310313f2b28e3a1a25"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/result.json",
+      "sha256": "8900215897c8f0612b56ab23878e43b7030f8db9f84ffafc177383af4a28f3f5"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/sources/avatar_assets/author_geometry.py",
+      "sha256": "0b702e2f528a4ce0553dfc0168c555f2ee5b2ed7bca90ac76d535f66d67ed9de"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "79e25afbf2a405b9daaf95ea35adb63e3296a4c90ceefadaf31f4c5a683915ca"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "db92c5b07f9edb5f42c68e2294115b7d4fa67c4610f51240ba93f621ef197204"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "93b2c129550b495f89cd2c93a8e3b85afb7fb657ed4ea50c429f3f85d51ab284"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/sources/tests/test_author_contract.py",
+      "sha256": "d02b366191a5a0ec8f5e181c1ac72eb7aaf3b6115d3945076abeefa9121db66f"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/sources/tests/test_author_resource_envelope.py",
+      "sha256": "8f61db5860d0f802f51b26788c17fc3881a8b70230426fbf66a5d2fbc116857c"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/sources/tests/test_pipeline_prompts.py",
+      "sha256": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/sources/tests/test_repair_prompt_view.py",
+      "sha256": "1162c534d2bfbd92ba35d4fe558afe0a2026e8cf71847d2520aa964bdd65b418"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/tests-handle.json",
+      "sha256": "8b086efe55a453243dc047374357e6a4169c6cc3a594f689fd862abfd5694c84"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/tests-monitor.json",
+      "sha256": "6830979b56d0d11f1e5291a03f115b4aaaa1370aa8c0165845fac18c71e09796"
+    },
+    {
+      "path": "outputs/author-resource-envelope-tests-v1/tests.log",
+      "sha256": "1a14582c2fa8ce4364d93c071e0381b43e52fddc44a4a7103f23ed96832cee9b"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Archival custody only; no test rerun, private-state access, provider/browser/native call or dispatch.",
+  "sensitive_shaped_references": [],
+  "snapshot_records": 57,
+  "snapshot_secret_marker_hits": 0,
+  "source_bytes": 5043813,
+  "source_records": 57,
+  "unique_payload_bytes": 5036555,
+  "unique_payload_files": 56
+}

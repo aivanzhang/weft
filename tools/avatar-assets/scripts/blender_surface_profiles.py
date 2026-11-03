@@ -105,11 +105,15 @@ def select_surface_faces(faces, colors, points, low, span, profiles):
                     (brightness < profile['brightness'][1]) & (chroma <= profile['max_chroma']))
         owners[selected] = index
         reports.append({'name': profile['name'], 'matched_faces': int(selected.sum())})
+    violations = []
     for index, profile in enumerate(profiles):
         count = int(np.count_nonzero(owners == index))
-        if not profile['min_faces'] <= count <= profile['max_faces']:
-            raise ValueError(f"Surface profile {profile['name']} selected {count} final faces outside its bounds")
         reports[index]['selected_faces'] = count
+        if not profile['min_faces'] <= count <= profile['max_faces']:
+            violations.append(f"{profile['name']}={count} allowed[{profile['min_faces']},{profile['max_faces']}]")
+    if violations:
+        # Eight validated names/counts fit below 1024 bytes without hiding later failures.
+        raise ValueError('Surface profile final face counts outside declared bounds: '+ '; '.join(violations))
     return owners, reports
 
 

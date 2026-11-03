@@ -1,0 +1,19 @@
+test_actual_failure_arithmetic_is_exposed_before_authoring (test_author_resource_envelope.AuthorResourceEnvelopeTests.test_actual_failure_arithmetic_is_exposed_before_authoring) ... ok
+test_invalid_count_or_source_binding_fails_before_prompt (test_author_resource_envelope.AuthorResourceEnvelopeTests.test_invalid_count_or_source_binding_fails_before_prompt) ... ok
+test_missing_count_is_unavailable_not_an_invented_budget (test_author_resource_envelope.AuthorResourceEnvelopeTests.test_missing_count_is_unavailable_not_an_invented_budget) ... ok
+test_prompt_preserves_request_previous_counts_and_measured_failures (test_author_resource_envelope.AuthorResourceEnvelopeTests.test_prompt_preserves_request_previous_counts_and_measured_failures) ... ok
+test_source_limits_match_finisher_at_boundary_and_one_over (test_author_resource_envelope.AuthorResourceEnvelopeTests.test_source_limits_match_finisher_at_boundary_and_one_over) ... ok
+test_actual_b082_author_prompt_fits_without_mutating_saved_context (test_repair_prompt_view.RepairPromptViewTests.test_actual_b082_author_prompt_fits_without_mutating_saved_context) ... ok
+test_actual_visual_continuation_fits_runner_not_only_payload_limit (test_repair_prompt_view.RepairPromptViewTests.test_actual_visual_continuation_fits_runner_not_only_payload_limit) ... ok
+test_compact_payload_preserves_every_value (test_repair_prompt_view.RepairPromptViewTests.test_compact_payload_preserves_every_value) ... ok
+test_historical_rejections_keep_errors_and_hashes_not_duplicate_answers (test_repair_prompt_view.RepairPromptViewTests.test_historical_rejections_keep_errors_and_hashes_not_duplicate_answers) ... ok
+test_native_counts_and_current_defects_are_unchanged (test_repair_prompt_view.RepairPromptViewTests.test_native_counts_and_current_defects_are_unchanged) ... ok
+test_only_superseded_audit_details_are_omitted (test_repair_prompt_view.RepairPromptViewTests.test_only_superseded_audit_details_are_omitted) ... ok
+test_new_api_selects_typed_schema_and_unambiguous_prompt_legacy_unchanged (test_author_contract.TypedAuthorContractTests.test_new_api_selects_typed_schema_and_unambiguous_prompt_legacy_unchanged) ... ok
+test_author_prompt_includes_actual_inspection_and_repair (test_pipeline_prompts.AuthorContractTests.test_author_prompt_includes_actual_inspection_and_repair) ... ok
+test_author_owns_finishing_repairs_without_removing_required_fur (test_pipeline_prompts.AuthorContractTests.test_author_owns_finishing_repairs_without_removing_required_fur) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.008s
+
+OK

@@ -1,0 +1,18 @@
+{
+  "current_sha256": "f43d5ede22c8c6f0a216db021295b0e04f3bc8558fe751e68fb1416981d9d826",
+  "existing_user_authorization": true,
+  "no_provider_calls": true,
+  "policy_status": {
+    "enabled": true,
+    "max_calls": 7,
+    "max_repairs": 2,
+    "max_successors": 3,
+    "max_total_microdollars": 15000000,
+    "policy_sha256": "f43d5ede22c8c6f0a216db021295b0e04f3bc8558fe751e68fb1416981d9d826",
+    "reason": "Standing source-bound retries are configured; each retry rechecks custody and remaining allowance.",
+    "reference_sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422",
+    "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+  },
+  "previous_sha256": "82354666f6fa4ca9e95adfd6eb3adbd6fd2a5ade63f9f77e583dd9b4cd1b0952",
+  "schema_version": 1
+}

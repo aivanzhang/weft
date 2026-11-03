@@ -17,6 +17,7 @@ MAX_TOTAL = 1_000_000_000
 POLICY_FIELDS = {'schema_version', 'status', 'policy_id', 'approval_receipt',
     'max_total_microdollars', 'model', 'max_calls', 'max_repairs', 'max_successors',
     'allowed_source_sha256', 'lineage_root_job_id', 'lineage_root_request_sha256'}
+POLICY_V2_FIELDS = POLICY_FIELDS | {'allowed_reference_sha256'}
 
 
 def _hash(value):
@@ -52,12 +53,15 @@ def _relative(root, value):
 
 def _policy(root):
     value, policy_hash = _read(root/POLICY_FILE, 16384, private=True)
-    require(isinstance(value, dict) and set(value) == POLICY_FIELDS
-            and type(value['schema_version']) is int and value['schema_version'] == 1,
+    require(isinstance(value, dict) and type(value.get('schema_version')) is int
+            and value['schema_version'] in (1, 2)
+            and set(value) == (POLICY_FIELDS if value['schema_version'] == 1 else POLICY_V2_FIELDS),
             'Invalid standing authorization policy fields')
     require(value['status'] == 'active', 'Standing retry authorization is absent or revoked')
     slug(value['policy_id']); slug(value['lineage_root_job_id'])
     _hash(value['allowed_source_sha256']); _hash(value['lineage_root_request_sha256'])
+    if value['schema_version'] == 2 and value['allowed_reference_sha256'] is not None:
+        _hash(value['allowed_reference_sha256'])
     for field, low, high in (('max_total_microdollars', 1, MAX_TOTAL), ('max_calls', 3, 7),
                              ('max_repairs', 0, 2), ('max_successors', 1, 16)):
         require(type(value[field]) is int and low <= value[field] <= high, 'Invalid standing '+field)
@@ -83,10 +87,27 @@ def standing_policy_status(root):
         value, policy_hash, _ = _policy(Path(root).resolve())
         return {'enabled': True, 'policy_sha256': policy_hash,
                 'source_sha256': value['allowed_source_sha256'],
+                **({'reference_sha256':value['allowed_reference_sha256']} if value['schema_version']==2 else {}),
                 **{k:value[k] for k in ('max_total_microdollars', 'max_calls', 'max_repairs', 'max_successors')},
                 'reason': 'Standing source-bound retries are configured; each retry rechecks custody and remaining allowance.'}
     except (OSError, ValueError, TypeError):
         return {'enabled': False, 'reason': 'Standing retry authorization is absent, revoked or requires inspection.'}
+
+
+def _verify_input(path, item, label):
+    fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    with os.fdopen(fd, 'rb') as stream:
+        before = os.fstat(fd)
+        require(stat.S_ISREG(before.st_mode) and before.st_size == item['bytes'],
+                'Saved retry '+label+' size changed')
+        checksum = hashlib.sha256(); size = 0
+        while chunk := stream.read(min(256*1024, item['bytes']-size+1)):
+            size += len(chunk)
+            require(size <= item['bytes'], 'Saved retry '+label+' grew beyond its bound')
+            checksum.update(chunk)
+        after = os.fstat(fd)
+        require(size == item['bytes'] and (before.st_size,before.st_mtime_ns) == (after.st_size,after.st_mtime_ns)
+                and checksum.hexdigest() == item['sha256'], 'Saved retry '+label+' bytes changed')
 
 
 def _request(root, output, policy, *, verify_source):
@@ -95,8 +116,24 @@ def _request(root, output, policy, *, verify_source):
     slug(output.name)
     value, request_hash = _read(output/'request.json', 1024**2)
     require(isinstance(value, dict) and value.get('schema_version') == 1 and value.get('id') == output.name
-            and value.get('max_credits') == 0 and value.get('reference') is None,
-            'Standing retries require an exact saved-source request without new generation or references')
+            and value.get('max_credits') == 0,
+            'Standing retries require an exact saved-source request without new generation')
+    reference = value.get('reference')
+    if policy['schema_version'] == 1:
+        require(reference is None, 'Standing v1 retries do not authorize references')
+    elif policy['allowed_reference_sha256'] is None:
+        require(reference is None, 'Retry reference differs from the approved absence of a reference')
+    else:
+        require(isinstance(reference,dict) and set(reference)=={'path','original_path','bytes','sha256'}
+                and reference['sha256']==policy['allowed_reference_sha256']
+                and type(reference['bytes']) is int and 0<reference['bytes']<=8*1024**2,
+                'Retry reference differs from the approved reference')
+        reference_path=_relative(output,reference['path'])
+        require(reference_path.parent==output/'inputs' and reference_path.name in
+                ('reference.png','reference.jpg','reference.jpeg','reference.webp'),
+                'Retry reference must be its safe input snapshot')
+        if verify_source:
+            _verify_input(reference_path,reference,'reference')
     source = value.get('reuse_model')
     require(isinstance(source, dict) and set(source) == {'path', 'original_path', 'bytes', 'sha256'}
             and source['sha256'] == policy['allowed_source_sha256']
@@ -104,11 +141,7 @@ def _request(root, output, policy, *, verify_source):
             'Retry source differs from the approved source')
     if verify_source:
         path = _relative(output, source['path'])
-        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
-        with os.fdopen(fd, 'rb') as stream:
-            info = os.fstat(fd)
-            require(stat.S_ISREG(info.st_mode) and info.st_size == source['bytes'], 'Saved retry source size changed')
-            require(hashlib.file_digest(stream, 'sha256').hexdigest() == source['sha256'], 'Saved retry source bytes changed')
+        _verify_input(path,source,'source')
     settings = validate_settings(value.get('agent_backend'))
     require(settings['model'] == policy['model'] and settings['max_calls'] == policy['max_calls']
             and settings['max_repairs'] == policy['max_repairs']
@@ -135,6 +168,8 @@ def _request(root, output, policy, *, verify_source):
     context = {k:v for k,v in value.items() if k not in
                ('id', 'created', 'agent_backend', 'max_agent_calls', 'max_repairs', 'agent_model', 'agent_timeout', 'continuation')}
     context['reuse_model'] = {k:source[k] for k in ('bytes', 'sha256')}
+    if policy['schema_version'] == 2:
+        context['reference'] = ({k:reference[k] for k in ('bytes','sha256')} if reference is not None else None)
     return value, request_hash, digest(context), continuation
 
 
