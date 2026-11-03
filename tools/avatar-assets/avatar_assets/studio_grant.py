@@ -47,12 +47,21 @@ def grant_openai_by_job(job_id, *, max_microdollars, user_reply):
     can oversubscribe the administrator budget.
     """
     require(isinstance(job_id, str) and 1 <= len(job_id) <= 64, "Studio job id required")
-    request_path = ROOT / ".local/studio/jobs" / job_id / "pipeline-request.json"
-    require(request_path.is_file() and not request_path.is_symlink(),
+    binding_path = ROOT / ".local/studio/jobs" / job_id / "pipeline-request.json"
+    require(binding_path.is_file() and not binding_path.is_symlink(),
             "This job has no saved pipeline request to bind")
     require(isinstance(user_reply, str) and 0 < len(user_reply) <= 4000,
             "Preserve the user's verbatim approval text")
-    bound_digest = request_digest(request_path)
+    # The worker gate checks the grant under the output folder's name against the
+    # prepared request bytes; the job's binding file pins that same digest.
+    ledger_job = f"studio-{job_id}"
+    prepared = ROOT / "outputs" / ledger_job / "request.json"
+    require(prepared.is_file() and not prepared.is_symlink(),
+            "This job has no prepared pipeline request to bind; attempt planning first")
+    bound_digest = request_digest(prepared)
+    binding = json.loads(binding_path.read_text())
+    require(isinstance(binding, dict) and binding.get("pipeline_request_sha256") == bound_digest,
+            "Prepared request differs from its saved Studio binding")
     settings = server_settings(ROOT)
     max_calls = settings["max_calls"]
     ledger = OpenAILedger()
@@ -63,12 +72,22 @@ def grant_openai_by_job(job_id, *, max_microdollars, user_reply):
     require(type(max_microdollars) is int and 1 <= max_microdollars, "Positive dollar ceiling required")
     amount = min(max_microdollars, headroom)
     require(amount >= 1, "The project allowance is fully allocated; close or retire a grant first")
-    approval = {"decision": "approved", "job_id": job_id, "request_digest": bound_digest,
+    approval = {"decision": "approved", "job_id": ledger_job, "request_digest": bound_digest,
                 "max_calls": max_calls, "max_microdollars": amount, "user_reply": user_reply}
-    ledger.authorize_job(job_id, bound_digest, max_calls, amount, approval)
+    ledger.authorize_job(ledger_job, bound_digest, max_calls, amount, approval)
     exposure = accounting_snapshot(ledger.db)["project_exposure_microdollars"]
-    return {"granted_microdollars": amount, "max_calls": max_calls, "job_id": job_id,
+    return {"granted_microdollars": amount, "max_calls": max_calls, "job_id": ledger_job,
             "project_exposure_microdollars": exposure}
+
+
+def raise_openai_ceiling(max_microdollars, *, user_reply):
+    """Record an explicit administrator approval raising the project agent allowance."""
+    require(isinstance(user_reply, str) and 0 < len(user_reply) <= 4000,
+            "Preserve the user's verbatim approval text")
+    ledger = OpenAILedger()
+    approval = {"decision": "approved", "operation": "raise_project_ceiling",
+                "max_microdollars": max_microdollars, "user_reply": user_reply}
+    return ledger.raise_budget(max_microdollars, approval)
 
 
 def main():
@@ -82,10 +101,15 @@ def main():
     openai.add_argument("job")
     openai.add_argument("--microdollars", type=int, required=True)
     openai.add_argument("--reply", required=True)
+    ceiling = commands.add_parser("ceiling", help="Raise the project agent-dollar ceiling on explicit approval")
+    ceiling.add_argument("microdollars", type=int)
+    ceiling.add_argument("--reply", required=True)
     args = parser.parse_args()
     if args.command == "meshy":
         result = grant_meshy_by_output(args.output, additional_credits=args.credits,
                                        user_reply=args.reply)
+    elif args.command == "ceiling":
+        result = raise_openai_ceiling(args.microdollars, user_reply=args.reply)
     else:
         result = grant_openai_by_job(args.job, max_microdollars=args.microdollars,
                                      user_reply=args.reply)
