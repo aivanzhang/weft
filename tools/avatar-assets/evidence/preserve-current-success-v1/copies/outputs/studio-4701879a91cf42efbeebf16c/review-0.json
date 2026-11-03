@@ -1,0 +1,449 @@
+{
+  "evidence": [
+    {
+      "height": 1496,
+      "id": "evidence-native-views",
+      "kind": "multiview",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/final-evidence-0/native-views.png",
+      "sha256": "f24aa73afa035b7b055378e7a83f02ed1cb316d687ac7a13fae24fea9d74eb04",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 1496,
+      "id": "evidence-exported-views",
+      "kind": "multiview",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/final-evidence-0/exported-views.png",
+      "sha256": "ed10c4c3f69b0d7721ac0ed1209030d8eefed800c35c1780ac04ebf81059fa0e",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00",
+      "kind": "native_exported_and_delivered_motion",
+      "motion_sampling": [
+        {
+          "candidate_scope": "One strongest authored key per relevant control track; equal peaks use earliest key. Not all motion extrema are shown.",
+          "foot_clearance": "unverified; role-root rise is not foot-ground clearance or airtime",
+          "frames": [
+            {
+              "index": 0,
+              "rationale": [
+                "baseline"
+              ],
+              "source_second": 0.0,
+              "video_second": 0.0
+            },
+            {
+              "index": 24,
+              "rationale": [
+                "authored_extremum"
+              ],
+              "source_second": 1.0,
+              "video_second": 1.0
+            },
+            {
+              "index": 36,
+              "rationale": [
+                "authored_recovery_nearest_baseline"
+              ],
+              "source_second": 1.5,
+              "video_second": 1.5
+            },
+            {
+              "index": 95,
+              "rationale": [
+                "delivered_final_frame"
+              ],
+              "source_second": 3.9583333333333335,
+              "video_second": 3.9583333333333335
+            }
+          ],
+          "indices": [
+            0,
+            24,
+            36,
+            95
+          ],
+          "observations": [
+            {
+              "authored_root_translation_excursion_m": 0.0,
+              "authored_root_vertical_rise_m": 0,
+              "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+              "measured_role_root_travel_m": 0.027235905474372945,
+              "measured_role_root_vertical_rise_m": 0.02710487675671505,
+              "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+              "requirement_kinds": [
+                "articulation",
+                "return_pose"
+              ],
+              "role": "arms",
+              "root_bone": "chest"
+            },
+            {
+              "authored_root_translation_excursion_m": 0.0,
+              "authored_root_vertical_rise_m": 0,
+              "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+              "measured_role_root_travel_m": 0.027235905474372945,
+              "measured_role_root_vertical_rise_m": 0.02710487675671505,
+              "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+              "requirement_kinds": [
+                "articulation"
+              ],
+              "role": "dragon",
+              "root_bone": "chest"
+            },
+            {
+              "authored_root_translation_excursion_m": 0.0,
+              "authored_root_vertical_rise_m": 0,
+              "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+              "measured_role_root_travel_m": 0.027235905474372945,
+              "measured_role_root_vertical_rise_m": 0.02710487675671505,
+              "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+              "requirement_kinds": [
+                "articulation",
+                "return_pose"
+              ],
+              "role": "head",
+              "root_bone": "chest"
+            },
+            {
+              "authored_root_translation_excursion_m": 0.03176476034853718,
+              "authored_root_vertical_rise_m": 0.028,
+              "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+              "measured_role_root_travel_m": 0.03176475931016258,
+              "measured_role_root_vertical_rise_m": 0.0279999990016222,
+              "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+              "requirement_kinds": [
+                "return_pose",
+                "rhythm",
+                "travel"
+              ],
+              "role": "panda_body",
+              "root_bone": "root"
+            }
+          ],
+          "omitted_candidate_count": 10,
+          "omitted_candidates": [
+            {
+              "bone": "arm_l_upper",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 22.360679774997898,
+              "role": "arms",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "arm_r_upper",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 22.360679774997898,
+              "role": "arms",
+              "second": 2,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "head",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 13.0,
+              "role": "head",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "arm_l_lower",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 10.0,
+              "role": "arms",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "chest",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 10.0,
+              "role": "panda_body",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "arm_r_lower",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 10.0,
+              "role": "arms",
+              "second": 2,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "spine",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 7.211102550927978,
+              "role": "panda_body",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "neck",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 6.324555320336759,
+              "role": "head",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "hand_l",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 5.0,
+              "role": "arms",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "hand_r",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 5.0,
+              "role": "arms",
+              "second": 2,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            }
+          ],
+          "omitted_candidates_truncated": false,
+          "policy": "bound-control-extrema-v1",
+          "primary_extremum": {
+            "bone": "root",
+            "control": "authored_vertical_translation",
+            "magnitude": 0.028,
+            "role": "panda_body",
+            "second": 1,
+            "units": "meters"
+          },
+          "reason": "Audited-role-bound authored control extrema; not semantic approval",
+          "selection": "baseline_extremum_recovery_end",
+          "selection_limit": 4,
+          "semantic_approval": false,
+          "source_duration_seconds": 4,
+          "source_hashes": {
+            "action_audit_manifest": "3edc96574c0a31c0b75d8b6463c13795bae60a24db58bd7daac94c1e28832620",
+            "action_audit_report": "59c5b828685b84d161c7fe766512a495f2d560526058e36346c757ca093ce169",
+            "action_intent": "396cc5d90770abb7c313f0c7188563b9929e4757107697da510fd0d1ad357f02",
+            "authored_config": "e413629a170636c9a139b804a56a3a0585d7ae382af87240faa474b11d39c210",
+            "model_glb": "2ec427b1dae75fc40a4bd3571c1d34be166a9df06fdb0d9fff004d728d26a8b4",
+            "model_manifest": "de45637fc70157b6a1bf20a976a76132d356874b604ff08f891021879f6835a7"
+          },
+          "source_start_second": 0,
+          "state_id": "toy_dance",
+          "timing_map": "video_second=(source_second-source_start_second)*video_duration/source_duration",
+          "video_duration_seconds": 4.0
+        }
+      ],
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/final-evidence-0/motion-00.png",
+      "sha256": "ae390fcc18fc60336b044bab5fe52132b688d0ebf10fa74d486ee27713ac2bfa",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "delivered_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/final-evidence-0/delivered-portrait.webp",
+      "sha256": "a0ae4f926d8ba5245c87722c88ca97e5bfa67dabef592f8144b70570bcd9d889",
+      "state_ids": [],
+      "width": 1600
+    },
+    {
+      "height": 1024,
+      "id": "evidence-selected-reference",
+      "kind": "user_reference",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/final-evidence-0/selected-reference.png",
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422",
+      "state_ids": [],
+      "width": 1024
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-native-toy_dance",
+      "kind": "isolated_motion_pose",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/final-evidence-0/isolated-native-toy_dance.png",
+      "representation": "native",
+      "sample_index": 3,
+      "second": 2.0,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "329bc84c3bc4f86154b4aaa6be16598ed4fc7470acd9f10cd10829df0ecda51d",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-exported-toy_dance",
+      "kind": "isolated_motion_pose",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/final-evidence-0/isolated-exported-toy_dance.png",
+      "representation": "exported",
+      "sample_index": 3,
+      "second": 2.0,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "265b5d6defcf302e75b2a0cda5b4da5b4904052e6d46ca7407ef6a673ec87c91",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 720
+    },
+    {
+      "height": 1524,
+      "id": "evidence-preserved-appearance-baseline",
+      "kind": "appearance_baseline",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/final-evidence-0/preserved-appearance-baseline.png",
+      "sha256": "f2bb78375b166acc11d149e0994c0e5438eb0d84b4ca74863e2a5d65f04bd073",
+      "state_ids": [],
+      "width": 2880
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "de45637fc70157b6a1bf20a976a76132d356874b604ff08f891021879f6835a7",
+  "portable_attachment_manifest_sha256": "61d47ff61b1ed957882c6177291dc5d5cc692dbf5697cfc0d8350c5d87cc8ad6",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "evidence-selected-reference",
+          "evidence-delivered-portrait",
+          "evidence-native-views",
+          "evidence-exported-views"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Matches the requested subject and reference look: plush panda with black eye patches and black/ivory markings plus a small green shoulder dragon companion. Facial proportions/eyes and the dragon’s overall shape/details appear consistent with the selected reference and delivered portrait (no swapped character/species or missing companion)."
+      },
+      {
+        "evidence_ids": [
+          "evidence-preserved-appearance-baseline",
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-delivered-portrait"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Appearance is preserved versus the selected baseline: the plush panda keeps the rounded toy proportions, black eye patches, and black/ivory palette; the small green dragon remains distinct and not covered in panda fur. Native vs exported differences (native looks smoother/softer; exported shows more visible short card/strand stubble along the silhouette and on the white belly) match what is already present in the preserved baseline rather than a new regression."
+      },
+      {
+        "evidence_ids": [
+          "evidence-native-views",
+          "evidence-exported-views",
+          "evidence-motion-00"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "Full character is visible in native and exported multiviews (front/side/back/three-quarter), including the shoulder dragon and tail; dance evidence keeps the avatar in frame sufficiently to judge the requested motions."
+      },
+      {
+        "evidence_ids": [
+          "evidence-motion-00",
+          "evidence-isolated-native-toy_dance",
+          "evidence-isolated-exported-toy_dance"
+        ],
+        "name": "deformation",
+        "passed": true,
+        "reason": "Sampled dance poses show no obvious catastrophic skin collapse or broken silhouette. In the isolated peak-stretch pose, deformation looks within an acceptable toy style (no extreme limb thinning or tearing); any minor interpenetration/flattening around the paws/belly reads as modest and not a severe failure in the provided samples."
+      }
+    ],
+    "limitations": [
+      "Motion review is based on sampled contact-sheet frames; it does not prove continuous collision-free motion, foot-ground contact, or seamless looping.",
+      "Native vs exported fur/coat appearance differs (exported shows more visible short card/stubble artifacts and slightly rougher boundary read), but this appears consistent with the preserved appearance baseline rather than a new regression."
+    ],
+    "required_repairs": [],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "evidence-motion-00",
+          "action-audit-toy_dance",
+          "evidence-isolated-native-toy_dance",
+          "evidence-isolated-exported-toy_dance"
+        ],
+        "id": "toy_dance",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Sampled frames show an intentional toy-dance with side-to-side sways, coordinated arm movement, and gentle head tilts; the shoulder dragon remains perched throughout and the final frame returns to the starting pose. Numeric audit supports rhythmic reversals and endpoint return, but visual meaning is also readable in the provided motion sheet.",
+        "requirement_reviews": [
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "three_beats_rhythm",
+            "passed": true,
+            "reason": "Contact-sheet progression shows repeated side-to-side sway/tilt cycles across the clip; audit reports multiple rhythmic reversals consistent with three alternating beats."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "hops_and_sways",
+            "passed": true,
+            "reason": "Visible whole-body sway is clear; vertical body rise/fall is modest but present in sampled poses, and audit indicates non-trivial vertical excursion for the body role."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "arm_swings",
+            "passed": true,
+            "reason": "Arms change position over the beats with coordinated swing-like motion visible in sampled frames; audit shows meaningful arm-role displacement."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "head_tilts",
+            "passed": true,
+            "reason": "Head visibly tilts left/right in coordination with the sway across sampled frames; audit shows head-role articulation."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "evidence-isolated-native-toy_dance",
+              "evidence-isolated-exported-toy_dance"
+            ],
+            "id": "dragon_attached",
+            "passed": true,
+            "reason": "Dragon stays on the shoulder in all sampled frames/poses with no visible separation or flight; it follows the panda’s motion as an attached companion."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "return_body_pose",
+            "passed": true,
+            "reason": "Final sampled frame matches the starting stance and placement visually; audit reports small endpoint displacement for the body role."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "return_arm_pose",
+            "passed": true,
+            "reason": "Arms return to the initial resting position by the end frame in the motion sheet; audit confirms endpoint return within tolerance."
+          },
+          {
+            "evidence_ids": [
+              "evidence-motion-00",
+              "action-audit-toy_dance"
+            ],
+            "id": "return_head_pose",
+            "passed": true,
+            "reason": "Head returns to a neutral/starting orientation by the end frame; audit confirms endpoint return within tolerance."
+          }
+        ]
+      }
+    ],
+    "summary": "The attempt preserves the plush panda + green shoulder dragon identity and the baseline look across native and exported views. The toy_dance state reads as a cheerful side-to-side toy dance with coordinated arm/head motion; the dragon stays perched and the clip ends back in the starting pose. No major deformation failures are evident in the sampled poses.",
+    "verdict": "accept"
+  }
+}

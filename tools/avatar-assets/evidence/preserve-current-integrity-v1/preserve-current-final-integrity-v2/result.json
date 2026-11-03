@@ -1,0 +1,356 @@
+{
+  "actual_export": {
+    "animation_changes_root_translation_only": true,
+    "material_texture_sampler_and_embedded_image_bytes_exact": true,
+    "position_normal_uv_color_joints_weights_indices_exact": true,
+    "skins_inverse_binds_nodes_exact": true,
+    "tangent_exception": {
+      "changed_vertices": 1,
+      "finite": true,
+      "handedness_changes": 0,
+      "max_abs_component_delta": 9.995698928833008e-05,
+      "max_direction_angle_degrees": 0.004514033604297218,
+      "scope": "Numeric comparison only; existing final render validation and critic remain authoritative, no tolerance changed.",
+      "source_hashes": [
+        "95088085cc205911f493203ef830f7045d79637cf659a19c89c77cfcebf60a54",
+        "2ec427b1dae75fc40a4bd3571c1d34be166a9df06fdb0d9fff004d728d26a8b4"
+      ],
+      "vertices": 50303,
+      "witnesses": [
+        {
+          "after": [
+            0.7281000018119812,
+            -0.30169999599456787,
+            -0.6154000163078308,
+            1.0
+          ],
+          "before": [
+            0.7281000018119812,
+            -0.30169999599456787,
+            -0.6154999732971191,
+            1.0
+          ],
+          "exported_vertex_index": 16962
+        },
+        {
+          "after": [
+            0.11949999630451202,
+            -0.029600000008940697,
+            0.9923999905586243,
+            1.0
+          ],
+          "before": [
+            0.11949999630451202,
+            -0.029600000008940697,
+            0.9923999905586243,
+            1.0
+          ],
+          "exported_vertex_index": 50302
+        },
+        {
+          "after": [
+            0.125,
+            0.30959999561309814,
+            -0.9426000118255615,
+            1.0
+          ],
+          "before": [
+            0.125,
+            0.30959999561309814,
+            -0.9426000118255615,
+            1.0
+          ],
+          "exported_vertex_index": 16774
+        },
+        {
+          "after": [
+            -0.21549999713897705,
+            0.11400000005960464,
+            -0.9697999954223633,
+            1.0
+          ],
+          "before": [
+            -0.21549999713897705,
+            0.11400000005960464,
+            -0.9697999954223633,
+            1.0
+          ],
+          "exported_vertex_index": 16772
+        }
+      ]
+    }
+  },
+  "appearance_policy": {
+    "authorization": {
+      "path": ".local/studio/jobs/4701879a91cf42efbeebf16c/appearance-preference.json",
+      "sha256": "016e4f1bd1d1f006c35be6105c44f78d1c7d51b1d53d41820f6b7f7482395321"
+    },
+    "baseline": {
+      "attempt": 2,
+      "descriptor_sha256": "16f67e916fbfc459933ced02f6a3cd5a7045109a9da068ddee7b6a2f453de606",
+      "design_sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293",
+      "model_manifest_sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+      "parent_output": "outputs/studio-45757c9565b545119553baca",
+      "review_sha256": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39",
+      "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    "mode": "preserve_current",
+    "schema_version": 1
+  },
+  "baseline_model_sha256": "95088085cc205911f493203ef830f7045d79637cf659a19c89c77cfcebf60a54",
+  "composition": {
+    "all_16_finish_updates_null": true,
+    "effective_answer_sha256": "492347a047c521b0bc94bc76694cb03367994f63d4d65752265df0816b64a0b0",
+    "paid_raw_unchanged_and_recomposition_verified": true,
+    "raw_answer_sha256": "b6fe6b5dc6416e80d1967d4eb53a47ab9d726e28dcd13b38248875007184b7de",
+    "receipt_sha256": "5a074dc7c1ad5dc589a08209bd03c3cb8db2018d0c2e0d7631aeb8e3f589b518",
+    "remove_finish_fields_empty": true
+  },
+  "concrete_delivery_blocker": null,
+  "configuration": {
+    "all_finishing_skin_rest_geometry_render_scale_settings_equal": true,
+    "authored_action_changes": [
+      {
+        "after": 0.028,
+        "before": 0.014,
+        "path": "[0].keys[2].translations_m.root[2]"
+      },
+      {
+        "after": 0.028,
+        "before": 0.014,
+        "path": "[0].keys[4].translations_m.root[2]"
+      },
+      {
+        "after": 0.028,
+        "before": 0.014,
+        "path": "[0].keys[6].translations_m.root[2]"
+      }
+    ],
+    "identity_and_input_paths_are_job_specific": true,
+    "nonroot_translation_rotation_timing_interpolation_equal": true
+  },
+  "delivery_receipt_sha256": "d0b8da18c52baecf7456d654450d8ee2a1e461b01270a64c450cfd6c2aa80f1f",
+  "delivery_sha256": "6a91c4737377b99543b20e3951cb4d82fd74c4cf961e1d8986ed18b54cc6d25a",
+  "historical_failure": "The initial extra all-TANGENT bit-equality check failed. The unchanged runtime gates do not require baseline tangent bit identity. Follow-up isolated one 4-decimal component difference; no tolerance or runtime code changed.",
+  "human_approval": false,
+  "limitations": [
+    "Dance/hops are authored keyframed motion only; no physical balance, foot-ground contact solving, or impact dynamics are implied.",
+    "Keeping the dragon perched is treated as a rigid attachment to the shoulder region during animation; no independent dragon flight or separation is authored in this run.",
+    "Exact one-to-one reconstruction of the reference image geometry is not guaranteed; the prompt specifies intended appearance for generation/texture.",
+    "Motion review is based on sampled contact-sheet frames; it does not prove continuous collision-free motion, foot-ground contact, or seamless looping.",
+    "Native vs exported fur/coat appearance differs (exported shows more visible short card/stubble artifacts and slightly rougher boundary read), but this appears consistent with the preserved appearance baseline rather than a new regression.",
+    "The selected existing native/exported coat difference is retained; no fur enhancement or parity claim."
+  ],
+  "loop_verified": false,
+  "measurements": [
+    {
+      "job": {
+        "cleanup_events": [],
+        "cleanup_status": "not_required",
+        "command": [
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+          "-B",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/preserve-current-final-integrity-v1/check.py"
+        ],
+        "descendant_exit_verified": false,
+        "elapsed_seconds": 0.777,
+        "exit_code": 1,
+        "failure": null,
+        "failure_reasons": [],
+        "final_output_bytes": 277144,
+        "last_rss_sample_elapsed_seconds": 0.516,
+        "limits": {
+          "cleanup_grace_seconds": 7,
+          "log_bytes": 16777216,
+          "output_inventory_entries": 100000,
+          "output_mb": 16,
+          "rss_mb": 512,
+          "wall_seconds": 30
+        },
+        "manual_stop_required": false,
+        "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+        "monitor_checkpoint": "check-monitor.json",
+        "monitor_errors": [],
+        "pid": 31098,
+        "process_exit_verified": true,
+        "rss_exit_race_observed": true,
+        "rss_samples": 2,
+        "sampled_max_output_bytes": 277144,
+        "sampled_peak_rss_bytes": 47284224,
+        "sampling_interval_seconds": 0.25,
+        "schema_version": 1,
+        "status": "finished"
+      },
+      "manifest_sha256": "93d1e7dd4107420202da3b0ab950b80e337edf080915167a1e45a2d7ea8f5f01",
+      "path": "outputs/preserve-current-final-integrity-v1"
+    },
+    {
+      "job": {
+        "cleanup_events": [],
+        "cleanup_status": "not_required",
+        "command": [
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+          "-B",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/preserve-current-final-integrity-difference-v1/check.py",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/preserve-current-final-integrity-difference-v1"
+        ],
+        "descendant_exit_verified": false,
+        "elapsed_seconds": 0.262,
+        "exit_code": 0,
+        "failure": null,
+        "failure_reasons": [],
+        "final_output_bytes": 5249,
+        "limits": {
+          "cleanup_grace_seconds": 7,
+          "log_bytes": 16777216,
+          "output_inventory_entries": 100000,
+          "output_mb": 8,
+          "rss_mb": 512,
+          "wall_seconds": 15
+        },
+        "manual_stop_required": false,
+        "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+        "monitor_checkpoint": "check-monitor.json",
+        "monitor_errors": [],
+        "pid": 31199,
+        "process_exit_verified": true,
+        "rss_exit_race_observed": true,
+        "rss_samples": 0,
+        "sampled_max_output_bytes": 5249,
+        "sampled_peak_rss_bytes": null,
+        "sampling_interval_seconds": 0.25,
+        "schema_version": 1,
+        "status": "finished"
+      },
+      "manifest_sha256": "f5006bd03e59989f5d3fcd3cfe19ff8603404e5477e9f8f12cf12461fe1b5452",
+      "path": "outputs/preserve-current-final-integrity-difference-v1"
+    },
+    {
+      "job": {
+        "cleanup_events": [],
+        "cleanup_status": "not_required",
+        "command": [
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+          "-B",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/preserve-current-final-integrity-tangent-v1/check.py",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/preserve-current-final-integrity-tangent-v1"
+        ],
+        "descendant_exit_verified": false,
+        "elapsed_seconds": 0.262,
+        "exit_code": 0,
+        "failure": null,
+        "failure_reasons": [],
+        "final_output_bytes": 6422,
+        "limits": {
+          "cleanup_grace_seconds": 7,
+          "log_bytes": 16777216,
+          "output_inventory_entries": 100000,
+          "output_mb": 8,
+          "rss_mb": 512,
+          "wall_seconds": 15
+        },
+        "manual_stop_required": false,
+        "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+        "monitor_checkpoint": "check-monitor.json",
+        "monitor_errors": [],
+        "pid": 31363,
+        "process_exit_verified": true,
+        "rss_exit_race_observed": true,
+        "rss_samples": 0,
+        "sampled_max_output_bytes": 6422,
+        "sampled_peak_rss_bytes": null,
+        "sampling_interval_seconds": 0.25,
+        "schema_version": 1,
+        "status": "finished"
+      },
+      "manifest_sha256": "baa3f9436bab790a2bb720041ac7ab3369001474abe902936c30e9478e27fe7f",
+      "path": "outputs/preserve-current-final-integrity-tangent-v1"
+    }
+  ],
+  "model_sha256": "2ec427b1dae75fc40a4bd3571c1d34be166a9df06fdb0d9fff004d728d26a8b4",
+  "native_calls": 0,
+  "numeric_reports": {
+    "bound_to_delivered_model": true,
+    "deformation": true,
+    "portable_attachment": true,
+    "rerun": false,
+    "weighted_action": true
+  },
+  "original_artifacts_modified": false,
+  "packs": [
+    {
+      "artifacts": 81,
+      "bytes": 120635081,
+      "manifest_sha256": "de45637fc70157b6a1bf20a976a76132d356874b604ff08f891021879f6835a7",
+      "path": "model-0"
+    },
+    {
+      "artifacts": 10,
+      "bytes": 278527,
+      "manifest_sha256": "42252fda0dfd6ae5635291dbf8087cc75bb090fded6ed8e7d1634a48f39bd579",
+      "path": "reload-0"
+    },
+    {
+      "artifacts": 128,
+      "bytes": 57388446,
+      "manifest_sha256": "5120f50ef71862d88a15487f92b40555d1d43f4c828166fb6a56bacedbf15c80",
+      "path": "media-0"
+    },
+    {
+      "artifacts": 31,
+      "bytes": 7140197,
+      "manifest_sha256": "742e57fef6f1357860eceeb3a692ce898cb6281b7f6811d0df3601460a32fd68",
+      "path": "media-portable-0"
+    },
+    {
+      "artifacts": 25,
+      "bytes": 75498698,
+      "manifest_sha256": "8c151db2f39bdbe9bfaf5c3152f59f2bb41675237f9c7b22d9a6ed5d6f87f435",
+      "path": "exported-preview-0"
+    },
+    {
+      "artifacts": 6,
+      "bytes": 29476,
+      "manifest_sha256": "3edc96574c0a31c0b75d8b6463c13795bae60a24db58bd7daac94c1e28832620",
+      "path": "action-audit-0"
+    },
+    {
+      "artifacts": 8,
+      "bytes": 12860509,
+      "manifest_sha256": "c9a0b36cd4bc4d6261ca131933c33b3a69d2ae08f05a2aa0074efab9cee8a93f",
+      "path": "final-evidence-0"
+    },
+    {
+      "artifacts": 6,
+      "bytes": 9741,
+      "manifest_sha256": "61d47ff61b1ed957882c6177291dc5d5cc692dbf5697cfc0d8350c5d87cc8ad6",
+      "path": "portable-root-audit-0"
+    }
+  ],
+  "paid_review": {
+    "appearance_check": {
+      "evidence_ids": [
+        "evidence-preserved-appearance-baseline",
+        "evidence-native-views",
+        "evidence-exported-views",
+        "evidence-delivered-portrait"
+      ],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Appearance is preserved versus the selected baseline: the plush panda keeps the rounded toy proportions, black eye patches, and black/ivory palette; the small green dragon remains distinct and not covered in panda fur. Native vs exported differences (native looks smoother/softer; exported shows more visible short card/strand stubble along the silhouette and on the white belly) match what is already present in the preserved baseline rather than a new regression."
+    },
+    "appearance_scope": "Preservation of the selected authenticated current look, not Muse parity or human approval of this model. Native groom and portable coat representations remain different.",
+    "required_repairs": [],
+    "verdict": "accept"
+  },
+  "provider_calls": 0,
+  "quality_equivalence_verified": false,
+  "request_sha256": "e545af41cf3250d42b822d1ba9d5cdcfeed92eb421b307b92aa00d433a9abcae",
+  "requested_custody_checks_passed": true,
+  "schema_version": 1,
+  "scope": "Read-only terminal custody, exact authored finishing/skin and actual GLB rest/skin/image comparison, authenticated review scope. No new numerical or visual evaluation.",
+  "selected_attempt": 0,
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "status": "verified_with_disclosed_tangent_difference",
+  "weft_runtime_verified": false
+}

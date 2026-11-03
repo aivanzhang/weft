@@ -9,8 +9,9 @@ The append-only ledger cap is active; no new Meshy work.
 **Current direction:** the website uses the server OpenAI API for planning,
 authoring and review; Meshy supplies geometry/textures. The active priority is a
 fully hands-off Studio delivery using the already accepted panda appearance.
-Earlier accepted authored panda/dragon assets remain intact; no new hands-off
-result has passed final acceptance yet.
+Earlier accepted authored panda/dragon assets remain intact. On **November 2, 2026,
+19:39:23 PST**, the saved-source preservation run completed automatically and
+passed its numeric gates, final review and actual website verification.
 
 Actual website **Retry saved work → Prepare** reuses the previous AI plan
 and authenticated failure history without another planner charge. Run
@@ -31,23 +32,28 @@ baseline rig and articulation fixed during eligible finishing/root-motion repair
 the local derivative proof is not a new accepted avatar.
 The explicit [Keep look; finish motion](docs/preserve-current-appearance.md) mode
 preserves the current verified baseline’s appearance instead of tuning fur again.
-UI, backend and policy checks pass; actual Retry→Prepare and read-only request
-inspection pass. The first preservation-mode generation run is in progress, not
-accepted; see the handoff for live ownership.
+The actual **Retry→Prepare→Start→delivery** run passed on attempt 0 in a
+368.122-second browser observation. Its four review categories, dance state and
+eight action requirements passed under the explicit preservation criterion.
+[Success evidence](evidence/preserve-current-success-v1/manifest.json) binds the
+GLB, editable Blender source, portrait, four-second animation and static fallback.
+This proves a saved-source continuation, not fresh text-to-mesh or every prompt.
 This trial keeps the shoulder dragon perched, not flying.
 
 [GPT-5.2 model profiles](docs/api-model-profiles.md) and standard responses keep
-per-call reservations within the existing $15 total cap. Before the current preservation run,
-$6.648951 was settled and $6.548016 remained in uncertain charge holds; those
-holds are conservative exposure, not confirmed bills. Pre-run exposure was $13.196967,
-leaving $1.803033 under the unchanged cap; this is not a live bill. No new Meshy work or
+per-call reservations within the existing $15 total cap. The completed run used
+two settled API calls costing **$0.178757**, with no Meshy submission or new unknown
+hold. Cumulative settled use is **$6.827708** plus **$6.548016** in retained uncertain
+charge holds: **$13.375724** exposure and **$1.624276** remaining. Holds are not
+confirmed bills. No new Meshy work or
 hosted deployment. The [handoff](TODO.md) records exact sources, ownership,
 commands, failures and the next safe action. [Backend details](docs/api-website-backend.md).
 
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.
 The user has accepted the previous appearance; the active priority is now a
-successful fully hands-off Studio delivery, not further appearance upgrades.
-That real end-to-end delivery remains unverified. The latest [texture-preserving undercoat improvement](docs/undercoat-uv2-preservation.md)
+hands-off Studio delivery, not further appearance upgrades. One real saved-source
+preservation delivery now passes; fresh geometry generation and broader prompt
+coverage remain separate, unproven acceptance cases. The earlier [texture-preserving undercoat improvement](docs/undercoat-uv2-preservation.md)
 passes component checks; it is not a newly accepted avatar.
 The subsequent [actual-source control](docs/source-uv-control.md) builds a rigged
 furred GLB and passes independent skin/texture-frame checks, but its eight rendered
@@ -70,7 +76,7 @@ That first coat failed attachment by up to 2.50 mm. The opt-in
 all 3,000 roots pass across 36 sampled poses, with maximum separation below
 0.4 micrometres. Body, colors and existing motions are preserved. Appearance
 still reads as short plush, with abrupt tail/leg boundaries and source deformation
-defects; neither this fox nor the hands-off Studio is newly accepted.
+defects; this fox is not an accepted Studio delivery.
 
 The new [automatic fur-attachment gate](docs/portable-fur-attachment.md) now runs
 before expensive media in the prompt pipeline. The actual saved fox passes
@@ -78,12 +84,13 @@ before expensive media in the prompt pipeline. The actual saved fox passes
 This verifies attachment to the exported body, not denser fur or an accepted
 end-to-end Studio result. No new paid generation was used.
 
-The approved fresh dancing-panda Studio trial generated geometry and textures
+Historically, the approved fresh dancing-panda Studio trial generated geometry and textures
 (35 Meshy credits), then stopped at the AI account's usage limit before rigging.
 The model and failure are saved; no automatic generation retry or purchase ran.
-A completed hands-off Studio delivery is still unverified. [Current handoff](TODO.md).
+That failed fresh trial remains unchanged; the later saved-source preservation
+delivery is verified separately. [Current handoff](TODO.md).
 
-## Create from a prompt — studio acceptance pending
+## Create from a prompt — local Studio
 
 The new local studio accepts a character/style prompt, an optional reference
 image and up to eight custom action descriptions. It shows saved plans, actual
@@ -102,10 +109,10 @@ existing allowance; the screen cannot buy credits or grant more spending. The
 Meshy ledger has **8 credits remaining**, below the estimated **35 credits** for
 a new textured model. OpenAI dollars and Meshy credits are tracked separately.
 
-The interface and HTTP/job contracts have fixture verification; the revised
-hands-off quality pipeline and a complete real studio run are **not yet
-accepted**. Existing-model renderer checks do not prove a new avatar meets its
-prompt. Work now includes exact custom-action contracts, subject-specific
+The interface and HTTP/job contracts have fixture verification and one complete
+real saved-source preservation run has passed. This is not a fresh text-to-mesh
+acceptance test. Existing-model renderer checks alone do not prove a new avatar
+meets its prompt. Work now includes exact custom-action contracts, subject-specific
 materials/fur, actual weighted-motion checks, 720px native/exported views and
 review of final media before delivery. No universal prompt success or Muse-level
 finish is promised. [Active goal and acceptance gates](docs/hands-off-studio.md),
@@ -122,7 +129,7 @@ exited cleanly; no critic, full media or accepted delivery followed. The separat
 already-paid-rig trial also ended **unsupported**: its repaired model passed
 numeric motion/stability checks and rendered full media, but the critic rejected
 the low wrist swivel as an unclear greeting. Its browser/server exited cleanly;
-there is no accepted Studio delivery. The finite development estimate allows
+that historical trial produced no accepted Studio delivery. Its finite development estimate allowed
 **13 total AI calls**, now fully consumed. The separate last-call weight repair
 also failed torso stability and visual review; it is not a delivered avatar.
 Dollar cost remains unknown and no new Meshy credits are used. The three

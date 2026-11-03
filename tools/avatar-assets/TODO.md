@@ -1,6 +1,61 @@
 # Avatar asset workflow TODO
 
-## Session handoff — November 02, 2026, 07:32 PM PST
+## Session handoff — November 02, 2026, 07:42 PM PST
+
+- **The appearance-preserving website/backend run passed end to end.** Job
+  `4701879a91cf42efbeebf16c` completed on attempt0 at November 2, 2026,
+  7:39:23 PM PST. Observer29234 passed in368.122s with ONE Start; browser/server
+  exited, no active lease/queued jobs, no cancellation/signals. Real GLB motion,
+  video play/pause/seek, portrait/static fallback and reduced-motion behavior
+  passed. Download endpoints passed metadata/first-four-byte range checks, not
+  full copied downloads. `outputs/preserve-current-studio-live-v2/studio-live-test.json`.
+- **User priority honored:** no fur tuning. Exact current baseline finishing,
+  render settings, scale, skin and articulation remain fixed. The real V3 author
+  returned all 16 finishing fields:null, no removals, and changed only root Z at
+  the three beat peaks. Raw patch, effective V2 design and composition receipts
+  are separate immutable artifacts. Reviewer accepted identity, preserved
+  appearance, framing, deformation and all 8 dance requirements. Dragon stays
+  perched; this run does not author dragon flight or physical balance/contact.
+- **Output:** `outputs/studio-4701879a91cf42efbeebf16c/delivery.json`;
+  `model-0/model.glb`, editable `model-0/source.blend`, native `media-0/portrait.webp`
+  (1600square opaque), `media-0/animations/toy_dance.mp4` (720square,96frames,
+  24fps,4s,H264,silent), and `media-0/fallbacks/toy_dance.png`. Portable media,
+  audited weights, prompt/model/settings/source hashes and rejected ancestry remain.
+  Loops are NOT certified; Weft runtime compatibility is NOT verified. Appearance
+  acceptance is preservation of the selected baseline, not new Muse parity or
+  human approval of this exact model. No fresh Meshy generation occurred.
+- **Cost:** two settled OpenAI calls cost$0.178757; no new Meshy credits or unknown
+  holds. Cumulative settled$6.827708 + retained unknownholds$6.548016 = conservative
+  exposure$13.375724; $1.624276 remains under the existing$15total. Unknownholds
+  are not confirmed bills. `outputs/preserve-current-final-accounting-v1`.
+- **Saved code:** `33c866127901244bc45026801cde60a47a3e4dd7` pushed; private remote
+  subsequently advanced to494631a by anotherowner, and ancestry verification
+  proves it includes this checkpoint.134avatar-only files/5,768,592B, guardv34,
+  parent31f93d9 preserved. Receipt `outputs/preserve-current-publication-v1`.
+  Final success docs/evidence still need the last avatar-only checkpoint.
+- **Final integrity and docs complete:** eight packs,295 artifact entries and
+  273,840,675B verified. Positions/normals/UVs/colors/skin weights/joints/indices,
+  inverse binds, materials and texture bytes match the original baseline. Only
+  three authored/exported root-Z keys changed14→28mm. One of50,303 tangents has
+  a0.0001 component difference (0.004514degrees, samehandedness); the overly strict
+  bit-equality check failed and is preserved, while the qualified check found no
+  blocker. No runtime threshold changed or renderer rerun.
+  `evidence/preserve-current-integrity-v1` and `evidence/preserve-current-success-v1`
+  preserve these results. README/workflow docs are reconciled; links/whitespace
+  pass. No more generation/test reruns are needed. Do not alter old failures or unrelated
+  Weft files. No deployment, credential borrowing, purchase or external messages.
+- **Use:** from Weft, `./tools/avatar-assets/run studio --port 8766`, then open
+  `http://127.0.0.1:8766/` and select the completed panda job. The user manages
+  persistent servers. Generated new-subject quality remains bounded/reviewed,
+  not a universal success guarantee; unsupported results remain explicit.
+- **Publication handoff:** the final avatar-only commit/push and clean-subtree
+  result are recorded in `outputs/preserve-current-final-publication-v1/receipt.json`
+  after publication (guardv35). If that receipt is absent, finish only that save;
+  otherwise no active job or further paid work remains for this scoped delivery.
+  Fresh geometry generation and arbitrary-prompt success are not proven by this
+  saved-source run; future requests remain subject to the normal bounded gates.
+
+## Historical handoff — November 02, 2026, 07:32 PM PST
 
 - **Actual website generation is running**, observer **29234**,
   `outputs/preserve-current-studio-live-v2`, at most1,800s. ONE Start; no

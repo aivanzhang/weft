@@ -1,0 +1,742 @@
+{
+  "appearance_preservation": {
+    "appearance_policy": {
+      "authorization": {
+        "path": ".local/studio/jobs/4701879a91cf42efbeebf16c/appearance-preference.json",
+        "sha256": "016e4f1bd1d1f006c35be6105c44f78d1c7d51b1d53d41820f6b7f7482395321"
+      },
+      "baseline": {
+        "attempt": 2,
+        "descriptor_sha256": "16f67e916fbfc459933ced02f6a3cd5a7045109a9da068ddee7b6a2f453de606",
+        "design_sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293",
+        "model_manifest_sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+        "parent_output": "outputs/studio-45757c9565b545119553baca",
+        "review_sha256": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39",
+        "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+      },
+      "mode": "preserve_current",
+      "schema_version": 1
+    },
+    "appearance_policy_sha256": "eea9a7568ac7e1d04e3757c1a113cd46a3756f2691a3556425ae1787886d4136",
+    "baseline_evidence_manifest_sha256": "60923062862bf29c008bc1e2be9e3fb71522ecc73e50f231094060c9bdf7c5ae",
+    "baseline_images": [
+      {
+        "id": "evidence-native-views",
+        "sha256": "f24aa73afa035b7b055378e7a83f02ed1cb316d687ac7a13fae24fea9d74eb04"
+      },
+      {
+        "id": "evidence-exported-views",
+        "sha256": "f8534cc9d00f6919b33b4cae2738ec4f155b652281a5528ed4efc5d85b368069"
+      }
+    ],
+    "scope": "Unchanged baseline pixels joined for comparison, not current motion evidence or human approval. Existing native/exported coat differences remain."
+  },
+  "artifacts": [
+    {
+      "bytes": 772558,
+      "path": "delivered-portrait.webp",
+      "sha256": "a0ae4f926d8ba5245c87722c88ca97e5bfa67dabef592f8144b70570bcd9d889"
+    },
+    {
+      "bytes": 1242059,
+      "path": "exported-views.png",
+      "sha256": "ed10c4c3f69b0d7721ac0ed1209030d8eefed800c35c1780ac04ebf81059fa0e"
+    },
+    {
+      "bytes": 433644,
+      "path": "isolated-exported-toy_dance.png",
+      "sha256": "265b5d6defcf302e75b2a0cda5b4da5b4904052e6d46ca7407ef6a673ec87c91"
+    },
+    {
+      "bytes": 457662,
+      "path": "isolated-native-toy_dance.png",
+      "sha256": "329bc84c3bc4f86154b4aaa6be16598ed4fc7470acd9f10cd10829df0ecda51d"
+    },
+    {
+      "bytes": 4827639,
+      "path": "motion-00.png",
+      "sha256": "ae390fcc18fc60336b044bab5fe52132b688d0ebf10fa74d486ee27713ac2bfa"
+    },
+    {
+      "bytes": 1408532,
+      "path": "native-views.png",
+      "sha256": "f24aa73afa035b7b055378e7a83f02ed1cb316d687ac7a13fae24fea9d74eb04"
+    },
+    {
+      "bytes": 2666441,
+      "path": "preserved-appearance-baseline.png",
+      "sha256": "f2bb78375b166acc11d149e0994c0e5438eb0d84b4ca74863e2a5d65f04bd073"
+    },
+    {
+      "bytes": 1051974,
+      "path": "selected-reference.png",
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    }
+  ],
+  "coverage": [
+    {
+      "height": 720,
+      "id": "evidence-native-views-front",
+      "kind": "view",
+      "representation": "native",
+      "view": "front",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-side",
+      "kind": "view",
+      "representation": "native",
+      "view": "side",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-back",
+      "kind": "view",
+      "representation": "native",
+      "view": "back",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-three_quarter",
+      "kind": "view",
+      "representation": "native",
+      "view": "three_quarter",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-front",
+      "kind": "view",
+      "representation": "exported",
+      "view": "front",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-side",
+      "kind": "view",
+      "representation": "exported",
+      "view": "side",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-back",
+      "kind": "view",
+      "representation": "exported",
+      "view": "back",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-three_quarter",
+      "kind": "view",
+      "representation": "exported",
+      "view": "three_quarter",
+      "width": 720
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00-native",
+      "kind": "state",
+      "pose_height": 720,
+      "pose_width": 720,
+      "representation": "native",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00-exported",
+      "kind": "state",
+      "pose_height": 720,
+      "pose_width": 720,
+      "representation": "exported",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "portrait",
+      "representation": "native",
+      "width": 1600
+    }
+  ],
+  "exported_manifest_sha256": "8c151db2f39bdbe9bfaf5c3152f59f2bb41675237f9c7b22d9a6ed5d6f87f435",
+  "images": [
+    {
+      "height": 1496,
+      "id": "evidence-native-views",
+      "kind": "multiview",
+      "path": "native-views.png",
+      "sha256": "f24aa73afa035b7b055378e7a83f02ed1cb316d687ac7a13fae24fea9d74eb04",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 1496,
+      "id": "evidence-exported-views",
+      "kind": "multiview",
+      "path": "exported-views.png",
+      "sha256": "ed10c4c3f69b0d7721ac0ed1209030d8eefed800c35c1780ac04ebf81059fa0e",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00",
+      "kind": "native_exported_and_delivered_motion",
+      "motion_sampling": [
+        {
+          "candidate_scope": "One strongest authored key per relevant control track; equal peaks use earliest key. Not all motion extrema are shown.",
+          "foot_clearance": "unverified; role-root rise is not foot-ground clearance or airtime",
+          "frames": [
+            {
+              "index": 0,
+              "rationale": [
+                "baseline"
+              ],
+              "source_second": 0.0,
+              "video_second": 0.0
+            },
+            {
+              "index": 24,
+              "rationale": [
+                "authored_extremum"
+              ],
+              "source_second": 1.0,
+              "video_second": 1.0
+            },
+            {
+              "index": 36,
+              "rationale": [
+                "authored_recovery_nearest_baseline"
+              ],
+              "source_second": 1.5,
+              "video_second": 1.5
+            },
+            {
+              "index": 95,
+              "rationale": [
+                "delivered_final_frame"
+              ],
+              "source_second": 3.9583333333333335,
+              "video_second": 3.9583333333333335
+            }
+          ],
+          "indices": [
+            0,
+            24,
+            36,
+            95
+          ],
+          "observations": [
+            {
+              "authored_root_translation_excursion_m": 0.0,
+              "authored_root_vertical_rise_m": 0,
+              "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+              "measured_role_root_travel_m": 0.027235905474372945,
+              "measured_role_root_vertical_rise_m": 0.02710487675671505,
+              "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+              "requirement_kinds": [
+                "articulation",
+                "return_pose"
+              ],
+              "role": "arms",
+              "root_bone": "chest"
+            },
+            {
+              "authored_root_translation_excursion_m": 0.0,
+              "authored_root_vertical_rise_m": 0,
+              "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+              "measured_role_root_travel_m": 0.027235905474372945,
+              "measured_role_root_vertical_rise_m": 0.02710487675671505,
+              "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+              "requirement_kinds": [
+                "articulation"
+              ],
+              "role": "dragon",
+              "root_bone": "chest"
+            },
+            {
+              "authored_root_translation_excursion_m": 0.0,
+              "authored_root_vertical_rise_m": 0,
+              "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+              "measured_role_root_travel_m": 0.027235905474372945,
+              "measured_role_root_vertical_rise_m": 0.02710487675671505,
+              "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+              "requirement_kinds": [
+                "articulation",
+                "return_pose"
+              ],
+              "role": "head",
+              "root_bone": "chest"
+            },
+            {
+              "authored_root_translation_excursion_m": 0.03176476034853718,
+              "authored_root_vertical_rise_m": 0.028,
+              "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+              "measured_role_root_travel_m": 0.03176475931016258,
+              "measured_role_root_vertical_rise_m": 0.0279999990016222,
+              "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+              "requirement_kinds": [
+                "return_pose",
+                "rhythm",
+                "travel"
+              ],
+              "role": "panda_body",
+              "root_bone": "root"
+            }
+          ],
+          "omitted_candidate_count": 10,
+          "omitted_candidates": [
+            {
+              "bone": "arm_l_upper",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 22.360679774997898,
+              "role": "arms",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "arm_r_upper",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 22.360679774997898,
+              "role": "arms",
+              "second": 2,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "head",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 13.0,
+              "role": "head",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "arm_l_lower",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 10.0,
+              "role": "arms",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "chest",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 10.0,
+              "role": "panda_body",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "arm_r_lower",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 10.0,
+              "role": "arms",
+              "second": 2,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "spine",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 7.211102550927978,
+              "role": "panda_body",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "neck",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 6.324555320336759,
+              "role": "head",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "hand_l",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 5.0,
+              "role": "arms",
+              "second": 1,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            },
+            {
+              "bone": "hand_r",
+              "control": "authored_euler_control_excursion",
+              "magnitude": 5.0,
+              "role": "arms",
+              "second": 2,
+              "units": "degrees; authored Euler components, not measured angular distance"
+            }
+          ],
+          "omitted_candidates_truncated": false,
+          "policy": "bound-control-extrema-v1",
+          "primary_extremum": {
+            "bone": "root",
+            "control": "authored_vertical_translation",
+            "magnitude": 0.028,
+            "role": "panda_body",
+            "second": 1,
+            "units": "meters"
+          },
+          "reason": "Audited-role-bound authored control extrema; not semantic approval",
+          "selection": "baseline_extremum_recovery_end",
+          "selection_limit": 4,
+          "semantic_approval": false,
+          "source_duration_seconds": 4,
+          "source_hashes": {
+            "action_audit_manifest": "3edc96574c0a31c0b75d8b6463c13795bae60a24db58bd7daac94c1e28832620",
+            "action_audit_report": "59c5b828685b84d161c7fe766512a495f2d560526058e36346c757ca093ce169",
+            "action_intent": "396cc5d90770abb7c313f0c7188563b9929e4757107697da510fd0d1ad357f02",
+            "authored_config": "e413629a170636c9a139b804a56a3a0585d7ae382af87240faa474b11d39c210",
+            "model_glb": "2ec427b1dae75fc40a4bd3571c1d34be166a9df06fdb0d9fff004d728d26a8b4",
+            "model_manifest": "de45637fc70157b6a1bf20a976a76132d356874b604ff08f891021879f6835a7"
+          },
+          "source_start_second": 0,
+          "state_id": "toy_dance",
+          "timing_map": "video_second=(source_second-source_start_second)*video_duration/source_duration",
+          "video_duration_seconds": 4.0
+        }
+      ],
+      "path": "motion-00.png",
+      "sha256": "ae390fcc18fc60336b044bab5fe52132b688d0ebf10fa74d486ee27713ac2bfa",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "delivered_portrait",
+      "path": "delivered-portrait.webp",
+      "sha256": "a0ae4f926d8ba5245c87722c88ca97e5bfa67dabef592f8144b70570bcd9d889",
+      "state_ids": [],
+      "width": 1600
+    },
+    {
+      "height": 1024,
+      "id": "evidence-selected-reference",
+      "kind": "user_reference",
+      "path": "selected-reference.png",
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422",
+      "state_ids": [],
+      "width": 1024
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-native-toy_dance",
+      "kind": "isolated_motion_pose",
+      "path": "isolated-native-toy_dance.png",
+      "representation": "native",
+      "sample_index": 3,
+      "second": 2.0,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "329bc84c3bc4f86154b4aaa6be16598ed4fc7470acd9f10cd10829df0ecda51d",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-isolated-exported-toy_dance",
+      "kind": "isolated_motion_pose",
+      "path": "isolated-exported-toy_dance.png",
+      "representation": "exported",
+      "sample_index": 3,
+      "second": 2.0,
+      "selection": "greatest_recorded_edge_stretch",
+      "sha256": "265b5d6defcf302e75b2a0cda5b4da5b4904052e6d46ca7407ef6a673ec87c91",
+      "state_ids": [
+        "toy_dance"
+      ],
+      "width": 720
+    },
+    {
+      "height": 1524,
+      "id": "evidence-preserved-appearance-baseline",
+      "kind": "appearance_baseline",
+      "path": "preserved-appearance-baseline.png",
+      "sha256": "f2bb78375b166acc11d149e0994c0e5438eb0d84b4ca74863e2a5d65f04bd073",
+      "state_ids": [],
+      "width": 2880
+    }
+  ],
+  "kind": "full_resolution_review_evidence",
+  "media_manifest_sha256": "5120f50ef71862d88a15487f92b40555d1d43f4c828166fb6a56bacedbf15c80",
+  "model_manifest_sha256": "de45637fc70157b6a1bf20a976a76132d356874b604ff08f891021879f6835a7",
+  "motion_sampling": [
+    {
+      "candidate_scope": "One strongest authored key per relevant control track; equal peaks use earliest key. Not all motion extrema are shown.",
+      "foot_clearance": "unverified; role-root rise is not foot-ground clearance or airtime",
+      "frames": [
+        {
+          "index": 0,
+          "rationale": [
+            "baseline"
+          ],
+          "source_second": 0.0,
+          "video_second": 0.0
+        },
+        {
+          "index": 24,
+          "rationale": [
+            "authored_extremum"
+          ],
+          "source_second": 1.0,
+          "video_second": 1.0
+        },
+        {
+          "index": 36,
+          "rationale": [
+            "authored_recovery_nearest_baseline"
+          ],
+          "source_second": 1.5,
+          "video_second": 1.5
+        },
+        {
+          "index": 95,
+          "rationale": [
+            "delivered_final_frame"
+          ],
+          "source_second": 3.9583333333333335,
+          "video_second": 3.9583333333333335
+        }
+      ],
+      "indices": [
+        0,
+        24,
+        36,
+        95
+      ],
+      "observations": [
+        {
+          "authored_root_translation_excursion_m": 0.0,
+          "authored_root_vertical_rise_m": 0,
+          "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+          "measured_role_root_travel_m": 0.027235905474372945,
+          "measured_role_root_vertical_rise_m": 0.02710487675671505,
+          "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+          "requirement_kinds": [
+            "articulation",
+            "return_pose"
+          ],
+          "role": "arms",
+          "root_bone": "chest"
+        },
+        {
+          "authored_root_translation_excursion_m": 0.0,
+          "authored_root_vertical_rise_m": 0,
+          "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+          "measured_role_root_travel_m": 0.027235905474372945,
+          "measured_role_root_vertical_rise_m": 0.02710487675671505,
+          "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+          "requirement_kinds": [
+            "articulation"
+          ],
+          "role": "dragon",
+          "root_bone": "chest"
+        },
+        {
+          "authored_root_translation_excursion_m": 0.0,
+          "authored_root_vertical_rise_m": 0,
+          "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+          "measured_role_root_travel_m": 0.027235905474372945,
+          "measured_role_root_vertical_rise_m": 0.02710487675671505,
+          "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+          "requirement_kinds": [
+            "articulation",
+            "return_pose"
+          ],
+          "role": "head",
+          "root_bone": "chest"
+        },
+        {
+          "authored_root_translation_excursion_m": 0.03176476034853718,
+          "authored_root_vertical_rise_m": 0.028,
+          "authored_space": "Blender Z-up meter controls; local offsets follow animated parents",
+          "measured_role_root_travel_m": 0.03176475931016258,
+          "measured_role_root_vertical_rise_m": 0.0279999990016222,
+          "measurement_space": "exported glTF world meters; summary, not a measured peak timestamp",
+          "requirement_kinds": [
+            "return_pose",
+            "rhythm",
+            "travel"
+          ],
+          "role": "panda_body",
+          "root_bone": "root"
+        }
+      ],
+      "omitted_candidate_count": 10,
+      "omitted_candidates": [
+        {
+          "bone": "arm_l_upper",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 22.360679774997898,
+          "role": "arms",
+          "second": 1,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        },
+        {
+          "bone": "arm_r_upper",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 22.360679774997898,
+          "role": "arms",
+          "second": 2,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        },
+        {
+          "bone": "head",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 13.0,
+          "role": "head",
+          "second": 1,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        },
+        {
+          "bone": "arm_l_lower",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 10.0,
+          "role": "arms",
+          "second": 1,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        },
+        {
+          "bone": "chest",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 10.0,
+          "role": "panda_body",
+          "second": 1,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        },
+        {
+          "bone": "arm_r_lower",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 10.0,
+          "role": "arms",
+          "second": 2,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        },
+        {
+          "bone": "spine",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 7.211102550927978,
+          "role": "panda_body",
+          "second": 1,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        },
+        {
+          "bone": "neck",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 6.324555320336759,
+          "role": "head",
+          "second": 1,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        },
+        {
+          "bone": "hand_l",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 5.0,
+          "role": "arms",
+          "second": 1,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        },
+        {
+          "bone": "hand_r",
+          "control": "authored_euler_control_excursion",
+          "magnitude": 5.0,
+          "role": "arms",
+          "second": 2,
+          "units": "degrees; authored Euler components, not measured angular distance"
+        }
+      ],
+      "omitted_candidates_truncated": false,
+      "policy": "bound-control-extrema-v1",
+      "primary_extremum": {
+        "bone": "root",
+        "control": "authored_vertical_translation",
+        "magnitude": 0.028,
+        "role": "panda_body",
+        "second": 1,
+        "units": "meters"
+      },
+      "reason": "Audited-role-bound authored control extrema; not semantic approval",
+      "selection": "baseline_extremum_recovery_end",
+      "selection_limit": 4,
+      "semantic_approval": false,
+      "source_duration_seconds": 4,
+      "source_hashes": {
+        "action_audit_manifest": "3edc96574c0a31c0b75d8b6463c13795bae60a24db58bd7daac94c1e28832620",
+        "action_audit_report": "59c5b828685b84d161c7fe766512a495f2d560526058e36346c757ca093ce169",
+        "action_intent": "396cc5d90770abb7c313f0c7188563b9929e4757107697da510fd0d1ad357f02",
+        "authored_config": "e413629a170636c9a139b804a56a3a0585d7ae382af87240faa474b11d39c210",
+        "model_glb": "2ec427b1dae75fc40a4bd3571c1d34be166a9df06fdb0d9fff004d728d26a8b4",
+        "model_manifest": "de45637fc70157b6a1bf20a976a76132d356874b604ff08f891021879f6835a7"
+      },
+      "source_start_second": 0,
+      "state_id": "toy_dance",
+      "timing_map": "video_second=(source_second-source_start_second)*video_duration/source_duration",
+      "video_duration_seconds": 4.0
+    }
+  ],
+  "quality_equivalence_verified": false,
+  "schema_version": 1,
+  "scope": "Up to eight actual poses per representation for one to four states; four selected poses for five to eight states. One-state jobs also include two unchanged individual pose images. Up to four decoded delivered video samples per state, selected from bound control extrema or explicit uniform fallback. Not all-frame visual, physics or loop certification.",
+  "sources": {
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/exported-views.png": "f8534cc9d00f6919b33b4cae2738ec4f155b652281a5528ed4efc5d85b368069",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/manifest.json": "60923062862bf29c008bc1e2be9e3fb71522ecc73e50f231094060c9bdf7c5ae",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/final-evidence-2/native-views.png": "f24aa73afa035b7b055378e7a83f02ed1cb316d687ac7a13fae24fea9d74eb04",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-45757c9565b545119553baca/review-2.json": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/action-audit-0/audit-handle.json": "3d4698cf374b5ceae4a701cac832b0832a844893bdb377ecc5f2799af3614e08",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/action-audit-0/audit-monitor.json": "2c3945f18a38ecf1b1b9a1580612aafd228ed9285684deec3ae6713692d08511",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/action-audit-0/audit.log": "63ae8cd95e496734937a53d478505115f1441702dfaef98020b239052a2dd369",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/action-audit-0/intent.json": "396cc5d90770abb7c313f0c7188563b9929e4757107697da510fd0d1ad357f02",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/action-audit-0/job.json": "7a71804aae5a8e3f21f50961c1b186b2e05609d320e94d5f632ca33e6ae946b7",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/action-audit-0/manifest.json": "3edc96574c0a31c0b75d8b6463c13795bae60a24db58bd7daac94c1e28832620",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/action-audit-0/report.json": "59c5b828685b84d161c7fe766512a495f2d560526058e36346c757ca093ce169",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/back.png": "3a90f3b1934ea860361c1df1f747ef47104c1ec3b477478750bc7860bae8816a",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/front.png": "8c0e845dc6c8e81fd890250018799bc4ac99d4bb9385228b23b9db2063cdde2e",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/renders/toy_dance/0000.png": "3057bf2712371393466b5da58897647559d2cd5aa85e362ff32c8d722762d3bf",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/renders/toy_dance/0001.png": "4b3e05091dda0be66b595f86a5250eb6b8ff2708faaca7341ce5f82b2e066537",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/renders/toy_dance/0002.png": "1b8f6cb6928597093b94cea7dd9058958a9e75d7966f49f1d1083c1a42de52f7",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/renders/toy_dance/0003.png": "265b5d6defcf302e75b2a0cda5b4da5b4904052e6d46ca7407ef6a673ec87c91",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/renders/toy_dance/0004.png": "151cde1fbb5406f9d0ad4b2f8c927f53aec6005ec0d647aa63812d12b7feb9ca",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/renders/toy_dance/0005.png": "89ca0357c2262683cae6bfcf80f7d00ff5870413d61f759c8ee2726eabc1a249",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/renders/toy_dance/0006.png": "61ca16516e8db898b90390094ca46f2687ed482f987fc22ab33699b932914724",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/renders/toy_dance/0007.png": "ce941b3b0088ce2fa5693513c3fcedb41c724d9b04501889f1d1a051f02806b8",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/side.png": "36c62cf564bbb1889d077e59cf271a3f899240166aa32c8a06d9442ded2e55aa",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/exported-preview-0/three-quarter.png": "bf1c1fbf685f33dcd4cb1d8fe0d27b6e1fd6ab7db4e8924bf196733e855c70d7",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/inputs/appearance-preference.json": "016e4f1bd1d1f006c35be6105c44f78d1c7d51b1d53d41820f6b7f7482395321",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/inputs/reference.png": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/media-0/animations/toy_dance.mp4": "16fb032374d57fee53be20e25a4d2bd19cc27d4921f19509a3ba2f55cc195c75",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/media-0/portrait.webp": "a0ae4f926d8ba5245c87722c88ca97e5bfa67dabef592f8144b70570bcd9d889",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/manifest.json": "de45637fc70157b6a1bf20a976a76132d356874b604ff08f891021879f6835a7",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/model.glb": "2ec427b1dae75fc40a4bd3571c1d34be166a9df06fdb0d9fff004d728d26a8b4",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/renders/toy_dance/0000.png": "e9e5b69fb06696fd20a741ef3834adf008718aec00e69e248931de7582c73fb7",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/renders/toy_dance/0001.png": "a3f18b4b51b5d98420c44c91d07ccab38c984b5fc2c34fb8dc26b79e28ee7bef",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/renders/toy_dance/0002.png": "4de9a7409766f3453f2c32659bfa6ba8c7ecb497ae37997fdc8ed47e91bf2559",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/renders/toy_dance/0003.png": "329bc84c3bc4f86154b4aaa6be16598ed4fc7470acd9f10cd10829df0ecda51d",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/renders/toy_dance/0004.png": "d7f1e0f6fb485b0bd8743fa0f1d9babee6f1984824db28658246fa3c457b5134",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/renders/toy_dance/0005.png": "6d74b14e2cac9c773f549f32af5f5e4460649a99ecb5e1c744520825190c6a52",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/renders/toy_dance/0006.png": "a34edd8c3791fa933b7adf404aac707a29275174510fb5097b84c5e73bff97f0",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/renders/toy_dance/0007.png": "808c27981c0e8fbd1d1e8455648fa9783c0df514a31340a5ad8cc4f7b3c0afae",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/sources/finish-design.json": "e413629a170636c9a139b804a56a3a0585d7ae382af87240faa474b11d39c210",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/views/back.png": "5f67bc33e1a476999f0009a698a06a54165f79060811cc8ce15bde066d40d7bd",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/views/front.png": "952adf89b08018444d5b9cd15d36ec40c1a8d94e218858422983ad31829e13de",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/views/side.png": "c56ca05e3ac9b10d53539d4101771a2d3245d1daac19d78aa81bab3427afad46",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/views/three_quarter.png": "cf637c5c563ecd08b33e5b07161908a6613ad81004913ec4a7237a41b00efb28",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/request.json": "e545af41cf3250d42b822d1ba9d5cdcfeed92eb421b307b92aa00d433a9abcae"
+  },
+  "status": "prepared_for_review"
+}

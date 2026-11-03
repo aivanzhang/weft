@@ -1,0 +1,297 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checks": {
+      "additionalProperties": false,
+      "properties": {
+        "appearance": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence_ids": {
+              "items": {
+                "enum": [
+                  "evidence-native-views",
+                  "evidence-exported-views",
+                  "evidence-motion-00",
+                  "evidence-delivered-portrait",
+                  "evidence-selected-reference",
+                  "evidence-isolated-native-toy_dance",
+                  "evidence-isolated-exported-toy_dance",
+                  "evidence-preserved-appearance-baseline",
+                  "action-audit-toy_dance"
+                ],
+                "type": "string"
+              },
+              "maxItems": 8,
+              "type": "array"
+            },
+            "passed": {
+              "type": "boolean"
+            },
+            "reason": {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "passed",
+            "reason",
+            "evidence_ids"
+          ],
+          "type": "object"
+        },
+        "deformation": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence_ids": {
+              "items": {
+                "enum": [
+                  "evidence-native-views",
+                  "evidence-exported-views",
+                  "evidence-motion-00",
+                  "evidence-delivered-portrait",
+                  "evidence-selected-reference",
+                  "evidence-isolated-native-toy_dance",
+                  "evidence-isolated-exported-toy_dance",
+                  "evidence-preserved-appearance-baseline",
+                  "action-audit-toy_dance"
+                ],
+                "type": "string"
+              },
+              "maxItems": 8,
+              "type": "array"
+            },
+            "passed": {
+              "type": "boolean"
+            },
+            "reason": {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "passed",
+            "reason",
+            "evidence_ids"
+          ],
+          "type": "object"
+        },
+        "framing": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence_ids": {
+              "items": {
+                "enum": [
+                  "evidence-native-views",
+                  "evidence-exported-views",
+                  "evidence-motion-00",
+                  "evidence-delivered-portrait",
+                  "evidence-selected-reference",
+                  "evidence-isolated-native-toy_dance",
+                  "evidence-isolated-exported-toy_dance",
+                  "evidence-preserved-appearance-baseline",
+                  "action-audit-toy_dance"
+                ],
+                "type": "string"
+              },
+              "maxItems": 8,
+              "type": "array"
+            },
+            "passed": {
+              "type": "boolean"
+            },
+            "reason": {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "passed",
+            "reason",
+            "evidence_ids"
+          ],
+          "type": "object"
+        },
+        "identity": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence_ids": {
+              "items": {
+                "enum": [
+                  "evidence-native-views",
+                  "evidence-exported-views",
+                  "evidence-motion-00",
+                  "evidence-delivered-portrait",
+                  "evidence-selected-reference",
+                  "evidence-isolated-native-toy_dance",
+                  "evidence-isolated-exported-toy_dance",
+                  "evidence-preserved-appearance-baseline",
+                  "action-audit-toy_dance"
+                ],
+                "type": "string"
+              },
+              "maxItems": 8,
+              "type": "array"
+            },
+            "passed": {
+              "type": "boolean"
+            },
+            "reason": {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "passed",
+            "reason",
+            "evidence_ids"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "identity",
+        "appearance",
+        "framing",
+        "deformation"
+      ],
+      "type": "object"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "type": "array"
+    },
+    "required_repairs": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 2,
+      "type": "integer"
+    },
+    "state_reviews": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_ids": {
+            "items": {
+              "enum": [
+                "evidence-native-views",
+                "evidence-exported-views",
+                "evidence-motion-00",
+                "evidence-delivered-portrait",
+                "evidence-selected-reference",
+                "evidence-isolated-native-toy_dance",
+                "evidence-isolated-exported-toy_dance",
+                "evidence-preserved-appearance-baseline",
+                "action-audit-toy_dance"
+              ],
+              "type": "string"
+            },
+            "maxItems": 8,
+            "type": "array"
+          },
+          "id": {
+            "type": "string"
+          },
+          "meaning_passed": {
+            "type": "boolean"
+          },
+          "motion_passed": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "requirement_reviews": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "evidence_ids": {
+                  "items": {
+                    "enum": [
+                      "evidence-native-views",
+                      "evidence-exported-views",
+                      "evidence-motion-00",
+                      "evidence-delivered-portrait",
+                      "evidence-selected-reference",
+                      "evidence-isolated-native-toy_dance",
+                      "evidence-isolated-exported-toy_dance",
+                      "evidence-preserved-appearance-baseline",
+                      "action-audit-toy_dance"
+                    ],
+                    "type": "string"
+                  },
+                  "maxItems": 8,
+                  "type": "array"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "passed": {
+                  "type": "boolean"
+                },
+                "reason": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "passed",
+                "reason",
+                "evidence_ids"
+              ],
+              "type": "object"
+            },
+            "maxItems": 8,
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "meaning_passed",
+          "motion_passed",
+          "reason",
+          "evidence_ids",
+          "requirement_reviews"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "type": "array"
+    },
+    "summary": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "accept",
+        "repair",
+        "unsupported"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "verdict",
+    "summary",
+    "checks",
+    "state_reviews",
+    "required_repairs",
+    "limitations"
+  ],
+  "type": "object"
+}

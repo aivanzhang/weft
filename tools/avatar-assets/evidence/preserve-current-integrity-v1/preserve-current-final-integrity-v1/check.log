@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/preserve-current-final-integrity-v1/check.py", line 193, in <module>
+    try:main()
+        ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/preserve-current-final-integrity-v1/check.py", line 166, in main
+    require(not primitive_differences and all(document_checks.values()) and all(skin_checks)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            and all(row['before']==row['after'] for row in image_hashes),'Actual exported rest/skin/material/image preservation differs')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: Actual exported rest/skin/material/image preservation differs

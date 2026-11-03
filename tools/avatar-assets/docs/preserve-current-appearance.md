@@ -74,18 +74,37 @@ preserved. A narrow verifier fix delegates canonical origin and source checks to
 the existing policy helpers; **five focused checks** and actual prepared-job
 inspection pass. Ledger and registry hashes stayed unchanged during inspection.
 
-A second root-owned Start observer, **29234**, is running for this child at this
-documentation checkpoint (`outputs/preserve-current-studio-live-v2`). Runtime
-sources are frozen. Do not duplicate or interrupt it. No accepted result is claimed;
-use [the handoff](../TODO.md) for subsequent status, not this historical run handle.
+The second actual Start run **passed**: job `4701879a91cf42efbeebf16c` completed
+attempt 0 on **November 2, 2026, 19:39:23 PST**. The browser observation took
+**368.122 seconds** and issued exactly one Start. Numeric deformation, attachment
+and action checks passed, followed by all four visual-review categories, the
+`toy_dance` state and its eight requirements. Appearance passed **preservation**
+against the bound current baseline, not a fur upgrade, Muse parity or human
+approval of this exact output. The dragon stays perched.
 
-[The workflow evidence bundle](../evidence/preserve-current-workflow-v1/manifest.json)
-contains completed tests and preparation proofs only, excluding the live job's
-mutable output. The owner policy carry-forward permits one finite preserve-current
-successor under the **same $15 total cap**. Prior grant/call history and unknown
-holds remain unchanged; an earlier attempted old-policy extension was ineligible
-and is retained as such. Pre-run exposure was **$13.196967**, leaving **$1.803033**;
-these are checkpoint values, not the running job's live bill.
+Delivered artifacts include a rigged animated GLB, editable Blender source,
+opaque 1600×1600 portrait, silent H.264 720×720 dance video (96 frames, 24 fps,
+four seconds), and a static fallback. Loop continuity is not certified. Browser
+checks loaded/played the GLB and video, decoded the portrait/fallback, and checked
+reduced motion without GLB/video fetching. GLB play/pause used actual UI controls;
+seeking used model-viewer's programmatic control. Download endpoints passed HEAD
+and four-byte range checks—**not full copied download verification**. Browser and
+temporary server exits were verified, with no worker signal/cancellation or active
+lease remaining. This local success does not verify hosted deployment or Weft
+runtime integration.
+
+[Terminal success evidence](../evidence/preserve-current-success-v1/manifest.json)
+contains original review/delivery receipts, browser results and bounded screenshots,
+with hash references to large model, Blender and video artifacts. Original outputs
+are unchanged. [The earlier workflow bundle](../evidence/preserve-current-workflow-v1/manifest.json)
+retains analytic tests, preparation and the first harness's zero-Start failure.
+
+The successful run used **two settled API calls, $0.178757**, no new unknown hold
+and zero Meshy submissions. Cumulative settled use is **$6.827708** plus retained
+unknown holds of **$6.548016**: **$13.375724** exposure, leaving **$1.624276** under
+the same $15 cap. Unknown holds are not confirmed bills and were not reset.
+This is a successful **saved-source continuation with a pinned look**, not proof
+of fresh Meshy generation or arbitrary-prompt success.
 
 ## Reproducible root-owned browser verification
 
@@ -103,5 +122,5 @@ The harness permits only the explicit Retry and Prepare POSTs, verifies that bot
 saved and prepared child expose the preservation mode, and closes its temporary
 browser/server. **It does not click Start.** Generation requires a separately
 owned exact-plan Start and the existing action-time spending checks. The completed run of this command is recorded above; a future verification must
-use a new folder and must not duplicate the current job. No new budget, Meshy generation
+use a new folder and must not restart the completed job. No new budget, Meshy generation
 or hosted deployment is authorized by the mode.

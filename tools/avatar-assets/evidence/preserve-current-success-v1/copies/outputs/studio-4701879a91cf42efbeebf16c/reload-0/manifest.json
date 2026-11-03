@@ -1,0 +1,106 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "decec6689726ed43ffccfdc11e3821e1df39bdbb004cfbc7bb233bfc0717cac4"
+    },
+    {
+      "bytes": 18248,
+      "path": "blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 75690,
+      "path": "independent-back.png",
+      "sha256": "b0c267f28c5818978e237dfccfcd7aed02dfbb807639a6fc521aa42fed4574ec"
+    },
+    {
+      "bytes": 75102,
+      "path": "independent-front.png",
+      "sha256": "072563d59b6929405bac9e9308f812be5d6fbe0f275a79429b4abb4313caba64"
+    },
+    {
+      "bytes": 71495,
+      "path": "independent-side.png",
+      "sha256": "e532d7fceaa39ee84181835e083be345cd190ff8bff74c8122a3b3213a15ad94"
+    },
+    {
+      "bytes": 17089,
+      "path": "independent_reload.json",
+      "sha256": "8182d943044e3165a2408244934f71cf3e1bc14b923657b152160d70be333980"
+    },
+    {
+      "bytes": 1527,
+      "path": "job.json",
+      "sha256": "d0e253ec0b7e88cec0191aff2c3721316f60a8ecdb0af42cb0b205066698fb37"
+    },
+    {
+      "bytes": 607,
+      "path": "reload-handle.json",
+      "sha256": "0e906f61aa62fc569798264a16c1d81eedc2470b0edb474c0472f40229f985ff"
+    },
+    {
+      "bytes": 1393,
+      "path": "reload-monitor.json",
+      "sha256": "eab6c11160358f0392d77556ef4e9831a76fc9ab821fa34bb1e12043ecce319a"
+    },
+    {
+      "bytes": 17255,
+      "path": "reload.log",
+      "sha256": "c94055ceef52549593bac4c95387a0f828199912dfa127f2c19111e3860ab8da"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/reload-0/blender_verify.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/model-0/model.glb",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-4701879a91cf42efbeebf16c/reload-0"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 2.34,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 276937,
+    "last_rss_sample_elapsed_seconds": 2.08,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 180
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "reload-monitor.json",
+    "monitor_errors": [],
+    "pid": 29177,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 8,
+    "sampled_max_output_bytes": 276937,
+    "sampled_peak_rss_bytes": 670171136,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "independent_3d_reload",
+  "schema_version": 1,
+  "source_manifest_sha256": "de45637fc70157b6a1bf20a976a76132d356874b604ff08f891021879f6835a7",
+  "source_model_sha256": "2ec427b1dae75fc40a4bd3571c1d34be166a9df06fdb0d9fff004d728d26a8b4",
+  "status": "passed"
+}

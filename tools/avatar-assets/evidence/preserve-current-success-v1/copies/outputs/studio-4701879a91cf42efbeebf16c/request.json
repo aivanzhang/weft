@@ -1,0 +1,68 @@
+{
+  "agent_backend": {
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "model": "gpt-5.2-2025-12-11",
+    "provider": "openai",
+    "reasoning_effort": "medium",
+    "timeout": 600
+  },
+  "agent_model": "gpt-5.2-2025-12-11",
+  "agent_timeout": 600,
+  "appearance_policy": {
+    "authorization": {
+      "path": ".local/studio/jobs/4701879a91cf42efbeebf16c/appearance-preference.json",
+      "sha256": "016e4f1bd1d1f006c35be6105c44f78d1c7d51b1d53d41820f6b7f7482395321"
+    },
+    "baseline": {
+      "attempt": 2,
+      "descriptor_sha256": "16f67e916fbfc459933ced02f6a3cd5a7045109a9da068ddee7b6a2f453de606",
+      "design_sha256": "2e065f2ab6a0292ed310b3cc61e733c09b4a13e75768a598513b80b0f2305293",
+      "model_manifest_sha256": "ac59c0491d34402613c9db2758cb4a635099abe20153c3112d09893eed002a08",
+      "parent_output": "outputs/studio-45757c9565b545119553baca",
+      "review_sha256": "39fdaf125db37de2772296e4bcf084267490ec656f51877afed106adb4301e39",
+      "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    "mode": "preserve_current",
+    "schema_version": 1
+  },
+  "continuation": {
+    "parent": "outputs/studio-6c2aeac484bd4d4597fb71f3",
+    "policy": "terminal-native-repair-continuation-v1",
+    "receipt": "continuation/receipt.json",
+    "schema_version": 1,
+    "sha256": "6147508259c9ec8ea6ff5c7beefff238e99431aee44274463f4c5ca10672e21f"
+  },
+  "created": "2026-11-02T19:29:18.046018-08:00",
+  "custom_actions": [
+    "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+  ],
+  "id": "studio-4701879a91cf42efbeebf16c",
+  "max_agent_calls": 7,
+  "max_credits": 0,
+  "max_repairs": 2,
+  "media_spec": {
+    "portrait": 1600,
+    "samples": 8,
+    "seconds": 4,
+    "size": 720
+  },
+  "preset": "preview",
+  "prompt": "Create an editable, rigged avatar from this previously generated Muse-style panda and its small green shoulder dragon. Preserve the selected source character, proportions, black eye patches, black-and-ivory palette, and companion. Keep the dragon perched and attached to the shoulder during this run; do not separate it or make it fly. Do not add props, clothing, text, a pedestal or scenery.",
+  "reference": {
+    "bytes": 1051974,
+    "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-fur-v3/portrait.png",
+    "path": "inputs/reference.png",
+    "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+  },
+  "reuse_model": {
+    "bytes": 25557832,
+    "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+    "path": "inputs/source-model.glb",
+    "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+  },
+  "schema_version": 1,
+  "states": [],
+  "style": "Match the accepted reference portrait: soft, neatly groomed short fur on the panda, clear expressive eyes, tidy color boundaries and a rounded plush appearance. Keep the green dragon distinct and preserve its surface details; do not cover it in panda fur. Avoid a shiny plastic look."
+}

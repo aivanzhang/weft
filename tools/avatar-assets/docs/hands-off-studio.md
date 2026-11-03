@@ -17,21 +17,19 @@ The user accepts the previous appearance and explicitly prioritizes the fully
 hands-off Studio run. Stop new fur-density, shading and Muse-parity experiments.
 Use that existing visual standard; retain checks for broken geometry, missing
 requested features, detached fur and incorrect actions. Do not promote an old
-manual asset as a new automated delivery. The next bounded acceptance attempt
-should exercise one actual prompt through Studio to final downloadable assets;
-fresh generation still needs its exact spending allowance. Broader generalization
-claims remain limited to actually tested examples.
+manual asset as a new automated delivery. The saved-source preservation run now completes that local Studio acceptance
+case: `4701879a91cf42efbeebf16c`, November 2, 2026, 19:39:23 PST. Actual website
+Retry→Prepare→Start produced rigged GLB, editable Blender source, portrait,
+animation and fallback; all numeric gates and final review passed under the
+explicit preserve-current-look criterion. One Start was observed over 368.122 s;
+browser/server exited cleanly. This is not fresh text-to-mesh, Muse parity,
+seamless-loop certification, hosted deployment or universal prompt success.
+[Scope and receipts](preserve-current-appearance.md).
 
-The reusable automatic attachment stage now passes on a complete saved fox;
-[its evidence](portable-fur-attachment.md) is a component check, not the missing
-Studio run. Its appearance is unchanged and is not another quality upgrade.
-
-The latest accepted-source website Prepare passed, but its rigging API request
-timed out after four minutes with no answer. No new rig/dance delivery resulted.
-The uncertain charge remains reserved; no duplicate request is submitted. See
-[the current handoff](../TODO.md) for exact ownership, accounting and next steps.
-Optional [streaming transport and specific stopped-job status](api-streaming.md)
-now pass local checks. They do not recover that answer or complete live acceptance.
+The successful run cost $0.178757 for two settled API calls and no Meshy work.
+Cumulative exposure is $13.375724 ($6.827708 settled + $6.548016 retained unknown
+holds), with $1.624276 remaining under the unchanged $15 total cap. Historical
+timeouts and failures below remain unchanged, not recovered responses.
 
 ## Completion evidence required
 
@@ -49,12 +47,12 @@ now pass local checks. They do not recover that answer or complete live acceptan
   creature and a substantially different articulated object. Final acceptance
   uses fresh examples, without hand-written per-example finishing recipes.
   Existing geometry is useful development evidence, not a fresh text-to-mesh test.
-- [ ] At least one complete user-interface run follows an actual authorized
+- [x] At least one complete user-interface run follows an actual authorized
   job through its final assets. Browser/API fixtures are recorded separately.
 - [ ] Bounds, costs, exact inputs, models, repairs, failures and source hashes
   remain reproducible. Unsupported outcomes do not count as quality successes.
 
-## Current implementation ownership
+## Earlier implementation checkpoints (historical)
 
 - Parent: orchestration integration, local HTTP API,
   shared contract, end-to-end acceptance and save.
@@ -73,7 +71,7 @@ The fresh panda trial generated mesh/textures for 35 Meshy credits, then stopped
 before rigging under the old personal-login backend. The server OpenAI backend
 has since been exercised through actual browser Starts using the same paid mesh.
 Typed transport and authenticated repair feedback now reach real native builds.
-The latest completed API run passed skin/deformation, attachment, action and
+At that earlier checkpoint, the completed API run passed skin/deformation, attachment, action and
 native-media review, but exported fur failed visual review. A later optional
 texture repair failed; no portable delivery was accepted. Persistent failure
 memory and measured coat feedback are tested, with a new actual website run
@@ -81,7 +79,7 @@ now also terminal unsupported for exported coat artifacts. See the handoff
 before starting any work.
 
 Meshy totals remain 18 successful submissions / 237 credits against 245 authorized.
-Settled API use is $2.777078 across 29 calls, under the effective **$15 total**
+At that historical checkpoint, settled API use was $2.777078 across 29 calls, under the effective **$15 total**
 ceiling, including all prior usage. The medium-reasoning successor stopped before its first API call; see the
 handoff for guarded same-job recovery and the corrected prompt-size check.
 The user authorized bounded retries within that cap without repeated questions.

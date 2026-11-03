@@ -8,17 +8,22 @@ be active before the next request; it is now applied and records all prior use. 
 
 The user selected OpenAI API for the website backend. Website jobs must not
 depend on a personal ChatGPT login, local CLI session or operator-written rig.
-The first live API planner succeeded; no API-backed delivery has passed yet.
+One actual API-backed saved-source delivery now passes: `4701879a91cf42efbeebf16c`,
+completed November 2, 2026, 19:39:23 PST, under the explicit preserve-current-look
+criterion. Two API calls cost $0.178757; no new Meshy work. The website exercised
+one Start and real final GLB/video/static assets in 368.122 s. This does not prove
+fresh text-to-mesh, arbitrary prompts, hosted operation or Muse parity.
+[Complete result and limits](preserve-current-appearance.md).
 
 Optional [bounded streaming and clearer stopped-job status](api-streaming.md)
 are implemented. Streaming passed one actual GPT-5.2 website planner call, but the first author
 failed on an unsupported event. New owner settings use standard responses with
-a600-second bound. Both unknown charges remain; no avatar delivery is accepted.
+a600-second bound. Both unknown charges remain; that streaming trial produced no accepted delivery.
 
 New requests may explicitly select a [pinned GPT-5.2 price profile](api-model-profiles.md)
 to fit a smaller full-context reservation. The old unknown charge remains intact.
 
-## Current accepted-source trial
+## Earlier accepted-source trials (historical)
 
 The rejected fresh-base panda builds remain preserved. The next trial uses the
 unrigged paid base behind the user's accepted appearance plus its portrait,
@@ -128,7 +133,7 @@ artifact storage, authentication and durable budgets; a browser-only wrapper or
 serverless request that starts a laptop CLI is not that deliverable. Hosting and
 recurring costs must be concretely prepared before deployment approval.
 
-## Actual browser/backend outcome
+## Earlier browser/backend outcome (historical)
 
 Job `9e1cceb87c40437896c5a77f` is terminal **unsupported**, not complete. The
 approved planner retry returned valid IDs. A local stationary-language false
@@ -147,7 +152,7 @@ Three API calls across both jobs used an estimated$0.141219total. The remaining
 reviewer slot does not authorize an author repair. Preserve `unsupported.json`;
 the strict typed author contract below replaces the opaque JSON string for new jobs.
 No new paid call or budget increase is implied by that local fix. The website/API
-transport is live-tested; a successful hands-off avatar delivery is still unproven.
+transport is live-tested; that earlier job did not prove a successful hands-off delivery.
 
 ## Typed author transport v2
 

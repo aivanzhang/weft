@@ -1,0 +1,138 @@
+{
+  "action_bindings": [
+    {
+      "roles": [
+        {
+          "bones": [
+            "root",
+            "spine",
+            "chest",
+            "leg_l_upper",
+            "leg_l_lower",
+            "foot_l",
+            "leg_r_upper",
+            "leg_r_lower",
+            "foot_r",
+            "tail"
+          ],
+          "id": "panda_body",
+          "root_bone": "root"
+        },
+        {
+          "bones": [
+            "arm_l_upper",
+            "arm_l_lower",
+            "hand_l",
+            "arm_r_upper",
+            "arm_r_lower",
+            "hand_r"
+          ],
+          "id": "arms",
+          "root_bone": "chest"
+        },
+        {
+          "bones": [
+            "neck",
+            "head",
+            "ear_l",
+            "ear_r"
+          ],
+          "id": "head",
+          "root_bone": "chest"
+        },
+        {
+          "bones": [
+            "dragon_root",
+            "dragon_body",
+            "dragon_head",
+            "dragon_tail1",
+            "dragon_tail2",
+            "dragon_wing_l",
+            "dragon_wing_r"
+          ],
+          "id": "dragon",
+          "root_bone": "chest"
+        }
+      ],
+      "state_id": "toy_dance"
+    }
+  ],
+  "height_meters": 0.38,
+  "schema_version": 1,
+  "source_sha256": "2ec427b1dae75fc40a4bd3571c1d34be166a9df06fdb0d9fff004d728d26a8b4",
+  "states": [
+    {
+      "id": "toy_dance",
+      "meaning": "Cheerful 4-second toy dance: three alternating side-to-side beats with small whole-body hops, coordinated arm swings, gentle head tilts; the shoulder dragon stays perched/attached; ends in the starting pose.",
+      "requirements": [
+        {
+          "description": "Perform three clearly readable alternating side-to-side beats over the clip duration (left-right-left or right-left-right), with timing that reads as an intentional rhythm.",
+          "id": "three_beats_rhythm",
+          "kind": "rhythm",
+          "role": "panda_body"
+        },
+        {
+          "description": "Add small whole-body hops synchronized with the beat: visible upward-and-downward body motion (toy-like, modest amplitude) while also shifting side-to-side.",
+          "id": "hops_and_sways",
+          "kind": "travel",
+          "role": "panda_body"
+        },
+        {
+          "description": "Swing both arms in coordination with the side-to-side beats (arms move visibly and symmetrically/alternating in a toy-dance style; no new props).",
+          "id": "arm_swings",
+          "kind": "articulation",
+          "role": "arms"
+        },
+        {
+          "description": "Gently tilt the head in coordination with the beat (small, readable tilts; maintain a friendly toy demeanor).",
+          "id": "head_tilts",
+          "kind": "articulation",
+          "role": "head"
+        },
+        {
+          "description": "Keep the dragon perched and attached to the panda shoulder throughout: the dragon follows the shoulder/body motion without separating, flying, or drifting away.",
+          "id": "dragon_attached",
+          "kind": "articulation",
+          "role": "dragon"
+        },
+        {
+          "description": "Finish in the same overall starting pose: panda body position/orientation returns to its initial placement at the end of the clip.",
+          "id": "return_body_pose",
+          "kind": "return_pose",
+          "role": "panda_body"
+        },
+        {
+          "description": "Finish with arms returning to their starting pose (no held-out final gesture).",
+          "id": "return_arm_pose",
+          "kind": "return_pose",
+          "role": "arms"
+        },
+        {
+          "description": "Finish with head returning to its starting pose (neutral at clip end).",
+          "id": "return_head_pose",
+          "kind": "return_pose",
+          "role": "head"
+        }
+      ],
+      "roles": [
+        {
+          "description": "Main panda body/root including torso, hips/legs and overall translation used for sways and small hops.",
+          "id": "panda_body"
+        },
+        {
+          "description": "Both panda arms/forearms/paws used for coordinated swinging.",
+          "id": "arms"
+        },
+        {
+          "description": "Panda head/neck used for gentle tilts (no facial expression requirements).",
+          "id": "head"
+        },
+        {
+          "description": "Green shoulder dragon companion attached on the panda shoulder; must remain perched and follow along.",
+          "id": "dragon"
+        }
+      ],
+      "user_request": "A cheerful four-second toy dance with three alternating side-to-side beats, small whole-body hops, coordinated arm swings and gentle head tilts. Keep the shoulder dragon perched. Finish in the starting pose. This is authored toy motion, not physical balance or contact simulation."
+    }
+  ]
+}
