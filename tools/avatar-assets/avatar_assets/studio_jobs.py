@@ -632,7 +632,12 @@ class StudioJobs:
                      'Retained worker identity changed')
             _require(active and tuple(active)==(job_id,data.get('token')),'Exact old lease is no longer held')
             if request.get('reuse_model') is None:
-                _require((self.root/'outputs'/row['output']/'generation').is_dir(),
+                # A planning owner that died before generation leaves no generation folder;
+                # its custody is local processes plus the ledger-settled planner work, so the
+                # provable state is the folder's absence, never a fabricated generation.
+                output=self.root/'outputs'/row['output']
+                _require((output/'generation').is_dir()
+                         or (data.get('operation')=='plan' and not (output/'generation').exists()),
                          'Remote-generation custody requires its preserved generation folder')
             _require(_digest(request)==row['request_digest'] and _json(self.jobs_dir/job_id/'request.json')==request,
                      'Immutable Studio request receipt changed')
@@ -643,6 +648,10 @@ class StudioJobs:
         with self._db() as db:row,data,request=owned(db)
         folder=self.root/'outputs'/row['output']
         fresh=request.get('reuse_model') is None
+        preprovider=(fresh and data.get('operation')=='plan'
+                     and not (folder/'generation').exists() and not (folder/'agents').exists())
+        planning_only=(fresh and data.get('operation')=='plan'
+                       and not (folder/'generation').exists() and (folder/'agents').is_dir())
         prepared=_json(folder/'request.json',{})
         runner=_json(folder/'agents/runner.json',{})
         api_planning=not fresh and (isinstance(prepared,dict) and 'agent_backend' in prepared
@@ -658,16 +667,34 @@ class StudioJobs:
         meta=_json(invocation/'invocation.json')
         _require(isinstance(meta,dict) and meta.get('job_id')==job_id and meta.get('request_digest')==row['request_digest'],
                  'Invocation request binding changed')
-        locks=[self.state_dir/'worker.lock',self.jobs_dir/job_id/'worker.lock',folder/'pipeline.lock']
-        if fresh:
+        locks=[self.state_dir/'worker.lock',self.jobs_dir/job_id/'worker.lock']
+        # Planning that died before Pipeline construction never made pipeline.lock; lock it only if present.
+        if not (preprovider or planning_only) or (folder/'pipeline.lock').is_file():
+            locks.append(folder/'pipeline.lock')
+        if fresh and not (preprovider or planning_only):
             locks.append(folder/'generation/job.lock')
+        if planning_only and (folder/'agents/runner.lock').is_file():
+            locks.append(folder/'agents/runner.lock')
         if api_planning:
             locks.append(folder/'agents/runner.lock')
         with custody_locks(locks):
             proof=collect(self.root,folder,invocation,expected_pid,expected_identity,
-                          **({'operation':'execute' if author_input else 'plan'} if api_planning else {}))
+                          **({'operation':'execute' if author_input else 'plan'} if api_planning
+                             else {'operation':'plan'} if preprovider or planning_only else {}))
             proof['locks']=[str(path.relative_to(self.root)) for path in locks]
-            if fresh:
+            if preprovider:
+                proof=include_previous_plans(self.root,invocation,proof,row['request_digest'])
+                proof['no_provider_contact']={'generation_absent':True,'agents_absent':True,'operation':'plan',
+                    'scope':'Planning exited before creating generation or agent folders; no remote or paid custody exists to settle.'}
+                proof['scope']='Exited local planning owners with no provider contact; no replay or acceptance.'
+            if planning_only:
+                proof=include_previous_plans(self.root,invocation,proof,row['request_digest'])
+                agents=sorted(item.name for item in (folder/'agents').iterdir() if not item.is_symlink())[:32]
+                proof['planning_only']={'generation_absent':True,'agents_inventory':agents,'operation':'plan',
+                    'scope':'Planner charges stay recorded in their append-only ledger and immutable output; '
+                            'no generation or remote tasks were ever created.'}
+                proof['scope']='Exited local planning owners with ledger-settled paid planning and no generation custody; no replay or acceptance.'
+            if fresh and not (preprovider or planning_only):
                 proof=include_previous_plans(self.root,invocation,proof,row['request_digest'])
                 proof['generation']=collect_generation(self.root,folder,request)
                 proof['scope']='Exited local owners plus separately bound successful remote downloads; no replay or acceptance.'
@@ -682,7 +709,11 @@ class StudioJobs:
                 _require(current['request_digest']==row['request_digest'] and current_request==request
                          and current_data.get('invocation_dir')==data['invocation_dir'],'Inspected request/invocation changed')
                 proof['final_process_check']=recheck(self.root,proof)
-                if fresh:
+                if preprovider or planning_only:
+                    _require(not (self.root/'outputs'/current['output']/'generation').exists()
+                             and (planning_only or not (self.root/'outputs'/current['output']/'agents').exists()),
+                             'Provider artifacts appeared during inspection release')
+                if fresh and not (preprovider or planning_only):
                     recheck_generation(proof['generation'])
                 if api_planning:
                     recheck_api_planning(proof['api_planning'])
