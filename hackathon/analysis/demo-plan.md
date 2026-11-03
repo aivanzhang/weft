@@ -61,10 +61,22 @@ Rubric: impact 30%; Meta tooling 25%; demo 25%; technical execution 20%.
   A later native-app connection failure prevented syncing these final results; this
   project copy is current. Reopen the same note and append/update these results when
   native access returns; do not create a duplicate note.
-- **Remaining:** unassisted tracking, multi-person admission, arbitrary-model avatar
-  compatibility, the final narrated three-minute submission video and separately
-  authorized public access. More evidence is required before any arbitrary-video or
-  physical-accuracy claim.
+- **Text-to-avatar (live, November 3):** after the recorded $50 ceiling raise, the
+  portal creation flow ran the full paid chain three times — verbatim-approval
+  grants, validated AI plan, real mesh generation, author quality review. All three
+  single-shot deliveries were refused honestly with receipts (wrong creature once;
+  coat-coverage thresholds twice at preview-preset mesh density). The adoption tail
+  is proven by the created Studio panda in the chooser. Demo framing: the same
+  honesty that gates physics gates the avatars.
+- **Capstone journey (verified):** sots-press world → 456 continuous controls in one
+  recording → mid-take swap from robot to the text-created panda → task success
+  true, zero failed gates → video/replay exported, 14.1 seconds
+  (`.local/demo-capstone-01/continue-result.json`).
+- **Remaining:** unassisted tracking, multi-person admission, single-shot fresh
+  generation past the coat-coverage gates (preview mesh density is the structural
+  limit), arbitrary-model avatar compatibility, the final narrated three-minute
+  submission video and separately authorized public access. More evidence is
+  required before any arbitrary-video or physical-accuracy claim.
 
 ## Three-minute recording script
 
@@ -74,7 +86,7 @@ Rubric: impact 30%; Meta tooling 25%; demo 25%; technical execution 20%.
 | 0:20–1:10 | Upload licensed video; inspect source, processing artifacts and assumptions; enter the sandbox and change an action. Clearly label saved runs or time compression. |
 | 1:10–1:50 | Show Muse's actual evidence-linked controller choice, frozen test and real accept/reject/abstain outcome. Never script an improvement before it exists. |
 | 1:50–2:15 | Show the three-video results: two unfamiliar clips reach playable environments (one passes all gates with labeled root assistance), the multi-person clip is refused with reasons. Explain playability versus task success and assisted versus unassisted. |
-| 2:15–2:40 | Select robot, interact, record, swap to the re-skinned Studio panda mid-take, and replay. Appearance follows physics state; it does not replace collision geometry. |
+| 2:15–2:40 | Type a character prompt in the portal and show the live stage cards (grants, plan, generation, author review — note the gates refuse dishonest deliveries). Then record: robot interacting, mid-take swap to the character created by this flow, replay. Appearance follows physics state; it does not replace collision geometry. |
 | 2:40–3:00 | Summarize new hackathon work, Meta's actual role and the next technical limit. Finish on the working product. |
 
 Capture a continuous interaction segment; the old seven-frame acceptance clip is not a demo video. A short source clip does not become longer merely by leaving the sandbox paused. Do not use a new avatar as a substitute for evidence of an executable environment.

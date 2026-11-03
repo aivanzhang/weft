@@ -41,7 +41,7 @@ playback and programmed reference controllers are different modes, not learned p
 | Interaction | Manual controls, explicit tasks, reset, recording and action replay; disclosed root assistance | Physical accuracy of changed-action predictions |
 | Learning | Bounded training, baselines and evaluation on supported profiles | Consistent improvement over simple controllers |
 | Meta integration | SAM tracking, Muse review and constrained controller-choice tests | General autonomous physical repair |
-| Avatars | Built-in appearances plus a one-click pre-generated library; prompt-to-avatar creation in the portal through the managed local Avatar Studio with recorded per-job spending grants; finished models auto-pack (derived roles, scale, orientation) and land in the chooser | Fresh generation waits on administrator allowance (the avatar OpenAI ceiling is fully allocated); rigs without elbow/knee joints are refused by design |
+| Avatars | Built-in appearances plus a one-click pre-generated library; prompt-to-avatar creation in the portal through the managed local Avatar Studio with recorded per-job spending grants; finished models auto-pack (derived roles, scale, orientation) and land in the chooser; a created character is live-verified inside a recorded, gate-passing session | Fresh single-shot generations currently stop at the author's coat-coverage gates (preview-preset mesh density is below its thresholds); rigs without elbow/knee joints are refused by design |
 
 Intake supports videos up to **60 seconds, 1,800 frames and 100 MB**, with further
 checks for each reconstruction path. Keep observed, inferred, assumed and unknown
@@ -83,12 +83,23 @@ not an external benchmark or a guarantee for new inputs.
 - The portal now offers a pre-generated character library (one-click import, no AI
   calls) and text-to-avatar creation: a prompt starts a managed local Avatar Studio
   job, the user's verbatim approval is recorded as the targeted OpenAI/Meshy grants,
-  progress streams into the portal, and the finished model auto-packs into the
-  chooser. Library import and the adoption tail (completed studio job to chooser)
-  are live-verified; a fresh paid generation stops at the studio's allowance gate
-  because the avatar OpenAI ceiling (reduced to $15) is fully allocated — an
-  administrator decision, not a code path. Evidence: `.local/avatar-create-01/`,
-  `.local/avatar-adopt-01/`.
+  progress streams into the portal as live stage cards, and the finished model
+  auto-packs into the chooser. After the administrator raised the avatar agent
+  ceiling to $50 (recorded as an append-only, approval-bound ledger raise), the
+  full paid chain ran live three times: recorded grants, a validated AI plan, real
+  mesh generation, and the author's own quality review — which refused all three
+  single-shot deliveries honestly (one geometry mismatched the planned creature;
+  two failed coat-coverage thresholds at preview-preset mesh density), each with
+  complete receipts. Two stranded planning leases from those runs were released
+  through new sealed custody ceremonies that prove process exit and provider-folder
+  absence without touching charges. Evidence: `.local/avatar-create-01/` through
+  `-06/`, `.local/studio-release-01/`, `-02/`, `.local/avatar-adopt-01/`.
+- The capstone demo journey is live-verified end to end in 14.1 seconds: the
+  sots-press world, 456 continuous reference controls in one recording, a mid-take
+  appearance swap from the robot to a character created through the text flow
+  ("Created: Studio panda"), task success true with zero failed gates (angular
+  0.106 vs 0.35, root 0.018 vs 0.15), and exported video, replay and event logs.
+  Evidence: `.local/demo-capstone-01/continue-result.json`.
 - Generated avatars no longer need hand-written delivery configuration. An automatic
   resolver maps a rig's bones to Weft's ten body roles by name synonyms checked against
   skeleton structure, and derives scale and orientation from the rig's own measured
