@@ -76,3 +76,34 @@ def test_task_replay_keeps_trusted_contract_pin_and_time_bound(command, monkeypa
     cli.main()
     assert calls == [(("saved session",), {"expected_contract_sha256": "b" * 64, "max_seconds": 45.})]
     assert json.loads(capsys.readouterr().out)["completed_interval"] is False
+
+
+@pytest.mark.parametrize("reset_args,protocol,seeds", [
+    (["--evaluation-seed", "4101", "--evaluation-seed", "4102"], None, [4101, 4102]),
+    (["--protocol", "frozen protocol.json"], "frozen protocol.json", None),
+])
+def test_changed_start_evaluation_keeps_explicit_protocol_and_policy(command, monkeypatch, capsys, reset_args, protocol, seeds):
+    cli, _, _ = command
+    calls = []
+    module = ModuleType("weft.moving_equipment_evaluation")
+    def evaluate(*args, **kwargs):
+        calls.append((args, kwargs))
+        return {"status": "complete", "policy_successes": 0, "training_performed": False}
+    module.evaluate_saved_changed_starts = evaluate
+    monkeypatch.setitem(sys.modules, module.__name__, module)
+    monkeypatch.setattr(sys, "argv", ["weft", "moving-equipment-evaluate", "--lab", "saved task",
+        "--policy", "frozen policy.json", "--out", "new evaluation", "--max-seconds", "75", *reset_args])
+    cli.main()
+    assert calls == [(("saved task", protocol, "frozen policy.json", "new evaluation"),
+                     {"max_seconds": 75., "evaluation_seeds": seeds, "position_jitter": .025, "velocity_jitter": .1})]
+    assert json.loads(capsys.readouterr().out)["training_performed"] is False
+
+
+@pytest.mark.parametrize("reset_args", [[], ["--protocol", "saved.json", "--evaluation-seed", "4101"]])
+def test_changed_start_evaluation_requires_one_explicit_reset_source(command, monkeypatch, reset_args):
+    cli, _, _ = command
+    monkeypatch.setattr(sys, "argv", ["weft", "moving-equipment-evaluate", "--lab", "task",
+        "--policy", "policy.json", "--out", "new evaluation", *reset_args])
+    with pytest.raises(SystemExit) as error:
+        cli.main()
+    assert error.value.code == 2

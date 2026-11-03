@@ -2,7 +2,7 @@
 
 This path adds a supplied placement goal to an existing source-qualified moving world. It keeps the original exploration unchanged. The same body, equipment, floor, clock and simulator are used; task scoring is separate from the old parking diagnostic.
 
-**Current verification:** the real kettlebell clip passes task creation, portal loading, six recorded actions and exact state/reward replay. A bounded training search completed but did not solve the task: unchanged authored feedback remained best and failed peak body-error and final placement-hold checks. This is not recovered exercise intent, gripping, validated biomechanics or physical accuracy.
+**Current verification:** the real kettlebell clip passes task creation, portal loading, six recorded actions and exact state/reward replay. A bounded training search did not solve the task; its unchanged authored policy also failed both tested changed starts. This is not recovered exercise intent, gripping, validated biomechanics or physical accuracy.
 
 ## Try the verified local project
 
@@ -11,6 +11,11 @@ This path adds a supplied placement goal to an existing source-qualified moving 
 ```
 
 Open **Authored kettlebell hover-place.mp4** (`9c67eaa0f37b42f2ad6b59506e331e2a`), then its sandbox. The task card and controls are ready; recording `session-c8522314ab40` contains the verified six-action example. Its short interval is incomplete, not successful. The original unscored exploration remains a separate project.
+
+1. **Video** shows the original clip. **Play captured movement** in the 3D world shows estimated body poses without running physics; equipment there stays at its initial position.
+2. In **Sandbox**, select an explicit motor or equipment-force channel. Equipment channels ending in `fx`, `fy` or `fz` push along that world axis. All unselected commands remain zero; there is no automatic balance controller.
+3. Click **Start over**, then start recording. Controls pause during preparation; playback starts when recording is ready. Pause to inspect or select a channel, then use **Fine controls → Advance one step** for a controlled trial.
+4. **Stop recording** saves and exports the trial. Open its evidence to see replay checks and whether the full task interval was completed. A short experiment is useful even when it does not pass the task.
 
 Learning evidence is retained at `.local/moving-placement-source-acceptance-01/learning/`. No learned controller is installed in the sandbox. The original object-force limit supplies at most 6 world-units/s² upward acceleration against 9.81 gravity; unsupported hovering cannot be achieved with direct object forces alone. Human or other support would be needed. This is a conditional force-budget observation, not proof that all contact-assisted policies are impossible.
 
@@ -77,3 +82,24 @@ The learner searches explicit feedback gains and compares with zero-force, rando
 This first task version resets to the exact original start. Different random seeds do not create different physical starts. Its comparisons are development results, **not independent changed-start validation**; an unchanged zero-force or authored winner is not presented as newly improved behavior.
 
 Limits: 20,000 aggregate control steps, at most 60 seconds of training, at most 90 seconds including source admission, and 64 MiB of learning output. The child lab retains its 256 MiB cap; portal storage remains 2,000,000,000 bytes. There are no provider calls or recurring cloud resources in these commands.
+
+## Check a frozen policy from different starts
+
+The separate evaluator changes the simulated object's starting position and velocity, while keeping the original human start, source reference, task goal and scoring limits. It does not train, change the saved world, or install a controller in the sandbox.
+
+```sh
+.venv-lab/bin/python -m weft moving-equipment-evaluate \
+  --lab artifacts/placement-task-01 \
+  --policy artifacts/placement-learning-01/policy.json \
+  --evaluation-seed 4101 --evaluation-seed 4102 \
+  --position-jitter 0.025 --velocity-jitter 0.1 \
+  --out artifacts/placement-evaluation-01 --max-seconds 90
+```
+
+Choose evaluation seeds different from the policy's training seed. The two spread values are explicit authored choices in the world's declared units, not measured physical variation. The command freezes its protocol and policy before exposing any starts, checks actual position/velocity states, and compares zero force, random, authored feedback and the frozen policy from identical starts. Duplicate, nominal, clearance-refused or fallback starts remain reported and are not counted as successful changed-start trials.
+
+Inspect `result.json` for success counts and admitted/refused denominators, `start-*.json` for actual states and complete-interval metrics, and `protocol.json` for exact settings. To repeat the same protocol deliberately, replace the seed/spread flags with `--protocol PATH_TO_PROTOCOL_JSON` and use a new output directory. Repeating it does not create fresh evidence.
+
+This is simulated development evaluation, not a fresh final holdout, physical validation or recording replay. Saved evaluation results include initial states and final metrics, not an action-by-action journal. The existing manual task still resets to its exact original start. Evaluation is bounded to 20,000 aggregate controls, 60 seconds of execution and 90 seconds including the single source-admission check, with no API calls.
+
+The existing example's evaluation is already saved at `.local/moving-support-evaluation-source-01/evaluation/`: two distinct starts were admitted without fallback or exclusion, and every controller scored **0/2**. Reuse those results rather than repeating the same failed experiment. A separate six-hypothesis support screen found no solution within its restricted arm-only search; this does not prove that every possible contact-assisted controller must fail.

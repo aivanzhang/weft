@@ -444,6 +444,16 @@ def main():
     moving_train.add_argument("--generations", type=int, choices=range(1, 5), default=2)
     moving_train.add_argument("--population", type=int, choices=range(4, 13), default=6)
     moving_train.add_argument("--max-seconds", type=float, default=90, help="Aggregate source-admission and learning bound, at most 90 seconds")
+    moving_evaluate = commands.add_parser("moving-equipment-evaluate", help="Compare a frozen placement policy and baselines on explicitly changed simulated object starts")
+    moving_evaluate.add_argument("--lab", required=True, help="Sealed authored placement-task child; remains unchanged")
+    moving_evaluate.add_argument("--policy", required=True, help="Frozen feedback policy JSON from a completed learning run")
+    moving_evaluate.add_argument("--out", required=True, help="New evaluation output; no training or sandbox mutation")
+    moving_reset = moving_evaluate.add_mutually_exclusive_group(required=True)
+    moving_reset.add_argument("--protocol", help="Previously saved changed-start evaluation protocol JSON")
+    moving_reset.add_argument("--evaluation-seed", type=int, action="append", help="Repeat for each explicit evaluation start; cannot reuse the training seed")
+    moving_evaluate.add_argument("--position-jitter", type=float, default=.025, help="Authored object position spread in declared world units; only with evaluation seeds")
+    moving_evaluate.add_argument("--velocity-jitter", type=float, default=.1, help="Authored object velocity spread in declared world units/s; only with evaluation seeds")
+    moving_evaluate.add_argument("--max-seconds", type=float, default=90, help="Aggregate source-admission and evaluation bound, at most 90 seconds")
     moving_replay = commands.add_parser("moving-equipment-replay", help="Re-execute a task recording and compare exact state, reward and task metrics")
     moving_replay.add_argument("directory")
     moving_replay.add_argument("--contract-sha256", required=True, help="Trusted recording contract pin retained at export")
@@ -932,6 +942,11 @@ def main():
             from weft.moving_equipment_learning import train_saved_moving_equipment_policy
             result = train_saved_moving_equipment_policy(args.lab, args.out, seed=args.seed,
                 generations=args.generations, population=args.population, max_seconds=args.max_seconds)
+        elif args.command == "moving-equipment-evaluate":
+            from weft.moving_equipment_evaluation import evaluate_saved_changed_starts
+            result = evaluate_saved_changed_starts(args.lab, args.protocol, args.policy, args.out,
+                max_seconds=args.max_seconds, evaluation_seeds=args.evaluation_seed,
+                position_jitter=args.position_jitter, velocity_jitter=args.velocity_jitter)
         elif args.command == "moving-equipment-task":
             from weft.moving_equipment_task_lab import prepare_moving_equipment_task_lab
             from weft.shared_world_action_replay import _json

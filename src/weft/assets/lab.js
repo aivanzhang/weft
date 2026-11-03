@@ -1585,6 +1585,7 @@
         text($("learning-description"), "Compare the learned coupled controller against zero force, random actions, and authored human feedback on identical seeded resets.");
       }
       if (explicitMoving()) {
+        if ($("tracks").hidden) text($("tracks-empty"), "No tracked-image preview is packaged. Compare the original video with Play captured movement in the 3D world.");
         text($("start-help"), "Manual exploration is ready. Compare the source and full kinematic body projection, then try explicit motor or equipment-force controls.");
         text($("control-help"), "Choose a named body motor or equipment-force channel and apply +0.25 or −0.25. All other commands stay zero. No Follow video controller is admitted.");
         text($("training-caption"), "Not trained · no exercise-success task or intervention-probe qualification is packaged.");
@@ -1595,6 +1596,7 @@
       $("placement-task-card").hidden = !movingTask();
       if (movingTask()) {
         text($("start-help"), "Authored placement task ready. Inspect the target and full-interval limits, then use explicit motor or equipment-force controls.");
+        text($("learning-boundary"), "This placement goal is authored. No learned controller is installed here; task success and learning results are separate.");
         text($("training-caption"), "Manual virtual-force task · learning not connected to this sandbox.");
         text($("learning-description"), "Task criteria are authored. Manual task results do not establish learned behavior, changed-start generalization or physical accuracy.");
         text($("placement-recording"), data.task_recording_available === true ? "Record from reset; stopping early preserves an incomplete task, not a pass." : "Task-bound recording is unavailable in this runtime.");

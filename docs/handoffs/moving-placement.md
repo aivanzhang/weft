@@ -30,9 +30,9 @@ Bounds: 480 seconds overall, 420 CPU seconds, sampled 1.5 GiB peak memory, 60 tr
 
 ## Next safe action and remaining work
 
-The actual acceptance below is complete; do not repeat it unchanged. Checkpoint this verified scope and independently verify remote main. Publication evidence belongs in `.local/moving-placement-checkpoint-01/publication.json`. Preserve unrelated avatar edits and all local evidence; stashes were observed empty on November 2, 2026, at 9:46 PM PST.
+The task/portal checkpoint is published as `e7b80e948863bb8c2c6dcd7cbb238b50225474fc`; exact remote main was independently verified. Publication evidence is `.local/moving-placement-checkpoint-01/publication.json`. Preserve unrelated avatar edits and all local evidence; stashes were observed empty on November 2, 2026, at 9:46 PM PST. The later changed-start/support checkpoint below is ready for scoped publication; its receipt belongs in `.local/moving-support-evaluation-checkpoint-01/publication.json`.
 
-Task-bound replay is not task success. Meaningful independent changed-start learning, source-supported gripping/contact, unfamiliar-video coverage and physical accuracy remain unresolved. A trained policy is a separate artifact and is not automatically installed into the manual task sandbox. The goal must not be marked complete on this milestone.
+Task-bound replay is not task success. Changed-start evaluation now runs as the separate development variant below; meaningful successful learning, source-supported gripping/contact, unfamiliar-video coverage and physical accuracy remain unresolved. A trained policy is a separate artifact and is not automatically installed into the manual task sandbox. The goal must not be marked complete on this milestone.
 
 ## Actual acceptance — November 2, 2026, 9:36 PM PST
 
@@ -62,3 +62,24 @@ Three separate lanes continue without changing the ready task's pinned runtime:
 - Portal usability: `native_clock_observations` owns a narrow frontend actor-selector correction and `.local/moving-portal-usability-01`; no server or provider calls. Kinematic pose preview is genuinely available and must remain visible. The inherited capabilities document advertises `/api/actor`, which the task facade rejects; UI controls must not imply it works. Correcting sealed runtime metadata requires a separately versioned artifact, not rewriting the ready child.
 
 The integrator owns Git publication, CLI/portal integration and this handoff. No agent owns or may publish unrelated avatar changes. Saved controller diagnosis is at `.local/moving-placement-controller-diagnosis-01/`; no new simulation was required for that diagnosis. Overall completion still requires meaningful learning, independent evaluation and broader unfamiliar-video evidence.
+
+## Changed-start and support acceptance — November 2, 2026 (PST)
+
+New modules are independently reviewed and frozen: `moving_equipment_evaluation.py` has **24 distinct focused checks**; `moving_equipment_support.py` has **17**. Four additional CLI checks cover `moving-equipment-evaluate` dispatch and explicit protocol/seed selection. Two existing DOM groups pass after correcting the missing-preview and old parking-goal text. Exact releases: `.local/moving-task-evaluation-01/release.json` and `.local/moving-support-feasibility-01/release.json`; integration review: `.local/moving-task-evaluation-review-01/REVIEW.md`.
+
+Root execution **69452** exited successfully; no live process remains. `.local/moving-support-evaluation-source-01/run.py` used a credential-free environment and denied network operations. One immutable source admission was reused for both independent checks. Total **14.030 seconds**, peak RSS **861,683,712 bytes**; admission **9.204 s**, evaluation **4.322 s**, support screen **0.325 s**. All **114 source files** retained their signatures; source manifest, frozen policy, current admitted runtime and both budget ledgers remained unchanged. Zero source inference, provider calls, server starts or deployments.
+
+The frozen policy remains `6fae90a75ca01b65129a589ba3a8713d6d134945247d1aa079ceb02dd0658f8c`. Protocol `81ee2cf17603f137fa89ace64ff558d88bb3a2fb628752b49e09091de5132be5` declares seeds **4101/4102**, object position spread **0.025** and velocity spread **0.1**, unchanged human start and all original task gates. Both actual physical starts were distinct from nominal and each other; **2 requested, 2 admitted, 0 excluded/refused**. Each controller received the same actual state and reset receipt. The run consumed **2,772 of 3,656 reserved controls**.
+
+| Controller | Successes / admitted changed starts | Observed failure |
+| --- | --- | --- |
+| Zero force | 0/2 | Body tracking and final placement hold. |
+| Authored feedback | 0/2 | Peak angular error and final placement hold. |
+| Random | 0/2 | Early `human_velocity_envelope_exceeded`; incomplete intervals retained. |
+| Frozen policy | 0/2 | Same unchanged authored policy; no learned improvement. |
+
+This is same-world simulated development evidence, not final-holdout independence, physical transfer or recording replay. The evaluator saves actual initial states and final all-substep metrics, not an action journal. The old manual task still resets exactly as before. Reuse these results; do not rerun unchanged comparisons.
+
+Support screening preserves six restricted arm-only hypotheses and all **242 terminal native boundaries**, using **3,244 native forward evaluations, one model compilation and zero physics steps**. None produced a geometric/static witness. Gap, normal, overlap and restrictive static-load failures are retained per sample in `support.json`; no hypotheses were dropped or left unattempted. The ±0.5-radian arm-only prior and unsolved floor load sharing prevent interpreting this as global task or actuator impossibility. No contact controller was installed.
+
+Next: diagnose the saved support residuals in `.local/moving-support-failure-review-01/` before choosing a changed controller/search representation. Keep source, target, timing, forces and scorer gates frozen. A broader support/control hypothesis must have its own bounded plan and full trajectory/contact diagnostics; do not spend another search on unchanged gains or relabel these failures as success. The portal remains ready for manual experiments using the usage guide.
