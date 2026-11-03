@@ -41,7 +41,7 @@ playback and programmed reference controllers are different modes, not learned p
 | Interaction | Manual controls, explicit tasks, reset, recording and action replay; disclosed root assistance | Physical accuracy of changed-action predictions |
 | Learning | Bounded training, baselines and evaluation on supported profiles | Consistent improvement over simple controllers |
 | Meta integration | SAM tracking, Muse review and constrained controller-choice tests | General autonomous physical repair |
-| Avatars | Built-in appearances, compatible-rig imports and state-driven motion | Automatic compatibility for arbitrary models; Studio skin weights (bounded repairs attempted and rejected; robot remains the qualified avatar) |
+| Avatars | Built-in appearances, compatible-rig imports, state-driven motion and a re-skinned Studio derivative (`studio-panda-470-weft-reskin`) | Automatic compatibility for arbitrary models; the robot remains the default avatar |
 
 Intake supports videos up to **60 seconds, 1,800 frames and 100 MB**, with further
 checks for each reconstruction path. Keep observed, inferred, assumed and unknown

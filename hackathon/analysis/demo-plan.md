@@ -24,7 +24,7 @@ Rubric: impact 30%; Meta tooling 25%; demo 25%; technical execution 20%.
 
 ## Implementation priorities and acceptance
 
-1. **Continuous, reliable demo.** Upload/source evidence → conditional body/ground simulation → manual control/reset → robot appearance → continuous recording/exact replay. Fit the camera to actual rendered bodies without changing physics. Preserve failed tracking outcomes. Custom Studio panda deformation is excluded from the main demo until qualified.
+1. **Continuous, reliable demo.** Upload/source evidence → conditional body/ground simulation → manual control/reset → robot appearance → continuous recording/exact replay. Fit the camera to actual rendered bodies without changing physics. Preserve failed tracking outcomes. The re-skinned Studio panda derivative is demo-usable; the original delivery stays excluded.
 2. **Consequential Muse test.** Separate source/world critique from an explicit new controller-choice request. Muse selects an allowlisted simulator test or abstains. Test its actual choice under the original task, scorer, forces and paired starts. Preserve API evidence and all rejected candidates; never apply automatically or imply physical repair.
 3. **Unfamiliar-video evidence.** Freeze one configuration before three new licensed clips. Retain original and normalized inputs, timestamps, hashes, every failure, timing and real denominator. No per-clip tuning, selective reruns, provider calls or training for this local study. Body-only simulations explicitly omit unverified equipment.
 4. **Developer-tool positioning.** Update portal, landing copy and pitch to name the intended user and explain state/actions/rewards/reset. Separate actual capabilities from physical accuracy and future scope.
@@ -61,11 +61,10 @@ Rubric: impact 30%; Meta tooling 25%; demo 25%; technical execution 20%.
   A later native-app connection failure prevented syncing these final results; this
   project copy is current. Reopen the same note and append/update these results when
   native access returns; do not create a duplicate note.
-- **Remaining:** Studio skin weights (three bounded repairs rejected; robot stays the
-  demo avatar — `.local/studio-skin-repair-01/NOTES.md`), unassisted tracking,
-  multi-person admission, the overhead-squat chart conditioning, the final narrated
-  three-minute submission video and separately authorized public access. More
-  evidence is required before any arbitrary-video or physical-accuracy claim.
+- **Remaining:** unassisted tracking, multi-person admission, arbitrary-model avatar
+  compatibility, the final narrated three-minute submission video and separately
+  authorized public access. More evidence is required before any arbitrary-video or
+  physical-accuracy claim.
 
 ## Three-minute recording script
 
@@ -75,7 +74,7 @@ Rubric: impact 30%; Meta tooling 25%; demo 25%; technical execution 20%.
 | 0:20–1:10 | Upload licensed video; inspect source, processing artifacts and assumptions; enter the sandbox and change an action. Clearly label saved runs or time compression. |
 | 1:10–1:50 | Show Muse's actual evidence-linked controller choice, frozen test and real accept/reject/abstain outcome. Never script an improvement before it exists. |
 | 1:50–2:15 | Show the three-video results: two unfamiliar clips reach playable environments (one passes all gates with labeled root assistance), the multi-person clip is refused with reasons. Explain playability versus task success and assisted versus unassisted. |
-| 2:15–2:40 | Select robot, interact, record and replay. Appearance follows physics state; it does not replace collision geometry. |
+| 2:15–2:40 | Select robot, interact, record, swap to the re-skinned Studio panda mid-take, and replay. Appearance follows physics state; it does not replace collision geometry. |
 | 2:40–3:00 | Summarize new hackathon work, Meta's actual role and the next technical limit. Finish on the working product. |
 
 Capture a continuous interaction segment; the old seven-frame acceptance clip is not a demo video. A short source clip does not become longer merely by leaving the sandbox paused. Do not use a new avatar as a substitute for evidence of an executable environment.
