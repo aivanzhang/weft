@@ -21,12 +21,13 @@
   retain priority. Status reads make no lease, ledger or execution changes.
   `outputs/studio-ai-status-tests-v1` / `v2`: 53 Python and 3 Node checks plus
   the new priority regression; actual stopped-job reads median 0.611 ms / max 15.715 ms.
-- **Blocked audit: same paid-run condition observed for a second consecutive
-  goal turn.** Current authoritative accounting still has the unknown d80 hold;
-  no live local worker or new provider response exists. Local transport/status
-  improvements were available and completed, so the goal is not marked blocked
-  this turn. Final real rigging/quality/browser delivery remains unverified.
-  Recheck genuine provider evidence/accounting before any paid continuation.
+- **Blocked audit: third consecutive goal turn, same charge/budget condition.**
+  No new response or live worker exists; all independent ready implementation,
+  verification and saving work is complete. Final real rigging/quality/browser
+  delivery still depends on a paid answer whose full reservation cannot fit.
+  Goal-blocked threshold is now satisfied; do not mark delivery complete.
+  Workstream audit and next safe action: `docs/studio-blocked-audit.md`.
+  Latest tested code is saved/pushed as `fa95cee35c18938365fed2e63b5c9bfc59b4a94f`.
 - A read-only review found a prospective input-token-count route, not a current
   reconciliation: no authenticated count receipt exists, and official docs did
   not establish the endpoint is free. No count call or hold adjustment was made.
