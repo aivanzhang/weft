@@ -32,6 +32,7 @@ not private projects or the simulation API.
 | Files | Purpose |
 | --- | --- |
 | `index.html`, `styles.css`, `site.js` | Page content, layout and interactions |
+| `contents.css`, `contents.js` | Icon-only section index and accessible dismissal |
 | `environments.*`, `environments/` | Source/simulation gallery and exported example |
 | `footer.*` | Animated mascot story |
 | `fonts/` | Bundled Inter font and license |

@@ -8,17 +8,19 @@
       content="Weft helps AI researchers turn videos into RL environments for interacting, testing, and training."
     />
     <meta name="theme-color" content="#FBF7F1" />
-    <title>Weft — Worlds built from evidence</title>
+    <title>Weft — Interactive worlds built from video</title>
     <link
       rel="icon"
       href="../assets/brand/exports/weft-mascot.png"
       type="image/png"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="contents.css" />
     <link rel="stylesheet" href="environments.css" />
     <link rel="stylesheet" href="footer.css?v=33ddafa53375" />
     <script src="../src/weft/assets/engine.js" defer></script>
     <script src="site.js" defer></script>
+    <script src="contents.js" defer></script>
     <script src="environments/catalog.js" defer></script>
     <script src="environments.js" defer></script>
     <script src="footer.js?v=9a62647946b5" defer></script>
@@ -212,19 +214,39 @@
             />
           </svg>
         </a>
-        <nav aria-label="Main navigation">
-          <a href="#research">Research</a><a href="#experiment">Environments</a
-          ><a href="#about">About</a
-          ><a href="/demo" class="nav-demo">Walkthrough<span aria-hidden="true">→</span></a>
-        </nav>
+        <div class="header-actions">
+          <span class="demo-entry"><a href="/demo" class="demo-launch" aria-label="Build your world">
+              <span class="demo-launch-label" aria-hidden="true">Build your world</span>
+              <svg class="demo-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse class="globe-meridian" cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>
+            </a></span>
+          <details class="page-contents" id="page-contents">
+            <summary aria-label="Table of contents" title="Table of contents">
+              <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r=".7"/><circle cx="4" cy="12" r=".7"/><circle cx="4" cy="18" r=".7"/></svg>
+            </summary>
+            <nav class="contents-panel" aria-label="Table of contents">
+              <p class="contents-heading">On this page</p>
+              <ol>
+                <li><a href="#overview"><span class="contents-number" aria-hidden="true">01</span><span>Overview<small>From video to an executable world</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
+                <li><a href="#experiment"><span class="contents-number" aria-hidden="true">02</span><span>Environments<small>Compare the video and simulation</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
+                <li><a href="#research"><span class="contents-number" aria-hidden="true">03</span><span>Research<small>Evidence, physics and repair</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
+                <li><a href="#about"><span class="contents-number" aria-hidden="true">04</span><span>How it works<small>Interact, train and test changes</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
+                <li><a href="#impact"><span class="contents-number" aria-hidden="true">05</span><span>Why it matters<small>Make the next experiment easier</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
+              </ol>
+            </nav>
+          </details>
+        </div>
       </header>
       <main id="main">
-        <section class="intro" aria-labelledby="intro-heading">
-          <h1 id="intro-heading">Worlds built<br />from evidence.</h1>
+        <section class="intro" id="overview" aria-labelledby="intro-heading">
+          <h1 id="intro-heading">Interactive worlds<br />built from video.</h1>
           <p class="intro-copy">
             For AI researchers: turn videos into RL environments for interacting, testing, and training
           </p>
-          <a class="text-link" href="#experiment">Explore environments</a>
+          <a class="explore-link" href="#research">
+            <svg class="explore-book" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6C9 4 6 4 3 5v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1Zm0 0v14"/></svg>
+            <span>See how it works</span>
+            <svg class="explore-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m-5-5 5 5 5-5"/></svg>
+          </a>
           <figure class="hero-figure">
             <svg
               viewBox="0 0 800 228"
@@ -665,13 +687,15 @@
                 A video. A world you can change.
               </h2>
             </div>
-            <a href="/demo" class="demo-link" id="upload-link"
-              >Build your world<span aria-hidden="true">→</span></a
-            >
+            <span class="demo-entry"><a href="/demo" class="demo-launch" id="upload-link" aria-label="Build your world">
+              <span class="demo-launch-label" aria-hidden="true">Build your world</span>
+              <svg class="demo-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse class="globe-meridian" cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>
+            </a></span>
           </div>
           <p class="lab-intro">
             Weft takes a video, analyzes it, and recreates a digital environment
-            you can explore, control, and test.
+            you can explore, control, and test. When results differ from the
+            video, Weft proposes repairs and independently tests each change and optimizes the environment.
           </p>
           <div id="environment-gallery"></div>
           <noscript
@@ -701,9 +725,9 @@
                 ><span class="research-copy"
                   ><span class="research-title">Reconstruction</span
                   ><span class="research-description"
-                    >Build executable environments from observed evidence.</span
+                    >Build a working simulation from a video.</span
                   ></span
-                ><span class="research-arrow" aria-hidden="true">↗</span>
+                >
               </button>
               <div
                 class="research-art"
@@ -852,9 +876,9 @@
                 ><span class="research-copy"
                   ><span class="research-title">Repair</span
                   ><span class="research-description"
-                    >Compare behavior with evidence and correct the model.</span
+                    >Find where the simulation differs, then test a fix.</span
                   ></span
-                ><span class="research-arrow" aria-hidden="true">↗</span>
+                >
               </button>
               <div class="research-art" id="repair-art" aria-hidden="true">
                 <div class="research-art-clip">
@@ -935,9 +959,9 @@
                 ><span class="research-copy"
                   ><span class="research-title">Interaction</span
                   ><span class="research-description"
-                    >Change an action. Explore what follows.</span
+                    >Try a different action and see what changes.</span
                   ></span
-                ><span class="research-arrow" aria-hidden="true">↗</span>
+                >
               </button>
               <div class="research-art" id="interaction-art" aria-hidden="true">
                 <div class="research-art-clip">
@@ -1020,18 +1044,98 @@
           id="about"
           aria-labelledby="about-heading"
         >
-          <h2 class="eyebrow" id="about-heading">
-            An environment, not just a replay.
-          </h2>
+          <h2 class="eyebrow" id="about-heading">A world you can work with.</h2>
           <p>
-            Weft connects observation, simulation, and learning. The aim is a
-            world we can inspect and challenge — and repair when the evidence
-            disagrees.
+            Weft turns a video into a simulation where you can try new actions
+            and train agents. If the simulation behaves differently from the
+            video, Weft proposes a repair and tests whether it brings the
+            simulated motion closer to what was recorded.
           </p>
-          <p class="small muted">
-            The current model supports one isolated ball moving horizontally.
-            General video reconstruction and multi-object worlds remain research
-            goals.
+        </section>
+        <section class="impact section-rule" id="impact" aria-labelledby="impact-heading">
+          <p class="eyebrow">Why this matters</p>
+          <h2 id="impact-heading">Make the next experiment easier.</h2>
+          <p class="impact-intro">
+            Building a useful simulation can become a research project of its own.
+            We’re building Weft so researchers can spend more time testing ideas
+            and less time assembling the tools to test them.
+          </p>
+          <figure class="impact-figure">
+            <svg viewBox="0 0 800 310" role="img" aria-labelledby="impact-art-title impact-art-desc">
+              <title id="impact-art-title">One observation opens up many experiments</title>
+              <desc id="impact-art-desc">Recorded frames lead to an executable world, which branches into trying actions, training agents, and testing repairs. A conceptual illustration, not measured results.</desc>
+              <defs>
+                <pattern id="impact-grid" width="18" height="18" patternUnits="userSpaceOnUse">
+                  <circle cx="1" cy="1" r="0.65" fill="#D8C9BA"/>
+                </pattern>
+              </defs>
+              <rect x="198" y="28" width="340" height="235" fill="url(#impact-grid)" opacity=".65"/>
+              <g fill="#FBF7F1" stroke="#D8C9BA" stroke-width="1">
+                <rect x="48" y="90" width="118" height="84" rx="3"/>
+                <rect x="39" y="99" width="118" height="84" rx="3"/>
+                <rect x="30" y="108" width="118" height="84" rx="3"/>
+              </g>
+              <path d="M31 168h116" stroke="#D8C9BA"/>
+              <path d="M46 155h72" stroke="#965644" stroke-opacity=".35" stroke-dasharray="2 5"/>
+              <circle cx="65" cy="155" r="5" fill="none" stroke="#965644" opacity=".3"/>
+              <circle cx="88" cy="155" r="8" fill="none" stroke="#965644" opacity=".55"/>
+              <circle cx="118" cy="155" r="12" fill="#965644"/>
+              <path d="M164 150h76m-5-4 5 4-5 4" fill="none" stroke="#214F50" stroke-opacity=".5"/>
+              <g fill="none" stroke="#C9BCAE" stroke-width=".8">
+                <path d="m268 162 87-51 105 57-87 51Z" fill="#F5EADC"/>
+                <path d="m290 149 105 57m-83-70 105 57m-83-70 105 57M294 176l87-51m-61 65 87-51m-61 65 87-51"/>
+                <path d="M268 162v14l105 58 87-52v-14M373 219v15"/>
+              </g>
+              <ellipse cx="367" cy="169" rx="23" ry="7" fill="#214F50" opacity=".07"/>
+              <circle cx="367" cy="145" r="22" fill="#965644"/>
+              <path d="M352 136a16 16 0 0 1 14-9" fill="none" stroke="#F5EADC" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+              <path d="M313 175q24-29 54-30" fill="none" stroke="#965644" stroke-dasharray="3 5" opacity=".6"/>
+              <g fill="none" stroke="#214F50" stroke-width="1.2">
+                <path d="M477 150h23c38 0 34-85 70-85h35"/>
+                <path d="M477 150h128"/>
+                <path d="M477 150h23c38 0 34 85 70 85h35"/>
+              </g>
+              <circle cx="498" cy="150" r="3" fill="#214F50"/>
+              <g fill="none" stroke="#965644" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M620 73q17-24 36-17m-5-4 6 4-5 5"/>
+                <path d="M620 157h8v-6h9v-8h9v-8h10"/>
+                <path d="m626 234 7 7 15-17"/>
+              </g>
+              <g fill="#214F50" font-size="13">
+                <text x="672" y="69">Try actions</text>
+                <text x="672" y="154">Train agents</text>
+                <text x="672" y="239">Test repairs</text>
+              </g>
+              <g fill="#596562" font-size="11" text-anchor="middle">
+                <text x="95" y="275">A recorded moment</text>
+                <text x="365" y="275">An executable world</text>
+              </g>
+            </svg>
+            <figcaption>One source. More questions worth asking.</figcaption>
+          </figure>
+          <div class="impact-details">
+            <div>
+              <h3>Research all the way down</h3>
+              <p>Tracking motion, fitting 3D bodies, building physics, training policies,
+                testing repairs. Each part has to work with the others—and each needs
+                experiments of its own.</p>
+            </div>
+            <div>
+              <h3>Models with a job to do</h3>
+              <p>Meta’s SAM tracks objects. Muse reviews the world’s assumptions and
+                helps choose tests. Independent checks decide whether a proposed
+                change helps.</p>
+            </div>
+            <div>
+              <h3>Something to build on</h3>
+              <p>Keep the source, the assumptions, the runs, and the failures.
+                Revisit an experiment or test a new idea without losing how you
+                got there.</p>
+            </div>
+          </div>
+          <p class="impact-outlook">
+            Our bet: make good experiments easier to build, and more people can
+            push the frontier of robotics, learning, and control.
           </p>
         </section>
       </main>

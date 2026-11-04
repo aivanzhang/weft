@@ -198,6 +198,9 @@ test('an already completed run loads results without displaying processing steps
         return { status: 'complete', run: 'saved', elapsed_seconds: 47,
           steps: [{ id: 'avatar', status: 'done', metrics: { 'task success': 'true' } }] };
       }
+      if (path === '/api/demo/gallery') return { items: [{
+        id: 'saved-example', title: 'Completed exercise', video_url: '/saved.mp4', metrics: 'task success',
+      }] };
       return { steps: [], featured: [], clips: [], items: [] };
     } }),
   };
@@ -209,4 +212,8 @@ test('an already completed run loads results without displaying processing steps
   assert.equal(node('steps').hidden, true);
   assert.equal(node('steps').children.length, 0);
   assert.equal(node('progress').hidden, true);
+  assert.equal(node('finished-content').hidden, false);
+  assert.equal(node('finished-empty').hidden, true);
+  assert.equal(node('demo-title').textContent, 'Completed exercise');
+  assert.equal(node('open-studio').textContent, 'Watch recording');
 });

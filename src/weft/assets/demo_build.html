@@ -13,11 +13,9 @@
 <body>
 
 <header class="site-head">
-  <a class="brand" href="/demo" aria-label="Weft"><img src="/demo-wordmark.png" width="98" height="38" alt=""></a>
-  <nav>
-    <a href="/demo" class="is-current">Walkthrough</a>
-    <a href="/demo/runs" class="nav-pill">Finished runs<span aria-hidden="true">→</span></a>
-  </nav>
+  <a class="brand" href="/demo" aria-label="Weft home">
+    <svg viewBox="45 680 1165 455" width="98" height="38" aria-hidden="true" focusable="false"><image href="/demo-wordmark.png" width="1254" height="1254"/></svg>
+  </a>
 </header>
 
 <main class="build-main">
@@ -30,8 +28,7 @@
 
   <section class="gate-panel" id="gate-panel">
     <h2>Access</h2>
-    <p class="hint">Enter your local demo code. Without it you can still explore the
-      <a href="/demo/runs">finished runs</a>.</p>
+    <p class="hint">Unlock to build a world and explore finished runs below.</p>
     <form id="gate-form" class="gate-form">
       <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64"
              placeholder="WEFT-JUDGE-…" aria-label="Access code" required>
@@ -78,6 +75,34 @@
     <ol id="steps" class="steps"></ol>
   </section>
 
+  <section class="explore" id="explore" aria-labelledby="finished-runs">
+    <div class="section-head">
+      <div>
+        <h2 id="finished-runs">Finished runs</h2>
+        <p class="hint">Recordings, results and playable worlds from completed runs.</p>
+      </div>
+      <div class="gallery-nav" id="finished-nav" hidden>
+        <button id="prev" type="button" aria-label="Previous run">←</button>
+        <button id="next" type="button" aria-label="Next run">→</button>
+      </div>
+    </div>
+
+    <p class="hint" id="finished-empty">Unlock to view saved recordings and worlds.</p>
+    <div id="finished-content" hidden>
+      <div class="stage">
+        <video id="demo-video" controls playsinline preload="metadata"></video>
+        <div class="stage-copy">
+          <p class="eyebrow" id="demo-source"></p>
+          <h3 id="demo-title"></h3>
+          <p id="demo-caption"></p>
+          <p class="metrics" id="demo-metrics"></p>
+          <button id="open-studio" type="button" class="ghost" hidden>Open the studio<span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="dots" id="dots"></div>
+    </div>
+  </section>
+
   <section class="mine" id="mine" hidden>
     <div class="section-head">
       <div>
@@ -87,32 +112,6 @@
       </div>
     </div>
     <ul class="mine-list" id="mine-list"></ul>
-  </section>
-
-  <section class="explore" id="explore" hidden>
-    <div class="section-head">
-      <div>
-        <h2>Finished runs</h2>
-        <p class="hint">Runs this pipeline has already produced, plus anything you build above. Click through them,
-          then open a run of your own to drive the environment it left behind.</p>
-      </div>
-      <div class="gallery-nav">
-        <button id="prev" type="button" aria-label="Previous run">←</button>
-        <button id="next" type="button" aria-label="Next run">→</button>
-      </div>
-    </div>
-
-    <div class="stage">
-      <video id="demo-video" controls playsinline preload="metadata"></video>
-      <div class="stage-copy">
-        <p class="eyebrow" id="demo-source"></p>
-        <h3 id="demo-title"></h3>
-        <p id="demo-caption"></p>
-        <p class="metrics" id="demo-metrics"></p>
-        <button id="open-studio" type="button" class="ghost" hidden>Open the studio<span aria-hidden="true">→</span></button>
-      </div>
-    </div>
-    <div class="dots" id="dots"></div>
   </section>
 
   <div class="modal" id="studio-modal" hidden>
