@@ -68,6 +68,9 @@ REFUSALS = (
     ("undecodable", "incomplete exercise decode"),
     ("too_large", "exceeds its byte bound"),
     ("pose_cpu", "pose_inference_requires_avx"),
+    # The lab's own learning budget. Retryable on a shorter window: episode length tracks
+    # the reference duration, so a narrower span is cheaper, not just differently framed.
+    ("learning_budget", "learning/evaluation exceeded"),
     ("timeout", "deadline"),
     ("timeout", "wall-time limit"),
 )
@@ -265,7 +268,7 @@ def summarize_appearance(run, receipt):
 # worth retrying on a narrower window; an undecodable container or a wrong CPU will not
 # improve by looking at less of it.
 LOCALIZED = ("multiple_people", "no_person_visible", "no_motion", "body_anchor",
-             "root_reference_gap")
+             "root_reference_gap", "learning_budget")
 # Training and evaluation cost scales with episode length and the lab enforces its own
 # 120-second learning budget, which a long window blows on hosted hardware: a 23.6 s
 # proposal was refused after 313 s and a 12 s clamp still was after 277 s. Estimating the

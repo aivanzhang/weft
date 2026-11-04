@@ -193,6 +193,8 @@ def test_every_appearance_artifact_is_reported_under_its_prefix(tmp_path, name):
     ("ValueError: Normalized source still exceeds its byte bound; use a shorter clip",
      "too_large"),
     ("Incomplete exercise decode: metadata 259, decoded 257", "undecodable"),
+    ("Human learning/evaluation exceeded 120 seconds; training and policy retained",
+     "learning_budget"),
     ("something nobody has seen before", "other"),
 ])
 def test_refusals_classify_to_a_closed_set(detail, code):
