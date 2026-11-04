@@ -41,7 +41,7 @@ playback and programmed reference controllers are different modes, not learned p
 | Interaction | Manual controls, explicit tasks, reset, recording and action replay; disclosed root assistance | Physical accuracy of changed-action predictions |
 | Learning | Bounded training, baselines and evaluation on supported profiles | Consistent improvement over simple controllers |
 | Meta integration | SAM tracking, Muse review and constrained controller-choice tests | General autonomous physical repair |
-| Avatars | Built-in appearances plus a one-click pre-generated library; prompt-to-avatar creation in the portal through the managed local Avatar Studio with recorded per-job spending grants; finished models auto-pack (derived roles, scale, orientation) and land in the chooser; a created character is live-verified inside a recorded, gate-passing session | Fresh single-shot generations currently stop at the author's coat-coverage gates (preview-preset mesh density is below its thresholds); rigs without elbow/knee joints are refused by design |
+| Avatars | Built-in appearances plus a one-click pre-generated library; prompt-to-avatar creation in the portal through the managed local Avatar Studio with recorded per-job spending grants; finished models auto-pack (derived roles, scale, orientation) into welded smooth-shaded deliveries budgeted in vertex currency (~14k triangles for the panda vs ~6k shattered ones before) and land in the chooser; a created character is live-verified inside a recorded, gate-passing session | Fresh single-shot generations currently stop at the author's coat-coverage gates (preview-preset mesh density is below its thresholds); rigs without elbow/knee joints are refused by design; earlier library zips predate the welded delivery and look faceted until re-packed |
 
 Intake supports videos up to **60 seconds, 1,800 frames and 100 MB**, with further
 checks for each reconstruction path. Keep observed, inferred, assumed and unknown
@@ -107,12 +107,16 @@ not an external benchmark or a guarantee for new inputs.
   ordinary child preflight on it. Live: the clip refused over two detector flickers
   proposed 3.8-19.3 s itself; the child admitted on the first attempt with the
   original refusal preserved and zero API calls. Evidence: `.local/verify-video-02/`.
-- The capstone demo journey is live-verified end to end in 14.1 seconds: the
+- The capstone demo journey is live-verified end to end in 14.9 seconds: the
   sots-press world, 456 continuous reference controls in one recording, a mid-take
-  appearance swap from the robot to a character created through the text flow
-  ("Created: Studio panda"), task success true with zero failed gates (angular
-  0.106 vs 0.35, root 0.018 vs 0.15), and exported video, replay and event logs.
-  Evidence: `.local/demo-capstone-01/continue-result.json`.
+  appearance swap from the robot to the text-created character's high-fidelity
+  delivery, task success true with zero failed gates (angular 0.106 vs 0.35, root
+  0.018 vs 0.15), and exported video, replay and event logs. The delivery packer
+  used to explode every triangle corner into private vertices, which forced ~6k
+  flat-shaded cracked triangles under the consumer's vertex bound; deliveries now
+  keep welded source topology, restore smooth shading, and budget vertices
+  directly, so the same panda ships 14,255 clean triangles within unchanged
+  consumer caps. Evidence: `.local/demo-capstone-02/`, `.local/avatar-quality-01/`.
 - Generated avatars no longer need hand-written delivery configuration. An automatic
   resolver maps a rig's bones to Weft's ten body roles by name synonyms checked against
   skeleton structure, and derives scale and orientation from the rig's own measured
