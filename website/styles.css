@@ -1010,48 +1010,28 @@ h2 {
   }
 }
 
-/* Guided walkthrough entry points: present but never shouting. */
-.nav-demo {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-left: 4px;
-  padding: 6px 13px;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  color: var(--clay);
-  text-decoration: none;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-.nav-demo:hover {
-  border-color: var(--clay);
-  background: #96564410;
-}
-.nav-demo span {
-  transition: transform 0.2s ease;
-}
-.nav-demo:hover span {
-  transform: translateX(2px);
-}
+/* Demo links share the landing page's editorial navigation. */
+.nav-demo,
 .demo-link {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 9px 17px;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  color: var(--clay);
+  gap: 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
   text-decoration: none;
   white-space: nowrap;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease;
 }
-.demo-link:hover {
-  border-color: var(--clay);
-  background: #96564410;
-}
-.demo-link span {
-  transition: transform 0.2s ease;
-}
-.demo-link:hover span {
-  transform: translateX(3px);
+.nav-demo { padding: 8px 0; margin-left: 8px; }
+.demo-link { padding: 8px 0; border-bottom: 1px solid var(--clay); }
+.nav-demo:hover,
+.demo-link:hover { color: var(--clay); }
+.nav-demo span,
+.demo-link span { transition: translate 0.2s ease; }
+.nav-demo:hover span,
+.demo-link:hover span { translate: 3px 0; }
+@media (prefers-reduced-motion: reduce) {
+  .nav-demo span, .demo-link span { transition: none; translate: none; }
 }

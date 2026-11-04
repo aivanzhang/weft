@@ -19,8 +19,8 @@
     if (!banner || !banner.hidden) return;
     banner.hidden = false;
     banner.textContent = token
-      ? "This link's access token is no longer valid — the portal was restarted. Open the current link printed by the portal."
-      : "This page needs the portal's access link. Open the full http://127.0.0.1:…/demo#token=… link printed when the portal started.";
+      ? "Your session needs to reconnect. Open Walkthrough and unlock with your demo code."
+      : "Open Walkthrough and enter your demo code to connect this tab.";
   }
 
   const seconds = (value) => {
@@ -340,5 +340,6 @@
     }
   }
   keepToken();
-  Promise.all([loadMeta(), loadFeatured()]).then(() => loadGallery(true));
+  if (token) Promise.all([loadMeta(), loadFeatured()]).then(() => loadGallery(true));
+  else warnAuth();
 })(window);

@@ -1,16 +1,26 @@
 /* A run owns the screen; switching views releases hidden media and simulation work. */
 ((root) => {
-  let stored = false;
-  let token = new URLSearchParams(location.hash.slice(1)).get("token") || "";
-  try {
-    token ||= sessionStorage.getItem("weft-portal-token") || "";
-    if (token) {
-      sessionStorage.setItem("weft-portal-token", token);
-      stored = true;
-    }
-  } catch { /* Access links still work when browser storage is disabled. */ }
-  if (token) history.replaceState(null, "", location.pathname + location.search);
-  root.WeftDemoSession = { token, stored };
+  let token = "";
+  const query = new URLSearchParams(location.search);
+  const accessCode = (query.get("access_code") || "").trim().slice(0, 64);
+  const session = { token: "", stored: false, accessCode,
+    setToken(value) {
+      token = value;
+      session.token = value;
+      session.stored = false;
+      try {
+        sessionStorage.setItem("weft-portal-token", value);
+        session.stored = Boolean(value);
+      } catch { /* Access links still work when browser storage is disabled. */ }
+    },
+  };
+  let initial = new URLSearchParams(location.hash.slice(1)).get("token") || "";
+  try { initial ||= sessionStorage.getItem("weft-portal-token") || ""; } catch { /* Storage is optional. */ }
+  if (initial) session.setToken(initial);
+  if (query.has("access_code")) query.delete("access_code");
+  const cleanQuery = query.toString();
+  if (initial || accessCode) history.replaceState(null, "", location.pathname + (cleanQuery ? "?" + cleanQuery : ""));
+  root.WeftDemoSession = session;
 
   root.WeftRunFocus = () => {
     const $ = (id) => document.getElementById(id);

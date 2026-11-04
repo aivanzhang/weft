@@ -72,14 +72,14 @@ export function supervise(child, server, { signals = process, shutdownMs = 15000
       server.closeAllConnections();
       if (!exited) {
         child.kill('SIGINT');
-        // Give Python time to preserve jobs and recordings before enforcing a bound.
-        deadline = setTimeout(() => child.kill('SIGKILL'), shutdownMs);
+        // Slow exports must finish without an automatic hard kill.
+        deadline = setTimeout(() => log.warn('Still waiting for the sandbox to save its state and stop…'), shutdownMs);
         deadline.unref();
       }
     };
     const fail = (error) => { log.error(error.message); code = 1; stop(); };
-    signals.once('SIGINT', stop);
-    signals.once('SIGTERM', stop);
+    signals.on('SIGINT', stop);
+    signals.on('SIGTERM', stop);
     server.once('error', fail);
     child.once('error', (error) => { exited = true; fail(error); finish(); });
     child.once('exit', (exitCode, signal) => {
@@ -120,7 +120,7 @@ async function main() {
     throw error;
   });
   console.log(`Weft landing page: http://127.0.0.1:${command.port}/`);
-  console.log(`Weft walkthrough: http://127.0.0.1:${command.sandboxPort}/demo (use the access link below once)`);
+  console.log(`Weft walkthrough: http://127.0.0.1:${command.sandboxPort}/demo`);
   console.log('Ctrl+C stops both servers. Saved runs and budgets are preserved.');
   // A separate process group prevents terminal Ctrl+C from interrupting Python twice.
   const child = spawn(command.executable, command.args, {
@@ -128,6 +128,7 @@ async function main() {
     env: { ...process.env, PYTHONUNBUFFERED: '1' },
   });
   process.exitCode = await supervise(child, server);
+  if (process.exitCode === 0) console.log('Weft demo stopped. Saved runs are preserved.');
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
