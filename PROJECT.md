@@ -51,7 +51,7 @@ reveal "Build your world" on hover or keyboard focus.
 Clicking the Weft wordmark opens minimal contents links to all five main sections
 in reading order, with native navigation and keyboard-accessible dismissal.
 The headline reveals with temporary word-specific icons and short explanations
-on hover, keyboard focus or tap.
+on hover, keyboard focus or tap, with faint solid underlines marking the interactive words.
 The demo header’s Build control transforms into an inline code field and unlock action;
 once authenticated, it leads directly to the builder.
 Its example viewer defaults to video comparison, with compact version and
