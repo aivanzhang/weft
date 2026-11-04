@@ -79,11 +79,16 @@ def _json(raw, maximum):
     try:
         value = json.loads(raw, object_pairs_hook=unique)
         _require(type(value) is dict, "JSON object required")
+        # Scale with the byte budget the caller already accepted: a flat 100k nodes is
+        # unreachable for a 4 KB document and far below what a 32 MB one holds, which
+        # refused observation files the pipeline itself produces inside its own
+        # 500-frame admission envelope. Never lowers an existing caller's bound.
+        limit = max(100_000, maximum // 64)
         pending, nodes = [(value, 0)], 0
         while pending:
             item, depth = pending.pop()
             nodes += 1
-            _require(nodes <= 100_000 and depth <= 64, "JSON structural bound exceeded")
+            _require(nodes <= limit and depth <= 64, "JSON structural bound exceeded")
             if isinstance(item, dict):
                 pending.extend((child, depth + 1) for child in item.values())
             elif isinstance(item, list):

@@ -13,6 +13,7 @@ with its world still loadable, so a reviewer can drive it rather than trust the 
 import json
 import re
 import secrets
+import shutil
 import threading
 import time
 import zipfile
@@ -32,7 +33,12 @@ RUN_ID = re.compile(r"run-[a-f0-9]{1,32}")
 STEP_ID = re.compile(r"[a-z_]{1,32}")
 # Muse spends the shared Meta allowance; a demo must never be able to drain it.
 MAX_MUSE_CALLS = 8
-MAX_RUNS_KEPT = 12
+# A finished run leaves a ~150 MB portal project, and the portal reserves 650 MB of
+# headroom per new job inside a 2 GB allowance. Keeping four runs leaves room for the
+# next one; without the eviction below, a reviewer's fourth run fails on a storage wall
+# the walkthrough itself built.
+MAX_RUNS_KEPT = 4
+PROJECT_DIR = re.compile(r"[0-9a-f]{32}")
 # Live character generation spends credits; bound how often a demo may start one.
 MAX_GENERATION_ATTEMPTS = 2
 
@@ -238,7 +244,22 @@ class DemoManager:
             body = json.dumps(payload).encode()
             headers["Content-Type"] = "application/json"
         try:
-            connection.request(method, path, body=body, headers=headers)
+            try:
+                connection.request(method, path, body=body, headers=headers)
+            except OSError as error:
+                # The portal answers a rejected upload and closes while the body is still
+                # going out. Read the reply it already sent, or the judge sees "Broken pipe".
+                try:
+                    response = connection.getresponse()
+                    raw = response.read(64 << 20)
+                except OSError:
+                    raise RuntimeError(f"The local upload was interrupted ({error})") from error
+                detail = raw[:400].decode("utf-8", "replace")
+                try:
+                    detail = json.loads(raw).get("error", detail)
+                except ValueError:
+                    pass
+                raise RuntimeError(detail or f"The local upload was interrupted ({error})") from error
             response = connection.getresponse()
             raw = response.read(64 << 20)
             if response.status >= 400:
@@ -300,6 +321,35 @@ class DemoManager:
             if path.is_file():
                 return path
         raise ValueError("No bundled sample clip is available")
+
+    def _evict(self):
+        """Drop runs past the keep limit and the portal projects they own.
+
+        Only projects this walkthrough created are removed: each run records its project
+        id, so a project the reviewer made in the lab is never a candidate.
+        """
+        owned = {}
+        for entry in sorted(self.dir.glob("run-*/record.json")):
+            try:
+                owned[entry.parent.name] = str(json.loads(entry.read_text()).get("project") or "")
+            except (OSError, ValueError):
+                pass
+        for entry in sorted(self.dir.glob("run-*/project.txt")):
+            owned[entry.parent.name] = entry.read_text().strip()
+        kept = [row["id"] for row in self._index()][:MAX_RUNS_KEPT]
+        for run_id in list(owned) + [d.name for d in self.dir.glob("run-*") if d.is_dir()]:
+            if run_id in kept or (self.run or {}).get("id") == run_id:
+                continue
+            project = owned.get(run_id, "")
+            if PROJECT_DIR.fullmatch(project):
+                target = (self.root / project).resolve()
+                if target.is_dir() and target.parent == self.root.resolve():
+                    shutil.rmtree(target, ignore_errors=True)
+            shutil.rmtree(self.dir / run_id, ignore_errors=True)
+        index = [row for row in self._index() if row["id"] in kept]
+        (self.dir / "runs.json").write_text(json.dumps(index, indent=2) + "\n")
+        featured = [v for v in self._featured() if v in kept]
+        (self.dir / "featured.json").write_text(json.dumps(featured, indent=2) + "\n")
 
     def clips(self):
         """Verified starting clips, newest measurement first. Empty is fine: upload still works."""
@@ -392,6 +442,7 @@ class DemoManager:
                         "source": {"name": Path(name).name[:120], "bytes": len(video),
                                    "sample": sample, "label": label}}
             (self.dir / run_id).mkdir(mode=0o700, parents=True, exist_ok=True)
+            self._evict()
             self.thread = threading.Thread(target=self._drive, args=(run_id, video, Path(name).name),
                                            name="weft-demo", daemon=True)
             self.thread.start()
@@ -467,6 +518,7 @@ class DemoManager:
                            "request_id": secrets.token_hex(16),
                            "exercise_inventory": "unknown", "exercise_output": "simulation"})
         parent = self._request("POST", "/api/projects?" + query, video, timeout=300)["id"]
+        (run_dir / "project.txt").write_text(parent + "\n")
         self._poll(f"/api/projects/{parent}", {"needs_input", "failed", "unsupported"})
         self._update(0, detail="Tracking the body, frame by frame")
         self._request("POST", f"/api/projects/{parent}/perception/preflight")
@@ -624,7 +676,13 @@ class DemoManager:
             time.sleep(1)
         artifact = self._pack(run_dir, "avatar", session_dir, [
             "recording.json", "avatar-video.mp4", "video.mp4",
-        ], "The recorded session: physics journal and rendered video.")
+            "appearance.json", "appearance-manifest.json", "appearance-events.jsonl",
+        ], "The recorded session: rendered video and the mid-take appearance swap it logged.")
+        # The rollout's own journal is only complete once the recording closes, so it is
+        # packed here and attached back to the step that produced it.
+        self._update(3, artifact=self._pack(run_dir, "rollout", session_dir, [
+            "events.jsonl", "manifest.json",
+        ], "Every control step and the state it produced, scored live against the frozen gates."))
         success = bool(metrics.get("success"))
         failed = metrics.get("failed_gates") or []
         with self.lock:
@@ -662,8 +720,16 @@ class DemoManager:
         artifact = self._pack(run_dir, "muse", self.root / child, ["muse/*.json", "muse/*/*.json"],
                               "What was sent to Meta Muse, what it proposed, and the API receipt.")
         if status != "proposed":
+            # The reviewer records why it stopped; a bare "skipped" would hide a real limit.
+            saved = {}
+            try:
+                saved = json.loads((self.root / child / "muse/status.json").read_text())
+            except (OSError, ValueError):
+                pass
+            reason = " · ".join(str(saved[k]) for k in ("message", "error_type") if saved.get(k))
             self._finish(index, "Review did not complete", {"outcome": str(status)},
-                         artifact, status="skipped")
+                         artifact, status="skipped",
+                         error=(reason or f"The review ended as {status}")[:300])
             return
         # The judge-visible proof is the model's own output, which lives in the advice
         # file; the project summary only carries lifecycle status.
@@ -749,7 +815,11 @@ class DemoManager:
             metrics["your prompt"] = prompt[:60]
         if attempt:
             metrics["generation attempt"] = attempt[:120]
-        self._finish(index, "Generated character ready to superimpose", metrics)
+        artifact = self._pack(run_dir, "create", self.root / "avatars", [
+            "catalog.json", "status.json", "*/delivery.json", "*/request.json",
+        ], "The character chooser including the imported generated character, and the studio's"
+           " recorded response to this request.")
+        self._finish(index, "Generated character ready to superimpose", metrics, artifact)
         self._update(index, detail=detail)
 
     # -- artifacts, archive and gallery ---------------------------------------
