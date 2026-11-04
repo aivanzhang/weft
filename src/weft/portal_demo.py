@@ -726,6 +726,19 @@ class DemoManager:
         index = [row for row in self._index() if row.get("id") != run_id]
         index.insert(0, {"id": run_id})
         (self.dir / "runs.json").write_text(json.dumps(index[:MAX_RUNS_KEPT], indent=2) + "\n")
+        # The carousel shows curated work only; a run that finished with a video earns
+        # its place there beside the seeded demos.
+        if record["status"] == "complete" and record["video"]:
+            featured = [run_id] + [v for v in self._featured() if v != run_id]
+            (self.dir / "featured.json").write_text(
+                json.dumps(featured[:MAX_RUNS_KEPT], indent=2) + "\n")
+
+    def _featured(self):
+        try:
+            saved = json.loads((self.dir / "featured.json").read_text())
+        except (OSError, ValueError):
+            return []
+        return [str(v)[:64] for v in saved] if isinstance(saved, list) else []
 
     def _record(self, run_id):
         path = self.dir / run_id / "record.json"
