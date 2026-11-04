@@ -178,6 +178,22 @@ not an external benchmark or a guarantee for new inputs.
   measurement that distinguishes retargeting from stretching a rig to fit. Appearance is
   appearance: a substituted avatar never drives physics. Evidence: `.local/hosted-check-6/`,
   `.local/hosted-e2e-1/`.
+- Avatar substitution is verified for **seven appearances on the deployed environment**:
+  the two predefined deliveries the hosted service serves, and five AI-generated packs from
+  the Avatar Studio (Meshy geometry with an authored or auto-resolved rig). 8,338 to 19,114
+  vertices per frame, every vertex finite, worst bone-length drift 1.4e-15. The generated
+  packs are deliberately **not** shipped by the hosted build: they are untracked local
+  evidence, and a build that depended on them would silently produce a different catalog
+  from a clean clone. Generation itself remains a separate Studio service, not a hosted
+  endpoint. Evidence: `.local/generated-avatars/`, `.local/hosted-live-4/`.
+- End-to-end latency on deployed hardware is **147 s**, inside the 5-minute preferred bound
+  and outside the 1-minute optimum. Measured split: 89 s learning stage (34 s of it the
+  1,500-episode trainer), roughly 50 s appearance stage, the rest upload, queue and
+  container cold start. The appearance stage re-runs pose from scratch because `prepare_lab`
+  has no parameter for precomputed evidence; removing that duplicate is the one clear
+  remaining win and is deliberately left undone rather than changing core pipeline code
+  late. In-container figures of 25-52 s are 2 vCPU of an M-series Mac and must not be quoted
+  as hosted.
 - Weft ships two source anchors that refuse different clips at frame zero — one wants
   confident head, torso and limb endpoints, the other a confidence-qualified limb chain.
   The appearance stage now attempts both unchanged, the second only when the first refuses,
