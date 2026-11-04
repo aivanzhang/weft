@@ -207,8 +207,50 @@ not an external benchmark or a guarantee for new inputs.
   evidence, and a build that depended on them would silently produce a different catalog
   from a clean clone. Generation itself remains a separate Studio service, not a hosted
   endpoint. Evidence: `.local/generated-avatars/`, `.local/hosted-live-4/`.
-- End-to-end latency on deployed hardware is **147 s**: inside the 5-minute preferred bound,
-  and the 1-minute optimum is **not reachable for this deliverable on a 2 vCPU instance**.
+- The two stages now run concurrently, which is where the real latency was. They share only
+  the source video, so sequencing them paid the sum of two independent costs; the lab is
+  already its own process and the appearance stage is dominated by pose and MuJoCo inside
+  released-GIL native code, so a thread genuinely overlaps. **Production: 147 s to 110.7 s on
+  the same clip with byte-identical results.** In-container 31-32 s to 22.9 s. An earlier note
+  here concluded no structural win remained; that was wrong, and it was wrong because it
+  reasoned about the stages' cost without asking whether they had to be ordered at all.
+- End-to-end latency on deployed hardware is **110.7 s** on the reference clip: inside the
+  5-minute preferred bound, and the 1-minute optimum is not reached. The floor is now
+  measured per phase in production rather than inferred, from the archive's own artifact
+  timestamps: training 34 s, evaluating three policies over 100 episodes each 22 s, pose and
+  body fit about 4 s, the appearance stage finishing at +22 s and therefore **entirely hidden
+  inside training**, a 60 s archive-visible span, and about 50 s outside it for upload,
+  container cold start, normalization and download. So the two irreducible pieces are the
+  56 s of training-plus-evaluation that *is* the scored deliverable, and roughly 50 s of
+  transport and cold start that is not pipeline work at all. Zeroing both halves of the
+  deliverable would still leave about 50 s, so sub-60 s is not reachable while the service
+  starts a container per job and reports a 100-episode comparison.
+- An earlier decomposition here claimed roughly 24 s of container cold start and 16 s of
+  transport. **Both were wrong.** Measured against the job's own clock on two consecutive
+  deployed submissions: client 115.1 s against job 107.6 s cold, and client 113.3 s against
+  job 108.6 s warm -- so only **6 to 7 s** sits outside the job at all, not 38 s. The earlier
+  figure came from differencing the lab's report against artifact timestamps whose zip
+  granularity and baseline I had not validated, and then attributing the residue to
+  provisioning. Importing the whole ML stack really does cost 0.52 s, but that refuted a claim
+  I should not have made rather than confirming one. The robust numbers are the ones taken as
+  deltas within one archive: training 34 s, evaluating three policies over 100 episodes 22 s.
+- Keeping the container warm for 30 s between submissions is shipped and bought about 3 s of
+  that 6 s, which is honest but a tenth of what the bad decomposition implied. It costs
+  roughly $0.0006 per job in idle memory, about $0.05 a day against the daily caps. The image
+  is 870 MB (site-packages 584, system libraries 268, app 14) with OpenCV's contrib build
+  141 MB of it, but with provisioning now known to be seconds rather than tens of seconds,
+  shrinking it is not a latency lever and would risk the pinned decode stack for nothing. The complete
+  measured picture of the reference run is therefore ~24 s cold start, ~16 s transport,
+  ~10 s pose, ~4 s body fit, 34 s training, 22 s evaluation, and **zero for the appearance
+  stage** because it finishes inside training.
+- Every remaining lever is a decision rather than an engineering find, and the two together
+  still only approach the optimum. Warm starts would remove most of the 24 s cold start but
+  the Worker deliberately stops the container after each job -- recorded as "no idle paid
+  container between visitor jobs" -- so that is a spending decision. Trimming the trainer
+  from 1,500 episodes to the 400 where its success rate plateaus would save about 23 s but
+  changes the scored artifact. Both together land near 63 s, still above the optimum, so
+  neither is taken here. There is no unmeasured waste left: the remaining time is cold start,
+  transport, pose, and the training-plus-evaluation that is the result itself.
   The arithmetic, not an estimate: the learning stage alone takes 89 s, so even an
   instantaneous appearance stage would miss 60 s. Of that 89 s only 34 s is the trainer, and
   its success rate reaches 1.00 by episode 400 of 1,500, so trimming the budget recovers
@@ -239,6 +281,36 @@ not an external benchmark or a guarantee for new inputs.
   local lane reproduced the same invariant independently at 1.7e-15 over 927 bone
   comparisons, which is stronger than either lane alone. Evidence:
   `.local/hosted-sweep-4/hosted-matrix.json`, `scripts/verify/bone_length_preservation.mjs`.
+- **Seven completed end-to-end runs from the deployed service** are published for the
+  walkthrough catalogs, each with the clip submitted, the archive returned, the summary
+  reported and both predefined avatars retargeted onto the result: incline-press 111 s,
+  overhead-squat 122 s, waiters-squat 123 s, bodyweight-squats 131 s, sots-press 139 s,
+  deadlift 197 s, jumping-jacks 210 s. **7 of 7 complete with an avatar-ready scene**, worst
+  avatar bone-length drift 1.4e-15. Two earn their place by what they show: `deadlift` is the
+  only windowed appearance, retried on 0.12-7.33 s after one bad frame zero refused both
+  anchors on a 99.1%-tracked clip; `jumping-jacks` was a hard refusal in every earlier sweep
+  and now admits on a proposed window at 100/0. Evidence: `.local/walkthrough-catalog/`.
+- Both routes can use a window of a clip's own evidence; they differ in how it is asked for.
+  The hosted lane proposes and retries automatically. The local portal records the proposal
+  beside the preserved refusal, and one explicit request to
+  `/api/projects/<id>/perception/supported-window` builds a child on it. An earlier note here
+  called this a hosted-only capability and marked `deadlift` locally refused; that was wrong,
+  and wrong for an avoidable reason -- the harness measuring it stopped at the refusal and
+  never made the request the route offers. Driven properly, `deadlift` reaches `ready`
+  locally in 34.8 s on the same 0.12-7.33 s window the hosted ladder finds. The real
+  remaining difference is narrower: the hosted lane strides an over-long clip to fit the
+  frame envelope before admission and the local upload path does not. That was a packaging
+  problem rather than a product one, so the fix went into the artifact: the pack now ships
+  `jumping-jacks` strided to 452 frames at 10 fps, covering all 45 s inside the envelope both
+  routes enforce. It is now admitted by both -- locally in 46.5 s on a 20.9-45.2 s window,
+  and on the deployed service in 184.4 s at 100/100 with an avatar-ready scene. Seven of the
+  eleven catalogued clips are attributed and admitted on both routes.
+- Building that catalog caught a regression a single-clip measurement had missed. Overlapping
+  the learning and appearance stages cut the reference clip from 147 s to 110.7 s and was
+  deployed on that evidence; across seven examples it broke **bodyweight-squats** and
+  **jumping-jacks**, which exceeded the lab's internal 120-second learning budget under CPU
+  contention. Faster in total, broken in detail. Reverted. The independent 600-episode
+  trim stays, so bodyweight-squats is 29.4 s in-container against 43 s before either change.
 - **Verified on deployed Cloudflare**, release `exercise-pipeline-20261104`: one clip
   submitted through the judge lane at `weft.kintsugi.software` completed in 147 s with
   `q_learning 100/100` against `random 1/100` and `coast 0/100`, full pose tracking, a

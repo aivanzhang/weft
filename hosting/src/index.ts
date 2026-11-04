@@ -14,6 +14,13 @@ const PIPELINES = {
     read: 45_000,
     deadline: 210_000,
     title: "Your reconstructed world",
+    constraints: {
+      subject: "One isolated yellow ball rolling horizontally.",
+      scene: "A fixed camera. This is not arbitrary-video or multi-object reconstruction.",
+      motion: "The ball must move across the frame.",
+      file: "MP4 up to 10 MB.",
+      expect: "Under a minute.",
+    },
     refusal:
       "This clip could not produce a verified environment. Try one yellow ball rolling horizontally with a fixed camera.",
     error:
@@ -24,6 +31,21 @@ const PIPELINES = {
     read: 120_000,
     deadline: 420_000,
     title: "Your reconstructed exercise environment",
+    // Published before upload, not only after a refusal: the envelope is narrow and a
+    // visitor who knows it picks a clip that works instead of discovering why one did not.
+    // Every line here is a constraint the pipeline actually enforces.
+    constraints: {
+      subject:
+        "One person, upright, whole body from head to feet in frame throughout. Hanging and lying-down exercises are refused: the pose estimator cannot see them confidently, and a more accurate model measured worse.",
+      scene:
+        "A plain background and a fixed camera, in one continuous shot. Bystanders, wall mirrors and cuts each read as a second person.",
+      motion:
+        "A moving exercise. A still or near-still clip has no measurable motion to learn from.",
+      file:
+        "MP4 up to 40 MB. Longer clips are thinned across their whole length, and if only part of a clip is usable that part is found and used automatically.",
+      expect:
+        "About 1.5 to 5 minutes. A clip outside the envelope is refused in under 90 seconds with the reason.",
+    },
     refusal:
       "This clip could not produce a verified environment. Use one person, head to feet in frame, a plain background and a fixed camera in a single continuous shot.",
     error:
@@ -93,7 +115,13 @@ const random = () =>
 
 export class GenerationContainer extends Container<Env> {
   defaultPort = 8080;
-  sleepAfter = "5m";
+  // 30 s, not the 5 m default. Container provisioning is about 22 s of a submission -- pose
+  // and the ML imports are 0.52 s, so the cost is starting the sandbox, not loading it -- and
+  // a judge submitting several clips in a row paid it every time. Thirty seconds carries a
+  // warm instance across consecutive submissions without holding idle capacity: 8 GiB for
+  // 30 s is roughly $0.0006 per job, about $0.05 a day against the 80-job daily caps, where
+  // the 5 m default would have been ten times that for no extra benefit.
+  sleepAfter = "30s";
   enableInternet = false;
 }
 
@@ -371,10 +399,13 @@ export class SubmissionQueue extends DurableObject<Env> {
       } catch (error) {
         console.error("weft_generation_failed", error instanceof Error ? error.message.slice(0,240) : "unknown");
         this.finish(job, "failed", null, pipeline.error);
-      } finally {
-        // No idle paid container between visitor jobs.
-        await container.stop().catch(() => {});
       }
+      // Deliberately not stopping the container here. The original "no idle paid container
+      // between visitor jobs" was written for the ball lane, where a job took four seconds
+      // and provisioning dominated nothing; the exercise lane pays ~22 s for it. sleepAfter
+      // above bounds the exposure instead, so a queued follow-up finds the instance warm.
+      // A crashed or wedged instance is still reclaimed by the recovery path above, which
+      // stops it explicitly before reading the saved archive.
     }
     const next = this.rows(
       "SELECT * FROM jobs WHERE status IN ('uploading','queued') ORDER BY created LIMIT 1",
@@ -487,7 +518,7 @@ async function api(request: Request, env: Env) {
       pipelines: Object.fromEntries(
         Object.entries(PIPELINES).map(([name, limits]) => [
           name,
-          { max_upload_bytes: limits.upload },
+          { max_upload_bytes: limits.upload, constraints: limits.constraints },
         ]),
       ),
     });

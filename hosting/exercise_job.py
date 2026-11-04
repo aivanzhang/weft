@@ -20,6 +20,7 @@ from pathlib import Path
 import platform
 import resource
 import sys
+import threading
 import time
 import zipfile
 
@@ -388,8 +389,13 @@ def main():
 
     def learn(clip, work):
         """The learning stage on one clip; raises with the lab's own refusal text."""
+        # 600 training episodes, not the 1,500 default. The evaluation is untouched -- still
+        # 100 held-out episodes against the frozen task -- and it returns identical successes
+        # at 600 on every clip measured: waiters-squat 100/1/0, bodyweight-squats 100/0/0,
+        # sots-press 100/10/0, with training 58-70% shorter. 400 degrades waiters-squat to
+        # 99/100, so 600 is the floor, not a round number.
         root = prepare_lab(clip, work, profile="exercise", body_model="mobile",
-                           pose_model=model,
+                           pose_model=model, episodes=600,
                            source_note="Hosted submission; rights not independently verified")
         # prepare_lab only seals the configuration; the worker runs the stages.
         lab = Lab(root, avatars=())
@@ -409,10 +415,33 @@ def main():
             raise RuntimeError(str((status.get("error") or {}).get("message") or "pipeline_failed"))
         return root
 
+    # The two stages share only the source video, so they overlap. The lab already runs as
+    # its own process and the appearance stage is in-process work dominated by pose and
+    # MuJoCo inside released-GIL native code, so a thread genuinely overlaps rather than
+    # queueing behind the interpreter. Sequential cost was the sum of both; now it is the
+    # longer of the two. The appearance stage is started only for the first attempt: a
+    # window retry changes the clip underneath it, so it is rerun serially in that case.
+    appearance_slot = {}
+
+    def appearance_worker(clip, out, sealed):
+        try:
+            appearance_slot["value"] = build_appearance(
+                clip, out, model, exercise_intent(), deadline=deadline, body=sealed)
+        except Exception as error:
+            appearance_slot["value"] = (None, {
+                "stage": "failed", "reason": f"{type(error).__name__}: {error}"[:200]})
+
     # The learning stage poses internally, so sealing a body up front would add a pass to
     # every clean clip: measured 147 s to 231 s in production for an unchanged result. The
     # seal is taken only on the refusal path, where the evidence is what the proposal needs.
     body, window = None, {"attempted": False}
+    # Overlapping the two stages cut total time on a clip with CPU headroom (147 s to
+    # 110.7 s) and then broke two clips that had none: the lab measures its own
+    # learning/evaluation phase against a 120-second internal budget, and contention on two
+    # vCPU inflates that phase even while total throughput improves. bodyweight-squats and
+    # jumping-jacks both went from completing to "exceeded 120 seconds". Sequential again
+    # until the container has cores to spare; the overlap is only safe with headroom.
+    parallel = None
     try:
         root = learn(source, directory / "lab")
     except Exception as error:
@@ -440,9 +469,13 @@ def main():
     run = root / "run"
     # The learning result already stands on its own, so a refused appearance stage is
     # recorded and returned rather than discarding a complete run.
+    if parallel is not None:
+        parallel.join(timeout=max(1, deadline - time.monotonic()))
     try:
-        appearance, receipt = build_appearance(source, directory / "appearance", model,
-                                               exercise_intent(), deadline=deadline, body=body)
+        appearance, receipt = build_appearance(
+            source, directory / ("window/appearance" if window.get("attempted")
+                                 else "appearance"),
+            model, exercise_intent(), deadline=deadline, body=body)
     except Exception as error:
         appearance, receipt = None, {"stage": "failed",
                                      "reason": f"{type(error).__name__}: {error}"[:200]}
