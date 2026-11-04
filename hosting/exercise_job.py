@@ -266,6 +266,12 @@ def summarize_appearance(run, receipt):
 # improve by looking at less of it.
 LOCALIZED = ("multiple_people", "no_person_visible", "no_motion", "body_anchor",
              "root_reference_gap")
+# Training and evaluation cost scales with episode length, and the lab enforces its own
+# 120-second learning budget. A verified 8-second clip spends about 60 s of it on hosted
+# hardware, so a proposed window is clamped to keep the retry inside that budget; a 23.6 s
+# window measured 313 s and was refused for exceeding it. Any sub-span of a satisfying span
+# still satisfies the gap horizon, so clamping from the start keeps the proposal valid.
+WINDOW_MAX_SECONDS = 12.0
 
 
 def seal_body(source, out, model, *, deadline):
@@ -300,12 +306,16 @@ def propose_window(evidence, source, target):
     proposal = report.get("proposal")
     if not proposal:
         return None, {"proposed": False, "reasons": (report.get("reasons") or [])[:4]}
+    start, full_end = float(proposal["start_s"]), float(proposal["end_s"])
+    end = min(full_end, start + WINDOW_MAX_SECONDS)
     target.parent.mkdir(parents=True, exist_ok=True)
-    encoded = _encode_window(source, target, start_s=proposal["start_s"], end_s=proposal["end_s"])
+    encoded = _encode_window(source, target, start_s=start, end_s=end)
     return target, {"proposed": True,
-                    "start_s": _number(proposal["start_s"], 2),
-                    "end_s": _number(proposal["end_s"], 2),
-                    "duration_s": _number(proposal["end_s"] - proposal["start_s"], 2),
+                    "start_s": _number(start, 2),
+                    "end_s": _number(end, 2),
+                    "duration_s": _number(end - start, 2),
+                    "proposed_end_s": _number(full_end, 2),
+                    "clamped": end < full_end,
                     "encoded": encoded,
                     "scope": ("Longest span of the original satisfying the same frozen "
                               "constraints. Content outside it is unobserved, not absent.")}
