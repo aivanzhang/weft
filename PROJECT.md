@@ -238,6 +238,18 @@ not an external benchmark or a guarantee for new inputs.
   local container on a root-reference gap and completes in production, so "local is not
   predictive" cuts both ways rather than only against the hosted path. Evidence:
   `.local/live-robustness/live-sweep.json`.
+- The deployed pipeline is **deterministic per clip**: two independent production
+  submissions of the same video returned identical baselines (100/1/0), selected joint,
+  target angle, tracked fraction, reference-servo error, manifest file count and archive
+  entry count, at 147.2 s and 145.7 s. This is the operational meaning of reliable — a
+  judge's clip gets a stable, repeatable answer — and it localises the earlier divergence
+  precisely: results differ between *platforms*, not between runs on the same platform. More
+  sampling would estimate an admission rate; determinism establishes that the behaviour
+  itself does not wander. Evidence: `.local/hosted-live-4/`, `.local/hosted-live-5/`.
+- Instance size is not a latency lever: measured at 4 vCPU against 2 vCPU on the same clip,
+  the job took 30.8 s against 31.0 s and the trainer 8.48 s against 8.52 s. Thread counts are
+  pinned to one so that results stay reproducible, and the tabular trainer is serial, so
+  `standard-4` would cost more for nothing.
 - Admission is sensitive near its own threshold, which local verification hides: a
   borderline clip that completes on macOS can be refused in the Linux container, and
   re-encoding the same footage can flip it either way. Of 17 real clips and windows
