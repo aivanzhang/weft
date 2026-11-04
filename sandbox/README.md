@@ -33,6 +33,12 @@ in `.local/portal`. For a different collection or port:
 npm run sandbox -- --root .local/my-projects --port 8766
 ```
 
+For the guided walkthrough, visit `/demo` on the sandbox. Opening a run brings
+only that run into focus: switch between its live world, recording and evidence.
+Only the active view loads media or an embedded simulator. The access link is
+needed once per browser tab; demo pages retain it for navigation and hide it
+from the address bar. The demo code is separate from this API access key.
+
 Run only one process per project directory. The sandbox and landing page use
 separate processes and dependencies, not isolated containers. Saved experiments
 are local data and are not included in a fresh clone.

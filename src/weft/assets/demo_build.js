@@ -1,6 +1,6 @@
 ((root) => {
   const $ = (id) => document.getElementById(id);
-  const token = new URLSearchParams(location.hash.slice(1)).get("token") || "";
+  const token = root.WeftDemoSession.token;
   const auth = { Authorization: "Bearer " + token };
   const signed = (path) => path + (path.includes("?") ? "&" : "?") + "token=" + encodeURIComponent(token);
   const MINE = "weft_demo_runs";
@@ -8,7 +8,13 @@
   async function api(path, options = {}) {
     const response = await fetch(path, { ...options, headers: { ...auth, ...(options.headers || {}) } });
     const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.error || "That request did not complete.");
+    if (!response.ok) {
+      if (response.status === 401 || response.status === 403) {
+        $("auth-warning").hidden = false;
+        $("auth-warning").textContent = "Open the access link printed by npm run sandbox once to connect this browser.";
+      }
+      throw new Error(data.error || "That request did not complete.");
+    }
     return data;
   }
 
@@ -198,7 +204,8 @@
     $("demo-metrics").textContent = demo.metrics && typeof demo.metrics === "object"
       ? Object.entries(demo.metrics).map(([k, v]) => `${k} ${v}`).join(" · ")
       : demo.metrics || "";
-    $("open-studio").hidden = !mine;
+    $("open-studio").hidden = false;
+    $("open-studio").textContent = mine ? "Open run" : "Watch recording";
     $("open-studio").onclick = () => openStudio(demo.id);
     $("dots").replaceChildren(...demos.map((_, index) => {
       const dot = document.createElement("button");
@@ -239,11 +246,20 @@
     }));
   }
 
+  $("demo-video").addEventListener("play", () => {
+    $("demo-video").pause();
+    openStudio(demos[current]?.id, "recording");
+  });
+
   /* ---------------- studio modal ---------------- */
   let world = null;
+  const focusViewer = root.WeftRunFocus();
+  let studioRequest = 0;
   function closeStudio() {
+    studioRequest += 1;
     $("studio-modal").hidden = true;
     document.body.classList.remove("locked");
+    focusViewer.close();
     world = null;
   }
   $("studio-modal").addEventListener("click", (event) => {
@@ -253,10 +269,16 @@
     if (event.key === "Escape" && !$("studio-modal").hidden) closeStudio();
   });
 
-  async function openStudio(identity) {
+  async function openStudio(identity, view) {
     if (!identity) return;
+    const request = ++studioRequest;
     try {
-      const record = await api(`/api/demo/studio/${encodeURIComponent(identity)}`);
+      const selected = demos.find((item) => item.id === identity);
+      const record = /^run-/.test(identity)
+        ? await api(`/api/demo/studio/${encodeURIComponent(identity)}`)
+        : { id: identity, title: selected?.title, caption: selected?.caption, steps: [] };
+      if (request !== studioRequest) return;
+      $("studio-error").hidden = true;
       $("studio-modal").hidden = false;
       document.body.classList.add("locked");
       $("studio-title").textContent = record.title || "Inside this run";
@@ -264,17 +286,22 @@
       renderSteps($("studio-steps"), record.steps || [], record.run || record.id || identity);
       const result = record.result || {};
       world = result.project || result.child || record.project || null;
-      $("play").hidden = !world;
+      const entry = demos.find((item) => item.id === identity);
+      focusViewer.open({ world, video: entry?.video_url ? signed(entry.video_url) : null, view });
       if (world) {
-        $("play-full").href = signed(`/labs/${world}/`);
+        $("play-full").href = `/labs/${world}/#token=${encodeURIComponent(token)}`;
         $("readout").replaceChildren();
         refreshWorld();
       }
       $("modal-body").scrollTo({ top: 0 });
     } catch (error) {
+      if (request !== studioRequest) return;
       $("studio-modal").hidden = false;
       document.body.classList.add("locked");
-      $("studio-note").textContent = error.message;
+      world = null;
+      focusViewer.open({ world: null, video: null });
+      $("studio-error").textContent = error.message;
+      $("studio-error").hidden = false;
     }
   }
 
@@ -310,7 +337,8 @@
     readout(null, label);
     try {
       let snapshot = null;
-      for (let batch = 0; batch < 8; batch += 1) {
+      const target = world;
+      for (let batch = 0; batch < 8 && world === target && focusViewer.active === "world" && !document.hidden; batch += 1) {
         const reply = await api(`/labs/${world}/api/step`, {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ steps: 6, controller }),
@@ -489,7 +517,7 @@
       if (link.target === "_blank") continue;
       const url = new URL(link.getAttribute("href"), location.origin);
       if (url.pathname.startsWith("/api/")) continue;
-      link.href = url.pathname + url.search + location.hash;
+      link.href = url.pathname + url.search + (root.WeftDemoSession.stored ? "" : `#token=${encodeURIComponent(token)}`);
     }
   }
   keepToken();

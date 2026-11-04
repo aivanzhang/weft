@@ -7,12 +7,13 @@
 <link rel="icon" href="/weft-logo.png">
 <link rel="stylesheet" href="/brand.css">
 <link rel="stylesheet" href="/demo.css">
+<script src="/demo_focus.js" defer></script>
 <script src="/demo_build.js" defer></script>
 </head>
 <body>
 
 <header class="site-head">
-  <a class="brand" href="/demo" aria-label="Weft"><img src="/weft-logo.png" width="44" height="44" alt=""></a>
+  <a class="brand" href="/demo" aria-label="Weft"><img src="/demo-wordmark.png" width="98" height="38" alt=""></a>
   <nav>
     <a href="/demo" class="is-current">Walkthrough</a>
     <a href="/demo/runs" class="nav-pill">Finished runs<span aria-hidden="true">→</span></a>
@@ -20,17 +21,16 @@
 </header>
 
 <main class="build-main">
+  <p id="auth-warning" class="auth-warning" role="alert" hidden></p>
   <section class="hero build-hero">
     <p class="eyebrow">BUILD</p>
-    <h1>Turn your clip into<br>a world an agent can use.</h1>
-    <p class="lede">Seven steps, about a minute, running live on this machine: evidence, world, task, rollout,
-      a character swapped mid-take, and <strong>Meta's Muse</strong> reviewing the physics it was handed.
-      Everything you build here stays yours — it is saved to this browser, not to the public page.</p>
+    <h1>A world from your video.</h1>
+    <p class="lede">Build a simulation, try its controls, and inspect the evidence behind it.</p>
   </section>
 
   <section class="gate-panel" id="gate-panel">
     <h2>Access</h2>
-    <p class="hint">Enter the code from our submission. Without it you can still explore the
+    <p class="hint">Enter your local demo code. Without it you can still explore the
       <a href="/demo/runs">finished runs</a>.</p>
     <form id="gate-form" class="gate-form">
       <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64"
@@ -44,7 +44,6 @@
     <div class="build-card">
       <div class="build-source">
         <label class="drop" id="drop" for="video">
-          <span class="drop-icon" aria-hidden="true">▣</span>
           <span id="file-label">Drop a video here, or choose a file</span>
           <span class="hint">One person, plain background, fixed camera, one continuous shot. The
             first 16 seconds are read; a longer clip is trimmed and its receipt says so. Cuts, mirrors
@@ -121,13 +120,26 @@
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="studio-title">
       <div class="modal-head">
         <div>
-          <p class="eyebrow">STUDIO</p>
-          <h2 id="studio-title">Inside this run</h2>
+          <p class="eyebrow">RUN</p>
+          <h2 id="studio-title" tabindex="-1">Inside this run</h2>
           <p class="hint" id="studio-note"></p>
+          <p id="studio-error" role="alert" hidden></p>
         </div>
         <button id="close-studio" type="button" class="icon" aria-label="Close studio" data-close>✕</button>
       </div>
+      <div class="focus-nav" role="group" aria-label="Run view">
+        <button type="button" data-run-view="world" aria-pressed="true">Live world</button>
+        <button type="button" data-run-view="recording" aria-pressed="false">Recording</button>
+        <button type="button" data-run-view="evidence" aria-pressed="false">Evidence</button>
+      </div>
       <div class="modal-body" id="modal-body">
+        <figure class="result-media" id="result-media" hidden>
+          <video id="studio-video" controls playsinline preload="metadata"></video>
+          <figcaption>The saved recording from this run. Playback does not change the live world.</figcaption>
+        </figure>
+        <div class="world-frame" id="world-frame" hidden>
+          <iframe id="world-view" title="Interactive simulated world"></iframe>
+        </div>
         <div class="play" id="play" hidden>
           <h3>Drive this world</h3>
           <p class="hint"><strong>Run the agent</strong> applies the reference controller.
@@ -141,7 +153,7 @@
           </div>
           <div class="readout" id="readout"></div>
         </div>
-        <ol id="studio-steps" class="steps"></ol>
+        <ol id="studio-steps" class="steps" hidden></ol>
       </div>
     </div>
   </div>

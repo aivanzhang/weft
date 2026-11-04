@@ -46,6 +46,16 @@ test("local landing never starts or proxies uploads to the sandbox", async () =>
   assert.equal((await fetch(`${base}/api/projects`)).status, 404);
 });
 
+test("demo routes send the browser to the local sandbox, without proxying private APIs", async () => {
+  for (const path of ["/demo", "/demo/", "/demo/build", "/demo/runs", "/emo"]) {
+    const response = await fetch(base + path, { redirect: "manual" });
+    assert.equal(response.status, 302);
+    const destination = ["/demo/", "/emo"].includes(path) ? "/demo" : path;
+    assert.equal(response.headers.get("location"), `http://127.0.0.1:8765${destination}`);
+  }
+  assert.throws(() => landingServer({ sandboxPort: 0 }));
+});
+
 test("video seeking returns the exact requested bytes, including suffix ranges", async () => {
   const bytes = await readFile(new URL("../data/rolling-ball.mp4", import.meta.url));
   for (const [range, start, end] of [["bytes=10-29", 10, 29], ["bytes=-16", bytes.length - 16, bytes.length - 1]]) {

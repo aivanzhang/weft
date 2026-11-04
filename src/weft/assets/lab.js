@@ -2700,5 +2700,9 @@
     } catch (e) { error(`Cannot reach the local lab: ${e.message}. Keep the CLI process running.`); pause(); }
     finally { pollPending = false; if (pollAgain) { pollAgain = false; scheduleStatus(0); } }
   }
+  if (fragment.get("embed") === "1") {
+    document.body.classList.add("demo-embed");
+    showPanel("play");
+  }
   poll();
 })();

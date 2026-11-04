@@ -7,12 +7,13 @@
 <link rel="icon" href="/weft-logo.png">
 <link rel="stylesheet" href="/brand.css">
 <link rel="stylesheet" href="/demo.css">
+<script src="/demo_focus.js" defer></script>
 <script src="/demo.js" defer></script>
 </head>
 <body>
 
 <header class="site-head">
-  <a class="brand" href="/demo" aria-label="Weft"><img src="/weft-logo.png" width="44" height="44" alt=""></a>
+  <a class="brand" href="/demo" aria-label="Weft"><img src="/demo-wordmark.png" width="98" height="38" alt=""></a>
   <nav>
     <a href="/demo">Walkthrough</a>
     <a href="/demo/runs" class="nav-pill">Finished runs<span aria-hidden="true">→</span></a>
@@ -71,29 +72,27 @@
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="studio-title">
       <div class="modal-head">
         <div>
-          <p class="eyebrow">STUDIO</p>
-          <h2 id="studio-title">Inside this run</h2>
+          <p class="eyebrow">RUN</p>
+          <h2 id="studio-title" tabindex="-1">Inside this run</h2>
           <p class="hint" id="studio-note"></p>
+          <p id="studio-error" role="alert" hidden></p>
         </div>
         <button id="close-studio" type="button" class="icon" aria-label="Close studio" data-close>✕</button>
       </div>
 
+      <div class="focus-nav" role="group" aria-label="Run view">
+        <button type="button" data-run-view="world" aria-pressed="true">Live world</button>
+        <button type="button" data-run-view="recording" aria-pressed="false">Recording</button>
+        <button type="button" data-run-view="evidence" aria-pressed="false">Evidence</button>
+      </div>
       <div class="modal-body" id="modal-body">
         <figure class="result-media" id="result-media" hidden>
           <video id="studio-video" controls playsinline preload="metadata"></video>
-          <figcaption>The recorded session this run produced — the character is driven by the
-            simulation state, not animated.</figcaption>
+          <figcaption>The saved recording from this run. Playback does not change the live world.</figcaption>
         </figure>
-
         <div class="world-frame" id="world-frame" hidden>
-          <div class="world-head">
-            <h3>The live world</h3>
-            <p class="hint">This is the real environment from this run, loaded and interactive. Drag to orbit;
-              use the controls below to drive it.</p>
-          </div>
-          <iframe id="world-view" title="Interactive simulated world" loading="lazy"></iframe>
+          <iframe id="world-view" title="Interactive simulated world"></iframe>
         </div>
-
         <div class="play" id="play" hidden>
           <h3>Drive this world</h3>
           <p class="hint"><strong>Run the agent</strong> applies the reference controller.
@@ -108,7 +107,7 @@
           <div class="readout" id="readout"></div>
         </div>
 
-        <ol id="studio-steps" class="steps"></ol>
+        <ol id="studio-steps" class="steps" hidden></ol>
       </div>
     </div>
   </div>

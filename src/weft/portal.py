@@ -38,9 +38,12 @@ MAX_JOBS = 50
 MAX_STORAGE = 2_000_000_000
 MAX_JOB_BYTES = 650_000_000
 TERMINAL = {"ready", "preview", "needs_input", "failed", "cancelled", "interrupted", "complete"}
+DEMO_BRAND_ASSETS = {"/demo-font.woff2": "website/fonts/InterVariable.woff2",
+                     "/demo-wordmark.png": "assets/brand/source/weft-wordmark.png"}
 ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.css",
           "/demo": "demo_build.html", "/demo/runs": "demo.html", "/demo.js": "demo.js", "/demo.css": "demo.css",
-          "/demo/build": "demo_build.html", "/demo_build.js": "demo_build.js"}
+          "/demo/build": "demo_build.html", "/demo_build.js": "demo_build.js",
+          "/demo_focus.js": "demo_focus.js"}
 PERCEPTION_ARTIFACTS = {"perception/" + name for name in (
     "preflight/metadata.json", "preflight/body-anchor.json", "preflight/result.json", "preflight/manifest.json",
     "preflight/body_source/human.json", "preflight/body_source/human.xml", "preflight/body_source/evidence.json",
@@ -1184,6 +1187,11 @@ class PortalServer(LabServer):
 
 class PortalHandler(LabHandler):
     @property
+    def allow_same_origin_frame(self):
+        # Only portal-mounted labs can appear inside the run viewer.
+        return getattr(self, "selected_lab", None) is not None
+
+    @property
     def lab(self):
         return getattr(self, "selected_lab", self.server.portal)
 
@@ -1206,8 +1214,10 @@ class PortalHandler(LabHandler):
             path = unquote(urlsplit(self.path).path)
             if path in PUBLIC_ASSETS and path != "/":
                 return super().do_GET()
-            if not self.authorized(public=path in ASSETS):
+            if not self.authorized(public=path in ASSETS or path in DEMO_BRAND_ASSETS):
                 return
+            if path in DEMO_BRAND_ASSETS:
+                return self.send_file(self.server.portal.project / DEMO_BRAND_ASSETS[path])
             if path in ASSETS:
                 file = Path(__file__).parent / "assets" / ASSETS[path]
                 if path in ("/", "/demo", "/demo/build", "/demo/runs"):
