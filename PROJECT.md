@@ -186,14 +186,19 @@ not an external benchmark or a guarantee for new inputs.
   evidence, and a build that depended on them would silently produce a different catalog
   from a clean clone. Generation itself remains a separate Studio service, not a hosted
   endpoint. Evidence: `.local/generated-avatars/`, `.local/hosted-live-4/`.
-- End-to-end latency on deployed hardware is **147 s**, inside the 5-minute preferred bound
-  and outside the 1-minute optimum. Measured split: 89 s learning stage (34 s of it the
-  1,500-episode trainer), roughly 50 s appearance stage, the rest upload, queue and
-  container cold start. The appearance stage re-runs pose from scratch because `prepare_lab`
-  has no parameter for precomputed evidence; removing that duplicate is the one clear
-  remaining win and is deliberately left undone rather than changing core pipeline code
-  late. In-container figures of 25-52 s are 2 vCPU of an M-series Mac and must not be quoted
-  as hosted.
+- End-to-end latency on deployed hardware is **147 s**: inside the 5-minute preferred bound,
+  and the 1-minute optimum is **not reachable for this deliverable on a 2 vCPU instance**.
+  The arithmetic, not an estimate: the learning stage alone takes 89 s, so even an
+  instantaneous appearance stage would miss 60 s. Of that 89 s only 34 s is the trainer, and
+  its success rate reaches 1.00 by episode 400 of 1,500, so trimming the budget recovers
+  about 14 s and would change the scored artifact. The remaining ~55 s is pose inference,
+  body fitting, 300 evaluation episodes and two rollouts — all of it producing artifacts the
+  product promises. Reaching 60 s therefore means dropping a capability, not removing waste.
+  Measured levers, for whoever wants to decide: the appearance stage's duplicate pose pass
+  (~30 s, needs `prepare_lab` to accept precomputed evidence, deliberately not attempted on
+  a verified path) and the trainer trim (~14 s, changes the result). The anchor-retry
+  duplicate is already removed. In-container figures of 25-52 s are 2 vCPU of an M-series
+  Mac and must not be quoted as hosted.
 - Weft ships two source anchors that refuse different clips at frame zero — one wants
   confident head, torso and limb endpoints, the other a confidence-qualified limb chain.
   The appearance stage now attempts both unchanged, the second only when the first refuses,
