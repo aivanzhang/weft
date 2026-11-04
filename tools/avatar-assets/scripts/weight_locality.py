@@ -53,3 +53,39 @@ def prune_influences(point, weights, segments, diameter):
         name = min(segments, key=lambda n: segment_distance(point, *segments[n]))
         kept = {name: 1.0}
     return kept, pruned
+
+
+def chain_distances(bones):
+    """All-pairs chain distance for authored bones ({'name','parent',...} rows)."""
+    names = [b["name"] for b in bones]
+    index = {name: i for i, name in enumerate(names)}
+    neighbors = {i: set() for i in range(len(names))}
+    for b in bones:
+        if b["parent"] is not None:
+            i, j = index[b["name"]], index[b["parent"]]
+            neighbors[i].add(j)
+            neighbors[j].add(i)
+    distances = [[len(names)] * len(names) for _ in names]
+    for start in range(len(names)):
+        distances[start][start] = 0
+        frontier = [start]
+        while frontier:
+            nxt = []
+            for node in frontier:
+                for other in neighbors[node]:
+                    if distances[start][other] > distances[start][node] + 1:
+                        distances[start][other] = distances[start][node] + 1
+                        nxt.append(other)
+            frontier = nxt
+    return distances
+
+
+def weld_edge_indices(edges, dominants, distances, limit=3):
+    """Mesh edges joining regions farther apart than `limit` chain links are fused
+    rest-pose contacts (a paw welded to a foot), not anatomy; they must split so the
+    limbs can separate in motion. Returns the offending edge indices."""
+    marked = []
+    for index, (a, b) in enumerate(edges):
+        if distances[dominants[a]][dominants[b]] > limit:
+            marked.append(index)
+    return marked

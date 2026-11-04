@@ -54,3 +54,19 @@ def test_sole_influence_always_survives_and_empty_stays_empty():
 def test_policy_is_closed_and_versioned():
     assert POLICY["profile"] == "authored-weight-locality-v1"
     assert POLICY["relative_factor"] > POLICY["distal_factor"] > 1
+
+
+def test_chain_distances_and_weld_edges():
+    from weight_locality import chain_distances, weld_edge_indices
+    bones = [{"name": "root", "parent": None}, {"name": "chest", "parent": "root"},
+             {"name": "arm", "parent": "chest"}, {"name": "hand", "parent": "arm"},
+             {"name": "thigh", "parent": "root"}, {"name": "foot", "parent": "thigh"}]
+    d = chain_distances(bones)
+    names = [b["name"] for b in bones]
+    i = {n: k for k, n in enumerate(names)}
+    assert d[i["hand"]][i["foot"]] == 5
+    assert d[i["chest"]][i["arm"]] == 1
+    # vertex 0 hand-owned, vertex 1 foot-owned, vertex 2 arm-owned
+    dominants = [i["hand"], i["foot"], i["arm"]]
+    edges = [(0, 1), (0, 2), (1, 2)]
+    assert weld_edge_indices(edges, dominants, d) == [0, 2]

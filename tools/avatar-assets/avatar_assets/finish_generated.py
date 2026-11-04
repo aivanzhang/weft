@@ -311,7 +311,7 @@ def reuse_native(folder, out, cfg):
     job = read_json(root/'job.json')
     require(job['exit_code'] == 0 and not job['failure'], 'Cannot reuse a failed native process')
     for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
-                 'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
+                 'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py', 'weight_locality.py',
                  'motion_samples.py', 'native_render_tasks.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py'):
         require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name), 'Native backend changed; rebuild required')
     if cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1':
@@ -487,7 +487,7 @@ def finish(config_path, output, reuse=None):
             if undercoat_budget is not None:
                 shutil.copyfile(ROOT/'scripts/undercoat_uv_atlas.py', out/'sources/undercoat_uv_atlas.py')
         for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
-                     'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
+                     'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py', 'weight_locality.py',
                      'motion_samples.py', 'native_render_tasks.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py'):
             shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
         shutil.copyfile(__file__, out/'sources/finish_generated.py')

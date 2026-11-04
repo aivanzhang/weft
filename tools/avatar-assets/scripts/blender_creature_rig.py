@@ -49,8 +49,25 @@ def create_rig(obj, config):
             group.add([int(index)], float(weights[index, i]), 'REPLACE')
     obj.modifiers.new('AuthoredCreatureSkin', 'ARMATURE').object = rig
     rig.data.pose_position = 'REST'
+    # Generated meshes often weld resting contacts (a paw against a foot); such an
+    # edge joins chain-distant regions and tears the moment either limb moves, so it
+    # splits like the seam between a toy's touching parts. The gate judges the result.
+    from weight_locality import chain_distances, weld_edge_indices
+    import bmesh
+    dominants = np.argmax(weights, axis=1)
+    marked = weld_edge_indices([tuple(e.vertices) for e in obj.data.edges],
+                               dominants, chain_distances(config['bones']))
+    if marked:
+        mesh = bmesh.new()
+        mesh.from_mesh(obj.data)
+        mesh.edges.ensure_lookup_table()
+        bmesh.ops.split_edges(mesh, edges=[mesh.edges[i] for i in marked])
+        mesh.to_mesh(obj.data)
+        mesh.free()
+        obj.data.update()
     proof.update(authored_not_recovered=True, design=config, height_meters=config['height_meters'],
                  input_world_bounds={'min':low.tolist(), 'max':high.tolist()},
                  source_to_authored={'translation_before_scale':(-offset).tolist(), 'uniform_scale':float(factor)},
-                 mesh_topology_uv_textures_unchanged=True)
+                 contact_weld_split_edges=len(marked),
+                 mesh_topology_uv_textures_unchanged=not marked)
     return rig, proof
