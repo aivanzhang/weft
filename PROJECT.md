@@ -36,7 +36,7 @@ playback and programmed reference controllers are different modes, not learned p
 
 | Area | Available | Not yet established |
 | --- | --- | --- |
-| Video intake | Any decodable video takes a principled route: over-length clips get an explicit bounded window, person scenes go to the exercise flow and its prompts, object scenes try color regions then AI/motion appearance intervals on a shrinking ladder, and every attempt is preserved | Fast small objects and moving-camera footage can exhaust the tracker ladder; multi-person admission needs the explicit person-region flow |
+| Video intake | Any decodable video takes a principled route: over-length clips get an explicit bounded window, person scenes go to the exercise flow and its prompts, object scenes try color regions then AI/motion appearance intervals on a shrinking ladder, and a refused exercise clip computes its own supported window (same frozen constraints) for a one-click windowed retry; every attempt is preserved | Fast small objects and moving-camera footage can exhaust the tracker ladder; multi-person admission needs the explicit person-region flow |
 | Simulation | Rolling, planar, rigid-object and articulated-body profiles; shared MuJoCo worlds | Accurate recovery of hidden depth, materials, grasp/contact and unassisted balance |
 | Interaction | Manual controls, explicit tasks, reset, recording and action replay; disclosed root assistance | Physical accuracy of changed-action predictions |
 | Learning | Bounded training, baselines and evaluation on supported profiles | Consistent improvement over simple controllers |
@@ -94,6 +94,19 @@ not an external benchmark or a guarantee for new inputs.
   through new sealed custody ceremonies that prove process exit and provider-folder
   absence without touching charges. Evidence: `.local/avatar-create-01/` through
   `-06/`, `.local/studio-release-01/`, `-02/`, `.local/avatar-adopt-01/`.
+- A fresh never-processed clip (Wikimedia Commons waiters squat, CC BY-SA 4.0) was
+  verified end to end: its windowed upload admits locally with zero API calls, builds
+  the saved-body world, and completes a recorded 246-control session with task
+  success true and zero failed gates (angular 0.046 vs 0.35, peak 0.110 vs 0.70).
+  Evidence: `.local/verify-video-01/`.
+- The manual trim-hunting that run needed is now the pipeline's own job: a refused
+  exercise preflight records a supported-window proposal computed from its saved
+  evidence under the unchanged constraints (recorded competing-review verdicts, the
+  0.25 s root-reference horizon, the 0.8 coverage floor, a 2 s defect-free settling
+  prefix) plus the encoded windowed derivative, and one explicit request runs an
+  ordinary child preflight on it. Live: the clip refused over two detector flickers
+  proposed 3.8-19.3 s itself; the child admitted on the first attempt with the
+  original refusal preserved and zero API calls. Evidence: `.local/verify-video-02/`.
 - The capstone demo journey is live-verified end to end in 14.1 seconds: the
   sots-press world, 456 continuous reference controls in one recording, a mid-take
   appearance swap from the robot to a character created through the text flow
