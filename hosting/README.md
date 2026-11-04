@@ -52,6 +52,10 @@ Keys are content digests, so these responses are immutable and cached for a year
 
 Admission is strict and sensitive near its own threshold: the same footage can be admitted at one encoding and refused at another. Verify a clip against this image, not a developer machine.
 
+A refusal carries its reason. The job classifies every failure into a closed code, the container forwards it, and the Worker pairs the pipeline's own wording with advice for that code — so a visitor is told that more than one person was detected, or that the clip opens without an anchorable pose, rather than a single generic sentence. An unrecognised code still returns the detail, and `pose_cpu` says the server is at fault and the clip is fine, because a host misconfiguration must never be reported as the visitor's mistake.
+
+Measured against 19 inputs nobody curated (7 degenerate uploads, 8 encoding variants, 4 real clips known to fail): 7 complete, 12 refused with a reason, none refused without one, no hangs. Slowest refusal 7.8 s; truncated and garbage files refuse in 0.3 s. 1080p, portrait, 90-degree-rotated, HEVC, VP9, MPEG-4 and 60 fps sources all complete with appearance available; a 240p downscale is refused because the body is below usable pixel size.
+
 Failed inputs never fall back to the sample environment. Gallery initial/repaired models are stages of one source video, not different environments.
 
 ## Limits and recovery
