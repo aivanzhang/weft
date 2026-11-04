@@ -60,8 +60,11 @@ REFUSALS = (
     ("no_person_visible", "insufficient full-body visibility"),
     ("root_reference_gap", "reference time gaps exceed"),
     ("root_reference_gap", "mobile root reference unavailable"),
+    # "body anchor", "Body tracking anchor" and "Visible-chain body anchor abstained" are
+    # all real wordings from the same gate; match the shared part, not a guessed phrase.
     ("body_anchor", "body anchor"),
-    ("body_anchor", "visible-chain body anchor"),
+    ("body_anchor", "tracking anchor"),
+    ("body_anchor", "construction pose evidence"),
     ("undecodable", "use a decodable video"),
     ("undecodable", "could not decode"),
     # A container header that claims more frames than decode: truncated or badly muxed.
@@ -195,38 +198,68 @@ def build_appearance(source, out, model, intent, *, deadline, body=None):
     from weft.shared_exercise_lab import prepare_shared_exercise_lab
     from weft.shared_world_human import construct_human_only_run
 
-    attempts, preflight, anchor = [], None, None
-    for index, profile in enumerate((LEGACY_ANCHOR_PROFILE, VISIBLE_ANCHOR_PROFILE)):
+    # Each rung is a different unchanged gate or a narrower span of the same clip, never a
+    # relaxed one: legacy anchor, visible-chain anchor, then both again over the longest span
+    # the frozen constraints accept. A defect at frame zero refuses both anchors on the full
+    # clip while leaving the rest of it perfectly usable, which is the third rung's reason.
+    rungs = [(LEGACY_ANCHOR_PROFILE, None), (VISIBLE_ANCHOR_PROFILE, None)]
+    attempts, preflight, anchor, windowed, admitted = [], None, None, None, None
+    index = -1
+    while True:
+        index += 1
+        if index >= len(rungs):
+            break
+        profile, clip = rungs[index]
         # A sealed body from an earlier attempt is reusable even though its anchor was
         # refused: the refusal is about frame zero, not about the pose evidence.
-        reuse = next((candidate for candidate in
-                      [*(out / f"preflight-{earlier}/body_source" for earlier in range(index)),
-                       body]
-                      if candidate is not None
-                      and (candidate / "manifest.json").is_file()), None)
+        # Only a body sealed from the same footage is reusable; a windowed rung poses its
+        # own span. Reuse is about the anchor differing, not the clip.
+        reuse = None if clip is not None else next(
+            (candidate for candidate in
+             [*(out / f"preflight-{earlier}/body_source" for earlier in range(index)
+                if rungs[earlier][1] is None), body]
+             if candidate is not None and (candidate / "manifest.json").is_file()), None)
         options = ({"body_source": reuse, "retain_body_source": True} if reuse is not None
                    else {"pose_model": model})
         try:
             result = prepare_exercise_perception_preflight(
-                source, out / f"preflight-{index}", anchor_profile=profile, **options,
+                clip or source, out / f"preflight-{index}", anchor_profile=profile, **options,
                 max_seconds=max(1, min(210, int(deadline - time.monotonic()))))
         except Exception as error:
+            detail = f"{type(error).__name__}: {error}"
             attempts.append({"anchor_profile": profile, "reused_body": reuse is not None,
-                             "refused": f"{type(error).__name__}: {error}"[:200]})
+                             "windowed": clip is not None, "refused": detail[:200]})
+            # Once every full-clip anchor has refused for a localized reason, add the same
+            # anchors again over the span the proposal accepts, then stop extending.
+            if (windowed is None and index + 1 >= len(rungs)
+                    and classify_refusal(detail) in LOCALIZED
+                    and time.monotonic() < deadline - 90):
+                evidence = next(
+                    (candidate for candidate in
+                     (out / f"preflight-{earlier}/body_source/evidence.json"
+                      for earlier in range(len(rungs)))
+                     if candidate.is_file()), None)
+                if evidence is not None:
+                    narrowed, windowed = propose_window(
+                        evidence, source, out / "window/source.mp4")
+                    if narrowed is not None:
+                        rungs += [(LEGACY_ANCHOR_PROFILE, narrowed),
+                                  (VISIBLE_ANCHOR_PROFILE, narrowed)]
             continue
         # local_ready is the library's admitted state; awaiting_consent is the portal's own
         # wrapper around it, which this route does not go through.
         if result.get("status") != "local_ready":
             attempts.append({"anchor_profile": profile, "reused_body": reuse is not None,
-                             "status": result.get("status")})
+                             "windowed": clip is not None, "status": result.get("status")})
             continue
-        preflight, anchor = result, profile
+        preflight, anchor, admitted = result, profile, index
         attempts.append({"anchor_profile": profile, "reused_body": reuse is not None,
-                         "status": "local_ready"})
+                         "windowed": clip is not None, "status": "local_ready"})
         break
     if preflight is None:
-        return None, {"stage": "preflight", "attempts": attempts}
-    directory = out / f"preflight-{(LEGACY_ANCHOR_PROFILE, VISIBLE_ANCHOR_PROFILE).index(anchor)}"
+        return None, {"stage": "preflight", "attempts": attempts,
+                      "supported_window": windowed}
+    directory = out / f"preflight-{admitted}"
     inventory = make_conditional_person_inventory(preflight["source_sha256"], intent)
     built = construct_human_only_run(directory / "body_source", inventory, out / "world",
                                      deadline=deadline, max_seconds=30)
@@ -235,6 +268,10 @@ def build_appearance(source, out, model, intent, *, deadline, body=None):
                                       max_seconds=max(1, min(60, int(deadline - time.monotonic()))))
     return out / "lab/run", {"stage": "ready", "inventory": inventory,
                              "anchor_profile": anchor, "attempts": attempts,
+                             # A windowed appearance covers a narrower span than the
+                             # learning rollout; the browser must not present them as one.
+                             "supported_window": windowed,
+                             "windowed": rungs[admitted][1] is not None,
                              "world_manifest_sha256": built["manifest_sha256"],
                              "lab_manifest_sha256": lab["manifest_sha256"],
                              "reference_feasibility": built.get("reference_feasibility")}
@@ -255,6 +292,8 @@ def summarize_appearance(run, receipt):
             "lengths": {name: _number(value, 5) for name, value in
                         sorted((human.get("lengths") or {}).items())},
             "anchor_profile": receipt.get("anchor_profile"),
+            "windowed": receipt.get("windowed"),
+            "supported_window": receipt.get("supported_window"),
             "world_manifest_sha256": receipt.get("world_manifest_sha256"),
             "lab_manifest_sha256": receipt.get("lab_manifest_sha256"),
             "reference_feasibility": receipt.get("reference_feasibility"),
