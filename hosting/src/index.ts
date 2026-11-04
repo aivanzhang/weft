@@ -14,6 +14,7 @@ type Job = {
   status: string;
   result: string | null;
   message: string | null;
+  lane?: string;
 };
 class Rejected extends Error {
   constructor(
@@ -54,6 +55,13 @@ export class SubmissionQueue extends DurableObject<Env> {
     ctx.storage.sql.exec(
       `CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, owner TEXT NOT NULL, ip TEXT NOT NULL, key TEXT NOT NULL, created INTEGER NOT NULL, status TEXT NOT NULL, result TEXT, message TEXT, UNIQUE(owner,key)); CREATE INDEX IF NOT EXISTS jobs_created ON jobs(created); CREATE INDEX IF NOT EXISTS jobs_owner ON jobs(owner,created);`,
     );
+    try {
+      ctx.storage.sql.exec(
+        "ALTER TABLE jobs ADD COLUMN lane TEXT NOT NULL DEFAULT 'public'",
+      );
+    } catch {
+      // Column already present; existing rows are public-lane by definition.
+    }
   }
   private rows(query: string, ...args: (string | number)[]) {
     return this.ctx.storage.sql.exec<Job>(query, ...args).toArray();
@@ -73,7 +81,7 @@ export class SubmissionQueue extends DurableObject<Env> {
       null
     );
   }
-  async reserve(owner: string, ip: string, key: string) {
+  async reserve(owner: string, ip: string, key: string, judge = false) {
     const old = this.rows(
       "SELECT * FROM jobs WHERE owner=? AND key=?",
       owner,
@@ -89,10 +97,15 @@ export class SubmissionQueue extends DurableObject<Env> {
       "SELECT * FROM jobs WHERE created>?",
       Date.now() - DAY,
     );
-    if (
-      active.length >= 3 ||
-      daily.length >= 20 ||
-      daily.filter((job) => job.owner === owner || job.ip === ip).length >= 3
+    // The judge lane shares the single generation slot but keeps its own bounded
+    // daily budget, so public traffic can never exhaust judging capacity.
+    const publicDaily = daily.filter((job) => job.lane !== "judge");
+    if (active.length >= 3) return null;
+    if (judge) {
+      if (daily.filter((job) => job.lane === "judge").length >= 60) return null;
+    } else if (
+      publicDaily.length >= 20 ||
+      publicDaily.filter((job) => job.owner === owner || job.ip === ip).length >= 3
     )
       return null;
     const job: Job = {
@@ -104,15 +117,17 @@ export class SubmissionQueue extends DurableObject<Env> {
       status: "uploading",
       result: null,
       message: null,
+      lane: judge ? "judge" : "public",
     };
     this.ctx.storage.sql.exec(
-      "INSERT INTO jobs VALUES (?,?,?,?,?,?,NULL,NULL)",
+      "INSERT INTO jobs (id,owner,ip,key,created,status,result,message,lane) VALUES (?,?,?,?,?,?,NULL,NULL,?)",
       job.id,
       owner,
       ip,
       key,
       job.created,
       job.status,
+      job.lane,
     );
     await this.schedule(Date.now() + 60_000);
     return { job, fresh: true };
@@ -348,6 +363,14 @@ async function api(request: Request, env: Env) {
   if (!enabled) throw new Rejected("Submissions are not open yet.", 503);
   if (!token) throw new Rejected("Reload this page before submitting.", 403);
   const owner = await hash(token);
+  const accessCode = request.headers.get("X-Weft-Access-Code") ?? "";
+  const judgeSecret = (env as { JUDGE_ACCESS_CODE?: string }).JUDGE_ACCESS_CODE;
+  let judge = false;
+  if (accessCode) {
+    if (!judgeSecret || (await hash(accessCode)) !== (await hash(judgeSecret)))
+      throw new Rejected("Access code not recognized.", 403);
+    judge = true;
+  }
   if (url.pathname === "/api/jobs" && request.method === "POST") {
     if (
       request.headers.get("Origin") !== env.PUBLIC_ORIGIN ||
@@ -368,7 +391,7 @@ async function api(request: Request, env: Env) {
         ":" +
         Math.floor(Date.now() / DAY),
     );
-    const reserved = await queue.reserve(owner, ip, key);
+    const reserved = await queue.reserve(owner, ip, key, judge);
     if (!reserved)
       throw new Rejected(
         "The generation queue is full. Please try again later.",

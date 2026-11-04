@@ -503,6 +503,11 @@
       }
     }
   }
+  {
+    const saved = sessionStorage.getItem("weft_access_code");
+    const field = document.getElementById("access-code");
+    if (saved && field) field.value = saved;
+  }
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (button.disabled || !file) return;
@@ -512,6 +517,8 @@
     preview.pause();
     message("Uploading your video…");
     try {
+      const accessCode = document.getElementById("access-code")?.value.trim();
+      if (accessCode) sessionStorage.setItem("weft_access_code", accessCode);
       const job = await api("jobs", {
         method: "POST",
         headers: {
@@ -519,6 +526,7 @@
           "X-Weft-CSRF": token,
           "X-Weft-Consent": "yes",
           "Idempotency-Key": crypto.randomUUID(),
+          ...(accessCode ? { "X-Weft-Access-Code": accessCode } : {}),
         },
         body: file,
         signal: AbortSignal.timeout(60000),

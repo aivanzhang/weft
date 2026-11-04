@@ -430,3 +430,6 @@
     opacity: 0.5;
   }
 }
+
+.upload-access{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--weft-muted,#596562)}
+.upload-access input{padding:9px 11px;border:1px solid var(--weft-border,#d8c9ba);border-radius:3px;background:#ffffff70;font:inherit;letter-spacing:.04em}
