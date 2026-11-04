@@ -38,6 +38,9 @@ MAX_MUSE_CALLS = 8
 # next one; without the eviction below, a reviewer's fourth run fails on a storage wall
 # the walkthrough itself built.
 MAX_RUNS_KEPT = 4
+# The portal allows 2 GB and reserves 650 MB of headroom per new job, with the avatar
+# library and this walkthrough's own bundles taking roughly 250 MB more.
+KEEP_BYTES = 800 * 1024 * 1024
 PROJECT_DIR = re.compile(r"[0-9a-f]{32}")
 # Live character generation spends credits; bound how often a demo may start one.
 MAX_GENERATION_ATTEMPTS = 2
@@ -51,6 +54,28 @@ def _attributable(clip):
     if not creator or not licence:
         return False
     return not any(str(value).lower().startswith(UNRECORDED) for value in (creator, licence))
+
+
+def _own(run_dir, project):
+    """Record a project this run created so eviction can reclaim it, failure or not."""
+    saved = run_dir / "projects.json"
+    try:
+        owned = json.loads(saved.read_text())
+    except (OSError, ValueError):
+        owned = []
+    if project not in owned:
+        owned.append(project)
+        saved.write_text(json.dumps(owned) + "\n")
+
+
+def _runs_locally(clip):
+    """A clip is offered unless the manifest says this walkthrough's path refuses it.
+
+    The hosted container and the local portal disagree on clips near the pose threshold,
+    and this page runs the local one. An absent verdict means unknown, not broken.
+    """
+    verdict = (clip.get("paths") or {}).get("local_portal")
+    return verdict is None or str(verdict).strip().lower() == "ready"
 
 # Judge-facing copy: what runs, why it matters against the rubric, and the cost it
 # removes. Estimates come from verified local runs, not aspiration.
@@ -204,7 +229,11 @@ class DemoManager:
 
     def __init__(self, root, project=None, token=None):
         # Accepts either the Portal itself or its (root, project, token) triple.
+        self.portal = None
         if project is None and token is None and hasattr(root, "token"):
+            # Kept so eviction can retire a job from the live registry rather than
+            # deleting its directory underneath the portal.
+            self.portal = root
             root, project, token = root.root, root.project, root.token
         self.root = Path(root)
         self.project = Path(project)
@@ -332,6 +361,28 @@ class DemoManager:
                 return path
         raise ValueError("No bundled sample clip is available")
 
+    def _retire(self, project):
+        """Drop a job from the live registry before its directory goes.
+
+        A job whose folder vanished reads as non-terminal forever, and four of those
+        exhaust the portal's pending-job capacity — every later run is refused.
+        Only a job this walkthrough finished is retired; an active one is left alone.
+        """
+        portal = self.portal
+        if portal is None or not hasattr(portal, "jobs"):
+            return True
+        from weft.portal import TERMINAL as TERMINAL_JOB  # imported here: portal imports this module
+        with portal.lock:
+            if project not in portal.jobs:
+                return True
+            try:
+                if portal._status(project)["status"] not in TERMINAL_JOB:
+                    return False
+            except (OSError, ValueError, KeyError):
+                pass
+            portal.jobs.pop(project, None)
+        return True
+
     def _evict(self):
         """Drop runs past the keep limit and the portal projects they own.
 
@@ -341,19 +392,44 @@ class DemoManager:
         owned = {}
         for entry in sorted(self.dir.glob("run-*/record.json")):
             try:
-                owned[entry.parent.name] = str(json.loads(entry.read_text()).get("project") or "")
+                owned.setdefault(entry.parent.name, []).append(
+                    str(json.loads(entry.read_text()).get("project") or ""))
             except (OSError, ValueError):
                 pass
-        for entry in sorted(self.dir.glob("run-*/project.txt")):
-            owned[entry.parent.name] = entry.read_text().strip()
-        kept = [row["id"] for row in self._index()][:MAX_RUNS_KEPT]
+        for entry in sorted(self.dir.glob("run-*/project.txt")):  # pre-projects.json runs
+            owned.setdefault(entry.parent.name, []).append(entry.read_text().strip())
+        for entry in sorted(self.dir.glob("run-*/projects.json")):
+            try:
+                owned.setdefault(entry.parent.name, []).extend(json.loads(entry.read_text()))
+            except (OSError, ValueError):
+                pass
+
+        def project_bytes(run_id):
+            total = 0
+            for name in owned.get(run_id, []):
+                target = self.root / name
+                if PROJECT_DIR.fullmatch(name) and target.is_dir():
+                    total += sum(f.stat().st_size for f in target.rglob("*") if f.is_file())
+            return total
+
+        # Runs vary from 30 MB to 240 MB, so a count alone cannot keep the portal under
+        # its allowance. Keep the newest runs that fit the budget, and always at least one.
+        kept, used = [], 0
+        for row in self._index()[:MAX_RUNS_KEPT]:
+            size = project_bytes(row["id"])
+            if kept and used + size > KEEP_BYTES:
+                break
+            kept.append(row["id"])
+            used += size
+
         for run_id in list(owned) + [d.name for d in self.dir.glob("run-*") if d.is_dir()]:
             if run_id in kept or (self.run or {}).get("id") == run_id:
                 continue
-            project = owned.get(run_id, "")
-            if PROJECT_DIR.fullmatch(project):
-                target = (self.root / project).resolve()
-                if target.is_dir() and target.parent == self.root.resolve():
+            for name in owned.get(run_id, []):
+                if not PROJECT_DIR.fullmatch(name):
+                    continue
+                target = (self.root / name).resolve()
+                if target.is_dir() and target.parent == self.root.resolve() and self._retire(name):
                     shutil.rmtree(target, ignore_errors=True)
             shutil.rmtree(self.dir / run_id, ignore_errors=True)
         index = [row for row in self._index() if row["id"] in kept]
@@ -373,7 +449,7 @@ class DemoManager:
             path = manifest.parent / str(clip.get("file", ""))
             if clip.get("recommended") != "showcase" or not path.is_file():
                 continue
-            if not _attributable(clip):
+            if not _attributable(clip) or not _runs_locally(clip):
                 continue
             rl = clip.get("rl") or {}
             out.append({
@@ -391,7 +467,8 @@ class DemoManager:
         except (OSError, ValueError):
             data = {}
         for clip in data.get("clips", []):
-            if clip.get("id") == clip_id and clip.get("recommended") == "showcase" and _attributable(clip):
+            if (clip.get("id") == clip_id and clip.get("recommended") == "showcase"
+                    and _attributable(clip) and _runs_locally(clip)):
                 # Resolve under the clips directory so a manifest cannot point outside it.
                 path = (base / Path(str(clip.get("file", ""))).name).resolve()
                 if path.is_file() and path.parent == base.resolve():
@@ -530,7 +607,7 @@ class DemoManager:
                            "request_id": secrets.token_hex(16),
                            "exercise_inventory": "unknown", "exercise_output": "simulation"})
         parent = self._request("POST", "/api/projects?" + query, video, timeout=300)["id"]
-        (run_dir / "project.txt").write_text(parent + "\n")
+        _own(run_dir, parent)
         self._poll(f"/api/projects/{parent}", {"needs_input", "failed", "unsupported"})
         self._update(0, detail="Tracking the body, frame by frame")
         self._request("POST", f"/api/projects/{parent}/perception/preflight")
@@ -587,7 +664,7 @@ class DemoManager:
                 if "worker is finishing" not in str(error) or attempt == 11:
                     raise
                 time.sleep(2)
-        child = child
+        _own(run_dir, child)
         state, status = self._poll(f"/api/projects/{child}",
                                    {"ready", "failed", "unsupported", "cancelled"})
         if status != "ready":
