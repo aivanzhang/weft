@@ -37,7 +37,9 @@ The exercise lane runs two stages, because neither produces what the other does:
 - **Learning.** Pose evidence and quality, the articulated body with its authored ground, the executable task, the trained joint controller with its rollout, and both evaluations. Its scene is profile `exercise-v3`.
 - **Appearance**, archived under `appearance/`. The same body rebuilt as a `shared-world-v3` scene, which is the only profile the client-side retargeter accepts, plus the pose-derived reference motion it plays back. Without this stage a visitor can generate an environment but cannot replace the character in it.
 
-The appearance stage can be refused on its own while the learning result stands; `result.json` then carries `appearance.available: false` with the stage that stopped, and `appearance/receipt.json` records the reason. Both stages are fixed Weft code; neither takes submitted parameters.
+Weft ships two source anchors, and they refuse different clips at frame zero: the legacy one wants confident head, torso and limb endpoints, the visible-chain one wants a confidence-qualified limb chain. The appearance stage attempts both, unchanged, the second only when the first refuses, and records which admitted in `appearance.anchor_profile`. Trying both moved three clips of eight from refused to complete; neither gate is relaxed to do it.
+
+The appearance stage can be refused on its own while the learning result stands; `result.json` then carries `appearance.available: false` with the stage that stopped and every anchor attempt, and `appearance/receipt.json` records the reason. Both stages are fixed Weft code; neither takes submitted parameters.
 
 ## Predefined avatars
 

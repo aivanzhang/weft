@@ -178,6 +178,13 @@ not an external benchmark or a guarantee for new inputs.
   measurement that distinguishes retargeting from stretching a rig to fit. Appearance is
   appearance: a substituted avatar never drives physics. Evidence: `.local/hosted-check-6/`,
   `.local/hosted-e2e-1/`.
+- Weft ships two source anchors that refuse different clips at frame zero — one wants
+  confident head, torso and limb endpoints, the other a confidence-qualified limb chain.
+  The appearance stage now attempts both unchanged, the second only when the first refuses,
+  and records which admitted. That moved three of eight pack clips from refused to complete
+  without relaxing either gate, taking the hosted chain from five of eight to **eight of
+  eight**: learning result, avatar-ready scene, and both predefined avatars substituted, at
+  29-53 s per clip. Evidence: `.local/hosted-sweep-4/hosted-matrix.json`.
 - The hosted request path was exercised against the real Worker, Durable Object queue and
   R2 store rather than the container alone: health, session, both pipeline caps, the avatar
   catalog with digest verification and refused traversal, job admission, container dispatch,
