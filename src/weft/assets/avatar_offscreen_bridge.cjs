@@ -29,7 +29,7 @@ function handle(message) {
     if (config) fail("Avatar bridge cannot replace its scene or asset catalog");
     if (!Number.isInteger(message.width) || !Number.isInteger(message.height)
         || message.width < 3 || message.height < 1 || message.width > 2048 || message.height > 2048) fail("Invalid avatar viewport");
-    if (!message.assets || Array.isArray(message.assets) || Object.keys(message.assets).length > 4) fail("Invalid bounded avatar catalog");
+    if (!message.assets || Array.isArray(message.assets) || Object.keys(message.assets).length > 8) fail("Invalid bounded avatar catalog");
     config = math.compileScene(message.scene); world = math.prepareWorld(config);
     width = message.width; height = message.height;
     for (const [key, value] of Object.entries(message.assets)) {

@@ -9,7 +9,7 @@ from types import MappingProxyType
 from weft.avatar_assets import load_imported_avatar
 
 
-MAX_AVATARS = 4
+MAX_AVATARS = 8
 # Eight assets at up to ~17 MiB of originals, render JSON and textures each.
 MAX_CATALOG_BYTES = 160 * 1024 * 1024
 DEFAULT_APPEARANCE = {"asset": None, "overlay": True, "show_muscles": True,

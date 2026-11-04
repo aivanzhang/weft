@@ -48,6 +48,10 @@ def test_catalog_serves_only_verified_bytes_and_no_paths(tmp_path):
         AvatarCatalog([source, source])
     with pytest.raises(ValueError, match="eight"):
         AvatarCatalog([source] * 9)
+    # Eight distinct directories must pass the count gate (uniqueness fails later,
+    # proving the ninth-item refusal above came from the count, not the message).
+    with pytest.raises(ValueError, match="unique"):
+        AvatarCatalog([source] * 8)
 
 
 @pytest.mark.parametrize("change", [

@@ -66,7 +66,7 @@ class PortalAvatarManager:
             read_package_file(directory, 'manifest.json', max_bytes=128*1024, expected_sha256=row['manifest_sha256'])
             directories.append(directory)
         if sum(row['kind'] == 'custom' for row in entries) > MAX_CUSTOM or sum(row['kind'] == 'builtin' for row in entries) not in (0, 2):
-            raise ValueError('Avatar registry count differs from two builtins and two custom slots')
+            raise ValueError('Avatar registry count differs from two builtins and six custom slots')
         catalog = AvatarCatalog(directories)
         if [row['key'] for row in entries] != list(catalog.packages):
             raise ValueError('Avatar registry identity differs from its imported source')
@@ -122,7 +122,7 @@ class PortalAvatarManager:
             if raw is None and any(row['kind'] == 'builtin' for row in self._entries):
                 return 0
             if raw is not None and sum(row['kind'] == 'custom' for row in self._entries) >= MAX_CUSTOM:
-                raise ValueError('This portal already retains its two custom avatar slots')
+                raise ValueError('This portal already retains its six custom avatar slots')
             return RESERVE_PER_ASSET * (2 if raw is None else 1)
 
     def submit(self, raw=None):
@@ -133,7 +133,7 @@ class PortalAvatarManager:
             if raw is None and any(row['kind'] == 'builtin' for row in self._entries):
                 return self.status()
             if raw is not None and sum(row['kind'] == 'custom' for row in self._entries) >= MAX_CUSTOM:
-                raise ValueError('This portal already retains its two custom avatar slots')
+                raise ValueError('This portal already retains its six custom avatar slots')
             operation = uuid4().hex
             self._state = {'status': 'running', 'operation': 'builtins' if raw is None else 'import',
                            'operation_id': operation, 'error': None, 'reserved_bytes': RESERVE_PER_ASSET * (2 if raw is None else 1)}

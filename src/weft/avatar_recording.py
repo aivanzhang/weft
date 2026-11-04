@@ -9,7 +9,7 @@ import time
 
 from weft.avatar_assets import _read, load_avatar_package
 from weft.avatar_gltf import safe_relative
-from weft.avatar_lab import DEFAULT_APPEARANCE, validate_appearance
+from weft.avatar_lab import DEFAULT_APPEARANCE, MAX_AVATARS, validate_appearance
 from weft.io import canonical_hash, digest, local_time
 from weft.recording import Recorder, _atomic_json, _encoded
 
@@ -137,7 +137,7 @@ def load_appearance(root, recording):
             or metadata.get("appearance_events_sha256") != _sha(change_raw)):
         raise ValueError("Appearance sidecar is not bound to this closed physical journal")
     assets = json.loads(_read(root, "appearance-assets.json", 256 * 1024))
-    if assets.get("profile") != "weft-recorded-avatar-assets-v1" or len(assets.get("assets", {})) > 4:
+    if assets.get("profile") != "weft-recorded-avatar-assets-v1" or len(assets.get("assets", {})) > MAX_AVATARS:
         raise ValueError("Invalid recorded avatar asset receipt")
     events = recording["events"]
     changes, previous = [], -1
@@ -181,7 +181,7 @@ def _saved_catalog(root, assets, deadline):
     import re
     from weft.avatar_lab import MAX_CATALOG_BYTES, VIEWER_FILES
 
-    if (not isinstance(assets.get("assets"), dict) or not 1 <= len(assets["assets"]) <= 4
+    if (not isinstance(assets.get("assets"), dict) or not 1 <= len(assets["assets"]) <= MAX_AVATARS
             or not isinstance(assets.get("files"), dict) or len(assets["files"]) > 200):
         raise ValueError("Recorded avatar catalog exceeds its bounds")
     packages, expected, total = {}, {}, 0

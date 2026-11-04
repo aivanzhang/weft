@@ -143,13 +143,13 @@ def test_builtin_manager_preparation_is_idempotent_and_bounded(tmp_path):
     finally:manager.close()
 
 
-def test_two_custom_limit_refuses_before_new_operation(tmp_path):
+def test_six_custom_limit_refuses_before_new_operation(tmp_path):
     manager=PortalAvatarManager(tmp_path/'library',Path.cwd());wait(manager)
     try:
-        for i in range(2):
+        for i in range(6):
             source=tmp_path/str(i);source.mkdir();manager.submit(upload(source,'custom-'+str(i)));assert wait(manager)['status']=='ready'
         count=len(list((tmp_path/'library/operations').iterdir()))
-        with pytest.raises(ValueError,match='two custom'):manager.reserve_for(b'new')
-        with pytest.raises(ValueError,match='two custom'):manager.submit(b'new')
+        with pytest.raises(ValueError,match='six custom'):manager.reserve_for(b'new')
+        with pytest.raises(ValueError,match='six custom'):manager.submit(b'new')
         assert len(list((tmp_path/'library/operations').iterdir()))==count
     finally:manager.close()
