@@ -96,6 +96,47 @@ def bake_vertex_colors(uv,colors,image,sampler,*,deadline):
     return mapped.reshape(-1,2),_png(Image.fromarray(atlas)),{'width':cols*tile,'height':rows*tile,'tile_pixels':16,'method':'linear_vertex_color_times_bilinear_basecolor_to_srgb_triangle_atlas'}
 
 
+# A delivered avatar is driven by ten mapped body roles, so an influence from a bone far
+# from the vertex drags geometry across the body the moment that limb moves. Generated
+# sources routinely carry such blends; authored ones stay well inside this envelope.
+WEIGHT_LOCALITY={'profile':'delivery-weight-locality-v1','relative_factor':2.5,'floor_fraction':0.12}
+
+
+def _bind_origins(matrices):
+    """Joint origins in mesh space from inverse bind matrices (glTF stores column-major)."""
+    origins=np.empty((len(matrices),3))
+    for index,flat in enumerate(matrices):
+        origins[index]=np.linalg.inv(np.asarray(flat,dtype=float).reshape(4,4).T)[:3,3]
+    return origins
+
+
+def _bind_segments(nodes,joint_nodes,origins):
+    """Bone segments: each joint to the mean of its skinned children, leaves stay points."""
+    position={node:slot for slot,node in enumerate(joint_nodes)}
+    tails=origins.copy()
+    for node_index,node in enumerate(nodes):
+        slot=position.get(node_index)
+        if slot is None:continue
+        children=[position[child] for child in node.get('children',[]) if child in position]
+        if children:tails[slot]=origins[children].mean(axis=0)
+    return origins,tails
+
+
+def _localize_weights(positions,joints,weights,heads,tails,diameter,policy=WEIGHT_LOCALITY):
+    """Drop influences whose bone segment is far relative to the vertex's nearest influence."""
+    head=heads[joints];tail=tails[joints];point=positions[:,None,:]
+    direction=tail-head;length2=(direction*direction).sum(axis=2);offset=point-head
+    fraction=np.clip(np.where(length2>1e-12,(offset*direction).sum(axis=2)/np.maximum(length2,1e-12),0.),0.,1.)
+    distance=np.linalg.norm(point-(head+direction*fraction[...,None]),axis=2)
+    active=weights>1e-6;masked=np.where(active,distance,np.inf)
+    nearest=masked.min(axis=1)
+    keep=active&(masked<=np.maximum(policy['relative_factor']*nearest,diameter*policy['floor_fraction'])[:,None])
+    # The closest influence always survives, so no vertex is ever left unweighted.
+    keep[np.arange(len(keep)),masked.argmin(axis=1)]=True
+    kept=np.where(keep,weights,0.)
+    return kept/np.maximum(kept.sum(axis=1,keepdims=True),1e-12),int((keep!=active).any(axis=1).sum())
+
+
 def pack_delivery(native_model,settings,output,*,deadline):
     settings=validate_settings(settings);glb=_GLB(native_model);source=glb.doc
     require(len(source.get('skins',[]))==1 and len(source.get('nodes',[]))<=127,'One bounded skin and room for containing root required')
@@ -112,9 +153,22 @@ def pack_delivery(native_model,settings,output,*,deadline):
         value=np.asarray(value,dtype={5126:'<f4',5123:'<u2',5125:'<u4'}[component]);row={'bufferView':append(value.tobytes()),'componentType':component,'count':len(value),'type':kind}
         if kind=='VEC3':row.update(min=value.min(axis=0).tolist(),max=value.max(axis=0).tolist())
         doc['accessors'].append(row);return len(doc['accessors'])-1
+    heads=tails=None
     for skin in doc['skins']:
         require(len(skin['joints'])<=64 and 'inverseBindMatrices' in skin,'Original complete bind matrices required')
-        skin['inverseBindMatrices']=accessor(glb.accessor(skin['inverseBindMatrices'],'MAT4',{5126}),'MAT4',5126)
+        matrices=glb.accessor(skin['inverseBindMatrices'],'MAT4',{5126})
+        if heads is None:
+            heads,tails=_bind_segments(source['nodes'],skin['joints'],_bind_origins(np.asarray(matrices).reshape(-1,16)))
+        skin['inverseBindMatrices']=accessor(matrices,'MAT4',5126)
+    # One model-wide extent keeps the minimum influence tube consistent across primitives.
+    low=high=None
+    for mesh in source['meshes']:
+        for primitive in mesh['primitives']:
+            sample=np.asarray(glb.accessor(primitive['attributes']['POSITION'],'VEC3',{5126}))
+            low=sample.min(axis=0) if low is None else np.minimum(low,sample.min(axis=0))
+            high=sample.max(axis=0) if high is None else np.maximum(high,sample.max(axis=0))
+    diameter=float(np.max(high-low)) if low is not None else 1.
+    localized_vertices=0
     triangles_total=0
     for mesh in source['meshes']:
         packed={'name':mesh.get('name','mesh'),'primitives':[]}
@@ -129,6 +183,9 @@ def pack_delivery(native_model,settings,output,*,deadline):
             normals=np.asarray(glb.accessor(attrs['NORMAL'],'VEC3',{5126}));length=np.linalg.norm(normals,axis=1);require(np.all(length>1e-8),'Nonzero normals required');normals=normals/length[:,None]
             joints=np.asarray(glb.accessor(attrs['JOINTS_0'],'VEC4',{5121,5123}));weights=np.asarray(glb.accessor(attrs['WEIGHTS_0'],'VEC4',{5126,5121,5123}))
             require(np.all(weights>=0) and np.allclose(weights.sum(axis=1),1,atol=1e-4),'Original normalized four-influence skin required')
+            if heads is not None:
+                weights,localized=_localize_weights(positions,joints,weights,heads,tails,diameter)
+                localized_vertices+=localized
             colors=None
             if 'COLOR_0' in attrs:
                 # The triangle atlas needs unique per-corner UV islands, so this path
@@ -156,7 +213,7 @@ def pack_delivery(native_model,settings,output,*,deadline):
     mapping={k:settings[k] for k in ('asset_id','display_name','rights','provenance')}
     mapping['retargeting']={'profile':'weft-avatar-retarget-v2','root_node':root,'scale':settings['scale'],'orientation_xyzw':settings['orientation_xyzw'],'bindings':[{'node':roles[role],'body':role} for role in sorted(roles)]}
     mapping['provenance']={**mapping['provenance'],'delivery_profile':PROFILE,'native_model_sha256':_pin(Path(native_model)),'simplifications':['Explicit connected-mesh decimation and whole-card fur thinning; surviving/interpolated skin weights retained.','Vertex color/basecolor atlas is bounded resampling, not exact original pixels.','Unsupported PBR channels removed; diffuse material prior.','Original clips are retained in the source, not copied or played in the RL delivery.'],'authored_visual_scale':settings['scale'],'retarget_scope':'Appearance only; no physics/anatomical changes.'}
-    return mapping,{'profile':PROFILE,'vertices':total,'triangles':triangles_total,'joints':len(doc['skins'][0]['joints']),'nodes':len(doc['nodes']),'primitives':report,'output_sha256':sha256(result).hexdigest(),'animations_copied':False,'consumer_validation':'pending_independent_Weft_import'}
+    return mapping,{'profile':PROFILE,'vertices':total,'triangles':triangles_total,'joints':len(doc['skins'][0]['joints']),'nodes':len(doc['nodes']),'primitives':report,'weight_locality':{**WEIGHT_LOCALITY,'localized_vertices':localized_vertices,'model_extent':diameter},'output_sha256':sha256(result).hexdigest(),'animations_copied':False,'consumer_validation':'pending_independent_Weft_import'}
 
 
 def prepare_weft_delivery(source,settings_path,out,*,expected_source_sha256,triangles=6000,timeout=120):
