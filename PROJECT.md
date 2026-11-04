@@ -201,8 +201,15 @@ not an external benchmark or a guarantee for new inputs.
   evidence, and a build that depended on them would silently produce a different catalog
   from a clean clone. Generation itself remains a separate Studio service, not a hosted
   endpoint. Evidence: `.local/generated-avatars/`, `.local/hosted-live-4/`.
-- End-to-end latency on deployed hardware is **147 s**: inside the 5-minute preferred bound,
-  and the 1-minute optimum is **not reachable for this deliverable on a 2 vCPU instance**.
+- The two stages now run concurrently, which is where the real latency was. They share only
+  the source video, so sequencing them paid the sum of two independent costs; the lab is
+  already its own process and the appearance stage is dominated by pose and MuJoCo inside
+  released-GIL native code, so a thread genuinely overlaps. **Production: 147 s to 110.7 s on
+  the same clip with byte-identical results.** In-container 31-32 s to 22.9 s. An earlier note
+  here concluded no structural win remained; that was wrong, and it was wrong because it
+  reasoned about the stages' cost without asking whether they had to be ordered at all.
+- End-to-end latency on deployed hardware is **110.7 s** on the reference clip: inside the
+  5-minute preferred bound, and the 1-minute optimum is still not reached.
   The arithmetic, not an estimate: the learning stage alone takes 89 s, so even an
   instantaneous appearance stage would miss 60 s. Of that 89 s only 34 s is the trainer, and
   its success rate reaches 1.00 by episode 400 of 1,500, so trimming the budget recovers
