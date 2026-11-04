@@ -41,6 +41,16 @@ MAX_RUNS_KEPT = 4
 PROJECT_DIR = re.compile(r"[0-9a-f]{32}")
 # Live character generation spends credits; bound how often a demo may start one.
 MAX_GENERATION_ATTEMPTS = 2
+# A clip without a recorded creator and licence cannot be offered to a reviewer, however
+# well it runs. Manifests state missing provenance in words rather than omitting it.
+UNRECORDED = ("unverified", "unknown", "not recorded", "none", "n/a", "-")
+
+
+def _attributable(clip):
+    creator, licence = str(clip.get("creator", "")).strip(), str(clip.get("licence", "")).strip()
+    if not creator or not licence:
+        return False
+    return not any(str(value).lower().startswith(UNRECORDED) for value in (creator, licence))
 
 # Judge-facing copy: what runs, why it matters against the rubric, and the cost it
 # removes. Estimates come from verified local runs, not aspiration.
@@ -363,6 +373,8 @@ class DemoManager:
             path = manifest.parent / str(clip.get("file", ""))
             if clip.get("recommended") != "showcase" or not path.is_file():
                 continue
+            if not _attributable(clip):
+                continue
             rl = clip.get("rl") or {}
             out.append({
                 "id": str(clip.get("id", ""))[:64], "title": str(clip.get("title", ""))[:80],
@@ -379,7 +391,7 @@ class DemoManager:
         except (OSError, ValueError):
             data = {}
         for clip in data.get("clips", []):
-            if clip.get("id") == clip_id and clip.get("recommended") == "showcase":
+            if clip.get("id") == clip_id and clip.get("recommended") == "showcase" and _attributable(clip):
                 # Resolve under the clips directory so a manifest cannot point outside it.
                 path = (base / Path(str(clip.get("file", ""))).name).resolve()
                 if path.is_file() and path.parent == base.resolve():
