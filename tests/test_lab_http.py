@@ -315,3 +315,36 @@ def test_cancelled_worker_watcher_does_not_overwrite_cancellation(tmp_path):
         assert lab.worker_log.closed
     finally:
         lab.close()
+
+
+def test_cancelled_video_stream_releases_request_and_preserves_range_reads(server, monkeypatch):
+    import socket
+    import struct
+
+    video = server.lab.root / 'run' / 'large.mp4'
+    with video.open('wb') as stream:
+        stream.truncate(8 * 1024 * 1024)
+    finished = threading.Event()
+    failures = []
+    process = server.process_request_thread
+
+    def track(request_socket, address):
+        try:
+            process(request_socket, address)
+        finally:
+            finished.set()
+
+    monkeypatch.setattr(server, 'process_request_thread', track)
+    monkeypatch.setattr(server, 'handle_error', lambda *args: failures.append('request failed'))
+    with socket.create_connection(('127.0.0.1', server.server_port), timeout=3) as connection:
+        connection.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 4096)
+        connection.sendall((f'GET /files/run/large.mp4 HTTP/1.1\r\nHost: 127.0.0.1:{server.server_port}\r\n'
+                            f'Authorization: Bearer {server.lab.token}\r\n\r\n').encode())
+        assert connection.recv(4096).startswith(b'HTTP/1.0 200 ')
+        # Reset during transfer, as a video element does when replacing its source.
+        connection.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack('ii', 1, 0))
+    assert finished.wait(3), 'cancelled download retained its request slot'
+    assert failures == []
+    code, headers, body = request(server, '/files/run/large.mp4', headers={'Range': 'bytes=3-7'})
+    assert code == 206 and body == b'\0' * 5
+    assert headers['Content-Range'] == f'bytes 3-7/{8 * 1024 * 1024}'

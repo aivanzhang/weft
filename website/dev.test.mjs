@@ -64,7 +64,7 @@ test("local landing keeps uploads disabled and the sandbox enforces API authenti
 });
 
 test("demo pages, assets and labs stay on the landing origin and retain query strings", async () => {
-  for (const path of ["/demo?access_code=example", "/demo/build", "/demo/runs", "/demo.css", "/demo_focus.js", `/labs/${"a".repeat(32)}/lab.js`]) {
+  for (const path of ["/demo?access_code=example", "/demo/build", "/demo/runs", "/demo/studio/curated-example", "/demo/studio/run-deadbeef/", "/demo.css", "/demo_focus.js", `/labs/${"a".repeat(32)}/lab.js`]) {
     const response = await fetch(base + path, { redirect: "manual" });
     assert.equal(response.status, 200, path);
     assert.equal(response.headers.get("location"), null);

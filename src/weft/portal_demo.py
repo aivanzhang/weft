@@ -160,34 +160,55 @@ STEPS = (
 
 GALLERY_SEEDS = (
     {
-        "id": "waiters-squat-panda",
-        "title": "Overhead squat → playable world",
-        "caption": "A licensed clip the pipeline had never seen, taken end to end in about fifteen"
-                   " seconds: admitted locally, simulated, scored against frozen gates, recorded.",
-        "metrics": "246 control steps · every gate passed · 0 API calls",
+        "id": "rolling-motion", "category": "Object motion",
+        "title": "Model how a ball moves",
+        "caption": "A ball rolling across a table becomes a model of position and speed."
+                   " Researchers can use that environment to test pushes and braking.",
+        "input_label": "Recorded ball", "result_label": "Motion model",
+        "input_note": "The recorded pass, slowed to quarter speed for inspection.",
+        "result_note": "The predicted movement, shown at the same playback speed.",
+        "comparison_note": "The same measured pass, shown at quarter speed on both sides.",
+        "scope": "One-dimensional motion model, not recovered 3D geometry. Push and brake controls are authored extensions.",
+        "source_video": "assets/demo/previews/rolling-source.mp4",
+        "video": "assets/demo/previews/rolling-result.mp4",
+        "source_credit": "Ecole Science · CC0 · excerpt shown at quarter speed",
+        "source_page": "https://hubbs.schule/mediathek/rollender-ball",
+        "metrics": "Reconstructed motion from the existing verified rolling-model artifact",
         "source": "verified run",
-        "video": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/"
-                 "lab/sessions/session-9f8a60b20993/avatar-video.mp4",
     },
     {
-        "id": "waiters-squat-created",
-        "title": "Same physics, generated character",
-        "caption": "The identical recording re-skinned with a character built through the"
-                   " text-to-avatar flow. The simulation state is unchanged.",
-        "metrics": "246 control steps · swap at step 120 · physics unchanged",
+        "id": "waiters-squat-panda", "category": "Body control",
+        "title": "Test a movement controller",
+        "caption": "The robot stands in for the person in the video. Its joints follow the squat,"
+                   " giving researchers a body on which to test controllers and new actions.",
+        "input_label": "Human movement", "result_label": "Controlled body",
+        "input_note": "The person supplies the reference movement.",
+        "result_note": "The robot makes the simulated joints visible; it is not a physical robot.",
+        "comparison_note": "Recorded motion driven by an assisted reference controller. Playback is independent.",
+        "scope": "Assisted reference control, not learned robot behavior or validated biomechanics.",
+        "source_video": "assets/demo/previews/movement-source.mp4",
+        "video": "assets/demo/previews/controller-result.mp4",
+        "source_credit": "Taco Fleur / Cavemantraining · CC BY-SA 4.0 · trimmed, silent excerpt",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Double_Overhead_Kettlebell_Waiters_Squat.webm",
+        "metrics": "246 control steps · every recorded task gate passed",
         "source": "verified run",
-        "video": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/"
-                 "lab/sessions/session-1de315688ae1/avatar-video.mp4",
     },
     {
-        "id": "sots-press-swap",
-        "title": "Mid-take character swap",
-        "caption": "456 continuous control steps in one unbroken recording, with the character"
-                   " swapped at step 300 — the agent never notices.",
-        "metrics": "456 control steps · swap at step 300 · every gate passed",
+        "id": "waiters-squat-created", "category": "Character transfer",
+        "title": "Keep the motion. Change the character.",
+        "caption": "A generated panda carries the same recorded body movement."
+                   " Appearance changes without changing the simulation’s physics or controller.",
+        "input_label": "Human movement", "result_label": "Generated character",
+        "input_note": "The original movement remains the reference.",
+        "result_note": "The panda is a visual character driven by the same simulated body.",
+        "comparison_note": "Excerpt after the character swap, with a single front-facing camera. Playback is independent.",
+        "scope": "Appearance transfer on recorded assisted motion, not a new physics result or learned panda behavior.",
+        "source_video": "assets/demo/previews/character-source.mp4",
+        "video": "assets/demo/previews/character-result.mp4",
+        "source_credit": "Taco Fleur / Cavemantraining · CC BY-SA 4.0 · trimmed, silent excerpt",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Double_Overhead_Kettlebell_Waiters_Squat.webm",
+        "metrics": "Character changed at control step 120 · recorded physics unchanged",
         "source": "verified run",
-        "video": ".local/portal-unfamiliar-source-acceptance-02/portal/"
-                 "776f9c6965794a21947da36e8e871d2d/lab/sessions/session-4b80a50a9c9f/avatar-video.mp4",
     },
 )
 
@@ -1042,8 +1063,25 @@ class DemoManager:
             if path.is_file() and not path.is_symlink():
                 items.append({key: seed[key] for key in ("id", "title", "caption", "metrics")} | {
                     "kind": "verified", "readonly": True,
-                    "video_url": f"/api/demo/showcase/{seed['id']}/video"})
+                    "video_url": f"/api/demo/showcase/{seed['id']}/video"} | self._source_preview(seed))
         return {"items": items, "home_url": self.home_url()}
+
+    def _source_preview(self, seed):
+        path = self.project / seed.get("source_video", "")
+        if not path.is_file() or path.is_symlink() or not path.resolve().is_relative_to(self.project.resolve()):
+            return {}
+        return {"source_video_url": f"/api/demo/showcase/{seed['id']}/source",
+                "source_credit": seed.get("source_credit", ""), "source_page": seed.get("source_page", ""),
+                **{key: seed[key] for key in ("category", "input_label", "result_label", "input_note",
+                   "result_note", "scope", "comparison_note") if key in seed}}
+
+    def showcase_source(self, identity):
+        # Original footage is public only for the same explicitly curated examples.
+        for seed in GALLERY_SEEDS:
+            if seed["id"] == identity and self._source_preview(seed):
+                self.showcase_video(identity)
+                return self.project / seed["source_video"]
+        raise ValueError("That source video is not available")
 
     def home_url(self):
         try:
@@ -1072,7 +1110,7 @@ class DemoManager:
             if (self.project / seed["video"]).is_file():
                 demos.append({"id": seed["id"], "title": seed["title"], "caption": seed["caption"],
                               "metrics": seed["metrics"], "source": seed["source"], "kind": "verified",
-                              "video_url": f"/api/demo/gallery/{seed['id']}/video"})
+                              "video_url": f"/api/demo/gallery/{seed['id']}/video"} | self._source_preview(seed))
         return demos
 
     def gallery_video(self, identity):

@@ -34,15 +34,21 @@ playback and programmed reference controllers are different modes, not learned p
 
 ## Capabilities and limitations
 
-The local demo uses a single-run viewer: live world, recording and results are
-separate views, with hidden media released. The landing server keeps `/demo`,
+The local demo uses a single-run studio: original footage and the recorded
+simulation appear side by side, with live controls and results in separate views.
+Playback is independent where timelines differ; hidden media is released.
+The landing server keeps `/demo`,
 its assets, lab views and authenticated API calls on port 3000, forwarding only
 sandbox routes to its loopback backend with Host/Origin checks and token
 authentication intact.
 The landing page links to the walkthrough through matching icon buttons that
 reveal "Build your world" on hover or keyboard focus.
-An icon-only table of contents links to all five main sections in reading order,
-with native anchor navigation and keyboard-accessible dismissal.
+Clicking the Weft wordmark opens minimal contents links to all five main sections
+in reading order, with native navigation and keyboard-accessible dismissal.
+The headline reveals with temporary word-specific icons and short explanations
+on hover, keyboard focus or tap.
+The demo header’s Build control transforms into an inline code field and unlock action;
+once authenticated, it leads directly to the builder.
 Its example viewer defaults to video comparison, with compact version and
 interaction icon toggles; only comparison shows the timeline.
 The landing page also explains the research goals, model roles and intended
@@ -51,13 +57,24 @@ Active runs have a local tenth-second elapsed clock between status polls; saved
 results open directly without replaying processing steps or progress.
 The demo opens on curated finished recordings without requiring access. Only
 explicit showcase examples are public; visitor runs and live controls stay private.
-The wordmark returns home; the top-right Access button opens a popover for uploads
-and live controls. Finished worlds are browsed inline on `/demo`. The gallery distinguishes loading, empty and
+The wordmark returns home. Finished examples are browsed inline on `/demo` with
+swipe, arrow and keyboard navigation. Open studio navigates to
+`/demo/studio/STUDIO_ID`, a reloadable page for that specific result with a link
+back to the examples. Public examples stay public; saved private runs require access.
+Only the explicitly curated source clips are public, with attribution retained.
+The curated set distinguishes rolling-object motion, assisted body control and
+generated-character appearance transfer. Each pairs source footage with a single
+result view and explains the experiment; saved personal runs follow these examples.
+Presentation excerpts preserve the recorded evidence, with cropping and playback
+speed documented in the preview manifest.
+The gallery distinguishes loading, empty and
 unavailable states, with bounded requests and a retry that never starts a run.
 `npm run demo` manages both local processes in one terminal and stops both on
 Ctrl+C without deleting saved runs or changing spending allowances.
 Startup checks both ports and existing collection ownership before launching;
 conflicts leave the running services and saved state untouched.
+Cancelled media downloads stop at the disconnected socket without retrying an
+error response; subsequent video range requests remain available.
 The walkthrough accepts a demo code to establish its local API session; an
 optional `access_code` URL parameter only prefills the field. Ctrl+C waits for
 sandbox cleanup without a timed hard kill, including after repeated presses.

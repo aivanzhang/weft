@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weft · Finished worlds</title>
+<title>Weft · Video to simulation</title>
 <link rel="icon" href="/weft-logo.png">
 <link rel="stylesheet" href="/brand.css">
 <link rel="stylesheet" href="/demo.css">
@@ -13,53 +13,214 @@
 <body>
 
 <header class="site-head">
-  <a class="brand" id="home-link" href="http://127.0.0.1:3000/" aria-label="Weft home">
-    <svg viewBox="45 680 1165 455" width="98" height="38" aria-hidden="true" focusable="false"><image href="/demo-wordmark.png" width="1254" height="1254"/></svg>
+  <a class="brand wordmark" id="home-link" href="http://127.0.0.1:3000/" aria-label="Weft home">
+<svg
+            class="wordmark-mascot"
+            viewBox="40 65 560 530"
+            width="44"
+            height="44"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <g
+              id="header-mascot"
+              stroke="#214F50"
+              stroke-width="18"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <g id="header-foot-left">
+                <path
+                  d="M174 518 C171 550 184 571 210 571 C234 571 253 554 259 526 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-foot-right">
+                <path
+                  d="M354 526 C357 557 376 575 402 571 C425 569 441 552 443 525 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-arm-left">
+                <path
+                  d="M110 392 C91 400 81 409 72 424 C60 443 68 461 85 466 C100 470 110 461 117 452 L143 423 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-arm-right">
+                <path
+                  d="M530 399 C548 406 561 416 569 430 C579 447 575 463 560 468 C544 473 535 463 530 455 L503 422 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-body">
+                <path
+                  d="M122 222 C154 204 430 213 501 237 C530 246 536 280 532 322 L532 442 C533 490 531 520 491 530 C433 543 222 540 163 534 C121 529 111 508 108 462 L106 314 C100 268 100 241 122 222 Z"
+                  fill="#F5EADC"
+                  stroke="none"
+                />
+                <path
+                  d="M108 392 L106 314 C100 268 100 241 122 222 C154 204 430 213 501 237 C530 246 536 280 532 322 L532 399"
+                  fill="none"
+                />
+                <path
+                  d="M532 455 C533 490 531 520 491 530 C433 543 222 540 163 534 C121 529 111 508 108 462 L108 451"
+                  fill="none"
+                />
+              </g>
+              <g id="header-weave-rear">
+                <path
+                  d="M402 141 C405 119 425 110 448 114 C475 117 495 132 493 153 L471 171 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M478 164 C527 153 571 173 575 214 C579 250 565 298 548 407 L476 386 L473 244 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M487 164 C531 157 573 178 575 214 C578 238 575 254 566 263 L486 235 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M474 239 C530 244 567 265 569 292 C572 313 562 327 550 334 C533 322 504 315 477 311 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M476 311 C498 315 533 320 542 332 L539 403 L475 388 Z"
+                  fill="#C7795D"
+                />
+              </g>
+              <g id="header-weave-front">
+                <path
+                  d="M126 204 C114 160 127 130 161 116 C187 106 226 101 237 108 C251 116 255 132 251 152 L244 204 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M225 129 C234 121 244 121 260 125 L254 204 L211 203 C206 179 212 145 225 129 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M113 207 C156 198 204 198 251 205 L265 275 C218 267 165 263 129 277 C114 281 107 287 103 290 C87 275 86 247 94 226 C98 216 104 210 113 207 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M276 108 C295 98 335 99 354 105 C368 111 375 122 373 136 C356 147 356 179 359 210 L390 217 C396 240 395 270 386 284 C371 290 311 280 272 272 C260 263 251 218 251 185 C251 147 257 120 276 108 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M363 144 C407 147 449 155 482 166 C495 180 498 207 487 223 C451 213 403 207 359 204 C352 187 352 158 363 144 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M391 217 C414 220 450 224 466 232 C473 271 470 328 470 389"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-mend-stitch">
+                <rect
+                  x="449"
+                  y="339"
+                  width="59"
+                  height="23"
+                  rx="11.5"
+                  fill="#C7795D"
+                  stroke-width="7"
+                  transform="rotate(10 478.5 350.5)"
+                />
+              </g>
+              <g id="header-cheeks" fill="#C7795D" stroke="none">
+                <ellipse cx="183" cy="441" rx="20" ry="12" />
+                <ellipse cx="433" cy="451" rx="20" ry="12" />
+              </g>
+              <g id="header-eyes-open" stroke="none">
+                <g id="header-eye-left">
+                  <ellipse
+                    cx="218"
+                    cy="397"
+                    rx="27"
+                    ry="35"
+                    fill="#214F50"
+                    transform="rotate(6 218 397)"
+                  />
+                  <circle cx="220" cy="383" r="9" fill="#F5EADC" />
+                </g>
+                <g id="header-eye-right">
+                  <ellipse
+                    cx="407"
+                    cy="408"
+                    rx="27"
+                    ry="35"
+                    fill="#214F50"
+                    transform="rotate(6 407 408)"
+                  />
+                  <circle cx="409" cy="394" r="9" fill="#F5EADC" />
+                </g>
+              </g>
+              <g
+                id="header-eyes-closed"
+                opacity="0"
+                fill="none"
+                stroke-width="13"
+              >
+                <path d="M196 401 Q218 379 240 403" />
+                <path d="M385 412 Q407 390 429 414" />
+              </g>
+              <g id="header-mouth" fill="none" stroke-width="18">
+                <path d="M281 432 C291 459 327 460 338 434" />
+              </g>
+            </g>
+          </svg>
+          <svg
+            class="wordmark-lettering"
+            viewBox="45 680 1165 455"
+            width="70"
+            height="28"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <image
+              href="/demo-wordmark.png"
+              width="1254"
+              height="1254"
+            />
+          </svg>
   </a>
-  <details class="access-menu" id="access-menu">
-    <summary class="access-trigger" aria-label="Access" title="Access">
-      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4"/></svg>
-      <span>Access</span>
-    </summary>
-    <div class="access-popover">
-      <section id="gate-panel">
-        <p class="eyebrow">YOUR NEXT EXPERIMENT</p>
-        <h2>Start with your video.</h2>
-        <p class="hint">Use your access code to build a world and try your own ideas.</p>
-        <form id="gate-form" class="gate-form">
-          <label class="access-code-label" for="gate-code">Access code</label>
-          <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64" placeholder="Your access code" required>
-          <button type="submit" id="gate-submit" class="primary small">Unlock<span aria-hidden="true">→</span></button>
-          <span id="gate-error" class="gate-error" role="alert"></span>
-        </form>
-      </section>
-      <div id="access-connected" hidden>
-        <p class="eyebrow">YOU’RE READY</p>
-        <h2>Try something of your own.</h2>
-        <p class="hint">Upload a video to start your next experiment.</p>
-        <button id="show-builder" type="button" class="primary small">Build a world<span aria-hidden="true">→</span></button>
-      </div>
+  <div class="build-access" id="access-menu" data-expanded="false">
+    <button class="build-trigger" id="show-builder" type="button" aria-expanded="false" aria-controls="gate-panel">
+      <svg class="build-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>
+      <span>Build</span>
+    </button>
+    <div class="build-code-reveal" id="gate-panel" inert>
+      <form id="gate-form" class="gate-form">
+        <label class="sr-only" for="gate-code">Access code</label>
+        <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64" placeholder="Access code" aria-describedby="gate-error" required>
+        <button type="submit" id="gate-submit" class="unlock-button" aria-label="Unlock builder" title="Unlock builder">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path class="unlock-shackle" d="M8 10V6a4 4 0 0 1 7.5-2"/><path d="M12 14v3"/></svg>
+        </button>
+      </form>
     </div>
-  </details>
+    <span id="gate-error" class="gate-error" role="alert"></span>
+  </div>
 </header>
 
 <main class="build-main">
   <p id="auth-warning" class="auth-warning" role="alert" hidden></p>
   <section class="hero build-hero">
-    <p class="eyebrow">IN THE WORLD</p>
-    <h1>From a video.<br>Ready to explore.</h1>
-    <p class="lede">Watch the motion and inspect the results. Unlock access to try a world or build from your own video.</p>
+    <p class="eyebrow">WEFT / DEMO</p>
+    <h1>A video records what happened.<br>A simulation lets you ask what if.</h1>
+    <p class="lede">Weft turns observed movement into environments for testing actions and training agents. Start with a finished example: the original footage, the simulation, and the results.</p>
   </section>
 
   <section class="explore" id="explore" aria-labelledby="finished-runs">
     <div class="section-head">
       <div>
-        <h2 id="finished-runs">Worlds to explore</h2>
-        <p class="hint">Real experiments, with their recordings and results.</p>
+        <h2 id="finished-runs">From video to simulation</h2>
+        <p class="hint">Compare the movement. Open the studio to take a closer look.</p>
       </div>
       <div class="gallery-nav" id="finished-nav" hidden>
-        <button id="prev" type="button" aria-label="Previous run">←</button>
-        <button id="next" type="button" aria-label="Next run">→</button>
+        <button id="prev" type="button" aria-label="Previous example">←</button>
+        <span id="example-count" class="example-count" aria-live="polite" aria-atomic="true"></span>
+        <button id="next" type="button" aria-label="Next example">→</button>
       </div>
     </div>
 
@@ -67,25 +228,37 @@
       <div class="loading-preview" aria-hidden="true">
         <svg viewBox="0 0 100 80"><rect x="13" y="11" width="74" height="55" rx="3"/><path d="M13 52h74"/><circle class="loading-orbit" cx="50" cy="36" r="12"/><path class="loading-track" d="M25 53q25-24 50 0"/></svg>
       </div>
-      <div class="loading-copy"><span class="loading-dot" aria-hidden="true"></span><div><strong>Loading worlds</strong><p>Loading saved recordings and results.</p></div></div>
+      <div class="loading-copy"><span class="loading-dot" aria-hidden="true"></span><div><strong>Loading examples</strong><p>Opening the saved footage and results.</p></div></div>
     </div>
     <div class="gallery-message" id="finished-empty" role="status" hidden>
       <h3 id="finished-message-title"></h3>
       <p id="finished-message-detail"></p>
       <button id="finished-retry" class="gallery-retry" type="button" hidden>Try again <span aria-hidden="true">↻</span></button>
     </div>
-    <div id="finished-content" hidden>
+    <div id="finished-content" role="region" aria-roledescription="carousel" aria-label="Finished examples" tabindex="0" hidden>
       <div class="stage">
-        <video id="demo-video" controls playsinline preload="metadata"></video>
         <div class="stage-copy">
           <p class="eyebrow" id="demo-source"></p>
           <h3 id="demo-title"></h3>
           <p id="demo-caption"></p>
           <p class="metrics" id="demo-metrics"></p>
-          <button id="open-studio" type="button" class="ghost" hidden>Open the studio<span aria-hidden="true">→</span></button>
+          <button id="open-studio" type="button" class="primary" hidden>Open studio<span aria-hidden="true">→</span></button>
+        </div>
+        <div class="comparison gallery-comparison" id="demo-comparison">
+          <figure id="demo-original" hidden>
+            <figcaption><span class="media-origin">Original</span><strong id="demo-input-label">Source footage</strong></figcaption>
+            <video id="demo-source-video" muted playsinline preload="metadata" aria-label="Original video preview"></video>
+            <p class="media-explanation" id="demo-input-note"></p>
+          </figure>
+          <figure>
+            <figcaption><span class="media-origin">Result</span><strong id="demo-result-label">Digital environment</strong></figcaption>
+            <video id="demo-video" muted playsinline preload="metadata" aria-label="Simulation preview"></video>
+            <p class="media-explanation" id="demo-result-note"></p>
+          </figure>
+          <button id="preview-studio" class="preview-studio" type="button" aria-label="Open this example in the studio"><span aria-hidden="true">↗</span></button>
         </div>
       </div>
-      <div class="dots" id="dots"></div>
+      <div class="carousel-footer"><p>Swipe to compare another example</p><div class="dots" id="dots" aria-label="Choose an example"></div></div>
     </div>
   </section>
 
@@ -144,23 +317,34 @@
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="studio-title">
       <div class="modal-head">
         <div>
-          <p class="eyebrow">RUN</p>
-          <h2 id="studio-title" tabindex="-1">Inside this run</h2>
+          <p class="eyebrow">WEFT / STUDIO</p>
+          <h2 id="studio-title" tabindex="-1">Your simulation</h2>
           <p class="hint" id="studio-note"></p>
           <p id="studio-error" role="alert" hidden></p>
         </div>
         <button id="close-studio" type="button" class="icon" aria-label="Close studio" data-close>✕</button>
       </div>
       <div class="focus-nav" role="group" aria-label="Run view">
-        <button type="button" data-run-view="world" aria-pressed="true">Live world</button>
-        <button type="button" data-run-view="recording" aria-pressed="false">Recording</button>
+        <button type="button" data-run-view="recording" aria-pressed="true">Compare</button>
+        <button type="button" data-run-view="world" aria-pressed="false">Live world</button>
         <button type="button" data-run-view="results" aria-pressed="false">Results</button>
       </div>
       <div class="modal-body" id="modal-body">
-        <figure class="result-media" id="result-media" hidden>
-          <video id="studio-video" controls playsinline preload="metadata"></video>
-          <figcaption>The saved recording from this run. Playback does not change the live world.</figcaption>
-        </figure>
+        <section class="result-media" id="result-media" aria-label="Video comparison" hidden>
+          <div class="comparison" id="studio-comparison">
+            <figure id="studio-original" hidden>
+              <figcaption><span class="media-origin">Original</span><strong id="studio-input-label">Source footage</strong></figcaption>
+              <video id="studio-source-video" controls playsinline preload="metadata"></video>
+              <p class="media-explanation" id="studio-input-note"></p>
+            </figure>
+            <figure>
+              <figcaption><span class="media-origin">Result</span><strong id="studio-result-label">Digital environment</strong></figcaption>
+              <video id="studio-video" controls playsinline preload="metadata"></video>
+              <p class="media-explanation" id="studio-result-note"></p>
+            </figure>
+          </div>
+          <div class="comparison-notes"><p id="comparison-note">Play either recording to inspect the movement.</p><a id="source-credit" target="_blank" rel="noopener" hidden></a></div>
+        </section>
         <div class="world-frame" id="world-frame" hidden>
           <iframe id="world-view" title="Interactive simulated world"></iframe>
         </div>
@@ -177,7 +361,7 @@
           </div>
           <div class="readout" id="readout"></div>
         </div>
-        <div id="studio-results" class="run-results" aria-label="Recorded results" hidden></div>
+        <section id="studio-results" class="run-results" aria-label="Recorded results" hidden></section>
       </div>
     </div>
   </div>

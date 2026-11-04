@@ -1,0 +1,79 @@
+{
+  "profile": "weft-demo-previews-v1",
+  "files": [
+    {
+      "output": "rolling-source.mp4",
+      "source": "data/rolling-ball.mp4",
+      "source_sha256": "75621f8624ce677336f9bbd6c110b638063d0f75e1678460d85602026e4d3c86",
+      "start_seconds": 1.6683333333333332,
+      "output_duration_limit": null,
+      "filters": "trim=duration=0.8341666666666667,setpts=4*(PTS-STARTPTS),fps=30",
+      "sha256": "22d3b0cba9783f54a28faa9c4c37c1fa13151f16a6b28c26fba34d406d751b5d",
+      "bytes": 62952
+    },
+    {
+      "output": "rolling-result.mp4",
+      "world": {
+        "x0": 0.14934892648665393,
+        "v0": 0.897711066016222,
+        "drag": 0.012421798914258077,
+        "radius": 0.08899467272143019,
+        "support_slope": 0.013621893592655577,
+        "support_intercept": 0.37621259685688446,
+        "width_px": 640,
+        "height_px": 360,
+        "source_frame": 40,
+        "max_acceleration": 2.0
+      },
+      "source_manifest_sha256": "1e321169f3d1786b688863508dd1b8211a9c0024d96b58c68d5804e860ab803a",
+      "source_interval": [
+        1.6683333333333332,
+        2.5025
+      ],
+      "playback_speed": 0.25,
+      "scope": "Existing reconstructed one-dimensional model; no new fit or evaluation",
+      "sha256": "0516e55241f36db3e7d04c803fda5f4c59e79628f011f0a392298253f54c5b94",
+      "bytes": 17198
+    },
+    {
+      "output": "movement-source.mp4",
+      "source": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/lab/run/source.mp4",
+      "source_sha256": "28eb5ddd8769babea9f2fe40c3132cd49d575af49e1c94d51428811c37e475d6",
+      "start_seconds": 0,
+      "output_duration_limit": null,
+      "filters": "scale=640:-2",
+      "sha256": "121dd98e5432feee43979680aecec4426c81a174ebe402798d8a4e778987d647",
+      "bytes": 515531
+    },
+    {
+      "output": "controller-result.mp4",
+      "source": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/lab/sessions/session-9f8a60b20993/avatar-video.mp4",
+      "source_sha256": "1db8c2bf2edb413053de87435c9ac6eeb0f759fb6f4595c75700b09eaef6d7d8",
+      "start_seconds": 0,
+      "output_duration_limit": null,
+      "filters": "crop=360:420:0:0",
+      "sha256": "75c6b758beb0bb1eb33bf4e555b77c412100f2c1c8e04215c5dbfee48720e2c1",
+      "bytes": 419529
+    },
+    {
+      "output": "character-source.mp4",
+      "source": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/lab/run/source.mp4",
+      "source_sha256": "28eb5ddd8769babea9f2fe40c3132cd49d575af49e1c94d51428811c37e475d6",
+      "start_seconds": 4,
+      "output_duration_limit": 4.16,
+      "filters": "scale=640:-2",
+      "sha256": "9b2d643cadac86ff2e68afc7d2c7d16eaa802135e374c17efd49b71cda0b4f78",
+      "bytes": 276394
+    },
+    {
+      "output": "character-result.mp4",
+      "source": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/lab/sessions/session-1de315688ae1/avatar-video.mp4",
+      "source_sha256": "2de69e39093a805df73e2280bdaaa4663c2030c609b941dd18445a5be5159791",
+      "start_seconds": 4,
+      "output_duration_limit": 4.16,
+      "filters": "crop=360:420:0:0",
+      "sha256": "3bc456672d9085f35403dc41126604cd759a0adf4fbaa0216dbae972785a52d5",
+      "bytes": 321858
+    }
+  ]
+}

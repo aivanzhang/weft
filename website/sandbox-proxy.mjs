@@ -10,7 +10,7 @@ const hopHeaders = ["connection", "keep-alive", "proxy-authenticate", "proxy-aut
   "te", "trailer", "transfer-encoding", "upgrade"];
 
 export function sandboxRoute(path) {
-  return assets.has(path) || path.startsWith("/api/") || /^\/labs\/[a-f0-9]{32}\//.test(path);
+  return assets.has(path) || /^\/demo\/studio\/[A-Za-z0-9_-]{1,64}\/?$/.test(path) || path.startsWith("/api/") || /^\/labs\/[a-f0-9]{32}\//.test(path);
 }
 
 function endToEnd(headers) {

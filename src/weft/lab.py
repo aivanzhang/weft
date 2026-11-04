@@ -1067,6 +1067,10 @@ class LabServer(ThreadingHTTPServer):
             self.slots.release()
 
 
+class _ClientDisconnected(Exception):
+    """Exit request handling without retrying a response on a closed socket."""
+
+
 class LabHandler(BaseHTTPRequestHandler):
     allow_same_origin_frame = False
 
@@ -1080,6 +1084,25 @@ class LabHandler(BaseHTTPRequestHandler):
     def setup(self):
         super().setup()
         self.connection.settimeout(10)
+
+    def handle_one_request(self):
+        try:
+            super().handle_one_request()
+        except _ClientDisconnected:
+            self.close_connection = True
+
+    def end_headers(self):
+        try:
+            super().end_headers()
+        except (BrokenPipeError, ConnectionResetError) as error:
+            raise _ClientDisconnected from error
+
+    def write_body(self, body):
+        try:
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionResetError) as error:
+            # Route-level OSError handlers must not send a second response.
+            raise _ClientDisconnected from error
 
     def response_headers(self, code, mime, size):
         self.send_response(code)
@@ -1096,7 +1119,7 @@ class LabHandler(BaseHTTPRequestHandler):
         body = json.dumps(value, allow_nan=False).encode()
         self.response_headers(code, "application/json; charset=utf-8", len(body))
         self.end_headers()
-        self.wfile.write(body)
+        self.write_body(body)
 
     def authorized(self, public=False):
         host = f"127.0.0.1:{self.server.server_port}"
@@ -1152,7 +1175,7 @@ class LabHandler(BaseHTTPRequestHandler):
                 self.response_headers(200, mime, len(raw))
                 self.send_header("X-Content-SHA256", sha)
                 self.end_headers()
-                self.wfile.write(raw)
+                self.write_body(raw)
                 return
             if path in public:
                 return self.send_file(public[path])
@@ -1199,7 +1222,7 @@ class LabHandler(BaseHTTPRequestHandler):
                 chunk = stream.read(min(65536, remaining))
                 if not chunk:
                     break
-                self.wfile.write(chunk)
+                self.write_body(chunk)
                 remaining -= len(chunk)
 
     def do_POST(self):
