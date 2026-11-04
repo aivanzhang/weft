@@ -35,3 +35,5 @@
 - The demo header home link reuses the landing mascot/wordmark artwork, dimensions, wave/fade/glide animation and small-screen/reduced-motion fallbacks. Keep it a home link, never a contents disclosure.
 
 - Demo creation starts from a Build globe button in the header. Reveal only the inline code field and accessible icon-only unlock action, not an access popover. Preserve explicit-submit authentication, prefilled code links, input focus, Escape/outside dismissal, pending-request deduplication and direct Build navigation after unlocking.
+
+- Build and the inline code field replace one another in the same header slot; never display both. Studio entry points navigate to `/demo/studio/STUDIO_ID`. Keep studio pages reloadable with normal header/navigation, a Back to examples link and no modal focus trap. Public examples require no access code; private saved runs retain authentication.

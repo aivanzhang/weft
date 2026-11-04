@@ -47,7 +47,7 @@ Clicking the Weft wordmark opens minimal contents links to all five main section
 in reading order, with native navigation and keyboard-accessible dismissal.
 The headline reveals with temporary word-specific icons and short explanations
 on hover, keyboard focus or tap.
-The demo header’s Build control reveals an inline code field and unlock action;
+The demo header’s Build control transforms into an inline code field and unlock action;
 once authenticated, it leads directly to the builder.
 Its example viewer defaults to video comparison, with compact version and
 interaction icon toggles; only comparison shows the timeline.
@@ -58,8 +58,15 @@ results open directly without replaying processing steps or progress.
 The demo opens on curated finished recordings without requiring access. Only
 explicit showcase examples are public; visitor runs and live controls stay private.
 The wordmark returns home. Finished examples are browsed inline on `/demo` with
-swipe, arrow and keyboard navigation; Open studio focuses on one result.
+swipe, arrow and keyboard navigation. Open studio navigates to
+`/demo/studio/STUDIO_ID`, a reloadable page for that specific result with a link
+back to the examples. Public examples stay public; saved private runs require access.
 Only the explicitly curated source clips are public, with attribution retained.
+The curated set distinguishes rolling-object motion, assisted body control and
+generated-character appearance transfer. Each pairs source footage with a single
+result view and explains the experiment; saved personal runs follow these examples.
+Presentation excerpts preserve the recorded evidence, with cropping and playback
+speed documented in the preview manifest.
 The gallery distinguishes loading, empty and
 unavailable states, with bounded requests and a retry that never starts a run.
 `npm run demo` manages both local processes in one terminal and stops both on

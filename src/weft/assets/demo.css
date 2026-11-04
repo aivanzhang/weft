@@ -123,9 +123,9 @@ main{max-width:1120px;margin:auto;padding:0 28px 90px}
 .metrics{font-size:12.5px!important;color:var(--muted);font-variant-numeric:tabular-nums}
 #open-studio{margin-top:16px}
 .dots{display:flex;gap:4px;justify-content:center}
-.dot{width:32px;height:44px;border:0;border-radius:0;padding:0;background:transparent;position:relative}
-.dot::after{content:"";position:absolute;inset:21px 4px;background:var(--line);transition:background .2s}
-.dot[aria-current="true"]::after{background:var(--clay)}
+.dot{min-height:44px;border:0;border-bottom:2px solid transparent;border-radius:0;padding:8px 12px;
+  background:transparent;font-size:12px;color:var(--muted)}
+.dot[aria-current="true"]{border-color:var(--clay);color:var(--ink)}
 .carousel-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line)}
 .carousel-footer p{font-size:12px;color:var(--muted);margin:0}
 #finished-content{touch-action:pan-y pinch-zoom}
@@ -267,9 +267,12 @@ footer strong{color:var(--ink)}
 .comparison{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;position:relative}
 .comparison[data-paired="true"]{grid-template-columns:repeat(2,minmax(0,1fr))}
 .comparison figure{margin:0;min-width:0}
-.comparison figcaption{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+.comparison figcaption{display:flex;align-items:baseline;gap:10px;
   font-size:14px;font-weight:550;margin:0 0 12px;line-height:1.4;color:var(--ink)}
 .comparison figcaption span{font-size:11px;font-weight:400;color:var(--muted)}
+.comparison figcaption strong{font-size:14px;font-weight:550}
+.comparison .media-origin{text-transform:uppercase;font-size:10px;letter-spacing:.06em}
+.media-explanation{font-size:13px;line-height:1.55;color:var(--muted);margin:12px 0 0;max-width:440px}
 .comparison video,.comparison #demo-video{display:block;width:100%;height:clamp(230px,32vw,410px);
   max-height:none;background:var(--surface);border:1px solid var(--line);border-radius:2px;object-fit:contain}
 .result-media video{height:clamp(260px,calc(100dvh - 330px),680px)}
@@ -313,18 +316,24 @@ body.locked > .site-head, body.locked main > :not(.modal){visibility:hidden;poin
 .run-results dd{margin:0;font-size:15px}
 .run-results .results-scope{font-size:12px;margin-top:28px}
 .stage{border:0;background:transparent}
-.stage-copy{padding:20px 0}
+.stage-copy{padding:0 0 24px;border-top:0}
+.stage-copy h3{font-size:26px;margin:0;line-height:1.25}
+.stage-copy #demo-source{display:none}
 .mine-list li{border:0;border-bottom:1px solid var(--line);background:transparent;border-radius:0;padding:16px 0}
 @media(max-width:720px){.build-card{gap:24px}.build-side{border-left:0;border-top:1px solid var(--line);padding:20px 0}.modal-head{padding:16px}.focus-nav{padding:0 16px;gap:20px}.modal-body{padding:0 16px 16px}}
 @media(max-width:560px){
-  .comparison[data-paired="true"]{grid-template-columns:1fr;gap:20px}
-  .comparison video,.comparison #demo-video{height:240px}
-  .result-media video{height:280px}
+  .comparison[data-paired="true"]{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .comparison video,.comparison #demo-video{height:220px}
+  .result-media video{height:260px}
+  .comparison figcaption{flex-direction:column;gap:4px;min-height:44px}
+  .media-explanation{font-size:12px}
   .stage-copy{grid-template-columns:1fr;gap:0}
   .stage-copy #open-studio{grid-column:1;grid-row:auto;justify-self:start;margin-top:20px}
   .modal-head .hint{font-size:13px}
   .run-results dl>div{grid-template-columns:1fr;gap:8px}
   .carousel-footer p{max-width:180px}
+  .carousel-footer{flex-direction:column;align-items:flex-start;padding-top:12px;gap:6px}
+  .carousel-footer .dots{flex-wrap:wrap;justify-content:flex-start}
 }
 
 /* Gallery states reserve a preview area without inventing progress. */
@@ -371,14 +380,16 @@ body.locked > .site-head, body.locked main > :not(.modal){visibility:hidden;poin
   .wordmark-mascot { visibility: hidden; }
 }
 
-/* The code field unfolds within the header; no floating panel or extra copy. */
-.build-access { --code-width: 216px; position: relative; display: flex; align-items: center; min-width: 0; }
+/* Build and the code field occupy the same slot, never competing for attention. */
+.build-access { --code-width: 216px; position: relative; display: grid; align-items: center; width: 88px; height: 44px; flex: 0 0 auto; transition: width 420ms cubic-bezier(.22,1,.36,1); }
+.build-access[data-expanded="true"] { width: var(--code-width); }
 .build-trigger { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; height: 42px; padding: 0 11px; color: var(--clay); font-size: 13px; border-color: transparent; }
 .build-trigger svg, .unlock-button svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .build-trigger:hover { background: #96564408; }
-.build-code-reveal { width: 0; opacity: 0; overflow: hidden; visibility: hidden; transition: width 460ms cubic-bezier(.22,1,.36,1), opacity 240ms ease, visibility 460ms; }
-.build-access[data-expanded="true"] .build-code-reveal { width: var(--code-width); opacity: 1; visibility: visible; }
-.build-access .gate-form { width: var(--code-width); display: grid; grid-template-columns: minmax(0,1fr) 38px; gap: 3px; flex-wrap: nowrap; align-items: center; padding: 3px; border-bottom: 1px solid var(--line); }
+.build-code-reveal { position: absolute; inset: 0; width: 100%; opacity: 0; overflow: hidden; visibility: hidden; transform: translateY(3px); transition: opacity 220ms ease, transform 320ms cubic-bezier(.22,1,.36,1); }
+.build-access[data-expanded="true"] .build-code-reveal { opacity: 1; visibility: visible; transform: translateY(0); }
+.build-access .gate-form { width: 100%; display: grid; grid-template-columns: minmax(0,1fr) 38px; gap: 3px; flex-wrap: nowrap; align-items: center; padding: 3px; border: 1px solid var(--line); border-radius: 4px; background: #96564403; transition: border-color 180ms ease; }
+.build-access .gate-form:focus-within { border-color: var(--clay); }
 .build-access #gate-code { width: 100%; min-width: 0; padding: 8px 7px; border: 0; border-radius: 0; background: transparent; font-size: 13px; letter-spacing: .02em; text-transform: none; }
 .build-access #gate-code:focus-visible { outline-offset: -2px; }
 .unlock-button { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border-color: transparent; color: var(--clay); }
@@ -395,11 +406,21 @@ body.locked > .site-head, body.locked main > :not(.modal){visibility:hidden;poin
 @keyframes build-globe-turn { to { transform: rotateY(180deg); } }
 @media (max-width: 560px) {
   .site-head { gap: 12px; padding-inline: 20px; }
-  .build-access { --code-width: clamp(126px, calc(100vw - 216px), 216px); }
-  .build-access[data-expanded="true"] .build-trigger { width: 38px; padding: 0; justify-content: center; }
-  .build-access[data-expanded="true"] .build-trigger span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .build-access { --code-width: min(216px, calc(100vw - 166px)); }
 }
 
-@media (max-width: 400px) {
-  .build-access { --code-width: clamp(126px, calc(100vw - 190px), 216px); }
+
+/* Direct studio URLs are normal pages, not full-screen dialogs. */
+.studio-page .build-main > :not(#studio-modal):not(#auth-warning):not(footer) { display: none; }
+.studio-page #studio-modal { position: static; display: block; margin-top: 48px; }
+.studio-page .modal-panel { width: 100%; height: auto; max-height: none; overflow: visible; }
+.studio-page .modal-head { padding: 0 0 28px; }
+.studio-page .modal-head h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 450; line-height: 1.15; margin-top: 8px; }
+.studio-page .focus-nav { padding-inline: 0; }
+.studio-page .modal-body { overflow: visible; padding: 0; }
+.studio-back { flex: 0 0 auto; margin-left: auto; padding: 8px 0 8px 12px; color: var(--clay); font-size: 12px; text-decoration: none; }
+.studio-back:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 560px) {
+  .studio-page .modal-head { flex-direction: column-reverse; gap: 16px; }
+  .studio-back { margin-left: 0; padding-left: 0; }
 }

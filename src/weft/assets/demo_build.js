@@ -1,5 +1,6 @@
 ((root) => {
   const $ = (id) => document.getElementById(id);
+  const studioId = location.pathname.match(/^\/demo\/studio\/([A-Za-z0-9_-]{1,64})\/?$/)?.[1] || null;
   let token = root.WeftDemoSession.token;
   const auth = { Authorization: "Bearer " + token };
   const signed = (path) => token ? path + (path.includes("?") ? "&" : "?") + "token=" + encodeURIComponent(token) : path;
@@ -19,7 +20,7 @@
         $("show-builder").setAttribute("aria-controls", "gate-panel");
         setGateOpen(true);
         $("builder").hidden = true;
-        loadShowcase();
+        if (!studioId) loadShowcase();
       }
       throw new Error(data.error || "That request did not complete.");
     }
@@ -144,6 +145,7 @@
     gateOpen = open;
     $("access-menu").setAttribute("data-expanded", String(open));
     $("show-builder").setAttribute("aria-expanded", String(open));
+    $("show-builder").hidden = open;
     $("gate-panel").inert = !open;
   }
   function unlocked() {
@@ -159,6 +161,7 @@
   setGateOpen(Boolean(root.WeftDemoSession.accessCode));
   $("show-builder").addEventListener("click", () => {
     if (token && $("gate-panel").hidden) {
+      if (studioId) return navigateDemo("/demo/build");
       $("builder").hidden = false;
       $("builder").scrollIntoView({ behavior: "auto", block: "start" });
       return;
@@ -262,7 +265,8 @@
       const all = Array.isArray(data) ? data : (data.items || data.demos || []);
       // Seeded clips always show; a judge's own run shows once it finished with a video.
       const next = all.filter((row) => !String(row.id || "").startsWith("run-")
-                                       || featured.includes(row.id));
+                                       || featured.includes(row.id))
+        .sort((a, b) => Number(String(a.id).startsWith("run-")) - Number(String(b.id).startsWith("run-")));
       const same = next.length === demos.length && next.every((d, i) => d.id === demos[i]?.id);
       if (same && !force) return;
       demos = next;
@@ -286,11 +290,12 @@
     if (!available) {
       galleryState("empty", "No finished examples yet.", token
         ? "Build from a video to start your collection."
-        : "Finished experiments will appear here. Have a code? Open Access to build your own.");
+        : "Finished experiments will appear here. Have a code? Choose Build to make your own.");
       return;
     }
     galleryState("ready");
     const demo = demos[current];
+    root.WeftComparisonCopy("demo", demo);
     $("demo-video").pause();
     $("demo-source-video").pause();
     // Seek a fraction in: a paused video with no poster otherwise shows a black frame.
@@ -314,6 +319,7 @@
     $("dots").replaceChildren(...demos.map((_, index) => {
       const dot = document.createElement("button");
       dot.className = "dot";
+      dot.textContent = demos[index].category || `Example ${index + 1}`;
       dot.type = "button";
       dot.setAttribute("aria-label", `Example ${index + 1}: ${demos[index].title}`);
       dot.setAttribute("aria-current", String(index === current));
@@ -369,9 +375,16 @@
     openStudio(demos[current]?.id, "recording");
   });
 
-  /* ---------------- studio modal ---------------- */
+  function navigateDemo(path) {
+    location.assign(path + (token && !root.WeftDemoSession.stored ? `#token=${encodeURIComponent(token)}` : ""));
+  }
+  function openStudio(identity) {
+    if (identity && /^[A-Za-z0-9_-]{1,64}$/.test(identity)) navigateDemo(`/demo/studio/${encodeURIComponent(identity)}`);
+  }
+
+  /* ---------------- studio page ---------------- */
   let world = null;
-  const focusViewer = root.WeftRunFocus();
+  const focusViewer = root.WeftRunFocus({ page: Boolean(studioId) });
   let studioRequest = 0;
   function closeStudio() {
     studioRequest += 1;
@@ -384,22 +397,33 @@
     if (event.target.hasAttribute("data-close")) closeStudio();
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !$("studio-modal").hidden) closeStudio();
+    if (!studioId && event.key === "Escape" && !$("studio-modal").hidden) closeStudio();
   });
 
-  async function openStudio(identity, view) {
-    if (!identity) return;
+  async function loadStudio(identity) {
     const request = ++studioRequest;
+    $("studio-modal").setAttribute("aria-busy", "true");
     try {
+      const privateRun = /^run-/.test(identity);
+      if (privateRun && !token) {
+        setGateOpen(true);
+        throw new Error("This studio needs an access code. Enter yours above to open it.");
+      }
+      const [gallery, saved] = await Promise.all([
+        api(token ? "/api/demo/gallery" : "/api/demo/showcase", { signal: AbortSignal.timeout(15000) }),
+        privateRun ? api(`/api/demo/studio/${encodeURIComponent(identity)}`, { signal: AbortSignal.timeout(15000) }) : null,
+      ]);
+      demos = gallery.items || gallery.demos || [];
+      if (gallery.home_url) $("home-link").href = gallery.home_url;
       const selected = demos.find((item) => item.id === identity);
-      const record = /^run-/.test(identity)
-        ? await api(`/api/demo/studio/${encodeURIComponent(identity)}`)
-        : { id: identity, title: selected?.title, caption: selected?.caption, metrics: selected?.metrics, steps: [] };
+      if (!selected && !saved) throw new Error("This studio is no longer available. Return to the examples to explore another.");
+      const record = saved || { ...selected, steps: [] };
       if (request !== studioRequest) return;
       $("studio-error").hidden = true;
       $("studio-modal").hidden = false;
-      document.body.classList.add("locked");
+      if (!studioId) document.body.classList.add("locked");
       $("studio-title").textContent = record.title || "Your simulation";
+      document.title = `${record.title || "Studio"} · Weft`;
       $("studio-note").textContent = record.caption || "";
       root.WeftStudioResults($("studio-results"), record);
       const result = record.result || {};
@@ -407,7 +431,7 @@
       const entry = demos.find((item) => item.id === identity);
       focusViewer.open({ world, video: entry?.video_url ? signed(entry.video_url) : null,
         source: entry?.source_video_url ? signed(entry.source_video_url) : null,
-        credit: entry?.source_credit, creditURL: entry?.source_page, view });
+        credit: entry?.source_credit, creditURL: entry?.source_page, comparison: entry });
       if (world) {
         $("play-full").href = `/labs/${world}/#token=${encodeURIComponent(token)}`;
         $("readout").replaceChildren();
@@ -417,11 +441,14 @@
     } catch (error) {
       if (request !== studioRequest) return;
       $("studio-modal").hidden = false;
-      document.body.classList.add("locked");
+      if (!studioId) document.body.classList.add("locked");
       world = null;
       focusViewer.open({ world: null, video: null });
+      $("studio-title").textContent = "Studio unavailable";
       $("studio-error").textContent = error.message;
       $("studio-error").hidden = false;
+    } finally {
+      if (request === studioRequest) $("studio-modal").setAttribute("aria-busy", "false");
     }
   }
 
@@ -648,6 +675,7 @@
     }
   }
   function loadDemo() {
+    if (studioId) return loadStudio(studioId);
     clearTimeout(timer);
     loadMeta();
     if (!token) return loadShowcase();
@@ -660,5 +688,6 @@
   if (token) {
     unlocked();
     loadDemo();
-  } else loadShowcase();
+  } else if (studioId) loadStudio(studioId);
+  else loadShowcase();
 })(window);

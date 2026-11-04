@@ -35,7 +35,10 @@ test('run views are exclusive and release hidden simulation and video resources'
   assert.equal(cleanURL, '/demo');
   assert.equal(saved.get('weft-portal-token'), 'secret');
   const viewer = context.window.WeftRunFocus();
-  viewer.open({ world: 'a'.repeat(32), video: '/recording.mp4', source: '/original.mp4', view: 'world' });
+  viewer.open({ world: 'a'.repeat(32), video: '/recording.mp4', source: '/original.mp4', view: 'world',
+    comparison: { result_label: 'Controlled body', result_note: 'A visual stand-in for the person.' } });
+  assert.equal(element('studio-result-label').textContent, 'Controlled body');
+  assert.equal(element('studio-result-note').textContent, 'A visual stand-in for the person.');
   assert.equal(element('world-frame').hidden, false);
   assert.equal(element('result-media').hidden, true);
   assert.equal(element('studio-results').hidden, true);
@@ -225,7 +228,10 @@ test('an already completed run loads results without displaying processing steps
         return { status: 'complete', run: 'saved', elapsed_seconds: 47,
           steps: [{ id: 'avatar', status: 'done', metrics: { 'task success': 'true' } }] };
       }
+      if (path === '/api/demo/featured') return { featured: ['run-deadbeef'] };
       if (path === '/api/demo/gallery') return { items: [{
+        id: 'run-deadbeef', title: 'Older private robot run', video_url: '/private.mp4',
+      }, {
         id: 'saved-example', title: 'Completed exercise', video_url: '/saved.mp4', metrics: 'task success',
       }] };
       return { steps: [], featured: [], clips: [], items: [] };
@@ -259,8 +265,9 @@ function galleryFixture() {
     return nodes.get(id);
   };
   const context = {
+    location: { pathname: "/demo" },
     window: { WeftDemoSession: { token: '', accessCode: '' },
-      WeftRunFocus: () => ({}), WeftElapsedClock: () => ({}), WeftCarousel() {} },
+      WeftRunFocus: () => ({}), WeftElapsedClock: () => ({}), WeftCarousel() {}, WeftComparisonCopy() {} },
     document: { getElementById: node, querySelectorAll: () => [], addEventListener() {},
       createElement: () => node(Symbol()) },
     AbortSignal: { timeout(ms) {
@@ -334,7 +341,7 @@ async function inlineGateFixture() {
     return nodes.get(id);
   };
   const context = {
-    $: node, token: '', auth: {}, root: { WeftDemoSession: { accessCode: '', setToken() {} } },
+    $: node, token: '', studioId: null, auth: {}, root: { WeftDemoSession: { accessCode: '', setToken() {} } },
     document: { addEventListener(name, callback) { events[name] = callback; } },
     sessionStorage: { setItem() {} }, keepToken() {}, renderMine() {}, loadDemo() { loaded += 1; },
     api: (path, options) => new Promise((resolve, reject) => requests.push({ path, options, resolve, reject })),
@@ -350,9 +357,11 @@ test('Build reveals an inline code field; Escape and outside clicks close it wit
   assert.equal(f.node('show-builder').attributes['aria-expanded'], 'true');
   assert.equal(f.node('gate-panel').inert, false);
   assert.equal(f.status().focused, 'gate-code');
+  assert.equal(f.node('show-builder').hidden, true);
   f.events.keydown({ key: 'Escape' });
   assert.equal(f.node('gate-panel').inert, true);
   assert.equal(f.status().focused, 'show-builder');
+  assert.equal(f.node('show-builder').hidden, false);
   f.node('show-builder').listeners.click();
   f.events.pointerdown({ target: f.node('gate-code') });
   assert.equal(f.node('gate-panel').inert, false);
@@ -417,8 +426,8 @@ test('carousel supports directional swipes and keyboard arrows without taking ve
   assert.deepEqual(moves, [1, -1, 1, -1]);
 });
 
-test('example carousel opens the paired studio, renders outcomes, and clears the source for recording-only entries', async () => {
-  const nodes = new Map();
+test('example carousel navigates to specific studio URLs and clears stale previews', async () => {
+  const nodes = new Map(), navigations = [];
   const makeNode = () => ({ children: [], hidden: false, attributes: {}, listeners: {}, dataset: {},
     addEventListener(name, listener) { this.listeners[name] = listener; },
     setAttribute(name, value) { this.attributes[name] = value; },
@@ -432,7 +441,7 @@ test('example carousel opens the paired studio, renders outcomes, and clears the
     const tab = makeNode(); tab.dataset.runView = view; return tab;
   });
   const context = { window: {}, URLSearchParams, AbortSignal, setTimeout, clearTimeout,
-    location: { hash: '', search: '', pathname: '/demo' }, sessionStorage: { getItem: () => '' },
+    location: { hash: '', search: '', pathname: '/demo', assign: (url) => navigations.push(url) }, sessionStorage: { getItem: () => '' },
     document: { getElementById: node, createElement: makeNode, addEventListener() {},
       querySelectorAll: (selector) => selector === '[data-run-view]' ? tabs : [],
       body: { classList: { add() {}, remove() {} } } },
@@ -450,19 +459,78 @@ test('example carousel opens the paired studio, renders outcomes, and clears the
   assert.equal(node('demo-original').hidden, false);
   assert.equal(node('demo-source-video').src, '/original.mp4#t=0.1');
   await node('open-studio').onclick();
-  assert.equal(node('studio-modal').hidden, false);
-  assert.equal(node('studio-source-video').src, '/original.mp4');
-  assert.equal(node('studio-video').src, '/result.mp4');
-  assert.equal(node('world-frame').hidden, true);
-  assert.equal(node('studio-results').children[0].textContent, 'What this run showed');
-  node('studio-modal').listeners.click({ target: { hasAttribute: () => true } });
-  assert.equal(node('studio-source-video').src, undefined);
+  assert.deepEqual(navigations, ['/demo/studio/paired']);
   node('next').listeners.click();
   assert.equal(node('example-count').textContent, '2 / 2');
   assert.equal(node('demo-original').hidden, true);
   assert.equal(node('demo-source-video').src, undefined);
   await node('open-studio').onclick();
-  assert.equal(node('studio-original').hidden, true);
-  assert.equal(node('studio-video').src, '/single.mp4');
-  assert.equal(node('source-credit').hidden, true);
+  assert.deepEqual(navigations, ['/demo/studio/paired', '/demo/studio/single']);
+});
+
+async function directStudioFixture(identity, authenticated = false) {
+  const nodes = new Map(), calls = [], opened = [], modes = [];
+  const node = (id) => {
+    if (!nodes.has(id)) nodes.set(id, {
+      hidden: false, attributes: {}, listeners: {}, children: [], style: {},
+      setAttribute(key, value) { this.attributes[key] = value; },
+      addEventListener(key, listener) { this.listeners[key] = listener; },
+      replaceChildren(...items) { this.children = items; },
+      append(...items) { this.children.push(...items); },
+      scrollTo() {}, focus() {},
+    });
+    return nodes.get(id);
+  };
+  const example = { id: authenticated ? 'run-deadbeef' : 'paired', title: 'Movement',
+    video_url: '/recording.mp4', source_video_url: '/source.mp4' };
+  const context = {
+    window: {
+      WeftDemoSession: { token: authenticated ? 'private-session' : '', accessCode: '', stored: true },
+      WeftRunFocus: (mode) => { modes.push(mode); return { open: (record) => opened.push(record), close() {} }; },
+      WeftCarousel() {}, WeftElapsedClock: () => ({}), WeftStudioResults() {},
+    },
+    location: { pathname: `/demo/studio/${identity}` }, AbortSignal,
+    document: { getElementById: node, addEventListener() {}, querySelectorAll: () => [],
+      createElement: () => node(Symbol()), body: { classList: { add() { throw new Error('Studio must not lock the page'); } } } },
+    fetch: async (path, options) => {
+      calls.push({ path, options });
+      if (path === '/api/demo/studio/run-deadbeef') return { ok: true, json: async () => ({ id: example.id, title: 'Saved run', steps: [] }) };
+      assert.equal(path, authenticated ? '/api/demo/gallery' : '/api/demo/showcase');
+      return { ok: true, json: async () => ({ items: [example] }) };
+    },
+  };
+  vm.runInNewContext(await readFile(new URL('../src/weft/assets/demo_build.js', import.meta.url), 'utf8'), context);
+  await settleGallery();
+  return { node, calls, opened, modes, context };
+}
+
+test('a direct public studio URL loads its specific comparison without a gallery or modal lock', async () => {
+  const f = await directStudioFixture('paired');
+  assert.equal(f.modes[0].page, true);
+  assert.equal(f.node('studio-title').textContent, 'Movement');
+  assert.equal(f.context.document.title, 'Movement · Weft');
+  assert.equal(f.opened[0].video, '/recording.mp4');
+  assert.equal(f.opened[0].source, '/source.mp4');
+  assert.equal(f.node('studio-modal').attributes['aria-busy'], 'false');
+  assert.deepEqual(f.calls.map((call) => call.path), ['/api/demo/showcase']);
+});
+
+test('missing studios show a recoverable error; private studios require access before making requests', async () => {
+  const missing = await directStudioFixture('missing');
+  assert.equal(missing.node('studio-title').textContent, 'Studio unavailable');
+  assert.match(missing.node('studio-error').textContent, /no longer available/);
+  const locked = await directStudioFixture('run-deadbeef');
+  assert.equal(locked.calls.length, 0);
+  assert.equal(locked.node('gate-panel').inert, false);
+  assert.equal(locked.node('show-builder').hidden, true);
+  assert.match(locked.node('studio-error').textContent, /access code/);
+});
+
+test('an authenticated private studio reloads saved results and recording through protected APIs', async () => {
+  const f = await directStudioFixture('run-deadbeef', true);
+  assert.equal(f.node('studio-title').textContent, 'Saved run');
+  assert.equal(f.node('studio-error').hidden, true);
+  assert.equal(f.calls.length, 2);
+  assert.ok(f.calls.every((call) => call.options.headers.Authorization === 'Bearer private-session'));
+  assert.match(f.opened[0].video, /^\/recording.mp4\?token=/);
 });

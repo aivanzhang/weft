@@ -1214,9 +1214,10 @@ class PortalHandler(LabHandler):
             path = unquote(urlsplit(self.path).path)
             showcase_video = re.fullmatch(r"/api/demo/showcase/([A-Za-z0-9-]{1,64})/(video|source)", path)
             public_showcase = path == "/api/demo/showcase" or showcase_video is not None
+            studio_page = re.fullmatch(r"/demo/studio/[A-Za-z0-9_-]{1,64}/?", path)
             if path in PUBLIC_ASSETS and path != "/":
                 return super().do_GET()
-            if not self.authorized(public=path in ASSETS or path in DEMO_BRAND_ASSETS or public_showcase):
+            if not self.authorized(public=path in ASSETS or path in DEMO_BRAND_ASSETS or public_showcase or studio_page is not None):
                 return
             if path == "/api/demo/showcase":
                 return self.reply(self.server.portal.demo.showcase())
@@ -1226,10 +1227,18 @@ class PortalHandler(LabHandler):
                 return self.send_file(method(showcase_video[1]))
             if path in DEMO_BRAND_ASSETS:
                 return self.send_file(self.server.portal.project / DEMO_BRAND_ASSETS[path])
-            if path in ASSETS:
-                file = Path(__file__).parent / "assets" / ASSETS[path]
-                if path in ("/", "/demo", "/demo/build", "/demo/runs"):
+            if path in ASSETS or studio_page:
+                file = Path(__file__).parent / "assets" / ("demo_build.html" if studio_page else ASSETS[path])
+                if studio_page or path in ("/", "/demo", "/demo/build", "/demo/runs"):
                     raw = file.read_bytes()
+                    if studio_page:
+                        raw = raw.replace(b'<body>', b'<body class="studio-page">')
+                        raw = raw.replace(b'class="modal" id="studio-modal" hidden', b'class="modal" id="studio-modal"')
+                        raw = raw.replace(b'role="dialog" aria-modal="true"', b'role="region"')
+                        raw = raw.replace(b'<h2 id="studio-title" tabindex="-1">Your simulation</h2>',
+                                          b'<h1 id="studio-title" tabindex="-1">Loading studio</h1>')
+                        raw = raw.replace(b'<button id="close-studio" type="button" class="icon" aria-label="Close studio" data-close>\xe2\x9c\x95</button>',
+                                          b'<a id="close-studio" class="studio-back" href="/demo">Back to examples</a>')
                     self.response_headers(200, "text/html; charset=utf-8", len(raw))
                     self.end_headers()
                     self.write_body(raw)

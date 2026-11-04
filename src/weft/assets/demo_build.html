@@ -193,7 +193,7 @@
     <div class="build-code-reveal" id="gate-panel" inert>
       <form id="gate-form" class="gate-form">
         <label class="sr-only" for="gate-code">Access code</label>
-        <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64" placeholder="Your code" aria-describedby="gate-error" required>
+        <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64" placeholder="Access code" aria-describedby="gate-error" required>
         <button type="submit" id="gate-submit" class="unlock-button" aria-label="Unlock builder" title="Unlock builder">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path class="unlock-shackle" d="M8 10V6a4 4 0 0 1 7.5-2"/><path d="M12 14v3"/></svg>
         </button>
@@ -237,23 +237,25 @@
     </div>
     <div id="finished-content" role="region" aria-roledescription="carousel" aria-label="Finished examples" tabindex="0" hidden>
       <div class="stage">
-        <div class="comparison gallery-comparison" id="demo-comparison">
-          <figure id="demo-original" hidden>
-            <figcaption>Original video <span>The observed movement</span></figcaption>
-            <video id="demo-source-video" muted playsinline preload="metadata" aria-label="Original video preview"></video>
-          </figure>
-          <figure>
-            <figcaption>Weft simulation <span>The recorded result</span></figcaption>
-            <video id="demo-video" muted playsinline preload="metadata" aria-label="Simulation preview"></video>
-          </figure>
-          <button id="preview-studio" class="preview-studio" type="button" aria-label="Open this example in the studio"><span aria-hidden="true">↗</span></button>
-        </div>
         <div class="stage-copy">
           <p class="eyebrow" id="demo-source"></p>
           <h3 id="demo-title"></h3>
           <p id="demo-caption"></p>
           <p class="metrics" id="demo-metrics"></p>
           <button id="open-studio" type="button" class="primary" hidden>Open studio<span aria-hidden="true">→</span></button>
+        </div>
+        <div class="comparison gallery-comparison" id="demo-comparison">
+          <figure id="demo-original" hidden>
+            <figcaption><span class="media-origin">Original</span><strong id="demo-input-label">Source footage</strong></figcaption>
+            <video id="demo-source-video" muted playsinline preload="metadata" aria-label="Original video preview"></video>
+            <p class="media-explanation" id="demo-input-note"></p>
+          </figure>
+          <figure>
+            <figcaption><span class="media-origin">Result</span><strong id="demo-result-label">Digital environment</strong></figcaption>
+            <video id="demo-video" muted playsinline preload="metadata" aria-label="Simulation preview"></video>
+            <p class="media-explanation" id="demo-result-note"></p>
+          </figure>
+          <button id="preview-studio" class="preview-studio" type="button" aria-label="Open this example in the studio"><span aria-hidden="true">↗</span></button>
         </div>
       </div>
       <div class="carousel-footer"><p>Swipe to compare another example</p><div class="dots" id="dots" aria-label="Choose an example"></div></div>
@@ -331,12 +333,14 @@
         <section class="result-media" id="result-media" aria-label="Video comparison" hidden>
           <div class="comparison" id="studio-comparison">
             <figure id="studio-original" hidden>
-              <figcaption>Original video <span>The observed movement</span></figcaption>
+              <figcaption><span class="media-origin">Original</span><strong id="studio-input-label">Source footage</strong></figcaption>
               <video id="studio-source-video" controls playsinline preload="metadata"></video>
+              <p class="media-explanation" id="studio-input-note"></p>
             </figure>
             <figure>
-              <figcaption>Weft simulation <span>The recorded result</span></figcaption>
+              <figcaption><span class="media-origin">Result</span><strong id="studio-result-label">Digital environment</strong></figcaption>
               <video id="studio-video" controls playsinline preload="metadata"></video>
+              <p class="media-explanation" id="studio-result-note"></p>
             </figure>
           </div>
           <div class="comparison-notes"><p id="comparison-note">Play either recording to inspect the movement.</p><a id="source-credit" target="_blank" rel="noopener" hidden></a></div>

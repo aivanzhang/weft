@@ -59,3 +59,5 @@ are never added to the public catalog automatically.
 
 The local checks cover routes, launchers and video seeking. Browser animation,
 accessibility and device behavior require separate review before release.
+
+Finished examples open at `/demo/studio/STUDIO_ID` on the same local origin. These links can be reopened directly; private saved runs still require an access code.

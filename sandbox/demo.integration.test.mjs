@@ -54,6 +54,15 @@ test('real Ctrl+C exits both demo processes and releases ports and the collectio
     assert.equal(page.status, 200);
     assert.equal(new URL(page.url).port, String(ports[0]));
     assert.match(await page.text(), /demo_build.js/);
+    const studioPath = '/demo/studio/' + (showcase.items[0]?.id || 'missing-example');
+    const studio = await fetch(origin + studioPath);
+    assert.equal(studio.status, 200);
+    assert.equal(new URL(studio.url).pathname, studioPath);
+    const studioHTML = await studio.text();
+    assert.match(studioHTML, /<body class="studio-page">/);
+    assert.match(studioHTML, /Back to examples/);
+    assert.doesNotMatch(studioHTML, /role="dialog"|aria-modal="true"/);
+
     for (const asset of ['/demo_build.js', '/demo.css', '/brand.css', '/demo-font.woff2']) {
       const response = await fetch(origin + asset);
       assert.equal(response.status, 200, asset);

@@ -303,6 +303,15 @@ def test_public_showcase_exposes_only_curated_recordings_without_private_world_a
             assert page_status == 200 and b'id="access-menu"' in html
             assert html.index(b'id="gate-form"') < html.index(b'</header>')
             assert html.index(b'id="explore"') < html.index(b'id="builder"')
+        for studio_id in ("curated-example", "run-deadbeef", "missing-example"):
+            code, _, studio_html = request(server, f"/demo/studio/{studio_id}", auth=False)
+            assert code == 200 and b'<body class="studio-page">' in studio_html
+            assert b'role="dialog"' not in studio_html and b'aria-modal="true"' not in studio_html
+            assert b'Back to examples' in studio_html and b'id="studio-modal" hidden' not in studio_html
+            assert b'Private visitor run' not in studio_html and b'private-world' not in studio_html
+        assert request(server, "/demo/studio/curated-example", auth=False,
+                       headers={"Origin": "https://attacker.invalid"})[0] == 403
+        assert request(server, "/api/demo/studio/run-deadbeef", auth=False)[0] == 401
         assert result["home_url"] == "http://127.0.0.1:3017/"
         assert [item["id"] for item in result["items"]] == ["curated-example"]
         assert b"private-world" not in raw and b"Private visitor" not in raw

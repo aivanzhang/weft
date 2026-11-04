@@ -256,12 +256,14 @@
         <section class="result-media" id="result-media" aria-label="Video comparison" hidden>
           <div class="comparison" id="studio-comparison">
             <figure id="studio-original" hidden>
-              <figcaption>Original video <span>The observed movement</span></figcaption>
+              <figcaption><span class="media-origin">Original</span><strong id="studio-input-label">Source footage</strong></figcaption>
               <video id="studio-source-video" controls playsinline preload="metadata"></video>
+              <p class="media-explanation" id="studio-input-note"></p>
             </figure>
             <figure>
-              <figcaption>Weft simulation <span>The recorded result</span></figcaption>
+              <figcaption><span class="media-origin">Result</span><strong id="studio-result-label">Digital environment</strong></figcaption>
               <video id="studio-video" controls playsinline preload="metadata"></video>
+              <p class="media-explanation" id="studio-result-note"></p>
             </figure>
           </div>
           <div class="comparison-notes"><p id="comparison-note">Play either recording to inspect the movement.</p><a id="source-credit" target="_blank" rel="noopener" hidden></a></div>
