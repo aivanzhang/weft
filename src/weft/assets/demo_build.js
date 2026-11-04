@@ -355,16 +355,57 @@
   function select(chosen) {
     if (!chosen) return;
     file = chosen;
+    clip = null;
+    markClips();
     $("file-label").textContent = chosen.name;
+  }
+
+  // Clips whose whole chain was measured: one click beats hunting for footage the reader refuses.
+  let clip = null;
+  function markClips() {
+    document.querySelectorAll("#clip-row .clip").forEach((button) =>
+      button.setAttribute("aria-pressed", String(button.dataset.clip === clip)));
+  }
+
+  async function loadClips() {
+    let data;
+    try { data = await api("/api/demo/clips"); } catch { return; }
+    const row = $("clip-row");
+    (data.clips || []).forEach((entry) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "clip";
+      button.dataset.clip = entry.id;
+      button.setAttribute("aria-pressed", "false");
+      const title = document.createElement("strong");
+      title.textContent = entry.title;
+      const note = document.createElement("span");
+      note.textContent = [entry.seconds ? `~${entry.seconds}s end to end` : null,
+                          entry.learned ? `agent ${entry.learned} vs random ${entry.random}` : null]
+        .filter(Boolean).join(" · ");
+      button.append(title, note);
+      button.title = [entry.why, entry.creator && `${entry.creator} · ${entry.licence}`]
+        .filter(Boolean).join("\n");
+      button.addEventListener("click", () => {
+        clip = clip === entry.id ? null : entry.id;
+        if (clip) { file = null; $("video").value = ""; $("file-label").textContent = entry.title; }
+        else { $("file-label").textContent = "Drop a video here, or choose a file"; }
+        markClips();
+      });
+      row.append(button);
+    });
+    if (row.children.length) $("clips").hidden = false;
   }
 
   $("run").addEventListener("click", async () => {
     $("run").disabled = true;
-    $("run-note").textContent = file ? "Uploading your clip…" : "Starting with the sample clip…";
+    $("run-note").textContent = file ? "Uploading your clip…"
+      : clip ? "Starting with the clip you picked…" : "Starting with the sample clip…";
     try {
       const prompt = $("prompt").value.trim();
       const query = new URLSearchParams();
       if (file) query.set("name", file.name);
+      if (!file && clip) query.set("clip", clip);
       if (prompt) query.set("prompt", prompt);
       await api("/api/demo/start?" + query.toString(), { method: "POST", body: file || undefined });
       $("progress").hidden = false;
@@ -444,5 +485,5 @@
   if (sessionStorage.getItem("weft_demo_unlocked") === "yes") unlocked();
   loadMeta()
     .then(() => loadFeatured())
-    .then(() => { renderMine(); loadGallery(true); poll(); });
+    .then(() => { renderMine(); loadClips(); loadGallery(true); poll(); });
 })(window);

@@ -182,6 +182,19 @@ footer strong{color:var(--ink)}
 /* Badges explain themselves on hover; the dotted rule signals that. */
 .chip.has-note{border-bottom-style:dotted;cursor:help}
 .tag[title]{cursor:help}
+/* Verified starting clips: a judge's own footage is refused more often than not, so the
+   measured ones sit right under the drop zone as one-click sources. */
+.build-source{display:flex;flex-direction:column;gap:12px}
+.build-source .drop{flex:1}
+.clips-head{margin:0 0 8px;font-size:12px;color:var(--muted);letter-spacing:.02em}
+.clip-row{display:flex;flex-direction:column;gap:6px}
+.clip{display:block;width:100%;text-align:left;padding:9px 12px;
+  border:1px solid var(--line);border-radius:7px;background:var(--surface);cursor:pointer;
+  font:inherit;color:inherit;line-height:1.35}
+.clip:hover{border-color:var(--clay);background:#fffdfa}
+.clip[aria-pressed="true"]{border-color:var(--clay);background:#96564410;box-shadow:inset 0 0 0 1px var(--clay)}
+.clip strong{display:block;font-size:13px;font-weight:620}
+.clip span{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
 @media(max-width:720px){.build-card{grid-template-columns:1fr}}
 
 .invite{margin-top:50px;padding:26px;border:1px solid var(--line);border-radius:10px;background:var(--surface);

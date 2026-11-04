@@ -23,6 +23,9 @@ from urllib.parse import urlencode
 from weft.io import local_time
 
 ACCESS_FILE = ".local/demo-access-code"
+# Clips whose whole chain was measured headlessly, offered so a judge can start from a
+# known-admitting source instead of hunting for footage the reader will refuse.
+CLIPS_DIR = ".local/demo-clips"
 MAX_VIDEO_BYTES = 100 * 1024 * 1024
 MAX_ARTIFACT_BYTES = 48 * 1024 * 1024
 RUN_ID = re.compile(r"run-[a-f0-9]{1,32}")
@@ -298,6 +301,41 @@ class DemoManager:
                 return path
         raise ValueError("No bundled sample clip is available")
 
+    def clips(self):
+        """Verified starting clips, newest measurement first. Empty is fine: upload still works."""
+        manifest = self.project / CLIPS_DIR / "manifest.json"
+        try:
+            data = json.loads(manifest.read_text())
+        except (OSError, ValueError):
+            return {"clips": [], "constraints": {}}
+        out = []
+        for clip in data.get("clips", []):
+            path = manifest.parent / str(clip.get("file", ""))
+            if clip.get("recommended") != "showcase" or not path.is_file():
+                continue
+            rl = clip.get("rl") or {}
+            out.append({
+                "id": str(clip.get("id", ""))[:64], "title": str(clip.get("title", ""))[:80],
+                "creator": str(clip.get("creator", ""))[:120], "licence": str(clip.get("licence", ""))[:40],
+                "seconds": clip.get("chain_seconds"), "why": str(clip.get("why", ""))[:200],
+                "learned": rl.get("learned"), "random": rl.get("random"),
+            })
+        return {"clips": out, "constraints": data.get("constraints") or {}}
+
+    def clip_path(self, clip_id):
+        base = self.project / CLIPS_DIR
+        try:
+            data = json.loads((base / "manifest.json").read_text())
+        except (OSError, ValueError):
+            data = {}
+        for clip in data.get("clips", []):
+            if clip.get("id") == clip_id and clip.get("recommended") == "showcase":
+                # Resolve under the clips directory so a manifest cannot point outside it.
+                path = (base / Path(str(clip.get("file", ""))).name).resolve()
+                if path.is_file() and path.parent == base.resolve():
+                    return path
+        raise ValueError("That clip is not one of the verified starting clips")
+
     # Route handlers have been written against two shapes of this API while the page and
     # the orchestrator were built in parallel; accept both rather than break on either.
     def state(self, run_id=None):
@@ -311,7 +349,7 @@ class DemoManager:
                         "error": None, "source": None, "project": record.get("project")}
         return current
 
-    def start(self, server_port=None, *, video=None, name=None, prompt=None, sample=None):
+    def start(self, server_port=None, *, video=None, name=None, prompt=None, sample=None, clip=None):
         # First argument is the server port in one caller and the video bytes in another.
         if isinstance(server_port, (bytes, bytearray)) or (server_port is None and sample is not None):
             video, server_port = (bytes(server_port) if server_port else None), self.port
@@ -321,9 +359,14 @@ class DemoManager:
             self.port = server_port
         if self.port is None:
             raise ValueError("The demo is still starting; refresh in a moment")
-        return self._start(video=video, name=name, prompt=prompt)
+        label = None
+        if clip and not video:
+            path = self.clip_path(clip)
+            video, name = path.read_bytes(), path.name
+            label = next((c["title"] for c in self.clips()["clips"] if c["id"] == clip), None)
+        return self._start(video=video, name=name, prompt=prompt, label=label)
 
-    def _start(self, *, video=None, name=None, prompt=None):
+    def _start(self, *, video=None, name=None, prompt=None, label=None):
         server_port = self.port
         with self.lock:
             if self.run and self.run["status"] == "running":
@@ -346,7 +389,8 @@ class DemoManager:
                         "total_estimate_seconds": sum(step["estimate_seconds"] for step in STEPS),
                         "steps": self._blank_steps(), "error": None, "project": None,
                         "prompt": (prompt or "").strip(),
-                        "source": {"name": Path(name).name[:120], "bytes": len(video), "sample": sample}}
+                        "source": {"name": Path(name).name[:120], "bytes": len(video),
+                                   "sample": sample, "label": label}}
             (self.dir / run_id).mkdir(mode=0o700, parents=True, exist_ok=True)
             self.thread = threading.Thread(target=self._drive, args=(run_id, video, Path(name).name),
                                            name="weft-demo", daemon=True)
@@ -752,9 +796,12 @@ class DemoManager:
         video = Path(run.get("session") or "") / "avatar-video.mp4"
         record = {
             "id": run_id, "created_at": local_time(), "status": run["status"],
-            "title": "Your run" if not run["source"]["sample"] else "Your run · sample clip",
+            "title": "Your run · " + (run["source"].get("label")
+                                      or ("sample clip" if run["source"]["sample"]
+                                          else run["source"]["name"][:40])),
             "caption": ("Built in this session from " +
-                        ("the bundled sample clip." if run["source"]["sample"]
+                        (f"“{run['source']['label']}”." if run["source"].get("label")
+                         else "the bundled sample clip." if run["source"]["sample"]
                          else f"“{run['source']['name']}”.")),
             "metrics": " · ".join(filter(None, [
                 f"{run.get('controls', 0)} control steps" if run.get("controls") else None,

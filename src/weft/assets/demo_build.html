@@ -42,13 +42,21 @@
 
   <section class="builder" id="builder" hidden>
     <div class="build-card">
-      <label class="drop" id="drop" for="video">
-        <span class="drop-icon" aria-hidden="true">▣</span>
-        <span id="file-label">Drop a video here, or choose a file</span>
-        <span class="hint">One person, mostly fixed camera, up to 60 seconds. Leave it empty and we will use
-          our licensed sample clip.</span>
-        <input id="video" type="file" accept="video/mp4,video/webm,video/quicktime,.m4v,.mkv,.avi">
-      </label>
+      <div class="build-source">
+        <label class="drop" id="drop" for="video">
+          <span class="drop-icon" aria-hidden="true">▣</span>
+          <span id="file-label">Drop a video here, or choose a file</span>
+          <span class="hint">One person, plain background, fixed camera, one continuous shot, under
+            60 seconds. Cuts, mirrors and bystanders read as a second person and are refused with the
+            reason shown.</span>
+          <input id="video" type="file" accept="video/mp4,video/webm,video/quicktime,.m4v,.mkv,.avi">
+        </label>
+
+        <div class="clips" id="clips" hidden>
+          <p class="clips-head">or start from a clip we have already measured end to end</p>
+          <div class="clip-row" id="clip-row"></div>
+        </div>
+      </div>
 
       <div class="build-side">
         <label class="field">Character to generate

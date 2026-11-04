@@ -1238,6 +1238,11 @@ class PortalHandler(LabHandler):
                     except (OSError, ValueError):
                         continue
                 return self.reply({"featured": names})
+            if path == "/api/demo/clips":
+                return self.reply(self.server.portal.demo.clips())
+            match = re.fullmatch(r"/api/demo/clips/([A-Za-z0-9-]{1,64})/video", path)
+            if match:
+                return self.send_file(self.server.portal.demo.clip_path(match[1]))
             if path == "/api/demo/gallery":
                 return self.reply(self.server.portal.demo.gallery())
             match = re.fullmatch(r"/api/demo/gallery/([A-Za-z0-9-]{1,64})/video", path)
@@ -1294,7 +1299,8 @@ class PortalHandler(LabHandler):
                     self.server.server_port, video=video,
                     name=(query.get("name") or [None])[0],
                     prompt=(query.get("prompt") or [None])[0],
-                    sample=not video), 202)
+                    clip=(query.get("clip") or [None])[0],
+                    sample=not video and not query.get("clip")), 202)
             if path in {"/api/avatars/library", "/api/avatars/create"}:
                 length = int(self.headers.get("Content-Length", "0"))
                 if not 1 <= length <= 8192:
