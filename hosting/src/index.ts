@@ -409,14 +409,16 @@ async function avatars(request: Request, env: Env, url: URL) {
   }
   const response = await env.ASSETS.fetch(new Request(url.origin + asset, { method: "GET" }));
   if (!response.ok) throw new Rejected("Avatar resource does not exist.", 404);
-  return new Response(request.method === "HEAD" ? null : response.body, {
-    status: 200,
-    headers: {
-      "Content-Type": type,
-      // Digest-keyed, so a cached copy can never be the wrong avatar.
-      "Cache-Control": "public, max-age=31536000, immutable",
-    },
+  const headers = new Headers({
+    "Content-Type": type,
+    // Digest-keyed, so a cached copy can never be the wrong avatar.
+    "Cache-Control": "public, max-age=31536000, immutable",
   });
+  // The client sizes a render payload before fetching it, and a HEAD carries no body to
+  // measure, so the asset store's length has to be forwarded rather than dropped.
+  const length = response.headers.get("Content-Length");
+  if (length) headers.set("Content-Length", length);
+  return new Response(request.method === "HEAD" ? null : response.body, { status: 200, headers });
 }
 
 async function api(request: Request, env: Env) {
