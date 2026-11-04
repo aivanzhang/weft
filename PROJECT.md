@@ -125,6 +125,19 @@ not an external benchmark or a guarantee for new inputs.
   shoulder band lengthening to the body's proportions, a stylized retarget
   property, not a defect. Evidence: `.local/demo-capstone-02/`,
   `.local/avatar-quality-01/` through `-05-pack/`.
+- A guided reviewer walkthrough runs the whole product from one page at `/demo`: an
+  access gate, a clip source, seven live steps and a carousel of finished runs, with
+  finished runs also browsable at `/demo/runs`. Each step states what it does, what it
+  is worth, and leaves a downloadable bundle of its own evidence (43 KB to 8.4 MB).
+  Nothing in the page reimplements the pipeline — a worker thread drives the portal's
+  own HTTP API exactly as a person would, so a refused clip stays refused with its
+  reason instead of falling back to a sample. Live-verified end to end at 43-78
+  seconds for all seven steps, task success true with zero failed gates, and a real
+  Meta Muse review returning three hypotheses with its recorded cost. Because judge
+  footage is admitted in only 3 of 8 real exercise clips — one person, plain
+  background, fixed camera, one continuous shot is a narrow envelope — the three
+  clips whose whole chain was measured are offered as one-click sources, each
+  labelled with its end-to-end time and its learned-versus-random contrast.
 - Generated avatars no longer need hand-written delivery configuration. An automatic
   resolver maps a rig's bones to Weft's ten body roles by name synonyms checked against
   skeleton structure, and derives scale and orientation from the rig's own measured
