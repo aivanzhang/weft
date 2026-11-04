@@ -32,6 +32,8 @@ Cream on deep clay has a calculated contrast ratio of 4.77:1. Terracotta is deco
 | --- | --- |
 | [Logo](exports/weft-logo.png) | 1254×1254 transparent logo |
 | [Mascot](exports/weft-mascot.png) | 1280×1280 transparent neutral character |
+| [Publisher avatar](exports/weft-publisher-avatar.png) | 1024×1024 opaque ivory app avatar, derived from the same mascot master; no wordmark |
+| [Developer publisher avatar](exports/weft-publisher-developer.png) | 1024×1024 publisher variant with a subtle terracotta code stitch; main mascot/logo unchanged |
 | [Sprite sheet](exports/weft-mascot-sprites.png) | Idle, blink, wave A, wave B; four 640×640 cells in reading order |
 | [Sprite metadata](exports/weft-mascot-sprites.json) | Rectangles, shared pivot `[320, 580]`, and one-shot timings |
 | [Layered vector](source/weft-mascot-rig.svg) | Master artwork with separately named body, limbs, weave, stitch, eyes, cheeks, and mouth |
@@ -69,6 +71,13 @@ python3 scripts/brand/build_mascot_poses.py .local/brand-export
 swift -module-cache-path .local/swift-cache scripts/brand/export_brand.swift assets/brand .local/brand-export
 python3 scripts/brand/build_mascot_intro.py
 python3 scripts/brand/sync_brand.py
+```
+
+To export only the GitHub publisher avatar without rewriting existing PNGs:
+
+```sh
+python3 scripts/brand/build_mascot_poses.py .local/brand-export
+swift -module-cache-path .local/swift-cache scripts/brand/export_brand.swift assets/brand .local/brand-export --avatar-only
 ```
 
 Check generated animation and packaged resources without rewriting:

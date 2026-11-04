@@ -2,6 +2,18 @@
 
 Verified October 26, 2026 through public HTTP sources and the signed-in event tab. Source documents remain authoritative; this is an operational extraction, not legal advice or acceptance of terms.
 
+## November 3 recheck
+
+Checked November 3, 2026, 9:13–9:15 p.m. PST using read-only public requests and an explicitly authorized signed-in browser inspection.
+
+- **Deadline confirmed:** the current event page still gives November 4 at 9:00 p.m. Eastern, equivalent to **November 4, 2026, 6:00 p.m. PST**.
+- **Track rules confirmed:** the current official rules embedded in the public page allow individual builders/students and teams of up to four in Indie Developer. Startup is for technical founders building a product; its representative must be an active startup employee authorized to act and receive notices/payment. Each participant and project may enter only one track.
+- **Weft fit:** Indie Developer / Push the Frontier remains consistent with the recorded intended entry and the project's simulation-development purpose. The inspected rules do not say that owning a company alone forces a Startup entry. This is a track-fit assessment, not certification of personal eligibility or current account acceptance.
+- **Entrant conditions:** accepted application, age 18 or older and local age of majority, permitted location/sanctions status, and no excluded organizer/government affiliations or covered family/household relationships. Signed-in guide/form access works; that alone is not certification of every eligibility condition. Final contributor completeness and personal declarations still need entrant confirmation.
+- **Guide/form verified:** signed-in inspection confirmed the core deliverables and deadline. See the [guide recheck](../sources/participant-guide-20261103-recheck.md) and [current form capture](../sources/submission-form-20261103.md). The form replaces the generic Meta feedback field with nine structured feedback questions; build likelihood and overall opinion are explicitly required. No dedicated live-product URL field is visible. No values or selections were changed.
+
+Sources: [current event](https://cerebralvalley.ai/e/meta-ai-developer-hackathon), [current rules](https://cerebralvalley.ai/e/meta-ai-developer-hackathon/waiver), [guide route](https://cerebralvalley.ai/e/meta-ai-developer-hackathon/details), [submission route](https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit). No form, consent, account setting or submission was changed. Earlier source snapshots were preserved.
+
 ## Required for a viable entry
 
 - Use Meta Model API and/or eligible Meta open-weight models meaningfully in the project.
@@ -23,8 +35,8 @@ Dates use 2026 and America/Los_Angeles. Daylight saving time ends November 1, so
 | Posted application deadline | October 25, 8:59 p.m. PDT, using the event page's ET wording |
 | Posted approval notification target | October 26, 6:00 a.m. PDT |
 | Kickoff | October 26, 9:00 a.m. PDT; organizer announcement explicitly confirms this PT time |
-| Agents 101: multimodal agent, Suraj Subramanian | October 27, 9:00–10:00 a.m. PDT |
-| Agents 102: verifiable agents, Yash Khare | October 28, 9:00–10:00 a.m. PDT |
+| Agents 101: multimodal agent, Suraj Subramanian | October 27, 9:00–9:30 a.m. PDT (November 3 guide) |
+| Agents 102: verifiable agents, Yash Khare | October 28, 9:00–9:30 a.m. PDT (November 3 guide) |
 | Fireworks specialized intelligence, Sinan Ozdemir | October 30, 9:00–10:00 a.m. PDT |
 | Weekday text office hours | October 27–30, 7:00–8:00 a.m. PDT; November 2–4, 7:00–8:00 a.m. PST |
 | Last full troubleshooting day | November 3 |
@@ -38,7 +50,7 @@ The guide also places “final office hours” at the submission deadline, in ad
 
 ## Submission preparation
 
-The [actual form](../sources/submission-form.md) requests a team name/members, track, theme, project description, public GitHub URL, three-minute video, Meta product usage, why Meta matters, product feedback, partner feedback, and an optional X post for the viral award. It includes an organizer publication/promotional-use checkbox.
+The [current form](../sources/submission-form-20261103.md) requests a team name/members, track, theme, project description, public GitHub URL, three-minute video, Meta product usage, why Meta matters, nine structured Meta feedback questions, partner feedback, and an optional X post for the viral award. It includes an organizer publication/promotional-use checkbox. Build likelihood and overall opinion are explicitly required alongside track/theme; other hidden validation was not tested.
 
 Prepare these artifacts locally; do not submit under the current instruction. Include the live demo link in project description/README if useful, since no dedicated field was visible. The guide says code, video, and live product are judging artifacts; it does not specify a mandatory hosting provider.
 
@@ -52,7 +64,7 @@ Prepare these artifacts locally; do not submit under the current instruction. In
 | Meta credits | $150 per eligible participant and one grant per account; claim individually, not pooled on one account |
 | Baseten | $100 and 2M tokens/minute limit for selected applicants, up to 2,000 participants |
 | Modal | $100 for the first 1,000 participants under the guide's terms |
-| Fireworks | $25 per selected team |
+| Fireworks | $100 per selected team in the November 3 guide; October 26 capture said $25 |
 
 Prizes are advertised as cash; compute credits are separate and are not cash prizes. Partner credits are discretionary. Winner verification and payout terms are in the rules; no prize is guaranteed by acceptance or a high score.
 
