@@ -389,8 +389,13 @@ def main():
 
     def learn(clip, work):
         """The learning stage on one clip; raises with the lab's own refusal text."""
+        # 600 training episodes, not the 1,500 default. The evaluation is untouched -- still
+        # 100 held-out episodes against the frozen task -- and it returns identical successes
+        # at 600 on every clip measured: waiters-squat 100/1/0, bodyweight-squats 100/0/0,
+        # sots-press 100/10/0, with training 58-70% shorter. 400 degrades waiters-squat to
+        # 99/100, so 600 is the floor, not a round number.
         root = prepare_lab(clip, work, profile="exercise", body_model="mobile",
-                           pose_model=model,
+                           pose_model=model, episodes=600,
                            source_note="Hosted submission; rights not independently verified")
         # prepare_lab only seals the configuration; the worker runs the stages.
         lab = Lab(root, avatars=())
