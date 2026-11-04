@@ -119,10 +119,14 @@ def collect_unknown(root, output, request, binding_path):
                  'Unknown-call original input identity or bytes changed')
         pins.append(a);identities.append({'path':str(path),**identity})
     status,_=_receipt(output/'status.json')
+    # Two custody classes end here without a usable answer: transport failures where the
+    # charge is truly unknown, and provider-truncated responses (incomplete at the output
+    # token cap) where the response and its usage are saved but no answer was verified.
+    incomplete=(not streaming and status.get('error')=='Incomplete or unexpected API response')
     _require(status.get('status')=='checkpointed_error' and status.get('stage')=='pipeline'
              and status.get('automatic_retry') is False
-             and status.get('error')==('OpenAI stream unsupported_event; reservation retained, no automatic retry' if streaming
-                 else 'OpenAI transport failed; reservation retained, no automatic retry'),
+             and (incomplete or status.get('error')==('OpenAI stream unsupported_event; reservation retained, no automatic retry' if streaming
+                 else 'OpenAI transport failed; reservation retained, no automatic retry')),
              'Unknown-call release requires the exact non-retrying transport checkpoint')
     agents=output/'agents'
     _require(_entries(agents,4)==['author-0','planner','runner.json','runner.lock'],
@@ -168,6 +172,7 @@ def collect_unknown(root, output, request, binding_path):
     _require(isinstance(images,list) and len(images)<=8,'Unknown author images exceed bound')
     expected_names={'payload-metadata.json','prompt.txt','receipt.json','request.json','schema.json'}
     if streaming:expected_names.add('transport.json')
+    if incomplete:expected_names.add('response.json')
     total=0
     for index,item in enumerate(images):
         _require(isinstance(item,dict) and set(item)=={'bytes','sha256','suffix'} and item['suffix'] in ('.png','.jpg','.jpeg','.webp'),
@@ -186,6 +191,21 @@ def collect_unknown(root, output, request, binding_path):
         stream_proof=_failed_stream_trace(author,call,settings,status)
     _require(call==expected_call and digest(call)==rows[0]['request_digest'],
              'Unknown author request differs from held charge')
+    incomplete_proof=None
+    if incomplete:
+        response,response_pin=_receipt(author/'response.json',4*1024*1024)
+        usage=response.get('usage')
+        _require(response.get('status')=='incomplete'
+                 and (response.get('incomplete_details') or {}).get('reason')=='max_output_tokens'
+                 and isinstance(response.get('id'),str) and response['id'].startswith('resp_')
+                 and isinstance(usage,dict)
+                 and all(type(usage.get(k)) is int and 0<=usage[k]<=10_000_000
+                         for k in ('input_tokens','output_tokens')),
+                 'Incomplete-response release requires the saved truncated response with its usage')
+        pins.append({**response_pin,'path':str(author/'response.json')})
+        incomplete_proof={'response_id':response['id'],'reason':'max_output_tokens',
+                          'input_tokens':usage['input_tokens'],'output_tokens':usage['output_tokens'],
+                          'scope':'Provider answered but truncated at the output token cap; the usage is saved and the reservation stays held unchanged.'}
     _require(receipt.get('status')=='failed_or_uncertain' and receipt.get('execution_kind')=='openai_responses_api'
              and receipt.get('automatic_resubmission_allowed') is False and receipt.get('reserved_microdollars')==rows[0]['reserved']
              and receipt.get('response_id') is None and receipt.get('usage') is None
@@ -206,7 +226,8 @@ def collect_unknown(root, output, request, binding_path):
             **({'stream':stream_proof} if stream_proof else {}),
             'output':str(output),'output_inventory':inventory,'files':pins,'input_identities':identities,
             'uncertain_call':{'role':'author-0','request_digest':rows[0]['request_digest'],
-                'reserved_microdollars':rows[0]['reserved'],'state':'reserved_uncertain','response_id':None,'actual_microdollars':None}}
+                'reserved_microdollars':rows[0]['reserved'],'state':'reserved_uncertain','response_id':None,'actual_microdollars':None},
+            **({'incomplete_response':incomplete_proof} if incomplete_proof else {})}
     recheck_unknown(result)
     return result
 

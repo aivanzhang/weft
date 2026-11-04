@@ -25,7 +25,10 @@ MAX_QUEUED = 4
 MAX_INVOCATIONS = 8
 MAX_JSON = 1024**2
 HEARTBEAT_STALE = 15
-STORED_BYTES_LIMIT = 8*1024**3
+# Owner capacity decision for this development host (15 GiB free at review);
+# raised from 8 GiB after retained evidence from one hackathon day filled it.
+# An archive ceremony for terminal jobs remains the proper long-term answer.
+STORED_BYTES_LIMIT = 12*1024**3
 ACTIVE_RESERVATION_BYTES = 2*1024**3+64*1024**2
 TERMINAL = {'complete', 'unsupported', 'failed', 'needs_inspection'}
 
@@ -648,14 +651,18 @@ class StudioJobs:
         with self._db() as db:row,data,request=owned(db)
         folder=self.root/'outputs'/row['output']
         fresh=request.get('reuse_model') is None
-        preprovider=(fresh and data.get('operation')=='plan'
+        # A planning owner that died before provider or runner work leaves the same
+        # provable absences whether the job is fresh or reuses a paid source.
+        preprovider=(data.get('operation')=='plan'
                      and not (folder/'generation').exists() and not (folder/'agents').exists())
-        planning_only=(fresh and data.get('operation')=='plan'
-                       and not (folder/'generation').exists() and (folder/'agents').is_dir())
+        planning_only=(data.get('operation')=='plan'
+                       and not (folder/'generation').exists() and (folder/'agents').is_dir()
+                       and (fresh or not (folder/'agents/runner.json').is_file()))
         prepared=_json(folder/'request.json',{})
         runner=_json(folder/'agents/runner.json',{})
-        api_planning=not fresh and (isinstance(prepared,dict) and 'agent_backend' in prepared
-                      or isinstance(runner,dict) and runner.get('execution_kind')=='openai_responses_api')
+        api_planning=(not fresh and not preprovider and not planning_only
+                      and (isinstance(prepared,dict) and 'agent_backend' in prepared
+                      or isinstance(runner,dict) and runner.get('execution_kind')=='openai_responses_api'))
         author_input=api_planning and data.get('operation')=='execute'
         if not fresh:
             _require(not (folder/'generation').exists(),'Remote-generation artifacts need separate inspection')

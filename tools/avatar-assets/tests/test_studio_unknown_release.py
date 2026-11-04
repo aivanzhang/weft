@@ -34,6 +34,14 @@ class UnknownReleaseTests(unittest.TestCase):
         self.stack.enter_context(patch.object(api,'post_response',side_effect=AssertionError('No provider call')))
         self.stack.enter_context(patch.object(self.jobs,'_dispatch',side_effect=AssertionError('No dispatch')))
 
+    def _seal_artifacts(self):
+        # The real runner seals its receipt after saving the response; mirror that order.
+        from avatar_assets.agent_runner import _call_artifacts
+        author=self.output/'agents/author-0'
+        receipt=read_json(author/'receipt.json')
+        receipt['artifacts']=_call_artifacts(author)
+        write(author/'receipt.json',receipt)
+
     def invoke(self):
         return self.jobs.release_uncertain_inspected(self.f.job,expected_pid=self.f.owner_pid,
             expected_identity=self.f.identity,reason='Analytic custody release, preserve the entire unknown hold.')
@@ -68,6 +76,32 @@ class UnknownReleaseTests(unittest.TestCase):
     def test_response_or_extra_author_prevents_release(self):
         write(self.output/'agents/author-0/response.json',{'id':'resp_unvalidated'})
         with self.assertRaisesRegex(ValueError,'response|extra'):self.invoke()
+        self.f.retained()
+
+    def test_truncated_response_with_saved_usage_releases_and_binds_proof(self):
+        write(self.output/'status.json',{'status':'checkpointed_error','stage':'pipeline','automatic_retry':False,
+              'error':'Incomplete or unexpected API response'})
+        write(self.output/'agents/author-0/response.json',{'id':'resp_analytic_truncated','status':'incomplete',
+              'incomplete_details':{'reason':'max_output_tokens'},
+              'usage':{'input_tokens':17293,'output_tokens':16384}})
+        self._seal_artifacts()
+        result=self.invoke()
+        self.assertTrue(result['lease_released'])
+        receipt=read_json(self.jobs.state_dir/result['receipt'])
+        proof=receipt['proof']['unknown_provider']
+        self.assertEqual(proof['incomplete_response']['response_id'],'resp_analytic_truncated')
+        self.assertEqual(proof['incomplete_response']['reason'],'max_output_tokens')
+        self.assertEqual(proof['uncertain_call']['state'],'reserved_uncertain')
+        self.verify(result)
+
+    def test_incomplete_checkpoint_without_valid_saved_response_is_refused(self):
+        write(self.output/'status.json',{'status':'checkpointed_error','stage':'pipeline','automatic_retry':False,
+              'error':'Incomplete or unexpected API response'})
+        with self.assertRaisesRegex(ValueError,'response|extra'):self.invoke()
+        write(self.output/'agents/author-0/response.json',{'id':'resp_x','status':'completed',
+              'usage':{'input_tokens':1,'output_tokens':1}})
+        self._seal_artifacts()
+        with self.assertRaisesRegex(ValueError,'truncated response'):self.invoke()
         self.f.retained()
 
     def test_wrong_checkpoint_or_remote_work_prevents_release(self):

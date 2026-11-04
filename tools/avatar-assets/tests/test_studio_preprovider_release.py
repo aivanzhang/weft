@@ -94,6 +94,38 @@ class PreProviderReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'custody lock is missing|generation'):
             self.release()
 
+    def test_reuse_planning_owner_without_provider_folders_releases(self):
+        # Free the setUp job's lease first so the reuse job can dispatch and claim.
+        self.release()
+        source = self.root / 'outputs/fixture.glb'
+        source.write_bytes(b'ANALYTIC FIXTURE; NOT A GENERATED MODEL')
+        job = self.jobs.create('A fixture reuse re-author', reuse_model=source)['id']
+        self.jobs.plan(job)
+        with self.jobs._db() as db:
+            data = json.loads(self.jobs._row(db, job)['data'])
+        self.jobs._worker_claim(job, data['token'], data['owner_pid'], data['owner_identity'])
+        self.jobs._worker_complete(job, data['token'], 'needs_inspection', safe_to_release=False,
+                                   error='Prepared pipeline request differs from the immutable Studio request')
+        invocation = self.jobs.state_dir / data['invocation_dir']
+        child = {'pid': 90002, 'status': 'finished', 'exit_code': 1, 'process_exit_verified': True,
+                 'manual_stop_required': False, 'monitor_checkpoint': 'worker-monitor.json'}
+        write(invocation / 'owner.json',
+              {'pid': data['owner_pid'], 'start_identity': data['owner_identity'], 'token': data['token']})
+        write(invocation / 'worker-job.json', child)
+        write(invocation / 'worker-monitor.json', child)
+        write(invocation / 'worker-handle.json', {'pid': 90002, 'monitor_checkpoint': 'worker-monitor.json'})
+        for name in ('result.json', 'supervisor-result.json'):
+            write(invocation / name,
+                  {'status': 'needs_inspection', 'safe_to_release': False, 'provenance': 'analytic_fixture'})
+        write(Path(self.jobs.resolve_job(job)) / 'request.json', {'schema_version': 1})
+        (self.jobs.jobs_dir / job / 'worker.lock').touch()
+        result = self.jobs.release_inspected(job, expected_pid=data['owner_pid'],
+                                             expected_identity=data['owner_identity'],
+                                             reason='Reuse planning custody; config drift reviewed.')
+        self.assertEqual(result['status'], 'failed')
+        receipt = json.loads((self.jobs.state_dir / result['receipt']).read_text())
+        self.assertIn('no_provider_contact', receipt['proof'])
+
     def test_queued_work_still_blocks_release(self):
         second = self.jobs.create('Another fixture creature')['id']
         self.jobs.plan(second)
