@@ -701,10 +701,17 @@ class DemoManager:
             self.run["session"] = str(session_dir)
             self.run["controls"] = steps
             self.run["success"] = success
-        self._finish(4, "Character swapped mid-take; physics untouched", {
-            "swap": f"step {swap_at}" if swap_at else "single character",
-            "task success": "yes" if success else "no",
-            "failed gates": ", ".join(failed) if failed else "none"}, artifact)
+        # avc1 can silently resolve to mp4v where a build lacks libx264, and mp4v renders
+        # as a black player. Say so rather than letting a reviewer think the run failed.
+        from weft.browser_video import playable_in_browser
+        video = session_dir / "avatar-video.mp4"
+        metrics = {"swap": f"step {swap_at}" if swap_at else "single character",
+                   "task success": "yes" if success else "no",
+                   "failed gates": ", ".join(failed) if failed else "none"}
+        if video.is_file() and not playable_in_browser(video):
+            metrics["video"] = ("recorded, but this machine's encoder produced MPEG-4 Part 2,"
+                                " which browsers cannot play — download it to watch")
+        self._finish(4, "Character swapped mid-take; physics untouched", metrics, artifact)
 
     def _step_muse(self, run_dir, child):
         index = 5
