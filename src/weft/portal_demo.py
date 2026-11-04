@@ -440,13 +440,25 @@ class DemoManager:
         featured = [v for v in self._featured() if v in kept]
         (self.dir / "featured.json").write_text(json.dumps(featured, indent=2) + "\n")
 
+    def _manifest(self):
+        """Parsed clip manifest, holding the last good copy across a rewrite.
+
+        Another process regenerates this file while the page is live; a partial read
+        would otherwise empty the picker mid-session.
+        """
+        try:
+            data = json.loads((self.project / CLIPS_DIR / "manifest.json").read_text())
+            if not isinstance(data, dict):
+                raise ValueError("manifest must be an object")
+            self._clips_cache = data
+            return data
+        except (OSError, ValueError):
+            return getattr(self, "_clips_cache", None) or {}
+
     def clips(self):
         """Verified starting clips, newest measurement first. Empty is fine: upload still works."""
         manifest = self.project / CLIPS_DIR / "manifest.json"
-        try:
-            data = json.loads(manifest.read_text())
-        except (OSError, ValueError):
-            return {"clips": [], "constraints": {}}
+        data = self._manifest()
         out = []
         for clip in data.get("clips", []):
             path = manifest.parent / str(clip.get("file", ""))
@@ -465,10 +477,7 @@ class DemoManager:
 
     def clip_path(self, clip_id):
         base = self.project / CLIPS_DIR
-        try:
-            data = json.loads((base / "manifest.json").read_text())
-        except (OSError, ValueError):
-            data = {}
+        data = self._manifest()
         for clip in data.get("clips", []):
             if (clip.get("id") == clip_id and clip.get("recommended") == "showcase"
                     and _attributable(clip) and _runs_locally(clip)):
