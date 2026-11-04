@@ -11,13 +11,13 @@
     if (!response.ok) {
       if ((response.status === 401 || response.status === 403) && !["/api/demo/unlock", "/api/demo/showcase"].includes(path)) {
         $("auth-warning").hidden = false;
-        $("auth-warning").textContent = "Your access needs to reconnect. Use Access in the header.";
+        $("auth-warning").textContent = "Your access needs to reconnect. Choose Build and enter your code again.";
         token = "";
         root.WeftDemoSession.setToken("");
         auth.Authorization = "";
         $("gate-panel").hidden = false;
-        $("access-connected").hidden = true;
-        $("access-menu").open = true;
+        $("show-builder").setAttribute("aria-controls", "gate-panel");
+        setGateOpen(true);
         $("builder").hidden = true;
         loadShowcase();
       }
@@ -139,33 +139,47 @@
   }
 
   /* ---------------- gate ---------------- */
+  let gateOpen = false;
+  function setGateOpen(open) {
+    gateOpen = open;
+    $("access-menu").setAttribute("data-expanded", String(open));
+    $("show-builder").setAttribute("aria-expanded", String(open));
+    $("gate-panel").inert = !open;
+  }
   function unlocked() {
+    setGateOpen(false);
     $("gate-panel").hidden = true;
     $("builder").hidden = false;
-    $("access-connected").hidden = false;
-    $("access-menu").open = false;
+    $("show-builder").setAttribute("aria-controls", "builder");
+    $("show-builder").setAttribute("aria-expanded", "true");
     renderMine();
   }
 
   $("gate-code").value = root.WeftDemoSession.accessCode;
-  if (root.WeftDemoSession.accessCode) $("access-menu").open = true;
+  setGateOpen(Boolean(root.WeftDemoSession.accessCode));
   $("show-builder").addEventListener("click", () => {
-    $("access-menu").open = false;
-    $("builder").hidden = false;
-    $("builder").scrollIntoView({ behavior: "auto", block: "start" });
+    if (token && $("gate-panel").hidden) {
+      $("builder").hidden = false;
+      $("builder").scrollIntoView({ behavior: "auto", block: "start" });
+      return;
+    }
+    setGateOpen(!gateOpen);
+    if (gateOpen) $("gate-code").focus({ preventScroll: true });
   });
   document.addEventListener("pointerdown", (event) => {
-    if ($("access-menu").open && !$("access-menu").contains(event.target)) $("access-menu").open = false;
+    if (gateOpen && !$("access-menu").contains(event.target)) setGateOpen(false);
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !$("access-menu").open) return;
-    $("access-menu").open = false;
-    $("access-menu").querySelector("summary").focus();
+    if (event.key !== "Escape" || !gateOpen) return;
+    setGateOpen(false);
+    $("show-builder").focus();
   });
 
   $("gate-form").addEventListener("submit", async (event) => {
     event.preventDefault();
+    if ($("gate-submit").disabled) return;
     $("gate-submit").disabled = true;
+    $("gate-form").setAttribute("aria-busy", "true");
     $("gate-error").textContent = "";
     try {
       const session = await api("/api/demo/unlock", {
@@ -179,11 +193,14 @@
       try { sessionStorage.setItem("weft_demo_unlocked", "yes"); } catch { /* Storage is optional. */ }
       keepToken();
       unlocked();
+      $("show-builder").focus();
       loadDemo();
     } catch (error) {
+      setGateOpen(true);
       $("gate-error").textContent = error.message;
     } finally {
       $("gate-submit").disabled = false;
+      $("gate-form").setAttribute("aria-busy", "false");
     }
   });
 
@@ -223,7 +240,7 @@
         current = Math.min(current, Math.max(0, demos.length - 1));
         showDemo();
       } catch {
-        if (!token) galleryState("error", "The worlds couldn’t load.", "Try again to reload the recordings.");
+        if (!token) galleryState("error", "The examples couldn’t load.", "Try again to reload the recordings.");
       }
     })().finally(() => { showcaseFlight = null; });
     return showcaseFlight;
@@ -253,7 +270,7 @@
       showDemo();
     } catch (error) {
       if (!token) return loadShowcase();
-      galleryState("error", "The worlds couldn’t load.", "Try again to reload the recordings.");
+      galleryState("error", "The examples couldn’t load.", "Try again to reload the recordings.");
     }
     })().finally(() => { galleryFlight = null; });
     return galleryFlight;
@@ -267,41 +284,63 @@
   function showDemo() {
     const available = demos.length > 0;
     if (!available) {
-      galleryState("empty", "The first world is still ahead.", token
+      galleryState("empty", "No finished examples yet.", token
         ? "Build from a video to start your collection."
         : "Finished experiments will appear here. Have a code? Open Access to build your own.");
       return;
     }
     galleryState("ready");
     const demo = demos[current];
+    $("demo-video").pause();
+    $("demo-source-video").pause();
     // Seek a fraction in: a paused video with no poster otherwise shows a black frame.
     $("demo-video").src = signed(demo.video_url || `/api/demo/gallery/${demo.id}/video`) + "#t=0.1";
+    $("demo-original").hidden = !demo.source_video_url;
+    $("demo-comparison").setAttribute("data-paired", String(Boolean(demo.source_video_url)));
+    if (demo.source_video_url) $("demo-source-video").src = signed(demo.source_video_url) + "#t=0.1";
+    else { $("demo-source-video").removeAttribute("src"); $("demo-source-video").load(); }
+    $("example-count").textContent = `${current + 1} / ${demos.length}`;
+    $("finished-content").setAttribute("aria-label", `Example ${current + 1} of ${demos.length}: ${demo.title}`);
     const mine = /^run-/.test(demo.id || "") || ["judge", "run", "yours", "studio"].includes(demo.kind);
-    $("demo-source").textContent = (mine ? "your run" : "verified run").toUpperCase();
+    $("demo-source").textContent = mine ? "YOUR SIMULATION" : "FINISHED EXAMPLE";
     $("demo-title").textContent = demo.title;
     $("demo-caption").textContent = demo.caption || "";
     $("demo-metrics").textContent = demo.metrics && typeof demo.metrics === "object"
       ? Object.entries(demo.metrics).map(([k, v]) => `${k} ${v}`).join(" · ")
       : demo.metrics || "";
     $("open-studio").hidden = false;
-    $("open-studio").textContent = mine ? "Open run" : "Watch recording";
+    $("open-studio").textContent = "Open studio";
     $("open-studio").onclick = () => openStudio(demo.id);
     $("dots").replaceChildren(...demos.map((_, index) => {
       const dot = document.createElement("button");
       dot.className = "dot";
       dot.type = "button";
-      dot.setAttribute("aria-label", `Run ${index + 1}`);
+      dot.setAttribute("aria-label", `Example ${index + 1}: ${demos[index].title}`);
       dot.setAttribute("aria-current", String(index === current));
-      dot.onclick = () => { current = index; showDemo(); };
+      dot.onclick = () => { if (current !== index) { current = index; showDemo(); $("dots").children[index].focus(); } };
       return dot;
     }));
   }
 
-  $("prev").addEventListener("click", () => {
-    if (demos.length) { current = (current - 1 + demos.length) % demos.length; showDemo(); }
-  });
-  $("next").addEventListener("click", () => {
-    if (demos.length) { current = (current + 1) % demos.length; showDemo(); }
+  let slideAnimation = null;
+  const moveExample = (direction) => {
+    if (demos.length < 2) return;
+    slideAnimation?.cancel();
+    current = (current + direction + demos.length) % demos.length;
+    showDemo();
+    if (!root.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) {
+      slideAnimation = $("demo-comparison").animate?.([
+        { opacity: .5, transform: `translateX(${direction * 18}px)` },
+        { opacity: 1, transform: "translateX(0)" },
+      ], { duration: 220, easing: "ease-out" });
+    }
+  };
+  $("prev").addEventListener("click", () => moveExample(-1));
+  $("next").addEventListener("click", () => moveExample(1));
+  root.WeftCarousel($("finished-content"), moveExample);
+  $("preview-studio").addEventListener("click", () => openStudio(demos[current]?.id));
+  $("demo-comparison").addEventListener("click", (event) => {
+    if (!event.target.closest("button")) openStudio(demos[current]?.id);
   });
 
   function renderMine() {
@@ -360,13 +399,15 @@
       $("studio-error").hidden = true;
       $("studio-modal").hidden = false;
       document.body.classList.add("locked");
-      $("studio-title").textContent = record.title || "Inside this run";
+      $("studio-title").textContent = record.title || "Your simulation";
       $("studio-note").textContent = record.caption || "";
-      $("studio-results").replaceChildren(chipRow(root.WeftRunResults(record)));
+      root.WeftStudioResults($("studio-results"), record);
       const result = record.result || {};
       world = result.project || result.child || record.project || null;
       const entry = demos.find((item) => item.id === identity);
-      focusViewer.open({ world, video: entry?.video_url ? signed(entry.video_url) : null, view });
+      focusViewer.open({ world, video: entry?.video_url ? signed(entry.video_url) : null,
+        source: entry?.source_video_url ? signed(entry.source_video_url) : null,
+        credit: entry?.source_credit, creditURL: entry?.source_page, view });
       if (world) {
         $("play-full").href = `/labs/${world}/#token=${encodeURIComponent(token)}`;
         $("readout").replaceChildren();

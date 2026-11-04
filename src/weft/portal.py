@@ -1212,7 +1212,7 @@ class PortalHandler(LabHandler):
             if route is not None:
                 return super().do_GET() if route else None
             path = unquote(urlsplit(self.path).path)
-            showcase_video = re.fullmatch(r"/api/demo/showcase/([A-Za-z0-9-]{1,64})/video", path)
+            showcase_video = re.fullmatch(r"/api/demo/showcase/([A-Za-z0-9-]{1,64})/(video|source)", path)
             public_showcase = path == "/api/demo/showcase" or showcase_video is not None
             if path in PUBLIC_ASSETS and path != "/":
                 return super().do_GET()
@@ -1221,7 +1221,9 @@ class PortalHandler(LabHandler):
             if path == "/api/demo/showcase":
                 return self.reply(self.server.portal.demo.showcase())
             if showcase_video:
-                return self.send_file(self.server.portal.demo.showcase_video(showcase_video[1]))
+                method = (self.server.portal.demo.showcase_source if showcase_video[2] == "source"
+                          else self.server.portal.demo.showcase_video)
+                return self.send_file(method(showcase_video[1]))
             if path in DEMO_BRAND_ASSETS:
                 return self.send_file(self.server.portal.project / DEMO_BRAND_ASSETS[path])
             if path in ASSETS:
@@ -1230,7 +1232,7 @@ class PortalHandler(LabHandler):
                     raw = file.read_bytes()
                     self.response_headers(200, "text/html; charset=utf-8", len(raw))
                     self.end_headers()
-                    self.wfile.write(raw)
+                    self.write_body(raw)
                     return
                 return self.send_file(file)
             if path == "/api/portal":

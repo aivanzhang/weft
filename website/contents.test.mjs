@@ -5,11 +5,12 @@ import vm from 'node:vm';
 
 const source = await readFile(new URL('./contents.js', import.meta.url), 'utf8');
 
-test('contents is icon-only, follows page order, and links to real unique sections', async () => {
+test('Weft opens minimal contents in page order with real unique sections', async () => {
   const html = await readFile(new URL('./index.html', import.meta.url), 'utf8');
   const menu = html.match(/<details class="page-contents"[\s\S]*?<\/details>/)[0];
   const summary = menu.match(/<summary[\s\S]*?<\/summary>/)[0];
-  assert.match(summary, /aria-label="Table of contents"/);
+  assert.match(summary, /class="wordmark"/);
+  assert.match(summary, /aria-label="Weft — table of contents"/);
   assert.match(summary, /<svg/);
   assert.equal(summary.replace(/<[^>]*>/g, '').trim(), '');
   const targets = [...menu.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);

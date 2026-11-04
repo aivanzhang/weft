@@ -35,7 +35,7 @@ test('run views are exclusive and release hidden simulation and video resources'
   assert.equal(cleanURL, '/demo');
   assert.equal(saved.get('weft-portal-token'), 'secret');
   const viewer = context.window.WeftRunFocus();
-  viewer.open({ world: 'a'.repeat(32), video: '/recording.mp4' });
+  viewer.open({ world: 'a'.repeat(32), video: '/recording.mp4', source: '/original.mp4', view: 'world' });
   assert.equal(element('world-frame').hidden, false);
   assert.equal(element('result-media').hidden, true);
   assert.equal(element('studio-results').hidden, true);
@@ -48,13 +48,25 @@ test('run views are exclusive and release hidden simulation and video resources'
   assert.equal(element('world-frame').hidden, true);
   assert.equal(element('result-media').hidden, false);
   assert.equal(element('studio-video').src, '/recording.mp4');
+  assert.equal(element('studio-source-video').src, '/original.mp4');
   tabs[2].listeners.click();
   assert.equal(element('result-media').hidden, true);
   assert.equal(element('studio-video').src, undefined);
   assert.equal(element('studio-results').hidden, false);
+  assert.equal(element('studio-source-video').src, undefined);
   viewer.close();
   assert.equal(element('world-view').src, undefined);
   assert.equal(element('studio-video').src, undefined);
+  viewer.open({ video: '/recording.mp4', source: '/original.mp4' });
+  assert.equal(viewer.active, 'recording', 'studio opens on the comparison by default');
+  assert.equal(tabs[0].hidden, true, 'unavailable live controls do not clutter saved examples');
+  assert.equal(element('studio-original').hidden, false);
+  viewer.close();
+  viewer.open({ video: '/recording-only.mp4' });
+  assert.equal(element('studio-original').hidden, true);
+  assert.equal(element('studio-source-video').src, undefined, 'missing source never reuses earlier footage');
+  assert.equal(tabs[1].textContent, 'Recording');
+  viewer.close();
   context.location.hash = '';
   vm.runInNewContext(source, context);
   assert.equal(context.window.WeftDemoSession.token, 'secret');
@@ -94,9 +106,11 @@ test('code links prefill without logging in and can accept a later authenticated
 
 test('visitors can see curated recordings while a prefilled access form never submits or fetches private APIs', async () => {
   const nodes = new Map();
-  const makeNode = () => ({ value: '', hidden: false, children: [], listeners: {},
+  const makeNode = () => ({ value: '', hidden: false, children: [], listeners: {}, attributes: {},
+    pause() {}, load() {}, removeAttribute() {},
     addEventListener(type, listener) { this.listeners[type] = listener; },
-    replaceChildren(...children) { this.children = children; }, setAttribute() {} });
+    replaceChildren(...children) { this.children = children; },
+    setAttribute(name, value) { this.attributes[name] = value; } });
   const node = (id) => { if (!nodes.has(id)) nodes.set(id, makeNode()); return nodes.get(id); };
   const requests = [];
   const context = {
@@ -121,7 +135,8 @@ test('visitors can see curated recordings while a prefilled access form never su
   for (let turn = 0; turn < 3; turn += 1) await new Promise(setImmediate);
   assert.equal(node('gate-code').value, 'DEMO-EXAMPLE');
   assert.equal(typeof node('gate-form').listeners.submit, 'function');
-  assert.equal(node('access-menu').open, true);
+  assert.equal(node('access-menu').attributes['data-expanded'], 'true');
+  assert.equal(node('gate-panel').inert, false);
   assert.deepEqual(requests, ['/api/demo/showcase']);
   assert.equal(node('finished-content').hidden, false);
   assert.equal(node('demo-title').textContent, 'Recorded exercise');
@@ -190,7 +205,7 @@ test('an already completed run loads results without displaying processing steps
   const nodes = new Map();
   const makeNode = () => ({ children: [], style: {}, hidden: false, textContent: '',
     classList: { add() {}, remove() {} },
-    addEventListener() {}, setAttribute() {},
+    addEventListener() {}, setAttribute() {}, pause() {}, load() {}, removeAttribute() {},
     replaceChildren(...children) { this.children = children; },
     append(...children) { this.children.push(...children); },
   });
@@ -227,7 +242,7 @@ test('an already completed run loads results without displaying processing steps
   assert.equal(node('finished-content').hidden, false);
   assert.equal(node('finished-empty').hidden, true);
   assert.equal(node('demo-title').textContent, 'Completed exercise');
-  assert.equal(node('open-studio').textContent, 'Watch recording');
+  assert.equal(node('open-studio').textContent, 'Open studio');
 });
 
 
@@ -238,13 +253,14 @@ function galleryFixture() {
       hidden: false, children: [], listeners: {}, attributes: {},
       addEventListener(name, callback) { this.listeners[name] = callback; },
       setAttribute(name, value) { this.attributes[name] = value; },
+      pause() {}, load() {}, removeAttribute() {},
       replaceChildren(...items) { this.children = items; },
     });
     return nodes.get(id);
   };
   const context = {
     window: { WeftDemoSession: { token: '', accessCode: '' },
-      WeftRunFocus: () => ({}), WeftElapsedClock: () => ({}) },
+      WeftRunFocus: () => ({}), WeftElapsedClock: () => ({}), WeftCarousel() {} },
     document: { getElementById: node, querySelectorAll: () => [], addEventListener() {},
       createElement: () => node(Symbol()) },
     AbortSignal: { timeout(ms) {
@@ -300,4 +316,153 @@ test('an empty gallery shows an honest empty state instead of an endless loader'
   assert.equal(f.node('finished-empty').hidden, false);
   assert.equal(f.node('finished-retry').hidden, true);
   assert.match(f.node('finished-message-detail').textContent, /Finished experiments will appear here/);
+});
+
+async function inlineGateFixture() {
+  const build = await readFile(new URL('../src/weft/assets/demo_build.js', import.meta.url), 'utf8');
+  const gate = build.slice(build.indexOf('  /* ---------------- gate'), build.indexOf('  /* ---------------- my runs'));
+  const nodes = new Map(), events = {}, requests = [];
+  let focused, scrolled, loaded = 0;
+  const node = (id) => {
+    if (!nodes.has(id)) nodes.set(id, {
+      hidden: false, attributes: {}, listeners: {}, value: '',
+      setAttribute(name, value) { this.attributes[name] = value; },
+      addEventListener(name, callback) { this.listeners[name] = callback; },
+      focus() { focused = id; }, scrollIntoView() { scrolled = id; },
+      contains(target) { return [...nodes.values()].includes(target); },
+    });
+    return nodes.get(id);
+  };
+  const context = {
+    $: node, token: '', auth: {}, root: { WeftDemoSession: { accessCode: '', setToken() {} } },
+    document: { addEventListener(name, callback) { events[name] = callback; } },
+    sessionStorage: { setItem() {} }, keepToken() {}, renderMine() {}, loadDemo() { loaded += 1; },
+    api: (path, options) => new Promise((resolve, reject) => requests.push({ path, options, resolve, reject })),
+  };
+  vm.runInNewContext(gate, context);
+  return { node, events, requests, status: () => ({ focused, scrolled, loaded }) };
+}
+
+test('Build reveals an inline code field; Escape and outside clicks close it without submitting', async () => {
+  const f = await inlineGateFixture();
+  assert.equal(f.node('gate-panel').inert, true);
+  f.node('show-builder').listeners.click();
+  assert.equal(f.node('show-builder').attributes['aria-expanded'], 'true');
+  assert.equal(f.node('gate-panel').inert, false);
+  assert.equal(f.status().focused, 'gate-code');
+  f.events.keydown({ key: 'Escape' });
+  assert.equal(f.node('gate-panel').inert, true);
+  assert.equal(f.status().focused, 'show-builder');
+  f.node('show-builder').listeners.click();
+  f.events.pointerdown({ target: f.node('gate-code') });
+  assert.equal(f.node('gate-panel').inert, false);
+  f.events.pointerdown({ target: {} });
+  assert.equal(f.node('gate-panel').inert, true);
+  assert.equal(f.requests.length, 0);
+});
+
+test('inline unlock deduplicates submission, preserves errors, and becomes a direct Build action after success', async () => {
+  const f = await inlineGateFixture();
+  f.node('show-builder').listeners.click();
+  f.node('gate-code').value = 'MY-CODE';
+  const submit = () => f.node('gate-form').listeners.submit({ preventDefault() {} });
+  const failed = submit();
+  await submit();
+  assert.equal(f.requests.length, 1);
+  assert.equal(f.node('gate-submit').disabled, true);
+  assert.equal(f.requests[0].path, '/api/demo/unlock');
+  assert.deepEqual(JSON.parse(f.requests[0].options.body), { code: 'MY-CODE' });
+  f.requests[0].reject(new Error('That code is not valid.'));
+  await failed;
+  assert.equal(f.node('gate-error').textContent, 'That code is not valid.');
+  assert.equal(f.node('gate-code').value, 'MY-CODE');
+  assert.equal(f.node('gate-submit').disabled, false);
+  const success = submit();
+  f.requests[1].resolve({ token: 'test-session' });
+  await success;
+  assert.equal(f.node('gate-panel').hidden, true);
+  assert.equal(f.node('gate-panel').inert, true);
+  assert.equal(f.node('gate-form').attributes['aria-busy'], 'false');
+  assert.equal(f.node('show-builder').attributes['aria-controls'], 'builder');
+  assert.equal(f.status().loaded, 1);
+  f.node('show-builder').listeners.click();
+  assert.equal(f.status().scrolled, 'builder');
+  assert.equal(f.requests.length, 2);
+});
+
+test('carousel supports directional swipes and keyboard arrows without taking vertical scroll or controls', () => {
+  const listeners = {}, moves = [];
+  const element = { addEventListener: (name, listener) => { listeners[name] = listener; } };
+  const context = { window: {}, URLSearchParams, location: { hash: '', search: '', pathname: '/demo' },
+    sessionStorage: { getItem: () => '' } };
+  vm.runInNewContext(source, context);
+  context.window.WeftCarousel(element, (direction) => moves.push(direction));
+  const target = { closest: () => null };
+  const down = (x = 200, y = 100, extra = {}) => listeners.pointerdown({ target, button: 0, pointerId: 1, clientX: x, clientY: y, ...extra });
+  const up = (x, y = 100) => listeners.pointerup({ pointerId: 1, clientX: x, clientY: y });
+  down(); up(80); // Left advances.
+  assert.deepEqual(moves, [1]);
+  let prevented = 0;
+  listeners.click({ preventDefault() { prevented++; }, stopPropagation() {} });
+  assert.equal(prevented, 1, 'a swipe cannot also open the studio');
+  down(); up(280);
+  down(); up(180, 240); // Vertical scroll.
+  down(); up(180); // Tap jitter.
+  down(); listeners.pointercancel(); up(80);
+  down(200, 100, { target: { closest: () => ({}) } }); up(80);
+  assert.deepEqual(moves, [1, -1]);
+  listeners.keydown({ target, key: 'ArrowRight', preventDefault() {} });
+  listeners.keydown({ target, key: 'ArrowLeft', preventDefault() {} });
+  listeners.keydown({ target: { closest: () => ({}) }, key: 'ArrowRight' });
+  assert.deepEqual(moves, [1, -1, 1, -1]);
+});
+
+test('example carousel opens the paired studio, renders outcomes, and clears the source for recording-only entries', async () => {
+  const nodes = new Map();
+  const makeNode = () => ({ children: [], hidden: false, attributes: {}, listeners: {}, dataset: {},
+    addEventListener(name, listener) { this.listeners[name] = listener; },
+    setAttribute(name, value) { this.attributes[name] = value; },
+    removeAttribute(name) { delete this[name]; },
+    replaceChildren(...children) { this.children = children; },
+    append(...children) { this.children.push(...children); },
+    pause() {}, load() {}, focus() {}, scrollTo() {},
+  });
+  const node = (id) => { if (!nodes.has(id)) nodes.set(id, makeNode()); return nodes.get(id); };
+  const tabs = ['recording', 'world', 'results'].map((view) => {
+    const tab = makeNode(); tab.dataset.runView = view; return tab;
+  });
+  const context = { window: {}, URLSearchParams, AbortSignal, setTimeout, clearTimeout,
+    location: { hash: '', search: '', pathname: '/demo' }, sessionStorage: { getItem: () => '' },
+    document: { getElementById: node, createElement: makeNode, addEventListener() {},
+      querySelectorAll: (selector) => selector === '[data-run-view]' ? tabs : [],
+      body: { classList: { add() {}, remove() {} } } },
+    fetch: async (path) => {
+      assert.equal(path, '/api/demo/showcase', 'opening curated examples never calls a private API');
+      return { ok: true, json: async () => ({ items: [
+        { id: 'paired', title: 'Movement', caption: 'A controlled simulation.', metrics: '246 control steps',
+          video_url: '/result.mp4', source_video_url: '/original.mp4', source_credit: 'Author · license' },
+        { id: 'single', title: 'Recording only', video_url: '/single.mp4' },
+      ] }) };
+    } };
+  vm.runInNewContext(source, context);
+  vm.runInNewContext(await readFile(new URL('../src/weft/assets/demo_build.js', import.meta.url), 'utf8'), context);
+  await settleGallery();
+  assert.equal(node('demo-original').hidden, false);
+  assert.equal(node('demo-source-video').src, '/original.mp4#t=0.1');
+  await node('open-studio').onclick();
+  assert.equal(node('studio-modal').hidden, false);
+  assert.equal(node('studio-source-video').src, '/original.mp4');
+  assert.equal(node('studio-video').src, '/result.mp4');
+  assert.equal(node('world-frame').hidden, true);
+  assert.equal(node('studio-results').children[0].textContent, 'What this run showed');
+  node('studio-modal').listeners.click({ target: { hasAttribute: () => true } });
+  assert.equal(node('studio-source-video').src, undefined);
+  node('next').listeners.click();
+  assert.equal(node('example-count').textContent, '2 / 2');
+  assert.equal(node('demo-original').hidden, true);
+  assert.equal(node('demo-source-video').src, undefined);
+  await node('open-studio').onclick();
+  assert.equal(node('studio-original').hidden, true);
+  assert.equal(node('studio-video').src, '/single.mp4');
+  assert.equal(node('source-credit').hidden, true);
 });

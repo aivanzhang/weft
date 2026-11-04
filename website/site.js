@@ -286,3 +286,67 @@
   }
   pauseHiddenMotion();
 })();
+
+// Keep explanations within the viewport without updating on every pointer movement.
+(() => {
+  const terms = [...document.querySelectorAll('[data-headline-term]')];
+  if (!terms.length) return;
+  let active = null;
+  let closeTimer;
+
+  function close() {
+    clearTimeout(closeTimer);
+    if (active) delete active.dataset.tipOpen;
+    active = null;
+  }
+
+  function open(term) {
+    clearTimeout(closeTimer);
+    if (active === term) return;
+    close();
+    const tip = term.querySelector('.headline-tooltip');
+    const anchor = term.getBoundingClientRect();
+    const bounds = tip.getBoundingClientRect();
+    const center = anchor.left + anchor.width / 2;
+    const left = Math.max(16, Math.min(center - bounds.width / 2, window.innerWidth - bounds.width - 16));
+    const below = anchor.bottom + 14;
+    const above = anchor.top - bounds.height - 14;
+    // Keep the first-line explanations away from the second line of the headline.
+    const preferAbove = term.dataset.headlineTerm !== 'video';
+    const fitsAbove = above >= 16;
+    const fitsBelow = below + bounds.height <= window.innerHeight - 16;
+    const placeAbove = fitsAbove && (preferAbove || !fitsBelow);
+    const top = placeAbove ? above : Math.max(16, Math.min(below, window.innerHeight - bounds.height - 16));
+    tip.dataset.placement = placeAbove ? 'above' : 'below';
+    tip.style.setProperty('--tip-x', `${left}px`);
+    tip.style.setProperty('--tip-y', `${top}px`);
+    tip.style.setProperty('--tip-arrow-x', `${Math.max(20, Math.min(center - left, bounds.width - 20))}px`);
+    active = term;
+    term.dataset.tipOpen = 'true';
+  }
+
+  terms.forEach((term) => {
+    term.addEventListener('pointerenter', (event) => {
+      clearTimeout(closeTimer);
+      if (event.pointerType !== 'touch') open(term);
+    });
+    term.addEventListener('pointerleave', () => {
+      closeTimer = setTimeout(close, 160);
+    });
+    term.addEventListener('focus', () => open(term));
+    term.addEventListener('blur', close);
+    term.addEventListener('click', () => open(term));
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') close();
+  });
+  document.addEventListener('pointerdown', (event) => {
+    if (active && !active.contains(event.target)) close();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) close();
+  });
+  window.addEventListener('scroll', close, { passive: true });
+  window.addEventListener('resize', close);
+  window.addEventListener('pagehide', close);
+})();

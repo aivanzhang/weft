@@ -161,9 +161,12 @@ STEPS = (
 GALLERY_SEEDS = (
     {
         "id": "waiters-squat-panda",
-        "title": "Overhead squat → playable world",
-        "caption": "A licensed clip the pipeline had never seen, taken end to end in about fifteen"
-                   " seconds: admitted locally, simulated, scored against frozen gates, recorded.",
+        "title": "Reconstruct the movement",
+        "caption": "An overhead squat, rebuilt as a controlled simulation. Compare the source"
+                   " movement with the recorded result.",
+        "source_video": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/lab/run/source.mp4",
+        "source_credit": "Taco Fleur / Cavemantraining · CC BY-SA 4.0 · trimmed, silent excerpt",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Double_Overhead_Kettlebell_Waiters_Squat.webm",
         "metrics": "246 control steps · every gate passed · 0 API calls",
         "source": "verified run",
         "video": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/"
@@ -171,9 +174,12 @@ GALLERY_SEEDS = (
     },
     {
         "id": "waiters-squat-created",
-        "title": "Same physics, generated character",
-        "caption": "The identical recording re-skinned with a character built through the"
-                   " text-to-avatar flow. The simulation state is unchanged.",
+        "title": "Change the character, keep the motion",
+        "caption": "A generated character follows the same simulated movement. Its appearance"
+                   " changes; the recorded physics stays the same.",
+        "source_video": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/lab/run/source.mp4",
+        "source_credit": "Taco Fleur / Cavemantraining · CC BY-SA 4.0 · trimmed, silent excerpt",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Double_Overhead_Kettlebell_Waiters_Squat.webm",
         "metrics": "246 control steps · swap at step 120 · physics unchanged",
         "source": "verified run",
         "video": ".local/verify-video-01/portal/9eadcc9655864070b0039fa3feb93fbc/"
@@ -181,9 +187,12 @@ GALLERY_SEEDS = (
     },
     {
         "id": "sots-press-swap",
-        "title": "Mid-take character swap",
-        "caption": "456 continuous control steps in one unbroken recording, with the character"
-                   " swapped at step 300 — the agent never notices.",
+        "title": "Keep the simulation running",
+        "caption": "A press movement runs through a character swap without restarting."
+                   " The controller continues through the change.",
+        "source_video": ".local/portal-unfamiliar-source-acceptance-02/portal/776f9c6965794a21947da36e8e871d2d/lab/run/source.mp4",
+        "source_credit": "Taco Fleur · CC BY-SA 4.0 · normalized excerpt",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Kettlebell_Sots_Press.webm",
         "metrics": "456 control steps · swap at step 300 · every gate passed",
         "source": "verified run",
         "video": ".local/portal-unfamiliar-source-acceptance-02/portal/"
@@ -1042,8 +1051,23 @@ class DemoManager:
             if path.is_file() and not path.is_symlink():
                 items.append({key: seed[key] for key in ("id", "title", "caption", "metrics")} | {
                     "kind": "verified", "readonly": True,
-                    "video_url": f"/api/demo/showcase/{seed['id']}/video"})
+                    "video_url": f"/api/demo/showcase/{seed['id']}/video"} | self._source_preview(seed))
         return {"items": items, "home_url": self.home_url()}
+
+    def _source_preview(self, seed):
+        path = self.project / seed.get("source_video", "")
+        if not path.is_file() or path.is_symlink() or not path.resolve().is_relative_to(self.project.resolve()):
+            return {}
+        return {"source_video_url": f"/api/demo/showcase/{seed['id']}/source",
+                "source_credit": seed.get("source_credit", ""), "source_page": seed.get("source_page", "")}
+
+    def showcase_source(self, identity):
+        # Original footage is public only for the same explicitly curated examples.
+        for seed in GALLERY_SEEDS:
+            if seed["id"] == identity and self._source_preview(seed):
+                self.showcase_video(identity)
+                return self.project / seed["source_video"]
+        raise ValueError("That source video is not available")
 
     def home_url(self):
         try:
@@ -1072,7 +1096,7 @@ class DemoManager:
             if (self.project / seed["video"]).is_file():
                 demos.append({"id": seed["id"], "title": seed["title"], "caption": seed["caption"],
                               "metrics": seed["metrics"], "source": seed["source"], "kind": "verified",
-                              "video_url": f"/api/demo/gallery/{seed['id']}/video"})
+                              "video_url": f"/api/demo/gallery/{seed['id']}/video"} | self._source_preview(seed))
         return demos
 
     def gallery_video(self, identity):

@@ -69,16 +69,72 @@
     return [...metrics];
   };
 
+  root.WeftStudioResults = (target, record) => {
+    const heading = document.createElement("h3");
+    heading.textContent = "What this run showed";
+    const summary = document.createElement("p");
+    summary.textContent = record.caption || "Results saved with this simulation.";
+    const table = document.createElement("dl");
+    for (const [key, value] of root.WeftRunResults(record)) {
+      const row = document.createElement("div");
+      const label = document.createElement("dt"), result = document.createElement("dd");
+      label.textContent = key === "result" ? "Recorded outcome" : key;
+      result.textContent = String(value);
+      row.append(label, result);
+      table.append(row);
+    }
+    const note = document.createElement("p");
+    note.className = "results-scope";
+    note.textContent = "These checks describe this simulation, not physical validation. The exercise examples use assisted control.";
+    target.replaceChildren(heading, summary, table, note);
+  };
+
+  root.WeftCarousel = (element, move) => {
+    let start = null, swiped = false;
+    const interactive = (target) => target.closest?.("button, a, input, video[controls]");
+    element.addEventListener("pointerdown", (event) => {
+      start = null; swiped = false;
+      if (event.isPrimary === false || event.button !== 0 || interactive(event.target)) return;
+      start = { x: event.clientX, y: event.clientY, id: event.pointerId };
+    });
+    element.addEventListener("pointerup", (event) => {
+      if (!start || start.id !== event.pointerId) return;
+      const dx = event.clientX - start.x, dy = event.clientY - start.y;
+      start = null;
+      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+      swiped = true;
+      move(dx < 0 ? 1 : -1);
+    });
+    element.addEventListener("pointercancel", () => { start = null; });
+    element.addEventListener("click", (event) => {
+      if (swiped) { event.preventDefault(); event.stopPropagation(); swiped = false; }
+    }, true);
+    element.addEventListener("keydown", (event) => {
+      if (interactive(event.target) || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      event.preventDefault(); move(event.key === "ArrowLeft" ? -1 : 1);
+    });
+  };
+
   root.WeftRunFocus = () => {
     const $ = (id) => document.getElementById(id);
     const tabs = [...document.querySelectorAll("[data-run-view]")];
-    let world = null, video = null, opener = null, background = [], activeView = null;
+    let world = null, video = null, sourceVideo = null, opener = null, background = [], activeView = null;
     const release = () => {
       $("world-view").removeAttribute("src");
       $("studio-video").pause();
       $("studio-video").removeAttribute("src");
       $("studio-video").load();
+      $("studio-source-video")?.pause();
+      $("studio-source-video")?.removeAttribute("src");
+      $("studio-source-video")?.load();
     };
+    document.addEventListener?.("visibilitychange", () => {
+      if (document.hidden) {
+        $("studio-video").pause();
+        $("studio-source-video")?.pause();
+      }
+    });
+    root.addEventListener?.("pagehide", release);
     const select = (view) => {
       if (view === activeView) return;
       activeView = view;
@@ -91,7 +147,10 @@
       if (view === "world" && world) {
         $("world-view").src = `/labs/${world}/#token=${encodeURIComponent(token)}&embed=1`;
       }
-      if (view === "recording" && video) $("studio-video").src = video;
+      if (view === "recording" && video) {
+        $("studio-video").src = video;
+        if (sourceVideo) $("studio-source-video").src = sourceVideo;
+      }
     };
     for (const tab of tabs) tab.addEventListener("click", () => select(tab.dataset.runView));
     $("studio-modal").addEventListener("keydown", (event) => {
@@ -115,16 +174,34 @@
         activeView = null;
         world = record.world;
         video = record.video;
+        sourceVideo = record.source || null;
+        if ($("studio-original")) $("studio-original").hidden = !sourceVideo;
+        $("studio-comparison")?.setAttribute("data-paired", String(Boolean(sourceVideo)));
+        if ($("comparison-note")) $("comparison-note").textContent = sourceVideo
+          ? "Source footage and recorded simulation. Play each independently; their timelines can differ."
+          : "Recorded simulation. Original footage is not available for this example.";
+        const credit = $("source-credit");
+        if (credit) {
+          credit.hidden = !sourceVideo || !record.credit;
+          credit.textContent = record.credit || "";
+          if (record.creditURL) credit.href = record.creditURL;
+          else credit.removeAttribute("href");
+        }
         $("demo-video").pause();
-        for (const tab of tabs) tab.disabled = tab.dataset.runView === "world" ? !world
-          : tab.dataset.runView === "recording" ? !video : false;
-        select(record.view || (world ? "world" : video ? "recording" : "results"));
+        $("demo-source-video")?.pause();
+        for (const tab of tabs) {
+          tab.disabled = tab.dataset.runView === "world" ? !world
+            : tab.dataset.runView === "recording" ? !video : false;
+          tab.hidden = tab.disabled;
+          if (tab.dataset.runView === "recording") tab.textContent = sourceVideo ? "Compare" : "Recording";
+        }
+        select(record.view || (video ? "recording" : world ? "world" : "results"));
         $("studio-title").focus();
       },
       close() {
         release();
         activeView = null;
-        world = video = null;
+        world = video = sourceVideo = null;
         for (const element of background) element.inert = false;
         background = [];
         opener?.focus();

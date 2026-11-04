@@ -110,7 +110,7 @@
       : demo.metrics || "";
     $("demo-metrics").textContent = metrics;
     $("open-studio").hidden = false;
-    $("open-studio").textContent = mine ? "Open run" : "Watch recording";
+    $("open-studio").textContent = "Open studio";
     $("dots").replaceChildren(...demos.map((_, index) => {
       const dot = document.createElement("button");
       dot.className = "dot";

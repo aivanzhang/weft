@@ -284,7 +284,10 @@ def test_public_showcase_exposes_only_curated_recordings_without_private_world_a
     import weft.portal_demo as module
     source = portal.project / "curated.mp4"
     source.write_bytes(b"0123456789abcdef")
+    original = portal.project / "original.mp4"
+    original.write_bytes(b"original-footage")
     monkeypatch.setattr(module, "GALLERY_SEEDS", ({"id": "curated-example", "video": "curated.mp4",
+        "source_video": "original.mp4", "source_credit": "Test source",
         "title": "Example world", "caption": "Recorded simulation", "metrics": "6 control steps"},))
     monkeypatch.setenv("WEFT_HOME_PORT", "3017")
     private = portal.demo.dir / "run-deadbeef"
@@ -307,6 +310,18 @@ def test_public_showcase_exposes_only_curated_recordings_without_private_world_a
         video = result["items"][0]["video_url"]
         code, _, data = request(server, video, auth=False, headers={"Range": "bytes=0-3"})
         assert code == 206 and data == b"0123"
+        original_url = result["items"][0]["source_video_url"]
+        code, _, data = request(server, original_url, auth=False, headers={"Range": "bytes=0-7"})
+        assert code == 206 and data == b"original"
+        assert request(server, "/api/demo/showcase/run-deadbeef/source", auth=False)[0] == 400
+        assert request(server, original_url, auth=False,
+                       headers={"Origin": "https://attacker.invalid"})[0] == 403
+        # A missing source must not advertise a broken comparison or fall back to private footage.
+        monkeypatch.setitem(module.GALLERY_SEEDS[0], "source_video", "missing.mp4")
+        assert "source_video_url" not in portal.demo.showcase()["items"][0]
+        assert request(server, original_url, auth=False)[0] == 400
+        monkeypatch.setitem(module.GALLERY_SEEDS[0], "source_video", "../outside.mp4")
+        assert "source_video_url" not in portal.demo.showcase()["items"][0]
         assert request(server, "/api/demo/showcase/run-deadbeef/video", auth=False)[0] == 400
         for path in ("/api/demo/gallery", "/api/demo/gallery/run-deadbeef/video", "/api/portal"):
             assert request(server, path, auth=False)[0] == 401

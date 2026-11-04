@@ -44,6 +44,11 @@ test('real Ctrl+C exits both demo processes and releases ports and the collectio
       const recording = await fetch(origin + showcase.items[0].video_url, { headers: { Range: 'bytes=0-31' } });
       assert.equal(recording.status, 206);
       assert.equal((await recording.arrayBuffer()).byteLength, 32);
+      if (showcase.items[0].source_video_url) {
+        const original = await fetch(origin + showcase.items[0].source_video_url, { headers: { Range: 'bytes=0-31' } });
+        assert.equal(original.status, 206);
+        assert.equal((await original.arrayBuffer()).byteLength, 32);
+      }
     }
     const page = await fetch(origin + '/demo?access_code=example');
     assert.equal(page.status, 200);

@@ -41,7 +41,8 @@
     </svg>
     <div class="page">
       <header class="site-header">
-        <a class="wordmark" href="#main" aria-label="Weft home">
+        <details class="page-contents" id="page-contents">
+          <summary class="wordmark" aria-label="Weft — table of contents">
           <svg
             class="wordmark-mascot"
             viewBox="40 65 560 530"
@@ -212,37 +213,32 @@
               height="1254"
             />
           </svg>
-        </a>
+        </summary>
+          <nav class="contents-panel" aria-label="Table of contents">
+            <ol>
+              <li><a href="#overview">Overview</a></li>
+              <li><a href="#experiment">Environments</a></li>
+              <li><a href="#research">Research</a></li>
+              <li><a href="#about">How it works</a></li>
+              <li><a href="#impact">Why it matters</a></li>
+            </ol>
+          </nav>
+        </details>
         <div class="header-actions">
           <span class="demo-entry"><a href="/demo" class="demo-launch" aria-label="Build your world">
               <span class="demo-launch-label" aria-hidden="true">Build your world</span>
               <svg class="demo-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse class="globe-meridian" cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>
             </a></span>
-          <details class="page-contents" id="page-contents">
-            <summary aria-label="Table of contents" title="Table of contents">
-              <svg class="contents-index" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 5h14M5 12h10M5 19h14"/><path d="M2 5h.01M2 12h.01M2 19h.01"/></svg><svg class="contents-close" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
-            </summary>
-            <nav class="contents-panel" aria-label="Table of contents">
-              <p class="contents-heading">Explore Weft</p>
-              <ol>
-                <li><a href="#overview"><span class="contents-number" aria-hidden="true">01</span><span>Overview<small>From video to an executable world</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
-                <li><a href="#experiment"><span class="contents-number" aria-hidden="true">02</span><span>Environments<small>Compare the video and simulation</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
-                <li><a href="#research"><span class="contents-number" aria-hidden="true">03</span><span>Research<small>Evidence, physics and repair</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
-                <li><a href="#about"><span class="contents-number" aria-hidden="true">04</span><span>How it works<small>Interact, train and test changes</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
-                <li><a href="#impact"><span class="contents-number" aria-hidden="true">05</span><span>Why it matters<small>Make the next experiment easier</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
-              </ol>
-            </nav>
-          </details>
+
         </div>
       </header>
       <main id="main">
         <section class="intro" id="overview" aria-labelledby="intro-heading">
           <h1 id="intro-heading" aria-label="Interactive worlds built from video.">
-            <span class="headline-word headline-interactive" aria-hidden="true"><span class="headline-letter" style="--letter:0">I</span><span class="headline-letter" style="--letter:1">n</span><span class="headline-letter" style="--letter:2">t</span><span class="headline-letter" style="--letter:3">e</span><span class="headline-letter" style="--letter:4">r</span><span class="headline-letter" style="--letter:5">a</span><span class="headline-letter" style="--letter:6">c</span><span class="headline-letter" style="--letter:7">t</span><span class="headline-letter" style="--letter:8">i</span><span class="headline-letter" style="--letter:9">v</span><span class="headline-letter" style="--letter:10">e</span></span>
-            <span class="headline-word headline-worlds" aria-hidden="true"><span class="headline-letter" style="--letter:0">w</span><span class="headline-letter" style="--letter:1">o</span><span class="headline-letter" style="--letter:2">r</span><span class="headline-letter" style="--letter:3">l</span><span class="headline-letter" style="--letter:4">d</span><span class="headline-letter" style="--letter:5">s</span></span><br />
-            <span class="headline-word" aria-hidden="true">built</span>
-            <span class="headline-word" aria-hidden="true">from</span>
-            <span class="headline-word headline-video" aria-hidden="true"><span class="headline-video-text">video.</span></span>
+            <button class="headline-key headline-interactive" type="button" data-headline-term="interactive" aria-label="Interactive" aria-describedby="headline-tip-interactive"><span class="headline-label">Interactive</span><span class="headline-reveal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 3 13 9-7 1-3 7Z"/><path d="M17 3v3M21 7h-3M3 12H1"/></svg></span><span class="headline-tooltip" role="tooltip" id="headline-tip-interactive"><span class="headline-tip-heading"><span class="headline-tip-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 3 13 9-7 1-3 7Z"/><path d="M17 3v3M21 7h-3M3 12H1"/></svg></span><span>Try something different.</span></span><span class="headline-tip-copy">Change an action, reset, and try again. See how the simulation responds.</span></span></button>
+            <button class="headline-key headline-worlds" type="button" data-headline-term="worlds" aria-label="worlds" aria-describedby="headline-tip-worlds"><span class="headline-label">worlds</span><span class="headline-reveal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg></span><span class="headline-tooltip" role="tooltip" id="headline-tip-worlds"><span class="headline-tip-heading"><span class="headline-tip-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg></span><span>A place to experiment.</span></span><span class="headline-tip-copy">Explore the simulation, test your ideas, and give agents a place to learn.</span></span></button><br />
+            <span class="headline-bridge" aria-hidden="true">built from</span>
+            <button class="headline-key headline-video" type="button" data-headline-term="video" aria-label="video" aria-describedby="headline-tip-video"><span class="headline-label">video.</span><span class="headline-reveal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3Z"/></svg></span><span class="headline-tooltip" role="tooltip" id="headline-tip-video"><span class="headline-tip-heading"><span class="headline-tip-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3Z"/></svg></span><span>Start with a video.</span></span><span class="headline-tip-copy">Weft builds from the motion in your footage, then uses it as a reference for testing repairs.</span></span></button>
           </h1>
           <p class="intro-copy">
             For AI researchers: turn videos into RL environments for interacting, testing, and training
