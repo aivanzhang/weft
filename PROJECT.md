@@ -312,6 +312,16 @@ not an external benchmark or a guarantee for new inputs.
   the job took 30.8 s against 31.0 s and the trainer 8.48 s against 8.52 s. Thread counts are
   pinned to one so that results stay reproducible, and the tabular trainer is serial, so
   `standard-4` would cost more for nothing.
+- The refusals that remain are a pose-estimation limit, not a floor or root modelling one.
+  Measured per frame rather than inferred: `pull-ups` has **zero** fully tracked frames of
+  90 (64 low-confidence, 25 partial), `hanging-crunches` alternates to 47% tracked against
+  a 65% floor, and `leg-raises` is tracked at 72% -- above the floor -- and refused instead
+  on a pelvis-reference gap. The window proposal finds no satisfying span in any of the
+  three, so refusal is the correct answer and the ladder correctly declines to rescue them.
+  The usable envelope is therefore about what the pose estimator can see confidently: one
+  upright person, whole body in frame. An earlier note here described these as suspended-body
+  exercises defeating the authored floor assumptions; that was asserted rather than measured
+  and was wrong about the mechanism.
 - Admission is sensitive near its own threshold, which local verification hides: a
   borderline clip that completes on macOS can be refused in the Linux container, and
   re-encoding the same footage can flip it either way. Of 17 real clips and windows
