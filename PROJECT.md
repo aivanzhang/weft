@@ -273,14 +273,17 @@ not an external benchmark or a guarantee for new inputs.
   only windowed appearance, retried on 0.12-7.33 s after one bad frame zero refused both
   anchors on a 99.1%-tracked clip; `jumping-jacks` was a hard refusal in every earlier sweep
   and now admits on a proposed window at 100/0. Evidence: `.local/walkthrough-catalog/`.
-- The hosted lane is now **more capable than the local saved-body route**, which matters
-  because a locally served page takes the local one. The dual-anchor retry and the
-  supported-window retry live in the hosted job; `portal_saved_body.py` has neither, so
-  `deadlift` and `jumping-jacks` are admitted hosted and refused locally for exactly the
-  reasons those rungs exist. The demo manifest records both verdicts per clip and a `routes`
-  note explaining the distinction, so a picker skips a hosted-only clip correctly rather than
-  offering one that will fail. Porting the two rungs to the local route is the highest-value
-  follow-up: it would make the routes agree and retire the filter the picker needs.
+- Both routes can use a window of a clip's own evidence; they differ in how it is asked for.
+  The hosted lane proposes and retries automatically. The local portal records the proposal
+  beside the preserved refusal, and one explicit request to
+  `/api/projects/<id>/perception/supported-window` builds a child on it. An earlier note here
+  called this a hosted-only capability and marked `deadlift` locally refused; that was wrong,
+  and wrong for an avoidable reason -- the harness measuring it stopped at the refusal and
+  never made the request the route offers. Driven properly, `deadlift` reaches `ready`
+  locally in 34.8 s on the same 0.12-7.33 s window the hosted ladder finds. The real
+  remaining difference is narrower: the hosted lane strides an over-long clip to fit the
+  frame envelope before admission and the local upload path does not, so `jumping-jacks`
+  (1,350 frames) is refused locally on the envelope rather than on its content.
 - Building that catalog caught a regression a single-clip measurement had missed. Overlapping
   the learning and appearance stages cut the reference clip from 147 s to 110.7 s and was
   deployed on that evidence; across seven examples it broke **bodyweight-squats** and
