@@ -115,7 +115,13 @@ const random = () =>
 
 export class GenerationContainer extends Container<Env> {
   defaultPort = 8080;
-  sleepAfter = "5m";
+  // 30 s, not the 5 m default. Container provisioning is about 22 s of a submission -- pose
+  // and the ML imports are 0.52 s, so the cost is starting the sandbox, not loading it -- and
+  // a judge submitting several clips in a row paid it every time. Thirty seconds carries a
+  // warm instance across consecutive submissions without holding idle capacity: 8 GiB for
+  // 30 s is roughly $0.0006 per job, about $0.05 a day against the 80-job daily caps, where
+  // the 5 m default would have been ten times that for no extra benefit.
+  sleepAfter = "30s";
   enableInternet = false;
 }
 
@@ -393,10 +399,13 @@ export class SubmissionQueue extends DurableObject<Env> {
       } catch (error) {
         console.error("weft_generation_failed", error instanceof Error ? error.message.slice(0,240) : "unknown");
         this.finish(job, "failed", null, pipeline.error);
-      } finally {
-        // No idle paid container between visitor jobs.
-        await container.stop().catch(() => {});
       }
+      // Deliberately not stopping the container here. The original "no idle paid container
+      // between visitor jobs" was written for the ball lane, where a job took four seconds
+      // and provisioning dominated nothing; the exercise lane pays ~22 s for it. sleepAfter
+      // above bounds the exposure instead, so a queued follow-up finds the instance warm.
+      // A crashed or wedged instance is still reclaimed by the recovery path above, which
+      // stops it explicitly before reading the saved archive.
     }
     const next = this.rows(
       "SELECT * FROM jobs WHERE status IN ('uploading','queued') ORDER BY created LIMIT 1",
