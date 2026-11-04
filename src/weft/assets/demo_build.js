@@ -399,6 +399,12 @@
       });
       row.append(button);
     });
+    // CC BY-SA requires visible attribution, so credit the sources on the page itself
+    // rather than only in a tooltip. Clips without a recorded licence are never offered.
+    const credits = [...new Set((data.clips || [])
+      .filter((c) => c.creator && c.licence)
+      .map((c) => `${c.creator} (${c.licence})`))];
+    $("clips-credit").textContent = credits.length ? `Source clips: ${credits.join("; ")}.` : "";
     if (row.children.length) $("clips").hidden = false;
   }
 
