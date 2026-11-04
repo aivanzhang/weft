@@ -132,9 +132,10 @@ def bounded_source_window(video, out):
 
 # Pose sampling already strides to ~15 samples/s and caps at 900, so striding below
 # 30 fps here would cut reference fidelity without saving inference; only very high
-# frame rates are thinned. The frame cap bounds decode and pose cost together.
+# frame rates are thinned. The frame cap must stay under the 500-frame admission
+# envelope, which also bounds decode and pose cost.
 DEMO_SOURCE_POLICY = {"profile": "portal-demo-source-v1", "container": ".mp4",
-                      "max_long_side": 1280, "target_fps": 30, "max_frames": 600,
+                      "max_long_side": 1280, "target_fps": 30, "max_frames": 480,
                       "max_bytes": 36_000_000}
 
 
