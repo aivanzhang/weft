@@ -116,7 +116,15 @@ not an external benchmark or a guarantee for new inputs.
   flat-shaded cracked triangles under the consumer's vertex bound; deliveries now
   keep welded source topology, restore smooth shading, and budget vertices
   directly, so the same panda ships 14,255 clean triangles within unchanged
-  consumer caps. Evidence: `.local/demo-capstone-02/`, `.local/avatar-quality-01/`.
+  consumer caps. The authored skin weights then needed hygiene, not re-skinning:
+  bone-heat re-skins score few severe-stretch edges yet collapse in rendered
+  motion (regions follow wrong bones once only the ten mapped roles are driven),
+  while pruning anatomically distant influences from the authored weights removes
+  the sweeping blade artifacts with face, body and shoulder dragon intact. The
+  demo asset is "Created: Studio panda (clean)"; remaining stretch is the plush
+  shoulder band lengthening to the body's proportions, a stylized retarget
+  property, not a defect. Evidence: `.local/demo-capstone-02/`,
+  `.local/avatar-quality-01/` through `-05-pack/`.
 - Generated avatars no longer need hand-written delivery configuration. An automatic
   resolver maps a rig's bones to Weft's ten body roles by name synonyms checked against
   skeleton structure, and derives scale and orientation from the rig's own measured
