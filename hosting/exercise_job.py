@@ -266,12 +266,14 @@ def summarize_appearance(run, receipt):
 # improve by looking at less of it.
 LOCALIZED = ("multiple_people", "no_person_visible", "no_motion", "body_anchor",
              "root_reference_gap")
-# Training and evaluation cost scales with episode length, and the lab enforces its own
-# 120-second learning budget. A verified 8-second clip spends about 60 s of it on hosted
-# hardware, so a proposed window is clamped to keep the retry inside that budget; a 23.6 s
-# window measured 313 s and was refused for exceeding it. Any sub-span of a satisfying span
-# still satisfies the gap horizon, so clamping from the start keeps the proposal valid.
-WINDOW_MAX_SECONDS = 12.0
+# Training and evaluation cost scales with episode length and the lab enforces its own
+# 120-second learning budget, which a long window blows on hosted hardware: a 23.6 s
+# proposal was refused after 313 s and a 12 s clamp still was after 277 s. Estimating the
+# ratio from in-container timings underpredicted both times, so the bound is the only
+# reference duration verified end to end on production hardware rather than a projection.
+# Any sub-span of a satisfying span still satisfies the gap horizon, so clamping from the
+# start keeps the proposal valid; a longer usable interval is simply used from its start.
+WINDOW_MAX_SECONDS = 8.0
 
 
 def seal_body(source, out, model, *, deadline):
