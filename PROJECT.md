@@ -166,6 +166,28 @@ not an external benchmark or a guarantee for new inputs.
   artifact instead of the reinforcement-learning one; those are different measurements
   and are now distinguished and tested. Evidence: `.local/hosted-sweep-2/`,
   `.local/hosted-windows-1/`.
+- The hosted exercise lane also returns an avatar-ready world, which it previously could
+  not. Its reinforcement-learning scene is profile `exercise-v3`, and the client-side
+  retargeter refuses that profile, so a visitor could generate an environment and then had
+  nothing to replace the character in. The lane now runs a second stage that rebuilds the
+  same body as a `shared-world-v3` scene, and the hosted service serves the predefined
+  avatars over the lab's own `/api/avatar/<key>/render.json` contract, pre-imported at build
+  time and keyed by content digest. Verified by substituting both hosted avatars onto a
+  hosted archive with the browser's own retargeting module: 8,338 and 11,036 vertices per
+  frame, every vertex finite, and the avatar's own bone lengths preserved to 1e-15 — the
+  measurement that distinguishes retargeting from stretching a rig to fit. Appearance is
+  appearance: a substituted avatar never drives physics. Evidence: `.local/hosted-check-6/`,
+  `.local/hosted-e2e-1/`.
+- The hosted request path was exercised against the real Worker, Durable Object queue and
+  R2 store rather than the container alone: health, session, both pipeline caps, the avatar
+  catalog with digest verification and refused traversal, job admission, container dispatch,
+  result handling and the refusal message. What cannot run on an Apple Silicon machine is
+  the container's own Python, for two named emulation reasons — MediaPipe's x86 inference
+  build aborts without AVX, and Rosetta's JIT cannot map memory under the job's address-space
+  limit. Both are absent on real Cloudflare hardware; functional verification therefore uses
+  a native build of the identical Dockerfile, and the job now fails with
+  `pose_inference_requires_avx` instead of an unexplained signal. Evidence:
+  `.local/hosted-e2e-1/`, `.local/avx-probe/`.
 - Admission is sensitive near its own threshold, which local verification hides: a
   borderline clip that completes on macOS can be refused in the Linux container, and
   re-encoding the same footage can flip it either way. Of 17 real clips and windows

@@ -23,22 +23,33 @@ async function existing(dir, prefix = "") {
   }
   return result;
 }
+// build_avatars.py owns website/avatars/ entirely and names files by content digest, so
+// the guard below checks the prefix instead of pinning digests in the catalog.
+const generated = "website/avatars/";
 const extras = (await existing(output)).filter(
-  (name) => !assets.includes(name),
+  (name) => !assets.includes(name) && !name.startsWith(generated),
 );
 if (extras.length)
   throw new Error(
     "Unexpected public build files; inspect before deploying: " +
       extras.join(", "),
   );
-for (const name of assets) {
+const avatarFiles = (await existing(resolve(root, generated))).map(
+  (name) => generated + name,
+);
+if (!avatarFiles.includes(generated + "index.json"))
+  throw new Error(
+    "Run build:avatars first; the hosted avatar catalog is missing from website/avatars/",
+  );
+const all = [...assets, ...avatarFiles];
+for (const name of all) {
   const target = resolve(output, name);
   await mkdir(dirname(target), { recursive: true });
   await copyFile(resolve(root, name), target);
 }
 const bytes = (
-  await Promise.all(assets.map((name) => stat(resolve(output, name))))
+  await Promise.all(all.map((name) => stat(resolve(output, name))))
 ).reduce((n, s) => n + s.size, 0);
 console.log(
-  `Bundled ${assets.length} allowlisted public files (${bytes} bytes). No uploads, credentials, or research runs included.`,
+  `Bundled ${assets.length} allowlisted public files plus ${avatarFiles.length} generated avatar files (${bytes} bytes). No uploads, credentials, or research runs included.`,
 );

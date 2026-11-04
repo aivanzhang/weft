@@ -9,8 +9,9 @@
     "build:assets": "node build-assets.mjs",
     "types": "wrangler types --include-runtime=false",
     "check": "tsc --noEmit",
-    "build": "npm run build:assets && wrangler deploy --dry-run --outdir .build/worker",
-    "deploy": "python3 deploy.py"
+    "build": "npm run build:avatars && npm run build:assets && wrangler deploy --dry-run --outdir .build/worker",
+    "deploy": "python3 deploy.py",
+    "build:avatars": "python3 build_avatars.py"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20261028.1",

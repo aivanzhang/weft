@@ -387,8 +387,42 @@ async function limitedBody(request: Request, limit: number, read: number) {
   }
 }
 
+// Predefined avatar appearances, pre-imported at build time under the lab's own
+// /api/avatar/<key>/render.json contract so the existing client needs only a base path.
+// Keys are content digests, so these are immutable and need no session: a visitor can
+// pick and substitute an appearance before, during or without any submission.
+const AVATAR_KEY = /^[a-f0-9]{64}$/;
+const AVATAR_FILE = /^(render\.json|texture-\d{1,2})$/;
+
+async function avatars(request: Request, env: Env, url: URL) {
+  if (!["GET", "HEAD"].includes(request.method))
+    throw new Rejected("Not found.", 404);
+  let asset: string;
+  let type = "application/json";
+  if (url.pathname === "/api/avatars") asset = "/website/avatars/index.json";
+  else {
+    const match = url.pathname.match(/^\/api\/avatar\/([^/]+)\/([^/]+)$/);
+    if (!match || !AVATAR_KEY.test(match[1]) || !AVATAR_FILE.test(match[2]))
+      throw new Rejected("Avatar resource does not exist.", 404);
+    asset = `/website/avatars/${match[1]}/${match[2]}`;
+    if (match[2] !== "render.json") type = "application/octet-stream";
+  }
+  const response = await env.ASSETS.fetch(new Request(url.origin + asset, { method: "GET" }));
+  if (!response.ok) throw new Rejected("Avatar resource does not exist.", 404);
+  return new Response(request.method === "HEAD" ? null : response.body, {
+    status: 200,
+    headers: {
+      "Content-Type": type,
+      // Digest-keyed, so a cached copy can never be the wrong avatar.
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
+  });
+}
+
 async function api(request: Request, env: Env) {
   const url = new URL(request.url);
+  if (url.pathname === "/api/avatars" || url.pathname.startsWith("/api/avatar/"))
+    return avatars(request, env, url);
   const queue = env.SUBMISSIONS.getByName("weft-admission-v1");
   const token = request.headers
     .get("Cookie")
