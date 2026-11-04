@@ -47,6 +47,8 @@ The landing page also explains the research goals, model roles and intended
 benefit through a conceptual observation-to-experiments illustration.
 Active runs have a local tenth-second elapsed clock between status polls; saved
 results open directly without replaying processing steps or progress.
+The demo header contains only the tightly cropped wordmark; finished runs are
+browsed inline on `/demo` rather than through header navigation.
 `npm run demo` manages both local processes in one terminal and stops both on
 Ctrl+C without deleting saved runs or changing spending allowances.
 Startup checks both ports and existing collection ownership before launching;

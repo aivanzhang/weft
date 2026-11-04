@@ -202,8 +202,14 @@
   }
 
   function showDemo() {
-    $("explore").hidden = demos.length === 0;
-    if (!demos.length) return;
+    const available = demos.length > 0;
+    $("finished-content").hidden = !available;
+    $("finished-nav").hidden = !available;
+    $("finished-empty").hidden = available;
+    if (!available) {
+      $("finished-empty").textContent = "No finished runs yet. Build a world above to create one.";
+      return;
+    }
     const demo = demos[current];
     // Seek a fraction in: a paused video with no poster otherwise shows a black frame.
     $("demo-video").src = signed(demo.video_url || `/api/demo/gallery/${demo.id}/video`) + "#t=0.1";
