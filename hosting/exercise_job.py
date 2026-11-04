@@ -435,13 +435,30 @@ def main():
     # every clean clip: measured 147 s to 231 s in production for an unchanged result. The
     # seal is taken only on the refusal path, where the evidence is what the proposal needs.
     body, window = None, {"attempted": False}
-    # Overlapping the two stages cut total time on a clip with CPU headroom (147 s to
-    # 110.7 s) and then broke two clips that had none: the lab measures its own
-    # learning/evaluation phase against a 120-second internal budget, and contention on two
-    # vCPU inflates that phase even while total throughput improves. bodyweight-squats and
-    # jumping-jacks both went from completing to "exceeded 120 seconds". Sequential again
-    # until the container has cores to spare; the overlap is only safe with headroom.
-    parallel = None
+    # The two stages share only the source video, so they overlap. The lab already runs as
+    # its own process and the appearance stage is dominated by pose and MuJoCo inside
+    # released-GIL native code, so a thread genuinely overlaps.
+    #
+    # This broke once on a two-vCPU instance: the lab measures its own learning/evaluation
+    # phase against a 120-second internal budget, and contention inflated that phase even
+    # while total throughput improved, so bodyweight-squats and jumping-jacks went from
+    # completing to "exceeded 120 seconds". The fix is cores, not sequencing -- the instance
+    # is standard-4 so each stage has its own pair. Reverting to sequential costs the whole
+    # appearance stage again, which is pose work the learning stage has already done.
+    appearance_slot = {}
+
+    def appearance_worker(clip, out, sealed):
+        try:
+            appearance_slot["value"] = build_appearance(
+                clip, out, model, exercise_intent(), deadline=deadline, body=sealed)
+        except Exception as error:
+            appearance_slot["value"] = (None, {
+                "stage": "failed", "reason": f"{type(error).__name__}: {error}"[:200]})
+
+    parallel = threading.Thread(target=appearance_worker, daemon=True,
+                                args=(source, directory / "appearance", None),
+                                name="weft-appearance")
+    parallel.start()
     try:
         root = learn(source, directory / "lab")
     except Exception as error:
@@ -471,14 +488,19 @@ def main():
     # recorded and returned rather than discarding a complete run.
     if parallel is not None:
         parallel.join(timeout=max(1, deadline - time.monotonic()))
-    try:
-        appearance, receipt = build_appearance(
-            source, directory / ("window/appearance" if window.get("attempted")
-                                 else "appearance"),
-            model, exercise_intent(), deadline=deadline, body=body)
-    except Exception as error:
-        appearance, receipt = None, {"stage": "failed",
-                                     "reason": f"{type(error).__name__}: {error}"[:200]}
+    if window.get("attempted"):
+        # The retry replaced the clip, so the overlapped attempt described different
+        # footage. Redo it serially against the clip the learning result actually used.
+        try:
+            appearance, receipt = build_appearance(
+                source, directory / "window/appearance", model, exercise_intent(),
+                deadline=deadline, body=body)
+        except Exception as error:
+            appearance, receipt = None, {"stage": "failed",
+                                         "reason": f"{type(error).__name__}: {error}"[:200]}
+    else:
+        appearance, receipt = appearance_slot.get("value") or (None, {
+            "stage": "failed", "reason": "appearance stage did not finish in time"})
     result = {"kind": "exercise", "schema_version": 2,
               "normalization": normalization, "summary": summarize(run),
               "appearance": summarize_appearance(appearance, receipt),
