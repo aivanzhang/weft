@@ -189,10 +189,17 @@ export class SubmissionQueue extends DurableObject<Env> {
     const publicDaily = daily.filter((job) => job.lane !== "judge");
     // A momentarily busy queue and an exhausted daily budget both used to refuse with "try
     // again later", which is misleading for the budget: it does not clear for hours.
-    if (active.length >= 3)
-      return { refused: "Three environments are already generating. Try again in about a minute." };
+    // One active job, because `max_instances` is 1: three concurrent jobs oversubscribed a
+    // single four-vCPU container, and the contention pushed the pose and body stages past
+    // their internal deadlines. That surfaced as a refusal blaming the visitor's video for a
+    // server-load problem, and made the same clip succeed or fail run to run.
+    if (active.length >= 1)
+      return { refused: "An environment is already generating. Please try again in about a minute." };
     if (judge) {
-      if (daily.filter((job) => job.lane === "judge").length >= 60)
+      // 120/day: verification sweeps can spend 60 in a session and still leave a demo
+      // recording usable. Each run is a fraction of a cent, so the cap is abuse protection,
+      // not a spending limit.
+      if (daily.filter((job) => job.lane === "judge").length >= 120)
         return { refused: "This access code has used its daily generation budget. Each run frees up 24 hours later." };
     } else if (publicDaily.length >= 20)
       return { refused: "The shared daily generation budget is used up. Please try again tomorrow." };
