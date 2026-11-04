@@ -326,6 +326,8 @@
       dot.onclick = () => { if (current !== index) { current = index; showDemo(); $("dots").children[index].focus(); } };
       return dot;
     }));
+    const rail = $("dots"), selected = rail.children[current];
+    if (selected) rail.scrollLeft = Math.max(0, selected.offsetLeft - rail.offsetLeft - (rail.clientWidth - selected.offsetWidth) / 2);
   }
 
   let slideAnimation = null;

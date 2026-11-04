@@ -40,12 +40,15 @@ test('real Ctrl+C exits both demo processes and releases ports and the collectio
     const showcase = await publicIndex.json();
     assert.equal(showcase.home_url, origin + '/');
     assert.ok(showcase.items.every((item) => item.readonly && !item.project));
-    if (showcase.items.length) {
-      const recording = await fetch(origin + showcase.items[0].video_url, { headers: { Range: 'bytes=0-31' } });
+    assert.equal(showcase.items.length, 10);
+    assert.ok(showcase.items.every((item) => !/panda/i.test(item.id)));
+    for (const item of showcase.items) {
+      const recording = await fetch(origin + item.video_url, { headers: { Range: 'bytes=0-31' } });
       assert.equal(recording.status, 206);
       assert.equal((await recording.arrayBuffer()).byteLength, 32);
-      if (showcase.items[0].source_video_url) {
-        const original = await fetch(origin + showcase.items[0].source_video_url, { headers: { Range: 'bytes=0-31' } });
+      assert.ok(item.source_video_url);
+      if (item.source_video_url) {
+        const original = await fetch(origin + item.source_video_url, { headers: { Range: 'bytes=0-31' } });
         assert.equal(original.status, 206);
         assert.equal((await original.arrayBuffer()).byteLength, 32);
       }

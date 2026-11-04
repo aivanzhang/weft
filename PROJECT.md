@@ -34,9 +34,14 @@ playback and programmed reference controllers are different modes, not learned p
 
 ## Capabilities and limitations
 
-The local demo uses a single-run studio: original footage and the recorded
-simulation appear side by side, with live controls and results in separate views.
-Playback is independent where timelines differ; hidden media is released.
+The local demo opens each studio on its inspectable model and final recording.
+Compact playback, camera and zoom controls keep the result central. A numbered
+walkthrough then connects the original footage to saved reconstruction assets,
+source receipts and available task outcomes; evidence can be previewed or downloaded.
+Kinematic pose replay, recorded simulation and authenticated live control remain
+distinct. Playback is user-started and pauses offscreen or when the page is hidden.
+Public exhibits use only explicitly exported evidence; private stage bundles and
+recorded models retain authentication.
 The landing server keeps `/demo`,
 its assets, lab views and authenticated API calls on port 3000, forwarding only
 sandbox routes to its loopback backend with Host/Origin checks and token
@@ -62,11 +67,13 @@ swipe, arrow and keyboard navigation. Open studio navigates to
 `/demo/studio/STUDIO_ID`, a reloadable page for that specific result with a link
 back to the examples. Public examples stay public; saved private runs require access.
 Only the explicitly curated source clips are public, with attribution retained.
-The curated set distinguishes rolling-object motion, assisted body control and
-generated-character appearance transfer. Each pairs source footage with a single
-result view and explains the experiment; saved personal runs follow these examples.
-Presentation excerpts preserve the recorded evidence, with cropping and playback
-speed documented in the preview manifest.
+The ten curated comparisons cover a rolling ball and nine human movements, including
+presses, squats, a deadlift, jumping jacks and a lunge. Each pairs the original footage
+with one focused result. Human previews show saved reconstructed motion on a neutral
+articulated body, not learned full-body control or validated biomechanics. Equipment
+and contact forces are not reconstructed. Saved personal runs follow these examples.
+Export receipts preserve source hashes, matching time windows and presentation changes;
+the rolling model retains its documented quarter-speed playback.
 The gallery distinguishes loading, empty and
 unavailable states, with bounded requests and a retry that never starts a run.
 `npm run demo` manages both local processes in one terminal and stops both on
