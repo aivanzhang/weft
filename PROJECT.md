@@ -242,46 +242,42 @@ not an external benchmark or a guarantee for new inputs.
   the source video, so sequencing them paid the sum of two independent costs; the lab is
   already its own process and the appearance stage is dominated by pose and MuJoCo inside
   released-GIL native code, so a thread genuinely overlaps. **Production: 147 s to 110.7 s on
-  the same clip with byte-identical results.** In-container 31-32 s to 22.9 s. An earlier note
+  the same clip with byte-identical results.** In-container 31-32 s to 22.9 s, arm64 and not a
+  hosted figure. An earlier note
   here concluded no structural win remained; that was wrong, and it was wrong because it
   reasoned about the stages' cost without asking whether they had to be ordered at all.
-- End-to-end latency on deployed hardware is **66.0 s** on the reference clip (pipeline 61 s),
-  from 147 s when this work started: well inside the 5-minute preferred bound and six seconds
-  off the 1-minute optimum. Measured on the deployed service with the stages concurrent on a
-  four-vCPU instance: waiters-squat 66.0 s, bodyweight-squats 108.4 s, jumping-jacks 184.6 s,
-  all three complete with an avatar-ready scene and 100/100 learned. Latency tracks clip
-  length only loosely, and an earlier claim here that it tracks reference duration was wrong.
-  Measured: `max_steps` is 240 for every clip, so reinforcement-learning episodes do not
-  scale with clip duration at all, and training takes **3.1 s on the 45-second clip against
-  13.9 s on the 2.7-second one** -- the short clip trains four times longer because its task
-  is harder, not because of its length. Archive spans invert the same way, 16 s against 24 s.
-  Normalization is not the cause either (0.69 s), nor is the appearance stage, which the
-  concurrency hides entirely. **Latency tracks the retry ladder**, and the job now carries its
-  own timers so this is measured rather than inferred: for jumping-jacks, 41.21 s of a 41.2 s
-  bracket is a refused first learning attempt (10.65 s), the body seal and window proposal
-  (11.28 s), the windowed body seal (4.76 s), and the real learning attempt (14.51 s). A clip
-  that admits first try pays only the last of those, which is why waiters-squat is 16.7 s
-  in-container against this clip's 44.2 s. So the deployed spread is 66 s with no retries,
-  108 s with the appearance dual-anchor retry, and 185 s with the job-level window retry that
-  runs learning twice -- the price of rescuing a clip that would otherwise be refused
-  outright. Six earlier explanations here were wrong, every one arithmetic over totals rather
-  than a timer on the thing itself; the quality trade recorded against bounding the reference
-  stays rejected and was mis-attributed the same way.
+- End-to-end latency on deployed hardware is **68.9 s** client-side on the reference clip
+  (job 62.8 s), from 147 s when this work started: inside the 5-minute preferred bound, above
+  the 1-minute optimum. Deployed spread across the pack: waiters-squat 66-69 s,
+  bodyweight-squats 108.4 s, jumping-jacks 184.6 s, all complete with an avatar-ready scene
+  and 100/100 learned. The job's own timers are now read off production rather than a laptop,
+  and they overturn the explanation committed here before them. waiters-squat, deployed, with
+  **zero retries**: 6.1 s outside the job, and **62.12 s of the 62.8 s job is one lab worker
+  run** (`normalize` 0.02 s, `prepare_lab` 0.0 s, `archive` 0.67 s, `appearance_join` 0.0 s).
+  The retry ladder explains none of this clip, because this clip retries nothing.
+  Evidence: `.local/deployed-timers-ws2/hosted-e2e.json`.
+- **The ladder decomposition published here was measured on the wrong machine.** Local
+  containers are arm64 on an M-series Mac; Cloudflare Containers are amd64. The identical clip
+  is 16.4 s in the local container against 62.1 s deployed -- **3.8x** -- so every
+  "in-container" figure, the 41.21 s jumping-jacks ladder breakdown included, describes a
+  laptop and must not be quoted as hosted. That is the common root of seven successive wrong
+  explanations of deployed latency here: reference duration, training cost, normalization, the
+  appearance stage, pose frame count, clip length, and the retry ladder. Each was arithmetic
+  over numbers from a different machine than the one being explained. The retry ladder is real
+  and does cost what was recorded -- on arm64, for clips that retry; it is not why the
+  simplest clip takes 62 s on Cloudflare.
+- What production actually spends on waiters-squat: training 600 episodes **10.35 s**,
+  evaluating three policies over 100 episodes each **~16 s**, pose and body fit **~4 s**,
+  a 38 s archive-visible span, and ~24 s inside the worker before its first artifact. The
+  scored deliverable -- the 100/100 against 1/100 against 0/100 comparison the product leads
+  with -- is roughly 26 s of the 62 s. The quality trade recorded against bounding the
+  reference stays rejected, and was mis-attributed the same way.
   Three changes got there, each measured rather than reasoned: 600 training episodes instead
-  of 1,500 (identical scored numbers), the two stages overlapped so the appearance stage costs
-  nothing, and four vCPU so the overlap does not contend with the lab's internal learning
-  budget. An earlier note concluding that the optimum was unreachable was wrong twice over --
+  of 1,500 (identical scored numbers), the two stages overlapped so the appearance stage adds
+  nothing to the visitor's sequence, and four vCPU so the overlap does not push the lab past
+  its internal learning budget. An earlier note concluding that the optimum was unreachable was wrong twice over --
   it rested on an overhead decomposition that turned out to be 6 s rather than 38 s, and on
-  reverting the overlap without ever giving it cores. The floor is now
-  measured per phase in production rather than inferred, from the archive's own artifact
-  timestamps: training 34 s, evaluating three policies over 100 episodes each 22 s, pose and
-  body fit about 4 s, the appearance stage finishing at +22 s and therefore **entirely hidden
-  inside training**, a 60 s archive-visible span, and about 50 s outside it for upload,
-  container cold start, normalization and download. So the two irreducible pieces are the
-  56 s of training-plus-evaluation that *is* the scored deliverable, and roughly 50 s of
-  transport and cold start that is not pipeline work at all. Zeroing both halves of the
-  deliverable would still leave about 50 s, so sub-60 s is not reachable while the service
-  starts a container per job and reports a 100-episode comparison.
+  reverting the overlap without ever giving it cores.
 - An earlier decomposition here claimed roughly 24 s of container cold start and 16 s of
   transport. **Both were wrong.** Measured against the job's own clock on two consecutive
   deployed submissions: client 115.1 s against job 107.6 s cold, and client 113.3 s against
@@ -290,51 +286,50 @@ not an external benchmark or a guarantee for new inputs.
   granularity and baseline I had not validated, and then attributing the residue to
   provisioning. Importing the whole ML stack really does cost 0.52 s, but that refuted a claim
   I should not have made rather than confirming one. The robust numbers are the ones taken as
-  deltas within one archive: training 34 s, evaluating three policies over 100 episodes 22 s.
+  deltas within one archive: on that longer clip, training 34 s and evaluating three policies
+  over 100 episodes 22 s; waiters-squat's own deployed figures are 10.35 s and ~16 s.
 - Keeping the container warm for 30 s between submissions is shipped and bought about 3 s of
   that 6 s, which is honest but a tenth of what the bad decomposition implied. It costs
   roughly $0.0006 per job in idle memory, about $0.05 a day against the daily caps. The image
   is 870 MB (site-packages 584, system libraries 268, app 14) with OpenCV's contrib build
   141 MB of it, but with provisioning now known to be seconds rather than tens of seconds,
-  shrinking it is not a latency lever and would risk the pinned decode stack for nothing. The complete
-  measured picture of the reference run is therefore ~24 s cold start, ~16 s transport,
-  ~10 s pose, ~4 s body fit, 34 s training, 22 s evaluation, and **zero for the appearance
-  stage** because it finishes inside training.
-- Every remaining lever is a decision rather than an engineering find, and the two together
-  still only approach the optimum. Warm starts would remove most of the 24 s cold start but
-  the Worker deliberately stops the container after each job -- recorded as "no idle paid
-  container between visitor jobs" -- so that is a spending decision. Trimming the trainer
-  from 1,500 episodes to the 400 where its success rate plateaus would save about 23 s but
-  changes the scored artifact. Both together land near 63 s, still above the optimum, so
-  neither is taken here. There is no unmeasured waste left: the remaining time is cold start,
-  transport, pose, and the training-plus-evaluation that is the result itself.
-  The arithmetic, not an estimate: the learning stage alone takes 89 s, so even an
-  instantaneous appearance stage would miss 60 s. Of that 89 s only 34 s is the trainer, and
-  its success rate reaches 1.00 by episode 400 of 1,500, so trimming the budget recovers
-  about 14 s and would change the scored artifact. The remaining ~55 s is pose inference,
-  body fitting, 300 evaluation episodes and two rollouts — all of it producing artifacts the
-  product promises. Reaching 60 s therefore means dropping a capability, not removing waste.
-  Per-phase breakdown of the learning stage, from artifact write times (local 2 vCPU, 19.9 s
-  total; the training figure scales to production's measured 34.5 s, so the rest scales too):
-  pose landmarks 2.4 s, the two evidence GIFs 2.3 s, body fit and scene and task and rollouts
-  0.9 s, **training 8.6 s**, **evaluating three policies over 100 episodes each 5.9 s**,
-  packaging 0.2 s. Training plus evaluation is 73% of the stage. On production hardware that
-  is roughly 60 s of the 89 s, and it is precisely the scored deliverable: the 100/100 against
-  1/100 against 0/100 comparison the product leads with. The cost is the result, not waste
-  around it. Measured levers, for whoever wants to decide: the appearance stage's duplicate
-  pose pass (~30 s, needs `prepare_lab` to accept precomputed evidence), the trainer trim
-  (~23 s, training plateaus at episode 400 but the artifact changes), the two evidence GIFs
-  (~10 s, cosmetic), and fewer evaluation episodes (~17 s, which weakens the headline
-  statistic and is treated as an evaluation gate rather than a tuning knob). The anchor-retry
-  duplicate is already removed. In-container figures of 25-52 s are 2 vCPU of an M-series Mac
-  and must not be quoted as hosted.
+  shrinking it is not a latency lever and would risk the pinned decode stack for nothing.
+  A second deployed pair re-confirmed the out-of-job figure independently: client 68.9 s
+  against job 62.8 s, so **6.1 s**.
+- The concurrent appearance stage is free in wall-clock and **not** free in CPU. Deployed,
+  `appearance_join` is 0.0 s, so it adds nothing to the visitor's sequence -- but its own
+  timers show a **38.96 s pose preflight** running alongside the learning stage, plus 2.49 s
+  world build and 3.08 s lab. Earlier wording here called the stage "free" and said it "costs
+  nothing", which is true only of the join. Whether that second pose pass slows learning by
+  contending for the four vCPU is **not measured**, and would take one deployed run with the
+  stages serial to settle.
+- The duplicate pose pass is a **CPU** lever, not a latency one, and the arithmetic says so.
+  The pipeline poses the same clip twice, once for learning and once for the appearance
+  preflight (38.96 s deployed). But the stages are concurrent and appearance already finishes
+  inside learning, so the visitor pays `max(62.12, 44.5)` = 62.12 s. Making appearance reuse
+  learning's evidence forces it to *wait* for learning's pose, leaving a serial tail of
+  2.49 s world plus 3.08 s lab: about **67.7 s, worse than today**, unless contention costs
+  more than 5.57 s. It almost certainly does not -- the arm64 run has the identical
+  concurrency and finishes learning in 16.35 s, showing no contention signature, which is
+  why the 3.8x reads as hardware. The reuse is blocked anyway: `copy_sealed_body` requires a
+  `exercise-body-source-v1` / `construction_only` package with a `body-source.json`, and the
+  lab run directory has none of those despite carrying every pose file. Worth doing to halve
+  container CPU; not worth doing for latency.
+- So no remaining lever shortens the job without changing the deliverable. Warm starts beyond
+  the shipped 30 s mean paying for idle containers; trimming the trainer below 600 episodes
+  changes the scored artifact; fewer evaluation episodes weakens the headline statistic and is
+  an evaluation gate rather than a tuning knob. The two evidence GIFs cost 2.6 s on arm64 and
+  an unmeasured amount hosted -- cosmetic, but far smaller than the ~9 s once claimed here,
+  which was an arm64 figure scaled by a multiplier that does not exist. The job is the lab
+  worker on amd64, and roughly 26 s of its 62 s is the scored comparison itself.
 - Weft ships two source anchors that refuse different clips at frame zero — one wants
   confident head, torso and limb endpoints, the other a confidence-qualified limb chain.
   The appearance stage now attempts both unchanged, the second only when the first refuses,
   and records which admitted. That moved three of eight pack clips from refused to complete
   without relaxing either gate, taking the hosted chain from five of eight to **eight of
   eight**: learning result, avatar-ready scene, and both predefined avatars substituted on
-  every clip, 25-52 s each. Worst bone-length drift across the pack is 2.0e-15, and the
+  every clip, 25-52 s each on arm64 and not a hosted figure. Worst bone-length drift is
+  2.0e-15 across the pack, and the
   local lane reproduced the same invariant independently at 1.7e-15 over 927 bone
   comparisons, which is stronger than either lane alone. Evidence:
   `.local/hosted-sweep-4/hosted-matrix.json`, `scripts/verify/bone_length_preservation.mjs`.
@@ -362,6 +357,29 @@ not an external benchmark or a guarantee for new inputs.
   routes enforce. It is now admitted by both -- locally in 46.5 s on a 20.9-45.2 s window,
   and on the deployed service in 184.4 s at 100/100 with an avatar-ready scene. Seven of the
   eleven catalogued clips are attributed and admitted on both routes.
+- The three clips that stay refused are refused **inside the published envelope**, which is
+  what makes the refusal acceptable rather than a gap: the pre-upload constraints on
+  `/api/session` say "Hanging and lying-down exercises are refused", and that is exactly
+  `pull-ups` (0-10% usable poses), `hanging-crunches` (4.6-47% against a 65% floor) and floor
+  `leg-raises` (67% usable but reference gaps beyond the interpolation horizon). All three
+  refuse identically across the lite, full and heavy pose models, heavy markedly worse. A
+  judge reading the constraints before uploading knows these are out of scope.
+- Three different limits used to refuse with one message, "The generation queue is full.
+  Please try again later." They now say which: three jobs already generating (clears in about
+  a minute), an access code's daily budget, the shared daily budget, or a visitor's own three
+  per day. The generic wording mattered because a budget does not clear "later" -- it clears
+  hours later -- and a 429 during this verification turned out to be the judge lane's 60-a-day
+  cap rather than a wedged queue, which the old message could not distinguish.
+- The published time expectation was wrong in the optimistic direction twice. It promised
+  "about 1.5 to 5 minutes" when production measures 66-185 s, and a first correction added
+  "refused in well under a minute" reasoned from 2.6-4.0 s local pose-gate figures. That
+  second claim does not hold: those figures are one pose pass, while a clip refused for a
+  localized reason runs the whole ladder -- both anchors, a window proposal, both anchors
+  again -- before giving up, so a refusal can cost more than a success, not less. The live
+  text now says so. **Deployed refusal latency is unmeasured**: the judge lane's daily budget
+  was exhausted by this session's own verification runs, and the honest answer was to publish
+  the bound rather than scale a laptop number, which is the error this session committed
+  seven times.
 - Building that catalog caught a regression a single-clip measurement had missed. Overlapping
   the learning and appearance stages cut the reference clip from 147 s to 110.7 s and was
   deployed on that evidence; across seven examples it broke **bodyweight-squats** and
