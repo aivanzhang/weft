@@ -1,12 +1,26 @@
-import { spawn } from 'node:child_process';
+import { execFile, spawn } from 'node:child_process';
 import { access, stat } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { promisify } from 'node:util';
 import { landingServer } from '../website/dev.mjs';
 import { sandboxCommand } from './run.mjs';
 
 const repository = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const execute = promisify(execFile);
+
+export function startupConflict(result, command) {
+  const messages = [];
+  if (result.directory_in_use) {
+    messages.push(`The demo collection (${command.args[4]}) is already owned by another sandbox. Stop that sandbox with Ctrl+C; do not delete portal.lock.`);
+  }
+  for (const port of result.busy_ports) {
+    messages.push(`Port ${port} is already in use. Find its listening process with: lsof -nP -iTCP:${port} -sTCP:LISTEN`);
+  }
+  if (messages.length) messages.push('No demo servers were started. Stop the old servers, then run npm run demo again.');
+  return messages.join('\n');
+}
 
 export async function demoCommand(args, root = repository) {
   let projectRoot, port = 3000, sandboxPort = 8765, check = false, help = false;
@@ -88,6 +102,11 @@ async function main() {
   await access(command.executable, constants.X_OK).catch(() => {
     throw new Error('Sandbox Python is unavailable. Follow sandbox/README.md to set up .venv-lab.');
   });
+  const { stdout } = await execute(command.executable, [path.join(repository, 'sandbox/preflight.py'),
+    path.resolve(command.cwd, command.args[4]), String(command.port), String(command.sandboxPort)],
+  { cwd: command.cwd, timeout: 5000, maxBuffer: 65536 });
+  const conflict = startupConflict(JSON.parse(stdout), command);
+  if (conflict) throw new Error(conflict);
   if (command.check) { console.log(JSON.stringify(command, null, 2)); return; }
   const server = landingServer({ sandboxPort: command.sandboxPort });
   await new Promise((resolve, reject) => {

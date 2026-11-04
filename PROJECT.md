@@ -39,6 +39,8 @@ separate views, with hidden media released. The landing server's `/demo` routes
 redirect to the separately running sandbox; it does not expose private APIs.
 `npm run demo` manages both local processes in one terminal and stops both on
 Ctrl+C without deleting saved runs or changing spending allowances.
+Startup checks both ports and existing collection ownership before launching;
+conflicts leave the running services and saved state untouched.
 
 | Area | Available | Not yet established |
 | --- | --- | --- |

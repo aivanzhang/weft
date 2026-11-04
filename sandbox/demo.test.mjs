@@ -4,7 +4,17 @@ import { mkdtemp, mkdir } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
-import { demoCommand, supervise } from './demo.mjs';
+import { demoCommand, startupConflict, supervise } from './demo.mjs';
+
+test('startup reports both directory ownership and the sandbox listener before launching', () => {
+  const command = { args: ['-m', 'weft', 'portal', '--root', '.local/example'] };
+  const message = startupConflict({ directory_in_use: true, busy_ports: [8765] }, command);
+  assert.match(message, /already owned by another sandbox/);
+  assert.match(message, /do not delete portal.lock/);
+  assert.match(message, /lsof -nP -iTCP:8765 -sTCP:LISTEN/);
+  assert.match(message, /No demo servers were started/);
+  assert.equal(startupConflict({ directory_in_use: false, busy_ports: [] }, command), '');
+});
 
 test('demo reuses the prepared collection and supports an explicit root and matched ports', async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'weft-demo-test-'));

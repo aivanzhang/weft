@@ -35,6 +35,13 @@ and keeps projects, recordings and spending ledgers. To choose a collection or p
 npm run demo -- --root .local/my-projects --port 3001 --sandbox-port 8767
 ```
 
+The launcher checks both ports and the collection lock before starting either
+server. If an old sandbox still owns the collection, stop it with **Ctrl+C** in
+its terminal. To find a background listener, use
+`lsof -nP -iTCP:8765 -sTCP:LISTEN`; this excludes browser connections.
+After confirming it is the old Weft sandbox, `kill -INT <PID>` requests graceful
+shutdown. Do not delete the lock file or use `kill -9` for normal shutdown.
+
 To run only the sandbox:
 
 ```sh
