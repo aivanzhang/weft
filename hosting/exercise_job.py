@@ -182,6 +182,8 @@ def build_appearance(source, out, model, intent, *, deadline):
     clips at frame zero: the legacy one wants confident head, torso and limb endpoints, the
     visible-chain one wants a confidence-qualified limb chain. Neither is relaxed; the
     second is only tried when the first refuses, and the receipt records which admitted.
+    The anchor differs but the pose evidence does not, so the retry reuses the first
+    attempt's sealed body instead of estimating pose over the same video twice.
     """
     from weft.exercise_perception_pipeline import (LEGACY_ANCHOR_PROFILE,
                                                    VISIBLE_ANCHOR_PROFILE,
@@ -192,21 +194,30 @@ def build_appearance(source, out, model, intent, *, deadline):
 
     attempts, preflight, anchor = [], None, None
     for index, profile in enumerate((LEGACY_ANCHOR_PROFILE, VISIBLE_ANCHOR_PROFILE)):
+        # A sealed body from an earlier attempt is reusable even though its anchor was
+        # refused: the refusal is about frame zero, not about the pose evidence.
+        reuse = next((out / f"preflight-{earlier}/body_source" for earlier in range(index)
+                      if (out / f"preflight-{earlier}/body_source/manifest.json").is_file()),
+                     None)
+        options = ({"body_source": reuse, "retain_body_source": True} if reuse is not None
+                   else {"pose_model": model})
         try:
             result = prepare_exercise_perception_preflight(
-                source, out / f"preflight-{index}", pose_model=model, anchor_profile=profile,
+                source, out / f"preflight-{index}", anchor_profile=profile, **options,
                 max_seconds=max(1, min(210, int(deadline - time.monotonic()))))
         except Exception as error:
-            attempts.append({"anchor_profile": profile,
+            attempts.append({"anchor_profile": profile, "reused_body": reuse is not None,
                              "refused": f"{type(error).__name__}: {error}"[:200]})
             continue
         # local_ready is the library's admitted state; awaiting_consent is the portal's own
         # wrapper around it, which this route does not go through.
         if result.get("status") != "local_ready":
-            attempts.append({"anchor_profile": profile, "status": result.get("status")})
+            attempts.append({"anchor_profile": profile, "reused_body": reuse is not None,
+                             "status": result.get("status")})
             continue
         preflight, anchor = result, profile
-        attempts.append({"anchor_profile": profile, "status": "local_ready"})
+        attempts.append({"anchor_profile": profile, "reused_body": reuse is not None,
+                         "status": "local_ready"})
         break
     if preflight is None:
         return None, {"stage": "preflight", "attempts": attempts}
