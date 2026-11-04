@@ -265,6 +265,22 @@ not an external benchmark or a guarantee for new inputs.
   people); it now strides to cover all 45 s, proposes 20.6-45.2 s, and learns 100/100 against
   random 5/100 with an avatar-ready scene in 37 s in-container. `aerobic` still refuses,
   correctly, because no span satisfies the constraints. Evidence: `.local/ladder4/`.
+- The appearance stage has the same ladder, because a run can learn successfully and still
+  produce no world an avatar can enter -- which looks complete and is not. `deadlift`
+  completed in production with `appearance: false`: both anchors refused on "construction
+  pose evidence at original frame zero" while the clip was 99.1% tracked, one bad frame at
+  the only position an anchor cares about. Once every full-clip anchor has refused for a
+  localized reason, both are retried over the span the frozen proposal accepts; `deadlift`
+  proposes 0.12-7.33 s, skipping exactly that frame, and admits. Verified on the deployed
+  service: `appearance: true`, 100/100, with a predefined and a generated avatar
+  substituting at 7e-16 and 1.3e-15 drift. A windowed appearance covers a narrower span than
+  the learning rollout, so `windowed` and the span travel in both the receipt and the
+  summary and a UI must not present them as one interval.
+- Refusal patterns are derived from observed wordings, never guessed. Three separate times a
+  pattern written from memory failed to match the real message and silently disabled a
+  retry: "exceeded 120 seconds" fell to `other`, and "Body tracking anchor" did not match a
+  pattern reading "body anchor". Every entry is now pinned by a string the pipeline actually
+  produced, and a new wording means adding the pattern **and** its test case.
 - The retry's limit is the lab's own 120-second learning budget, not the proposal. On hosted
   hardware that clip's retry exceeded it at window lengths of 23.6 s, 12 s and 8 s alike
   (313 s, 277 s, 274 s), so window duration is not the binding factor and three successive
@@ -300,6 +316,25 @@ not an external benchmark or a guarantee for new inputs.
   the job took 30.8 s against 31.0 s and the trainer 8.48 s against 8.52 s. Thread counts are
   pinned to one so that results stay reproducible, and the tabular trainer is serial, so
   `standard-4` would cost more for nothing.
+- The refusals that remain are a pose-estimation limit, not a floor or root modelling one.
+  Measured per frame rather than inferred: `pull-ups` has **zero** fully tracked frames of
+  90 (64 low-confidence, 25 partial), `hanging-crunches` alternates to 47% tracked against
+  a 65% floor, and `leg-raises` is tracked at 72% -- above the floor -- and refused instead
+  on a pelvis-reference gap. The window proposal finds no satisfying span in any of the
+  three, so refusal is the correct answer and the ladder correctly declines to rescue them.
+  The usable envelope is therefore about what the pose estimator can see confidently: one
+  upright person, whole body in frame. An earlier note here described these as suspended-body
+  exercises defeating the authored floor assumptions; that was asserted rather than measured
+  and was wrong about the mechanism.
+- A more accurate landmarker does not widen that envelope, so the pinned `lite` model stays.
+  Measured on exactly the three refused clips, tracked fraction by variant --
+  hanging-crunches 0.471 lite / 0.460 full / **0.046 heavy**, leg-raises 0.684 / 0.667 /
+  **0.228**, pull-ups 0.000 / 0.044 / 0.100 -- and none admitted under any variant. The heavy
+  model is markedly worse because it reports low confidence more readily on an ambiguous
+  pose, and the gate counts high-confidence whole-body frames; its honesty costs it the gate.
+  `lite` is best or tied-best on all three and the fastest, so the refusals are a property of
+  what this model family can see, not of the variant chosen. Evidence:
+  `.local/model-compare2/model-compare.json`.
 - Admission is sensitive near its own threshold, which local verification hides: a
   borderline clip that completes on macOS can be refused in the Linux container, and
   re-encoding the same footage can flip it either way. Of 17 real clips and windows

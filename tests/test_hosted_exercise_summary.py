@@ -186,6 +186,8 @@ def test_every_appearance_artifact_is_reported_under_its_prefix(tmp_path, name):
      "body_anchor"),
     ("RuntimeError: Visible-chain body anchor abstained:"
      " no_complete_confidence_qualified_leg_chain", "body_anchor"),
+    ("ValueError: Body tracking anchor requires construction pose evidence at original"
+     " frame zero", "body_anchor"),
     ("RuntimeError: pose_inference_requires_avx", "pose_cpu"),
     ("TimeoutError: exercise_pipeline_deadline", "timeout"),
     ("Pipeline exited with code -4; inspect worker.log. Hard wall-time limit: 360 seconds.",
@@ -193,6 +195,8 @@ def test_every_appearance_artifact_is_reported_under_its_prefix(tmp_path, name):
     ("ValueError: Normalized source still exceeds its byte bound; use a shorter clip",
      "too_large"),
     ("Incomplete exercise decode: metadata 259, decoded 257", "undecodable"),
+    ("Human learning/evaluation exceeded 120 seconds; training and policy retained",
+     "learning_budget"),
     ("something nobody has seen before", "other"),
 ])
 def test_refusals_classify_to_a_closed_set(detail, code):
