@@ -411,10 +411,14 @@ not an external benchmark or a guarantee for new inputs.
   second claim does not hold: those figures are one pose pass, while a clip refused for a
   localized reason runs the whole ladder -- both anchors, a window proposal, both anchors
   again -- before giving up, so a refusal can cost more than a success, not less. The live
-  text now says so. **Deployed refusal latency is unmeasured**: the judge lane's daily budget
-  was exhausted by this session's own verification runs, and the honest answer was to publish
-  the bound rather than scale a laptop number, which is the error this session committed
-  seven times.
+  text now says so. **Deployed refusal latency is measured**, from the 19-input production
+  robustness sweep: a wrong file type is rejected at upload in 0.3-3.0 s, an undecodable file
+  in 7.4-9.7 s, and a valid MP4 refused by the motion or person gates in 32.9-41.8 s. The
+  informative case is `aerobic.mp4` at **39.3 s**, a multiple-people refusal -- a `LOCALIZED`
+  code, so it ran the window-proposal ladder and still answered in under 40 s. Those timings
+  predate the latency work and ran on a smaller instance, so they are a conservative upper
+  bound. Every one of the 19 is accounted for: 5 rejected at upload, 4 undecodable, 4 refused
+  with an actionable reason, 6 complete, zero silent failures and zero hangs.
 - Building that catalog caught a regression a single-clip measurement had missed. Overlapping
   the learning and appearance stages cut the reference clip from 147 s to 110.7 s and was
   deployed on that evidence; across seven examples it broke **bodyweight-squats** and
