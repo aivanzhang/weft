@@ -208,8 +208,18 @@ not an external benchmark or a guarantee for new inputs.
   the same clip with byte-identical results.** In-container 31-32 s to 22.9 s. An earlier note
   here concluded no structural win remained; that was wrong, and it was wrong because it
   reasoned about the stages' cost without asking whether they had to be ordered at all.
-- End-to-end latency on deployed hardware is **110.7 s** on the reference clip: inside the
-  5-minute preferred bound, and the 1-minute optimum is not reached. The floor is now
+- End-to-end latency on deployed hardware is **66.0 s** on the reference clip (pipeline 61 s),
+  from 147 s when this work started: well inside the 5-minute preferred bound and six seconds
+  off the 1-minute optimum. Measured on the deployed service with the stages concurrent on a
+  four-vCPU instance: waiters-squat 66.0 s, bodyweight-squats 108.4 s, jumping-jacks 184.6 s,
+  all three complete with an avatar-ready scene and 100/100 learned. Latency tracks clip
+  length, so the reference figure is the short end and a 45-second clip is the long one.
+  Three changes got there, each measured rather than reasoned: 600 training episodes instead
+  of 1,500 (identical scored numbers), the two stages overlapped so the appearance stage costs
+  nothing, and four vCPU so the overlap does not contend with the lab's internal learning
+  budget. An earlier note concluding that the optimum was unreachable was wrong twice over --
+  it rested on an overhead decomposition that turned out to be 6 s rather than 38 s, and on
+  reverting the overlap without ever giving it cores. The floor is now
   measured per phase in production rather than inferred, from the archive's own artifact
   timestamps: training 34 s, evaluating three policies over 100 episodes each 22 s, pose and
   body fit about 4 s, the appearance stage finishing at +22 s and therefore **entirely hidden
