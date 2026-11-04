@@ -2,13 +2,21 @@
 
 Cloudflare account: **Kintsugi Software**, `73c2bbd14f7b9025d9fd9eb56ad54609`.
 Worker: `weft`. Private R2 bucket: `weft-private-submissions`.
-Public URL (currently offline): https://weft.ivanzhangofficial.workers.dev/website/index.html
+Public URL: **https://weft.kintsugi.software** (custom domain; live for hackathon judging).
 
-## Temporarily offline
+## Restored November 4, 2026
 
-Taken offline at the user’s request on October 28, 2026 (PDT). The live Worker’s `workers.dev` address and preview URLs are disabled; no custom domains are attached. Keep `workers_dev: false` and `preview_urls: false` until the user requests restoration. The Worker, image, private bucket, and source remain intact; existing submission-expiry and cleanup policies still apply.
-
-To restore after authorization, set `workers_dev` to `true`, re-enable the `weft` script subdomain through Cloudflare’s API (or deploy through the release lock), and verify the public page and normal submission flow. Keep preview URLs disabled. This temporary shutdown requires no rebuild or resource deletion.
+Restored with the owner's authorization for judge access, on the custom domain
+`weft.kintsugi.software` (release `video-environments-20261104-judges`). The
+`workers.dev` address and preview URLs remain disabled (`workers_dev: false`,
+`preview_urls: false`); the custom domain is the only public entry. Verified
+unauthenticated end to end at restore time: landing page and gallery assets,
+`/health`, a fresh-session MP4 submission through the container pipeline to a
+complete result with a downloadable archive, cross-session result privacy
+(404), and the dark `workers.dev` address. `OPENAI_API_KEY`, `META_API_KEY`
+and `MESHY_API_KEY` are stored as encrypted Worker secrets; current Worker
+code does not read them, so no hosted path can spend them until a reviewed
+feature does.
 
 ## Boundaries
 
