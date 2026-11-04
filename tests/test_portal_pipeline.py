@@ -220,3 +220,33 @@ def test_multi_person_exercise_proposal_reaches_the_interactive_inventory_prompt
     status = json.loads((tmp_path / "status.json").read_text())
     assert status["status"] == "needs_input" and status["route"] == "exercise"
     assert not (tmp_path / "analysis/degraded-route.json").exists()
+
+
+def test_a_long_clip_is_thinned_across_its_whole_length_not_cut_short(tmp_path):
+    """Truncation hid usable intervals late in a clip from the window proposal entirely."""
+    from weft.portal_pipeline import DEMO_SOURCE_POLICY, prepare_demo_source
+    video = tmp_path / "long.mp4"
+    writer = cv2.VideoWriter(str(video), cv2.VideoWriter_fourcc(*"mp4v"), 30, (160, 120))
+    total = DEMO_SOURCE_POLICY["max_frames"] * 2 + 40
+    for index in range(total):
+        frame = np.full((120, 160, 3), 40, np.uint8)
+        # A marker that only appears in the final third, so coverage is checkable.
+        if index > total * 2 // 3:
+            cv2.circle(frame, (80, 60), 20, (255, 255, 255), -1)
+        writer.write(frame)
+    writer.release()
+    path, receipt = prepare_demo_source(video, tmp_path / "out")
+    assert receipt is not None and receipt["truncated"] is False
+    assert receipt["frame_stride"] >= 3
+    assert receipt["normalized"]["frames"] <= DEMO_SOURCE_POLICY["max_frames"]
+    # The whole clip is represented: the last-third marker survives striding.
+    capture = cv2.VideoCapture(str(path))
+    seen = []
+    while True:
+        ok, frame = capture.read()
+        if not ok:
+            break
+        seen.append(frame[60, 80, 0] > 128)
+    capture.release()
+    assert any(seen[len(seen) * 2 // 3:]), "the clip's tail must still be present"
+    assert len(seen) == receipt["normalized"]["frames"]

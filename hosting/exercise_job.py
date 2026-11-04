@@ -171,7 +171,7 @@ def summarize(run):
     return summary
 
 
-def build_appearance(source, out, model, intent, *, deadline):
+def build_appearance(source, out, model, intent, *, deadline, body=None):
     """Build the same body as a shared-world scene, the only kind an avatar can replace.
 
     Mirrors the portal's saved-body route as library calls: admitted preflight, conditional
@@ -196,9 +196,11 @@ def build_appearance(source, out, model, intent, *, deadline):
     for index, profile in enumerate((LEGACY_ANCHOR_PROFILE, VISIBLE_ANCHOR_PROFILE)):
         # A sealed body from an earlier attempt is reusable even though its anchor was
         # refused: the refusal is about frame zero, not about the pose evidence.
-        reuse = next((out / f"preflight-{earlier}/body_source" for earlier in range(index)
-                      if (out / f"preflight-{earlier}/body_source/manifest.json").is_file()),
-                     None)
+        reuse = next((candidate for candidate in
+                      [*(out / f"preflight-{earlier}/body_source" for earlier in range(index)),
+                       body]
+                      if candidate is not None
+                      and (candidate / "manifest.json").is_file()), None)
         options = ({"body_source": reuse, "retain_body_source": True} if reuse is not None
                    else {"pose_model": model})
         try:
@@ -259,6 +261,56 @@ def summarize_appearance(run, receipt):
                       "the browser and never drives physics.")}
 
 
+# Refusals that describe a moment in the clip rather than the whole file. Only these are
+# worth retrying on a narrower window; an undecodable container or a wrong CPU will not
+# improve by looking at less of it.
+LOCALIZED = ("multiple_people", "no_person_visible", "no_motion", "body_anchor",
+             "root_reference_gap")
+
+
+def seal_body(source, out, model, *, deadline):
+    """Estimate pose once. The sealed evidence serves the window proposal and the
+    appearance stage, so neither has to pose the same video again.
+
+    Returns the directory even when the body stage refuses: the refusal is a judgement
+    about the clip, and the evidence it judged is still written and still useful.
+    """
+    from weft.exercise_body_source import prepare_exercise_body_source
+    refusal = None
+    try:
+        prepare_exercise_body_source(source, out, pose_model=model, native_timing=True,
+                                     max_seconds=max(1, min(180, int(deadline - time.monotonic()))))
+    except Exception as error:
+        refusal = f"{type(error).__name__}: {error}"[:220]
+    evidence = out / "evidence.json"
+    if not evidence.is_file():
+        found = sorted(out.rglob("evidence.json")) if out.is_dir() else []
+        evidence = found[0] if found else None
+    return out, evidence, refusal
+
+
+def propose_window(evidence, source, target):
+    """Longest interval satisfying the unchanged constraints, encoded for a second attempt.
+
+    Uses the portal's own proposal and encoder so the hosted lane cannot drift to a
+    different window policy or a different codec profile than the local route.
+    """
+    from weft.portal_supported_window import _encode_window, propose_supported_window
+    report = propose_supported_window(json.loads(evidence.read_text()))
+    proposal = report.get("proposal")
+    if not proposal:
+        return None, {"proposed": False, "reasons": (report.get("reasons") or [])[:4]}
+    target.parent.mkdir(parents=True, exist_ok=True)
+    encoded = _encode_window(source, target, start_s=proposal["start_s"], end_s=proposal["end_s"])
+    return target, {"proposed": True,
+                    "start_s": _number(proposal["start_s"], 2),
+                    "end_s": _number(proposal["end_s"], 2),
+                    "duration_s": _number(proposal["end_s"] - proposal["start_s"], 2),
+                    "encoded": encoded,
+                    "scope": ("Longest span of the original satisfying the same frozen "
+                              "constraints. Content outside it is unobserved, not absent.")}
+
+
 def main():
     directory = Path(sys.argv[1]).resolve()
     resource.setrlimit(resource.RLIMIT_CPU, (CPU_SECONDS, CPU_SECONDS))
@@ -278,38 +330,71 @@ def main():
         raise ValueError("pose_model_missing")
     # Any accepted container becomes a bounded MP4 first; the original stays beside it.
     source, normalization = prepare_demo_source(directory / "upload.mp4", directory / "source")
-    root = prepare_lab(source, directory / "lab", profile="exercise", body_model="mobile",
-                       pose_model=model,
-                       source_note="Hosted submission; rights not independently verified")
-    # prepare_lab only seals the configuration; the worker runs the stages.
-    lab = Lab(root, avatars=())
-    status = None
     deadline = started + WALL_SECONDS
+
+    def learn(clip, work):
+        """The learning stage on one clip; raises with the lab's own refusal text."""
+        root = prepare_lab(clip, work, profile="exercise", body_model="mobile",
+                           pose_model=model,
+                           source_note="Hosted submission; rights not independently verified")
+        # prepare_lab only seals the configuration; the worker runs the stages.
+        lab = Lab(root, avatars=())
+        status = None
+        try:
+            lab.start_worker()
+            while True:
+                status = lab.status()
+                if status["status"] in ("ready", "failed", "cancelled"):
+                    break
+                if time.monotonic() > deadline:
+                    raise TimeoutError("exercise_pipeline_deadline")
+                time.sleep(0.25)
+        finally:
+            lab.close()
+        if status["status"] != "ready":
+            raise RuntimeError(str((status.get("error") or {}).get("message") or "pipeline_failed"))
+        return root
+
+    # Pose once up front: the evidence serves the window proposal below and the appearance
+    # stage, so a clip is never posed twice for the same purpose.
+    body, evidence, body_refusal = seal_body(source, directory / "body", model, deadline=deadline)
+    window = {"attempted": False}
     try:
-        lab.start_worker()
-        while True:
-            status = lab.status()
-            if status["status"] in ("ready", "failed", "cancelled"):
-                break
-            if time.monotonic() > deadline:
-                raise TimeoutError("exercise_pipeline_deadline")
-            time.sleep(0.25)
-    finally:
-        lab.close()
-    if status["status"] != "ready":
-        raise RuntimeError(str((status.get("error") or {}).get("message") or "pipeline_failed"))
+        if body_refusal is not None:
+            raise RuntimeError(body_refusal)
+        root = learn(source, directory / "lab")
+    except Exception as error:
+        detail = str(error) or type(error).__name__
+        code = classify_refusal(detail)
+        # A refusal about one moment of the clip is retried on the longest span that does
+        # satisfy the same constraints. Nothing is relaxed; the first refusal is recorded.
+        if code not in LOCALIZED or evidence is None or time.monotonic() > deadline - 60:
+            raise
+        clip, window = propose_window(evidence, source, directory / "window/source.mp4")
+        window.update(attempted=True, first_refusal={"code": code, "detail": detail[:300]})
+        if clip is None:
+            raise
+        source = clip
+        body, evidence, body_refusal = seal_body(source, directory / "window/body", model,
+                                                 deadline=deadline)
+        if body_refusal is not None:
+            window["window_refusal"] = body_refusal
+            raise RuntimeError(body_refusal)
+        root = learn(source, directory / "window/lab")
+        window["admitted"] = True
     run = root / "run"
     # The learning result already stands on its own, so a refused appearance stage is
     # recorded and returned rather than discarding a complete run.
     try:
         appearance, receipt = build_appearance(source, directory / "appearance", model,
-                                               exercise_intent(), deadline=deadline)
+                                               exercise_intent(), deadline=deadline, body=body)
     except Exception as error:
         appearance, receipt = None, {"stage": "failed",
                                      "reason": f"{type(error).__name__}: {error}"[:200]}
     result = {"kind": "exercise", "schema_version": 2,
               "normalization": normalization, "summary": summarize(run),
               "appearance": summarize_appearance(appearance, receipt),
+              "supported_window": window,
               "seconds": round(time.monotonic() - started, 1),
               "scope": ("Conditional body and authored ground recovered from one video. "
                         "Simulated joint control, not measured anatomy or verified physics.")}
@@ -326,6 +411,8 @@ def main():
                 if path.is_file():
                     archive.write(path, "appearance/" + name)
         archive.writestr("appearance/receipt.json", json.dumps(receipt, indent=2, default=str))
+        if window.get("attempted"):
+            archive.writestr("supported-window.json", json.dumps(window, indent=2, default=str))
         if normalization is not None:
             archive.writestr("source-normalized.json", json.dumps(normalization, indent=2))
         archive.writestr("README.txt",

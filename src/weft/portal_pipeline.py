@@ -170,10 +170,18 @@ def prepare_demo_source(video, out, *, policy=None):
         if (not capture.isOpened() or not all(math.isfinite(n) for n in (fps, reported, width, height))
                 or not 1 <= fps <= 240 or reported < 12 or not 64 <= width <= 4096 or not 64 <= height <= 2160):
             raise ValueError("Use a decodable video of at least 12 frames up to 4096x2160 pixels and 240 fps")
-        stride = max(1, math.ceil(fps / policy["target_fps"]))
+        # Thin to fit the frame cap rather than cutting the clip short at it. Truncation
+        # silently discards everything after the cap, so a usable interval late in a long
+        # clip was never seen -- and the supported-window proposal had nothing to find.
+        # Pose samples to ~15/s anyway, so a strided clip loses nothing pose would have used.
+        stride = max(1, math.ceil(fps / policy["target_fps"]),
+                     math.ceil(reported / policy["max_frames"]))
         # A brief high-rate clip must not be thinned under the decodable minimum.
         while stride > 1 and reported / stride < 24:
             stride -= 1
+        # Striding below ~12 effective fps stops being a video; such a clip is truncated
+        # instead, and the receipt records that the tail is unobserved.
+        truncated = reported / stride > policy["max_frames"]
         scale = min(1.0, policy["max_long_side"] / max(width, height))
         compliant = (video.suffix.lower() == policy["container"] and stride == 1 and scale == 1.0
                      and reported <= policy["max_frames"]
@@ -221,11 +229,12 @@ def prepare_demo_source(video, out, *, policy=None):
                            # normalized copy is decoder input only; a browser plays the
                            # untouched upload, and this flag says when it could not play this.
                            "browser_playable": playable_in_browser(target)},
-            "frame_stride": stride, "artifact": target.name,
+            "frame_stride": stride, "artifact": target.name, "truncated": truncated,
             "scope": ("Explicit re-encode for admission and speed: container, long side, frame "
                       "rate and duration only. Re-encoding changes pixels and timing granularity; "
                       "the untouched original remains the provenance source. Frames beyond the "
-                      "bound are unobserved, not absent.")}
+                      "bound are unobserved, not absent; `truncated` says whether any were "
+                      "dropped from the tail rather than thinned across the whole clip.")}
         write_json(out / "source-normalized.json", provenance)
         return target, provenance
     finally:
