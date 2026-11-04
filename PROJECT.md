@@ -222,7 +222,15 @@ not an external benchmark or a guarantee for new inputs.
 - Decomposing that overhead further: the job's own learning report reads 94.4 s against a
   60 s archive span, so 34 s precedes the first artifact. Subtracting pose scaled from its
   in-container cost leaves roughly **24 s of container cold start**, with about 16 s for
-  queue, upload, download and Worker/R2 (client 110.7 s minus job 94.4 s). The complete
+  queue, upload, download and Worker/R2 (client 110.7 s minus job 94.4 s). Measured in the
+  image, importing the whole ML stack costs **0.52 s** -- numpy 0.08, cv2 0.04, mediapipe
+  0.34, mujoco 0.06 -- so that cold start is container provisioning, not Python import, which
+  is the opposite of what the figure's size suggests. Whether it tracks image size is untested:
+  the image is 870 MB (site-packages 584, system libraries 268, app 14), with OpenCV's contrib
+  build 141 MB of it and matplotlib plus fontTools 63 MB. Swapping to the headless OpenCV
+  would cut that and the GL system libraries with it, but the decode stack is pinned precisely
+  because it changes admission on borderline clips, so it is a measured lead rather than a
+  safe win. The complete
   measured picture of the reference run is therefore ~24 s cold start, ~16 s transport,
   ~10 s pose, ~4 s body fit, 34 s training, 22 s evaluation, and **zero for the appearance
   stage** because it finishes inside training.
