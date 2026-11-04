@@ -18,6 +18,16 @@ ARGS = sys.argv[sys.argv.index("--") + 1:]
 SOURCE, OUT_GLB, OUT_REPORT = Path(ARGS[0]), Path(ARGS[1]), Path(ARGS[2])
 RELATIVE_FACTOR = 2.5   # influence dropped when farther than this times the nearest influence
 ABSOLUTE_FLOOR = 0.12   # of the mesh bounding-sphere diameter; closer bones are never dropped
+# Distal bones travel farthest under retargeting, so a stray influence from one drags
+# geometry across the whole pose; they only deserve influence in a tight local tube.
+DISTAL_MARKERS = ("hand", "foot", "_lower")
+DISTAL_FACTOR = 1.6
+DISTAL_FLOOR = 0.05
+# A vertex split between a limb chain and the torso stretches into a wide membrane
+# when the limb travels; outside a narrow blend margin, the dominant side owns it.
+LIMB_PREFIXES = ("arm_", "hand_", "leg_", "foot_")
+CONTRAST_LOW = 0.35
+CONTRAST_HIGH = 0.65
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 bpy.ops.import_scene.gltf(filepath=str(SOURCE), import_pack_images=True)
@@ -46,7 +56,6 @@ for obj in targets:
     by_name = {g.name: g for g in obj.vertex_groups}
     matrix = obj.matrix_world
     diameter = max(obj.dimensions)
-    floor = diameter * ABSOLUTE_FLOOR
     pruned = rebound = 0
     for v in obj.data.vertices:
         world = matrix @ v.co
@@ -56,8 +65,21 @@ for obj in targets:
             continue
         distances = {name: segment_distance(world, *bones[name]) for name, _ in influences}
         nearest = min(distances.values())
-        keep = [(name, weight) for name, weight in influences
-                if distances[name] <= max(RELATIVE_FACTOR * nearest, floor)]
+        keep = []
+        for name, weight in influences:
+            distal = any(marker in name for marker in DISTAL_MARKERS)
+            factor = DISTAL_FACTOR if distal else RELATIVE_FACTOR
+            limit = max(factor * nearest, diameter * (DISTAL_FLOOR if distal else ABSOLUTE_FLOOR))
+            if distances[name] <= limit:
+                keep.append((name, weight))
+        limb = sum(w for name, w in keep if name.startswith(LIMB_PREFIXES))
+        total = sum(w for _, w in keep)
+        if keep and 0 < limb < total:
+            share = limb / total
+            if share < CONTRAST_LOW:
+                keep = [(n, w) for n, w in keep if not n.startswith(LIMB_PREFIXES)]
+            elif share > CONTRAST_HIGH:
+                keep = [(n, w) for n, w in keep if n.startswith(LIMB_PREFIXES)]
         if len(keep) == len(influences):
             continue
         for name, _ in influences:
