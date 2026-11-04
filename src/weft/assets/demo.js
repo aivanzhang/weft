@@ -23,11 +23,6 @@
       : "Open Walkthrough and enter your demo code to connect this tab.";
   }
 
-  const seconds = (value) => {
-    const total = Math.max(0, Math.round(value || 0));
-    return total < 60 ? `${total}s` : `${Math.floor(total / 60)}m ${String(total % 60).padStart(2, "0")}s`;
-  };
-
   /* Plain-language meaning for every badge a judge will see. */
   const GLOSSARY = {
     "API calls": "How many paid provider calls this step made. Zero means it ran entirely on this machine.",
@@ -70,71 +65,6 @@
     }
     return row;
   };
-
-  /* ---------------- steps rendering (shared by live run and studio) ---------------- */
-  let META = {};
-  async function loadMeta() {
-    try {
-      const data = await api("/api/demo/steps");
-      META = Object.fromEntries((data.steps || []).map((step) => [step.id, step]));
-    } catch (error) { META = {}; }
-  }
-
-  function renderSteps(list, steps, run) {
-    if (list.children.length !== steps.length) {
-      list.replaceChildren(...steps.map(() => document.createElement("li")));
-    }
-    steps.forEach((runtime, index) => {
-      const step = { ...(META[runtime.id] || {}), ...runtime };
-      const item = list.children[index];
-      item.className = "step " + (step.status || "pending");
-      item.replaceChildren();
-
-      const head = document.createElement("div");
-      head.className = "step-head";
-      const title = document.createElement("h3");
-      title.textContent = step.title;
-      head.append(title);
-      if (step.experimental) {
-        const tag = document.createElement("span");
-        tag.className = "tag";
-        tag.title = "Shipped as experimental: it can refuse its own output, and you will see that refusal.";
-        tag.textContent = "EXPERIMENTAL";
-        head.append(tag);
-      }
-      const time = document.createElement("span");
-      time.className = "step-time";
-      const spent = step.elapsed_s ?? step.elapsed_seconds;
-      const budget = step.estimate_s ?? step.estimate_seconds;
-      time.textContent = spent ? seconds(spent)
-        : step.status === "running" ? "running…"
-        : budget ? `~${seconds(budget)}` : "";
-      head.append(time);
-      item.append(head);
-
-      for (const [field, cls] of [["explainer", "explain"], ["why", "matters"], ["impact", "impact"],
-                                  ["detail", "detail"]]) {
-        if (!step[field]) continue;
-        const p = document.createElement("p");
-        p.className = cls;
-        p.textContent = step[field];
-        item.append(p);
-      }
-      const metrics = step.metrics && Object.entries(step.metrics);
-      if (metrics && metrics.length) item.append(chipRow(metrics));
-      if (step.artifact && step.artifact.name) {
-        const link = document.createElement("a");
-        link.className = "download";
-        link.href = signed(`/api/demo/artifact/${step.id}` + (run ? `/${run}` : ""));
-        link.download = step.artifact.name;
-        const bytes = step.artifact.bytes || 0;
-        const size = bytes > 1048576 ? (bytes / 1048576).toFixed(1) + " MB"
-          : Math.max(1, Math.round(bytes / 1024)) + " KB";
-        link.textContent = `↓ ${step.artifact.name} · ${size}`;
-        item.append(link);
-      }
-    });
-  }
 
   /* ---------------- gallery ---------------- */
   let demos = [];
@@ -229,7 +159,7 @@
       const selected = demos.find((item) => item.id === identity);
       const record = /^run-/.test(identity)
         ? await api(`/api/demo/studio/${encodeURIComponent(identity)}`)
-        : { id: identity, title: selected?.title, caption: selected?.caption, steps: [] };
+        : { id: identity, title: selected?.title, caption: selected?.caption, metrics: selected?.metrics, steps: [] };
       if (request !== studioRequest) return;
       $("studio-error").hidden = true;
       $("studio-modal").hidden = false;
@@ -237,7 +167,7 @@
       const galleryEntry = demos.find((d) => d.id === identity) || {};
       $("studio-title").textContent = record.title || galleryEntry.title || "Inside this run";
       $("studio-note").textContent = record.caption || galleryEntry.caption || "";
-      renderSteps($("studio-steps"), record.steps || [], record.run || record.id || identity);
+      $("studio-results").replaceChildren(chipRow(root.WeftRunResults(record)));
       const result = record.result || {};
       world = result.project || result.child || record.project || null;
       const entry = demos.find((item) => item.id === identity);
@@ -340,6 +270,6 @@
     }
   }
   keepToken();
-  if (token) Promise.all([loadMeta(), loadFeatured()]).then(() => loadGallery(true));
+  if (token) loadFeatured().then(() => loadGallery(true));
   else warnAuth();
 })(window);

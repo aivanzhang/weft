@@ -19,7 +19,7 @@
         </div><div class="world-panel-label"><label><span class="sr-only">Simulation model</span><select class="model-select"></select></label><span class="world-state">Simulated</span></div></div>
       </div>
       <div class="world-transport"><button type="button" class="world-play">▷ Play pair</button><input class="world-seek" type="range" min="0" step="0.01" value="0" aria-label="Replay position"/><span class="world-time"></span><div class="world-modes" role="group" aria-label="Environment mode"><button type="button" data-mode="replay" aria-pressed="true">Replay</button><button type="button" data-mode="interact" aria-pressed="false">Interact</button></div></div>
-      <p class="world-note"></p><div class="world-source"><span class="world-attribution"></span><a class="world-download" hidden>Download environment ↓</a></div>`;
+      <p class="world-note"></p>`;
     host.append(card);
     const $ = (selector) => card.querySelector(selector);
     $(".world-number").textContent = index;
@@ -34,19 +34,6 @@
       const option = new Option(model.label, i);
       select.add(option);
     });
-    const attribution = $(".world-attribution");
-    if (record.attribution) {
-      const a = document.createElement("a");
-      a.href = "https://hubbs.schule/mediathek/rollender-ball";
-      a.textContent = "Ecole Science · Rollender Ball";
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-      attribution.append(a, " · CC0");
-    } else attribution.textContent = "Your video · private result";
-    if (record.download) {
-      $(".world-download").hidden = false;
-      $(".world-download").href = record.download;
-    }
     let model = record.models[0].world;
     let mode = "replay",
       visible = true,
@@ -181,7 +168,7 @@
       $(".world-play").disabled = mode !== "replay";
       $(".world-note").textContent =
         mode === "replay"
-          ? `Same source, two model stages. ${record.models[select.value].label}: ${number(record.models[select.value].error_px)} px error on development frames. One-dimensional reconstruction; not recovered 3D geometry.`
+          ? ""
           : "Use the arrows in the environment to change the motion. Push controls and the parking task are authored additions, not actions recovered from the video.";
       $(".world-state").textContent =
         mode === "interact" ? "Your actions" : "Simulated";

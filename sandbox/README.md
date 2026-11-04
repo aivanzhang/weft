@@ -61,7 +61,8 @@ npm run sandbox -- --root .local/my-projects --port 8766
 ```
 
 For the guided walkthrough, visit `/demo` on the sandbox. Opening a run brings
-only that run into focus: switch between its live world, recording and evidence.
+only that run into focus: switch between its live world, recording and results.
+Live elapsed time ticks between polls; saved results do not replay processing steps.
 Only the active view loads media or an embedded simulator. The access link is
 optional for the walkthrough: enter the demo code and choose **Unlock** to
 establish a local session. A link such as `/demo?access_code=YOUR_CODE` prefills

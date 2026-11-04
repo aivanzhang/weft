@@ -331,7 +331,8 @@ class DemoManager:
 
     def _public(self, run):
         return {"status": run["status"], "run": run["id"], "steps": run["steps"],
-                "elapsed_seconds": run["elapsed_seconds"],
+                "elapsed_seconds": (round(max(0, time.time() - run["created"]), 1)
+                                    if run["status"] == "running" else run["elapsed_seconds"]),
                 "total_estimate_seconds": run["total_estimate_seconds"],
                 "error": run["error"], "source": run["source"], "project": run.get("project")}
 

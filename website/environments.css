@@ -19,9 +19,6 @@
   font-size: 13px;
   margin-bottom: 3px;
 }
-.lab-heading > a span {
-  margin-left: 8px;
-}
 .lab-intro {
   margin-top: 16px;
   max-width: 510px;
@@ -194,26 +191,13 @@
 .world-modes button[aria-pressed="true"]::after {
   transform: scaleX(1);
 }
-.world-note,
-.world-source {
+.world-note {
+  max-width: 620px;
   font-size: 11px;
   color: var(--muted);
   line-height: 1.6;
 }
-.world-note {
-  min-height: 35px;
-  max-width: 620px;
-}
-.world-source {
-  margin: 10px 0 26px;
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.world-download {
-  color: var(--clay);
-}
+.world-note:empty { display: none; }
 .create-environment {
   border-top: 1px solid var(--line);
 }

@@ -34,9 +34,13 @@ playback and programmed reference controllers are different modes, not learned p
 
 ## Capabilities and limitations
 
-The local demo uses a single-run viewer: live world, recording and evidence are
+The local demo uses a single-run viewer: live world, recording and results are
 separate views, with hidden media released. The landing server's `/demo` routes
 redirect to the separately running sandbox; it does not expose private APIs.
+The landing page links to the walkthrough through primary buttons labeled
+"Walkthrough" and "Build your world".
+Active runs have a local tenth-second elapsed clock between status polls; saved
+results open directly without replaying processing steps or progress.
 `npm run demo` manages both local processes in one terminal and stops both on
 Ctrl+C without deleting saved runs or changing spending allowances.
 Startup checks both ports and existing collection ownership before launching;

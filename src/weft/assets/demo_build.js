@@ -286,14 +286,14 @@
       const selected = demos.find((item) => item.id === identity);
       const record = /^run-/.test(identity)
         ? await api(`/api/demo/studio/${encodeURIComponent(identity)}`)
-        : { id: identity, title: selected?.title, caption: selected?.caption, steps: [] };
+        : { id: identity, title: selected?.title, caption: selected?.caption, metrics: selected?.metrics, steps: [] };
       if (request !== studioRequest) return;
       $("studio-error").hidden = true;
       $("studio-modal").hidden = false;
       document.body.classList.add("locked");
       $("studio-title").textContent = record.title || "Inside this run";
       $("studio-note").textContent = record.caption || "";
-      renderSteps($("studio-steps"), record.steps || [], record.run || record.id || identity);
+      $("studio-results").replaceChildren(chipRow(root.WeftRunResults(record)));
       const result = record.result || {};
       world = result.project || result.child || record.project || null;
       const entry = demos.find((item) => item.id === identity);
@@ -456,8 +456,9 @@
       if (file) query.set("name", file.name);
       if (!file && clip) query.set("clip", clip);
       if (prompt) query.set("prompt", prompt);
-      await api("/api/demo/start?" + query.toString(), { method: "POST", body: file || undefined });
-      $("progress").hidden = false;
+      const started = await api("/api/demo/start?" + query.toString(), { method: "POST", body: file || undefined });
+      requestedRun = started.run;
+      render(started);
       $("run-note").textContent = "Running. Each step appears below as it finishes.";
       poll();
     } catch (error) {
@@ -466,24 +467,30 @@
     }
   });
 
-  let timer = null;
+  let timer = null, requestedRun = null, estimatedSeconds = 0;
+  const elapsedClock = root.WeftElapsedClock((elapsed, running) => {
+    const text = running ? `${elapsed.toFixed(1)}s elapsed · about ${seconds(estimatedSeconds)} total`
+      : elapsed ? `${seconds(elapsed)} total` : "";
+    if ($("progress-time").textContent !== text) $("progress-time").textContent = text;
+  });
   function render(state) {
-    renderSteps($("steps"), state.steps || [], state.run);
     const steps = state.steps || [];
     const done = steps.filter((s) => ["done", "skipped", "failed"].includes(s.status)).length;
     const running = state.status === "running";
-    $("progress").hidden = state.status === "idle";
+    const showSteps = running || (state.status === "failed" && state.run === requestedRun);
+    $("steps").hidden = !showSteps;
+    $("progress").hidden = !showSteps;
+    if (showSteps) renderSteps($("steps"), steps, state.run);
+    else $("steps").replaceChildren();
     $("bar").style.width = `${Math.round((done / Math.max(1, steps.length)) * 100)}%`;
     $("progress-label").textContent = running
       ? `Step ${Math.min(done + 1, steps.length)} of ${steps.length}`
       : state.status === "complete" ? "Your world is ready"
       : state.status === "failed" ? "Stopped — the reason is recorded below" : "Ready";
-    const estimate = steps.reduce((sum, s) =>
+    estimatedSeconds = steps.reduce((sum, s) =>
       sum + (META[s.id]?.estimate_s || META[s.id]?.estimate_seconds || 0), 0);
     const spent = state.elapsed_s ?? state.elapsed_seconds;
-    $("progress-time").textContent = running
-      ? `${seconds(spent)} elapsed · about ${seconds(estimate)} total`
-      : spent ? `${seconds(spent)} total` : "";
+    elapsedClock.update({ id: state.run, elapsed: spent, running });
     $("run").disabled = running;
 
     if (!running && state.status === "complete" && state.run) {
@@ -500,7 +507,7 @@
       renderMine();
       // A finished run is published to the carousel; pick it up without a reload.
       loadFeatured().then(() => loadGallery(true));
-      $("run-note").textContent = "Done — your run is in the carousel below. Open its studio to drive the world.";
+      $("run-note").textContent = "Done — open your result below to watch the recording or drive the world.";
       $("run").disabled = false;
     } else if (!running && state.status === "failed") {
       $("run-note").textContent = state.error || "The run stopped; its reason is recorded above.";
