@@ -130,6 +130,97 @@ def bounded_source_window(video, out):
         cap.release()
 
 
+# Pose sampling already strides to ~15 samples/s and caps at 900, so striding below
+# 30 fps here would cut reference fidelity without saving inference; only very high
+# frame rates are thinned. The frame cap bounds decode and pose cost together.
+DEMO_SOURCE_POLICY = {"profile": "portal-demo-source-v1", "container": ".mp4",
+                      "max_long_side": 1280, "target_fps": 30, "max_frames": 600,
+                      "max_bytes": 36_000_000}
+
+
+def _even(value):
+    # H.264/MPEG-4 encoders reject odd dimensions on most builds.
+    return max(64, int(value) // 2 * 2)
+
+
+def prepare_demo_source(video, out, *, policy=None):
+    """Normalize any decodable clip into the exercise admission envelope.
+
+    Uploads accept .mov/.webm/.avi/.mkv, but perception requires an MP4 inside a 37 MB
+    bound, so an unconverted phone clip is accepted and then refused after upload. One
+    explicit re-encode fixes container, long side, frame rate and duration together;
+    the smaller result is also what keeps pose estimation inside the demo time budget.
+    Returns (path, provenance) with provenance None when the original already complies.
+    """
+    import cv2
+    cv2.setNumThreads(1)
+    policy = {**DEMO_SOURCE_POLICY, **(policy or {})}
+    video, out = Path(video), Path(out)
+    capture = cv2.VideoCapture(str(video))
+    try:
+        fps, reported, width, height = [capture.get(key) for key in
+            (cv2.CAP_PROP_FPS, cv2.CAP_PROP_FRAME_COUNT, cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT)]
+        if (not capture.isOpened() or not all(math.isfinite(n) for n in (fps, reported, width, height))
+                or not 1 <= fps <= 240 or reported < 12 or not 64 <= width <= 4096 or not 64 <= height <= 2160):
+            raise ValueError("Use a decodable video of at least 12 frames up to 4096x2160 pixels and 240 fps")
+        stride = max(1, math.ceil(fps / policy["target_fps"]))
+        # A brief high-rate clip must not be thinned under the decodable minimum.
+        while stride > 1 and reported / stride < 24:
+            stride -= 1
+        scale = min(1.0, policy["max_long_side"] / max(width, height))
+        compliant = (video.suffix.lower() == policy["container"] and stride == 1 and scale == 1.0
+                     and reported <= policy["max_frames"]
+                     and video.stat().st_size <= policy["max_bytes"])
+        if compliant:
+            return video, None
+        out.mkdir(parents=True, exist_ok=True)
+        target = out / "source-normalized.mp4"
+        if target.exists():
+            raise FileExistsError("Normalized source already exists; use a new directory")
+        size = (_even(width * scale), _even(height * scale))
+        output_fps = max(1.0, fps / stride)
+        writer = cv2.VideoWriter(str(target), cv2.VideoWriter_fourcc(*"mp4v"), output_fps, size)
+        if not writer.isOpened():
+            raise RuntimeError("Source normalization encoder unavailable")
+        started, read, written = time.monotonic(), 0, 0
+        try:
+            while written < policy["max_frames"]:
+                ok, frame = capture.read()
+                if not ok:
+                    break
+                if read % stride == 0:
+                    if size != (frame.shape[1], frame.shape[0]):
+                        frame = cv2.resize(frame, size, interpolation=cv2.INTER_AREA)
+                    writer.write(frame)
+                    written += 1
+                read += 1
+                if time.monotonic() - started > 120:
+                    raise TimeoutError("Source normalization exceeded 120 seconds")
+        finally:
+            writer.release()
+        if written < 12:
+            raise ValueError("Could not decode at least 12 frames from this video")
+        if target.stat().st_size > policy["max_bytes"]:
+            raise ValueError("Normalized source still exceeds its byte bound; use a shorter clip")
+        provenance = {"schema_version": 1, "profile": policy["profile"],
+            "original_sha256": digest(video), "normalized_sha256": digest(target),
+            "original": {"frames": int(reported), "fps": fps, "width": int(width),
+                         "height": int(height), "container": video.suffix.lower(),
+                         "bytes": video.stat().st_size},
+            "normalized": {"frames": written, "fps": output_fps, "width": size[0],
+                           "height": size[1], "container": ".mp4",
+                           "bytes": target.stat().st_size},
+            "frame_stride": stride, "artifact": target.name,
+            "scope": ("Explicit re-encode for admission and speed: container, long side, frame "
+                      "rate and duration only. Re-encoding changes pixels and timing granularity; "
+                      "the untouched original remains the provenance source. Frames beyond the "
+                      "bound are unobserved, not absent.")}
+        write_json(out / "source-normalized.json", provenance)
+        return target, provenance
+    finally:
+        capture.release()
+
+
 def motion_region(video, *, maximum_samples=120):
     """Dominant moving region and its onset frame: a deterministic last-resort track target.
 

@@ -143,6 +143,44 @@ def test_window_derivation_bounds_long_videos_and_preserves_the_original(tmp_pat
     assert same == short and none is None
 
 
+def test_demo_source_normalizes_foreign_containers_and_preserves_the_original(tmp_path):
+    from weft.portal_pipeline import prepare_demo_source
+    # An .avi upload is accepted by the portal but refused by perception, which demands MP4.
+    video = moving_circle_video(tmp_path / "phone.avi", frames=60, size=(640, 360), fps=20)
+    original = digest(video)
+    normalized, provenance = prepare_demo_source(video, tmp_path / "normalized")
+    assert normalized.suffix == ".mp4" and normalized != video
+    assert provenance["normalized"]["container"] == ".mp4"
+    assert provenance["original"]["container"] == ".avi"
+    assert digest(video) == original == provenance["original_sha256"]
+    assert digest(normalized) == provenance["normalized_sha256"]
+    assert sample_video(normalized, tmp_path / "frames")["decoded_frame_count"] >= 12
+
+
+def test_demo_source_bounds_rate_and_size_but_leaves_compliant_clips_untouched(tmp_path):
+    from weft.portal_pipeline import DEMO_SOURCE_POLICY, prepare_demo_source
+    wide = moving_circle_video(tmp_path / "wide.avi", frames=240, size=(1920, 1080), fps=120)
+    _, provenance = prepare_demo_source(wide, tmp_path / "wide-out")
+    assert max(provenance["normalized"]["width"], provenance["normalized"]["height"]) \
+        <= DEMO_SOURCE_POLICY["max_long_side"]
+    assert provenance["normalized"]["fps"] <= DEMO_SOURCE_POLICY["target_fps"]
+    assert provenance["frame_stride"] > 1
+
+    long_clip = moving_circle_video(tmp_path / "long.avi", frames=1400, size=(320, 180), fps=25)
+    _, bounded = prepare_demo_source(long_clip, tmp_path / "long-out")
+    assert bounded["normalized"]["frames"] <= DEMO_SOURCE_POLICY["max_frames"]
+
+    compliant = tmp_path / "ready.mp4"
+    writer = cv2.VideoWriter(str(compliant), cv2.VideoWriter_fourcc(*"mp4v"), 25, (320, 180))
+    for index in range(40):
+        frame = np.full((180, 320, 3), 220, np.uint8)
+        cv2.circle(frame, (20 + index, 90), 8, (0, 60, 200), -1)
+        writer.write(frame)
+    writer.release()
+    same, none = prepare_demo_source(compliant, tmp_path / "ready-out")
+    assert same == compliant and none is None
+
+
 def test_motion_region_finds_movement_and_refuses_static_video(tmp_path):
     from weft.portal_pipeline import motion_region
     moving = moving_circle_video(tmp_path / "moving.avi")
