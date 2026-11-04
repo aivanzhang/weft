@@ -396,6 +396,16 @@ not an external benchmark or a guarantee for new inputs.
   `leg-raises` (67% usable but reference gaps beyond the interpolation horizon). All three
   refuse identically across the lite, full and heavy pose models, heavy markedly worse. A
   judge reading the constraints before uploading knows these are out of scope.
+- **Three jobs were allowed to oversubscribe a single container, and the failure blamed the
+  visitor.** `max_instances` is 1, so every job shares one four-vCPU container, but the
+  admission gate permitted three active at once. Under that contention the pose and body
+  stages pass their internal deadlines and refuse, and the refusal text reads "use one person,
+  head to feet in frame" -- a verdict on the footage for what is server load. Caught by
+  accident while preparing a demo: `waiters-squat` completed twice and then failed once,
+  minutes apart, on identical bytes. Active jobs now cap at 1, matching the instance count, so
+  a second submission is told an environment is already generating instead of being handed a
+  false judgement about its video. This was the only non-deterministic outcome found in the
+  whole session, and it would have been invisible to any single-submission test.
 - Three different limits used to refuse with one message, "The generation queue is full.
   Please try again later." They now say which: three jobs already generating (clears in about
   a minute), an access code's daily budget, the shared daily budget, or a visitor's own three
