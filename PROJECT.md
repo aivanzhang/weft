@@ -78,6 +78,10 @@ The gallery distinguishes loading, empty and
 unavailable states, with bounded requests and a retry that never starts a run.
 `npm run demo` manages both local processes in one terminal and stops both on
 Ctrl+C without deleting saved runs or changing spending allowances.
+Local hot refresh watches page assets and source changes. Visual edits reload open
+pages; Python/catalog edits restart the backend only when idle, preserving tokens
+and saved evidence. Active work and loaded live worlds defer backend restarts.
+`--no-watch` disables the watcher; launcher/proxy edits still need a manual restart.
 Startup checks both ports and existing collection ownership before launching;
 conflicts leave the running services and saved state untouched.
 Cancelled media downloads stop at the disconnected socket without retrying an

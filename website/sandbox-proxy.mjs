@@ -24,7 +24,7 @@ function endToEnd(headers) {
   return clean;
 }
 
-export function proxySandbox(request, response, sandboxPort) {
+export function proxySandbox(request, response, sandboxPort, { transformHTML } = {}) {
   const fail = (code, message) => {
     if (response.destroyed) return;
     if (response.headersSent) return response.destroy();
@@ -51,9 +51,26 @@ export function proxySandbox(request, response, sandboxPort) {
     method: request.method, path: request.url, headers, agent: false });
   upstream.setTimeout(180_000, () => upstream.destroy(new Error("Sandbox request timed out")));
   upstream.on("error", () => fail(502, "Sandbox unavailable. Start it with npm run demo or npm run sandbox."));
-  upstream.on("response", (incoming) => {
+  upstream.on("response", async (incoming) => {
     const outgoing = endToEnd(incoming.headers);
     outgoing["cache-control"] = "no-store";
+    if (transformHTML && request.method === "GET" && incoming.statusCode === 200
+        && /^text\/html\b/.test(outgoing["content-type"] || "") && !outgoing["content-encoding"] && !request.headers.range) {
+      try {
+        const chunks = []; let size = 0;
+        for await (const chunk of incoming) {
+          size += chunk.length;
+          if (size > 2_000_000) throw new Error("HTML exceeds the local refresh limit");
+          chunks.push(chunk);
+        }
+        const html = transformHTML(Buffer.concat(chunks).toString("utf8"));
+        outgoing["content-length"] = Buffer.byteLength(html);
+        delete outgoing["accept-ranges"];
+        response.writeHead(200, outgoing);
+        response.end(html);
+      } catch { fail(502, "Could not load the local page."); }
+      return;
+    }
     response.writeHead(incoming.statusCode, outgoing);
     incoming.on("error", () => response.destroy());
     incoming.pipe(response);

@@ -1493,7 +1493,11 @@ def launch_portal(args):
     portal = Portal(args.root)
     server = None
     try:
-        server = PortalServer(("127.0.0.1", args.port), portal)
+        server_class = PortalServer
+        if os.environ.get("WEFT_DEMO_RELOAD") == "1":
+            from weft.portal_reload import ReloadablePortalServer
+            server_class = ReloadablePortalServer
+        server = server_class(("127.0.0.1", args.port), portal)
         print(f"Weft portal: http://127.0.0.1:{server.server_port}/#token={portal.token}", flush=True)
         print("Upload videos in the browser. API keys stay server-side. Ctrl+C preserves projects and recordings.", flush=True)
         server.serve_forever(poll_interval=.2)

@@ -1,5 +1,5 @@
 import { createReadStream } from "node:fs";
-import { realpath, stat } from "node:fs/promises";
+import { readFile, realpath, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, extname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -16,7 +16,7 @@ const types = {
   ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8",
 };
 
-export function landingServer({ sandboxPort = 8765 } = {}) {
+export function landingServer({ sandboxPort = 8765, hotReload = null } = {}) {
   if (!Number.isInteger(sandboxPort) || sandboxPort < 1 || sandboxPort > 65535) {
     throw new Error("Sandbox port must be between 1 and 65535");
   }
@@ -30,11 +30,21 @@ export function landingServer({ sandboxPort = 8765 } = {}) {
     try {
       const parsed = new URL(request.url, "http://localhost");
       const path = decodeURIComponent(parsed.pathname);
+      if (hotReload && ["/__weft_reload", "/__weft_reload.js"].includes(path)) {
+        const host = request.headers.host;
+        if (!["localhost", "127.0.0.1"].some(name => host === `${name}:${request.socket.localPort}`)
+            || (request.headers.origin && request.headers.origin !== `http://${host}`)
+            || request.headers["sec-fetch-site"] === "cross-site") return reply(403, "Use this local site's own origin.");
+        if (!["GET", "HEAD"].includes(request.method)) return reply(405, "Method not allowed");
+        return path.endsWith(".js")
+          ? reply(200, await readFile(resolve(root, "website/hot-refresh.js")), { "Content-Type": types[".js"] })
+          : reply(200, JSON.stringify(hotReload.status()), { "Content-Type": types[".json"] });
+      }
       if (["/demo/", "/emo"].includes(path)) {
         return reply(302, "", { Location: `/demo${parsed.search}` });
       }
       if (path !== "/api/session" && sandboxRoute(path)) {
-        return proxySandbox(request, response, sandboxPort);
+        return proxySandbox(request, response, sandboxPort, { transformHTML: hotReload?.inject });
       }
       if (!["GET", "HEAD"].includes(request.method)) {
         return reply(405, "The landing page does not accept uploads.", { Allow: "GET, HEAD" });
@@ -50,6 +60,10 @@ export function landingServer({ sandboxPort = 8765 } = {}) {
       const file = resolve(root, `.${path}`);
       // An allowlisted path must not become a symlink to private files.
       if (await realpath(file) !== file) return reply(404, "Not found");
+      if (hotReload && extname(file) === ".html" && !request.headers.range) {
+        const html = hotReload.inject(await readFile(file, "utf8"));
+        return reply(200, html, { "Content-Type": types[".html"], "Content-Length": Buffer.byteLength(html) });
+      }
       const info = await stat(file);
       let start = 0;
       let end = info.size - 1;

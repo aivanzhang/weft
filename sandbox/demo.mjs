@@ -6,6 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { landingServer } from '../website/dev.mjs';
 import { sandboxCommand } from './run.mjs';
+import { reloadState, watchSources } from './reload.mjs';
+import { restartingBackend } from './reload-backend.mjs';
 
 const repository = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const execute = promisify(execFile);
@@ -23,10 +25,11 @@ export function startupConflict(result, command) {
 }
 
 export async function demoCommand(args, root = repository) {
-  let projectRoot, port = 3000, sandboxPort = 8765, check = false, help = false;
+  let projectRoot, port = 3000, sandboxPort = 8765, check = false, help = false, watch = true;
   for (let index = 0; index < args.length; index += 1) {
     const argument = args[index];
     if (argument === '--check') { check = true; continue; }
+    if (argument === '--no-watch') { watch = false; continue; }
     if (argument === '--help' || argument === '-h') { help = true; continue; }
     const match = /^(--root|--port|--sandbox-port)(?:=(.*))?$/.exec(argument);
     if (!match) throw new Error(`Unknown demo option: ${argument}`);
@@ -51,7 +54,7 @@ export async function demoCommand(args, root = repository) {
     projectRoot = prepared?.isDirectory() ? '.local/demo-portal-04' : '.local/portal';
   }
   return { ...sandboxCommand(['--root', projectRoot, '--port', String(sandboxPort)], root),
-    port, sandboxPort, check, help };
+    port, sandboxPort, check, help, watch };
 }
 
 export function supervise(child, server, { signals = process, shutdownMs = 15000, log = console } = {}) {
@@ -95,7 +98,7 @@ export function supervise(child, server, { signals = process, shutdownMs = 15000
 async function main() {
   const command = await demoCommand(process.argv.slice(2));
   if (command.help) {
-    console.log('Usage: npm run demo -- [--root PATH] [--port 3000] [--sandbox-port 8765] [--check]');
+    console.log('Usage: npm run demo -- [--root PATH] [--port 3000] [--sandbox-port 8765] [--no-watch] [--check]');
     console.log('Starts the landing page and sandbox together. Ctrl+C stops both and keeps saved runs.');
     return;
   }
@@ -108,7 +111,8 @@ async function main() {
   const conflict = startupConflict(JSON.parse(stdout), command);
   if (conflict) throw new Error(conflict);
   if (command.check) { console.log(JSON.stringify(command, null, 2)); return; }
-  const server = landingServer({ sandboxPort: command.sandboxPort });
+  const hotReload = command.watch ? reloadState() : null;
+  const server = landingServer({ sandboxPort: command.sandboxPort, hotReload });
   await new Promise((resolve, reject) => {
     server.once('error', reject);
     server.listen(command.port, '127.0.0.1', () => {
@@ -123,11 +127,23 @@ async function main() {
   console.log(`Weft walkthrough: http://127.0.0.1:${command.port}/demo`);
   console.log('Ctrl+C stops both servers. Saved runs and budgets are preserved.');
   // A separate process group prevents terminal Ctrl+C from interrupting Python twice.
-  const child = spawn(command.executable, command.args, {
+  const child = hotReload ? restartingBackend(command, hotReload) : spawn(command.executable, command.args, {
     cwd: command.cwd, stdio: 'inherit', detached: process.platform !== 'win32',
     env: { ...process.env, PYTHONUNBUFFERED: '1', WEFT_HOME_PORT: String(command.port) },
   });
+  let stopWatching = () => {};
+  if (hotReload) {
+    try {
+      stopWatching = watchSources(repository, kind => {
+        if (kind === 'backend') child.reload();
+        else hotReload.refresh();
+      });
+      console.log('Hot refresh enabled. Page edits refresh automatically; backend edits restart when idle. --no-watch disables it.');
+    } catch (error) { console.warn(`Hot refresh unavailable: ${error.message}`); }
+    child.once('stopping', () => stopWatching());
+  }
   process.exitCode = await supervise(child, server);
+  stopWatching();
   if (process.exitCode === 0) console.log('Weft demo stopped. Saved runs are preserved.');
 }
 
