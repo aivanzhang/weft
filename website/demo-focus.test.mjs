@@ -25,7 +25,7 @@ test('run views are exclusive and release hidden simulation and video resources'
   const saved = new Map();
   let cleanURL;
   const context = {
-    window: {}, URLSearchParams,
+    window: {}, URLSearchParams, AbortSignal,
     location: { hash: '#token=secret', pathname: '/demo', search: '' },
     sessionStorage: { getItem: (key) => saved.get(key), setItem: (key, value) => saved.set(key, value) },
     history: { replaceState: (_, __, url) => { cleanURL = url; } },
@@ -62,7 +62,7 @@ test('run views are exclusive and release hidden simulation and video resources'
 
 test('access links remain usable without browser storage', () => {
   const context = {
-    window: {}, URLSearchParams,
+    window: {}, URLSearchParams, AbortSignal,
     location: { hash: '#token=private', pathname: '/demo', search: '' },
     sessionStorage: { getItem() { throw new Error('disabled'); }, setItem() { throw new Error('disabled'); } },
     history: { replaceState() {} },
@@ -76,7 +76,7 @@ test('code links prefill without logging in and can accept a later authenticated
   let cleaned;
   const stored = new Map();
   const context = {
-    window: {}, URLSearchParams,
+    window: {}, URLSearchParams, AbortSignal,
     location: { hash: '', pathname: '/demo', search: '?access_code=DEMO-EXAMPLE&keep=yes' },
     sessionStorage: { getItem: (key) => stored.get(key), setItem: (key, value) => stored.set(key, value) },
     history: { replaceState: (_, __, value) => { cleaned = value; } },
@@ -92,36 +92,48 @@ test('code links prefill without logging in and can accept a later authenticated
   assert.equal(stored.get('weft-portal-token'), 'authenticated');
 });
 
-test('a fresh code link fills the gate without fetching protected APIs or submitting', async () => {
+test('visitors can see curated recordings while a prefilled access form never submits or fetches private APIs', async () => {
   const nodes = new Map();
-  const node = (id) => {
-    if (!nodes.has(id)) nodes.set(id, { value: '', listeners: {},
-      addEventListener(type, listener) { this.listeners[type] = listener; } });
-    return nodes.get(id);
-  };
-  let requests = 0;
+  const makeNode = () => ({ value: '', hidden: false, children: [], listeners: {},
+    addEventListener(type, listener) { this.listeners[type] = listener; },
+    replaceChildren(...children) { this.children = children; }, setAttribute() {} });
+  const node = (id) => { if (!nodes.has(id)) nodes.set(id, makeNode()); return nodes.get(id); };
+  const requests = [];
   const context = {
-    window: {}, URLSearchParams,
+    window: {}, URLSearchParams, AbortSignal,
     location: { hash: '', pathname: '/demo', search: '?access_code=DEMO-EXAMPLE' },
     sessionStorage: { getItem: () => '', setItem() {} },
     history: { replaceState() {} },
-    document: { getElementById: node, querySelectorAll: () => [], addEventListener() {} },
-    setTimeout, clearTimeout,
-    fetch() { requests += 1; throw new Error('Unexpected request before unlock'); },
+    document: { getElementById: node, querySelectorAll: () => [], addEventListener() {}, createElement: makeNode },
+    setTimeout, clearTimeout, AbortSignal,
+    fetch: async (path) => {
+      requests.push(path);
+      assert.equal(path, '/api/demo/showcase', 'visitors never request private APIs');
+      return { ok: true, json: async () => ({ home_url: 'http://127.0.0.1:3001/', items: [{
+        id: 'curated', title: 'Recorded exercise', video_url: '/api/demo/showcase/curated/video', readonly: true,
+      }] }) };
+    },
   };
+  node('builder').hidden = true;
   vm.runInNewContext(source, context);
   const build = await readFile(new URL('../src/weft/assets/demo_build.js', import.meta.url), 'utf8');
   vm.runInNewContext(build, context);
+  for (let turn = 0; turn < 3; turn += 1) await new Promise(setImmediate);
   assert.equal(node('gate-code').value, 'DEMO-EXAMPLE');
   assert.equal(typeof node('gate-form').listeners.submit, 'function');
-  assert.equal(requests, 0);
+  assert.equal(node('access-menu').open, true);
+  assert.deepEqual(requests, ['/api/demo/showcase']);
+  assert.equal(node('finished-content').hidden, false);
+  assert.equal(node('demo-title').textContent, 'Recorded exercise');
+  assert.equal(node('builder').hidden, true);
+  assert.equal(node('home-link').href, 'http://127.0.0.1:3001/');
 });
 
 test('elapsed time ticks between polls, never rewinds live, and releases hidden or finished timers', () => {
   const listeners = new Map(), timers = new Map(), paints = [];
   let time = 1000, nextTimer = 0;
   const context = {
-    window: {}, URLSearchParams,
+    window: {}, URLSearchParams, AbortSignal,
     location: { hash: '', pathname: '/demo', search: '' },
     sessionStorage: { getItem: () => '' },
     document: { hidden: false,
@@ -161,7 +173,7 @@ test('elapsed time ticks between polls, never rewinds live, and releases hidden 
 });
 
 test('saved results summarize recorded metrics without replaying step status or timing', () => {
-  const context = { window: {}, URLSearchParams, location: { hash: '', search: '', pathname: '/demo' },
+  const context = { window: {}, URLSearchParams, AbortSignal, location: { hash: '', search: '', pathname: '/demo' },
     sessionStorage: { getItem: () => '' } };
   vm.runInNewContext(source, context);
   const record = { steps: [
@@ -185,7 +197,7 @@ test('an already completed run loads results without displaying processing steps
   const node = (id) => { if (!nodes.has(id)) nodes.set(id, makeNode()); return nodes.get(id); };
   let statesRead = 0;
   const context = {
-    window: {}, URLSearchParams, setTimeout, clearTimeout, performance,
+    window: {}, URLSearchParams, AbortSignal, setTimeout, clearTimeout, performance, AbortSignal,
     location: { hash: '#token=connected', pathname: '/demo', search: '', origin: 'http://127.0.0.1:8765' },
     sessionStorage: { getItem: () => '', setItem() {} },
     localStorage: { getItem: () => '[]', setItem() {} },
@@ -216,4 +228,76 @@ test('an already completed run loads results without displaying processing steps
   assert.equal(node('finished-empty').hidden, true);
   assert.equal(node('demo-title').textContent, 'Completed exercise');
   assert.equal(node('open-studio').textContent, 'Watch recording');
+});
+
+
+function galleryFixture() {
+  const nodes = new Map(), calls = [], timeouts = [];
+  const node = (id) => {
+    if (!nodes.has(id)) nodes.set(id, {
+      hidden: false, children: [], listeners: {}, attributes: {},
+      addEventListener(name, callback) { this.listeners[name] = callback; },
+      setAttribute(name, value) { this.attributes[name] = value; },
+      replaceChildren(...items) { this.children = items; },
+    });
+    return nodes.get(id);
+  };
+  const context = {
+    window: { WeftDemoSession: { token: '', accessCode: '' },
+      WeftRunFocus: () => ({}), WeftElapsedClock: () => ({}) },
+    document: { getElementById: node, querySelectorAll: () => [], addEventListener() {},
+      createElement: () => node(Symbol()) },
+    AbortSignal: { timeout(ms) {
+      const controller = new AbortController();
+      timeouts.push({ ms, controller });
+      return controller.signal;
+    } },
+    fetch: (path, options) => new Promise((resolve, reject) => {
+      calls.push({ path, options, resolve, reject });
+      options.signal.addEventListener('abort', () => reject(new Error('Timed out')));
+    }),
+  };
+  return { node, calls, timeouts, context };
+}
+const settleGallery = async () => { for (let i = 0; i < 4; i += 1) await new Promise(setImmediate); };
+
+test('gallery timeout ends loading; retry is deduplicated and replaces the placeholder with recordings', async () => {
+  const f = galleryFixture();
+  const build = await readFile(new URL('../src/weft/assets/demo_build.js', import.meta.url), 'utf8');
+  vm.runInNewContext(build, f.context);
+  assert.equal(f.node('finished-loading').hidden, false);
+  assert.equal(f.node('explore').attributes['aria-busy'], 'true');
+  assert.equal(f.timeouts[0].ms, 15000);
+  f.timeouts[0].controller.abort();
+  await settleGallery();
+  assert.equal(f.node('finished-loading').hidden, true);
+  assert.equal(f.node('finished-retry').hidden, false);
+  assert.equal(f.node('explore').attributes['aria-busy'], 'false');
+  f.node('finished-retry').listeners.click();
+  f.node('finished-retry').listeners.click();
+  assert.equal(f.calls.length, 2);
+  assert.equal(f.node('finished-loading').hidden, false);
+  f.calls[1].resolve({ ok: true, json: async () => ({ items: [
+    { id: 'example', title: 'Example world', video_url: '/example.mp4' },
+  ] }) });
+  await settleGallery();
+  assert.equal(f.node('finished-loading').hidden, true);
+  assert.equal(f.node('finished-content').hidden, false);
+  assert.equal(f.node('finished-empty').hidden, true);
+  assert.equal(f.node('finished-nav').hidden, true, 'one recording needs no previous/next buttons');
+  assert.equal(f.node('demo-title').textContent, 'Example world');
+  assert.ok(f.calls.every((call) => call.path === '/api/demo/showcase' && !call.options.method));
+});
+
+test('an empty gallery shows an honest empty state instead of an endless loader', async () => {
+  const f = galleryFixture();
+  const build = await readFile(new URL('../src/weft/assets/demo_build.js', import.meta.url), 'utf8');
+  vm.runInNewContext(build, f.context);
+  f.calls[0].resolve({ ok: true, json: async () => ({ items: [] }) });
+  await settleGallery();
+  assert.equal(f.node('finished-loading').hidden, true);
+  assert.equal(f.node('finished-content').hidden, true);
+  assert.equal(f.node('finished-empty').hidden, false);
+  assert.equal(f.node('finished-retry').hidden, true);
+  assert.match(f.node('finished-message-detail').textContent, /Finished experiments will appear here/);
 });

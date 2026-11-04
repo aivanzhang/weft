@@ -120,12 +120,12 @@ async function main() {
     throw error;
   });
   console.log(`Weft landing page: http://127.0.0.1:${command.port}/`);
-  console.log(`Weft walkthrough: http://127.0.0.1:${command.sandboxPort}/demo`);
+  console.log(`Weft walkthrough: http://127.0.0.1:${command.port}/demo`);
   console.log('Ctrl+C stops both servers. Saved runs and budgets are preserved.');
   // A separate process group prevents terminal Ctrl+C from interrupting Python twice.
   const child = spawn(command.executable, command.args, {
     cwd: command.cwd, stdio: 'inherit', detached: process.platform !== 'win32',
-    env: { ...process.env, PYTHONUNBUFFERED: '1' },
+    env: { ...process.env, PYTHONUNBUFFERED: '1', WEFT_HOME_PORT: String(command.port) },
   });
   process.exitCode = await supervise(child, server);
   if (process.exitCode === 0) console.log('Weft demo stopped. Saved runs are preserved.');

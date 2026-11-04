@@ -34,7 +34,27 @@ test('real Ctrl+C exits both demo processes and releases ports and the collectio
       assert.ok(Date.now() < deadline, 'Both servers must become ready');
       await new Promise((resolve) => setTimeout(resolve, 25));
     }
-    const origin = `http://127.0.0.1:${ports[1]}`;
+    const origin = `http://127.0.0.1:${ports[0]}`;
+    const publicIndex = await fetch(origin + '/api/demo/showcase');
+    assert.equal(publicIndex.status, 200);
+    const showcase = await publicIndex.json();
+    assert.equal(showcase.home_url, origin + '/');
+    assert.ok(showcase.items.every((item) => item.readonly && !item.project));
+    if (showcase.items.length) {
+      const recording = await fetch(origin + showcase.items[0].video_url, { headers: { Range: 'bytes=0-31' } });
+      assert.equal(recording.status, 206);
+      assert.equal((await recording.arrayBuffer()).byteLength, 32);
+    }
+    const page = await fetch(origin + '/demo?access_code=example');
+    assert.equal(page.status, 200);
+    assert.equal(new URL(page.url).port, String(ports[0]));
+    assert.match(await page.text(), /demo_build.js/);
+    for (const asset of ['/demo_build.js', '/demo.css', '/brand.css', '/demo-font.woff2']) {
+      const response = await fetch(origin + asset);
+      assert.equal(response.status, 200, asset);
+      assert.ok((await response.arrayBuffer()).byteLength > 0);
+    }
+    assert.equal((await fetch(origin + '/api/demo/steps')).status, 401);
     const accessCode = (await readFile(path.join(repository, '.local/demo-access-code'), 'utf8')).trim();
     const unlock = await fetch(origin + '/api/demo/unlock', {
       method: 'POST', headers: { 'Content-Type': 'application/json', Origin: origin },

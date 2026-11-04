@@ -1,14 +1,29 @@
 import assert from "node:assert/strict";
 import { after, before, test } from "node:test";
 import { once } from "node:events";
+import { createServer, request as httpRequest } from "node:http";
 import { readFile } from "node:fs/promises";
 import { landingPort, landingServer } from "./dev.mjs";
 import { publicAssets } from "./public-assets.mjs";
 
-let server;
+let server, sandbox;
 let base;
+const forwarded = [];
 before(async () => {
-  server = landingServer();
+  sandbox = createServer(async (request, response) => {
+    let body = "";
+    for await (const chunk of request) body += chunk;
+    forwarded.push({ url: request.url, method: request.method, headers: request.headers, body });
+    if (request.url.startsWith("/api/") && !request.headers.authorization) {
+      response.writeHead(401); response.end("Unauthorized"); return;
+    }
+    response.setHeader("Content-Type", "application/json");
+    response.setHeader("X-Frame-Options", "SAMEORIGIN");
+    response.end(JSON.stringify(forwarded.at(-1)));
+  });
+  sandbox.listen(0, "127.0.0.1");
+  await once(sandbox, "listening");
+  server = landingServer({ sandboxPort: sandbox.address().port });
   server.listen(0, "127.0.0.1");
   await once(server, "listening");
   base = `http://127.0.0.1:${server.address().port}`;
@@ -17,6 +32,8 @@ after(async () => {
   if (!server?.listening) return;
   server.closeAllConnections();
   await new Promise((resolve) => server.close(resolve));
+  sandbox.closeAllConnections();
+  await new Promise((resolve) => sandbox.close(resolve));
 });
 
 test("landing loads from its own root and all public assets are available", async () => {
@@ -38,22 +55,58 @@ test("private state, source code and traversal are not served", async () => {
   }
 });
 
-test("local landing never starts or proxies uploads to the sandbox", async () => {
+test("local landing keeps uploads disabled and the sandbox enforces API authentication", async () => {
   const config = await (await fetch(`${base}/api/session`)).json();
   assert.equal(config.enabled, false);
   assert.match(config.message, /npm run sandbox/);
-  assert.equal((await fetch(`${base}/api/jobs`, { method: "POST", body: "test" })).status, 405);
-  assert.equal((await fetch(`${base}/api/projects`)).status, 404);
+  assert.equal((await fetch(`${base}/api/jobs`, { method: "POST", body: "test" })).status, 401);
+  assert.equal((await fetch(`${base}/api/projects`)).status, 401);
 });
 
-test("demo routes send the browser to the local sandbox, without proxying private APIs", async () => {
-  for (const path of ["/demo", "/demo/", "/demo/build", "/demo/runs", "/emo"]) {
+test("demo pages, assets and labs stay on the landing origin and retain query strings", async () => {
+  for (const path of ["/demo?access_code=example", "/demo/build", "/demo/runs", "/demo.css", "/demo_focus.js", `/labs/${"a".repeat(32)}/lab.js`]) {
     const response = await fetch(base + path, { redirect: "manual" });
-    assert.equal(response.status, 302);
-    const destination = ["/demo/", "/emo"].includes(path) ? "/demo" : path;
-    assert.equal(response.headers.get("location"), `http://127.0.0.1:8765${destination}`);
+    assert.equal(response.status, 200, path);
+    assert.equal(response.headers.get("location"), null);
+    assert.equal(response.headers.get("x-frame-options"), "SAMEORIGIN");
+    assert.equal((await response.json()).url, path);
+  }
+  for (const path of ["/demo/", "/emo"]) {
+    const response = await fetch(base + path + "?access_code=example", { redirect: "manual" });
+    assert.equal(response.headers.get("location"), "/demo?access_code=example");
   }
   assert.throws(() => landingServer({ sandboxPort: 0 }));
+});
+
+test("proxy streams authenticated posts with origin translation and no forwarded-header trust", async () => {
+  const response = await fetch(base + "/api/demo/start?clip=example", {
+    method: "POST", headers: { Authorization: "Bearer test-token", Origin: base,
+      "Content-Type": "application/json", "X-Forwarded-Host": "attacker.example" }, body: '{"sample":true}',
+  });
+  assert.equal(response.status, 200);
+  const sent = await response.json();
+  assert.equal(sent.method, "POST");
+  assert.equal(sent.body, '{"sample":true}');
+  assert.equal(sent.headers.authorization, "Bearer test-token");
+  assert.equal(sent.headers.host, `127.0.0.1:${sandbox.address().port}`);
+  assert.equal(sent.headers.origin, `http://${sent.headers.host}`);
+  assert.equal(sent.headers["x-forwarded-host"], undefined);
+});
+
+test("host spoofing and cross-origin requests never reach the sandbox", async () => {
+  const count = forwarded.length;
+  for (const headers of [{ Host: "attacker.example" }, { Origin: "https://attacker.example" },
+    { Origin: "null" }, { "Sec-Fetch-Site": "cross-site" }]) {
+    const status = await new Promise((resolve, reject) => {
+      const request = httpRequest(base + "/api/demo/unlock", {
+        method: "POST", headers: { ...headers, "Content-Length": "2" },
+      }, (response) => { response.resume(); response.on("end", () => resolve(response.statusCode)); });
+      request.on("error", reject);
+      request.end("{}");
+    });
+    assert.equal(status, 403, JSON.stringify(headers));
+  }
+  assert.equal(forwarded.length, count);
 });
 
 test("video seeking returns the exact requested bytes, including suffix ranges", async () => {

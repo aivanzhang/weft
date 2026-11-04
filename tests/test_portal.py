@@ -278,3 +278,40 @@ def test_demo_code_exchange_connects_without_token_and_keeps_other_routes_privat
         assert request(server, "/api/demo/steps", auth=False,
                        headers={"Authorization": "Bearer " + result["token"]})[0] == 200
         assert not portal.jobs
+
+
+def test_public_showcase_exposes_only_curated_recordings_without_private_world_access(portal, monkeypatch):
+    import weft.portal_demo as module
+    source = portal.project / "curated.mp4"
+    source.write_bytes(b"0123456789abcdef")
+    monkeypatch.setattr(module, "GALLERY_SEEDS", ({"id": "curated-example", "video": "curated.mp4",
+        "title": "Example world", "caption": "Recorded simulation", "metrics": "6 control steps"},))
+    monkeypatch.setenv("WEFT_HOME_PORT", "3017")
+    private = portal.demo.dir / "run-deadbeef"
+    private.mkdir()
+    write_json(private / "record.json", {"id": "run-deadbeef", "video": str(source),
+                                        "title": "Private visitor run", "project": "private-world"})
+    with serving(portal) as server:
+        status, headers, raw = request(server, "/api/demo/showcase", auth=False)
+        result = json.loads(raw)
+        assert status == 200 and headers["Cache-Control"] == "no-store"
+        for route in ("/demo", "/demo/runs"):
+            page_status, _, html = request(server, route, auth=False)
+            assert page_status == 200 and b'id="access-menu"' in html
+            assert html.index(b'id="gate-form"') < html.index(b'</header>')
+            assert html.index(b'id="explore"') < html.index(b'id="builder"')
+        assert result["home_url"] == "http://127.0.0.1:3017/"
+        assert [item["id"] for item in result["items"]] == ["curated-example"]
+        assert b"private-world" not in raw and b"Private visitor" not in raw
+        assert not {"token", "project", "steps"}.intersection(result["items"][0])
+        video = result["items"][0]["video_url"]
+        code, _, data = request(server, video, auth=False, headers={"Range": "bytes=0-3"})
+        assert code == 206 and data == b"0123"
+        assert request(server, "/api/demo/showcase/run-deadbeef/video", auth=False)[0] == 400
+        for path in ("/api/demo/gallery", "/api/demo/gallery/run-deadbeef/video", "/api/portal"):
+            assert request(server, path, auth=False)[0] == 401
+        assert request(server, "/api/demo/showcase", "POST", auth=False)[0] == 401
+        assert request(server, "/api/demo/showcase", auth=False,
+                       headers={"Origin": "https://attacker.invalid"})[0] == 403
+        assert request(server, "/api/demo/showcase", auth=False,
+                       headers={"Host": "attacker.invalid"})[0] == 403

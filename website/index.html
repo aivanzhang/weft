@@ -15,7 +15,6 @@
       type="image/png"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="contents.css" />
     <link rel="stylesheet" href="environments.css" />
     <link rel="stylesheet" href="footer.css?v=33ddafa53375" />
     <script src="../src/weft/assets/engine.js" defer></script>
@@ -221,16 +220,16 @@
             </a></span>
           <details class="page-contents" id="page-contents">
             <summary aria-label="Table of contents" title="Table of contents">
-              <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r=".7"/><circle cx="4" cy="12" r=".7"/><circle cx="4" cy="18" r=".7"/></svg>
+              <svg class="contents-index" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 5h14M5 12h10M5 19h14"/><path d="M2 5h.01M2 12h.01M2 19h.01"/></svg><svg class="contents-close" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
             </summary>
             <nav class="contents-panel" aria-label="Table of contents">
-              <p class="contents-heading">On this page</p>
+              <p class="contents-heading">Explore Weft</p>
               <ol>
-                <li><a href="#overview"><span class="contents-number" aria-hidden="true">01</span><span>Overview<small>From video to an executable world</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
-                <li><a href="#experiment"><span class="contents-number" aria-hidden="true">02</span><span>Environments<small>Compare the video and simulation</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
-                <li><a href="#research"><span class="contents-number" aria-hidden="true">03</span><span>Research<small>Evidence, physics and repair</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
-                <li><a href="#about"><span class="contents-number" aria-hidden="true">04</span><span>How it works<small>Interact, train and test changes</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
-                <li><a href="#impact"><span class="contents-number" aria-hidden="true">05</span><span>Why it matters<small>Make the next experiment easier</small></span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
+                <li><a href="#overview"><span class="contents-number" aria-hidden="true">01</span><span>Overview<small>From video to an executable world</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
+                <li><a href="#experiment"><span class="contents-number" aria-hidden="true">02</span><span>Environments<small>Compare the video and simulation</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
+                <li><a href="#research"><span class="contents-number" aria-hidden="true">03</span><span>Research<small>Evidence, physics and repair</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
+                <li><a href="#about"><span class="contents-number" aria-hidden="true">04</span><span>How it works<small>Interact, train and test changes</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
+                <li><a href="#impact"><span class="contents-number" aria-hidden="true">05</span><span>Why it matters<small>Make the next experiment easier</small></span><span class="contents-arrow" aria-hidden="true">→</span></a></li>
               </ol>
             </nav>
           </details>
@@ -238,7 +237,13 @@
       </header>
       <main id="main">
         <section class="intro" id="overview" aria-labelledby="intro-heading">
-          <h1 id="intro-heading">Interactive worlds<br />built from video.</h1>
+          <h1 id="intro-heading" aria-label="Interactive worlds built from video.">
+            <span class="headline-word headline-interactive" aria-hidden="true"><span class="headline-letter" style="--letter:0">I</span><span class="headline-letter" style="--letter:1">n</span><span class="headline-letter" style="--letter:2">t</span><span class="headline-letter" style="--letter:3">e</span><span class="headline-letter" style="--letter:4">r</span><span class="headline-letter" style="--letter:5">a</span><span class="headline-letter" style="--letter:6">c</span><span class="headline-letter" style="--letter:7">t</span><span class="headline-letter" style="--letter:8">i</span><span class="headline-letter" style="--letter:9">v</span><span class="headline-letter" style="--letter:10">e</span></span>
+            <span class="headline-word headline-worlds" aria-hidden="true"><span class="headline-letter" style="--letter:0">w</span><span class="headline-letter" style="--letter:1">o</span><span class="headline-letter" style="--letter:2">r</span><span class="headline-letter" style="--letter:3">l</span><span class="headline-letter" style="--letter:4">d</span><span class="headline-letter" style="--letter:5">s</span></span><br />
+            <span class="headline-word" aria-hidden="true">built</span>
+            <span class="headline-word" aria-hidden="true">from</span>
+            <span class="headline-word headline-video" aria-hidden="true"><span class="headline-video-text">video.</span></span>
+          </h1>
           <p class="intro-copy">
             For AI researchers: turn videos into RL environments for interacting, testing, and training
           </p>

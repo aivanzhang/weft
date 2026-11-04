@@ -11,6 +11,7 @@ with its world still loadable, so a reviewer can drive it rather than trust the 
 """
 
 import json
+import os
 import re
 import secrets
 import shutil
@@ -1031,7 +1032,32 @@ class DemoManager:
 
     def gallery(self):
         demos = self._demos()
-        return {"demos": demos, "items": demos}
+        return {"demos": demos, "items": demos, "home_url": self.home_url()}
+
+    def showcase(self):
+        # Only these authored examples are public; visitor runs and project IDs stay private.
+        items = []
+        for seed in GALLERY_SEEDS:
+            path = self.project / seed["video"]
+            if path.is_file() and not path.is_symlink():
+                items.append({key: seed[key] for key in ("id", "title", "caption", "metrics")} | {
+                    "kind": "verified", "readonly": True,
+                    "video_url": f"/api/demo/showcase/{seed['id']}/video"})
+        return {"items": items, "home_url": self.home_url()}
+
+    def home_url(self):
+        try:
+            port = int(os.environ.get("WEFT_HOME_PORT", "3000"))
+        except ValueError:
+            port = 3000
+        if not 1 <= port <= 65535:
+            port = 3000
+        return f"http://127.0.0.1:{port}/"
+
+    def showcase_video(self, identity):
+        if not any(row["id"] == identity for row in self.showcase()["items"]):
+            raise ValueError("That showcase recording is not available")
+        return self.gallery_video(identity)
 
     def _demos(self):
         demos = []
