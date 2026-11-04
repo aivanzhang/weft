@@ -1256,11 +1256,11 @@ h2 {
 .headline-reveal-icon svg, .headline-worlds .headline-reveal-icon ellipse,
 .headline-video .headline-reveal-icon path { transform-box: fill-box; transform-origin: center; }
 .headline-key::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -.04em;
-  border-bottom: 1px dotted currentColor; opacity: .18;
-  transition: opacity 180ms ease, border-color 180ms ease;
+  content: ""; position: absolute; left: .035em; right: .035em; bottom: -.055em;
+  border-bottom: 1px solid currentColor; opacity: .14;
+  transition: opacity 220ms ease, border-color 220ms ease;
 }
-.headline-key:is(:hover, :focus-visible, [data-tip-open="true"])::after { opacity: .55; border-color: var(--clay); }
+.headline-key:is(:hover, :focus-visible, [data-tip-open="true"])::after { opacity: .35; border-color: var(--clay); }
 .headline-tooltip {
   position: fixed; z-index: 30; left: var(--tip-x, 16px); top: var(--tip-y, 16px);
   width: min(288px, calc(100vw - 32px)); padding: 18px 20px;

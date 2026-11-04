@@ -51,13 +51,16 @@ reveal "Build your world" on hover or keyboard focus.
 Clicking the Weft wordmark opens minimal contents links to all five main sections
 in reading order, with native navigation and keyboard-accessible dismissal.
 The headline reveals with temporary word-specific icons and short explanations
-on hover, keyboard focus or tap.
+on hover, keyboard focus or tap, with faint solid underlines marking the interactive words.
 The demo header’s Build control transforms into an inline code field and unlock action;
 once authenticated, it leads directly to the builder.
 Its example viewer defaults to video comparison, with compact version and
 interaction icon toggles; only comparison shows the timeline.
 The landing page also explains the research goals, model roles and intended
 benefit through a conceptual observation-to-experiments illustration.
+Its `/references` page groups perception tools, simulation foundations and related
+papers, with primary-source links and a clear distinction between dependencies
+and research context.
 Active runs have a local tenth-second elapsed clock between status polls; saved
 results open directly without replaying processing steps or progress.
 The demo opens on curated finished recordings without requiring access. Only
