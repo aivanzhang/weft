@@ -223,6 +223,16 @@ not an external benchmark or a guarantee for new inputs.
   a native build of the identical Dockerfile, and the job now fails with
   `pose_inference_requires_avx` instead of an unexplained signal. Evidence:
   `.local/hosted-e2e-1/`, `.local/avx-probe/`.
+- The arbitrary-input sweep was repeated **against the deployed origin**, not only the
+  container: 19 submissions, 6 complete (all with an avatar-ready scene), 8 refused with a
+  specific message, **none refused without one, none left unsettled**, and 5 rejected at the
+  upload gate with "This file is not a supported MP4" — the documented ISO-BMFF constraint,
+  correctly enforced before any work starts. Every MP4 format variant completed: 60 fps,
+  1080p, HEVC, portrait, 90-degree-rotated, and 240p. Completions ran 113-152 s, refusals
+  0.3-42 s. `small240.mp4` is the mirror of the earlier divergence: it is refused in the
+  local container on a root-reference gap and completes in production, so "local is not
+  predictive" cuts both ways rather than only against the hosted path. Evidence:
+  `.local/live-robustness/live-sweep.json`.
 - Admission is sensitive near its own threshold, which local verification hides: a
   borderline clip that completes on macOS can be refused in the Linux container, and
   re-encoding the same footage can flip it either way. Of 17 real clips and windows
