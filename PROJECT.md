@@ -273,6 +273,14 @@ not an external benchmark or a guarantee for new inputs.
   only windowed appearance, retried on 0.12-7.33 s after one bad frame zero refused both
   anchors on a 99.1%-tracked clip; `jumping-jacks` was a hard refusal in every earlier sweep
   and now admits on a proposed window at 100/0. Evidence: `.local/walkthrough-catalog/`.
+- The hosted lane is now **more capable than the local saved-body route**, which matters
+  because a locally served page takes the local one. The dual-anchor retry and the
+  supported-window retry live in the hosted job; `portal_saved_body.py` has neither, so
+  `deadlift` and `jumping-jacks` are admitted hosted and refused locally for exactly the
+  reasons those rungs exist. The demo manifest records both verdicts per clip and a `routes`
+  note explaining the distinction, so a picker skips a hosted-only clip correctly rather than
+  offering one that will fail. Porting the two rungs to the local route is the highest-value
+  follow-up: it would make the routes agree and retire the filter the picker needs.
 - Building that catalog caught a regression a single-clip measurement had missed. Overlapping
   the learning and appearance stages cut the reference clip from 147 s to 110.7 s and was
   deployed on that evidence; across seven examples it broke **bodyweight-squats** and
