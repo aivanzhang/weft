@@ -194,11 +194,20 @@ not an external benchmark or a guarantee for new inputs.
   about 14 s and would change the scored artifact. The remaining ~55 s is pose inference,
   body fitting, 300 evaluation episodes and two rollouts — all of it producing artifacts the
   product promises. Reaching 60 s therefore means dropping a capability, not removing waste.
-  Measured levers, for whoever wants to decide: the appearance stage's duplicate pose pass
-  (~30 s, needs `prepare_lab` to accept precomputed evidence, deliberately not attempted on
-  a verified path) and the trainer trim (~14 s, changes the result). The anchor-retry
-  duplicate is already removed. In-container figures of 25-52 s are 2 vCPU of an M-series
-  Mac and must not be quoted as hosted.
+  Per-phase breakdown of the learning stage, from artifact write times (local 2 vCPU, 19.9 s
+  total; the training figure scales to production's measured 34.5 s, so the rest scales too):
+  pose landmarks 2.4 s, the two evidence GIFs 2.3 s, body fit and scene and task and rollouts
+  0.9 s, **training 8.6 s**, **evaluating three policies over 100 episodes each 5.9 s**,
+  packaging 0.2 s. Training plus evaluation is 73% of the stage. On production hardware that
+  is roughly 60 s of the 89 s, and it is precisely the scored deliverable: the 100/100 against
+  1/100 against 0/100 comparison the product leads with. The cost is the result, not waste
+  around it. Measured levers, for whoever wants to decide: the appearance stage's duplicate
+  pose pass (~30 s, needs `prepare_lab` to accept precomputed evidence), the trainer trim
+  (~23 s, training plateaus at episode 400 but the artifact changes), the two evidence GIFs
+  (~10 s, cosmetic), and fewer evaluation episodes (~17 s, which weakens the headline
+  statistic and is treated as an evaluation gate rather than a tuning knob). The anchor-retry
+  duplicate is already removed. In-container figures of 25-52 s are 2 vCPU of an M-series Mac
+  and must not be quoted as hosted.
 - Weft ships two source anchors that refuse different clips at frame zero — one wants
   confident head, torso and limb endpoints, the other a confidence-qualified limb chain.
   The appearance stage now attempts both unchanged, the second only when the first refuses,
