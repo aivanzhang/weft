@@ -101,7 +101,8 @@ def _detail_metadata(original_raw, metadata):
 
 def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_source=None, max_seconds=210,
                                          anchor_profile=LEGACY_ANCHOR_PROFILE, retain_body_source=False,
-                                         body_detail_recipe=None, body_detail_inputs=None):
+                                         body_detail_recipe=None, body_detail_inputs=None,
+                                         max_pose_hypotheses=2):
     """Prepare source/body custody before either provider; never send or reserve API money."""
     from weft.segmentation_lab import inspect_video
     from weft.exercise_body_source import prepare_exercise_body_source
@@ -115,6 +116,8 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
         raise ValueError("Choose an existing body or a local pose model, not both")
     if type(retain_body_source) is not bool or retain_body_source and body_source is None:
         raise ValueError("Retained body custody requires an explicit existing sealed body")
+    if max_pose_hypotheses not in (1, 2):
+        raise ValueError("Pose hypotheses must be the default two or an explicit single person")
     started = time.monotonic(); deadline = started+max_seconds
     detail, detail_files, detail_options = None, {}, {}
     if body_detail_recipe is not None or body_detail_inputs is not None:
@@ -127,6 +130,8 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
         detail = recipes.validate_body_detail_recipe(body_detail_recipe, *body_detail_inputs)
         detail_options = recipes.body_detail_options(detail)
         detail_options.pop("native_timing")
+        if max_pose_hypotheses != 2:
+            raise ValueError("Body detail pins its own pose options; it cannot also set hypotheses")
         detail_files.update(zip(recipes.INPUT_FILES, body_detail_inputs, strict=True))
         detail_files[recipes.RECIPE_FILE] = recipes._encode(detail)
         if pose_model is None:
@@ -156,7 +161,9 @@ def prepare_exercise_perception_preflight(video, out, *, pose_model=None, body_s
             body_source = out/"body_source"
             prepare_exercise_body_source(video, body_source, pose_model=pose_model, native_timing=True,
                 source_note="Local source-bound preflight before API analysis; no source rights claim",
-                max_seconds=min(180, deadline-time.monotonic()), **detail_options)
+                max_seconds=min(180, deadline-time.monotonic()),
+                **({} if detail is not None or max_pose_hypotheses == 2
+                   else {"max_pose_hypotheses": max_pose_hypotheses}), **detail_options)
         elif retain_body_source:
             from weft.perception_body_reuse import copy_sealed_body
             reuse = copy_sealed_body(body_source, out/"body_source",
