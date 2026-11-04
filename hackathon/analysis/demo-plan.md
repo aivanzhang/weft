@@ -8,10 +8,10 @@ Nothing here authorizes submission, publication, deployment, agreements or socia
 
 Submission deadline: **November 4, 2026, 6:00 p.m. PST**.
 [Public event](https://cerebralvalley.ai/e/meta-ai-developer-hackathon) ·
-[Official guide captured October 26](../sources/participant-guide.md) ·
-[Submission form captured October 26](../sources/submission-form.md).
+[Guide rechecked November 3](../sources/participant-guide-20261103-recheck.md) ·
+[Submission form captured November 3](../sources/submission-form-20261103.md).
 
-The current signed-in page could not be rechecked: automatic browser approval review rejected origin-wide access despite the user's tab-only approval. No workaround was used. Recheck private form requirements before submission.
+Signed-in guide and form rechecked November 3, 2026, approximately 9:15 p.m. PST. Deadline and core deliverables are unchanged. The form now has nine structured Meta feedback questions in place of the generic Meta feedback field; build likelihood and overall opinion are explicitly required. No fields or selections were changed. This repository checklist is current; its Apple Notes copy was not updated in this recheck.
 
 ## Product story
 
@@ -93,16 +93,17 @@ Capture a continuous interaction segment; the old seven-frame acceptance clip is
 
 ## 5. Final submission checklist — for Ivan, not executed
 
-- [ ] Recheck live guide/form, deadline, entrant track and team list (maximum four).
+- [x] Recheck current guide/form, deadline and track eligibility rules. Verified November 3, 2026, approximately 9:15 p.m. PST; [results and remaining eligibility limits](requirements.md#november-3-recheck).
+- [ ] Confirm personal entrant eligibility and that the displayed contributor list is complete (maximum four); read-only form access does not certify these conditions.
 - [ ] Prepare a sanitized public repository, reproducible setup, pinned dependencies, licensed inputs and asset attribution. Review private content/history before publishing; do not flip the entire private research repository public blindly.
 - [ ] Identify hackathon-built functionality separately from prior Loom infrastructure and third-party tools.
 - [ ] Produce an accessible three-minute video with accurate claims and readable results.
-- [ ] Arrange judge-accessible product access. Hosted site stays offline until separately authorized.
+- [x] Arrange judge-accessible product access — authorized and restored November 4: **https://weft.kintsugi.software** (custom domain; workers.dev stays dark; keys stored as encrypted Worker secrets, unused by Worker code).
 - [ ] Prepare team name/members, track/theme, description, public GitHub link and demo link.
 - [ ] Prepare Meta products used, why they matter, Meta feedback and partner feedback.
 - [ ] Include an X link only if intentionally pursuing the optional viral prize.
 - [ ] Ivan reviews promotional/publication consent and performs or authorizes the final submission.
-- [ ] Verify repo/video/product links as an unauthenticated viewer before the deadline.
+- [x] Product link verified as an unauthenticated viewer November 4 (~9:00 a.m. PST): landing + gallery assets 200, /health 200, fresh-session MP4 submission → complete result → downloadable archive (206, 4.7 MB), cross-session access 404, workers.dev 404. Repo/video links remain to verify once published.
 
 ## Resume and ownership
 
