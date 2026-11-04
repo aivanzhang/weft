@@ -489,6 +489,50 @@ def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, nativ
     return meshes, reports
 
 
+def enforce_chain_anatomy(obj, rig):
+    """Final chain-locality pass over whatever weights earlier stages produced."""
+    from weight_locality import chain_distances, weld_edge_indices
+    import bmesh
+    bones = [{'name': bone.name, 'parent': bone.parent.name if bone.parent else None}
+             for bone in rig.data.bones]
+    names = [row['name'] for row in bones]
+    index = {name: i for i, name in enumerate(names)}
+    distances = chain_distances(bones)
+    group_names = {g.index: g.name for g in obj.vertex_groups}
+    by_name = {g.name: g for g in obj.vertex_groups}
+    dominants = np.zeros(len(obj.data.vertices), dtype=int)
+    pruned_vertices = 0
+    for i, vertex in enumerate(obj.data.vertices):
+        weights = {group_names[g.group]: g.weight for g in vertex.groups
+                   if g.weight > 1e-6 and group_names.get(g.group) in index}
+        if not weights:
+            continue
+        dominant = max(weights, key=weights.get)
+        kept = {name: w for name, w in weights.items()
+                if distances[index[dominant]][index[name]] <= 2}
+        if len(kept) != len(weights):
+            pruned_vertices += 1
+            total = sum(kept.values())
+            for name in weights:
+                by_name[name].remove([i])
+            for name, w in kept.items():
+                by_name[name].add([i], w/total, 'REPLACE')
+        dominants[i] = index[dominant]
+    marked = weld_edge_indices([tuple(e.vertices) for e in obj.data.edges],
+                               dominants, distances)
+    if marked:
+        mesh = bmesh.new()
+        mesh.from_mesh(obj.data)
+        mesh.edges.ensure_lookup_table()
+        bmesh.ops.split_edges(mesh, edges=[mesh.edges[i] for i in marked])
+        mesh.to_mesh(obj.data)
+        mesh.free()
+        obj.data.update()
+    return {'pruned_vertices': int(pruned_vertices), 'split_weld_edges': len(marked),
+            'scope': 'Final anatomical locality over the live hierarchy before gating; '
+                     'the deformation gate judges the result unchanged'}
+
+
 def deformation_baseline(obj, rig, rig_route):
     """Bind rest coordinates before grooming; source skins need the same evidence as authored rigs."""
     if not 1 <= len(obj.data.vertices) <= 100000 or not 1 <= len(obj.data.edges) <= 300000:
@@ -705,6 +749,12 @@ def _finish(config, output, *, prepare_only=False, preserve_skin_source=False):
                                  "rest_geometry_changed": False,
                                  "limitation": "Color-selected accessory region; inspect boundary vertices and deformation before acceptance"}
     cards = []
+    if cfg.get('authored_rig'):
+        # Later stages (part rigs, constraints) can reshuffle vertex ownership after
+        # the solver, so anatomical chain locality is enforced once more as the last
+        # word on the live armature hierarchy, immediately before the deformation
+        # baseline that the gate measures. The gate itself stays unchanged.
+        report['chain_anatomy'] = enforce_chain_anatomy(obj, rig)
     diagnostic_rest, diagnostic_edges = None, None
     if cfg.get('sample_states'):
         from deformation_diagnostics import diagnose_stretched_edges, retain_stretched_edges
