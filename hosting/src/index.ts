@@ -31,6 +31,27 @@ const PIPELINES = {
   },
 } as const;
 type Pipeline = keyof typeof PIPELINES;
+// What a visitor should change, per refusal the exercise pipeline classifies. The pipeline's
+// own wording carries the detail; this only adds the advice, and an unknown code adds none.
+const ADVICE: Record<string, string> = {
+  multiple_people:
+    "More than one person was detected. Use a single continuous shot of one person, with no bystanders, mirrors or camera cuts.",
+  no_person_visible:
+    "No one was visible for long enough. Keep one person in frame from head to feet throughout.",
+  no_motion:
+    "No exercise motion was measured. Upload a moving exercise rather than a still or near-still clip.",
+  root_reference_gap:
+    "The body was lost for too long mid-clip. Avoid occlusions and keep the whole body in frame.",
+  body_anchor:
+    "The opening of the clip could not be anchored. Start with the person standing still, fully in frame, before the exercise begins.",
+  undecodable:
+    "This file could not be decoded as a video of at least 12 frames. Re-export it as an MP4.",
+  too_large: "This clip is too long or too large. Upload a shorter clip.",
+  timeout: "This clip took too long to process. Upload a shorter clip.",
+  // Host misconfiguration, not the visitor's clip. Never tell them to change the video.
+  pose_cpu:
+    "Pose estimation is unavailable on this server. Nothing is wrong with your clip; please try again later.",
+};
 const pipelineOf = (kind: string | undefined): Pipeline =>
   kind === "exercise" ? "exercise" : "ball";
 type Job = {
@@ -299,6 +320,31 @@ export class SubmissionQueue extends DurableObject<Env> {
             : "";
         if (result.length > MAX_SUMMARY) throw new Error("result_too_large");
         if (status === "complete") JSON.parse(result);
+        // A refusal the pipeline explained is reported as explained. Only the closed code
+        // selects advice; the detail is the pipeline's own words, length-bounded.
+        let refusal: string = pipeline.refusal;
+        if (status === "failed") {
+          const encoded = response.headers.get("X-Weft-Failure");
+          if (encoded && encoded.length <= 4096)
+            try {
+              const reported = JSON.parse(atob(encoded)) as {
+                code?: unknown;
+                detail?: unknown;
+              };
+              const advice =
+                typeof reported.code === "string" ? ADVICE[reported.code] : undefined;
+              const detail =
+                typeof reported.detail === "string"
+                  ? reported.detail.slice(0, 400)
+                  : "";
+              if (advice || detail)
+                refusal = [advice, detail && `Reported: ${detail}`]
+                  .filter(Boolean)
+                  .join(" ");
+            } catch {
+              // Unparseable diagnostics fall back to the pipeline-wide refusal.
+            }
+        }
         // The Container SDK wraps bodies in an unknown-length stream; R2 requires an exact length.
         const transfer = new FixedLengthStream(size);
         const abort = new AbortController();
@@ -321,12 +367,7 @@ export class SubmissionQueue extends DurableObject<Env> {
           await this.env.UPLOADS.put(`${job.id}/result.json`, result, {
             httpMetadata: { contentType: "application/json" },
           });
-        this.finish(
-          job,
-          status,
-          result || null,
-          status === "failed" ? pipeline.refusal : null,
-        );
+        this.finish(job, status, result || null, status === "failed" ? refusal : null);
       } catch (error) {
         console.error("weft_generation_failed", error instanceof Error ? error.message.slice(0,240) : "unknown");
         this.finish(job, "failed", null, pipeline.error);

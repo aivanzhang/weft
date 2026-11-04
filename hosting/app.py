@@ -73,6 +73,12 @@ async def generate(request):
             headers = {'X-Weft-Status':'complete' if success else 'failed'}
             if success:
                 headers['X-Weft-Result'] = base64.b64encode((directory/'result.json').read_bytes()).decode()
+            else:
+                # The pipeline's own refusal reason, so the Worker can say what to change
+                # instead of substituting one generic sentence for every failure.
+                failure = directory/'failure.json'
+                if failure.is_file() and failure.stat().st_size <= 2048:
+                    headers['X-Weft-Failure'] = base64.b64encode(failure.read_bytes()).decode()
             return FileResponse(archive,media_type='application/zip',headers=headers,background=BackgroundTask(temp.cleanup))
         except (ValueError,TimeoutError,OSError):
             temp.cleanup()

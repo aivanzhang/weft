@@ -11,8 +11,8 @@ import sys
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "hosting"))
-from exercise_job import (APPEARANCE_FILES, RESULT_FILES, summarize,  # noqa: E402
-                          summarize_appearance)
+from exercise_job import (APPEARANCE_FILES, RESULT_FILES,  # noqa: E402
+                          classify_refusal, summarize, summarize_appearance)
 
 RL_EVALUATION = {
     "selected_joint": "left_knee", "target_angle": 1.9432,
@@ -163,3 +163,42 @@ def test_every_appearance_artifact_is_reported_under_its_prefix(tmp_path, name):
     run.mkdir()
     (run / name).write_text("{}")
     assert f"appearance/{name}" in summarize_appearance(run, {})["artifacts"]
+
+
+# Every string below was produced by the hosted pipeline during a robustness sweep, so the
+# classifier is pinned against real refusals rather than imagined ones. A visitor sees the
+# pipeline's own wording either way; the code only decides which advice is added.
+@pytest.mark.parametrize("detail,code", [
+    ("ValueError: Use a decodable video of at least 12 frames up to 4096x2160 pixels and"
+     " 240 fps", "undecodable"),
+    ("Insufficient full-body visibility: need at least 8 usable poses and 65% usable"
+     " sampled frames; Insufficient measurable exercise motion; a repeated still image is"
+     " not a dynamic exercise video", "no_motion"),
+    ("Insufficient full-body visibility: need at least 8 usable poses and 65% usable"
+     " sampled frames", "no_person_visible"),
+    ("Multiple people or competing pose hypotheses were detected; inspect the source and"
+     " raw poses", "multiple_people"),
+    ("Mobile root reference unavailable: Reference time gaps exceed the bounded"
+     " interpolation horizon", "root_reference_gap"),
+    ("ValueError: Body anchor needs confident head, torso and limb endpoints at frame zero",
+     "body_anchor"),
+    ("ValueError: Body anchor landmarks must lie inside original source pixels",
+     "body_anchor"),
+    ("RuntimeError: Visible-chain body anchor abstained:"
+     " no_complete_confidence_qualified_leg_chain", "body_anchor"),
+    ("RuntimeError: pose_inference_requires_avx", "pose_cpu"),
+    ("TimeoutError: exercise_pipeline_deadline", "timeout"),
+    ("Pipeline exited with code -4; inspect worker.log. Hard wall-time limit: 360 seconds.",
+     "timeout"),
+    ("ValueError: Normalized source still exceeds its byte bound; use a shorter clip",
+     "too_large"),
+    ("Incomplete exercise decode: metadata 259, decoded 257", "undecodable"),
+    ("something nobody has seen before", "other"),
+])
+def test_refusals_classify_to_a_closed_set(detail, code):
+    assert classify_refusal(detail) == code
+
+
+def test_classification_never_raises_on_odd_input():
+    for value in (None, "", 0, [], {"a": 1}):
+        assert classify_refusal(value) == "other"

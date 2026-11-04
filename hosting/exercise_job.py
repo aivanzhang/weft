@@ -51,6 +51,37 @@ APPEARANCE_FILES = (
 )
 
 
+# The pipeline's own refusal wording is better than anything restated for a visitor, so a
+# code only selects which advice to add; the detail text travels alongside it unchanged.
+REFUSALS = (
+    ("multiple_people", "multiple people or competing pose"),
+    ("multiple_people", "competing pose hypotheses"),
+    ("no_motion", "not a dynamic exercise video"),
+    ("no_person_visible", "insufficient full-body visibility"),
+    ("root_reference_gap", "reference time gaps exceed"),
+    ("root_reference_gap", "mobile root reference unavailable"),
+    ("body_anchor", "body anchor"),
+    ("body_anchor", "visible-chain body anchor"),
+    ("undecodable", "use a decodable video"),
+    ("undecodable", "could not decode"),
+    # A container header that claims more frames than decode: truncated or badly muxed.
+    ("undecodable", "incomplete exercise decode"),
+    ("too_large", "exceeds its byte bound"),
+    ("pose_cpu", "pose_inference_requires_avx"),
+    ("timeout", "deadline"),
+    ("timeout", "wall-time limit"),
+)
+
+
+def classify_refusal(detail):
+    """Map a refusal onto a closed code so the Worker can add advice, never invent a reason."""
+    lowered = str(detail).lower()
+    for code, needle in REFUSALS:
+        if needle in lowered:
+            return code
+    return "other"
+
+
 def require_pose_cpu():
     """MediaPipe's x86 inference build aborts with SIGILL when the CPU lacks AVX.
 
@@ -308,4 +339,16 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except BaseException as error:
+        # A refusal the pipeline already explained must not reach a visitor as a generic
+        # "could not finish". Record it where the Worker can read it, then fail as before.
+        detail = str(error) or type(error).__name__
+        try:
+            Path(sys.argv[1]).joinpath("failure.json").write_text(json.dumps(
+                {"kind": "exercise", "code": classify_refusal(detail),
+                 "detail": detail[:400]}, allow_nan=False))
+        except Exception:
+            pass
+        raise
