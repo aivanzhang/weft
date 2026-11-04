@@ -219,12 +219,21 @@ not an external benchmark or a guarantee for new inputs.
   transport and cold start that is not pipeline work at all. Zeroing both halves of the
   deliverable would still leave about 50 s, so sub-60 s is not reachable while the service
   starts a container per job and reports a 100-episode comparison.
-- The one untried lever is warm starts. The Worker stops the container after every job, a
-  deliberate choice recorded as "no idle paid container between visitor jobs", so each
-  submission pays cold start. Keeping it warm would cut a share of that 50 s for a judge
-  submitting several clips, at the cost of idle container billing for up to the five-minute
-  sleep window. That is an explicit spending decision already made in this repository, so it
-  is left to the owner rather than flipped here.
+- Decomposing that overhead further: the job's own learning report reads 94.4 s against a
+  60 s archive span, so 34 s precedes the first artifact. Subtracting pose scaled from its
+  in-container cost leaves roughly **24 s of container cold start**, with about 16 s for
+  queue, upload, download and Worker/R2 (client 110.7 s minus job 94.4 s). The complete
+  measured picture of the reference run is therefore ~24 s cold start, ~16 s transport,
+  ~10 s pose, ~4 s body fit, 34 s training, 22 s evaluation, and **zero for the appearance
+  stage** because it finishes inside training.
+- Every remaining lever is a decision rather than an engineering find, and the two together
+  still only approach the optimum. Warm starts would remove most of the 24 s cold start but
+  the Worker deliberately stops the container after each job -- recorded as "no idle paid
+  container between visitor jobs" -- so that is a spending decision. Trimming the trainer
+  from 1,500 episodes to the 400 where its success rate plateaus would save about 23 s but
+  changes the scored artifact. Both together land near 63 s, still above the optimum, so
+  neither is taken here. There is no unmeasured waste left: the remaining time is cold start,
+  transport, pose, and the training-plus-evaluation that is the result itself.
   The arithmetic, not an estimate: the learning stage alone takes 89 s, so even an
   instantaneous appearance stage would miss 60 s. Of that 89 s only 34 s is the trainer, and
   its success rate reaches 1.00 by episode 400 of 1,500, so trimming the budget recovers
