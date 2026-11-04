@@ -236,6 +236,7 @@ def export_with_appearance(recorder, export):
 
 def export_avatar_recording(root, *, max_seconds=180):
     import cv2
+    from weft.browser_video import open_writer
     import numpy as np
     from weft.avatar_offscreen import AvatarOffscreen
     from weft.avatar_replay import build_avatar_replay
@@ -269,7 +270,7 @@ def export_avatar_recording(root, *, max_seconds=180):
 
     started = time.monotonic()
     try:
-        writer = cv2.VideoWriter(str(temporary), cv2.VideoWriter_fourcc(*"mp4v"), 1 / scene["dt"], (1080, 420))
+        writer = open_writer(cv2, temporary, 1 / scene["dt"], (1080, 420))
         if not writer.isOpened():
             raise RuntimeError("Avatar MP4 encoder unavailable; physical journal is preserved")
         for event, settings in zip(events, settings_by_event(appearance["changes"], len(events)), strict=True):

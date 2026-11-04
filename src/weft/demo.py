@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw
 
+from weft.browser_video import open_writer
 from weft.io import digest, local_time, write_json
 from weft.scene import SceneEnv
 
@@ -50,7 +51,7 @@ def create_demo(out):
     scene = _demo_scene()
     env = SceneEnv(scene)
     env.reset(seed=1729, options={"jitter": False})
-    writer = cv2.VideoWriter(str(out / "video.mp4"), cv2.VideoWriter_fourcc(*"mp4v"), 30, (640, 400))
+    writer = open_writer(cv2, out / "video.mp4", 30, (640, 400))
     if not writer.isOpened():
         env.close()
         writer.release()

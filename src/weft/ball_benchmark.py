@@ -9,6 +9,7 @@ import time
 import cv2
 import numpy as np
 
+from weft.browser_video import open_writer
 from weft.io import digest, local_time, write_json
 from weft.reconstruction_coverage import coverage_summary
 
@@ -57,7 +58,7 @@ def create_analytic_probe(name, out):
         config["objects"].append({"id": "blue", "label": "Blue ball", "hue_min": 100, "hue_max": 125,
                                   "role": "passive", "shape": "circle"})
         config.update(damping=1, restitution=1)
-    writer = cv2.VideoWriter(str(out / "video.mp4"), cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height))
+    writer = open_writer(cv2, out / "video.mp4", fps, (width, height))
     if not writer.isOpened():
         writer.release()
         raise RuntimeError("MP4 encoder unavailable")

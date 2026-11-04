@@ -10,6 +10,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw
 
+from weft.browser_video import open_writer
 from weft.io import canonical_hash, digest, local_time, write_json
 from weft.shared_world_packaging import read_package_file
 
@@ -898,8 +899,7 @@ def export_recording(root, *, deadline=None, max_output_bytes=None):
         render = lambda snapshot: render_snapshot(snapshot, scene)
     first = render(events[0]["snapshot"])
     temporary = root / "video.partial.mp4"
-    writer = cv2.VideoWriter(str(temporary), cv2.VideoWriter_fourcc(*"mp4v"), 1 / dt,
-                             (first.shape[1], first.shape[0]))
+    writer = open_writer(cv2, temporary, 1 / dt, (first.shape[1], first.shape[0]))
     if not writer.isOpened():
         raise RuntimeError("MP4 encoder is unavailable; the action journal is preserved")
     previews, preview_indices = [], set(np.linspace(0, len(events)-1, min(120, len(events)), dtype=int))

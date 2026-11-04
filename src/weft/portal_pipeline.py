@@ -80,6 +80,8 @@ def bounded_source_window(video, out):
     Returns (path, provenance) where provenance is None when no window was needed.
     """
     import cv2
+
+    from weft.browser_video import open_writer
     cv2.setNumThreads(1)
     video, out = Path(video), Path(out)
     cap = cv2.VideoCapture(str(video))
@@ -98,8 +100,7 @@ def bounded_source_window(video, out):
         target = out / "source-window.mp4"
         if target.exists():
             raise FileExistsError("Preview window already exists; use a new job directory")
-        writer = cv2.VideoWriter(str(target), cv2.VideoWriter_fourcc(*"mp4v"),
-                                 min(fps, 120.0), (int(width), int(height)))
+        writer = open_writer(cv2, target, min(fps, 120.0), (int(width), int(height)))
         if not writer.isOpened():
             raise RuntimeError("Preview window encoder unavailable")
         started = time.monotonic()
@@ -154,6 +155,8 @@ def prepare_demo_source(video, out, *, policy=None):
     Returns (path, provenance) with provenance None when the original already complies.
     """
     import cv2
+
+    from weft.browser_video import open_writer
     cv2.setNumThreads(1)
     policy = {**DEMO_SOURCE_POLICY, **(policy or {})}
     video, out = Path(video), Path(out)
@@ -180,7 +183,7 @@ def prepare_demo_source(video, out, *, policy=None):
             raise FileExistsError("Normalized source already exists; use a new directory")
         size = (_even(width * scale), _even(height * scale))
         output_fps = max(1.0, fps / stride)
-        writer = cv2.VideoWriter(str(target), cv2.VideoWriter_fourcc(*"mp4v"), output_fps, size)
+        writer = open_writer(cv2, target, output_fps, size)
         if not writer.isOpened():
             raise RuntimeError("Source normalization encoder unavailable")
         started, read, written = time.monotonic(), 0, 0

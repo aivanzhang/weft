@@ -189,7 +189,8 @@
     $("explore").hidden = demos.length === 0;
     if (!demos.length) return;
     const demo = demos[current];
-    $("demo-video").src = signed(demo.video_url || `/api/demo/gallery/${demo.id}/video`);
+    // Seek a fraction in: a paused video with no poster otherwise shows a black frame.
+    $("demo-video").src = signed(demo.video_url || `/api/demo/gallery/${demo.id}/video`) + "#t=0.1";
     const mine = /^run-/.test(demo.id || "") || ["judge", "run", "yours", "studio"].includes(demo.kind);
     $("demo-source").textContent = (mine ? "your run" : "verified run").toUpperCase();
     $("demo-title").textContent = demo.title;

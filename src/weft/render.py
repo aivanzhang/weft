@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw
 
+from weft.browser_video import open_writer
 from weft.brand import COLORS
 from weft.world import passive_position
 
@@ -14,7 +15,7 @@ def replay_video(video, evidence, before, after, out):
     width, height = evidence["width"], evidence["height"]
     cap = cv2.VideoCapture(str(video))
     size = (width * 3, height + 58)
-    writer = cv2.VideoWriter(str(out / "replay.mp4"), cv2.VideoWriter_fourcc(*"mp4v"), evidence["fps"], size)
+    writer = open_writer(cv2, out / "replay.mp4", evidence["fps"], size)
     if not writer.isOpened():
         raise RuntimeError("MP4 writer is not available")
     thumbnails, gif_frames = [], []
