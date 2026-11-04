@@ -31,7 +31,7 @@ PIPELINE_SOURCES = ('pipeline.py', 'coat_representation.py', 'repair_admission.p
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
                     'fur_attachment.py')
-PIPELINE_SCRIPT_SOURCES = ('motion_samples.py', 'blender_undercoat_admission.py', 'groom_flow.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py',
+PIPELINE_SCRIPT_SOURCES = ('weight_locality.py', 'motion_samples.py', 'blender_undercoat_admission.py', 'groom_flow.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py',
                           'edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py',
                           'fur_root_sampling.py', 'blender_finish_generated.py', 'native_render_tasks.py',
                           'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py',

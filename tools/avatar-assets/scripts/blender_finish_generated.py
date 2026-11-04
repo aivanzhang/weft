@@ -198,13 +198,25 @@ def constrain_weights(obj, rig, points, low, span, config):
     fallback = config['fallback_bone']
     if fallback not in rig.data.bones:
         raise ValueError('Weight fallback bone is absent')
-    grouped, changed = {}, 0
+    from weight_locality import POLICY as LOCALITY_POLICY, prune_influences
+    matrix = obj.matrix_world
+    segments = {bone.name: (tuple(rig.matrix_world @ bone.head_local),
+                            tuple(rig.matrix_world @ bone.tail_local))
+                for bone in rig.data.bones}
+    diameter = float(max(obj.dimensions))
+    grouped, changed, localized = {}, 0, 0
     for index, vertex in enumerate(obj.data.vertices):
         before = {names[g.group]: g.weight for g in vertex.groups if g.weight > 0}
         after = {name: weight*(factors[name][index] if name in factors else 1)
                  for name, weight in before.items()}
         displaced = max(0., 1-sum(after.values()))
         after[fallback] = after.get(fallback, 0)+displaced
+        after = {name: weight for name, weight in after.items() if weight > 0 and name in segments}
+        # Anatomical locality is an invariant, not a repair: a bone may only keep
+        # influence near its own segment, so displaced-fallback transfer can never
+        # pair a torso bone with a stray distal influence across the body.
+        after, pruned = prune_influences(tuple(matrix @ vertex.co), after, segments, diameter)
+        localized += pruned > 0
         after = dict(sorted(after.items(), key=lambda pair: -pair[1])[:4])
         total = sum(after.values())
         changed += displaced > 1e-5
@@ -216,7 +228,9 @@ def constrain_weights(obj, rig, points, low, span, config):
         group = obj.vertex_groups.new(name=name)
         for index, weight in values:
             group.add([index], weight, 'REPLACE')
-    return {'changed_vertices': int(changed), 'config': config, 'method': 'Bound provider bone weights to authored ellipsoids; transfer removed weight to the configured fallback bone',
+    return {'changed_vertices': int(changed), 'localized_vertices': int(localized),
+            'locality_policy': dict(LOCALITY_POLICY), 'config': config,
+            'method': 'Bound provider bone weights to authored ellipsoids; transfer removed weight to the configured fallback bone; enforced anatomical influence locality before gating',
             'authored_not_recovered': True}
 
 

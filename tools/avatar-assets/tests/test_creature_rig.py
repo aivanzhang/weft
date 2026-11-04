@@ -39,6 +39,26 @@ class CreatureRigTests(unittest.TestCase):
         for points in (np.array([[.5,.5,.5]]),np.zeros((100001,3))):
             with self.assertRaises(ValueError): skin_weights(points,[0,0,0],[1,1,1],design())
 
+    def test_chain_distant_envelope_overlap_is_pruned(self):
+        # A forearm segment resting right beside the hip: its envelope overlaps the
+        # pelvis region spatially, but pelvis and forearm are far apart on the chain.
+        config = {'space': 'normalized_bounds_blender_z_up', 'height_meters': 1.0,
+                  'bones': [
+                      {'name': 'root', 'parent': None, 'head': [.5, .5, .5], 'tail': [.5, .5, .6]},
+                      {'name': 'chest', 'parent': 'root', 'head': [.5, .5, .6], 'tail': [.5, .5, .8]},
+                      {'name': 'upperarm', 'parent': 'chest', 'head': [.6, .5, .8], 'tail': [.62, .5, .6]},
+                      {'name': 'forearm', 'parent': 'upperarm', 'head': [.62, .5, .6], 'tail': [.62, .5, .45]}],
+                  'base_bones': ['root', 'chest', 'upperarm', 'forearm'], 'layers': []}
+        points = [[.52, .5, .5], [.62, .5, .5]]
+        weights, proof = skin_weights(points, [0, 0, 0], [1, 1, 1], config)
+        names = [b['name'] for b in config['bones']]
+        hip = dict(zip(names, weights[0]))
+        assert hip['forearm'] == 0, hip
+        assert abs(sum(hip.values()) - 1) < 1e-6
+        forearm_vertex = dict(zip(names, weights[1]))
+        assert forearm_vertex['forearm'] > 0.5
+        assert proof['chain_localized_vertices'] >= 1
+
     def test_many_bones_keep_at_most_four_influences(self):
         cfg=design();cfg['layers']=[]
         for i in range(6):

@@ -84,6 +84,22 @@ def skin_weights(points, low, high, config):
         require(count >= layer['min_vertices'], 'Authored weight layer missed expected geometry: '+','.join(layer['bones']))
         weights = weights*(1-alpha[:, None])+field(layer['bones'])*alpha[:, None]
         coverage.append({'bones':layer['bones'], 'selected_vertices':count})
+    # Anatomical chain locality: spatially overlapping envelopes can pair bones that
+    # are far apart on the chain (a forearm resting beside a hip), and such blends
+    # tear the moment the limb articulates. Each vertex keeps only bones within two
+    # chain links of its dominant bone; the deformation gate still judges the result.
+    index_of = {name: i for i, name in enumerate(names)}
+    adjacent = np.eye(len(names), dtype=bool)
+    for bone in config['bones']:
+        if bone['parent'] is not None:
+            i, j = index_of[bone['name']], index_of[bone['parent']]
+            adjacent[i, j] = adjacent[j, i] = True
+    within_two = adjacent @ adjacent
+    dominant = weights.argmax(axis=1)
+    allowed = within_two[dominant]
+    chain_pruned = int(((weights > 0) & ~allowed).any(axis=1).sum())
+    weights = np.where(allowed, weights, 0.)
+    weights = weights/np.maximum(weights.sum(axis=1)[:, None], 1e-12)
     if len(names) > 4:
         top = np.argpartition(weights, -4, axis=1)[:, -4:]
         trimmed = np.zeros_like(weights)
@@ -92,6 +108,7 @@ def skin_weights(points, low, high, config):
     weights /= weights.sum(axis=1)[:, None]
     require(np.isfinite(weights).all() and np.max(np.abs(weights.sum(axis=1)-1)) < 1e-6,
             'Invalid authored skin weights')
-    return weights, {'method':'Authored spatial layers with nearest-segment blending; not recovered anatomy',
+    return weights, {'method':'Authored spatial layers with nearest-segment blending and chain locality; not recovered anatomy',
+                     'chain_localized_vertices':chain_pruned,
                      'max_influences':int((weights > 0).sum(axis=1).max()), 'layers':coverage,
                      'positive_vertices_per_bone':{name:int((weights[:,i] > 1e-6).sum()) for i,name in enumerate(names)}}
