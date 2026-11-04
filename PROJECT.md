@@ -231,16 +231,18 @@ not an external benchmark or a guarantee for new inputs.
   scale with clip duration at all, and training takes **3.1 s on the 45-second clip against
   13.9 s on the 2.7-second one** -- the short clip trains four times longer because its task
   is harder, not because of its length. Archive spans invert the same way, 16 s against 24 s.
-  Normalization is not the cause either: re-encoding a 45-second, 1,350-frame clip to 452
-  frames takes **0.69 s**. What remains, derived rather than instrumented: on a long clip the
-  **appearance stage is the critical path**, not learning. jumping-jacks runs 42.7 s
-  in-container against a 16 s learning span, which puts appearance near 40 s, and it poses
-  79 samples against bodyweight-squats' 34. Since the stages are concurrent the total is the
-  longer of the two, so a long clip is paced by the appearance stage's independent pose and
-  world construction. The fix is deduplicating pose between the stages, which needs `weft.lab`
-  to emit or accept a sealed body; it has no parameter for either today. The quality trade
-  recorded against bounding the reference stays rejected, and its 3x speedup was
-  mis-attributed in the same way.
+  Normalization is not the cause either (0.69 s), nor is the appearance stage, which the
+  concurrency hides entirely. **Latency tracks the retry ladder**, and the job now carries its
+  own timers so this is measured rather than inferred: for jumping-jacks, 41.21 s of a 41.2 s
+  bracket is a refused first learning attempt (10.65 s), the body seal and window proposal
+  (11.28 s), the windowed body seal (4.76 s), and the real learning attempt (14.51 s). A clip
+  that admits first try pays only the last of those, which is why waiters-squat is 16.7 s
+  in-container against this clip's 44.2 s. So the deployed spread is 66 s with no retries,
+  108 s with the appearance dual-anchor retry, and 185 s with the job-level window retry that
+  runs learning twice -- the price of rescuing a clip that would otherwise be refused
+  outright. Six earlier explanations here were wrong, every one arithmetic over totals rather
+  than a timer on the thing itself; the quality trade recorded against bounding the reference
+  stays rejected and was mis-attributed the same way.
   Three changes got there, each measured rather than reasoned: 600 training episodes instead
   of 1,500 (identical scored numbers), the two stages overlapped so the appearance stage costs
   nothing, and four vCPU so the overlap does not contend with the lab's internal learning
