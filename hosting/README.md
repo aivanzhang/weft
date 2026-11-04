@@ -24,14 +24,27 @@ The static site stays buildless and opens from `website/index.html`. `build-asse
 
 The Worker owns a random, HttpOnly, Secure, SameSite session cookie, CSRF checks, input limits, and private result access. A SQLite Durable Object coordinates this service's single generation slot and admission budget. Original MP4s and complete successful/failed run archives live in private R2, not ephemeral container storage. The container receives no credentials and has outbound networking disabled. It runs only the fixed Python pipeline, never uploaded scripts or generated code.
 
-The first supported input remains one isolated yellow ball moving horizontally under a fixed camera. This is not arbitrary-video or multi-object reconstruction. Push/brake controls and the parking task are authored additions. Failed inputs never fall back to the sample environment. Gallery initial/repaired models are stages of one source video, not different environments.
+## Two pipelines, one image
+
+A request header, `X-Weft-Pipeline`, selects which fixed pipeline runs. It defaults to `ball`, so a client that does not send it behaves exactly as before. Both live in one container image to avoid a second build and a second idle instance.
+
+`ball` takes one isolated yellow ball moving horizontally under a fixed camera. This is not arbitrary-video or multi-object reconstruction. Push/brake controls and the parking task are authored additions.
+
+`exercise` takes one person, head to feet, against a plain background with a fixed camera in a single continuous shot. Camera cuts, wall mirrors and bystanders each read as a competing person and are refused; a long occlusion breaks the root reference. It returns the artifacts a browser needs to show the result and to retarget a substituted avatar client-side: pose evidence and quality, the articulated body with its authored ground, the executable task, the trained policy with its rollout, the pose-derived reference rollout, and both evaluations. `rl-evaluation.json` is the learned policy against random and no-control baselines; `human-evaluation.json` is the authored reference servo's tracking error. They are different measurements and must not be presented as one.
+
+Admission is strict and sensitive near its own threshold: the same footage can be admitted at one encoding and refused at another. Verify a clip against this image, not a developer machine.
+
+Failed inputs never fall back to the sample environment. Gallery initial/repaired models are stages of one source video, not different environments.
 
 ## Limits and recovery
 
-- MP4, 10 MiB, 15 seconds, 450 frames, at most 1920 × 1080.
+- Ball: MP4, 10 MiB, 15 seconds, 450 frames, at most 1920 × 1080.
+- Exercise: MP4, 40 MiB, at most 480 decoded frames after normalization, long side up to 1920, 1-240 fps. `/api/session` reports both caps so a client validates before a 413.
 - One active generator, at most three admitted uploads/jobs. Twenty attempts globally and three per visitor in a rolling day; the IP guard also limits three attempts in its daily bucket. Failed uploads count.
-- Each child: 150 CPU seconds, 1.5 GiB address space, 128 MiB per-file writes, 180 seconds wall time. Container requests have a 210-second ceiling; result archives max 32 MiB.
-- One `standard-1` container: 0.5 vCPU, 4 GiB RAM, 8 GB disk. Stop after each job; five-minute idle fallback. No cron or locally running service.
+- Ball child: 150 CPU seconds, 1.5 GiB address space, 128 MiB per-file writes, 180 seconds wall time; container request ceiling 210 seconds.
+- Exercise child: 420 CPU seconds, 3 GiB address space, 256 MiB per-file writes, 390 seconds wall time (the lab worker's own 360-second limit reports first); container request ceiling 420 seconds. Result archives max 32 MiB for both.
+- One `standard-3` container: 2 vCPU, 8 GiB RAM, 16 GB disk. Stop after each job; five-minute idle fallback. No cron or locally running service. CPU bills by active use, so the faster instance costs about the same per job as `standard-1` and finishes sooner.
+- The result summary lives in its own R2 object, not in custom metadata, which caps at 2 KiB; an exercise summary is about 2 KiB on its own.
 - Upload idempotency keys and active-owner lookup prevent duplicate jobs. Browser polling is nonoverlapping and stops in hidden tabs. Reload resumes the owned result.
 - Interrupted running jobs recover a persisted archive or fail explicitly; they are never automatically retrained. Queued jobs persist across restarts. A worker update must not race a running generation; check the queue/production job before deploying again.
 - Access expires 24 hours after admission. One-shot Durable Object expiry alarms delete new submission files; R2's two-day lifecycle is a backstop for outages. Expired metadata is pruned after seven days on subsequent queue activity. Local research artifacts are unrelated and never pruned.

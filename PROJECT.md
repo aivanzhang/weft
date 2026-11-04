@@ -155,6 +155,25 @@ not an external benchmark or a guarantee for new inputs.
   Evidence: `.local/studio-skin-repair-01/NOTES.md`.
 - In a separate ball task, a learned policy passed 8/12 changed starts while
   a fixed feedback controller passed 12/12. This did not show a learning advantage.
+- The hosted container now runs the exercise pipeline, not only the rolling-ball one.
+  One image serves both; a request header selects which, and the exercise lane gets a
+  larger upload bound and a longer deadline. A submission returns the 21 artifacts a
+  browser needs — pose evidence, the articulated body and authored ground, the
+  executable task, the trained policy with its rollout, and both evaluations — plus a
+  flat summary carrying the real policy-versus-baseline numbers. Measured in-container
+  on 2 vCPU: 12-43 s end to end across eight clips, environment archives 5.6-12.2 MB.
+  The summary previously shipped empty baselines because it read the reference-servo
+  artifact instead of the reinforcement-learning one; those are different measurements
+  and are now distinguished and tested. Evidence: `.local/hosted-sweep-2/`,
+  `.local/hosted-windows-1/`.
+- Admission is sensitive near its own threshold, which local verification hides: a
+  borderline clip that completes on macOS can be refused in the Linux container, and
+  re-encoding the same footage can flip it either way. Of 17 real clips and windows
+  screened through the hosted image, 10 complete. The eight strongest are published as
+  a demo pack with their measured contrast and tracking margin, so a clip is offered
+  only where the hosted path — not a developer machine — produced the result.
+
+
 
 Exact replay verifies software consistency. It does not, by itself, validate the
 reconstructed physics. Evaluation inputs must remain separate from tuning data.
