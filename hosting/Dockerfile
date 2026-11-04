@@ -19,7 +19,8 @@ ADD --checksum=sha256:59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c45969
 # ADD leaves the weights root-owned and unreadable to the unprivileged runtime user.
 RUN chmod -R a+rX /app/models
 COPY src /app/src
-COPY pyproject.toml requirements.lock /app/
+# requirements-lab.lock is read by the shared-exercise lab for provenance.
+COPY pyproject.toml requirements.lock requirements-lab.lock /app/
 COPY hosting/app.py hosting/job.py hosting/exercise_job.py /app/hosting/
 USER 10001
 EXPOSE 8080

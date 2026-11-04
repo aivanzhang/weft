@@ -11,7 +11,8 @@ import sys
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "hosting"))
-from exercise_job import RESULT_FILES, summarize  # noqa: E402
+from exercise_job import (APPEARANCE_FILES, RESULT_FILES, summarize,  # noqa: E402
+                          summarize_appearance)
 
 RL_EVALUATION = {
     "selected_joint": "left_knee", "target_angle": 1.9432,
@@ -113,3 +114,52 @@ def test_every_allowlisted_artifact_is_reported_when_present(tmp_path, name):
     run.mkdir()
     (run / name).write_text("{}")
     assert summarize(run)["artifacts"] == [name]
+
+
+# The retargeter refuses any other profile, so shipping an exercise-v3 scene as the
+# appearance scene would silently remove avatar replacement from the hosted product.
+SHARED_WORLD_SCENE = {
+    "profile": "shared-world-v3",
+    "coordinate_frame": {"scale_bridge": {"body_height_to_world_scale": 1.0}},
+    "human_spec": {"body_frame": {"rotation": [[1, 0, 0], [0, 1, 0], [0, 0, 1]]},
+                   "mobility": {"base_height": 0.84},
+                   "lengths": {"torso": 0.53893, "shoulder_width": 0.28444,
+                               "hip_width": 0.22486, "upper_arm": 0.23473,
+                               "forearm": 0.22318, "thigh": 0.36455, "shin": 0.39822}},
+}
+RECEIPT = {"stage": "ready", "world_manifest_sha256": "a" * 64,
+           "lab_manifest_sha256": "b" * 64,
+           "reference_feasibility": {"status": "infeasible"}}
+
+
+def test_appearance_summary_reports_an_avatar_ready_scene(tmp_path):
+    run = write_run(tmp_path / "appearance", scene=SHARED_WORLD_SCENE)
+    (run / "human-reference.json").write_text("{}")
+    summary = summarize_appearance(run, RECEIPT)
+    assert summary["available"] is True
+    assert summary["scene_profile"] == "shared-world-v3"
+    assert summary["body_height_to_world_scale"] == 1.0
+    assert summary["has_body_frame"] is True
+    assert summary["lengths"]["torso"] == 0.53893
+    assert summary["world_manifest_sha256"] == "a" * 64
+    assert summary["artifacts"] == ["appearance/scene.json", "appearance/human-reference.json"]
+
+
+def test_an_exercise_scene_is_not_offered_for_appearance(tmp_path):
+    run = write_run(tmp_path / "appearance", scene={"profile": "exercise-v3"})
+    summary = summarize_appearance(run, RECEIPT)
+    assert summary["available"] is False
+    assert summary["scene_profile"] == "exercise-v3"
+
+
+def test_a_refused_appearance_stage_keeps_its_recorded_reason():
+    summary = summarize_appearance(None, {"stage": "preflight", "status": "unsupported"})
+    assert summary == {"available": False, "stage": "preflight", "status": "unsupported"}
+
+
+@pytest.mark.parametrize("name", APPEARANCE_FILES)
+def test_every_appearance_artifact_is_reported_under_its_prefix(tmp_path, name):
+    run = tmp_path / "appearance"
+    run.mkdir()
+    (run / name).write_text("{}")
+    assert f"appearance/{name}" in summarize_appearance(run, {})["artifacts"]

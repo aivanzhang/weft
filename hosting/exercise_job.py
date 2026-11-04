@@ -1,27 +1,38 @@
 """Run only Weft's fixed exercise pipeline, never submitted code or user-selected commands.
 
-Produces the assets a browser needs to show the result and to drive avatar substitution
-client-side: the pose evidence, the articulated body and ground, the executable task, the
-trained policy with its rollout and baseline contrast, plus a downloadable environment
-archive. Two distinct evaluations ship and must not be conflated: rl-evaluation.json is the
-learned controller against random/no-control baselines, human-evaluation.json is the
-authored reference servo's tracking error against the pose-derived motion.
+Two stages ship, because each produces something the other cannot and the browser needs
+both. The reinforcement-learning stage trains a joint controller and scores it against
+baselines, but its scene is profile exercise-v3, which the client-side avatar retargeter
+rejects. The appearance stage builds the same body as a shared-world-v3 scene, which is
+the only profile an avatar can be substituted onto. Dropping either one removes a step the
+product claims: without the first there is no learning result, without the second a judge
+cannot replace the character in the world they just generated.
+
+Two distinct evaluations ship and must not be conflated: rl-evaluation.json is the learned
+controller against random/no-control baselines; human-evaluation.json is the authored
+reference servo's tracking error against the pose-derived motion.
 """
 import hashlib
 import json
 import math
 import os
 from pathlib import Path
+import platform
 import resource
 import sys
+import time
 import zipfile
 
 # Enough headroom for pose inference and a bounded MuJoCo rollout; the ball job's limits
 # are far too tight for either. The lab worker enforces its own 360 s wall limit with a
 # better message, so the job deadline sits just above it as a backstop.
-CPU_SECONDS = 420
-WALL_SECONDS = 390
-ADDRESS_BYTES = 3072 * 1024**2
+CPU_SECONDS = 600
+WALL_SECONDS = 420
+ADDRESS_BYTES = 4096 * 1024**2
+# Both stages seal packages of several hundred files, and the sealers hold a descriptor per
+# directory level while they read. The ball job's 256 is far too tight for that.
+OPEN_FILES = 1024
+# Learning-stage artifacts, archived at the archive root.
 RESULT_FILES = (
     "evidence.json", "pose-landmarks.json", "pose-quality.json", "joint-angles.json",
     "root-motion.json", "human.xml", "human.json", "body-frame.json",
@@ -30,6 +41,33 @@ RESULT_FILES = (
     "rl-evaluation.json", "human-evaluation.json", "report.json", "manifest.json",
     "reconstruction.gif", "tracks.gif",
 )
+# Appearance-stage artifacts, archived under appearance/. scene.json is the shared-world-v3
+# scene the browser compiles before it can retarget an avatar; the rest is its provenance.
+APPEARANCE_FILES = (
+    "scene.json", "human-reference.json", "exercise-task.json", "exercise-lab.json",
+    "inventory.json", "reference-feasibility.json", "reconstruction.json",
+    "pose-quality.json", "evidence.json", "body-source.json", "source.json",
+    "manifest.json",
+)
+
+
+def require_pose_cpu():
+    """MediaPipe's x86 inference build aborts with SIGILL when the CPU lacks AVX.
+
+    Real Cloudflare hosts have it; an emulated amd64 container on an ARM developer machine
+    does not, and the abort surfaces as an inscrutable "exited with code -4" after pose
+    estimation has already started. Fail up front with the actual reason instead.
+    """
+    if platform.machine() not in ("x86_64", "AMD64"):
+        return
+    try:
+        flags = Path("/proc/cpuinfo").read_text()
+    except OSError:
+        return
+    supported = {flag for line in flags.splitlines() if line.startswith("flags")
+                 for flag in line.split(":", 1)[-1].split()}
+    if supported and "avx" not in supported:
+        raise RuntimeError("pose_inference_requires_avx")
 
 
 def _load(path):
@@ -102,18 +140,74 @@ def summarize(run):
     return summary
 
 
+def build_appearance(source, out, model, intent, *, deadline):
+    """Build the same body as a shared-world scene, the only kind an avatar can replace.
+
+    Mirrors the portal's saved-body route as library calls: admitted preflight, conditional
+    person inventory, human-only world, then the shared exercise lab. No Portal, no HTTP and
+    no provider calls. Returns the lab's run directory, or a recorded reason it stopped.
+    """
+    from weft.exercise_perception_pipeline import prepare_exercise_perception_preflight
+    from weft.person_inventory import make_conditional_person_inventory
+    from weft.shared_exercise_lab import prepare_shared_exercise_lab
+    from weft.shared_world_human import construct_human_only_run
+
+    preflight = prepare_exercise_perception_preflight(
+        source, out / "preflight", pose_model=model,
+        max_seconds=max(1, min(210, int(deadline - time.monotonic()))))
+    # local_ready is the library's admitted state; awaiting_consent is the portal's own
+    # wrapper around it, which this route does not go through.
+    if preflight.get("status") != "local_ready":
+        return None, {"stage": "preflight", "status": preflight.get("status")}
+    inventory = make_conditional_person_inventory(preflight["source_sha256"], intent)
+    built = construct_human_only_run(out / "preflight/body_source", inventory, out / "world",
+                                     deadline=deadline, max_seconds=30)
+    # root_assistance matches the primary exercise route; the gates themselves are unchanged.
+    lab = prepare_shared_exercise_lab(out / "world", out / "lab", root_assistance=True,
+                                      max_seconds=max(1, min(60, int(deadline - time.monotonic()))))
+    return out / "lab/run", {"stage": "ready", "inventory": inventory,
+                             "world_manifest_sha256": built["manifest_sha256"],
+                             "lab_manifest_sha256": lab["manifest_sha256"],
+                             "reference_feasibility": built.get("reference_feasibility")}
+
+
+def summarize_appearance(run, receipt):
+    """What the browser needs to know before it offers appearance replacement."""
+    if run is None:
+        return {"available": False, **receipt}
+    scene = _load(run / "scene.json") or {}
+    human = scene.get("human_spec") or {}
+    bridge = (scene.get("coordinate_frame") or {}).get("scale_bridge") or {}
+    return {"available": scene.get("profile") in ("shared-world-v1", "shared-world-v2",
+                                                  "shared-world-v3"),
+            "scene_profile": scene.get("profile"),
+            "body_height_to_world_scale": _number(bridge.get("body_height_to_world_scale"), 6),
+            "has_body_frame": bool(human.get("body_frame")),
+            "lengths": {name: _number(value, 5) for name, value in
+                        sorted((human.get("lengths") or {}).items())},
+            "world_manifest_sha256": receipt.get("world_manifest_sha256"),
+            "lab_manifest_sha256": receipt.get("lab_manifest_sha256"),
+            "reference_feasibility": receipt.get("reference_feasibility"),
+            "artifacts": [f"appearance/{name}" for name in APPEARANCE_FILES
+                          if (run / name).is_file()],
+            "scope": ("Appearance only: a predefined avatar is retargeted onto this body in "
+                      "the browser and never drives physics.")}
+
+
 def main():
     directory = Path(sys.argv[1]).resolve()
     resource.setrlimit(resource.RLIMIT_CPU, (CPU_SECONDS, CPU_SECONDS))
     resource.setrlimit(resource.RLIMIT_AS, (ADDRESS_BYTES, ADDRESS_BYTES))
     resource.setrlimit(resource.RLIMIT_FSIZE, (256 * 1024**2, 256 * 1024**2))
-    resource.setrlimit(resource.RLIMIT_NOFILE, (256, 256))
+    resource.setrlimit(resource.RLIMIT_NOFILE, (OPEN_FILES, OPEN_FILES))
     import cv2
     cv2.setNumThreads(1)
-    import time
     from weft.lab import Lab, prepare_lab
+    from weft.portal_inventory import exercise_intent
     from weft.portal_pipeline import prepare_demo_source
 
+    started = time.monotonic()
+    require_pose_cpu()
     model = Path(os.environ.get("WEFT_POSE_MODEL", "/app/models/pose_landmarker_lite.task"))
     if not model.is_file():
         raise ValueError("pose_model_missing")
@@ -125,9 +219,9 @@ def main():
     # prepare_lab only seals the configuration; the worker runs the stages.
     lab = Lab(root, avatars=())
     status = None
+    deadline = started + WALL_SECONDS
     try:
         lab.start_worker()
-        deadline = time.monotonic() + WALL_SECONDS
         while True:
             status = lab.status()
             if status["status"] in ("ready", "failed", "cancelled"):
@@ -140,8 +234,18 @@ def main():
     if status["status"] != "ready":
         raise RuntimeError(str((status.get("error") or {}).get("message") or "pipeline_failed"))
     run = root / "run"
-    result = {"kind": "exercise", "schema_version": 1,
+    # The learning result already stands on its own, so a refused appearance stage is
+    # recorded and returned rather than discarding a complete run.
+    try:
+        appearance, receipt = build_appearance(source, directory / "appearance", model,
+                                               exercise_intent(), deadline=deadline)
+    except Exception as error:
+        appearance, receipt = None, {"stage": "failed",
+                                     "reason": f"{type(error).__name__}: {error}"[:200]}
+    result = {"kind": "exercise", "schema_version": 2,
               "normalization": normalization, "summary": summarize(run),
+              "appearance": summarize_appearance(appearance, receipt),
+              "seconds": round(time.monotonic() - started, 1),
               "scope": ("Conditional body and authored ground recovered from one video. "
                         "Simulated joint control, not measured anatomy or verified physics.")}
     (directory / "result.json").write_text(json.dumps(result, allow_nan=False))
@@ -151,6 +255,12 @@ def main():
             path = run / name
             if path.is_file():
                 archive.write(path, name)
+        if appearance is not None:
+            for name in APPEARANCE_FILES:
+                path = appearance / name
+                if path.is_file():
+                    archive.write(path, "appearance/" + name)
+        archive.writestr("appearance/receipt.json", json.dumps(receipt, indent=2, default=str))
         if normalization is not None:
             archive.writestr("source-normalized.json", json.dumps(normalization, indent=2))
         archive.writestr("README.txt",
@@ -163,8 +273,14 @@ def main():
             "rl-evaluation.json compares the learned policy against random and no-control baselines.\n"
             "human-evaluation.json is the authored reference servo's tracking error, a different\n"
             "  measurement from the baseline comparison above.\n"
-            "manifest.json holds a sha256 for every artifact this run produced.\n"
+            "manifest.json holds a sha256 for every artifact this run produced.\n\n"
+            "appearance/scene.json is the same body as a shared-world-v3 scene, which is the\n"
+            "  profile the browser compiles before it can replace the character with one of\n"
+            "  the predefined avatars from /api/avatars. The root scene.json above is\n"
+            "  exercise-v3 and the retargeter rejects it, so use this one for appearance.\n"
+            "appearance/receipt.json records the world and lab seals, or why the stage stopped.\n\n"
             "Joint control is simulated; this is not measured anatomy or validated biomechanics.\n"
+            "A substituted avatar is appearance only and never drives physics.\n"
             "Source: https://github.com/kintsugi-software/weft\n")
 
 
