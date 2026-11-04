@@ -20,6 +20,7 @@ from pathlib import Path
 import platform
 import resource
 import sys
+import threading
 import time
 import zipfile
 
@@ -409,10 +410,30 @@ def main():
             raise RuntimeError(str((status.get("error") or {}).get("message") or "pipeline_failed"))
         return root
 
+    # The two stages share only the source video, so they overlap. The lab already runs as
+    # its own process and the appearance stage is in-process work dominated by pose and
+    # MuJoCo inside released-GIL native code, so a thread genuinely overlaps rather than
+    # queueing behind the interpreter. Sequential cost was the sum of both; now it is the
+    # longer of the two. The appearance stage is started only for the first attempt: a
+    # window retry changes the clip underneath it, so it is rerun serially in that case.
+    appearance_slot = {}
+
+    def appearance_worker(clip, out, sealed):
+        try:
+            appearance_slot["value"] = build_appearance(
+                clip, out, model, exercise_intent(), deadline=deadline, body=sealed)
+        except Exception as error:
+            appearance_slot["value"] = (None, {
+                "stage": "failed", "reason": f"{type(error).__name__}: {error}"[:200]})
+
     # The learning stage poses internally, so sealing a body up front would add a pass to
     # every clean clip: measured 147 s to 231 s in production for an unchanged result. The
     # seal is taken only on the refusal path, where the evidence is what the proposal needs.
     body, window = None, {"attempted": False}
+    parallel = threading.Thread(target=appearance_worker, daemon=True,
+                                args=(source, directory / "appearance", None),
+                                name="weft-appearance")
+    parallel.start()
     try:
         root = learn(source, directory / "lab")
     except Exception as error:
@@ -440,12 +461,20 @@ def main():
     run = root / "run"
     # The learning result already stands on its own, so a refused appearance stage is
     # recorded and returned rather than discarding a complete run.
-    try:
-        appearance, receipt = build_appearance(source, directory / "appearance", model,
-                                               exercise_intent(), deadline=deadline, body=body)
-    except Exception as error:
-        appearance, receipt = None, {"stage": "failed",
-                                     "reason": f"{type(error).__name__}: {error}"[:200]}
+    parallel.join(timeout=max(1, deadline - time.monotonic()))
+    if window.get("attempted"):
+        # The retry replaced the clip, so the overlapped attempt described different
+        # footage. Redo it serially against the clip the learning result actually used.
+        try:
+            appearance, receipt = build_appearance(
+                source, directory / "window/appearance", model, exercise_intent(),
+                deadline=deadline, body=body)
+        except Exception as error:
+            appearance, receipt = None, {"stage": "failed",
+                                         "reason": f"{type(error).__name__}: {error}"[:200]}
+    else:
+        appearance, receipt = appearance_slot.get("value") or (None, {
+            "stage": "failed", "reason": "appearance stage did not finish in time"})
     result = {"kind": "exercise", "schema_version": 2,
               "normalization": normalization, "summary": summarize(run),
               "appearance": summarize_appearance(appearance, receipt),
