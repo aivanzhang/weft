@@ -323,6 +323,16 @@ not an external benchmark or a guarantee for new inputs.
   roughly **0.24 s per sampled frame** against 0.022 s locally -- 103 frames, so about 40% of
   the whole job. It is not contention (1.21x, measured above) and not scheduling; it is what
   this pose model costs on a Cloudflare vCPU against Apple Silicon.
+- Input resolution is not the lever, measured rather than assumed. Re-encoding the same clip
+  and timing the real body-source pass: native 7.07 s, 1280 px 6.59 s, 960 px 6.00 s, 640 px
+  5.30 s. Nine times fewer pixels buys 25%, and 640 px tracks *worse* (0.981 against 1.000 at
+  960 px), because MediaPipe resizes to its own model input anyway -- the cost is per-frame
+  inference, not decode or resize. Deployed is 0.24 s per frame against 69 ms locally, so it
+  is relatively more inference-bound and this lever is weaker there, not stronger: perhaps
+  2-4 s, which lands on the 60 s line rather than under it. It would also change
+  `DEMO_SOURCE_POLICY` and the provenance receipt, and it cannot be verified on production
+  while both daily lanes are spent, so it is recorded and not shipped. Scaling an arm64 ratio
+  into a production claim is the error this session corrected twice.
 - That leaves exactly one real latency lever, and it is not free. Pose cost is linear in
   sampled frames, and the stride targets 15 fps (`pose_sampling_stride`:
   `max(1, ceil(fps/15), ceil(count/900))`). Dropping to 10 fps would cut about a third of the
