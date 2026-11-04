@@ -1,0 +1,77 @@
+{
+ "asset_id": "created-panda-plush",
+ "display_name": "Created: Studio panda (plush)",
+ "provenance": {
+  "authored_visual_scale": 3.717579749069906,
+  "delivery_profile": "weft-delivery-derivative-v1",
+  "native_model_sha256": "80c34283eff23dc9150aa4debd423994dba166f5c6398a4a2a1d81ad04e0cc8e",
+  "original_studio_glb_sha256": "c98a832f67486ebae470f1eb8df2760a4e064d57e63280a640d7580bb7b6357c",
+  "retarget_scope": "Appearance only; no physics/anatomical changes.",
+  "scope": "Automatic rig-role delivery of a studio generation",
+  "simplifications": [
+   "Explicit connected-mesh decimation and whole-card fur thinning; surviving/interpolated skin weights retained.",
+   "Vertex color/basecolor atlas is bounded resampling, not exact original pixels.",
+   "Unsupported PBR channels removed; diffuse material prior.",
+   "Original clips are retained in the source, not copied or played in the RL delivery."
+  ]
+ },
+ "retargeting": {
+  "bindings": [
+   {
+    "body": "left_elbow_body",
+    "node": 5
+   },
+   {
+    "body": "left_hip_body",
+    "node": 21
+   },
+   {
+    "body": "left_knee_body",
+    "node": 20
+   },
+   {
+    "body": "left_shoulder_body",
+    "node": 6
+   },
+   {
+    "body": "mobile_root",
+    "node": 30
+   },
+   {
+    "body": "right_elbow_body",
+    "node": 8
+   },
+   {
+    "body": "right_hip_body",
+    "node": 24
+   },
+   {
+    "body": "right_knee_body",
+    "node": 23
+   },
+   {
+    "body": "right_shoulder_body",
+    "node": 9
+   },
+   {
+    "body": "torso",
+    "node": 17
+   }
+  ],
+  "orientation_xyzw": [
+   0.6819736884702979,
+   -5.849501432065294e-10,
+   0.0,
+   0.7313767074731168
+  ],
+  "profile": "weft-avatar-retarget-v2",
+  "root_node": 30,
+  "scale": 3.717579749069906
+ },
+ "rights": {
+  "declaration": "Generated asset; rights not independently verified",
+  "holder": "Studio generation",
+  "license": "internal development",
+  "source": "avatar-assets studio"
+ }
+}

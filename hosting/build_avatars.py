@@ -7,24 +7,43 @@ result ships as static files. Keys and the index are the lab's own catalog entri
 the layout matches its /api/avatar/<key>/render.json contract, so the existing client
 fetches hosted avatars with nothing but a different base path.
 """
+import io
 import json
 from pathlib import Path
 import shutil
 import sys
 import tempfile
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "website/avatars"
+# AI-generated deliveries served beside the authored ones. Each carries its own
+# rights record ("internal development" for the Studio panda); they ship because the
+# owner decided they may, and nothing here asserts broader redistribution permission.
+GENERATED = {"studio-panda-plush": "weft-studio-panda-plush-v1"}
 sys.path.insert(0, str(ROOT / "src"))
 
 
 def main():
     from weft.avatar_lab import AvatarCatalog
-    from weft.portal_avatar import prepare_builtin_avatars
+    from weft.portal_avatar import import_avatar_zip, prepare_builtin_avatars
 
-    with tempfile.TemporaryDirectory(prefix="weft-avatars-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="weft-avatars-") as raw_temporary:
         # The importer refuses a symlinked parent, and macOS hands out /var/folders/...
-        staged = prepare_builtin_avatars(Path(temporary).resolve() / "builtins", project=ROOT)
+        temporary = Path(raw_temporary).resolve()
+        staged = prepare_builtin_avatars(temporary / "builtins", project=ROOT)
+        # The two authored deliveries need prepare_builtin_avatars' left/right correction
+        # because they were modelled on the opposite lateral convention. A generated
+        # delivery already resolves roles in Weft's convention, so it imports unflipped;
+        # sending it through the correction fails the lateral check outright.
+        for index, (name, directory) in enumerate(sorted(GENERATED.items())):
+            source = ROOT / "tools/avatar-assets/outputs" / directory
+            buffer = io.BytesIO()
+            with zipfile.ZipFile(buffer, "w") as pack:
+                for member in ("model.glb", "mapping.json"):
+                    pack.writestr(member, (source / member).read_bytes())
+            receipt = import_avatar_zip(buffer.getvalue(), temporary / f"generated-{index}")
+            staged[name] = receipt["asset"]
         catalog = AvatarCatalog([staged[name]["directory"] for name in sorted(staged)])
         builtin = {result["source_manifest_sha256"]: name for name, result in staged.items()}
         if OUT.exists():
