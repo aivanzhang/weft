@@ -528,7 +528,28 @@ def enforce_chain_anatomy(obj, rig):
         mesh.to_mesh(obj.data)
         mesh.free()
         obj.data.update()
+    # Self-check: after splitting, no chain-distant adjacency may remain; if one
+    # does, the assumption that nothing mutates weights afterwards is wrong and the
+    # run must say so precisely rather than let the gate report it obliquely.
+    residual = []
+    dominants_after = np.zeros(len(obj.data.vertices), dtype=int)
+    group_names = {g.index: g.name for g in obj.vertex_groups}
+    for i, vertex in enumerate(obj.data.vertices):
+        weights = {group_names[g.group]: g.weight for g in vertex.groups
+                   if g.weight > 1e-6 and group_names.get(g.group) in index}
+        if weights:
+            dominants_after[i] = index[max(weights, key=weights.get)]
+    for e in obj.data.edges:
+        a, b = e.vertices
+        if distances[dominants_after[a]][dominants_after[b]] > 3:
+            residual.append((names[dominants_after[a]], names[dominants_after[b]]))
+            if len(residual) >= 10:
+                break
+    if residual:
+        raise ValueError('Chain anatomy self-check failed; residual chain-distant '
+                         'adjacency after split: ' + repr(residual[:10]))
     return {'pruned_vertices': int(pruned_vertices), 'split_weld_edges': len(marked),
+            'post_split_residual': 0,
             'scope': 'Final anatomical locality over the live hierarchy before gating; '
                      'the deformation gate judges the result unchanged'}
 
