@@ -256,6 +256,22 @@ not an external benchmark or a guarantee for new inputs.
   people); it now strides to cover all 45 s, proposes 20.6-45.2 s, and learns 100/100 against
   random 5/100 with an avatar-ready scene in 37 s in-container. `aerobic` still refuses,
   correctly, because no span satisfies the constraints. Evidence: `.local/ladder4/`.
+- The appearance stage has the same ladder, because a run can learn successfully and still
+  produce no world an avatar can enter -- which looks complete and is not. `deadlift`
+  completed in production with `appearance: false`: both anchors refused on "construction
+  pose evidence at original frame zero" while the clip was 99.1% tracked, one bad frame at
+  the only position an anchor cares about. Once every full-clip anchor has refused for a
+  localized reason, both are retried over the span the frozen proposal accepts; `deadlift`
+  proposes 0.12-7.33 s, skipping exactly that frame, and admits. Verified on the deployed
+  service: `appearance: true`, 100/100, with a predefined and a generated avatar
+  substituting at 7e-16 and 1.3e-15 drift. A windowed appearance covers a narrower span than
+  the learning rollout, so `windowed` and the span travel in both the receipt and the
+  summary and a UI must not present them as one interval.
+- Refusal patterns are derived from observed wordings, never guessed. Three separate times a
+  pattern written from memory failed to match the real message and silently disabled a
+  retry: "exceeded 120 seconds" fell to `other`, and "Body tracking anchor" did not match a
+  pattern reading "body anchor". Every entry is now pinned by a string the pipeline actually
+  produced, and a new wording means adding the pattern **and** its test case.
 - The retry's limit is the lab's own 120-second learning budget, not the proposal. On hosted
   hardware that clip's retry exceeded it at window lengths of 23.6 s, 12 s and 8 s alike
   (313 s, 277 s, 274 s), so window duration is not the binding factor and three successive
