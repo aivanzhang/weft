@@ -144,6 +144,7 @@ class Portal:
             raise ValueError("Another portal owns this job directory") from None
         self.jobs = {}
         self.body_detail_children = {}
+        self.supported_window_children = {}
         self.avatar_manager = None
         try:
             self.equipment_catalog = read_catalog(self.root)
@@ -156,6 +157,8 @@ class Portal:
                 self.jobs[folder.name] = config
                 if "body_detail" in config and isinstance(config.get("parent_id"), str):
                     self.body_detail_children[config["parent_id"]] = folder.name
+                if "supported_window" in config and isinstance(config.get("parent_id"), str):
+                    self.supported_window_children[config["parent_id"]] = folder.name
                 status = self._status(folder.name)
                 if status["status"] not in TERMINAL:
                     atomic_json(folder / "status.json", {"status": "interrupted", "stage": "interrupted",
@@ -296,6 +299,14 @@ class Portal:
             detail_child = getattr(self, "body_detail_children", {}).get(identity)
             if detail_child:
                 result["body_detail"].update(available=False, child_id=detail_child)
+            result["supported_window"] = {"available": False}
+            if "supported_window" in config or (result["perception"]["status"] == "failed"
+                    and status.get("route") == "exercise" and status["status"] in {"needs_input", "failed"}):
+                from weft.portal_supported_window import supported_window_availability
+                result["supported_window"] = supported_window_availability(folder)
+            window_child = getattr(self, "supported_window_children", {}).get(identity)
+            if window_child:
+                result["supported_window"].update(available=False, child_id=window_child)
             result["moving_equipment"] = moving_jobs.summary(folder)
             if self._exploration(identity):
                 result["control_profile"] = "shared_world_exploration"
@@ -682,6 +693,21 @@ class Portal:
             self.wake.set()
             return self.summary(config["id"])
 
+    def prepare_supported_window(self, identity, payload):
+        from weft.portal_supported_window import create_supported_window_child
+
+        with self.lock:
+            self._folder(identity)
+            if self.active == identity:
+                raise ValueError("The original worker is finishing; refresh before requesting the window attempt")
+            config = create_supported_window_child(self.root, identity, payload, lease_fd=self.lease,
+                existing_jobs=self.jobs, stored_bytes=self._stored_bytes(), reserved_bytes=self._reserved_growth(),
+                pending_jobs=self._pending_jobs(), deadline=time.monotonic()+2)
+            self.jobs[config["id"]] = config
+            self.supported_window_children[identity] = config["id"]
+            self.wake.set()
+            return self.summary(config["id"])
+
     def task_options(self, identity):
         with self.lock:
             if self._status(identity)["status"] != "ready" or not (self._exploration(identity) or self._placement(identity)):
@@ -1060,6 +1086,9 @@ class Portal:
                 raise ValueError("File is not a public task artifact")
             read_package_file(folder / "task-job", relative, max_bytes=(4 << 20) + 1)
             return folder / name
+        if name.startswith("supported-window/"):
+            if name != "supported-window/request.json":
+                raise ValueError("File is not a public supported-window artifact")
         if name.startswith("body-detail/"):
             if name not in {"body-detail/request.json", "body-detail/recipe.json"}:
                 raise ValueError("File is not a public body-detail artifact")
@@ -1293,7 +1322,7 @@ class PortalHandler(LabHandler):
                     raise ValueError("Saved-body request was interrupted")
                 from weft.exercise_body_source import _json
                 return self.reply(self.server.portal.prepare_saved_body(match[1], _json(raw)), 202)
-            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/perception/(preflight|prepare|body-detail)", path)
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/perception/(preflight|prepare|body-detail|supported-window)", path)
             if match:
                 length = int(self.headers.get("Content-Length", "0"))
                 if match[2] == "preflight":
@@ -1309,6 +1338,8 @@ class PortalHandler(LabHandler):
                 from weft.exercise_body_source import _json
                 if match[2] == "body-detail":
                     return self.reply(self.server.portal.prepare_body_detail(match[1], _json(raw)), 202)
+                if match[2] == "supported-window":
+                    return self.reply(self.server.portal.prepare_supported_window(match[1], _json(raw)), 202)
                 return self.reply(self.server.portal.prepare_perception(match[1], _json(raw)), 202)
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/muse", path)
             if match:

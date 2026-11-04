@@ -10,6 +10,7 @@
   let preparingEquipment = false, choosingEquipment = false;
   let preflighting = false, preparingPerception = false, consentKey = "", perceptionRequest = null;
   let bodyDetailBusy = false, bodyDetailKey = "", bodyDetailRequest = null;
+  let windowBusy = false, windowKey = "", windowRequest = null;
   let avatarState = {}, avatarBusy = false, avatarLibrary = [], avatarCreationState = {};
   let savedBodyBusy = false, savedBodyKey = "", savedBodyRequest = null;
   let taskKey = "", taskMode = "", taskOptionsValue = null, taskOptionsWanted = false, taskOptionsTimer = null;
@@ -109,6 +110,21 @@
     $("body-detail-open").hidden = !existingDetail;
     $("body-detail-open").onclick = () => { if (existingDetail) { selected = detail.child_id; lastProjects = ""; lastDetail = ""; refresh(); } };
     if (bodyDetailKey !== job.id) { bodyDetailKey = job.id; bodyDetailRequest = null; }
+    const windowState = job.supported_window;
+    const existingWindow = typeof windowState?.child_id === "string" && /^[a-f0-9]{32}$/.test(windowState.child_id);
+    const canWindow = windowState?.available === true && windowState.proposal;
+    $("supported-window-option").hidden = !canWindow && !existingWindow && !windowState?.parent_id;
+    $("supported-window-reason").textContent = windowState?.reason || "";
+    $("supported-window-proposal").textContent = windowState?.proposal
+      ? `Proposed window: ${windowState.proposal.start_s.toFixed(2)}s – ${windowState.proposal.end_s.toFixed(2)}s`
+        + ` (${windowState.proposal.seconds.toFixed(1)}s). Excluded moments: `
+        + ((windowState.excluded || []).map(x => `${x.time_s.toFixed(2)}s (${x.kind.replaceAll("_", " ")})`).join(", ") || "none")
+        + "." : "";
+    $("supported-window-start").hidden = !canWindow || existingWindow;
+    $("supported-window-start").disabled = windowBusy || perceptionActive(job);
+    $("supported-window-open").hidden = !existingWindow;
+    $("supported-window-open").onclick = () => { if (existingWindow) { selected = windowState.child_id; lastProjects = ""; lastDetail = ""; refresh(); } };
+    if (windowKey !== job.id) { windowKey = job.id; windowRequest = null; }
     $("perception-consent").hidden = perception?.status !== "awaiting_consent" || !quote;
     $("perception-quote").textContent = quote ? `${quote.frame_count} source frames. OpenAI (${quote.openai_model}): reserve up to $${quote.openai_max_usd.toFixed(4)}. Meta (${quote.meta_model}): reserve up to $${quote.meta_max_usd.toFixed(4)}. ${quote.message}` : "";
     updatePerceptionConsent();
@@ -501,6 +517,17 @@
       if (selected === identity) await show(job);
     } catch(e) { error(`${e.message}. Inspect the saved request and receipts before taking another action; no automatic retry was made.`); }
     finally { preparingPerception = false; lastDetail = ""; refresh(); }
+  };
+  $("supported-window-start").onclick = async () => {
+    if (!selected || windowBusy || perceptionActive(selectedJob || {}) || selectedJob?.supported_window?.available !== true) return;
+    const identity = selected;
+    windowRequest ||= {request_id: crypto.randomUUID().replaceAll("-", "")};
+    windowBusy = true; $("supported-window-start").disabled = true;
+    try {
+      const child = await request(`/api/projects/${identity}/perception/supported-window`, {method:"POST",body:JSON.stringify(windowRequest),headers:{"Content-Type":"application/json"}});
+      if (selected === identity) { lastProjects = ""; await show(child); }
+    } catch (e) { error(`${e.message}. The original refusal is preserved; no automatic retry was made.`); }
+    finally { windowBusy = false; lastDetail = ""; refresh(); }
   };
   $("body-detail-start").onclick = async () => {
     if (!selected || bodyDetailBusy || perceptionActive(selectedJob || {}) || selectedJob?.body_detail?.available !== true

@@ -327,6 +327,12 @@ def execute_perception_job(root, *, project=PROJECT_ROOT):
             progress('preflighting', 'Checking the preserved source and all body estimates for a separate detailed attempt. No media sent.')
             detail_options = prepare_queued_body_detail(root, project=project, deadline=min(deadline, time.monotonic()+30))
             check()
+        if 'supported_window' in initial_job and not paid:
+            check()
+            from weft.portal_supported_window import prepare_queued_supported_window
+            progress('preflighting', 'Staging the recorded supported window of the original source. No media sent.')
+            prepare_queued_supported_window(root, deadline=min(deadline, time.monotonic()+30))
+            check()
         root, job, video = _context(root)
         if read_package_file(root, 'status.json', max_bytes=32 << 10) != read_package_file(work, 'parent-status.json', max_bytes=32 << 10):
             raise ValueError('Original upload changed during perception')
@@ -433,4 +439,19 @@ def execute_perception_job(root, *, project=PROJECT_ROOT):
                         'profile': POSE_DIAGNOSTIC, 'error': str(diagnostic_error)[:400], 'simulation_ready': False})})
                 except (ValueError, OSError):
                     pass
+            try:
+                if (root/'perception/preflight/body_source/evidence.json').is_file():
+                    from weft.portal_supported_window import prepare_supported_window_proposal
+                    prepare_supported_window_proposal(root, deadline=min(deadline, time.monotonic()+60))
+            except BaseException as window_error:
+                # The optional proposal never replaces the failure or triggers a retry.
+                try:
+                    import traceback
+                    write_package_files(work, {'supported-window-error.json': _bytes({
+                        'error': str(window_error)[:400], 'error_type': type(window_error).__name__,
+                        'trace': traceback.format_exc()[-1200:], 'simulation_ready': False})})
+                except (ValueError, OSError):
+                    pass
+                if not isinstance(window_error, Exception):
+                    raise
         return 1
