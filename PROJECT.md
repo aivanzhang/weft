@@ -322,6 +322,15 @@ not an external benchmark or a guarantee for new inputs.
   upright person, whole body in frame. An earlier note here described these as suspended-body
   exercises defeating the authored floor assumptions; that was asserted rather than measured
   and was wrong about the mechanism.
+- A more accurate landmarker does not widen that envelope, so the pinned `lite` model stays.
+  Measured on exactly the three refused clips, tracked fraction by variant --
+  hanging-crunches 0.471 lite / 0.460 full / **0.046 heavy**, leg-raises 0.684 / 0.667 /
+  **0.228**, pull-ups 0.000 / 0.044 / 0.100 -- and none admitted under any variant. The heavy
+  model is markedly worse because it reports low confidence more readily on an ambiguous
+  pose, and the gate counts high-confidence whole-body frames; its honesty costs it the gate.
+  `lite` is best or tied-best on all three and the fastest, so the refusals are a property of
+  what this model family can see, not of the variant chosen. Evidence:
+  `.local/model-compare2/model-compare.json`.
 - Admission is sensitive near its own threshold, which local verification hides: a
   borderline clip that completes on macOS can be refused in the Linux container, and
   re-encoding the same footage can flip it either way. Of 17 real clips and windows
