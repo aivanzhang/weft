@@ -188,8 +188,17 @@ not an external benchmark or a guarantee for new inputs.
   local lane reproduced the same invariant independently at 1.7e-15 over 927 bone
   comparisons, which is stronger than either lane alone. Evidence:
   `.local/hosted-sweep-4/hosted-matrix.json`, `scripts/verify/bone_length_preservation.mjs`.
-- The hosted request path was exercised against the real Worker, Durable Object queue and
-  R2 store rather than the container alone: health, session, both pipeline caps, the avatar
+- **Verified on deployed Cloudflare**, release `exercise-pipeline-20261104`: one clip
+  submitted through the judge lane at `weft.kintsugi.software` completed in 147 s with
+  `q_learning 100/100` against `random 1/100` and `coast 0/100`, full pose tracking, a
+  0.0387 rad reference-servo error, and a 9.2 MB archive of 34 artifacts including the
+  `appearance/` section whose `scene.json` is `shared-world-v3`. The predefined avatars
+  served from the deployed origin with matching digests, path traversal and unknown files
+  refused, the source echoed back byte-identical, and a second session could not read the
+  job. Both production-served avatars then substituted onto that production archive with
+  bone-length drift of 1.1e-15 and 1.4e-15. Evidence: `.local/hosted-live-4/`.
+- The hosted request path was also exercised against the real Worker, Durable Object queue
+  and R2 store rather than the container alone: health, session, both pipeline caps, the avatar
   catalog with digest verification and refused traversal, job admission, container dispatch,
   result handling and the refusal message. What cannot run on an Apple Silicon machine is
   the container's own Python, for two named emulation reasons — MediaPipe's x86 inference
