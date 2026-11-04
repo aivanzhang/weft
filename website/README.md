@@ -15,6 +15,13 @@ Open `http://127.0.0.1:3000/`. No dependency installation or build step is neede
 refresh the page after editing. To choose another port, use
 `npm run dev -- --port 3001`.
 
+`/demo` and `/demo/runs` redirect to the local sandbox on port 8765. Use
+`npm run demo` to start both servers, or `npm run sandbox` separately. Open the
+sandbox's complete access link once in the same
+browser tab. Demo pages then retain the key for that tab and remove it from the
+address bar. Set `WEFT_SANDBOX_PORT` when the sandbox uses another port.
+The combined demo launcher sets that routing automatically for its selected ports.
+
 You can also open [index.html](index.html) directly for the offline gallery.
 Local landing-page uploads are disabled; use the sandbox to process a video.
 The server exposes only files listed in [public-assets.mjs](public-assets.mjs),

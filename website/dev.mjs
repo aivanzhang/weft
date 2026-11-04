@@ -15,7 +15,10 @@ const types = {
   ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8",
 };
 
-export function landingServer() {
+export function landingServer({ sandboxPort = 8765 } = {}) {
+  if (!Number.isInteger(sandboxPort) || sandboxPort < 1 || sandboxPort > 65535) {
+    throw new Error("Sandbox port must be between 1 and 65535");
+  }
   return createServer(async (request, response) => {
     response.setHeader("Cache-Control", "no-store");
     response.setHeader("X-Content-Type-Options", "nosniff");
@@ -29,6 +32,10 @@ export function landingServer() {
       }
       const path = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
       if (path === "/") return reply(302, "", { Location: "/website/index.html" });
+      if (["/demo", "/demo/", "/demo/build", "/demo/runs", "/emo"].includes(path)) {
+        const destination = path === "/emo" || path === "/demo/" ? "/demo" : path;
+        return reply(302, "", { Location: `http://127.0.0.1:${sandboxPort}${destination}` });
+      }
       if (path === "/api/session") {
         return reply(200, JSON.stringify({
           enabled: false,
@@ -81,7 +88,7 @@ export function landingPort(args) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const port = landingPort(process.argv.slice(2));
-    const server = landingServer();
+    const server = landingServer({ sandboxPort: Number(process.env.WEFT_SANDBOX_PORT || 8765) });
     server.on("error", (error) => {
       console.error(error.code === "EADDRINUSE"
         ? `Port ${port} is in use. Choose another with npm run dev -- --port 3001.`

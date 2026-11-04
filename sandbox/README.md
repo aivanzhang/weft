@@ -21,6 +21,22 @@ Reuse an existing working `.venv-lab` rather than reinstalling it.
 
 ## Run
 
+Start the landing page and sandbox together:
+
+```sh
+npm run demo
+```
+
+This reuses the prepared demo collection when present, otherwise `.local/portal`.
+Stop any individually running servers first. **Ctrl+C** stops both processes
+and keeps projects, recordings and spending ledgers. To choose a collection or ports:
+
+```sh
+npm run demo -- --root .local/my-projects --port 3001 --sandbox-port 8767
+```
+
+To run only the sandbox:
+
 ```sh
 npm run sandbox
 ```
@@ -32,6 +48,12 @@ in `.local/portal`. For a different collection or port:
 ```sh
 npm run sandbox -- --root .local/my-projects --port 8766
 ```
+
+For the guided walkthrough, visit `/demo` on the sandbox. Opening a run brings
+only that run into focus: switch between its live world, recording and evidence.
+Only the active view loads media or an embedded simulator. The access link is
+needed once per browser tab; demo pages retain it for navigation and hide it
+from the address bar. The demo code is separate from this API access key.
 
 Run only one process per project directory. The sandbox and landing page use
 separate processes and dependencies, not isolated containers. Saved experiments

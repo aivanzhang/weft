@@ -34,6 +34,12 @@ playback and programmed reference controllers are different modes, not learned p
 
 ## Capabilities and limitations
 
+The local demo uses a single-run viewer: live world, recording and evidence are
+separate views, with hidden media released. The landing server's `/demo` routes
+redirect to the separately running sandbox; it does not expose private APIs.
+`npm run demo` manages both local processes in one terminal and stops both on
+Ctrl+C without deleting saved runs or changing spending allowances.
+
 | Area | Available | Not yet established |
 | --- | --- | --- |
 | Video intake | Any decodable video takes a principled route: over-length clips get an explicit bounded window, person scenes go to the exercise flow and its prompts, object scenes try color regions then AI/motion appearance intervals on a shrinking ladder, and a refused exercise clip computes its own supported window (same frozen constraints) for a one-click windowed retry; every attempt is preserved | Fast small objects and moving-camera footage can exhaust the tracker ladder; multi-person admission needs the explicit person-region flow |

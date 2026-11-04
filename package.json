@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "node website/dev.mjs",
     "sandbox": "node sandbox/run.mjs",
-    "test:local": "node --test website/dev.test.mjs sandbox/run.test.mjs"
+    "test:local": "node --test website/dev.test.mjs website/demo-focus.test.mjs sandbox/run.test.mjs sandbox/demo.test.mjs",
+    "demo": "node sandbox/demo.mjs"
   },
   "engines": {
     "node": ">=22"

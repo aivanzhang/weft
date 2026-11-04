@@ -1068,6 +1068,8 @@ class LabServer(ThreadingHTTPServer):
 
 
 class LabHandler(BaseHTTPRequestHandler):
+    allow_same_origin_frame = False
+
     @property
     def lab(self):
         return self.server.lab
@@ -1086,8 +1088,9 @@ class LabHandler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "no-referrer")
-        self.send_header("X-Frame-Options", "DENY")
-        self.send_header("Content-Security-Policy", "default-src 'self'; img-src 'self' data:; media-src 'self' blob:; script-src 'self'; style-src 'self'; frame-ancestors 'none'; connect-src 'self'")
+        ancestors = "'self'" if self.allow_same_origin_frame else "'none'"
+        self.send_header("X-Frame-Options", "SAMEORIGIN" if self.allow_same_origin_frame else "DENY")
+        self.send_header("Content-Security-Policy", f"default-src 'self'; img-src 'self' data:; media-src 'self' blob:; script-src 'self'; style-src 'self'; frame-ancestors {ancestors}; connect-src 'self'")
 
     def reply(self, value, code=200):
         body = json.dumps(value, allow_nan=False).encode()

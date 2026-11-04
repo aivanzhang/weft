@@ -241,9 +241,15 @@ def test_two_sandboxes_route_state_without_changing_global_lab(portal):
         ids.append(job["id"])
     with serving(portal) as server:
         for identity in ids:
-            assert request(server, f"/labs/{identity}/", auth=False)[0] == 200
+            code, headers, _ = request(server, f"/labs/{identity}/", auth=False)
+            assert code == 200
+            assert headers["X-Frame-Options"] == "SAMEORIGIN"
+            assert "frame-ancestors 'self'" in headers["Content-Security-Policy"]
             assert request(server, f"/labs/{identity}/api/status", auth=False)[0] == 401
+            assert request(server, f"/labs/{identity}/api/status", headers={"Origin": "https://attacker.invalid"})[0] == 403
             assert request(server, f"/labs/{identity}/api/status")[0] == 200
+        _, headers, _ = request(server, "/demo", auth=False)
+        assert headers["X-Frame-Options"] == "DENY"
         status, _, raw = request(server, f"/labs/{ids[0]}/api/step", "POST", b'{"action":1}', headers={"Content-Type": "application/json"})
         assert status == 200
         first = portal.labs[ids[0]].session.snapshot()
