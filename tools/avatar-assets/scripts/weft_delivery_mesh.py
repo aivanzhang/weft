@@ -2,10 +2,10 @@
 from hashlib import sha256
 
 
-def component_plan(vertex_count, polygons, triangle_budget):
+def component_plan(vertex_count, polygons, triangle_budget, vertex_budget=None):
     if type(vertex_count) is not int or not 1 <= vertex_count <= 100000:
         raise ValueError('Bounded mesh vertices required')
-    if type(triangle_budget) is not int or not 4 <= triangle_budget <= 6000:
+    if type(triangle_budget) is not int or not 4 <= triangle_budget <= 40000:
         raise ValueError('Bounded triangle budget required')
     if not isinstance(polygons, list) or not 1 <= len(polygons) <= 100000:
         raise ValueError('Bounded polygons required')
@@ -27,11 +27,14 @@ def component_plan(vertex_count, polygons, triangle_budget):
     if len(components)<16 or max(c['triangles'] for c in components)>64:
         return {'method':'connected_collapse','components':len(components),'keep_vertices':None}
     # A fixed permutation spreads surviving cards without changing any selected card's attributes.
+    if vertex_budget is not None and (type(vertex_budget) is not int or not 4 <= vertex_budget <= 40000):
+        raise ValueError('Bounded vertex budget required')
     ordered=sorted(enumerate(components),key=lambda x:sha256(str(x[0]).encode()).digest())
-    selected=[];used=0
+    selected=[];used=0;used_vertices=0
     for index,c in ordered:
-        if used+c['triangles']<=triangle_budget:
-            selected.append(index);used+=c['triangles']
+        if used+c['triangles']<=triangle_budget and (vertex_budget is None
+                or used_vertices+len(c['vertices'])<=vertex_budget):
+            selected.append(index);used+=c['triangles'];used_vertices+=len(c['vertices'])
     if not selected:raise ValueError('No whole component fits the triangle budget')
     keep=sorted(v for i in selected for v in components[i]['vertices'])
     return {'method':'whole_component_thinning','components':len(components),'retained_components':len(selected),'triangles':used,'keep_vertices':keep}

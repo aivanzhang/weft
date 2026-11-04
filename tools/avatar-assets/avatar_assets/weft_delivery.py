@@ -115,6 +115,7 @@ def pack_delivery(native_model,settings,output,*,deadline):
     for skin in doc['skins']:
         require(len(skin['joints'])<=64 and 'inverseBindMatrices' in skin,'Original complete bind matrices required')
         skin['inverseBindMatrices']=accessor(glb.accessor(skin['inverseBindMatrices'],'MAT4',{5126}),'MAT4',5126)
+    triangles_total=0
     for mesh in source['meshes']:
         packed={'name':mesh.get('name','mesh'),'primitives':[]}
         for primitive in mesh['primitives']:
@@ -122,24 +123,30 @@ def pack_delivery(native_model,settings,output,*,deadline):
             attrs=primitive['attributes'];required={'POSITION','NORMAL','TEXCOORD_0','JOINTS_0','WEIGHTS_0'};require(required<=attrs.keys(),'Complete skinned textured vertices required')
             positions=np.asarray(glb.accessor(attrs['POSITION'],'VEC3',{5126}));indices=np.asarray(glb.accessor(primitive['indices'],'SCALAR',{5121,5123,5125},count_limit=MAX_TRIANGLE_INDICES)).reshape(-1)
             require(len(indices)%3==0 and indices.min()>=0 and indices.max()<len(positions),'Complete triangle indices required')
-            total+=len(indices);require(total<=19500,'Exact expanded delivery vertex bound exceeded')
-            uv=np.asarray(glb.accessor(attrs['TEXCOORD_0'],'VEC2',{5126}))[indices]
+            triangles_total+=len(indices)//3;require(triangles_total<=39000,'Delivery triangle bound exceeded')
+            uv=np.asarray(glb.accessor(attrs['TEXCOORD_0'],'VEC2',{5126}))
             material=deepcopy(source['materials'][primitive['material']]);image,sampler=_texture(glb,material,image_cache,deadline)
+            normals=np.asarray(glb.accessor(attrs['NORMAL'],'VEC3',{5126}));length=np.linalg.norm(normals,axis=1);require(np.all(length>1e-8),'Nonzero normals required');normals=normals/length[:,None]
+            joints=np.asarray(glb.accessor(attrs['JOINTS_0'],'VEC4',{5121,5123}));weights=np.asarray(glb.accessor(attrs['WEIGHTS_0'],'VEC4',{5126,5121,5123}))
+            require(np.all(weights>=0) and np.allclose(weights.sum(axis=1),1,atol=1e-4),'Original normalized four-influence skin required')
             colors=None
             if 'COLOR_0' in attrs:
+                # The triangle atlas needs unique per-corner UV islands, so this path
+                # alone expands corners; every corner counts against the vertex bound.
                 colors=np.asarray(glb.accessor(attrs['COLOR_0'],components={5121,5123,5126}))[indices]
                 if colors.shape[1]==3:colors=np.column_stack([colors,np.ones(len(colors))])
-                uv,image_raw,bake=bake_vertex_colors(uv.reshape(-1,3,2),colors.reshape(-1,3,4),image,sampler,deadline=deadline)
+                uv,image_raw,bake=bake_vertex_colors(uv[indices].reshape(-1,3,2),colors.reshape(-1,3,4),image,sampler,deadline=deadline)
                 sampler={'wrapS':33071,'wrapT':33071,'magFilter':9729,'minFilter':9729}
+                positions=positions[indices];normals=normals[indices];joints=joints[indices];weights=weights[indices]
+                indices=np.arange(len(indices))
             else:image_raw=_png(Image.fromarray(image));bake=None
+            total+=len(positions);require(total<=19500,'Delivery vertex bound exceeded')
             image_index=len(doc['images']);doc['images'].append({'bufferView':append(image_raw),'mimeType':'image/png'});doc['samplers'].append({k:sampler[k] for k in ('wrapS','wrapT','magFilter','minFilter') if k in sampler});doc['textures'].append({'source':image_index,'sampler':image_index})
             pbr=material.get('pbrMetallicRoughness',{});simple={'name':material.get('name','material'),'pbrMetallicRoughness':{'baseColorFactor':pbr.get('baseColorFactor',[1,1,1,1]),'baseColorTexture':{'index':image_index},'metallicFactor':0,'roughnessFactor':1},'alphaMode':material.get('alphaMode','OPAQUE'),'alphaCutoff':material.get('alphaCutoff',.5),'doubleSided':material.get('doubleSided',False)}
             require(simple['alphaMode'] in ('OPAQUE','MASK'),'Unsupported blended material')
-            doc['materials'].append(simple);normals=np.asarray(glb.accessor(attrs['NORMAL'],'VEC3',{5126}))[indices];length=np.linalg.norm(normals,axis=1);require(np.all(length>1e-8),'Nonzero normals required');normals/=length[:,None]
-            joints=np.asarray(glb.accessor(attrs['JOINTS_0'],'VEC4',{5121,5123}))[indices];weights=np.asarray(glb.accessor(attrs['WEIGHTS_0'],'VEC4',{5126,5121,5123}))[indices]
-            require(np.all(weights>=0) and np.allclose(weights.sum(axis=1),1,atol=1e-4),'Original normalized four-influence skin required')
-            packed['primitives'].append({'attributes':{'POSITION':accessor(positions[indices],'VEC3',5126),'NORMAL':accessor(normals,'VEC3',5126),'TEXCOORD_0':accessor(uv,'VEC2',5126),'JOINTS_0':accessor(joints,'VEC4',5123),'WEIGHTS_0':accessor(weights,'VEC4',5126)},'indices':accessor(np.arange(len(indices)),'SCALAR',5123),'material':len(doc['materials'])-1})
-            report.append({'mesh':mesh.get('name'),'vertices':len(indices),'triangles':len(indices)//3,'color_bake':bake,'material_prior':'diffuse metallic0 roughness1; normal/occlusion/emissive/metallic-roughness maps omitted','source_material':material})
+            doc['materials'].append(simple)
+            packed['primitives'].append({'attributes':{'POSITION':accessor(positions,'VEC3',5126),'NORMAL':accessor(normals,'VEC3',5126),'TEXCOORD_0':accessor(uv,'VEC2',5126),'JOINTS_0':accessor(joints,'VEC4',5123),'WEIGHTS_0':accessor(weights,'VEC4',5126)},'indices':accessor(indices,'SCALAR',5123),'material':len(doc['materials'])-1})
+            report.append({'mesh':mesh.get('name'),'vertices':len(positions),'triangles':len(indices)//3,'color_bake':bake,'material_prior':'diffuse metallic0 roughness1; normal/occlusion/emissive/metallic-roughness maps omitted','source_material':material})
         doc['meshes'].append(packed)
     doc['buffers']=[{'byteLength':len(binary)}];binary.extend(b'\0'*(-len(binary)%4));encoded=json.dumps(doc,separators=(',',':'),allow_nan=False).encode();encoded+=b' '*(-len(encoded)%4)
     result=struct.pack('<4sII',b'glTF',2,28+len(encoded)+len(binary))+struct.pack('<II',len(encoded),0x4e4f534a)+encoded+struct.pack('<II',len(binary),0x004e4942)+binary
@@ -149,13 +156,13 @@ def pack_delivery(native_model,settings,output,*,deadline):
     mapping={k:settings[k] for k in ('asset_id','display_name','rights','provenance')}
     mapping['retargeting']={'profile':'weft-avatar-retarget-v2','root_node':root,'scale':settings['scale'],'orientation_xyzw':settings['orientation_xyzw'],'bindings':[{'node':roles[role],'body':role} for role in sorted(roles)]}
     mapping['provenance']={**mapping['provenance'],'delivery_profile':PROFILE,'native_model_sha256':_pin(Path(native_model)),'simplifications':['Explicit connected-mesh decimation and whole-card fur thinning; surviving/interpolated skin weights retained.','Vertex color/basecolor atlas is bounded resampling, not exact original pixels.','Unsupported PBR channels removed; diffuse material prior.','Original clips are retained in the source, not copied or played in the RL delivery.'],'authored_visual_scale':settings['scale'],'retarget_scope':'Appearance only; no physics/anatomical changes.'}
-    return mapping,{'profile':PROFILE,'vertices':total,'triangles':total//3,'joints':len(doc['skins'][0]['joints']),'nodes':len(doc['nodes']),'primitives':report,'output_sha256':sha256(result).hexdigest(),'animations_copied':False,'consumer_validation':'pending_independent_Weft_import'}
+    return mapping,{'profile':PROFILE,'vertices':total,'triangles':triangles_total,'joints':len(doc['skins'][0]['joints']),'nodes':len(doc['nodes']),'primitives':report,'output_sha256':sha256(result).hexdigest(),'animations_copied':False,'consumer_validation':'pending_independent_Weft_import'}
 
 
 def prepare_weft_delivery(source,settings_path,out,*,expected_source_sha256,triangles=6000,timeout=120):
     """One local conversion with a new output directory; never changes the source or consumer caps."""
     source=_file(source,32<<20);settings_path=_file(settings_path,32<<10);settings=validate_settings(read_json(settings_path))
-    require(type(triangles) is int and 100<=triangles<=6000,'Explicit triangle budget must be100..6000')
+    require(type(triangles) is int and 100<=triangles<=39000,'Explicit triangle budget must be100..39000')
     require(type(timeout) in (int,float) and 1<=timeout<=120,'Conversion wall bound must be1..120seconds')
     require(_pin(source)==expected_source_sha256,'Original Studio model hash differs')
     glb=_GLB(source);require(len(glb.doc.get('skins',[]))==1,'One source semantic skin required')
@@ -189,5 +196,5 @@ def prepare_weft_delivery(source,settings_path,out,*,expected_source_sha256,tria
 
 if __name__=='__main__':
     import argparse
-    parser=argparse.ArgumentParser();parser.add_argument('source');parser.add_argument('settings');parser.add_argument('out');parser.add_argument('--source-sha256',required=True);parser.add_argument('--triangles',type=int,default=6000)
+    parser=argparse.ArgumentParser();parser.add_argument('source');parser.add_argument('settings');parser.add_argument('out');parser.add_argument('--source-sha256',required=True);parser.add_argument('--triangles',type=int,default=17000)
     args=parser.parse_args();print(json.dumps(prepare_weft_delivery(args.source,args.settings,args.out,expected_source_sha256=args.source_sha256,triangles=args.triangles)))

@@ -135,7 +135,7 @@ def derive_settings(model, *, asset_id, display_name, rights, provenance,
 
 
 def autopack(model, out_dir, *, asset_id, display_name, rights, provenance,
-             target_height=TARGET_BODY_HEIGHT, triangles=6000, timeout=120):
+             target_height=TARGET_BODY_HEIGHT, triangles=17000, timeout=120):
     """Convert a native generated avatar into a Weft-importable ZIP with no authored config.
 
     Runs the ordinary bounded delivery (native decimation then packing) against settings
