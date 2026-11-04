@@ -3,6 +3,8 @@ export const publicAssets = [
   "website/index.html",
   "website/styles.css",
   "website/site.js",
+  "website/contents.css",
+  "website/contents.js",
   "website/footer.css",
   "website/footer.js",
   "website/environments.css",

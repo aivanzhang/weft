@@ -184,22 +184,36 @@ h1 {
   letter-spacing: -0.35px;
   margin-top: 24px;
 }
-.text-link {
-  color: var(--clay);
+.explore-link {
   display: inline-flex;
-  gap: 8px;
   align-items: center;
-  line-height: 1.5;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid rgb(150 86 68 / 22%);
+  border-radius: 4px;
+  color: var(--clay);
+  background: rgb(150 86 68 / 4%);
+  font-size: 13px;
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
-.intro > .text-link {
+.intro > .explore-link {
   margin-top: 23px;
-  font-size: 17px;
 }
-.text-link span {
-  transition: transform 180ms ease;
+.explore-link svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
-.text-link:hover span {
-  transform: translate(2px, -2px);
+.explore-link:hover,
+.explore-link:focus-visible {
+  background: rgb(150 86 68 / 8%);
+  border-color: rgb(150 86 68 / 38%);
 }
 .hero-figure {
   margin-top: 40px;
@@ -345,7 +359,7 @@ h2 {
 }
 .research-trigger {
   display: grid;
-  grid-template-columns: 20px 1fr 12px;
+  grid-template-columns: 20px 1fr;
   gap: 10px;
   text-align: left;
   align-items: baseline;
@@ -382,24 +396,11 @@ h2 {
   margin-top: 8px;
   max-width: 290px;
 }
-.research-arrow {
-  color: var(--clay);
-  font-size: 12px;
-  opacity: 0;
-  transform: translate(-3px, 3px);
-  transition:
-    opacity 220ms,
-    transform 220ms;
-}
 .research-entry[data-active="true"] .research-number {
   opacity: 1;
 }
 .research-entry[data-active="true"] .research-title {
   color: var(--clay);
-}
-.research-entry[data-active="true"] .research-arrow {
-  opacity: 1;
-  transform: none;
 }
 .research-art {
   display: grid;
@@ -492,11 +493,80 @@ h2 {
   max-width: 640px;
   margin-top: 17px;
 }
-.about > .small {
-  font-size: 12px;
-  line-height: 1.7;
+.impact {
+  padding: 42px 0 48px;
+}
+.impact > h2 {
   max-width: 650px;
-  margin-top: 13px;
+  margin-top: 18px;
+  font-size: clamp(30px, 4.5vw, 44px);
+  font-weight: 420;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+.impact-intro {
+  max-width: 620px;
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.impact-figure {
+  margin: 30px 0 36px;
+}
+.impact-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.impact-figure figcaption {
+  margin-top: 4px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+}
+.impact-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.impact-details h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.impact-details p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.impact-outlook {
+  max-width: 650px;
+  margin-top: 32px;
+  font-size: 19px;
+  line-height: 1.55;
+  letter-spacing: -0.02em;
+}
+@media (max-width: 600px) {
+  .impact {
+    padding: 32px 0 36px;
+  }
+  .impact-details {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .impact-details h3 {
+    margin-bottom: 6px;
+  }
+  .impact-figure {
+    margin: 24px 0 28px;
+  }
+  .impact-outlook {
+    font-size: 17px;
+  }
 }
 .back-to-top {
   display: grid;
@@ -679,9 +749,6 @@ h2 {
   .desktop-break {
     display: none;
   }
-  .intro > .text-link {
-    font-size: 15px;
-  }
   .hero-figure {
     margin-top: 40px;
     margin-bottom: 28px;
@@ -702,7 +769,7 @@ h2 {
   }
   .research-trigger {
     padding: 18px 0;
-    grid-template-columns: 20px 1fr 12px;
+    grid-template-columns: 20px 1fr;
   }
   .research-title {
     font-size: 20px;
@@ -710,10 +777,6 @@ h2 {
   .research-description {
     max-width: none;
     font-size: 12px;
-  }
-  .research-arrow {
-    opacity: 0.65;
-    transform: none;
   }
   .research-art {
     width: min(100%, 370px);
@@ -1014,33 +1077,138 @@ h2 {
   }
 }
 
-.nav-demo,
-.demo-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  min-height: 44px;
-  padding: 10px 16px;
-  border: 0;
-  border-radius: 0;
-  background: var(--clay);
-  color: var(--paper);
-  font-weight: 500;
-  line-height: 1.5;
+/* Reserve the expanded width so revealing the label never shifts nearby content. */
+.demo-entry {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 174px;
+  width: 174px;
+  height: 44px;
+}
+.demo-launch {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  border: 1px solid rgb(150 86 68 / 22%);
+  border-radius: 4px;
+  background: rgb(150 86 68 / 4%);
+  color: var(--clay);
   text-decoration: none;
+  transition: width 240ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+.demo-launch svg {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.demo-launch-label {
+  position: absolute;
+  inset: 0 43px 0 14px;
+  display: flex;
+  align-items: center;
   white-space: nowrap;
-  transition: background-color 0.2s ease;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  translate: 6px 0;
+  transition: opacity 180ms ease, translate 240ms ease;
 }
-.nav-demo:hover,
-.demo-link:hover {
-  background: var(--ink);
-  color: var(--paper);
+.demo-launch:hover,
+.demo-launch:focus-visible {
+  width: 174px;
+  background: rgb(150 86 68 / 8%);
+  border-color: rgb(150 86 68 / 38%);
+  color: var(--clay);
 }
-.nav-demo span,
-.demo-link span { transition: translate 0.2s ease; }
-.nav-demo:hover span,
-.demo-link:hover span { translate: 3px 0; }
-@media (prefers-reduced-motion: reduce) {
-  .nav-demo span, .demo-link span { transition: none; translate: none; }
+.demo-launch:hover .demo-launch-label,
+.demo-launch:focus-visible .demo-launch-label {
+  opacity: 1;
+  translate: 0;
+}
+@media (hover: none) {
+  .demo-launch {
+    width: 174px;
+  }
+  .demo-launch-label {
+    opacity: 1;
+    translate: 0;
+  }
+}
+
+/* Animate the contents, leaving pointer targets and surrounding layout still. */
+@media (prefers-reduced-motion: no-preference) {
+  .demo-launch svg,
+  .explore-link svg,
+  .research-copy,
+  .stage-trigger > span,
+  .back-to-top svg {
+    transition: translate 200ms ease, scale 200ms ease, rotate 240ms ease;
+  }
+  .globe-meridian {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .demo-launch:is(:hover, :focus-visible) .globe-meridian {
+    animation: demo-globe-spin 900ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .demo-launch:active svg {
+    scale: 0.92;
+  }
+  .explore-link:is(:hover, :focus-visible) .explore-book {
+    translate: 1px 0;
+  }
+  .explore-link:is(:hover, :focus-visible) .explore-arrow {
+    translate: 0 2px;
+  }
+  .explore-link:active svg {
+    scale: 0.92;
+  }
+  .research-trigger:is(:hover, :focus-visible) .research-copy {
+    translate: 3px 0;
+  }
+  .research-trigger:active .research-copy {
+    translate: 1px 0;
+  }
+  .stage-trigger:is(:hover, :focus-visible) > span {
+    translate: 0 -1px;
+  }
+  .stage-trigger:active > span {
+    translate: 0 1px;
+  }
+  .back-to-top:is(:hover, :focus-visible) svg {
+    translate: 0 -3px;
+  }
+  .back-to-top:active svg {
+    translate: 0 -1px;
+  }
+  .site-header nav > a {
+    position: relative;
+  }
+  .site-header nav > a::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 -5px;
+    height: 1px;
+    background: currentColor;
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale 200ms ease;
+  }
+  .site-header nav > a:is(:hover, :focus-visible)::after {
+    scale: 1 1;
+  }
+}
+@keyframes demo-globe-spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
 }
