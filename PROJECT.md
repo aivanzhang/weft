@@ -313,12 +313,40 @@ not an external benchmark or a guarantee for new inputs.
   inside learning, so the visitor pays `max(62.12, 44.5)` = 62.12 s. Making appearance reuse
   learning's evidence forces it to *wait* for learning's pose, leaving a serial tail of
   2.49 s world plus 3.08 s lab: about **67.7 s, worse than today**, unless contention costs
-  more than 5.57 s. It almost certainly does not -- the arm64 run has the identical
-  concurrency and finishes learning in 16.35 s, showing no contention signature, which is
-  why the 3.8x reads as hardware. The reuse is blocked anyway: `copy_sealed_body` requires a
-  `exercise-body-source-v1` / `construction_only` package with a `body-source.json`, and the
-  lab run directory has none of those despite carrying every pose file. Worth doing to halve
-  container CPU; not worth doing for latency.
+  more than 5.57 s. **Measured, it costs 1.21x**: one pose pass over the clip takes 7.07 s in
+  a four-core container and two concurrent passes take 8.58 s each, because MediaPipe's
+  XNNPACK delegate already spreads across cores. So reuse saves about 17% of the pose phase,
+  roughly 4 s, and then pays the 5.6 s tail -- still no better than today. The reuse is
+  blocked anyway: `copy_sealed_body` requires an `exercise-body-source-v1` /
+  `construction_only` package with a `body-source.json`, and the lab run directory has none of
+  those despite carrying every pose file. Worth doing to halve container CPU; not for latency.
+- Where the job's unexplained block went, found by aligning the deployed archive against the
+  local run artifact by artifact. Everything after the first pose landmark scales a uniform
+  **1.7-2.8x** deployed against local, but the phase before it scales **10.8x**: 2.3 s local
+  against about 24.8 s deployed. That phase is MediaPipe pose inference, and deployed it costs
+  roughly **0.24 s per sampled frame** against 0.022 s locally -- 103 frames, so about 40% of
+  the whole job. It is not contention (1.21x, measured above) and not scheduling; it is what
+  this pose model costs on a Cloudflare vCPU against Apple Silicon.
+- Input resolution is not the lever, measured rather than assumed. Re-encoding the same clip
+  and timing the real body-source pass: native 7.07 s, 1280 px 6.59 s, 960 px 6.00 s, 640 px
+  5.30 s. Nine times fewer pixels buys 25%, and 640 px tracks *worse* (0.981 against 1.000 at
+  960 px), because MediaPipe resizes to its own model input anyway -- the cost is per-frame
+  inference, not decode or resize. Deployed is 0.24 s per frame against 69 ms locally, so it
+  is relatively more inference-bound and this lever is weaker there, not stronger: perhaps
+  2-4 s, which lands on the 60 s line rather than under it. It would also change
+  `DEMO_SOURCE_POLICY` and the provenance receipt, and it cannot be verified on production
+  while both daily lanes are spent, so it is recorded and not shipped. Scaling an arm64 ratio
+  into a production claim is the error this session corrected twice.
+- That leaves exactly one real latency lever, and it is not free. Pose cost is linear in
+  sampled frames, and the stride targets 15 fps (`pose_sampling_stride`:
+  `max(1, ceil(fps/15), ceil(count/900))`). Dropping to 10 fps would cut about a third of the
+  pose phase, roughly 8 s, landing near 55 s and under the 1-minute optimum. The 0.25 s
+  reference-gap horizon leaves headroom to about 6-7 fps and no further. But fewer samples
+  mean a coarser reference and a different `reference_tracking` figure, so this changes the
+  scored artifact rather than removing waste. **Decided, with these numbers presented: keep
+  15 fps.** The pipeline stays at 66-185 s, inside the 5-minute preferred bound, and the
+  1-minute optimum is deliberately not pursued at the cost of reference fidelity. Treat this
+  as settled rather than an open optimization.
 - So no remaining lever shortens the job without changing the deliverable. Warm starts beyond
   the shipped 30 s mean paying for idle containers; trimming the trainer below 600 episodes
   changes the scored artifact; fewer evaluation episodes weakens the headline statistic and is
