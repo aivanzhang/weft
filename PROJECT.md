@@ -339,8 +339,10 @@ not an external benchmark or a guarantee for new inputs.
   pose phase, roughly 8 s, landing near 55 s and under the 1-minute optimum. The 0.25 s
   reference-gap horizon leaves headroom to about 6-7 fps and no further. But fewer samples
   mean a coarser reference and a different `reference_tracking` figure, so this changes the
-  scored artifact rather than removing waste. The standing instruction is quality over the
-  latency optimum, so it is recorded here as available and **not taken**.
+  scored artifact rather than removing waste. **Decided, with these numbers presented: keep
+  15 fps.** The pipeline stays at 66-185 s, inside the 5-minute preferred bound, and the
+  1-minute optimum is deliberately not pursued at the cost of reference fidelity. Treat this
+  as settled rather than an open optimization.
 - So no remaining lever shortens the job without changing the deliverable. Warm starts beyond
   the shipped 30 s mean paying for idle containers; trimming the trainer below 600 episodes
   changes the scored artifact; fewer evaluation episodes weakens the headline statistic and is
