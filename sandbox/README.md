@@ -35,6 +35,17 @@ and keeps projects, recordings and spending ledgers. To choose a collection or p
 npm run demo -- --root .local/my-projects --port 3001 --sandbox-port 8767
 ```
 
+The launcher checks both ports and the collection lock before starting either
+server. If an old sandbox still owns the collection, stop it with **Ctrl+C** in
+its terminal. To find a background listener, use
+`lsof -nP -iTCP:8765 -sTCP:LISTEN`; this excludes browser connections.
+After confirming it is the old Weft sandbox, `kill -INT <PID>` requests graceful
+shutdown. Do not delete the lock file or use `kill -9` for normal shutdown.
+
+Ctrl+C sends one graceful interrupt to the sandbox and waits for cleanup.
+Repeated presses do not interrupt cleanup; a slow shutdown reports that it is
+still saving rather than force-killing the process.
+
 To run only the sandbox:
 
 ```sh
@@ -52,8 +63,10 @@ npm run sandbox -- --root .local/my-projects --port 8766
 For the guided walkthrough, visit `/demo` on the sandbox. Opening a run brings
 only that run into focus: switch between its live world, recording and evidence.
 Only the active view loads media or an embedded simulator. The access link is
-needed once per browser tab; demo pages retain it for navigation and hide it
-from the address bar. The demo code is separate from this API access key.
+optional for the walkthrough: enter the demo code and choose **Unlock** to
+establish a local session. A link such as `/demo?access_code=YOUR_CODE` prefills
+the field, but never logs in or starts a run automatically. The page removes
+the code from the address bar after reading it. API routes remain authenticated.
 
 Run only one process per project directory. The sandbox and landing page use
 separate processes and dependencies, not isolated containers. Saved experiments

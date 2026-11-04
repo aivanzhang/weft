@@ -256,3 +256,25 @@ def test_two_sandboxes_route_state_without_changing_global_lab(portal):
         second = portal.labs[ids[1]].session.snapshot()
         assert first != second
         assert server.lab is portal
+
+
+def test_demo_code_exchange_connects_without_token_and_keeps_other_routes_private(portal):
+    code = portal.demo.code()
+    with serving(portal) as server:
+        body = json.dumps({"code": code}).encode()
+        assert request(server, "/api/demo/start", "POST", auth=False)[0] == 401
+        assert request(server, "/api/portal", auth=False)[0] == 401
+        assert request(server, "/api/demo/unlock", "POST", b'{"code":"wrong"}', auth=False)[0] == 400
+        assert request(server, "/api/demo/unlock", "POST", b'[]', auth=False)[0] == 400
+        assert request(server, "/api/demo/unlock", "POST", body, auth=False,
+                       headers={"Origin": "https://attacker.invalid"})[0] == 403
+        assert request(server, "/api/demo/unlock", "POST", body, auth=False,
+                       headers={"Host": "attacker.invalid"})[0] == 403
+        status, headers, raw = request(server, "/api/demo/unlock", "POST", body, auth=False,
+                                      headers={"Origin": f"http://127.0.0.1:{server.server_port}"})
+        result = json.loads(raw)
+        assert status == 200 and result == {"ok": True, "token": portal.token}
+        assert headers["Cache-Control"] == "no-store"
+        assert request(server, "/api/demo/steps", auth=False,
+                       headers={"Authorization": "Bearer " + result["token"]})[0] == 200
+        assert not portal.jobs

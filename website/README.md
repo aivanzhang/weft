@@ -17,9 +17,9 @@ refresh the page after editing. To choose another port, use
 
 `/demo` and `/demo/runs` redirect to the local sandbox on port 8765. Use
 `npm run demo` to start both servers, or `npm run sandbox` separately. Open the
-sandbox's complete access link once in the same
-browser tab. Demo pages then retain the key for that tab and remove it from the
-address bar. Set `WEFT_SANDBOX_PORT` when the sandbox uses another port.
+sandbox's walkthrough and unlock it with your demo code; no token URL is needed.
+The session remains local to that browser tab. Set `WEFT_SANDBOX_PORT` when
+the sandbox uses another port.
 The combined demo launcher sets that routing automatically for its selected ports.
 
 You can also open [index.html](index.html) directly for the offline gallery.

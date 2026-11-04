@@ -1,12 +1,26 @@
-import { spawn } from 'node:child_process';
+import { execFile, spawn } from 'node:child_process';
 import { access, stat } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { promisify } from 'node:util';
 import { landingServer } from '../website/dev.mjs';
 import { sandboxCommand } from './run.mjs';
 
 const repository = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const execute = promisify(execFile);
+
+export function startupConflict(result, command) {
+  const messages = [];
+  if (result.directory_in_use) {
+    messages.push(`The demo collection (${command.args[4]}) is already owned by another sandbox. Stop that sandbox with Ctrl+C; do not delete portal.lock.`);
+  }
+  for (const port of result.busy_ports) {
+    messages.push(`Port ${port} is already in use. Find its listening process with: lsof -nP -iTCP:${port} -sTCP:LISTEN`);
+  }
+  if (messages.length) messages.push('No demo servers were started. Stop the old servers, then run npm run demo again.');
+  return messages.join('\n');
+}
 
 export async function demoCommand(args, root = repository) {
   let projectRoot, port = 3000, sandboxPort = 8765, check = false, help = false;
@@ -58,14 +72,14 @@ export function supervise(child, server, { signals = process, shutdownMs = 15000
       server.closeAllConnections();
       if (!exited) {
         child.kill('SIGINT');
-        // Give Python time to preserve jobs and recordings before enforcing a bound.
-        deadline = setTimeout(() => child.kill('SIGKILL'), shutdownMs);
+        // Slow exports must finish without an automatic hard kill.
+        deadline = setTimeout(() => log.warn('Still waiting for the sandbox to save its state and stop…'), shutdownMs);
         deadline.unref();
       }
     };
     const fail = (error) => { log.error(error.message); code = 1; stop(); };
-    signals.once('SIGINT', stop);
-    signals.once('SIGTERM', stop);
+    signals.on('SIGINT', stop);
+    signals.on('SIGTERM', stop);
     server.once('error', fail);
     child.once('error', (error) => { exited = true; fail(error); finish(); });
     child.once('exit', (exitCode, signal) => {
@@ -88,6 +102,11 @@ async function main() {
   await access(command.executable, constants.X_OK).catch(() => {
     throw new Error('Sandbox Python is unavailable. Follow sandbox/README.md to set up .venv-lab.');
   });
+  const { stdout } = await execute(command.executable, [path.join(repository, 'sandbox/preflight.py'),
+    path.resolve(command.cwd, command.args[4]), String(command.port), String(command.sandboxPort)],
+  { cwd: command.cwd, timeout: 5000, maxBuffer: 65536 });
+  const conflict = startupConflict(JSON.parse(stdout), command);
+  if (conflict) throw new Error(conflict);
   if (command.check) { console.log(JSON.stringify(command, null, 2)); return; }
   const server = landingServer({ sandboxPort: command.sandboxPort });
   await new Promise((resolve, reject) => {
@@ -101,7 +120,7 @@ async function main() {
     throw error;
   });
   console.log(`Weft landing page: http://127.0.0.1:${command.port}/`);
-  console.log(`Weft walkthrough: http://127.0.0.1:${command.sandboxPort}/demo (use the access link below once)`);
+  console.log(`Weft walkthrough: http://127.0.0.1:${command.sandboxPort}/demo`);
   console.log('Ctrl+C stops both servers. Saved runs and budgets are preserved.');
   // A separate process group prevents terminal Ctrl+C from interrupting Python twice.
   const child = spawn(command.executable, command.args, {
@@ -109,6 +128,7 @@ async function main() {
     env: { ...process.env, PYTHONUNBUFFERED: '1' },
   });
   process.exitCode = await supervise(child, server);
+  if (process.exitCode === 0) console.log('Weft demo stopped. Saved runs are preserved.');
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

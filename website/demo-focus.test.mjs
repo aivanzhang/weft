@@ -71,3 +71,47 @@ test('access links remain usable without browser storage', () => {
   assert.equal(context.window.WeftDemoSession.token, 'private');
   assert.equal(context.window.WeftDemoSession.stored, false);
 });
+
+test('code links prefill without logging in and can accept a later authenticated session', () => {
+  let cleaned;
+  const stored = new Map();
+  const context = {
+    window: {}, URLSearchParams,
+    location: { hash: '', pathname: '/demo', search: '?access_code=DEMO-EXAMPLE&keep=yes' },
+    sessionStorage: { getItem: (key) => stored.get(key), setItem: (key, value) => stored.set(key, value) },
+    history: { replaceState: (_, __, value) => { cleaned = value; } },
+  };
+  vm.runInNewContext(source, context);
+  const session = context.window.WeftDemoSession;
+  assert.equal(session.accessCode, 'DEMO-EXAMPLE');
+  assert.equal(session.token, '');
+  assert.equal(cleaned, '/demo?keep=yes');
+  session.setToken('authenticated');
+  assert.equal(session.token, 'authenticated');
+  assert.equal(session.stored, true);
+  assert.equal(stored.get('weft-portal-token'), 'authenticated');
+});
+
+test('a fresh code link fills the gate without fetching protected APIs or submitting', async () => {
+  const nodes = new Map();
+  const node = (id) => {
+    if (!nodes.has(id)) nodes.set(id, { value: '', listeners: {},
+      addEventListener(type, listener) { this.listeners[type] = listener; } });
+    return nodes.get(id);
+  };
+  let requests = 0;
+  const context = {
+    window: {}, URLSearchParams,
+    location: { hash: '', pathname: '/demo', search: '?access_code=DEMO-EXAMPLE' },
+    sessionStorage: { getItem: () => '', setItem() {} },
+    history: { replaceState() {} },
+    document: { getElementById: node, querySelectorAll: () => [], addEventListener() {} },
+    fetch() { requests += 1; throw new Error('Unexpected request before unlock'); },
+  };
+  vm.runInNewContext(source, context);
+  const build = await readFile(new URL('../src/weft/assets/demo_build.js', import.meta.url), 'utf8');
+  vm.runInNewContext(build, context);
+  assert.equal(node('gate-code').value, 'DEMO-EXAMPLE');
+  assert.equal(typeof node('gate-form').listeners.submit, 'function');
+  assert.equal(requests, 0);
+});

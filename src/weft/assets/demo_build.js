@@ -1,6 +1,6 @@
 ((root) => {
   const $ = (id) => document.getElementById(id);
-  const token = root.WeftDemoSession.token;
+  let token = root.WeftDemoSession.token;
   const auth = { Authorization: "Bearer " + token };
   const signed = (path) => path + (path.includes("?") ? "&" : "?") + "token=" + encodeURIComponent(token);
   const MINE = "weft_demo_runs";
@@ -9,9 +9,11 @@
     const response = await fetch(path, { ...options, headers: { ...auth, ...(options.headers || {}) } });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      if (response.status === 401 || response.status === 403) {
+      if ((response.status === 401 || response.status === 403) && path !== "/api/demo/unlock") {
         $("auth-warning").hidden = false;
-        $("auth-warning").textContent = "Open the access link printed by npm run sandbox once to connect this browser.";
+        $("auth-warning").textContent = "Your session needs to reconnect. Enter your demo code below and select Unlock.";
+        $("gate-panel").hidden = false;
+        $("builder").hidden = true;
       }
       throw new Error(data.error || "That request did not complete.");
     }
@@ -137,17 +139,25 @@
     renderMine();
   }
 
+  $("gate-code").value = root.WeftDemoSession.accessCode;
+
   $("gate-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     $("gate-submit").disabled = true;
     $("gate-error").textContent = "";
     try {
-      await api("/api/demo/unlock", {
+      const session = await api("/api/demo/unlock", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code: $("gate-code").value }),
       });
-      sessionStorage.setItem("weft_demo_unlocked", "yes");
+      token = session.token;
+      root.WeftDemoSession.setToken(token);
+      auth.Authorization = "Bearer " + token;
+      $("auth-warning").hidden = true;
+      try { sessionStorage.setItem("weft_demo_unlocked", "yes"); } catch { /* Storage is optional. */ }
+      keepToken();
       unlocked();
+      loadDemo();
     } catch (error) {
       $("gate-error").textContent = error.message;
     } finally {
@@ -505,7 +515,7 @@
       render(state);
       if (state.status === "running") timer = setTimeout(poll, 1200);
     } catch (error) {
-      timer = setTimeout(poll, 3000);
+      if ($("gate-panel").hidden) timer = setTimeout(poll, 3000);
     }
   }
 
@@ -520,9 +530,14 @@
       link.href = url.pathname + url.search + (root.WeftDemoSession.stored ? "" : `#token=${encodeURIComponent(token)}`);
     }
   }
+  function loadDemo() {
+    clearTimeout(timer);
+    loadMeta().then(() => loadFeatured())
+      .then(() => { renderMine(); loadClips(); loadGallery(true); poll(); });
+  }
   keepToken();
-  if (sessionStorage.getItem("weft_demo_unlocked") === "yes") unlocked();
-  loadMeta()
-    .then(() => loadFeatured())
-    .then(() => { renderMine(); loadClips(); loadGallery(true); poll(); });
+  if (token) {
+    try { if (sessionStorage.getItem("weft_demo_unlocked") === "yes") unlocked(); } catch { /* Storage is optional. */ }
+    loadDemo();
+  }
 })(window);

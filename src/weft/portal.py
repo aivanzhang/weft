@@ -1281,9 +1281,10 @@ class PortalHandler(LabHandler):
             route = self.route_lab()
             if route is not None:
                 return super().do_POST() if route else None
-            if not self.authorized():
-                return
             path = urlsplit(self.path).path
+            # The code exchange still enforces loopback Host and same-origin requests.
+            if not self.authorized(public=path == "/api/demo/unlock"):
+                return
             if self.headers.get("Transfer-Encoding"):
                 raise ValueError("Use a fixed-length upload")
             if path == "/api/demo/unlock":
@@ -1293,7 +1294,10 @@ class PortalHandler(LabHandler):
                 self.connection.settimeout(15)
                 from weft.exercise_body_source import _json as bounded_json
                 body = bounded_json(self.rfile.read(length))
-                return self.reply(self.server.portal.demo.unlock(body.get("code")))
+                if not isinstance(body, dict):
+                    raise ValueError("Enter your demo access code")
+                result = self.server.portal.demo.unlock(body.get("code"))
+                return self.reply({**result, "token": self.server.portal.token})
             if path == "/api/demo/start":
                 query = parse_qs(urlsplit(self.path).query)
                 length = int(self.headers.get("Content-Length", "0"))
