@@ -44,7 +44,7 @@ const PIPELINES = {
       file:
         "MP4 up to 40 MB. Longer clips are thinned across their whole length, and if only part of a clip is usable that part is found and used automatically.",
       expect:
-        "About 1 to 3 minutes: measured 66 s for a clip that admits first try, 185 s for one that needs a narrower window found automatically. A clip outside the envelope comes back with the reason in under a minute: across 19 uncurated inputs the slowest refusal was 42 s, and a wrong file type is rejected in under 3 s.",
+        "About 1 to 3 minutes: measured 66 s warm and 88 s from a cold start for a clip that admits first try, 185 s for one that needs a narrower window found automatically. A first submission after an idle spell is the cold case. A clip outside the envelope comes back with the reason in under a minute: across 19 uncurated inputs the slowest refusal was 42 s, and a wrong file type is rejected in under 3 s.",
     },
     refusal:
       "This clip could not produce a verified environment. Use one person, head to feet in frame, a plain background and a fixed camera in a single continuous shot.",
