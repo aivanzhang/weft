@@ -229,7 +229,7 @@ body.locked > .site-head, body.locked main > :not(.modal){visibility:hidden;poin
 .play{border:0;background:transparent;margin:0;padding:16px 0}
 .play h3,.play > .hint{display:none}
 .play-controls{margin-top:0}
-#studio-steps{max-width:780px;margin:24px auto}
+.run-results{max-width:780px;margin:32px auto}.run-results .chips{gap:12px}
 .stage{border:0;background:transparent}
 .stage-copy{padding:20px 0}
 .mine-list li{border:0;border-bottom:1px solid var(--line);background:transparent;border-radius:0;padding:16px 0}

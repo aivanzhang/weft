@@ -16,7 +16,7 @@
 - The main footer contains the approved hidden mascot story. Keep its thread bundle hidden until the footer has stayed at least half visible for ten continuous seconds, resetting on scroll-away or hidden tabs. Then hold its gathered threads for five seconds to reveal; preserve pointer/keyboard cancellation, one-time playback without a replay button, reduced motion, and visibility pausing. Keep the bundle gathered away from the mascot's face and scope its styles/behavior to `#footer-secret`. No review-only copy belongs in the main footer.
 
 - Use locally bundled Inter with optical sizing for page typography; preserve the approved Weft wordmark. Retain the font license and attribution.
-- Walkthrough entry links use plain text and an arrow, not bordered capsules. Keep the main demo link short: "Try the demo".
+- Walkthrough and "Build your world" entry links use clay-filled primary buttons with centered labels and arrows. Keep header navigation vertically centered; preserve square corners and keyboard focus cues.
 
 - Keep the footer theatre collapsed with no reserved height before its delayed reveal. Keep the woven endpoint hidden until the ribbons arrive, allow 24px below the footer row, and omit focus borders on the footer trigger/scene; retain keyboard operation and its subtle text-color focus cue.
 

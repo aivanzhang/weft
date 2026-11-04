@@ -22,6 +22,53 @@
   if (initial || accessCode) history.replaceState(null, "", location.pathname + (cleanQuery ? "?" + cleanQuery : ""));
   root.WeftDemoSession = session;
 
+  root.WeftElapsedClock = (paint, {
+    now = () => performance.now(), schedule = setTimeout, cancel = clearTimeout,
+  } = {}) => {
+    let id = null, base = 0, anchor = 0, running = false, timer = null;
+    const elapsed = () => base + (running ? Math.max(0, now() - anchor) / 1000 : 0);
+    const pause = () => { if (timer !== null) cancel(timer); timer = null; };
+    const tick = () => {
+      timer = null;
+      if (document.hidden) return;
+      paint(elapsed(), running);
+      if (running) timer = schedule(tick, 100);
+    };
+    const visibility = () => { pause(); if (!document.hidden) tick(); };
+    document.addEventListener("visibilitychange", visibility);
+    root.addEventListener?.("pagehide", pause);
+    return {
+      update(state) {
+        pause();
+        const reported = Math.max(0, Number(state.elapsed) || 0);
+        // Polling corrects the anchor, but stale samples must not rewind a live clock.
+        base = state.running && running && state.id === id ? Math.max(reported, elapsed()) : reported;
+        id = state.id;
+        running = state.running;
+        anchor = now();
+        tick();
+      },
+      dispose() {
+        pause(); running = false;
+        document.removeEventListener("visibilitychange", visibility);
+        root.removeEventListener?.("pagehide", pause);
+      },
+    };
+  };
+
+  root.WeftRunResults = (record) => {
+    const allowed = new Set(["task success", "failed gates", "control steps", "tracking error",
+      "physics", "scope", "validation", "imported", "model", "API cost"]);
+    const metrics = new Map();
+    for (const step of record.steps || []) {
+      for (const [key, value] of Object.entries(step.metrics || {})) {
+        if (allowed.has(key)) metrics.set(key, value);
+      }
+    }
+    if (!metrics.size && record.metrics) metrics.set("result", record.metrics);
+    return [...metrics];
+  };
+
   root.WeftRunFocus = () => {
     const $ = (id) => document.getElementById(id);
     const tabs = [...document.querySelectorAll("[data-run-view]")];
@@ -39,7 +86,7 @@
       $("world-frame").hidden = view !== "world" || !world;
       $("play").hidden = view !== "world" || !world;
       $("result-media").hidden = view !== "recording" || !video;
-      $("studio-steps").hidden = view !== "evidence";
+      $("studio-results").hidden = view !== "results";
       for (const tab of tabs) tab.setAttribute("aria-pressed", String(tab.dataset.runView === view));
       if (view === "world" && world) {
         $("world-view").src = `/labs/${world}/#token=${encodeURIComponent(token)}&embed=1`;
@@ -71,7 +118,7 @@
         $("demo-video").pause();
         for (const tab of tabs) tab.disabled = tab.dataset.runView === "world" ? !world
           : tab.dataset.runView === "recording" ? !video : false;
-        select(record.view || (world ? "world" : video ? "recording" : "evidence"));
+        select(record.view || (world ? "world" : video ? "recording" : "results"));
         $("studio-title").focus();
       },
       close() {
