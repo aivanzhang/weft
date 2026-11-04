@@ -183,8 +183,11 @@ not an external benchmark or a guarantee for new inputs.
   The appearance stage now attempts both unchanged, the second only when the first refuses,
   and records which admitted. That moved three of eight pack clips from refused to complete
   without relaxing either gate, taking the hosted chain from five of eight to **eight of
-  eight**: learning result, avatar-ready scene, and both predefined avatars substituted, at
-  29-53 s per clip. Evidence: `.local/hosted-sweep-4/hosted-matrix.json`.
+  eight**: learning result, avatar-ready scene, and both predefined avatars substituted on
+  every clip, 25-52 s each. Worst bone-length drift across the pack is 2.0e-15, and the
+  local lane reproduced the same invariant independently at 1.7e-15 over 927 bone
+  comparisons, which is stronger than either lane alone. Evidence:
+  `.local/hosted-sweep-4/hosted-matrix.json`, `scripts/verify/bone_length_preservation.mjs`.
 - The hosted request path was exercised against the real Worker, Durable Object queue and
   R2 store rather than the container alone: health, session, both pipeline caps, the avatar
   catalog with digest verification and refused traversal, job admission, container dispatch,
