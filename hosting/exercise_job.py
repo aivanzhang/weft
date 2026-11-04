@@ -435,10 +435,13 @@ def main():
     # every clean clip: measured 147 s to 231 s in production for an unchanged result. The
     # seal is taken only on the refusal path, where the evidence is what the proposal needs.
     body, window = None, {"attempted": False}
-    parallel = threading.Thread(target=appearance_worker, daemon=True,
-                                args=(source, directory / "appearance", None),
-                                name="weft-appearance")
-    parallel.start()
+    # Overlapping the two stages cut total time on a clip with CPU headroom (147 s to
+    # 110.7 s) and then broke two clips that had none: the lab measures its own
+    # learning/evaluation phase against a 120-second internal budget, and contention on two
+    # vCPU inflates that phase even while total throughput improves. bodyweight-squats and
+    # jumping-jacks both went from completing to "exceeded 120 seconds". Sequential again
+    # until the container has cores to spare; the overlap is only safe with headroom.
+    parallel = None
     try:
         root = learn(source, directory / "lab")
     except Exception as error:
@@ -466,20 +469,16 @@ def main():
     run = root / "run"
     # The learning result already stands on its own, so a refused appearance stage is
     # recorded and returned rather than discarding a complete run.
-    parallel.join(timeout=max(1, deadline - time.monotonic()))
-    if window.get("attempted"):
-        # The retry replaced the clip, so the overlapped attempt described different
-        # footage. Redo it serially against the clip the learning result actually used.
-        try:
-            appearance, receipt = build_appearance(
-                source, directory / "window/appearance", model, exercise_intent(),
-                deadline=deadline, body=body)
-        except Exception as error:
-            appearance, receipt = None, {"stage": "failed",
-                                         "reason": f"{type(error).__name__}: {error}"[:200]}
-    else:
-        appearance, receipt = appearance_slot.get("value") or (None, {
-            "stage": "failed", "reason": "appearance stage did not finish in time"})
+    if parallel is not None:
+        parallel.join(timeout=max(1, deadline - time.monotonic()))
+    try:
+        appearance, receipt = build_appearance(
+            source, directory / ("window/appearance" if window.get("attempted")
+                                 else "appearance"),
+            model, exercise_intent(), deadline=deadline, body=body)
+    except Exception as error:
+        appearance, receipt = None, {"stage": "failed",
+                                     "reason": f"{type(error).__name__}: {error}"[:200]}
     result = {"kind": "exercise", "schema_version": 2,
               "normalization": normalization, "summary": summarize(run),
               "appearance": summarize_appearance(appearance, receipt),
