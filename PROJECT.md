@@ -221,7 +221,12 @@ not an external benchmark or a guarantee for new inputs.
   off the 1-minute optimum. Measured on the deployed service with the stages concurrent on a
   four-vCPU instance: waiters-squat 66.0 s, bodyweight-squats 108.4 s, jumping-jacks 184.6 s,
   all three complete with an avatar-ready scene and 100/100 learned. Latency tracks clip
-  length, so the reference figure is the short end and a 45-second clip is the long one.
+  length, so the reference figure is the short end and a 45-second clip is the long one,
+  and that spread is a priced choice rather than an unexplained one: a long clip builds a
+  long reference because the human-only construction uses the complete one, and bounding
+  jumping-jacks to 12 s made it three times faster while raising its reference-servo error
+  from 0.127 to 0.2096 and weakening its contrast from random 15 to 21. Speed on long clips
+  is available and costs environment quality, so it is not taken.
   Three changes got there, each measured rather than reasoned: 600 training episodes instead
   of 1,500 (identical scored numbers), the two stages overlapped so the appearance stage costs
   nothing, and four vCPU so the overlap does not contend with the lab's internal learning
