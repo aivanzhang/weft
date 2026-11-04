@@ -20,6 +20,19 @@ assumptions; a playable environment is not a verified physical replica.
 
 ## Get started
 
+### Run the complete local demo
+
+After the [Python setup](sandbox/README.md#requirements), start both the landing
+page and interactive sandbox in one terminal:
+
+```sh
+npm run demo
+```
+
+Open the printed sandbox access link, then visit `/demo`. The landing page is at
+`http://127.0.0.1:3000/`; its `/demo` route leads to the sandbox. **Ctrl+C** stops
+both servers and preserves saved runs. Stop individually running servers first.
+
 ### Explore the landing page
 
 Requires Node.js 22 or later. No dependency installation is needed.

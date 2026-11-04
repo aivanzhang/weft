@@ -21,6 +21,22 @@ Reuse an existing working `.venv-lab` rather than reinstalling it.
 
 ## Run
 
+Start the landing page and sandbox together:
+
+```sh
+npm run demo
+```
+
+This reuses the prepared demo collection when present, otherwise `.local/portal`.
+Stop any individually running servers first. **Ctrl+C** stops both processes
+and keeps projects, recordings and spending ledgers. To choose a collection or ports:
+
+```sh
+npm run demo -- --root .local/my-projects --port 3001 --sandbox-port 8767
+```
+
+To run only the sandbox:
+
 ```sh
 npm run sandbox
 ```
