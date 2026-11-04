@@ -279,16 +279,25 @@ not an external benchmark or a guarantee for new inputs.
   nothing", which is true only of the join. Whether that second pose pass slows learning by
   contending for the four vCPU is **not measured**, and would take one deployed run with the
   stages serial to settle.
-- The largest measured lever left is that duplicate pose pass: the pipeline poses the same
-  clip twice, once for learning and once for the appearance preflight, the second costing
-  38.96 s on production. Reusing the learning stage's saved evidence would remove a whole
-  pose pass of CPU and needs `prepare_lab` to accept precomputed evidence. Everything else is
-  a decision rather than waste: warm starts beyond the shipped 30 s mean paying for idle
-  containers, trimming the trainer below 600 episodes changes the scored artifact, and fewer
-  evaluation episodes weakens the headline statistic and is an evaluation gate rather than a
-  tuning knob. The two evidence GIFs cost 2.6 s on arm64 and an unmeasured amount hosted --
-  cosmetic, but far smaller than the ~9 s once claimed here, which was an arm64 figure scaled
-  by a multiplier that does not exist. No single lever reaches the 1-minute optimum.
+- The duplicate pose pass is a **CPU** lever, not a latency one, and the arithmetic says so.
+  The pipeline poses the same clip twice, once for learning and once for the appearance
+  preflight (38.96 s deployed). But the stages are concurrent and appearance already finishes
+  inside learning, so the visitor pays `max(62.12, 44.5)` = 62.12 s. Making appearance reuse
+  learning's evidence forces it to *wait* for learning's pose, leaving a serial tail of
+  2.49 s world plus 3.08 s lab: about **67.7 s, worse than today**, unless contention costs
+  more than 5.57 s. It almost certainly does not -- the arm64 run has the identical
+  concurrency and finishes learning in 16.35 s, showing no contention signature, which is
+  why the 3.8x reads as hardware. The reuse is blocked anyway: `copy_sealed_body` requires a
+  `exercise-body-source-v1` / `construction_only` package with a `body-source.json`, and the
+  lab run directory has none of those despite carrying every pose file. Worth doing to halve
+  container CPU; not worth doing for latency.
+- So no remaining lever shortens the job without changing the deliverable. Warm starts beyond
+  the shipped 30 s mean paying for idle containers; trimming the trainer below 600 episodes
+  changes the scored artifact; fewer evaluation episodes weakens the headline statistic and is
+  an evaluation gate rather than a tuning knob. The two evidence GIFs cost 2.6 s on arm64 and
+  an unmeasured amount hosted -- cosmetic, but far smaller than the ~9 s once claimed here,
+  which was an arm64 figure scaled by a multiplier that does not exist. The job is the lab
+  worker on amd64, and roughly 26 s of its 62 s is the scored comparison itself.
 - Weft ships two source anchors that refuse different clips at frame zero — one wants
   confident head, torso and limb endpoints, the other a confidence-qualified limb chain.
   The appearance stage now attempts both unchanged, the second only when the first refuses,
