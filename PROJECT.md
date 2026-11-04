@@ -219,18 +219,21 @@ not an external benchmark or a guarantee for new inputs.
   transport and cold start that is not pipeline work at all. Zeroing both halves of the
   deliverable would still leave about 50 s, so sub-60 s is not reachable while the service
   starts a container per job and reports a 100-episode comparison.
-- Decomposing that overhead further: the job's own learning report reads 94.4 s against a
-  60 s archive span, so 34 s precedes the first artifact. Subtracting pose scaled from its
-  in-container cost leaves roughly **24 s of container cold start**, with about 16 s for
-  queue, upload, download and Worker/R2 (client 110.7 s minus job 94.4 s). Measured in the
-  image, importing the whole ML stack costs **0.52 s** -- numpy 0.08, cv2 0.04, mediapipe
-  0.34, mujoco 0.06 -- so that cold start is container provisioning, not Python import, which
-  is the opposite of what the figure's size suggests. Whether it tracks image size is untested:
-  the image is 870 MB (site-packages 584, system libraries 268, app 14), with OpenCV's contrib
-  build 141 MB of it and matplotlib plus fontTools 63 MB. Swapping to the headless OpenCV
-  would cut that and the GL system libraries with it, but the decode stack is pinned precisely
-  because it changes admission on borderline clips, so it is a measured lead rather than a
-  safe win. The complete
+- An earlier decomposition here claimed roughly 24 s of container cold start and 16 s of
+  transport. **Both were wrong.** Measured against the job's own clock on two consecutive
+  deployed submissions: client 115.1 s against job 107.6 s cold, and client 113.3 s against
+  job 108.6 s warm -- so only **6 to 7 s** sits outside the job at all, not 38 s. The earlier
+  figure came from differencing the lab's report against artifact timestamps whose zip
+  granularity and baseline I had not validated, and then attributing the residue to
+  provisioning. Importing the whole ML stack really does cost 0.52 s, but that refuted a claim
+  I should not have made rather than confirming one. The robust numbers are the ones taken as
+  deltas within one archive: training 34 s, evaluating three policies over 100 episodes 22 s.
+- Keeping the container warm for 30 s between submissions is shipped and bought about 3 s of
+  that 6 s, which is honest but a tenth of what the bad decomposition implied. It costs
+  roughly $0.0006 per job in idle memory, about $0.05 a day against the daily caps. The image
+  is 870 MB (site-packages 584, system libraries 268, app 14) with OpenCV's contrib build
+  141 MB of it, but with provisioning now known to be seconds rather than tens of seconds,
+  shrinking it is not a latency lever and would risk the pinned decode stack for nothing. The complete
   measured picture of the reference run is therefore ~24 s cold start, ~16 s transport,
   ~10 s pose, ~4 s body fit, 34 s training, 22 s evaluation, and **zero for the appearance
   stage** because it finishes inside training.
