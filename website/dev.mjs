@@ -5,6 +5,7 @@ import { dirname, extname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { pipeline } from "node:stream/promises";
 import { publicAssets } from "./public-assets.mjs";
+import { proxySandbox, sandboxRoute } from "./sandbox-proxy.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const allowed = new Set(publicAssets.map((name) => `/${name}`));
@@ -27,19 +28,22 @@ export function landingServer({ sandboxPort = 8765 } = {}) {
       response.end(request.method === "HEAD" ? undefined : text);
     };
     try {
+      const parsed = new URL(request.url, "http://localhost");
+      const path = decodeURIComponent(parsed.pathname);
+      if (["/demo/", "/emo"].includes(path)) {
+        return reply(302, "", { Location: `/demo${parsed.search}` });
+      }
+      if (path !== "/api/session" && sandboxRoute(path)) {
+        return proxySandbox(request, response, sandboxPort);
+      }
       if (!["GET", "HEAD"].includes(request.method)) {
         return reply(405, "The landing page does not accept uploads.", { Allow: "GET, HEAD" });
       }
-      const path = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
       if (path === "/") return reply(302, "", { Location: "/website/index.html" });
-      if (["/demo", "/demo/", "/demo/build", "/demo/runs", "/emo"].includes(path)) {
-        const destination = path === "/emo" || path === "/demo/" ? "/demo" : path;
-        return reply(302, "", { Location: `http://127.0.0.1:${sandboxPort}${destination}` });
-      }
       if (path === "/api/session") {
         return reply(200, JSON.stringify({
           enabled: false,
-          message: "This is the local landing page. For video uploads and the 3D sandbox, run npm run sandbox in a separate terminal and open its printed link.",
+          message: "Open /demo to upload videos and use the sandbox. Start the backend with npm run sandbox if needed.",
         }), { "Content-Type": "application/json" });
       }
       if (!allowed.has(path)) return reply(404, "Not found");

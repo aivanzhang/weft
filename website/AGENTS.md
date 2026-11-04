@@ -18,7 +18,7 @@
 - The main footer contains the approved hidden mascot story. Keep its thread bundle hidden until the footer has stayed at least half visible for ten continuous seconds, resetting on scroll-away or hidden tabs. Then hold its gathered threads for five seconds to reveal; preserve pointer/keyboard cancellation, one-time playback without a replay button, reduced motion, and visibility pausing. Keep the bundle gathered away from the mascot's face and scope its styles/behavior to `#footer-secret`. No review-only copy belongs in the main footer.
 
 - Use locally bundled Inter with optical sizing for page typography; preserve the approved Weft wordmark. Retain the font license and attribution.
-- Header section navigation is an icon-only table of contents, not separate Research/Environments/About text links. Preserve its accessible name, native disclosure fallback, numbered page-order links, Escape/outside-click dismissal and keyboard focus transfer. Keep the demo icon separate.
+- Header section navigation is an icon-only table of contents, not separate Research/Environments/About text links. Preserve its accessible name, native disclosure fallback, numbered page-order links, Escape/outside-click dismissal and keyboard focus transfer. Keep the demo icon separate. Use a framed index/close icon and broad, quiet section rows with in-page arrows, not external-link arrows.
 - Both demo entry points use the same subtle globe-icon link, with one gentle vertical-axis meridian spin on hover or keyboard focus, keeping the outer circle still. Reveal "Build your world" on hover or keyboard focus without moving adjacent content; show the full label on touch devices. The "See how it works" link points to Research and uses a simple open-book icon. Keep micro-animations short and input-driven, preserve stable layouts and the footer story, and disable movement for reduced motion.
 
 - Keep the footer theatre collapsed with no reserved height before its delayed reveal. Keep the woven endpoint hidden until the ribbons arrive, allow 24px below the footer row, and omit focus borders on the footer trigger/scene; retain keyboard operation and its subtle text-color focus cue.
@@ -28,3 +28,6 @@
 - Keep reveal-mask caps flat and hidden before drawing. Reserve the complete scene height before auto-scrolling; resume playback only after scroll settlement. Do not restore nested height transitions or focus-driven scrolling during this handoff.
 
 - Match footer branding to the header’s approved lettering, not plain text. Keep the footer wordmark static and align it with the up-arrow; preserve 24px below the row.
+
+- Bundle contents-menu styling in `styles.css`; do not depend on a newly allowlisted stylesheet for its icon or disclosure layout. The local `/demo`, lab and API routes stay on the landing origin through the fixed loopback proxy, preserving Host/Origin checks and backend token authentication.
+- Headline motion is word-specific: Interactive has a responsive letter wave, worlds assembles, and video has a film-scan reveal. Keep it finite and static under reduced motion.

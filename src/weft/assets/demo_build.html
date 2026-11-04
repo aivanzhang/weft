@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weft · Build a world</title>
+<title>Weft · Finished worlds</title>
 <link rel="icon" href="/weft-logo.png">
 <link rel="stylesheet" href="/brand.css">
 <link rel="stylesheet" href="/demo.css">
@@ -13,31 +13,84 @@
 <body>
 
 <header class="site-head">
-  <a class="brand" href="/demo" aria-label="Weft home">
+  <a class="brand" id="home-link" href="http://127.0.0.1:3000/" aria-label="Weft home">
     <svg viewBox="45 680 1165 455" width="98" height="38" aria-hidden="true" focusable="false"><image href="/demo-wordmark.png" width="1254" height="1254"/></svg>
   </a>
+  <details class="access-menu" id="access-menu">
+    <summary class="access-trigger" aria-label="Access" title="Access">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4"/></svg>
+      <span>Access</span>
+    </summary>
+    <div class="access-popover">
+      <section id="gate-panel">
+        <p class="eyebrow">YOUR NEXT EXPERIMENT</p>
+        <h2>Start with your video.</h2>
+        <p class="hint">Use your access code to build a world and try your own ideas.</p>
+        <form id="gate-form" class="gate-form">
+          <label class="access-code-label" for="gate-code">Access code</label>
+          <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64" placeholder="Your access code" required>
+          <button type="submit" id="gate-submit" class="primary small">Unlock<span aria-hidden="true">→</span></button>
+          <span id="gate-error" class="gate-error" role="alert"></span>
+        </form>
+      </section>
+      <div id="access-connected" hidden>
+        <p class="eyebrow">YOU’RE READY</p>
+        <h2>Try something of your own.</h2>
+        <p class="hint">Upload a video to start your next experiment.</p>
+        <button id="show-builder" type="button" class="primary small">Build a world<span aria-hidden="true">→</span></button>
+      </div>
+    </div>
+  </details>
 </header>
 
 <main class="build-main">
   <p id="auth-warning" class="auth-warning" role="alert" hidden></p>
   <section class="hero build-hero">
-    <p class="eyebrow">BUILD</p>
-    <h1>A world from your video.</h1>
-    <p class="lede">Build a simulation, try its controls, and inspect the evidence behind it.</p>
+    <p class="eyebrow">IN THE WORLD</p>
+    <h1>From a video.<br>Ready to explore.</h1>
+    <p class="lede">Watch the motion and inspect the results. Unlock access to try a world or build from your own video.</p>
   </section>
 
-  <section class="gate-panel" id="gate-panel">
-    <h2>Access</h2>
-    <p class="hint">Unlock to build a world and explore finished runs below.</p>
-    <form id="gate-form" class="gate-form">
-      <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64"
-             placeholder="WEFT-JUDGE-…" aria-label="Access code" required>
-      <button type="submit" id="gate-submit" class="primary small">Unlock<span aria-hidden="true">→</span></button>
-      <span id="gate-error" class="gate-error" role="alert"></span>
-    </form>
+  <section class="explore" id="explore" aria-labelledby="finished-runs">
+    <div class="section-head">
+      <div>
+        <h2 id="finished-runs">Worlds to explore</h2>
+        <p class="hint">Real experiments, with their recordings and results.</p>
+      </div>
+      <div class="gallery-nav" id="finished-nav" hidden>
+        <button id="prev" type="button" aria-label="Previous run">←</button>
+        <button id="next" type="button" aria-label="Next run">→</button>
+      </div>
+    </div>
+
+    <div class="gallery-loading" id="finished-loading" role="status">
+      <div class="loading-preview" aria-hidden="true">
+        <svg viewBox="0 0 100 80"><rect x="13" y="11" width="74" height="55" rx="3"/><path d="M13 52h74"/><circle class="loading-orbit" cx="50" cy="36" r="12"/><path class="loading-track" d="M25 53q25-24 50 0"/></svg>
+      </div>
+      <div class="loading-copy"><span class="loading-dot" aria-hidden="true"></span><div><strong>Loading worlds</strong><p>Loading saved recordings and results.</p></div></div>
+    </div>
+    <div class="gallery-message" id="finished-empty" role="status" hidden>
+      <h3 id="finished-message-title"></h3>
+      <p id="finished-message-detail"></p>
+      <button id="finished-retry" class="gallery-retry" type="button" hidden>Try again <span aria-hidden="true">↻</span></button>
+    </div>
+    <div id="finished-content" hidden>
+      <div class="stage">
+        <video id="demo-video" controls playsinline preload="metadata"></video>
+        <div class="stage-copy">
+          <p class="eyebrow" id="demo-source"></p>
+          <h3 id="demo-title"></h3>
+          <p id="demo-caption"></p>
+          <p class="metrics" id="demo-metrics"></p>
+          <button id="open-studio" type="button" class="ghost" hidden>Open the studio<span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="dots" id="dots"></div>
+    </div>
   </section>
 
-  <section class="builder" id="builder" hidden>
+  <section class="builder" id="builder" aria-labelledby="builder-heading" hidden>
+    <div class="section-head"><h2 id="builder-heading">Build from your video</h2></div>
     <div class="build-card">
       <div class="build-source">
         <label class="drop" id="drop" for="video">
@@ -73,34 +126,6 @@
       <div class="track"><div id="bar"></div></div>
     </div>
     <ol id="steps" class="steps"></ol>
-  </section>
-
-  <section class="explore" id="explore" aria-labelledby="finished-runs">
-    <div class="section-head">
-      <div>
-        <h2 id="finished-runs">Finished runs</h2>
-        <p class="hint">Recordings, results and playable worlds from completed runs.</p>
-      </div>
-      <div class="gallery-nav" id="finished-nav" hidden>
-        <button id="prev" type="button" aria-label="Previous run">←</button>
-        <button id="next" type="button" aria-label="Next run">→</button>
-      </div>
-    </div>
-
-    <p class="hint" id="finished-empty">Unlock to view saved recordings and worlds.</p>
-    <div id="finished-content" hidden>
-      <div class="stage">
-        <video id="demo-video" controls playsinline preload="metadata"></video>
-        <div class="stage-copy">
-          <p class="eyebrow" id="demo-source"></p>
-          <h3 id="demo-title"></h3>
-          <p id="demo-caption"></p>
-          <p class="metrics" id="demo-metrics"></p>
-          <button id="open-studio" type="button" class="ghost" hidden>Open the studio<span aria-hidden="true">→</span></button>
-        </div>
-      </div>
-      <div class="dots" id="dots"></div>
-    </div>
   </section>
 
   <section class="mine" id="mine" hidden>
@@ -158,9 +183,9 @@
   </div>
 
   <footer>
-    <p><strong>What this is, honestly.</strong> Worlds built here are conditional models with disclosed assumptions —
-      not verified copies of the physical world. Muse proposes; it never silently edits a world. Failures are
-      preserved and shown rather than quietly retried.</p>
+    <p><strong>A model you can question.</strong> Each world is a simulation, not a perfect copy of reality.
+      Its assumptions, results, and failed attempts stay with it. Muse suggests changes;
+      separate tests check whether they help.</p>
   </footer>
 </main>
 

@@ -29,8 +29,8 @@ page and interactive sandbox in one terminal:
 npm run demo
 ```
 
-Open the printed sandbox access link, then visit `/demo`. The landing page is at
-`http://127.0.0.1:3000/`; its `/demo` route leads to the sandbox. **Ctrl+C** stops
+Open `/demo` to watch finished examples; use the header’s Access popover to build your own. The landing page is at
+`http://127.0.0.1:3000/`; the walkthrough stays at `http://127.0.0.1:3000/demo`. **Ctrl+C** stops
 both servers and preserves saved runs. Stop individually running servers first.
 
 ### Explore the landing page

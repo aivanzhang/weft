@@ -41,7 +41,7 @@ TERMINAL = {"ready", "preview", "needs_input", "failed", "cancelled", "interrupt
 DEMO_BRAND_ASSETS = {"/demo-font.woff2": "website/fonts/InterVariable.woff2",
                      "/demo-wordmark.png": "assets/brand/source/weft-wordmark.png"}
 ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.css",
-          "/demo": "demo_build.html", "/demo/runs": "demo.html", "/demo.js": "demo.js", "/demo.css": "demo.css",
+          "/demo": "demo_build.html", "/demo/runs": "demo_build.html", "/demo.js": "demo.js", "/demo.css": "demo.css",
           "/demo/build": "demo_build.html", "/demo_build.js": "demo_build.js",
           "/demo_focus.js": "demo_focus.js"}
 PERCEPTION_ARTIFACTS = {"perception/" + name for name in (
@@ -1212,10 +1212,16 @@ class PortalHandler(LabHandler):
             if route is not None:
                 return super().do_GET() if route else None
             path = unquote(urlsplit(self.path).path)
+            showcase_video = re.fullmatch(r"/api/demo/showcase/([A-Za-z0-9-]{1,64})/video", path)
+            public_showcase = path == "/api/demo/showcase" or showcase_video is not None
             if path in PUBLIC_ASSETS and path != "/":
                 return super().do_GET()
-            if not self.authorized(public=path in ASSETS or path in DEMO_BRAND_ASSETS):
+            if not self.authorized(public=path in ASSETS or path in DEMO_BRAND_ASSETS or public_showcase):
                 return
+            if path == "/api/demo/showcase":
+                return self.reply(self.server.portal.demo.showcase())
+            if showcase_video:
+                return self.send_file(self.server.portal.demo.showcase_video(showcase_video[1]))
             if path in DEMO_BRAND_ASSETS:
                 return self.send_file(self.server.portal.project / DEMO_BRAND_ASSETS[path])
             if path in ASSETS:

@@ -27,6 +27,11 @@ Start the landing page and sandbox together:
 npm run demo
 ```
 
+Open **http://127.0.0.1:3000/demo**. Pages, media, live worlds and API calls stay
+on that origin; port 8765 is only the internal sandbox listener.
+Curated finished recordings are viewable without a code. Use **Access** in the
+header to unlock uploads, your private runs and live controls. The logo returns
+to the home page. User uploads are never added to the public showcase automatically.
 This reuses the prepared demo collection when present, otherwise `.local/portal`.
 Stop any individually running servers first. **Ctrl+C** stops both processes
 and keeps projects, recordings and spending ledgers. To choose a collection or ports:
@@ -67,7 +72,7 @@ Only the active view loads media or an embedded simulator. The access link is
 optional for the walkthrough: enter the demo code and choose **Unlock** to
 establish a local session. A link such as `/demo?access_code=YOUR_CODE` prefills
 the field, but never logs in or starts a run automatically. The page removes
-the code from the address bar after reading it. API routes remain authenticated.
+the code from the address bar after reading it. Private API routes remain authenticated.
 
 Run only one process per project directory. The sandbox and landing page use
 separate processes and dependencies, not isolated containers. Saved experiments

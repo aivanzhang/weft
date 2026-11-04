@@ -2,18 +2,24 @@
   const $ = (id) => document.getElementById(id);
   let token = root.WeftDemoSession.token;
   const auth = { Authorization: "Bearer " + token };
-  const signed = (path) => path + (path.includes("?") ? "&" : "?") + "token=" + encodeURIComponent(token);
+  const signed = (path) => token ? path + (path.includes("?") ? "&" : "?") + "token=" + encodeURIComponent(token) : path;
   const MINE = "weft_demo_runs";
 
   async function api(path, options = {}) {
     const response = await fetch(path, { ...options, headers: { ...auth, ...(options.headers || {}) } });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      if ((response.status === 401 || response.status === 403) && path !== "/api/demo/unlock") {
+      if ((response.status === 401 || response.status === 403) && !["/api/demo/unlock", "/api/demo/showcase"].includes(path)) {
         $("auth-warning").hidden = false;
-        $("auth-warning").textContent = "Your session needs to reconnect. Enter your demo code below and select Unlock.";
+        $("auth-warning").textContent = "Your access needs to reconnect. Use Access in the header.";
+        token = "";
+        root.WeftDemoSession.setToken("");
+        auth.Authorization = "";
         $("gate-panel").hidden = false;
+        $("access-connected").hidden = true;
+        $("access-menu").open = true;
         $("builder").hidden = true;
+        loadShowcase();
       }
       throw new Error(data.error || "That request did not complete.");
     }
@@ -136,10 +142,26 @@
   function unlocked() {
     $("gate-panel").hidden = true;
     $("builder").hidden = false;
+    $("access-connected").hidden = false;
+    $("access-menu").open = false;
     renderMine();
   }
 
   $("gate-code").value = root.WeftDemoSession.accessCode;
+  if (root.WeftDemoSession.accessCode) $("access-menu").open = true;
+  $("show-builder").addEventListener("click", () => {
+    $("access-menu").open = false;
+    $("builder").hidden = false;
+    $("builder").scrollIntoView({ behavior: "auto", block: "start" });
+  });
+  document.addEventListener("pointerdown", (event) => {
+    if ($("access-menu").open && !$("access-menu").contains(event.target)) $("access-menu").open = false;
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !$("access-menu").open) return;
+    $("access-menu").open = false;
+    $("access-menu").querySelector("summary").focus();
+  });
 
   $("gate-form").addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -176,17 +198,50 @@
   /* ---------------- finished-run carousel ---------------- */
   let demos = [];
   let featured = [];
-  let current = 0;
+  let current = 0, showcaseFlight = null, galleryFlight = null;
+
+  function galleryState(state, title = "", detail = "") {
+    $("finished-loading").hidden = state !== "loading";
+    $("finished-content").hidden = state !== "ready";
+    $("finished-nav").hidden = state !== "ready" || demos.length < 2;
+    $("finished-empty").hidden = state === "loading" || state === "ready";
+    $("finished-message-title").textContent = title;
+    $("finished-message-detail").textContent = detail;
+    $("finished-retry").hidden = state !== "error";
+    $("explore").setAttribute("aria-busy", String(state === "loading"));
+  }
+
+  async function loadShowcase() {
+    if (showcaseFlight) return showcaseFlight;
+    if (!token && !demos.length) galleryState("loading");
+    showcaseFlight = (async () => {
+      try {
+        const data = await api("/api/demo/showcase", { signal: AbortSignal.timeout(15000) });
+        if (data.home_url) $("home-link").href = data.home_url;
+        if (token) return;
+        demos = data.items || [];
+        current = Math.min(current, Math.max(0, demos.length - 1));
+        showDemo();
+      } catch {
+        if (!token) galleryState("error", "The worlds couldn’t load.", "Try again to reload the recordings.");
+      }
+    })().finally(() => { showcaseFlight = null; });
+    return showcaseFlight;
+  }
 
   async function loadFeatured() {
     try {
-      featured = (await api("/api/demo/featured")).featured || [];
+      featured = (await api("/api/demo/featured", { signal: AbortSignal.timeout(10000) })).featured || [];
     } catch (error) { featured = []; }
   }
 
   async function loadGallery(force) {
+    if (galleryFlight) return galleryFlight;
+    if (!demos.length) galleryState("loading");
+    galleryFlight = (async () => {
     try {
-      const data = await api("/api/demo/gallery");
+      const data = await api("/api/demo/gallery", { signal: AbortSignal.timeout(15000) });
+      if (data.home_url) $("home-link").href = data.home_url;
       const all = Array.isArray(data) ? data : (data.items || data.demos || []);
       // Seeded clips always show; a judge's own run shows once it finished with a video.
       const next = all.filter((row) => !String(row.id || "").startsWith("run-")
@@ -197,19 +252,27 @@
       current = Math.min(current, Math.max(0, demos.length - 1));
       showDemo();
     } catch (error) {
-      /* the carousel is optional; the walkthrough is the point */
+      if (!token) return loadShowcase();
+      galleryState("error", "The worlds couldn’t load.", "Try again to reload the recordings.");
     }
+    })().finally(() => { galleryFlight = null; });
+    return galleryFlight;
   }
+
+  $("finished-retry").addEventListener("click", () => {
+    if (token) loadGallery(true);
+    else loadShowcase();
+  });
 
   function showDemo() {
     const available = demos.length > 0;
-    $("finished-content").hidden = !available;
-    $("finished-nav").hidden = !available;
-    $("finished-empty").hidden = available;
     if (!available) {
-      $("finished-empty").textContent = "No finished runs yet. Build a world above to create one.";
+      galleryState("empty", "The first world is still ahead.", token
+        ? "Build from a video to start your collection."
+        : "Finished experiments will appear here. Have a code? Open Access to build your own.");
       return;
     }
+    galleryState("ready");
     const demo = demos[current];
     // Seek a fraction in: a paused video with no poster otherwise shows a black frame.
     $("demo-video").src = signed(demo.video_url || `/api/demo/gallery/${demo.id}/video`) + "#t=0.1";
@@ -528,7 +591,7 @@
       render(state);
       if (state.status === "running") timer = setTimeout(poll, 1200);
     } catch (error) {
-      if ($("gate-panel").hidden) timer = setTimeout(poll, 3000);
+      if (token && $("gate-panel").hidden) timer = setTimeout(poll, 3000);
     }
   }
 
@@ -545,12 +608,16 @@
   }
   function loadDemo() {
     clearTimeout(timer);
-    loadMeta().then(() => loadFeatured())
-      .then(() => { renderMine(); loadClips(); loadGallery(true); poll(); });
+    loadMeta();
+    if (!token) return loadShowcase();
+    renderMine();
+    loadClips();
+    loadFeatured().then(() => token ? loadGallery(true) : loadShowcase());
+    poll();
   }
   keepToken();
   if (token) {
-    try { if (sessionStorage.getItem("weft_demo_unlocked") === "yes") unlocked(); } catch { /* Storage is optional. */ }
+    unlocked();
     loadDemo();
-  }
+  } else loadShowcase();
 })(window);

@@ -35,8 +35,10 @@ playback and programmed reference controllers are different modes, not learned p
 ## Capabilities and limitations
 
 The local demo uses a single-run viewer: live world, recording and results are
-separate views, with hidden media released. The landing server's `/demo` routes
-redirect to the separately running sandbox; it does not expose private APIs.
+separate views, with hidden media released. The landing server keeps `/demo`,
+its assets, lab views and authenticated API calls on port 3000, forwarding only
+sandbox routes to its loopback backend with Host/Origin checks and token
+authentication intact.
 The landing page links to the walkthrough through matching icon buttons that
 reveal "Build your world" on hover or keyboard focus.
 An icon-only table of contents links to all five main sections in reading order,
@@ -47,8 +49,11 @@ The landing page also explains the research goals, model roles and intended
 benefit through a conceptual observation-to-experiments illustration.
 Active runs have a local tenth-second elapsed clock between status polls; saved
 results open directly without replaying processing steps or progress.
-The demo header contains only the tightly cropped wordmark; finished runs are
-browsed inline on `/demo` rather than through header navigation.
+The demo opens on curated finished recordings without requiring access. Only
+explicit showcase examples are public; visitor runs and live controls stay private.
+The wordmark returns home; the top-right Access button opens a popover for uploads
+and live controls. Finished worlds are browsed inline on `/demo`. The gallery distinguishes loading, empty and
+unavailable states, with bounded requests and a retry that never starts a run.
 `npm run demo` manages both local processes in one terminal and stops both on
 Ctrl+C without deleting saved runs or changing spending allowances.
 Startup checks both ports and existing collection ownership before launching;

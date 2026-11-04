@@ -15,24 +15,27 @@ Open `http://127.0.0.1:3000/`. No dependency installation or build step is neede
 refresh the page after editing. To choose another port, use
 `npm run dev -- --port 3001`.
 
-`/demo` and `/demo/runs` redirect to the local sandbox on port 8765. Use
-`npm run demo` to start both servers, or `npm run sandbox` separately. Open the
-sandbox's walkthrough and unlock it with your demo code; no token URL is needed.
+`/demo`, `/demo/runs`, their assets and authenticated API calls stay on port 3000.
+The landing server forwards them to the loopback sandbox, which uses port 8765
+internally. Use `npm run demo` to start both servers, or `npm run sandbox`
+separately. Open `/demo` and unlock it with your demo code; no token URL is needed.
 The session remains local to that browser tab. Set `WEFT_SANDBOX_PORT` when
 the sandbox uses another port.
 The combined demo launcher sets that routing automatically for its selected ports.
 
 You can also open [index.html](index.html) directly for the offline gallery.
 Local landing-page uploads are disabled; use the sandbox to process a video.
-The server exposes only files listed in [public-assets.mjs](public-assets.mjs),
-not private projects or the simulation API.
+Static files remain restricted to [public-assets.mjs](public-assets.mjs).
+Sandbox routes preserve token authentication and reject foreign Host/Origin
+headers before forwarding. Restart the landing process after routing changes.
 
 ## Source layout
 
 | Files | Purpose |
 | --- | --- |
 | `index.html`, `styles.css`, `site.js` | Page content, layout and interactions |
-| `contents.css`, `contents.js` | Icon-only section index and accessible dismissal |
+| `contents.js` | Section-index dismissal; styles are bundled into `styles.css` |
+| `sandbox-proxy.mjs` | Same-origin, authenticated local sandbox routing |
 | `environments.*`, `environments/` | Source/simulation gallery and exported example |
 | `footer.*` | Animated mascot story |
 | `fonts/` | Bundled Inter font and license |
