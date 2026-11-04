@@ -382,10 +382,14 @@
       title.textContent = entry.title;
       const note = document.createElement("span");
       note.textContent = [entry.seconds ? `~${entry.seconds}s end to end` : null,
-                          entry.learned ? `agent ${entry.learned} vs random ${entry.random}` : null]
+                          entry.learned ? `trained policy ${entry.learned} vs random ${entry.random}` : null]
         .filter(Boolean).join(" · ");
       button.append(title, note);
-      button.title = [entry.why, entry.creator && `${entry.creator} · ${entry.licence}`]
+      // The walkthrough drives the authored reference controller; the policy numbers come
+      // from a separate training study, so name which is which rather than implying one run.
+      button.title = [entry.learned && "Trained-policy result from a separate study — this"
+                      + " walkthrough drives the authored reference controller instead.",
+                      entry.why, entry.creator && `${entry.creator} · ${entry.licence}`]
         .filter(Boolean).join("\n");
       button.addEventListener("click", () => {
         clip = clip === entry.id ? null : entry.id;
