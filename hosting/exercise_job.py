@@ -204,6 +204,9 @@ def build_appearance(source, out, model, intent, *, deadline, body=None):
     # the frozen constraints accept. A defect at frame zero refuses both anchors on the full
     # clip while leaving the rest of it perfectly usable, which is the third rung's reason.
     rungs = [(LEGACY_ANCHOR_PROFILE, None), (VISIBLE_ANCHOR_PROFILE, None)]
+    # Per-step timings: the long-clip critical path was derived from totals three times and
+    # explained wrongly three times, so the stage records where its own time goes.
+    timings = {}
     attempts, preflight, anchor, windowed, admitted = [], None, None, None, None
     index = -1
     while True:
@@ -222,11 +225,14 @@ def build_appearance(source, out, model, intent, *, deadline, body=None):
              if candidate is not None and (candidate / "manifest.json").is_file()), None)
         options = ({"body_source": reuse, "retain_body_source": True} if reuse is not None
                    else {"pose_model": model})
+        step = time.monotonic()
         try:
             result = prepare_exercise_perception_preflight(
                 clip or source, out / f"preflight-{index}", anchor_profile=profile, **options,
                 max_seconds=max(1, min(210, int(deadline - time.monotonic()))))
+            timings[f"preflight_{index}_seconds"] = round(time.monotonic() - step, 2)
         except Exception as error:
+            timings[f"preflight_{index}_seconds"] = round(time.monotonic() - step, 2)
             detail = f"{type(error).__name__}: {error}"
             attempts.append({"anchor_profile": profile, "reused_body": reuse is not None,
                              "windowed": clip is not None, "refused": detail[:200]})
@@ -259,20 +265,25 @@ def build_appearance(source, out, model, intent, *, deadline, body=None):
         break
     if preflight is None:
         return None, {"stage": "preflight", "attempts": attempts,
-                      "supported_window": windowed}
+                      "supported_window": windowed, "timings": timings}
     directory = out / f"preflight-{admitted}"
     inventory = make_conditional_person_inventory(preflight["source_sha256"], intent)
+    step = time.monotonic()
     built = construct_human_only_run(directory / "body_source", inventory, out / "world",
                                      deadline=deadline, max_seconds=30)
+    timings["world_seconds"] = round(time.monotonic() - step, 2)
     # root_assistance matches the primary exercise route; the gates themselves are unchanged.
+    step = time.monotonic()
     lab = prepare_shared_exercise_lab(out / "world", out / "lab", root_assistance=True,
                                       max_seconds=max(1, min(60, int(deadline - time.monotonic()))))
+    timings["lab_seconds"] = round(time.monotonic() - step, 2)
     return out / "lab/run", {"stage": "ready", "inventory": inventory,
                              "anchor_profile": anchor, "attempts": attempts,
                              # A windowed appearance covers a narrower span than the
                              # learning rollout; the browser must not present them as one.
                              "supported_window": windowed,
                              "windowed": rungs[admitted][1] is not None,
+                             "timings": timings,
                              "world_manifest_sha256": built["manifest_sha256"],
                              "lab_manifest_sha256": lab["manifest_sha256"],
                              "reference_feasibility": built.get("reference_feasibility")}
@@ -293,6 +304,7 @@ def summarize_appearance(run, receipt):
             "lengths": {name: _number(value, 5) for name, value in
                         sorted((human.get("lengths") or {}).items())},
             "anchor_profile": receipt.get("anchor_profile"),
+            "timings": receipt.get("timings"),
             "windowed": receipt.get("windowed"),
             "supported_window": receipt.get("supported_window"),
             "world_manifest_sha256": receipt.get("world_manifest_sha256"),
@@ -384,11 +396,22 @@ def main():
     if not model.is_file():
         raise ValueError("pose_model_missing")
     # Any accepted container becomes a bounded MP4 first; the original stays beside it.
+    # Top-level timings. Five successive explanations of where a long clip's time goes were
+    # each refuted by the next measurement, so the job now reports its own split.
+    stage_seconds = {}
+    step = time.monotonic()
     source, normalization = prepare_demo_source(directory / "upload.mp4", directory / "source")
+    stage_seconds["normalize"] = round(time.monotonic() - step, 2)
     deadline = started + WALL_SECONDS
 
     def learn(clip, work):
-        """The learning stage on one clip; raises with the lab's own refusal text."""
+        """The learning stage on one clip; raises with the lab's own refusal text.
+
+        Split into preparation and worker wait: a long clip showed a 28-second gap between
+        this call's wall time and the lab's own reported seconds, and five guesses at which
+        half held it were each refuted by the next measurement.
+        """
+        prepared = time.monotonic()
         # 600 training episodes, not the 1,500 default. The evaluation is untouched -- still
         # 100 held-out episodes against the frozen task -- and it returns identical successes
         # at 600 on every clip measured: waiters-squat 100/1/0, bodyweight-squats 100/0/0,
@@ -397,7 +420,10 @@ def main():
         root = prepare_lab(clip, work, profile="exercise", body_model="mobile",
                            pose_model=model, episodes=600,
                            source_note="Hosted submission; rights not independently verified")
+        attempt = sum(1 for key in stage_seconds if key.startswith("prepare_lab"))
+        stage_seconds[f"prepare_lab_{attempt}"] = round(time.monotonic() - prepared, 2)
         # prepare_lab only seals the configuration; the worker runs the stages.
+        waited = time.monotonic()
         lab = Lab(root, avatars=())
         status = None
         try:
@@ -411,6 +437,7 @@ def main():
                 time.sleep(0.25)
         finally:
             lab.close()
+            stage_seconds[f"worker_wait_{attempt}"] = round(time.monotonic() - waited, 2)
         if status["status"] != "ready":
             raise RuntimeError(str((status.get("error") or {}).get("message") or "pipeline_failed"))
         return root
@@ -421,7 +448,6 @@ def main():
     # queueing behind the interpreter. Sequential cost was the sum of both; now it is the
     # longer of the two. The appearance stage is started only for the first attempt: a
     # window retry changes the clip underneath it, so it is rerun serially in that case.
-    appearance_slot = {}
 
     def appearance_worker(clip, out, sealed):
         try:
@@ -435,6 +461,7 @@ def main():
     # every clean clip: measured 147 s to 231 s in production for an unchanged result. The
     # seal is taken only on the refusal path, where the evidence is what the proposal needs.
     body, window = None, {"attempted": False}
+    learn_started = time.monotonic()
     # The two stages share only the source video, so they overlap. The lab already runs as
     # its own process and the appearance stage is dominated by pose and MuJoCo inside
     # released-GIL native code, so a thread genuinely overlaps.
@@ -468,26 +495,33 @@ def main():
         # satisfy the same constraints. Nothing is relaxed; the first refusal is recorded.
         if code not in LOCALIZED or time.monotonic() > deadline - 90:
             raise
+        ladder = time.monotonic()
         body, evidence, _ = seal_body(source, directory / "body", model, deadline=deadline)
         if evidence is None:
             raise
         clip, window = propose_window(evidence, source, directory / "window/source.mp4")
+        stage_seconds["ladder_seal_and_propose"] = round(time.monotonic() - ladder, 2)
         window.update(attempted=True, first_refusal={"code": code, "detail": detail[:300]})
         if clip is None:
             raise
         source = clip
+        ladder = time.monotonic()
         body, evidence, body_refusal = seal_body(source, directory / "window/body", model,
                                                  deadline=deadline)
+        stage_seconds["ladder_seal_window"] = round(time.monotonic() - ladder, 2)
         if body_refusal is not None:
             window["window_refusal"] = body_refusal
             raise RuntimeError(body_refusal)
         root = learn(source, directory / "window/lab")
         window["admitted"] = True
+    stage_seconds["learn"] = round(time.monotonic() - learn_started, 2)
     run = root / "run"
     # The learning result already stands on its own, so a refused appearance stage is
     # recorded and returned rather than discarding a complete run.
+    step = time.monotonic()
     if parallel is not None:
         parallel.join(timeout=max(1, deadline - time.monotonic()))
+    stage_seconds["appearance_join"] = round(time.monotonic() - step, 2)
     if window.get("attempted"):
         # The retry replaced the clip, so the overlapped attempt described different
         # footage. Redo it serially against the clip the learning result actually used.
@@ -505,9 +539,11 @@ def main():
               "normalization": normalization, "summary": summarize(run),
               "appearance": summarize_appearance(appearance, receipt),
               "supported_window": window,
+              "stage_seconds": stage_seconds,
               "seconds": round(time.monotonic() - started, 1),
               "scope": ("Conditional body and authored ground recovered from one video. "
                         "Simulated joint control, not measured anatomy or verified physics.")}
+    step = time.monotonic()
     (directory / "result.json").write_text(json.dumps(result, allow_nan=False))
     # The download is a fixed artifact allowlist, not arbitrary files or credentials.
     with zipfile.ZipFile(directory / "environment.zip", "x", zipfile.ZIP_DEFLATED) as archive:
@@ -544,6 +580,11 @@ def main():
             "Joint control is simulated; this is not measured anatomy or validated biomechanics.\n"
             "A substituted avatar is appearance only and never drives physics.\n"
             "Source: https://github.com/kintsugi-software/weft\n")
+    # Rewrite the result with the archive cost included, now that it is known.
+    stage_seconds["archive"] = round(time.monotonic() - step, 2)
+    result["stage_seconds"] = stage_seconds
+    result["seconds"] = round(time.monotonic() - started, 1)
+    (directory / "result.json").write_text(json.dumps(result, allow_nan=False))
 
 
 if __name__ == "__main__":

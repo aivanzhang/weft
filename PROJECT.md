@@ -241,12 +241,18 @@ not an external benchmark or a guarantee for new inputs.
   scale with clip duration at all, and training takes **3.1 s on the 45-second clip against
   13.9 s on the 2.7-second one** -- the short clip trains four times longer because its task
   is harder, not because of its length. Archive spans invert the same way, 16 s against 24 s.
-  What actually drives the deployed spread is a mix with no single clean story: normalization
-  re-encodes a long clip end to end to fit the frame cap, pose scales with frame count, and
-  training scales with task difficulty. The quality trade recorded against bounding the
-  reference (servo error 0.127 to 0.2096) is real but was attributed to the wrong cause: the
-  bounded clip was also far cheaper to normalize and pose, which is where most of its speedup
-  came from.
+  Normalization is not the cause either (0.69 s), nor is the appearance stage, which the
+  concurrency hides entirely. **Latency tracks the retry ladder**, and the job now carries its
+  own timers so this is measured rather than inferred: for jumping-jacks, 41.21 s of a 41.2 s
+  bracket is a refused first learning attempt (10.65 s), the body seal and window proposal
+  (11.28 s), the windowed body seal (4.76 s), and the real learning attempt (14.51 s). A clip
+  that admits first try pays only the last of those, which is why waiters-squat is 16.7 s
+  in-container against this clip's 44.2 s. So the deployed spread is 66 s with no retries,
+  108 s with the appearance dual-anchor retry, and 185 s with the job-level window retry that
+  runs learning twice -- the price of rescuing a clip that would otherwise be refused
+  outright. Six earlier explanations here were wrong, every one arithmetic over totals rather
+  than a timer on the thing itself; the quality trade recorded against bounding the reference
+  stays rejected and was mis-attributed the same way.
   Three changes got there, each measured rather than reasoned: 600 training episodes instead
   of 1,500 (identical scored numbers), the two stages overlapped so the appearance stage costs
   nothing, and four vCPU so the overlap does not contend with the lab's internal learning
