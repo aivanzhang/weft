@@ -39,7 +39,7 @@ MAX_STORAGE = 2_000_000_000
 MAX_JOB_BYTES = 650_000_000
 TERMINAL = {"ready", "preview", "needs_input", "failed", "cancelled", "interrupted", "complete"}
 ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.css",
-          "/demo": "demo.html", "/demo.js": "demo.js", "/demo.css": "demo.css",
+          "/demo": "demo_build.html", "/demo/runs": "demo.html", "/demo.js": "demo.js", "/demo.css": "demo.css",
           "/demo/build": "demo_build.html", "/demo_build.js": "demo_build.js"}
 PERCEPTION_ARTIFACTS = {"perception/" + name for name in (
     "preflight/metadata.json", "preflight/body-anchor.json", "preflight/result.json", "preflight/manifest.json",
@@ -1210,7 +1210,7 @@ class PortalHandler(LabHandler):
                 return
             if path in ASSETS:
                 file = Path(__file__).parent / "assets" / ASSETS[path]
-                if path in ("/", "/demo", "/demo/build"):
+                if path in ("/", "/demo", "/demo/build", "/demo/runs"):
                     raw = file.read_bytes()
                     self.response_headers(200, "text/html; charset=utf-8", len(raw))
                     self.end_headers()

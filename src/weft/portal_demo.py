@@ -30,6 +30,8 @@ STEP_ID = re.compile(r"[a-z_]{1,32}")
 # Muse spends the shared Meta allowance; a demo must never be able to drain it.
 MAX_MUSE_CALLS = 8
 MAX_RUNS_KEPT = 12
+# Live character generation spends credits; bound how often a demo may start one.
+MAX_GENERATION_ATTEMPTS = 2
 
 # Judge-facing copy: what runs, why it matters against the rubric, and the cost it
 # removes. Estimates come from verified local runs, not aspiration.
@@ -658,13 +660,52 @@ class DemoManager:
             except (RuntimeError, OSError, KeyError):
                 continue
         studio = self._request("GET", "/api/portal").get("avatar_studio") or {}
-        detail = ("Generated character available in the chooser. Live text-to-character"
-                  " generation stays behind a recorded spending gate and its own quality gates.")
+        # With a prompt, actually ask the studio to generate. Paid work sits behind a
+        # recorded spending gate, so a refusal here is the honest outcome, not an error.
+        attempt = None
+        # Each live generation can spend Meshy credits and agent dollars, so the
+        # walkthrough offers it a bounded number of times, not once per judge run.
+        budget = self.dir / "generation-attempts.json"
+        try:
+            used = int(json.loads(budget.read_text()).get("used", 0))
+        except (OSError, ValueError, TypeError):
+            used = 0
+        if prompt and studio.get("available") and used >= MAX_GENERATION_ATTEMPTS:
+            attempt = (f"not started · the walkthrough allows {MAX_GENERATION_ATTEMPTS} live"
+                       " generations and they are used; the imported character still shows the step")
+        elif prompt and studio.get("available"):
+            budget.write_text(json.dumps({"used": used + 1}) + "\n")
+            self._update(index, detail=f"Asking the studio to generate “{prompt[:80]}”")
+            try:  # noqa: SIM105 - the refusal text is the judge-visible result
+                self._request("POST", "/api/avatars/create", {
+                    "prompt": prompt, "style": "soft matte toy look",
+                    "request_id": secrets.token_hex(16),
+                    "spend_approval": ("Judge walkthrough: approved up to 35 Meshy credits plus"
+                                       " bounded agent calls for this one generation.")}, timeout=60)
+                attempt = "requested"
+                deadline = time.monotonic() + 25
+                while time.monotonic() < deadline:
+                    rows = (self._request("GET", "/api/portal").get("avatar_studio") or {}).get("creations") or []
+                    row = next((r for r in rows if (r.get("prompt") or "").startswith(prompt[:40])), None)
+                    if row and row.get("state"):
+                        attempt = row["state"]
+                        if row.get("error"):
+                            attempt += " · " + str(row["error"])[:160]
+                        if row["state"] in {"failed", "unsupported", "ready", "adopt_failed"}:
+                            break
+                    time.sleep(2.5)
+            except (RuntimeError, OSError) as error:
+                attempt = "refused · " + str(error)[:180]
+        detail = ("A generated character is in the chooser and superimposed on this run's physics."
+                  " Live generation takes about ten minutes and its own quality gates can refuse a"
+                  " result; whatever happened is reported above, not hidden.")
+        metrics = {"superimposed": str(imported or "already in the chooser"),
+                   "live generation": "experimental" if studio.get("available") else "not configured"}
         if prompt:
-            detail = f"Prompt kept for generation: “{prompt[:120]}”. " + detail
-        self._finish(index, "Generated character ready to superimpose", {
-            "imported": str(imported or "already in the chooser"),
-            "live generation": "experimental" if studio.get("available") else "not configured"})
+            metrics["your prompt"] = prompt[:60]
+        if attempt:
+            metrics["generation attempt"] = attempt[:120]
+        self._finish(index, "Generated character ready to superimpose", metrics)
         self._update(index, detail=detail)
 
     # -- artifacts, archive and gallery ---------------------------------------

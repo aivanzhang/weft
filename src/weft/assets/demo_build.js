@@ -157,6 +157,66 @@
     try { localStorage.setItem(MINE, JSON.stringify(rows.slice(0, 24))); } catch (error) { /* private mode */ }
   };
 
+  /* ---------------- finished-run carousel ---------------- */
+  let demos = [];
+  let featured = [];
+  let current = 0;
+
+  async function loadFeatured() {
+    try {
+      featured = (await api("/api/demo/featured")).featured || [];
+    } catch (error) { featured = []; }
+  }
+
+  async function loadGallery(force) {
+    try {
+      const data = await api("/api/demo/gallery");
+      const all = Array.isArray(data) ? data : (data.items || data.demos || []);
+      // Seeded clips always show; a judge's own run shows once it finished with a video.
+      const next = all.filter((row) => !String(row.id || "").startsWith("run-")
+                                       || featured.includes(row.id));
+      const same = next.length === demos.length && next.every((d, i) => d.id === demos[i]?.id);
+      if (same && !force) return;
+      demos = next;
+      current = Math.min(current, Math.max(0, demos.length - 1));
+      showDemo();
+    } catch (error) {
+      /* the carousel is optional; the walkthrough is the point */
+    }
+  }
+
+  function showDemo() {
+    $("explore").hidden = demos.length === 0;
+    if (!demos.length) return;
+    const demo = demos[current];
+    $("demo-video").src = signed(demo.video_url || `/api/demo/gallery/${demo.id}/video`);
+    const mine = /^run-/.test(demo.id || "") || ["judge", "run", "yours", "studio"].includes(demo.kind);
+    $("demo-source").textContent = (mine ? "your run" : "verified run").toUpperCase();
+    $("demo-title").textContent = demo.title;
+    $("demo-caption").textContent = demo.caption || "";
+    $("demo-metrics").textContent = demo.metrics && typeof demo.metrics === "object"
+      ? Object.entries(demo.metrics).map(([k, v]) => `${k} ${v}`).join(" · ")
+      : demo.metrics || "";
+    $("open-studio").hidden = !mine;
+    $("open-studio").onclick = () => openStudio(demo.id);
+    $("dots").replaceChildren(...demos.map((_, index) => {
+      const dot = document.createElement("button");
+      dot.className = "dot";
+      dot.type = "button";
+      dot.setAttribute("aria-label", `Run ${index + 1}`);
+      dot.setAttribute("aria-current", String(index === current));
+      dot.onclick = () => { current = index; showDemo(); };
+      return dot;
+    }));
+  }
+
+  $("prev").addEventListener("click", () => {
+    if (demos.length) { current = (current - 1 + demos.length) % demos.length; showDemo(); }
+  });
+  $("next").addEventListener("click", () => {
+    if (demos.length) { current = (current + 1) % demos.length; showDemo(); }
+  });
+
   function renderMine() {
     const rows = readMine();
     $("mine").hidden = rows.length === 0;
@@ -348,7 +408,9 @@
         saveMine(rows);
       }
       renderMine();
-      $("run-note").textContent = "Done — saved to this browser. Open its studio below to drive the world.";
+      // A finished run is published to the carousel; pick it up without a reload.
+      loadFeatured().then(() => loadGallery(true));
+      $("run-note").textContent = "Done — your run is in the carousel below. Open its studio to drive the world.";
       $("run").disabled = false;
     } else if (!running && state.status === "failed") {
       $("run-note").textContent = state.error || "The run stopped; its reason is recorded above.";
@@ -380,5 +442,7 @@
   }
   keepToken();
   if (sessionStorage.getItem("weft_demo_unlocked") === "yes") unlocked();
-  loadMeta().then(() => { renderMine(); poll(); });
+  loadMeta()
+    .then(() => loadFeatured())
+    .then(() => { renderMine(); loadGallery(true); poll(); });
 })(window);

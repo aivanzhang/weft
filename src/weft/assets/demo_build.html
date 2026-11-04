@@ -14,8 +14,8 @@
 <header class="site-head">
   <a class="brand" href="/demo" aria-label="Weft"><img src="/weft-logo.png" width="44" height="44" alt=""></a>
   <nav>
-    <a href="/demo">Finished runs</a>
-    <a href="/demo/build" class="nav-pill is-current">Build a world</a>
+    <a href="/demo" class="is-current">Walkthrough</a>
+    <a href="/demo/runs" class="nav-pill">Finished runs<span aria-hidden="true">→</span></a>
   </nav>
 </header>
 
@@ -31,7 +31,7 @@
   <section class="gate-panel" id="gate-panel">
     <h2>Access</h2>
     <p class="hint">Enter the code from our submission. Without it you can still explore the
-      <a href="/demo">finished runs</a>.</p>
+      <a href="/demo/runs">finished runs</a>.</p>
     <form id="gate-form" class="gate-form">
       <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64"
              placeholder="WEFT-JUDGE-…" aria-label="Access code" required>
@@ -79,6 +79,32 @@
       </div>
     </div>
     <ul class="mine-list" id="mine-list"></ul>
+  </section>
+
+  <section class="explore" id="explore" hidden>
+    <div class="section-head">
+      <div>
+        <h2>Finished runs</h2>
+        <p class="hint">Runs this pipeline has already produced, plus anything you build above. Click through them,
+          then open a run of your own to drive the environment it left behind.</p>
+      </div>
+      <div class="gallery-nav">
+        <button id="prev" type="button" aria-label="Previous run">←</button>
+        <button id="next" type="button" aria-label="Next run">→</button>
+      </div>
+    </div>
+
+    <div class="stage">
+      <video id="demo-video" controls playsinline preload="metadata"></video>
+      <div class="stage-copy">
+        <p class="eyebrow" id="demo-source"></p>
+        <h3 id="demo-title"></h3>
+        <p id="demo-caption"></p>
+        <p class="metrics" id="demo-metrics"></p>
+        <button id="open-studio" type="button" class="ghost" hidden>Open the studio<span aria-hidden="true">→</span></button>
+      </div>
+    </div>
+    <div class="dots" id="dots"></div>
   </section>
 
   <div class="modal" id="studio-modal" hidden>
