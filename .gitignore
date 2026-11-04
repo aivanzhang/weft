@@ -5,8 +5,9 @@
 !.env.example
 __pycache__/
 *.py[cod]
-.venv/
-.venv-lab/
+# No trailing slash: a worktree links these in rather than holding a copy.
+.venv
+.venv-lab
 node_modules/
 .next/
 dist/

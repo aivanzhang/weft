@@ -2,9 +2,37 @@ import { Container, getContainer } from "@cloudflare/containers";
 import { DurableObject } from "cloudflare:workers";
 
 const DAY = 86_400_000;
-const MAX_UPLOAD = 10 * 1024 * 1024;
 const MAX_RESULT = 32 * 1024 * 1024;
+const MAX_SUMMARY = 16 * 1024;
 const uuid = /^[a-f0-9-]{36}$/;
+// One container image runs both fixed pipelines. The exercise lane decodes and poses a human
+// clip, so it needs a larger upload and a longer deadline; the ball lane keeps its old,
+// tighter limits so existing traffic is unaffected.
+const PIPELINES = {
+  ball: {
+    upload: 10 * 1024 * 1024,
+    read: 45_000,
+    deadline: 210_000,
+    title: "Your reconstructed world",
+    refusal:
+      "This clip could not produce a verified environment. Try one yellow ball rolling horizontally with a fixed camera.",
+    error:
+      "Generation could not finish. Try a shorter clip with one clearly visible yellow ball.",
+  },
+  exercise: {
+    upload: 40 * 1024 * 1024,
+    read: 120_000,
+    deadline: 420_000,
+    title: "Your reconstructed exercise environment",
+    refusal:
+      "This clip could not produce a verified environment. Use one person, head to feet in frame, a plain background and a fixed camera in a single continuous shot.",
+    error:
+      "Generation could not finish. Try a shorter single-person clip with a fixed camera and no cuts.",
+  },
+} as const;
+type Pipeline = keyof typeof PIPELINES;
+const pipelineOf = (kind: string | undefined): Pipeline =>
+  kind === "exercise" ? "exercise" : "ball";
 type Job = {
   id: string;
   owner: string;
@@ -15,6 +43,7 @@ type Job = {
   result: string | null;
   message: string | null;
   lane?: string;
+  kind?: string;
 };
 class Rejected extends Error {
   constructor(
@@ -55,13 +84,16 @@ export class SubmissionQueue extends DurableObject<Env> {
     ctx.storage.sql.exec(
       `CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, owner TEXT NOT NULL, ip TEXT NOT NULL, key TEXT NOT NULL, created INTEGER NOT NULL, status TEXT NOT NULL, result TEXT, message TEXT, UNIQUE(owner,key)); CREATE INDEX IF NOT EXISTS jobs_created ON jobs(created); CREATE INDEX IF NOT EXISTS jobs_owner ON jobs(owner,created);`,
     );
-    try {
-      ctx.storage.sql.exec(
-        "ALTER TABLE jobs ADD COLUMN lane TEXT NOT NULL DEFAULT 'public'",
-      );
-    } catch {
-      // Column already present; existing rows are public-lane by definition.
-    }
+    for (const column of [
+      "lane TEXT NOT NULL DEFAULT 'public'",
+      // Rows predating the exercise lane were all ball submissions.
+      "kind TEXT NOT NULL DEFAULT 'ball'",
+    ])
+      try {
+        ctx.storage.sql.exec(`ALTER TABLE jobs ADD COLUMN ${column}`);
+      } catch {
+        // Column already present.
+      }
   }
   private rows(query: string, ...args: (string | number)[]) {
     return this.ctx.storage.sql.exec<Job>(query, ...args).toArray();
@@ -81,7 +113,13 @@ export class SubmissionQueue extends DurableObject<Env> {
       null
     );
   }
-  async reserve(owner: string, ip: string, key: string, judge = false) {
+  async reserve(
+    owner: string,
+    ip: string,
+    key: string,
+    judge = false,
+    kind: Pipeline = "ball",
+  ) {
     const old = this.rows(
       "SELECT * FROM jobs WHERE owner=? AND key=?",
       owner,
@@ -118,9 +156,10 @@ export class SubmissionQueue extends DurableObject<Env> {
       result: null,
       message: null,
       lane: judge ? "judge" : "public",
+      kind,
     };
     this.ctx.storage.sql.exec(
-      "INSERT INTO jobs (id,owner,ip,key,created,status,result,message,lane) VALUES (?,?,?,?,?,?,NULL,NULL,?)",
+      "INSERT INTO jobs (id,owner,ip,key,created,status,result,message,lane,kind) VALUES (?,?,?,?,?,?,NULL,NULL,?,?)",
       job.id,
       owner,
       ip,
@@ -128,6 +167,7 @@ export class SubmissionQueue extends DurableObject<Env> {
       job.created,
       job.status,
       job.lane,
+      job.kind,
     );
     await this.schedule(Date.now() + 60_000);
     return { job, fresh: true };
@@ -183,16 +223,23 @@ export class SubmissionQueue extends DurableObject<Env> {
       "UPDATE jobs SET status='failed',message='Upload was interrupted. Try again.' WHERE status='uploading' AND created<?",
       now - 60_000,
     );
-    // Recovery never reruns a possibly completed trainer after a crash.
+    // Recovery never reruns a possibly completed trainer after a crash. The summary lives in
+    // its own object because an exercise summary exceeds R2's 2 KB custom-metadata budget.
     for (const job of this.rows("SELECT * FROM jobs WHERE status='running'")) {
       const saved = await this.env.UPLOADS.head(`${job.id}/environment.zip`);
       await getContainer(this.env.GENERATOR, "weft-video-generation")
         .stop()
         .catch(() => {});
+      const summary =
+        saved?.customMetadata?.status === "complete"
+          ? ((await this.env.UPLOADS.get(`${job.id}/result.json`)
+              .then((object) => object?.text())
+              .catch(() => null)) ?? null)
+          : null;
       this.finish(
         job,
         saved?.customMetadata?.status ?? "failed",
-        saved?.customMetadata?.result ?? null,
+        summary,
         saved ? null : "Generation was interrupted. Please try again.",
       );
     }
@@ -203,6 +250,7 @@ export class SubmissionQueue extends DurableObject<Env> {
       await this.env.UPLOADS.delete([
         `${job.id}/source.mp4`,
         `${job.id}/environment.zip`,
+        `${job.id}/result.json`,
       ]);
       this.finish(job, "expired", null, null);
     }
@@ -222,6 +270,7 @@ export class SubmissionQueue extends DurableObject<Env> {
         this.env.GENERATOR,
         "weft-video-generation",
       );
+      const pipeline = PIPELINES[pipelineOf(job.kind)];
       try {
         const source = await this.env.UPLOADS.get(`${job.id}/source.mp4`);
         if (!source) throw new Error("input_missing");
@@ -232,8 +281,9 @@ export class SubmissionQueue extends DurableObject<Env> {
             headers: {
               "Content-Type": "video/mp4",
               "Content-Length": String(source.size),
+              "X-Weft-Pipeline": pipelineOf(job.kind),
             },
-            signal: AbortSignal.timeout(210_000),
+            signal: AbortSignal.timeout(pipeline.deadline),
           }),
         );
         const size = Number(response.headers.get("Content-Length"));
@@ -247,7 +297,7 @@ export class SubmissionQueue extends DurableObject<Env> {
           status === "complete"
             ? atob(response.headers.get("X-Weft-Result") ?? "")
             : "";
-        if (result.length > 8192) throw new Error("result_too_large");
+        if (result.length > MAX_SUMMARY) throw new Error("result_too_large");
         if (status === "complete") JSON.parse(result);
         // The Container SDK wraps bodies in an unknown-length stream; R2 requires an exact length.
         const transfer = new FixedLengthStream(size);
@@ -258,7 +308,7 @@ export class SubmissionQueue extends DurableObject<Env> {
             pumping,
             this.env.UPLOADS.put(`${job.id}/environment.zip`, transfer.readable, {
               httpMetadata: { contentType: "application/zip" },
-              customMetadata: { status, result },
+              customMetadata: { status },
             }),
           ]);
         } catch (error) {
@@ -266,22 +316,20 @@ export class SubmissionQueue extends DurableObject<Env> {
           await pumping.catch(() => {});
           throw error;
         }
+        // Durable copy of the summary for crash recovery; the row below is what visitors read.
+        if (result)
+          await this.env.UPLOADS.put(`${job.id}/result.json`, result, {
+            httpMetadata: { contentType: "application/json" },
+          });
         this.finish(
           job,
           status,
           result || null,
-          status === "failed"
-            ? "This clip could not produce a verified environment. Try one yellow ball rolling horizontally with a fixed camera."
-            : null,
+          status === "failed" ? pipeline.refusal : null,
         );
       } catch (error) {
         console.error("weft_generation_failed", error instanceof Error ? error.message.slice(0,240) : "unknown");
-        this.finish(
-          job,
-          "failed",
-          null,
-          "Generation could not finish. Try a shorter clip with one clearly visible yellow ball.",
-        );
+        this.finish(job, "failed", null, pipeline.error);
       } finally {
         // No idle paid container between visitor jobs.
         await container.stop().catch(() => {});
@@ -303,16 +351,21 @@ export class SubmissionQueue extends DurableObject<Env> {
   }
 }
 
-async function limitedBody(request: Request, limit: number) {
+const tooLarge = (limit: number) =>
+  new Rejected(
+    `Choose an MP4 smaller than ${Math.round(limit / (1024 * 1024))} MB.`,
+    413,
+  );
+
+async function limitedBody(request: Request, limit: number, read: number) {
   const length = Number(request.headers.get("Content-Length"));
-  if (!(length > 0 && length <= limit) || !request.body)
-    throw new Rejected("Choose an MP4 smaller than 10 MB.", 413);
+  if (!(length > 0 && length <= limit) || !request.body) throw tooLarge(limit);
   const reader = request.body.getReader();
   const bytes = new Uint8Array(length);
   let size = 0;
   const timer = setTimeout(() => {
     void reader.cancel();
-  }, 45_000);
+  }, read);
   try {
     while (true) {
       const { done, value } = await reader.read();
@@ -353,6 +406,13 @@ async function api(request: Request, env: Env) {
       active: job
         ? ["uploading", "queued", "running"].includes(job.status)
         : false,
+      // The client validates size before uploading instead of discovering a 413.
+      pipelines: Object.fromEntries(
+        Object.entries(PIPELINES).map(([name, limits]) => [
+          name,
+          { max_upload_bytes: limits.upload },
+        ]),
+      ),
     });
     response.headers.set(
       "Set-Cookie",
@@ -383,15 +443,19 @@ async function api(request: Request, env: Env) {
       throw new Rejected("Choose an MP4 video.", 415);
     const key = request.headers.get("Idempotency-Key") ?? "";
     if (!uuid.test(key)) throw new Rejected("Missing upload identifier.");
+    const requested = request.headers.get("X-Weft-Pipeline") ?? "ball";
+    if (!(requested in PIPELINES))
+      throw new Rejected("Unknown pipeline requested.");
+    const kind = requested as Pipeline;
+    const pipeline = PIPELINES[kind];
     const length = Number(request.headers.get("Content-Length"));
-    if (!(length > 0 && length <= MAX_UPLOAD))
-      throw new Rejected("Choose an MP4 smaller than 10 MB.", 413);
+    if (!(length > 0 && length <= pipeline.upload)) throw tooLarge(pipeline.upload);
     const ip = await hash(
       (request.headers.get("CF-Connecting-IP") ?? "unknown") +
         ":" +
         Math.floor(Date.now() / DAY),
     );
-    const reserved = await queue.reserve(owner, ip, key, judge);
+    const reserved = await queue.reserve(owner, ip, key, judge, kind);
     if (!reserved)
       throw new Rejected(
         "The generation queue is full. Please try again later.",
@@ -399,7 +463,7 @@ async function api(request: Request, env: Env) {
       );
     if (reserved.fresh) {
       try {
-        const body = await limitedBody(request, MAX_UPLOAD);
+        const body = await limitedBody(request, pipeline.upload, pipeline.read);
         await env.UPLOADS.put(`${reserved.job.id}/source.mp4`, body, {
           httpMetadata: { contentType: "video/mp4" },
         });
@@ -426,16 +490,18 @@ async function api(request: Request, env: Env) {
           message: "This result has expired. Submit a new clip to start again.",
         });
   if (!match[2]) {
+    const kind = pipelineOf(job.kind);
     const result = job.result ? JSON.parse(job.result) : null;
     if (result)
       Object.assign(result, {
         video: `/api/jobs/${job.id}/source`,
         download: `/api/jobs/${job.id}/download`,
-        title: "Your reconstructed world",
+        title: PIPELINES[kind].title,
       });
     return json({
       id: job.id,
       status: job.status,
+      kind,
       message: job.message,
       result,
     });

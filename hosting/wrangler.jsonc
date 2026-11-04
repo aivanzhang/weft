@@ -7,12 +7,14 @@
   "workers_dev": false,
   "preview_urls": false,
   "assets": {"directory": ".build/public", "binding": "ASSETS", "run_worker_first": ["/", "/api/*", "/health"]},
-  "vars": {"PUBLIC_ORIGIN": "https://weft.kintsugi.software", "SUBMISSIONS_ENABLED": "true", "RELEASE": "video-environments-20261104-judges"},
+  "vars": {"PUBLIC_ORIGIN": "https://weft.kintsugi.software", "SUBMISSIONS_ENABLED": "true", "RELEASE": "exercise-pipeline-20261104"},
   "routes": [{"pattern": "weft.kintsugi.software", "custom_domain": true}],
   "r2_buckets": [{"binding": "UPLOADS", "bucket_name": "weft-private-submissions"}],
   "durable_objects": {"bindings": [{"name": "GENERATOR", "class_name": "GenerationContainer"}, {"name": "SUBMISSIONS", "class_name": "SubmissionQueue"}]},
   "migrations": [{"tag": "v1", "new_sqlite_classes": ["GenerationContainer", "SubmissionQueue"]}],
-  "containers": [{"class_name": "GenerationContainer", "image": "./Dockerfile", "image_build_context": "..", "instance_type": "standard-1", "max_instances": 1, "rollout_active_grace_period": 240}],
+  // standard-3 (2 vCPU) over standard-1 (1/2 vCPU): CPU is billed by active use, so the
+  // faster instance costs about the same per job while cutting pose + training latency ~4x.
+  "containers": [{"class_name": "GenerationContainer", "image": "./Dockerfile", "image_build_context": "..", "instance_type": "standard-3", "max_instances": 1, "rollout_active_grace_period": 240}],
   "limits": {"cpu_ms": 1000},
   "observability": {"enabled": false}
 }
