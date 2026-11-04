@@ -146,26 +146,48 @@ def build_appearance(source, out, model, intent, *, deadline):
     Mirrors the portal's saved-body route as library calls: admitted preflight, conditional
     person inventory, human-only world, then the shared exercise lab. No Portal, no HTTP and
     no provider calls. Returns the lab's run directory, or a recorded reason it stopped.
+
+    Both shipped source anchors are attempted, unchanged, because they refuse different
+    clips at frame zero: the legacy one wants confident head, torso and limb endpoints, the
+    visible-chain one wants a confidence-qualified limb chain. Neither is relaxed; the
+    second is only tried when the first refuses, and the receipt records which admitted.
     """
-    from weft.exercise_perception_pipeline import prepare_exercise_perception_preflight
+    from weft.exercise_perception_pipeline import (LEGACY_ANCHOR_PROFILE,
+                                                   VISIBLE_ANCHOR_PROFILE,
+                                                   prepare_exercise_perception_preflight)
     from weft.person_inventory import make_conditional_person_inventory
     from weft.shared_exercise_lab import prepare_shared_exercise_lab
     from weft.shared_world_human import construct_human_only_run
 
-    preflight = prepare_exercise_perception_preflight(
-        source, out / "preflight", pose_model=model,
-        max_seconds=max(1, min(210, int(deadline - time.monotonic()))))
-    # local_ready is the library's admitted state; awaiting_consent is the portal's own
-    # wrapper around it, which this route does not go through.
-    if preflight.get("status") != "local_ready":
-        return None, {"stage": "preflight", "status": preflight.get("status")}
+    attempts, preflight, anchor = [], None, None
+    for index, profile in enumerate((LEGACY_ANCHOR_PROFILE, VISIBLE_ANCHOR_PROFILE)):
+        try:
+            result = prepare_exercise_perception_preflight(
+                source, out / f"preflight-{index}", pose_model=model, anchor_profile=profile,
+                max_seconds=max(1, min(210, int(deadline - time.monotonic()))))
+        except Exception as error:
+            attempts.append({"anchor_profile": profile,
+                             "refused": f"{type(error).__name__}: {error}"[:200]})
+            continue
+        # local_ready is the library's admitted state; awaiting_consent is the portal's own
+        # wrapper around it, which this route does not go through.
+        if result.get("status") != "local_ready":
+            attempts.append({"anchor_profile": profile, "status": result.get("status")})
+            continue
+        preflight, anchor = result, profile
+        attempts.append({"anchor_profile": profile, "status": "local_ready"})
+        break
+    if preflight is None:
+        return None, {"stage": "preflight", "attempts": attempts}
+    directory = out / f"preflight-{(LEGACY_ANCHOR_PROFILE, VISIBLE_ANCHOR_PROFILE).index(anchor)}"
     inventory = make_conditional_person_inventory(preflight["source_sha256"], intent)
-    built = construct_human_only_run(out / "preflight/body_source", inventory, out / "world",
+    built = construct_human_only_run(directory / "body_source", inventory, out / "world",
                                      deadline=deadline, max_seconds=30)
     # root_assistance matches the primary exercise route; the gates themselves are unchanged.
     lab = prepare_shared_exercise_lab(out / "world", out / "lab", root_assistance=True,
                                       max_seconds=max(1, min(60, int(deadline - time.monotonic()))))
     return out / "lab/run", {"stage": "ready", "inventory": inventory,
+                             "anchor_profile": anchor, "attempts": attempts,
                              "world_manifest_sha256": built["manifest_sha256"],
                              "lab_manifest_sha256": lab["manifest_sha256"],
                              "reference_feasibility": built.get("reference_feasibility")}
@@ -185,6 +207,7 @@ def summarize_appearance(run, receipt):
             "has_body_frame": bool(human.get("body_frame")),
             "lengths": {name: _number(value, 5) for name, value in
                         sorted((human.get("lengths") or {}).items())},
+            "anchor_profile": receipt.get("anchor_profile"),
             "world_manifest_sha256": receipt.get("world_manifest_sha256"),
             "lab_manifest_sha256": receipt.get("lab_manifest_sha256"),
             "reference_feasibility": receipt.get("reference_feasibility"),
