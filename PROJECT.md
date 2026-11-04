@@ -264,6 +264,21 @@ not an external benchmark or a guarantee for new inputs.
   local lane reproduced the same invariant independently at 1.7e-15 over 927 bone
   comparisons, which is stronger than either lane alone. Evidence:
   `.local/hosted-sweep-4/hosted-matrix.json`, `scripts/verify/bone_length_preservation.mjs`.
+- **Seven completed end-to-end runs from the deployed service** are published for the
+  walkthrough catalogs, each with the clip submitted, the archive returned, the summary
+  reported and both predefined avatars retargeted onto the result: incline-press 111 s,
+  overhead-squat 122 s, waiters-squat 123 s, bodyweight-squats 131 s, sots-press 139 s,
+  deadlift 197 s, jumping-jacks 210 s. **7 of 7 complete with an avatar-ready scene**, worst
+  avatar bone-length drift 1.4e-15. Two earn their place by what they show: `deadlift` is the
+  only windowed appearance, retried on 0.12-7.33 s after one bad frame zero refused both
+  anchors on a 99.1%-tracked clip; `jumping-jacks` was a hard refusal in every earlier sweep
+  and now admits on a proposed window at 100/0. Evidence: `.local/walkthrough-catalog/`.
+- Building that catalog caught a regression a single-clip measurement had missed. Overlapping
+  the learning and appearance stages cut the reference clip from 147 s to 110.7 s and was
+  deployed on that evidence; across seven examples it broke **bodyweight-squats** and
+  **jumping-jacks**, which exceeded the lab's internal 120-second learning budget under CPU
+  contention. Faster in total, broken in detail. Reverted. The independent 600-episode
+  trim stays, so bodyweight-squats is 29.4 s in-container against 43 s before either change.
 - **Verified on deployed Cloudflare**, release `exercise-pipeline-20261104`: one clip
   submitted through the judge lane at `weft.kintsugi.software` completed in 147 s with
   `q_learning 100/100` against `random 1/100` and `coast 0/100`, full pose tracking, a
