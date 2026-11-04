@@ -32,6 +32,9 @@ npm run demo
 Open `/demo` to watch finished examples; use the header’s Access popover to build your own. The landing page is at
 `http://127.0.0.1:3000/`; the walkthrough stays at `http://127.0.0.1:3000/demo`. **Ctrl+C** stops
 both servers and preserves saved runs. Stop individually running servers first.
+Page edits refresh automatically. Python and example-catalog edits restart the
+sandbox when idle; active jobs and loaded live worlds are preserved. See the
+[hot refresh notes](sandbox/README.md#hot-refresh) for restart limits and opt-out.
 
 ### Explore the landing page
 

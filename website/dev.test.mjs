@@ -50,6 +50,9 @@ test("landing loads from its own root and all public assets are available", asyn
 });
 
 test("private state, source code and traversal are not served", async () => {
+  for (const route of ["/__weft_reload", "/__weft_reload.js"]) {
+    assert.equal((await fetch(base + route)).status, 404, "Hot refresh is opt-in at the server boundary");
+  }
   for (const path of ["/.env", "/.git/config", "/.local/portal", "/src/weft/portal.py", "/sandbox/run.mjs", "/website/README.md", "/website/%2e%2e/.env", "/%2e%2e%2f.env"]) {
     assert.equal((await fetch(`${base}${path}`)).status, 404, path);
   }

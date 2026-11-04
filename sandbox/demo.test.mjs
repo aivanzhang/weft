@@ -24,6 +24,8 @@ test('demo reuses the prepared collection and supports an explicit root and matc
   assert.equal(command.args[4], '.local/demo-portal-04');
   assert.equal(command.port, 3000);
   assert.equal(command.sandboxPort, 8765);
+  assert.equal(command.watch, true);
+  assert.equal((await demoCommand(['--no-watch'], root)).watch, false);
   const custom = await demoCommand(['--root', 'saved worlds/$(literal)', '--port=3001', '--sandbox-port', '8767', '--check'], root);
   assert.equal(custom.args[4], 'saved worlds/$(literal)');
   assert.equal(custom.args[6], '8767');

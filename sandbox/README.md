@@ -51,6 +51,22 @@ Ctrl+C sends one graceful interrupt to the sandbox and waits for cleanup.
 Repeated presses do not interrupt cleanup; a slow shutdown reports that it is
 still saving rather than force-killing the process.
 
+### Hot refresh
+
+`npm run demo` watches page assets, Python sources, demo media and the example
+catalog. Open the port-3000 URL: saving a visual edit automatically refreshes the
+page. This is a full page reload, not state-preserving component replacement.
+Python/catalog edits gracefully restart the backend, then refresh open pages once
+it is ready. Saved runs, access tokens and spending ledgers survive restarts.
+Rapid saves are combined; temporary files, caches and run directories are ignored.
+
+Backend reload waits for queued/active jobs and exports. A loaded live world holds
+in-memory state, so it prevents automatic backend restart: finish the interaction,
+then use Ctrl+C and `npm run demo` when ready. Saving cannot silently reset it.
+Python errors after a restart remain visible in the terminal; save a Python file
+after correcting the error to retry. Launcher/proxy `.mjs` changes require a manual
+restart. Use `npm run demo -- --no-watch` to disable automatic refresh entirely.
+
 To run only the sandbox:
 
 ```sh
