@@ -350,6 +350,29 @@ not an external benchmark or a guarantee for new inputs.
   routes enforce. It is now admitted by both -- locally in 46.5 s on a 20.9-45.2 s window,
   and on the deployed service in 184.4 s at 100/100 with an avatar-ready scene. Seven of the
   eleven catalogued clips are attributed and admitted on both routes.
+- The three clips that stay refused are refused **inside the published envelope**, which is
+  what makes the refusal acceptable rather than a gap: the pre-upload constraints on
+  `/api/session` say "Hanging and lying-down exercises are refused", and that is exactly
+  `pull-ups` (0-10% usable poses), `hanging-crunches` (4.6-47% against a 65% floor) and floor
+  `leg-raises` (67% usable but reference gaps beyond the interpolation horizon). All three
+  refuse identically across the lite, full and heavy pose models, heavy markedly worse. A
+  judge reading the constraints before uploading knows these are out of scope.
+- Three different limits used to refuse with one message, "The generation queue is full.
+  Please try again later." They now say which: three jobs already generating (clears in about
+  a minute), an access code's daily budget, the shared daily budget, or a visitor's own three
+  per day. The generic wording mattered because a budget does not clear "later" -- it clears
+  hours later -- and a 429 during this verification turned out to be the judge lane's 60-a-day
+  cap rather than a wedged queue, which the old message could not distinguish.
+- The published time expectation was wrong in the optimistic direction twice. It promised
+  "about 1.5 to 5 minutes" when production measures 66-185 s, and a first correction added
+  "refused in well under a minute" reasoned from 2.6-4.0 s local pose-gate figures. That
+  second claim does not hold: those figures are one pose pass, while a clip refused for a
+  localized reason runs the whole ladder -- both anchors, a window proposal, both anchors
+  again -- before giving up, so a refusal can cost more than a success, not less. The live
+  text now says so. **Deployed refusal latency is unmeasured**: the judge lane's daily budget
+  was exhausted by this session's own verification runs, and the honest answer was to publish
+  the bound rather than scale a laptop number, which is the error this session committed
+  seven times.
 - Building that catalog caught a regression a single-clip measurement had missed. Overlapping
   the learning and appearance stages cut the reference clip from 147 s to 110.7 s and was
   deployed on that evidence; across seven examples it broke **bodyweight-squats** and

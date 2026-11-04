@@ -44,7 +44,7 @@ const PIPELINES = {
       file:
         "MP4 up to 40 MB. Longer clips are thinned across their whole length, and if only part of a clip is usable that part is found and used automatically.",
       expect:
-        "About 1.5 to 5 minutes. A clip outside the envelope is refused in under 90 seconds with the reason.",
+        "About 1 to 3 minutes: measured 66 s for a clip that admits first try, 185 s for one that needs a narrower window found automatically. A clip outside the envelope comes back with the reason, and can take as long as a successful run because a narrower window is tried before giving up.",
     },
     refusal:
       "This clip could not produce a verified environment. Use one person, head to feet in frame, a plain background and a fixed camera in a single continuous shot.",
@@ -168,7 +168,7 @@ export class SubmissionQueue extends DurableObject<Env> {
     key: string,
     judge = false,
     kind: Pipeline = "ball",
-  ) {
+  ): Promise<{ job: Job; fresh: boolean } | { refused: string }> {
     const old = this.rows(
       "SELECT * FROM jobs WHERE owner=? AND key=?",
       owner,
@@ -187,14 +187,19 @@ export class SubmissionQueue extends DurableObject<Env> {
     // The judge lane shares the single generation slot but keeps its own bounded
     // daily budget, so public traffic can never exhaust judging capacity.
     const publicDaily = daily.filter((job) => job.lane !== "judge");
-    if (active.length >= 3) return null;
+    // A momentarily busy queue and an exhausted daily budget both used to refuse with "try
+    // again later", which is misleading for the budget: it does not clear for hours.
+    if (active.length >= 3)
+      return { refused: "Three environments are already generating. Try again in about a minute." };
     if (judge) {
-      if (daily.filter((job) => job.lane === "judge").length >= 60) return null;
-    } else if (
-      publicDaily.length >= 20 ||
+      if (daily.filter((job) => job.lane === "judge").length >= 60)
+        return { refused: "This access code has used its daily generation budget. Each run frees up 24 hours later." };
+    } else if (publicDaily.length >= 20)
+      return { refused: "The shared daily generation budget is used up. Please try again tomorrow." };
+    else if (
       publicDaily.filter((job) => job.owner === owner || job.ip === ip).length >= 3
     )
-      return null;
+      return { refused: "You have used your three generations for today. Please try again tomorrow." };
     const job: Job = {
       id: crypto.randomUUID(),
       owner,
@@ -564,11 +569,7 @@ async function api(request: Request, env: Env) {
         Math.floor(Date.now() / DAY),
     );
     const reserved = await queue.reserve(owner, ip, key, judge, kind);
-    if (!reserved)
-      throw new Rejected(
-        "The generation queue is full. Please try again later.",
-        429,
-      );
+    if ("refused" in reserved) throw new Rejected(reserved.refused, 429);
     if (reserved.fresh) {
       try {
         const body = await limitedBody(request, pipeline.upload, pipeline.read);
