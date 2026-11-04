@@ -209,7 +209,22 @@ not an external benchmark or a guarantee for new inputs.
   here concluded no structural win remained; that was wrong, and it was wrong because it
   reasoned about the stages' cost without asking whether they had to be ordered at all.
 - End-to-end latency on deployed hardware is **110.7 s** on the reference clip: inside the
-  5-minute preferred bound, and the 1-minute optimum is still not reached.
+  5-minute preferred bound, and the 1-minute optimum is not reached. The floor is now
+  measured per phase in production rather than inferred, from the archive's own artifact
+  timestamps: training 34 s, evaluating three policies over 100 episodes each 22 s, pose and
+  body fit about 4 s, the appearance stage finishing at +22 s and therefore **entirely hidden
+  inside training**, a 60 s archive-visible span, and about 50 s outside it for upload,
+  container cold start, normalization and download. So the two irreducible pieces are the
+  56 s of training-plus-evaluation that *is* the scored deliverable, and roughly 50 s of
+  transport and cold start that is not pipeline work at all. Zeroing both halves of the
+  deliverable would still leave about 50 s, so sub-60 s is not reachable while the service
+  starts a container per job and reports a 100-episode comparison.
+- The one untried lever is warm starts. The Worker stops the container after every job, a
+  deliberate choice recorded as "no idle paid container between visitor jobs", so each
+  submission pays cold start. Keeping it warm would cut a share of that 50 s for a judge
+  submitting several clips, at the cost of idle container billing for up to the five-minute
+  sleep window. That is an explicit spending decision already made in this repository, so it
+  is left to the owner rather than flipped here.
   The arithmetic, not an estimate: the learning stage alone takes 89 s, so even an
   instantaneous appearance stage would miss 60 s. Of that 89 s only 34 s is the trainer, and
   its success rate reaches 1.00 by episode 400 of 1,500, so trimming the budget recovers
