@@ -58,6 +58,27 @@ test("private state, source code and traversal are not served", async () => {
   }
 });
 
+test("references routes serve the bibliography with working local assets and navigation", async () => {
+  for (const route of ["/references", "/references/", "/website/references.html"]) {
+    const response = await fetch(base + route);
+    assert.equal(response.status, 200, route);
+    assert.match(response.headers.get("content-type"), /text\/html/);
+    const html = await response.text();
+    assert.match(html, /<title>References — Weft<\/title>/);
+    for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+      const target = new URL(href, base + route);
+      if (target.origin !== base) continue;
+      if (target.hash && target.pathname === route) {
+        assert.ok(html.includes(`id="${target.hash.slice(1)}"`), href);
+      } else {
+        assert.equal((await fetch(target, { method: "HEAD" })).status, 200, href);
+      }
+    }
+    assert.equal((await fetch(base + route, { method: "POST" })).status, 405);
+  }
+  assert.equal((await fetch(base + "/references/private")).status, 404);
+});
+
 test("local landing keeps uploads disabled and the sandbox enforces API authentication", async () => {
   const config = await (await fetch(`${base}/api/session`)).json();
   assert.equal(config.enabled, false);

@@ -35,6 +35,7 @@ headers before forwarding. Restart the landing process after routing changes.
 | --- | --- |
 | `index.html`, `styles.css`, `site.js` | Page content, layout and interactions |
 | `contents.js` | Section-index dismissal; styles are bundled into `styles.css` |
+| `references.html`, `references.css` | Research bibliography at `/references`, separating dependencies from related work |
 | `sandbox-proxy.mjs` | Same-origin, authenticated local sandbox routing |
 | `environments.*`, `environments/` | Source/simulation gallery and exported example |
 | `footer.*` | Animated mascot story |

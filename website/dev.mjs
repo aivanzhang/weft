@@ -29,7 +29,9 @@ export function landingServer({ sandboxPort = 8765, hotReload = null } = {}) {
     };
     try {
       const parsed = new URL(request.url, "http://localhost");
-      const path = decodeURIComponent(parsed.pathname);
+      const pathname = decodeURIComponent(parsed.pathname);
+      const path = ["/references", "/references/"].includes(pathname)
+        ? "/website/references.html" : pathname;
       if (hotReload && ["/__weft_reload", "/__weft_reload.js"].includes(path)) {
         const host = request.headers.host;
         if (!["localhost", "127.0.0.1"].some(name => host === `${name}:${request.socket.localPort}`)

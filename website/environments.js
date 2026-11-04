@@ -12,7 +12,7 @@
     card.innerHTML = `<header class="world-caption"><span class="world-number"></span><h3></h3><span>VIDEO → ENVIRONMENT</span></header>
       <div class="world-pair">
         <div class="world-panel"><div class="world-panel-label"><span>Original footage</span></div><div class="world-screen"><video muted playsinline preload="metadata" aria-label="Original footage"></video></div></div>
-        <div class="world-panel"><div class="world-panel-label"><span>Digital environment</span><div class="world-actions">
+        <div class="world-panel"><div class="world-panel-label"><span>Reconstructed environment</span><div class="world-actions">
           <button type="button" class="world-icon world-version" aria-label="Show initial fit" aria-pressed="false">
             <svg class="version-initial" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" stroke-dasharray="2 3"/><circle cx="12" cy="12" r="2"/></svg>
             <svg class="version-reconstructed" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="m8 12 3 3 5-6"/></svg>

@@ -1,6 +1,8 @@
 // Both servers expose only this catalog, never the repository or private runs.
 export const publicAssets = [
   "website/index.html",
+  "website/references.html",
+  "website/references.css",
   "website/styles.css",
   "website/site.js",
   "website/contents.css",

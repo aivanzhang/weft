@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="The papers, models and open-source tools behind Weft’s video reconstruction, simulation and independent evaluation." />
+    <meta name="theme-color" content="#FBF7F1" />
+    <title>References — Weft</title>
+    <link rel="icon" href="../assets/brand/exports/weft-mascot.png" type="image/png" />
+    <link rel="stylesheet" href="../website/styles.css" />
+    <link rel="stylesheet" href="../website/references.css" />
+  </head>
+  <body class="references-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page">
+      <header class="site-header">
+        <a class="wordmark" href="../website/index.html" aria-label="Weft home">
+          <svg
+            class="wordmark-mascot"
+            viewBox="40 65 560 530"
+            width="44"
+            height="44"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <g
+              id="header-mascot"
+              stroke="#214F50"
+              stroke-width="18"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <g id="header-foot-left">
+                <path
+                  d="M174 518 C171 550 184 571 210 571 C234 571 253 554 259 526 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-foot-right">
+                <path
+                  d="M354 526 C357 557 376 575 402 571 C425 569 441 552 443 525 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-arm-left">
+                <path
+                  d="M110 392 C91 400 81 409 72 424 C60 443 68 461 85 466 C100 470 110 461 117 452 L143 423 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-arm-right">
+                <path
+                  d="M530 399 C548 406 561 416 569 430 C579 447 575 463 560 468 C544 473 535 463 530 455 L503 422 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-body">
+                <path
+                  d="M122 222 C154 204 430 213 501 237 C530 246 536 280 532 322 L532 442 C533 490 531 520 491 530 C433 543 222 540 163 534 C121 529 111 508 108 462 L106 314 C100 268 100 241 122 222 Z"
+                  fill="#F5EADC"
+                  stroke="none"
+                />
+                <path
+                  d="M108 392 L106 314 C100 268 100 241 122 222 C154 204 430 213 501 237 C530 246 536 280 532 322 L532 399"
+                  fill="none"
+                />
+                <path
+                  d="M532 455 C533 490 531 520 491 530 C433 543 222 540 163 534 C121 529 111 508 108 462 L108 451"
+                  fill="none"
+                />
+              </g>
+              <g id="header-weave-rear">
+                <path
+                  d="M402 141 C405 119 425 110 448 114 C475 117 495 132 493 153 L471 171 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M478 164 C527 153 571 173 575 214 C579 250 565 298 548 407 L476 386 L473 244 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M487 164 C531 157 573 178 575 214 C578 238 575 254 566 263 L486 235 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M474 239 C530 244 567 265 569 292 C572 313 562 327 550 334 C533 322 504 315 477 311 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M476 311 C498 315 533 320 542 332 L539 403 L475 388 Z"
+                  fill="#C7795D"
+                />
+              </g>
+              <g id="header-weave-front">
+                <path
+                  d="M126 204 C114 160 127 130 161 116 C187 106 226 101 237 108 C251 116 255 132 251 152 L244 204 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M225 129 C234 121 244 121 260 125 L254 204 L211 203 C206 179 212 145 225 129 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M113 207 C156 198 204 198 251 205 L265 275 C218 267 165 263 129 277 C114 281 107 287 103 290 C87 275 86 247 94 226 C98 216 104 210 113 207 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M276 108 C295 98 335 99 354 105 C368 111 375 122 373 136 C356 147 356 179 359 210 L390 217 C396 240 395 270 386 284 C371 290 311 280 272 272 C260 263 251 218 251 185 C251 147 257 120 276 108 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M363 144 C407 147 449 155 482 166 C495 180 498 207 487 223 C451 213 403 207 359 204 C352 187 352 158 363 144 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M391 217 C414 220 450 224 466 232 C473 271 470 328 470 389"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-mend-stitch">
+                <rect
+                  x="449"
+                  y="339"
+                  width="59"
+                  height="23"
+                  rx="11.5"
+                  fill="#C7795D"
+                  stroke-width="7"
+                  transform="rotate(10 478.5 350.5)"
+                />
+              </g>
+              <g id="header-cheeks" fill="#C7795D" stroke="none">
+                <ellipse cx="183" cy="441" rx="20" ry="12" />
+                <ellipse cx="433" cy="451" rx="20" ry="12" />
+              </g>
+              <g id="header-eyes-open" stroke="none">
+                <g id="header-eye-left">
+                  <ellipse
+                    cx="218"
+                    cy="397"
+                    rx="27"
+                    ry="35"
+                    fill="#214F50"
+                    transform="rotate(6 218 397)"
+                  />
+                  <circle cx="220" cy="383" r="9" fill="#F5EADC" />
+                </g>
+                <g id="header-eye-right">
+                  <ellipse
+                    cx="407"
+                    cy="408"
+                    rx="27"
+                    ry="35"
+                    fill="#214F50"
+                    transform="rotate(6 407 408)"
+                  />
+                  <circle cx="409" cy="394" r="9" fill="#F5EADC" />
+                </g>
+              </g>
+              <g
+                id="header-eyes-closed"
+                opacity="0"
+                fill="none"
+                stroke-width="13"
+              >
+                <path d="M196 401 Q218 379 240 403" />
+                <path d="M385 412 Q407 390 429 414" />
+              </g>
+              <g id="header-mouth" fill="none" stroke-width="18">
+                <path d="M281 432 C291 459 327 460 338 434" />
+              </g>
+            </g>
+          </svg>
+          <svg
+            class="wordmark-lettering"
+            viewBox="45 680 1165 455"
+            width="70"
+            height="28"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <image
+              href="../assets/brand/source/weft-wordmark.png"
+              width="1254"
+              height="1254"
+            />
+          </svg>
+        </a>
+        <nav aria-label="Main navigation"><a href="../website/index.html#research">Back to research</a></nav>
+      </header>
+      <main id="main">
+        <section class="reference-intro" aria-labelledby="references-heading">
+          <p class="eyebrow">Weft / References</p>
+          <h1 id="references-heading">Built on research.<br />Open to exploration.</h1>
+          <p class="reference-lead">The papers, models and tools behind the work—<br class="desktop-break" />and the ideas that put it in context.</p>
+          <nav class="reference-index" aria-label="Reference categories">
+            <a href="#perception">01 / Perception</a>
+            <a href="#simulation">02 / Simulation</a>
+            <a href="#related">03 / Related research</a>
+          </nav>
+        </section>
+        <section class="reference-section" id="perception" aria-labelledby="perception-heading">
+          <header class="reference-section-heading">
+            <span class="eyebrow">01 / Seeing the scene</span>
+            <h2 id="perception-heading">Seeing the scene</h2>
+            <p>Models and tools used to turn video into observations.</p>
+          </header>
+          <ol class="reference-list">
+            <li class="reference-entry">
+              <p class="reference-meta">Google · Pose estimation <span> / Implementation dependency</span></p>
+              <h3><a href="https://developers.google.com/edge/mediapipe/solutions/vision/pose_landmarker">MediaPipe Pose Landmarker</a></h3>
+              <p class="reference-description">Estimates body landmarks from images and video. Weft uses these estimates as inputs to its exercise reconstruction, retaining confidence and missing observations.</p>
+              <div class="reference-links"><a href="https://developers.google.com/edge/mediapipe/solutions/vision/pose_landmarker">Documentation<span aria-hidden="true"> ↗</span></a><a href="https://arxiv.org/abs/2006.10204">BlazePose paper · Bazarevsky et al., 2020<span aria-hidden="true"> ↗</span></a></div>
+            </li>
+            <li class="reference-entry">
+              <p class="reference-meta">Meta · Segmentation &amp; tracking <span> / Model integration</span></p>
+              <h3><a href="https://dev.meta.ai/models/sam-3-1/">Segment Anything Model 3.1</a></h3>
+              <p class="reference-description">Detects, segments and tracks objects in video. Weft’s Meta adapter uses tracking evidence to support object reconstruction; masks are not measurements of physical properties.</p>
+              <div class="reference-links"><a href="https://dev.meta.ai/models/sam-3-1/">Model &amp; documentation<span aria-hidden="true"> ↗</span></a></div>
+            </li>
+            <li class="reference-entry">
+              <p class="reference-meta">Meta · Multimodal reasoning <span> / Model integration</span></p>
+              <h3><a href="https://dev.meta.ai/models/muse-spark/">Muse Spark</a></h3>
+              <p class="reference-description">Weft uses Muse for evidence review and bounded proposals. Independent evaluation decides whether a proposed change is accepted.</p>
+              <div class="reference-links"><a href="https://dev.meta.ai/models/muse-spark/">Model &amp; documentation<span aria-hidden="true"> ↗</span></a></div>
+            </li>
+          </ol>
+        </section>
+        <section class="reference-section" id="simulation" aria-labelledby="simulation-heading">
+          <header class="reference-section-heading">
+            <span class="eyebrow">02 / Making it executable</span>
+            <h2 id="simulation-heading">Making it executable</h2>
+            <p>The software foundations for simulation and reinforcement learning.</p>
+          </header>
+          <ol class="reference-list">
+            <li class="reference-entry">
+              <p class="reference-meta">Physics simulation <span> / Implementation dependency</span></p>
+              <h3><a href="https://mujoco.org/">MuJoCo</a></h3>
+              <p class="reference-description">The physics engine behind Weft’s articulated worlds and supported rigid-body scenes. A simulated result still depends on the scene’s geometry, contact and control assumptions.</p>
+              <div class="reference-links"><a href="https://mujoco.org/">Project &amp; documentation<span aria-hidden="true"> ↗</span></a></div>
+            </li>
+            <li class="reference-entry">
+              <p class="reference-meta">Farama Foundation · Reinforcement learning <span> / Implementation dependency</span></p>
+              <h3><a href="https://gymnasium.farama.org/">Gymnasium</a></h3>
+              <p class="reference-description">A standard interface for actions, observations, rewards and episode boundaries. Weft uses it to expose supported simulation tasks to learning and evaluation code.</p>
+              <div class="reference-links"><a href="https://gymnasium.farama.org/">Documentation<span aria-hidden="true"> ↗</span></a></div>
+            </li>
+          </ol>
+        </section>
+        <section class="reference-section" id="related" aria-labelledby="related-heading">
+          <header class="reference-section-heading">
+            <span class="eyebrow">03 / Related research</span>
+            <h2 id="related-heading">Related research</h2>
+            <p>Useful context for the questions Weft explores—not implementations or reproduced results.</p>
+          </header>
+          <ol class="reference-list">
+            <li class="reference-entry">
+              <p class="reference-meta">Bruce et al. · 2024 <span> / Related paper</span></p>
+              <h3><a href="https://arxiv.org/abs/2402.15391">Genie: Generative Interactive Environments</a></h3>
+              <p class="reference-description">Learns action-controllable environments from unlabelled video. It connects to Weft’s video-to-interaction goal; Weft instead constructs explicit, inspectable simulations for supported scenes.</p>
+              <div class="reference-links"><a href="https://arxiv.org/abs/2402.15391">Read paper<span aria-hidden="true"> ↗</span></a></div>
+            </li>
+            <li class="reference-entry">
+              <p class="reference-meta">Hafner et al. · 2023 preprint <span> / Related paper</span></p>
+              <h3><a href="https://arxiv.org/abs/2301.04104">Mastering Diverse Domains through World Models</a></h3>
+              <p class="reference-description">Introduces DreamerV3, which learns behavior by imagining trajectories in a learned world model. It provides context for learning through models; Weft does not implement DreamerV3.</p>
+              <div class="reference-links"><a href="https://arxiv.org/abs/2301.04104">Read paper<span aria-hidden="true"> ↗</span></a></div>
+            </li>
+            <li class="reference-entry">
+              <p class="reference-meta">Ma et al. · 2023 preprint <span> / Related paper</span></p>
+              <h3><a href="https://arxiv.org/abs/2310.12931">Eureka: Human-Level Reward Design via Coding Large Language Models</a></h3>
+              <p class="reference-description">Uses language models and iterative feedback to generate reward code. It relates to proposal-and-test loops; Weft keeps its independent scorer and task-success criteria outside the repair agent’s control.</p>
+              <div class="reference-links"><a href="https://arxiv.org/abs/2310.12931">Read paper<span aria-hidden="true"> ↗</span></a></div>
+            </li>
+          </ol>
+        </section>
+        <aside class="reference-note" aria-labelledby="reference-note-heading">
+          <h2 id="reference-note-heading">A reference is not a result.</h2>
+          <p>Tools used in Weft and related research are labeled separately. Citing a paper does not mean we reproduce its method or results. Weft’s own claims depend on its recorded evidence and independent tests.</p>
+        </aside>
+      </main>
+      <footer class="site-footer">
+        <span>Weft / References</span>
+        <a href="../website/index.html">Back to Weft <span aria-hidden="true">↗</span></a>
+      </footer>
+    </div>
+  </body>
+</html>
