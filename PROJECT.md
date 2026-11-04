@@ -221,8 +221,28 @@ not an external benchmark or a guarantee for new inputs.
   the same clip with byte-identical results.** In-container 31-32 s to 22.9 s. An earlier note
   here concluded no structural win remained; that was wrong, and it was wrong because it
   reasoned about the stages' cost without asking whether they had to be ordered at all.
-- End-to-end latency on deployed hardware is **110.7 s** on the reference clip: inside the
-  5-minute preferred bound, and the 1-minute optimum is not reached. The floor is now
+- End-to-end latency on deployed hardware is **66.0 s** on the reference clip (pipeline 61 s),
+  from 147 s when this work started: well inside the 5-minute preferred bound and six seconds
+  off the 1-minute optimum. Measured on the deployed service with the stages concurrent on a
+  four-vCPU instance: waiters-squat 66.0 s, bodyweight-squats 108.4 s, jumping-jacks 184.6 s,
+  all three complete with an avatar-ready scene and 100/100 learned. Latency tracks clip
+  length only loosely, and an earlier claim here that it tracks reference duration was wrong.
+  Measured: `max_steps` is 240 for every clip, so reinforcement-learning episodes do not
+  scale with clip duration at all, and training takes **3.1 s on the 45-second clip against
+  13.9 s on the 2.7-second one** -- the short clip trains four times longer because its task
+  is harder, not because of its length. Archive spans invert the same way, 16 s against 24 s.
+  What actually drives the deployed spread is a mix with no single clean story: normalization
+  re-encodes a long clip end to end to fit the frame cap, pose scales with frame count, and
+  training scales with task difficulty. The quality trade recorded against bounding the
+  reference (servo error 0.127 to 0.2096) is real but was attributed to the wrong cause: the
+  bounded clip was also far cheaper to normalize and pose, which is where most of its speedup
+  came from.
+  Three changes got there, each measured rather than reasoned: 600 training episodes instead
+  of 1,500 (identical scored numbers), the two stages overlapped so the appearance stage costs
+  nothing, and four vCPU so the overlap does not contend with the lab's internal learning
+  budget. An earlier note concluding that the optimum was unreachable was wrong twice over --
+  it rested on an overhead decomposition that turned out to be 6 s rather than 38 s, and on
+  reverting the overlap without ever giving it cores. The floor is now
   measured per phase in production rather than inferred, from the archive's own artifact
   timestamps: training 34 s, evaluating three policies over 100 episodes each 22 s, pose and
   body fit about 4 s, the appearance stage finishing at +22 s and therefore **entirely hidden

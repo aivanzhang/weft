@@ -12,9 +12,12 @@
   "r2_buckets": [{"binding": "UPLOADS", "bucket_name": "weft-private-submissions"}],
   "durable_objects": {"bindings": [{"name": "GENERATOR", "class_name": "GenerationContainer"}, {"name": "SUBMISSIONS", "class_name": "SubmissionQueue"}]},
   "migrations": [{"tag": "v1", "new_sqlite_classes": ["GenerationContainer", "SubmissionQueue"]}],
-  // standard-3 (2 vCPU) over standard-1 (1/2 vCPU): CPU is billed by active use, so the
-  // faster instance costs about the same per job while cutting pose + training latency ~4x.
-  "containers": [{"class_name": "GenerationContainer", "image": "./Dockerfile", "image_build_context": "..", "instance_type": "standard-3", "max_instances": 1, "rollout_active_grace_period": 240}],
+  // standard-4 (4 vCPU) because the learning and appearance stages run concurrently and each
+  // needs its own pair. On two vCPU they contended and the lab's internal 120-second
+  // learning budget tripped on clips that had completed sequentially; with four, both of
+  // those clips complete and the appearance stage costs nothing. CPU bills by active use, so
+  // the extra cores are near-free and the shorter run offsets the larger memory footprint.
+  "containers": [{"class_name": "GenerationContainer", "image": "./Dockerfile", "image_build_context": "..", "instance_type": "standard-4", "max_instances": 1, "rollout_active_grace_period": 240}],
   "limits": {"cpu_ms": 1000},
   "observability": {"enabled": false}
 }
