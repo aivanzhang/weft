@@ -237,6 +237,32 @@ not an external benchmark or a guarantee for new inputs.
   a native build of the identical Dockerfile, and the job now fails with
   `pose_inference_requires_avx` instead of an unexplained signal. Evidence:
   `.local/hosted-e2e-1/`, `.local/avx-probe/`.
+- **Admission now looks for the usable interval instead of judging the whole file.** Two
+  changes compose, neither relaxing a gate. `prepare_demo_source` used to truncate anything
+  over its 480-frame cap, so a clip longer than about 16 s was judged on its opening alone
+  and the rest was never posed; it now thins across the whole length, which costs nothing
+  because pose samples to ~15/s regardless. The hosted job then, on a refusal that describes
+  a moment rather than the file — competing people, lost visibility, an unanchorable opening,
+  a root-reference gap — asks the portal's own proposal for the longest span satisfying the
+  same frozen constraints, encodes it with the portal's own encoder, and retries once. The
+  first refusal is preserved either way, and an undecodable container or a wrong CPU is never
+  retried. `jumping-jacks-burpees` was a hard refusal in every earlier sweep (45 s, multiple
+  people); it now strides to cover all 45 s, proposes 20.6-45.2 s, and learns 100/100 against
+  random 5/100 with an avatar-ready scene in 37 s in-container. `aerobic` still refuses,
+  correctly, because no span satisfies the constraints. Evidence: `.local/ladder4/`.
+- The retry's limit is the lab's own 120-second learning budget, not the proposal. On hosted
+  hardware that clip's retry exceeded it at window lengths of 23.6 s, 12 s and 8 s alike
+  (313 s, 277 s, 274 s), so window duration is not the binding factor and three successive
+  clamps sized from in-container timings all underpredicted. The clamp stays at the one
+  reference duration verified end to end in production; clips whose retry fits the budget are
+  rescued, and one that does not fails with the lab's own explained message. A clip that
+  needs no retry is unaffected and records `attempted: false`.
+- Latency measurements on one clip with byte-identical outputs span 147 s, 231 s and 194 s
+  across three releases. The 231 s was a real regression — sealing a body up front to feed
+  the proposal added a pose pass to every clean clip, since the learning stage poses
+  internally regardless — and sealing is now lazy. The remaining 147-to-194 s gap is recorded
+  as measured and **not** attributed: latency-relevant code changed three times between those
+  runs and a single repeat is not enough to separate a change from host variance.
 - The arbitrary-input sweep was repeated **against the deployed origin**, not only the
   container: 19 submissions, 6 complete (all with an avatar-ready scene), 8 refused with a
   specific message, **none refused without one, none left unsettled**, and 5 rejected at the
