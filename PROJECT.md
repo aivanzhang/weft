@@ -282,8 +282,12 @@ not an external benchmark or a guarantee for new inputs.
   never made the request the route offers. Driven properly, `deadlift` reaches `ready`
   locally in 34.8 s on the same 0.12-7.33 s window the hosted ladder finds. The real
   remaining difference is narrower: the hosted lane strides an over-long clip to fit the
-  frame envelope before admission and the local upload path does not, so `jumping-jacks`
-  (1,350 frames) is refused locally on the envelope rather than on its content.
+  frame envelope before admission and the local upload path does not. That was a packaging
+  problem rather than a product one, so the fix went into the artifact: the pack now ships
+  `jumping-jacks` strided to 452 frames at 10 fps, covering all 45 s inside the envelope both
+  routes enforce. It is now admitted by both -- locally in 46.5 s on a 20.9-45.2 s window,
+  and on the deployed service in 184.4 s at 100/100 with an avatar-ready scene. Seven of the
+  eleven catalogued clips are attributed and admitted on both routes.
 - Building that catalog caught a regression a single-clip measurement had missed. Overlapping
   the learning and appearance stages cut the reference clip from 147 s to 110.7 s and was
   deployed on that evidence; across seven examples it broke **bodyweight-squats** and
