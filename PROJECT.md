@@ -221,12 +221,17 @@ not an external benchmark or a guarantee for new inputs.
   off the 1-minute optimum. Measured on the deployed service with the stages concurrent on a
   four-vCPU instance: waiters-squat 66.0 s, bodyweight-squats 108.4 s, jumping-jacks 184.6 s,
   all three complete with an avatar-ready scene and 100/100 learned. Latency tracks clip
-  length, so the reference figure is the short end and a 45-second clip is the long one,
-  and that spread is a priced choice rather than an unexplained one: a long clip builds a
-  long reference because the human-only construction uses the complete one, and bounding
-  jumping-jacks to 12 s made it three times faster while raising its reference-servo error
-  from 0.127 to 0.2096 and weakening its contrast from random 15 to 21. Speed on long clips
-  is available and costs environment quality, so it is not taken.
+  length only loosely, and an earlier claim here that it tracks reference duration was wrong.
+  Measured: `max_steps` is 240 for every clip, so reinforcement-learning episodes do not
+  scale with clip duration at all, and training takes **3.1 s on the 45-second clip against
+  13.9 s on the 2.7-second one** -- the short clip trains four times longer because its task
+  is harder, not because of its length. Archive spans invert the same way, 16 s against 24 s.
+  What actually drives the deployed spread is a mix with no single clean story: normalization
+  re-encodes a long clip end to end to fit the frame cap, pose scales with frame count, and
+  training scales with task difficulty. The quality trade recorded against bounding the
+  reference (servo error 0.127 to 0.2096) is real but was attributed to the wrong cause: the
+  bounded clip was also far cheaper to normalize and pose, which is where most of its speedup
+  came from.
   Three changes got there, each measured rather than reasoned: 600 training episodes instead
   of 1,500 (identical scored numbers), the two stages overlapped so the appearance stage costs
   nothing, and four vCPU so the overlap does not contend with the lab's internal learning
