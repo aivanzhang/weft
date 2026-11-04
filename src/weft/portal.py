@@ -131,7 +131,9 @@ class Portal:
         self.root = private_directory(root)
         self.project = Path(project).resolve()
         self.budget = OpenAIBudget(project)
-        self.token = secrets.token_urlsafe(32)
+        # A stable per-root token keeps an open browser tab (and a judge's saved link)
+        # working across restarts; it lives owner-only inside the already-private root.
+        self.token = self._persistent_token()
         self.lock = threading.RLock()
         self.wake = threading.Event()
         self.stopping = threading.Event()
@@ -1140,6 +1142,24 @@ class Portal:
         if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "muse/repairs/run/", "equipment/run/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity].get("source_file"), "failure.json", "worker.log", "muse/binding.json", "support-priors.json", "body-reuse.json", "equipment/candidates.json", "equipment/source-validation.json", "equipment/selection.json"}:
             raise ValueError("File is not a public project artifact")
         return file
+
+    def _persistent_token(self):
+        saved = self.root / ".access-token"
+        try:
+            if saved.is_file() and not saved.is_symlink() and saved.stat().st_uid == os.getuid():
+                value = saved.read_text().strip()
+                if 32 <= len(value) <= 128:
+                    return value
+        except OSError:
+            pass
+        value = secrets.token_urlsafe(32)
+        try:
+            handle = os.open(saved, os.O_CREAT | os.O_WRONLY | os.O_TRUNC | os.O_NOFOLLOW, 0o600)
+            with os.fdopen(handle, "w") as stream:
+                stream.write(value)
+        except OSError:
+            pass
+        return value
 
     def close(self):
         self.stopping.set()

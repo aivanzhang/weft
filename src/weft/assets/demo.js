@@ -7,8 +7,20 @@
   async function api(path, options = {}) {
     const response = await fetch(path, { ...options, headers: { ...auth, ...(options.headers || {}) } });
     const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.error || "That request did not complete.");
+    if (!response.ok) {
+      if (response.status === 401 || response.status === 403) warnAuth();
+      throw new Error(data.error || "That request did not complete.");
+    }
     return data;
+  }
+
+  function warnAuth() {
+    const banner = $("auth-warning");
+    if (!banner || !banner.hidden) return;
+    banner.hidden = false;
+    banner.textContent = token
+      ? "This link's access token is no longer valid — the portal was restarted. Open the current link printed by the portal."
+      : "This page needs the portal's access link. Open the full http://127.0.0.1:…/demo#token=… link printed when the portal started.";
   }
 
   const seconds = (value) => {
@@ -188,6 +200,10 @@
   function closeStudio() {
     $("studio-modal").hidden = true;
     document.body.classList.remove("locked");
+    // Drop the embedded world and clip so they stop consuming CPU in the background.
+    $("world-view").removeAttribute("src");
+    $("studio-video").pause();
+    $("studio-video").removeAttribute("src");
     world = null;
   }
 
@@ -212,11 +228,25 @@
       renderSteps($("studio-steps"), record.steps || [], record.run || record.id || identity);
       const outcome = record.result || {};
       world = outcome.project || outcome.child || record.project || null;
+      const media = $("result-media");
+      const clip = demos.find((d) => d.id === identity);
+      if (clip && clip.video_url) {
+        $("studio-video").src = signed(clip.video_url);
+        media.hidden = false;
+      } else {
+        $("studio-video").removeAttribute("src");
+        media.hidden = true;
+      }
       $("play").hidden = !world;
+      $("world-frame").hidden = !world;
       if (world) {
-        $("play-full").href = signed(`/labs/${world}/`);
+        const lab = signed(`/labs/${world}/`);
+        $("world-view").src = lab;
+        $("play-full").href = lab;
         $("readout").replaceChildren();
         refreshWorld();
+      } else {
+        $("world-view").removeAttribute("src");
       }
       $("modal-body") && $("modal-body").scrollTo({ top: 0 });
     } catch (error) {
