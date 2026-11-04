@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weft · Guided walkthrough</title>
+<link rel="icon" href="/weft-logo.png">
+<link rel="stylesheet" href="/brand.css">
+<link rel="stylesheet" href="/demo.css">
+<script src="/demo.js" defer></script>
+</head>
+<body>
+
+<header class="site-head">
+  <a class="brand" href="/demo" aria-label="Weft"><img src="/weft-logo.png" width="44" height="44" alt=""></a>
+  <nav>
+    <a href="/demo" class="is-current">Finished runs</a>
+    <a href="/demo/build" class="nav-pill">Build a world<span aria-hidden="true">→</span></a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">GUIDED WALKTHROUGH</p>
+    <h1>A video becomes a world<br>an agent can train in.</h1>
+    <p class="lede">Reinforcement-learning teams hand-build the environments their agents learn in — engineer-weeks
+      per task, and usually wrong in ways nobody can see until a policy fails. Weft turns an ordinary clip into an
+      executable, inspectable world in about a minute, then has <strong>Meta's Muse</strong> argue with the result
+      and propose the tests that would catch what it got wrong.</p>
+    <div class="claims">
+      <div><strong>Impact</strong><span>Replaces engineer-weeks of hand-authored simulation with a one-minute pass
+        over a phone clip.</span></div>
+      <div><strong>Meta AI</strong><span>Muse reviews the constructed physics against real evidence and picks the
+        bounded test to run — proposals, never silent edits.</span></div>
+      <div><strong>Demo</strong><span>It runs live, here, on a clip you choose — and every step leaves a bundle you
+        can download.</span></div>
+      <div><strong>Depth</strong><span>Frozen gates, preserved failures, append-only spend ledgers. Refusals are
+        shown, not hidden.</span></div>
+    </div>
+  </section>
+
+  <section class="explore" id="explore">
+    <div class="section-head">
+      <div>
+        <h2>Explore a finished run</h2>
+        <p class="hint">Real runs from this pipeline. Open one to see every step, download its artifacts, and drive
+          the environment yourself.</p>
+      </div>
+      <div class="gallery-nav">
+        <button id="prev" type="button" aria-label="Previous run">←</button>
+        <button id="next" type="button" aria-label="Next run">→</button>
+      </div>
+    </div>
+
+    <div class="stage">
+      <video id="demo-video" controls playsinline preload="metadata"></video>
+      <div class="stage-copy">
+        <p class="eyebrow" id="demo-source"></p>
+        <h3 id="demo-title"></h3>
+        <p id="demo-caption"></p>
+        <p class="metrics" id="demo-metrics"></p>
+        <button id="open-studio" type="button" class="ghost" hidden>Open the studio<span aria-hidden="true">→</span></button>
+      </div>
+    </div>
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <div class="modal" id="studio-modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="studio-title">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">STUDIO</p>
+          <h2 id="studio-title">Inside this run</h2>
+          <p class="hint" id="studio-note"></p>
+        </div>
+        <button id="close-studio" type="button" class="icon" aria-label="Close studio" data-close>✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="play" id="play" hidden>
+          <h3>Drive this world</h3>
+          <p class="hint"><strong>Run the agent</strong> applies the reference controller.
+            <strong>No control</strong> removes it, so you can see what the controller was doing.
+            Error is scored against a gate frozen before the run.</p>
+          <div class="play-controls">
+            <button id="play-run" type="button" class="primary small">▶ Run the agent</button>
+            <button id="play-coast" type="button">No control</button>
+            <button id="play-reset" type="button">↺ Reset</button>
+            <a id="play-full" class="ghost" target="_blank" rel="noopener">Full 3D sandbox<span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="readout" id="readout"></div>
+        </div>
+
+        <ol id="studio-steps" class="steps"></ol>
+      </div>
+    </div>
+  </div>
+
+  <section class="invite">
+    <div>
+      <h2>Build one from your own clip</h2>
+      <p class="hint">Judges: the access code from our submission unlocks a live run on a video you choose.
+        Runs you build are saved to your browser, not to this page.</p>
+    </div>
+    <a class="primary" href="/demo/build">Open the builder<span aria-hidden="true">→</span></a>
+  </section>
+
+  <footer>
+    <p><strong>What this is, honestly.</strong> Worlds built here are conditional models with disclosed assumptions —
+      not verified copies of the physical world. Single person, mostly fixed cameras; multi-person clips are refused
+      with reasons. Muse proposes; it never silently edits a world. Every number on this page came from a run that
+      actually happened on this machine, and failures are preserved rather than quietly retried.</p>
+  </footer>
+</main>
+
+</body>
+</html>

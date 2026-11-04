@@ -23,7 +23,22 @@ COORDINATES.update(scale=NUMBER, origin_world=VECTOR(3), source_fps=NUMBER, sour
 MOBILITY = {key: NUMBER for key in ("floor_height", "base_height", "root_mass", "kp_per_mass", "kd_per_mass", "maximum_force")}
 MOBILITY.update(ground_normal=VECTOR(3), ground_method=TEXT)
 LENGTHS = {key: NUMBER for key in ("torso", "upper_arm", "forearm", "thigh", "shin", "shoulder_width", "hip_width")}
-INTERVAL = {"start_offset_s": NUMBER, "horizon_steps": NUMBER}
+
+
+
+class Optional:
+    """A field that may be absent or null; when present it must match its shape."""
+
+    def __init__(self, spec):
+        self.spec = spec
+
+
+# Worlds built against a source clock carry the native interval they were cut from.
+NATIVE_INTERVAL = {"profile": TEXT, "schema_version": NUMBER, "duration_s": NUMBER,
+                   "full_control_steps": NUMBER, "source_start_s": NUMBER, "source_end_s": NUMBER,
+                   "terminal_duration_s": NUMBER, "source_clock_binding_sha256": TEXT}
+INTERVAL = {"start_offset_s": NUMBER, "horizon_steps": NUMBER,
+            "native_interval": Optional(NATIVE_INTERVAL)}
 CONTROL = {"root_assistance": TEXT, "object_forces": TEXT}
 SUPPORT = {"object_id": TEXT, "human_segment": TEXT, "direction_world": VECTOR(3),
     "minimum_load_body_weight_fraction": NUMBER, "start_step": NUMBER, "end_step": NUMBER}
@@ -33,11 +48,15 @@ PROVENANCE = {"mode": TEXT, "calibration_status": TEXT, "physical_validation": T
 
 
 def _shape(value, spec):
-    if isinstance(spec, dict):
-        if not isinstance(value, dict) or set(value) != set(spec):
+    if isinstance(spec, Optional):
+        if value is not None:
+            _shape(value, spec.spec)
+    elif isinstance(spec, dict):
+        required = {key for key, child in spec.items() if not isinstance(child, Optional)}
+        if not isinstance(value, dict) or not required <= set(value) <= set(spec):
             raise ValueError("Scene context has unsupported nested fields")
         for key, child in spec.items():
-            _shape(value[key], child)
+            _shape(value.get(key), child)
     elif isinstance(spec, tuple):
         item, low, high = spec
         if not isinstance(value, list) or not low <= len(value) <= high:

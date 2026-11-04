@@ -214,7 +214,8 @@
         </a>
         <nav aria-label="Main navigation">
           <a href="#research">Research</a><a href="#experiment">Environments</a
-          ><a href="#about">About</a>
+          ><a href="#about">About</a
+          ><a href="/demo" class="nav-demo">Walkthrough<span aria-hidden="true">→</span></a>
         </nav>
       </header>
       <main id="main">
@@ -667,8 +668,8 @@
                 A video. A world you can change.
               </h2>
             </div>
-            <a href="#create-environment" class="text-link" id="upload-link"
-              >Try your own video <span aria-hidden="true">+</span></a
+            <a href="/demo" class="demo-link" id="upload-link"
+              >Open the guided walkthrough<span aria-hidden="true">→</span></a
             >
           </div>
           <p class="lab-intro">
@@ -682,90 +683,6 @@
               reconstructed environment.
             </p></noscript
           >
-          <details class="create-environment" id="create-environment">
-            <summary>
-              <span>Start with your own video</span
-              ><span class="upload-plus" aria-hidden="true">+</span>
-            </summary>
-            <div class="upload-content">
-              <p class="upload-intro">
-                An observation in. An environment to explore.
-              </p>
-              <p class="upload-guidance">
-                For now: one yellow ball rolling horizontally, a fixed camera,
-                and a clear view of the whole ball. MP4, up to 10 MB and 15
-                seconds.
-              </p>
-              <form id="video-submission">
-                <label class="video-drop" id="video-drop" for="video-file">
-                  <svg viewBox="0 0 120 64" aria-hidden="true">
-                    <rect x="12" y="12" width="44" height="34" rx="3" />
-                    <path
-                      d="M30 22l11 7-11 7zM67 29h24m-6-5 6 5-6 5M77 47h32"
-                    />
-                    <circle cx="98" cy="38" r="9" />
-                  </svg>
-                  <span id="file-label"
-                    >Drop a video here, or choose a file</span
-                  ><span class="file-hint">Small, clear clips work best.</span>
-                  <input
-                    id="video-file"
-                    name="video"
-                    type="file"
-                    accept="video/mp4,.mp4"
-                    aria-describedby="upload-status"
-                  />
-                </label>
-                <video
-                  id="upload-preview"
-                  controls
-                  muted
-                  playsinline
-                  preload="metadata"
-                  hidden
-                  aria-label="Your selected video"
-                ></video>
-                <label class="upload-consent"
-                  ><input id="upload-consent" type="checkbox" required /> I have
-                  permission to upload and process this video.</label
-                >
-                <label class="upload-access"
-                  >Access code (optional, for judges)<input
-                    id="access-code"
-                    type="text"
-                    autocomplete="off"
-                    spellcheck="false"
-                    maxlength="64"
-                    placeholder="WEFT-JUDGE-…"
-                /></label>
-                <div class="upload-submit-row">
-                  <button
-                    type="submit"
-                    class="generate-button"
-                    id="generate-environment"
-                    disabled
-                  >
-                    Generate environment
-                    <span aria-hidden="true">→</span></button
-                  ><span class="upload-private"
-                    >Private result · files expire after 24 hours</span
-                  >
-                </div>
-                <p
-                  id="upload-status"
-                  class="upload-status"
-                  role="status"
-                  aria-live="polite"
-                >
-                  Choose a video to begin.
-                </p>
-                <div id="upload-progress" class="upload-progress" hidden>
-                  <span></span>
-                </div>
-              </form>
-              <div id="submitted-environment" hidden></div>
-            </div>
-          </details>
         </section>
         <section
           class="research section-rule"

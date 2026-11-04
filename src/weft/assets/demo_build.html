@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weft · Build a world</title>
+<link rel="icon" href="/weft-logo.png">
+<link rel="stylesheet" href="/brand.css">
+<link rel="stylesheet" href="/demo.css">
+<script src="/demo_build.js" defer></script>
+</head>
+<body>
+
+<header class="site-head">
+  <a class="brand" href="/demo" aria-label="Weft"><img src="/weft-logo.png" width="44" height="44" alt=""></a>
+  <nav>
+    <a href="/demo">Finished runs</a>
+    <a href="/demo/build" class="nav-pill is-current">Build a world</a>
+  </nav>
+</header>
+
+<main class="build-main">
+  <section class="hero build-hero">
+    <p class="eyebrow">BUILD</p>
+    <h1>Turn your clip into<br>a world an agent can use.</h1>
+    <p class="lede">Seven steps, about a minute, running live on this machine: evidence, world, task, rollout,
+      a character swapped mid-take, and <strong>Meta's Muse</strong> reviewing the physics it was handed.
+      Everything you build here stays yours — it is saved to this browser, not to the public page.</p>
+  </section>
+
+  <section class="gate-panel" id="gate-panel">
+    <h2>Access</h2>
+    <p class="hint">Enter the code from our submission. Without it you can still explore the
+      <a href="/demo">finished runs</a>.</p>
+    <form id="gate-form" class="gate-form">
+      <input id="gate-code" type="text" autocomplete="off" spellcheck="false" maxlength="64"
+             placeholder="WEFT-JUDGE-…" aria-label="Access code" required>
+      <button type="submit" id="gate-submit" class="primary small">Unlock<span aria-hidden="true">→</span></button>
+      <span id="gate-error" class="gate-error" role="alert"></span>
+    </form>
+  </section>
+
+  <section class="builder" id="builder" hidden>
+    <div class="build-card">
+      <label class="drop" id="drop" for="video">
+        <span class="drop-icon" aria-hidden="true">▣</span>
+        <span id="file-label">Drop a video here, or choose a file</span>
+        <span class="hint">One person, mostly fixed camera, up to 60 seconds. Leave it empty and we will use
+          our licensed sample clip.</span>
+        <input id="video" type="file" accept="video/mp4,video/webm,video/quicktime,.m4v,.mkv,.avi">
+      </label>
+
+      <div class="build-side">
+        <label class="field">Character to generate
+          <span class="optional">optional · experimental</span>
+          <input id="prompt" type="text" maxlength="200" placeholder="a cheerful plush fox explorer">
+        </label>
+        <button id="run" type="button" class="primary">Build the world<span aria-hidden="true">→</span></button>
+        <p class="hint" id="run-note">Seven steps · about a minute · every step leaves a downloadable bundle.</p>
+      </div>
+    </div>
+
+    <div class="progress" id="progress" hidden>
+      <div class="progress-head">
+        <span id="progress-label">Running</span>
+        <span id="progress-time" class="progress-time"></span>
+      </div>
+      <div class="track"><div id="bar"></div></div>
+    </div>
+    <ol id="steps" class="steps"></ol>
+  </section>
+
+  <section class="mine" id="mine" hidden>
+    <div class="section-head">
+      <div>
+        <h2>Your runs</h2>
+        <p class="hint">Saved to this browser only. Open one to inspect its steps, download bundles and drive
+          the world it produced.</p>
+      </div>
+    </div>
+    <ul class="mine-list" id="mine-list"></ul>
+  </section>
+
+  <div class="modal" id="studio-modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="studio-title">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">STUDIO</p>
+          <h2 id="studio-title">Inside this run</h2>
+          <p class="hint" id="studio-note"></p>
+        </div>
+        <button id="close-studio" type="button" class="icon" aria-label="Close studio" data-close>✕</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <div class="play" id="play" hidden>
+          <h3>Drive this world</h3>
+          <p class="hint"><strong>Run the agent</strong> applies the reference controller.
+            <strong>No control</strong> removes it, so you can see what the controller was doing.
+            Error is scored against a gate frozen before the run.</p>
+          <div class="play-controls">
+            <button id="play-run" type="button" class="primary small">▶ Run the agent</button>
+            <button id="play-coast" type="button">No control</button>
+            <button id="play-reset" type="button">↺ Reset</button>
+            <a id="play-full" class="ghost" target="_blank" rel="noopener">Full 3D sandbox<span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="readout" id="readout"></div>
+        </div>
+        <ol id="studio-steps" class="steps"></ol>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p><strong>What this is, honestly.</strong> Worlds built here are conditional models with disclosed assumptions —
+      not verified copies of the physical world. Muse proposes; it never silently edits a world. Failures are
+      preserved and shown rather than quietly retried.</p>
+  </footer>
+</main>
+
+</body>
+</html>

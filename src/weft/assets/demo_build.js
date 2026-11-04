@@ -1,0 +1,384 @@
+((root) => {
+  const $ = (id) => document.getElementById(id);
+  const token = new URLSearchParams(location.hash.slice(1)).get("token") || "";
+  const auth = { Authorization: "Bearer " + token };
+  const signed = (path) => path + (path.includes("?") ? "&" : "?") + "token=" + encodeURIComponent(token);
+  const MINE = "weft_demo_runs";
+
+  async function api(path, options = {}) {
+    const response = await fetch(path, { ...options, headers: { ...auth, ...(options.headers || {}) } });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "That request did not complete.");
+    return data;
+  }
+
+  const seconds = (value) => {
+    const total = Math.max(0, Math.round(value || 0));
+    return total < 60 ? `${total}s` : `${Math.floor(total / 60)}m ${String(total % 60).padStart(2, "0")}s`;
+  };
+
+  /* Plain-language meaning for every badge a judge will see. */
+  const GLOSSARY = {
+    "API calls": "How many paid provider calls this step made. Zero means it ran entirely on this machine.",
+    "kept": "What the step retained as evidence instead of discarding once it had an answer.",
+    "physics": "The simulator the world runs in. MuJoCo is the standard engine for robotics and RL research.",
+    "scope": "Exactly what was modelled — and by omission, what was not.",
+    "validation": "Whether the world has been checked against reality. Unverified means it is a conditional model.",
+    "gates": "Success thresholds fixed before the run so a result cannot be made to pass after the fact.",
+    "characters ready": "How many compatible characters are loaded and can be swapped onto the physics.",
+    "control steps": "How many times the controller acted. Each step advances the simulation.",
+    "controller": "What drove the body. 'reference' replays the authored controller derived from your clip.",
+    "tracking error": "How far the simulated body drifted from the observed motion, in radians. Lower is better.",
+    "swap": "The control step where the character was replaced while the recording continued.",
+    "task success": "Whether every frozen gate passed for this rollout.",
+    "failed gates": "Which thresholds were missed. 'none' means all gates passed.",
+    "model": "The Meta model that reviewed this world.",
+    "hypotheses": "Distinct testable claims Muse made about what the world might have got wrong.",
+    "open questions": "What Muse said it could not settle from the evidence it was given.",
+    "applied": "Whether the model's proposals changed the world. They never do automatically.",
+    "API cost": "The actual recorded charge for this call, from an append-only ledger.",
+    "imported": "The character asset that was packed and loaded into the chooser.",
+    "live generation": "Whether text-to-character generation ran, and under which spending gate.",
+    "outcome": "How the step ended when it did not complete normally.",
+  };
+
+  const chipRow = (entries) => {
+    const row = document.createElement("div");
+    row.className = "chips";
+    for (const [key, value] of entries) {
+      const chip = document.createElement("span");
+      chip.className = "chip";
+      const note = GLOSSARY[key];
+      if (note) {
+        chip.classList.add("has-note");
+        chip.title = note;
+      }
+      if (key) chip.append(document.createTextNode(key + " "));
+      const strong = document.createElement("b");
+      strong.textContent = String(value);
+      chip.append(strong);
+      row.append(chip);
+    }
+    return row;
+  };
+
+  let META = {};
+  async function loadMeta() {
+    try {
+      const data = await api("/api/demo/steps");
+      META = Object.fromEntries((data.steps || []).map((step) => [step.id, step]));
+    } catch (error) { META = {}; }
+  }
+
+  function renderSteps(list, steps, run) {
+    if (list.children.length !== steps.length) {
+      list.replaceChildren(...steps.map(() => document.createElement("li")));
+    }
+    steps.forEach((runtime, index) => {
+      const step = { ...(META[runtime.id] || {}), ...runtime };
+      const item = list.children[index];
+      item.className = "step " + (step.status || "pending");
+      item.replaceChildren();
+
+      const head = document.createElement("div");
+      head.className = "step-head";
+      const title = document.createElement("h3");
+      title.textContent = step.title || step.id;
+      head.append(title);
+      if (step.experimental) {
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.title = "Shipped as experimental: it can refuse its own output, and you will see that refusal.";
+        tag.textContent = "EXPERIMENTAL";
+        head.append(tag);
+      }
+      const spent = step.elapsed_s ?? step.elapsed_seconds;
+      const budget = step.estimate_s ?? step.estimate_seconds;
+      const time = document.createElement("span");
+      time.className = "step-time";
+      time.textContent = spent ? seconds(spent)
+        : step.status === "running" ? "running…" : budget ? `~${seconds(budget)}` : "";
+      head.append(time);
+      item.append(head);
+
+      for (const [field, cls] of [["explainer", "explain"], ["why", "matters"], ["matters", "matters"],
+                                  ["impact", "impact"], ["detail", "detail"]]) {
+        if (!step[field]) continue;
+        const p = document.createElement("p");
+        p.className = cls;
+        p.textContent = step[field];
+        item.append(p);
+      }
+      const metrics = step.metrics && Object.entries(step.metrics);
+      if (metrics && metrics.length) item.append(chipRow(metrics));
+      if (step.artifact && step.artifact.name) {
+        const link = document.createElement("a");
+        link.className = "download";
+        link.href = signed(`/api/demo/artifact/${step.id}` + (run ? `/${run}` : ""));
+        link.download = step.artifact.name;
+        const bytes = step.artifact.bytes || 0;
+        link.textContent = `↓ ${step.artifact.name} · ` + (bytes > 1048576
+          ? (bytes / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(bytes / 1024)) + " KB");
+        item.append(link);
+      }
+    });
+  }
+
+  /* ---------------- gate ---------------- */
+  function unlocked() {
+    $("gate-panel").hidden = true;
+    $("builder").hidden = false;
+    renderMine();
+  }
+
+  $("gate-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    $("gate-submit").disabled = true;
+    $("gate-error").textContent = "";
+    try {
+      await api("/api/demo/unlock", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: $("gate-code").value }),
+      });
+      sessionStorage.setItem("weft_demo_unlocked", "yes");
+      unlocked();
+    } catch (error) {
+      $("gate-error").textContent = error.message;
+    } finally {
+      $("gate-submit").disabled = false;
+    }
+  });
+
+  /* ---------------- my runs (this browser only) ---------------- */
+  const readMine = () => {
+    try { return JSON.parse(localStorage.getItem(MINE) || "[]"); } catch (error) { return []; }
+  };
+  const saveMine = (rows) => {
+    try { localStorage.setItem(MINE, JSON.stringify(rows.slice(0, 24))); } catch (error) { /* private mode */ }
+  };
+
+  function renderMine() {
+    const rows = readMine();
+    $("mine").hidden = rows.length === 0;
+    $("mine-list").replaceChildren(...rows.map((row) => {
+      const item = document.createElement("li");
+      const main = document.createElement("div");
+      const title = document.createElement("strong");
+      title.textContent = row.title || "Your run";
+      const note = document.createElement("span");
+      note.textContent = row.note || "";
+      main.append(title, note);
+      const open = document.createElement("button");
+      open.type = "button";
+      open.className = "ghost";
+      open.textContent = "Open studio";
+      open.onclick = () => openStudio(row.id);
+      item.append(main, open);
+      return item;
+    }));
+  }
+
+  /* ---------------- studio modal ---------------- */
+  let world = null;
+  function closeStudio() {
+    $("studio-modal").hidden = true;
+    document.body.classList.remove("locked");
+    world = null;
+  }
+  $("studio-modal").addEventListener("click", (event) => {
+    if (event.target.hasAttribute("data-close")) closeStudio();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !$("studio-modal").hidden) closeStudio();
+  });
+
+  async function openStudio(identity) {
+    if (!identity) return;
+    try {
+      const record = await api(`/api/demo/studio/${encodeURIComponent(identity)}`);
+      $("studio-modal").hidden = false;
+      document.body.classList.add("locked");
+      $("studio-title").textContent = record.title || "Inside this run";
+      $("studio-note").textContent = record.caption || "";
+      renderSteps($("studio-steps"), record.steps || [], record.run || record.id || identity);
+      const result = record.result || {};
+      world = result.project || result.child || record.project || null;
+      $("play").hidden = !world;
+      if (world) {
+        $("play-full").href = signed(`/labs/${world}/`);
+        $("readout").replaceChildren();
+        refreshWorld();
+      }
+      $("modal-body").scrollTo({ top: 0 });
+    } catch (error) {
+      $("studio-modal").hidden = false;
+      document.body.classList.add("locked");
+      $("studio-note").textContent = error.message;
+    }
+  }
+
+  const setBusy = (busy) => {
+    for (const id of ["play-run", "play-coast", "play-reset"]) $(id).disabled = busy;
+  };
+
+  function readout(snapshot, note) {
+    const metrics = (snapshot && snapshot.task_metrics) || {};
+    const entries = [];
+    if (note) entries.push(["", note]);
+    if (metrics.angular_rmse_rad != null)
+      entries.push(["tracking error", `${metrics.angular_rmse_rad.toFixed(3)} rad / 0.35 gate`]);
+    if (metrics.root_rmse_model_units != null)
+      entries.push(["root error", `${metrics.root_rmse_model_units.toFixed(3)} / 0.15 gate`]);
+    if (metrics.success != null) entries.push(["task success", metrics.success ? "true" : "not yet"]);
+    $("readout").replaceChildren(entries.length ? chipRow(entries) : document.createTextNode(""));
+  }
+
+  async function refreshWorld() {
+    if (!world) return;
+    try {
+      const status = await api(`/labs/${world}/api/status`);
+      readout(status.snapshot, status.status === "ready" ? "world ready" : status.status);
+    } catch (error) {
+      readout(null, "this world is no longer loaded");
+    }
+  }
+
+  async function drive(controller, label) {
+    if (!world) return;
+    setBusy(true);
+    readout(null, label);
+    try {
+      let snapshot = null;
+      for (let batch = 0; batch < 8; batch += 1) {
+        const reply = await api(`/labs/${world}/api/step`, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ steps: 6, controller }),
+        });
+        snapshot = reply.snapshot || snapshot;
+        readout(snapshot, label);
+        if (snapshot && (snapshot.terminated || snapshot.truncated)) break;
+      }
+    } catch (error) {
+      readout(null, error.message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  $("play-run").addEventListener("click", () => drive("reference", "running the agent…"));
+  $("play-coast").addEventListener("click", () => drive("coast", "no control — physics only…"));
+  $("play-reset").addEventListener("click", async () => {
+    if (!world) return;
+    setBusy(true);
+    try {
+      const reply = await api(`/labs/${world}/api/reset`, {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: "{}",
+      });
+      readout(reply.snapshot, "reset to the start");
+    } catch (error) {
+      readout(null, error.message);
+    } finally {
+      setBusy(false);
+    }
+  });
+
+  /* ---------------- build ---------------- */
+  let file = null;
+  const drop = $("drop");
+  $("video").addEventListener("change", (event) => select(event.target.files[0]));
+  ["dragenter", "dragover"].forEach((name) =>
+    drop.addEventListener(name, (event) => { event.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave", "drop"].forEach((name) =>
+    drop.addEventListener(name, (event) => { event.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", (event) => select(event.dataTransfer?.files?.[0]));
+
+  function select(chosen) {
+    if (!chosen) return;
+    file = chosen;
+    $("file-label").textContent = chosen.name;
+  }
+
+  $("run").addEventListener("click", async () => {
+    $("run").disabled = true;
+    $("run-note").textContent = file ? "Uploading your clip…" : "Starting with the sample clip…";
+    try {
+      const prompt = $("prompt").value.trim();
+      const query = new URLSearchParams();
+      if (file) query.set("name", file.name);
+      if (prompt) query.set("prompt", prompt);
+      await api("/api/demo/start?" + query.toString(), { method: "POST", body: file || undefined });
+      $("progress").hidden = false;
+      $("run-note").textContent = "Running. Each step appears below as it finishes.";
+      poll();
+    } catch (error) {
+      $("run-note").textContent = error.message;
+      $("run").disabled = false;
+    }
+  });
+
+  let timer = null;
+  function render(state) {
+    renderSteps($("steps"), state.steps || [], state.run);
+    const steps = state.steps || [];
+    const done = steps.filter((s) => ["done", "skipped", "failed"].includes(s.status)).length;
+    const running = state.status === "running";
+    $("progress").hidden = state.status === "idle";
+    $("bar").style.width = `${Math.round((done / Math.max(1, steps.length)) * 100)}%`;
+    $("progress-label").textContent = running
+      ? `Step ${Math.min(done + 1, steps.length)} of ${steps.length}`
+      : state.status === "complete" ? "Your world is ready"
+      : state.status === "failed" ? "Stopped — the reason is recorded below" : "Ready";
+    const estimate = steps.reduce((sum, s) =>
+      sum + (META[s.id]?.estimate_s || META[s.id]?.estimate_seconds || 0), 0);
+    const spent = state.elapsed_s ?? state.elapsed_seconds;
+    $("progress-time").textContent = running
+      ? `${seconds(spent)} elapsed · about ${seconds(estimate)} total`
+      : spent ? `${seconds(spent)} total` : "";
+    $("run").disabled = running;
+
+    if (!running && state.status === "complete" && state.run) {
+      const rows = readMine();
+      if (!rows.some((row) => row.id === state.run)) {
+        const metrics = (steps.find((s) => s.id === "avatar") || {}).metrics || {};
+        rows.unshift({
+          id: state.run,
+          title: (state.source && state.source.name) ? `Run on ${state.source.name}` : "Your run",
+          note: metrics["task success"] ? `task success ${metrics["task success"]}` : "complete",
+        });
+        saveMine(rows);
+      }
+      renderMine();
+      $("run-note").textContent = "Done — saved to this browser. Open its studio below to drive the world.";
+      $("run").disabled = false;
+    } else if (!running && state.status === "failed") {
+      $("run-note").textContent = state.error || "The run stopped; its reason is recorded above.";
+      $("run").disabled = false;
+    }
+  }
+
+  async function poll() {
+    clearTimeout(timer);
+    try {
+      const state = await api("/api/demo/state");
+      render(state);
+      if (state.status === "running") timer = setTimeout(poll, 1200);
+    } catch (error) {
+      timer = setTimeout(poll, 3000);
+    }
+  }
+
+
+  /* Internal links must carry the lab token, or the next page cannot call the API. */
+  function keepToken() {
+    if (!token) return;
+    for (const link of document.querySelectorAll('a[href^="/"]')) {
+      if (link.target === "_blank") continue;
+      const url = new URL(link.getAttribute("href"), location.origin);
+      if (url.pathname.startsWith("/api/")) continue;
+      link.href = url.pathname + url.search + location.hash;
+    }
+  }
+  keepToken();
+  if (sessionStorage.getItem("weft_demo_unlocked") === "yes") unlocked();
+  loadMeta().then(() => { renderMine(); poll(); });
+})(window);

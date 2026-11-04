@@ -38,7 +38,9 @@ MAX_JOBS = 50
 MAX_STORAGE = 2_000_000_000
 MAX_JOB_BYTES = 650_000_000
 TERMINAL = {"ready", "preview", "needs_input", "failed", "cancelled", "interrupted", "complete"}
-ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.css"}
+ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.css",
+          "/demo": "demo.html", "/demo.js": "demo.js", "/demo.css": "demo.css",
+          "/demo/build": "demo_build.html", "/demo_build.js": "demo_build.js"}
 PERCEPTION_ARTIFACTS = {"perception/" + name for name in (
     "preflight/metadata.json", "preflight/body-anchor.json", "preflight/result.json", "preflight/manifest.json",
     "preflight/body_source/human.json", "preflight/body_source/human.xml", "preflight/body_source/evidence.json",
@@ -196,6 +198,8 @@ class Portal:
             self.avatar_manager = PortalAvatarManager(self.root / "avatars", self.project)
             from weft.portal_avatar_studio import AvatarStudioBridge
             self.avatar_studio = AvatarStudioBridge(self.root, self.project, self.prepare_avatars)
+            from weft.portal_demo import DemoManager
+            self.demo = DemoManager(self)
             self.thread = threading.Thread(target=self._work, name="weft-portal-queue", daemon=True) if start else None
             if self.thread:
                 self.thread.start()
@@ -1186,7 +1190,7 @@ class PortalHandler(LabHandler):
                 return
             if path in ASSETS:
                 file = Path(__file__).parent / "assets" / ASSETS[path]
-                if path == "/":
+                if path in ("/", "/demo", "/demo/build"):
                     raw = file.read_bytes()
                     self.response_headers(200, "text/html; charset=utf-8", len(raw))
                     self.end_headers()
@@ -1195,6 +1199,36 @@ class PortalHandler(LabHandler):
                 return self.send_file(file)
             if path == "/api/portal":
                 return self.reply(self.server.portal.info())
+            if path == "/api/demo/state":
+                query = parse_qs(urlsplit(self.path).query)
+                run = (query.get("run") or [None])[0]
+                demo = self.server.portal.demo
+                return self.reply(demo.state(run) if run else demo.summary())
+            if path == "/api/demo/steps":
+                from weft.portal_demo import STEPS
+                return self.reply({"steps": [dict(step) for step in STEPS]})
+            if path == "/api/demo/featured":
+                base = self.server.portal.demo.root
+                names = []
+                for saved in (base / "featured.json", base / "demo/featured.json"):
+                    try:
+                        if saved.is_file() and not saved.is_symlink():
+                            names = [str(v)[:64] for v in json.loads(saved.read_text())][:24]
+                            break
+                    except (OSError, ValueError):
+                        continue
+                return self.reply({"featured": names})
+            if path == "/api/demo/gallery":
+                return self.reply(self.server.portal.demo.gallery())
+            match = re.fullmatch(r"/api/demo/gallery/([A-Za-z0-9-]{1,64})/video", path)
+            if match:
+                return self.send_file(self.server.portal.demo.gallery_video(match[1]))
+            match = re.fullmatch(r"/api/demo/studio/([A-Za-z0-9_-]{1,64})", path)
+            if match:
+                return self.reply(self.server.portal.demo.studio(match[1]))
+            match = re.fullmatch(r"/api/demo/artifact/([a-z_]{1,24})(?:/([A-Za-z0-9_-]{1,64}))?", path)
+            if match:
+                return self.send_file(self.server.portal.demo.artifact(match[1], match[2]))
             match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/task-options", path)
             if match:
                 return self.reply(self.server.portal.task_options(match[1]))
@@ -1217,6 +1251,30 @@ class PortalHandler(LabHandler):
             path = urlsplit(self.path).path
             if self.headers.get("Transfer-Encoding"):
                 raise ValueError("Use a fixed-length upload")
+            if path == "/api/demo/unlock":
+                length = int(self.headers.get("Content-Length", "0"))
+                if not 1 <= length <= 512:
+                    raise ValueError("Enter the access code from the submission.")
+                self.connection.settimeout(15)
+                from weft.exercise_body_source import _json as bounded_json
+                body = bounded_json(self.rfile.read(length))
+                return self.reply(self.server.portal.demo.unlock(body.get("code")))
+            if path == "/api/demo/start":
+                query = parse_qs(urlsplit(self.path).query)
+                length = int(self.headers.get("Content-Length", "0"))
+                if length > MAX_UPLOAD:
+                    raise ValueError("Choose a video up to 100 MB")
+                video = None
+                if length:
+                    self.connection.settimeout(120)
+                    video = self.rfile.read(length)
+                    if len(video) != length:
+                        raise ValueError("The video upload was interrupted")
+                return self.reply(self.server.portal.demo.start(
+                    self.server.server_port, video=video,
+                    name=(query.get("name") or [None])[0],
+                    prompt=(query.get("prompt") or [None])[0],
+                    sample=not video), 202)
             if path in {"/api/avatars/library", "/api/avatars/create"}:
                 length = int(self.headers.get("Content-Length", "0"))
                 if not 1 <= length <= 8192:
