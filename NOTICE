@@ -1,0 +1,57 @@
+Weft
+Copyright (C) 2026 Ivan Zhang
+
+This program is free software: you can redistribute it and/or modify it under the
+terms of the GNU Affero General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. See LICENSE for the full text.
+
+Because the AGPL's section 13 applies, anyone who runs a modified version of Weft
+as a network service must offer its users the corresponding source of that
+modified version.
+
+
+THIRD-PARTY MATERIAL NOT COVERED BY THE AGPL
+============================================
+
+The AGPL above covers Weft's own source code. It does NOT relicense the material
+below, which is included for reference, testing or presentation and remains under
+the terms of its own rights holders. Reusing any of it requires carrying that
+material's own licence and attribution.
+
+Reference datasets and recorded source media
+    data/**
+    Third-party video and derived observations retained as evidence. Licences,
+    creators and origins are recorded per directory in each data/*/README.md.
+    Observed terms include CC BY-SA 4.0, CC BY 4.0 and CC BY 3.0.
+
+Demo source clips
+    assets/demo/clips/** (present on the demo branch)
+    Exercise clips from Wikimedia Commons under CC BY-SA 4.0 and CC BY 3.0, with
+    per-clip creator, licence and origin in assets/demo/clips/ATTRIBUTION.md and
+    manifest.json. CC BY-SA requires share-alike on derivatives.
+
+Fonts
+    website/fonts/InterVariable.woff2
+    Inter, under the SIL Open Font License. Full text in website/fonts/OFL.txt.
+
+Pose estimation model
+    Fetched during container build, not stored in this repository:
+    pose_landmarker_lite.task, from Google's MediaPipe model releases, under the
+    terms Google publishes for those models.
+
+Provider outputs and saved payloads
+    tools/avatar-assets/evidence/**
+    Saved responses, generated geometry and payloads from third-party generation
+    services, retained as evidence of what each provider actually returned. The
+    relevant provider's terms apply to its own output.
+
+Official event material
+    hackathon/sources/**
+    Snapshots of third-party pages retained with retrieval times for provenance.
+    Quoted verbatim for accuracy; not relicensed.
+
+Nothing in this file grants rights to the above beyond what their own licences
+give. If you redistribute Weft, check each category: some of this material is not
+redistributable at all, and the demo catalogue deliberately omits three clips whose
+provenance could not be verified.

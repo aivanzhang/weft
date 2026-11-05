@@ -354,3 +354,25 @@ html.weft-presenting body,
 #footer-secret .back-to-top:hover svg {
   transform: translateY(-2px);
 }
+
+/* Licence notice in the footer bar. AGPL section 13 makes the terms worth stating on the
+   running service itself, not only in the repository. Appended rather than merged into the
+   .footer-bar block above so concurrent footer work does not conflict. */
+#footer-secret .footer-bar {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+#footer-secret .footer-licence {
+  margin: 0;
+  flex: 1 1 22ch;
+  max-width: 52ch;
+  font-size: 12px;
+  line-height: 1.55;
+  text-align: center;
+  text-wrap: pretty;
+}
+#footer-secret .footer-licence a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

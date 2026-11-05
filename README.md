@@ -2,6 +2,14 @@
 
 # From video to a world you can test
 
+[![Licence: AGPL v3](https://img.shields.io/badge/Licence-AGPL%20v3-blue.svg)](LICENSE)
+
+**Licensed under the GNU Affero General Public License v3.0.** If you run a
+modified Weft as a network service, AGPL section 13 requires you to offer your
+users the source of that modified version. See [LICENSE](LICENSE), and
+[NOTICE](NOTICE) for third-party material the AGPL does **not** cover — reference
+datasets, demo clips, fonts and provider outputs keep their own licences.
+
 Weft helps developers turn video observations into interactive simulation and
 reinforcement-learning environments. Inspect the evidence, explore a generated
 world, test actions, and record the results.
@@ -74,3 +82,18 @@ Reliable reconstruction of unfamiliar videos, equipment contact, compatible
 avatar deformation, and measurable improvements under independent evaluation.
 See the [capability overview](PROJECT.md#capabilities-and-limitations) before
 choosing an input or interpreting a result.
+
+## Licence
+
+Weft is licensed under the **GNU Affero General Public License, version 3 or
+later** (`AGPL-3.0-or-later`). The full text is in [LICENSE](LICENSE).
+
+The AGPL is a copyleft licence with a network clause. Section 13 means that if you
+modify Weft and let others use it over a network, you must offer those users the
+source of your modified version — not only when you distribute binaries.
+
+[NOTICE](NOTICE) lists what the AGPL does **not** cover: reference datasets under
+`data/`, the demo clips, the Inter font, the MediaPipe pose model and saved
+provider outputs all keep their own licences and attribution. Check it before
+redistributing anything from this repository; some of that material is not
+redistributable at all.
