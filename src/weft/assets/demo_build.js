@@ -94,6 +94,7 @@
   root.addEventListener?.("pagehide", clearStepViews);
   root.addEventListener?.("pageshow", event => { if (event.persisted && buildPage && token) poll(); });
   function renderSteps(list, steps, run) {
+    steps = steps.filter(step => step.id !== "create");
     steps = root.WeftPresentationSteps?.(steps) || steps;
     if (stepRun !== run || stepViews.length !== steps.length) {
       clearStepViews(); stepRun = run;
