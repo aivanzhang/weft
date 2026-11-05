@@ -1,22 +1,16 @@
 # Hosted video submissions
 
-Cloudflare account: **Kintsugi Software**, `73c2bbd14f7b9025d9fd9eb56ad54609`.
+Deployment uses the account configured in `wrangler.jsonc`; use your own account for a separate installation.
 Worker: `weft`. Private R2 bucket: `weft-private-submissions`.
 Public URL: **https://weft.ivanzhangofficial.workers.dev** (workers.dev subdomain; live for hackathon judging).
 
-## Restored November 4, 2026
+## Hosting configuration
 
-Restored with the owner's authorization for judge access, on the custom domain
-`weft.ivanzhangofficial.workers.dev` (release `video-environments-20261104-judges`). The
-`workers.dev` address and preview URLs remain disabled (`workers_dev: false`,
-`preview_urls: false`); the custom domain is the only public entry. Verified
-unauthenticated end to end at restore time: landing page and gallery assets,
-`/health`, a fresh-session MP4 submission through the container pipeline to a
-complete result with a downloadable archive, cross-session result privacy
-(404), and the dark `workers.dev` address. `OPENAI_API_KEY`, `META_API_KEY`
-and `MESHY_API_KEY` are stored as encrypted Worker secrets; current Worker
-code does not read them, so no hosted path can spend them until a reviewed
-feature does.
+The site is served on the configured `workers.dev` hostname (`workers_dev: true`);
+preview URLs are disabled. `/demo` provides the hosted upload interface, while the
+local portal provides the studio walkthrough. Uploads and result archives remain
+private to their sessions. Provider secrets stay server-side; repository visibility
+does not make uploads, credentials, or private storage public.
 
 ## Boundaries
 
@@ -87,7 +81,7 @@ npm run deploy
 
 The user manages local servers; none is needed to review the static page. `npm run types` disables runtime generation and uses installed official Workers types, avoiding a local listener. There are no new automated tests.
 
-Deployment bundles the static page and Linux image. Create the dedicated private R2 bucket and its lifecycle once; never make it public. The supplied configuration pins the Kintsugi account and does not touch Pinnacle or any existing application. Deploy with the Weft-specific release lock; do not overlap releases. No account upgrade, new credential, paid model, or YC redemption is part of deployment.
+Deployment bundles the static page and Linux image. Create the dedicated private R2 bucket and its lifecycle once; never make it public. The supplied configuration scopes deployment to Weft; change its account binding for your own installation. Deploy with the Weft-specific release lock; do not overlap releases. No account upgrade, new credential, paid model, or YC redemption is part of deployment.
 
 After deployment, immediately submit the CC0 sample through the normal session, consent, CSRF, and quota path. Verify terminal status, source-video range response, private-access refusal, download integrity, and packaged `reset`/`step` example. Never bypass admission limits for verification. Cloudflare can take several minutes to provision the first container; that is infrastructure readiness, not a reason to start duplicate jobs.
 

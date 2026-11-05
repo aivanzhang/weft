@@ -4,7 +4,7 @@ Historical records below are superseded by [the current handoff](TODO.md).
 
 ## Session handoff — website/API completion remains open
 
-- Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`.
+- Workspace: `tools/avatar-assets`.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; this does not replace Weft's goal.
 - Recorded: 2026-11-02 11:19:54 PST.
 - Latest direction: keep the accepted appearance. Finish prompt → website progress
@@ -2265,12 +2265,11 @@ Open http://127.0.0.1:8765/#panda. Restart a previously running gallery yourself
 
 - User explicitly authorized the move, same-session reassignment, commit/push directly to main, and removal of the standalone checkout after the push verifies.
 - Full copy verified: **19,778 filesystem entries / 3,146,153,025 file bytes**, including all original outputs, rejected attempts and local runtimes. Ten virtualenv launch/config files were then rebased with backups; no dependencies were reinstalled.
-- Current session remains `01a18ebe-a17c-7cc0-9117-06ca476fb31c`, assigned to the existing Weft project. Future-turn cwd is `/Users/ivan/kintsugi/weft`; goal identity, status, model and session ID are unchanged. No other session or goal was edited.
 - **144 tests passed in 3.161s** from the new root. All four authoring recipes reproduce exactly. **33 complete packs**, both catalogs and both legacy consumer imports/reloads passed verification.
 - Headless gallery: 15 grouped checks/all 16 detailed skeletal clips passed, no external page requests; cold ready 4.664s. Largest-model two-second software-WebGL sample advanced 2.167 clip seconds; this is not a sustained FPS guarantee. Migrated Blender independently loaded/moved the panda in 5.699s, sampled peak RSS 360,939,520 bytes.
 - Seven byte-preserving portable media packs total 37,414,959 bytes. Original full packs remain local; omitted frames/logs are listed in each new manifest. Both default and basic catalogs use tracked portable media. Historical `gallery-quality-v2.json` retains the full-media paths.
 - Source/reference hashes and limitations remain unchanged. Read [relocation](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/tools/avatar-assets/docs/relocation.md) and [migration receipt](evidence/weft-migration-v1.json). Selected UV-repair failure/probe folders and other unlisted old outputs remain local, not remotely backed up.
-- Main implementation commit `05eb8532d1d7d4ff7cf379a931b9f13326199fb5` is verified on the existing private remote. The old `/Users/ivan/kintsugi/avatar-assets` directory is deleted after its unchanged inventory and destination copy were verified. CLI startup still passes after deletion. Final publication receipt: `/Users/ivan/kintsugi/weft/.local/avatar-assets-migration-v1/publication.json`. No task-owned persistent server or native job remains running.
+- Main implementation commit `05eb8532d1d7d4ff7cf379a931b9f13326199fb5` is verified on the existing private remote. The old `former standalone tool directory` directory is deleted after its unchanged inventory and destination copy were verified. CLI startup still passes after deletion. Final publication receipt: `.local/avatar-assets-migration-v1/publication.json`. No task-owned persistent server or native job remains running.
 
 ## Visual-quality follow-up — verified upgrade, fidelity limit explicit
 

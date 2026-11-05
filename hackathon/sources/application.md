@@ -5,6 +5,8 @@
 - Method: user-provided text transcribed to Markdown; question/answer content retained. This is a historical application record, not a new submission or independent verification of project claims.
 - No application was submitted, edited, or withdrawn during this task. Historical consent answers do not authorize new actions.
 
+> Public-copy edit: the former employer name is omitted; the project description is unchanged.
+
 ## What's your LinkedIn?
 
 https://www.linkedin.com/in/aivanzhang/
@@ -45,7 +47,7 @@ Loom targets Push the Frontier by making accurate training environments easier t
 
 ## Tell us about an AI project you recently built that showcases your technical skills. (hint: Include what you built, the techniques you used)
 
-I built an AI research platform at Kintsugi for evaluating coding agents, multimodal models, and efficient GPU inference.
+I built an AI research platform for evaluating coding agents, multimodal models, and efficient GPU inference.
 
 Agent engineering. I integrated Harbor and mini-SWE-agent to run coding tasks in isolated environments, capture tool calls and patches, and re-evaluate patches in clean environments. A SWE-bench Pro pilot passed both initial grading and independent regrading.
 

@@ -4,7 +4,7 @@ Thanks for reviewing Weft. Two ways in, depending on how deep you want to go.
 
 ## 1. Hosted demo — zero setup
 
-**https://weft.kintsugi.software**
+**https://weft.ivanzhangofficial.workers.dev**
 
 The landing page explains the product; the **Environments** section is live:
 

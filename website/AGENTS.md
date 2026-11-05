@@ -11,7 +11,7 @@
 - Keep landing gallery controls minimal: show only the reconstructed model with one subtle interaction icon in its caption. No initial/reconstructed version toggle. Hover tooltips name the next action; preserve accessible labels, pressed states and keyboard focus. No separate version section or text-mode buttons. Show the timeline only for comparison and push/reset controls only inside the interactive scene.
 - The gallery must work directly from `index.html` without a server or external fonts. Upload generation uses the same-origin hosted `/api/` service; local files must clearly say uploads are unavailable and never fake progress or success.
 - Keep animation finite, respect reduced motion, and stop simulator frames offscreen or when hidden. Embed the original source video beside its simulation. Only user actions start replay or simulation.
-- The user authorized this site and hosted visitor submissions in Kintsugi Software’s Cloudflare account. Keep public assets allowlisted and uploads private; do not publish the repository or other research artifacts.
+- Keep public site assets allowlisted and visitor uploads private. Public repository access does not authorize publication of uploads, credentials or private research artifacts.
 
 - Show the paired environment gallery directly; keep the upload form collapsed until expanded. Place interaction controls inside the simulation. Preserve factual capability limits without preview/work-in-progress labels.
 

@@ -98,7 +98,7 @@ Capture a continuous interaction segment; the old seven-frame acceptance clip is
 - [ ] Prepare a sanitized public repository, reproducible setup, pinned dependencies, licensed inputs and asset attribution. Review private content/history before publishing; do not flip the entire private research repository public blindly.
 - [ ] Identify hackathon-built functionality separately from prior Loom infrastructure and third-party tools.
 - [ ] Produce an accessible three-minute video with accurate claims and readable results.
-- [x] Arrange judge-accessible product access — authorized and restored November 4: **https://weft.kintsugi.software** (custom domain; workers.dev stays dark; keys stored as encrypted Worker secrets, unused by Worker code).
+- [x] Arrange judge-accessible product access — authorized and restored November 4: **https://weft.ivanzhangofficial.workers.dev** (current hosted hostname; private credentials remain server-side).
 - [ ] Prepare team name/members, track/theme, description, public GitHub link and demo link.
 - [ ] Prepare Meta products used, why they matter, Meta feedback and partner feedback.
 - [ ] Include an X link only if intentionally pursuing the optional viral prize.

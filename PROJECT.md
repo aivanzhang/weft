@@ -490,7 +490,7 @@ not an external benchmark or a guarantee for new inputs.
   contention. Faster in total, broken in detail. Reverted. The independent 600-episode
   trim stays, so bodyweight-squats is 29.4 s in-container against 43 s before either change.
 - **Verified on deployed Cloudflare**, release `exercise-pipeline-20261104`: one clip
-  submitted through the judge lane at `weft.kintsugi.software` completed in 147 s with
+  submitted through the judge lane at `weft.ivanzhangofficial.workers.dev` completed in 147 s with
   `q_learning 100/100` against `random 1/100` and `coast 0/100`, full pose tracking, a
   0.0387 rad reference-servo error, and a 9.2 MB archive of 34 artifacts including the
   `appearance/` section whose `scene.json` is `shared-world-v3`. The predefined avatars
