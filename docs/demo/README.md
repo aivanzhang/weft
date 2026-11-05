@@ -11,7 +11,7 @@ from that file; keep it out of the recording frame.
 
 | | Local portal | Hosted |
 | --- | --- | --- |
-| URL | `http://127.0.0.1:8765/demo` | `https://weft.kintsugi.software` |
+| URL | `http://127.0.0.1:8765/demo` | `https://weft.ivanzhangofficial.workers.dev` |
 | Has an upload UI | yes, the guided walkthrough | API only; the site is a landing page |
 | Full run | **~50 s** | ~88 s cold, ~69 s warm |
 | Costs money | ~$0.035 Meta per run (Muse step) | none |
@@ -154,9 +154,9 @@ prompt and accept that Muse skips honestly if it is unavailable.
 ## Hosted lane, if you want it on camera
 
 ```sh
-curl -X POST https://weft.kintsugi.software/api/jobs \
+curl -X POST https://weft.ivanzhangofficial.workers.dev/api/jobs \
   -H "Content-Type: video/mp4" \
-  -H "Origin: https://weft.kintsugi.software" \
+  -H "Origin: https://weft.ivanzhangofficial.workers.dev" \
   -H "X-Weft-Access-Code: $(cat .local/demo-access-code)" \
   --data-binary @.local/demo-clips/waiters-squat.mp4
 ```
