@@ -339,3 +339,33 @@ def test_public_showcase_exposes_only_curated_recordings_without_private_world_a
                        headers={"Origin": "https://attacker.invalid"})[0] == 403
         assert request(server, "/api/demo/showcase", auth=False,
                        headers={"Host": "attacker.invalid"})[0] == 403
+
+
+def test_studio_exhibits_are_allowlisted_while_recorded_private_models_require_auth(portal):
+    directory = portal.project / 'assets/demo/studio'
+    directory.mkdir(parents=True)
+    (directory / 'body-model.json').write_text('{"kind":"skeleton"}')
+    (directory / 'secret.json').write_text('private')
+    job = upload(portal)
+    source = portal.root / job['id'] / 'lab/run/source.mp4'
+    source.parent.mkdir(parents=True)
+    source.write_bytes(b'original-input')
+    saved = portal.demo.dir / 'run-abc'
+    saved.mkdir()
+    (saved / 'record.json').write_text(json.dumps({'id': 'run-abc', 'project': job['id']}))
+    with serving(portal) as server:
+        status, _, raw = request(server, '/api/demo/studio/run-abc')
+        assert status == 200
+        source_url = json.loads(raw)['source_video_url']
+        assert source_url == f"/api/projects/{job['id']}/files/lab/run/source.mp4"
+        assert request(server, source_url, auth=False)[0] == 401
+        assert request(server, source_url)[2] == b'original-input'
+
+        code, _, raw = request(server, '/api/demo/exhibit/body-model.json', auth=False)
+        assert code == 200 and json.loads(raw)['kind'] == 'skeleton'
+        assert request(server, '/api/demo/exhibit/secret.json', auth=False)[0] == 400
+        assert request(server, '/api/demo/studio/run-deadbeef/model', auth=False)[0] == 401
+        assert request(server, '/api/demo/exhibit/body-model.json', auth=False,
+                       headers={'Origin': 'https://example.com'})[0] == 403
+        for asset in ('demo_studio.js', 'demo_physics.js'):
+            assert request(server, '/' + asset, auth=False)[0] == 200

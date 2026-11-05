@@ -13,10 +13,6 @@
       <div class="world-pair">
         <div class="world-panel"><div class="world-panel-label"><span>Original footage</span></div><div class="world-screen"><video muted playsinline preload="metadata" aria-label="Original footage"></video></div></div>
         <div class="world-panel"><div class="world-panel-label"><span>Reconstructed environment</span><div class="world-actions">
-          <button type="button" class="world-icon world-version" aria-label="Show initial fit" aria-pressed="false">
-            <svg class="version-initial" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" stroke-dasharray="2 3"/><circle cx="12" cy="12" r="2"/></svg>
-            <svg class="version-reconstructed" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="m8 12 3 3 5-6"/></svg>
-          </button>
           <button type="button" class="world-icon world-toggle" aria-label="Interactive controls" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7h9a3 3 0 0 1 3 2.5l1.2 7a2 2 0 0 1-3.3 1.8L15 16H9l-2.4 2.3a2 2 0 0 1-3.3-1.8l1.2-7A3 3 0 0 1 7.5 7Z"/><path d="M8 10v4M6 12h4M16 11h.01M18 13h.01"/></svg></button>
         </div></div><div class="world-screen">
           <svg viewBox="0 0 640 360" role="img" aria-label="Reconstructed rolling environment"><defs><radialGradient id="ball-${index}" cx="30%" cy="25%" r="75%"><stop stop-color="#fae486"/><stop offset=".5" stop-color="#eac34c"/><stop offset="1" stop-color="#b58c23"/></radialGradient></defs><rect width="640" height="360" fill="#eee9e0"/><path class="world-ground" fill="#e1dacd"/><path class="world-surface" fill="none" stroke="#bcb5a7" stroke-width="1.2"/><g class="world-body"><ellipse class="world-shadow" fill="#214f50" opacity=".09"/><circle class="world-ball" fill="url(#ball-${index})"/></g></svg>
@@ -35,11 +31,7 @@
     if (record.poster) video.poster = record.poster;
     const seek = $(".world-seek");
     seek.max = record.duration;
-    const versionButton = $(".world-version");
-    versionButton.disabled = record.models.length < 2;
-    versionButton.setAttribute("aria-label", `Show ${record.models[1]?.label || record.models[0].label}`);
-    let modelIndex = 0;
-    let model = record.models[0].world;
+    const model = (record.models.find(entry => entry.label.toLowerCase() === 'reconstructed') || record.models[0]).world;
     let mode = "replay",
       visible = true,
       raf = null,
@@ -166,11 +158,6 @@
       geometry();
       $(".world-toggle").setAttribute("aria-pressed", String(mode === "interact"));
       $(".world-toggle").title = mode === "replay" ? "Try controls" : "Back to video comparison";
-      versionButton.setAttribute("aria-pressed", String(modelIndex !== 0));
-      const nextModel = record.models[(modelIndex + 1) % record.models.length];
-      versionButton.title = versionButton.disabled
-        ? `${record.models[modelIndex].label} — only version available`
-        : `${record.models[modelIndex].label} — switch to ${nextModel.label}`;
       controls.forEach((c) => (c.hidden = mode !== "interact"));
       $(".world-transport").hidden = mode !== "replay";
       $(".world-note").textContent =
@@ -226,12 +213,6 @@
     seek.addEventListener("input", () => {
       video.currentTime = Number(seek.value);
       replay();
-    });
-    versionButton.addEventListener("click", () => {
-      if (versionButton.disabled) return;
-      modelIndex = (modelIndex + 1) % record.models.length;
-      model = record.models[modelIndex].world;
-      setMode(mode);
     });
     $(".world-toggle").addEventListener("click", () =>
       setMode(mode === "replay" ? "interact" : "replay"),

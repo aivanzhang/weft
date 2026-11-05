@@ -92,9 +92,9 @@
   root.WeftComparisonCopy = (prefix, record = {}) => {
     for (const [suffix, value] of Object.entries({
       "input-label": record.input_label || "Source footage",
-      "result-label": record.result_label || "Digital environment",
-      "input-note": record.input_note || "The original recorded movement.",
-      "result-note": record.result_note || "The saved result from this run.",
+      "result-label": record.result_label || "Reconstructed environment",
+      "input-note": "",
+      "result-note": "",
     })) {
       const element = document.getElementById(`${prefix}-${suffix}`);
       if (element) element.textContent = value;
@@ -190,16 +190,7 @@
         root.WeftComparisonCopy("studio", record.comparison);
         if ($("studio-original")) $("studio-original").hidden = !sourceVideo;
         $("studio-comparison")?.setAttribute("data-paired", String(Boolean(sourceVideo)));
-        if ($("comparison-note")) $("comparison-note").textContent = sourceVideo
-          ? record.comparison?.comparison_note || "Source footage and recorded simulation. Play each independently; their timelines can differ."
-          : "Recorded simulation. Original footage is not available for this example.";
-        const credit = $("source-credit");
-        if (credit) {
-          credit.hidden = !sourceVideo || !record.credit;
-          credit.textContent = record.credit || "";
-          if (record.creditURL) credit.href = record.creditURL;
-          else credit.removeAttribute("href");
-        }
+        if ($("comparison-note")) $("comparison-note").textContent = "";
         $("demo-video").pause();
         $("demo-source-video")?.pause();
         for (const tab of tabs) {

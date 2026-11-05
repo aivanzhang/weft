@@ -49,3 +49,39 @@ body.demo-embed > header, body.demo-embed main > :not(#play) { display: none !im
 body.demo-embed { padding: 0; }
 body.demo-embed main { max-width: none; margin: 0; padding: 12px; }
 body.demo-embed #play { margin: 0; border: 0; }
+
+/* Shared native-select treatment across demo, portal and lab bundles. */
+:root select {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 36px;
+  padding: 8px 32px 8px 11px;
+  border: 1px solid #214f5026;
+  border-radius: 4px;
+  background-color: #ffffff30;
+  color: var(--weft-ink, #214f50);
+  font-family: inherit;
+  font-size: var(--select-font-size, 13px);
+  font-weight: 400;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: border-color .15s, background-color .15s;
+}
+:root select:not([multiple]):not([size]), :root select[size="1"] {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3' fill='none' stroke='%235e6f6c' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+:root select:hover:not(:disabled) { border-color: #214f5052; background-color: #ffffff55; }
+:root select:focus-visible { outline: 2px solid #96564499; outline-offset: 2px; border-color: #96564480; }
+:root select:disabled { opacity: .5; cursor: not-allowed; }
+:root select option, :root select optgroup { color: #214f50; background: #fbf7f1; }
+@media (pointer: coarse) { :root select { min-height: 44px; font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) { :root select { transition: none; } }
+@media (forced-colors: active) {
+  :root select:not([multiple]):not([size]), :root select[size="1"] { appearance: auto; background-image: none; }
+  :root select:focus-visible { outline-color: Highlight; }
+}

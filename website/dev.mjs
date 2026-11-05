@@ -9,7 +9,10 @@ import { proxySandbox, sandboxRoute } from "./sandbox-proxy.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 // Public path -> repository file, shared with the deployed bundle so they cannot drift.
-const allowed = publicRoutes;
+// The two aliases are the canonical forms the redirect below resolves to.
+const allowed = new Map(publicRoutes);
+allowed.set("/", "website/index.html");
+allowed.set("/references", "website/references.html");
 const types = {
   ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8", ".json": "application/json",
@@ -30,12 +33,7 @@ export function landingServer({ sandboxPort = 8765, hotReload = null } = {}) {
     };
     try {
       const parsed = new URL(request.url, "http://localhost");
-      const pathname = decodeURIComponent(parsed.pathname);
-      const pretty = {
-        "/references": "/references.html", "/references/": "/references.html",
-        "/": "/index.html",
-      };
-      const path = pretty[pathname] ?? pathname;
+      const path = decodeURIComponent(parsed.pathname);
       if (hotReload && ["/__weft_reload", "/__weft_reload.js"].includes(path)) {
         const host = request.headers.host;
         if (!["localhost", "127.0.0.1"].some(name => host === `${name}:${request.socket.localPort}`)
@@ -54,6 +52,12 @@ export function landingServer({ sandboxPort = 8765, hotReload = null } = {}) {
       }
       if (!["GET", "HEAD"].includes(request.method)) {
         return reply(405, "The landing page does not accept uploads.", { Allow: "GET, HEAD" });
+      }
+      let canonical = path.replace(/^\/website(?=\/|$)/, "") || "/";
+      if (canonical === "/index.html") canonical = "/";
+      if (["/references.html", "/references/"].includes(canonical)) canonical = "/references";
+      if (canonical !== path && allowed.has(canonical)) {
+        return reply(302, "", { Location: canonical + parsed.search });
       }
       if (path === "/api/session") {
         return reply(200, JSON.stringify({
