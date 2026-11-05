@@ -1,6 +1,6 @@
 # Fixed limb lengths and the third-camera check
 
-**The fixed-length correction is rejected.** It loses supported joints and worsens agreement on the same third-camera observations. The [playable squat](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/heavy-pose-model.md) is unchanged.
+**The fixed-length correction is rejected.** It loses supported joints and worsens agreement on the same third-camera observations. The [playable squat](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/heavy-pose-model.md) is unchanged.
 
 Inspect the frozen comparison at [standing frame 550](../artifacts/freemocap-third-comparison-01/third-view-comparison-0550.png) and [blurred frame 966](../artifacts/freemocap-third-comparison-01/third-view-comparison-0966.png). Cyan circles are the third camera's original image-model observations. Orange crosses are predictions made before that camera was opened. Neither is measured anatomy.
 

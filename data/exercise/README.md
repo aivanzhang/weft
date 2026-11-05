@@ -18,8 +18,8 @@ Use these as development inputs. They were selected and inspected during impleme
 The flip-juggling clip is a separately acquired development source, not an entry
 in the sample-fetch registry. Its `.mapping.json` preserves all 458 frame pairs
 and native times; `.source.json` records attribution, changes and hashes. The
-MP4 adaptation remains CC BY-SA 4.0. See the [portal acceptance](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/handoffs/visible-person-and-selected-muse.md).
+MP4 adaptation remains CC BY-SA 4.0. See the [portal acceptance](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/handoffs/visible-person-and-selected-muse.md).
 
-The three additional clips vary exercise and setting, but share a creator/performer. They expand motion coverage, not demographic coverage. See [exercise-diversity findings](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/exercise-diversity.md) for preserved successes, failures and model limitations.
+The three additional clips vary exercise and setting, but share a creator/performer. They expand motion coverage, not demographic coverage. See [exercise-diversity findings](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/exercise-diversity.md) for preserved successes, failures and model limitations.
 
 The separate [Autelica jog-turn case](autelica-jogturn.source.json) credits **Autelica (autelica.com)** under CC BY 4.0. Its unchanged video and reconstructed multiview reference are stored once in `artifacts/multiview-jog-source-01`; the source record points there without duplicating media. This moving-camera development case is not in the original 15-video benchmark or the sample-fetch registry. [Sandbox, reference limitations and results](../../docs/multiview-jog.md).

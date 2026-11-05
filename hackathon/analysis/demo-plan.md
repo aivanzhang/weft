@@ -109,6 +109,6 @@ Capture a continuous interaction segment; the old seven-frame acceptance clip is
 
 Primary saved demo root: .local/portal-unfamiliar-source-acceptance-01/portal
 Body project: 1a5b41db5aa34654a84c83a9dbf5e316
-[Launch walkthrough](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/hackathon-demo.md).
+[Launch walkthrough](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/hackathon-demo.md).
 Use project API keys and the existing separate $5 ledgers; never use ChatGPT login.
 User manages persistent servers. No deployment, public release or submission is included.
