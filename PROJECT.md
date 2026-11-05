@@ -399,6 +399,16 @@ not an external benchmark or a guarantee for new inputs.
   `leg-raises` (67% usable but reference gaps beyond the interpolation horizon). All three
   refuse identically across the lite, full and heavy pose models, heavy markedly worse. A
   judge reading the constraints before uploading knows these are out of scope.
+- One test fails after standardizing the local OpenCV, and it is left failing on purpose.
+  `tests/test_demo.py::test_demo_runs_through_measured_multi_object_reconstruction` expects
+  `observation_count == 270` (90 frames x 3 objects) and gets 269. `opencv-contrib-python` and
+  `opencv-python-headless` were both installed in `.venv-lab`; pruning to the contrib build
+  the container runs changed last-frame decode by one observation. It reproduces in a separate
+  checkout, so it is the environment rather than any source change. Scope is the synthetic
+  ball fixture: the other 8 demo tests pass, the exercise portal's own tests among them, and
+  the hosted pipeline pins OpenCV in its image. Editing the assertion to 269 would make it
+  green without settling which count is correct, so the question -- whether that final frame
+  ought to decode -- stays open with the ball pipeline.
 - **Three jobs were allowed to oversubscribe a single container, and the failure blamed the
   visitor.** `max_instances` is 1, so every job shares one four-vCPU container, but the
   admission gate permitted three active at once. Under that contention the pose and body
