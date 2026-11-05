@@ -4,7 +4,8 @@ import { once } from "node:events";
 import { createServer, request as httpRequest } from "node:http";
 import { readFile } from "node:fs/promises";
 import { landingPort, landingServer } from "./dev.mjs";
-import { publicAssets } from "./public-assets.mjs";
+import { publicAssets, publicPath } from "./public-assets.mjs";
+import { sandboxRoute } from "./sandbox-proxy.mjs";
 
 let server, sandbox;
 let base;
@@ -38,9 +39,12 @@ after(async () => {
 
 test("landing loads from its own root and all public assets are available", async () => {
   const response = await fetch(base);
-  assert.equal(new URL(response.url).pathname, "/website/index.html");
+  // Served at the root itself now, with no redirect into a /website prefix.
+  assert.equal(new URL(response.url).pathname, "/");
   assert.match(await response.text(), /Weft/);
-  for (const asset of publicAssets) {
+  // Paths the sandbox owns are proxied to the running portal, not served by this server:
+  // the demo page's own assets are the portal's. The proxy has its own test below.
+  for (const asset of publicAssets.map(publicPath).filter((name) => !sandboxRoute(`/${name}`))) {
     const result = await fetch(`${base}/${asset}`, { method: "HEAD" });
     assert.equal(result.status, 200, asset);
     assert.equal(result.headers.get("cache-control"), "no-store");
@@ -59,7 +63,7 @@ test("private state, source code and traversal are not served", async () => {
 });
 
 test("references routes serve the bibliography with working local assets and navigation", async () => {
-  for (const route of ["/references", "/references/", "/website/references.html"]) {
+  for (const route of ["/references", "/references/", "/references.html"]) {
     const response = await fetch(base + route);
     assert.equal(response.status, 200, route);
     assert.match(response.headers.get("content-type"), /text\/html/);

@@ -1,4 +1,4 @@
-import { publicAssets } from "../website/public-assets.mjs";
+import { publicAssets, publicPath } from "../website/public-assets.mjs";
 import { copyFile, mkdir, readdir, stat } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -26,8 +26,10 @@ async function existing(dir, prefix = "") {
 // build_avatars.py owns website/avatars/ entirely and names files by content digest, so
 // the guard below checks the prefix instead of pinning digests in the catalog.
 const generated = "website/avatars/";
+const generatedPublic = publicPath(generated);
 const extras = (await existing(output)).filter(
-  (name) => !assets.includes(name) && !name.startsWith(generated),
+  (name) =>
+    !assets.map(publicPath).includes(name) && !name.startsWith(generatedPublic),
 );
 if (extras.length)
   throw new Error(
@@ -43,12 +45,12 @@ if (!avatarFiles.includes(generated + "index.json"))
   );
 const all = [...assets, ...avatarFiles];
 for (const name of all) {
-  const target = resolve(output, name);
+  const target = resolve(output, publicPath(name));
   await mkdir(dirname(target), { recursive: true });
   await copyFile(resolve(root, name), target);
 }
 const bytes = (
-  await Promise.all(all.map((name) => stat(resolve(output, name))))
+  await Promise.all(all.map((name) => stat(resolve(output, publicPath(name)))))
 ).reduce((n, s) => n + s.size, 0);
 console.log(
   `Bundled ${assets.length} allowlisted public files plus ${avatarFiles.length} generated avatar files (${bytes} bytes). No uploads, credentials, or research runs included.`,

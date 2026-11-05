@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Copyright (C) 2026 Ivan Zhang. See LICENSE; NOTICE lists third-party material.
 import { Container, getContainer } from "@cloudflare/containers";
+import { demo } from "./demo";
 import { DurableObject } from "cloudflare:workers";
 
 const DAY = 86_400_000;
@@ -485,12 +486,12 @@ async function avatars(request: Request, env: Env, url: URL) {
     throw new Rejected("Not found.", 404);
   let asset: string;
   let type = "application/json";
-  if (url.pathname === "/api/avatars") asset = "/website/avatars/index.json";
+  if (url.pathname === "/api/avatars") asset = "/avatars/index.json";
   else {
     const match = url.pathname.match(/^\/api\/avatar\/([^/]+)\/([^/]+)$/);
     if (!match || !AVATAR_KEY.test(match[1]) || !AVATAR_FILE.test(match[2]))
       throw new Rejected("Avatar resource does not exist.", 404);
-    asset = `/website/avatars/${match[1]}/${match[2]}`;
+    asset = `/avatars/${match[1]}/${match[2]}`;
     if (match[2] !== "render.json") type = "application/octet-stream";
   }
   const response = await env.ASSETS.fetch(new Request(url.origin + asset, { method: "GET" }));
@@ -511,6 +512,8 @@ async function api(request: Request, env: Env) {
   const url = new URL(request.url);
   if (url.pathname === "/api/avatars" || url.pathname.startsWith("/api/avatar/"))
     return avatars(request, env, url);
+  // The repository's demo page has its own contract; demo.ts implements it.
+  if (url.pathname.startsWith("/api/demo/")) return demo(request, env, url);
   const queue = env.SUBMISSIONS.getByName("weft-admission-v1");
   const token = request.headers
     .get("Cookie")
@@ -663,14 +666,18 @@ export default {
     let response: Response;
     try {
       if (url.pathname.startsWith("/api/")) response = await api(request, env);
+      // /demo serves the repository's own demo page, src/weft/assets/demo_build.html,
+      // published at the root like the rest of the site. Extensionless because the asset
+      // handler redirects a .html path and a 307 is not what the landing page's link
+      // should hand a visitor.
+      else if (url.pathname === "/demo" || url.pathname === "/demo/")
+        response = await env.ASSETS.fetch(new Request(url.origin + "/demo_build", request));
       else if (url.pathname === "/health")
         response = json({
           status: "ok",
           version: env.RELEASE,
           submissions: env.SUBMISSIONS_ENABLED === "true",
         });
-      else if (url.pathname === "/")
-        response = Response.redirect(url.origin + "/website/index.html", 302);
       else response = await env.ASSETS.fetch(request);
     } catch (error) {
       if (!(error instanceof Rejected)) console.error("weft_request_failed", error instanceof Error ? error.message.slice(0, 240) : "unknown");
