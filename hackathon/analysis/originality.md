@@ -27,4 +27,4 @@ The guide's explicit existing-product exception names startups. This entry is in
 
 ## Public release boundary
 
-The user authorized a **private** repository under `kintsugi-software`. The event eventually requires public code, but no public release is authorized now. Before a later public release, separate original project code from private planning, account details, raw source captures, proprietary evidence, and third-party reference archives. Do not apply a project license to reference material owned by others.
+The user authorized a **private** repository, originally under `kintsugi-software` and transferred to `aivanzhang` on November 4, 2026; it remains private. The event eventually requires public code, but no public release is authorized now. Before a later public release, separate original project code from private planning, account details, raw source captures, proprietary evidence, and third-party reference archives. Do not apply a project license to reference material owned by others.

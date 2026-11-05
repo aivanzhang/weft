@@ -2,12 +2,12 @@
 
 Cloudflare account: **Kintsugi Software**, `73c2bbd14f7b9025d9fd9eb56ad54609`.
 Worker: `weft`. Private R2 bucket: `weft-private-submissions`.
-Public URL: **https://weft.kintsugi.software** (custom domain; live for hackathon judging).
+Public URL: **https://weft.ivanzhangofficial.workers.dev** (workers.dev subdomain; live for hackathon judging).
 
 ## Restored November 4, 2026
 
 Restored with the owner's authorization for judge access, on the custom domain
-`weft.kintsugi.software` (release `video-environments-20261104-judges`). The
+`weft.ivanzhangofficial.workers.dev` (release `video-environments-20261104-judges`). The
 `workers.dev` address and preview URLs remain disabled (`workers_dev: false`,
 `preview_urls: false`); the custom domain is the only public entry. Verified
 unauthenticated end to end at restore time: landing page and gallery assets,

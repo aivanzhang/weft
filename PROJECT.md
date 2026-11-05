@@ -431,6 +431,38 @@ not an external benchmark or a guarantee for new inputs.
   `leg-raises` (67% usable but reference gaps beyond the interpolation horizon). All three
   refuse identically across the lite, full and heavy pose models, heavy markedly worse. A
   judge reading the constraints before uploading knows these are out of scope.
+- One test fails after standardizing the local OpenCV, and it is left failing on purpose.
+  `tests/test_demo.py::test_demo_runs_through_measured_multi_object_reconstruction` expects
+  `observation_count == 270` (90 frames x 3 objects) and gets 269. `opencv-contrib-python` and
+  `opencv-python-headless` were both installed in `.venv-lab`; pruning to the contrib build
+  the container runs changed the count. **Diagnosed, because a dropped frame would have shifted
+  the exercise pipeline too: decode is clean.** `decode_audit` reports 90 metadata frames and
+  90 decoded on a `metadata_matches` basis, `excluded_frames` is 0, and the shortfall is
+  `joint_observed_frames` 89 against `observed_frames` 90 -- one of the three objects is
+  unmeasured in exactly one frame, during the contact event where two overlap. That is the
+  pipeline honestly reporting a missing observation rather than interpolating one, so the
+  behaviour is right and the test's hard 270 is an over-specified detector-calibration value.
+  Retuning it to 269 would be just as brittle, so it stays failing with the diagnosis attached
+  for whoever owns the ball path. The other 8 demo tests pass, the exercise portal's among
+  them, and nothing here touches the hosted pipeline.
+- **Three jobs were allowed to oversubscribe a single container, and the failure blamed the
+  visitor.** `max_instances` is 1, so every job shares one four-vCPU container, but the
+  admission gate permitted three active at once. Under that contention the pose and body
+  stages pass their internal deadlines and refuse, and the refusal text reads "use one person,
+  head to feet in frame" -- a verdict on the footage for what is server load. Caught by
+  accident while preparing a demo: `waiters-squat` completed twice and then failed once,
+  minutes apart, on identical bytes. Active jobs now cap at 1, matching the instance count, so
+  a second submission is told an environment is already generating instead of being handed a
+  false judgement about its video. This was the only non-deterministic outcome found in the
+  whole session, and it would have been invisible to any single-submission test. Confirmed
+  fixed by two sequential deployed runs of the same clip: both `complete`, identical scored
+  baselines (100/100, 1/100, 0/100), three avatar digests matching, 9.18 MB archives.
+- Those two runs also separate warm from cold, which the published figure had conflated. Both
+  were cold container starts -- `sleepAfter` is 30 s and the gaps exceeded it -- at job 77.9 s
+  and 75.1 s against the 62.8 s measured warm. So a directly-admitting clip is **about 63 s
+  warm and 78 s cold**, 88 s client-side cold, and a judge's first submission after an idle
+  spell is always the cold case. The pre-upload text now states both rather than the
+  flattering one.
 - Three different limits used to refuse with one message, "The generation queue is full.
   Please try again later." They now say which: three jobs already generating (clears in about
   a minute), an access code's daily budget, the shared daily budget, or a visitor's own three

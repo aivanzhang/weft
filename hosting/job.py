@@ -34,7 +34,7 @@ def main():
             archive.write(Path(__file__).resolve().parents[1] / 'src/weft' / name, 'weft/' + name)
         archive.writestr('requirements.txt', 'numpy>=2.2,<3\ngymnasium>=1.1,<2\n')
         archive.writestr('example.py', 'import json\nfrom weft.world import World\nfrom weft.env import RollingEnv\nenv = RollingEnv(World.from_dict(json.load(open("world.json"))))\nobservation, info = env.reset(seed=1729)\nprint(env.step(1))\n')
-        archive.writestr('README.txt', 'Weft rolling-body environment\n\nInstall requirements.txt, then run python example.py from this folder. The fixed Weft runtime is included. Load world.json with weft.world.World.from_dict, then pass it to weft.env.RollingEnv.\nUse reset(seed=...) and step(action): 0=left, 1=coast, 2=right.\nTask controls and the parking goal are authored extensions, not recovered actions.\nSource: https://github.com/kintsugi-software/weft\nmanifest.json verifies the full run files; example.py and the weft/ runtime are added for convenience.\n')
+        archive.writestr('README.txt', 'Weft rolling-body environment\n\nInstall requirements.txt, then run python example.py from this folder. The fixed Weft runtime is included. Load world.json with weft.world.World.from_dict, then pass it to weft.env.RollingEnv.\nUse reset(seed=...) and step(action): 0=left, 1=coast, 2=right.\nTask controls and the parking goal are authored extensions, not recovered actions.\nSource: https://github.com/aivanzhang/weft\nmanifest.json verifies the full run files; example.py and the weft/ runtime are added for convenience.\n')
 
 
 if __name__ == '__main__':

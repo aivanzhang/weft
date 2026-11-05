@@ -1,7 +1,7 @@
 # Weft — hackathon story and copy
 
 Updated November 3, 2026 (PST). This is a local preparation document, not a submitted entry.
-[Demo notes and submission checklist](analysis/demo-plan.md) · [Working walkthrough](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/hackathon-demo.md)
+[Demo notes and submission checklist](analysis/demo-plan.md) · [Working walkthrough](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/hackathon-demo.md)
 
 ## Positioning
 

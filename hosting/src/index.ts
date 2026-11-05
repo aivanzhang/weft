@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Ivan Zhang. See LICENSE; NOTICE lists third-party material.
 import { Container, getContainer } from "@cloudflare/containers";
 import { DurableObject } from "cloudflare:workers";
 
@@ -44,7 +46,7 @@ const PIPELINES = {
       file:
         "MP4 up to 40 MB. Longer clips are thinned across their whole length, and if only part of a clip is usable that part is found and used automatically.",
       expect:
-        "About 1 to 3 minutes: measured 66 s for a clip that admits first try, 185 s for one that needs a narrower window found automatically. A clip outside the envelope comes back with the reason in under a minute: across 19 uncurated inputs the slowest refusal was 42 s, and a wrong file type is rejected in under 3 s.",
+        "About 1 to 3 minutes: measured 66 s warm and 88 s from a cold start for a clip that admits first try, 185 s for one that needs a narrower window found automatically. A first submission after an idle spell is the cold case. A clip outside the envelope comes back with the reason in under a minute: across 19 uncurated inputs the slowest refusal was 42 s, and a wrong file type is rejected in under 3 s.",
     },
     refusal:
       "This clip could not produce a verified environment. Use one person, head to feet in frame, a plain background and a fixed camera in a single continuous shot.",
@@ -189,10 +191,17 @@ export class SubmissionQueue extends DurableObject<Env> {
     const publicDaily = daily.filter((job) => job.lane !== "judge");
     // A momentarily busy queue and an exhausted daily budget both used to refuse with "try
     // again later", which is misleading for the budget: it does not clear for hours.
-    if (active.length >= 3)
-      return { refused: "Three environments are already generating. Try again in about a minute." };
+    // One active job, because `max_instances` is 1: three concurrent jobs oversubscribed a
+    // single four-vCPU container, and the contention pushed the pose and body stages past
+    // their internal deadlines. That surfaced as a refusal blaming the visitor's video for a
+    // server-load problem, and made the same clip succeed or fail run to run.
+    if (active.length >= 1)
+      return { refused: "An environment is already generating. Please try again in about a minute." };
     if (judge) {
-      if (daily.filter((job) => job.lane === "judge").length >= 60)
+      // 120/day: verification sweeps can spend 60 in a session and still leave a demo
+      // recording usable. Each run is a fraction of a cent, so the cap is abuse protection,
+      // not a spending limit.
+      if (daily.filter((job) => job.lane === "judge").length >= 120)
         return { refused: "This access code has used its daily generation budget. Each run frees up 24 hours later." };
     } else if (publicDaily.length >= 20)
       return { refused: "The shared daily generation budget is used up. Please try again tomorrow." };
