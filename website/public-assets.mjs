@@ -25,6 +25,8 @@ export const publicAssets = [
   "src/weft/assets/brand.css",
   "src/weft/assets/demo_build.js",
   "src/weft/assets/demo_focus.js",
+  "src/weft/assets/demo_studio.js",
+  "src/weft/assets/demo.js",
   "src/weft/assets/weft-logo.png",
   "data/rolling-ball.mp4",
   // Curated showcase media the demo page plays; licensed and credited per seed.

@@ -2,6 +2,19 @@
 // Copyright (C) 2026 Ivan Zhang. See LICENSE; NOTICE lists third-party material.
 import { Container, getContainer } from "@cloudflare/containers";
 import { demo } from "./demo";
+
+// Mirrors ASSETS and DEMO_BRAND_ASSETS in portal.py. The demo page is served from the
+// repository unchanged, so it asks for portal-side names; every one of them resolves here
+// to the published file. Keeping the whole map in one place is what stops the next missing
+// alias from being found by a visitor instead of by us.
+const DEMO_ALIAS: Record<string, string> = {
+  "/demo-wordmark.png": "/assets/brand/source/weft-wordmark.png",
+  "/demo-font.woff2": "/fonts/InterVariable.woff2",
+  // The portal serves the shared engine under a demo-side name.
+  "/demo_physics.js": "/engine.js",
+};
+// Every path that renders the builder page itself.
+const DEMO_PAGE = /^\/demo(?:\/(?:build|runs|studio\/[A-Za-z0-9_-]{1,64}))?\/?$/;
 import { DurableObject } from "cloudflare:workers";
 
 const DAY = 86_400_000;
@@ -670,8 +683,12 @@ export default {
       // published at the root like the rest of the site. Extensionless because the asset
       // handler redirects a .html path and a 307 is not what the landing page's link
       // should hand a visitor.
-      else if (url.pathname === "/demo" || url.pathname === "/demo/")
+      else if (DEMO_PAGE.test(url.pathname))
         response = await env.ASSETS.fetch(new Request(url.origin + "/demo_build", request));
+      else if (DEMO_ALIAS[url.pathname])
+        response = await env.ASSETS.fetch(
+          new Request(url.origin + DEMO_ALIAS[url.pathname], request),
+        );
       else if (url.pathname === "/health")
         response = json({
           status: "ok",

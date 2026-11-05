@@ -53,6 +53,12 @@ const privately = (body: unknown, status = 200) =>
     },
   });
 
+/** A fresh session value, in the same shape the rest of the API issues and reads. */
+const newSession = () =>
+  Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) =>
+    b.toString(16).padStart(2, "0"),
+  ).join("");
+
 export const demoCookie = (request: Request) =>
   request.headers
     .get("Cookie")
@@ -311,9 +317,6 @@ export async function demo(request: Request, env: Env, url: URL): Promise<Respon
 
   // --- The access gate. Issues the derived token; never echoes the code. ---
   if (path === "/api/demo/unlock" && request.method === "POST") {
-    const cookie = demoCookie(request);
-    if (!cookie)
-      return privately({ error: "Reload this page before entering a code." }, 403);
     const body = (await request.json().catch(() => ({}))) as { code?: unknown };
     const offered = typeof body.code === "string" ? body.code.trim() : "";
     const secret = (env as { JUDGE_ACCESS_CODE?: string }).JUDGE_ACCESS_CODE ?? "";
@@ -321,7 +324,19 @@ export async function demo(request: Request, env: Env, url: URL): Promise<Respon
       return privately({ error: "Access code not recognized." }, 403);
     const [a, b] = await Promise.all([hex(offered), hex(secret)]);
     if (a !== b) return privately({ error: "Access code not recognized." }, 403);
-    return privately({ token: await demoToken(cookie) });
+
+    // Unlock is the page's first call, so it establishes the session rather than demanding
+    // one: this page never fetches /api/session, and telling a visitor to reload could not
+    // have produced a cookie either.
+    const existing = demoCookie(request);
+    const cookie = existing || newSession();
+    const response = privately({ token: await demoToken(cookie) });
+    if (!existing)
+      response.headers.set(
+        "Set-Cookie",
+        `weft_session=${cookie}; Path=/; Max-Age=86400; Secure; HttpOnly; SameSite=Strict`,
+      );
+    return response;
   }
 
   // --- Everything below is session-scoped. ---

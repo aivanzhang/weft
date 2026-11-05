@@ -8,7 +8,7 @@
   "preview_urls": false,
   // "/" is served straight from the asset bundle as index.html; only the API and health
   // endpoints need the Worker ahead of assets.
-  "assets": {"directory": ".build/public", "binding": "ASSETS", "run_worker_first": ["/api/*", "/health", "/demo"]},
+  "assets": {"directory": ".build/public", "binding": "ASSETS", "run_worker_first": ["/api/*", "/health", "/demo", "/demo/*", "/demo_physics.js", "/demo-wordmark.png", "/demo-font.woff2"]},
   "vars": {"PUBLIC_ORIGIN": "https://weft.ivanzhangofficial.workers.dev", "SUBMISSIONS_ENABLED": "true", "RELEASE": "exercise-pipeline-20261104"},
   // Served on the account's workers.dev subdomain rather than a kintsugi.software custom
   // domain, at the user's request. The Cloudflare account is unchanged; only the hostname is.
