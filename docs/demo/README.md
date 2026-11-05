@@ -20,6 +20,25 @@ Record against the **local portal**. The hosted landing page's "Build your world
 at `/demo`, which only the portal serves — the Worker returns 404 for it. Do not click it on
 camera.
 
+## Setting up on a fresh machine
+
+The source clips ship on this branch in `assets/demo/clips/`, with their attribution in
+`assets/demo/clips/ATTRIBUTION.md`. The portal reads them from `.local/demo-clips`, which is
+gitignored, so copy them across once:
+
+```sh
+mkdir -p .local/demo-clips
+cp assets/demo/clips/*.mp4 assets/demo/clips/manifest.json .local/demo-clips/
+```
+
+You also need the access code at `.local/demo-access-code`, which is not in the repository.
+Copy it from the machine that has it, or let the portal generate a fresh one on first demo
+access — a generated code works for the local walkthrough but will not match the hosted
+service's secret.
+
+Eight clips ship here. Three catalogued clips are omitted because their licence is unrecorded;
+see the attribution file.
+
 ## Starting the portal
 
 ```sh
@@ -49,7 +68,7 @@ Then open `http://127.0.0.1:8765/demo` and enter the code.
 
 ### Recommended clip
 
-`waiters-squat.mp4` — in `.local/demo-clips/`, 3,629,209 bytes, sha256 `28eb5ddd…`.
+`waiters-squat.mp4` — shipped in `assets/demo/clips/`, 3,629,209 bytes, sha256 `28eb5ddd…`.
 CC BY-SA 4.0, Taco Fleur / Cavemantraining via Wikimedia Commons, so it is safe to publish
 with attribution. Admits on the first attempt with no retry ladder, 100/100 learned, tracked
 fraction 1.000.

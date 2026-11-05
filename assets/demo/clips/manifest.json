@@ -1,0 +1,363 @@
+{
+  "schema_version": 3,
+  "profile": "weft-demo-clips-v3",
+  "scope": "Every clip was submitted to the hosted exercise pipeline in the same container image the Cloudflare Worker runs, and completed the whole chain: admission, articulated body and authored ground, executable task, bounded training, and the policy-versus-baselines comparison. Licences are the original creators'; derived files are explicit re-encodes under the same licence. Simulated joint control, not measured anatomy or validated biomechanics.",
+  "constraints": {
+    "works": "one person head to feet, plain background, fixed camera, one continuous shot",
+    "fails": "camera cuts, wall mirrors, bystanders - each reads as a competing person; long occlusions break the root reference",
+    "envelope": "MP4, under 40 MB, at most 480 decoded frames after normalization, long side up to 1920, 1-240 fps",
+    "borderline": "A clip near the pose-usability threshold can pass on one machine and fail on another, and re-encoding it can flip the result. Only clips verified through the hosted container image are listed here."
+  },
+  "how_to_submit": "Upload the MP4 with the exercise pipeline selected. The slowest clip here finished in 43 s end to end and none needed normalization, so the file you upload is the file the pipeline reads. Two submission routes reach the same lab by different paths and admit different clips: check each record's `paths` before choosing. Everything tiered showcase or backup passes both.",
+  "clips": [
+    {
+      "id": "bodyweight-squats",
+      "title": "Bodyweight squats",
+      "file": "bodyweight-squats.mp4",
+      "bytes": 6635884,
+      "creator": "Danielflefil (Wikimedia Commons)",
+      "licence": "CC BY-SA 4.0",
+      "origin": "https://commons.wikimedia.org/wiki/File:Bodyweight_Squats.gif",
+      "derivation": "complete 500 px GIF cycle as lossless RGB video; already inside the admission envelope",
+      "appearance": {
+        "available": true,
+        "scene_profile": "shared-world-v3",
+        "avatars_substituted": [
+          "muse-panda",
+          "robot"
+        ],
+        "worst_bone_length_drift": 1.0575754036348685e-15
+      },
+      "paths": {
+        "hosted_container": "complete",
+        "local_portal": "ready",
+        "local_portal_seconds": 14.3,
+        "local_portal_error": null
+      },
+      "verified_on": "hosted container image (linux/arm64), same image the Worker runs",
+      "hosted_seconds": 52.4,
+      "pipeline_seconds": 43.0,
+      "chain_seconds": 52,
+      "environment_zip_bytes": 5925916,
+      "selected_joint": "right_hip",
+      "rl": {
+        "learned": "100/100",
+        "random": "0/100",
+        "coast": "0/100"
+      },
+      "margin": {
+        "tracked_fraction": 1.0,
+        "reference_servo_rmse_radians": 0.0696
+      },
+      "artifacts": 21,
+      "recommended": "showcase",
+      "why": "Largest learning contrast in the pack: the trained policy succeeds every time where both baselines fail outright."
+    },
+    {
+      "id": "waiters-squat",
+      "title": "Overhead kettlebell waiters squat",
+      "file": "waiters-squat.mp4",
+      "bytes": 3629209,
+      "creator": "Taco Fleur / Cavemantraining (Wikimedia Commons)",
+      "licence": "CC BY-SA 4.0",
+      "origin": "https://commons.wikimedia.org/wiki/File:Kettlebell_Waiters_Squat.webm",
+      "derivation": "6.2-14.4 s window of the original clip",
+      "appearance": {
+        "available": true,
+        "scene_profile": "shared-world-v3",
+        "avatars_substituted": [
+          "muse-panda",
+          "robot"
+        ],
+        "worst_bone_length_drift": 1.0360672676864228e-15
+      },
+      "paths": {
+        "hosted_container": "complete",
+        "local_portal": "ready",
+        "local_portal_seconds": 19.6,
+        "local_portal_error": null
+      },
+      "verified_on": "hosted container image (linux/arm64), same image the Worker runs",
+      "hosted_seconds": 32.9,
+      "pipeline_seconds": 21.0,
+      "chain_seconds": 33,
+      "environment_zip_bytes": 9181583,
+      "selected_joint": "left_knee",
+      "rl": {
+        "learned": "100/100",
+        "random": "1/100",
+        "coast": "0/100"
+      },
+      "margin": {
+        "tracked_fraction": 1.0,
+        "reference_servo_rmse_radians": 0.0392
+      },
+      "artifacts": 21,
+      "recommended": "showcase",
+      "why": "Best reconstruction margin: full pose tracking and the lowest reference-servo error, and the avatar swap was verified on this world."
+    },
+    {
+      "id": "squat",
+      "title": "Squat demonstration",
+      "file": "squat.mp4",
+      "bytes": 827682,
+      "creator": "FitnessScape (Wikimedia Commons)",
+      "licence": "CC BY 3.0",
+      "origin": "https://commons.wikimedia.org/wiki/File:Squat_-_exercise_demonstration_video.webm",
+      "derivation": "first 213 frames of the WebM, re-encoded to H.264 at 1280x720",
+      "appearance": {
+        "available": true,
+        "scene_profile": "shared-world-v3",
+        "avatars_substituted": [
+          "muse-panda",
+          "robot"
+        ],
+        "worst_bone_length_drift": 1.2086576041541355e-15
+      },
+      "paths": {
+        "hosted_container": "complete",
+        "local_portal": "failed",
+        "local_portal_seconds": 19.0,
+        "local_portal_error": "RuntimeError: Visible-chain body anchor abstained: no_complete_confidence_qualified_leg_chain"
+      },
+      "verified_on": "hosted container image (linux/arm64), same image the Worker runs",
+      "hosted_seconds": 34.1,
+      "pipeline_seconds": 15.9,
+      "chain_seconds": 34,
+      "environment_zip_bytes": 8102522,
+      "selected_joint": "right_knee",
+      "rl": {
+        "learned": "100/100",
+        "random": "30/100",
+        "coast": "0/100"
+      },
+      "margin": {
+        "tracked_fraction": 0.963,
+        "reference_servo_rmse_radians": 0.0826
+      },
+      "artifacts": 21,
+      "recommended": "hosted-only",
+      "why": "Completes on the hosted container but the local portal refuses it: its visible-chain body anchor finds no confidence-qualified leg chain. Submit it to the hosted lane only."
+    },
+    {
+      "id": "lunge-twist",
+      "title": "Kettlebell lunge and twist",
+      "file": "lunge-twist.mp4",
+      "bytes": 208047,
+      "creator": "Taco Fleur / Cavemantraining (Wikimedia Commons)",
+      "licence": "CC BY-SA 4.0",
+      "origin": "https://commons.wikimedia.org/wiki/File:Kettlebell_Lunge_and_Twist.webm",
+      "derivation": "frames 200-440 of the WebM, re-encoded to H.264",
+      "appearance": {
+        "available": true,
+        "scene_profile": "shared-world-v3",
+        "avatars_substituted": [
+          "muse-panda",
+          "robot"
+        ],
+        "worst_bone_length_drift": 8.611239162438129e-16
+      },
+      "paths": {
+        "hosted_container": "complete",
+        "local_portal": "ready",
+        "local_portal_seconds": 19.4,
+        "local_portal_error": null
+      },
+      "verified_on": "hosted container image (linux/arm64), same image the Worker runs",
+      "hosted_seconds": 25.7,
+      "pipeline_seconds": 13.7,
+      "chain_seconds": 26,
+      "environment_zip_bytes": 9344672,
+      "selected_joint": "right_hip_twist",
+      "rl": {
+        "learned": "100/100",
+        "random": "62/100",
+        "coast": "13/100"
+      },
+      "margin": {
+        "tracked_fraction": 1.0,
+        "reference_servo_rmse_radians": 0.0488
+      },
+      "artifacts": 21,
+      "recommended": "showcase",
+      "why": "Fifth distinct exercise and passes both submission paths with perfect tracking; random reaches 62/100 on the selected twist joint, so show the motion rather than the contrast."
+    },
+    {
+      "id": "single-leg-squat",
+      "title": "Basic single leg squat",
+      "file": "single-leg-squat.mp4",
+      "bytes": 214308,
+      "creator": "RickyBennison (Wikimedia Commons)",
+      "licence": "CC BY-SA 4.0",
+      "origin": "https://commons.wikimedia.org/wiki/File:Basic_single_leg_squat.webm",
+      "derivation": "WebM normalized to 480x640 portrait H.264 at 30 fps",
+      "appearance": {
+        "available": true,
+        "scene_profile": "shared-world-v3",
+        "avatars_substituted": [
+          "muse-panda",
+          "robot"
+        ],
+        "worst_bone_length_drift": 8.611239162438129e-16
+      },
+      "paths": {
+        "hosted_container": "complete",
+        "local_portal": "ready",
+        "local_portal_seconds": 19.0,
+        "local_portal_error": null
+      },
+      "verified_on": "hosted container image (linux/arm64), same image the Worker runs",
+      "hosted_seconds": 29.7,
+      "pipeline_seconds": 12.1,
+      "chain_seconds": 30,
+      "environment_zip_bytes": 10922192,
+      "selected_joint": "left_shoulder",
+      "rl": {
+        "learned": "100/100",
+        "random": "71/100",
+        "coast": "3/100"
+      },
+      "margin": {
+        "tracked_fraction": 1.0,
+        "reference_servo_rmse_radians": 0.0767
+      },
+      "artifacts": 21,
+      "recommended": "backup",
+      "why": "Fastest run and the only portrait clip, but random reaches 71/100 so it reads as a weak contrast."
+    },
+    {
+      "id": "incline-press",
+      "title": "Incline press",
+      "file": "incline-press.mp4",
+      "bytes": 766590,
+      "creator": "FitnessScape (Wikimedia Commons)",
+      "licence": "CC BY 3.0",
+      "origin": "https://commons.wikimedia.org/wiki/File:Incline_press_-_exercise_demonstration_video.webm",
+      "derivation": "original WebM transcoded to H.264 MP4 at CRF 20, unchanged otherwise",
+      "appearance": {
+        "available": true,
+        "scene_profile": "shared-world-v3",
+        "avatars_substituted": [
+          "muse-panda",
+          "robot"
+        ],
+        "worst_bone_length_drift": 1.1481652216584171e-15,
+        "windowed": false
+      },
+      "paths": {
+        "hosted_container": "complete",
+        "hosted_deployed": "complete",
+        "local_portal": "ready",
+        "local_portal_seconds": 18.3,
+        "local_portal_error": null
+      },
+      "verified_on": "deployed service at weft.kintsugi.software",
+      "hosted_seconds": 111.2,
+      "pipeline_seconds": 57.8,
+      "chain_seconds": 111,
+      "environment_zip_bytes": 9365521,
+      "selected_joint": "left_shoulder",
+      "rl": {
+        "learned": "100/100",
+        "random": "7/100",
+        "coast": "0/100"
+      },
+      "margin": {
+        "tracked_fraction": 0.978,
+        "reference_servo_rmse_radians": 0.0605
+      },
+      "recommended": "showcase",
+      "why": "Passes both submission routes with a clear contrast, and it is the newest clip verified end to end so it is not part of the original curated set."
+    },
+    {
+      "id": "deadlift",
+      "title": "Deadlift",
+      "file": "deadlift.mp4",
+      "bytes": 863869,
+      "creator": "FitnessScape (Wikimedia Commons)",
+      "licence": "CC BY 3.0",
+      "origin": "https://commons.wikimedia.org/wiki/File:Deadlift_-_exercise_demonstration_video.webm",
+      "derivation": "original WebM transcoded to H.264 MP4 at CRF 20, unchanged otherwise",
+      "appearance": {
+        "available": true,
+        "scene_profile": "shared-world-v3",
+        "avatars_substituted": [
+          "muse-panda",
+          "robot"
+        ],
+        "worst_bone_length_drift": 9.1259774802636e-16,
+        "windowed": true
+      },
+      "paths": {
+        "hosted_container": "complete",
+        "hosted_deployed": "complete",
+        "local_portal": "ready",
+        "local_portal_seconds": 34.8,
+        "local_portal_route": "supported_window"
+      },
+      "verified_on": "deployed service at weft.kintsugi.software",
+      "hosted_seconds": 196.6,
+      "pipeline_seconds": 70.4,
+      "chain_seconds": 197,
+      "environment_zip_bytes": 8907096,
+      "selected_joint": "right_hip",
+      "rl": {
+        "learned": "98/100",
+        "random": "2/100",
+        "coast": "0/100"
+      },
+      "margin": {
+        "tracked_fraction": 0.991,
+        "reference_servo_rmse_radians": 0.0657
+      },
+      "recommended": "showcase",
+      "why": "Admitted on both routes by a window of its own evidence after one bad frame zero refuses the anchors on a 99.1%-tracked clip: the hosted lane retries automatically, the local portal offers the window and one explicit request builds it."
+    },
+    {
+      "id": "jumping-jacks",
+      "title": "Jumping jacks and burpees",
+      "file": "jumping-jacks.mp4",
+      "bytes": 1253829,
+      "creator": "Taco Fleur / Cavemantraining (Wikimedia Commons)",
+      "licence": "CC BY-SA 4.0",
+      "origin": "https://commons.wikimedia.org/wiki/File:Jumping_jacks_and_burpees.webm",
+      "derivation": "WebM transcoded to H.264 MP4, then strided to 452 frames at 10 fps so the whole 45 s fits the 500-frame envelope both routes enforce. The unstrided 1,350-frame version is refused locally on the envelope.",
+      "appearance": {
+        "available": true,
+        "scene_profile": "shared-world-v3",
+        "avatars_substituted": [
+          "muse-panda",
+          "robot"
+        ],
+        "worst_bone_length_drift": 1.004644568951115e-15,
+        "windowed": false
+      },
+      "paths": {
+        "hosted_container": "complete",
+        "hosted_deployed": "complete",
+        "local_portal": "ready",
+        "local_portal_seconds": 46.5,
+        "local_portal_route": "supported_window"
+      },
+      "verified_on": "deployed service at weft.kintsugi.software",
+      "hosted_seconds": 184.4,
+      "pipeline_seconds": 174.5,
+      "chain_seconds": 184,
+      "environment_zip_bytes": 8977874,
+      "selected_joint": "left_shoulder",
+      "rl": {
+        "learned": "100/100",
+        "random": "0/100",
+        "coast": "0/100"
+      },
+      "margin": {
+        "tracked_fraction": 1,
+        "reference_servo_rmse_radians": 0.121
+      },
+      "recommended": "showcase",
+      "why": "A hard refusal everywhere until a window of its own evidence was asked for: 45 s with several people, now admitted on 20.9-45.2 s by both routes and learning 100/100. The clearest demonstration that a localized defect no longer costs the whole clip."
+    }
+  ],
+  "routes": "Both routes can use a window of a clip's own evidence, by different means. The hosted lane proposes and retries automatically. The local portal records the proposal beside the preserved refusal and one explicit request to /api/projects/<id>/perception/supported-window builds a child on it; a harness that stops at the refusal understates the local route. The remaining difference is normalization: the hosted lane strides an over-long clip to fit the frame envelope before admission, the local upload path does not.",
+  "note": "Clips whose creator and licence are recorded. Three catalogued clips are omitted here because their provenance is unverified."
+}
