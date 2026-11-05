@@ -403,12 +403,16 @@ not an external benchmark or a guarantee for new inputs.
   `tests/test_demo.py::test_demo_runs_through_measured_multi_object_reconstruction` expects
   `observation_count == 270` (90 frames x 3 objects) and gets 269. `opencv-contrib-python` and
   `opencv-python-headless` were both installed in `.venv-lab`; pruning to the contrib build
-  the container runs changed last-frame decode by one observation. It reproduces in a separate
-  checkout, so it is the environment rather than any source change. Scope is the synthetic
-  ball fixture: the other 8 demo tests pass, the exercise portal's own tests among them, and
-  the hosted pipeline pins OpenCV in its image. Editing the assertion to 269 would make it
-  green without settling which count is correct, so the question -- whether that final frame
-  ought to decode -- stays open with the ball pipeline.
+  the container runs changed the count. **Diagnosed, because a dropped frame would have shifted
+  the exercise pipeline too: decode is clean.** `decode_audit` reports 90 metadata frames and
+  90 decoded on a `metadata_matches` basis, `excluded_frames` is 0, and the shortfall is
+  `joint_observed_frames` 89 against `observed_frames` 90 -- one of the three objects is
+  unmeasured in exactly one frame, during the contact event where two overlap. That is the
+  pipeline honestly reporting a missing observation rather than interpolating one, so the
+  behaviour is right and the test's hard 270 is an over-specified detector-calibration value.
+  Retuning it to 269 would be just as brittle, so it stays failing with the diagnosis attached
+  for whoever owns the ball path. The other 8 demo tests pass, the exercise portal's among
+  them, and nothing here touches the hosted pipeline.
 - **Three jobs were allowed to oversubscribe a single container, and the failure blamed the
   visitor.** `max_instances` is 1, so every job shares one four-vCPU container, but the
   admission gate permitted three active at once. Under that contention the pose and body
