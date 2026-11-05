@@ -6,8 +6,10 @@
 <title>Weft · Video to simulation</title>
 <link rel="icon" href="/weft-logo.png">
 <link rel="stylesheet" href="/brand.css">
-<link rel="stylesheet" href="/demo.css">
+<link rel="stylesheet" href="/demo.css?v=gallery-controls-3">
 <script src="/demo_focus.js" defer></script>
+<script src="/demo_physics.js" defer></script>
+<script src="/demo_studio.js" defer></script>
 <script src="/demo_build.js" defer></script>
 </head>
 <body>
@@ -205,25 +207,20 @@
 
 <main class="build-main">
   <p id="auth-warning" class="auth-warning" role="alert" hidden></p>
+  <section class="builder-intro" hidden>
+    <div class="builder-breadcrumb"><a class="builder-back" href="/demo" aria-label="Back to examples" title="Back to examples"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a><span class="eyebrow">WEFT / BUILD</span></div>
+    <h1>Build from your video.</h1>
+    <p class="hint">Choose a clip to turn into a simulation.</p>
+  </section>
   <section class="hero build-hero">
-    <p class="eyebrow">WEFT / DEMO</p>
+    <p class="eyebrow">WEFT / SHOWCASE</p>
     <h1>A video records what happened.<br>A simulation lets you ask what if.</h1>
     <p class="lede">Weft turns observed movement into environments for testing actions and training agents. Start with a finished example: the original footage, the simulation, and the results.</p>
+    <p class="hint showcase-invitation">Explore the examples below.</p>
   </section>
 
   <section class="explore" id="explore" aria-labelledby="finished-runs">
-    <div class="section-head">
-      <div>
-        <h2 id="finished-runs">From video to simulation</h2>
-        <p class="hint">Compare the movement. Open the studio to take a closer look.</p>
-      </div>
-      <div class="gallery-nav" id="finished-nav" hidden>
-        <button id="prev" type="button" aria-label="Previous example">←</button>
-        <span id="example-count" class="example-count" aria-live="polite" aria-atomic="true"></span>
-        <button id="next" type="button" aria-label="Next example">→</button>
-      </div>
-    </div>
-
+    <h2 id="finished-runs" class="sr-only">Showcase</h2>
     <div class="gallery-loading" id="finished-loading" role="status">
       <div class="loading-preview" aria-hidden="true">
         <svg viewBox="0 0 100 80"><rect x="13" y="11" width="74" height="55" rx="3"/><path d="M13 52h74"/><circle class="loading-orbit" cx="50" cy="36" r="12"/><path class="loading-track" d="M25 53q25-24 50 0"/></svg>
@@ -240,55 +237,71 @@
         <div class="stage-copy">
           <p class="eyebrow" id="demo-source"></p>
           <h3 id="demo-title"></h3>
-          <p id="demo-caption"></p>
+          <p id="demo-caption" hidden></p>
           <p class="metrics" id="demo-metrics"></p>
-          <button id="open-studio" type="button" class="primary" hidden>Open studio<span aria-hidden="true">→</span></button>
+          <div class="gallery-actions">
+            <button id="open-studio" type="button" class="gallery-studio-link" aria-label="Open studio" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M12 9v11M7 6.5h.01"/></svg><span>Open studio</span></button>
+            <div class="gallery-nav" id="finished-nav" hidden>
+              <button id="prev" type="button" aria-label="Previous example">←</button>
+              <details id="example-picker" class="example-picker"><summary aria-label="Choose an example"><span id="example-count" class="example-count" aria-live="polite" aria-atomic="true"></span></summary><div class="example-popover"><div class="dots" id="dots" aria-label="Choose an example"></div></div></details>
+              <button id="next" type="button" aria-label="Next example">→</button>
+            </div>
+          </div>
         </div>
         <div class="comparison gallery-comparison" id="demo-comparison">
           <figure id="demo-original" hidden>
-            <figcaption><span class="media-origin">Original</span><strong id="demo-input-label">Source footage</strong></figcaption>
+            <figcaption><div class="gallery-media-label"><span class="media-origin">Original</span><strong id="demo-input-label">Source footage</strong></div></figcaption>
             <video id="demo-source-video" muted playsinline preload="metadata" aria-label="Original video preview"></video>
-            <p class="media-explanation" id="demo-input-note"></p>
+            <p id="demo-input-note" hidden></p>
           </figure>
           <figure>
-            <figcaption><span class="media-origin">Result</span><strong id="demo-result-label">Digital environment</strong></figcaption>
+            <figcaption><div class="gallery-media-label"><span class="media-origin">Reconstruction</span><strong id="demo-result-label">Reconstructed environment</strong></div>
+              <button id="gallery-interact" type="button" class="gallery-icon" aria-label="Inspect the model" title="Inspect the model" aria-pressed="false" aria-controls="gallery-model" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7h9a3 3 0 0 1 3 2.5l1.2 7a2 2 0 0 1-3.3 1.8L15 16H9l-2.4 2.3a2 2 0 0 1-3.3-1.8l1.2-7A3 3 0 0 1 7.5 7Z"/><path d="M8 10v4M6 12h4M16 11h.01M18 13h.01"/></svg></button><span id="gallery-interact-hint" class="gallery-interact-hint" role="tooltip" hidden>Click here to interact with the model.</span></figcaption>
             <video id="demo-video" muted playsinline preload="metadata" aria-label="Simulation preview"></video>
-            <p class="media-explanation" id="demo-result-note"></p>
+            <div id="gallery-model" class="studio-model-host" hidden></div>
+            <p id="demo-result-note" hidden></p>
           </figure>
-          <button id="preview-studio" class="preview-studio" type="button" aria-label="Open this example in the studio"><span aria-hidden="true">↗</span></button>
         </div>
       </div>
-      <div class="carousel-footer"><p>Swipe to compare another example</p><div class="dots" id="dots" aria-label="Choose an example"></div></div>
+      <div id="gallery-transport" class="gallery-transport" role="group" aria-label="Comparison playback">
+        <button id="gallery-play" type="button" class="gallery-play" aria-label="Play both videos" aria-pressed="false" disabled><span aria-hidden="true">▷</span><span id="gallery-play-label">Play together</span></button>
+        <input id="gallery-seek" type="range" min="0" max="1" step="0.01" value="0" aria-label="Comparison position" disabled>
+        <output id="gallery-time">0.0 / 0.0s</output>
+        <button id="gallery-reset" type="button" class="gallery-icon" aria-label="Restart comparison" title="Restart comparison" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></svg></button>
+      </div>
+      <p id="gallery-status" class="gallery-status" role="status"></p>
     </div>
   </section>
 
   <section class="builder" id="builder" aria-labelledby="builder-heading" hidden>
-    <div class="section-head"><h2 id="builder-heading">Build from your video</h2></div>
+    <div class="builder-toolbar"><h2 id="builder-heading" class="sr-only">Build from your video</h2><button id="toggle-runs" type="button" class="builder-ghost" aria-controls="mine" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg><span>Your runs</span></button></div>
+    <div class="builder-workspace" id="builder-workspace" data-runs-open="false">
+      <aside class="mine" id="mine" aria-label="Your saved runs" hidden><div class="runs-heading"><h3>Your runs</h3><button id="close-runs" type="button" class="builder-ghost" aria-label="Hide your runs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 7-5 5 5 5"/></svg></button></div><p class="hint" id="mine-empty">Your builds, all in one place. Start with a video to save your first run.</p><ul class="mine-list" id="mine-list"></ul></aside>
     <div class="build-card">
       <div class="build-source">
         <label class="drop" id="drop" for="video">
           <span id="file-label">Drop a video here, or choose a file</span>
-          <span class="hint">One person, plain background, fixed camera, one continuous shot. The
-            first 16 seconds are read; a longer clip is trimmed and its receipt says so. Cuts, mirrors
-            and bystanders read as a second person and are refused with the reason shown.</span>
+          <span class="hint" id="drop-hint">Choose one person in a clear, continuous shot. We use the first 16 seconds.</span>
+          <video id="input-preview" muted playsinline preload="metadata" aria-label="Selected input video" hidden></video>
           <input id="video" type="file" accept="video/mp4,video/webm,video/quicktime,.m4v,.mkv,.avi">
         </label>
 
-        <div class="clips" id="clips" hidden>
-          <p class="clips-head">or start from a clip we have already measured end to end</p>
-          <div class="clip-row" id="clip-row"></div>
-          <p class="clips-credit" id="clips-credit"></p>
-        </div>
+
       </div>
 
-      <div class="build-side">
-        <label class="field">Character to generate
-          <span class="optional">optional · experimental</span>
-          <input id="prompt" type="text" maxlength="200" placeholder="a cheerful plush fox explorer">
-        </label>
-        <button id="run" type="button" class="primary">Build the world<span aria-hidden="true">→</span></button>
-        <p class="hint" id="run-note">Seven steps · about a minute · every step leaves a downloadable bundle.</p>
+      <div class="build-actions">
+        <button id="run" type="button" class="primary" disabled>Build the world<span aria-hidden="true">→</span></button>
+      <details id="character-picker" class="character-picker">
+        <summary id="character-trigger" aria-label="Optional character" title="Optional character" data-filled="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="8" r="3"/><path d="M4 20v-2a6 6 0 0 1 12 0v2M19 4v6M16 7h6"/></svg><span class="sr-only" id="character-indicator">No character selected</span></summary>
+        <div class="character-popover"><label for="prompt">Character <span>optional</span></label>
+          <input id="prompt" type="text" maxlength="200" placeholder="Describe a character…" aria-describedby="character-note">
+          <p id="character-note">Leave blank to use the standard characters.</p>
+        </div>
+      </details>
+        <details id="clips" class="clip-picker" hidden><summary class="builder-ghost" aria-label="Choose a measured example" title="Choose a measured example"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="m10 9 5 3-5 3Z"/></svg></summary><div class="clip-popover"><p>Start with an example</p><div class="clip-row" id="clip-row"></div></div></details>
       </div>
+      <p class="hint" id="run-note" role="status"></p>
+    </div>
     </div>
 
     <div class="progress" id="progress" hidden>
@@ -301,16 +314,6 @@
     <ol id="steps" class="steps"></ol>
   </section>
 
-  <section class="mine" id="mine" hidden>
-    <div class="section-head">
-      <div>
-        <h2>Your runs</h2>
-        <p class="hint">Saved to this browser only. Open one to view its results, recording and drive
-          the world it produced.</p>
-      </div>
-    </div>
-    <ul class="mine-list" id="mine-list"></ul>
-  </section>
 
   <div class="modal" id="studio-modal" hidden>
     <div class="modal-backdrop" data-close></div>
@@ -319,7 +322,7 @@
         <div>
           <p class="eyebrow">WEFT / STUDIO</p>
           <h2 id="studio-title" tabindex="-1">Your simulation</h2>
-          <p class="hint" id="studio-note"></p>
+          <p id="studio-note" hidden></p>
           <p id="studio-error" role="alert" hidden></p>
         </div>
         <button id="close-studio" type="button" class="icon" aria-label="Close studio" data-close>✕</button>
@@ -335,15 +338,15 @@
             <figure id="studio-original" hidden>
               <figcaption><span class="media-origin">Original</span><strong id="studio-input-label">Source footage</strong></figcaption>
               <video id="studio-source-video" controls playsinline preload="metadata"></video>
-              <p class="media-explanation" id="studio-input-note"></p>
+              <p id="studio-input-note" hidden></p>
             </figure>
             <figure>
-              <figcaption><span class="media-origin">Result</span><strong id="studio-result-label">Digital environment</strong></figcaption>
+              <figcaption><span class="media-origin">Result</span><strong id="studio-result-label">Reconstructed environment</strong></figcaption>
               <video id="studio-video" controls playsinline preload="metadata"></video>
-              <p class="media-explanation" id="studio-result-note"></p>
+              <p id="studio-result-note" hidden></p>
             </figure>
           </div>
-          <div class="comparison-notes"><p id="comparison-note">Play either recording to inspect the movement.</p><a id="source-credit" target="_blank" rel="noopener" hidden></a></div>
+          <p id="comparison-note" hidden></p>
         </section>
         <div class="world-frame" id="world-frame" hidden>
           <iframe id="world-view" title="Interactive simulated world"></iframe>
@@ -366,11 +369,6 @@
     </div>
   </div>
 
-  <footer>
-    <p><strong>A model you can question.</strong> Each world is a simulation, not a perfect copy of reality.
-      Its assumptions, results, and failed attempts stay with it. Muse suggests changes;
-      separate tests check whether they help.</p>
-  </footer>
 </main>
 
 </body>

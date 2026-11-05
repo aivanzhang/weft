@@ -8,7 +8,9 @@ import { publicAssets } from "./public-assets.mjs";
 import { proxySandbox, sandboxRoute } from "./sandbox-proxy.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const allowed = new Set(publicAssets.map((name) => `/${name}`));
+const allowed = new Map(publicAssets.map(name => [`/${name.replace(/^website\//, "")}`, name]));
+allowed.set("/", "website/index.html");
+allowed.set("/references", "website/references.html");
 const types = {
   ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8", ".json": "application/json",
@@ -29,9 +31,7 @@ export function landingServer({ sandboxPort = 8765, hotReload = null } = {}) {
     };
     try {
       const parsed = new URL(request.url, "http://localhost");
-      const pathname = decodeURIComponent(parsed.pathname);
-      const path = ["/references", "/references/"].includes(pathname)
-        ? "/website/references.html" : pathname;
+      const path = decodeURIComponent(parsed.pathname);
       if (hotReload && ["/__weft_reload", "/__weft_reload.js"].includes(path)) {
         const host = request.headers.host;
         if (!["localhost", "127.0.0.1"].some(name => host === `${name}:${request.socket.localPort}`)
@@ -51,7 +51,12 @@ export function landingServer({ sandboxPort = 8765, hotReload = null } = {}) {
       if (!["GET", "HEAD"].includes(request.method)) {
         return reply(405, "The landing page does not accept uploads.", { Allow: "GET, HEAD" });
       }
-      if (path === "/") return reply(302, "", { Location: "/website/index.html" });
+      let canonical = path.replace(/^\/website(?=\/|$)/, "") || "/";
+      if (canonical === "/index.html") canonical = "/";
+      if (["/references.html", "/references/"].includes(canonical)) canonical = "/references";
+      if (canonical !== path && allowed.has(canonical)) {
+        return reply(302, "", { Location: canonical + parsed.search });
+      }
       if (path === "/api/session") {
         return reply(200, JSON.stringify({
           enabled: false,
@@ -59,7 +64,7 @@ export function landingServer({ sandboxPort = 8765, hotReload = null } = {}) {
         }), { "Content-Type": "application/json" });
       }
       if (!allowed.has(path)) return reply(404, "Not found");
-      const file = resolve(root, `.${path}`);
+      const file = resolve(root, allowed.get(path));
       // An allowlisted path must not become a symlink to private files.
       if (await realpath(file) !== file) return reply(404, "Not found");
       if (hotReload && extname(file) === ".html" && !request.headers.range) {

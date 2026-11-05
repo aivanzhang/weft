@@ -38,7 +38,7 @@ test('run views are exclusive and release hidden simulation and video resources'
   viewer.open({ world: 'a'.repeat(32), video: '/recording.mp4', source: '/original.mp4', view: 'world',
     comparison: { result_label: 'Controlled body', result_note: 'A visual stand-in for the person.' } });
   assert.equal(element('studio-result-label').textContent, 'Controlled body');
-  assert.equal(element('studio-result-note').textContent, 'A visual stand-in for the person.');
+  assert.equal(element('studio-result-note').textContent, '');
   assert.equal(element('world-frame').hidden, false);
   assert.equal(element('result-media').hidden, true);
   assert.equal(element('studio-results').hidden, true);
@@ -204,7 +204,7 @@ test('saved results summarize recorded metrics without replaying step status or 
   assert.equal(JSON.stringify(record), before);
 });
 
-test('an already completed run loads results without displaying processing steps or a progress timer', async () => {
+test('the examples gallery loads saved results without polling the builder or displaying its progress', async () => {
   const nodes = new Map();
   const makeNode = () => ({ children: [], style: {}, hidden: false, textContent: '',
     classList: { add() {}, remove() {} },
@@ -241,14 +241,14 @@ test('an already completed run loads results without displaying processing steps
   const build = await readFile(new URL('../src/weft/assets/demo_build.js', import.meta.url), 'utf8');
   vm.runInNewContext(build, context);
   for (let turn = 0; turn < 5; turn += 1) await new Promise(setImmediate);
-  assert.equal(statesRead, 1);
-  assert.equal(node('steps').hidden, true);
+  assert.equal(statesRead, 0);
+  assert.equal(node('builder').hidden, true);
   assert.equal(node('steps').children.length, 0);
-  assert.equal(node('progress').hidden, true);
   assert.equal(node('finished-content').hidden, false);
   assert.equal(node('finished-empty').hidden, true);
   assert.equal(node('demo-title').textContent, 'Completed exercise');
-  assert.equal(node('open-studio').textContent, 'Open studio');
+  assert.equal(node('open-studio').hidden, false);
+  assert.equal(typeof node('open-studio').onclick, 'function');
 });
 
 
@@ -265,7 +265,7 @@ function galleryFixture() {
     return nodes.get(id);
   };
   const context = {
-    location: { pathname: "/demo" },
+    location: { pathname: "/demo" }, clearTimeout,
     window: { WeftDemoSession: { token: '', accessCode: '' },
       WeftRunFocus: () => ({}), WeftElapsedClock: () => ({}), WeftCarousel() {}, WeftComparisonCopy() {} },
     document: { getElementById: node, querySelectorAll: () => [], addEventListener() {},
@@ -341,7 +341,7 @@ async function inlineGateFixture() {
     return nodes.get(id);
   };
   const context = {
-    $: node, token: '', studioId: null, auth: {}, root: { WeftDemoSession: { accessCode: '', setToken() {} } },
+    $: node, token: '', studioId: null, buildPage: true, auth: {}, root: { WeftDemoSession: { accessCode: '', setToken() {} } },
     document: { addEventListener(name, callback) { events[name] = callback; } },
     sessionStorage: { setItem() {} }, keepToken() {}, renderMine() {}, loadDemo() { loaded += 1; },
     api: (path, options) => new Promise((resolve, reject) => requests.push({ path, options, resolve, reject })),
@@ -448,6 +448,7 @@ test('example carousel navigates to specific studio URLs and clears stale previe
     fetch: async (path) => {
       assert.equal(path, '/api/demo/showcase', 'opening curated examples never calls a private API');
       return { ok: true, json: async () => ({ items: [
+        { id: 'rolling-motion', title: 'Rolling ball', video_url: '/ball.mp4' },
         { id: 'paired', title: 'Movement', caption: 'A controlled simulation.', metrics: '246 control steps',
           video_url: '/result.mp4', source_video_url: '/original.mp4', source_credit: 'Author · license' },
         { id: 'single', title: 'Recording only', video_url: '/single.mp4' },
@@ -458,14 +459,19 @@ test('example carousel navigates to specific studio URLs and clears stale previe
   await settleGallery();
   assert.equal(node('demo-original').hidden, false);
   assert.equal(node('demo-source-video').src, '/original.mp4#t=0.1');
+  node('demo-video').listeners.play?.();
+  assert.deepEqual(navigations, [], 'starting a video must never navigate to Studio');
   await node('open-studio').onclick();
   assert.deepEqual(navigations, ['/demo/studio/paired']);
   node('next').listeners.click();
-  assert.equal(node('example-count').textContent, '2 / 2');
+  assert.equal(node('example-count').textContent, '2 / 3');
   assert.equal(node('demo-original').hidden, true);
   assert.equal(node('demo-source-video').src, undefined);
   await node('open-studio').onclick();
   assert.deepEqual(navigations, ['/demo/studio/paired', '/demo/studio/single']);
+  node('next').listeners.click();
+  assert.equal(node('example-count').textContent, '3 / 3');
+  assert.equal(node('demo-title').textContent, 'Rolling ball', 'ball is last even with a stale server catalog');
 });
 
 async function directStudioFixture(identity, authenticated = false) {
@@ -533,4 +539,52 @@ test('an authenticated private studio reloads saved results and recording throug
   assert.equal(f.calls.length, 2);
   assert.ok(f.calls.every((call) => call.options.headers.Authorization === 'Bearer private-session'));
   assert.match(f.opened[0].video, /^\/recording.mp4\?token=/);
+});
+
+test('building keeps stage previews mounted across status polling and after completion', async () => {
+  const nodes = new Map(), timeouts = new Map();
+  let nextTimer = 0, mounts = 0, disposals = 0;
+  const makeNode = () => ({ children: [], style: {}, value: '', dataset: {}, listeners: {}, attributes: {}, classList: { add() {}, remove() {} },
+    append(...children) { this.children.push(...children); }, replaceChildren(...children) { this.children = children; },
+    addEventListener(key, fn) { this.listeners[key] = fn; }, setAttribute(key, value) { this.attributes[key] = value; }, removeAttribute(key) { delete this[key]; }, pause() {}, load() {}, focus() {} });
+  const node = id => { if (!nodes.has(id)) nodes.set(id, makeNode()); return nodes.get(id); };
+  const visuals = [{ kind: 'video', url: '/physics.mp4', label: 'Physics replay' }];
+  let state = { status: 'idle', steps: [] };
+  const context = { URLSearchParams, AbortSignal,
+    location: { pathname: '/demo/build' },
+    localStorage: { getItem: () => '[]', setItem() {} },
+    setTimeout(fn) { timeouts.set(++nextTimer, fn); return nextTimer; }, clearTimeout(id) { timeouts.delete(id); },
+    window: { WeftDemoSession: { token: 'test', accessCode: '' }, WeftRunFocus: () => ({}),
+      WeftElapsedClock: () => ({ update() {} }), WeftCarousel() {},
+      WeftStageVisuals(host) { mounts++; const video = makeNode(); host.append(video); return () => { disposals++; }; } },
+    document: { getElementById: node, createElement: makeNode, querySelectorAll: () => [], addEventListener() {} },
+    fetch: async path => ({ ok: true, json: async () => {
+      if (path.includes('/clips')) return { clips: [{ id: 'bodyweight-squats', title: 'Squat', character: { prompt: 'Panda' } }] };
+      if (path.includes('/start')) state = { status: 'running', run: 'run-active', steps: [{ id: 'rollout', status: 'done', detail: 'Recorded', visuals }] };
+      return path.includes('/state') || path.includes('/start') ? structuredClone(state) : {};
+    } }),
+  };
+  vm.runInNewContext(await readFile(new URL('../src/weft/assets/demo_build.js', import.meta.url), 'utf8'), context);
+  await settleGallery();
+  assert.equal(node('run').disabled, true, 'a video or example is required');
+  node('clip-row').children[0].listeners.click();
+  assert.equal(node('run').disabled, false);
+  assert.equal(node('file-label').textContent, 'Squat');
+  assert.match(node('input-preview').src, /bodyweight-squats/);
+  node('toggle-runs').listeners.click(); assert.equal(node('mine').hidden, false);
+  assert.equal(node('toggle-runs').attributes['aria-expanded'], 'true');
+  node('close-runs').listeners.click(); assert.equal(node('mine').hidden, true);
+  await node('run').listeners.click(); await settleGallery();
+  assert.equal(mounts, 1);
+  const video = node('steps').children[0].children[1].children[0];
+  const poll = timeouts.values().next().value;
+  state.steps[0].detail = 'Recording finished';
+  await poll();
+  assert.equal(mounts, 1);
+  assert.equal(node('steps').children[0].children[1].children[0], video);
+  state.status = 'complete';
+  await [...timeouts.values()].at(-1)();
+  assert.equal(node('steps').hidden, false, 'the just-finished build retains inspectable outputs');
+  assert.equal(mounts, 1);
+  assert.equal(disposals, 0);
 });

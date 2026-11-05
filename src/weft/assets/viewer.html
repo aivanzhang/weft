@@ -16,7 +16,7 @@
 <section><h2>Change the action</h2><p>Use left/right arrows or the controls to push or brake. Bring the ball into the marked target with low speed. These forces and this goal are task extensions, not actions recovered from the video.</p><canvas id="sim" width="960" height="300" tabindex="0" aria-label="Interactive rolling-ball simulation; use left and right arrows to apply force"></canvas>
 <div class="controls"><button id="left">Push left</button><button id="coast">Coast</button><button id="right">Push right</button><button id="reset" class="secondary">Reset</button><button id="pause" class="secondary">Pause</button></div><output id="state" aria-live="off"></output><p class="note">One unit equals the source image width. Scale, mass, and force calibration are not recovered. Simulation pauses when this page is hidden.</p></section>
 <section><h2>Independent checks</h2><table><thead><tr><th>Policy</th><th>Successes / trials</th><th>Success rate</th></tr></thead><tbody id="policies"></tbody></table><p class="note">All policies use the same evaluation initial-state seeds. The learned policy receives no expert actions. Success is checked from final position and speed, not accumulated reward.</p><details><summary>Repair decisions, physical checks, audit pass, and timing</summary><pre id="report"></pre></details><details><summary>Objects, relationships, evidence, and assumptions</summary><pre id="graph"></pre></details></section>
-<footer><span id="credit"></span> · <a href="source.json">Source provenance</a> · <a href="report.json">Results JSON</a> · <a href="world.json">Executable world specification</a> · <a href="manifest.json">Artifact checksums</a><p>This v1 supports an isolated yellow ball in a fixed-camera, predominantly horizontal scene. It is not arbitrary-video reconstruction or a calibrated 3D digital twin.</p></footer>
+<footer><a href="source.json">Source provenance</a> · <a href="report.json">Results JSON</a> · <a href="world.json">Executable world specification</a> · <a href="manifest.json">Artifact checksums</a><p>This v1 supports an isolated yellow ball in a fixed-camera, predominantly horizontal scene. It is not arbitrary-video reconstruction or a calibrated 3D digital twin.</p></footer>
 </main>
 <script type="application/json" id="weft-data">__WEFT_DATA__</script>
 <script src="engine.js"></script>
@@ -28,7 +28,6 @@ byId('before').textContent=report.reconstruction.before.rmse_px.toFixed(2)+' px'
 byId('after').textContent=report.reconstruction.after.rmse_px.toFixed(2)+' px';
 byId('success').textContent=(100*report.rl.policies.q_learning.success_rate).toFixed(1)+'%';
 byId('provider').textContent=report.provider+' · '+report.created_at;
-byId('credit').textContent=report.source.title+' / '+report.source.author+' / '+report.source.license;
 for(const [name,result] of Object.entries(report.rl.policies)){const tr=document.createElement('tr');for(const value of [name,result.successes+' / '+result.episodes,(100*result.success_rate).toFixed(1)+'%']){const td=document.createElement('td');td.textContent=value;tr.appendChild(td)}byId('policies').appendChild(tr)}
 byId('report').textContent=JSON.stringify(report,null,2);byId('graph').textContent=JSON.stringify(data.graph,null,2);
 const canvas=byId('sim'), ctx=canvas.getContext('2d');

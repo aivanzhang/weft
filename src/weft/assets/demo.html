@@ -226,7 +226,7 @@
       <div class="stage-copy">
         <p class="eyebrow" id="demo-source"></p>
         <h3 id="demo-title"></h3>
-        <p id="demo-caption"></p>
+        <p id="demo-caption" hidden></p>
         <p class="metrics" id="demo-metrics"></p>
         <button id="open-studio" type="button" class="ghost" hidden>Open the studio<span aria-hidden="true">→</span></button>
       </div>
@@ -241,7 +241,7 @@
         <div>
           <p class="eyebrow">WEFT / STUDIO</p>
           <h2 id="studio-title" tabindex="-1">Your simulation</h2>
-          <p class="hint" id="studio-note"></p>
+          <p id="studio-note" hidden></p>
           <p id="studio-error" role="alert" hidden></p>
         </div>
         <button id="close-studio" type="button" class="icon" aria-label="Close studio" data-close>✕</button>
@@ -258,15 +258,15 @@
             <figure id="studio-original" hidden>
               <figcaption><span class="media-origin">Original</span><strong id="studio-input-label">Source footage</strong></figcaption>
               <video id="studio-source-video" controls playsinline preload="metadata"></video>
-              <p class="media-explanation" id="studio-input-note"></p>
+              <p id="studio-input-note" hidden></p>
             </figure>
             <figure>
-              <figcaption><span class="media-origin">Result</span><strong id="studio-result-label">Digital environment</strong></figcaption>
+              <figcaption><span class="media-origin">Result</span><strong id="studio-result-label">Reconstructed environment</strong></figcaption>
               <video id="studio-video" controls playsinline preload="metadata"></video>
-              <p class="media-explanation" id="studio-result-note"></p>
+              <p id="studio-result-note" hidden></p>
             </figure>
           </div>
-          <div class="comparison-notes"><p id="comparison-note">Play either recording to inspect the movement.</p><a id="source-credit" target="_blank" rel="noopener" hidden></a></div>
+          <p id="comparison-note" hidden></p>
         </section>
         <div class="world-frame" id="world-frame" hidden>
           <iframe id="world-view" title="Interactive simulated world"></iframe>
@@ -292,12 +292,6 @@
 
 
 
-  <footer>
-    <p><strong>What this is, honestly.</strong> Worlds built here are conditional models with disclosed assumptions —
-      not verified copies of the physical world. Single person, mostly fixed cameras; multi-person clips are refused
-      with reasons. Muse proposes; it never silently edits a world. Every number on this page came from a run that
-      actually happened on this machine, and failures are preserved rather than quietly retried.</p>
-  </footer>
 </main>
 
 </body>

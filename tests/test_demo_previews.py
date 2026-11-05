@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_ten_distinct_comparisons_have_matching_playback_windows():
     assert len(GALLERY_SEEDS) == 10
+    assert GALLERY_SEEDS[0]['id'] == 'bodyweight-squats'
+    assert GALLERY_SEEDS[-1]['id'] == 'rolling-motion'
     assert len({row['id'] for row in GALLERY_SEEDS}) == 10
     assert len({row['source_video'] for row in GALLERY_SEEDS}) == 10
     assert 'panda' not in json.dumps(GALLERY_SEEDS).lower()
@@ -37,7 +39,7 @@ def test_ten_distinct_comparisons_have_matching_playback_windows():
 
 def test_motion_receipts_preserve_hashes_and_disclose_reference_replay():
     sources = set()
-    for row in GALLERY_SEEDS[1:]:
+    for row in (seed for seed in GALLERY_SEEDS if seed['id'] != 'rolling-motion'):
         directory = (ROOT / row['video']).parent
         receipt = json.loads((directory / 'receipt.json').read_text())
         assert receipt['input'] == row['id']

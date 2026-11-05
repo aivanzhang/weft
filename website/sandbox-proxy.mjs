@@ -2,7 +2,7 @@ import { request as httpRequest } from "node:http";
 
 const assets = new Set([
   "/demo", "/demo/build", "/demo/runs", "/demo.js", "/demo.css",
-  "/demo_build.js", "/demo_focus.js", "/demo-font.woff2", "/demo-wordmark.png",
+  "/demo_build.js", "/demo_focus.js", "/demo_studio.js", "/demo_physics.js", "/demo-font.woff2", "/demo-wordmark.png",
   "/portal.js", "/portal.css", "/lab.js", "/lab.css", "/brand.css", "/weft-logo.png",
   "/avatar_retarget.js", "/avatar_worker.js", "/avatar_viewer.js", "/lab_appearance.js",
 ]);
