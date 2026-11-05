@@ -12,15 +12,24 @@ from that file; keep it out of the recording frame.
 | | Local portal | Hosted |
 | --- | --- | --- |
 | URL | `http://127.0.0.1:8765/demo` | `https://weft.ivanzhangofficial.workers.dev` |
-| Has an upload UI | yes, the guided walkthrough | API only; the site is a landing page |
+| Has an upload UI | yes, the guided walkthrough | yes, at `/demo`; a separate hosted upload flow |
 | Full run | **~50 s** | ~88 s cold, ~69 s warm |
 | Costs money | ~$0.035 Meta per run (Muse step) | none |
 
-Record against the **local portal**. The hosted landing page's "Build your world" link points
-at `/demo`, which only the portal serves — the Worker returns 404 for it. Do not click it on
-camera.
+Record against the **local portal** for the guided studio walkthrough. The hosted
+"Build your world" link opens its own upload flow at `/demo`; it is not the local
+seven-stage recording interface.
 
 ## Setting up on a fresh machine
+
+Use Python 3.14 and the pinned lab/video dependencies. Reuse a working environment:
+
+```sh
+python3.14 -m venv .venv-lab
+.venv-lab/bin/python -m pip install -r requirements-lab.lock -r requirements-video.lock
+.venv-lab/bin/python -m pip install --no-deps -e .
+.venv-lab/bin/weft fetch-pose-model
+```
 
 The source clips ship on this branch in `assets/demo/clips/`, with their attribution in
 `assets/demo/clips/ATTRIBUTION.md`. The portal reads them from `.local/demo-clips`, which is
@@ -42,7 +51,7 @@ see the attribution file.
 ## Starting the portal
 
 ```sh
-weft portal --root .local/demo-portal-04 --port 8765
+.venv-lab/bin/weft portal --root .local/demo-portal-04 --port 8765
 ```
 
 `--root` matters: the demo's finished runs, featured list and generation budget live under
@@ -170,7 +179,7 @@ undecodable in 7.4–9.7 s, refused by the motion or person gates in 32.9–41.8
 
 ## Gotchas
 
-- The hosted `/demo` link 404s. The page is served by the local portal only.
+- Hosted `/demo` and local `/demo` are separate interfaces. Use the local portal for this walkthrough.
 - A first hosted submission within about four minutes of a deploy can hit the previous
   container image; wait it out before measuring.
 - The portal keeps four finished runs and evicts the oldest, so a long rehearsal session will
