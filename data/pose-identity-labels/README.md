@@ -34,4 +34,4 @@ Excerpts and adaptations retain CC BY-SA 4.0. Changes: frames extracted, title s
 and separate annotation marks added, selection overview resized. Annotation data is
 offered under CC BY-SA 4.0. Source sidecar provenance is copied into the manifest.
 
-See [interpretation and scoring contract](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/temporal-identity.md).
+See [interpretation and scoring contract](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/temporal-identity.md).

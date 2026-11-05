@@ -579,7 +579,7 @@ def main():
             "appearance/receipt.json records the world and lab seals, or why the stage stopped.\n\n"
             "Joint control is simulated; this is not measured anatomy or validated biomechanics.\n"
             "A substituted avatar is appearance only and never drives physics.\n"
-            "Source: https://github.com/kintsugi-software/weft\n")
+            "Source: https://github.com/aivanzhang/weft\n")
     # Rewrite the result with the archive cost included, now that it is known.
     stage_seconds["archive"] = round(time.monotonic() - step, 2)
     result["stage_seconds"] = stage_seconds

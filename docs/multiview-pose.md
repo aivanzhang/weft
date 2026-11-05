@@ -2,9 +2,9 @@
 
 Two actual camera views now constrain 3D joint positions without using the pose model's guessed depth. On the same compared joints, agreement with a third camera improves substantially. **This is a separate development experiment, not a replacement sandbox body or a claim of anatomical accuracy.** Hidden joints remain missing, and the previously inverted pose is rejected rather than repaired.
 
-Later work adds a [Full-model root-only sandbox](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/two-view-root.md): triangulated hips position an otherwise unchanged monocular body. It does not reconstruct the missing two-view limbs or replace the original experiment described here.
+Later work adds a [Full-model root-only sandbox](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/two-view-root.md): triangulated hips position an otherwise unchanged monocular body. It does not reconstruct the missing two-view limbs or replace the original experiment described here.
 
-A subsequent [partial body adapter](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/two-view-body.md) applies available torso/limb directions and shared dimensions while labeling missing directions as single-view priors. It retains all unavailable slots, mixed results and the original studies; it does not recover hidden anatomy or validate contact.
+A subsequent [partial body adapter](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/two-view-body.md) applies available torso/limb directions and shared dimensions while labeling missing directions as single-view priors. It retains all unavailable slots, mixed results and the original studies; it does not recover hidden anatomy or validate contact.
 
 ## Inspect the result
 
@@ -12,7 +12,7 @@ A subsequent [partial body adapter](https://github.com/kintsugi-software/weft/bl
 - [Third-camera comparison at frame 120](../artifacts/multiview-jog-two-view-01/view-3-frame-0120.png): cyan is image evidence, purple is the old single-view estimate, orange is two-view reconstruction.
 - [Results](../artifacts/multiview-jog-two-view-01/report.json), [all 2,880 major-joint comparison slots](../artifacts/multiview-jog-two-view-01/comparison.json), and [all 7,920 prediction slots](../artifacts/multiview-jog-two-view-01/predictions.json).
 
-This original Lite study did not produce a new body. The subsequent [Full-model study](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/full-pose-model.md) recovers the bad torso and provides a newer, separately constructed single-view manual candidate, while retaining coverage regressions. To inspect the original supplied-ground body:
+This original Lite study did not produce a new body. The subsequent [Full-model study](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/full-pose-model.md) recovers the bad torso and provides a newer, separately constructed single-view manual candidate, while retaining coverage regressions. To inspect the original supplied-ground body:
 
 ```sh
 .venv-lab/bin/python -m weft lab --resume artifacts/camera-ground-jog-lab-01
@@ -92,6 +92,6 @@ Use a fresh directory; preserve all original studies. This command reuses saved 
 
 ## Still required
 
-Establish the original clips' cross-view timing and resolve remaining image/calibration disagreement without changing fixed comparisons or filling hidden joints. The later Full model corrects frame 200's raw inversion, and the partial body adapter supports manual recording with explicit missing-direction priors. The [upper-segment v2 experiment](https://github.com/kintsugi-software/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/two-view-segments.md) now uses supported partial limbs, but hidden endpoints, substantial individual regressions and independent geometry/contact validation remain open. No learned jogging policy, measured muscle activation or physical-transfer result is claimed.
+Establish the original clips' cross-view timing and resolve remaining image/calibration disagreement without changing fixed comparisons or filling hidden joints. The later Full model corrects frame 200's raw inversion, and the partial body adapter supports manual recording with explicit missing-direction priors. The [upper-segment v2 experiment](https://github.com/aivanzhang/weft/blob/d0338eb926ef97ba05d59418ade028461ccbc9ae/docs/two-view-segments.md) now uses supported partial limbs, but hidden endpoints, substantial individual regressions and independent geometry/contact validation remain open. No learned jogging policy, measured muscle activation or physical-transfer result is claimed.
 
 At **October 28, 2026, 11:25 PM PDT**, the shared Meta ledger remains six settled calls, **$0.166152 of $5**, **$4.833848 remaining**, no unsettled reservation. This entire experiment used local inference/geometry, with no new paid API call, browser interaction, server startup or deployment.
