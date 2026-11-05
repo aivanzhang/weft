@@ -183,6 +183,102 @@ const STEPS = [
   },
 ] as const;
 
+
+// Mirrors the exercise pipeline's bound in index.ts. Kept local so this module needs no
+// import from the router that calls it.
+const MAX_UPLOAD = 40 * 1024 * 1024;
+
+/**
+ * Where a refusal belongs, from the wording the pipeline's own classifier produces.
+ * Everything except a budget or deadline overrun is decided while reading the evidence, so
+ * those two are the only ones belonging to a later stage. No step is failed on a guess.
+ */
+function failedStep(message: string) {
+  const text = message.toLowerCase();
+  if (text.includes("took too long") || text.includes("budget") || text.includes("deadline"))
+    return "rollout";
+  return "intake";
+}
+
+type JobRow = {
+  id: string;
+  status: string;
+  created: number;
+  message: string | null;
+  result: string | null;
+};
+
+/** The run as the page's renderer expects it: a status, an id, and a status per step. */
+function runState(job: JobRow) {
+  const terminal = ["complete", "failed", "expired"].includes(job.status);
+  let summary: Record<string, unknown> = {};
+  try {
+    if (job.result) summary = (JSON.parse(job.result).summary ?? {}) as Record<string, unknown>;
+  } catch {
+    summary = {};
+  }
+
+  const detail: Record<string, string> = {};
+  if (job.status === "complete") {
+    const pose = (summary.pose ?? {}) as Record<string, number>;
+    const task = (summary.task ?? {}) as Record<string, string>;
+    const rates = (summary.baselines ?? {}) as Record<string, Record<string, number>>;
+    detail.intake = pose.sampled_frames
+      ? `${pose.tracked_frames} of ${pose.sampled_frames} sampled frames tracked`
+      : "Evidence retained and inspectable";
+    detail.world = "World built and loaded";
+    detail.task = task.joint
+      ? `Gates frozen before the run on ${task.joint}`
+      : "Gates frozen before the run";
+    detail.rollout =
+      rates.q_learning && rates.random
+        ? `Learned ${rates.q_learning.successes}/${rates.q_learning.episodes} against random ${rates.random.successes}/${rates.random.episodes}`
+        : "Policy trained and scored against baselines";
+    detail.avatar = "Avatar-ready scene built; physics untouched";
+  }
+
+  const blame = job.status === "failed" ? failedStep(job.message ?? "") : "";
+  const steps = STEPS.map((step) => {
+    if (job.status === "complete")
+      return { id: step.id, status: "done", detail: detail[step.id] ?? "" };
+    if (job.status === "failed")
+      return step.id === blame
+        ? {
+            id: step.id,
+            status: "failed",
+            error: job.message ?? "The pipeline declined this clip.",
+          }
+        : { id: step.id, status: "skipped", detail: "Not reached" };
+    // While it runs the Worker cannot see inside the container, so no step is claimed
+    // finished. The elapsed clock against the estimate is the honest signal.
+    return { id: step.id, status: "pending" };
+  });
+
+  return {
+    status: terminal ? (job.status === "complete" ? "complete" : "failed") : "running",
+    run: job.id,
+    steps,
+    elapsed_s: Math.max(0, Math.round((Date.now() - job.created) / 100) / 10),
+    message: job.message ?? "",
+  };
+}
+
+/** Startable clips: the curated showcase sources, which are committed and credited. */
+function clipList() {
+  return SEEDS.filter(
+    (seed) => seed.source_video && seed.category !== "Rolling ball",
+  ).map((seed) => {
+    const credit = (seed.source_credit ?? "").split("\u00b7").map((part) => part.trim());
+    return {
+      id: seed.id,
+      title: seed.title,
+      creator: credit[0] ?? "",
+      licence: credit[1] ?? "",
+      why: seed.caption ?? "",
+    };
+  });
+}
+
 export async function demo(request: Request, env: Env, url: URL): Promise<Response> {
   const path = url.pathname;
 
@@ -234,6 +330,135 @@ export async function demo(request: Request, env: Env, url: URL): Promise<Respon
 
   if (path === "/api/demo/steps" && request.method === "GET")
     return privately({ steps: STEPS });
+
+  if (path === "/api/demo/clips" && request.method === "GET")
+    return privately({ clips: clipList() });
+
+  // Owner is the session, so one visitor can never read another's runs.
+  const cookie = demoCookie(request);
+  const owner = await hex(cookie);
+  const queue = env.SUBMISSIONS.getByName("weft-admission-v1");
+
+  if (path === "/api/demo/state" && request.method === "GET") {
+    const latest = (await queue.latest(owner)) as JobRow | null;
+    if (!latest) return privately({ status: "idle", run: null, steps: [] });
+    return privately(runState(latest));
+  }
+
+  // This visitor's own finished runs. The curated showcase is listed separately and
+  // publicly; nothing here exposes another session's work or a project id.
+  if (path === "/api/demo/gallery" && request.method === "GET") {
+    const latest = (await queue.latest(owner)) as JobRow | null;
+    const demos =
+      latest && latest.status === "complete"
+        ? [
+            {
+              id: latest.id,
+              title: "Your run",
+              caption: "Built in this session from your clip.",
+              metrics: "",
+              kind: "studio",
+              source: "your run",
+              video_url: `/api/demo/gallery/${latest.id}/video`,
+            },
+          ]
+        : [];
+    return privately({ demos, items: demos, home_url: "/" });
+  }
+
+  // The normalised clip the pipeline actually read back, for this session's own run only.
+  const galleryVideo = /^\/api\/demo\/gallery\/([a-f0-9-]{36})\/video$/.exec(path);
+  if (galleryVideo && ["GET", "HEAD"].includes(request.method)) {
+    const job = (await queue.getJob(galleryVideo[1], owner)) as JobRow | null;
+    if (!job || job.status !== "complete") return privately({ error: "Not found." }, 404);
+    const object = await env.UPLOADS.get(`${job.id}/source.mp4`, {
+      range: request.headers,
+    });
+    if (!object) return privately({ error: "Not found." }, 404);
+    const headers = new Headers({
+      "Content-Type": "video/mp4",
+      "Cache-Control": "private, no-store",
+      "Accept-Ranges": "bytes",
+    });
+    if (object.size) headers.set("Content-Length", String(object.size));
+    return new Response(object.body, { headers });
+  }
+
+  // One archive per run, not one per step: this pipeline packages the whole run, and
+  // offering the same bytes under five step links would misrepresent what it produced.
+  const artifact = /^\/api\/demo\/artifact\/([a-z_]{1,32})(?:\/([a-f0-9-]{36}))?$/.exec(path);
+  if (artifact && ["GET", "HEAD"].includes(request.method)) {
+    const job = (
+      artifact[2]
+        ? await queue.getJob(artifact[2], owner)
+        : await queue.latest(owner)
+    ) as JobRow | null;
+    if (!job || job.status !== "complete") return privately({ error: "Not ready." }, 404);
+    const object = await env.UPLOADS.get(`${job.id}/environment.zip`, {
+      range: request.headers,
+    });
+    if (!object) return privately({ error: "Not found." }, 404);
+    const headers = new Headers({
+      "Content-Type": "application/zip",
+      "Cache-Control": "private, no-store",
+      "Content-Disposition": 'attachment; filename="weft-environment.zip"',
+    });
+    if (object.size) headers.set("Content-Length", String(object.size));
+    return new Response(object.body, { headers });
+  }
+
+  if (path === "/api/demo/start" && request.method === "POST") {
+    // Same-origin only. The token already proves this session entered the access code, so
+    // it stands in for the CSRF header the main upload route requires.
+    if (request.headers.get("Origin") !== env.PUBLIC_ORIGIN)
+      return privately({ error: "Reload this page before submitting." }, 403);
+    if (env.SUBMISSIONS_ENABLED !== "true")
+      return privately({ error: "Submissions are not open yet." }, 503);
+
+    const clipId = url.searchParams.get("clip") ?? "";
+    let source: ArrayBuffer | null = null;
+    if (clipId) {
+      const seed = ID.test(clipId) ? SEED_BY_ID.get(clipId) : undefined;
+      if (!seed?.source_video) return privately({ error: "Unknown clip." }, 404);
+      const asset = await env.ASSETS.fetch(new Request(`${url.origin}/${seed.source_video}`));
+      if (!asset.ok) return privately({ error: "Unknown clip." }, 404);
+      source = await asset.arrayBuffer();
+    } else {
+      const declared = Number(request.headers.get("Content-Length") ?? "0");
+      if (declared > MAX_UPLOAD)
+        return privately({ error: "Choose a video up to 40 MB." }, 413);
+      source = await request.arrayBuffer();
+    }
+    if (!source || source.byteLength === 0)
+      return privately({ error: "Choose a video, or start from one of the clips." }, 400);
+    if (source.byteLength > MAX_UPLOAD)
+      return privately({ error: "Choose a video up to 40 MB." }, 413);
+
+    const ip = await hex(
+      (request.headers.get("CF-Connecting-IP") ?? "unknown") +
+        ":" +
+        Math.floor(Date.now() / 86_400_000),
+    );
+    // The token proves the access code, so this runs in the reviewer lane with its own
+    // daily budget and the same one-at-a-time admission as every other submission.
+    const reserved = (await queue.reserve(owner, ip, crypto.randomUUID(), true, "exercise")) as
+      | { job: JobRow; fresh: boolean }
+      | { refused: string };
+    if ("refused" in reserved) return privately({ error: reserved.refused }, 429);
+    if (reserved.fresh) {
+      try {
+        await env.UPLOADS.put(`${reserved.job.id}/source.mp4`, source, {
+          httpMetadata: { contentType: "video/mp4" },
+        });
+        await queue.uploaded(reserved.job.id, owner);
+      } catch (error) {
+        await queue.failed(reserved.job.id, owner);
+        throw error;
+      }
+    }
+    const fresh = (await queue.getJob(reserved.job.id, owner)) as JobRow | null;
+    return privately(fresh ? runState(fresh) : { status: "running", run: reserved.job.id, steps: [] }, 202);
+  }
 
   return privately({ error: "Not found." }, 404);
 }
