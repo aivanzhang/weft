@@ -38,7 +38,8 @@ after(async () => {
 
 test("landing loads from its own root and all public assets are available", async () => {
   const response = await fetch(base);
-  assert.equal(new URL(response.url).pathname, "/website/index.html");
+  assert.equal(new URL(response.url).pathname, "/");
+  assert.equal(response.redirected, false);
   assert.match(await response.text(), /Weft/);
   for (const asset of publicAssets) {
     const result = await fetch(`${base}/${asset}`, { method: "HEAD" });
@@ -46,6 +47,21 @@ test("landing loads from its own root and all public assets are available", asyn
     assert.equal(result.headers.get("cache-control"), "no-store");
     assert.ok(Number(result.headers.get("content-length")) > 0, asset);
     assert.equal(await result.text(), "");
+  }
+});
+
+test("legacy landing URLs redirect to clean routes and root assets resolve", async () => {
+  for (const [from, to] of [["/website", "/"], ["/website/", "/"], ["/website/index.html", "/"], ["/index.html", "/"], ["/website/references.html", "/references"], ["/references/", "/references"], ["/website/styles.css", "/styles.css"]]) {
+    const response = await fetch(base + from + "?example=1", { redirect: "manual" });
+    assert.equal(response.status, 302, from);
+    assert.equal(response.headers.get("location"), to + "?example=1");
+  }
+  const response = await fetch(base);
+  const html = await response.text();
+  for (const [, path] of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
+    const target = new URL(path, response.url);
+    if (target.origin !== base || target.pathname === "/demo") continue;
+    assert.equal((await fetch(target, { method: "HEAD" })).status, 200, path);
   }
 });
 
@@ -66,9 +82,9 @@ test("references routes serve the bibliography with working local assets and nav
     const html = await response.text();
     assert.match(html, /<title>References — Weft<\/title>/);
     for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
-      const target = new URL(href, base + route);
+      const target = new URL(href, response.url);
       if (target.origin !== base) continue;
-      if (target.hash && target.pathname === route) {
+      if (target.hash && target.pathname === new URL(response.url).pathname) {
         assert.ok(html.includes(`id="${target.hash.slice(1)}"`), href);
       } else {
         assert.equal((await fetch(target, { method: "HEAD" })).status, 200, href);

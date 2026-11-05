@@ -34,28 +34,57 @@ playback and programmed reference controllers are different modes, not learned p
 
 ## Capabilities and limitations
 
-The local demo opens each studio on its inspectable model and final recording.
-Compact playback, camera and zoom controls keep the result central. A numbered
+The local demo opens each studio on its initial input, inspectable model and final
+recording. Compact playback and model controls stay beneath the model. Joint bend, limb
+proportions and motion range support visibly labeled, unscored pose experiments;
+camera, zoom and playback speed remain separate controls. A numbered
 walkthrough then connects the original footage to saved reconstruction assets,
-source receipts and available task outcomes; evidence can be previewed or downloaded.
+source receipts and available task outcomes. Each stage shows its visual output
+inline, with evidence available for inspection or download.
+The builder places its main action beneath the video drop zone, with optional character
+and measured-example popovers beside it. A collapsible left sidebar keeps saved runs
+within reach; a small indicator marks a filled character value. Verified clip choices prefill their measured character
+without overwriting custom text or triggering a new generation request for that preset.
+During a build, stage outputs appear inline and remain mounted while status updates:
+pose evidence, the reconstructed reference, task rules, controller checkpoints, distinct
+physics/appearance recordings and review or character summaries. Finished outputs stay
+visible. Saved videos have prepared preview frames, and supported imported characters
+remain available in the character chooser. The final character section reuses the saved
+appearance-swap video and poster, rather than showing the imported-character preview.
+The shared presentation omits redundant media captions; stage headings, concise
+descriptions, controls and errors remain visible. Physics and appearance videos render the same saved session in different ways;
+they are not separate trials.
 Kinematic pose replay, recorded simulation and authenticated live control remain
 distinct. Playback is user-started and pauses offscreen or when the page is hidden.
 Public exhibits use only explicitly exported evidence; private stage bundles and
 recorded models retain authentication.
+The local landing page serves directly at `/`, with `/references` for its bibliography
+and clean root-relative assets. Legacy `/website/` URLs redirect to those routes.
 The landing server keeps `/demo`,
 its assets, lab views and authenticated API calls on port 3000, forwarding only
 sandbox routes to its loopback backend with Host/Origin checks and token
 authentication intact.
 The landing page links to the walkthrough through matching icon buttons that
 reveal "Build your world" on hover or keyboard focus.
+The research link uses an open-book icon, visible label and down arrow in a lightly
+bordered button, with direct navigation and reduced-motion support.
 Clicking the Weft wordmark opens minimal contents links to all five main sections
 in reading order, with native navigation and keyboard-accessible dismissal.
 The headline reveals with temporary word-specific icons and short explanations
 on hover, keyboard focus or tap, with faint solid underlines marking the interactive words.
 The demo header’s Build control transforms into an inline code field and unlock action;
 once authenticated, it leads directly to the builder.
-Its example viewer defaults to video comparison, with compact version and
-interaction icon toggles; only comparison shows the timeline.
+Its example viewer defaults to video comparison, with a shared playback timeline and an optional model-inspection toggle.
+The WEFT / SHOWCASE introduction is separated from the examples by a fine divider.
+The showcase starts with Squat and places Rolling ball last. Play together runs
+the comparison in place and resumes both clips after buffering; only Open studio
+navigates away. The example counter
+opens a compact, heading-free chooser with exercise-specific animated line cues
+on hover or keyboard focus. These symbolic cues run once without media downloads
+and remain still with reduced motion enabled. Native selects across
+the demo, studio, upload portal and lab share subtle borders, small chevrons and
+visible keyboard focus, with larger touch targets.
+The landing example always shows the reconstructed model.
 The landing page also explains the research goals, model roles and intended
 benefit through a conceptual observation-to-experiments illustration.
 Its `/references` page groups perception tools, simulation foundations and related
@@ -66,9 +95,10 @@ results open directly without replaying processing steps or progress.
 The demo opens on curated finished recordings without requiring access. Only
 explicit showcase examples are public; visitor runs and live controls stay private.
 The wordmark returns home. Finished examples are browsed inline on `/demo` with
-swipe, arrow and keyboard navigation. Open studio navigates to
+swipe, arrow and keyboard navigation, with an example chooser in the counter.
+Paired video playback shares play, seek and reset controls; model inspection is optional. Open studio navigates to
 `/demo/studio/STUDIO_ID`, a reloadable page for that specific result with a link
-back to the examples. Public examples stay public; saved private runs require access.
+back to the examples through a compact arrow inline with the studio label. Public examples stay public; saved private runs require access.
 Only the explicitly curated source clips are public, with attribution retained.
 The ten curated comparisons cover a rolling ball and nine human movements, including
 presses, squats, a deadlift, jumping jacks and a lunge. Each pairs the original footage
@@ -77,6 +107,8 @@ articulated body, not learned full-body control or validated biomechanics. Equip
 and contact forces are not reconstructed. Saved personal runs follow these examples.
 Export receipts preserve source hashes, matching time windows and presentation changes;
 the rolling model retains its documented quarter-speed playback.
+The example counter opens a scrollable chooser with full-width rows and a subtle
+underlined trigger, without a chevron.
 The gallery distinguishes loading, empty and
 unavailable states, with bounded requests and a retry that never starts a run.
 `npm run demo` manages both local processes in one terminal and stops both on

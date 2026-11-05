@@ -1,6 +1,7 @@
 ((root) => {
   const $ = (id) => document.getElementById(id);
   const studioId = location.pathname.match(/^\/demo\/studio\/([A-Za-z0-9_-]{1,64})\/?$/)?.[1] || null;
+  const buildPage = location.pathname === "/demo/build";
   let token = root.WeftDemoSession.token;
   const auth = { Authorization: "Bearer " + token };
   const signed = (path) => token ? path + (path.includes("?") ? "&" : "?") + "token=" + encodeURIComponent(token) : path;
@@ -20,7 +21,8 @@
         $("show-builder").setAttribute("aria-controls", "gate-panel");
         setGateOpen(true);
         $("builder").hidden = true;
-        if (!studioId) loadShowcase();
+        $("mine").hidden = true;
+        if (!studioId && !buildPage) loadShowcase();
       }
       throw new Error(data.error || "That request did not complete.");
     }
@@ -85,20 +87,42 @@
     } catch (error) { META = {}; }
   }
 
+  let stepViews = [], stepRun = null;
+  function clearStepViews() {
+    stepViews.forEach(view => view.dispose?.()); stepViews = [];
+  }
+  root.addEventListener?.("pagehide", clearStepViews);
+  root.addEventListener?.("pageshow", event => { if (event.persisted && buildPage && token) poll(); });
   function renderSteps(list, steps, run) {
-    if (list.children.length !== steps.length) {
-      list.replaceChildren(...steps.map(() => document.createElement("li")));
+    steps = root.WeftPresentationSteps?.(steps) || steps;
+    if (stepRun !== run || stepViews.length !== steps.length) {
+      clearStepViews(); stepRun = run;
+      stepViews = steps.map(() => {
+        const row = document.createElement("li"), copy = document.createElement("div"), outputs = document.createElement("div");
+        const evidence = document.createElement("details"), summary = document.createElement("summary"), facts = document.createElement("div");
+        evidence.className = "step-inspect"; summary.textContent = "Details and files"; evidence.append(summary, facts);
+        outputs.className = "stage-outputs"; row.append(copy, outputs, evidence);
+        return { row, copy, outputs, evidence, facts };
+      });
+      list.replaceChildren(...stepViews.map(view => view.row));
     }
     steps.forEach((runtime, index) => {
       const step = { ...(META[runtime.id] || {}), ...runtime };
-      const item = list.children[index];
-      item.className = "step " + (step.status || "pending");
-      item.replaceChildren();
+      const view = stepViews[index], item = view.copy;
+      const key = JSON.stringify(step);
+      if (key === view.key) return;
+      view.key = key; view.row.className = "step " + (step.status || "pending");
+      const visualKey = JSON.stringify(step.visuals || []);
+      if (visualKey !== view.visualKey) {
+        view.dispose?.(); view.outputs.replaceChildren(); view.visualKey = visualKey;
+        view.dispose = root.WeftStageVisuals?.(view.outputs, step.visuals, signed);
+      }
+      item.replaceChildren(); view.facts.replaceChildren();
 
       const head = document.createElement("div");
       head.className = "step-head";
       const title = document.createElement("h3");
-      title.textContent = step.title || step.id;
+      title.textContent = root.WeftPipelineCopy?.[step.id]?.[0] || step.title || step.id;
       head.append(title);
       if (step.experimental) {
         const tag = document.createElement("span");
@@ -116,25 +140,25 @@
       head.append(time);
       item.append(head);
 
-      for (const [field, cls] of [["explainer", "explain"], ["why", "matters"], ["matters", "matters"],
-                                  ["impact", "impact"], ["detail", "detail"]]) {
-        if (!step[field]) continue;
-        const p = document.createElement("p");
-        p.className = cls;
-        p.textContent = step[field];
-        item.append(p);
+      const description = document.createElement("p"); description.className = "explain";
+      description.textContent = root.WeftPipelineCopy?.[step.id]?.[1] || step.explainer || "";
+      item.append(description);
+      if (step.detail || step.error) {
+        const detail = document.createElement("p"); detail.className = "detail";
+        detail.textContent = step.error || step.detail;
+        (step.status === "failed" || step.status === "skipped" ? item : view.facts).append(detail);
       }
       const metrics = step.metrics && Object.entries(step.metrics);
-      if (metrics && metrics.length) item.append(chipRow(metrics));
+      if (metrics && metrics.length) view.facts.append(chipRow(metrics));
       if (step.artifact && step.artifact.name) {
         const link = document.createElement("a");
         link.className = "download";
-        link.href = signed(`/api/demo/artifact/${step.id}` + (run ? `/${run}` : ""));
+        link.href = signed(`/api/demo/artifact/${step.evidenceStep || step.id}` + (run ? `/${run}` : ""));
         link.download = step.artifact.name;
         const bytes = step.artifact.bytes || 0;
         link.textContent = `↓ ${step.artifact.name} · ` + (bytes > 1048576
           ? (bytes / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(bytes / 1024)) + " KB");
-        item.append(link);
+        view.facts.append(link);
       }
     });
   }
@@ -151,17 +175,17 @@
   function unlocked() {
     setGateOpen(false);
     $("gate-panel").hidden = true;
-    $("builder").hidden = false;
+    $("builder").hidden = !buildPage;
+    $("mine").hidden = true;
     $("show-builder").setAttribute("aria-controls", "builder");
-    $("show-builder").setAttribute("aria-expanded", "true");
-    renderMine();
+    $("show-builder").setAttribute("aria-expanded", String(buildPage));
   }
 
   $("gate-code").value = root.WeftDemoSession.accessCode;
   setGateOpen(Boolean(root.WeftDemoSession.accessCode));
   $("show-builder").addEventListener("click", () => {
     if (token && $("gate-panel").hidden) {
-      if (studioId) return navigateDemo("/demo/build");
+      if (!buildPage) return navigateDemo("/demo/build");
       $("builder").hidden = false;
       $("builder").scrollIntoView({ behavior: "auto", block: "start" });
       return;
@@ -197,6 +221,7 @@
       keepToken();
       unlocked();
       $("show-builder").focus();
+      if (!studioId && !buildPage) return navigateDemo("/demo/build");
       loadDemo();
     } catch (error) {
       setGateOpen(true);
@@ -239,7 +264,7 @@
         const data = await api("/api/demo/showcase", { signal: AbortSignal.timeout(15000) });
         if (data.home_url) $("home-link").href = data.home_url;
         if (token) return;
-        demos = data.items || [];
+        demos = (data.items || []).slice().sort((a, b) => Number(a.id === "rolling-motion") - Number(b.id === "rolling-motion"));
         current = Math.min(current, Math.max(0, demos.length - 1));
         showDemo();
       } catch {
@@ -266,7 +291,8 @@
       // Seeded clips always show; a judge's own run shows once it finished with a video.
       const next = all.filter((row) => !String(row.id || "").startsWith("run-")
                                        || featured.includes(row.id))
-        .sort((a, b) => Number(String(a.id).startsWith("run-")) - Number(String(b.id).startsWith("run-")));
+        .sort((a, b) => Number(a.id === "rolling-motion") - Number(b.id === "rolling-motion")
+          || Number(String(a.id).startsWith("run-")) - Number(String(b.id).startsWith("run-")));
       const same = next.length === demos.length && next.every((d, i) => d.id === demos[i]?.id);
       if (same && !force) return;
       demos = next;
@@ -285,7 +311,12 @@
     else loadShowcase();
   });
 
+  const galleryPlayer = !studioId && !buildPage ? root.WeftGallery?.() : null;
+
+  const optionMotions = !studioId && !buildPage ? root.WeftExampleMotions?.($("example-picker")) : null;
+
   function showDemo() {
+    optionMotions?.stop();
     const available = demos.length > 0;
     if (!available) {
       galleryState("empty", "No finished examples yet.", token
@@ -295,10 +326,14 @@
     }
     galleryState("ready");
     const demo = demos[current];
+    galleryPlayer?.pause();
     root.WeftComparisonCopy("demo", demo);
     $("demo-video").pause();
     $("demo-source-video").pause();
+    $("demo-video").preload = $("demo-source-video").preload = "metadata";
     // Seek a fraction in: a paused video with no poster otherwise shows a black frame.
+    $("demo-video").poster = demo.poster_url ? signed(demo.poster_url) : "";
+    $("demo-source-video").poster = demo.source_poster_url ? signed(demo.source_poster_url) : "";
     $("demo-video").src = signed(demo.video_url || `/api/demo/gallery/${demo.id}/video`) + "#t=0.1";
     $("demo-original").hidden = !demo.source_video_url;
     $("demo-comparison").setAttribute("data-paired", String(Boolean(demo.source_video_url)));
@@ -309,12 +344,11 @@
     const mine = /^run-/.test(demo.id || "") || ["judge", "run", "yours", "studio"].includes(demo.kind);
     $("demo-source").textContent = mine ? "YOUR SIMULATION" : "FINISHED EXAMPLE";
     $("demo-title").textContent = demo.title;
-    $("demo-caption").textContent = demo.caption || "";
+    $("demo-caption").textContent = "";
     $("demo-metrics").textContent = demo.metrics && typeof demo.metrics === "object"
       ? Object.entries(demo.metrics).map(([k, v]) => `${k} ${v}`).join(" · ")
       : demo.metrics || "";
     $("open-studio").hidden = false;
-    $("open-studio").textContent = "Open studio";
     $("open-studio").onclick = () => openStudio(demo.id);
     $("dots").replaceChildren(...demos.map((_, index) => {
       const dot = document.createElement("button");
@@ -323,11 +357,16 @@
       dot.type = "button";
       dot.setAttribute("aria-label", `Example ${index + 1}: ${demos[index].title}`);
       dot.setAttribute("aria-current", String(index === current));
-      dot.onclick = () => { if (current !== index) { current = index; showDemo(); $("dots").children[index].focus(); } };
+      optionMotions?.decorate(dot, demos[index].id);
+      dot.onclick = () => {
+        optionMotions?.stop();
+        $("example-picker").open = false;
+        if (current !== index) { current = index; showDemo(); }
+        $("example-picker").querySelector?.("summary")?.focus();
+      };
       return dot;
     }));
-    const rail = $("dots"), selected = rail.children[current];
-    if (selected) rail.scrollLeft = Math.max(0, selected.offsetLeft - rail.offsetLeft - (rail.clientWidth - selected.offsetWidth) / 2);
+    galleryPlayer?.select(demo, signed);
   }
 
   let slideAnimation = null;
@@ -346,14 +385,21 @@
   $("prev").addEventListener("click", () => moveExample(-1));
   $("next").addEventListener("click", () => moveExample(1));
   root.WeftCarousel($("finished-content"), moveExample);
-  $("preview-studio").addEventListener("click", () => openStudio(demos[current]?.id));
-  $("demo-comparison").addEventListener("click", (event) => {
-    if (!event.target.closest("button")) openStudio(demos[current]?.id);
-  });
 
+  let runsOpen = false;
+  function toggleRuns(open) {
+    runsOpen = open;
+    $("builder-workspace").setAttribute("data-runs-open", String(open));
+    $("toggle-runs").setAttribute("aria-expanded", String(open));
+    $("mine").hidden = !open;
+  }
+  $("toggle-runs").addEventListener("click", () => toggleRuns(!runsOpen));
+  $("close-runs").addEventListener("click", () => { toggleRuns(false); $("toggle-runs").focus(); });
   function renderMine() {
+    if (!buildPage) { $("mine").hidden = true; return; }
     const rows = readMine();
-    $("mine").hidden = rows.length === 0;
+    $("mine").hidden = !runsOpen;
+    $("mine-empty").hidden = rows.length > 0;
     $("mine-list").replaceChildren(...rows.map((row) => {
       const item = document.createElement("li");
       const main = document.createElement("div");
@@ -364,18 +410,18 @@
       main.append(title, note);
       const open = document.createElement("button");
       open.type = "button";
-      open.className = "ghost";
-      open.textContent = "Open studio";
+      open.className = "saved-run";
+      open.setAttribute("aria-label", `Open ${row.title || "your run"}`);
+      const arrow = document.createElement("span");
+      arrow.className = "saved-run-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "↗";
+      open.append(main, arrow);
       open.onclick = () => openStudio(row.id);
-      item.append(main, open);
+      item.append(open);
       return item;
     }));
   }
-
-  $("demo-video").addEventListener("play", () => {
-    $("demo-video").pause();
-    openStudio(demos[current]?.id, "recording");
-  });
 
   function navigateDemo(path) {
     location.assign(path + (token && !root.WeftDemoSession.stored ? `#token=${encodeURIComponent(token)}` : ""));
@@ -426,15 +472,17 @@
       if (!studioId) document.body.classList.add("locked");
       $("studio-title").textContent = record.title || "Your simulation";
       document.title = `${record.title || "Studio"} · Weft`;
-      $("studio-note").textContent = record.caption || "";
+      $("studio-note").textContent = "";
       root.WeftStudioResults($("studio-results"), record);
       const result = record.result || {};
       world = result.project || result.child || record.project || null;
       const entry = demos.find((item) => item.id === identity);
-      focusViewer.open({ world, video: entry?.video_url ? signed(entry.video_url) : null,
+      if (studioId && root.WeftStudioPage) {
+        root.WeftStudioPage.open({ record, entry: entry || record, world, signed });
+      } else focusViewer.open({ world, video: entry?.video_url ? signed(entry.video_url) : null,
         source: entry?.source_video_url ? signed(entry.source_video_url) : null,
-        credit: entry?.source_credit, creditURL: entry?.source_page, comparison: entry });
-      if (world) {
+        comparison: entry });
+      if (world && !studioId) {
         $("play-full").href = `/labs/${world}/#token=${encodeURIComponent(token)}`;
         $("readout").replaceChildren();
         refreshWorld();
@@ -521,7 +569,22 @@
   });
 
   /* ---------------- build ---------------- */
-  let file = null;
+  const characterPreference = root.WeftCharacterPreference?.();
+  let file = null, buildRunning = false, inputObjectURL = null;
+  function updateBuildSelection() { $("run").disabled = buildRunning || (!file && !clip); }
+  function showInput(url, poster = "") {
+    const preview = $("input-preview");
+    preview.pause();
+    if (inputObjectURL) { URL.revokeObjectURL(inputObjectURL); inputObjectURL = null; }
+    if (file && URL.createObjectURL) { inputObjectURL = URL.createObjectURL(file); url = inputObjectURL; }
+    preview.poster = poster;
+    if (url) preview.src = url + "#t=0.1";
+    else { preview.removeAttribute("src"); preview.load(); }
+    preview.hidden = !url;
+    $("drop-hint").textContent = url ? "Click to choose a different video." : "Choose one person in a clear, continuous shot. We use the first 16 seconds.";
+    updateBuildSelection();
+  }
+  root.addEventListener?.("pagehide", () => { if (inputObjectURL) URL.revokeObjectURL(inputObjectURL); });
   const drop = $("drop");
   $("video").addEventListener("change", (event) => select(event.target.files[0]));
   ["dragenter", "dragover"].forEach((name) =>
@@ -534,8 +597,10 @@
     if (!chosen) return;
     file = chosen;
     clip = null;
+    characterPreference?.prefill(null);
     markClips();
     $("file-label").textContent = chosen.name;
+    showInput(null);
   }
 
   // Clips whose whole chain was measured: one click beats hunting for footage the reader refuses.
@@ -545,6 +610,8 @@
       button.setAttribute("aria-pressed", String(button.dataset.clip === clip)));
   }
 
+  document.addEventListener("pointerdown", event => { if ($("clips").open && !$("clips").contains(event.target)) $("clips").open = false; });
+  document.addEventListener("keydown", event => { if (event.key === "Escape" && $("clips").open) { $("clips").open = false; $("clips").querySelector("summary").focus(); } });
   async function loadClips() {
     let data;
     try { data = await api("/api/demo/clips"); } catch { return; }
@@ -561,32 +628,32 @@
       note.textContent = [entry.seconds ? `~${entry.seconds}s end to end` : null,
                           entry.learned ? `trained policy ${entry.learned} vs random ${entry.random}` : null]
         .filter(Boolean).join(" · ");
-      button.append(title, note);
+      button.append(title);
       // The walkthrough drives the authored reference controller; the policy numbers come
       // from a separate training study, so name which is which rather than implying one run.
       button.title = [entry.learned && "Trained-policy result from a separate study — this"
                       + " walkthrough drives the authored reference controller instead.",
-                      entry.why, entry.creator && `${entry.creator} · ${entry.licence}`]
+                      entry.why]
         .filter(Boolean).join("\n");
       button.addEventListener("click", () => {
         clip = clip === entry.id ? null : entry.id;
         if (clip) { file = null; $("video").value = ""; $("file-label").textContent = entry.title; }
         else { $("file-label").textContent = "Drop a video here, or choose a file"; }
+        showInput(clip ? signed(`/api/demo/clips/${entry.id}/video`) : null,
+          clip ? `/api/demo/exhibit/${entry.id}-source-poster.jpg` : "");
+        $("clips").open = false;
+        characterPreference?.prefill(clip ? entry.character : null);
         markClips();
       });
       row.append(button);
     });
-    // CC BY-SA requires visible attribution, so credit the sources on the page itself
-    // rather than only in a tooltip. Clips without a recorded licence are never offered.
-    const credits = [...new Set((data.clips || [])
-      .filter((c) => c.creator && c.licence)
-      .map((c) => `${c.creator} (${c.licence})`))];
-    $("clips-credit").textContent = credits.length ? `Source clips: ${credits.join("; ")}.` : "";
     if (row.children.length) $("clips").hidden = false;
   }
 
   $("run").addEventListener("click", async () => {
-    $("run").disabled = true;
+    if (buildRunning || (!file && !clip)) return;
+    buildRunning = true;
+    updateBuildSelection();
     $("run-note").textContent = file ? "Uploading your clip…"
       : clip ? "Starting with the clip you picked…" : "Starting with the sample clip…";
     try {
@@ -602,7 +669,7 @@
       poll();
     } catch (error) {
       $("run-note").textContent = error.message;
-      $("run").disabled = false;
+      buildRunning = false; updateBuildSelection();
     }
   });
 
@@ -616,11 +683,11 @@
     const steps = state.steps || [];
     const done = steps.filter((s) => ["done", "skipped", "failed"].includes(s.status)).length;
     const running = state.status === "running";
-    const showSteps = running || (state.status === "failed" && state.run === requestedRun);
+    const showSteps = running || (["failed", "complete"].includes(state.status) && state.run === requestedRun);
     $("steps").hidden = !showSteps;
     $("progress").hidden = !showSteps;
     if (showSteps) renderSteps($("steps"), steps, state.run);
-    else $("steps").replaceChildren();
+    else { clearStepViews(); $("steps").replaceChildren(); }
     $("bar").style.width = `${Math.round((done / Math.max(1, steps.length)) * 100)}%`;
     $("progress-label").textContent = running
       ? `Step ${Math.min(done + 1, steps.length)} of ${steps.length}`
@@ -630,7 +697,7 @@
       sum + (META[s.id]?.estimate_s || META[s.id]?.estimate_seconds || 0), 0);
     const spent = state.elapsed_s ?? state.elapsed_seconds;
     elapsedClock.update({ id: state.run, elapsed: spent, running });
-    $("run").disabled = running;
+    buildRunning = running; updateBuildSelection();
 
     if (!running && state.status === "complete" && state.run) {
       const rows = readMine();
@@ -644,13 +711,12 @@
         saveMine(rows);
       }
       renderMine();
-      // A finished run is published to the carousel; pick it up without a reload.
-      loadFeatured().then(() => loadGallery(true));
+      // Completed runs stay in the builder's saved list; the gallery loads on its own page.
       $("run-note").textContent = "Done — open your result below to watch the recording or drive the world.";
-      $("run").disabled = false;
+      buildRunning = false; updateBuildSelection();
     } else if (!running && state.status === "failed") {
       $("run-note").textContent = state.error || "The run stopped; its reason is recorded above.";
-      $("run").disabled = false;
+      buildRunning = false; updateBuildSelection();
     }
   }
 
@@ -679,17 +745,23 @@
   function loadDemo() {
     if (studioId) return loadStudio(studioId);
     clearTimeout(timer);
-    loadMeta();
+    if (buildPage) {
+      if (!token) {
+        $("auth-warning").hidden = false;
+        $("auth-warning").textContent = "Enter your access code above to start building.";
+        setGateOpen(true);
+        return;
+      }
+      loadMeta();
+      renderMine();
+      loadClips();
+      poll();
+      return;
+    }
     if (!token) return loadShowcase();
-    renderMine();
-    loadClips();
     loadFeatured().then(() => token ? loadGallery(true) : loadShowcase());
-    poll();
   }
   keepToken();
-  if (token) {
-    unlocked();
-    loadDemo();
-  } else if (studioId) loadStudio(studioId);
-  else loadShowcase();
+  if (token) unlocked();
+  loadDemo();
 })(window);

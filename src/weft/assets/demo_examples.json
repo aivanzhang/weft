@@ -1,23 +1,5 @@
 [
   {
-    "id": "rolling-motion",
-    "category": "Rolling ball",
-    "title": "Model how a ball moves",
-    "caption": "A ball rolling across a table becomes a model of position and speed. Researchers can use that environment to test pushes and braking.",
-    "input_label": "Recorded ball",
-    "result_label": "Motion model",
-    "input_note": "The recorded pass, slowed to quarter speed for inspection.",
-    "result_note": "The predicted movement, shown at the same playback speed.",
-    "comparison_note": "The same measured pass, shown at quarter speed on both sides.",
-    "scope": "One-dimensional motion model, not recovered 3D geometry. Push and brake controls are authored extensions.",
-    "source_video": "assets/demo/previews/rolling-source.mp4",
-    "video": "assets/demo/previews/rolling-result.mp4",
-    "source_credit": "Ecole Science \u00b7 CC0 \u00b7 excerpt shown at quarter speed",
-    "source_page": "https://hubbs.schule/mediathek/rollender-ball",
-    "metrics": "Reconstructed motion from the existing verified rolling-model artifact",
-    "source": "verified run"
-  },
-  {
     "id": "bodyweight-squats",
     "category": "Squat",
     "title": "Bodyweight squat",
@@ -178,5 +160,23 @@
     "source_page": "https://commons.wikimedia.org/wiki/File:Basic_single_leg_squat.webm",
     "metrics": "7.8s reference excerpt \u00b7 saved reconstruction",
     "source": "saved reconstruction"
+  },
+  {
+    "id": "rolling-motion",
+    "category": "Rolling ball",
+    "title": "Model how a ball moves",
+    "caption": "A ball rolling across a table becomes a model of position and speed. Researchers can use that environment to test pushes and braking.",
+    "input_label": "Recorded ball",
+    "result_label": "Motion model",
+    "input_note": "The recorded pass, slowed to quarter speed for inspection.",
+    "result_note": "The predicted movement, shown at the same playback speed.",
+    "comparison_note": "The same measured pass, shown at quarter speed on both sides.",
+    "scope": "One-dimensional motion model, not recovered 3D geometry. Push and brake controls are authored extensions.",
+    "source_video": "assets/demo/previews/rolling-source.mp4",
+    "video": "assets/demo/previews/rolling-result.mp4",
+    "source_credit": "Ecole Science \u00b7 CC0 \u00b7 excerpt shown at quarter speed",
+    "source_page": "https://hubbs.schule/mediathek/rollender-ball",
+    "metrics": "Reconstructed motion from the existing verified rolling-model artifact",
+    "source": "verified run"
   }
 ]

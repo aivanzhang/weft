@@ -119,10 +119,7 @@
   color: var(--clay);
   background: rgb(150 86 68 / 8%);
 }
-.world-version[aria-pressed="false"] .version-initial,
-.world-version[aria-pressed="true"] .version-reconstructed {
-  display: none;
-}
+
 @media (prefers-reduced-motion: no-preference) {
   .world-icon svg {
     transition: translate 180ms ease, scale 180ms ease, rotate 180ms ease;

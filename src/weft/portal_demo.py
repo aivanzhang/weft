@@ -15,6 +15,7 @@ import os
 import re
 import secrets
 import shutil
+import subprocess
 import threading
 import time
 import zipfile
@@ -48,6 +49,15 @@ MAX_GENERATION_ATTEMPTS = 2
 # A clip without a recorded creator and licence cannot be offered to a reviewer, however
 # well it runs. Manifests state missing provenance in words rather than omitting it.
 UNRECORDED = ("unverified", "unknown", "not recorded", "none", "n/a", "-")
+
+
+def _measured_character(clip):
+    appearance = clip.get("appearance") or {}
+    if appearance.get("available"):
+        for identity, label in (("muse-panda", "Panda"), ("robot", "Robot")):
+            if identity in appearance.get("avatars_substituted", []):
+                return {"id": identity, "prompt": label}
+    return None
 
 
 def _attributable(clip):
@@ -147,8 +157,8 @@ STEPS = (
     },
     {
         "id": "create",
-        "title": "Generate a character from text",
-        "explainer": "A generated character is imported and superimposed on the same recorded physics."
+        "title": "Choose or generate a character",
+        "explainer": "Reuse a measured character or import a generated asset into the character chooser."
                      " Live text-to-character generation sits behind a recorded spending gate and is"
                      " reported honestly, including when its own quality gates refuse a result.",
         "matters": "Creative range under the same honesty: generated assets face gates too.",
@@ -443,6 +453,7 @@ class DemoManager:
                 "creator": str(clip.get("creator", ""))[:120], "licence": str(clip.get("licence", ""))[:40],
                 "seconds": clip.get("chain_seconds"), "why": str(clip.get("why", ""))[:200],
                 "learned": rl.get("learned"), "random": rl.get("random"),
+                "character": _measured_character(clip),
             })
         return {"clips": out, "constraints": data.get("constraints") or {}}
 
@@ -482,13 +493,18 @@ class DemoManager:
         if self.port is None:
             raise ValueError("The demo is still starting; refresh in a moment")
         label = None
+        character = None
         if clip and not video:
             path = self.clip_path(clip)
             video, name = path.read_bytes(), path.name
-            label = next((c["title"] for c in self.clips()["clips"] if c["id"] == clip), None)
-        return self._start(video=video, name=name, prompt=prompt, label=label)
+            selected = next((c for c in self.clips()["clips"] if c["id"] == clip), {})
+            label = selected.get("title")
+            preset = selected.get("character")
+            if preset and (prompt or "").strip().casefold() == preset["prompt"].casefold():
+                character = preset
+        return self._start(video=video, name=name, prompt=prompt, label=label, character=character)
 
-    def _start(self, *, video=None, name=None, prompt=None, label=None):
+    def _start(self, *, video=None, name=None, prompt=None, label=None, character=None):
         server_port = self.port
         with self.lock:
             if self.run and self.run["status"] == "running":
@@ -510,7 +526,7 @@ class DemoManager:
             self.run = {"id": run_id, "status": "running", "created": time.time(), "elapsed_seconds": 0,
                         "total_estimate_seconds": sum(step["estimate_seconds"] for step in STEPS),
                         "steps": self._blank_steps(), "error": None, "project": None,
-                        "prompt": (prompt or "").strip(),
+                        "prompt": (prompt or "").strip(), "character": character,
                         "source": {"name": Path(name).name[:120], "bytes": len(video),
                                    "sample": sample, "label": label}}
             (self.dir / run_id).mkdir(mode=0o700, parents=True, exist_ok=True)
@@ -542,6 +558,14 @@ class DemoManager:
             self._step_avatar(run_dir, child, lab, session, metrics, handoff)
             self._step_muse(run_dir, child)
             self._step_create(run_dir, child, catalog)
+            from weft.portal_studio_media import prepare_run
+            try:
+                prepared = prepare_run(self.root, run_id, self.run)
+                for index, step in enumerate(self.run["steps"]):
+                    if prepared.get("steps", {}).get(step["id"]):
+                        self._update(index, visuals=prepared["steps"][step["id"]])
+            except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
+                self._update(6, preview_note="Some previews could not be prepared: " + str(error)[:160])
             with self.lock:
                 self.run["status"] = "complete"
                 self._touch()
@@ -604,6 +628,10 @@ class DemoManager:
             "perception/preflight/body_source/tracks.gif",
             "perception/status.json", "perception/failure.json", "job.json",
         ], "Pose evidence, the estimated body model and the local check result.")
+        from weft.portal_studio import visual_file
+        visuals = visual_file(self.root, parent, "perception/preflight/body_source/tracks.gif",
+                              "image", "Tracked pose evidence from the input")
+        self._update(0, visuals=visuals)
         if status != "awaiting_consent":
             perception = state.get("perception") or {}
             reason = perception.get("error") or "This clip was not admitted"
@@ -660,6 +688,11 @@ class DemoManager:
         self._finish(1, "World built and loaded", {
             "physics": "MuJoCo", "scope": "body + authored ground",
             "validation": str(report.get("physical_validation", "unverified"))}, artifact)
+        from weft.portal_studio import save_reference_preview
+        try:
+            self._update(1, visuals=save_reference_preview(self.root, child))
+        except (OSError, ValueError, KeyError, TypeError):
+            self._update(1, preview_note="No bounded model preview was saved; the world bundle remains available.")
         return child
 
     def _step_task(self, run_dir, child):
@@ -680,6 +713,16 @@ class DemoManager:
         ], "The frozen task definition and its success gates.")
         self._finish(2, "Task attached with gates frozen before the run", {
             "gates": "frozen", "characters ready": str(len(catalog))}, artifact)
+        try:
+            task = json.loads((self.root / child / "lab/run/exercise-task.json").read_text())
+        except (OSError, ValueError):
+            task = {}
+        self._update(2, visuals=[{"kind": "facts", "label": "Frozen task contract", "items": [
+            ["Scoring", task.get("gate_profile", "Recorded task gates")],
+            ["Horizon", str((task.get("interval") or {}).get("horizon_steps", "—")) + " control steps"],
+            ["Root assistance", str((task.get("control") or {}).get("root_assistance", "Recorded in bundle"))],
+            ["Scope", str((task.get("source_scope") or {}).get("success_scope", "Simulated task"))],
+        ]}])
         return f"/labs/{child}/api/", catalog
 
     def _avatars_idle(self, limit=300):
@@ -720,6 +763,12 @@ class DemoManager:
         self._finish(3, f"{steps} continuous control steps executed", {
             "control steps": str(steps), "controller": "reference",
             "tracking error": f"{metrics.get('angular_rmse_rad', 0):.3f} rad"})
+        from weft.portal_studio import snapshot_model
+        try:
+            self._update(3, visuals=[{"kind": "model", "data": snapshot_model([snapshot]),
+                                     "label": "Controller checkpoint · the full replay is being rendered"}])
+        except (ValueError, KeyError, TypeError):
+            pass
         return session, metrics, (steps, other, ended)
 
     def _step_avatar(self, run_dir, child, lab, session, metrics, handoff):
@@ -772,6 +821,10 @@ class DemoManager:
             metrics["video"] = ("recorded, but this machine's encoder produced MPEG-4 Part 2,"
                                 " which browsers cannot play — download it to watch")
         self._finish(4, "Character swapped mid-take; physics untouched", metrics, artifact)
+        from weft.portal_studio import recording_visuals
+        visuals = recording_visuals(self.root, {"project": child, "video": str(video)})
+        self._update(3, visuals=visuals.get("rollout", []))
+        self._update(4, visuals=visuals.get("avatar", []))
 
     def _step_muse(self, run_dir, child):
         index = 5
@@ -829,10 +882,26 @@ class DemoManager:
         summary = str(advice.get("summary") or "").strip()
         self._finish(index, summary[:240] or "Meta Muse reviewed the evidence and proposed tests",
                      metrics, artifact)
+        self._update(index, visuals=[{"kind": "facts", "label": "Meta review · proposals, not applied repairs",
+                                      "items": [["Summary", summary], *[["Hypothesis", str((row.get("claim") or row.get("summary") or row.get("title") or row) if isinstance(row, dict) else row)[:600]] for row in hypotheses[:6]]]}])
 
     def _step_create(self, run_dir, child, catalog):
         index = 6
         prompt = (self.run or {}).get("prompt") or ""
+        character = (self.run or {}).get("character")
+        if character:
+            self._begin(index, "Reusing the measured character")
+            if not any(character["prompt"].casefold() in name.casefold() for name in catalog):
+                self._finish(index, "The measured character is unavailable in this world's chooser",
+                             {"character": character["prompt"], "live generation": "not requested"}, status="skipped")
+                return
+            self._finish(index, "Existing measured character retained; no new generation requested",
+                         {"character": character["prompt"], "live generation": "not requested"})
+            self._update(index, title="Reuse the measured character", experimental=False, visuals=[{"kind": "facts", "label": "Character selection", "items": [
+                ["Character", character["prompt"]], ["Source", "Existing character measured with this clip"],
+                ["Generation", "Reused · no new generation request"],
+            ]}])
+            return
         self._begin(index, "Importing a generated character")
         library = self._request("GET", "/api/portal").get("avatar_library") or []
         # Older library packs ship unwelded geometry that reads as cracked in motion;
@@ -885,7 +954,7 @@ class DemoManager:
                     time.sleep(2.5)
             except (RuntimeError, OSError) as error:
                 attempt = "refused · " + str(error)[:180]
-        detail = ("A generated character is in the chooser and superimposed on this run's physics."
+        detail = ("Imported characters are available in the chooser. This step does not create a new recording."
                   " Live generation takes about ten minutes and its own quality gates can refuse a"
                   " result; whatever happened is reported above, not hidden.")
         metrics = {"superimposed": str(imported or "already in the chooser"),
@@ -898,8 +967,11 @@ class DemoManager:
             "catalog.json", "status.json", "*/delivery.json", "*/request.json",
         ], "The character chooser including the imported generated character, and the studio's"
            " recorded response to this request.")
-        self._finish(index, "Generated character ready to superimpose", metrics, artifact)
-        self._update(index, detail=detail)
+        self._finish(index, "Character imported into the chooser" if imported else "No new character imported", metrics, artifact)
+        self._update(index, detail=detail, visuals=[{"kind": "facts", "label": "Character result", "items": [
+            ["Imported", str(imported or "No new asset imported")],
+            ["Generation", str(attempt or "No new generation requested")],
+        ]}])
 
     # -- artifacts, archive and gallery ---------------------------------------
     def _pack(self, run_dir, step_id, base, patterns, note):
@@ -958,6 +1030,7 @@ class DemoManager:
                 run["status"] if run["status"] != "complete" else None])) or "run recorded",
             "source": "your run", "kind": "studio", "project": run.get("project"),
             "video": str(video) if video.is_file() else None, "steps": run["steps"],
+            "character": run.get("character"),
         }
         (self.dir / run_id / "record.json").write_text(json.dumps(record, indent=2) + "\n")
         index = [row for row in self._index() if row.get("id") != run_id]
@@ -995,9 +1068,35 @@ class DemoManager:
         # Offer the live world only while its lab is still loadable in this portal.
         if project and not (self.root / project / "lab").is_dir():
             project = None
+        source_url = None
+        if project and re.fullmatch(r"[a-f0-9]{32}", project):
+            for name in ("source.mp4", "source.webm"):
+                source = self.root / project / "lab/run" / name
+                if source.is_file() and source.resolve() == source:
+                    source_url = f"/api/projects/{project}/files/lab/run/{name}"
+                    break
+        from weft.portal_studio import recording_visuals
+        from weft.portal_studio_media import read_presentation
+        prepared = read_presentation(self.root, run_id)
+        visuals = recording_visuals(self.root, record) | prepared.get("steps", {})
+        visuals["create"] = visuals.get("avatar", [])
+        steps = [{**step, **({"visuals": visuals[step["id"]]} if step["id"] in visuals else {})}
+                 for step in record.get("steps", [])]
         return {"id": record["id"], "title": record.get("title", "Inside this run"),
-                "caption": record.get("caption", ""), "steps": record.get("steps", []),
-                "project": project}
+                "caption": record.get("caption", ""), "steps": steps,
+                "project": project, "model_url": f"/api/demo/studio/{run_id}/model",
+                "source_video_url": source_url, "source_poster_url": prepared.get("source_poster_url"),
+                "poster_url": prepared.get("poster_url")}
+
+    def studio_model(self, run_id):
+        self.studio(run_id)
+        record = self._record(run_id)
+        path = Path(record.get("video") or "").parent / "events.jsonl"
+        if (not path.is_absolute() or path.resolve() != path
+                or not path.is_relative_to(self.root.resolve()) or not path.is_file()):
+            raise ValueError("Recorded skeleton is not available for this run")
+        from weft.portal_studio import recorded_model
+        return recorded_model(path)
 
     def gallery(self):
         demos = self._demos()
@@ -1019,6 +1118,8 @@ class DemoManager:
         if not path.is_file() or path.is_symlink() or not path.resolve().is_relative_to(self.project.resolve()):
             return {}
         return {"source_video_url": f"/api/demo/showcase/{seed['id']}/source",
+                "source_poster_url": f"/api/demo/exhibit/{seed['id']}-source-poster.jpg",
+                "poster_url": f"/api/demo/exhibit/{seed['id']}-result-poster.jpg",
                 "source_credit": seed.get("source_credit", ""), "source_page": seed.get("source_page", ""),
                 **{key: seed[key] for key in ("category", "input_label", "result_label", "input_note",
                    "result_note", "scope", "comparison_note") if key in seed}}
@@ -1046,6 +1147,7 @@ class DemoManager:
         return self.gallery_video(identity)
 
     def _demos(self):
+        from weft.portal_studio_media import read_presentation
         demos = []
         for row in self._index():
             record = self._record(row.get("id", ""))
@@ -1053,7 +1155,8 @@ class DemoManager:
                 demos.append({"id": record["id"], "title": record["title"],
                               "caption": record["caption"], "metrics": record["metrics"],
                               "source": record.get("source", "your run"), "kind": "studio",
-                              "video_url": f"/api/demo/gallery/{record['id']}/video"})
+                              "video_url": f"/api/demo/gallery/{record['id']}/video",
+                              "poster_url": read_presentation(self.root, record["id"]).get("poster_url")})
         for seed in GALLERY_SEEDS:
             if (self.project / seed["video"]).is_file():
                 demos.append({"id": seed["id"], "title": seed["title"], "caption": seed["caption"],

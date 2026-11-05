@@ -16,7 +16,7 @@ not recovered. These are kinematic reference replays, not validated biomechanics
 
 Each `motion-showcase/ID/receipt.json` records reference and source hashes, source
 window, render settings and output hashes. Original scored artifacts remain unchanged.
-Source attribution is retained in the catalog and shown in the studio. Each derived
+Source attribution is retained in the catalog and provenance records. Each derived
 source excerpt retains its source licence; CC BY-SA excerpts remain CC BY-SA 4.0.
 
 Rebuild in a new output directory with the lab environment and archived runs present:

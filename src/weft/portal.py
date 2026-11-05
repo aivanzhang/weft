@@ -43,7 +43,8 @@ DEMO_BRAND_ASSETS = {"/demo-font.woff2": "website/fonts/InterVariable.woff2",
 ASSETS = {"/": "portal.html", "/portal.js": "portal.js", "/portal.css": "portal.css",
           "/demo": "demo_build.html", "/demo/runs": "demo_build.html", "/demo.js": "demo.js", "/demo.css": "demo.css",
           "/demo/build": "demo_build.html", "/demo_build.js": "demo_build.js",
-          "/demo_focus.js": "demo_focus.js"}
+          "/demo_focus.js": "demo_focus.js", "/demo_studio.js": "demo_studio.js",
+          "/demo_physics.js": "engine.js"}
 PERCEPTION_ARTIFACTS = {"perception/" + name for name in (
     "preflight/metadata.json", "preflight/body-anchor.json", "preflight/result.json", "preflight/manifest.json",
     "preflight/body_source/human.json", "preflight/body_source/human.xml", "preflight/body_source/evidence.json",
@@ -1213,12 +1214,16 @@ class PortalHandler(LabHandler):
                 return super().do_GET() if route else None
             path = unquote(urlsplit(self.path).path)
             showcase_video = re.fullmatch(r"/api/demo/showcase/([A-Za-z0-9-]{1,64})/(video|source)", path)
-            public_showcase = path == "/api/demo/showcase" or showcase_video is not None
+            studio_asset = re.fullmatch(r"/api/demo/exhibit/([a-z0-9-]+\.(?:json|png|jpg))", path)
+            public_showcase = path == "/api/demo/showcase" or showcase_video is not None or studio_asset is not None
             studio_page = re.fullmatch(r"/demo/studio/[A-Za-z0-9_-]{1,64}/?", path)
             if path in PUBLIC_ASSETS and path != "/":
                 return super().do_GET()
             if not self.authorized(public=path in ASSETS or path in DEMO_BRAND_ASSETS or public_showcase or studio_page is not None):
                 return
+            if studio_asset:
+                from weft.portal_studio import public_file
+                return self.send_file(public_file(self.server.portal.project, studio_asset[1]))
             if path == "/api/demo/showcase":
                 return self.reply(self.server.portal.demo.showcase())
             if showcase_video:
@@ -1231,6 +1236,9 @@ class PortalHandler(LabHandler):
                 file = Path(__file__).parent / "assets" / ("demo_build.html" if studio_page else ASSETS[path])
                 if studio_page or path in ("/", "/demo", "/demo/build", "/demo/runs"):
                     raw = file.read_bytes()
+                    if path == "/demo/build":
+                        raw = raw.replace(b'<body>', b'<body class="builder-page">')
+                        raw = raw.replace(b'class="builder-intro" hidden', b'class="builder-intro"')
                     if studio_page:
                         raw = raw.replace(b'<body>', b'<body class="studio-page">')
                         raw = raw.replace(b'class="modal" id="studio-modal" hidden', b'class="modal" id="studio-modal"')
@@ -1238,7 +1246,8 @@ class PortalHandler(LabHandler):
                         raw = raw.replace(b'<h2 id="studio-title" tabindex="-1">Your simulation</h2>',
                                           b'<h1 id="studio-title" tabindex="-1">Loading studio</h1>')
                         raw = raw.replace(b'<button id="close-studio" type="button" class="icon" aria-label="Close studio" data-close>\xe2\x9c\x95</button>',
-                                          b'<a id="close-studio" class="studio-back" href="/demo">Back to examples</a>')
+                                          b'<a id="close-studio" class="studio-back" href="/demo" aria-label="Back to examples" title="Back to examples">'
+                                          b'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>')
                     self.response_headers(200, "text/html; charset=utf-8", len(raw))
                     self.end_headers()
                     self.write_body(raw)
@@ -1275,6 +1284,9 @@ class PortalHandler(LabHandler):
             match = re.fullmatch(r"/api/demo/gallery/([A-Za-z0-9-]{1,64})/video", path)
             if match:
                 return self.send_file(self.server.portal.demo.gallery_video(match[1]))
+            match = re.fullmatch(r"/api/demo/studio/([A-Za-z0-9_-]{1,64})/model", path)
+            if match:
+                return self.reply(self.server.portal.demo.studio_model(match[1]))
             match = re.fullmatch(r"/api/demo/studio/([A-Za-z0-9_-]{1,64})", path)
             if match:
                 return self.reply(self.server.portal.demo.studio(match[1]))

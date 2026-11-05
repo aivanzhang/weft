@@ -66,25 +66,13 @@ function viewer() {
     visibility: (visible) => visibility([{ isIntersecting: visible }]) };
 }
 
-test("version icon toggles both ways, retains the mode, and describes the next action", () => {
-  const { node, record, frames, card } = viewer();
-  const version = node(".world-version");
-  assert.doesNotMatch(card.innerHTML, /world-versions|model-select|world-options|world-modes|<video controls/);
-  assert.ok(card.innerHTML.indexOf("world-version") < card.innerHTML.indexOf("world-toggle"));
-  assert.equal(version.attributes["aria-pressed"], "false");
-  assert.equal(version.title, `${record.models[0].label} — switch to ${record.models[1].label}`);
-  node(".world-toggle").listeners.click();
-  node(".scene-right").listeners.click();
-  assert.equal(frames.size, 1);
-  version.listeners.click();
-  assert.equal(frames.size, 0, "switching versions stops the previous simulation");
-  assert.equal(node(".world-toggle").attributes["aria-pressed"], "true");
-  assert.equal(version.attributes["aria-pressed"], "true");
-  assert.equal(version.title, `${record.models[1].label} — switch to ${record.models[0].label}`);
-  assert.equal(node(".world-transport").hidden, true);
-  version.listeners.click();
-  assert.equal(version.attributes["aria-pressed"], "false");
-  assert.equal(node(".world-toggle").attributes["aria-pressed"], "true");
+test("landing shows only the reconstructed model while preserving interaction", () => {
+  const { node, record, card } = viewer();
+  assert.doesNotMatch(card.innerHTML, /world-version|version-initial|version-reconstructed/);
+  assert.match(card.innerHTML, /world-toggle/);
+  assert.equal(node('.world-ball').attributes.r, record.models[0].world.radius * record.width);
+  node('.world-toggle').listeners.click();
+  assert.equal(node('.world-toggle').attributes['aria-pressed'], 'true');
 });
 
 test("comparison and interaction expose only their controls and stop hidden playback", () => {
